@@ -106,6 +106,9 @@
       - the choice is in review mode AND
          - the choice is incorrect AND
          - the choice indicator has focus
+   Mobile known inconsistent behavior on hover effect when scrolling left-to-right/up-and-down:
+      - Android doesn't show the enhanced divider during tap-dragging gestures, only when user taps the choice.
+      - iOS shows the enhanced divider during tap-dragging gestures.
  */
 .choice:not(.is-correct):focus-within,
 .choice:not(.is-correct, .is-wrong):hover {

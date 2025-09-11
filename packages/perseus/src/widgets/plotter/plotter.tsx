@@ -1,6 +1,12 @@
 /* eslint-disable max-lines */
 /* eslint-disable react/no-unsafe */
 import {KhanMath} from "@khanacademy/kmath";
+import {
+    CoreWidgetRegistry,
+    type PerseusPlotterUserInput,
+    type PerseusPlotterWidgetOptions,
+    type PlotterPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
@@ -14,11 +20,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plo
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
-import type {
-    PerseusPlotterUserInput,
-    PerseusPlotterWidgetOptions,
-    PlotterPublicWidgetOptions,
-} from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<
     PlotterPublicWidgetOptions,
@@ -46,6 +47,8 @@ type State = {
     categoryHeights: Record<string, number>;
 };
 
+const plotterDefaults = CoreWidgetRegistry.getDefaultWidgetOptions("plotter");
+
 export class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -58,22 +61,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     horizHairline: any;
     hairlineRange: any;
 
-    static defaultProps: DefaultProps = {
-        type: "bar",
-        labels: ["", ""],
-        categories: [""],
-
-        scaleY: 1,
-        maxY: 10,
-        snapsPerLine: 2,
-
-        picSize: 40,
-        picBoxHeight: 48,
-        picUrl: "",
-
-        plotDimensions: [380, 300],
-        labelInterval: 1,
-    };
+    static defaultProps: DefaultProps = plotterDefaults;
 
     state: State = {
         // The measured rendered height of category strings. Used to calculate
@@ -1149,7 +1137,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
         const {userInput: _, ...rest} = this.props;
@@ -1192,7 +1180,7 @@ function getCorrectUserInput(
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

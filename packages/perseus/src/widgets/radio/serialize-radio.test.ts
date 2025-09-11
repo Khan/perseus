@@ -2,7 +2,7 @@ import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {screen, act} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -47,8 +47,6 @@ const expectedSerializedRadio = {
             originalIndex: 2,
         },
     ],
-    // no idea what this is, it doesn't seem to change...
-    selectedChoices: [false, false, true, false],
     choiceStates: [
         {
             selected: true, // <= note we stash user input
@@ -90,7 +88,7 @@ const expectedSerializedRadio = {
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -146,7 +144,6 @@ describe("Radio serialization", () => {
     });
 
     let userEvent: UserEvent;
-    let mathRandomSpy: jest.SpyInstance;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -156,20 +153,6 @@ describe("Radio serialization", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-
-        // Mock Math.random to return a deterministic sequence for consistent test results
-        mathRandomSpy = jest.spyOn(Math, "random");
-        let callCount = 0;
-        mathRandomSpy.mockImplementation(() => {
-            // This ensures consistent shuffling behavior in radio widgets
-            const values = [0.3, 0.2, 0.4, 0.1, 0.5, 0.9, 0.8, 0.7, 0.6];
-            return values[callCount++ % values.length];
-        });
-    });
-
-    afterEach(() => {
-        // Restore Math.random to its original implementation
-        mathRandomSpy.mockRestore();
     });
 
     it("should serialize the current state", async () => {
@@ -192,41 +175,5 @@ describe("Radio serialization", () => {
         expect(postAnswerState.question["radio 1"]).toEqual(
             expectedSerializedRadio,
         );
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicRadio());
-
-        const preUserInput = renderer.getUserInput();
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "radio 1": expectedSerializedRadio,
-                },
-                hints: [],
-            }),
-        );
-
-        const postUserInput = renderer.getUserInput();
-
-        // Assert
-        // compare pre- and post-restore user input
-        // to show it's properly restored
-        expect(preUserInput).toEqual({
-            "radio 1": {
-                selectedChoiceIds: [],
-            },
-        });
-        expect(postUserInput).toEqual({
-            "radio 1": {
-                // note we unshuffle!
-                // in expectedSerializedRadio.choiceStates the first element
-                // is selected; here the last element is selected
-                selectedChoiceIds: ["5-5-5-5-5"],
-            },
-        });
     });
 });

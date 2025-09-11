@@ -5,6 +5,7 @@ import {
     getArrayWithoutDuplicates,
     getAngleFromPoints,
     getSideLengthsFromPoints,
+    calculateScaledRadius,
 } from "./utils";
 
 import type {Coord} from "@khanacademy/perseus-core";
@@ -358,6 +359,26 @@ describe("getSideLengthsFromPoints", () => {
 
             const result = getSideLengthsFromPoints(trianglePoints, index);
             expect(result).toEqual(sideLengths);
+        },
+    );
+});
+
+describe("calculateScaledRadius", () => {
+    test.each`
+        xMin   | xMax  | yMin   | yMax  | expected
+        ${-1}  | ${1}  | ${-1}  | ${1}  | ${0.12}
+        ${-10} | ${10} | ${-10} | ${10} | ${1.2}
+        ${-1}  | ${1}  | ${-10} | ${10} | ${0.12}
+        ${-10} | ${10} | ${-1}  | ${1}  | ${0.12}
+        ${-2}  | ${10} | ${-10} | ${2}  | ${0.72}
+    `(
+        "returns correct radius for range [$xMin, $xMax], [$yMin, $yMax]",
+        ({xMin, xMax, yMin, yMax, expected}) => {
+            const radius = calculateScaledRadius([
+                [xMin, xMax],
+                [yMin, yMax],
+            ]);
+            expect(radius).toEqual(expected);
         },
     );
 });

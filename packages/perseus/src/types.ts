@@ -1,5 +1,4 @@
 import type {ILogger} from "./logging/log";
-import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -37,15 +36,14 @@ export type Dimensions = {
 export type DeviceType = "phone" | "tablet" | "desktop";
 
 /**
- * This is the type returned by a widget's `getSerializedState` function (and
- * provided to the same widget's `restoreSerializedState` function). However,
+ * This is the type returned by a widget's `getSerializedState` function. However,
  * note that in most cases the widgets do _not_ implement these functions.
  * In that case, the `Renderer` just returns the widget's render props as the
  * serialized state.
  */
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 export type SerializedState = Record<string, any>;
 
@@ -74,24 +72,17 @@ export interface Widget {
     getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
 
     /**
-     * Returns widget state that can be passed back to `restoreSerializedState`
-     * to put the widget back into exactly the same state. If the widget does
-     * not implement this function, the renderer simply returns all of the
-     * widget's props.
+     * If the widget does not implement this function,
+     * the renderer simply returns all of the widget's props.
      */
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
     getSerializedState?: () => SerializedState; // SUSPECT,
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreSerializedState?: (props: any, callback: () => void) => any;
 
     blurInputPath?: (path: FocusPath) => void;
     focusInputPath?: (path: FocusPath) => void;
@@ -450,19 +441,6 @@ type TrackingSequenceExtraArguments = {
 
 type WidgetOptions = any;
 
-/**
- * A transform that maps the WidgetOptions (sometimes referred to as
- * EditorProps) to the props used to render the widget. Often this is an
- * identity transform.
- */
-// TODO(jeremy): Make this generic so that the WidgetOptions and output type
-// become strongly typed.
-export type WidgetTransform = (
-    widgetOptions: WidgetOptions,
-    strings: PerseusStrings,
-    problemNumber?: number,
-) => any;
-
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
     TUserInput = Empty,
@@ -490,25 +468,11 @@ export type WidgetExports<
     isLintable?: boolean;
     tracking?: Tracking;
 
-    /**
-     * Transforms the widget options to the props used to render the widget.
-     *
-     * @deprecated see LEMS-3199
-     */
-    transform?: WidgetTransform;
-    /**
-     * Transforms the widget options to the props used to render the widget for
-     * static renders.
-     *
-     * @deprecated see LEMS-3199
-     */
-    staticTransform?: WidgetTransform; // this is a function of some sort,
-
     getOneCorrectAnswerFromRubric?: (
         rubric: WidgetOptions,
     ) => string | null | undefined;
 
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
@@ -535,24 +499,22 @@ export type FilterCriterion =
 
 /**
  * The full set of props provided to all widgets when they are rendered. The
- * `RenderProps` generic argument are the widget-specific props that originate
- * from the stored PerseusItem. Note that they may not match the serialized
- * widget options exactly as they are the result of running the options through
- * the parser as well as its `transform` or `staticTransform` functions
- * (depending on the options `static` flag).
+ * `TWidgetOptions` generic argument are the widget-specific props that originate
+ * from the PerseusItem.
  */
 // NOTE: Rubric should always be the corresponding widget options type for the component.
 // TODO: in fact, is it really the rubric? WidgetOptions is what we use to configure the widget
 // (which is what this seems to be for)
 // and Rubric is what we use to score the widgets (which not all widgets need validation)
 export type WidgetProps<
-    RenderProps,
+    TWidgetOptions,
     TUserInput = Empty,
     Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = RenderProps & UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
+> = TWidgetOptions &
+    UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
 
 /**
  * The props passed to every widget, regardless of its `type`.
@@ -570,6 +532,7 @@ export type UniversalWidgetProps<
     trackInteraction: (extraData?: TrackingExtraArgs) => void;
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
+    widgetIndex: number;
     alignment: string | null | undefined;
     static: boolean | null | undefined;
     problemNum: number | null | undefined;

@@ -1,5 +1,4 @@
 import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
-import type {RenderProps} from "../widgets/radio";
 import type {
     DropdownWidget,
     ImageWidget,
@@ -218,76 +217,3 @@ export const mockedRandomItem: PerseusRenderer = {
         },
     },
 } as PerseusRenderer;
-
-export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
-    "radio 1": {
-        numCorrect: 1,
-        countChoices: false,
-        deselectEnabled: false,
-        hasNoneOfTheAbove: false,
-        multipleSelect: false,
-        choices: [
-            {
-                id: "3-3-3-3-3",
-                content: "Content 4",
-                correct: false,
-                originalIndex: 3,
-            },
-            {
-                id: "1-1-1-1-1",
-                content: "Content 2",
-                correct: false,
-                originalIndex: 1,
-            },
-            {
-                id: "0-0-0-0-0",
-                content: "Content 1",
-                correct: true,
-                originalIndex: 0,
-            },
-
-            {
-                id: "2-2-2-2-2",
-                content: "Content 3",
-                correct: false,
-                originalIndex: 2,
-            },
-        ],
-        selectedChoices: [false, false, true, false],
-    },
-    "radio 2": {
-        numCorrect: 1,
-        countChoices: false,
-        deselectEnabled: false,
-        hasNoneOfTheAbove: false,
-        multipleSelect: false,
-        choices: [
-            {
-                id: "3-3-3-3-3",
-                content: "Content 4",
-                correct: false,
-                originalIndex: 3,
-            },
-            {
-                id: "1-1-1-1-1",
-                content: "Content 2",
-                correct: false,
-                originalIndex: 1,
-            },
-            {
-                id: "0-0-0-0-0",
-                content: "Content 1",
-                correct: true,
-                originalIndex: 0,
-            },
-
-            {
-                id: "2-2-2-2-2",
-                content: "Content 3",
-                correct: false,
-                originalIndex: 2,
-            },
-        ],
-        selectedChoices: [false, false, true, false],
-    },
-};

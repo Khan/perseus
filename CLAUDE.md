@@ -78,8 +78,6 @@ export default {
     name: "widget-name",
     displayName: "Widget Display Name",
     widget: WidgetComponent,
-    transform: (options: WidgetOptions) => RenderProps,
-    staticTransform: (options: WidgetOptions) => StaticRenderProps,
     isLintable: true, // For use by the editor
 } as WidgetExports<typeof WidgetComponent>;
 ```

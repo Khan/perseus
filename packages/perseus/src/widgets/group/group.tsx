@@ -12,7 +12,6 @@ import classNames from "classnames";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {
@@ -23,7 +22,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group
 
 import type {
     APIOptions,
-    ChangeFn,
     FocusPath,
     Widget,
     WidgetExports,
@@ -64,35 +62,16 @@ class Group extends React.Component<Props> implements Widget {
         this.forceUpdate();
     }
 
-    change: ChangeFn = (...args) => {
-        // eslint-disable-next-line import/no-deprecated
-        return Changeable.change.apply(this, args);
-    };
-
     getPromptJSON(): GroupPromptJSON {
         return _getPromptJSON(this.rendererRef?.getPromptJSON());
     }
 
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
     getSerializedState: () => any = () => {
         return this.rendererRef?.getSerializedState();
-    };
-
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreSerializedState: (arg1: any, arg2: any) => null = (
-        state,
-        callback,
-    ) => {
-        this.rendererRef?.restoreSerializedState(state, callback);
-        // Tell our renderer that we have no props to change
-        // (all our changes were in state):
-        return null;
     };
 
     // Mobile API:
@@ -144,17 +123,6 @@ class Group extends React.Component<Props> implements Widget {
             this.props.widgetId,
         );
 
-        // This is a little strange because the id of the widget that actually
-        // changed is going to be lost in favor of the group widget's id. The
-        // widgets prop also wasn't actually changed, and this only serves to
-        // alert our renderer (our parent) of the fact that some interaction
-        // has occurred.
-        const onInteractWithWidget = (id) => {
-            if (this.rendererRef) {
-                this.change("widgets", this.rendererRef.props.widgets);
-            }
-        };
-
         // TODO(mdr): Widgets inside this Renderer are not discoverable through
         //     the parent Renderer's `findWidgets` function.
         return (
@@ -180,7 +148,6 @@ class Group extends React.Component<Props> implements Widget {
                     findExternalWidgets={this.props.findWidgets}
                     reviewMode={this.props.reviewMode}
                     showSolutions={this.props.showSolutions}
-                    onInteractWithWidget={onInteractWithWidget}
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
                 />

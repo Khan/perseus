@@ -83,30 +83,23 @@ const getRefForPath = function (path: FocusPath) {
     PerseusMatrixUserInput
 > satisfies PropsFor<typeof Matrix>;
 
-type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput> & {
-    // The coordinate location of the cursor position at start. default: [0, 0]
-    cursorPosition: ReadonlyArray<number>;
-    onChange: (
-        nextProps: {
-            cursorPosition?: ReadonlyArray<number>;
-        },
-        cb: () => boolean,
-    ) => void;
-};
+type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput>;
 
 type DefaultProps = {
     matrixBoardSize: Props["matrixBoardSize"];
     prefix: string;
     suffix: string;
-    cursorPosition: ReadonlyArray<number>;
     apiOptions: Props["apiOptions"];
     linterContext: Props["linterContext"];
     userInput: PerseusMatrixUserInput;
 };
 
 type State = {
+    // The coordinate location of the cursor position at start. default: [0, 0]
+    cursorPosition: ReadonlyArray<number>;
     enterTheMatrix: number;
 };
+
 class Matrix extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -118,7 +111,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
         matrixBoardSize: [3, 3],
         prefix: "",
         suffix: "",
-        cursorPosition: [0, 0],
         apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
         userInput: {
@@ -127,6 +119,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
     };
 
     state: State = {
+        cursorPosition: [0, 0],
         enterTheMatrix: 0,
     };
 
@@ -294,13 +287,14 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
         const {userInput, ...rest} = this.props;
         return {
             ...rest,
             answers: userInput.answers,
+            cursorPosition: this.state.cursorPosition,
         };
     }
 
@@ -319,8 +313,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
         const matrixSize = getMatrixSize(this.props.userInput.answers);
         const maxRows = this.props.matrixBoardSize[0];
         const maxCols = this.props.matrixBoardSize[1];
-        const cursorRow = this.props.cursorPosition[0];
-        const cursorCol = this.props.cursorPosition[1];
+        const cursorRow = this.state.cursorPosition[0];
+        const cursorCol = this.state.cursorPosition[1];
 
         const highlightedRow = Math.max(cursorRow, matrixSize[0] - 1);
         const highlightedCol = Math.max(cursorCol, matrixSize[1] - 1);
@@ -393,17 +387,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                             // it correctly sends blur events before
                                             // focus events.
                                             this.cursorPosition = [row, col];
-                                            this.props.onChange(
-                                                {
-                                                    cursorPosition: [row, col],
-                                                },
-                                                () => {
-                                                    // This isn't a user interaction, so
-                                                    // return false to signal that the
-                                                    // matrix shouldn't be focused
-                                                    return false;
-                                                },
-                                            );
+                                            this.setState({
+                                                cursorPosition: [row, col],
+                                            });
                                             this._handleFocus(row, col);
                                         },
                                         onBlur: () => {
@@ -412,17 +398,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                                     this.cursorPosition[0] &&
                                                 col === this.cursorPosition[1]
                                             ) {
-                                                this.props.onChange(
-                                                    {
-                                                        cursorPosition: [0, 0],
-                                                    },
-                                                    () => {
-                                                        // This isn't a user interaction,
-                                                        // so return false to signal that
-                                                        // the matrix shouldn't be focused
-                                                        return false;
-                                                    },
-                                                );
+                                                this.setState({
+                                                    cursorPosition: [0, 0],
+                                                });
                                             }
                                             this._handleBlur(row, col);
                                         },
@@ -525,7 +503,7 @@ function getCorrectUserInput(
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

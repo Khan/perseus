@@ -12,15 +12,15 @@ export type ImagePromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof image.widget>,
+    widgetData: React.ComponentProps<typeof image.widget>,
 ): ImagePromptJSON => {
     return {
         type: "image",
         options: {
-            altText: renderProps.alt,
-            title: renderProps.title,
-            caption: renderProps.caption,
-            imageUrl: renderProps.backgroundImage.url,
+            altText: widgetData.alt,
+            title: widgetData.title,
+            caption: widgetData.caption,
+            imageUrl: widgetData.backgroundImage.url,
         },
     };
 };

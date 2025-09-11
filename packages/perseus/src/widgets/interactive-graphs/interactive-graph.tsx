@@ -72,7 +72,9 @@ const makeInvalidTypeError = (
     );
 };
 
-type RenderProps = {
+// TODO: this should be PerseusInteractiveGraphWidgetOptions
+// but when I try to change it things break
+type InteractiveGraphProps = {
     /**
      * Where the little black axis lines & labels (ticks) should render.
      * Also known as the tick step. default [1, 1]
@@ -174,9 +176,13 @@ type RenderProps = {
      * Aria description that applies to the entire graph.
      */
     fullGraphAriaDescription?: string;
-}; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractiveGraphUserInput>;
-type State = any;
+};
+
+type Props = WidgetProps<
+    InteractiveGraphProps,
+    PerseusInteractiveGraphUserInput
+>;
+
 type DefaultProps = {
     labels: string[];
     labelLocation: Props["labelLocation"];
@@ -189,6 +195,8 @@ type DefaultProps = {
     showProtractor: Props["showProtractor"];
     userInput: Props["userInput"];
 };
+
+type State = any;
 
 // Assert that the PerseusInteractiveGraphWidgetOptions parsed from JSON can be
 // passed as props to this component. This ensures that the
@@ -295,7 +303,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
         const {userInput: _, ...rest} = this.props;
@@ -857,7 +865,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

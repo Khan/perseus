@@ -3,10 +3,8 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import ExplanationWidgetExports from "./explanation";
 import {question1} from "./explanation.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -243,24 +241,5 @@ describe("Explanation", function () {
         expect(screen.getByTestId("content-container").className).not.toContain(
             "transitionCollapsed",
         );
-    });
-
-    it("communicates changes to its parent by using the provided 'onChange' callback", () => {
-        // Arrange
-        // @ts-expect-error // Argument of type {onChange: () => void;} is not assignable to parameter of type Props | Readonly<Props>
-        const widget = new ExplanationWidgetExports.widget({
-            onChange: () => {},
-        });
-        const callbackMock = jest.fn();
-        const changeMock = jest
-            .spyOn(Changeable, "change")
-            .mockImplementation(() => {});
-
-        // Act - call the widget's "change" function
-        widget.change("foo", "bar", callbackMock);
-
-        // Assert
-        expect(changeMock.mock.contexts[0]).toEqual(widget);
-        expect(changeMock).toHaveBeenCalledWith("foo", "bar", callbackMock);
     });
 });

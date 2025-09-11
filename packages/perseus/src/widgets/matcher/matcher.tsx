@@ -22,12 +22,7 @@ import type {
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
-type RenderProps = Pick<
-    PerseusMatcherWidgetOptions,
-    "labels" | "orderMatters" | "padding" | "left" | "right"
->;
-
-type Props = WidgetProps<RenderProps, PerseusMatcherUserInput>;
+type Props = WidgetProps<PerseusMatcherWidgetOptions, PerseusMatcherUserInput>;
 
 type DefaultProps = {
     labels: Props["labels"];
@@ -248,7 +243,7 @@ function getStartUserInput(
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

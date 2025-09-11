@@ -18,7 +18,7 @@ import type {UserEvent} from "@testing-library/user-event";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -156,73 +156,6 @@ describe("LabelImage serialization", () => {
                 },
             },
             hints: [],
-        });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicLabelImage());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "label-image 1": {
-                        choices: ["One", "Two", "Three"],
-                        imageAlt: "Alt text",
-                        imageUrl:
-                            "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
-                        imageWidth: 415,
-                        imageHeight: 314,
-                        markers: [
-                            {
-                                answers: ["One"],
-                                label: "Uno",
-                                x: 25,
-                                y: 17.7,
-                                selected: ["One"],
-                            },
-                            {
-                                answers: ["Two"],
-                                label: "Dos",
-                                x: 25,
-                                y: 35.3,
-                            },
-                            {
-                                answers: ["Three"],
-                                label: "Tres",
-                                x: 25,
-                                y: 53,
-                            },
-                        ],
-                        multipleAnswers: false,
-                        hideChoicesFromInstructions: true,
-                        static: false,
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // there would be no "selected" if we didn't properly restore serialized state
-        expect(userInput).toEqual({
-            "label-image 1": {
-                markers: [
-                    {
-                        selected: ["One"], // <= important
-                        label: "Uno",
-                    },
-                    {
-                        label: "Dos",
-                    },
-                    {
-                        label: "Tres",
-                    },
-                ],
-            },
         });
     });
 });

@@ -10,7 +10,6 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconOk, iconRemove} from "../../icon-paths";
-import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mapErrorToString} from "../../strings";
@@ -141,11 +140,6 @@ export class GradedGroup
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
         return nextProps !== this.props || nextState !== this.state;
     }
-
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // eslint-disable-next-line import/no-deprecated
-        return Changeable.change.apply(this, args as any);
-    };
 
     _handleUserInput(_userInput: UserInputMap, widgetsEmpty: boolean): void {
         // Reset grading display when user changes answer

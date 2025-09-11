@@ -70,6 +70,13 @@ const setupScrollableTest = (isRtl = false) => {
                         : originalStyle.getPropertyValue(prop),
             };
         });
+
+        // In RTL mode, set initial scrollLeft to 0 (start of content)
+        Object.defineProperty(HTMLElement.prototype, "scrollLeft", {
+            configurable: true,
+            value: 0,
+            writable: true,
+        });
     }
 
     const scrollId = "test-scroll";
@@ -257,20 +264,24 @@ describe("ScrollableView", () => {
         it("shows scroll controls with correct RTL button orientation", () => {
             const {rightButton, leftButton} = setupScrollableTest(true);
 
-            // In RTL, the button behaviors are flipped:
-            // - scrollStart is on the right side visually
-            // - scrollEnd is on the left side visually
+            // In RTL, the button behaviors match the expected user behavior:
+            // - Left button (visually <) should scroll to end
+            // - Right button (visually >) should scroll to start
 
-            // Initially, right button (scrollStart in RTL) should be disabled
+            // Initially, at the start of content in RTL mode:
+            // Right button (scrollStart in RTL) should be disabled (we're at start)
             expect(isAriaDisabled(rightButton)).toBe(true);
 
-            // Left button (scrollEnd in RTL) should be enabled
+            // Left button (scrollEnd in RTL) should be enabled (can scroll to end)
             expect(isAriaDisabled(leftButton)).toBe(false);
         });
 
         it("scrolls in the correct direction when buttons are clicked in RTL", () => {
             const {container, leftButton, rightButton} =
                 setupScrollableTest(true);
+
+            // Clear any previous calls to scrollBy
+            jest.clearAllMocks();
 
             // Click left button (End button in RTL)
             act(() => {

@@ -16,7 +16,7 @@ import type {PerseusItem} from "@khanacademy/perseus-core";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -88,42 +88,6 @@ describe("CSProgram serialization", () => {
                 },
             },
             hints: [],
-        });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicCSProgram());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "cs-program 1": {
-                        settings: [],
-                        height: 410,
-                        static: false,
-                        programID: "6293105639817216",
-                        programType: null,
-                        showButtons: false,
-                        showEditor: false,
-                        status: "correct",
-                        message: "cool message",
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `value` would be 0 if we didn't properly restore serialized state
-        expect(userInput).toEqual({
-            "cs-program 1": {
-                status: "correct",
-                message: "cool message",
-            },
         });
     });
 });

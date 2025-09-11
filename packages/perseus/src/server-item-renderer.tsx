@@ -89,7 +89,7 @@ type State = {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 type SerializedState = {
     question: any;
@@ -287,15 +287,6 @@ export class ServerItemRenderer
         }, 0);
     }
 
-    /**
-     * Accepts a question area widgetId, or an answer area widgetId of
-     * the form "answer-input-number 1", or the string "answer-area"
-     * for the whole answer area (if the answer area is a single widget).
-     */
-    _setWidgetProps(widgetId: string, newProps: Props, callback: any) {
-        this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
-    }
-
     focusPath(path: FocusPath): void {
         return this.questionRenderer.focusPath(path);
     }
@@ -382,7 +373,7 @@ export class ServerItemRenderer
     /**
      * Get a representation of the current state of the item.
      */
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
@@ -391,28 +382,6 @@ export class ServerItemRenderer
             question: this.questionRenderer.getSerializedState(),
             hints: this.hintsRenderer.getSerializedState(),
         };
-    }
-
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreSerializedState(state: SerializedState, callback?: () => void) {
-        // We need to wait for both the question renderer and the hints
-        // renderer to finish restoring their states.
-        let numCallbacks = 2;
-        const fireCallback = () => {
-            --numCallbacks;
-            if (callback && numCallbacks === 0) {
-                callback();
-            }
-        };
-
-        this.questionRenderer.restoreSerializedState(
-            state.question,
-            fireCallback,
-        );
-        this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
     }
 
     // This must be pre-bound otherwise SvgImage's shouldComponentUpdate
@@ -447,12 +416,7 @@ export class ServerItemRenderer
                     widgets={this.props.item.question.widgets}
                     problemNum={this.props.problemNum ?? 0}
                 >
-                    {({
-                        userInput,
-                        handleUserInput,
-                        initializeUserInput,
-                        restoreUserInputFromSerializedState,
-                    }) => {
+                    {({userInput, handleUserInput, initializeUserInput}) => {
                         this.userInput = userInput;
                         return (
                             <Renderer
@@ -496,9 +460,6 @@ export class ServerItemRenderer
                                     this.handleInteractWithWidget(id);
                                 }}
                                 initializeUserInput={initializeUserInput}
-                                restoreUserInputFromSerializedState={
-                                    restoreUserInputFromSerializedState
-                                }
                             />
                         );
                     }}

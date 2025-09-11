@@ -30,8 +30,6 @@ import {
 } from "./util";
 
 import type {Coord, Line} from "../../interactive2/types";
-// eslint-disable-next-line import/no-deprecated
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
@@ -62,8 +60,7 @@ const typeSelectorStyle = {
     padding: "5px 5px",
 } as const;
 
-// eslint-disable-next-line import/no-deprecated
-type FunctionGrapherProps = ChangeableProps & {
+type FunctionGrapherProps = {
     graph: any;
     coords: any;
     asymptote: any;
@@ -74,6 +71,7 @@ type FunctionGrapherProps = ChangeableProps & {
     showHairlines: () => void;
     showTooltips: boolean;
     static: boolean;
+    onChange: (arg: any) => void;
 };
 
 type DefaultFunctionGrapherProps = any;
@@ -510,7 +508,7 @@ class Grapher extends React.Component<Props> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
         const {userInput: _, correct: __, ...rest} = this.props;
@@ -598,7 +596,7 @@ class Grapher extends React.Component<Props> implements Widget {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

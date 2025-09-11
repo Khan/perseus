@@ -17603,6 +17603,154 @@ exports[`parseAndMigratePerseusItem given question-missing-content.json returns 
 }
 `;
 
+exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "
+**Why does the author discuss the clothes and food at Robben Island?**
+
+[[☃ radio 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "to show that Mandela fought for equality even when he was in prison
+",
+              "correct": true,
+              "id": "radio-choice-0",
+              "rationale": "**This is the best choice.** The author describes how apartheid affected the lives of Black prisoners: "they were forced to wear shorts and sandals" and their food was "worse than the food for other prisoners." The author goes on to say that Mandela fought for equal rights in prison, and that his work helped to change these rules. This is an example of how he fought for equality in prison.
+",
+            },
+            {
+              "content": "to prove that everyone was treated poorly in South African prisons
+",
+              "correct": false,
+              "id": "radio-choice-1",
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. The author mentions these details to show that Black prisoners received poorer treatment than other prisoners: they weren't allowed to wear warm clothes and had worse food. The author doesn't suggest that *all* prisoners were treated poorly.
+",
+            },
+            {
+              "content": "to introduce the idea that Mandela didn’t win every battle he fought against apartheid
+",
+              "correct": false,
+              "id": "radio-choice-2",
+              "isNoneOfTheAbove": false,
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. In fact, the author says that Mandela did help Black prisoners receive better clothes and food. For example, the text says that Mandela's work "finally began to pay off when Black prisoners were granted the right to wear pants and shoes."
+",
+            },
+            {
+              "content": "to demonstrate that prisoners were treated better than South Africans who were not in prison
+",
+              "correct": false,
+              "id": "radio-choice-3",
+              "isNoneOfTheAbove": false,
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. The text never compares the treatment of prisoners to the treatment of people who weren't in prison. 
+",
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "numCorrect": 1,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 3,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.json returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "
+**Why does the author discuss the clothes and food at Robben Island?**
+
+[[☃ radio 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "to show that Mandela fought for equality even when he was in prison
+",
+              "id": "radio-choice-0",
+              "isNoneOfTheAbove": undefined,
+            },
+            {
+              "content": "to prove that everyone was treated poorly in South African prisons
+",
+              "id": "radio-choice-1",
+              "isNoneOfTheAbove": undefined,
+            },
+            {
+              "content": "to introduce the idea that Mandela didn’t win every battle he fought against apartheid
+",
+              "id": "radio-choice-2",
+              "isNoneOfTheAbove": false,
+            },
+            {
+              "content": "to demonstrate that prisoners were treated better than South Africans who were not in prison
+",
+              "id": "radio-choice-3",
+              "isNoneOfTheAbove": false,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "numCorrect": undefined,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 3,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -19705,5 +19853,589 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
       },
     },
   },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from categorizer.ts returns the same result as before 1`] = `
+{
+  "categorizer 1": {
+    "values": [
+      1,
+      null,
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from cs-program.ts returns the same result as before 1`] = `
+{
+  "cs-program 1": {
+    "message": null,
+    "status": "correct",
+  },
+  "cs-program 2": {
+    "message": "There's a test failure!",
+    "status": "incorrect",
+  },
+  "cs-program 3": {
+    "message": null,
+    "status": "incomplete",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from dropdown.ts returns the same result as before 1`] = `
+{
+  "dropdown 1": {
+    "value": 1,
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from expression.ts returns the same result as before 1`] = `
+{
+  "expression 1": "\\sqrt{x}",
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from free-response.ts returns the same result as before 1`] = `
+{
+  "free-response 1": {
+    "currentValue": "hello",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from grapher.ts returns the same result as before 1`] = `
+{
+  "grapher 1": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "absolute_value",
+  },
+  "grapher 2": {
+    "asymptote": [
+      [
+        -1,
+        0,
+      ],
+      [
+        -2,
+        0,
+      ],
+    ],
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "exponential",
+  },
+  "grapher 3": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "linear",
+  },
+  "grapher 4": {
+    "asymptote": [
+      [
+        -1,
+        0,
+      ],
+      [
+        -2,
+        0,
+      ],
+    ],
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "logarithm",
+  },
+  "grapher 5": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "quadratic",
+  },
+  "grapher 6": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "sinusoid",
+  },
+  "grapher 7": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "tangent",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from group.ts returns the same result as before 1`] = `
+{
+  "group 1": {
+    "radio 1": {
+      "selectedChoiceIds": [
+        "1234",
+      ],
+    },
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from iframe.ts returns the same result as before 1`] = `
+{
+  "iframe 1": {
+    "status": "correct",
+  },
+  "iframe 2": {
+    "message": null,
+    "status": "incomplete",
+  },
+  "iframe 3": {
+    "message": "something's not right",
+    "status": "incorrect",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from input-number.ts returns the same result as before 1`] = `
+{
+  "input-number 1": {
+    "currentValue": "42",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from interactive-graph.ts returns the same result as before 1`] = `
+{
+  "interactive-graph 1": {
+    "type": "angle",
+  },
+  "interactive-graph 10": {
+    "type": "polygon",
+  },
+  "interactive-graph 11": {
+    "coords": [
+      [
+        2,
+        3,
+      ],
+    ],
+    "match": "similar",
+    "numSides": 42,
+    "showAngles": false,
+    "showSides": false,
+    "snapTo": "grid",
+    "startCoords": [
+      [
+        0,
+        1,
+      ],
+    ],
+    "type": "polygon",
+  },
+  "interactive-graph 12": {
+    "type": "quadratic",
+  },
+  "interactive-graph 13": {
+    "coords": [
+      [
+        0,
+        1,
+      ],
+      [
+        2,
+        3,
+      ],
+      [
+        4,
+        5,
+      ],
+    ],
+    "startCoords": [
+      [
+        6,
+        7,
+      ],
+      [
+        8,
+        9,
+      ],
+      [
+        10,
+        11,
+      ],
+    ],
+    "type": "quadratic",
+  },
+  "interactive-graph 14": {
+    "type": "ray",
+  },
+  "interactive-graph 15": {
+    "coords": [
+      [
+        0,
+        1,
+      ],
+      [
+        2,
+        3,
+      ],
+    ],
+    "startCoords": [
+      [
+        6,
+        7,
+      ],
+      [
+        8,
+        9,
+      ],
+    ],
+    "type": "ray",
+  },
+  "interactive-graph 16": {
+    "type": "segment",
+  },
+  "interactive-graph 17": {
+    "coords": [
+      [
+        [
+          1,
+          2,
+        ],
+        [
+          3,
+          4,
+        ],
+      ],
+    ],
+    "numSegments": 42,
+    "startCoords": [
+      [
+        [
+          5,
+          6,
+        ],
+        [
+          7,
+          8,
+        ],
+      ],
+    ],
+    "type": "segment",
+  },
+  "interactive-graph 18": {
+    "type": "sinusoid",
+  },
+  "interactive-graph 19": {
+    "coords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+    ],
+    "startCoords": [
+      [
+        5,
+        6,
+      ],
+      [
+        7,
+        8,
+      ],
+    ],
+    "type": "sinusoid",
+  },
+  "interactive-graph 2": {
+    "allowReflexAngles": true,
+    "angleOffsetDeg": 7,
+    "coords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+      [
+        5,
+        6,
+      ],
+    ],
+    "match": "congruent",
+    "showAngles": true,
+    "snapDegrees": 11,
+    "startCoords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+      [
+        5,
+        6,
+      ],
+    ],
+    "type": "angle",
+  },
+  "interactive-graph 3": {
+    "type": "circle",
+  },
+  "interactive-graph 4": {
+    "center": [
+      1,
+      2,
+    ],
+    "radius": 3,
+    "startCoords": {
+      "center": [
+        4,
+        5,
+      ],
+      "radius": 6,
+    },
+    "type": "circle",
+  },
+  "interactive-graph 5": {
+    "type": "linear",
+  },
+  "interactive-graph 6": {
+    "coords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+    ],
+    "startCoords": [
+      [
+        5,
+        6,
+      ],
+      [
+        7,
+        8,
+      ],
+    ],
+    "type": "linear",
+  },
+  "interactive-graph 7": {
+    "type": "point",
+  },
+  "interactive-graph 8": {
+    "numPoints": "unlimited",
+    "type": "point",
+  },
+  "interactive-graph 9": {
+    "coord": [
+      5,
+      6,
+    ],
+    "coords": [
+      [
+        1,
+        2,
+      ],
+    ],
+    "numPoints": 42,
+    "startCoords": [
+      [
+        3,
+        4,
+      ],
+    ],
+    "type": "point",
+  },
+  "interactive-graph 999": {
+    "type": "none",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from label-image.ts returns the same result as before 1`] = `
+{
+  "label-image 1": {
+    "markers": [
+      {
+        "label": "a",
+      },
+      {
+        "label": "b",
+        "selected": [
+          "c",
+        ],
+      },
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from matcher.ts returns the same result as before 1`] = `
+{
+  "matcher 1": {
+    "left": [
+      "a",
+    ],
+    "right": [
+      "b",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from matrix.ts returns the same result as before 1`] = `
+{
+  "matrix 1": {
+    "answers": [
+      [
+        "1",
+        "2",
+      ],
+      [
+        "3",
+        "4",
+      ],
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from number-line.ts returns the same result as before 1`] = `
+{
+  "number-line 1": {
+    "numDivisions": 3,
+    "numLinePosition": 2,
+    "rel": "eq",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from numeric-input.ts returns the same result as before 1`] = `
+{
+  "numeric-input 1": {
+    "currentValue": "42",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from orderer.ts returns the same result as before 1`] = `
+{
+  "orderer 1": {
+    "current": [
+      "a",
+      "b",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from plotter.ts returns the same result as before 1`] = `
+{
+  "plotter 1": [
+    1,
+    2,
+  ],
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from radio.ts returns the same result as before 1`] = `
+{
+  "radio 1": {
+    "selectedChoiceIds": [
+      "1234",
+      "5678",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from sorter.ts returns the same result as before 1`] = `
+{
+  "sorter 1": {
+    "changed": true,
+    "options": [
+      "a",
+      "b",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from table.ts returns the same result as before 1`] = `
+{
+  "table 1": [
+    [
+      "a",
+      "b",
+    ],
+    [
+      "c",
+      "d",
+    ],
+  ],
 }
 `;

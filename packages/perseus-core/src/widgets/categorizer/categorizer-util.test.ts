@@ -11,11 +11,6 @@ describe("getCategorizerPublicWidgetOptions", () => {
             randomizeItems: true,
             static: false,
             highlightLint: false,
-            linterContext: {
-                contentType: "type",
-                paths: ["paths"],
-                stack: ["stack"],
-            },
         };
 
         const publicWidgetOptions = getCategorizerPublicWidgetOptions(
