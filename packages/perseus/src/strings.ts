@@ -505,6 +505,9 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    imageExploreButton: string;
+    imageAlternativeTitle: string;
+    imageDescriptionLabel: string;
 };
 
 /**
@@ -1106,6 +1109,9 @@ export const strings = {
         message:
             "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
     },
+    imageExploreButton: "Explore image",
+    imageAlternativeTitle: "Explore image and description",
+    imageDescriptionLabel: "Description",
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -1441,6 +1447,9 @@ export const mockStrings: PerseusStrings = {
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
+    imageExploreButton: "Explore image",
+    imageAlternativeTitle: "Explore image and description",
+    imageDescriptionLabel: "Description",
 };
 
 // This type helps us make sure all error codes are mapped to strings
