@@ -26,6 +26,7 @@ type Props = {
     sequenceNumber?: number;
     onBlur?: (event: React.FocusEvent) => unknown;
     onClick?: () => unknown;
+    onDragEnd?: () => unknown;
     onFocus?: (event: React.FocusEvent) => unknown;
     onMove?: (newPoint: vec.Vector2) => unknown;
 };
