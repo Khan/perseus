@@ -5,13 +5,12 @@ import * as React from "react";
 
 import {PerseusI18nContext} from "../../../components/i18n-context";
 
-export default function ExploreImageButton({
-    hasCaption,
-    onClick,
-}: {
+interface Props {
     hasCaption: boolean;
     onClick: () => void;
-}) {
+}
+
+export default function ExploreImageButton({hasCaption, onClick}: Props) {
     const context = React.useContext(PerseusI18nContext);
     if (!hasCaption) {
         return (
