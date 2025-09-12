@@ -114,7 +114,8 @@ class FixedToResponsive extends React.Component<Props, State> {
         const spacer = (
             <div
                 style={{
-                    paddingBottom: ((1 / aspectRatio) * 100).toFixed(4) + "%",
+                    // @ts-expect-error - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+                    paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + "%",
                 }}
             />
         );
