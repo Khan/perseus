@@ -205,6 +205,7 @@ class Radio extends RadioOld {
 
     render(): React.ReactNode {
         const props = this._mergePropsAndState();
+        console.log("Props: ", props);
 
         // Only return the new radio widget if the feature flag is on.
         // Otherwise, return the old radio widget and pass the ref to
