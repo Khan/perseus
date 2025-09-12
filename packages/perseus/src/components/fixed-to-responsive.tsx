@@ -111,13 +111,14 @@ class FixedToResponsive extends React.Component<Props, State> {
         const spacer = (
             <div
                 style={{
-                    // @ts-expect-error - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
-                    paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + "%",
+                    paddingBottom: ((1 / aspectRatio) * 100).toFixed(4) + "%",
                 }}
             />
         );
 
         let {width, height} = this.props;
+        // eslint-disable-next-line no-console
+        console.log("within image widget", this.props.withinImageWidget);
 
         // Constrain height to be at most 2/3 viewport height, maintaining
         // aspect ratio.
