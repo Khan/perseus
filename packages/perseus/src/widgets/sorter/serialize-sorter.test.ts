@@ -66,7 +66,11 @@ describe("Sorter serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicSorter());
+        const {renderer} = renderQuestion(
+            generateBasicSorter(),
+            {},
+            {startAnswerless: false},
+        );
 
         // Just making sure we're shuffling before answering
         expect(

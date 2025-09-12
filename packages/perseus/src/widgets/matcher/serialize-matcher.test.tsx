@@ -76,7 +76,11 @@ describe("Matcher serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicMatcher());
+        const {renderer} = renderQuestion(
+            generateBasicMatcher(),
+            {},
+            {startAnswerless: false},
+        );
 
         const matcher: Matcher =
             renderer.questionRenderer.findWidgets("matcher 1")[0];

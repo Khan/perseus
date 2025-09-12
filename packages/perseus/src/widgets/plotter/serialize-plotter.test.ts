@@ -74,7 +74,11 @@ describe("Plotter serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicPlotter());
+        const {renderer} = renderQuestion(
+            generateBasicPlotter(),
+            {},
+            {startAnswerless: false},
+        );
 
         const [plotter] = renderer.questionRenderer.findWidgets("plotter 1");
         act(() => plotter._testInsertUserInput([3, 3, 3]));

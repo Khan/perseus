@@ -74,7 +74,11 @@ describe("Dropdown serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicDropdown());
+        const {renderer} = renderQuestion(
+            generateBasicDropdown(),
+            {},
+            {startAnswerless: false},
+        );
 
         await userEvent.click(
             screen.getByRole("combobox", {name: "Select an answer"}),

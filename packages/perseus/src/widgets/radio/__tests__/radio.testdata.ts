@@ -397,6 +397,56 @@ export const questionWithUndefinedCorrect: PerseusRenderer =
         .withRandomize(true)
         .build();
 
+export const rationalesQuestion: PerseusRenderer = {
+    content:
+        "Example of the Radio Widget with:\n\n- Multiple selections on\n- Specify number correct on\n- Randomize off \n- With Rationales \n\n[[☃ radio 1]]\n\n",
+    images: {},
+    widgets: {
+        "radio 1": {
+            alignment: "default",
+            graded: true,
+            static: false,
+            type: "radio",
+            version: {
+                major: 3,
+                minor: 0,
+            },
+            options: {
+                choices: [
+                    {
+                        rationale: "It's just not correct.",
+                        content: "Wrong",
+                        id: "10-10-10-10-10",
+                    },
+                    {
+                        rationale: "It says it right in the answer! ",
+                        content: "Right",
+                        correct: true,
+                        id: "11-11-11-11-11",
+                    },
+                    {
+                        rationale: "Nope.",
+                        content: "Wrong",
+                        id: "12-12-12-12-12",
+                    },
+                    {
+                        rationale: "That's it! ",
+                        content: "Right",
+                        correct: true,
+                        id: "13-13-13-13-13",
+                    },
+                ],
+                countChoices: true,
+                deselectEnabled: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: true,
+                numCorrect: 2,
+                randomize: false,
+            },
+        },
+    },
+};
+
 export const overflowContentInGradedGroupSet: PerseusRenderer = {
     content:
         "#Testing scrollbar color when background color exists\n\n[[☃ graded-group-set 1]]\n\n\nFade color should match the background.",

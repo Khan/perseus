@@ -82,7 +82,11 @@ describe("Expression serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicExpression());
+        const {renderer} = renderQuestion(
+            generateBasicExpression(),
+            {},
+            {startAnswerless: false},
+        );
 
         await userEvent.type(screen.getByRole("textbox"), "42");
         act(() => jest.runOnlyPendingTimers());
