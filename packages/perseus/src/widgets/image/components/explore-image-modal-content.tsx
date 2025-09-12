@@ -8,9 +8,8 @@ import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
 
-import type {Props as ImageDescriptionProps} from "./image-description-and-caption";
+import type {ImageDescriptionAndCaptionProps} from "./image-description-and-caption";
 
-type Props = ImageDescriptionProps;
 const MODAL_HEIGHT = 568;
 
 export default function ExploreImageModalContent({
@@ -23,7 +22,7 @@ export default function ExploreImageModalContent({
     box,
     labels,
     range,
-}: Props) {
+}: ImageDescriptionAndCaptionProps) {
     const context = React.useContext(PerseusI18nContext);
 
     if (

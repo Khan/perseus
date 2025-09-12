@@ -8,9 +8,9 @@ import Renderer from "../../renderer";
 import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
 import styles from "./image-widget.module.css";
 
-import type {Props} from "./image.class";
+import type {ImageWidgetProps} from "./image.class";
 
-export const ImageComponent = (props: Props) => {
+export const ImageComponent = (props: ImageWidgetProps) => {
     const {
         apiOptions,
         alt,

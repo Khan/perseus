@@ -18,7 +18,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-export interface Props {
+export interface ImageDescriptionAndCaptionProps {
     backgroundImage: PerseusImageBackground;
     title: string;
     caption: string;
@@ -31,7 +31,9 @@ export interface Props {
     apiOptions: APIOptions;
 }
 
-export const ImageDescriptionAndCaption = (props: Props) => {
+export const ImageDescriptionAndCaption = (
+    props: ImageDescriptionAndCaptionProps,
+) => {
     const {
         caption,
         longDescription,
