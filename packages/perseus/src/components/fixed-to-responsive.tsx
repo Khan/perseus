@@ -27,12 +27,14 @@ type Props = {
     className?: string;
     constrainHeight?: boolean;
     allowFullBleed?: boolean;
+    withinImageWidget?: boolean;
 };
 
 type DefaultProps = {
     className: Props["className"];
     constrainHeight: Props["constrainHeight"];
     allowFullBleed: Props["allowFullBleed"];
+    withinImageWidget: Props["withinImageWidget"];
 };
 
 type State = {
@@ -47,6 +49,7 @@ class FixedToResponsive extends React.Component<Props, State> {
         className: "",
         constrainHeight: false,
         allowFullBleed: false,
+        withinImageWidget: false,
     };
 
     state: State = {
@@ -140,7 +143,7 @@ class FixedToResponsive extends React.Component<Props, State> {
 
         const container = (
             <div className={className} style={style}>
-                {spacer}
+                {!this.props.withinImageWidget && spacer}
                 {this.props.children}
             </div>
         );
