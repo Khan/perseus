@@ -543,11 +543,12 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             ariaLive={ariaLives[i]}
                             point={point}
                             sequenceNumber={i + 1}
-                            onMove={(destination) =>
+                            onMove={(destination) => {
+                                setIsCurrentlyDragging(true);
                                 dispatch(
                                     actions.polygon.movePoint(i, destination),
-                                )
-                            }
+                                );
+                            }}
                             onDragEnd={() => {
                                 // Reset after iOS phantom click timing
                                 setTimeout(() => {
