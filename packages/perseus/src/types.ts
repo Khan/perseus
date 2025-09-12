@@ -549,7 +549,6 @@ export type UniversalWidgetProps<
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
     reviewMode: boolean;
     showSolutions?: ShowSolutions;
-    onChange: ChangeHandler;
     handleUserInput: (
         newUserInput: TUserInput,
         cb?: () => void,

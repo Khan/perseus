@@ -10,7 +10,12 @@ import PassageRef from "../passage-ref/passage-ref";
 import BaseRadio from "./base-radio";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
-import type {WidgetProps, ChoiceState, Widget} from "../../types";
+import type {
+    WidgetProps,
+    ChoiceState,
+    Widget,
+    ChangeHandler,
+} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -29,6 +34,9 @@ export type RadioProps = PerseusRadioWidgetOptions & {
     choices: RadioChoiceWithMetadata[];
     showSolutions?: ShowSolutions;
     choiceStates?: ChoiceState[];
+    // TODO: https://khanacademy.atlassian.net/browse/LEMS-3542
+    // remove onChange from Radio
+    onChange: ChangeHandler;
 };
 
 export type Props = WidgetProps<

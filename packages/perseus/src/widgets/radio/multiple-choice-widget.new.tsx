@@ -8,7 +8,12 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio
 import MultipleChoiceComponent from "./multiple-choice-component.new";
 import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
 
-import type {WidgetProps, ChoiceState, Widget} from "../../types";
+import type {
+    WidgetProps,
+    ChoiceState,
+    Widget,
+    ChangeHandler,
+} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -46,6 +51,9 @@ export type RadioProps = {
     choiceStates?: ReadonlyArray<ChoiceState>;
     editMode?: boolean;
     labelWrap?: boolean;
+    // TODO: https://khanacademy.atlassian.net/browse/LEMS-3542
+    // remove onChange from Radio
+    onChange: ChangeHandler;
 };
 
 /**

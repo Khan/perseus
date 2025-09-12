@@ -20,6 +20,7 @@ const {assert} = InteractiveUtil;
 type EditorProps = {
     editableHeaders: boolean;
     Editor: any;
+    onChange: (headers: PerseusTableWidgetOptions["headers"]) => void;
 };
 
 type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
