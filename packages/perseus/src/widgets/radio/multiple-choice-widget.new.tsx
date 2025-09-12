@@ -87,7 +87,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             findWidgets,
             reviewMode,
         } = props;
-
+console.log("Props: ", props);
         const {strings} = usePerseusI18n();
 
         // Perseus Widget API methods
