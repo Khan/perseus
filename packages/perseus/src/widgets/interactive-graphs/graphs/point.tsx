@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useState} from "react";
 
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -97,6 +98,7 @@ function LimitedPointGraph(statefulProps: StatefulProps) {
 function UnlimitedPointGraph(statefulProps: StatefulProps) {
     const {dispatch, graphConfig, pointsRef, top, left} = statefulProps;
     const {coords} = statefulProps.graphState;
+    const [isCurrentlyDragging, setIsCurrentlyDragging] = useState(false);
 
     const {graphDimensionsInPixels} = graphConfig;
 
@@ -118,6 +120,11 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                 x={left}
                 y={top}
                 onClick={(event) => {
+                    // If any point is currently dragging, don't add a new point
+                    if (isCurrentlyDragging) {
+                        return;
+                    }
+
                     const elementRect =
                         event.currentTarget.getBoundingClientRect();
 
@@ -136,9 +143,16 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                     key={i}
                     point={point}
                     sequenceNumber={i + 1}
-                    onMove={(destination) =>
-                        dispatch(actions.pointGraph.movePoint(i, destination))
-                    }
+                    onMove={(destination) => {
+                        setIsCurrentlyDragging(true);
+                        dispatch(actions.pointGraph.movePoint(i, destination));
+                    }}
+                    onDragEnd={() => {
+                        // Reset after iOS phantom click timing (WebKit docs show up to 350ms delay)
+                        setTimeout(() => {
+                            setIsCurrentlyDragging(false);
+                        }, 400);
+                    }}
                     ref={(ref) => {
                         pointsRef.current[i] = ref;
                     }}

@@ -75,6 +75,7 @@
     cursor: grab;
     touch-action: none;
     outline: none;
+    -webkit-tap-highlight-color: transparent; /* Disable iOS grey highlight rectangle */
 }
 
 .MafsView .movable-point.movable-point--dragging {

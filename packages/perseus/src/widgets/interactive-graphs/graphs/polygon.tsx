@@ -2,6 +2,7 @@ import {angles, geometry} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
+import {useState} from "react";
 
 import {
     usePerseusI18n,
@@ -426,6 +427,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {coords, closedPolygon} = statefulProps.graphState;
     const {strings, locale} = usePerseusI18n();
     const {interactiveColor} = useGraphConfig();
+    const [isCurrentlyDragging, setIsCurrentlyDragging] = useState(false);
 
     const id = React.useId();
     const polygonPointsNumId = id + "-points-num";
@@ -495,6 +497,11 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                 x={left}
                 y={top}
                 onClick={(event) => {
+                    // If any point is currently dragging, don't add a new point
+                    if (isCurrentlyDragging) {
+                        return;
+                    }
+
                     const elementRect =
                         event.currentTarget.getBoundingClientRect();
 
@@ -541,6 +548,12 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                     actions.polygon.movePoint(i, destination),
                                 )
                             }
+                            onDragEnd={() => {
+                                // Reset after iOS phantom click timing
+                                setTimeout(() => {
+                                    setIsCurrentlyDragging(false);
+                                }, 400);
+                            }}
                             ref={(ref) => {
                                 pointsRef.current[i] = ref;
                             }}
