@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 2.1.1
+
+### Patch Changes
+
+-   [#2886](https://github.com/Khan/perseus/pull/2886) [`46b71965bb`](https://github.com/Khan/perseus/commit/46b71965bb0c098b874b12ac6ccdb859f5979624) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug where expressions that contained a variable in a fraction denominator sometimes compared unequal when they were in fact equal.
+
 ## 2.1.0
 
 ### Minor Changes
