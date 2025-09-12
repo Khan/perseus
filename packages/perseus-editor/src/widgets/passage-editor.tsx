@@ -3,7 +3,6 @@ import {passageLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import Editor from "../editor";
 

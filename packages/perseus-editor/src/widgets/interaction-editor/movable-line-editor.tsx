@@ -5,7 +5,6 @@ import {
     EditorJsonify,
 } from "@khanacademy/perseus";
 import * as React from "react";
-import _ from "underscore";
 
 import ConstraintEditor from "./constraint-editor";
 import MathquillInput from "./mathquill-input";

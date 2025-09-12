@@ -4,7 +4,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import _ from "underscore";
 
 import {testDependencies} from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";

@@ -6,7 +6,6 @@ import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
