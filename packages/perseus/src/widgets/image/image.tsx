@@ -70,6 +70,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                         constrainHeight={apiOptions.isMobile}
                         allowFullBleed={apiOptions.isMobile}
                         setAssetStatus={setAssetStatus}
+                        withinImageWidget={true}
                     />
                 )}
             </AssetContext.Consumer>

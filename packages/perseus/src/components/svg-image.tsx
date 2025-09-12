@@ -101,6 +101,7 @@ type Props = {
      * If not, it defaults to a no-op.
      */
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
+    withinImageWidget?: boolean;
 };
 
 type DefaultProps = {
@@ -111,6 +112,7 @@ type DefaultProps = {
     setAssetStatus: NonNullable<Props["setAssetStatus"]>;
     src: NonNullable<Props["src"]>;
     zoomToFullSizeOnMobile: NonNullable<Props["zoomToFullSizeOnMobile"]>;
+    withinImageWidget: NonNullable<Props["withinImageWidget"]>;
 };
 
 type Label = {
@@ -153,6 +155,7 @@ class SvgImage extends React.Component<Props, State> {
         scale: 1,
         zoomToFullSizeOnMobile: false,
         setAssetStatus: (src: string, status: boolean) => {},
+        withinImageWidget: false,
     };
 
     constructor(props: Props) {
@@ -492,6 +495,7 @@ class SvgImage extends React.Component<Props, State> {
                             this.props.allowFullBleed &&
                             isImageProbablyPhotograph(imageSrc)
                         }
+                        withinImageWidget={this.props.withinImageWidget}
                     >
                         <ImageLoader
                             src={imageSrc}
@@ -564,6 +568,7 @@ class SvgImage extends React.Component<Props, State> {
                     width={width}
                     height={height}
                     constrainHeight={this.props.constrainHeight}
+                    withinImageWidget={this.props.withinImageWidget}
                 >
                     <ImageLoader
                         src={imageUrl}
