@@ -3,7 +3,6 @@ import {ApiOptions, Changeable} from "@khanacademy/perseus";
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import GradedGroupEditor from "./graded-group-editor";
 

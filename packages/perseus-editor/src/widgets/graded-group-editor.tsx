@@ -10,7 +10,6 @@ import {gradedGroupLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import Editor from "../editor";
 import {iconPlus} from "../styles/icon-paths";
