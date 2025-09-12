@@ -3,7 +3,7 @@
     "description": "Shared Perseus infrastructure",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "19.0.2",
+    "version": "19.0.3",
     "publishConfig": {
         "access": "public"
     },

@@ -4,10 +4,11 @@
  *    This will be the definition of the active feature flags in Perseus
  *    that will hide features/changes under development. This will be used
  *    by flags of APIOptions type.
- * 2. Do cleanup unused feature flags
- * 3. When no active feature flag is available value will be:
+ * 2. Also add the new flag in front-end repo's perseus-feature-flags.ts file
+ * 3. Do cleanup unused feature flags
+ * 4. When no active feature flag is available value will be:
  *    export const PerseusFeatureFlags = [];
- * 4. Also update the testing/feature-flags-util.ts for testing purpose
+ * 5. Also update the testing/feature-flags-util.ts for testing purpose
  */
 const PerseusFeatureFlags = [
     "new-radio-widget", // TODO(LEMS-2994): cleanup feature flag

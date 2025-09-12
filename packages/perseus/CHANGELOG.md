@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 69.0.1
+
+### Patch Changes
+
+-   [#2875](https://github.com/Khan/perseus/pull/2875) [`510d8353a8`](https://github.com/Khan/perseus/commit/510d8353a8a9ac516db726eda984a51b9f50db9a) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Revert fix for iOS mobile hover issue when use is dragging the screen left or right
+
+*   [#2879](https://github.com/Khan/perseus/pull/2879) [`ec311052a5`](https://github.com/Khan/perseus/commit/ec311052a5d5a1070c4b97ab3997e2a6742da898) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive graph] Fix polygon angles' shape and size
+
+-   [#2888](https://github.com/Khan/perseus/pull/2888) [`681b844932`](https://github.com/Khan/perseus/commit/681b844932f65776970c7ebdcad187309072c05e) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: editing number of division threw an error due to onChange
+
+*   [#2880](https://github.com/Khan/perseus/pull/2880) [`b9d7626ebf`](https://github.com/Khan/perseus/commit/b9d7626ebf9b919cfe849e71c0a133a80ffdc779) Thanks [@nishasy](https://github.com/nishasy)! - Add a dependency to @khanacademy/wonder-blocks-modal
+
+-   [#2882](https://github.com/Khan/perseus/pull/2882) [`09fe1009ec`](https://github.com/Khan/perseus/commit/09fe1009ec8dfb9c9df59ef47e68d2e008d78675) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix ScrollableView when in RTL the scroll buttons are not working properly
+
+-   Updated dependencies [[`e1ab9b541d`](https://github.com/Khan/perseus/commit/e1ab9b541d2558e1c7e95650a06d50035aadc1b7), [`a31ee79a46`](https://github.com/Khan/perseus/commit/a31ee79a46a82ee487d88c145b65f7de60af1059)]:
+    -   @khanacademy/perseus-core@19.0.3
+    -   @khanacademy/keypad-context@3.2.5
+    -   @khanacademy/kmath@2.2.5
+    -   @khanacademy/math-input@26.2.5
+    -   @khanacademy/perseus-linter@4.3.5
+    -   @khanacademy/perseus-score@7.7.5
+
 ## 69.0.0
 
 ### Major Changes

@@ -10,7 +10,7 @@ import {
 } from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1} from "./number-line.testdata";
+import {question1, tickCtrl} from "./number-line.testdata";
 
 import type {APIOptions} from "../../types";
 import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
@@ -185,7 +185,7 @@ describe("number-line widget", () => {
         });
     });
 
-    describe("button controls", () => {
+    describe("controls", () => {
         let userEvent: UserEvent;
         beforeEach(() => {
             userEvent = userEventLib.setup({
@@ -257,6 +257,30 @@ describe("number-line widget", () => {
             // when we hit "make circle open"
             expect(preUserInput["number-line 1"].rel).toBe("ge");
             expect(postUserInput["number-line 1"].rel).toBe("gt");
+        });
+
+        // Regression (LEMS-3530)
+        test("can have its divisions edited", async () => {
+            renderQuestion(tickCtrl);
+
+            let tickCtrlInput: HTMLInputElement = screen.getByRole("textbox", {
+                name: "Number of divisions:",
+            }) as HTMLInputElement;
+
+            expect(tickCtrlInput.value).toBe("1");
+
+            await userEvent.clear(tickCtrlInput);
+            await userEvent.type(tickCtrlInput, "10");
+
+            expect(
+                screen.queryByText("Rendering Error!"),
+            ).not.toBeInTheDocument();
+
+            tickCtrlInput = screen.getByRole("textbox", {
+                name: "Number of divisions:",
+            }) as HTMLInputElement;
+
+            expect(tickCtrlInput.value).toBe("10");
         });
     });
 
