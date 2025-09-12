@@ -28,6 +28,8 @@ type Story = StoryObj<typeof ImageWidget>;
 
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
+const frescsoLongDescription =
+    "In the apse, or semicircular recess, The Offer of the Casa Madre to Victory (L’Offerta della Casa Madre alla Vittoria) fresco recalls medieval apse decorative schemes with Christ surrounded by saints to whom the Church is dedicated. Santagata replaced Mary with a triumphant and wingless figure representing Victory, and he replaced saints with sentries. The charismatic wounded veteran Carlo Delcroix, who became the AMNIG president, is depicted presenting a model of the Casa Madre to Victory (not unlike the medieval patron Enrico Scrovegni, who offered the Arena chapel he commissioned to the Virgin Mary).\n\nThis image has some stuff in it. *Here is some italic text.* **Here is some bold text.**";
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
@@ -54,7 +56,6 @@ const rendererDecorator = (_, {args, parameters}) => {
 const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
     component: ImageWidget,
-    tags: ["!dev"],
     parameters: {
         chromatic: {disableSnapshot: false},
     },
@@ -123,13 +124,6 @@ export const ImageWithTitle: Story = {
     },
 };
 
-export const ImageWithZoom: Story = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: frescoImage,
-    },
-};
-
 export const MobileImageAll: Story = {
     decorators: [rendererDecorator, mobileDecorator],
     args: {
@@ -181,13 +175,6 @@ export const MobileImageWithTitle: Story = {
     args: {
         backgroundImage: earthMoonImage,
         title: "Earth and Moon",
-    },
-};
-
-export const MobileImageWithZoom: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
-    args: {
-        backgroundImage: frescoImage,
     },
 };
 
@@ -258,7 +245,7 @@ export const RightToLeftImage: Story = {
         title: "The Offer of the Casa Madre to Victory, 1932",
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
-        longDescription: "This is a *very* long description of the fresco.",
+        longDescription: frescsoLongDescription,
         backgroundImage: frescoImage,
     },
 };
@@ -278,7 +265,7 @@ export const RightToLeftImageMobile: Story = {
         title: "The Offer of the Casa Madre to Victory, 1932",
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
-        longDescription: "This is a *very* long description of the fresco.",
+        longDescription: frescsoLongDescription,
         backgroundImage: frescoImage,
     },
 };

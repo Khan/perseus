@@ -49,18 +49,14 @@ export const ImageDescriptionAndCaption = (
         <div className={styles.descriptionAndCaptionContainer}>
             {/* Description */}
             {imageUpgradeFF && longDescription && (
-                // TODO(LEMS-3439): Remove this `exploreButtonContainer` div
-                // in order to show the explore button on mobile.
-                <div className={styles.exploreButtonContainer}>
-                    <ModalLauncher modal={ExploreImageModal(props)}>
-                        {({openModal}) => (
-                            <ExploreImageButton
-                                hasCaption={!!caption}
-                                onClick={openModal}
-                            />
-                        )}
-                    </ModalLauncher>
-                </div>
+                <ModalLauncher modal={ExploreImageModal(props)}>
+                    {({openModal}) => (
+                        <ExploreImageButton
+                            hasCaption={!!caption}
+                            onClick={openModal}
+                        />
+                    )}
+                </ModalLauncher>
             )}
 
             {/* Caption */}

@@ -1,6 +1,7 @@
 :root {
     /* Undo the default padding for the top of the modal. */
     --modal-padding-offset: calc(-1 * var(--wb-sizing-size_320));
+    --modal-padding-offset-mobile: calc(-1 * var(--wb-sizing-size_160));
     /* Fixed px values from the design. */
     --modal-panel-height: 568px;
     --modal-description-container-width: 420px;
@@ -74,14 +75,27 @@
     padding-block-end: var(--wb-sizing-size_240);
 }
 
-/* Temprarily hiding the explore button on mobile while we still need
-    to implement the mobile version of this modal.
-    Also NOTE: It looks like this 767px is hardcoded in CSS files.
+/* NOTE: It looks like this 767px is hardcoded in CSS files.
     It can be found in packages/perseus/src/styles/constants.ts as
     a breakpoint constant to be used in jsx/tsx files. */
-/* TODO(LEMS-3439): Display the explore button in mobile.  */
 @media (max-width: 767px) {
-    .explore-button-container {
-        display: none;
+    .modal-panel-container {
+        flex-direction: column;
+        margin-inline: var(--modal-padding-offset-mobile);
+        /* Allow mobile photo to stretch to the edges of the modal. */
+        padding: 0;
+        overflow-y: auto;
+        height: auto;
+    }
+
+    .modal-image-container {
+        height: auto;
+    }
+
+    .modal-description-container {
+        margin-block: var(--wb-sizing-size_120);
+        padding: var(--wb-sizing-size_120);
+        width: auto;
+        overflow-y: visible;
     }
 }
