@@ -35,7 +35,7 @@ const defaultProps = {
     apiOptions: ApiOptions.defaults,
 };
 
-describe("ImageExplorationModal", () => {
+describe("ExploreImageModal", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,

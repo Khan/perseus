@@ -9,7 +9,7 @@ import styles from "./image-stories.module.css";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof ExploreImageModal> = {
-    title: "Widgets/Image/Widget Internal Components/ImageExplorationModal",
+    title: "Widgets/Image/Widget Internal Components/ExploreImageModal",
     component: ExploreImageModal,
     decorators: [
         (Story) => (
