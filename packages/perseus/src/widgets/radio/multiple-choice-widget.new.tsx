@@ -311,7 +311,11 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
         // reviewMode, isStatic, and showSolutions === "all". We may wish to
         // differentiate between the two in the future, depending on the outcomes
         // of the Perseus GUTC project.
-        const isReviewMode = reviewMode || isStatic || showSolutions === "all";
+        const isReviewMode =
+            reviewMode ||
+            isStatic ||
+            showSolutions === "all" ||
+            showSolutions === "selected"; // International languages use "selected", whereas English uses "all"
 
         const onChoiceChange =
             apiOptions.readOnly || isReviewMode ? () => {} : handleChoiceChange;
