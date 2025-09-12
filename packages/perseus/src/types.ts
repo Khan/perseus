@@ -159,6 +159,18 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
+export type GenerateUrlContext =
+    | "image_loader"
+    | "python_program:program_url"
+    | "video";
+
+export type GenerateUrlArgs = {
+    url: string;
+    context: GenerateUrlContext;
+};
+
+export type GenerateUrlFn = (args: GenerateUrlArgs) => string;
+
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -282,6 +294,13 @@ export type APIOptions = Readonly<{
      * Define the feature flag name in packages/perseus-core/src/feature-flags.ts
      */
     flags?: Record<(typeof PerseusFeatureFlags)[number], boolean>;
+    /**
+     * A function that takes a URL or partial url and may modify it to return
+     * the full URL. This may be used to request a resource from a different
+     * app to where the widget is rendered, like when embedding a video from
+     * khanacademy.org inside KAC.
+     */
+    generateUrl?: GenerateUrlFn;
 }>;
 
 type TeXProps = {

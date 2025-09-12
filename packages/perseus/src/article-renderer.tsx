@@ -14,6 +14,7 @@ import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import UserInputManager from "./user-input-manager";
 import Util from "./util";
+import {GenerateUrlContext} from "./util/use-generate-url";
 
 import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -276,7 +277,11 @@ class ArticleRenderer
         return (
             <div className={classes}>
                 <DependenciesContext.Provider value={this.props.dependencies}>
-                    {sections}
+                    <GenerateUrlContext.Provider
+                        value={this.props.apiOptions.generateUrl}
+                    >
+                        {sections}
+                    </GenerateUrlContext.Provider>
                 </DependenciesContext.Provider>
             </div>
         );

@@ -5,21 +5,20 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {toAbsoluteUrl} from "../../util/url-utils";
+import {withGenerateUrl} from "../../components/with-generate-url";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/python-ai-utils";
 
-import type {Widget, WidgetExports} from "../../types";
+import type {GenerateUrlFn, Widget, WidgetExports} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-function getUrlFromProgramID(programID: any) {
-    const path = `/python-program/${programID}/embedded`;
-
-    return toAbsoluteUrl(path);
+function getPathFromProgramID(programID: any) {
+    return `/python-program/${programID}/embedded`;
 }
 
 type Props = {
     programID: string;
     height: number;
+    generateUrl: GenerateUrlFn;
 };
 
 type DefaultProps = {
@@ -39,7 +38,13 @@ class PythonProgram extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
-        const url = getUrlFromProgramID(this.props.programID);
+        const path = getPathFromProgramID(this.props.programID);
+
+        const url = this.props.generateUrl({
+            url: path,
+            context: "python_program:program_url",
+        });
+
         const iframeStyle = {
             height: this.props.height,
             width: "100%",
@@ -77,8 +82,10 @@ const styles = StyleSheet.create({
     },
 });
 
+const WrappedPythonProgram = withGenerateUrl(PythonProgram);
+
 export default {
     name: "python-program",
     displayName: "Python Program",
-    widget: PythonProgram,
-} satisfies WidgetExports<typeof PythonProgram>;
+    widget: WrappedPythonProgram,
+} satisfies WidgetExports<typeof WrappedPythonProgram>;
