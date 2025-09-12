@@ -1,19 +1,39 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
-import Button from "@khanacademy/wonder-blocks-button";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
-import infoIconBold from "@phosphor-icons/core/bold/info-bold.svg";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
-import Renderer from "../../renderer";
+import {PerseusI18nContext} from "../../../components/i18n-context";
+import Renderer from "../../../renderer";
+import styles from "../image-widget.module.css";
 
-import {ImageExplorationModal} from "./image-exploration-modal";
-import styles from "./image-widget.module.css";
+import ExploreImageButton from "./explore-image-button";
+import {ExploreImageModal} from "./explore-image-modal";
 
-import type {Props} from "./image.class";
+import type {APIOptions} from "../../../types";
+import type {
+    Interval,
+    PerseusImageBackground,
+    PerseusImageLabel,
+    Size,
+} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-export const ImageDescriptionAndCaption = (props: Props) => {
+export interface ImageDescriptionAndCaptionProps {
+    backgroundImage: PerseusImageBackground;
+    title: string;
+    caption: string;
+    alt: string;
+    longDescription: string;
+    box: Size;
+    labels: Array<PerseusImageLabel>;
+    range: [Interval, Interval];
+    linterContext: LinterContextProps;
+    apiOptions: APIOptions;
+}
+
+export const ImageDescriptionAndCaption = (
+    props: ImageDescriptionAndCaptionProps,
+) => {
     const {
         caption,
         longDescription,
@@ -28,8 +48,8 @@ export const ImageDescriptionAndCaption = (props: Props) => {
     return (
         <div className={styles.descriptionAndCaptionContainer}>
             {/* Description */}
-            {longDescription && imageUpgradeFF && (
-                <ModalLauncher modal={ImageExplorationModal(props)}>
+            {imageUpgradeFF && longDescription && (
+                <ModalLauncher modal={ExploreImageModal(props)}>
                     {({openModal}) => (
                         <ExploreImageButton
                             hasCaption={!!caption}
@@ -60,31 +80,3 @@ export const ImageDescriptionAndCaption = (props: Props) => {
         </div>
     );
 };
-
-function ExploreImageButton({
-    hasCaption,
-    onClick,
-}: {
-    hasCaption: boolean;
-    onClick: () => void;
-}) {
-    const context = React.useContext(PerseusI18nContext);
-    if (!hasCaption) {
-        return (
-            <Button kind="secondary" startIcon={infoIconBold} onClick={onClick}>
-                {context.strings.imageExploreButton}
-            </Button>
-        );
-    }
-
-    return (
-        <IconButton
-            aria-label={context.strings.imageExploreButton}
-            icon={infoIconBold}
-            kind="secondary"
-            onClick={onClick}
-            // Stop the icon button from getting squished.
-            style={{flexShrink: 0}}
-        />
-    );
-}

@@ -3,6 +3,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: var(--wb-sizing-size_200);
     background-color: var(--wb-semanticColor-core-background-neutral-default);
 }

@@ -1,76 +1,18 @@
-import {FlexibleDialog} from "@khanacademy/wonder-blocks-modal";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
-import React from "react";
+import * as React from "react";
 
-import AssetContext from "../../asset-context";
-import {SvgImage} from "../../components";
-import {PerseusI18nContext} from "../../components/i18n-context";
-import Renderer from "../../renderer";
+import AssetContext from "../../../asset-context";
+import {SvgImage} from "../../../components";
+import {PerseusI18nContext} from "../../../components/i18n-context";
+import Renderer from "../../../renderer";
+import styles from "../image-widget.module.css";
 
-import styles from "./image-widget.module.css";
-
-import type {APIOptions} from "../../types";
-import type {
-    Interval,
-    PerseusImageBackground,
-    PerseusImageLabel,
-    Size,
-} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {ImageDescriptionAndCaptionProps} from "./image-description-and-caption";
 
 const MODAL_HEIGHT = 568;
 
-interface Props {
-    backgroundImage: PerseusImageBackground;
-    title: string;
-    caption: string;
-    alt: string;
-    longDescription: string;
-    box: Size;
-    labels: Array<PerseusImageLabel>;
-    range: [Interval, Interval];
-    linterContext: LinterContextProps;
-    apiOptions: APIOptions;
-}
-
-export const ImageExplorationModal = (props: Props) => {
-    const context = React.useContext(PerseusI18nContext);
-    return (
-        <div
-            // We need to manually add the `framework-perseus` class so that
-            // the modal can have the correct styling, even when the portal
-            // makes it render outside the normal `framework-perseus` container.
-            className={`framework-perseus ${styles.modalContainer}`}
-        >
-            <FlexibleDialog
-                title={
-                    <h1
-                        className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
-                    >
-                        {/* Use Renderer so that the title can support markdown and TeX. */}
-                        <Renderer
-                            content={
-                                props.title
-                                    ? props.title
-                                    : context.strings.imageAlternativeTitle
-                            }
-                            apiOptions={props.apiOptions}
-                            linterContext={props.linterContext}
-                            strings={context.strings}
-                        />
-                    </h1>
-                }
-                content={<ImageExplorationModalContent {...props} />}
-                styles={{
-                    root: wbStyles.root,
-                }}
-            />
-        </div>
-    );
-};
-
-const ImageExplorationModalContent = ({
+export default function ExploreImageModalContent({
     backgroundImage,
     caption,
     alt,
@@ -80,7 +22,7 @@ const ImageExplorationModalContent = ({
     box,
     labels,
     range,
-}: Props) => {
+}: ImageDescriptionAndCaptionProps) {
     const context = React.useContext(PerseusI18nContext);
 
     if (
@@ -153,13 +95,11 @@ const ImageExplorationModalContent = ({
             </div>
         </div>
     );
-};
+}
 
+// TODO: Use CSS modules after Wonder Blocks styles
+// are moved to a different layer.
 const wbStyles = {
-    root: {
-        borderRadius: sizing.size_120,
-        maxWidth: "100%",
-    },
     descriptionHeading: {
         marginBlockEnd: sizing.size_160,
     },
