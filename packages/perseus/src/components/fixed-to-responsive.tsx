@@ -27,6 +27,9 @@ type Props = {
     className?: string;
     constrainHeight?: boolean;
     allowFullBleed?: boolean;
+    // Check if the component is within an Image widget. This is used to
+    // determine if the spacer should be rendered. The spacer causes
+    // a disruptive amount of space for Image widgets in certain cases.
     withinImageWidget?: boolean;
 };
 
@@ -117,8 +120,6 @@ class FixedToResponsive extends React.Component<Props, State> {
         );
 
         let {width, height} = this.props;
-        // eslint-disable-next-line no-console
-        console.log("within image widget", this.props.withinImageWidget);
 
         // Constrain height to be at most 2/3 viewport height, maintaining
         // aspect ratio.
@@ -144,6 +145,7 @@ class FixedToResponsive extends React.Component<Props, State> {
 
         const container = (
             <div className={className} style={style}>
+                {/* The spacer is only for the non-Image widgets (i.e. Video) */}
                 {!this.props.withinImageWidget && spacer}
                 {this.props.children}
             </div>

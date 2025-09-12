@@ -157,8 +157,14 @@ class ImageLoader extends React.Component<Props, State> {
                 src={staticUrl(src)}
                 onKeyUp={onKeyUp}
                 onKeyDown={onKeyDown}
-                width={imgProps.style?.width ?? "100%"}
-                height={imgProps.style?.height ?? "100%"}
+                // Stop the image size from being larger than 100%
+                // when width and height are not explicitly provided.
+                style={
+                    imgProps.style ?? {
+                        width: "100%",
+                        height: "100%",
+                    }
+                }
                 {...imgProps}
             />
         );
