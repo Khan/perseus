@@ -29,6 +29,7 @@ import type {RefObject} from "react";
 export type Params = {
     gestureTarget: RefObject<Element>;
     onMove: (point: vec.Vector2) => unknown;
+    onDragEnd?: () => unknown;
     point: vec.Vector2;
     constrainKeyboardMovement: KeyboardMovementConstraint;
 };
@@ -57,6 +58,7 @@ export function useDraggable(args: Params): DragState {
     const {
         gestureTarget: target,
         onMove,
+        onDragEnd,
         point,
         constrainKeyboardMovement,
     } = args;
@@ -154,6 +156,10 @@ export function useDraggable(args: Params): DragState {
                 const {last, movement: pixelMovement, first} = state;
 
                 setDragging(!last);
+
+                if (last && onDragEnd) {
+                    onDragEnd();
+                }
 
                 if (first) {
                     pickup.current = vec.transform(point, userTransform);
