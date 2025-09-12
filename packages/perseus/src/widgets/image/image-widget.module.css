@@ -1,7 +1,6 @@
 :root {
-    /* Undo the default padding for the top of the modal. We need to use
-       px to make sure it's the exact same value as the original padding. */
-    --modal-padding-offset: -32px;
+    /* Undo the default padding for the top of the modal. */
+    --modal-padding-offset: calc(-1 * var(--wb-sizing-size_320));
     /* Fixed px values from the design. */
     --modal-panel-height: 568px;
     --modal-description-container-width: 420px;
