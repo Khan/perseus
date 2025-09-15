@@ -1,5 +1,26 @@
 # @khanacademy/perseus
 
+## 69.1.0
+
+### Minor Changes
+
+-   [#2863](https://github.com/Khan/perseus/pull/2863) [`8775764175`](https://github.com/Khan/perseus/commit/877576417507a011d3e6a975f0101b3afafc78a6) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add `longDescription` to Image widget ("Explore image" button + modal)
+
+### Patch Changes
+
+-   [#2893](https://github.com/Khan/perseus/pull/2893) [`bd30f2828c`](https://github.com/Khan/perseus/commit/bd30f2828c8ae0ef4d401fc516ec49fe2b8270c5) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove onChange from UniversalWidgetProps
+
+*   [#2889](https://github.com/Khan/perseus/pull/2889) [`1e3888f76c`](https://github.com/Khan/perseus/commit/1e3888f76c731e9dae46b8b15c322493eb96d9ad) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Removes remnants of crossed out prop in new radio
+
+*   Updated dependencies [[`8775764175`](https://github.com/Khan/perseus/commit/877576417507a011d3e6a975f0101b3afafc78a6), [`46b71965bb`](https://github.com/Khan/perseus/commit/46b71965bb0c098b874b12ac6ccdb859f5979624), [`abd72b25fa`](https://github.com/Khan/perseus/commit/abd72b25fae24a2233c9da8de1541fbe86280419)]:
+    -   @khanacademy/perseus-core@19.1.0
+    -   @khanacademy/kas@2.1.1
+    -   @khanacademy/keypad-context@3.2.6
+    -   @khanacademy/kmath@2.2.6
+    -   @khanacademy/math-input@26.2.6
+    -   @khanacademy/perseus-linter@4.3.6
+    -   @khanacademy/perseus-score@7.7.6
+
 ## 69.0.1
 
 ### Patch Changes

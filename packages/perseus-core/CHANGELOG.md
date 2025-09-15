@@ -1,5 +1,18 @@
 # @khanacademy/perseus-core
 
+## 19.1.0
+
+### Minor Changes
+
+-   [#2863](https://github.com/Khan/perseus/pull/2863) [`8775764175`](https://github.com/Khan/perseus/commit/877576417507a011d3e6a975f0101b3afafc78a6) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add `longDescription` to Image widget ("Explore image" button + modal)
+
+### Patch Changes
+
+-   [#2892](https://github.com/Khan/perseus/pull/2892) [`abd72b25fa`](https://github.com/Khan/perseus/commit/abd72b25fae24a2233c9da8de1541fbe86280419) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add helpful comment to lint the front-end change related to adding a new feature flag
+
+-   Updated dependencies [[`46b71965bb`](https://github.com/Khan/perseus/commit/46b71965bb0c098b874b12ac6ccdb859f5979624)]:
+    -   @khanacademy/kas@2.1.1
+
 ## 19.0.3
 
 ### Patch Changes
