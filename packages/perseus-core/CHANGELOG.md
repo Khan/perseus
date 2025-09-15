@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 19.2.0
+
+### Minor Changes
+
+-   [#2883](https://github.com/Khan/perseus/pull/2883) [`d0eff84625`](https://github.com/Khan/perseus/commit/d0eff846251ca73a881950d88c9ff08ed54ba726) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add `longDescription` to Image widget ("Explore image" button + modal) for mobile
+
 ## 19.1.0
 
 ### Minor Changes
