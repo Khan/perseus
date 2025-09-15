@@ -6,6 +6,7 @@ import {question} from "../definition.testdata";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
+import {themeModes} from "../../../../../../.storybook/modes";
 
 type StoryArgs = {
     // Story Option
@@ -30,7 +31,7 @@ export default {
                     "Regression tests for the definition widget that DO need some sort of interaction to test, which will be used with Chromatic. Stories are displayed on their own page.",
             },
         },
-        chromatic: {disableSnapshot: false},
+        chromatic: {disableSnapshot: false, modes: themeModes},
     },
     args: {
         static: false,
