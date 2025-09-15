@@ -498,6 +498,8 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                 y={top}
                 onClick={(event) => {
                     // If any point is currently dragging, don't add a new point
+                    // This is to prevent the phantom clicks on iOS that would add
+                    // a new point when the user is dragging a point.
                     if (isCurrentlyDragging) {
                         return;
                     }
@@ -550,7 +552,8 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                 );
                             }}
                             onDragEnd={() => {
-                                // Reset after iOS phantom click timing
+                                // Update the state after iOS phantom click timing,
+                                // which occurs up to 350ms after the drag ends
                                 setTimeout(() => {
                                     setIsCurrentlyDragging(false);
                                 }, 400);
