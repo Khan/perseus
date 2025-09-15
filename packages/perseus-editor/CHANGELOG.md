@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 27.5.8
+
+### Patch Changes
+
+-   [#2896](https://github.com/Khan/perseus/pull/2896) [`952312b7e9`](https://github.com/Khan/perseus/commit/952312b7e96948f59a675a095f94b2ea32d4d717) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Cleanup unused underscore imports
+
+-   Updated dependencies [[`952312b7e9`](https://github.com/Khan/perseus/commit/952312b7e96948f59a675a095f94b2ea32d4d717), [`d0eff84625`](https://github.com/Khan/perseus/commit/d0eff846251ca73a881950d88c9ff08ed54ba726), [`9a9d4f9369`](https://github.com/Khan/perseus/commit/9a9d4f9369ef93158a3f3c7d106d337b67745e24)]:
+    -   @khanacademy/perseus@69.2.0
+    -   @khanacademy/perseus-core@19.2.0
+    -   @khanacademy/keypad-context@3.2.7
+    -   @khanacademy/kmath@2.2.7
+    -   @khanacademy/math-input@26.2.7
+    -   @khanacademy/perseus-linter@4.3.7
+    -   @khanacademy/perseus-score@7.7.7
+
 ## 27.5.7
 
 ### Patch Changes
