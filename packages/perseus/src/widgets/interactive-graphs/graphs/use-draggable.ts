@@ -157,6 +157,9 @@ export function useDraggable(args: Params): DragState {
 
                 setDragging(!last);
 
+                // If the drag has ended, call the onDragEnd callback.
+                // This is used to help prevent phantom clicks on iOS by
+                // allowing graphs to update their state after the drag ends.
                 if (last && onDragEnd) {
                     onDragEnd();
                 }

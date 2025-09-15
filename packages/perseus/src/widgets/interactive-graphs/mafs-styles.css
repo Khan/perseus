@@ -75,7 +75,7 @@
     cursor: grab;
     touch-action: none;
     outline: none;
-    /* Disable iOS grey highlight rectangle as it creates a weird visual artifact when dragging */
+    /* Disable iOS grey highlight rectangle as it creates a weird visual artifact when dragging points */
     -webkit-tap-highlight-color: transparent;
 }
 

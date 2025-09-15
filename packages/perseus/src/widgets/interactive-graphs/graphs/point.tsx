@@ -121,6 +121,8 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                 y={top}
                 onClick={(event) => {
                     // If any point is currently dragging, don't add a new point
+                    // This is to prevent the phantom clicks on iOS that would add
+                    // a new point when the user is dragging a point.
                     if (isCurrentlyDragging) {
                         return;
                     }
@@ -148,7 +150,8 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                         dispatch(actions.pointGraph.movePoint(i, destination));
                     }}
                     onDragEnd={() => {
-                        // Reset after iOS phantom click timing (WebKit docs show up to 350ms delay)
+                        // Update the state after iOS phantom click timing,
+                        // which occurs up to 350ms after the drag ends
                         setTimeout(() => {
                             setIsCurrentlyDragging(false);
                         }, 400);
