@@ -1,4 +1,5 @@
 import {angles, geometry} from "@khanacademy/kmath";
+import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
@@ -427,7 +428,15 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {coords, closedPolygon} = statefulProps.graphState;
     const {strings, locale} = usePerseusI18n();
     const {interactiveColor} = useGraphConfig();
+
+    // When users drag a point on iOS Safari, the browser fires a click event after the mouseup
+    // at the original click location, which would add an unwanted new point. We track drag
+    // state and delay clearing it to block these phantom clicks (LEMS-2873)
     const [isCurrentlyDragging, setIsCurrentlyDragging] = useState(false);
+    const dragEndCallbackTimer = useTimeout(
+        () => setIsCurrentlyDragging(false),
+        400, // Safari Webkit has up to a 350ms delay before a click event is fired
+    );
 
     const id = React.useId();
     const polygonPointsNumId = id + "-points-num";
@@ -497,9 +506,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                 x={left}
                 y={top}
                 onClick={(event) => {
-                    // If any point is currently dragging, don't add a new point
-                    // This is to prevent the phantom clicks on iOS that would add
-                    // a new point when the user is dragging a point.
+                    // Prevent adding points during drag operations (iOS phantom click fix)
                     if (isCurrentlyDragging) {
                         return;
                     }
@@ -552,11 +559,8 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                 );
                             }}
                             onDragEnd={() => {
-                                // Update the state after iOS phantom click timing,
-                                // which occurs up to 350ms after the drag ends
-                                setTimeout(() => {
-                                    setIsCurrentlyDragging(false);
-                                }, 400);
+                                // Start timer to reset drag state after delay
+                                dragEndCallbackTimer.set();
                             }}
                             ref={(ref) => {
                                 pointsRef.current[i] = ref;
