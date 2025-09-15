@@ -12,7 +12,6 @@ import Util from "../util";
 import {loadGraphie} from "../util/graphie-utils";
 import * as Zoom from "../zoom";
 
-import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import ImageLoader from "./image-loader";
 
@@ -23,12 +22,6 @@ import type {Alignment, Size} from "@khanacademy/perseus-core";
 
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;
-
-function isImageProbablyPhotograph(imageUrl) {
-    // TODO(david): Do an inventory to refine this heuristic. For example, what
-    //     % of .png images are illustrations?
-    return /\.(jpg|jpeg)$/i.test(imageUrl);
-}
 
 function defaultPreloader(dimensions: Dimensions) {
     return (
@@ -483,16 +476,7 @@ class SvgImage extends React.Component<Props, State> {
                 imageProps.onClick = this._handleZoomClick;
 
                 return (
-                    <FixedToResponsive
-                        className={wrapperClasses}
-                        width={width}
-                        height={height}
-                        constrainHeight={this.props.constrainHeight}
-                        allowFullBleed={
-                            this.props.allowFullBleed &&
-                            isImageProbablyPhotograph(imageSrc)
-                        }
-                    >
+                    <div className={wrapperClasses}>
                         <ImageLoader
                             src={imageSrc}
                             imgProps={imageProps}
@@ -500,7 +484,7 @@ class SvgImage extends React.Component<Props, State> {
                             onUpdate={this.handleUpdate}
                         />
                         {extraGraphie}
-                    </FixedToResponsive>
+                    </div>
                 );
             }
             imageProps.style = dimensions;
@@ -559,12 +543,7 @@ class SvgImage extends React.Component<Props, State> {
 
         if (responsive) {
             return (
-                <FixedToResponsive
-                    className="svg-image"
-                    width={width}
-                    height={height}
-                    constrainHeight={this.props.constrainHeight}
-                >
+                <div className="svg-image">
                     <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
@@ -574,7 +553,7 @@ class SvgImage extends React.Component<Props, State> {
                     />
                     {graphie}
                     {extraGraphie}
-                </FixedToResponsive>
+                </div>
             );
         }
         imageProps.style = dimensions;

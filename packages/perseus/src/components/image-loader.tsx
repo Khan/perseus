@@ -158,6 +158,12 @@ class ImageLoader extends React.Component<Props, State> {
                 onKeyUp={onKeyUp}
                 onKeyDown={onKeyDown}
                 {...imgProps}
+                style={
+                    imgProps.style ?? {
+                        width: "100%",
+                        height: "100%",
+                    }
+                }
             />
         );
     };

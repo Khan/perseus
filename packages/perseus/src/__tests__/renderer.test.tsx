@@ -346,35 +346,6 @@ describe("renderer", () => {
             },
         );
 
-        it("should wrap image to be responsive if not in table and dimensions provided", () => {
-            // Arrange
-            const question = {
-                content:
-                    "One image with dimensions that isn't in a table.\n\n" +
-                    "![This image has dimensions](https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg)",
-                images: {
-                    "https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg":
-                        {height: 410, width: 420},
-                },
-                widgets: {},
-            } as const;
-            renderQuestion(question);
-
-            // Act
-            markImagesAsLoaded();
-
-            // Assert
-            const imageNodes = screen.queryAllByAltText(
-                "This image has dimensions",
-            );
-            expect(imageNodes).toHaveLength(1);
-
-            // eslint-disable-next-line testing-library/no-node-access
-            expect(imageNodes[0].parentElement).toHaveClass(
-                "fixed-to-responsive",
-            );
-        });
-
         it("should not wrap image to be responsive if not in table and no dimensions provided", () => {
             // Arrange
             const question = {
@@ -401,36 +372,6 @@ describe("renderer", () => {
             expect(imageNodes[0].parentElement).not.toHaveClass(
                 "fixed-to-responsive",
             );
-        });
-
-        it("should add dimensions to wrapper, if provided", () => {
-            // Arrange
-            const question = {
-                content:
-                    "One image with dimensions.\n\n" +
-                    "![This image has dimensions](https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg)",
-                images: {
-                    "https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg":
-                        {height: 410, width: 420},
-                },
-                widgets: {},
-            } as const;
-            renderQuestion(question);
-
-            // Act
-            markImagesAsLoaded();
-
-            // Assert
-            expect(
-                screen.queryAllByAltText("This image has dimensions"),
-            ).toHaveLength(1);
-
-            const wrapperStyle = getComputedStyle(
-                // @ts-expect-error - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
-                screen.getByAltText("This image has dimensions").parentElement, // eslint-disable-line testing-library/no-node-access
-            );
-            expect(wrapperStyle.maxWidth).toBe("420px");
-            expect(wrapperStyle.maxHeight).toBe("410px");
         });
 
         it("should not add dimensions to wrapper, if not provided", () => {

@@ -22,12 +22,8 @@ exports[`group widget should snapshot: initial render 1`] = `
               class="paragraph"
             >
               <div
-                class="fixed-to-responsive svg-image"
-                style="max-width: 428px; max-height: 480px;"
+                class="svg-image"
               >
-                <div
-                  style="padding-bottom: 112.14999999999999%;"
-                />
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                 >
@@ -841,12 +837,8 @@ exports[`group widget should snapshot: initial render 1`] = `
                             style="max-width: 380px;"
                           >
                             <div
-                              class="fixed-to-responsive svg-image"
-                              style="max-width: 380px; max-height: 80px;"
+                              class="svg-image"
                             >
-                              <div
-                                style="padding-bottom: 21.05%;"
-                              />
                               <span
                                 style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                               >
