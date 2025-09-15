@@ -159,7 +159,7 @@ class SvgImage extends React.Component<Props, State> {
         scale: 1,
         zoomToFullSizeOnMobile: false,
         setAssetStatus: (src: string, status: boolean) => {},
-        renderSpacer: false,
+        renderSpacer: true,
     };
 
     constructor(props: Props) {
