@@ -29,14 +29,14 @@ type Props = {
     allowFullBleed?: boolean;
     // This is used to determine if the spacer should be rendered. The spacer
     // can cause a disruptive amount of space for Image widgets in certain cases.
-    removeSpacer?: boolean;
+    renderSpacer?: boolean;
 };
 
 type DefaultProps = {
     className: Props["className"];
     constrainHeight: Props["constrainHeight"];
     allowFullBleed: Props["allowFullBleed"];
-    removeSpacer: Props["removeSpacer"];
+    renderSpacer: Props["renderSpacer"];
 };
 
 type State = {
@@ -51,7 +51,7 @@ class FixedToResponsive extends React.Component<Props, State> {
         className: "",
         constrainHeight: false,
         allowFullBleed: false,
-        removeSpacer: false,
+        renderSpacer: true,
     };
 
     state: State = {
@@ -147,7 +147,7 @@ class FixedToResponsive extends React.Component<Props, State> {
 
         const container = (
             <div className={className} style={style}>
-                {!this.props.removeSpacer && spacer}
+                {this.props.renderSpacer && spacer}
                 {this.props.children}
             </div>
         );
