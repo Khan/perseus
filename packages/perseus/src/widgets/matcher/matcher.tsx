@@ -29,7 +29,6 @@ type DefaultProps = {
     orderMatters: Props["orderMatters"];
     padding: Props["padding"];
     problemNum: Props["problemNum"];
-    onChange: Props["onChange"];
     linterContext: Props["linterContext"];
     userInput: Props["userInput"];
 };
@@ -49,7 +48,6 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         orderMatters: false,
         padding: true,
         problemNum: 0,
-        onChange: function () {},
         linterContext: linterContextDefault,
         userInput: {
             left: [],
