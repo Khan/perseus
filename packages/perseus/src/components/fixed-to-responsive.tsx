@@ -27,17 +27,16 @@ type Props = {
     className?: string;
     constrainHeight?: boolean;
     allowFullBleed?: boolean;
-    // Check if the component is within an Image widget. This is used to
-    // determine if the spacer should be rendered. The spacer causes
-    // a disruptive amount of space for Image widgets in certain cases.
-    withinImageWidget?: boolean;
+    // This is used to determine if the spacer should be rendered. The spacer
+    // can cause a disruptive amount of space for Image widgets in certain cases.
+    removeSpacer?: boolean;
 };
 
 type DefaultProps = {
     className: Props["className"];
     constrainHeight: Props["constrainHeight"];
     allowFullBleed: Props["allowFullBleed"];
-    withinImageWidget: Props["withinImageWidget"];
+    removeSpacer: Props["removeSpacer"];
 };
 
 type State = {
@@ -52,7 +51,7 @@ class FixedToResponsive extends React.Component<Props, State> {
         className: "",
         constrainHeight: false,
         allowFullBleed: false,
-        withinImageWidget: false,
+        removeSpacer: false,
     };
 
     state: State = {
@@ -147,7 +146,7 @@ class FixedToResponsive extends React.Component<Props, State> {
         const container = (
             <div className={className} style={style}>
                 {/* The spacer is only for the non-Image widgets (i.e. Video) */}
-                {!this.props.withinImageWidget && spacer}
+                {!this.props.removeSpacer && spacer}
                 {this.props.children}
             </div>
         );
