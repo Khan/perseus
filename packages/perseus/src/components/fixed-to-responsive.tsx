@@ -28,7 +28,8 @@ type Props = {
     constrainHeight?: boolean;
     allowFullBleed?: boolean;
     // This is used to determine if the spacer should be rendered. The spacer
-    // can cause a disruptive amount of space for Image widgets in certain cases.
+    // can cause a disruptive amount of space for Image widgets in certain
+    // cases (e.g. mobile Image widget within Grouped questions).
     renderSpacer?: boolean;
 };
 
