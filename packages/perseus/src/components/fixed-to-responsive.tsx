@@ -110,6 +110,8 @@ class FixedToResponsive extends React.Component<Props, State> {
         // the width of the containing block, so:
         //     (fixed height / fixed width) * display width = display height
         // Based on http://refills.bourbon.io/components/#video && medium.com
+        // TODO(LEMS-3549): Remove spacer once we figure out the best way
+        // to approach spacing with modern recommended practices.
         const spacer = (
             <div
                 style={{
@@ -145,7 +147,6 @@ class FixedToResponsive extends React.Component<Props, State> {
 
         const container = (
             <div className={className} style={style}>
-                {/* The spacer is only for the non-Image widgets (i.e. Video) */}
                 {!this.props.removeSpacer && spacer}
                 {this.props.children}
             </div>
