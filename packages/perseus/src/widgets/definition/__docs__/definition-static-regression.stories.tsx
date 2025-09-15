@@ -1,12 +1,13 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
-import {storybookDependenciesV2} from "../../../../../../testing/test-dependencies";
-import type {StoryObj} from "@storybook/react-vite";
-import {article, question} from "../definition.testdata";
-import ArticleRenderer from "../../../article-renderer";
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
-import {themeModes} from "../../../../../../.storybook/modes";
 
+import {themeModes} from "../../../../../../.storybook/modes";
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {storybookDependenciesV2} from "../../../../../../testing/test-dependencies";
+import ArticleRenderer from "../../../article-renderer";
+import {article, question} from "../definition.testdata";
+
+import type {StoryObj} from "@storybook/react-vite";
 
 type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 

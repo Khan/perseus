@@ -1,9 +1,10 @@
-import type {PerseusItem} from "@khanacademy/perseus-core";
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {question} from "../definition.testdata";
+
+import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
 
 type StoryArgs = {
