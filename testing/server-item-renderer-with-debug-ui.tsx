@@ -2,12 +2,15 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {KeypadContext} from "../packages/keypad-context/src/keypad-context";
+import {PerseusI18nContextProvider} from "../packages/perseus/src/components/i18n-context";
 import {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
+import {mockStrings} from "../packages/perseus/src/strings";
 
 import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
 import {DebugHeader} from "./debug-header";
 import {useItemRenderer} from "./item-renderer-hooks";
+import {DEFAULT_LOCALE} from "./locales";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
@@ -46,6 +49,7 @@ export const ServerItemRendererWithDebugUI = ({
         options,
         toggleMobile,
         toggleRtl,
+        setLocale,
         updateJson,
         handleReset,
         handleSkip,
@@ -57,6 +61,7 @@ export const ServerItemRendererWithDebugUI = ({
         startAnswerless,
         reviewMode,
         showSolutions,
+        DEFAULT_LOCALE,
     );
 
     return (
@@ -72,8 +77,10 @@ export const ServerItemRendererWithDebugUI = ({
                         title={title}
                         isMobile={state.isMobile}
                         isRtl={state.isRtl}
+                        locale={state.locale}
                         onToggleRtl={toggleRtl}
                         onToggleMobile={toggleMobile}
+                        onLocaleChange={setLocale}
                     />
 
                     {/* Item renderer */}
@@ -81,27 +88,33 @@ export const ServerItemRendererWithDebugUI = ({
                         className={state.isMobile ? "perseus-mobile" : ""}
                         dir={state.isRtl ? "rtl" : "ltr"}
                     >
-                        <KeypadContext.Consumer>
-                            {({keypadElement}) => (
-                                <ServerItemRenderer
-                                    key={state.key}
-                                    ref={ref}
-                                    problemNum={0}
-                                    score={state.score}
-                                    apiOptions={options}
-                                    item={state.perseusItem}
-                                    dependencies={storybookDependenciesV2}
-                                    keypadElement={keypadElement}
-                                    linterContext={linterContext}
-                                    showSolutions={state.showSolutions}
-                                    hintsVisible={state.hintsVisible}
-                                    reviewMode={
-                                        (state.score && state.score?.correct) ||
-                                        false
-                                    }
-                                />
-                            )}
-                        </KeypadContext.Consumer>
+                        <PerseusI18nContextProvider
+                            strings={mockStrings}
+                            locale={state.locale}
+                        >
+                            <KeypadContext.Consumer>
+                                {({keypadElement}) => (
+                                    <ServerItemRenderer
+                                        key={state.key}
+                                        ref={ref}
+                                        problemNum={0}
+                                        score={state.score}
+                                        apiOptions={options}
+                                        item={state.perseusItem}
+                                        dependencies={storybookDependenciesV2}
+                                        keypadElement={keypadElement}
+                                        linterContext={linterContext}
+                                        showSolutions={state.showSolutions}
+                                        hintsVisible={state.hintsVisible}
+                                        reviewMode={
+                                            (state.score &&
+                                                state.score?.correct) ||
+                                            false
+                                        }
+                                    />
+                                )}
+                            </KeypadContext.Consumer>
+                        </PerseusI18nContextProvider>
                     </div>
 
                     {/* Debug accordion UI */}
