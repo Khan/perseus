@@ -10,7 +10,6 @@ import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {useId} from "react";
-import _ from "underscore";
 
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";

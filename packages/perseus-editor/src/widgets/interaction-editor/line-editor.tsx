@@ -6,7 +6,6 @@ import {
     KhanColors,
 } from "@khanacademy/perseus";
 import * as React from "react";
-import _ from "underscore";
 
 import ArrowPicker from "./arrow-picker";
 import ColorPicker from "./color-picker";

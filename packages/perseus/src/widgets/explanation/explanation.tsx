@@ -5,7 +5,6 @@ import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
