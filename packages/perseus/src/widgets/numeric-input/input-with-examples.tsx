@@ -103,10 +103,10 @@ const InputWithExamples = forwardRef<Focusable, Props>(
             const examplesAria = shouldShowExamples
                 ? `${props.examples[0]}
                    ${props.examples.slice(1).join(", or\n")}`
-                      .replaceAll("*", "")
-                      .replaceAll("$", "")
-                      .replaceAll("\\ \\text{pi}", " pi")
-                      .replaceAll("\\ ", " and ")
+                      .replace(/\*/g, "")
+                      .replace(/\$/g, "")
+                      .replace(/\\ \\text{pi}/g, " pi")
+                      .replace(/\\ /g, " and ")
                 : "";
 
             const inputProps = {
