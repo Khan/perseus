@@ -29,6 +29,7 @@
         "@khanacademy/wonder-blocks-popover": "catalog:devDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:devDeps",
         "@khanacademy/wonder-blocks-theming": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-timing": "catalog:devDeps",
         "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
         "@khanacademy/wonder-blocks-typography": "catalog:devDeps",
         "@phosphor-icons/core": "catalog:devDeps",
