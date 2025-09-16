@@ -4,9 +4,13 @@
 
 import * as React from "react";
 
-import {getDependencies} from "../dependencies";
+import {
+    GenerateUrlContext,
+    type Dimensions,
+    type PerseusDependenciesV2,
+} from "../types";
 
-import type {Dimensions} from "../types";
+import {withDependencies} from "./with-dependencies";
 
 const Status = {
     PENDING: "pending",
@@ -34,6 +38,7 @@ type Props = {
     onUpdate: (status: (typeof Status)[keyof typeof Status]) => void;
     preloader: (() => React.ReactNode) | null | undefined;
     src: string;
+    dependencies: PerseusDependenciesV2;
 };
 
 type State = {
@@ -140,7 +145,6 @@ class ImageLoader extends React.Component<Props, State> {
                 }
             };
         }
-        const staticUrl = getDependencies().staticUrl;
 
         // If the image is interactive, it should have a role of "button"
         // to indicate that it is interactive.
@@ -154,7 +158,10 @@ class ImageLoader extends React.Component<Props, State> {
                 // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO(LEMS-2871): Address a11y error
                 tabIndex={0}
                 role={imageRole}
-                src={staticUrl(src)}
+                src={this.props.dependencies.generateUrl({
+                    url: src,
+                    context: GenerateUrlContext.IMAGE_LOADER_IMAGE_URL,
+                })}
                 onKeyUp={onKeyUp}
                 onKeyDown={onKeyDown}
                 // Stop the image size from being larger than 100%
@@ -190,4 +197,4 @@ class ImageLoader extends React.Component<Props, State> {
     }
 }
 
-export default ImageLoader;
+export default withDependencies(ImageLoader);

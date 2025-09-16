@@ -8,13 +8,20 @@ import _ from "underscore";
 
 import FixedToResponsive from "../../components/fixed-to-responsive";
 import {PerseusI18nContext} from "../../components/i18n-context";
+import {withDependencies} from "../../components/with-dependencies";
 import {getDependencies} from "../../dependencies";
+import {
+    type PerseusDependenciesV2,
+    type Widget,
+    type WidgetExports,
+    type WidgetProps,
+    GenerateUrlContext,
+} from "../../types";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
-import type {APIOptions, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusVideoWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -29,7 +36,7 @@ const IS_VIMEO = /(vimeo\.com)/;
 
 type Props = WidgetProps<PerseusVideoWidgetOptions> & {
     alignment: string; // Where does this get set?
-    apiOptions: APIOptions;
+    dependencies: PerseusDependenciesV2;
 };
 
 /**
@@ -78,11 +85,10 @@ class Video extends React.Component<Props> implements Widget {
             url = url.replace("{host}", embedHostname);
         }
 
-        url =
-            this.props.apiOptions.generateUrl?.({
-                url,
-                widget: "video",
-            }) ?? url;
+        url = this.props.dependencies.generateUrl({
+            url,
+            context: GenerateUrlContext.VIDEO_VIDEO_URL,
+        });
 
         return (
             <View>
@@ -117,8 +123,10 @@ class Video extends React.Component<Props> implements Widget {
     }
 }
 
+const WrappedVideo = withDependencies(Video);
+
 export default {
     name: "video",
     displayName: "Video",
-    widget: Video,
-} satisfies WidgetExports<typeof Video>;
+    widget: WrappedVideo,
+} satisfies WidgetExports<typeof WrappedVideo>;
