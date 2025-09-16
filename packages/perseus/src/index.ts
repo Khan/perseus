@@ -190,6 +190,8 @@ export type {
     DomInsertCheckFn,
     EditorMode,
     FocusPath,
+    GenerateUrlArgs,
+    GenerateUrlContext,
     ImageDict,
     ImageUploader,
     JiptLabelStore,
