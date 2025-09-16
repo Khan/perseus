@@ -1,3 +1,4 @@
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import AssetContext from "../../asset-context";
@@ -25,6 +26,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         trackInteraction,
     } = props;
     const context = React.useContext(PerseusI18nContext);
+    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     if (!backgroundImage.url) {
         return null;
@@ -76,7 +78,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             </AssetContext.Consumer>
 
             {/* Description & Caption */}
-            {(caption || longDescription) && (
+            {(caption || (longDescription && imageUpgradeFF)) && (
                 <ImageDescriptionAndCaption {...props} />
             )}
         </figure>
