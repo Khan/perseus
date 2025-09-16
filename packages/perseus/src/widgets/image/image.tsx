@@ -78,7 +78,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             </AssetContext.Consumer>
 
             {/* Description & Caption */}
-            {(caption || (longDescription && imageUpgradeFF)) && (
+            {(caption || (imageUpgradeFF && longDescription)) && (
                 <ImageDescriptionAndCaption {...props} />
             )}
         </figure>
