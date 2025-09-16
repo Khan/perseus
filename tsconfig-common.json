@@ -3,6 +3,11 @@
 {
     "compilerOptions": {
         /* Language and Environment */
+        /* This is not quite the latest we _could_ support based on Khan
+         * Academy's supported browser list. We intentionally choose to use a
+         * slightly older JS version to allow the JS to run, unbroken in
+         * recently unsupported browsers.
+         */
         "target": "ES2020",
         "jsx": "preserve",
         /* Modules */
