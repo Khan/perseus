@@ -1,0 +1,54 @@
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
+import {themeModes} from "../../../../../../.storybook/modes";
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+
+import type {Meta} from "@storybook/react-vite";
+import {question1} from "../explanation.testdata";
+
+const meta: Meta = {
+    title: "Widgets/Explanation/Visual Regression Tests/Interactive",
+    component: ServerItemRendererWithDebugUI,
+    tags: ["!autodocs"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "Regression tests for the Explanatin widget that DO need some sort of interaction to test, which will be used with Chromatic. Stories are displayed on their own page.",
+            },
+        },
+        chromatic: {disableSnapshot: false, modes: themeModes},
+    },
+};
+
+export default meta;
+
+export const FocusedState = {
+    args: {
+        item: generateTestPerseusItem({
+            question: question1,
+        }),
+    },
+    play: async ({canvas}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const explanationTrigger = canvas.getByRole("button", {
+            name: "Explanation",
+        });
+        explanationTrigger.focus();
+    },
+};
+
+export const ClickedState = {
+    args: {
+        item: generateTestPerseusItem({
+            question: question1,
+        }),
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const explanationTrigger = canvas.getByRole("button", {
+            name: "Explanation",
+        });
+        await userEvent.click(explanationTrigger);
+    },
+};
