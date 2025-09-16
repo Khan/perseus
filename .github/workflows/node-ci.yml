@@ -100,7 +100,7 @@ jobs:
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   extensions: ".js,.jsx,.ts,.tsx"
-                  files: "pnpm-lock.yaml"
+                  files: "pnpm-lock.yaml,tsconfig-build.json,tsconfig-common.json,tsconfig.json,packages/tsconfig-shared.json"
 
             - id: eslint-reset
               uses: Khan/actions@filter-files-v1
