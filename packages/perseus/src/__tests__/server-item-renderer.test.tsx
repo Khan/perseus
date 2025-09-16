@@ -646,10 +646,8 @@ describe("server item renderer", () => {
             ).toBeInTheDocument();
 
             // make sure we're showing rationales
-            for (let i = 0; i < 4; i++) {
-                expect(
-                    screen.getByText(`Rationale ${i + 1}`),
-                ).toBeInTheDocument();
+            for (let i = 1; i <= 4; i++) {
+                expect(screen.getByText(`Rationale ${i}`)).toBeInTheDocument();
             }
         });
     });
