@@ -88,10 +88,9 @@ function main(argv: string[]) {
     // package version compatible with the one we install in dev.
     for (const pkgName of ourPeerDeps) {
         if (!clientCatalog.has(pkgName)) {
-            // TODO(benchristel): throw an error here instead of ignoring the
-            // package. If the client doesn't provide a package that we need as
-            // a peer dep, it's not safe to deploy Perseus!
-            continue;
+            throw Error(
+                `Perseus needs ${pkgName} as a peer dep, but the client app doesn't provide it`,
+            );
         }
         ourWorkspace.catalogs.peerDeps[pkgName] =
             `^${clientCatalog.minimumVersionOf(pkgName)}`;
