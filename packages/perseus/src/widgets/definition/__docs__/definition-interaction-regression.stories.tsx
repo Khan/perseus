@@ -4,7 +4,7 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {question} from "../definition.testdata";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Meta} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Definition/Visual Regression Tests/Interactive",
@@ -22,8 +22,6 @@ const meta: Meta = {
 };
 
 export default meta;
-
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 export const FocusedState = {
     args: {
