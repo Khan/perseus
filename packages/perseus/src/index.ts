@@ -182,6 +182,7 @@ export {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
  */
 export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
+export {GenerateUrlContext} from "./types";
 export type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -191,7 +192,6 @@ export type {
     EditorMode,
     FocusPath,
     GenerateUrlArgs,
-    GenerateUrlContext,
     ImageDict,
     ImageUploader,
     JiptLabelStore,
