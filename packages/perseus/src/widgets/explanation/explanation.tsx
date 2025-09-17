@@ -8,15 +8,12 @@ import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
-import {sharedInitializeUserInput} from "../../user-input-manager";
+import UserInputManager from "../../user-input-manager";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
-import type {
-    PerseusExplanationUserInput,
-    PerseusExplanationWidgetOptions,
-} from "@khanacademy/perseus-core";
+import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<PerseusExplanationWidgetOptions>;
 
@@ -146,20 +143,37 @@ class Explanation extends React.Component<Props, State> implements Widget {
                             testId="content-container"
                         >
                             <View style={styles.contentWrapper}>
-                                <Renderer
-                                    apiOptions={this.props.apiOptions}
-                                    content={this.props.explanation}
+                                <UserInputManager
                                     widgets={this.props.widgets}
-                                    linterContext={this.props.linterContext}
-                                    strings={this.context.strings}
-                                    userInput={this.props.userInput}
-                                    handleUserInput={(widgetId, userInput) => {
-                                        this.props.handleUserInput({
-                                            ...this.props.userInput,
-                                            [widgetId]: userInput,
-                                        });
+                                    problemNum={0}
+                                >
+                                    {({
+                                        userInput,
+                                        handleUserInput,
+                                        initializeUserInput,
+                                    }) => {
+                                        return (
+                                            <Renderer
+                                                apiOptions={
+                                                    this.props.apiOptions
+                                                }
+                                                content={this.props.explanation}
+                                                widgets={this.props.widgets}
+                                                linterContext={
+                                                    this.props.linterContext
+                                                }
+                                                strings={this.context.strings}
+                                                userInput={userInput}
+                                                handleUserInput={
+                                                    handleUserInput
+                                                }
+                                                initializeUserInput={
+                                                    initializeUserInput
+                                                }
+                                            />
+                                        );
                                     }}
-                                />
+                                </UserInputManager>
                             </View>
                         </View>
                     </>
@@ -221,16 +235,9 @@ const styles = StyleSheet.create({
     },
 });
 
-function getStartUserInput(
-    options: PerseusExplanationWidgetOptions,
-    problemNum: number,
-): PerseusExplanationUserInput {
-    return sharedInitializeUserInput(options.widgets, problemNum);
-}
 export default {
     name: "explanation",
     displayName: "Explanation",
     widget: Explanation,
     isLintable: true,
-    getStartUserInput,
 } satisfies WidgetExports<typeof Explanation>;
