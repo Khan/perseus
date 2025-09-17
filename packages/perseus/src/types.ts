@@ -159,12 +159,10 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
-// Convert this to an enum, so webapp can swtich on context and make sure it handles all the cases.
-export enum GenerateUrlContext {
-    IMAGE_LOADER_IMAGE_URL = "image_loader:image_url",
-    PYTHON_PROGRAM_PROGRAM_URL = "python_program:program_url",
-    VIDEO_VIDEO_URL = "video:video_url",
-}
+type GenerateUrlContext =
+    | "image_loader:image_url"
+    | "python_program:program_url"
+    | "video:video_url";
 
 export type GenerateUrlArgs = {
     url: string;
@@ -404,8 +402,8 @@ export interface PerseusDependenciesV2 {
     /**
      * A function that takes a URL or partial url and may modify it to return
      * the full URL. This may be used to request a resource from a different
-     * app to where the widget is rendered, like when embedding a video from
-     * khanacademy.org inside KAC.
+     * app to where the widget is rendered, like when embedding a video
+     * cross-domain.
      */
     generateUrl: (args: GenerateUrlArgs) => string;
 

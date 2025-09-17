@@ -15,7 +15,6 @@ import {
     type Widget,
     type WidgetExports,
     type WidgetProps,
-    GenerateUrlContext,
 } from "../../types";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
@@ -87,7 +86,7 @@ class Video extends React.Component<Props> implements Widget {
 
         url = this.props.dependencies.generateUrl({
             url,
-            context: GenerateUrlContext.VIDEO_VIDEO_URL,
+            context: "video:video_url",
         });
 
         return (

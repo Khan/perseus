@@ -10,7 +10,6 @@ import {
     type PerseusDependenciesV2,
     type Widget,
     type WidgetExports,
-    GenerateUrlContext,
 } from "../../types";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/python-ai-utils";
@@ -48,9 +47,9 @@ class PythonProgram extends React.Component<Props> implements Widget {
     render(): React.ReactNode {
         let url = getUrlFromProgramID(this.props.programID);
         url =
-            this.props.dependencies.generateUrl?.({
+            this.props.dependencies.generateUrl({
                 url,
-                context: GenerateUrlContext.PYTHON_PROGRAM_PROGRAM_URL,
+                context: "python_program:program_url",
             }) ?? url;
 
         const iframeStyle = {

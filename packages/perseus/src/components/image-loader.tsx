@@ -4,11 +4,7 @@
 
 import * as React from "react";
 
-import {
-    GenerateUrlContext,
-    type Dimensions,
-    type PerseusDependenciesV2,
-} from "../types";
+import {type Dimensions, type PerseusDependenciesV2} from "../types";
 
 import {withDependencies} from "./with-dependencies";
 
@@ -160,7 +156,7 @@ class ImageLoader extends React.Component<Props, State> {
                 role={imageRole}
                 src={this.props.dependencies.generateUrl({
                     url: src,
-                    context: GenerateUrlContext.IMAGE_LOADER_IMAGE_URL,
+                    context: "image_loader:image_url",
                 })}
                 onKeyUp={onKeyUp}
                 onKeyDown={onKeyDown}
