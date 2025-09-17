@@ -5,7 +5,6 @@ import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
@@ -98,7 +97,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
         };
 
         const labelStyle = {
-            fontSize: "18px",
+            fontSize: "1.8rem",
             lineHeight: "inherit",
             "text-align": "left",
             // The following property adjusts the large space between the button text and the caret icon.
