@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 27.6.0
+
+### Minor Changes
+
+-   [#2908](https://github.com/Khan/perseus/pull/2908) [`d60a719785`](https://github.com/Khan/perseus/commit/d60a7197855d8c05c45ba272d89b7057cf9e3503) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) (a11y) | Add long description field to Image widget editor
+
+### Patch Changes
+
+-   Updated dependencies [[`d60a719785`](https://github.com/Khan/perseus/commit/d60a7197855d8c05c45ba272d89b7057cf9e3503), [`1ec4595857`](https://github.com/Khan/perseus/commit/1ec4595857d2ca28ab9f011c6e2fcdb29a3d7140), [`79a6fc682b`](https://github.com/Khan/perseus/commit/79a6fc682b5a6674383b3e609f34c5efa8ffe4ec)]:
+    -   @khanacademy/perseus@69.3.0
+
 ## 27.5.8
 
 ### Patch Changes
