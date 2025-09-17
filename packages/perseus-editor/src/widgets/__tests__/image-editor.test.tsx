@@ -3,6 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import ImageEditor from "../image-editor/image-editor";
 
@@ -13,7 +14,10 @@ const realKhanImageUrl =
 const nonKhanImageWarning =
     "Images must be from sites hosted by Khan Academy. Please input a Khan Academy-owned address, or use the Add Image tool to rehost an existing image";
 
-const apiOptions = ApiOptions.defaults;
+const apiOptions = {
+    ...ApiOptions.defaults,
+    flags: getFeatureFlags({"image-widget-upgrade": true}),
+};
 
 describe("image editor", () => {
     let userEvent: UserEvent;
@@ -43,6 +47,7 @@ describe("image editor", () => {
         expect(screen.queryByText("Preview:")).not.toBeInTheDocument();
         expect(screen.queryByText("Dimensions:")).not.toBeInTheDocument();
         expect(screen.queryByText("Alt text:")).not.toBeInTheDocument();
+        expect(screen.queryByText("Long Description:")).not.toBeInTheDocument();
         expect(screen.queryByText("Caption:")).not.toBeInTheDocument();
     });
 
@@ -55,6 +60,7 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={{url: realKhanImageUrl}}
                 alt="Earth and moon alt"
+                longDescription="Earth and moon long description"
                 caption="Earth and moon caption"
                 title="Earth and moon title"
                 onChange={() => {}}
@@ -64,6 +70,9 @@ describe("image editor", () => {
         const dimensionsLabel = screen.getByText("Dimensions:");
         const urlField = screen.getByRole("textbox", {name: "Image url:"});
         const altField = screen.getByRole("textbox", {name: "Alt text:"});
+        const longDescriptionField = screen.getByRole("textbox", {
+            name: "Long Description:",
+        });
         const captionField = screen.getByRole("textbox", {name: "Caption:"});
         const titleField = screen.getByRole("textbox", {name: "Title:"});
 
@@ -71,12 +80,16 @@ describe("image editor", () => {
         expect(dimensionsLabel).toBeInTheDocument();
         expect(urlField).toBeInTheDocument();
         expect(altField).toBeInTheDocument();
+        expect(longDescriptionField).toBeInTheDocument();
         expect(captionField).toBeInTheDocument();
         expect(titleField).toBeInTheDocument();
 
         expect(screen.getByText("unknown")).toBeInTheDocument();
         expect(urlField).toHaveValue(realKhanImageUrl);
         expect(altField).toHaveValue("Earth and moon alt");
+        expect(longDescriptionField).toHaveValue(
+            "Earth and moon long description",
+        );
         expect(captionField).toHaveValue("Earth and moon caption");
         expect(titleField).toHaveValue("Earth and moon title");
     });
@@ -256,6 +269,71 @@ describe("image editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith({
             alt: "",
         });
+    });
+
+    it("should call onChange with new long description", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditor
+                apiOptions={apiOptions}
+                backgroundImage={{url: realKhanImageUrl}}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const altField = screen.getByRole("textbox", {
+            name: "Long Description:",
+        });
+        altField.focus();
+        await userEvent.paste("Earth and moon long description");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            longDescription: "Earth and moon long description",
+        });
+    });
+
+    it("should call onChange with empty long description", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditor
+                apiOptions={apiOptions}
+                backgroundImage={{url: realKhanImageUrl}}
+                longDescription="Earth and moon long description"
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const altField = screen.getByRole("textbox", {
+            name: "Long Description:",
+        });
+        await userEvent.clear(altField);
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            longDescription: "",
+        });
+    });
+
+    it("should not render long description field if the feature flag is off", () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditor
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    flags: getFeatureFlags({"image-widget-upgrade": false}),
+                }}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Assert
+        expect(screen.queryByText("Long Description:")).not.toBeInTheDocument();
     });
 
     it("should call onChange with new caption", async () => {

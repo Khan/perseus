@@ -1,4 +1,5 @@
 import {Util, components} from "@khanacademy/perseus";
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -14,7 +15,9 @@ const {InfoTip} = components;
 export default function ImageSettings({
     alt,
     backgroundImage,
+    apiOptions,
     caption,
+    longDescription,
     title,
     onChange,
 }: Props) {
@@ -22,6 +25,9 @@ export default function ImageSettings({
     const altId = `${uniqueId}-alt`;
     const titleId = `${uniqueId}-title`;
     const captionId = `${uniqueId}-caption`;
+    const longDescriptionId = `${uniqueId}-long-description`;
+
+    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     if (!backgroundImage.url) {
         return null;
@@ -92,6 +98,21 @@ export default function ImageSettings({
                 onChange={(value) => onChange({alt: value})}
                 style={textAreaStyle}
             />
+
+            {imageUpgradeFF && (
+                <>
+                    {/* Long Description */}
+                    <HeadingXSmall tag="label" htmlFor={longDescriptionId}>
+                        Long Description:
+                    </HeadingXSmall>
+                    <AutoResizingTextArea
+                        id={longDescriptionId}
+                        value={longDescription ?? ""}
+                        onChange={(value) => onChange({longDescription: value})}
+                        style={textAreaStyle}
+                    />
+                </>
+            )}
 
             {/* Title */}
             <HeadingXSmall tag="label" htmlFor={titleId}>
