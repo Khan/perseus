@@ -1,3 +1,4 @@
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -15,7 +16,6 @@ import type {
     KeypadKey,
 } from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 
 const AnimationDurationInMS = 200;
 
