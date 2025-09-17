@@ -44,6 +44,7 @@ import type {
     PerseusGraphCorrectType,
     MakeWidgetMap,
     PerseusFreeResponseWidgetScoringCriterion,
+    PerseusExplanationWidgetOptions,
 } from "./data-schema";
 import type {Relationship} from "./types";
 
@@ -108,6 +109,10 @@ export type PerseusDropdownUserInput = {
     value: number;
 };
 
+export type PerseusExplanationRubric = PerseusExplanationWidgetOptions;
+export type PerseusExplanationUserInput = UserInputMap;
+export type PerseusExplanationValidationData = {widgets: ValidationDataMap};
+
 export type PerseusExpressionRubric = {
     answerForms: Array<PerseusExpressionAnswerForm>;
     functions: string[];
@@ -116,6 +121,7 @@ export type PerseusExpressionRubric = {
 export type PerseusExpressionUserInput = string;
 
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
+
 export type PerseusGroupValidationData = {widgets: ValidationDataMap};
 export type PerseusGroupUserInput = UserInputMap;
 
@@ -287,6 +293,7 @@ export interface RubricRegistry {
     categorizer: PerseusCategorizerRubric;
     dropdown: PerseusDropdownRubric;
     expression: PerseusExpressionRubric;
+    explanation: PerseusExplanationRubric;
     "graded-group-set": PerseusGradedGroupSetRubric;
     "graded-group": PerseusGradedGroupRubric;
     grapher: PerseusGrapherRubric;
@@ -333,6 +340,7 @@ interface UserInputRegistry {
     categorizer: PerseusCategorizerUserInput;
     "cs-program": PerseusCSProgramUserInput;
     dropdown: PerseusDropdownUserInput;
+    explanation: PerseusExplanationUserInput;
     expression: PerseusExpressionUserInput;
     "free-response": PerseusFreeResponseUserInput;
     grapher: PerseusGrapherUserInput;
