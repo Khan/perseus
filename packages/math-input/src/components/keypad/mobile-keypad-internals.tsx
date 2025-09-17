@@ -15,6 +15,7 @@ import type {
     KeypadKey,
 } from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 
 const AnimationDurationInMS = 200;
 
@@ -180,7 +181,11 @@ class MobileKeypadInternals
         const convertDotToTimes = keypadConfig?.times;
 
         return (
-            <View style={containerStyle} forwardRef={this._containerRef}>
+            <View
+                data-testid="perseus-mobile-keypad"
+                style={containerStyle}
+                forwardRef={this._containerRef}
+            >
                 <AphroditeCssTransitionGroup
                     transitionEnterTimeout={AnimationDurationInMS}
                     transitionLeaveTimeout={AnimationDurationInMS}
@@ -243,6 +248,11 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         position: "fixed",
+        // Having the border will make the experience consistent with the desktop
+        // keypad which has a border.
+        borderStyle: "solid",
+        borderWidth: 1,
+        borderColor: semanticColor.core.border.neutral.subtle,
     },
 });
 
