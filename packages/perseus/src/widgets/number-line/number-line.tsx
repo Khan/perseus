@@ -261,7 +261,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
 
     isValid: () => boolean = () => {
         const range = this.props.range;
-        let initialX = this.props.userInput.numLinePosition;
+        let initialX = this.props.userInput?.numLinePosition;
         const divisionRange = this.props.divisionRange;
 
         initialX = initialX == null ? range[0] : initialX;
@@ -271,7 +271,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             knumber.sign(initialX - range[0]) >= 0 &&
             knumber.sign(initialX - range[1]) <= 0 &&
             divisionRange[0] < divisionRange[1] &&
-            0 < this.props.userInput.numDivisions &&
+            0 < this.props.userInput?.numDivisions &&
             0 < this.getSnapDivisions()
         );
     };
@@ -639,9 +639,10 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         const {strings} = this.context;
         const divisionRange = this.props.divisionRange;
         const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
+
         const invalidNumDivisions =
-            this.props.userInput.numDivisions < divisionRange[0] ||
-            this.props.userInput.numDivisions > divisionRange[1];
+            this.props.userInput?.numDivisions < divisionRange[0] ||
+            this.props.userInput?.numDivisions > divisionRange[1];
 
         const inequalityControls = (
             <div>
@@ -655,7 +656,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                     type="button"
                     className="simple-button"
                     value={
-                        ["le", "ge"].includes(this.props.userInput.rel)
+                        ["le", "ge"].includes(this.props.userInput?.rel)
                             ? strings.circleOpen
                             : strings.circleFilled
                     }
@@ -682,7 +683,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                             this.state.numDivisionsEmpty
                                 ? null
                                 : // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                                  this.props.userInput.numDivisions ||
+                                  this.props.userInput?.numDivisions ||
                                   divisionRange[0]
                         }
                         checkValidity={(val) =>
