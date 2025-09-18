@@ -2,15 +2,7 @@ import {
     generateImageOptions,
     generateImageWidget,
     generateTestPerseusRenderer,
-    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
-import * as React from "react";
-
-import {ApiOptions} from "../../perseus-api";
-import Renderer from "../../renderer";
-import {mockStrings} from "../../strings";
-import UserInputManager from "../../user-input-manager";
 
 export const question = generateTestPerseusRenderer({
     content:
@@ -54,45 +46,25 @@ export const questionWithZoom = generateTestPerseusRenderer({
 export const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
 
-export function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
-    const {question} = props;
-    return (
-        <UserInputManager widgets={question.widgets} problemNum={0}>
-            {({userInput, handleUserInput, initializeUserInput}) => (
-                <Renderer
-                    userInput={userInput}
-                    handleUserInput={handleUserInput}
-                    initializeUserInput={initializeUserInput}
-                    strings={mockStrings}
-                    content={question.content}
-                    widgets={question.widgets}
-                    images={question.images}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: getFeatureFlags({"image-widget-upgrade": true}),
-                    }}
-                />
-            )}
-        </UserInputManager>
-    );
-}
-
-// Breaking this out instead of using it globally, so that the
-// right-to-left story can wrap the ImageQuestionRenderer with the
-// right-to-left wrapper.
-export const rendererDecorator = (_, {args, parameters}) => {
-    return (
-        <ImageQuestionRenderer
-            question={generateTestPerseusRenderer({
-                content: parameters?.content ?? "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            ...args,
-                        }),
-                    }),
-                },
-            })}
-        />
-    );
-};
+// export function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
+//     const {question} = props;
+//     return (
+//         <UserInputManager widgets={question.widgets} problemNum={0}>
+//             {({userInput, handleUserInput, initializeUserInput}) => (
+//                 <Renderer
+//                     userInput={userInput}
+//                     handleUserInput={handleUserInput}
+//                     initializeUserInput={initializeUserInput}
+//                     strings={mockStrings}
+//                     content={question.content}
+//                     widgets={question.widgets}
+//                     images={question.images}
+//                     apiOptions={{
+//                         ...ApiOptions.defaults,
+//                         flags: getFeatureFlags({"image-widget-upgrade": true}),
+//                     }}
+//                 />
+//             )}
+//         </UserInputManager>
+//     );
+// }
