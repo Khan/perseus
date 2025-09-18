@@ -1,26 +1,11 @@
 import {testDependenciesV2} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1, question2} from "./video.testdata";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../../types";
 
 describe("video widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
-            ...testDependenciesV2,
-            useVideo: (id, kind) => {
-                return {
-                    status: "success",
-                    data: {
-                        video: null,
-                    },
-                };
-            },
-        });
-    });
-
     it("should snapshot", () => {
         // Arrange
         const apiOptions: APIOptions = {
@@ -79,6 +64,24 @@ describe("video widget", () => {
         // eslint-disable-next-line testing-library/no-node-access
         expect(document.getElementsByTagName("iframe")[0].src).toContain(
             "dnt=1",
+        );
+    });
+
+    it("video widget should call the generateUrl dependency to set the iframe src", () => {
+        // Arrange
+        const dependencies: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            generateUrl: (args) => {
+                return "https://www.khanacademy.org/my-test-url";
+            },
+        };
+
+        // Act
+        renderQuestion(question1, {}, {}, {}, dependencies);
+
+        // Assert
+        expect(document.getElementsByTagName("iframe")[0].src).toEqual(
+            "https://www.khanacademy.org/my-test-url",
         );
     });
 });
