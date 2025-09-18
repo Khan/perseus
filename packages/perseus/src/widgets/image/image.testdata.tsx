@@ -1,7 +1,7 @@
 import {
-    generateTestPerseusRenderer,
     generateImageOptions,
     generateImageWidget,
+    generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 export const question = generateTestPerseusRenderer({
@@ -42,3 +42,29 @@ export const questionWithZoom = generateTestPerseusRenderer({
         }),
     },
 });
+
+export const earthMoonImageCaption =
+    "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
+
+// export function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
+//     const {question} = props;
+//     return (
+//         <UserInputManager widgets={question.widgets} problemNum={0}>
+//             {({userInput, handleUserInput, initializeUserInput}) => (
+//                 <Renderer
+//                     userInput={userInput}
+//                     handleUserInput={handleUserInput}
+//                     initializeUserInput={initializeUserInput}
+//                     strings={mockStrings}
+//                     content={question.content}
+//                     widgets={question.widgets}
+//                     images={question.images}
+//                     apiOptions={{
+//                         ...ApiOptions.defaults,
+//                         flags: getFeatureFlags({"image-widget-upgrade": true}),
+//                     }}
+//                 />
+//             )}
+//         </UserInputManager>
+//     );
+// }
