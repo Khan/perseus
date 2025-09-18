@@ -17,7 +17,7 @@ import {mockStrings} from "../../strings";
 import UserInputManager from "../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -30,6 +30,7 @@ export const renderQuestion = (
     apiOptions: APIOptions = Object.freeze({}),
     extraProps?: ExtraProps,
     initialUserInput?: UserInputMap,
+    dependencies?: PerseusDependenciesV2,
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
@@ -42,7 +43,9 @@ export const renderQuestion = (
     let renderer: Perseus.Renderer | null = null;
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
-            <DependenciesContext.Provider value={testDependenciesV2}>
+            <DependenciesContext.Provider
+                value={dependencies || testDependenciesV2}
+            >
                 <RendererWrapper
                     ref={(node) => (renderer = node)}
                     question={question as any}
