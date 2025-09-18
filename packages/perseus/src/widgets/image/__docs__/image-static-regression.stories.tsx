@@ -8,9 +8,10 @@ import {
     mobileDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
-import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
-import type {Meta, StoryObj} from "@storybook/react-vite";
 import {earthMoonImageCaption, rendererDecorator} from "../image.testdata";
+import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
+
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const ImageWidget = getWidget("image")!;
 

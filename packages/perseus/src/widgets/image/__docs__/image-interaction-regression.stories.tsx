@@ -1,9 +1,9 @@
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {earthMoonImageCaption, rendererDecorator} from "../image.testdata";
 import {earthMoonImage} from "../utils";
 
 import type {Meta} from "@storybook/react-vite";
-import {earthMoonImageCaption, rendererDecorator} from "../image.testdata";
 
 const meta: Meta = {
     title: "Widgets/Image/Visual Regression Tests/Interactions",

@@ -4,9 +4,9 @@ import {
     generateTestPerseusRenderer,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import {getFeatureFlags} from "perseus/testing/feature-flags-util";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
