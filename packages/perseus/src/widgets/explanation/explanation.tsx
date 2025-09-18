@@ -97,7 +97,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
         };
 
         const labelStyle = {
-            fontSize: "18px",
+            fontSize: "1.8rem",
             lineHeight: "inherit",
             "text-align": "left",
             // The following property adjusts the large space between the button text and the caret icon.
