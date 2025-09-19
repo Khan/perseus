@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "Custom Axis Labels:\n[[☃ interactive-graph 1]]\n\nLarge $y$-range, origin near bottom left:\n[[☃ interactive-graph 2]]\n\nLarge $x$-range, origin near left side:\n[[☃ interactive-graph 3]]\n\nFractional axis labels:\n[[☃ interactive-graph 4]]\n\nGridlines every two ticks:\n[[☃ interactive-graph 5]]\n\nGridlines every half tick:\n[[☃ interactive-graph 6]]\n\nNonsquare grid:\n[[☃ interactive-graph 7]]\n\nLocked figures:\n[[☃ interactive-graph 8]]\n",

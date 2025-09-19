@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "Michael is $12$ years older than Brandon. Seventeen years ago, Michael was $4$ times as old as Brandon. \n\n **How old is Michael now?**\n\n[[☃ numeric-input 1]]",

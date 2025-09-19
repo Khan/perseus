@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "Consider this matrix transformation:\n\n$\\left[\\begin{array}{c}\n0 & 2 & 1 & -3\n\\\\\\\\ \n-1 & 2 & -3 & 0\n\\\\\\\\\n2 & -2 & 0 &1\n\\\\\\\\\n1 & 1 & -1 & -1\n\\end{array}\\right]$\n\n**What is the image of $\\left[\\begin{array}{c}\n-5\n\\\\\\\\\n1\n\\\\\\\\\n3\n\\\\\\\\\n-2\n\\end{array}\\right]$ under this transformation?**\n\n[[☃ matrix 1]]",

@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "# Functions introduction\n\nA function is something that maps one value to another.\n\nHere is a function that maps an $\\orange\\text{input dot}$ on the top to an $\\blue\\text{output dot}$ on the bottom. Try dragging the $\\orange\\text{input dot}$ on the left and see what $\\blue\\text{output}$ the function maps it to below:\n\n[[☃ interaction 1]]\n\nNot all functions are quite so simple! For example, there is no rule that the $\\blue\\text{output}$ has to increase when the $\\orange\\text{input}$ increases:\n\n[[☃ interaction 2]]\n\nThere is also no rule that a function has to map to a different value for each different input value:\n\n[[☃ interaction 3]]\n\nOr that it even has to ever map to a different value at all!\n\n[[☃ interaction 4]]\n\nBut that's sort of unsatisfying! so here's another function that demonstrates all of those concepts:\n\n[[☃ interaction 5]]\n\nNext, we'll look at some other representations of functions!",

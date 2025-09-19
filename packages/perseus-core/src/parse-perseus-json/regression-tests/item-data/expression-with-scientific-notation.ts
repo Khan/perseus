@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "Incandescent light bulbs produce light by heating a metal filament until it glows. The most common filament is tungsten, a grayish metal with atomic number $74$. \n\n[[☃ image 1]]\n\nA certain tungsten filament has a mass of $0.0176\\text{ g}$. \n\n**How many tungsten atoms make up the filament?**  \n*Express your answer in scientific notation with two decimal places.*\n\n[[☃ explanation 2]]\n\n[[☃ expression 1]] atoms of tungsten",

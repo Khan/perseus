@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "crwdns6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0:-:crwdnd6996888:0$2$crwdnd6996888:0$3$crwdnd6996888:0$4$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdne6996888:0",

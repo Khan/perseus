@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "Ally is excited to compete in a $6$-mile race. The race organizers plotted the course on a coordinate map. The starting point is at $(4,3)$, and the ending point is at $(4,9)$.  Ally's family decides to stand at $(4,6)$ on the map.\n\n**Plot the starting point, ending point, and place where Ally's family stands on the map.**\n\n[[☃ interactive-graph 1]]\n\n**How far along will Ally be in the race when she reaches her family?**  \n[[☃ radio 1]]",

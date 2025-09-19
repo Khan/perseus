@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "**Pick the expression that matches this description:**\\n\\nA polynomial of the $3^{\\text{th}}$ degree with a leading coefficient of $5$ and a constant term of $-2$\n\n[[☃ radio 1]]",

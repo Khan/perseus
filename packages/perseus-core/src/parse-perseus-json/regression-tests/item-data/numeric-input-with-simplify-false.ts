@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "**What is $\\text{sec}(\\angle A)?$**  \n*Reduce fractional answers to lowest terms.*\n\n[[☃ numeric-input 1]]\n\n ![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/b886f0f83c43c5f13fb41bed1e6c067500ec31d9)",

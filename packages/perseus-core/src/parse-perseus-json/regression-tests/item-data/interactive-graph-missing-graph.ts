@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "The magnetic field of the Earth is $B_E$ at a location where the magnetic dip is $I=+45\\degree$.\n\n**Which of these best describes the vertical component of the magnetic field vector at this location?**  \n*Note: $\\uparrow$ and $\\downarrow$ indicate upward and downward direction respectively.*\n\n[[☃ radio 1]]",

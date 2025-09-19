@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "![](https://ka-perseus-images.s3.amazonaws.com/ec3199bd52c57bcdb3ab16d727a172def834d4fe.jpg)\n\n\nHeart rate is described as the number of heart beats per minute.  The normal human heart rate ranges from 60-100 beats per minute (bpm). Lance Armstrong (pictured above) had a resting heart rate of 32 beats per minute. While racing, his heart rate would increase to 1.6 beats per second. How many more bpm was his heart rate while racing than while resting?\n\n[[☃ numeric-input 1]] bpm \n",

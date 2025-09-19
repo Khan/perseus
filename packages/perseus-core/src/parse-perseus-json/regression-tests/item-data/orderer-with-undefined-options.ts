@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "A woman slides a box onto a shelf.\n\n[[☃ image 1]]\n\nA free body diagram of the **box** is shown below.\n\n[[☃ image 2]]\n\n**Which forces on the box result from the box interacting with other objects?**\n\n[[☃ radio 1]]",

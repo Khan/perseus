@@ -210,8 +210,8 @@ describe("the regression test data", () => {
     const inDirectory = (dir: string) => (file: string) => join(dir, file)
 
     const dataPaths = [
-        // ...articleDataFiles.map(inDirectory(articleDataDir)),
-        // ...itemDataFiles.map(inDirectory(itemDataDir)),
+        ...articleDataFiles.map(inDirectory(articleDataDir)),
+        ...itemDataFiles.map(inDirectory(itemDataDir)),
         ...userInputDataFiles.map(inDirectory(userInputDataDir)),
     ]
 
@@ -221,7 +221,7 @@ describe("the regression test data", () => {
             expect(contents).toContain(
                 [
                     `// WARNING: Do not change or delete this file! If you do, Perseus might become`,
-                    `// unable to parse the current user input format, which will break clients.`,
+                    `// unable to parse the current data format, which will break clients.`,
                     `// If you need to add more regression tests, add a new file to this directory.`,
                 ].join("\n"),
             );

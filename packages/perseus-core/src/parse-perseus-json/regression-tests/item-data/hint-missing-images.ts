@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default {
   "question": {
     "content": "Congratulations on all you've learned about systems of equations!\n\nOur strategic supplement version of algebra 1 is for students who are getting classroom instruction in algebra and only using Khan Academy for a short time each week. We only included select exercises, videos, and articles to help you focus your limited time.\n\nIn case you would like a fuller experience, here is a taste of a skill you can learn in our full algebra 1 course.",
