@@ -109,10 +109,13 @@ describe("parseAndMigratePerseusItem", () => {
 
 describe("parseAndMigratePerseusArticle", () => {
     describe.each(articleDataFiles)("given %s", (filename) => {
-        const json = fs.readFileSync(join(articleDataDir, filename), "utf-8");
-        const result = parseAndMigratePerseusArticle(json);
+        async function getParseResult() {
+            const {default: data} = await import( join(articleDataDir, filename) );
+            return parseAndMigratePerseusArticle(data);
+        }
 
-        it("parses successfully", () => {
+        it("parses successfully", async () => {
+            const result = await getParseResult()
             // If the parse fails, get just the error message. This makes the test
             // failure easier to read, since otherwise the entire `invalidObject`
             // from the ParseFailureDetail would be printed.
@@ -121,12 +124,14 @@ describe("parseAndMigratePerseusArticle", () => {
             expect(resultWithMessage).toEqual(anySuccess);
         });
 
-        it("returns the same result as before", () => {
+        it("returns the same result as before", async () => {
+            const result = await getParseResult()
             assertSuccess(result);
             expect(result.value).toMatchSnapshot();
         });
 
-        it("is not changed by a second pass through the parser", () => {
+        it("is not changed by a second pass through the parser", async () => {
+            const result = await getParseResult()
             // This test ensures that the parser is idempotent, i.e. running it
             // once is the same as running it many times. Idempotency is
             // valuable because it means e.g. that if we run the parser on data
