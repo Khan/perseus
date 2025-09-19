@@ -31,7 +31,7 @@ describe("parseAndMigratePerseusItem", () => {
 
     describe.each(itemDataFiles)("given %s", (filename) => {
         async function getParseResult() {
-            const {default: data} = await import( join(itemDataDir, filename) );
+            const {default: data} = await import(join(itemDataDir, filename));
             return parseAndMigratePerseusItem(data);
         }
 
@@ -118,12 +118,14 @@ describe("parseAndMigratePerseusItem", () => {
 describe("parseAndMigratePerseusArticle", () => {
     describe.each(articleDataFiles)("given %s", (filename) => {
         async function getParseResult() {
-            const {default: data} = await import( join(articleDataDir, filename) );
+            const {default: data} = await import(
+                join(articleDataDir, filename)
+            );
             return parseAndMigratePerseusArticle(data);
         }
 
         it("parses successfully", async () => {
-            const result = await getParseResult()
+            const result = await getParseResult();
             // If the parse fails, get just the error message. This makes the test
             // failure easier to read, since otherwise the entire `invalidObject`
             // from the ParseFailureDetail would be printed.
@@ -133,13 +135,13 @@ describe("parseAndMigratePerseusArticle", () => {
         });
 
         it("returns the same result as before", async () => {
-            const result = await getParseResult()
+            const result = await getParseResult();
             assertSuccess(result);
             expect(result.value).toMatchSnapshot();
         });
 
         it("is not changed by a second pass through the parser", async () => {
-            const result = await getParseResult()
+            const result = await getParseResult();
             // This test ensures that the parser is idempotent, i.e. running it
             // once is the same as running it many times. Idempotency is
             // valuable because it means e.g. that if we run the parser on data
@@ -207,13 +209,13 @@ describe("parseAndMigrateUserInputMap", () => {
 });
 
 describe("the regression test data", () => {
-    const inDirectory = (dir: string) => (file: string) => join(dir, file)
+    const inDirectory = (dir: string) => (file: string) => join(dir, file);
 
     const dataPaths = [
         ...articleDataFiles.map(inDirectory(articleDataDir)),
         ...itemDataFiles.map(inDirectory(itemDataDir)),
         ...userInputDataFiles.map(inDirectory(userInputDataDir)),
-    ]
+    ];
 
     describe.each(dataPaths)("in %s", (path) => {
         it("contains a warning", () => {

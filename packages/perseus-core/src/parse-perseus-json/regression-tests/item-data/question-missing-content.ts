@@ -2,9 +2,9 @@
 // unable to parse the current data format, which will break clients.
 // If you need to add more regression tests, add a new file to this directory.
 export default {
-  "answerArea": {
-    "type": "multiple"
-  },
-  "hints": [],
-  "question": {}
-}
+    answerArea: {
+        type: "multiple",
+    },
+    hints: [],
+    question: {},
+};
