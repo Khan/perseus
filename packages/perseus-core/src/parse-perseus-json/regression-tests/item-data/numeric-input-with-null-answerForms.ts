@@ -1,0 +1,395 @@
+export default {
+  "question": {
+    "content": "crwdns6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0:-:crwdnd6996888:0$2$crwdnd6996888:0$3$crwdnd6996888:0$4$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdne6996888:0",
+    "widgets": {
+      "image 1": {
+        "type": "image",
+        "static": false,
+        "graded": true,
+        "alignment": "block",
+        "id": null,
+        "key": null,
+        "version": {
+          "major": 0,
+          "minor": 0
+        },
+        "options": {
+          "title": "",
+          "labels": [],
+          "caption": "",
+          "alt": "crwdns6998746:0crwdne6998746:0",
+          "backgroundImage": {
+            "url": "crwdns7006740:0crwdne7006740:0",
+            "width": 275,
+            "height": 275,
+            "top": 0,
+            "scale": null,
+            "bottom": null,
+            "left": null
+          },
+          "static": false,
+          "range": [
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              10
+            ]
+          ],
+          "box": [
+            275,
+            275
+          ]
+        }
+      },
+      "numeric-input 1": {
+        "type": "numeric-input",
+        "static": false,
+        "graded": true,
+        "alignment": "default",
+        "id": null,
+        "key": null,
+        "version": {
+          "major": 0,
+          "minor": 0
+        },
+        "options": {
+          "answers": [
+            {
+              "message": "",
+              "value": 6,
+              "status": "correct",
+              "strict": false,
+              "simplify": "required",
+              "maxError": null,
+              "answerForms": null
+            }
+          ],
+          "labelText": "",
+          "static": false,
+          "size": "normal",
+          "coefficient": false,
+          "multipleNumberInput": false,
+          "rightAlign": false
+        }
+      },
+      "numeric-input 2": {
+        "type": "numeric-input",
+        "static": false,
+        "graded": true,
+        "alignment": "default",
+        "id": null,
+        "key": null,
+        "version": {
+          "major": 0,
+          "minor": 0
+        },
+        "options": {
+          "answers": [
+            {
+              "message": "",
+              "value": 4,
+              "status": "correct",
+              "strict": false,
+              "simplify": "required",
+              "maxError": null,
+              "answerForms": null
+            }
+          ],
+          "labelText": "",
+          "static": false,
+          "size": "normal",
+          "coefficient": false,
+          "multipleNumberInput": false,
+          "rightAlign": false
+        }
+      },
+      "numeric-input 3": {
+        "type": "numeric-input",
+        "static": false,
+        "graded": true,
+        "alignment": "default",
+        "id": null,
+        "key": null,
+        "version": {
+          "major": 0,
+          "minor": 0
+        },
+        "options": {
+          "answers": [
+            {
+              "message": "",
+              "value": 2,
+              "status": "correct",
+              "strict": false,
+              "simplify": "required",
+              "maxError": null,
+              "answerForms": null
+            }
+          ],
+          "labelText": "",
+          "static": false,
+          "size": "normal",
+          "coefficient": false,
+          "multipleNumberInput": false,
+          "rightAlign": false
+        }
+      },
+      "radio 1": {
+        "type": "radio",
+        "static": false,
+        "graded": true,
+        "alignment": "default",
+        "id": null,
+        "key": null,
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "options": {
+          "choices": [
+            {
+              "content": "crwdns6520529:0$x$crwdnd6520529:0$2$crwdnd6520529:0$2$crwdnd6520529:0$y$crwdne6520529:0",
+              "clue": "",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {}
+            },
+            {
+              "content": "crwdns6520777:0$x$crwdnd6520777:0$2$crwdnd6520777:0$10$crwdnd6520777:0$y$crwdne6520777:0",
+              "clue": "",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": {}
+            }
+          ],
+          "noneOfTheAbove": false,
+          "hasNoneOfTheAbove": false,
+          "countChoices": false,
+          "deselectEnabled": false,
+          "randomize": true,
+          "multipleSelect": false,
+          "onePerLine": false,
+          "displayCount": null
+        }
+      }
+    },
+    "replace": null,
+    "metadata": null,
+    "images": {}
+  },
+  "hints": [
+    {
+      "content": "crwdns6520515:0{y}crwdnd6520515:0$x$crwdnd6520515:0$y$crwdnd6520515:0:-:crwdne6520515:0",
+      "widgets": {},
+      "replace": false,
+      "metadata": null,
+      "images": {}
+    },
+    {
+      "content": "crwdns7005730:0{x}crwdnd7005730:0{2}crwdnd7005730:0{y}crwdnd7005730:0{6}crwdne7005730:0",
+      "widgets": {
+        "image 1": {
+          "type": "image",
+          "static": false,
+          "graded": true,
+          "alignment": "block",
+          "id": null,
+          "key": null,
+          "version": {
+            "major": 0,
+            "minor": 0
+          },
+          "options": {
+            "title": "",
+            "labels": [],
+            "caption": "",
+            "alt": "crwdns7006580:0crwdne7006580:0",
+            "backgroundImage": {
+              "url": "crwdns6995774:0crwdne6995774:0",
+              "width": 275,
+              "height": 275,
+              "top": 0,
+              "scale": null,
+              "bottom": null,
+              "left": null
+            },
+            "static": false,
+            "range": [
+              [
+                0,
+                10
+              ],
+              [
+                0,
+                10
+              ]
+            ],
+            "box": [
+              275,
+              275
+            ]
+          }
+        }
+      },
+      "replace": false,
+      "metadata": null,
+      "images": {}
+    },
+    {
+      "content": "crwdns7006926:0{x}crwdnd7006926:0{3}crwdnd7006926:0{y}crwdnd7006926:0{4}crwdne7006926:0",
+      "widgets": {
+        "image 1": {
+          "type": "image",
+          "static": false,
+          "graded": true,
+          "alignment": "block",
+          "id": null,
+          "key": null,
+          "version": {
+            "major": 0,
+            "minor": 0
+          },
+          "options": {
+            "title": "",
+            "labels": [],
+            "caption": "",
+            "alt": "crwdns6998968:0crwdne6998968:0",
+            "backgroundImage": {
+              "url": "crwdns7002052:0crwdne7002052:0",
+              "width": 275,
+              "height": 275,
+              "top": 0,
+              "scale": null,
+              "bottom": null,
+              "left": null
+            },
+            "static": false,
+            "range": [
+              [
+                0,
+                10
+              ],
+              [
+                0,
+                10
+              ]
+            ],
+            "box": [
+              275,
+              275
+            ]
+          }
+        }
+      },
+      "replace": false,
+      "metadata": null,
+      "images": {}
+    },
+    {
+      "content": "crwdns7004342:0{x}crwdnd7004342:0{4}crwdnd7004342:0{y}crwdnd7004342:0{2}crwdne7004342:0",
+      "widgets": {
+        "image 1": {
+          "type": "image",
+          "static": false,
+          "graded": true,
+          "alignment": "block",
+          "id": null,
+          "key": null,
+          "version": {
+            "major": 0,
+            "minor": 0
+          },
+          "options": {
+            "title": "",
+            "labels": [],
+            "caption": "",
+            "alt": "crwdns6996978:0crwdne6996978:0",
+            "backgroundImage": {
+              "url": "crwdns7003786:0crwdne7003786:0",
+              "width": 275,
+              "height": 275,
+              "top": 0,
+              "scale": null,
+              "bottom": null,
+              "left": null
+            },
+            "static": false,
+            "range": [
+              [
+                0,
+                10
+              ],
+              [
+                0,
+                10
+              ]
+            ],
+            "box": [
+              275,
+              275
+            ]
+          }
+        }
+      },
+      "replace": false,
+      "metadata": null,
+      "images": {}
+    },
+    {
+      "content": "crwdns6520827:0$x$crwdnd6520827:0$y$crwdnd6520827:0:-:crwdnd6520827:0{6}crwdnd6520827:0{4}crwdnd6520827:0{2}crwdnd6520827:0$3$crwdne6520827:0",
+      "widgets": {},
+      "replace": false,
+      "metadata": null,
+      "images": {}
+    },
+    {
+      "content": "crwdns6520744:0$x$crwdnd6520744:0$2$crwdnd6520744:0$2$crwdnd6520744:0$y$crwdnd6520744:0$x$crwdnd6520744:0$y$crwdnd6520744:0:-:crwdnd6520744:0:-:crwdnd6520744:0{2}crwdnd6520744:0{2}crwdnd6520744:0{6}crwdnd6520744:0{3}crwdnd6520744:0{3}crwdnd6520744:0{8}crwdnd6520744:0{4}crwdnd6520744:0{4}crwdnd6520744:0{10}crwdne6520744:0",
+      "widgets": {},
+      "replace": false,
+      "metadata": null,
+      "images": {}
+    },
+    {
+      "content": "crwdns6520679:0$x$crwdnd6520679:0$2$crwdnd6520679:0$10$crwdnd6520679:0$y$crwdnd6520679:0$x$crwdnd6520679:0$y$crwdnd6520679:0:-:crwdnd6520679:0:-:crwdnd6520679:0{2}crwdnd6520679:0{2}crwdnd6520679:0{6}crwdnd6520679:0{3}crwdnd6520679:0{3}crwdnd6520679:0{4}crwdnd6520679:0{4}crwdnd6520679:0{4}crwdnd6520679:0{2}crwdne6520679:0",
+      "widgets": {},
+      "replace": false,
+      "metadata": null,
+      "images": {}
+    },
+    {
+      "content": "crwdns6521230:0$x$crwdnd6521230:0$y$crwdnd6521230:0:-:crwdnd6521230:0$2$crwdnd6521230:0$6$crwdnd6521230:0$3$crwdnd6521230:0$4$crwdnd6521230:0$4$crwdnd6521230:0$2$crwdnd6521230:0$x$crwdnd6521230:0$y$crwdnd6521230:0$x$crwdnd6521230:0$2$crwdnd6521230:0$10$crwdnd6521230:0$y$crwdne6521230:0",
+      "widgets": {},
+      "replace": false,
+      "metadata": null,
+      "images": {}
+    }
+  ],
+  "answerArea": {
+    "type": "",
+    "static": false,
+    "graded": false,
+    "alignment": "",
+    "id": null,
+    "key": null,
+    "version": null,
+    "zTable": false,
+    "chi2Table": false,
+    "tTable": false,
+    "calculator": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTotalAmount": false,
+    "financialCalculatorTimeToPayOff": false,
+    "options": null
+  },
+  "_multi": null,
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1
+  },
+  "answer": null
+}

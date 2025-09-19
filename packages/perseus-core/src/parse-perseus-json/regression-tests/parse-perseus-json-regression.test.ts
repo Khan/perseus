@@ -30,10 +30,13 @@ describe("parseAndMigratePerseusItem", () => {
     });
 
     describe.each(itemDataFiles)("given %s", (filename) => {
-        const json = fs.readFileSync(join(itemDataDir, filename), "utf-8");
-        const result = parseAndMigratePerseusItem(json);
+        async function getParseResult() {
+            const {default: data} = await import( join(itemDataDir, filename) );
+            return parseAndMigratePerseusItem(data);
+        }
 
-        it("parses successfully", () => {
+        it("parses successfully", async () => {
+            const result = await getParseResult();
             // If the parse fails, get just the error message. This makes the test
             // failure easier to read, since otherwise the entire `invalidObject`
             // from the ParseFailureDetail would be printed.
@@ -42,12 +45,14 @@ describe("parseAndMigratePerseusItem", () => {
             expect(resultWithMessage).toEqual(anySuccess);
         });
 
-        it("returns the same result as before", () => {
+        it("returns the same result as before", async () => {
+            const result = await getParseResult();
             assertSuccess(result);
             expect(result.value).toMatchSnapshot();
         });
 
-        it("is not changed by a second pass through the parser", () => {
+        it("is not changed by a second pass through the parser", async () => {
+            const result = await getParseResult();
             // This test ensures that the parser is idempotent, i.e. running it
             // once is the same as running it many times. Idempotency is
             // valuable because it means e.g. that if we run the parser on data
@@ -64,13 +69,15 @@ describe("parseAndMigratePerseusItem", () => {
             expect(result2.value).toEqual(result.value);
         });
 
-        it("parses the data with answer information removed", () => {
+        it("parses the data with answer information removed", async () => {
+            const result = await getParseResult();
             assertSuccess(result);
             const answerlessItem = splitPerseusItem(result.value);
             expect(parse(answerlessItem, parsePerseusItem)).toEqual(anySuccess);
         });
 
-        it("returns the same result as before with answer information removed", () => {
+        it("returns the same result as before with answer information removed", async () => {
+            const result = await getParseResult();
             assertSuccess(result);
             const answerlessItem = splitPerseusItem(result.value);
             const answerlessParseResult = parse(
@@ -81,7 +88,8 @@ describe("parseAndMigratePerseusItem", () => {
             expect(answerlessParseResult.value).toMatchSnapshot();
         });
 
-        test("answerless data is not changed by a second pass through the parser", () => {
+        test("answerless data is not changed by a second pass through the parser", async () => {
+            const result = await getParseResult();
             assertSuccess(result);
 
             const answerlessItem = splitPerseusItem(result.value);
@@ -199,12 +207,17 @@ describe("parseAndMigrateUserInputMap", () => {
 });
 
 describe("the regression test data", () => {
-    describe.each(userInputDataFiles)("in %s", (filename) => {
+    const inDirectory = (dir: string) => (file: string) => join(dir, file)
+
+    const dataPaths = [
+        // ...articleDataFiles.map(inDirectory(articleDataDir)),
+        // ...itemDataFiles.map(inDirectory(itemDataDir)),
+        ...userInputDataFiles.map(inDirectory(userInputDataDir)),
+    ]
+
+    describe.each(dataPaths)("in %s", (path) => {
         it("contains a warning", () => {
-            const contents = fs.readFileSync(
-                join(userInputDataDir, filename),
-                "utf-8",
-            );
+            const contents = fs.readFileSync(path, "utf-8");
             expect(contents).toContain(
                 [
                     `// WARNING: Do not change or delete this file! If you do, Perseus might become`,

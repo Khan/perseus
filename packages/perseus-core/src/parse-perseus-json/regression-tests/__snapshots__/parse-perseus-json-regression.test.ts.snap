@@ -428,7 +428,7 @@ The modified article is licensed under a [CC BY-NC-SA 4.0](https://creativecommo
 ]
 `;
 
-exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -488,7 +488,7 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.jso
 }
 `;
 
-exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -542,7 +542,7 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.jso
 }
 `;
 
-exports[`parseAndMigratePerseusItem given categorizer-missing-static.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given categorizer-missing-static.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -591,7 +591,7 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given categorizer-missing-static.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given categorizer-missing-static.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -642,7 +642,7 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given categorizer-with-null-value.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given categorizer-with-null-value.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -709,7 +709,7 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.json retur
 }
 `;
 
-exports[`parseAndMigratePerseusItem given categorizer-with-null-value.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given categorizer-with-null-value.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -763,7 +763,7 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.json retur
 }
 `;
 
-exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -846,7 +846,7 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns
 }
 `;
 
-exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -932,7 +932,7 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns
 }
 `;
 
-exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given cs-program-with-null-width.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -965,7 +965,7 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given cs-program-with-null-width.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1005,7 +1005,7 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given definition-missing-static.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1080,7 +1080,7 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.json returns
 }
 `;
 
-exports[`parseAndMigratePerseusItem given definition-missing-static.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1149,7 +1149,7 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.json returns
 }
 `;
 
-exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1213,7 +1213,7 @@ $\\qquad(x-x)$ [[☃ dropdown 1]] $0$
 }
 `;
 
-exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1272,7 +1272,7 @@ $\\qquad(x-x)$ [[☃ dropdown 1]] $0$
 }
 `;
 
-exports[`parseAndMigratePerseusItem given dropdown-missing-version.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given dropdown-missing-version.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1320,7 +1320,7 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-version.json returns 
 }
 `;
 
-exports[`parseAndMigratePerseusItem given dropdown-missing-version.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given dropdown-missing-version.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1370,7 +1370,7 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-version.json returns 
 }
 `;
 
-exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1462,7 +1462,7 @@ $r =  $ [[☃ numeric-input 1]] ",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1522,7 +1522,7 @@ $r =  $ [[☃ numeric-input 1]] ",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1587,7 +1587,7 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.jso
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1644,7 +1644,7 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.jso
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1712,7 +1712,7 @@ $y=$ [[☃ expression 1]]",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1775,7 +1775,7 @@ $y=$ [[☃ expression 1]]",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-option-missing-value.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given expression-option-missing-value.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1830,7 +1830,7 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.json r
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-option-missing-value.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given expression-option-missing-value.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1886,7 +1886,7 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.json r
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -2149,7 +2149,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -2308,7 +2308,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -2522,7 +2522,7 @@ more explanation",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -2664,7 +2664,7 @@ more explanation",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -2869,7 +2869,7 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -2922,7 +2922,7 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.json retu
 }
 `;
 
-exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -3134,7 +3134,7 @@ So the $x$-intercept is $(5,0)$.",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -3218,7 +3218,7 @@ exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.json returns
 }
 `;
 
-exports[`parseAndMigratePerseusItem given grapher-with-null-coords.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -3316,7 +3316,7 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.json returns 
 }
 `;
 
-exports[`parseAndMigratePerseusItem given grapher-with-null-coords.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -3415,7 +3415,7 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.json returns 
 }
 `;
 
-exports[`parseAndMigratePerseusItem given hint-missing-images.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given hint-missing-images.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -3707,7 +3707,7 @@ In case you would like a fuller experience, here is a taste of a skill you can l
 }
 `;
 
-exports[`parseAndMigratePerseusItem given hint-missing-images.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given hint-missing-images.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -3734,7 +3734,7 @@ In case you would like a fuller experience, here is a taste of a skill you can l
 }
 `;
 
-exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the same result as before 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -3820,7 +3820,7 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
 }
 `;
 
-exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the same result as before with answer information removed 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -3880,7 +3880,7 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
 }
 `;
 
-exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -3978,7 +3978,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.json re
 }
 `;
 
-exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4040,7 +4040,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.json re
 }
 `;
 
-exports[`parseAndMigratePerseusItem given iframe-missing-settings.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given iframe-missing-settings.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4071,7 +4071,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.json returns t
 }
 `;
 
-exports[`parseAndMigratePerseusItem given iframe-missing-settings.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given iframe-missing-settings.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4115,7 +4115,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.json returns t
 }
 `;
 
-exports[`parseAndMigratePerseusItem given iframe-missing-static.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4168,7 +4168,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.json returns the
 }
 `;
 
-exports[`parseAndMigratePerseusItem given iframe-missing-static.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4191,7 +4191,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.json returns the
 }
 `;
 
-exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns the same result as before 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -4476,7 +4476,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns the same result as before with answer information removed 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -4585,7 +4585,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4722,7 +4722,7 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
 }
 `;
 
-exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4826,7 +4826,7 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interaction-element-missing-constraints.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interaction-element-missing-constraints.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5028,7 +5028,7 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interaction-element-missing-constraints.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interaction-element-missing-constraints.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5232,7 +5232,7 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interaction-element-missing-key.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interaction-element-missing-key.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5735,7 +5735,7 @@ Next, we'll look at some other representations of functions!",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interaction-element-missing-key.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interaction-element-missing-key.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6248,7 +6248,7 @@ Next, we'll look at some other representations of functions!",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with-empty-string-coordinates.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with-empty-string-coordinates.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6397,7 +6397,7 @@ $3$ | $8$
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with-empty-string-coordinates.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with-empty-string-coordinates.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6505,7 +6505,7 @@ $3$ | $8$
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missing-weights.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missing-weights.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6778,7 +6778,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missing-weights.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missing-weights.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -7051,7 +7051,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with-null-domain-element.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with-null-domain-element.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -7142,7 +7142,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with-null-domain-element.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with-null-domain-element.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -7233,7 +7233,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-showPoint1.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-showPoint1.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8073,7 +8073,7 @@ Locked figures:
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-showPoint1.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-showPoint1.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8818,7 +8818,7 @@ Locked figures:
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -9111,7 +9111,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -9195,7 +9195,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.json r
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -9433,7 +9433,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -9586,7 +9586,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -9693,7 +9693,7 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -9771,7 +9771,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.json 
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-match.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-match.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -9926,7 +9926,7 @@ Draw the rhombus in the first quadrant.
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-match.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-match.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -10023,7 +10023,7 @@ Draw the rhombus in the first quadrant.
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgroundImage-left.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgroundImage-left.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -10176,7 +10176,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgroundImage-left.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgroundImage-left.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -10309,7 +10309,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 }
 `;
 
-exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts returns the same result as before 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -10478,7 +10478,7 @@ ___
 }
 `;
 
-exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts returns the same result as before with answer information removed 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -10644,7 +10644,7 @@ ___
 }
 `;
 
-exports[`parseAndMigratePerseusItem given label-image-missing-static.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -10798,7 +10798,7 @@ Non-renewable source can be exhausted with continuous use",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given label-image-missing-static.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -10940,7 +10940,7 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given lights-puzzle.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -10986,7 +10986,7 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same re
 }
 `;
 
-exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given lights-puzzle.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11038,7 +11038,7 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same re
 }
 `;
 
-exports[`parseAndMigratePerseusItem given matcher-with-null-options.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given matcher-with-null-options.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11080,7 +11080,7 @@ exports[`parseAndMigratePerseusItem given matcher-with-null-options.json returns
 }
 `;
 
-exports[`parseAndMigratePerseusItem given matcher-with-null-options.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given matcher-with-null-options.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11129,7 +11129,7 @@ exports[`parseAndMigratePerseusItem given matcher-with-null-options.json returns
 }
 `;
 
-exports[`parseAndMigratePerseusItem given matrix-missing-version.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11235,7 +11235,7 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.json returns th
 }
 `;
 
-exports[`parseAndMigratePerseusItem given matrix-missing-version.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11282,7 +11282,7 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.json returns th
 }
 `;
 
-exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11348,7 +11348,7 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.json retur
 }
 `;
 
-exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11398,7 +11398,7 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.json retur
 }
 `;
 
-exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -11664,7 +11664,7 @@ $\\left[\\begin{array}{c}
 }
 `;
 
-exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -11734,7 +11734,7 @@ $\\left[\\begin{array}{c}
 }
 `;
 
-exports[`parseAndMigratePerseusItem given measurer-missing-image.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11832,7 +11832,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.json returns th
 }
 `;
 
-exports[`parseAndMigratePerseusItem given measurer-missing-image.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11928,7 +11928,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.json returns th
 }
 `;
 
-exports[`parseAndMigratePerseusItem given measurer-missing-static.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11975,7 +11975,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.json returns t
 }
 `;
 
-exports[`parseAndMigratePerseusItem given measurer-missing-static.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12024,7 +12024,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.json returns t
 }
 `;
 
-exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12250,7 +12250,7 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
 }
 `;
 
-exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12364,7 +12364,7 @@ exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.json
 }
 `;
 
-exports[`parseAndMigratePerseusItem given number-line-missing-static.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-missing-static.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12423,7 +12423,7 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given number-line-missing-static.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-missing-static.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12484,7 +12484,7 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-label-range.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-label-range.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12618,7 +12618,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
 }
 `;
 
-exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-label-range.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-label-range.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12715,7 +12715,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
 }
 `;
 
-exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12816,7 +12816,7 @@ $=(31-31) -8$",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12903,7 +12903,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.json re
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -12953,7 +12953,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.j
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -13005,7 +13005,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.j
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-true.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-true.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -13067,7 +13067,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-true.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-true.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -13119,7 +13119,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -13243,7 +13243,7 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -13325,7 +13325,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.jso
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -13379,7 +13379,7 @@ What is the radius of the mattress when it is rolled up into a cylinder.
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -13435,7 +13435,7 @@ What is the radius of the mattress when it is rolled up into a cylinder.
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -13723,7 +13723,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -13835,7 +13835,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts returns the same result as before 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -14220,7 +14220,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts returns the same result as before with answer information removed 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -14406,7 +14406,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -14618,7 +14618,7 @@ Stella landed $1.68$ kilometers from the skydiving center.",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -14737,7 +14737,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.j
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -14799,7 +14799,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -14860,7 +14860,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-string.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-string.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -14997,7 +14997,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
 }
 `;
 
-exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-string.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-string.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -15047,7 +15047,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
 }
 `;
 
-exports[`parseAndMigratePerseusItem given orderer-option-missing-images.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-option-missing-images.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -15833,7 +15833,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given orderer-option-missing-images.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-option-missing-images.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -15856,7 +15856,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-images.json ret
 }
 `;
 
-exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -15986,7 +15986,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
 }
 `;
 
-exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -16057,7 +16057,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
 }
 `;
 
-exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -16134,7 +16134,7 @@ exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.json retur
 }
 `;
 
-exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -16196,7 +16196,7 @@ exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.json retur
 }
 `;
 
-exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -16400,7 +16400,7 @@ A free body diagram of the **box** is shown below.
 }
 `;
 
-exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -16587,7 +16587,7 @@ A free body diagram of the **box** is shown below.
 }
 `;
 
-exports[`parseAndMigratePerseusItem given passage-missing-footnotes-and-title.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given passage-missing-footnotes-and-title.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -16642,7 +16642,7 @@ exports[`parseAndMigratePerseusItem given passage-missing-footnotes-and-title.js
 }
 `;
 
-exports[`parseAndMigratePerseusItem given passage-missing-footnotes-and-title.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given passage-missing-footnotes-and-title.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -16702,7 +16702,7 @@ exports[`parseAndMigratePerseusItem given passage-missing-footnotes-and-title.js
 }
 `;
 
-exports[`parseAndMigratePerseusItem given passage-ref-missing-summaryText.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given passage-ref-missing-summaryText.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -16948,7 +16948,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
 }
 `;
 
-exports[`parseAndMigratePerseusItem given passage-ref-missing-summaryText.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given passage-ref-missing-summaryText.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -17164,7 +17164,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
 }
 `;
 
-exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLine.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLine.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -17276,7 +17276,7 @@ $\\green5 - \\red3= \\purple{2}$",
 }
 `;
 
-exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLine.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLine.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -17376,7 +17376,7 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
 }
 `;
 
-exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -17499,7 +17499,7 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
 }
 `;
 
-exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -17565,7 +17565,7 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
 }
 `;
 
-exports[`parseAndMigratePerseusItem given question-missing-content.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given question-missing-content.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -17584,7 +17584,7 @@ exports[`parseAndMigratePerseusItem given question-missing-content.json returns 
 }
 `;
 
-exports[`parseAndMigratePerseusItem given question-missing-content.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given question-missing-content.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -17603,7 +17603,7 @@ exports[`parseAndMigratePerseusItem given question-missing-content.json returns 
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -17682,7 +17682,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.j
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -17751,7 +17751,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.j
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -18031,7 +18031,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -18287,7 +18287,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -18353,7 +18353,7 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -18415,7 +18415,7 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema.ts returns the same result as before 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -18645,7 +18645,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema.ts returns the same result as before with answer information removed 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -18860,7 +18860,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -18983,7 +18983,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -19044,7 +19044,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-with-null-widgets.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the same result as before 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -19228,7 +19228,7 @@ ___
 }
 `;
 
-exports[`parseAndMigratePerseusItem given radio-with-null-widgets.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the same result as before with answer information removed 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -19398,7 +19398,7 @@ ___
 }
 `;
 
-exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -19456,7 +19456,7 @@ exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same
 }
 `;
 
-exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -19518,7 +19518,7 @@ exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same
 }
 `;
 
-exports[`parseAndMigratePerseusItem given transformer-widget.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -19686,7 +19686,7 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
 }
 `;
 
-exports[`parseAndMigratePerseusItem given transformer-widget.json returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,

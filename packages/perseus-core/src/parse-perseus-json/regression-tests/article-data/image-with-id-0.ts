@@ -1,3 +1,6 @@
+// WARNING: Do not change or delete this file! If you do, Perseus might become
+// unable to parse the current data format, which will break clients.
+// If you need to add more regression tests, add a new file to this directory.
 export default [
   {
     "content": "## Key Points\n\n* The Production Possibilities Frontier (PPF) is a graph that shows all the different combinations of output of two goods that can be produced using available resources and technology. The PPF captures the concepts of scarcity, choice, and tradeoffs.\n* The shape of the PPF depends on whether there are increasing, decreasing, or constant costs.\n* Points that lie on the PPF illustrate combinations of output that are **productively efficient**. We cannot determine which points are **allocatively efficient** without knowing preferences.\n* The slope of the PPF indicates the opportunity cost of producing one good versus the other good, and the opportunity cost can be compared to the opportunity costs of another producer to determine comparative advantage.\n\n",

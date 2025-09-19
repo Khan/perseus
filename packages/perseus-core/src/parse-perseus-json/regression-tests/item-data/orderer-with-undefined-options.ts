@@ -1,0 +1,179 @@
+export default {
+  "question": {
+    "content": "A woman slides a box onto a shelf.\n\n[[☃ image 1]]\n\nA free body diagram of the **box** is shown below.\n\n[[☃ image 2]]\n\n**Which forces on the box result from the box interacting with other objects?**\n\n[[☃ radio 1]]",
+    "images": {
+      "https://cdn.kastatic.org/ka-content-images/89e2cabd1261ec9119c501bd6c9c0f541e09ab2f.png": {
+        "width": 400,
+        "height": 263
+      }
+    },
+    "widgets": {
+      "image 1": {
+        "type": "image",
+        "alignment": "block",
+        "static": false,
+        "graded": true,
+        "options": {
+          "static": false,
+          "title": "",
+          "range": [
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              10
+            ]
+          ],
+          "box": [
+            400,
+            263
+          ],
+          "backgroundImage": {
+            "url": "https://cdn.kastatic.org/ka-content-images/89e2cabd1261ec9119c501bd6c9c0f541e09ab2f.png",
+            "width": 400,
+            "height": 263
+          },
+          "labels": [],
+          "alt": "A woman places a box on a shelf and pushes it to the left, sliding it further onto the shelf.",
+          "caption": ""
+        },
+        "version": {
+          "major": 0,
+          "minor": 0
+        }
+      },
+      "image 2": {
+        "type": "image",
+        "alignment": "block",
+        "static": false,
+        "graded": true,
+        "options": {
+          "static": false,
+          "title": "",
+          "range": [
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              10
+            ]
+          ],
+          "box": [
+            300,
+            306
+          ],
+          "backgroundImage": {
+            "url": "https://cdn.kastatic.org/ka-content-images/48c2597aa0e5a7ac27771cfc2e7c955c7cb14881.svg",
+            "width": 300,
+            "height": 306
+          },
+          "labels": [],
+          "alt": "A model shows a square with four arrows pointing out of it. An arrow points down and is labelled F g. Another arrow points up and is labelled F N. Another arrow points left and is labelled F a. Another arrow points right and is labelled F f.",
+          "caption": ""
+        },
+        "version": {
+          "major": 0,
+          "minor": 0
+        }
+      },
+      "radio 1": {
+        "type": "radio",
+        "alignment": "default",
+        "static": false,
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "normal force $(F_\\text{N})$",
+              "correct": true,
+              "clue": "$F_\\text{N}$ results from the box interacting with the shelf."
+            },
+            {
+              "content": "gravitational force $(F_\\text{g})$",
+              "correct": true,
+              "clue": "$F_\\text{g}$ results from the box interacting with Earth."
+            },
+            {
+              "isNoneOfTheAbove": false,
+              "content": "applied force $(F_\\text{a})$",
+              "correct": true,
+              "clue": "$F_\\text{a}$ results from the box interacting with the woman's hand."
+            },
+            {
+              "isNoneOfTheAbove": false,
+              "content": "frictional force $(F_\\text{f})$",
+              "correct": true,
+              "clue": "$F_\\text{f}$ results from the box interacting with the shelf."
+            }
+          ],
+          "randomize": true,
+          "multipleSelect": true,
+          "countChoices": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "deselectEnabled": false
+        },
+        "version": {
+          "major": 1,
+          "minor": 0
+        }
+      },
+      "sorter 1": {
+        "options": {
+          "correct": [
+            "$x$",
+            "$y$",
+            "$z$"
+          ],
+          "layout": "vertical",
+          "padding": true
+        },
+        "type": "sorter",
+        "version": {
+          "major": 0,
+          "minor": 0
+        },
+        "graded": true,
+        "alignment": "default",
+        "static": false
+      },
+      "orderer 1": {
+        "options": {
+          "correctOptions": [
+            {
+              "content": "$x$"
+            }
+          ],
+          "otherOptions": [
+            {
+              "content": "$y$"
+            }
+          ],
+          "height": "normal",
+          "layout": "horizontal"
+        },
+        "type": "orderer",
+        "version": {
+          "major": 0,
+          "minor": 0
+        }
+      }
+    }
+  },
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false
+  },
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1
+  },
+  "hints": []
+}
