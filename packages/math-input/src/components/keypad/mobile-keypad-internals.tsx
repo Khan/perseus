@@ -1,3 +1,4 @@
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -243,6 +244,11 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         position: "fixed",
+        // Having the border will make the experience consistent with the desktop
+        // keypad which has a border.
+        borderStyle: "solid",
+        borderWidth: 1,
+        borderColor: semanticColor.core.border.neutral.subtle,
     },
 });
 
