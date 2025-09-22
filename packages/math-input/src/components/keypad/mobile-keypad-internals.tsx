@@ -181,11 +181,7 @@ class MobileKeypadInternals
         const convertDotToTimes = keypadConfig?.times;
 
         return (
-            <View
-                data-testid="perseus-mobile-keypad"
-                style={containerStyle}
-                forwardRef={this._containerRef}
-            >
+            <View style={containerStyle} forwardRef={this._containerRef}>
                 <AphroditeCssTransitionGroup
                     transitionEnterTimeout={AnimationDurationInMS}
                     transitionLeaveTimeout={AnimationDurationInMS}
