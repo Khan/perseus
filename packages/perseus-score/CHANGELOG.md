@@ -1,5 +1,16 @@
 # @khanacademy/perseus-score
 
+## 7.7.8
+
+### Patch Changes
+
+-   [#2862](https://github.com/Khan/perseus/pull/2862) [`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add support for colon division symbol according to users locale
+
+-   Updated dependencies [[`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3), [`55769ff4da`](https://github.com/Khan/perseus/commit/55769ff4da8020e8a9a8bdbbd11d09dc03fc97f8)]:
+    -   @khanacademy/kas@2.1.2
+    -   @khanacademy/perseus-core@19.3.0
+    -   @khanacademy/kmath@2.2.8
+
 ## 7.7.7
 
 ### Patch Changes
