@@ -378,6 +378,9 @@ export type PerseusDependencies = {
     TeX: React.ComponentType<TeXProps>;
 
     //misc
+    /**
+     * @deprecated Use `PerseusDependenciesV2.generateUrl` instead.
+     */
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
 

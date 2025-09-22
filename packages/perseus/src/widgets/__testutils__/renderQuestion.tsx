@@ -30,7 +30,7 @@ export const renderQuestion = (
     apiOptions: APIOptions = Object.freeze({}),
     extraProps?: ExtraProps,
     initialUserInput?: UserInputMap,
-    dependencies?: PerseusDependenciesV2,
+    dependencies: PerseusDependenciesV2 = testDependenciesV2,
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
@@ -43,9 +43,7 @@ export const renderQuestion = (
     let renderer: Perseus.Renderer | null = null;
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
-            <DependenciesContext.Provider
-                value={dependencies || testDependenciesV2}
-            >
+            <DependenciesContext.Provider value={dependencies}>
                 <RendererWrapper
                     ref={(node) => (renderer = node)}
                     question={question as any}

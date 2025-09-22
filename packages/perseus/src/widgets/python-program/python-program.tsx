@@ -46,11 +46,10 @@ class PythonProgram extends React.Component<Props> implements Widget {
 
     render(): React.ReactNode {
         let url = getUrlFromProgramID(this.props.programID);
-        url =
-            this.props.dependencies.generateUrl({
-                url,
-                context: "python_program:program_url",
-            }) ?? url;
+        url = this.props.dependencies.generateUrl({
+            url,
+            context: "python_program:program_url",
+        });
 
         const iframeStyle = {
             height: this.props.height,
