@@ -75,6 +75,9 @@ export const ExpressionItem3: Story = {
     },
 };
 
+/**
+ * This story allows us to specifically test division in the expression widget.
+ */
 export const ExpressionItem4: Story = {
     args: {
         item: expressionItem4,

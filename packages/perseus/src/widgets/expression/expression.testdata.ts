@@ -124,7 +124,7 @@ export const expressionItem4: PerseusItem = createItemJson({
         },
     ],
     times: true,
-    buttonSets: ["basic"],
+    buttonSets: ["basic+div"],
     functions: ["f", "g", "h"],
     buttonsVisible: "always",
     extraKeys: ["x"],
