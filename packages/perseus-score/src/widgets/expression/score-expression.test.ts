@@ -67,6 +67,26 @@ describe("scoreExpression", () => {
         expect(result).toHaveInvalidInput();
     });
 
+    it("should handle corrent answers in en with forward slash divide symbol", function () {
+        const result = scoreExpression("z/3", expressionItem3Options, "en");
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should handle corrent answers in en with TeX divide symbol", function () {
+        const result = scoreExpression("z\\div3", expressionItem3Options, "en");
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should handle correct answers in uk with colon divide symbol", function () {
+        const result = scoreExpression("z:3", expressionItem3Options, "uk");
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should handle invalid answers in en with colon divide symbol", function () {
+        const result = scoreExpression("z:3", expressionItem3Options, "en");
+        expect(result).toHaveInvalidInput();
+    });
+
     it("should handle TeX", () => {
         const item: PerseusExpressionRubric = {
             answerForms: [
