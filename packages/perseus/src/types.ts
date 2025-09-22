@@ -555,7 +555,6 @@ export type UniversalWidgetProps<
         silent?: boolean,
     ) => void;
     userInput: TUserInput;
-    isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;
     containerSizeClass: SizeClass;
