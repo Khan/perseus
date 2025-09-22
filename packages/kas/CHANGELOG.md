@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 2.1.2
+
+### Patch Changes
+
+-   [#2862](https://github.com/Khan/perseus/pull/2862) [`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add support for colon division symbol according to users locale
+
 ## 2.1.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @khanacademy/perseus-core
 
+## 19.3.0
+
+### Minor Changes
+
+-   [#2910](https://github.com/Khan/perseus/pull/2910) [`55769ff4da`](https://github.com/Khan/perseus/commit/55769ff4da8020e8a9a8bdbbd11d09dc03fc97f8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing several issues related to User Input in our Explanation and Number Line Widgets
+
+### Patch Changes
+
+-   [#2862](https://github.com/Khan/perseus/pull/2862) [`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add support for colon division symbol according to users locale
+
+-   Updated dependencies [[`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3)]:
+    -   @khanacademy/kas@2.1.2
+
 ## 19.2.0
 
 ### Minor Changes
