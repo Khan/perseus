@@ -96,11 +96,7 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
             </div>
 
             {backgroundImageError && (
-                <Banner
-                    kind="critical"
-                    layout="floating"
-                    text={backgroundImageError}
-                />
+                <Banner kind="critical" text={backgroundImageError} />
             )}
 
             <TextField

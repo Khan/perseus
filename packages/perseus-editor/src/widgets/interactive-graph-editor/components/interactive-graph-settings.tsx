@@ -732,7 +732,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             </View>
                             {this.props.showProtractor && (
                                 <Banner
-                                    layout="floating"
                                     text="The protractor is not accessible. Please consider an alternate approach."
                                     kind="warning"
                                 />
