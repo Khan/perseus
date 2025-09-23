@@ -94,9 +94,9 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
 const styles = {
     tooltipBody: {
         color: semanticColor.core.foreground.neutral.strong,
-        fontSize: "2rem",
+        fontSize: font.body.size.medium,
         fontWeight: font.weight.medium,
-        lineHeight: 1.5,
+        lineHeight: font.body.lineHeight.large,
     },
 } as const;
 
