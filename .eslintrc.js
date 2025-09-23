@@ -125,6 +125,7 @@ module.exports = {
                 "*.cypress.ts",
                 "*.test.ts",
                 "*.test.tsx",
+                "*.testdata.tsx",
                 "*.stories.ts",
                 "*.stories.tsx",
                 "**/__testutils__/**",
