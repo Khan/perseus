@@ -90,7 +90,7 @@ export const FocusedState = {
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
         const imageTrigger = canvas.getByRole("button", {
-            name: "Earth and Moon",
+            name: "Explore image",
         });
         imageTrigger.focus();
     },
