@@ -1,5 +1,6 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import * as React from "react";
-import {forwardRef, useImperativeHandle, useState} from "react";
+import {forwardRef, useImperativeHandle} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
@@ -110,8 +111,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             }),
             [props],
         );
-        const [announcement, setAnnouncement] = useState<React.ReactNode[]>([]);
-        const i18nStrings = usePerseusI18n().strings;
 
         /**
          * Renders content that may contain nested widgets (currently only passage-refs).
@@ -233,34 +232,21 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             newCheckedState: ReadonlyArray<ChoiceState>,
         ) => {
             let screenReaderMessage = "";
-
-            const originalCheckedCount = originalState.reduce(
-                (count, choice) => count + (choice.selected ? 1 : 0),
-                0,
-            );
-
             const newCheckedCount = newCheckedState.reduce(
                 (count, choice) => count + (choice.selected ? 1 : 0),
                 0,
             );
 
             // TODO: Localize strings
-            if (newCheckedCount === 0) {
-                screenReaderMessage = "There are no choices selected.";
+            if (!props.multipleSelect) {
+                // Single-select choice was de-selected
+                screenReaderMessage = newCheckedCount === 0 ? "deselected" : "";
             } else if (newCheckedCount === 1) {
-                screenReaderMessage = "There is 1 choice selected.";
-            } else if (newCheckedCount > 1) {
-                screenReaderMessage = `There are ${newCheckedCount} choices selected.`;
-            }
-            let newMessages;
-            if (newCheckedCount === originalCheckedCount) {
-                newMessages = announcement.concat([
-                    <p key={announcement.length}>{screenReaderMessage}</p>,
-                ]);
+                screenReaderMessage = "1 choice selected";
             } else {
-                newMessages = [<p key={0}>{screenReaderMessage}</p>];
+                screenReaderMessage = `${newCheckedCount} choices selected`;
             }
-            setAnnouncement(newMessages);
+            announceMessage({message: screenReaderMessage});
         };
 
         /**
@@ -364,10 +350,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                     choices={choicesProps}
                     onChoiceChange={onChoiceChange}
                 />
-                {/* TODO: Determine how to hide this element - use WB Announcer, or implement own solution */}
-                <div aria-live="polite">
-                    {announcement}
-                </div>
             </>
         );
     },
