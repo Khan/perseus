@@ -11,17 +11,19 @@
     margin-block: 0;
 }
 .perseus-image-widget .perseus-image-caption {
-    color: rgba(33, 36, 44, 0.7);
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     padding-left: 16px;
     position: relative;
 }
 .perseus-image-widget .perseus-image-caption .paragraph {
-    font-size: 14px;
+    font-size: var(--wb-font-body-size-small);
     padding-right: 12px;
     margin-block: 0;
 }
 .perseus-image-modal-title .paragraph .paragraph {
-    font-size: var(--wb-font-size-large);
+    font-size: var(
+        --wb-font-heading-size-medium
+    );
 }
 .perseus-image-modal-description .perseus-renderer .paragraph {
     /* Reset default Renderer margins for the description and caption. */
@@ -35,7 +37,7 @@
     text-align: center;
 }
 .perseus-image-editor .label-settings tr:nth-child(odd) td {
-    background-color: transparent;
+    background-color: var(--wb-semanticColor-core-transparent);
 }
 .perseus-image-editor .label-settings th,
 .perseus-image-editor .label-settings td {

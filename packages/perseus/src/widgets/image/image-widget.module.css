@@ -57,7 +57,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: black;
+    background-color: var(--wb-semanticColor-core-background-neutral-strong);
     width: 100%;
     max-height: var(--modal-panel-height);
 }
