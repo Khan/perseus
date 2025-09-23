@@ -11,15 +11,12 @@ import {
     type Widget,
     type WidgetExports,
 } from "../../types";
-import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/python-ai-utils";
 
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 function getUrlFromProgramID(programID: any) {
-    const path = `/python-program/${programID}/embedded`;
-
-    return toAbsoluteUrl(path);
+    return `/python-program/${programID}/embedded`;
 }
 
 type Props = {
