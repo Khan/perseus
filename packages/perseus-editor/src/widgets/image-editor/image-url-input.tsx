@@ -1,11 +1,8 @@
 import {components, Util} from "@khanacademy/perseus";
-import Banner from "@khanacademy/wonder-blocks-banner";
 import {TextField} from "@khanacademy/wonder-blocks-form";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import React from "react";
-
-import styles from "./image-editor.module.css";
 
 import type {Props} from "./image-editor";
 
@@ -87,34 +84,32 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
     }
 
     return (
-        <>
-            <div className={styles.labelWithInfoTip}>
-                <HeadingXSmall tag="label" htmlFor={urlId}>
-                    Image url:
-                </HeadingXSmall>
+        <LabeledField
+            label="Image url:"
+            contextLabel={
                 <InfoTip>Paste an image or graphie image URL.</InfoTip>
-            </div>
-
-            {backgroundImageError && (
-                <Banner
-                    kind="critical"
-                    layout="floating"
-                    text={backgroundImageError}
+            }
+            field={
+                <TextField
+                    id={urlId}
+                    value={urlFieldValue}
+                    onBlur={(e) => onUrlChange(e.target.value)}
+                    onChange={(value) => setUrlFieldValue(value)}
                 />
-            )}
-
-            <TextField
-                id={urlId}
-                value={urlFieldValue}
-                onBlur={(e) => onUrlChange(e.target.value)}
-                onChange={(value) => setUrlFieldValue(value)}
-                style={{
-                    // TODO: Use CSS modules after Wonder Blocks styles
-                    // are moved to a different layer.
-                    marginBlockStart: sizing.size_040,
-                    marginBlockEnd: sizing.size_080,
-                }}
-            />
-        </>
+            }
+            errorMessage={backgroundImageError}
+            styles={wbFieldStyles}
+        />
     );
 }
+
+// TODO: Use CSS modules after Wonder Blocks styles
+// are moved to a different layer.
+const wbFieldStyles = {
+    root: {
+        marginBlockEnd: sizing.size_080,
+    },
+    label: {
+        paddingBlockEnd: sizing.size_040,
+    },
+};

@@ -71,7 +71,7 @@ describe("image editor", () => {
         const urlField = screen.getByRole("textbox", {name: "Image url:"});
         const altField = screen.getByRole("textbox", {name: "Alt text:"});
         const longDescriptionField = screen.getByRole("textbox", {
-            name: "Long Description:",
+            name: "Long description:",
         });
         const captionField = screen.getByRole("textbox", {name: "Caption:"});
         const titleField = screen.getByRole("textbox", {name: "Title:"});
@@ -284,7 +284,7 @@ describe("image editor", () => {
 
         // Act
         const altField = screen.getByRole("textbox", {
-            name: "Long Description:",
+            name: "Long description:",
         });
         altField.focus();
         await userEvent.paste("Earth and moon long description");
@@ -309,7 +309,7 @@ describe("image editor", () => {
 
         // Act
         const altField = screen.getByRole("textbox", {
-            name: "Long Description:",
+            name: "Long description:",
         });
         await userEvent.clear(altField);
 
