@@ -59,6 +59,7 @@ export default function ImageSettings({
                 width={backgroundImage.width}
                 height={backgroundImage.height}
             />
+
             {/* Dimensions */}
             <div className={styles.dimensionsContainer}>
                 <HeadingXSmall
@@ -74,6 +75,7 @@ export default function ImageSettings({
                 </HeadingXSmall>
                 {dimensionString}
             </div>
+
             {/* Alt text */}
             <div className={styles.labelWithInfoTip}>
                 <HeadingXSmall tag="label" htmlFor={altId}>
@@ -91,6 +93,7 @@ export default function ImageSettings({
                 onChange={(value) => onChange({alt: value})}
                 style={textAreaStyle}
             />
+
             {imageUpgradeFF && (
                 <>
                     {/* Long Description */}
@@ -105,6 +108,7 @@ export default function ImageSettings({
                     />
                 </>
             )}
+
             {/* Title */}
             <HeadingXSmall tag="label" htmlFor={titleId}>
                 Title:
@@ -115,6 +119,7 @@ export default function ImageSettings({
                 onChange={(value) => onChange({title: value})}
                 style={textAreaStyle}
             />
+
             {/* Caption */}
             <HeadingXSmall tag="label" htmlFor={captionId}>
                 Caption:
