@@ -1,5 +1,71 @@
 # @khanacademy/perseus
 
+## 69.3.0
+
+### Minor Changes
+
+-   [#2908](https://github.com/Khan/perseus/pull/2908) [`d60a719785`](https://github.com/Khan/perseus/commit/d60a7197855d8c05c45ba272d89b7057cf9e3503) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) (a11y) | Add long description field to Image widget editor
+
+*   [#2910](https://github.com/Khan/perseus/pull/2910) [`55769ff4da`](https://github.com/Khan/perseus/commit/55769ff4da8020e8a9a8bdbbd11d09dc03fc97f8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing several issues related to User Input in our Explanation and Number Line Widgets
+
+### Patch Changes
+
+-   [#2887](https://github.com/Khan/perseus/pull/2887) [`1ec4595857`](https://github.com/Khan/perseus/commit/1ec4595857d2ca28ab9f011c6e2fcdb29a3d7140) Thanks [@handeyeco](https://github.com/handeyeco)! - Add regression test for answerless-to-answerful transition
+
+*   [#2862](https://github.com/Khan/perseus/pull/2862) [`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add support for colon division symbol according to users locale
+
+-   [#2903](https://github.com/Khan/perseus/pull/2903) [`79a6fc682b`](https://github.com/Khan/perseus/commit/79a6fc682b5a6674383b3e609f34c5efa8ffe4ec) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix rendering error in InputWithExamples, changing replaceAll to replace to be old browser compatible
+
+-   Updated dependencies [[`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3), [`55769ff4da`](https://github.com/Khan/perseus/commit/55769ff4da8020e8a9a8bdbbd11d09dc03fc97f8), [`4733bbb3a8`](https://github.com/Khan/perseus/commit/4733bbb3a8ed2f7e20ef879a271198f7b2f6deb0)]:
+    -   @khanacademy/kas@2.1.2
+    -   @khanacademy/math-input@26.2.8
+    -   @khanacademy/perseus-core@19.3.0
+    -   @khanacademy/perseus-score@7.7.8
+    -   @khanacademy/keypad-context@3.2.8
+    -   @khanacademy/kmath@2.2.8
+    -   @khanacademy/perseus-linter@4.3.8
+
+## 69.2.0
+
+### Minor Changes
+
+-   [#2883](https://github.com/Khan/perseus/pull/2883) [`d0eff84625`](https://github.com/Khan/perseus/commit/d0eff846251ca73a881950d88c9ff08ed54ba726) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add `longDescription` to Image widget ("Explore image" button + modal) for mobile
+
+### Patch Changes
+
+-   [#2896](https://github.com/Khan/perseus/pull/2896) [`952312b7e9`](https://github.com/Khan/perseus/commit/952312b7e96948f59a675a095f94b2ea32d4d717) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Cleanup unused underscore imports
+
+*   [#2897](https://github.com/Khan/perseus/pull/2897) [`9a9d4f9369`](https://github.com/Khan/perseus/commit/9a9d4f9369ef93158a3f3c7d106d337b67745e24) Thanks [@nishasy](https://github.com/nishasy)! - Fix image sizing within grouped questions
+
+*   Updated dependencies [[`d0eff84625`](https://github.com/Khan/perseus/commit/d0eff846251ca73a881950d88c9ff08ed54ba726)]:
+    -   @khanacademy/perseus-core@19.2.0
+    -   @khanacademy/keypad-context@3.2.7
+    -   @khanacademy/kmath@2.2.7
+    -   @khanacademy/math-input@26.2.7
+    -   @khanacademy/perseus-linter@4.3.7
+    -   @khanacademy/perseus-score@7.7.7
+
+## 69.1.0
+
+### Minor Changes
+
+-   [#2863](https://github.com/Khan/perseus/pull/2863) [`8775764175`](https://github.com/Khan/perseus/commit/877576417507a011d3e6a975f0101b3afafc78a6) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add `longDescription` to Image widget ("Explore image" button + modal)
+
+### Patch Changes
+
+-   [#2893](https://github.com/Khan/perseus/pull/2893) [`bd30f2828c`](https://github.com/Khan/perseus/commit/bd30f2828c8ae0ef4d401fc516ec49fe2b8270c5) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove onChange from UniversalWidgetProps
+
+*   [#2889](https://github.com/Khan/perseus/pull/2889) [`1e3888f76c`](https://github.com/Khan/perseus/commit/1e3888f76c731e9dae46b8b15c322493eb96d9ad) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Removes remnants of crossed out prop in new radio
+
+*   Updated dependencies [[`8775764175`](https://github.com/Khan/perseus/commit/877576417507a011d3e6a975f0101b3afafc78a6), [`46b71965bb`](https://github.com/Khan/perseus/commit/46b71965bb0c098b874b12ac6ccdb859f5979624), [`abd72b25fa`](https://github.com/Khan/perseus/commit/abd72b25fae24a2233c9da8de1541fbe86280419)]:
+    -   @khanacademy/perseus-core@19.1.0
+    -   @khanacademy/kas@2.1.1
+    -   @khanacademy/keypad-context@3.2.6
+    -   @khanacademy/kmath@2.2.6
+    -   @khanacademy/math-input@26.2.6
+    -   @khanacademy/perseus-linter@4.3.6
+    -   @khanacademy/perseus-score@7.7.6
+
 ## 69.0.1
 
 ### Patch Changes

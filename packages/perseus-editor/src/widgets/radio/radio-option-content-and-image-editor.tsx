@@ -1,3 +1,4 @@
+import {components} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
@@ -13,6 +14,8 @@ import {
     setMarkdownContentFromImageProxy,
     setImageProxyFromMarkdownContent,
 } from "./utils";
+
+const {SvgImage} = components;
 
 type Props = {
     isNoneOfTheAbove: boolean;
@@ -199,10 +202,9 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                         paddingBlockEnd: sizing.size_120,
                     }}
                 >
-                    <img
+                    <SvgImage
                         src={image.url}
-                        alt={image.altText}
-                        style={{marginBlockEnd: sizing.size_080}}
+                        alt={`Preview: ${image.altText ?? "No alt text"}`}
                     />
                     <RadioImageEditor
                         initialImageUrl={image.url}

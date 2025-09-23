@@ -1,3 +1,12 @@
+:root {
+    /* Undo the default padding for the top of the modal. */
+    --modal-padding-offset: calc(-1 * var(--wb-sizing-size_320));
+    --modal-padding-offset-mobile: calc(-1 * var(--wb-sizing-size_160));
+    /* Fixed px values from the design. */
+    --modal-panel-height: 568px;
+    --modal-description-container-width: 420px;
+}
+
 .title-container {
     text-align: center;
     border-top: var(--wb-border-width-thin) solid
@@ -13,4 +22,80 @@
     padding-block-end: var(--wb-sizing-size_160);
     border-bottom: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.modal-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.modal-title-container {
+    display: flex;
+    align-items: center;
+    /* Undo the default padding for the top of the modal. */
+    margin-block-start: var(--modal-padding-offset);
+    /* Reset the default margin for h1. */
+    margin-block-end: 0px;
+}
+
+.modal-panel-container {
+    display: flex;
+    flex-direction: row;
+    height: var(--modal-panel-height);
+    border-block-start: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    padding: var(--wb-sizing-size_080);
+    padding-inline-end: 0;
+    /* Undo the default padding for the modal panel. */
+    margin-inline: var(--modal-padding-offset);
+    margin-block-end: var(--modal-padding-offset);
+}
+
+.modal-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    width: 100%;
+    max-height: var(--modal-panel-height);
+}
+
+.modal-description-container {
+    display: flex;
+    flex-direction: column;
+    width: var(--modal-description-container-width);
+    padding-inline: var(--wb-sizing-size_320);
+    overflow-y: auto;
+    padding-block: var(--wb-sizing-size_240);
+}
+
+.modal-caption-container {
+    padding-block-end: var(--wb-sizing-size_240);
+}
+
+/* NOTE: It looks like this 767px is hardcoded in CSS files.
+    It can be found in packages/perseus/src/styles/constants.ts as
+    a breakpoint constant to be used in jsx/tsx files. */
+@media (max-width: 767px) {
+    .modal-panel-container {
+        flex-direction: column;
+        margin-inline: var(--modal-padding-offset-mobile);
+        /* Allow mobile photo to stretch to the edges of the modal. */
+        padding: 0;
+        overflow-y: auto;
+        height: auto;
+    }
+
+    .modal-image-container {
+        height: auto;
+    }
+
+    .modal-description-container {
+        margin-block: var(--wb-sizing-size_120);
+        padding: var(--wb-sizing-size_120);
+        width: auto;
+        overflow-y: visible;
+    }
 }

@@ -1,5 +1,37 @@
 # @khanacademy/perseus-core
 
+## 19.3.0
+
+### Minor Changes
+
+-   [#2910](https://github.com/Khan/perseus/pull/2910) [`55769ff4da`](https://github.com/Khan/perseus/commit/55769ff4da8020e8a9a8bdbbd11d09dc03fc97f8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing several issues related to User Input in our Explanation and Number Line Widgets
+
+### Patch Changes
+
+-   [#2862](https://github.com/Khan/perseus/pull/2862) [`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add support for colon division symbol according to users locale
+
+-   Updated dependencies [[`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3)]:
+    -   @khanacademy/kas@2.1.2
+
+## 19.2.0
+
+### Minor Changes
+
+-   [#2883](https://github.com/Khan/perseus/pull/2883) [`d0eff84625`](https://github.com/Khan/perseus/commit/d0eff846251ca73a881950d88c9ff08ed54ba726) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add `longDescription` to Image widget ("Explore image" button + modal) for mobile
+
+## 19.1.0
+
+### Minor Changes
+
+-   [#2863](https://github.com/Khan/perseus/pull/2863) [`8775764175`](https://github.com/Khan/perseus/commit/877576417507a011d3e6a975f0101b3afafc78a6) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add `longDescription` to Image widget ("Explore image" button + modal)
+
+### Patch Changes
+
+-   [#2892](https://github.com/Khan/perseus/pull/2892) [`abd72b25fa`](https://github.com/Khan/perseus/commit/abd72b25fae24a2233c9da8de1541fbe86280419) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add helpful comment to lint the front-end change related to adding a new feature flag
+
+-   Updated dependencies [[`46b71965bb`](https://github.com/Khan/perseus/commit/46b71965bb0c098b874b12ac6ccdb859f5979624)]:
+    -   @khanacademy/kas@2.1.1
+
 ## 19.0.3
 
 ### Patch Changes

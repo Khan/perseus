@@ -1,3 +1,4 @@
+import {ApiOptions} from "@khanacademy/perseus";
 import {
     generateImageOptions,
     generateImageWidget,
@@ -5,6 +6,7 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageEditor from "../image-editor/image-editor";
@@ -17,6 +19,12 @@ const withinEditorPageDecorator = (_, {args}) => {
     return (
         <div style={{width: PROD_EDITOR_WIDTH}}>
             <EditorPageWithStorybookPreview
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    flags: getFeatureFlags({
+                        "image-widget-upgrade": true,
+                    }),
+                }}
                 question={generateTestPerseusRenderer({
                     content: "[[☃ image 1]]",
                     widgets: {

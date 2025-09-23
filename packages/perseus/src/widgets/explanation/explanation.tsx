@@ -5,10 +5,10 @@ import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
+import UserInputManager from "../../user-input-manager";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -143,13 +143,37 @@ class Explanation extends React.Component<Props, State> implements Widget {
                             testId="content-container"
                         >
                             <View style={styles.contentWrapper}>
-                                <Renderer
-                                    apiOptions={this.props.apiOptions}
-                                    content={this.props.explanation}
+                                <UserInputManager
                                     widgets={this.props.widgets}
-                                    linterContext={this.props.linterContext}
-                                    strings={this.context.strings}
-                                />
+                                    problemNum={0}
+                                >
+                                    {({
+                                        userInput,
+                                        handleUserInput,
+                                        initializeUserInput,
+                                    }) => {
+                                        return (
+                                            <Renderer
+                                                apiOptions={
+                                                    this.props.apiOptions
+                                                }
+                                                content={this.props.explanation}
+                                                widgets={this.props.widgets}
+                                                linterContext={
+                                                    this.props.linterContext
+                                                }
+                                                strings={this.context.strings}
+                                                userInput={userInput}
+                                                handleUserInput={
+                                                    handleUserInput
+                                                }
+                                                initializeUserInput={
+                                                    initializeUserInput
+                                                }
+                                            />
+                                        );
+                                    }}
+                                </UserInputManager>
                             </View>
                         </View>
                     </>

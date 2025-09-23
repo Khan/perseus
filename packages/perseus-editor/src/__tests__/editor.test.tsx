@@ -1,5 +1,5 @@
 import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
-import {act, render, screen} from "@testing-library/react";
+import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -81,18 +81,43 @@ describe("Editor", () => {
 
     test("clicking on the widget editor should open it", async () => {
         // Arrange
+        const images: Array<Record<any, any>> = [];
+        const originalImage = window.Image;
+        // The editor preview uses SvgImage, which uses ImageLoader.
+        // We need to mock the image loading in ImageLoader for it to render.
+        // Mock HTML Image so we can trigger onLoad callbacks and see full
+        // image rendering.
+        // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
+        window.Image = jest.fn(() => {
+            const img: Record<string, any> = {};
+            images.push(img);
+            return img;
+        });
+
         render(<Harnessed />);
 
         // Act
         const widgetDisclosure = screen.getByText("image 1");
         await userEvent.click(widgetDisclosure);
 
+        // Trigger the image load
+        images.forEach((img) => {
+            if (img?.onload) {
+                act(() => img.onload());
+            }
+        });
+
         // Assert
         const previewImage = screen.getByAltText(/Preview:/);
-        expect(previewImage).toHaveAttribute(
-            "src",
-            "http://placekitten.com/200/300",
+        await waitFor(() =>
+            expect(previewImage).toHaveAttribute(
+                "src",
+                "mockStaticUrl(http://placekitten.com/200/300)",
+            ),
         );
+
+        // Cleanup
+        window.Image = originalImage;
     });
 
     it("should update values", async () => {

@@ -5,6 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
@@ -16,6 +17,7 @@ import {
     mobileArticleDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
+import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -24,15 +26,10 @@ const ImageWidget = getWidget("image")!;
 
 type Story = StoryObj<typeof ImageWidget>;
 
-const earthMoonImage = {
-    url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
-    width: 400,
-    height: 225,
-};
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
-const frescoImageUrl =
-    "https://cdn.kastatic.org/ka-perseus-images/01f44d5b73290da6bec97c75a5316fb05ab61f12.jpg";
+const frescsoLongDescription =
+    "In the apse, or semicircular recess, The Offer of the Casa Madre to Victory (L’Offerta della Casa Madre alla Vittoria) fresco recalls medieval apse decorative schemes with Christ surrounded by saints to whom the Church is dedicated. Santagata replaced Mary with a triumphant and wingless figure representing Victory, and he replaced saints with sentries. The charismatic wounded veteran Carlo Delcroix, who became the AMNIG president, is depicted presenting a model of the Casa Madre to Victory (not unlike the medieval patron Enrico Scrovegni, who offered the Arena chapel he commissioned to the Virgin Mary).\n\nThis image has some stuff in it. *Here is some italic text.* **Here is some bold text.**";
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
@@ -59,27 +56,28 @@ const rendererDecorator = (_, {args, parameters}) => {
 const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
     component: ImageWidget,
-    tags: ["!dev"],
     parameters: {
         chromatic: {disableSnapshot: false},
     },
 };
 export default meta;
 
-export const Default: Story = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-        alt: "Earth and Moon",
-        title: "Earth and Moon",
-        caption: earthMoonImageCaption,
-    },
-};
-
 export const Image: Story = {
     decorators: [rendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
+    },
+};
+
+export const ImageWithAll: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+        title: "Earth and Moon",
+        caption: earthMoonImageCaption,
     },
 };
 
@@ -99,6 +97,25 @@ export const ImageWithCaption: Story = {
     },
 };
 
+export const ImageWithCaptionAndLongDescription: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const ImageWithLongDescription: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
 export const ImageWithTitle: Story = {
     decorators: [rendererDecorator],
     args: {
@@ -107,24 +124,69 @@ export const ImageWithTitle: Story = {
     },
 };
 
-export const ImageWithZoom: Story = {
-    decorators: [rendererDecorator],
+export const MobileImageAll: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
     args: {
-        backgroundImage: {
-            url: frescoImageUrl,
-            width: 1698,
-            height: 955,
-        },
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+        title: "Earth and Moon",
     },
 };
 
-export const MobileImage: Story = {
+export const MobileImageWithAlt: Story = {
     decorators: [rendererDecorator, mobileDecorator],
     args: {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
-        title: "Earth and Moon",
+    },
+};
+
+export const MobileImageWithCaption: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
         caption: earthMoonImageCaption,
+    },
+};
+
+export const MobileImageWithCaptionAndLongDescription: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const MobileImageWithLongDescription: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const MobileImageWithTitle: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        title: "Earth and Moon",
+    },
+};
+
+export const PortraitImage: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: monasteryImage,
+        caption:
+            "Kalenić Monastery, after 1407, Serbia (photo: [Ванилица](https://commons.wikimedia.org/wiki/File:Wiki_%C5%A0umadija_XI_Kaleni%C4%87_Monastery_874.jpg), CC BY-SA 4.0)",
+        title: "Kalenić Monastery",
+        longDescription:
+            "Later architecture in Serbia, notably that of the so-called Morava School, is smaller and more decorative, often utilizing the so-called Athonite plan (with choroi and subsidiary chapels), as at Ravanica (1370s), with five domes, or the smaller and simpler Kalenić (after 1407).",
     },
 };
 
@@ -183,11 +245,28 @@ export const RightToLeftImage: Story = {
         title: "The Offer of the Casa Madre to Victory, 1932",
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
-        backgroundImage: {
-            url: frescoImageUrl,
-            width: 1698,
-            height: 955,
-        },
+        longDescription: frescsoLongDescription,
+        backgroundImage: frescoImage,
+    },
+};
+
+export const RightToLeftImageMobile: Story = {
+    decorators: [
+        rendererDecorator,
+        mobileDecorator,
+        (Story) => (
+            <div style={{direction: "rtl"}}>
+                <Story />
+            </div>
+        ),
+    ],
+    args: {
+        alt: "Fresco of some people",
+        title: "The Offer of the Casa Madre to Victory, 1932",
+        caption:
+            "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
+        longDescription: frescsoLongDescription,
+        backgroundImage: frescoImage,
     },
 };
 
@@ -204,7 +283,10 @@ function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
                     content={question.content}
                     widgets={question.widgets}
                     images={question.images}
-                    apiOptions={ApiOptions.defaults}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: getFeatureFlags({"image-widget-upgrade": true}),
+                    }}
                 />
             )}
         </UserInputManager>

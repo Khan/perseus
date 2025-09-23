@@ -1,5 +1,26 @@
 # @khanacademy/keypad-context
 
+## 3.2.8
+
+### Patch Changes
+
+-   Updated dependencies [[`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3), [`55769ff4da`](https://github.com/Khan/perseus/commit/55769ff4da8020e8a9a8bdbbd11d09dc03fc97f8)]:
+    -   @khanacademy/perseus-core@19.3.0
+
+## 3.2.7
+
+### Patch Changes
+
+-   Updated dependencies [[`d0eff84625`](https://github.com/Khan/perseus/commit/d0eff846251ca73a881950d88c9ff08ed54ba726)]:
+    -   @khanacademy/perseus-core@19.2.0
+
+## 3.2.6
+
+### Patch Changes
+
+-   Updated dependencies [[`8775764175`](https://github.com/Khan/perseus/commit/877576417507a011d3e6a975f0101b3afafc78a6), [`abd72b25fa`](https://github.com/Khan/perseus/commit/abd72b25fae24a2233c9da8de1541fbe86280419)]:
+    -   @khanacademy/perseus-core@19.1.0
+
 ## 3.2.5
 
 ### Patch Changes
