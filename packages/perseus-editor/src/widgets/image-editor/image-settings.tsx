@@ -23,6 +23,9 @@ export default function ImageSettings({
     onChange,
 }: Props) {
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
+    const [altFieldError, setAltFieldError] = React.useState<string | null>(
+        null,
+    );
 
     if (!backgroundImage.url) {
         return null;
@@ -33,6 +36,22 @@ export default function ImageSettings({
         backgroundImage.width && backgroundImage.height
             ? dimensions
             : "unknown";
+
+    function handleAltFieldChange(value: string) {
+        if (value.length < 8) {
+            setAltFieldError(
+                "While alt text should be brief, it should still be descriptive.",
+            );
+        } else if (value.length > 150) {
+            setAltFieldError(
+                `Alt text must be less than 150 characters. Please use the "Long description" field below for a longer description.`,
+            );
+        } else {
+            setAltFieldError(null);
+        }
+
+        onChange({alt: value});
+    }
 
     return (
         <>
@@ -70,9 +89,10 @@ export default function ImageSettings({
                 field={
                     <AutoResizingTextArea
                         value={alt ?? ""}
-                        onChange={(value) => onChange({alt: value})}
+                        onChange={handleAltFieldChange}
                     />
                 }
+                errorMessage={altFieldError}
                 styles={wbFieldStyles}
             />
 
