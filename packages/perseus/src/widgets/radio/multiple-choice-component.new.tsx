@@ -1,7 +1,8 @@
-import React, {useId} from "react";
+import React, {useEffect, useId, useRef, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import ScrollableView from "../../components/scrollable-view";
+import {getBackgroundColor} from "../../util/colors";
 
 import Choice from "./choice.new";
 import styles from "./multiple-choice.module.css";
@@ -59,6 +60,15 @@ const MultipleChoiceComponent = ({
 }: MultipleChoiceComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
     const legendId = useId();
+    const containerRef = useRef<HTMLFieldSetElement>(null);
+    const [backgroundColor, setBackgroundColor] = useState("transparent");
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (container) {
+            setBackgroundColor(getBackgroundColor(container));
+        }
+    }, []);
 
     const instructions = getInstructionsText({
         multipleSelect,
@@ -70,6 +80,10 @@ const MultipleChoiceComponent = ({
     const choiceListClasses = reviewMode
         ? `${styles.choiceList} ${styles.reviewAnswers}`
         : styles.choiceList;
+    const cssVariableDeclaration: React.CSSProperties = {
+        // @ts-expect-error TS2353: Object literal may only specify known properties
+        "--perseus-widget-background-color": backgroundColor,
+    };
 
     const scrollId = useId() + "-scroll";
 
@@ -78,6 +92,8 @@ const MultipleChoiceComponent = ({
             <fieldset
                 className={styles.container}
                 data-feature-flag="feature flag is ON"
+                ref={containerRef}
+                style={cssVariableDeclaration}
             >
                 <legend
                     id={legendId}
