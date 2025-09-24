@@ -118,7 +118,7 @@ describe("Editor", () => {
         await waitFor(() =>
             expect(previewImage).toHaveAttribute(
                 "src",
-                "mockStaticUrl(http://placekitten.com/200/300)",
+                "http://placekitten.com/200/300",
             ),
         );
 
