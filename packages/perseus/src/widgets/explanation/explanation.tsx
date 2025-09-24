@@ -13,6 +13,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
+import {font} from "@khanacademy/wonder-blocks-tokens";
 
 type Props = WidgetProps<PerseusExplanationWidgetOptions>;
 
@@ -97,7 +98,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
         };
 
         const labelStyle = {
-            fontSize: "1.8rem",
+            fontSize: font.body.size.medium,
             lineHeight: "inherit",
             "text-align": "left",
             // The following property adjusts the large space between the button text and the caret icon.
