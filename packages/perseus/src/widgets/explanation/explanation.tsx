@@ -1,6 +1,7 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
+import {font} from "@khanacademy/wonder-blocks-tokens";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import {StyleSheet} from "aphrodite";
@@ -13,7 +14,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
-import {font} from "@khanacademy/wonder-blocks-tokens";
 
 type Props = WidgetProps<PerseusExplanationWidgetOptions>;
 
@@ -98,7 +98,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
         };
 
         const labelStyle = {
-            fontSize: font.body.size.medium,
+            fontSize: font.heading.size.medium,
             lineHeight: "inherit",
             "text-align": "left",
             // The following property adjusts the large space between the button text and the caret icon.
