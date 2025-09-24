@@ -72,7 +72,7 @@ export default function ImageSettings({
                 field={
                     <SvgImage
                         src={backgroundImage.url}
-                        alt={`Preview: ${alt ?? "No alt text"}`}
+                        alt={`Preview: ${alt || "No alt text"}`}
                     />
                 }
                 styles={wbFieldStyles}
