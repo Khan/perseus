@@ -8,11 +8,11 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
-import {ApiOptions} from "../../../perseus-api";
-import Renderer from "../../../renderer";
-import {mockStrings} from "../../../strings";
-import UserInputManager from "../../../user-input-manager";
+import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
+import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
+import {mockStrings} from "@khanacademy/perseus/strings";
+import UserInputManager from "../../user-input-manager";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
