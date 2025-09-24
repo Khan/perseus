@@ -21,9 +21,7 @@
     margin-block: 0;
 }
 .perseus-image-modal-title .paragraph .paragraph {
-    font-size: var(
-        --wb-font-heading-size-medium
-    );
+    font-size: var(--wb-font-heading-size-medium);
 }
 .perseus-image-modal-description .perseus-renderer .paragraph {
     /* Reset default Renderer margins for the description and caption. */
