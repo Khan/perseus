@@ -47,7 +47,10 @@ export default function ImageSettings({
     // Show "alt text too long" error on change so the user is notified
     // as they type that they're writing too much.
     function handleAltFieldChange(value: string) {
-        if (value.length > MAX_ALT_TEXT_LENGTH) {
+        if (value.length === 0) {
+            // If the user clears the alt text, clear the error
+            setAltFieldError(null);
+        } else if (value.length > MAX_ALT_TEXT_LENGTH) {
             setAltFieldError(altTextTooLongError);
         } else if (value.length >= MIN_ALT_TEXT_LENGTH) {
             setAltFieldError(null);
@@ -59,7 +62,7 @@ export default function ImageSettings({
     // it on change, as that would show the error immediately as the user
     // starts typing, which would be disruptive.
     function handleAltFieldBlur(value: string) {
-        if (value.length < MIN_ALT_TEXT_LENGTH) {
+        if (value.length < MIN_ALT_TEXT_LENGTH && value.length > 0) {
             setAltFieldError(altTextTooShortError);
         }
     }
