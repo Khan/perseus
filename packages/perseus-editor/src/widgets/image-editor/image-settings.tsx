@@ -50,7 +50,7 @@ export default function ImageSettings({
         if (value.length === 0) {
             // If the user clears the alt text, clear the error
             setAltFieldError(null);
-        } else if (value.length > MAX_ALT_TEXT_LENGTH) {
+        } else if (imageUpgradeFF && value.length > MAX_ALT_TEXT_LENGTH) {
             setAltFieldError(altTextTooLongError);
         } else if (value.length >= MIN_ALT_TEXT_LENGTH) {
             setAltFieldError(null);
