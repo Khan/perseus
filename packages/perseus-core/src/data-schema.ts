@@ -664,6 +664,8 @@ export type PerseusImageWidgetOptions = {
     alt?: string;
     // Translatable Markdown; Text to be shown as the long description of an image
     longDescription?: string;
+    // When true, standalone image will be rendered with alt="" and without any alt text, caption, title, or long description.
+    decorative?: boolean;
     // The image details for the image to be displayed
     backgroundImage: PerseusImageBackground;
     // Always false.  Not used for this widget

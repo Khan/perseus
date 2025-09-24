@@ -19,6 +19,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         box,
         caption,
         longDescription,
+        decorative,
         linterContext,
         labels,
         range,
@@ -40,7 +41,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             }}
         >
             {/* Title */}
-            {title && (
+            {!decorative && title && (
                 <div className={`perseus-image-title ${styles.titleContainer}`}>
                     {/* The Renderer component is used here so that the title
                         can support markdown and TeX. */}
@@ -58,7 +59,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                 {({setAssetStatus}) => (
                     <SvgImage
                         src={backgroundImage.url!}
-                        alt={caption === alt ? "" : alt}
+                        alt={decorative || caption === alt ? "" : alt}
                         width={backgroundImage.width}
                         height={backgroundImage.height}
                         preloader={apiOptions.imagePreloader}
@@ -78,9 +79,10 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             </AssetContext.Consumer>
 
             {/* Description & Caption */}
-            {(caption || (imageUpgradeFF && longDescription)) && (
-                <ImageDescriptionAndCaption {...props} />
-            )}
+            {!decorative &&
+                (caption || (imageUpgradeFF && longDescription)) && (
+                    <ImageDescriptionAndCaption {...props} />
+                )}
         </figure>
     );
 };
