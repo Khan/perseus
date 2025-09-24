@@ -13,6 +13,13 @@ import type {Props} from "./image-editor";
 
 const {SvgImage} = components;
 
+const MIN_ALT_TEXT_LENGTH = 8;
+const MAX_ALT_TEXT_LENGTH = 150;
+const altTextTooLongError =
+    "Alt text should not exceed 150 characters. Please pair your alt with a long description below if you need significantly more text to sufficiently describe the image.";
+const altTextTooShortError =
+    "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
+
 export default function ImageSettings({
     alt,
     backgroundImage,
@@ -37,20 +44,24 @@ export default function ImageSettings({
             ? dimensions
             : "unknown";
 
+    // Show "alt text too long" error on change so the user is notified
+    // as they type that they're writing too much.
     function handleAltFieldChange(value: string) {
-        if (value.length < 8) {
-            setAltFieldError(
-                "While alt text should be brief, it should still be descriptive.",
-            );
-        } else if (value.length > 150) {
-            setAltFieldError(
-                `Alt text must be less than 150 characters. Please use the "Long description" field below for a longer description.`,
-            );
-        } else {
+        if (value.length > MAX_ALT_TEXT_LENGTH) {
+            setAltFieldError(altTextTooLongError);
+        } else if (value.length >= MIN_ALT_TEXT_LENGTH) {
             setAltFieldError(null);
         }
-
         onChange({alt: value});
+    }
+
+    // Only show "alt text too short" error on blur - we don't want to show
+    // it on change, as that would show the error immediately as the user
+    // starts typing, which would be disruptive.
+    function handleAltFieldBlur(value: string) {
+        if (value.length < MIN_ALT_TEXT_LENGTH) {
+            setAltFieldError(altTextTooShortError);
+        }
     }
 
     return (
@@ -90,6 +101,7 @@ export default function ImageSettings({
                 field={
                     <AutoResizingTextArea
                         value={alt ?? ""}
+                        onBlur={(e) => handleAltFieldBlur(e.target.value)}
                         onChange={handleAltFieldChange}
                     />
                 }
