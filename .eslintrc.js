@@ -127,6 +127,8 @@ module.exports = {
                 "*.test.tsx",
                 "*.stories.ts",
                 "*.stories.tsx",
+                "src/**/__docs__/**/*.ts",
+                "src/**/__docs__/**/*.tsx",
                 "**/__testutils__/**",
                 "**/__stories__/**",
                 "**/__docs__/**",
