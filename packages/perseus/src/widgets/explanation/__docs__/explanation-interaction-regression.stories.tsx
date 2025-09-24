@@ -14,7 +14,7 @@ const meta: Meta = {
         docs: {
             description: {
                 component:
-                    "Regression tests for the Explanatin widget that DO need some sort of interaction to test, which will be used with Chromatic. Stories are displayed on their own page.",
+                    "Regression tests for the Explanation widget that DO need some sort of interaction to test, which will be used with Chromatic. Stories are displayed on their own page.",
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
