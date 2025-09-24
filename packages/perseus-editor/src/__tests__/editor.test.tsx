@@ -131,7 +131,7 @@ describe("Editor", () => {
         const widgetDisclosure = screen.getByText("image 1");
         await userEvent.click(widgetDisclosure);
 
-        const captionInput = screen.getByLabelText(/Caption:/);
+        const captionInput = screen.getByLabelText(/Caption/);
 
         await userEvent.clear(captionInput);
         captionInput.focus();
