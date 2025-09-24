@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {getWidget} from "../../../widgets";
+import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
     mobileDecorator,
     articleDecorator,
@@ -8,8 +9,6 @@ import {
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
 import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
-
-import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

@@ -1,12 +1,11 @@
 import {getWidget} from "../../../widgets";
+import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
     mobileDecorator,
     articleDecorator,
     mobileArticleDecorator,
 } from "../../__testutils__/story-decorators";
 import {earthMoonImage, monasteryImage} from "../utils";
-
-import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
