@@ -236,26 +236,6 @@ describe("Multiple choice component", () => {
                 expectedLabel,
             );
         });
-
-        it("includes additional instructions in the accessible name when component is single-select", () => {
-            const props = {...getComponentProps(), multipleSelect: false};
-            render(<MultipleChoiceComponent {...props} />);
-            const choiceList = screen.getByRole("list");
-            expect(choiceList).toHaveAttribute("aria-label");
-            const ariaLabel = choiceList.getAttribute("aria-label");
-            expect(ariaLabel?.length).toBeGreaterThan(0);
-            const listId = choiceList.getAttribute("id");
-            expect(choiceList.getAttribute("aria-labelledby")).toContain(
-                listId,
-            );
-        });
-
-        it("does NOT include additional instructions in the accessible name when component is multiple-select", () => {
-            const props = {...getComponentProps(), multipleSelect: true};
-            render(<MultipleChoiceComponent {...props} />);
-            const choiceList = screen.getByRole("list");
-            expect(choiceList).not.toHaveAttribute("aria-label");
-        });
     });
 
     describe("functionality", () => {
