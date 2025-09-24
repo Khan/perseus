@@ -1,5 +1,5 @@
 import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
-import {act, render, screen} from "@testing-library/react";
+import {act, render, screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -564,11 +564,13 @@ describe("image editor", () => {
             />,
         );
 
-        // Act - type 7 characters and blur
+        // Act - type 3 characters and blur
+        // Note: Using fireEvent here instead of userEvent because userEvent.type/paste
+        // with userEvent.tab doesn't properly trigger the blur validation for this component
         const altField = screen.getByRole("textbox", {name: "Alt text"});
-        altField.focus();
-        await userEvent.paste("a".repeat(7));
-        await userEvent.tab();
+        // eslint-disable-next-line testing-library/prefer-user-event
+        fireEvent.change(altField, {target: {value: "aaa"}});
+        fireEvent.blur(altField, {target: {value: "aaa"}});
 
         // Assert
         expect(screen.getByText(altTextTooShortError)).toBeInTheDocument();
@@ -592,5 +594,33 @@ describe("image editor", () => {
 
         // Assert
         expect(screen.getByText(altTextTooLongError)).toBeInTheDocument();
+    });
+
+    it("should clear the error when the alt text is cleared", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditor
+                apiOptions={apiOptions}
+                onChange={onChangeMock}
+                backgroundImage={{url: realKhanImageUrl}}
+                alt="aaa" // Start with short alt text that will trigger error on blur
+            />,
+        );
+
+        // Act - blur the field to trigger the validation error
+        const altField = screen.getByRole("textbox", {name: "Alt text"});
+        fireEvent.blur(altField, {target: {value: "aaa"}});
+
+        // Assert - make sure the error is shown
+        expect(screen.getByText(altTextTooShortError)).toBeInTheDocument();
+
+        // Act - clear the alt text
+        await userEvent.clear(altField);
+
+        // Assert - make sure the error is cleared
+        expect(
+            screen.queryByText(altTextTooShortError),
+        ).not.toBeInTheDocument();
     });
 });

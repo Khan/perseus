@@ -62,7 +62,7 @@ export default function ImageSettings({
     // it on change, as that would show the error immediately as the user
     // starts typing, which would be disruptive.
     function handleAltFieldBlur(value: string) {
-        if (value.length < MIN_ALT_TEXT_LENGTH && value.length > 0) {
+        if (value.length > 0 && value.length < MIN_ALT_TEXT_LENGTH) {
             setAltFieldError(altTextTooShortError);
         }
     }
