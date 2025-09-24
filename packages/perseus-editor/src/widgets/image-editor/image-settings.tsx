@@ -57,7 +57,7 @@ export default function ImageSettings({
         <>
             {/* Preview */}
             <LabeledField
-                label="Preview:"
+                label="Preview"
                 field={
                     <SvgImage
                         src={backgroundImage.url}
@@ -85,7 +85,8 @@ export default function ImageSettings({
 
             {/* Alt text */}
             <LabeledField
-                label="Alt text:"
+                label="Alt text"
+                description="Summarize the image using up to 150 characters."
                 field={
                     <AutoResizingTextArea
                         value={alt ?? ""}
@@ -93,13 +94,13 @@ export default function ImageSettings({
                     />
                 }
                 errorMessage={altFieldError}
-                styles={wbFieldStyles}
+                styles={wbFieldStylesWithDescription}
             />
 
             {/* Long Description */}
             {imageUpgradeFF && (
                 <LabeledField
-                    label="Long description:"
+                    label="Long description"
                     field={
                         <AutoResizingTextArea
                             value={longDescription ?? ""}
@@ -114,7 +115,7 @@ export default function ImageSettings({
 
             {/* Title */}
             <LabeledField
-                label="Title:"
+                label="Title"
                 field={
                     <AutoResizingTextArea
                         value={title ?? ""}
@@ -126,7 +127,7 @@ export default function ImageSettings({
 
             {/* Caption */}
             <LabeledField
-                label="Caption:"
+                label="Caption"
                 field={
                     <AutoResizingTextArea
                         value={caption ?? ""}
@@ -146,6 +147,20 @@ const wbFieldStyles = {
         marginBlockEnd: sizing.size_080,
     },
     label: {
+        fontWeight: "bold",
+        paddingBlockEnd: sizing.size_040,
+    },
+};
+
+// Exporting so this can be used in image-url-input.tsx.
+export const wbFieldStylesWithDescription = {
+    ...wbFieldStyles,
+    label: {
+        ...wbFieldStyles.label,
+        paddingBlockEnd: 0,
+    },
+    description: {
+        paddingBlockStart: 0,
         paddingBlockEnd: sizing.size_040,
     },
 };

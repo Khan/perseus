@@ -39,7 +39,7 @@ describe("image editor", () => {
         render(<ImageEditor apiOptions={apiOptions} onChange={() => {}} />);
 
         // Assert
-        const urlField = screen.getByRole("textbox", {name: "Image url:"});
+        const urlField = screen.getByRole("textbox", {name: "Image URL"});
         expect(urlField).toBeInTheDocument();
 
         // None of the rest of the UI should be rendered.
@@ -68,13 +68,13 @@ describe("image editor", () => {
         );
 
         const dimensionsLabel = screen.getByText("Dimensions:");
-        const urlField = screen.getByRole("textbox", {name: "Image url:"});
-        const altField = screen.getByRole("textbox", {name: "Alt text:"});
+        const urlField = screen.getByRole("textbox", {name: "Image URL"});
+        const altField = screen.getByRole("textbox", {name: "Alt text"});
         const longDescriptionField = screen.getByRole("textbox", {
-            name: "Long description:",
+            name: "Long description",
         });
-        const captionField = screen.getByRole("textbox", {name: "Caption:"});
-        const titleField = screen.getByRole("textbox", {name: "Title:"});
+        const captionField = screen.getByRole("textbox", {name: "Caption"});
+        const titleField = screen.getByRole("textbox", {name: "Title"});
 
         // Assert
         expect(dimensionsLabel).toBeInTheDocument();
@@ -106,7 +106,7 @@ describe("image editor", () => {
         );
 
         // Act
-        const urlField = screen.getByRole("textbox", {name: "Image url:"});
+        const urlField = screen.getByRole("textbox", {name: "Image URL"});
         urlField.focus();
         await userEvent.paste("https://example.com/image.png");
         await userEvent.tab();
@@ -160,7 +160,7 @@ describe("image editor", () => {
         );
 
         // Act
-        const urlField = screen.getByRole("textbox", {name: "Image url:"});
+        const urlField = screen.getByRole("textbox", {name: "Image URL"});
         urlField.focus();
         await userEvent.paste(realKhanImageUrl);
         await userEvent.tab();
@@ -182,7 +182,7 @@ describe("image editor", () => {
         render(<ImageEditor apiOptions={apiOptions} onChange={onChangeMock} />);
 
         // Act
-        const urlField = screen.getByRole("textbox", {name: "Image url:"});
+        const urlField = screen.getByRole("textbox", {name: "Image URL"});
         urlField.focus();
         await userEvent.clear(urlField);
         await userEvent.tab();
@@ -211,7 +211,7 @@ describe("image editor", () => {
 
         // Act
 
-        const urlField = screen.getByRole("textbox", {name: "Image url:"});
+        const urlField = screen.getByRole("textbox", {name: "Image URL"});
         urlField.focus();
         await userEvent.paste("abc");
         await userEvent.tab();
@@ -239,7 +239,7 @@ describe("image editor", () => {
         );
 
         // Act
-        const altField = screen.getByRole("textbox", {name: "Alt text:"});
+        const altField = screen.getByRole("textbox", {name: "Alt text"});
         altField.focus();
         await userEvent.paste("Earth and moon");
 
@@ -262,7 +262,7 @@ describe("image editor", () => {
         );
 
         // Act
-        const altField = screen.getByRole("textbox", {name: "Alt text:"});
+        const altField = screen.getByRole("textbox", {name: "Alt text"});
         await userEvent.clear(altField);
 
         // Assert
@@ -284,7 +284,7 @@ describe("image editor", () => {
 
         // Act
         const altField = screen.getByRole("textbox", {
-            name: "Long description:",
+            name: "Long description",
         });
         altField.focus();
         await userEvent.paste("Earth and moon long description");
@@ -309,7 +309,7 @@ describe("image editor", () => {
 
         // Act
         const altField = screen.getByRole("textbox", {
-            name: "Long description:",
+            name: "Long description",
         });
         await userEvent.clear(altField);
 
@@ -348,7 +348,7 @@ describe("image editor", () => {
         );
 
         // Act
-        const captionField = screen.getByRole("textbox", {name: "Caption:"});
+        const captionField = screen.getByRole("textbox", {name: "Caption"});
         captionField.focus();
         await userEvent.paste("Earth and moon");
 
@@ -371,7 +371,7 @@ describe("image editor", () => {
         );
 
         // Act
-        const captionField = screen.getByRole("textbox", {name: "Caption:"});
+        const captionField = screen.getByRole("textbox", {name: "Caption"});
         await userEvent.clear(captionField);
 
         // Assert
@@ -391,7 +391,7 @@ describe("image editor", () => {
         );
 
         // Act
-        const titleField = screen.getByRole("textbox", {name: "Title:"});
+        const titleField = screen.getByRole("textbox", {name: "Title"});
         titleField.focus();
         await userEvent.paste("Earth and moon");
 
@@ -414,7 +414,7 @@ describe("image editor", () => {
         );
 
         // Act
-        const titleField = screen.getByRole("textbox", {name: "Title:"});
+        const titleField = screen.getByRole("textbox", {name: "Title"});
         await userEvent.clear(titleField);
 
         // Assert
