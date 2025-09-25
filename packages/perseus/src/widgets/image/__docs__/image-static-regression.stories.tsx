@@ -13,9 +13,9 @@ import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
 import {getWidget} from "../../../widgets";
 import {
+    mobileDecorator,
     articleDecorator,
     mobileArticleDecorator,
-    mobileDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
 import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
@@ -29,7 +29,6 @@ type Story = StoryObj<typeof ImageWidget>;
 
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
-
 const frescsoLongDescription =
     "In the apse, or semicircular recess, The Offer of the Casa Madre to Victory (L’Offerta della Casa Madre alla Vittoria) fresco recalls medieval apse decorative schemes with Christ surrounded by saints to whom the Church is dedicated. Santagata replaced Mary with a triumphant and wingless figure representing Victory, and he replaced saints with sentries. The charismatic wounded veteran Carlo Delcroix, who became the AMNIG president, is depicted presenting a model of the Casa Madre to Victory (not unlike the medieval patron Enrico Scrovegni, who offered the Arena chapel he commissioned to the Virgin Mary).\n\nThis image has some stuff in it. *Here is some italic text.* **Here is some bold text.**";
 

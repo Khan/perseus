@@ -1,7 +1,7 @@
 import {
+    generateTestPerseusRenderer,
     generateImageOptions,
     generateImageWidget,
-    generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 export const question = generateTestPerseusRenderer({
