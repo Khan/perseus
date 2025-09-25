@@ -21,7 +21,7 @@ export const allModes = {
     },
     // NOTE: This will go away when we fully remove the light variants.
     dark: {
-        background: "darkBlue",
+        background: "neutralStrong",
     },
     // Accessibility
     "themeDefault rtl": {
