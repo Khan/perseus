@@ -28,6 +28,11 @@ export type DependencyProps = Partial<
 
 export const DependenciesContext = React.createContext<PerseusDependenciesV2>({
     analytics: {onAnalyticsEvent: async () => {}},
+    generateUrl: () => {
+        throw new Error(
+            "generateUrl dependency not provided in Perseus dependencies",
+        );
+    },
     useVideo: () => {
         throw new Error(
             "useVideo dependency not provided in Perseus dependencies",

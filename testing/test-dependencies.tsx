@@ -105,6 +105,9 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
     analytics: {
         onAnalyticsEvent: async () => {},
     },
+    generateUrl: (args) => {
+        return args.url;
+    },
     useVideo: () => {
         return {
             status: "success",

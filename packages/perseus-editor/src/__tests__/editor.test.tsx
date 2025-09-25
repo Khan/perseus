@@ -3,7 +3,11 @@ import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
+import {DependenciesContext} from "../../../perseus/src/dependencies";
 import Editor from "../editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
@@ -12,22 +16,24 @@ import type {UserEvent} from "@testing-library/user-event";
 
 const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
     return (
-        <Editor
-            apiOptions={ApiOptions.defaults}
-            onChange={() => {}}
-            content="[[☃ image 1]]"
-            widgets={{
-                "image 1": {
-                    type: "image",
-                    options: {
-                        backgroundImage: {
-                            url: "http://placekitten.com/200/300",
+        <DependenciesContext.Provider value={testDependenciesV2}>
+            <Editor
+                apiOptions={ApiOptions.defaults}
+                onChange={() => {}}
+                content="[[☃ image 1]]"
+                widgets={{
+                    "image 1": {
+                        type: "image",
+                        options: {
+                            backgroundImage: {
+                                url: "http://placekitten.com/200/300",
+                            },
                         },
                     },
-                },
-            }}
-            {...props}
-        />
+                }}
+                {...props}
+            />
+        </DependenciesContext.Provider>
     );
 };
 
@@ -112,7 +118,7 @@ describe("Editor", () => {
         await waitFor(() =>
             expect(previewImage).toHaveAttribute(
                 "src",
-                "mockStaticUrl(http://placekitten.com/200/300)",
+                "http://placekitten.com/200/300",
             ),
         );
 
