@@ -16,7 +16,7 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
  */
 
 export default {
-    title: "Widgets/Definition/Visual Regression Tests/Static",
+    title: "Widgets/Definition/Visual Regression Tests/Initial State",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
