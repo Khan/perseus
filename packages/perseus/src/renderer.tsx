@@ -515,8 +515,6 @@ class Renderer
         // The widget needs access to its "scoring data" at all times when in review
         // mode (which is really just part of its widget info).
         const widgetInfo = this.state.widgetInfo[widgetId];
-        const reviewModeRubric =
-            this.props.reviewMode && widgetInfo ? widgetInfo.options : null;
 
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!this._interactionTrackers) {
@@ -550,7 +548,6 @@ class Renderer
             onFocus: _.partial(this._onWidgetFocus, widgetId),
             onBlur: _.partial(this._onWidgetBlur, widgetId),
             findWidgets: this.findWidgets,
-            reviewModeRubric: reviewModeRubric,
             reviewMode: this.props.reviewMode,
             handleUserInput: (newUserInput: UserInput) => {
                 // Calculate widgetsEmpty using the updated user input

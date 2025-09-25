@@ -254,8 +254,6 @@ class Radio extends React.Component<Props> implements Widget {
                     previouslyAnswered,
                 } = choiceStates[i];
 
-                const reviewChoice = this.props.reviewModeRubric?.choices[i];
-
                 return {
                     id: choice.id,
                     content: this._renderRenderer(content),
@@ -267,10 +265,7 @@ class Radio extends React.Component<Props> implements Widget {
                     // TODO(emily): Come up with a more comprehensive way to solve
                     // this sort of "serialized state breaks when internal
                     // structure changes" problem.
-                    correct:
-                        choice.correct === undefined
-                            ? !!reviewChoice && !!reviewChoice.correct
-                            : choice.correct,
+                    correct: !!choice.correct,
                     disabled: readOnly,
                     hasRationale: !!choice.rationale,
                     rationale: this._renderRenderer(choice.rationale),
@@ -294,7 +289,6 @@ class Radio extends React.Component<Props> implements Widget {
                 numCorrect={this.props.numCorrect}
                 choices={choicesProp}
                 onChange={this.updateChoices}
-                reviewModeRubric={this.props.reviewModeRubric}
                 reviewMode={this.props.reviewMode}
                 deselectEnabled={this.props.deselectEnabled}
                 apiOptions={this.props.apiOptions}
