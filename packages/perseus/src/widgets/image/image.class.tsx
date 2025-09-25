@@ -30,6 +30,7 @@ export interface ImageWidgetProps extends ExternalProps {
     labels: NonNullable<ExternalProps["labels"]>;
     alt: NonNullable<ExternalProps["alt"]>;
     longDescription: NonNullable<ExternalProps["longDescription"]>;
+    decorative: NonNullable<ExternalProps["decorative"]>;
     caption: NonNullable<ExternalProps["caption"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
 }
@@ -43,6 +44,7 @@ interface DefaultProps extends Partial<ImageWidgetProps> {
     labels: ImageWidgetProps["labels"];
     alt: ImageWidgetProps["alt"];
     longDescription: ImageWidgetProps["longDescription"];
+    decorative: ImageWidgetProps["decorative"];
     caption: ImageWidgetProps["caption"];
     linterContext: ImageWidgetProps["linterContext"];
 }
@@ -60,6 +62,7 @@ class ImageWidget extends React.Component<ImageWidgetProps> implements Widget {
         labels: [],
         alt: "",
         longDescription: "",
+        decorative: false,
         caption: "",
         linterContext: linterContextDefault,
     };
