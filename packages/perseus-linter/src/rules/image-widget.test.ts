@@ -23,7 +23,18 @@ describe("image-widget", () => {
         },
     });
 
-    // Pass for image widget with long alt text
+    // Warn for image widget with excessively long alt text
+    expectWarning(imageWidgetRule, "[[☃ image 1]]", {
+        widgets: {
+            "image 1": {
+                options: {
+                    alt: "a".repeat(151), // string length 151 characters
+                },
+            },
+        },
+    });
+
+    // Pass for image widget with sufficiently long alt text
     expectPass(imageWidgetRule, "[[☃ image 1]]", {
         widgets: {
             "image 1": {
