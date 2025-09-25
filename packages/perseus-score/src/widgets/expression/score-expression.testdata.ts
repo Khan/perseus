@@ -26,6 +26,12 @@ export const expressionItem3Options: PerseusExpressionWidgetOptions = {
             simplify: false,
             value: "a+1",
         },
+        {
+            considered: "correct",
+            form: false,
+            simplify: false,
+            value: "z/3",
+        },
     ],
     times: false,
     buttonSets: ["basic"],

@@ -344,7 +344,6 @@ function GradableRenderer(props: QuestionRendererProps) {
                     }}
                 >
                     <Banner
-                        layout="full-width"
                         text={describeScore(score)}
                         kind={bannerKindFromScore(score)}
                     />

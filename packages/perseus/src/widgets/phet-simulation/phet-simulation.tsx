@@ -232,11 +232,7 @@ export class PhetSimulation
                             marginBottom: phoneMargin,
                         }}
                     >
-                        <Banner
-                            layout="floating"
-                            kind={banner.kind}
-                            text={banner.message}
-                        />
+                        <Banner kind={banner.kind} text={banner.message} />
                     </View>
                 )}
 

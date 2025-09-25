@@ -1,9 +1,3 @@
-.label-with-info-tip {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
 .dimensions-container {
     display: flex;
     flex-direction: row;

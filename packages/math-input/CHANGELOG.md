@@ -1,5 +1,17 @@
 # @khanacademy/math-input
 
+## 26.2.8
+
+### Patch Changes
+
+-   [#2862](https://github.com/Khan/perseus/pull/2862) [`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add support for colon division symbol according to users locale
+
+*   [#2907](https://github.com/Khan/perseus/pull/2907) [`4733bbb3a8`](https://github.com/Khan/perseus/commit/4733bbb3a8ed2f7e20ef879a271198f7b2f6deb0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix missing border in mobile keypad
+
+*   Updated dependencies [[`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3), [`55769ff4da`](https://github.com/Khan/perseus/commit/55769ff4da8020e8a9a8bdbbd11d09dc03fc97f8)]:
+    -   @khanacademy/perseus-core@19.3.0
+    -   @khanacademy/keypad-context@3.2.8
+
 ## 26.2.7
 
 ### Patch Changes

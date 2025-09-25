@@ -479,4 +479,175 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(iconButton).not.toBeInTheDocument();
         });
     });
+
+    describe("decorative images", () => {
+        it("should render decorative image without title", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            title: "widget title",
+                            decorative: true,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+            markImagesAsLoaded();
+
+            // Assert
+            expect(screen.queryByText("widget title")).not.toBeInTheDocument();
+        });
+
+        it("should render decorative image without caption", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            caption: "widget caption",
+                            decorative: true,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+            markImagesAsLoaded();
+
+            // Assert
+            expect(
+                screen.queryByText("widget caption"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should render decorative image without long description button", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            longDescription: "widget long description",
+                            decorative: true,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+            markImagesAsLoaded();
+
+            // Assert
+            expect(
+                screen.queryByRole("button", {name: "Explore image"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should render decorative image with empty alt text", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            alt: "widget alt text",
+                            decorative: true,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+            markImagesAsLoaded();
+
+            // Assert
+            const image = screen.getByRole("button");
+            expect(image).toHaveAttribute("alt", "");
+            expect(
+                screen.queryByAltText("widget alt text"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should render decorative image with all content hidden", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            title: "widget title",
+                            caption: "widget caption",
+                            alt: "widget alt text",
+                            longDescription: "widget long description",
+                            decorative: true,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+            markImagesAsLoaded();
+
+            // Assert
+            expect(screen.queryByText("widget title")).not.toBeInTheDocument();
+            expect(
+                screen.queryByText("widget caption"),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByRole("button", {name: "Explore image"}),
+            ).not.toBeInTheDocument();
+
+            const image = screen.getByRole("button");
+            expect(image).toHaveAttribute("alt", "");
+            expect(
+                screen.queryByAltText("widget alt text"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should render non-decorative image with all content visible", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            title: "widget title",
+                            caption: "widget caption",
+                            alt: "widget alt text",
+                            longDescription: "widget long description",
+                            decorative: false,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+            markImagesAsLoaded();
+
+            // Assert
+            expect(screen.getByText("widget title")).toBeVisible();
+            expect(screen.getByText("widget caption")).toBeVisible();
+            expect(
+                screen.getByRole("button", {name: "Explore image"}),
+            ).toBeVisible();
+            expect(screen.getByAltText("widget alt text")).toBeVisible();
+        });
+    });
 });

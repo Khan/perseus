@@ -1,4 +1,6 @@
-import {Util, components} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
+import {isFeatureOn} from "@khanacademy/perseus-core";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -9,19 +11,18 @@ import styles from "./image-editor.module.css";
 
 import type {Props} from "./image-editor";
 
-const {InfoTip} = components;
+const {SvgImage} = components;
 
 export default function ImageSettings({
     alt,
     backgroundImage,
+    apiOptions,
     caption,
+    longDescription,
     title,
     onChange,
 }: Props) {
-    const uniqueId = React.useId();
-    const altId = `${uniqueId}-alt`;
-    const titleId = `${uniqueId}-title`;
-    const captionId = `${uniqueId}-caption`;
+    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     if (!backgroundImage.url) {
         return null;
@@ -35,29 +36,17 @@ export default function ImageSettings({
 
     return (
         <>
-            {!Util.isLabeledSVG(backgroundImage.url) && (
-                <>
-                    <HeadingXSmall
-                        style={{
-                            // TODO: Use CSS modules after Wonder Blocks styles
-                            // are moved to a different layer.
-                            paddingBlockStart: 0, // reset default padding
-                            marginBlockStart: sizing.size_120,
-                            marginBlockEnd: sizing.size_040,
-                            color: "var(--wb-semanticColor-core-foreground-neutral-strong)",
-                        }}
-                    >
-                        Preview:
-                    </HeadingXSmall>
-                    <img
-                        alt={`Preview: ${alt ?? "No alt text"}`}
+            {/* Preview */}
+            <LabeledField
+                label="Preview:"
+                field={
+                    <SvgImage
                         src={backgroundImage.url}
-                        style={{
-                            width: "100%",
-                        }}
+                        alt={`Preview: ${alt ?? "No alt text"}`}
                     />
-                </>
-            )}
+                }
+                styles={wbFieldStyles}
+            />
 
             {/* Dimensions */}
             <div className={styles.dimensionsContainer}>
@@ -76,43 +65,55 @@ export default function ImageSettings({
             </div>
 
             {/* Alt text */}
-            <div className={styles.labelWithInfoTip}>
-                <HeadingXSmall tag="label" htmlFor={altId}>
-                    Alt text:
-                </HeadingXSmall>
-                <InfoTip>
-                    This is important for screenreaders. The content of this alt
-                    text will be formatted as markdown (tables, emphasis, etc.
-                    are supported).
-                </InfoTip>
-            </div>
-            <AutoResizingTextArea
-                id={altId}
-                value={alt ?? ""}
-                onChange={(value) => onChange({alt: value})}
-                style={textAreaStyle}
+            <LabeledField
+                label="Alt text:"
+                field={
+                    <AutoResizingTextArea
+                        value={alt ?? ""}
+                        onChange={(value) => onChange({alt: value})}
+                    />
+                }
+                styles={wbFieldStyles}
             />
 
+            {/* Long Description */}
+            {imageUpgradeFF && (
+                <LabeledField
+                    label="Long description:"
+                    field={
+                        <AutoResizingTextArea
+                            value={longDescription ?? ""}
+                            onChange={(value) =>
+                                onChange({longDescription: value})
+                            }
+                        />
+                    }
+                    styles={wbFieldStyles}
+                />
+            )}
+
             {/* Title */}
-            <HeadingXSmall tag="label" htmlFor={titleId}>
-                Title:
-            </HeadingXSmall>
-            <AutoResizingTextArea
-                id={titleId}
-                value={title ?? ""}
-                onChange={(value) => onChange({title: value})}
-                style={textAreaStyle}
+            <LabeledField
+                label="Title:"
+                field={
+                    <AutoResizingTextArea
+                        value={title ?? ""}
+                        onChange={(value) => onChange({title: value})}
+                    />
+                }
+                styles={wbFieldStyles}
             />
 
             {/* Caption */}
-            <HeadingXSmall tag="label" htmlFor={captionId}>
-                Caption:
-            </HeadingXSmall>
-            <AutoResizingTextArea
-                id={captionId}
-                value={caption ?? ""}
-                onChange={(value) => onChange({caption: value})}
-                style={textAreaStyle}
+            <LabeledField
+                label="Caption:"
+                field={
+                    <AutoResizingTextArea
+                        value={caption ?? ""}
+                        onChange={(value) => onChange({caption: value})}
+                    />
+                }
+                styles={wbFieldStyles}
             />
         </>
     );
@@ -120,7 +121,11 @@ export default function ImageSettings({
 
 // TODO: Use CSS modules after Wonder Blocks styles
 // are moved to a different layer.
-const textAreaStyle = {
-    marginBlockStart: sizing.size_040,
-    marginBlockEnd: sizing.size_120,
+const wbFieldStyles = {
+    root: {
+        marginBlockEnd: sizing.size_080,
+    },
+    label: {
+        paddingBlockEnd: sizing.size_040,
+    },
 };

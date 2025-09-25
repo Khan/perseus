@@ -1,3 +1,4 @@
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import AssetContext from "../../asset-context";
@@ -18,6 +19,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         box,
         caption,
         longDescription,
+        decorative,
         linterContext,
         labels,
         range,
@@ -25,9 +27,49 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         trackInteraction,
     } = props;
     const context = React.useContext(PerseusI18nContext);
+    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     if (!backgroundImage.url) {
         return null;
+    }
+
+    const svgImage = (
+        <AssetContext.Consumer>
+            {({setAssetStatus}) => (
+                <SvgImage
+                    src={backgroundImage.url!}
+                    width={backgroundImage.width}
+                    height={backgroundImage.height}
+                    preloader={apiOptions.imagePreloader}
+                    extraGraphie={{
+                        box: box,
+                        range: range,
+                        labels: labels,
+                    }}
+                    trackInteraction={trackInteraction}
+                    zoomToFullSizeOnMobile={apiOptions.isMobile}
+                    constrainHeight={apiOptions.isMobile}
+                    allowFullBleed={apiOptions.isMobile}
+                    renderSpacer={false}
+                    alt={decorative || caption === alt ? "" : alt}
+                    setAssetStatus={setAssetStatus}
+                />
+            )}
+        </AssetContext.Consumer>
+    );
+
+    // Early return for decorative images
+    if (imageUpgradeFF && decorative) {
+        return (
+            <figure
+                className="perseus-image-widget"
+                style={{
+                    maxWidth: backgroundImage.width,
+                }}
+            >
+                {svgImage}
+            </figure>
+        );
     }
 
     return (
@@ -41,7 +83,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {title && (
                 <div className={`perseus-image-title ${styles.titleContainer}`}>
                     {/* The Renderer component is used here so that the title
-                        can support markdown and TeX. */}
+                        can support Markdown and TeX. */}
                     <Renderer
                         content={title}
                         apiOptions={apiOptions}
@@ -52,31 +94,10 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             )}
 
             {/* Image */}
-            <AssetContext.Consumer>
-                {({setAssetStatus}) => (
-                    <SvgImage
-                        src={backgroundImage.url!}
-                        alt={caption === alt ? "" : alt}
-                        width={backgroundImage.width}
-                        height={backgroundImage.height}
-                        preloader={apiOptions.imagePreloader}
-                        extraGraphie={{
-                            box: box,
-                            range: range,
-                            labels: labels,
-                        }}
-                        trackInteraction={trackInteraction}
-                        zoomToFullSizeOnMobile={apiOptions.isMobile}
-                        constrainHeight={apiOptions.isMobile}
-                        allowFullBleed={apiOptions.isMobile}
-                        setAssetStatus={setAssetStatus}
-                        renderSpacer={false}
-                    />
-                )}
-            </AssetContext.Consumer>
+            {svgImage}
 
             {/* Description & Caption */}
-            {(caption || longDescription) && (
+            {(caption || (imageUpgradeFF && longDescription)) && (
                 <ImageDescriptionAndCaption {...props} />
             )}
         </figure>

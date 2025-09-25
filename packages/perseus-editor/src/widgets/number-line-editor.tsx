@@ -359,7 +359,7 @@ class NumberLineEditor extends React.Component<Props> {
                         <div className="perseus-widget-left-col">
                             <Checkbox
                                 label="Show tick controller"
-                                checked={this.props.isTickCtrl}
+                                checked={!!this.props.isTickCtrl}
                                 onChange={(value) => {
                                     this.props.onChange({isTickCtrl: value});
                                 }}

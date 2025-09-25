@@ -160,7 +160,9 @@ const styles = {
         left: 0,
         right: 0,
         padding: `${sizing.size_120} ${sizing.size_160}`,
-        backgroundColor: semanticColor.core.background.base.default,
+        // We're using a hard coded white here to avoid a semantic colour issue. Given that this is just dev tooling,
+        // we'll wait to update this back to semantic colours after the token names have settled.
+        backgroundColor: "#FFFFFF",
         border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
     },
     buttonContainer: {
