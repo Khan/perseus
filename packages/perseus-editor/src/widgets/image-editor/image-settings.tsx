@@ -2,10 +2,11 @@ import {components} from "@khanacademy/perseus";
 import {isFeatureOn} from "@khanacademy/perseus-core";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
+import ScrolllessNumberTextField from "../../components/scrollless-number-text-field";
+import {getOtherSideLengthWithPreservedAspectRatio} from "../radio/utils";
 
 import styles from "./image-editor.module.css";
 
@@ -24,15 +25,53 @@ export default function ImageSettings({
 }: Props) {
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
-    if (!backgroundImage.url) {
+    if (
+        !backgroundImage.url ||
+        !backgroundImage.width ||
+        !backgroundImage.height
+    ) {
         return null;
     }
 
-    const dimensions = `${backgroundImage.width} x ${backgroundImage.height}`;
-    const dimensionString =
-        backgroundImage.width && backgroundImage.height
-            ? dimensions
-            : "unknown";
+    function handleWidthChange(newWidth: string) {
+        const newHeight = getOtherSideLengthWithPreservedAspectRatio(
+            backgroundImage.width!, // current side (width)
+            backgroundImage.height!, // other side (height)
+            Number(newWidth), // new side (width)
+        );
+
+        if (isNaN(newHeight)) {
+            return;
+        }
+
+        onChange({
+            backgroundImage: {
+                ...backgroundImage,
+                width: Number(newWidth),
+                height: newHeight,
+            },
+        });
+    }
+
+    function handleHeightChange(newHeight: string) {
+        const newWidth = getOtherSideLengthWithPreservedAspectRatio(
+            backgroundImage.height!, // current side (height)
+            backgroundImage.width!, // other side (width)
+            Number(newHeight), // new side (height)
+        );
+
+        if (isNaN(newWidth)) {
+            return;
+        }
+
+        onChange({
+            backgroundImage: {
+                ...backgroundImage,
+                height: Number(newHeight),
+                width: newWidth,
+            },
+        });
+    }
 
     return (
         <>
@@ -50,18 +89,27 @@ export default function ImageSettings({
 
             {/* Dimensions */}
             <div className={styles.dimensionsContainer}>
-                <HeadingXSmall
-                    style={{
-                        // TODO: Use CSS modules after Wonder Blocks styles
-                        // are moved to a different layer.
-                        padding: 0, // reset default padding
-                        marginInlineEnd: sizing.size_080,
-                        color: "var(--wb-semanticColor-core-foreground-neutral-strong)",
-                    }}
-                >
-                    Dimensions:
-                </HeadingXSmall>
-                {dimensionString}
+                <LabeledField
+                    label="Width"
+                    field={
+                        <ScrolllessNumberTextField
+                            value={backgroundImage.width?.toString() ?? ""}
+                            onChange={handleWidthChange}
+                        />
+                    }
+                    styles={wbFieldStyles}
+                />
+                <span className={styles.xSpan}>x</span>
+                <LabeledField
+                    label="Height"
+                    field={
+                        <ScrolllessNumberTextField
+                            value={backgroundImage.height?.toString() ?? ""}
+                            onChange={handleHeightChange}
+                        />
+                    }
+                    styles={wbFieldStyles}
+                />
             </div>
 
             {/* Alt text */}
