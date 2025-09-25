@@ -59,7 +59,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     );
 
     // Early return for decorative images
-    if (decorative) {
+    if (imageUpgradeFF && decorative) {
         return (
             <figure
                 className="perseus-image-widget"
