@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 27.6.1
+
+### Patch Changes
+
+-   [#2915](https://github.com/Khan/perseus/pull/2915) [`a17d64593b`](https://github.com/Khan/perseus/commit/a17d64593bb92fb83c11ad8615d393cddcb0e8e3) Thanks [@nishasy](https://github.com/nishasy)! - [Image][radio] Fix editor image preview for Graphie images
+
+*   [#2913](https://github.com/Khan/perseus/pull/2913) [`37eeac9784`](https://github.com/Khan/perseus/commit/37eeac97844467b249910e1f9b0c87c3404f3053) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB Banner usage to remove use of the deprecated `layout` prop
+
+-   [#2873](https://github.com/Khan/perseus/pull/2873) [`427cec2376`](https://github.com/Khan/perseus/commit/427cec23769249686ae9744804dc30b4264bffb9) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Updated tests as a result of the new generateUrl dependency function
+
+*   [#2917](https://github.com/Khan/perseus/pull/2917) [`c2bcd7b0db`](https://github.com/Khan/perseus/commit/c2bcd7b0db198b0217c8e9dc9cb68e865a2630a4) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Use WB LabeledField within image editor
+
+*   Updated dependencies [[`427cec2376`](https://github.com/Khan/perseus/commit/427cec23769249686ae9744804dc30b4264bffb9), [`37eeac9784`](https://github.com/Khan/perseus/commit/37eeac97844467b249910e1f9b0c87c3404f3053)]:
+    -   @khanacademy/perseus@70.0.0
+
 ## 27.6.0
 
 ### Minor Changes

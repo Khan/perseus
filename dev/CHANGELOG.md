@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.7.9
+
+### Patch Changes
+
+-   [#2913](https://github.com/Khan/perseus/pull/2913) [`37eeac9784`](https://github.com/Khan/perseus/commit/37eeac97844467b249910e1f9b0c87c3404f3053) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB Banner usage to remove use of the deprecated `layout` prop
+
 ## 5.7.8
 
 ### Patch Changes

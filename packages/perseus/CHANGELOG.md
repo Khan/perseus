@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 70.0.0
+
+### Major Changes
+
+-   [#2873](https://github.com/Khan/perseus/pull/2873) [`427cec2376`](https://github.com/Khan/perseus/commit/427cec23769249686ae9744804dc30b4264bffb9) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Add generateUrl dependency function which will replace staticUrl and toAbsoluteUrl
+
+### Patch Changes
+
+-   [#2913](https://github.com/Khan/perseus/pull/2913) [`37eeac9784`](https://github.com/Khan/perseus/commit/37eeac97844467b249910e1f9b0c87c3404f3053) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB Banner usage to remove use of the deprecated `layout` prop
+
 ## 69.3.0
 
 ### Minor Changes
