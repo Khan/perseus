@@ -19,6 +19,7 @@ import {action} from "storybook/actions";
 import {mockStrings} from "../../../perseus/src/strings";
 import ContentPreview from "../content-preview";
 import EditorPage from "../editor-page";
+import {testDependenciesV2} from "../../../../testing/test-dependencies";
 
 type Props = {
     apiOptions?: APIOptions;
@@ -56,6 +57,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                 onPreviewDeviceChange={(newDevice) =>
                     setPreviewDevice(newDevice)
                 }
+                dependencies={testDependenciesV2}
                 developerMode={true}
                 jsonMode={jsonMode}
                 answerArea={answerArea}
