@@ -11,7 +11,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
  */
 
 const meta: Meta = {
-    title: "Widgets/Explanation/Visual Regression Tests/Static",
+    title: "Widgets/Explanation/Visual Regression Tests/Initial State",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {

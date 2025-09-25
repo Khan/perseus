@@ -7,7 +7,7 @@ import {question1} from "../explanation.testdata";
 import type {Meta} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Widgets/Explanation/Visual Regression Tests/Interactive",
+    title: "Widgets/Explanation/Visual Regression Tests/Interactions",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
     parameters: {
