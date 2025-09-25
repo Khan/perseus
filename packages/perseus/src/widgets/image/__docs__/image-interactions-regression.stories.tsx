@@ -5,13 +5,12 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {mockStrings} from "@khanacademy/perseus/strings";
-
 import {themeModes} from "../../../../../../.storybook/modes";
 import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
+import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
 import {earthMoonImage} from "../utils";
 
