@@ -2,7 +2,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
-import {question1} from "../explanation.testdata";
+import {question1, wideButton} from "../explanation.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -33,5 +33,11 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 export const Question1: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
+    },
+};
+
+export const WideButton: Story = {
+    args: {
+        item: generateTestPerseusItem({question: wideButton}),
     },
 };
