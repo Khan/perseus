@@ -6,9 +6,9 @@ import * as React from "react";
 
 import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
 import ScrolllessNumberTextField from "../../components/scrollless-number-text-field";
-import {getOtherSideLengthWithPreservedAspectRatio} from "../radio/utils";
 
 import styles from "./image-editor.module.css";
+import {getOtherSideLengthWithPreservedAspectRatio} from "./utils";
 
 import type {Props} from "./image-editor";
 
