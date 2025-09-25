@@ -232,11 +232,10 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
 
             onChange({choiceStates: newChoiceStates});
             trackInteraction();
-            announceChoiceChange(choiceStates || [], newChoiceStates);
+            announceChoiceChange(newChoiceStates);
         };
 
         const announceChoiceChange = (
-            originalState: ReadonlyArray<ChoiceState>,
             newCheckedState: ReadonlyArray<ChoiceState>,
         ) => {
             let screenReaderMessage = "";
@@ -248,7 +247,8 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             // TODO: Localize strings
             if (!props.multipleSelect) {
                 // Single-select choice was de-selected
-                screenReaderMessage = newCheckedCount === 0 ? "not selected" : "";
+                screenReaderMessage =
+                    newCheckedCount === 0 ? "not selected" : "";
             } else if (newCheckedCount === 1) {
                 screenReaderMessage = "1 choice selected";
             } else {
@@ -349,16 +349,14 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             apiOptions.readOnly || isReviewMode ? () => {} : handleChoiceChange;
 
         return (
-            <>
-                <MultipleChoiceComponent
-                    reviewMode={isReviewMode}
-                    multipleSelect={multipleSelect}
-                    countChoices={countChoices}
-                    numCorrect={numCorrect}
-                    choices={choicesProps}
-                    onChoiceChange={onChoiceChange}
-                />
-            </>
+            <MultipleChoiceComponent
+                reviewMode={isReviewMode}
+                multipleSelect={multipleSelect}
+                countChoices={countChoices}
+                numCorrect={numCorrect}
+                choices={choicesProps}
+                onChoiceChange={onChoiceChange}
+            />
         );
     },
 );
