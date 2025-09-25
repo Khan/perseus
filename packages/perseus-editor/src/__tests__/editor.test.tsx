@@ -27,6 +27,8 @@ const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
                         options: {
                             backgroundImage: {
                                 url: "http://placekitten.com/200/300",
+                                width: 200,
+                                height: 300,
                             },
                         },
                     },
