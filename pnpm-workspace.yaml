@@ -47,6 +47,7 @@ catalogs:
         "@popperjs/core": ^2.10.2
         "@khanacademy/mathjax-renderer": ^3.0.0
         "@khanacademy/wonder-blocks-accordion": ^3.1.41
+        "@khanacademy/wonder-blocks-announcer": ^1.0.3
         "@khanacademy/wonder-blocks-banner": ^4.5.1
         "@khanacademy/wonder-blocks-button": ^11.2.3
         "@khanacademy/wonder-blocks-clickable": ^8.0.0
@@ -86,6 +87,7 @@ catalogs:
         "@popperjs/core": 2.10.2
         "@khanacademy/mathjax-renderer": 3.0.0
         "@khanacademy/wonder-blocks-accordion": 3.1.41
+        "@khanacademy/wonder-blocks-announcer": 1.0.3
         "@khanacademy/wonder-blocks-banner": 4.5.1
         "@khanacademy/wonder-blocks-button": 11.2.3
         "@khanacademy/wonder-blocks-clickable": 8.0.0

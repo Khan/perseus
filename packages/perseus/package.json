@@ -56,6 +56,7 @@
         "uuid": "^10.0.0"
     },
     "devDependencies": {
+        "@khanacademy/wonder-blocks-announcer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-button": "catalog:devDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:devDeps",
@@ -94,6 +95,7 @@
         "underscore": "catalog:devDeps"
     },
     "peerDependencies": {
+        "@khanacademy/wonder-blocks-announcer": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-button": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:peerDeps",
