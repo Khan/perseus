@@ -11,6 +11,7 @@ import {
 import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
+import {themeModes} from "../../../../../../.storybook/modes";
 
 const ImageWidget = getWidget("image")!;
 
