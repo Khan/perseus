@@ -244,15 +244,15 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                 0,
             );
 
-            // TODO: Localize strings
             if (!props.multipleSelect) {
-                // Single-select choice was de-selected
+                // Single-select choice only announces when it is de-selected
                 screenReaderMessage =
-                    newCheckedCount === 0 ? "not selected" : "";
-            } else if (newCheckedCount === 1) {
-                screenReaderMessage = "1 choice selected";
+                    newCheckedCount === 0 ? strings.notSelected : "";
             } else {
-                screenReaderMessage = `${newCheckedCount} choices selected`;
+                // Multi-select choices have their count announced
+                screenReaderMessage = strings.choicesSelected({
+                    num: newCheckedCount,
+                });
             }
             announceMessage({message: screenReaderMessage});
         };
