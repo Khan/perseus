@@ -62,8 +62,7 @@ export const ImageFocusedState = {
     args: {
         backgroundImage: earthMoonImage,
     },
-    play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
+    play: async ({userEvent}) => {
         await userEvent.tab();
     },
 };
@@ -75,7 +74,7 @@ export const LongDescriptionNoCaptionFocusedState = {
         longDescription:
             "This is a *very* long description of the earth and moon.",
     },
-    play: async ({canvas, userEvent}) => {
+    play: async ({canvas}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
         const imageTrigger = canvas.getByRole("button", {
             name: "Explore image",
@@ -94,7 +93,7 @@ export const LongDescriptionFocusedState = {
         title: "Earth and Moon",
         caption: earthMoonImageCaption,
     },
-    play: async ({canvas, userEvent}) => {
+    play: async ({canvas}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
         const imageTrigger = canvas.getByRole("button", {
             name: "Explore image",
