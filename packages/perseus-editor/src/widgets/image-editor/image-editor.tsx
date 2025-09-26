@@ -7,7 +7,7 @@ import {
 import * as React from "react";
 
 import ImageSettings from "./components/image-settings";
-import ImageUrlInput from "./image-url-input";
+import ImageUrlInput from "./components/image-url-input";
 
 import type {APIOptions} from "@khanacademy/perseus";
 

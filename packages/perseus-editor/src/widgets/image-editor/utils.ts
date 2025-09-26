@@ -1,3 +1,16 @@
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
+
+// TODO: Use CSS modules after Wonder Blocks styles
+// are moved to a different layer.
+export const wbFieldStyles = {
+    root: {
+        marginBlockEnd: sizing.size_080,
+    },
+    label: {
+        paddingBlockEnd: sizing.size_040,
+    },
+};
+
 /**
  * Given a known aspect ratio, and a new side length,
  * return the other side length that maintains the aspect ratio.

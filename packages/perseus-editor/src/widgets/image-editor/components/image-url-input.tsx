@@ -1,8 +1,9 @@
 import {components, Util} from "@khanacademy/perseus";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import React from "react";
+
+import {wbFieldStyles} from "../utils";
 
 import type {Props} from "../image-editor";
 
@@ -102,14 +103,3 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
         />
     );
 }
-
-// TODO: Use CSS modules after Wonder Blocks styles
-// are moved to a different layer.
-const wbFieldStyles = {
-    root: {
-        marginBlockEnd: sizing.size_080,
-    },
-    label: {
-        paddingBlockEnd: sizing.size_040,
-    },
-};
