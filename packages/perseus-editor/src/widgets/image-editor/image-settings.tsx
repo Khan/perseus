@@ -7,6 +7,7 @@ import * as React from "react";
 
 import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
 
+import DecorativeToggle from "./components/decorative-toggle";
 import styles from "./image-editor.module.css";
 
 import type {Props} from "./image-editor";
@@ -25,6 +26,7 @@ export default function ImageSettings({
     backgroundImage,
     apiOptions,
     caption,
+    decorative,
     longDescription,
     title,
     onChange,
@@ -97,6 +99,17 @@ export default function ImageSettings({
                 {dimensionString}
             </div>
 
+            {/* Decorative */}
+            {imageUpgradeFF && (
+                <DecorativeToggle
+                    decorative={decorative}
+                    hasPopulatedFields={Boolean(
+                        alt || caption || title || longDescription,
+                    )}
+                    onChange={onChange}
+                />
+            )}
+
             {/* Alt text */}
             <LabeledField
                 label="Alt text"
@@ -106,6 +119,7 @@ export default function ImageSettings({
                         value={alt ?? ""}
                         onBlur={(e) => handleAltFieldBlur(e.target.value)}
                         onChange={handleAltFieldChange}
+                        disabled={decorative}
                     />
                 }
                 errorMessage={altFieldError}
@@ -122,6 +136,7 @@ export default function ImageSettings({
                             onChange={(value) =>
                                 onChange({longDescription: value})
                             }
+                            disabled={decorative}
                         />
                     }
                     styles={wbFieldStyles}
@@ -135,6 +150,7 @@ export default function ImageSettings({
                     <AutoResizingTextArea
                         value={title ?? ""}
                         onChange={(value) => onChange({title: value})}
+                        disabled={decorative}
                     />
                 }
                 styles={wbFieldStyles}
@@ -147,6 +163,7 @@ export default function ImageSettings({
                     <AutoResizingTextArea
                         value={caption ?? ""}
                         onChange={(value) => onChange({caption: value})}
+                        disabled={decorative}
                     />
                 }
                 styles={wbFieldStyles}

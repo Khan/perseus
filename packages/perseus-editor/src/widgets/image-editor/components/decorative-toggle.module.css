@@ -1,0 +1,9 @@
+.decorativeToggleContainer {
+    margin-block-end: var(--wb-sizing-size_080);
+}
+
+.flexRow {
+    display: flex;
+    align-items: center;
+    gap: var(--wb-sizing-size_040);
+}
