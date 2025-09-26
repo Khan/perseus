@@ -1,5 +1,40 @@
 # @khanacademy/perseus
 
+## 70.0.0
+
+### Major Changes
+
+-   [#2873](https://github.com/Khan/perseus/pull/2873) [`427cec2376`](https://github.com/Khan/perseus/commit/427cec23769249686ae9744804dc30b4264bffb9) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Add generateUrl dependency function which will replace staticUrl and toAbsoluteUrl
+
+### Patch Changes
+
+-   [#2913](https://github.com/Khan/perseus/pull/2913) [`37eeac9784`](https://github.com/Khan/perseus/commit/37eeac97844467b249910e1f9b0c87c3404f3053) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB Banner usage to remove use of the deprecated `layout` prop
+
+## 69.3.0
+
+### Minor Changes
+
+-   [#2908](https://github.com/Khan/perseus/pull/2908) [`d60a719785`](https://github.com/Khan/perseus/commit/d60a7197855d8c05c45ba272d89b7057cf9e3503) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) (a11y) | Add long description field to Image widget editor
+
+*   [#2910](https://github.com/Khan/perseus/pull/2910) [`55769ff4da`](https://github.com/Khan/perseus/commit/55769ff4da8020e8a9a8bdbbd11d09dc03fc97f8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing several issues related to User Input in our Explanation and Number Line Widgets
+
+### Patch Changes
+
+-   [#2887](https://github.com/Khan/perseus/pull/2887) [`1ec4595857`](https://github.com/Khan/perseus/commit/1ec4595857d2ca28ab9f011c6e2fcdb29a3d7140) Thanks [@handeyeco](https://github.com/handeyeco)! - Add regression test for answerless-to-answerful transition
+
+*   [#2862](https://github.com/Khan/perseus/pull/2862) [`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add support for colon division symbol according to users locale
+
+-   [#2903](https://github.com/Khan/perseus/pull/2903) [`79a6fc682b`](https://github.com/Khan/perseus/commit/79a6fc682b5a6674383b3e609f34c5efa8ffe4ec) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix rendering error in InputWithExamples, changing replaceAll to replace to be old browser compatible
+
+-   Updated dependencies [[`4e9b6f012d`](https://github.com/Khan/perseus/commit/4e9b6f012d18bb00a6077c077f49063b11f24cd3), [`55769ff4da`](https://github.com/Khan/perseus/commit/55769ff4da8020e8a9a8bdbbd11d09dc03fc97f8), [`4733bbb3a8`](https://github.com/Khan/perseus/commit/4733bbb3a8ed2f7e20ef879a271198f7b2f6deb0)]:
+    -   @khanacademy/kas@2.1.2
+    -   @khanacademy/math-input@26.2.8
+    -   @khanacademy/perseus-core@19.3.0
+    -   @khanacademy/perseus-score@7.7.8
+    -   @khanacademy/keypad-context@3.2.8
+    -   @khanacademy/kmath@2.2.8
+    -   @khanacademy/perseus-linter@4.3.8
+
 ## 69.2.0
 
 ### Minor Changes

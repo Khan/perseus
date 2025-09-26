@@ -2,6 +2,7 @@ import * as KAS from "@khanacademy/kas";
 import {
     Errors,
     getDecimalSeparator,
+    getDivideSymbol,
     PerseusError,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
@@ -49,6 +50,7 @@ function scoreExpression(
     const options = _.clone(rubric);
     _.extend(options, {
         decimal_separator: getDecimalSeparator(locale),
+        divide_symbol: getDivideSymbol(locale),
     });
 
     if (!KAS.parse(userInput, options).parsed) {

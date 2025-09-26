@@ -28,7 +28,6 @@ class DeprecatedStandin extends React.Component<Props> implements Widget {
                 <Banner
                     text={this.context.strings.deprecatedStandin}
                     kind="info"
-                    layout="full-width"
                 />
             </div>
         );

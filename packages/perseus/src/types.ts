@@ -159,6 +159,18 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
+type GenerateUrlContext =
+    | "image_loader:image_url"
+    | "python_program:program_url"
+    | "video:video_url";
+
+export type GenerateUrlArgs = {
+    url: string;
+    context: GenerateUrlContext;
+};
+
+export type GenerateUrlFn = (args: GenerateUrlArgs) => string;
+
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -366,6 +378,9 @@ export type PerseusDependencies = {
     TeX: React.ComponentType<TeXProps>;
 
     //misc
+    /**
+     * @deprecated Use `PerseusDependenciesV2.generateUrl` instead.
+     */
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
 
@@ -386,6 +401,14 @@ export type PerseusDependencies = {
  */
 export interface PerseusDependenciesV2 {
     analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
+
+    /**
+     * A function that takes a URL or partial url and may modify it to return
+     * the full URL. This may be used to request a resource from a different
+     * app to where the widget is rendered, like when embedding a video
+     * cross-domain.
+     */
+    generateUrl: (args: GenerateUrlArgs) => string;
 
     // video widget
     // This is used as a hook to fetch data about a video which is used to

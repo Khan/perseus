@@ -3632,6 +3632,7 @@ parser.yy = {
 type ParseOptions = {
     functions?: ReadonlyArray<string>;
     decimal_separator?: string;
+    divide_symbol?: string;
 };
 
 export const parse = function (input: string, options?: ParseOptions) {
@@ -3649,6 +3650,12 @@ export const parse = function (input: string, options?: ParseOptions) {
         // TODO(jack): Fix the output to have ','s in this case
         if (options && options.decimal_separator) {
             input = input.split(options.decimal_separator).join(".");
+        }
+
+        // If ':' is the divide symbol in your country, replace any ':'s
+        // with '/'s.
+        if (options && options.divide_symbol) {
+            input = input.split(options.divide_symbol).join("/");
         }
 
         var expr = parser.parse(input).completeParse();

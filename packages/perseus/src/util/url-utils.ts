@@ -30,6 +30,6 @@ const parseUrl = (url: string): URL => new URL(url, location().origin);
 /**
  * Turns a URL into an absolute URL.
  *
- * @param {string} url The URL to turn into an absolute URL.
+ * @deprecated Use `PerseusDependenciesV2.generateUrl` instead.
  */
 export const toAbsoluteUrl = (url: string): string => parseUrl(url).href;
