@@ -80,10 +80,13 @@ const MultipleChoiceComponent = ({
     const choiceListClasses = reviewMode
         ? `${styles.choiceList} ${styles.reviewAnswers}`
         : styles.choiceList;
-    const cssVariableDeclaration: React.CSSProperties = {
-        // @ts-expect-error TS2353: Object literal may only specify known properties
-        "--perseus-widget-background-color": backgroundColor,
-    };
+    const cssVariableDeclaration: React.CSSProperties | undefined =
+        backgroundColor !== "transparent"
+            ? {
+                  // @ts-expect-error TS2353: Object literal may only specify known properties
+                  "--perseus-widget-background-color": backgroundColor,
+              }
+            : undefined;
 
     const scrollId = useId() + "-scroll";
 
