@@ -624,61 +624,84 @@ describe("image editor", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("should render decorative toggle when feature flag is enabled", () => {
-        // Arrange & Act
-        render(
-            <ImageEditor
-                apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
-                onChange={() => {}}
-            />,
-        );
+    describe("decorative toggle", () => {
+        it("should render decorative toggle when feature flag is enabled", () => {
+            // Arrange & Act
+            render(
+                <ImageEditor
+                    apiOptions={apiOptions}
+                    backgroundImage={{url: realKhanImageUrl}}
+                    onChange={() => {}}
+                />,
+            );
 
-        // Assert
-        expect(
-            screen.getByRole("switch", {name: "Decorative"}),
-        ).toBeInTheDocument();
-        expect(screen.getByLabelText("Decorative")).toBeInTheDocument();
-    });
-
-    it("should not render decorative toggle when feature flag is disabled", () => {
-        // Arrange & Act
-        render(
-            <ImageEditor
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                    flags: getFeatureFlags({"image-widget-upgrade": false}),
-                }}
-                backgroundImage={{url: realKhanImageUrl}}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
-        expect(
-            screen.queryByRole("switch", {name: "Decorative"}),
-        ).not.toBeInTheDocument();
-        expect(screen.queryByLabelText("Decorative")).not.toBeInTheDocument();
-    });
-
-    it("should call onChange when decorative toggle is clicked", async () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        render(
-            <ImageEditor
-                apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
-                onChange={onChangeMock}
-            />,
-        );
-
-        // Act
-        const decorativeToggle = screen.getByRole("switch", {
-            name: "Decorative",
+            // Assert
+            expect(
+                screen.getByRole("switch", {name: "Decorative"}),
+            ).toBeInTheDocument();
+            expect(screen.getByLabelText("Decorative")).toBeInTheDocument();
         });
-        await userEvent.click(decorativeToggle);
 
-        // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({decorative: true});
+        it("should not render decorative toggle when feature flag is disabled", () => {
+            // Arrange & Act
+            render(
+                <ImageEditor
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: getFeatureFlags({"image-widget-upgrade": false}),
+                    }}
+                    backgroundImage={{url: realKhanImageUrl}}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("switch", {name: "Decorative"}),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByLabelText("Decorative"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should render decorative toggle checked when decorative is true", () => {
+            // Arrange & Act
+            render(
+                <ImageEditor
+                    apiOptions={apiOptions}
+                    backgroundImage={{url: realKhanImageUrl}}
+                    decorative={true}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            const decorativeToggle = screen.getByRole("switch", {
+                name: "Decorative",
+            });
+            expect(decorativeToggle).toBeInTheDocument();
+            expect(decorativeToggle).toBeChecked();
+        });
+
+        it("should call onChange when decorative toggle is clicked", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditor
+                    apiOptions={apiOptions}
+                    backgroundImage={{url: realKhanImageUrl}}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            const decorativeToggle = screen.getByRole("switch", {
+                name: "Decorative",
+            });
+            await userEvent.click(decorativeToggle);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({decorative: true});
+        });
     });
 });

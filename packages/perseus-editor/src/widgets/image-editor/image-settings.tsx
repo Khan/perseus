@@ -103,7 +103,9 @@ export default function ImageSettings({
             {imageUpgradeFF && (
                 <DecorativeToggle
                     decorative={decorative}
-                    hasPopulatedFields={alt || caption || title || longDescription}
+                    hasPopulatedFields={Boolean(
+                        alt || caption || title || longDescription,
+                    )}
                     onChange={onChange}
                 />
             )}

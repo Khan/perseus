@@ -5,20 +5,19 @@ import LabeledSwitch from "../../../components/labeled-switch";
 
 import styles from "./decorative-toggle.module.css";
 
+import type {Props as ImageEditorProps} from "../image-editor";
+
 const {InfoTip} = components;
 
 interface Props {
     decorative?: boolean;
     hasPopulatedFields?: boolean;
-    onChange: ImageEditorProps["onChange"]
-};
+    onChange: ImageEditorProps["onChange"];
+}
 
 export default function DecorativeToggle({
     decorative,
-    alt,
-    caption,
-    title,
-    longDescription,
+    hasPopulatedFields,
     onChange,
 }: Props) {
     function handleDecorativeToggle(newValue: boolean) {
@@ -27,11 +26,6 @@ export default function DecorativeToggle({
             onChange({decorative: false});
             return;
         }
-
-        // Check if any other fields are populated
-        const hasPopulatedFields = [alt, caption, title, longDescription].some(
-            (field) => Boolean(field && field.length > 0),
-        );
 
         if (!hasPopulatedFields) {
             onChange({decorative: true});

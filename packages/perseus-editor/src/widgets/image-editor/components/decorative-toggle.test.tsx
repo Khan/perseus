@@ -75,9 +75,13 @@ describe("DecorativeToggle", () => {
 
     test("calls onChange with decorative: true when toggle is clicked and no fields are populated", async () => {
         // Arrange
-        render(<DecorativeToggle onChange={mockOnChange} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <DecorativeToggle
+                hasPopulatedFields={false}
+                onChange={mockOnChange}
+            />,
+            {wrapper: RenderStateRoot},
+        );
 
         // Act
         const toggle = screen.getByRole("switch", {name: "Decorative"});
@@ -101,118 +105,12 @@ describe("DecorativeToggle", () => {
         expect(mockOnChange).toHaveBeenCalledWith({decorative: false});
     });
 
-    test("shows warning dialog when toggle is clicked and alt text is populated", async () => {
-        // Arrange
-        const mockConfirm = jest.spyOn(window, "confirm").mockReturnValue(true);
-        render(
-            <DecorativeToggle alt="Some alt text" onChange={mockOnChange} />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Act
-        const toggle = screen.getByRole("switch", {name: "Decorative"});
-        await userEvent.click(toggle);
-
-        // Assert
-        expect(mockConfirm).toHaveBeenCalledWith(
-            "Setting this image as decorative will automatically reset all other fields (title, caption, alt text, and long description). Do you want to continue?",
-        );
-        expect(mockOnChange).toHaveBeenCalledWith({
-            decorative: true,
-            alt: undefined,
-            caption: undefined,
-            title: undefined,
-            longDescription: undefined,
-        });
-    });
-
-    test("shows warning dialog when toggle is clicked and caption is populated", async () => {
-        // Arrange
-        const mockConfirm = jest.spyOn(window, "confirm").mockReturnValue(true);
-        render(
-            <DecorativeToggle caption="Some caption" onChange={mockOnChange} />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Act
-        const toggle = screen.getByRole("switch", {name: "Decorative"});
-        await userEvent.click(toggle);
-
-        // Assert
-        expect(mockConfirm).toHaveBeenCalledWith(
-            "Setting this image as decorative will automatically reset all other fields (title, caption, alt text, and long description). Do you want to continue?",
-        );
-        expect(mockOnChange).toHaveBeenCalledWith({
-            decorative: true,
-            alt: undefined,
-            caption: undefined,
-            title: undefined,
-            longDescription: undefined,
-        });
-    });
-
-    test("shows warning dialog when toggle is clicked and title is populated", async () => {
-        // Arrange
-        const mockConfirm = jest.spyOn(window, "confirm").mockReturnValue(true);
-        render(
-            <DecorativeToggle title="Some title" onChange={mockOnChange} />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Act
-        const toggle = screen.getByRole("switch", {name: "Decorative"});
-        await userEvent.click(toggle);
-
-        // Assert
-        expect(mockConfirm).toHaveBeenCalledWith(
-            "Setting this image as decorative will automatically reset all other fields (title, caption, alt text, and long description). Do you want to continue?",
-        );
-        expect(mockOnChange).toHaveBeenCalledWith({
-            decorative: true,
-            alt: undefined,
-            caption: undefined,
-            title: undefined,
-            longDescription: undefined,
-        });
-    });
-
-    test("shows warning dialog when toggle is clicked and long description is populated", async () => {
+    test("shows warning dialog when toggle is clicked and fields are populated", async () => {
         // Arrange
         const mockConfirm = jest.spyOn(window, "confirm").mockReturnValue(true);
         render(
             <DecorativeToggle
-                longDescription="Some long description"
-                onChange={mockOnChange}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Act
-        const toggle = screen.getByRole("switch", {name: "Decorative"});
-        await userEvent.click(toggle);
-
-        // Assert
-        expect(mockConfirm).toHaveBeenCalledWith(
-            "Setting this image as decorative will automatically reset all other fields (title, caption, alt text, and long description). Do you want to continue?",
-        );
-        expect(mockOnChange).toHaveBeenCalledWith({
-            decorative: true,
-            alt: undefined,
-            caption: undefined,
-            title: undefined,
-            longDescription: undefined,
-        });
-    });
-
-    test("shows warning dialog when toggle is clicked and multiple fields are populated", async () => {
-        // Arrange
-        const mockConfirm = jest.spyOn(window, "confirm").mockReturnValue(true);
-        render(
-            <DecorativeToggle
-                alt="Alt text"
-                caption="Caption"
-                title="Title"
-                longDescription="Long description"
+                hasPopulatedFields={true}
                 onChange={mockOnChange}
             />,
             {wrapper: RenderStateRoot},
@@ -241,7 +139,10 @@ describe("DecorativeToggle", () => {
             .spyOn(window, "confirm")
             .mockReturnValue(false);
         render(
-            <DecorativeToggle alt="Some alt text" onChange={mockOnChange} />,
+            <DecorativeToggle
+                hasPopulatedFields={true}
+                onChange={mockOnChange}
+            />,
             {wrapper: RenderStateRoot},
         );
 
@@ -256,35 +157,11 @@ describe("DecorativeToggle", () => {
         expect(mockOnChange).not.toHaveBeenCalled();
     });
 
-    test("does not show warning dialog when fields are empty strings", async () => {
+    test("does not show warning dialog when fields are not populated", async () => {
         // Arrange
         render(
             <DecorativeToggle
-                alt=""
-                caption=""
-                title=""
-                longDescription=""
-                onChange={mockOnChange}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Act
-        const toggle = screen.getByRole("switch", {name: "Decorative"});
-        await userEvent.click(toggle);
-
-        // Assert
-        expect(mockOnChange).toHaveBeenCalledWith({decorative: true});
-    });
-
-    test("does not show warning dialog when fields are undefined", async () => {
-        // Arrange
-        render(
-            <DecorativeToggle
-                alt={undefined}
-                caption={undefined}
-                title={undefined}
-                longDescription={undefined}
+                hasPopulatedFields={false}
                 onChange={mockOnChange}
             />,
             {wrapper: RenderStateRoot},
