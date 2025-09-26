@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 27.6.2
+
+### Patch Changes
+
+-   [#2920](https://github.com/Khan/perseus/pull/2920) [`e11c3f8071`](https://github.com/Khan/perseus/commit/e11c3f8071d2b0946351ff700c846c6c48fbebfa) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add a warning message about alt text length, and encourage the use of long description if alt text is too long
+
+-   Updated dependencies [[`42c456d99e`](https://github.com/Khan/perseus/commit/42c456d99e0002589c088c721f09cbb26ea57b2c), [`5d2a6b07ef`](https://github.com/Khan/perseus/commit/5d2a6b07ef29fdbd6b3458b8abe4dbad480ce2b5)]:
+    -   @khanacademy/perseus@70.1.0
+    -   @khanacademy/perseus-core@19.4.0
+    -   @khanacademy/keypad-context@3.2.9
+    -   @khanacademy/kmath@2.2.9
+    -   @khanacademy/math-input@26.2.9
+    -   @khanacademy/perseus-linter@4.3.9
+    -   @khanacademy/perseus-score@7.7.9
+
 ## 27.6.1
 
 ### Patch Changes

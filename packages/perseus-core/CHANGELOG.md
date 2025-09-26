@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 19.4.0
+
+### Minor Changes
+
+-   [#2918](https://github.com/Khan/perseus/pull/2918) [`42c456d99e`](https://github.com/Khan/perseus/commit/42c456d99e0002589c088c721f09cbb26ea57b2c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add new decorative props in Image Widget
+
 ## 19.3.0
 
 ### Minor Changes
