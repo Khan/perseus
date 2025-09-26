@@ -42,11 +42,5 @@ Add a description in the "Alt Text" box of the image widget.`;
 for accessibility, all images should have descriptive alt text.
 This image's alt text is only ${alt.trim().length} characters long.`;
         }
-
-        // Make sure there is no math in the caption
-        if (widget.options.caption && widget.options.caption.match(/[^\\]\$/)) {
-            return `No math in image captions:
-Don't include math expressions in image captions.`;
-        }
     },
 }) as Rule;
