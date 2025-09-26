@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {themeModes} from "../../../../../../.storybook/modes";
 import {getWidget} from "../../../widgets";
 import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
@@ -11,7 +12,6 @@ import {
 import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
-import {themeModes} from "../../../../../../.storybook/modes";
 
 const ImageWidget = getWidget("image")!;
 

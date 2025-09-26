@@ -17,11 +17,13 @@
 }
 .perseus-image-widget .perseus-image-caption .paragraph {
     font-size: var(--wb-font-body-size-small);
+    line-height: var(--wb-font-body-lineHeight-small);
     padding-right: 12px;
     margin-block: 0;
 }
 .perseus-image-modal-title .paragraph .paragraph {
     font-size: var(--wb-font-heading-size-medium);
+    line-height: var(--wb-font-heading-lineHeight-medium);
 }
 .perseus-image-modal-description .perseus-renderer .paragraph {
     /* Reset default Renderer margins for the description and caption. */
