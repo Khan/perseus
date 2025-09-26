@@ -7,19 +7,10 @@ import styles from "./decorative-toggle.module.css";
 
 const {InfoTip} = components;
 
-type Props = {
+interface Props {
     decorative?: boolean;
-    alt?: string;
-    caption?: string;
-    title?: string;
-    longDescription?: string;
-    onChange: (changes: {
-        decorative?: boolean;
-        alt?: string;
-        caption?: string;
-        title?: string;
-        longDescription?: string;
-    }) => void;
+    hasPopulatedFields?: boolean;
+    onChange: ImageEditorProps["onChange"]
 };
 
 export default function DecorativeToggle({
