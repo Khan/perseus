@@ -624,7 +624,7 @@ describe("image editor", () => {
         ).not.toBeInTheDocument();
     });
 
-    describe("decorative toggle", () => {
+    describe("when decorative toggle", () => {
         it("should render decorative toggle when feature flag is enabled", () => {
             // Arrange & Act
             render(
