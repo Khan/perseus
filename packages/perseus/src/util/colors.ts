@@ -111,7 +111,7 @@ export const getBackgroundColor = (elementToInspect: HTMLElement): string => {
     }
     const parentElement = elementToInspect.parentElement;
     if (parentElement?.tagName.toLowerCase() === "html" || !parentElement) {
-        return "--wb-semanticColor-core-background-base-default";
+        return "var(--wb-semanticColor-core-background-base-default)";
     }
     return getBackgroundColor(parentElement);
 };

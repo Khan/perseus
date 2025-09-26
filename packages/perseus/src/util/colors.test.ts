@@ -26,13 +26,13 @@ describe("Color Utilities", () => {
             testElement.style.backgroundColor = "rgba(0, 0, 0, 0)"; // transparent
             let result = getBackgroundColor(testElement);
             expect(result).toBe(
-                "--wb-semanticColor-core-background-base-default",
+                "var(--wb-semanticColor-core-background-base-default)",
             );
 
             testElement.style.backgroundColor = "transparent";
             result = getBackgroundColor(testElement);
             expect(result).toBe(
-                "--wb-semanticColor-core-background-base-default",
+                "var(--wb-semanticColor-core-background-base-default)",
             );
         });
 
@@ -42,13 +42,13 @@ describe("Color Utilities", () => {
             htmlElement.appendChild(testElement);
             let result = getBackgroundColor(testElement);
             expect(result).toBe(
-                "--wb-semanticColor-core-background-base-default",
+                "var(--wb-semanticColor-core-background-base-default)",
             );
 
             testElement.style.backgroundColor = "transparent";
             result = getBackgroundColor(testElement);
             expect(result).toBe(
-                "--wb-semanticColor-core-background-base-default",
+                "var(--wb-semanticColor-core-background-base-default)",
             );
         });
 
