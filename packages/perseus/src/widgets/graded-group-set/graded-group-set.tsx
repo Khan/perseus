@@ -166,7 +166,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                         return (
                             // TODO(jeremy): Don't spread this.props, instead
                             // pass in all props GradedGroup needs explicilty
-                            // @ts-expect-error - TS2769 - No overload matches this call.
                             <GradedGroup
                                 key={i}
                                 {...this.props}

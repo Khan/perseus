@@ -43,7 +43,6 @@ const denylist = [
     "analytics",
     "showSolutions",
     "reviewMode",
-    "reviewModeRubric",
     "widgetIndex",
 ];
 
