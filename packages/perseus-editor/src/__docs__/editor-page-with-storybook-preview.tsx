@@ -1,9 +1,4 @@
-import {
-    type PerseusDependenciesV2,
-    Renderer,
-    type APIOptions,
-    type DeviceType,
-} from "@khanacademy/perseus";
+import {Renderer, type APIOptions, type DeviceType} from "@khanacademy/perseus";
 import {
     type Hint,
     type PerseusAnswerArea,
@@ -21,6 +16,7 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 // eslint-disable-next-line import/no-relative-packages
+import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {mockStrings} from "../../../perseus/src/strings";
 import ContentPreview from "../content-preview";
 import EditorPage from "../editor-page";
@@ -29,23 +25,6 @@ type Props = {
     apiOptions?: APIOptions;
     question?: PerseusRenderer;
     hints?: ReadonlyArray<Hint>;
-};
-
-const testDependenciesV2: PerseusDependenciesV2 = {
-    analytics: {
-        onAnalyticsEvent: async () => {},
-    },
-    generateUrl: (args) => {
-        return args.url;
-    },
-    useVideo: () => {
-        return {
-            status: "success",
-            data: {
-                video: null,
-            },
-        };
-    },
 };
 
 const onChangeAction = action("onChange");

@@ -2,6 +2,7 @@ import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import {useRef, useState} from "react";
 
+import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import ArticleEditor from "../article-editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
@@ -30,6 +31,7 @@ export const Base = (): React.ReactElement => {
             <button onClick={serialize}>Serialize</button>
             <hr />
             <ArticleEditor
+                dependencies={testDependenciesV2}
                 apiOptions={ApiOptions.defaults}
                 imageUploader={() => {}}
                 json={state}
