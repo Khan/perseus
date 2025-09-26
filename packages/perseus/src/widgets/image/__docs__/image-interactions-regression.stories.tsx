@@ -122,7 +122,7 @@ export const LongDescriptionClickedState = {
     },
 };
 
-export const LongDescriptionClickedImageFocusedState = {
+export const ImageFocusedStateAfterLongDescriptionClick = {
     decorators: [rendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
