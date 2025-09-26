@@ -3,6 +3,7 @@
  * in the standard layout.
  */
 
+import {Dependencies, type PerseusDependenciesV2} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -16,7 +17,11 @@ const itemProps = PropTypes.shape({
     hints: PropTypes.arrayOf(PropTypes.any).isRequired,
 });
 
-type Props = any;
+interface Props {
+    after: any;
+    before: any;
+    dependencies: PerseusDependenciesV2;
+}
 
 class ItemDiff extends React.Component<Props> {
     static propTypes = {
@@ -63,13 +68,17 @@ class ItemDiff extends React.Component<Props> {
         });
 
         return (
-            <div className="framework-perseus">
-                {question}
-                {extras}
-                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-                {hints && <div className="diff-separator" />}
-                {hints}
-            </div>
+            <Dependencies.DependenciesContext.Provider
+                value={this.props.dependencies}
+            >
+                <div className="framework-perseus">
+                    {question}
+                    {extras}
+                    {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
+                    {hints && <div className="diff-separator" />}
+                    {hints}
+                </div>
+            </Dependencies.DependenciesContext.Provider>
         );
     }
 }

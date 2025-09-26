@@ -16,6 +16,7 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 // eslint-disable-next-line import/no-relative-packages
+import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {mockStrings} from "../../../perseus/src/strings";
 import ContentPreview from "../content-preview";
 import EditorPage from "../editor-page";
@@ -56,6 +57,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                 onPreviewDeviceChange={(newDevice) =>
                     setPreviewDevice(newDevice)
                 }
+                dependencies={testDependenciesV2}
                 developerMode={true}
                 jsonMode={jsonMode}
                 answerArea={answerArea}

@@ -4,7 +4,12 @@
  * multiple (Renderer) sections concatenated together.
  */
 
-import {components, ApiOptions, iconTrash} from "@khanacademy/perseus";
+import {
+    components,
+    ApiOptions,
+    iconTrash,
+    Dependencies,
+} from "@khanacademy/perseus";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
@@ -20,7 +25,12 @@ import {
     iconPlus,
 } from "./styles/icon-paths";
 
-import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    Changeable,
+    ImageUploader,
+    PerseusDependenciesV2,
+} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 
@@ -43,6 +53,7 @@ type DefaultProps = {
 };
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
+    dependencies: PerseusDependenciesV2;
     imageUploader?: ImageUploader;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
@@ -405,27 +416,31 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         return (
-            <div className="framework-perseus perseus-article-editor">
-                {this.props.mode === "edit" && this._renderEditor()}
+            <Dependencies.DependenciesContext.Provider
+                value={this.props.dependencies}
+            >
+                <div className="framework-perseus perseus-article-editor">
+                    {this.props.mode === "edit" && this._renderEditor()}
 
-                {this.props.mode === "preview" && this._renderPreviewMode()}
+                    {this.props.mode === "preview" && this._renderPreviewMode()}
 
-                {this.props.mode === "json" && (
-                    <div className="json-editor">
-                        <div className="json-editor-warning">
-                            <span>
-                                Warning: Editing in this mode can lead to broken
-                                articles!
-                            </span>
+                    {this.props.mode === "json" && (
+                        <div className="json-editor">
+                            <div className="json-editor-warning">
+                                <span>
+                                    Warning: Editing in this mode can lead to
+                                    broken articles!
+                                </span>
+                            </div>
+                            <JsonEditor
+                                multiLine={true}
+                                onChange={this._handleJsonChange}
+                                value={this.props.json}
+                            />
                         </div>
-                        <JsonEditor
-                            multiLine={true}
-                            onChange={this._handleJsonChange}
-                            value={this.props.json}
-                        />
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            </Dependencies.DependenciesContext.Provider>
         );
     }
 }
