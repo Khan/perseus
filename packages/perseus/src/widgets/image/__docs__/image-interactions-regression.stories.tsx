@@ -57,15 +57,23 @@ const meta: Meta = {
 
 export default meta;
 
-export const FocusedState = {
+export const ImageFocusedState = {
     decorators: [rendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
-        alt: "Earth and Moon",
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        await userEvent.tab();
+    },
+};
+
+export const LongDescriptionNoCaptionFocusedState = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
         longDescription:
             "This is a *very* long description of the earth and moon.",
-        title: "Earth and Moon",
-        caption: earthMoonImageCaption,
     },
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
