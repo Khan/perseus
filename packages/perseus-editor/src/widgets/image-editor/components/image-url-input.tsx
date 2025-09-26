@@ -4,7 +4,7 @@ import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import React from "react";
 
-import type {Props} from "./image-editor";
+import type {Props} from "../image-editor";
 
 const {InfoTip} = components;
 

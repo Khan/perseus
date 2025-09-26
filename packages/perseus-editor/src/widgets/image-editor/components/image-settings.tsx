@@ -4,13 +4,13 @@ import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
-import ScrolllessNumberTextField from "../../components/scrollless-number-text-field";
+import {AutoResizingTextArea} from "../../../components/auto-resizing-text-area";
+import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
+import {getOtherSideLengthWithPreservedAspectRatio} from "../utils";
 
 import styles from "./image-editor.module.css";
-import {getOtherSideLengthWithPreservedAspectRatio} from "./utils";
 
-import type {Props} from "./image-editor";
+import type {Props} from "../image-editor";
 
 const {SvgImage} = components;
 
