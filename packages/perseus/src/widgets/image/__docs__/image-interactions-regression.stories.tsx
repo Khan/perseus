@@ -1,4 +1,3 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {
     generateImageOptions,
     generateImageWidget,
@@ -14,6 +13,8 @@ import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
 import {earthMoonImage} from "../utils";
+
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
 
 const earthMoonImageCaption =
