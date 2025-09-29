@@ -2,10 +2,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: var(--wb-semanticColor-core-background-neutral-subtle);
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-subtle
+    );
     border: 1px solid var(--wb-semanticColor-core-border-base-subtle);
     border-radius: var(--wb-sizing-size_080);
     margin-block-start: var(--wb-sizing-size_080);
     margin-block-end: var(--wb-sizing-size_120);
     padding: var(--wb-sizing-size_080);
+}
+
+.x-span {
+    display: block;
+    margin-inline: var(--wb-sizing-size_080);
 }

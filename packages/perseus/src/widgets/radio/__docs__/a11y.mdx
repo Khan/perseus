@@ -19,6 +19,18 @@ The new Radio widget is designed to be accessible for all users, including those
 -   Choices are rendered as a list, allowing screen readers to communicate the number of options to the user.
 -   Choice buttons are identified as toggle buttons, in order to convey their state (selected or unselected).
     -   Buttons of type `radio` have specific expectations for interaction which do not apply to this widget.
+-   Enhanced screen reader announcements:
+    -   With a Single Select instance, the toggle state of the current choice is important,
+        since there will only ever be one choice selected.
+        -   When toggling a choice, VoiceOver announces when it is selected, but not when it is deselected.
+        -   When toggling a choice, NVDA announces both states ("pressed" and "not pressed").
+        -   Therefore, we add an announcement (via `aria-live`) when a choice is deselected in order to avoid the
+            possibility that a deselection of a choice goes unnoticed by VoiceOver users.
+    -   With a Multi Select instance, the number of choices selected is important.
+        -   When toggling a choice, we add an announcement (via `aria-live`) stating the number of choices selected.
+        -   No deselect announcement is made when toggling within a Multi Select instance.
+        -   The choices selected announcement after every interaction (toggling "on" or "off") suffices as a
+            substitute for a deselect announcement.
 -   Choices are labelled in the following manner: "(Choice \<letter\>) \<choice-text\>".
     -   For example, "(Choice A) Paris, France".
 -   When in review mode, choices are marked as disabled,
