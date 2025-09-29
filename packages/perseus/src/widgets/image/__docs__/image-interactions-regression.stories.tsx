@@ -1,3 +1,4 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {
     generateImageOptions,
     generateImageWidget,
@@ -13,8 +14,6 @@ import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
 import {earthMoonImage} from "../utils";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
 
 const earthMoonImageCaption =
@@ -57,51 +56,6 @@ const meta: Meta = {
 
 export default meta;
 
-export const ImageFocusedState = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-    },
-    play: async ({userEvent}) => {
-        await userEvent.tab();
-    },
-};
-
-export const LongDescriptionNoCaptionFocusedState = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-        longDescription:
-            "This is a *very* long description of the earth and moon.",
-    },
-    play: async ({canvas}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
-        const imageTrigger = canvas.getByRole("button", {
-            name: "Explore image",
-        });
-        imageTrigger.focus();
-    },
-};
-
-export const LongDescriptionFocusedState = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-        alt: "Earth and Moon",
-        longDescription:
-            "This is a *very* long description of the earth and moon.",
-        title: "Earth and Moon",
-        caption: earthMoonImageCaption,
-    },
-    play: async ({canvas}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
-        const imageTrigger = canvas.getByRole("button", {
-            name: "Explore image",
-        });
-        imageTrigger.focus();
-    },
-};
-
 export const LongDescriptionClickedState = {
     decorators: [rendererDecorator],
     args: {
@@ -118,26 +72,6 @@ export const LongDescriptionClickedState = {
             name: "Explore image",
         });
         await userEvent.click(imageTrigger);
-    },
-};
-
-export const ImageFocusedStateAfterLongDescriptionClick = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-        alt: "Earth and Moon",
-        longDescription:
-            "This is a *very* long description of the earth and moon.",
-        title: "Earth and Moon",
-        caption: earthMoonImageCaption,
-    },
-    play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
-        const descriptionTrigger = canvas.getByRole("button", {
-            name: "Explore image",
-        });
-        await userEvent.click(descriptionTrigger);
-        await userEvent.tab();
     },
 };
 

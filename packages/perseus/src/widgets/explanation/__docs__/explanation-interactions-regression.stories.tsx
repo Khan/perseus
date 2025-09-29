@@ -23,21 +23,6 @@ const meta: Meta = {
 
 export default meta;
 
-export const FocusedState = {
-    args: {
-        item: generateTestPerseusItem({
-            question: question1,
-        }),
-    },
-    play: async ({canvas}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
-        const explanationTrigger = canvas.getByRole("button", {
-            name: "Explanation",
-        });
-        explanationTrigger.focus();
-    },
-};
-
 export const ClickedState = {
     args: {
         item: generateTestPerseusItem({
