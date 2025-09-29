@@ -1,4 +1,5 @@
 import {spawn} from "child_process";
+import {Command} from "./command";
 
 /**
  * @module
@@ -46,22 +47,5 @@ async function cp(
         flags.push("--project", options.project);
     }
 
-    return new Promise((resolve, reject) => {
-        const args = ["storage", "cp", ...flags, ...sources, dest];
-        const gcloudProcess = spawn("gcloud", args, {stdio: "inherit"});
-        gcloudProcess.on("close", (exitCode, signal) => {
-            if (signal != null) {
-                reject(
-                    Error(`gcloud storage cp: terminated by signal ${signal}`),
-                );
-            }
-            if (exitCode === 0) {
-                resolve();
-            } else {
-                reject(
-                    Error(`gcloud storage cp: exited with code ${exitCode}`),
-                );
-            }
-        });
-    });
+    await new Command("gcloud", ["storage", "cp", ...flags, ...sources, dest]).run();
 }
