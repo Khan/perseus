@@ -1,16 +1,7 @@
-import {
-    generateTestPerseusRenderer,
-    generateImageOptions,
-    generateImageWidget,
-} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
-import {ApiOptions} from "../../../perseus-api";
-import Renderer from "../../../renderer";
-import {mockStrings} from "../../../strings";
-import UserInputManager from "../../../user-input-manager";
 import {getWidget} from "../../../widgets";
+import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
     mobileDecorator,
     articleDecorator,
@@ -19,7 +10,6 @@ import {
 } from "../../__testutils__/story-decorators";
 import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const ImageWidget = getWidget("image")!;
@@ -33,26 +23,6 @@ const frescsoLongDescription =
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
-// Breaking this out instead of using it globally, so that the
-// right-to-left story can wrap the ImageQuestionRenderer with the
-// right-to-left wrapper.
-const rendererDecorator = (_, {args, parameters}) => {
-    return (
-        <ImageQuestionRenderer
-            question={generateTestPerseusRenderer({
-                content: parameters?.content ?? "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            ...args,
-                        }),
-                    }),
-                },
-            })}
-        />
-    );
-};
-
 const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
     component: ImageWidget,
@@ -63,42 +33,17 @@ const meta: Meta<typeof ImageWidget> = {
 export default meta;
 
 export const Image: Story = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-    },
-};
-
-export const ImageWithAll: Story = {
-    decorators: [rendererDecorator],
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
-        longDescription:
-            "This is a *very* long description of the earth and moon.",
         title: "Earth and Moon",
         caption: earthMoonImageCaption,
     },
 };
 
-export const ImageWithAlt: Story = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-        alt: "Earth and Moon",
-    },
-};
-
-export const ImageWithCaption: Story = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-        caption: earthMoonImageCaption,
-    },
-};
-
 export const ImageWithCaptionAndLongDescription: Story = {
-    decorators: [rendererDecorator],
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
         caption: earthMoonImageCaption,
@@ -108,7 +53,7 @@ export const ImageWithCaptionAndLongDescription: Story = {
 };
 
 export const ImageWithLongDescription: Story = {
-    decorators: [rendererDecorator],
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
         longDescription:
@@ -117,42 +62,25 @@ export const ImageWithLongDescription: Story = {
 };
 
 export const ImageWithTitle: Story = {
-    decorators: [rendererDecorator],
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
         title: "Earth and Moon",
     },
 };
 
-export const MobileImageAll: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
+export const MobileImage: Story = {
+    decorators: [imageRendererDecorator, mobileDecorator],
     args: {
         backgroundImage: earthMoonImage,
         caption: earthMoonImageCaption,
-        longDescription:
-            "This is a *very* long description of the earth and moon.",
         title: "Earth and Moon",
-    },
-};
-
-export const MobileImageWithAlt: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
     },
 };
 
-export const MobileImageWithCaption: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-        caption: earthMoonImageCaption,
-    },
-};
-
 export const MobileImageWithCaptionAndLongDescription: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
+    decorators: [imageRendererDecorator, mobileDecorator],
     args: {
         backgroundImage: earthMoonImage,
         caption: earthMoonImageCaption,
@@ -162,7 +90,7 @@ export const MobileImageWithCaptionAndLongDescription: Story = {
 };
 
 export const MobileImageWithLongDescription: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
+    decorators: [imageRendererDecorator, mobileDecorator],
     args: {
         backgroundImage: earthMoonImage,
         longDescription:
@@ -171,7 +99,7 @@ export const MobileImageWithLongDescription: Story = {
 };
 
 export const MobileImageWithTitle: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
+    decorators: [imageRendererDecorator, mobileDecorator],
     args: {
         backgroundImage: earthMoonImage,
         title: "Earth and Moon",
@@ -179,7 +107,7 @@ export const MobileImageWithTitle: Story = {
 };
 
 export const PortraitImage: Story = {
-    decorators: [rendererDecorator],
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: monasteryImage,
         caption:
@@ -190,8 +118,8 @@ export const PortraitImage: Story = {
     },
 };
 
-export const WithinArticleDesktop: Story = {
-    decorators: [rendererDecorator, articleDecorator],
+export const WithinArticle: Story = {
+    decorators: [imageRendererDecorator, articleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -201,8 +129,8 @@ export const WithinArticleDesktop: Story = {
     },
 };
 
-export const WithinArticleDesktopCaptionAndTitle: Story = {
-    decorators: [rendererDecorator, articleDecorator],
+export const WithinArticleWithCaptionAndTitle: Story = {
+    decorators: [imageRendererDecorator, articleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -215,7 +143,7 @@ export const WithinArticleDesktopCaptionAndTitle: Story = {
 };
 
 export const WithinArticleMobile: Story = {
-    decorators: [rendererDecorator, mobileArticleDecorator],
+    decorators: [imageRendererDecorator, mobileArticleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -226,7 +154,7 @@ export const WithinArticleMobile: Story = {
 };
 
 export const WithinArticleMobileCaptionAndTitle: Story = {
-    decorators: [rendererDecorator, mobileArticleDecorator],
+    decorators: [imageRendererDecorator, mobileArticleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -239,7 +167,7 @@ export const WithinArticleMobileCaptionAndTitle: Story = {
 };
 
 export const RightToLeftImage: Story = {
-    decorators: [rendererDecorator, rtlDecorator],
+    decorators: [imageRendererDecorator, rtlDecorator],
     args: {
         alt: "Fresco of some people",
         title: "The Offer of the Casa Madre to Victory, 1932",
@@ -252,7 +180,7 @@ export const RightToLeftImage: Story = {
 
 export const RightToLeftImageMobile: Story = {
     decorators: [
-        rendererDecorator,
+        imageRendererDecorator,
         mobileDecorator,
         (Story) => (
             <div style={{direction: "rtl"}}>
@@ -270,25 +198,28 @@ export const RightToLeftImageMobile: Story = {
     },
 };
 
-function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
-    const {question} = props;
-    return (
-        <UserInputManager widgets={question.widgets} problemNum={0}>
-            {({userInput, handleUserInput, initializeUserInput}) => (
-                <Renderer
-                    userInput={userInput}
-                    handleUserInput={handleUserInput}
-                    initializeUserInput={initializeUserInput}
-                    strings={mockStrings}
-                    content={question.content}
-                    widgets={question.widgets}
-                    images={question.images}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: getFeatureFlags({"image-widget-upgrade": true}),
-                    }}
-                />
-            )}
-        </UserInputManager>
-    );
-}
+export const DecorativeImage: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+        title: "Earth and Moon",
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+        decorative: true,
+    },
+};
+
+export const DecorativeImageMobile: Story = {
+    decorators: [imageRendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+        title: "Earth and Moon",
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+        decorative: true,
+    },
+};
