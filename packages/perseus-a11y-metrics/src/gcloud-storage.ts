@@ -48,9 +48,7 @@ async function cp(
 
     return new Promise((resolve, reject) => {
         const args = ["storage", "cp", ...flags, ...sources, dest];
-        const gcloudProcess = spawn("gcloud", args);
-        gcloudProcess.stdout.pipe(process.stdout);
-        gcloudProcess.stderr.pipe(process.stderr);
+        const gcloudProcess = spawn("gcloud", args, {stdio: "inherit"});
         gcloudProcess.on("close", (exitCode, signal) => {
             if (signal != null) {
                 reject(
