@@ -120,8 +120,7 @@ const BaseRadio = function ({
             apiOptions.canScrollPage &&
             isLastUsedWidget &&
             reviewMode &&
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            !prevReviewMode.current
+            prevReviewMode.current != null
         ) {
             const checkedIndex = choices.findIndex((c) => c.checked);
             if (checkedIndex >= 0) {
@@ -306,8 +305,6 @@ const BaseRadio = function ({
                     aphroditeClassName(true);
 
                     let correctnessClass;
-                    // reviewMode is only true if there's a rubric
-                    // but TypeScript doesn't understand that
                     if (reviewMode) {
                         correctnessClass = choices[i].correct
                             ? ApiClassNames.CORRECT
