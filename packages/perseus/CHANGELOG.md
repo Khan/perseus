@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 70.1.0
+
+### Minor Changes
+
+-   [#2918](https://github.com/Khan/perseus/pull/2918) [`42c456d99e`](https://github.com/Khan/perseus/commit/42c456d99e0002589c088c721f09cbb26ea57b2c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add new decorative props in Image Widget
+
+### Patch Changes
+
+-   [#2924](https://github.com/Khan/perseus/pull/2924) [`5d2a6b07ef`](https://github.com/Khan/perseus/commit/5d2a6b07ef29fdbd6b3458b8abe4dbad480ce2b5) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add feature flag check for decorative
+
+-   Updated dependencies [[`42c456d99e`](https://github.com/Khan/perseus/commit/42c456d99e0002589c088c721f09cbb26ea57b2c)]:
+    -   @khanacademy/perseus-core@19.4.0
+    -   @khanacademy/keypad-context@3.2.9
+    -   @khanacademy/kmath@2.2.9
+    -   @khanacademy/math-input@26.2.9
+    -   @khanacademy/perseus-linter@4.3.9
+    -   @khanacademy/perseus-score@7.7.9
+
 ## 70.0.0
 
 ### Major Changes
