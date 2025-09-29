@@ -1,13 +1,11 @@
-import {components, Util} from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import React from "react";
 
-import {wbFieldStyles} from "../utils";
+import {wbFieldStylesWithDescription} from "../utils";
 
 import type {Props} from "../image-editor";
-
-const {InfoTip} = components;
 
 // Match any image URL (including "web+graphie" links) that is hosted by KA.
 // We're somewhat generous in our AWS URL matching
@@ -86,10 +84,8 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
 
     return (
         <LabeledField
-            label="Image url:"
-            contextLabel={
-                <InfoTip>Paste an image or graphie image URL.</InfoTip>
-            }
+            label="Image URL"
+            description="Paste an image or graphie image URL."
             field={
                 <TextField
                     id={urlId}
@@ -99,7 +95,7 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
                 />
             }
             errorMessage={backgroundImageError}
-            styles={wbFieldStyles}
+            styles={wbFieldStylesWithDescription}
         />
     );
 }

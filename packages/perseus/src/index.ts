@@ -73,6 +73,7 @@ export {default as PerseusMarkdown} from "./perseus-markdown";
 export {isItemRenderableByVersion} from "./renderability";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
+export {DependenciesContext} from "./dependencies";
 
 // Context for managing i18n
 export {

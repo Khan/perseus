@@ -11,6 +11,18 @@ export const wbFieldStyles = {
     },
 };
 
+export const wbFieldStylesWithDescription = {
+    ...wbFieldStyles,
+    label: {
+        ...wbFieldStyles.label,
+        paddingBlockEnd: 0,
+    },
+    description: {
+        paddingBlockStart: 0,
+        paddingBlockEnd: sizing.size_040,
+    },
+};
+
 /**
  * Given a known aspect ratio, and a new side length,
  * return the other side length that maintains the aspect ratio.
