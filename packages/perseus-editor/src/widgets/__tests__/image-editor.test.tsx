@@ -4,7 +4,11 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
+import {DependenciesContext} from "../../../../perseus/src/dependencies";
 import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
 import ImageEditor from "../image-editor/image-editor";
 
@@ -213,12 +217,14 @@ describe("image editor", () => {
 
         // Act
         render(
-            <ImageEditor
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                alt="Earth and moon alt"
-                onChange={() => {}}
-            />,
+            <DependenciesContext.Provider value={testDependenciesV2}>
+                <ImageEditor
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    alt="Earth and moon alt"
+                    onChange={() => {}}
+                />
+            </DependenciesContext.Provider>,
         );
 
         markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
@@ -232,11 +238,13 @@ describe("image editor", () => {
     it("should render preview image without alt text", () => {
         // Arrange
         render(
-            <ImageEditor
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                onChange={() => {}}
-            />,
+            <DependenciesContext.Provider value={testDependenciesV2}>
+                <ImageEditor
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />
+            </DependenciesContext.Provider>,
         );
 
         markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
