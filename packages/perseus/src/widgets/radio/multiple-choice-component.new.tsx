@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useId, useRef, useState} from "react";
+import React, {useEffect, useId, useRef, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import ScrollableView from "../../components/scrollable-view";
@@ -63,7 +63,7 @@ const MultipleChoiceComponent = ({
     const containerRef = useRef<HTMLFieldSetElement>(null);
     const [backgroundColor, setBackgroundColor] = useState("transparent");
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const container = containerRef.current;
         if (container) {
             setBackgroundColor(getBackgroundColor(container));
