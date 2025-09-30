@@ -863,6 +863,9 @@ importers:
 
   packages/perseus-a11y-metrics:
     dependencies:
+      '@khanacademy/perseus-core':
+        specifier: workspace:*
+        version: link:../perseus-core
       zod:
         specifier: ^4.1.11
         version: 4.1.11

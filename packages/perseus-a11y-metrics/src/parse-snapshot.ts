@@ -8,32 +8,32 @@ import {
     type Infer,
 } from "zod";
 
-const Item = object({
-    // NOTE: there are more fields in the Item object. This schema just
+const ItemSchema = object({
+    // NOTE: there are more fields in the ItemSchema object. This schema just
     // lists the fields we currently care about.
     id: string(),
 });
 
-const ProblemType = object({
-    // NOTE: there are more fields in the ProblemType object. This schema just
+const ProblemTypeSchema = object({
+    // NOTE: there are more fields in the ProblemTypeSchema object. This schema just
     // lists the fields we currently care about.
-    items: array(Item),
+    items: array(ItemSchema),
 });
 
-const Exercise = object({
-    // NOTE: there are more fields in the Exercise object. This schema just
+const ExerciseSchema = object({
+    // NOTE: there are more fields in the ExerciseSchema object. This schema just
     // lists the fields we currently care about.
     // TODO: what is the difference between contentId and id?
     contentId: string(),
     exerciseLength: number(),
     id: string(),
     listed: boolean(),
-    problemTypes: array(ProblemType),
+    problemTypes: array(ProblemTypeSchema),
     translatedPerseusContentSha: string(),
 });
 
-const Snapshot = object({
-    exercises: array(Exercise),
+const SnapshotSchema = object({
+    exercises: array(ExerciseSchema),
     // TODO
     articles: unknown(),
     // TODO
@@ -58,6 +58,10 @@ const Snapshot = object({
     video: unknown(),
 });
 
-export function parseSnapshot(rawData: unknown): Infer<typeof Snapshot> {
-    return Snapshot.parse(typeof rawData === "string" ? JSON.parse(rawData) : rawData);
+export type Exercise = Infer<typeof ExerciseSchema>
+
+export type Snapshot = Infer<typeof SnapshotSchema>
+
+export function parseSnapshot(rawData: unknown): Snapshot {
+    return SnapshotSchema.parse(typeof rawData === "string" ? JSON.parse(rawData) : rawData);
 }

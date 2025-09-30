@@ -25,6 +25,7 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
+        "@khanacademy/perseus-core": "workspace:*",
         "zod": "^4.1.11"
     }
 }
