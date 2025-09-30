@@ -861,6 +861,12 @@ importers:
         specifier: catalog:devDeps
         version: 1.4.4
 
+  packages/perseus-a11y-metrics:
+    dependencies:
+      zod:
+        specifier: ^4.1.11
+        version: 4.1.11
+
   packages/perseus-core:
     dependencies:
       '@khanacademy/kas':
@@ -9286,6 +9292,9 @@ packages:
 
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+
+  zod@4.1.11:
+    resolution: {integrity: sha512-WPsqwxITS2tzx1bzhIKsEs19ABD5vmCVa4xBo2tq/SrV4RNZtfws1EnCWQXM6yh8bD08a1idvkB5MZSBiZsjwg==}
 
 snapshots:
 
@@ -19491,3 +19500,5 @@ snapshots:
       zod: 3.23.8
 
   zod@3.23.8: {}
+
+  zod@4.1.11: {}

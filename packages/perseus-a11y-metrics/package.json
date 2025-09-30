@@ -23,5 +23,8 @@
     ],
     "scripts": {
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
+    },
+    "dependencies": {
+        "zod": "^4.1.11"
     }
 }
