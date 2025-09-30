@@ -7,6 +7,7 @@ import {
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
+import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageEditor from "../image-editor/image-editor";
@@ -15,7 +16,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const PROD_EDITOR_WIDTH = 330;
 
-const withinEditorPageDecorator = (_, {args}) => {
+const withinEditorPageDecorator = (_, {args, parameters}) => {
     return (
         <div style={{width: PROD_EDITOR_WIDTH}}>
             <EditorPageWithStorybookPreview
@@ -26,7 +27,7 @@ const withinEditorPageDecorator = (_, {args}) => {
                     }),
                 }}
                 question={generateTestPerseusRenderer({
-                    content: "[[☃ image 1]]",
+                    content: parameters.content || "[[☃ image 1]]",
                     widgets: {
                         "image 1": generateImageWidget({
                             options: generateImageOptions({
@@ -46,7 +47,6 @@ registerAllWidgetsAndEditorsForTesting();
 const meta: Meta = {
     title: "Widgets/Image/Editor Demo",
     component: ImageEditor,
-    tags: ["!dev"],
     argTypes: {
         labels: {
             control: false,
@@ -90,13 +90,23 @@ export const Populated: Story = {
     name: "Populated (Within Editor Page)",
     decorators: [withinEditorPageDecorator],
     args: {
-        backgroundImage: {
-            url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
-            width: 400,
-            height: 225,
-        },
+        backgroundImage: earthMoonImage,
         alt: "The moon showing behind the Earth in space.",
         caption: "Captured via XYZ Telescope",
         title: "The Moon",
+    },
+};
+
+export const WithMarkdownImage: Story = {
+    name: "With Markdown Image (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "The moon showing behind the Earth in space.",
+        caption: "Captured via XYZ Telescope",
+        title: "The Moon",
+    },
+    parameters: {
+        content: `[[☃ image 1]]\n\n![earth and moon](${earthMoonImage.url})`,
     },
 };
