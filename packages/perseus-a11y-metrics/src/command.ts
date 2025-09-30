@@ -1,5 +1,9 @@
 import {spawn} from "child_process";
 
+export function command(program: string, ...args: string[]): Command {
+    return new Command(program, args);
+}
+
 export class Command {
     constructor(private program: string, private args: string[] = []) {}
 
@@ -24,8 +28,4 @@ export class Command {
             });
         })
     }
-}
-
-class Subprocess {
-
 }

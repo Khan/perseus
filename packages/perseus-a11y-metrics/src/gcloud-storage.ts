@@ -1,5 +1,4 @@
-import {spawn} from "child_process";
-import {Command} from "./command";
+import {command} from "./command";
 
 /**
  * @module
@@ -47,5 +46,5 @@ async function cp(
         flags.push("--project", options.project);
     }
 
-    await new Command("gcloud", ["storage", "cp", ...flags, ...sources, dest]).run();
+    await command("gcloud", "storage", "cp", ...flags, ...sources, dest).run();
 }
