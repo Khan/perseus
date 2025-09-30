@@ -15,8 +15,7 @@ async function main() {
     const tmpDir = join("/", "tmp", "perseus-a11y-metrics");
     const contentVersionDir = join(tmpDir, version)
     const localSnapshotPath = join(contentVersionDir, `snapshot-${locale}.json`);
-    // TODO: the locale here is redundant because gcloud creates a directory named after the locale within this one.
-    const localExercisesPath = join(contentVersionDir, `exercises-${locale}`)
+    const localExercisesPath = join(contentVersionDir, `exercises`)
 
     if (!await exists(localSnapshotPath)) {
         // The snapshot data isn't yet on disk. Download it.
