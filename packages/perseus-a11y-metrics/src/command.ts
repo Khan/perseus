@@ -1,10 +1,14 @@
 import {spawn} from "child_process";
 
-export function command(program: string, ...args: string[]): Command {
-    return new Command(program, args);
+export interface Command<TResult> {
+    run(): Promise<TResult>
 }
 
-export class Command {
+export function command(program: string, ...args: string[]): Command<void> {
+    return new VoidCommand(program, args);
+}
+
+export class VoidCommand implements Command<void> {
     constructor(private program: string, private args: string[] = []) {}
 
     /**
