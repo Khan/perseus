@@ -469,6 +469,7 @@ export class ServerItemRenderer
 
         const hintsRenderer = (
             <HintsRenderer
+                dependencies={this.props.dependencies}
                 hints={this.props.item.hints}
                 hintsVisible={this.props.hintsVisible}
                 apiOptions={apiOptions}
