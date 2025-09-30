@@ -1,4 +1,9 @@
-import {Renderer, type APIOptions, type DeviceType} from "@khanacademy/perseus";
+import {
+    type PerseusDependenciesV2,
+    Renderer,
+    type APIOptions,
+    type DeviceType,
+} from "@khanacademy/perseus";
 import {
     type Hint,
     type PerseusAnswerArea,
@@ -24,6 +29,23 @@ type Props = {
     apiOptions?: APIOptions;
     question?: PerseusRenderer;
     hints?: ReadonlyArray<Hint>;
+};
+
+const testDependenciesV2: PerseusDependenciesV2 = {
+    analytics: {
+        onAnalyticsEvent: async () => {},
+    },
+    generateUrl: (args) => {
+        return args.url;
+    },
+    useVideo: () => {
+        return {
+            status: "success",
+            data: {
+                video: null,
+            },
+        };
+    },
 };
 
 const onChangeAction = action("onChange");
@@ -56,6 +78,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                 onPreviewDeviceChange={(newDevice) =>
                     setPreviewDevice(newDevice)
                 }
+                dependencies={testDependenciesV2}
                 developerMode={true}
                 jsonMode={jsonMode}
                 answerArea={answerArea}

@@ -3,6 +3,7 @@
  * A side by side diff view for Perseus articles.
  */
 
+import {Dependencies, type PerseusDependenciesV2} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -15,7 +16,12 @@ const rendererProps = PropTypes.shape({
     widgets: PropTypes.objectOf(PropTypes.any),
 });
 
-type Props = any;
+interface Props {
+    after: any;
+    before: any;
+    dependencies: PerseusDependenciesV2;
+}
+
 type State = any;
 
 class ArticleDiff extends React.Component<Props, State> {
@@ -62,7 +68,13 @@ class ArticleDiff extends React.Component<Props, State> {
             />
         ));
 
-        return <div className="framework-perseus">{sections}</div>;
+        return (
+            <Dependencies.DependenciesContext.Provider
+                value={this.props.dependencies}
+            >
+                <div className="framework-perseus">{sections}</div>
+            </Dependencies.DependenciesContext.Provider>
+        );
     }
 }
 
