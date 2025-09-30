@@ -74,6 +74,8 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
                                     style={{
                                         color: semanticColor.core.foreground
                                             .instructive.default,
+                                        // Note(TB): Probably don't need borderBottom styling as Clickable handles that.
+                                        // If removed, also remove the Focused story.
                                         borderBottom:
                                             hovered || focused || pressed
                                                 ? `2px solid ${semanticColor.core.border.instructive.default}`
