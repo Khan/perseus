@@ -23,11 +23,13 @@ const ProblemType = object({
 const Exercise = object({
     // NOTE: there are more fields in the Exercise object. This schema just
     // lists the fields we currently care about.
+    // TODO: what is the difference between contentId and id?
     contentId: string(),
     exerciseLength: number(),
     id: string(),
     listed: boolean(),
     problemTypes: array(ProblemType),
+    translatedPerseusContentSha: string(),
 });
 
 const Snapshot = object({

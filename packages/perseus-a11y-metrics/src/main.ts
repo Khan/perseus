@@ -7,21 +7,39 @@ import {command} from "./command";
 import {getPublishedContentVersion} from "./content-version";
 import {gcloudStorage} from "./gcloud-storage";
 import {parseSnapshot} from "./parse-snapshot";
+import {exists} from "./filesystem";
 
 async function main() {
-    const testDir = join("/", "tmp", "test");
     const locale = "en";
-    const kaContentDataBucket = "ka-content-data";
     const version = await getPublishedContentVersion(locale);
-    const localSnapshotPath = join(testDir, `snapshot-${locale}.json`);
+    const tmpDir = join("/", "tmp", "perseus-a11y-metrics");
+    const contentVersionDir = join(tmpDir, version)
+    const localSnapshotPath = join(contentVersionDir, `snapshot-${locale}.json`);
+    // TODO: the locale here is redundant because gcloud creates a directory named after the locale within this one.
+    const localExercisesPath = join(contentVersionDir, `exercises-${locale}`)
 
-    await fs.mkdir(testDir, {recursive: true});
+    if (!await exists(localSnapshotPath)) {
+        // The snapshot data isn't yet on disk. Download it.
 
-    await gcloudStorage.cp(
-        [`gs://${kaContentDataBucket}/${locale}/snapshot-${version}.json`],
-        localSnapshotPath,
-        {project: "khan-academy"},
-    );
+        // First, delete any old snapshot data, to save disk space.
+        await fs.rm(tmpDir, {recursive: true, force: true});
+
+        // We need to create the destination directory before downloading files;
+        // `gcloud` won't create it for us.
+        await fs.mkdir(localExercisesPath, {recursive: true});
+
+        await gcloudStorage.cp(
+            [`gs://content-property.khanacademy.org/Exercise.TranslatedPerseusContent/${locale}`],
+            localExercisesPath,
+            {project: "khan-academy", recursive: true},
+        )
+
+        await gcloudStorage.cp(
+            [`gs://ka-content-data/${locale}/snapshot-${version}.json`],
+            localSnapshotPath,
+            {project: "khan-academy"},
+        );
+    }
 
     // The snapshot data is too large (600 MB) to fit into a NodeJS string.
     // The maximum size of a string is 512 MB. So we use `jq` to filter the
@@ -30,7 +48,9 @@ async function main() {
     const {stdout: snapshotJson} = await getExercisesCommand
         .withStdoutToString()
         .run();
-    parseSnapshot(snapshotJson).exercises.forEach(exercise => console.log(exercise.id))
+    parseSnapshot(snapshotJson).exercises.forEach(exercise => console.log(
+        `gs://content-property.khanacademy.org/Exercise.TranslatedPerseusContent/en/${exercise.id}-${exercise.translatedPerseusContentSha}.json`
+    ))
 }
 
 main().catch(console.error);

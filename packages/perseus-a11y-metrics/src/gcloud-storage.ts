@@ -10,6 +10,9 @@ export const gcloudStorage = {
     cp,
 };
 
+/**
+ * @see {@linkcode cp}
+ */
 interface CpOptions {
     /**
      * Causes all file transfers to use gzip compression.
@@ -20,6 +23,12 @@ interface CpOptions {
      * The Google Cloud project in which to perform the action.
      */
     project?: string;
+
+    /**
+     * Causes the contents of directories listed as `sources` to be
+     * transferred.
+     */
+    recursive?: boolean;
 }
 
 /**
@@ -44,6 +53,9 @@ async function cp(
     }
     if (options.project) {
         flags.push("--project", options.project);
+    }
+    if (options.recursive) {
+        flags.push("--recursive")
     }
 
     await command("gcloud", "storage", "cp", ...flags, ...sources, dest).run();
