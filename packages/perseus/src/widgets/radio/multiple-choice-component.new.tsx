@@ -67,6 +67,14 @@ const MultipleChoiceComponent = ({
         const container = containerRef.current;
         if (container) {
             setBackgroundColor(getBackgroundColor(container));
+            const gradedGroupContainer = container.closest(".perseus-graded-group")?.parentElement;
+            if (gradedGroupContainer) {
+                console.log(`*** Container Info ***`);
+                console.log(`Classes: ${gradedGroupContainer.className}`);
+                console.log(`Background color: `, window.getComputedStyle(gradedGroupContainer).backgroundColor);
+                console.log(`Computed styles: `, window.getComputedStyle(container));
+                console.log(`**********************`);
+            }
         }
     }, []);
 
