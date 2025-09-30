@@ -55,7 +55,7 @@ async function cp(
         flags.push("--project", options.project);
     }
     if (options.recursive) {
-        flags.push("--recursive")
+        flags.push("--recursive");
     }
 
     await command("gcloud", "storage", "cp", ...flags, ...sources, dest).run();

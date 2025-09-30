@@ -1,12 +1,4 @@
-import {
-    array,
-    boolean,
-    number,
-    object,
-    string,
-    unknown,
-    type Infer,
-} from "zod";
+import {array, boolean, number, object, string, unknown, type Infer} from "zod";
 
 const ItemSchema = object({
     // NOTE: there are more fields in the ItemSchema object. This schema just
@@ -58,10 +50,12 @@ const SnapshotSchema = object({
     video: unknown(),
 });
 
-export type Exercise = Infer<typeof ExerciseSchema>
+export type Exercise = Infer<typeof ExerciseSchema>;
 
-export type Snapshot = Infer<typeof SnapshotSchema>
+export type Snapshot = Infer<typeof SnapshotSchema>;
 
 export function parseSnapshot(rawData: unknown): Snapshot {
-    return SnapshotSchema.parse(typeof rawData === "string" ? JSON.parse(rawData) : rawData);
+    return SnapshotSchema.parse(
+        typeof rawData === "string" ? JSON.parse(rawData) : rawData,
+    );
 }

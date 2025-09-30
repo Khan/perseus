@@ -13,5 +13,5 @@ describe("parseSnapshot", () => {
 
     it("parses JSON from a string", () => {
         expect(parseSnapshot(`{"exercises": []}`)).toEqual({exercises: []});
-    })
+    });
 });
