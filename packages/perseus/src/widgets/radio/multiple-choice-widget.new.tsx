@@ -87,7 +87,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             countChoices = false,
             showSolutions = "none",
             choiceStates,
-            reviewModeRubric,
             questionCompleted,
             static: isStatic,
             apiOptions,
@@ -289,17 +288,11 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                     previouslyAnswered,
                 } = choiceStates[i];
 
-                // Get the reviewChoice from the rubric, if it exists.
-                const reviewChoice = reviewModeRubric?.choices[i];
-
                 return {
                     id: choice.id,
                     content: renderContent(content),
                     checked: selected,
-                    correct:
-                        choice.correct === undefined
-                            ? !!reviewChoice && !!reviewChoice.correct
-                            : choice.correct,
+                    correct: !!choice.correct,
                     disabled: readOnly,
                     hasRationale: !!choice.rationale,
                     rationale: renderContent(choice.rationale),

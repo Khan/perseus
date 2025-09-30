@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 71.0.0
+
+### Major Changes
+
+-   [#2934](https://github.com/Khan/perseus/pull/2934) [`75a9cf1143`](https://github.com/Khan/perseus/commit/75a9cf1143606b2afd2f1e5dacbbea793069e89e) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Require dependencies as a prop for HintRenderer
+
+### Patch Changes
+
+-   [#2919](https://github.com/Khan/perseus/pull/2919) [`413fc41cf6`](https://github.com/Khan/perseus/commit/413fc41cf658b21458e794e264d01f3e794295be) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Add screen reader announcements to help clarify state to the user
+
+*   [#2922](https://github.com/Khan/perseus/pull/2922) [`3277e34456`](https://github.com/Khan/perseus/commit/3277e3445654903e41e145ce7d50b6016261511c) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove the internal concept of ReviewModeRubric
+
+*   Updated dependencies [[`e62fd04eb1`](https://github.com/Khan/perseus/commit/e62fd04eb14ddb7fd7ab258ae77b8c995f5f1735)]:
+    -   @khanacademy/perseus-linter@4.3.10
+
 ## 70.1.0
 
 ### Minor Changes
