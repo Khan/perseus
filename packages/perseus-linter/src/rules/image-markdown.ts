@@ -5,6 +5,12 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "image",
     lint: function (state, content, nodes, match, context) {
+        console.log("state", state);
+        console.log("content", content);
+        console.log("nodes", nodes);
+        console.log("match", match);
+        console.log("context", context);
+
         // Discourage using markdown images
         //
         // Regex for ![alt](image url):
@@ -14,6 +20,10 @@ export default Rule.makeRule({
         //   \( start of image url
         //   [^\)]* any characters except )
         //   \) end of link
+        //
+        // By confirming the markdown is inside the content paragraph, we can
+        // avoid flagging images within other widgets (e.g. Radio) that still
+        // have to use markdown.
         //
         // NOTE: Can't use PerseusMarkdown.parse() to identify the markdown
         // image because it would try to access 'allWidgets' before
@@ -25,3 +35,5 @@ Please use the Image widget instead.`;
         }
     },
 }) as Rule;
+
+// STOP!!!!! THIS DOESN'T STOP FLAGGING STUFF WITHIN RADIO WIDGETS

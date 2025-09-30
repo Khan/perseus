@@ -42,24 +42,5 @@ Add a description in the "Alt Text" box of the image widget.`;
 for accessibility, all images should have descriptive alt text.
 This image's alt text is only ${alt.trim().length} characters long.`;
         }
-
-        // Discourage using markdown images
-        //
-        // Regex for ![alt](image url):
-        //   ![ start of image image regex/alt
-        //   [^\]]* any characters except ]
-        //   \] end of image marker
-        //   \( start of image url
-        //   [^\)]* any characters except )
-        //   \) end of link
-        //
-        // NOTE: Can't use PerseusMarkdown.parse() to identify the markdown
-        // image because it would try to access 'allWidgets' before
-        // initialization, causing an error.
-        if (context.content.match(/!\[[^\]]*\]\([^)]*\)/)) {
-            return `No inline markdown images:
-Markdown images (![alt](url) format) are not recommended.
-Please use the Image widget instead.`;
-        }
     },
 }) as Rule;
