@@ -1,5 +1,12 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.7.11
+
+### Patch Changes
+
+-   Updated dependencies [[`e62fd04eb1`](https://github.com/Khan/perseus/commit/e62fd04eb14ddb7fd7ab258ae77b8c995f5f1735)]:
+    -   @khanacademy/perseus-linter@4.3.10
+
 ## 5.7.10
 
 ### Patch Changes

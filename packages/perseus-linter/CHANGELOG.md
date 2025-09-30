@@ -1,5 +1,11 @@
 # @khanacademy/perseus-linter
 
+## 4.3.10
+
+### Patch Changes
+
+-   [#2927](https://github.com/Khan/perseus/pull/2927) [`e62fd04eb1`](https://github.com/Khan/perseus/commit/e62fd04eb14ddb7fd7ab258ae77b8c995f5f1735) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Remove "math in caption" linter error
+
 ## 4.3.9
 
 ### Patch Changes
