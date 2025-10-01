@@ -2,6 +2,13 @@ import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
 import Rule from "../rule";
 
+/**
+ * This rule warns when it sees Markdown images used in the
+ * top-level content. We are migrating to use the `image`
+ * widget exclusively for images and this helps us to alert
+ * content authors of this policy change. This rule ignores
+ * markdown images found within other widgets for now.
+ */
 export default Rule.makeRule({
     name: "image-markdown",
     severity: Rule.Severity.WARNING,
@@ -23,9 +30,9 @@ export default Rule.makeRule({
         });
 
         if (hasInlineImageNode) {
-            return `No inline markdown images:
-Markdown images (![alt](url) format) are not recommended.
-Please use the Image widget instead.`;
+            return `[Inline markdown image]:
+Markdown images are not recommended - these are images that use the
+![alt](url) format. Please use the Image widget instead.`;
         }
 
         return null;
