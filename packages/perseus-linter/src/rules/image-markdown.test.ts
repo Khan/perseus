@@ -2,8 +2,9 @@ import {expectWarning, expectPass} from "../__tests__/test-utils";
 
 import imageMarkdownRule from "./image-markdown";
 
-describe("image-alt-text", () => {
+describe("image-markdown", () => {
     // All markdown images (format ![alt](url)) should result in a warning
+    // when NOT inside a widget
     expectWarning(imageMarkdownRule, [
         "![]()",
         "![](  )",
@@ -37,4 +38,36 @@ describe("image-alt-text", () => {
         "[]()", // link markdown, not image
         "[link text](http://google.com)", // link markdown, not image
     ]);
+
+    // Markdown images should pass when inside a widget (e.g., Radio widget)
+    expectPass(
+        imageMarkdownRule,
+        [
+            "![](http://google.com/)",
+            "![alt text](http://example.com/image.png)",
+            "![]()",
+            "![ ](http://google.com/)",
+            "![blah](http://google.com/)",
+        ],
+        {
+            stack: ["root", "paragraph", "widget", "text", "image"],
+        },
+    );
+
+    // Additional test to ensure stack checking works correctly
+    expectPass(imageMarkdownRule, ["![test image](http://test.com/img.jpg)"], {
+        stack: ["widget", "image"],
+    });
+
+    expectPass(imageMarkdownRule, ["![test image](http://test.com/img.jpg)"], {
+        stack: ["widget"],
+    });
+
+    expectWarning(
+        imageMarkdownRule,
+        ["![test image](http://test.com/img.jpg)"],
+        {
+            stack: ["image"],
+        },
+    );
 });
