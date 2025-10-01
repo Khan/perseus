@@ -63,18 +63,23 @@ const MultipleChoiceComponent = ({
     const containerRef = useRef<HTMLFieldSetElement>(null);
     const [backgroundColor, setBackgroundColor] = useState("transparent");
 
+    const logStyleInfo = () => {
+        const gradedGroupContainer = container.closest(".perseus-graded-group")?.parentElement;
+        if (gradedGroupContainer) {
+            console.log(`*** Container Info ***`);
+            console.log(`Classes: ${gradedGroupContainer.className}`);
+            console.log(`Background color: `, window.getComputedStyle(gradedGroupContainer).backgroundColor);
+            console.log(`Computed styles: `, window.getComputedStyle(container));
+            console.log(`**********************`);
+        }
+    };
+
     useEffect(() => {
         const container = containerRef.current;
         if (container) {
             setBackgroundColor(getBackgroundColor(container));
-            const gradedGroupContainer = container.closest(".perseus-graded-group")?.parentElement;
-            if (gradedGroupContainer) {
-                console.log(`*** Container Info ***`);
-                console.log(`Classes: ${gradedGroupContainer.className}`);
-                console.log(`Background color: `, window.getComputedStyle(gradedGroupContainer).backgroundColor);
-                console.log(`Computed styles: `, window.getComputedStyle(container));
-                console.log(`**********************`);
-            }
+            logStyleInfo();
+            setTimeout(logStyleInfo, 100);
         }
     }, []);
 
