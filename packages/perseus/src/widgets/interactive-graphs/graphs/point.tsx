@@ -1,6 +1,5 @@
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
-import {useState} from "react";
 
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -103,7 +102,7 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
     // When users drag a point on iOS Safari, the browser fires a click event after the mouseup
     // at the original click location, which would add an unwanted new point. We track drag
     // state and delay clearing it to block these phantom clicks (LEMS-2873)
-    const [isCurrentlyDragging, setIsCurrentlyDragging] = useState(false);
+    const [isCurrentlyDragging, setIsCurrentlyDragging] = React.useState(false);
     const dragEndCallbackTimer = useTimeout(
         () => setIsCurrentlyDragging(false),
         400, // Safari Webkit has up to a 350ms delay before a click event is fired
