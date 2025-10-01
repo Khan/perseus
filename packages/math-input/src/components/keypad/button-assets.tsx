@@ -298,10 +298,9 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
                 </svg>
             );
         case "DIVIDE":
-            // Different locales use different symbols for the decimal separator
-            // (, vs .)
-            if (id === "DIVIDE" && getDivideSymbol(locale) !== "/") {
-                // colon divide symbol
+            // Different locales use different division symbols
+            if (id === "DIVIDE" && getDivideSymbol(locale) === ":") {
+                // colon divide symbol (:)
                 return (
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -317,7 +316,7 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
                     </svg>
                 );
             }
-            // US divide symbol
+            // US divide symbol (÷)
             return (
                 <svg
                     width="40"
