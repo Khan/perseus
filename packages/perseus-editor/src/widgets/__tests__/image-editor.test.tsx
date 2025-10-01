@@ -701,4 +701,85 @@ describe("image editor", () => {
             screen.queryByText(altTextTooShortError),
         ).not.toBeInTheDocument();
     });
+
+    describe("decorative toggle", () => {
+        it("should render when feature flag is enabled", () => {
+            // Arrange & Act
+            render(
+                <ImageEditor
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("switch", {name: "Decorative"}),
+            ).toBeInTheDocument();
+            expect(screen.getByLabelText("Decorative")).toBeInTheDocument();
+        });
+
+        it("should not render feature flag is disabled", () => {
+            // Arrange & Act
+            render(
+                <ImageEditor
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: getFeatureFlags({"image-widget-upgrade": false}),
+                    }}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("switch", {name: "Decorative"}),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByLabelText("Decorative"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should render when decorative is true", () => {
+            // Arrange & Act
+            render(
+                <ImageEditor
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    decorative={true}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            const decorativeToggle = screen.getByRole("switch", {
+                name: "Decorative",
+            });
+            expect(decorativeToggle).toBeInTheDocument();
+            expect(decorativeToggle).toBeChecked();
+        });
+
+        it("should call onChange when decorative toggle is clicked", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditor
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            const decorativeToggle = screen.getByRole("switch", {
+                name: "Decorative",
+            });
+            await userEvent.click(decorativeToggle);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({decorative: true});
+        });
+    });
 });
