@@ -299,7 +299,7 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
             );
         case "DIVIDE":
             // Different locales use different division symbols
-            if (id === "DIVIDE" && getDivideSymbol(locale) === ":") {
+            if (getDivideSymbol(locale) === ":") {
                 // colon divide symbol (:)
                 return (
                     <svg
