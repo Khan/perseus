@@ -6,8 +6,8 @@ import * as React from "react";
 import {AutoResizingTextArea} from "../../../components/auto-resizing-text-area";
 import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
-import DecorativeToggle from "./components/decorative-toggle";
 import ImageDimensionsInput from "./image-dimensions-input";
+import DecorativeToggle from "./decorative-toggle";
 
 import type {Props} from "../image-editor";
 

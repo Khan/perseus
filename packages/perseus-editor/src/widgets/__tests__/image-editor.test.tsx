@@ -708,7 +708,7 @@ describe("image editor", () => {
             render(
                 <ImageEditor
                     apiOptions={apiOptions}
-                    backgroundImage={{url: realKhanImageUrl}}
+                    backgroundImage={earthMoonImage}
                     onChange={() => {}}
                 />,
             );
@@ -728,7 +728,7 @@ describe("image editor", () => {
                         ...ApiOptions.defaults,
                         flags: getFeatureFlags({"image-widget-upgrade": false}),
                     }}
-                    backgroundImage={{url: realKhanImageUrl}}
+                    backgroundImage={earthMoonImage}
                     onChange={() => {}}
                 />,
             );
@@ -747,7 +747,7 @@ describe("image editor", () => {
             render(
                 <ImageEditor
                     apiOptions={apiOptions}
-                    backgroundImage={{url: realKhanImageUrl}}
+                    backgroundImage={earthMoonImage}
                     decorative={true}
                     onChange={() => {}}
                 />,
@@ -767,7 +767,7 @@ describe("image editor", () => {
             render(
                 <ImageEditor
                     apiOptions={apiOptions}
-                    backgroundImage={{url: realKhanImageUrl}}
+                    backgroundImage={earthMoonImage}
                     onChange={onChangeMock}
                 />,
             );
