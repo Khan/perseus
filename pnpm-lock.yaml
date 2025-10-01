@@ -66,6 +66,9 @@ catalogs:
     '@khanacademy/wonder-blocks-switch':
       specifier: 3.3.22
       version: 3.3.22
+    '@khanacademy/wonder-blocks-tabs':
+      specifier: 0.3.32
+      version: 0.3.32
     '@khanacademy/wonder-blocks-theming':
       specifier: 4.0.1
       version: 4.0.1
@@ -579,6 +582,9 @@ importers:
       '@khanacademy/wonder-blocks-popover':
         specifier: catalog:devDeps
         version: 6.1.40(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tabs':
+          specifier: catalog:devDeps
+          version: 0.3.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-timing':
         specifier: catalog:devDeps
         version: 7.0.3(react@18.2.0)
@@ -2392,6 +2398,12 @@ packages:
 
   '@khanacademy/wonder-blocks-switch@3.3.22':
     resolution: {integrity: sha512-1ODfFKHjYKJ9oMA3PTIOC/9R29iyC1kHIqWLZapeQB+t6L9bSd175AralUUnCFuYr54jNebLQRAGVaMM4ko3Aw==}
+    peerDependencies:
+      aphrodite: ^1.2.5
+      react: 18.2.0
+
+  '@khanacademy/wonder-blocks-tabs@0.3.32':
+    resolution: {integrity: sha512-ltTvZrEt4M2vjKbdUCg/JVv9zgnxXrWn8P4yOqY2eAV6kihqKIzeR5uu7Y58OxhNZp2bGyCAOaDXpClBE3M79Q==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
@@ -11265,6 +11277,19 @@ snapshots:
       react: 18.2.0
     transitivePeerDependencies:
       - '@phosphor-icons/core'
+      - react-dom
+      - react-router
+      - react-router-dom
+      - react-router-dom-v5-compat
+
+  '@khanacademy/wonder-blocks-tabs@0.3.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      aphrodite: 1.2.5
+      react: 18.2.0
+    transitivePeerDependencies:
       - react-dom
       - react-router
       - react-router-dom
