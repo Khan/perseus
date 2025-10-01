@@ -22,6 +22,7 @@
         var(--wb-semanticColor-core-background-base-default)
     ); /* Accounts for theme color, unless a background color is specified (i.e. from Graded Group Set) */
 
+    box-sizing: border-box; /* Added here to ensure proper sizing in the editor preview */
     min-width: auto; /* Needed for scrollable view to work */
     padding-inline-end: var(--perseus-multiple-choice-spacing);
     /* The following transform will cause a new reference layer for its descendants,

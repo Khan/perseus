@@ -1,3 +1,4 @@
+import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import React, {useEffect, useId, useRef, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -63,25 +64,24 @@ const MultipleChoiceComponent = ({
     const containerRef = useRef<HTMLFieldSetElement>(null);
     const [backgroundColor, setBackgroundColor] = useState("transparent");
 
-    const logStyleInfo = (container: HTMLElement) => {
-        const gradedGroupContainer = container.closest(".perseus-graded-group")?.parentElement;
-        if (gradedGroupContainer) {
-            console.log(`*** Container Info ***`);
-            console.log(`Classes: ${gradedGroupContainer.className}`);
-            console.log(`Background color: `, window.getComputedStyle(gradedGroupContainer).backgroundColor);
-            console.log(`Computed styles: `, window.getComputedStyle(container));
-            console.log(`**********************`);
-        }
-    };
-
     useEffect(() => {
         const container = containerRef.current;
         if (container) {
             setBackgroundColor(getBackgroundColor(container));
-            logStyleInfo(container);
-            setTimeout(logStyleInfo, 100, container);
         }
     }, []);
+
+    useTimeout(() => {
+        // This is a duplicate of the useEffect function to handle the strangeness in the editor preview.
+        // There is a slight delay in how styling is applied to some containers,
+        //     like the Graded Group Set.
+        // This only happens in the editor preview,
+        //     so this should only be a redundant setting in learner-facing pages.
+        const container = containerRef.current;
+        if (container) {
+            setBackgroundColor(getBackgroundColor(container));
+        }
+    }, 100);
 
     const instructions = getInstructionsText({
         multipleSelect,
