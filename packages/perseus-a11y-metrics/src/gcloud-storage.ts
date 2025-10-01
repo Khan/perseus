@@ -15,11 +15,6 @@ export const gcloudStorage = {
  */
 interface CpOptions {
     /**
-     * Causes all file transfers to use gzip compression.
-     */
-    gzipInFlightAll?: boolean;
-
-    /**
      * The Google Cloud project in which to perform the action.
      */
     project?: string;
@@ -48,9 +43,6 @@ async function cp(
     options: CpOptions = {},
 ): Promise<void> {
     const flags: string[] = [];
-    if (options.gzipInFlightAll) {
-        flags.push("--gzip-in-flight-all");
-    }
     if (options.project) {
         flags.push("--project", options.project);
     }
