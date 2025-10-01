@@ -1,24 +1,34 @@
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
+import Editor from "../../editor";
 
 import styles from "./radio-editor.module.css";
-import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image-editor";
 import {RadioOptionSettingsActions} from "./radio-option-settings-actions";
 import {RadioStatusPill} from "./radio-status-pill";
 
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
-import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {
+    PerseusRadioChoice,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 
 interface RadioOptionSettingsProps {
     index: number;
     choice: PerseusRadioChoice;
+    apiOptions: APIOptions;
     multipleSelect: boolean;
     onStatusChange: (choiceIndex: number, correct: boolean) => void;
-    onContentChange: (choiceIndex: number, content: string) => void;
+    onContentChange: (
+        choiceIndex: number,
+        content: string,
+        widgets?: PerseusWidgetsMap,
+    ) => void;
     onRationaleChange: (choiceIndex: number, rationale: string) => void;
     showDelete: boolean;
     showMove: boolean;
@@ -31,6 +41,7 @@ export function RadioOptionSettings({
     choice,
     multipleSelect,
     onStatusChange,
+    apiOptions,
     onContentChange,
     onRationaleChange,
     showDelete,
@@ -96,13 +107,26 @@ export function RadioOptionSettings({
                 </Pill>
             </fieldset>
 
-            {/* Content and rationale text areas */}
-            <RadioOptionContentAndImageEditor
-                content={content}
-                choiceIndex={index}
-                isNoneOfTheAbove={isNoneOfTheAbove ?? false}
-                onContentChange={onContentChange}
-            />
+            {/* Content */}
+            {!isNoneOfTheAbove && (
+                <LabeledField
+                    label="Content"
+                    field={
+                        <Editor
+                            apiOptions={apiOptions}
+                            content={content}
+                            widgets={choice.widgets}
+                            onChange={({content, widgets}) => {
+                                onContentChange(
+                                    index,
+                                    content ?? "",
+                                    widgets || undefined,
+                                );
+                            }}
+                        />
+                    }
+                />
+            )}
 
             <HeadingXSmall
                 tag="label"

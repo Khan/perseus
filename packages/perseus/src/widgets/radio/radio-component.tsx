@@ -23,6 +23,7 @@ import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
     PerseusRadioWidgetOptions,
+    PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 
 export type RadioProps = PerseusRadioWidgetOptions & {
@@ -78,37 +79,38 @@ class Radio extends React.Component<Props> implements Widget {
         showSolutions: "none",
     };
 
-    _renderRenderer: (content?: string) => React.ReactElement = (
-        content = "",
-    ) => {
-        let nextPassageRefId = 1;
-        const widgets: Record<string, any> = {};
+    _renderRenderer: (
+        content?: string,
+        widgets?: PerseusWidgetsMap,
+    ) => React.ReactElement = (content = "", widgets = {}) => {
+        // let nextPassageRefId = 1;
+        // const widgets: Record<string, any> = {};
 
-        const modContent = content.replace(
-            /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
-            (
-                match: string,
-                passageNum: string,
-                refNum: string,
-                summaryText: string,
-            ) => {
-                const widgetId = "passage-ref " + nextPassageRefId;
-                nextPassageRefId++;
+        // const modContent = content.replace(
+        //     /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
+        //     (
+        //         match: string,
+        //         passageNum: string,
+        //         refNum: string,
+        //         summaryText: string,
+        //     ) => {
+        //         const widgetId = "passage-ref " + nextPassageRefId;
+        //         nextPassageRefId++;
 
-                widgets[widgetId] = {
-                    type: "passage-ref",
-                    graded: false,
-                    options: {
-                        passageNumber: parseInt(passageNum),
-                        referenceNumber: parseInt(refNum),
-                        summaryText: summaryText,
-                    },
-                    version: PassageRef.version,
-                };
+        //         widgets[widgetId] = {
+        //             type: "passage-ref",
+        //             graded: false,
+        //             options: {
+        //                 passageNumber: parseInt(passageNum),
+        //                 referenceNumber: parseInt(refNum),
+        //                 summaryText: summaryText,
+        //             },
+        //             version: PassageRef.version,
+        //         };
 
-                return "[[" + Util.snowman + " " + widgetId + "]]";
-            },
-        );
+        //         return "[[" + Util.snowman + " " + widgetId + "]]";
+        //     },
+        // );
 
         // alwaysUpdate={true} so that passage-refs findWidgets
         // get called when the outer passage updates the renderer
@@ -123,7 +125,8 @@ class Radio extends React.Component<Props> implements Widget {
         return (
             <Renderer
                 key="choiceContentRenderer"
-                content={modContent}
+                content={content}
+                // widgets={widgets}
                 widgets={widgets}
                 findExternalWidgets={this.props.findWidgets}
                 alwaysUpdate={true}
@@ -258,7 +261,7 @@ class Radio extends React.Component<Props> implements Widget {
 
                 return {
                     id: choice.id,
-                    content: this._renderRenderer(content),
+                    content: this._renderRenderer(content, choice.widgets),
                     checked: selected,
                     // Current versions of the radio widget always pass in the
                     // "correct" value through the choices. Old serialized state

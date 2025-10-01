@@ -19,6 +19,7 @@ import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
     RadioDefaultWidgetOptions,
+    PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 
 // Exported for testing
@@ -155,15 +156,18 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
     };
 
-    onContentChange: (arg1: any, arg2: any) => void = (
-        choiceIndex,
-        newContent,
-    ) => {
+    onContentChange: (
+        arg1: number,
+        arg2: string,
+        arg3?: PerseusWidgetsMap,
+    ) => void = (choiceIndex, newContent, newWidgets) => {
         const choices = [...this.props.choices];
         choices[choiceIndex] = {
             ...choices[choiceIndex],
             content: newContent,
+            widgets: newWidgets,
         };
+
         this.props.onChange({choices: choices});
     };
 
@@ -325,7 +329,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
                 {this.props.choices.map((choice, index) => (
                     <RadioOptionSettings
-                        key={`choice-${choice.id}}`}
+                        key={`choice-${choice.id}`}
+                        apiOptions={this.props.apiOptions}
                         index={index}
                         choice={choice}
                         multipleSelect={this.props.multipleSelect}
