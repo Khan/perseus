@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 import {join} from "node:path";
 
-import {parseAndMigratePerseusItem, isFailure} from "@khanacademy/perseus-core";
+import {isFailure, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
 import {array, object, unknown} from "zod";
 
 import {command} from "./command";
@@ -66,19 +66,12 @@ export class ContentRepository {
     }
 
     private async getSnapshotJson(): Promise<string> {
-        const localPath = join(
-            "/",
-            "tmp",
-            "perseus-a11y-metrics",
-            this.contentVersion,
-            `snapshot-${this.locale}.json`,
-        );
         const gcloudUrl = `gs://ka-content-data/${this.locale}/snapshot-${this.contentVersion}.json`;
         try {
             return await this.readLocalSnapshotJsonWithJqFiltering();
         } catch {
             // The file doesn't exist or can't be read. Try downloading it.
-            await gcloudStorage.cp([gcloudUrl], localPath, {
+            await gcloudStorage.cp([gcloudUrl], this.getLocalSnapshotPath(), {
                 project: "khan-academy",
             });
             return await this.readLocalSnapshotJsonWithJqFiltering();
@@ -89,14 +82,7 @@ export class ContentRepository {
         // The snapshot data is too large (600 MB) to fit into a NodeJS string.
         // The maximum size of a string is 512 MB. So we use `jq` to filter the
         // data to just the exercises.
-        // TODO: de-duplicate path
-        const path = join(
-            "/",
-            "tmp",
-            "perseus-a11y-metrics",
-            this.contentVersion,
-            `snapshot-${this.locale}.json`,
-        );
+        const path = this.getLocalSnapshotPath();
         const getExercisesCommand = command("jq", "pick(.exercises)", path);
         const {stdout: snapshotJson} = await getExercisesCommand
             .withStdoutToString()
@@ -115,15 +101,9 @@ export class ContentRepository {
         // are different (TODO: why?) so we have to be sure to use the
         // translatedPerseusContentSha here.
         const contentSha = exercise.translatedPerseusContentSha;
-        const localDir = join(
-            "/",
-            "tmp",
-            "perseus-a11y-metrics",
-            this.contentVersion,
-            "exercises",
-        );
+        const exercisesDir = join(this.getDataDir(), "exercises");
         const localFilePath = join(
-            localDir,
+            exercisesDir,
             this.locale,
             `${exerciseId}-${contentSha}.json`,
         );
@@ -131,13 +111,21 @@ export class ContentRepository {
         try {
             return await fs.readFile(localFilePath, "utf-8");
         } catch {
-            await fs.mkdir(localDir, {recursive: true});
+            await fs.mkdir(exercisesDir, {recursive: true});
             // The file doesn't exist or can't be read. Download all the exercise content.
-            await gcloudStorage.cp([gcloudUrl], localDir, {
+            await gcloudStorage.cp([gcloudUrl], exercisesDir, {
                 project: "khan-academy",
                 recursive: true,
             });
             return await fs.readFile(localFilePath, "utf-8");
         }
+    }
+
+    private getLocalSnapshotPath(): string {
+        return join(this.getDataDir(), `snapshot-${this.locale}.json`);
+    }
+
+    private getDataDir(): string {
+        return join("/", "tmp", "perseus-a11y-metrics", this.contentVersion);
     }
 }
