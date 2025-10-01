@@ -34,8 +34,8 @@ describe("DecorativeToggle", () => {
         jest.restoreAllMocks();
     });
 
-    test("renders with decorative toggle unchecked by default", () => {
-        // Arrange & Act
+    it("renders the toggle unchecked by default", () => {
+        // Arrange, Act
         render(<DecorativeToggle onChange={mockOnChange} />, {
             wrapper: RenderStateRoot,
         });
@@ -44,14 +44,10 @@ describe("DecorativeToggle", () => {
         const toggle = screen.getByRole("switch", {name: "Decorative"});
         expect(toggle).toBeInTheDocument();
         expect(toggle).not.toBeChecked();
-
-        // Check for InfoTip icon presence (tooltip content requires interaction)
-        // Since InfoTip doesn't expose a specific role, we'll verify the component structure
-        expect(screen.getByLabelText("Decorative")).toBeInTheDocument();
     });
 
-    test("renders with decorative toggle checked when decorative is true", () => {
-        // Arrange & Act
+    it("renders the toggle checked when decorative is true", () => {
+        // Arrange, Act
         render(<DecorativeToggle decorative={true} onChange={mockOnChange} />, {
             wrapper: RenderStateRoot,
         });
@@ -61,8 +57,8 @@ describe("DecorativeToggle", () => {
         expect(toggle).toBeChecked();
     });
 
-    test("renders with decorative toggle unchecked when decorative is false", () => {
-        // Arrange & Act
+    it("renders the toggle unchecked when decorative is false", () => {
+        // Arrange, Act
         render(
             <DecorativeToggle decorative={false} onChange={mockOnChange} />,
             {wrapper: RenderStateRoot},
@@ -73,7 +69,7 @@ describe("DecorativeToggle", () => {
         expect(toggle).not.toBeChecked();
     });
 
-    test("calls onChange with decorative: true when toggle is clicked and no fields are populated", async () => {
+    it("calls onChange with decorative: true when toggle is clicked and no fields are populated", async () => {
         // Arrange
         render(
             <DecorativeToggle
@@ -91,7 +87,7 @@ describe("DecorativeToggle", () => {
         expect(mockOnChange).toHaveBeenCalledWith({decorative: true});
     });
 
-    test("calls onChange with decorative: false when toggle is clicked and decorative is true", async () => {
+    it("calls onChange with decorative: false when toggle is clicked and decorative is true", async () => {
         // Arrange
         render(<DecorativeToggle decorative={true} onChange={mockOnChange} />, {
             wrapper: RenderStateRoot,
@@ -105,7 +101,7 @@ describe("DecorativeToggle", () => {
         expect(mockOnChange).toHaveBeenCalledWith({decorative: false});
     });
 
-    test("shows warning dialog when toggle is clicked and fields are populated", async () => {
+    it("shows warning dialog when toggle is clicked and fields are populated", async () => {
         // Arrange
         const mockConfirm = jest.spyOn(window, "confirm").mockReturnValue(true);
         render(
@@ -133,7 +129,7 @@ describe("DecorativeToggle", () => {
         });
     });
 
-    test("does not call onChange when user cancels the warning dialog", async () => {
+    it("does not call onChange when user cancels the warning dialog", async () => {
         // Arrange
         const mockConfirm = jest
             .spyOn(window, "confirm")
@@ -155,40 +151,5 @@ describe("DecorativeToggle", () => {
             "Setting this image as decorative will automatically reset all other fields (title, caption, alt text, and long description). Do you want to continue?",
         );
         expect(mockOnChange).not.toHaveBeenCalled();
-    });
-
-    test("does not show warning dialog when fields are not populated", async () => {
-        // Arrange
-        render(
-            <DecorativeToggle
-                hasPopulatedFields={false}
-                onChange={mockOnChange}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Act
-        const toggle = screen.getByRole("switch", {name: "Decorative"});
-        await userEvent.click(toggle);
-
-        // Assert
-        expect(mockOnChange).toHaveBeenCalledWith({decorative: true});
-    });
-
-    test("InfoTip is present and accessible", async () => {
-        // Arrange & Act
-        render(<DecorativeToggle onChange={mockOnChange} />, {
-            wrapper: RenderStateRoot,
-        });
-
-        // Assert - Verify component renders with expected structure
-        // The InfoTip should be present alongside the toggle
-        expect(
-            screen.getByRole("switch", {name: "Decorative"}),
-        ).toBeInTheDocument();
-
-        // Since InfoTip is implemented as a tooltip, we verify the component structure is complete
-        // The presence of the switch indicates the component has rendered successfully with InfoTip
-        expect(screen.getByLabelText("Decorative")).toBeInTheDocument();
     });
 });

@@ -624,8 +624,8 @@ describe("image editor", () => {
         ).not.toBeInTheDocument();
     });
 
-    describe("when decorative toggle", () => {
-        it("should render decorative toggle when feature flag is enabled", () => {
+    describe("decorative toggle", () => {
+        it("should render when feature flag is enabled", () => {
             // Arrange & Act
             render(
                 <ImageEditor
@@ -642,7 +642,7 @@ describe("image editor", () => {
             expect(screen.getByLabelText("Decorative")).toBeInTheDocument();
         });
 
-        it("should not render decorative toggle when feature flag is disabled", () => {
+        it("should not render feature flag is disabled", () => {
             // Arrange & Act
             render(
                 <ImageEditor
@@ -664,7 +664,7 @@ describe("image editor", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("should render decorative toggle checked when decorative is true", () => {
+        it("should render when decorative is true", () => {
             // Arrange & Act
             render(
                 <ImageEditor

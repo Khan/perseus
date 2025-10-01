@@ -45,6 +45,9 @@ export default function ImageSettings({
         backgroundImage.width && backgroundImage.height
             ? dimensions
             : "unknown";
+    const hasPopulatedFields = Boolean(
+        alt || caption || title || longDescription,
+    );
 
     // Show "alt text too long" error on change so the user is notified
     // as they type that they're writing too much.
@@ -103,9 +106,7 @@ export default function ImageSettings({
             {imageUpgradeFF && (
                 <DecorativeToggle
                     decorative={decorative}
-                    hasPopulatedFields={Boolean(
-                        alt || caption || title || longDescription,
-                    )}
+                    hasPopulatedFields={hasPopulatedFields}
                     onChange={onChange}
                 />
             )}
