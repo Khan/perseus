@@ -3,9 +3,9 @@ import {TextField} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import React from "react";
 
-import {wbFieldStylesWithDescription} from "./image-settings";
+import {wbFieldStylesWithDescription} from "../utils";
 
-import type {Props} from "./image-editor";
+import type {Props} from "../image-editor";
 
 // Match any image URL (including "web+graphie" links) that is hosted by KA.
 // We're somewhat generous in our AWS URL matching

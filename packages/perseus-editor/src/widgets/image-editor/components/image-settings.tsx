@@ -1,16 +1,15 @@
 import {components} from "@khanacademy/perseus";
 import {isFeatureOn} from "@khanacademy/perseus-core";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
+import {AutoResizingTextArea} from "../../../components/auto-resizing-text-area";
+import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
 import DecorativeToggle from "./components/decorative-toggle";
-import styles from "./image-editor.module.css";
+import ImageDimensionsInput from "./image-dimensions-input";
 
-import type {Props} from "./image-editor";
+import type {Props} from "../image-editor";
 
 const {SvgImage} = components;
 
@@ -36,15 +35,14 @@ export default function ImageSettings({
         null,
     );
 
-    if (!backgroundImage.url) {
+    if (
+        !backgroundImage.url ||
+        !backgroundImage.width ||
+        !backgroundImage.height
+    ) {
         return null;
     }
 
-    const dimensions = `${backgroundImage.width} x ${backgroundImage.height}`;
-    const dimensionString =
-        backgroundImage.width && backgroundImage.height
-            ? dimensions
-            : "unknown";
     const hasPopulatedFields = Boolean(
         alt || caption || title || longDescription,
     );
@@ -87,20 +85,10 @@ export default function ImageSettings({
             />
 
             {/* Dimensions */}
-            <div className={styles.dimensionsContainer}>
-                <HeadingXSmall
-                    style={{
-                        // TODO: Use CSS modules after Wonder Blocks styles
-                        // are moved to a different layer.
-                        padding: 0, // reset default padding
-                        marginInlineEnd: sizing.size_080,
-                        color: "var(--wb-semanticColor-core-foreground-neutral-strong)",
-                    }}
-                >
-                    Dimensions:
-                </HeadingXSmall>
-                {dimensionString}
-            </div>
+            <ImageDimensionsInput
+                backgroundImage={backgroundImage}
+                onChange={onChange}
+            />
 
             {/* Decorative */}
             {imageUpgradeFF && (
@@ -172,28 +160,3 @@ export default function ImageSettings({
         </>
     );
 }
-
-// TODO: Use CSS modules after Wonder Blocks styles
-// are moved to a different layer.
-const wbFieldStyles = {
-    root: {
-        marginBlockEnd: sizing.size_080,
-    },
-    label: {
-        fontWeight: "bold",
-        paddingBlockEnd: sizing.size_040,
-    },
-};
-
-// Exporting so this can be used in image-url-input.tsx.
-export const wbFieldStylesWithDescription = {
-    ...wbFieldStyles,
-    label: {
-        ...wbFieldStyles.label,
-        paddingBlockEnd: 0,
-    },
-    description: {
-        paddingBlockStart: 0,
-        paddingBlockEnd: sizing.size_040,
-    },
-};

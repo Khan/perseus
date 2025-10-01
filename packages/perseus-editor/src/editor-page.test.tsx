@@ -7,7 +7,10 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../testing/test-dependencies";
 
 import EditorPage from "./editor-page";
 import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
@@ -54,6 +57,7 @@ describe("EditorPage", () => {
 
         const {rerender} = render(
             <EditorPage
+                dependencies={testDependenciesV2}
                 question={question}
                 onChange={(next) => (callbackValue = next)}
                 onPreviewDeviceChange={() => {}}
@@ -77,6 +81,7 @@ describe("EditorPage", () => {
 
         rerender(
             <EditorPage
+                dependencies={testDependenciesV2}
                 question={callbackValue.question}
                 onChange={(next) => (callbackValue = next)}
                 onPreviewDeviceChange={() => {}}
@@ -135,6 +140,7 @@ describe("EditorPage", () => {
 
         render(
             <EditorPage
+                dependencies={testDependenciesV2}
                 question={startRenderer}
                 onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
