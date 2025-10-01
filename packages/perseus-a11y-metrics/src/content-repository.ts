@@ -11,6 +11,17 @@ import {parseSnapshot} from "./parse-snapshot";
 import type {Exercise, Snapshot} from "./parse-snapshot";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
+export interface ContentRepositoryOptions {
+    contentVersion: string;
+    locale: string;
+    /**
+     * A directory in which to cache data downloaded from Google Cloud
+     * Storage. Will be defaulted if not provided. The ContentRepository will
+     * create the directory if it doesn't yet exist.
+     */
+    cacheDirectory?: string;
+}
+
 /**
  * The ContentRepository provides content data to the rest of the program.
  * It knows where to find the data on Google Cloud Storage, and it keeps
@@ -20,10 +31,7 @@ import type {PerseusItem} from "@khanacademy/perseus-core";
 export class ContentRepository {
     private snapshotCache?: Snapshot;
     private mapOfIdsToExercisesCache?: Record<string, Exercise>;
-    constructor(
-        private contentVersion: string,
-        private locale: string,
-    ) {}
+    constructor(private options: ContentRepositoryOptions) {}
 
     async getExercises(): Promise<Exercise[]> {
         const snapshot = await this.getSnapshot();
@@ -66,11 +74,12 @@ export class ContentRepository {
     }
 
     private async getSnapshotJson(): Promise<string> {
-        const gcloudUrl = `gs://ka-content-data/${this.locale}/snapshot-${this.contentVersion}.json`;
+        const gcloudUrl = `gs://ka-content-data/${this.getLocale()}/snapshot-${this.getContentVersion()}.json`;
         try {
             return await this.readLocalSnapshotJsonWithJqFiltering();
         } catch {
             // The file doesn't exist or can't be read. Try downloading it.
+            await fs.mkdir(this.getDataDir(), {recursive: true});
             await gcloudStorage.cp([gcloudUrl], this.getLocalSnapshotPath(), {
                 project: "khan-academy",
             });
@@ -104,10 +113,10 @@ export class ContentRepository {
         const exercisesDir = join(this.getDataDir(), "exercises");
         const localFilePath = join(
             exercisesDir,
-            this.locale,
+            this.getLocale(),
             `${exerciseId}-${contentSha}.json`,
         );
-        const gcloudUrl = `gs://content-property.khanacademy.org/Exercise.TranslatedPerseusContent/${this.locale}`;
+        const gcloudUrl = `gs://content-property.khanacademy.org/Exercise.TranslatedPerseusContent/${this.getLocale()}`;
         try {
             return await fs.readFile(localFilePath, "utf-8");
         } catch {
@@ -122,10 +131,23 @@ export class ContentRepository {
     }
 
     private getLocalSnapshotPath(): string {
-        return join(this.getDataDir(), `snapshot-${this.locale}.json`);
+        return join(this.getDataDir(), `snapshot-${this.getLocale()}.json`);
     }
 
     private getDataDir(): string {
-        return join("/", "tmp", "perseus-a11y-metrics", this.contentVersion);
+        return join(this.getCacheDirectory(), this.getContentVersion());
+    }
+
+    private getLocale(): string {
+        return this.options.locale;
+    }
+
+    private getContentVersion(): string {
+        return this.options.contentVersion;
+    }
+
+    private getCacheDirectory(): string {
+        const defaultValue = join("/", "tmp", "perseus-a11y-metrics");
+        return this.options.cacheDirectory ?? defaultValue;
     }
 }

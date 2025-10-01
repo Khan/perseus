@@ -9,7 +9,7 @@ async function main() {
     const locale = "en";
     const contentVersion = await getPublishedContentVersion(locale);
 
-    const contentRepo = new ContentRepository(contentVersion, locale);
+    const contentRepo = new ContentRepository({contentVersion, locale});
 
     const a11yStats = {
         full: 0,
