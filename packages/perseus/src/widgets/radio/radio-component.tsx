@@ -285,7 +285,6 @@ class Radio extends React.Component<Props> implements Widget {
                 reviewMode={this.props.reviewMode}
                 deselectEnabled={this.props.deselectEnabled}
                 apiOptions={this.props.apiOptions}
-                isLastUsedWidget={this.props.isLastUsedWidget}
                 registerFocusFunction={(i) => this.registerFocusFunction(i)}
             />
         );

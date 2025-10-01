@@ -157,7 +157,6 @@ type State = {
     translationLintErrors: ReadonlyArray<string>;
     widgetInfo: Readonly<PerseusWidgetsMap>;
     jiptContent: any;
-    lastUsedWidgetId: string | null | undefined;
 };
 
 type FullLinterContext = LinterContextProps & {
@@ -279,11 +278,6 @@ class Renderer
             // location. This is a list of error strings TranslationLinter
             // detected on its last run.
             translationLintErrors: [],
-
-            // The ID of the last widget the user interacted with. We'll
-            // use this to set the `isLastUsedWidget` flag on the
-            // corresponding widget.
-            lastUsedWidgetId: null,
 
             ...this._getInitialWidgetState(props),
         };
@@ -570,7 +564,6 @@ class Renderer
                 this.props.onInteractWithWidget(widgetId);
             },
             trackInteraction: interactionTracker.track,
-            isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
         };
     }
 
@@ -1449,49 +1442,32 @@ class Renderer
     }
 
     handleStateUpdate(id: string, cb: () => boolean, silent?: boolean) {
-        this.setState(
-            (prevState) => {
-                // Update the `lastUsedWidgetId` to this widget - unless we're
-                // in silent mode. We only want to track the last widget that
-                // was actually _used_, and silent updates generally don't come
-                // from _usage_.
-                const lastUsedWidgetId = silent
-                    ? prevState.lastUsedWidgetId
-                    : id;
-
-                return {
-                    lastUsedWidgetId,
-                };
-            },
-            () => {
-                // Wait until all components have rendered. In React 16 setState
-                // callback fires immediately after this componentDidUpdate, and
-                // there is no guarantee that parent/siblings components have
-                // finished rendering.
-                // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-                // eslint-disable-next-line no-restricted-syntax
-                setTimeout(() => {
-                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                    const cbResult = cb && cb();
-                    if (!silent) {
-                        this.props.onInteractWithWidget(id);
-                    }
-                    if (cbResult !== false) {
-                        // TODO(jack): For some reason, some widgets don't always
-                        // end up in refs here, which is repro-able if you make an
-                        // [[ orderer 1 ]] and copy-paste this, then change it to
-                        // be an [[ orderer 2 ]]. The resulting Renderer ends up
-                        // with an "orderer 2" ref but not an "orderer 1" ref.
-                        // @_@??
-                        // TODO(jack): Figure out why this is happening and fix it
-                        // As far as I can tell, this is only an issue in the
-                        // editor-page, so doing this shouldn't break clients
-                        // hopefully
-                        this._setCurrentFocus([id]);
-                    }
-                }, 0);
-            },
-        );
+        // Wait until all components have rendered. In React 16 setState
+        // callback fires immediately after this componentDidUpdate, and
+        // there is no guarantee that parent/siblings components have
+        // finished rendering.
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
+        // eslint-disable-next-line no-restricted-syntax
+        setTimeout(() => {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+            const cbResult = cb && cb();
+            if (!silent) {
+                this.props.onInteractWithWidget(id);
+            }
+            if (cbResult !== false) {
+                // TODO(jack): For some reason, some widgets don't always
+                // end up in refs here, which is repro-able if you make an
+                // [[ orderer 1 ]] and copy-paste this, then change it to
+                // be an [[ orderer 2 ]]. The resulting Renderer ends up
+                // with an "orderer 2" ref but not an "orderer 1" ref.
+                // @_@??
+                // TODO(jack): Figure out why this is happening and fix it
+                // As far as I can tell, this is only an issue in the
+                // editor-page, so doing this shouldn't break clients
+                // hopefully
+                this._setCurrentFocus([id]);
+            }
+        }, 0);
     }
 
     /**
