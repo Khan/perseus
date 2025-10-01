@@ -75,13 +75,13 @@ export class ContentRepository {
         );
         const gcloudUrl = `gs://ka-content-data/${this.locale}/snapshot-${this.contentVersion}.json`;
         try {
-            return this.readLocalSnapshotJsonWithJqFiltering();
+            return await this.readLocalSnapshotJsonWithJqFiltering();
         } catch {
             // The file doesn't exist or can't be read. Try downloading it.
             await gcloudStorage.cp([gcloudUrl], localPath, {
                 project: "khan-academy",
             });
-            return this.readLocalSnapshotJsonWithJqFiltering();
+            return await this.readLocalSnapshotJsonWithJqFiltering();
         }
     }
 
@@ -129,14 +129,15 @@ export class ContentRepository {
         );
         const gcloudUrl = `gs://content-property.khanacademy.org/Exercise.TranslatedPerseusContent/${this.locale}`;
         try {
-            return fs.readFile(localFilePath, "utf-8");
+            return await fs.readFile(localFilePath, "utf-8");
         } catch {
+            await fs.mkdir(localDir, {recursive: true});
             // The file doesn't exist or can't be read. Download all the exercise content.
             await gcloudStorage.cp([gcloudUrl], localDir, {
                 project: "khan-academy",
                 recursive: true,
             });
-            return fs.readFile(localFilePath, "utf-8");
+            return await fs.readFile(localFilePath, "utf-8");
         }
     }
 }
