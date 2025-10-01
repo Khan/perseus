@@ -18,6 +18,8 @@ describe("image-markdown", () => {
         "![ ](http://google.com/)",
         "![ \t\n ](http://google.com/)",
         "![blah](http://google.com/)",
+        "![alt alt alt][url-ref]", // Reference image
+        "![][url-ref]", // Reference image
     ]);
 
     // Text that does not contain markdown images should pass
@@ -32,11 +34,10 @@ describe("image-markdown", () => {
         ")",
         "![alt-text](http://google.com", // No ending paren
         '![alternative text](http://google.com/ "title"', // No ending paren
-        "![alt alt alt][url-ref]", // No parens
-        "![][url-ref]", // No parens
         "!()[]", // Wrong order
         "[]()", // link markdown, not image
         "[link text](http://google.com)", // link markdown, not image
+        "![][", // Incomplete reference image
     ]);
 
     // Markdown images should pass when inside a widget (e.g., Radio widget)
