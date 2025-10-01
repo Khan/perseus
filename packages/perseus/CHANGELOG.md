@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 71.1.0
+
+### Minor Changes
+
+-   [#2820](https://github.com/Khan/perseus/pull/2820) [`51b6617d74`](https://github.com/Khan/perseus/commit/51b6617d7411fb0c099facc6fa8bde875dbba25f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Remove the isLastUsedWidget property from Perseus, as it is not used.
+
+### Patch Changes
+
+-   [#2928](https://github.com/Khan/perseus/pull/2928) [`94b7669578`](https://github.com/Khan/perseus/commit/94b76695781bf8c29bd40c7094aa209ab197ad33) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Ensure fade bars match the background color of container
+
+*   [#2895](https://github.com/Khan/perseus/pull/2895) [`cf3a7b54de`](https://github.com/Khan/perseus/commit/cf3a7b54decc21fa28e05fbcbd7c847168a48b53) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing several iOS app bugs related to Interactive Graph
+
+*   Updated dependencies [[`e8bcb1b1ef`](https://github.com/Khan/perseus/commit/e8bcb1b1efc96317fd8b55dc0ff563d704e44e0b)]:
+    -   @khanacademy/math-input@26.2.10
+
 ## 71.0.0
 
 ### Major Changes

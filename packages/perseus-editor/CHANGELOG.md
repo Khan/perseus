@@ -1,5 +1,17 @@
 # @khanacademy/perseus-editor
 
+## 28.2.0
+
+### Minor Changes
+
+-   [#2930](https://github.com/Khan/perseus/pull/2930) [`c56aaf2a70`](https://github.com/Khan/perseus/commit/c56aaf2a7052f0c0ea35dadfc6e544deb22cd7d4) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add decorative toggle for Image widget editor and hide it behind a feature flag
+
+### Patch Changes
+
+-   Updated dependencies [[`94b7669578`](https://github.com/Khan/perseus/commit/94b76695781bf8c29bd40c7094aa209ab197ad33), [`e8bcb1b1ef`](https://github.com/Khan/perseus/commit/e8bcb1b1efc96317fd8b55dc0ff563d704e44e0b), [`cf3a7b54de`](https://github.com/Khan/perseus/commit/cf3a7b54decc21fa28e05fbcbd7c847168a48b53), [`51b6617d74`](https://github.com/Khan/perseus/commit/51b6617d7411fb0c099facc6fa8bde875dbba25f)]:
+    -   @khanacademy/perseus@71.1.0
+    -   @khanacademy/math-input@26.2.10
+
 ## 28.1.0
 
 ### Minor Changes

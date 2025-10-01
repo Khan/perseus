@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 26.2.10
+
+### Patch Changes
+
+-   [#2937](https://github.com/Khan/perseus/pull/2937) [`e8bcb1b1ef`](https://github.com/Khan/perseus/commit/e8bcb1b1efc96317fd8b55dc0ff563d704e44e0b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Addition of new keypad SVG for locales that use colons for the division symbol
+
 ## 26.2.9
 
 ### Patch Changes
