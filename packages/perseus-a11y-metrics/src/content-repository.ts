@@ -38,9 +38,9 @@ export class ContentRepository {
     async getAssessmentItems(exerciseId: string): Promise<PerseusItem[]> {
         const json = await this.getAssessmentItemJson(exerciseId);
         const data = JSON.parse(json);
-        const itemWrapperSchema = array(object({item_data: unknown()}));
-        return itemWrapperSchema.parse(data).map(({item_data: itemData}) => {
-            const parseResult = parseAndMigratePerseusItem(itemData);
+        const itemListSchema = array(object({item_data: unknown()}));
+        return itemListSchema.parse(data).map((item) => {
+            const parseResult = parseAndMigratePerseusItem(item.item_data);
             if (isFailure(parseResult)) {
                 throw new Error(
                     `Failed to parse Perseus item: ${parseResult.detail.message}`,
