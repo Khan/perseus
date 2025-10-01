@@ -63,7 +63,7 @@ const MultipleChoiceComponent = ({
     const containerRef = useRef<HTMLFieldSetElement>(null);
     const [backgroundColor, setBackgroundColor] = useState("transparent");
 
-    const logStyleInfo = () => {
+    const logStyleInfo = (container: HTMLElement) => {
         const gradedGroupContainer = container.closest(".perseus-graded-group")?.parentElement;
         if (gradedGroupContainer) {
             console.log(`*** Container Info ***`);
@@ -78,8 +78,8 @@ const MultipleChoiceComponent = ({
         const container = containerRef.current;
         if (container) {
             setBackgroundColor(getBackgroundColor(container));
-            logStyleInfo();
-            setTimeout(logStyleInfo, 100);
+            logStyleInfo(container);
+            setTimeout(logStyleInfo, 100, container);
         }
     }, []);
 
