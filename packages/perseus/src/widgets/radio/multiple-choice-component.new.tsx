@@ -1,7 +1,9 @@
-import React, {useId} from "react";
+import {useTimeout} from "@khanacademy/wonder-blocks-timing";
+import React, {useEffect, useId, useRef, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import ScrollableView from "../../components/scrollable-view";
+import {getBackgroundColor} from "../../util/colors";
 
 import Choice from "./choice.new";
 import styles from "./multiple-choice.module.css";
@@ -59,6 +61,27 @@ const MultipleChoiceComponent = ({
 }: MultipleChoiceComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
     const legendId = useId();
+    const containerRef = useRef<HTMLFieldSetElement>(null);
+    const [backgroundColor, setBackgroundColor] = useState("transparent");
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (container) {
+            setBackgroundColor(getBackgroundColor(container));
+        }
+    }, []);
+
+    useTimeout(() => {
+        // This is a duplicate of the useEffect function to handle the strangeness in the editor preview.
+        // There is a slight delay in how styling is applied to some containers,
+        //     like the Graded Group Set.
+        // This only happens in the editor preview,
+        //     so this should only be a redundant setting in learner-facing pages.
+        const container = containerRef.current;
+        if (container) {
+            setBackgroundColor(getBackgroundColor(container));
+        }
+    }, 100);
 
     const instructions = getInstructionsText({
         multipleSelect,
@@ -70,6 +93,13 @@ const MultipleChoiceComponent = ({
     const choiceListClasses = reviewMode
         ? `${styles.choiceList} ${styles.reviewAnswers}`
         : styles.choiceList;
+    const cssVariableDeclaration: React.CSSProperties | undefined =
+        backgroundColor !== "transparent"
+            ? {
+                  // @ts-expect-error TS2353: Object literal may only specify known properties
+                  "--perseus-widget-background-color": backgroundColor,
+              }
+            : undefined;
 
     const scrollId = useId() + "-scroll";
 
@@ -78,6 +108,8 @@ const MultipleChoiceComponent = ({
             <fieldset
                 className={styles.container}
                 data-feature-flag="feature flag is ON"
+                ref={containerRef}
+                style={cssVariableDeclaration}
             >
                 <legend
                     id={legendId}
