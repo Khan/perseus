@@ -14,6 +14,7 @@ import HeadingSentenceCase from "./heading-sentence-case";
 import HeadingTitleCase from "./heading-title-case";
 import ImageAltText from "./image-alt-text";
 import ImageInTable from "./image-in-table";
+import ImageMarkdown from "./image-markdown";
 import ImageSpacesAroundUrls from "./image-spaces-around-urls";
 import ImageUrlEmpty from "./image-url-empty";
 import ImageWidget from "./image-widget";
@@ -47,6 +48,7 @@ export default [
     HeadingSentenceCase,
     HeadingTitleCase,
     ImageAltText,
+    ImageMarkdown,
     ImageInTable,
     LinkClickHere,
     LongParagraph,
