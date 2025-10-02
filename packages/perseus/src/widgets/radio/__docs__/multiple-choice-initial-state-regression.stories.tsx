@@ -119,6 +119,15 @@ export const SingleSelectWithPassageRef: Story = {
     },
 };
 
+export const SingleSelectWithRationale = {
+    args: {
+        item: generateTestPerseusItem({
+            question: questionWithPassage,
+        }),
+        showSolutions: "all",
+    },
+};
+
 export const SingleSelectWithImages: Story = {
     args: {
         item: generateTestPerseusItem({
