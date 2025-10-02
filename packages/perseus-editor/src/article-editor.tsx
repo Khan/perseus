@@ -152,6 +152,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
         const sections = this._sections();
 
+        // eslint-disable-next-line no-console
+        console.log("renderEditor, sections:", sections);
+
         return (
             <div className="perseus-editor-table">
                 {sections.map((section, i) => {
@@ -314,6 +317,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
     ) => {
         const sections = [...this._sections()];
         sections[i] = {...sections[i], ...newProps};
+
+        // eslint-disable-next-line no-console
+        console.log("handleEditorChange, sections:", sections);
         this.props.onChange({json: sections});
     };
 
@@ -376,6 +382,15 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     serialize(): JsonType {
         if (this.props.mode === "edit") {
+            // eslint-disable-next-line no-console
+            console.log(
+                "serialize in article-editor, if editmode:",
+                this._sections().map((section, i) => {
+                    // eslint-disable-next-line react/no-string-refs
+                    // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+                    return this.refs["editor" + i].serialize();
+                }),
+            );
             return this._sections().map((section, i) => {
                 // eslint-disable-next-line react/no-string-refs
                 // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
@@ -383,6 +398,11 @@ export default class ArticleEditor extends React.Component<Props, State> {
             });
         }
         if (this.props.mode === "preview" || this.props.mode === "json") {
+            // eslint-disable-next-line no-console
+            console.log(
+                "serialize in article-editor, if preview or jsonmode:",
+                this.props.json,
+            );
             return this.props.json;
         }
         throw new PerseusError(
