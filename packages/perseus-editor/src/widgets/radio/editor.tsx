@@ -180,9 +180,12 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             delete choices[choiceIndex].rationale;
         }
         // eslint-disable-next-line no-console
-        console.log("onRationaleChange, new choices:", choices);
+        console.log("RadioEditor onRationaleChange, new choices:", choices);
         // eslint-disable-next-line no-console
-        console.log("onRationaleChange, new rationale:", newRationale);
+        console.log(
+            "RadioEditor onRationaleChange, new rationale:",
+            newRationale,
+        );
         this.props.onChange({choices: choices});
     };
 
@@ -269,7 +272,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         } = this.props;
 
         // eslint-disable-next-line no-console
-        console.log("serialize, choices:", choices);
+        console.log("RadioEditor serialize, choices:", choices);
 
         return {
             choices,

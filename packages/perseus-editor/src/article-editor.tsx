@@ -153,7 +153,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         const sections = this._sections();
 
         // eslint-disable-next-line no-console
-        console.log("renderEditor, sections:", sections);
+        console.log("ArticleEditor renderEditor, sections:", sections);
 
         return (
             <div className="perseus-editor-table">
@@ -319,7 +319,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         sections[i] = {...sections[i], ...newProps};
 
         // eslint-disable-next-line no-console
-        console.log("handleEditorChange, sections:", sections);
+        console.log("ArticleEditor handleEditorChange, sections:", sections);
         this.props.onChange({json: sections});
     };
 
@@ -384,7 +384,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         if (this.props.mode === "edit") {
             // eslint-disable-next-line no-console
             console.log(
-                "serialize in article-editor, if editmode:",
+                "ArticleEditor serialize in article-editor, if editmode:",
                 this._sections().map((section, i) => {
                     // eslint-disable-next-line react/no-string-refs
                     // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.

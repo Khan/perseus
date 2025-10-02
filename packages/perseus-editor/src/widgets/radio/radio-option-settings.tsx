@@ -41,9 +41,9 @@ export function RadioOptionSettings({
     const {content, rationale, correct, isNoneOfTheAbove} = choice;
 
     // eslint-disable-next-line no-console
-    console.log("choice", choice);
+    console.log("RadioOptionSettings choice", choice);
     // eslint-disable-next-line no-console
-    console.log("rationale by itself", rationale);
+    console.log("RadioOptionSettings rationale by itself", rationale);
 
     const uniqueId = React.useId();
     const rationaleTextAreaId = `${uniqueId}-rationale-textarea`;
