@@ -125,6 +125,17 @@ export const DecorativeImageMobile: Story = {
     },
 };
 
+/**
+ * Images with different sizes.
+ *
+ * The sizes are different when rendering inside the item.
+ * However, when clicked, the image should be zoomed to the original size,
+ * if the original is big enough to allow zooming. The fresco images
+ * support zooming, but the earth and moon image does not. The fresco
+ * images take up the full available width of the "explore image" modal,
+ * whereas the earth and moon image is takes up a smaller width because
+ * its original width is smaller.
+ */
 export const ImageWithDifferentSizes: Story = {
     render: function Render() {
         return (
@@ -133,16 +144,13 @@ export const ImageWithDifferentSizes: Story = {
                 <ImageQuestionRenderer
                     question={generateTestPerseusRenderer({
                         content:
-                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]",
+                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]",
                         widgets: {
                             "image 1": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: {
-                                        url: frescoImage.url,
-                                        width: 800,
-                                        height: 450,
-                                    },
+                                    backgroundImage: frescoImage,
                                     alt: "Fresco painting",
+                                    longDescription: "long description",
                                 }),
                             }),
                             "image 2": generateImageWidget({
@@ -153,6 +161,7 @@ export const ImageWithDifferentSizes: Story = {
                                         height: 225,
                                     },
                                     alt: "Fresco painting",
+                                    longDescription: "long description",
                                 }),
                             }),
                             "image 3": generateImageWidget({
@@ -163,6 +172,14 @@ export const ImageWithDifferentSizes: Story = {
                                         height: 112,
                                     },
                                     alt: "Fresco painting",
+                                    longDescription: "long description",
+                                }),
+                            }),
+                            "image 4": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and Moon",
+                                    longDescription: "long description",
                                 }),
                             }),
                         },

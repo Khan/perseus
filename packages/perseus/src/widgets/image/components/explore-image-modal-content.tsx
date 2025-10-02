@@ -22,6 +22,7 @@ export default function ExploreImageModalContent({
     box,
     labels,
     range,
+    imageSize,
 }: ImageDescriptionAndCaptionProps) {
     const context = React.useContext(PerseusI18nContext);
 
@@ -37,11 +38,10 @@ export default function ExploreImageModalContent({
     // - Shrink image to the modal height if it's taller than the modal.
     // - Keep image its original size if it's shorter than the modal.
     // - Maintain the image's aspect ratio.
-    const modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
+    const modalImageHeight = Math.min(MODAL_HEIGHT, imageSize[1]);
     // bgWidth / bgHeight = X / modalImageHeight
     // => X = (bgWidth / bgHeight) * modalImageHeight
-    const width =
-        (backgroundImage.width / backgroundImage.height) * modalImageHeight;
+    const width = (imageSize[0] / imageSize[1]) * modalImageHeight;
 
     return (
         <div className={styles.modalPanelContainer}>
