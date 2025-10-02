@@ -18,18 +18,11 @@ export const mockImageLoading = () => {
                 });
             }
         }, 0);
+
         return img;
     });
 
     window.Image = mockImage as any;
-
-    // Mock fetch for loading graphie in svg-image
-    global.fetch = jest.fn(() =>
-        Promise.resolve({
-            text: () => "",
-            ok: true,
-        }),
-    ) as jest.Mock;
 
     return () => {
         window.Image = originalImage;

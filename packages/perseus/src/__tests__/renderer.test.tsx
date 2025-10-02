@@ -8,6 +8,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testWidgetIdExtraction} from "../../../../testing/extract-widget-ids-contract-tests";
+import {mockImageLoading} from "../../../../testing/image-loader-utils";
 import {clone} from "../../../../testing/object-utils";
 import {testDependencies} from "../../../../testing/test-dependencies";
 import {
@@ -285,40 +286,15 @@ describe("renderer", () => {
     });
 
     describe("rendering", () => {
-        const images: Array<Record<any, any>> = [];
-        let originalImage;
+        let unmockImageLoading: () => void;
 
         beforeEach(() => {
-            originalImage = window.Image;
-            // Mock HTML Image so we can trigger onLoad callbacks and see full
-            // image rendering.
-            // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
-            window.Image = jest.fn(() => {
-                const img: Record<string, any> = {};
-                images.push(img);
-                return img;
-            });
+            unmockImageLoading = mockImageLoading();
         });
 
         afterEach(() => {
-            window.Image = originalImage;
+            unmockImageLoading();
         });
-
-        // Tells the image loader 1, or all, of our images loaded
-        const markImagesAsLoaded = (imageIndex?: number) => {
-            if (imageIndex != null) {
-                const img = images[imageIndex];
-                if (img?.onload) {
-                    act(() => img.onload());
-                }
-            } else {
-                images.forEach((i) => {
-                    if (i?.onload) {
-                        act(() => i.onload());
-                    }
-                });
-            }
-        };
 
         it.each([true, false])(
             "should render a table when isMobile: %s",
@@ -360,7 +336,9 @@ describe("renderer", () => {
             renderQuestion(question);
 
             // Act
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             const imageNodes = screen.queryAllByAltText(
@@ -386,7 +364,9 @@ describe("renderer", () => {
             renderQuestion(question);
 
             // Act
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             const imageNodes = screen.queryAllByAltText(
@@ -417,7 +397,9 @@ describe("renderer", () => {
             renderQuestion(question);
 
             // Act
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             expect(
@@ -444,7 +426,9 @@ describe("renderer", () => {
             renderQuestion(question);
 
             // Act
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             expect(screen.queryAllByAltText("This image doesn't")).toHaveLength(
@@ -478,7 +462,9 @@ describe("renderer", () => {
             renderQuestion(question);
 
             // Act
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             const imageNodes = screen.queryAllByAltText(
