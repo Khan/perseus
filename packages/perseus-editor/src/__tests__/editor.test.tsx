@@ -223,7 +223,7 @@ describe("Editor", () => {
         await userEvent.selectOptions(select, "Radio / Multiple choice");
 
         expect(cbData?.widgets?.["radio 1"]?.version).toEqual({
-            major: 2,
+            major: 3,
             minor: 0,
         });
     });
