@@ -157,3 +157,76 @@ describe("ContentRepository.getExercises()", () => {
         expect(gcloudStorage.cp).toHaveBeenCalledTimes(1);
     });
 });
+
+describe("ContentRepository.getAssessmentItems()", () => {
+    it("gets the assessment items for an exercise", async () => {
+        // Arrange:
+        const contentRepository = new ContentRepository({
+            contentVersion: "theVersion",
+            locale: "lol",
+            cacheDirectory: join(
+                "/",
+                "tmp",
+                "perseus-tests",
+                `${Math.random()}`,
+            ),
+        });
+
+        const assessmentItemsJson = JSON.stringify([
+            {item_data: {}},
+        ]);
+
+        const snapshotJson = JSON.stringify({
+            exercises: [{
+                id: "theExerciseId",
+                exerciseLength: 7,
+                translatedPerseusContentSha: "theContentSha",
+            }]
+        })
+
+        gcloudStorage.cp = jest
+            .fn()
+            .mockImplementation(async (sources, dest, options) => {
+                const assessmentItemsUrl = `gs://content-property.khanacademy.org/Exercise.TranslatedPerseusContent/lol`;
+                const snapshotUrl = `gs://ka-content-data/lol/snapshot-theVersion.json`
+                if (
+                    _.isEqual(sources, [assessmentItemsUrl]) &&
+                    options.project === "khan-academy" &&
+                    options.recursive
+                ) {
+                    await fs.mkdir(join(dest, "lol"))
+                    await fs.writeFile(join(dest, "lol", "theExerciseId-theContentSha.json"), assessmentItemsJson, {encoding: "utf-8"});
+                } else if (
+                    _.isEqual(sources, [snapshotUrl]) &&
+                    options.project === "khan-academy"
+                ) {
+                    await fs.writeFile(dest, snapshotJson, {encoding: "utf-8"});
+                } else {
+                    throw Error(
+                        `Mock for gcloudStorage.cp was called with unexpected arguments: ${JSON.stringify(sources)}, ${JSON.stringify(dest)}, ${JSON.stringify(options)}`,
+                    );
+                }
+            });
+
+
+        const items = await contentRepository.getAssessmentItems("theExerciseId")
+        expect(items).toEqual([
+            {
+                answerArea: {
+                    calculator: false,
+                    financialCalculatorTotalAmount: false,
+                    financialCalculatorMonthlyPayment: false,
+                    financialCalculatorTimeToPayOff: false,
+                    periodicTable: false,
+                    periodicTableWithKey: false,
+                },
+                hints: [],
+                question: {
+                    content: "",
+                    images: {},
+                    widgets: {},
+                }
+            },
+        ])
+    })
+})
