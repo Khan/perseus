@@ -1023,6 +1023,8 @@ class Editor extends React.Component<Props, State> {
             );
 
             if (!this.props.immutableWidgets) {
+                // eslint-disable-next-line no-console
+                console.log("Editor render, widgets:", widgets);
                 const widgetNodes = Object.values(widgets) as React.ReactNode;
                 widgetsAndTemplates = (
                     <div className="perseus-editor-widgets">
