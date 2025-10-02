@@ -4,6 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
+import {mockImageLoading} from "../../../../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
@@ -13,6 +14,7 @@ import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
 import ImageEditor from "../image-editor/image-editor";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const nonKhanImageWarning =
@@ -27,10 +29,17 @@ const apiOptions = {
     flags: getFeatureFlags({"image-widget-upgrade": true}),
 };
 
+const ImageEditorWithDependencies = (props: PropsFor<typeof ImageEditor>) => {
+    return (
+        <DependenciesContext.Provider value={testDependenciesV2}>
+            <ImageEditor {...props} />
+        </DependenciesContext.Provider>
+    );
+};
+
 describe("image editor", () => {
     let userEvent: UserEvent;
-    const images: Array<Record<any, any>> = [];
-    let originalImage;
+    let unmockImageLoading: () => void;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -41,38 +50,12 @@ describe("image editor", () => {
             testDependencies,
         );
 
-        originalImage = window.Image;
-        // The editor preview uses SvgImage, which uses ImageLoader.
-        // We need to mock the image loading in ImageLoader for it to render.
-        // Mock HTML Image so we can trigger onLoad callbacks and see full
-        // image rendering.
-        // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
-        window.Image = jest.fn(() => {
-            const img: Record<string, any> = {};
-            images.push(img);
-            return img;
-        });
+        unmockImageLoading = mockImageLoading();
     });
 
     afterEach(() => {
-        window.Image = originalImage;
+        unmockImageLoading();
     });
-
-    // Tells the image loader 1, or all, of our images loaded
-    const markImagesAsLoaded = (imageIndex?: number) => {
-        if (imageIndex != null) {
-            const img = images[imageIndex];
-            if (img?.onload) {
-                act(() => img.onload());
-            }
-        } else {
-            images.forEach((i) => {
-                if (i?.onload) {
-                    act(() => i.onload());
-                }
-            });
-        }
-    };
 
     it.each([
         {}, // No url, no dimensions
@@ -86,7 +69,7 @@ describe("image editor", () => {
 
             // Act
             render(
-                <ImageEditor
+                <ImageEditorWithDependencies
                     apiOptions={apiOptions}
                     onChange={() => {}}
                     backgroundImage={backgroundImage}
@@ -116,7 +99,7 @@ describe("image editor", () => {
 
         // Act
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 alt="Earth and moon alt"
@@ -167,7 +150,7 @@ describe("image editor", () => {
 
         // Act
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={() => {}}
@@ -213,7 +196,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={{}}
                 onChange={onChangeMock}
@@ -236,7 +219,7 @@ describe("image editor", () => {
         // Act
         render(
             <DependenciesContext.Provider value={testDependenciesV2}>
-                <ImageEditor
+                <ImageEditorWithDependencies
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     alt="Earth and moon alt"
@@ -245,7 +228,9 @@ describe("image editor", () => {
             </DependenciesContext.Provider>,
         );
 
-        markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(
@@ -257,7 +242,7 @@ describe("image editor", () => {
         // Arrange
         render(
             <DependenciesContext.Provider value={testDependenciesV2}>
-                <ImageEditor
+                <ImageEditorWithDependencies
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={() => {}}
@@ -265,7 +250,9 @@ describe("image editor", () => {
             </DependenciesContext.Provider>,
         );
 
-        markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(screen.getByAltText("Preview: No alt text")).toBeInTheDocument();
@@ -276,7 +263,7 @@ describe("image editor", () => {
 
         // Act
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={() => {}}
@@ -296,7 +283,7 @@ describe("image editor", () => {
         jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 300]);
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={{}}
                 onChange={onChangeMock}
@@ -323,7 +310,12 @@ describe("image editor", () => {
     it("should call onChange with empty image url", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<ImageEditor apiOptions={apiOptions} onChange={onChangeMock} />);
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                onChange={onChangeMock}
+            />,
+        );
 
         // Act
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
@@ -346,7 +338,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={{url: "abc"}}
@@ -375,7 +367,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={{
                     url: earthMoonImage.url,
@@ -407,7 +399,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={{
                     url: earthMoonImage.url,
@@ -439,7 +431,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
@@ -461,7 +453,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 alt="Earth and moon"
@@ -483,7 +475,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
@@ -507,7 +499,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 longDescription="Earth and moon long description"
@@ -531,7 +523,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={{
                     ...ApiOptions.defaults,
                     flags: getFeatureFlags({"image-widget-upgrade": false}),
@@ -548,7 +540,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
@@ -570,7 +562,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 caption="Earth and moon"
@@ -591,7 +583,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
@@ -613,7 +605,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 title="Earth and moon"
@@ -635,7 +627,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={earthMoonImage}
@@ -658,7 +650,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={earthMoonImage}
@@ -678,7 +670,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={earthMoonImage}
