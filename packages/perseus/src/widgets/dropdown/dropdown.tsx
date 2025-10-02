@@ -164,10 +164,17 @@ function getStartUserInput(): PerseusDropdownUserInput {
     };
 }
 
+function getCorrectUserInput(
+    options: PerseusDropdownWidgetOptions,
+): PerseusDropdownUserInput {
+    return {value: options.choices.findIndex((c) => c.correct)};
+}
+
 export default {
     name: "dropdown",
     displayName: "Drop down",
     widget: Dropdown,
     getStartUserInput,
+    getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Dropdown>;

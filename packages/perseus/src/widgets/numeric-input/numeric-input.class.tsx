@@ -151,11 +151,28 @@ function getUserInputFromSerializedState(
     };
 }
 
+function getCorrectUserInput(
+    options: PerseusNumericInputWidgetOptions,
+): PerseusNumericInputUserInput {
+    for (const answer of options.answers) {
+        if (answer.answerForms) {
+            for (const form of answer.answerForms) {
+                return {currentValue: form};
+            }
+        }
+        if (answer.value != null) {
+            return {currentValue: answer.value.toString()};
+        }
+    }
+    return {currentValue: ""};
+}
+
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
     widget: NumericInput,
     isLintable: true,
+    getCorrectUserInput,
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {

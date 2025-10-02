@@ -338,6 +338,12 @@ function getOneCorrectAnswerFromRubric(
     return correctAnswers[0].value;
 }
 
+function getCorrectUserInput(
+    options: PerseusExpressionWidgetOptions,
+): PerseusExpressionUserInput {
+    return options.answerForms[0].value;
+}
+
 export default {
     name: "expression",
     displayName: "Expression / Equation",
@@ -349,5 +355,6 @@ export default {
 
     getOneCorrectAnswerFromRubric,
     getStartUserInput,
+    getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof ExpressionWithDependencies>;
