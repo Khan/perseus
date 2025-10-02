@@ -98,7 +98,7 @@ const styles = {
         color: semanticColor.core.foreground.neutral.strong,
         fontSize: font.body.size.medium,
         fontWeight: font.weight.medium,
-        lineHeight: font.body.lineHeight.large,
+        lineHeight: font.body.lineHeight.medium,
     },
 } as const;
 
