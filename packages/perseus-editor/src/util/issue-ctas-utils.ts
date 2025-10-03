@@ -49,36 +49,32 @@ export async function convertImageMarkdownToImageWidget(
         return; // No image markdown to convert
     }
 
-    // Process each match to get the replacement data
-    const replacements = await Promise.all(
-        matches.map(async (match) => {
-            const imageIndex = getFirstAvailableWidgetIndex(
-                "image",
-                newWidgets,
-            );
-            const imageNode = PerseusMarkdown.parse(match[0], {});
-            const imageUrl = imageNode[0].content[0].target;
-            const imageAlt = imageNode[0].content[0].alt;
+    // Process each match sequentially to ensure unique widget indices
+    const replacements: Array<{original: string; replacement: string}> = [];
+    for (const match of matches) {
+        const imageIndex = getFirstAvailableWidgetIndex("image", newWidgets);
+        const imageNode = PerseusMarkdown.parse(match[0], {});
+        const imageUrl = imageNode[0].content[0].target;
+        const imageAlt = imageNode[0].content[0].alt;
 
-            const imageSize = await Util.getImageSizeModern(imageUrl);
+        const imageSize = await Util.getImageSizeModern(imageUrl);
 
-            newWidgets[`image ${imageIndex}`] = generateImageWidget({
-                options: generateImageOptions({
-                    backgroundImage: {
-                        url: imageUrl,
-                        width: imageSize[0],
-                        height: imageSize[1],
-                    },
-                    alt: imageAlt,
-                }),
-            });
+        newWidgets[`image ${imageIndex}`] = generateImageWidget({
+            options: generateImageOptions({
+                backgroundImage: {
+                    url: imageUrl,
+                    width: imageSize[0],
+                    height: imageSize[1],
+                },
+                alt: imageAlt,
+            }),
+        });
 
-            return {
-                original: match[0],
-                replacement: `[[☃ image ${imageIndex}]]`,
-            };
-        }),
-    );
+        replacements.push({
+            original: match[0],
+            replacement: `[[☃ image ${imageIndex}]]`,
+        });
+    }
 
     // Replace all matches in the content
     let newContent = content;
