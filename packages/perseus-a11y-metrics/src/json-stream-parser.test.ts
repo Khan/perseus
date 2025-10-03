@@ -1,4 +1,4 @@
-import {jsonStreamParser, number, string, Tokenizer} from "./json-stream-parser";
+import {jsonStreamParser, number, string, tokenize, Tokenizer} from "./json-stream-parser";
 
 xdescribe("a JsonStreamParser", () => {
     it("allows callers to subscribe to a particular path pattern", async () => {
@@ -87,6 +87,22 @@ xdescribe("a JSON Tokenizer", () => {
         const tokenizer = new Tokenizer()
         const tokens = tokenizer.push(" \n\t")
         expect(tokens).toEqual([])
+    })
+})
+
+describe("tokenize", () => {
+    it("splits a JSON string into tokens", () => {
+        expect(tokenize(`[{"hello": null}, 123]`)).toEqual([
+            {type: "["},
+            {type: "{"},
+            {type: "primitive", value: "hello"},
+            {type: ":"},
+            {type: "primitive", value: null},
+            {type: "}"},
+            {type: ","},
+            {type: "primitive", value: 123},
+            {type: "]"},
+        ])
     })
 })
 

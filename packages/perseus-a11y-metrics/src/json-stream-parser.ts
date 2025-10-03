@@ -106,13 +106,88 @@ export class ParserState {
 /**
  * Regexes based on: https://www.json.org/json-en.html
  */
-const punctuation = /^[,:{}\[\]]/
 const space = /^[\u0020\u000a\u000d\u0009]/
-export const number = /-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][-+]?[0-9]+)?/
+export const number = /^-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][-+]?[0-9]+)?/
 export const string = /^"([^"\\]|\\(["\\/bfnrt]|u[0-9a-f]{4}))*"/
 const keyword = /^(true|false|null)/
 
-
+export function tokenize(input: string): Token[] {
+    let remaining = input
+    const tokens: Token[] = []
+    while (remaining.length > 0) {
+        switch (remaining[0]) {
+            case ",":
+                tokens.push({type: ","})
+                remaining = remaining.slice(1)
+                break;
+            case ":":
+                tokens.push({type: ":"})
+                remaining = remaining.slice(1)
+                break;
+            case "{":
+                tokens.push({type: "{"})
+                remaining = remaining.slice(1)
+                break;
+            case "}":
+                tokens.push({type: "}"})
+                remaining = remaining.slice(1)
+                break;
+            case "[":
+                tokens.push({type: "["})
+                remaining = remaining.slice(1)
+                break;
+            case "]":
+                tokens.push({type: "]"})
+                remaining = remaining.slice(1)
+                break;
+            case `"`: {
+                // If we see a quote, we're at the beginning of a string.
+                const match = remaining.match(string);
+                if (!match) {
+                    return tokens;
+                }
+                tokens.push({type: "primitive", value: JSON.parse(match[0])})
+                remaining = remaining.slice(match[0].length)
+                break;
+            }
+            case "\u0009":
+            case "\u000a":
+            case "\u000d":
+            case "\u0020": {
+                // The next token is whitespace; ignore it.
+                const match = remaining.match(space);
+                if (!match) {
+                    return tokens;
+                }
+                remaining = remaining.slice(match[0].length)
+                break;
+            }
+            case "t":
+            case "f":
+            case "n": {
+                // The next token is true, false, or null.
+                const match = remaining.match(keyword);
+                if (!match) {
+                    return tokens;
+                }
+                tokens.push({type: "primitive", value: JSON.parse(match[0])})
+                remaining = remaining.slice(match[0].length)
+                break;
+            }
+            default: {
+                // Anything else is either a number, or a syntax error.
+                const match = remaining.match(number);
+                if (!match) {
+                    return tokens;
+                }
+                tokens.push({type: "primitive", value: JSON.parse(match[0])})
+                remaining = remaining.slice(match[0].length)
+                break;
+            }
+        }
+    }
+    return tokens;
+}
 
 export class Tokenizer {
     push(data: string): Token[] {
