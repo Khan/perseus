@@ -1,7 +1,7 @@
-import Keys from "../../data/key-configs";
-import {CursorContext} from "../input/cursor-contexts";
+import Keys from "../../../data/key-configs";
+import {CursorContext} from "../../input/cursor-contexts";
 
-import type {MathInputStrings} from "../../strings";
+import type {MathInputStrings} from "@khanacademy/math-input/strings";
 
 // This is just a magic number, I just played around with it
 // until the transition from expanded -> regular -> expanded felt natural
