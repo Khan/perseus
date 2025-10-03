@@ -6,7 +6,7 @@ import * as React from "react";
 import FormWrappedTextField from "../components/form-wrapped-text-field";
 
 import AnswerChoices from "./label-image/answer-choices";
-import Behavior from "./label-image/behavior";
+import Behavior, {PreferredPopoverDirection} from "./label-image/behavior";
 import QuestionMarkers from "./label-image/question-markers";
 import SelectImage from "./label-image/select-image";
 
@@ -31,6 +31,7 @@ type Props = {
     hideChoicesFromInstructions: boolean;
     // Callback for when a widget prop is changed.
     onChange: (options: any) => void;
+    preferredPopoverDirection: PreferredPopoverDirection;
 };
 
 // JSDoc will be shown in Storybook widget editor description
@@ -188,6 +189,7 @@ class LabelImageEditor extends React.Component<Props> {
             markers,
             multipleAnswers,
             hideChoicesFromInstructions,
+            preferredPopoverDirection,
         } = this.props;
 
         const imageSelected = imageUrl && imageWidth > 0 && imageHeight > 0;
@@ -231,6 +233,7 @@ class LabelImageEditor extends React.Component<Props> {
                 <div className={css(styles.largeSpacer)} />
 
                 <Behavior
+                    preferredPopoverDirection={preferredPopoverDirection}
                     multipleAnswers={multipleAnswers}
                     hideChoicesFromInstructions={hideChoicesFromInstructions}
                     onChange={this.handleBehaviorChange}
