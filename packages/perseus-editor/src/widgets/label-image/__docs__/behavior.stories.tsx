@@ -1,11 +1,11 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import Behavior from "../behavior";
 
 import type {PreferredPopoverDirection} from "../behavior";
-import type {Meta, StoryObj} from "@storybook/react-vite";
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import type {Meta} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Label Image/Behavior",

@@ -6,10 +6,11 @@ import * as React from "react";
 import FormWrappedTextField from "../components/form-wrapped-text-field";
 
 import AnswerChoices from "./label-image/answer-choices";
-import Behavior, {PreferredPopoverDirection} from "./label-image/behavior";
+import Behavior from "./label-image/behavior";
 import QuestionMarkers from "./label-image/question-markers";
 import SelectImage from "./label-image/select-image";
 
+import type {PreferredPopoverDirection} from "./label-image/behavior";
 import type {
     PerseusLabelImageWidgetOptions,
     LabelImageDefaultWidgetOptions,
