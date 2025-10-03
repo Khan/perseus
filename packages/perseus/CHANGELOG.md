@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 71.1.1
+
+### Patch Changes
+
+-   [#2945](https://github.com/Khan/perseus/pull/2945) [`97271406f2`](https://github.com/Khan/perseus/commit/97271406f2e929ff00306cbfdeb6ca950512a7af) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Borders next to correct choices should not show
+
+-   Updated dependencies [[`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6), [`18c925f3e0`](https://github.com/Khan/perseus/commit/18c925f3e057dcb0c3f970af5e78a62591c4ce55)]:
+    -   @khanacademy/perseus-core@19.5.0
+    -   @khanacademy/perseus-linter@4.4.0
+    -   @khanacademy/keypad-context@3.2.10
+    -   @khanacademy/kmath@2.2.10
+    -   @khanacademy/math-input@26.2.11
+    -   @khanacademy/perseus-score@7.7.10
+
 ## 71.1.0
 
 ### Minor Changes

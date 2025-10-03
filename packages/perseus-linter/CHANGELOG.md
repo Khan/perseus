@@ -1,5 +1,16 @@
 # @khanacademy/perseus-linter
 
+## 4.4.0
+
+### Minor Changes
+
+-   [#2939](https://github.com/Khan/perseus/pull/2939) [`18c925f3e0`](https://github.com/Khan/perseus/commit/18c925f3e057dcb0c3f970af5e78a62591c4ce55) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add a warning in editor if markdown images are detected
+
+### Patch Changes
+
+-   Updated dependencies [[`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6)]:
+    -   @khanacademy/perseus-core@19.5.0
+
 ## 4.3.10
 
 ### Patch Changes
