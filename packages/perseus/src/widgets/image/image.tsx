@@ -5,6 +5,7 @@ import AssetContext from "../../asset-context";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import Renderer from "../../renderer";
+import Util from "../../util";
 
 import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
 import styles from "./image-widget.module.css";
@@ -29,6 +30,21 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
+    const [largerImageSize, setLargerImageSize] = React.useState<
+        [number, number]
+    >([backgroundImage.width || 0, backgroundImage.height || 0]);
+
+    React.useEffect(() => {
+        // Wait to figure out what the original size of the image is.
+        // Use whichever is larger between the original image size and the
+        // saved background image size for zooming.
+        Util.getImageSizeModern(backgroundImage.url!).then((size) => {
+            if (size[0] > (backgroundImage.width || 0)) {
+                setLargerImageSize(size);
+            }
+        });
+    }, [backgroundImage]);
+
     if (!backgroundImage.url) {
         return null;
     }
@@ -38,8 +54,10 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {({setAssetStatus}) => (
                 <SvgImage
                     src={backgroundImage.url!}
-                    width={backgroundImage.width}
-                    height={backgroundImage.height}
+                    // Between the original image size and the saved background
+                    // image size, use the larger size.
+                    width={largerImageSize[0]}
+                    height={largerImageSize[1]}
                     preloader={apiOptions.imagePreloader}
                     extraGraphie={{
                         box: box,
@@ -64,6 +82,10 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             <figure
                 className="perseus-image-widget"
                 style={{
+                    // Set the max width of the image container to the
+                    // width saved inside `backgroundImage` - this is the
+                    // width intended to be used when rendering the image
+                    // within the content item.
                     maxWidth: backgroundImage.width,
                 }}
             >
@@ -76,6 +98,10 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         <figure
             className="perseus-image-widget"
             style={{
+                // Set the max width of the image container to the
+                // width saved inside `backgroundImage` - this is the
+                // width intended to be used when rendering the image
+                // within the content item.
                 maxWidth: backgroundImage.width,
             }}
         >
@@ -98,7 +124,10 @@ export const ImageComponent = (props: ImageWidgetProps) => {
 
             {/* Description & Caption */}
             {(caption || (imageUpgradeFF && longDescription)) && (
-                <ImageDescriptionAndCaption {...props} />
+                <ImageDescriptionAndCaption
+                    imageSize={largerImageSize}
+                    {...props}
+                />
             )}
         </figure>
     );

@@ -20,6 +20,7 @@ const defaultProps = {
     caption: "",
     alt: "",
     longDescription: "",
+    imageSize: [0, 0] satisfies [number, number],
     box: [400, 400] satisfies Size,
     labels: [],
     range: [

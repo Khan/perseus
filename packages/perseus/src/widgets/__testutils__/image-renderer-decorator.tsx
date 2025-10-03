@@ -33,7 +33,7 @@ export const imageRendererDecorator = (_, {args, parameters}) => {
     );
 };
 
-function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
+export function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
         <UserInputManager widgets={question.widgets} problemNum={0}>

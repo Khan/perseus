@@ -29,18 +29,14 @@ export interface ImageDescriptionAndCaptionProps {
     range: [Interval, Interval];
     linterContext: LinterContextProps;
     apiOptions: APIOptions;
+    imageSize: [number, number];
 }
 
 export const ImageDescriptionAndCaption = (
     props: ImageDescriptionAndCaptionProps,
 ) => {
-    const {
-        caption,
-        longDescription,
-        backgroundImage,
-        apiOptions,
-        linterContext,
-    } = props;
+    const {caption, longDescription, apiOptions, linterContext, imageSize} =
+        props;
 
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
@@ -64,7 +60,7 @@ export const ImageDescriptionAndCaption = (
                 <figcaption
                     className="perseus-image-caption"
                     style={{
-                        maxWidth: backgroundImage.width,
+                        maxWidth: imageSize[0],
                     }}
                 >
                     {/* The Renderer component is used here so that the caption
