@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 28.3.1
+
+### Patch Changes
+
+-   [#2936](https://github.com/Khan/perseus/pull/2936) [`d81b0ec4ff`](https://github.com/Khan/perseus/commit/d81b0ec4ffb3b2b74a37ca2ef1f2286e7009de93) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Adding tests for ItemDiff component
+
+-   Updated dependencies [[`7e830864aa`](https://github.com/Khan/perseus/commit/7e830864aab51afd1192cd92fdebd9adc664f74b)]:
+    -   @khanacademy/perseus@71.1.2
+
 ## 28.3.0
 
 ### Minor Changes

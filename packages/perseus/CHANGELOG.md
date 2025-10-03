@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 71.1.2
+
+### Patch Changes
+
+-   [#2947](https://github.com/Khan/perseus/pull/2947) [`7e830864aa`](https://github.com/Khan/perseus/commit/7e830864aab51afd1192cd92fdebd9adc664f74b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Additional space needed between choice text and rationale
+
 ## 71.1.1
 
 ### Patch Changes
