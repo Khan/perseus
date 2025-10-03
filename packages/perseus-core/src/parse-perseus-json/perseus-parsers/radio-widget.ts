@@ -189,7 +189,7 @@ export function migrateV2toV3(
             deselectEnabled: options.deselectEnabled,
             choices: options.choices.map((choice, index) => ({
                 content: choice.content,
-                rationale: choice.clue,
+                rationale: choice["rationale"] || choice.clue,
                 correct: choice.correct,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
                 id: generateChoiceId(index),
