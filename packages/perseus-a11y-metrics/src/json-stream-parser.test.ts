@@ -92,7 +92,7 @@ xdescribe("a JSON Tokenizer", () => {
 
 describe("tokenize", () => {
     it("splits a JSON string into tokens", () => {
-        expect(tokenize(`[{"hello": null}, 123]`)).toEqual([
+        expect(tokenize(`[{"hello": null}, 123]`).tokens).toEqual([
             {type: "["},
             {type: "{"},
             {type: "primitive", value: "hello"},
@@ -103,6 +103,14 @@ describe("tokenize", () => {
             {type: "primitive", value: 123},
             {type: "]"},
         ])
+    })
+
+    it("returns any remaining text after the last parsed token", () => {
+        expect(tokenize(`["Hello", "World`).remaining).toBe(`"World`)
+    })
+
+    it("returns no remaining text if everything was parsed", () => {
+        expect(tokenize(`[{}, {}]`).remaining).toBe("")
     })
 })
 
