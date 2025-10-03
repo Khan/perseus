@@ -7,7 +7,10 @@ import * as React from "react";
 import {useState} from "react";
 
 import ToggleableCaret from "./components/toggleable-caret";
+import IssueCtas from "./issue-ctas";
 import IssueDetails from "./issue-details";
+
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export type IssueImpact = "low" | "medium" | "high";
 export type Issue = {
@@ -21,9 +24,15 @@ export type Issue = {
 
 type IssuesPanelProps = {
     issues?: Issue[];
+    question?: PerseusRenderer;
+    onEditorChange: (newProps: any) => void;
 };
 
-const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
+const IssuesPanel = ({
+    issues = [],
+    question,
+    onEditorChange,
+}: IssuesPanelProps) => {
     const [showPanel, setShowPanel] = useState(false);
 
     const hasWarnings = issues.length > 0;
@@ -69,6 +78,11 @@ const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
             {showPanel && (
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
+                        <IssueCtas
+                            issues={issues}
+                            question={question}
+                            onEditorChange={onEditorChange}
+                        />
                         {issues.map((issue) => (
                             <IssueDetails key={issue.id} issue={issue} />
                         ))}
