@@ -1,4 +1,4 @@
-import {jsonStreamParser, number, string, tokenize, Tokenizer} from "./json-stream-parser";
+import {jsonStreamParser, number, string, Token, tokenize, Tokenizer} from "./json-stream-parser";
 
 xdescribe("a JsonStreamParser", () => {
     it("allows callers to subscribe to a particular path pattern", async () => {
@@ -87,6 +87,36 @@ xdescribe("a JSON Tokenizer", () => {
         const tokenizer = new Tokenizer()
         const tokens = tokenizer.push(" \n\t")
         expect(tokens).toEqual([])
+    })
+})
+
+describe("a Tokenizer", () => {
+    it("returns tokens given chunks of data", () => {
+        // Arrange:
+        const tokenizer = new Tokenizer();
+        const chunks = [
+            `{"He`, `llo":"`, "", `World`, `"}`
+        ];
+
+        // Act:
+        let tokens: Token[] = []
+        for (const chunk of chunks) {
+            tokens = tokens.concat(tokenizer.push(chunk))
+        }
+
+        // Assert:
+        expect(tokens).toEqual([
+            {type: "{"},
+            {type: "primitive", value: "Hello"},
+            {type: ":"},
+            {type: "primitive", value: "World"},
+            {type: "}"},
+        ])
+    })
+
+    it("throws given an unparseable sequence that goes on too long", () => {
+        const tokenizer = new Tokenizer({maxTokenLength: 4});
+        expect(() => tokenizer.push(`"What`)).toThrowError();
     })
 })
 

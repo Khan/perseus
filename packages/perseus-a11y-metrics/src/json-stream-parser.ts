@@ -83,7 +83,7 @@ export class ObjectStream {
     }
 }
 
-type Token =
+export type Token =
     | {type: "primitive", value: string | number | boolean | null}
     | {type: "{"}
     | {type: "}"}
@@ -174,8 +174,28 @@ export function tokenize(input: string): {tokens: Token[], remaining: string} {
     return {tokens, remaining};
 }
 
-export class Tokenizer {
-    push(data: string): Token[] {
+interface TokenizerOptions {
+    maxTokenLength?: number,
+}
 
+export class Tokenizer {
+    private static defaultMaxTokenLength = 65_536
+    private remaining: string = ""
+
+    constructor(private options: TokenizerOptions = {}) {}
+
+    push(data: string): Token[] {
+        const {tokens, remaining} = tokenize(this.remaining + data)
+        this.remaining = remaining
+
+        if (this.remaining.length > this.getMaxTokenLength()) {
+            throw Error(`Likely syntax error in JSON stream: token too long`)
+        }
+
+        return tokens;
+    }
+
+    private getMaxTokenLength() {
+        return this.options.maxTokenLength ?? Tokenizer.defaultMaxTokenLength
     }
 }
