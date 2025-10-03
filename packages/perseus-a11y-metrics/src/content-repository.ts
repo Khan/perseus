@@ -2,7 +2,7 @@ import * as fs from "node:fs/promises";
 import {join} from "node:path";
 
 import {isFailure, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
-import {array, object, unknown} from "zod";
+import {array, object, string, unknown} from "zod";
 
 import {command} from "./command";
 import {gcloudStorage} from "./gcloud-storage";
@@ -20,6 +20,11 @@ export interface ContentRepositoryOptions {
      * create the directory if it doesn't yet exist.
      */
     cacheDirectory?: string;
+}
+
+export interface AssessmentItem {
+    isContextInaccessible: boolean;
+    perseusItem: PerseusItem;
 }
 
 /**
@@ -43,10 +48,17 @@ export class ContentRepository {
         return map[id];
     }
 
-    async getAssessmentItems(exerciseId: string): Promise<PerseusItem[]> {
+    async getAssessmentItems(exerciseId: string): Promise<AssessmentItem[]> {
+        const exercise = await this.getExerciseById(exerciseId);
+        if (exercise == null) {
+            throw Error(`Exercise not found for ID: ${exerciseId}`);
+        }
+
         const json = await this.getAssessmentItemJson(exerciseId);
         const data = JSON.parse(json);
-        const itemListSchema = array(object({item_data: unknown()}));
+        const itemListSchema = array(
+            object({item_data: unknown(), id: string()}),
+        );
         return itemListSchema.parse(data).map((item) => {
             const parseResult = parseAndMigratePerseusItem(item.item_data);
             if (isFailure(parseResult)) {
@@ -54,7 +66,21 @@ export class ContentRepository {
                     `Failed to parse Perseus item: ${parseResult.detail.message}`,
                 );
             }
-            return parseResult.value;
+
+            const itemMetadata = exercise.problemTypes
+                .flatMap((problemType) => problemType.items)
+                .find((itemMetadata) => itemMetadata.id === item.id);
+
+            if (itemMetadata == null) {
+                throw Error(
+                    `Item metadata not found for exercise ID ${exerciseId} and item ID ${item.id}`,
+                );
+            }
+
+            return {
+                perseusItem: parseResult.value,
+                isContextInaccessible: itemMetadata.isContextInaccessible,
+            };
         });
     }
 

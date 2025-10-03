@@ -20,7 +20,11 @@ async function main() {
     const exercises = await contentRepo.getExercises();
     for (const exercise of exercises) {
         const items = await contentRepo.getAssessmentItems(exercise.id);
-        const accessibleItems = items.filter(isItemAccessible);
+        const accessibleItems = items.filter(
+            (item) =>
+                !item.isContextInaccessible &&
+                isItemAccessible(item.perseusItem),
+        );
 
         if (accessibleItems.length === items.length) {
             a11yStats.full++;

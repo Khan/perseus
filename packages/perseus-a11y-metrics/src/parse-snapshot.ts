@@ -1,10 +1,20 @@
-import {array, number, object, string, type Infer} from "zod";
+import {array, boolean, number, object, string, type Infer} from "zod";
+
+const ItemSchema = object({
+    id: string(),
+    isContextInaccessible: boolean(),
+});
+
+const ProblemTypeSchema = object({
+    items: array(ItemSchema),
+});
 
 const ExerciseSchema = object({
     // NOTE: there are more fields in the exercise object. This schema just
     // lists the fields we currently care about.
     exerciseLength: number(),
     id: string(),
+    problemTypes: array(ProblemTypeSchema),
     translatedPerseusContentSha: string(),
 });
 
