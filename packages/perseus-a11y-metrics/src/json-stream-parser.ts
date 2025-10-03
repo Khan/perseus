@@ -109,6 +109,10 @@ export class ParserState {
 const punctuation = /^[,:{}\[\]]/
 const space = /^[\u0020\u000a\u000d\u0009]/
 export const number = /-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][-+]?[0-9]+)?/
+export const string = /^"([^"\\]|\\(["\\/bfnrt]|u[0-9a-f]{4}))*"/
+const keyword = /^(true|false|null)/
+
+
 
 export class Tokenizer {
     push(data: string): Token[] {
