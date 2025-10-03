@@ -3,34 +3,34 @@ export function jsonStreamParser(): JsonStreamParser {
 }
 
 export class JsonStreamParser {
-    subscriptions: Subscription[] = []
+    subscriptions: Subscription[] = [];
     tokenizer = new Tokenizer();
     parserState = new ParserState();
 
     subscribeTo(path: string[]): ObjectStream {
-        const stream = new ObjectStream()
-        this.streams.push(stream)
+        const stream = new ObjectStream();
+        this.streams.push(stream);
         return stream;
     }
 
     push(data: string) {
-        const tokens = this.tokenizer.push(data)
-
-        for (const token of tokens) {
-            const completedObject = this.parserState.push(token)
-            if (completedObject) {
-                for (const sub of this.subscriptions) {
-                    if (sub.matches(completedObject.path)) {
-                        sub.push(completedObject.value);
-                    }
-                    // sub.push(JSON.parse(data).foo) // FIXME stop referencing foo
-                }
-            }
-        }
-
-        for (const stream of this.streams) {
-            stream.push(JSON.parse(data).foo) // FIXME stop referencing foo
-        }
+        // const tokens = this.tokenizer.push(data);
+        //
+        // for (const token of tokens) {
+        //     const completedObject = this.parserState.push(token);
+        //     if (completedObject) {
+        //         for (const sub of this.subscriptions) {
+        //             if (sub.matches(completedObject.path)) {
+        //                 sub.push(completedObject.value);
+        //             }
+        //             // sub.push(JSON.parse(data).foo) // FIXME stop referencing foo
+        //         }
+        //     }
+        // }
+        //
+        // for (const stream of this.streams) {
+        //     stream.push(JSON.parse(data).foo); // FIXME stop referencing foo
+        // }
     }
 }
 
@@ -38,11 +38,11 @@ export class Subscription {
     private stream = new ObjectStream();
 
     matches(path: string[]) {
-        return true // FIXME
+        return true; // FIXME
     }
 
     async next(): Promise<unknown> {
-        return this.stream.next()
+        return this.stream.next();
     }
 
     push(object: unknown): void {
@@ -55,7 +55,7 @@ export class ObjectStream {
      * Stores a queue of the values that have been `push`ed but not yet
      * retrieved via `next`.
      */
-    private valueBuffer: unknown[] = []
+    private valueBuffer: unknown[] = [];
 
     /**
      * Stores a queue of functions that are waiting to receive a value.
@@ -66,54 +66,50 @@ export class ObjectStream {
 
     async next(): Promise<unknown> {
         if (this.valueBuffer.length > 0) {
-            return this.valueBuffer.shift()
+            return this.valueBuffer.shift();
         }
 
         return await new Promise((resolve) => {
             this.promiseResolveBuffer.push(resolve);
-        })
+        });
     }
 
     push(object: unknown) {
         if (this.promiseResolveBuffer.length > 0) {
-            this.promiseResolveBuffer.shift()?.(object)
+            this.promiseResolveBuffer.shift()?.(object);
         } else {
-            this.valueBuffer.push(object)
+            this.valueBuffer.push(object);
         }
     }
 }
 
 export type Token =
-    | {type: "primitive", value: string | number | boolean | null}
+    | {type: "primitive"; value: string | number | boolean | null}
     | {type: "{"}
     | {type: "}"}
     | {type: "["}
     | {type: "]"}
     | {type: ","}
-    | {type: ":"}
-
-type TreeNode = {pathSegment: string, type: ""}
+    | {type: ":"};
 
 export class ParserState {
     private path: string[] = [];
     // private nodeStack: Array<"object" | "array">
 
-    push(token: Token) {
-
-    }
+    push(token: Token) {}
 }
 
 /**
  * Regexes based on: https://www.json.org/json-en.html
  */
-const space = /^[ \n\r\t]/
-export const number = /^-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][-+]?[0-9]+)?/
-export const string = /^"([^"\\]|\\(["\\/bfnrt]|u[0-9a-f]{4}))*"/
-const keyword = /^(true|false|null)/
+const space = /^[ \n\r\t]/;
+export const number = /^-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][-+]?[0-9]+)?/;
+export const string = /^"([^"\\]|\\(["\\/bfnrt]|u[0-9a-f]{4}))*"/;
+const keyword = /^(true|false|null)/;
 
-export function tokenize(input: string): {tokens: Token[], remaining: string} {
-    let remaining = input
-    const tokens: Token[] = []
+export function tokenize(input: string): {tokens: Token[]; remaining: string} {
+    let remaining = input;
+    const tokens: Token[] = [];
     while (remaining.length > 0) {
         switch (remaining[0]) {
             case ",":
@@ -122,8 +118,8 @@ export function tokenize(input: string): {tokens: Token[], remaining: string} {
             case "}":
             case "[":
             case "]":
-                tokens.push({type: remaining[0]})
-                remaining = remaining.slice(1)
+                tokens.push({type: remaining[0]});
+                remaining = remaining.slice(1);
                 break;
             case `"`: {
                 // If we see a quote, we're at the beginning of a string.
@@ -131,8 +127,8 @@ export function tokenize(input: string): {tokens: Token[], remaining: string} {
                 if (!match) {
                     return {tokens, remaining};
                 }
-                tokens.push({type: "primitive", value: JSON.parse(match[0])})
-                remaining = remaining.slice(match[0].length)
+                tokens.push({type: "primitive", value: JSON.parse(match[0])});
+                remaining = remaining.slice(match[0].length);
                 break;
             }
             case " ":
@@ -144,7 +140,7 @@ export function tokenize(input: string): {tokens: Token[], remaining: string} {
                 if (!match) {
                     return {tokens, remaining};
                 }
-                remaining = remaining.slice(match[0].length)
+                remaining = remaining.slice(match[0].length);
                 break;
             }
             case "t":
@@ -155,8 +151,8 @@ export function tokenize(input: string): {tokens: Token[], remaining: string} {
                 if (!match) {
                     return {tokens, remaining};
                 }
-                tokens.push({type: "primitive", value: JSON.parse(match[0])})
-                remaining = remaining.slice(match[0].length)
+                tokens.push({type: "primitive", value: JSON.parse(match[0])});
+                remaining = remaining.slice(match[0].length);
                 break;
             }
             case "0":
@@ -175,40 +171,43 @@ export function tokenize(input: string): {tokens: Token[], remaining: string} {
                 if (!match) {
                     return {tokens, remaining};
                 }
-                tokens.push({type: "primitive", value: JSON.parse(match[0])})
-                remaining = remaining.slice(match[0].length)
+                tokens.push({type: "primitive", value: JSON.parse(match[0])});
+                remaining = remaining.slice(match[0].length);
                 break;
             }
             default:
                 // Anything else is a syntax error.
-                throw Error("JSON tokenization error starting at: " + remaining.slice(0, 100))
+                throw Error(
+                    "JSON tokenization error starting at: " +
+                        remaining.slice(0, 100),
+                );
         }
     }
     return {tokens, remaining};
 }
 
 interface TokenizerOptions {
-    maxTokenLength?: number,
+    maxTokenLength?: number;
 }
 
 export class Tokenizer {
-    private static defaultMaxTokenLength = 65_536
-    private remaining: string = ""
+    private static defaultMaxTokenLength = 65_536;
+    private remaining: string = "";
 
     constructor(private options: TokenizerOptions = {}) {}
 
     push(data: string): Token[] {
-        const {tokens, remaining} = tokenize(this.remaining + data)
-        this.remaining = remaining
+        const {tokens, remaining} = tokenize(this.remaining + data);
+        this.remaining = remaining;
 
         if (this.remaining.length > this.getMaxTokenLength()) {
-            throw Error(`Likely syntax error in JSON stream: token too long`)
+            throw Error(`Likely syntax error in JSON stream: token too long`);
         }
 
         return tokens;
     }
 
     private getMaxTokenLength() {
-        return this.options.maxTokenLength ?? Tokenizer.defaultMaxTokenLength
+        return this.options.maxTokenLength ?? Tokenizer.defaultMaxTokenLength;
     }
 }
