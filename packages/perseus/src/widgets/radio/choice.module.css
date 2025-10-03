@@ -8,6 +8,12 @@
         font-weight: inherit;
         line-height: inherit;
     }
+
+    &:global(.perseus-article)
+    .choice:not(.is-correct):has(> button[aria-pressed="true"])
+    :global(.paragraph) {
+        color: var(--wb-semanticColor-core-foreground-instructive-default);
+    }
 }
 
 .choice {
