@@ -796,12 +796,24 @@ function getUserInputFromSerializedState(
     };
 }
 
+function getCorrectUserInput(
+    options: PerseusLabelImageWidgetOptions,
+): PerseusLabelImageUserInput {
+    return {
+        markers: options.markers.map((marker) => ({
+            label: marker.label,
+            selected: marker.answers,
+        })),
+    };
+}
+
 export default {
     name: "label-image",
     displayName: "Label Image",
     widget: LabelImageWithDependencies,
     isLintable: true,
     getStartUserInput,
+    getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;
 

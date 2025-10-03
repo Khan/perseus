@@ -151,11 +151,38 @@ function getUserInputFromSerializedState(
     };
 }
 
+function findCommonFractions(value: number) {
+    if (Number.isInteger(value)) {
+        return value.toFixed(0);
+    }
+    // it's brute force, but it's honest work
+    for (let num = 1; num < 100; num++) {
+        for (let denom = 2; denom < 100; denom++) {
+            if (Math.abs(value - num / denom) < 1e-10) {
+                return `${num}/${denom}`;
+            }
+        }
+    }
+    return value.toString();
+}
+
+function getCorrectUserInput(
+    options: PerseusNumericInputWidgetOptions,
+): PerseusNumericInputUserInput {
+    for (const answer of options.answers) {
+        if (answer.value != null) {
+            return {currentValue: findCommonFractions(answer.value)};
+        }
+    }
+    return {currentValue: ""};
+}
+
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
     widget: NumericInput,
     isLintable: true,
+    getCorrectUserInput,
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {

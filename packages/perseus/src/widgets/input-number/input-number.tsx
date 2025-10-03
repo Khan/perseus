@@ -278,6 +278,12 @@ function getStartUserInput(): PerseusInputNumberUserInput {
     return {currentValue: ""};
 }
 
+function getCorrectUserInput(
+    options: PerseusInputNumberWidgetOptions,
+): PerseusInputNumberUserInput {
+    return {currentValue: options.value.toString()};
+}
+
 export default {
     name: "input-number",
     displayName: "Input number (deprecated - use numeric input instead)",
@@ -286,5 +292,6 @@ export default {
     isLintable: true,
     getOneCorrectAnswerFromRubric,
     getStartUserInput,
+    getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InputNumber>;

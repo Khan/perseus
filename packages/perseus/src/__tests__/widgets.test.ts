@@ -205,19 +205,21 @@ describe("Widget API support", () => {
             "number-line",
             "plotter",
             "radio",
+            "dropdown",
+            "expression",
+            "numeric-input",
+            "input-number",
+            "label-image",
         ])("supportsStaticMode returns true: %s", (type: string) => {
             expect(Widgets.supportsStaticMode(type)).toBe(true);
         });
 
         // some widgets that shouldn't support static mode
-        it.each([
-            "expression",
-            "numeric-input",
-            "input-number",
-            "dropdown",
-            "definition",
-        ])("supportsStaticMode returns false: %s", (type: string) => {
-            expect(Widgets.supportsStaticMode(type)).toBe(false);
-        });
+        it.each(["definition"])(
+            "supportsStaticMode returns false: %s",
+            (type: string) => {
+                expect(Widgets.supportsStaticMode(type)).toBe(false);
+            },
+        );
     });
 });
