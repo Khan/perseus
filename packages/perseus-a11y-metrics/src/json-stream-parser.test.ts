@@ -142,6 +142,10 @@ describe("tokenize", () => {
     it("returns no remaining text if everything was parsed", () => {
         expect(tokenize(`[{}, {}]`).remaining).toBe("")
     })
+
+    it("throws given text that can't possibly be JSON", () => {
+        expect(() => tokenize(`%`)).toThrowError("JSON tokenization error starting at: %")
+    })
 })
 
 describe("the number token regex", () => {

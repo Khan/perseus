@@ -159,8 +159,18 @@ export function tokenize(input: string): {tokens: Token[], remaining: string} {
                 remaining = remaining.slice(match[0].length)
                 break;
             }
-            default: {
-                // Anything else is either a number, or a syntax error.
+            case "0":
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "-": {
+                // The next token is a number.
                 const match = remaining.match(number);
                 if (!match) {
                     return {tokens, remaining};
@@ -169,6 +179,9 @@ export function tokenize(input: string): {tokens: Token[], remaining: string} {
                 remaining = remaining.slice(match[0].length)
                 break;
             }
+            default:
+                // Anything else is a syntax error.
+                throw Error("JSON tokenization error starting at: " + remaining.slice(0, 100))
         }
     }
     return {tokens, remaining};
