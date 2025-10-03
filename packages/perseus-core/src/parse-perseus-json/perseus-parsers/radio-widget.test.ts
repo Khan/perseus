@@ -164,7 +164,6 @@ describe("migration functions", () => {
 
     // Special case: v2 to v3, with rationale instead of clue
     // See LEMS-3604 for details.
-    // Should we add more tests for this?
     it("migrates v2 to v3, with rationale instead of clue", () => {
         expect(migrateV2toV3(v2WidgetWithRationale)).toEqual(v3Widget);
     });
