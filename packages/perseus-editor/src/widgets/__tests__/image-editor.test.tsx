@@ -698,7 +698,7 @@ describe("image editor", () => {
         it("should render when feature flag is enabled", () => {
             // Arrange & Act
             render(
-                <ImageEditor
+                <ImageEditorWithDependencies
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={() => {}}
@@ -715,7 +715,7 @@ describe("image editor", () => {
         it("should not render feature flag is disabled", () => {
             // Arrange & Act
             render(
-                <ImageEditor
+                <ImageEditorWithDependencies
                     apiOptions={{
                         ...ApiOptions.defaults,
                         flags: getFeatureFlags({"image-widget-upgrade": false}),
@@ -737,7 +737,7 @@ describe("image editor", () => {
         it("should render when decorative is true", () => {
             // Arrange & Act
             render(
-                <ImageEditor
+                <ImageEditorWithDependencies
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     decorative={true}
@@ -757,7 +757,7 @@ describe("image editor", () => {
             // Arrange
             const onChangeMock = jest.fn();
             render(
-                <ImageEditor
+                <ImageEditorWithDependencies
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={onChangeMock}
