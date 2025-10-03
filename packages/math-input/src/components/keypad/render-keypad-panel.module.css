@@ -1,0 +1,21 @@
+.keypadInnerContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--wb-semanticColor-core-background-disabled-strong);
+    /* Even in RTL languages, math is LTR, So we force this component to always render LTR. */
+    direction: ltr;
+}
+
+.keypadGrid {
+    display: grid !important;
+    grid-template-rows: repeat(4, 1fr);
+    flex: 1;
+}
+
+.expressionGrid {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.fractionsGrid {
+    grid-template-columns: repeat(5, 1fr);
+}

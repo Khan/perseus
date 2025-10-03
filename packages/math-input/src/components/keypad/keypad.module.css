@@ -1,0 +1,44 @@
+.keypadOuterContainer {
+    display: flex;
+    align-items: center;
+}
+
+.wrapper {
+    background-color: var(--wb-semanticColor-core-background-base-default);
+}
+
+.expandedWrapper {
+    border-width: 1px 1px 0 1px;
+    border-color: var(--wb-semanticColor-core-border-neutral-default);
+    /* see expandedViewThreshold */
+    max-width: 500px;
+    border-radius: 3px 3px 0 0;
+}
+
+.keypadInnerContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--wb-semanticColor-core-background-disabled-strong);
+    /* Even in RTL languages, math is LTR, So we force this component to always render LTR. */
+    direction: ltr;
+}
+
+.keypadGrid {
+    display: grid !important;
+    grid-template-rows: repeat(4, 1fr);
+    flex: 1;
+}
+
+.fractionsGrid {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+/* Position the tablist as flex container */
+/*[role="tablist"] {*/
+/*    display: flex;*/
+/*}*/
+
+/* Push the Dismiss tab to the right */
+#Dismiss-tab {
+    margin-left: auto !important;
+}
