@@ -1,29 +1,27 @@
 import {KeypadInput} from "@khanacademy/math-input";
+import type {
+    KeypadConfiguration,
+    KeypadKey,
+    PerseusExpressionRubric,
+    PerseusExpressionUserInput,
+    PerseusExpressionWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {expressionLogic} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
+import type {DependenciesContext} from "../../dependencies";
 import {useDependencies} from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
-
-import type {DependenciesContext} from "../../dependencies";
-import type {WidgetProps, Widget, WidgetExports} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
-import type {
-    PerseusExpressionWidgetOptions,
-    KeypadConfiguration,
-    KeypadKey,
-    PerseusExpressionRubric,
-    PerseusExpressionUserInput,
-} from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 type InputPath = ReadonlyArray<string>;
 
@@ -341,7 +339,12 @@ function getOneCorrectAnswerFromRubric(
 function getCorrectUserInput(
     options: PerseusExpressionWidgetOptions,
 ): PerseusExpressionUserInput {
-    return options.answerForms[0].value;
+    for (const form of options.answerForms) {
+        if (form.considered === "correct") {
+            return form.value;
+        }
+    }
+    return "";
 }
 
 export default {
