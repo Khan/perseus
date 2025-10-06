@@ -10,6 +10,7 @@ import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
 
 import type {APIOptions} from "../../../types";
+import type {ImageSize} from "../image";
 import type {
     Interval,
     PerseusImageBackground,
@@ -29,7 +30,7 @@ export interface ImageDescriptionAndCaptionProps {
     range: [Interval, Interval];
     linterContext: LinterContextProps;
     apiOptions: APIOptions;
-    imageSize: [number, number];
+    imageSize: ImageSize;
 }
 
 export const ImageDescriptionAndCaption = (
@@ -60,7 +61,7 @@ export const ImageDescriptionAndCaption = (
                 <figcaption
                     className="perseus-image-caption"
                     style={{
-                        maxWidth: imageSize[0],
+                        maxWidth: imageSize.width,
                     }}
                 >
                     {/* The Renderer component is used here so that the caption

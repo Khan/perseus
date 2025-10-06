@@ -12,6 +12,8 @@ import styles from "./image-widget.module.css";
 
 import type {ImageWidgetProps} from "./image.class";
 
+export type ImageSize = {width: number; height: number};
+
 export const ImageComponent = (props: ImageWidgetProps) => {
     const {
         apiOptions,
@@ -30,17 +32,21 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
-    const [largerImageSize, setLargerImageSize] = React.useState<
-        [number, number]
-    >([backgroundImage.width || 0, backgroundImage.height || 0]);
+    const [largerImageSize, setLargerImageSize] = React.useState<ImageSize>({
+        width: backgroundImage.width || 0,
+        height: backgroundImage.height || 0,
+    });
 
     React.useEffect(() => {
         // Wait to figure out what the original size of the image is.
         // Use whichever is larger between the original image size and the
         // saved background image size for zooming.
-        Util.getImageSizeModern(backgroundImage.url!).then((size) => {
-            if (size[0] > (backgroundImage.width || 0)) {
-                setLargerImageSize(size);
+        Util.getImageSizeModern(backgroundImage.url!).then((naturalSize) => {
+            if (naturalSize[0] > (backgroundImage.width || 0)) {
+                setLargerImageSize({
+                    width: naturalSize[0],
+                    height: naturalSize[1],
+                });
             }
         });
     }, [backgroundImage]);
@@ -56,8 +62,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     src={backgroundImage.url!}
                     // Between the original image size and the saved background
                     // image size, use the larger size.
-                    width={largerImageSize[0]}
-                    height={largerImageSize[1]}
+                    width={largerImageSize.width}
+                    height={largerImageSize.height}
                     preloader={apiOptions.imagePreloader}
                     extraGraphie={{
                         box: box,

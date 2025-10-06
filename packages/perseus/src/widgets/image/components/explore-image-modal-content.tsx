@@ -38,10 +38,10 @@ export default function ExploreImageModalContent({
     // - Shrink image to the modal height if it's taller than the modal.
     // - Keep image its original size if it's shorter than the modal.
     // - Maintain the image's aspect ratio.
-    const modalImageHeight = Math.min(MODAL_HEIGHT, imageSize[1]);
+    const modalImageHeight = Math.min(MODAL_HEIGHT, imageSize.height);
     // bgWidth / bgHeight = X / modalImageHeight
     // => X = (bgWidth / bgHeight) * modalImageHeight
-    const width = (imageSize[0] / imageSize[1]) * modalImageHeight;
+    const width = (imageSize.width / imageSize.height) * modalImageHeight;
 
     return (
         <div className={styles.modalPanelContainer}>
