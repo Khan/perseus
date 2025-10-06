@@ -11,7 +11,12 @@ const packageAliases = {};
 glob.sync(join(__dirname, "/packages/*/package.json")).forEach(
     (packageJsonPath) => {
         const pkg = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
-        packageAliases[pkg.name] = join(dirname(packageJsonPath), pkg.source);
+        if (pkg.source != null) {
+            packageAliases[pkg.name] = join(
+                dirname(packageJsonPath),
+                pkg.source,
+            );
+        }
     },
 );
 
