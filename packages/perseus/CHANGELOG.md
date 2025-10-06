@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 71.2.0
+
+### Minor Changes
+
+-   [#2941](https://github.com/Khan/perseus/pull/2941) [`ea232094e7`](https://github.com/Khan/perseus/commit/ea232094e764e77d61067509cc137c5ed53f8f0e) Thanks [@jaredly](https://github.com/jaredly)! - Add getCorrectUserInput for dropdown, expression, input-number, label-image, and numeric-input
+
+### Patch Changes
+
+-   [#2947](https://github.com/Khan/perseus/pull/2947) [`7e830864aa`](https://github.com/Khan/perseus/commit/7e830864aab51afd1192cd92fdebd9adc664f74b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Additional space needed between choice text and rationale
+
 ## 71.1.1
 
 ### Patch Changes
