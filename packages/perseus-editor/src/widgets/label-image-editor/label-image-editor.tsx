@@ -3,14 +3,14 @@ import {labelImageLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import FormWrappedTextField from "../components/form-wrapped-text-field";
+import FormWrappedTextField from "../../components/form-wrapped-text-field";
 
-import AnswerChoices from "./label-image-editor/answer-choices";
-import Behavior from "./label-image-editor/behavior";
-import QuestionMarkers from "./label-image-editor/question-markers";
-import SelectImage from "./label-image-editor/select-image";
+import AnswerChoices from "./answer-choices";
+import Behavior from "./behavior";
+import QuestionMarkers from "./question-markers";
+import SelectImage from "./select-image";
 
-import type {PreferredPopoverDirection} from "./label-image-editor/behavior";
+import type {PreferredPopoverDirection} from "./behavior";
 import type {
     PerseusLabelImageWidgetOptions,
     LabelImageDefaultWidgetOptions,
