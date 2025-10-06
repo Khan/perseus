@@ -3,12 +3,12 @@
  */
 
 import {bodyXsmallBold} from "@khanacademy/perseus";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Checkbox from "../../components/checkbox";
 import {gray17} from "../../styles/global-colors";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
 
 export type PreferredPopoverDirection =
     | "NONE"
