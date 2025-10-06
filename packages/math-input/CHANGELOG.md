@@ -1,5 +1,27 @@
 # @khanacademy/math-input
 
+## 26.2.11
+
+### Patch Changes
+
+-   Updated dependencies [[`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6)]:
+    -   @khanacademy/perseus-core@19.5.0
+    -   @khanacademy/keypad-context@3.2.10
+
+## 26.2.10
+
+### Patch Changes
+
+-   [#2937](https://github.com/Khan/perseus/pull/2937) [`e8bcb1b1ef`](https://github.com/Khan/perseus/commit/e8bcb1b1efc96317fd8b55dc0ff563d704e44e0b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Addition of new keypad SVG for locales that use colons for the division symbol
+
+## 26.2.9
+
+### Patch Changes
+
+-   Updated dependencies [[`42c456d99e`](https://github.com/Khan/perseus/commit/42c456d99e0002589c088c721f09cbb26ea57b2c)]:
+    -   @khanacademy/perseus-core@19.4.0
+    -   @khanacademy/keypad-context@3.2.9
+
 ## 26.2.8
 
 ### Patch Changes

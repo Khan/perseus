@@ -1,3 +1,4 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
@@ -86,7 +87,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             countChoices = false,
             showSolutions = "none",
             choiceStates,
-            reviewModeRubric,
             questionCompleted,
             static: isStatic,
             apiOptions,
@@ -211,7 +211,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             // new objects with all fields set to the default values. Otherwise, we
             // should clone the old `choiceStates` objects, in preparation to
             // mutate them.
-            const newChoiceStates = choiceStates
+            const newChoiceStates: ChoiceState[] = choiceStates
                 ? choiceStates.map((state) => ({...state}))
                 : choices.map(() => ({
                       selected: false,
@@ -231,6 +231,29 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
 
             onChange({choiceStates: newChoiceStates});
             trackInteraction();
+            announceChoiceChange(newChoiceStates);
+        };
+
+        const announceChoiceChange = (
+            newCheckedState: ReadonlyArray<ChoiceState>,
+        ) => {
+            let screenReaderMessage = "";
+            const newCheckedCount = newCheckedState.reduce(
+                (count, choice) => count + (choice.selected ? 1 : 0),
+                0,
+            );
+
+            if (!props.multipleSelect) {
+                // Single-select choice only announces when it is de-selected
+                screenReaderMessage =
+                    newCheckedCount === 0 ? strings.notSelected : "";
+            } else {
+                // Multi-select choices have their count announced
+                screenReaderMessage = strings.choicesSelected({
+                    num: newCheckedCount,
+                });
+            }
+            announceMessage({message: screenReaderMessage});
         };
 
         /**
@@ -265,17 +288,11 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                     previouslyAnswered,
                 } = choiceStates[i];
 
-                // Get the reviewChoice from the rubric, if it exists.
-                const reviewChoice = reviewModeRubric?.choices[i];
-
                 return {
                     id: choice.id,
                     content: renderContent(content),
                     checked: selected,
-                    correct:
-                        choice.correct === undefined
-                            ? !!reviewChoice && !!reviewChoice.correct
-                            : choice.correct,
+                    correct: !!choice.correct,
                     disabled: readOnly,
                     hasRationale: !!choice.rationale,
                     rationale: renderContent(choice.rationale),

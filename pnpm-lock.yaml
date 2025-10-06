@@ -12,6 +12,9 @@ catalogs:
     '@khanacademy/wonder-blocks-accordion':
       specifier: 3.1.41
       version: 3.1.41
+    '@khanacademy/wonder-blocks-announcer':
+      specifier: 1.0.3
+      version: 1.0.3
     '@khanacademy/wonder-blocks-banner':
       specifier: 4.5.1
       version: 4.5.1
@@ -201,6 +204,9 @@ importers:
       '@khanacademy/wonder-blocks-theming':
         specifier: catalog:devDeps
         version: 4.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-timing':
+        specifier: catalog:devDeps
+        version: 7.0.2(react@18.2.0)
       '@khanacademy/wonder-blocks-tokens':
         specifier: catalog:devDeps
         version: 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -752,6 +758,9 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
     devDependencies:
+      '@khanacademy/wonder-blocks-announcer':
+        specifier: catalog:devDeps
+        version: 1.0.3(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-banner':
         specifier: catalog:devDeps
         version: 4.5.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
@@ -803,6 +812,9 @@ importers:
       '@khanacademy/wonder-blocks-switch':
         specifier: catalog:devDeps
         version: 3.3.19(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-timing':
+        specifier: catalog:devDeps
+        version: 7.0.2(react@18.2.0)
       '@khanacademy/wonder-blocks-tokens':
         specifier: catalog:devDeps
         version: 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)

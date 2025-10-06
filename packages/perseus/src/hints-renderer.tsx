@@ -20,7 +20,7 @@ import sharedStyles from "./styles/shared";
 import Util from "./util";
 
 import type Renderer from "./renderer";
-import type {APIOptionsWithDefaults} from "./types";
+import type {APIOptionsWithDefaults, PerseusDependenciesV2} from "./types";
 import type {Hint} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -28,6 +28,7 @@ type Props = PropsFor<typeof Renderer> & {
     className?: string;
     hints: ReadonlyArray<Hint>;
     hintsVisible?: number;
+    dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = {
@@ -155,6 +156,7 @@ class HintsRenderer extends React.Component<Props, State> {
 
             const renderer = (
                 <HintRenderer
+                    dependencies={this.props.dependencies}
                     lastHint={lastHint}
                     lastRendered={lastRendered}
                     hint={hint}

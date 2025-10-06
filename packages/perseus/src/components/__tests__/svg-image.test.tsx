@@ -1,6 +1,7 @@
 import {act, render} from "@testing-library/react";
 import * as React from "react";
 
+import {mockImageLoading} from "../../../../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
@@ -10,27 +11,12 @@ import {typicalCase} from "../../util/graphie-utils.testdata";
 import SvgImage from "../svg-image";
 
 describe("SvgImage", () => {
-    const images: Array<Record<any, any>> = [];
-    let originalImage;
+    let unmockImageLoading: () => void;
 
     beforeEach(() => {
         jest.clearAllMocks();
-        originalImage = window.Image;
-        // Mock HTML Image so we can trigger onLoad callbacks and see full
-        // image rendering.
-        // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
-        window.Image = jest.fn(() => {
-            const img: Record<string, any> = {};
-            images.push(img);
-            return img;
-        });
 
-        global.fetch = jest.fn((url) => {
-            return Promise.resolve({
-                text: () => Promise.resolve(typicalCase.jsonpString),
-                ok: true,
-            });
-        }) as jest.Mock;
+        unmockImageLoading = mockImageLoading();
 
         jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
             ...testDependenciesV2,
@@ -38,24 +24,9 @@ describe("SvgImage", () => {
     });
 
     afterEach(() => {
-        window.Image = originalImage;
+        unmockImageLoading();
     });
 
-    // Tells the image loader 1, or all, of our images loaded
-    const markImagesAsLoaded = (imageIndex?: number) => {
-        if (imageIndex != null) {
-            const img = images[imageIndex];
-            if (img?.onload) {
-                act(() => img.onload());
-            }
-        } else {
-            images.forEach((i) => {
-                if (i?.onload) {
-                    act(() => i.onload());
-                }
-            });
-        }
-    };
     it("should render a spinner initially", () => {
         // Arrange
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -86,7 +57,9 @@ describe("SvgImage", () => {
             <SvgImage src="http://localhost/sample.png" alt="png image" />,
         );
 
-        markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(container).toMatchSnapshot();
@@ -103,7 +76,9 @@ describe("SvgImage", () => {
             <SvgImage src={typicalCase.url} alt="svg image" />,
         );
 
-        markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(container).toMatchSnapshot();
@@ -121,7 +96,9 @@ describe("SvgImage", () => {
             <SvgImage src={typicalCase.url} alt="svg image" />,
         );
 
-        markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(container).toMatchSnapshot();
@@ -139,7 +116,9 @@ describe("SvgImage", () => {
         // Act
         render(<SvgImage src="http://localhost/sample.png" alt="png image" />);
 
-        markImagesAsLoaded();
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         // eslint-disable-next-line testing-library/no-node-access

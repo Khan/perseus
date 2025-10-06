@@ -23,7 +23,7 @@ type Story = StoryObj<typeof RadioQuestionRenderer>;
  */
 
 export default {
-    title: "Widgets/RadioNew/Visual Regression Tests/Static",
+    title: "Widgets/RadioNew/Visual Regression Tests/Initial State",
     component: RadioQuestionRenderer,
     tags: ["!dev"],
     parameters: {
@@ -84,8 +84,10 @@ export const SingleSelectShowSolutions: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2")
+                .addChoice("Choice 1")
+                // Leaving the correct choice in the second position to test that
+                //     the first choice still has a top border.
+                .addChoice("Choice 2", {correct: true})
                 .addChoice("Choice 3")
                 .addChoice("Choice 4")
                 .build(),
@@ -114,6 +116,15 @@ export const SingleSelectWithPassageRef: Story = {
         item: generateTestPerseusItem({
             question: questionWithPassage,
         }),
+    },
+};
+
+export const SingleSelectWithRationale = {
+    args: {
+        item: generateTestPerseusItem({
+            question: questionWithPassage,
+        }),
+        showSolutions: "all",
     },
 };
 
@@ -245,8 +256,11 @@ export const MultiSelectShowSolutions: Story = {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
                 .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2", {correct: true})
-                .addChoice("Choice 3")
+                // Tests that borders between separate correct answers are hidden properly
+                .addChoice("Choice 2")
+                .addChoice("Choice 3", {correct: true})
+                // Leaving the last choice as not correct to test that there is still a bottom border
+                // (i.e. the removal of the border only affects the top of the choice, not the whole choice.)
                 .addChoice("Choice 4")
                 .withMultipleSelect(true)
                 .build(),

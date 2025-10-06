@@ -22,6 +22,7 @@
         var(--wb-semanticColor-core-background-base-default)
     ); /* Accounts for theme color, unless a background color is specified (i.e. from Graded Group Set) */
 
+    box-sizing: border-box; /* Added here to ensure proper sizing in the editor preview */
     min-width: auto; /* Needed for scrollable view to work */
     padding-inline-end: var(--perseus-multiple-choice-spacing);
     /* The following transform will cause a new reference layer for its descendants,
@@ -83,7 +84,7 @@
 .content {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--perseus-multiple-choice-indicator-font-size) / 4);
+    gap: var(--wb-sizing-size_080);
     margin-inline-start: var(--perseus-multiple-choice-content-margin);
     position: relative; /* Needed to enable the z-index to work */
     z-index: -1; /* Ensures that the content is below the indicator and scroll fade */
