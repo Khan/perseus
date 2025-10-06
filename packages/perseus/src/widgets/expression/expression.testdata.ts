@@ -1,13 +1,14 @@
 import {
-    type PerseusExpressionWidgetOptions,
-    type PerseusItem,
     expressionLogic,
     getDefaultAnswerArea,
+    type PerseusExpressionWidgetOptions,
+    type PerseusItem,
 } from "@khanacademy/perseus-core";
 
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,
     widgetVersion = expressionLogic.version,
+    static_ = false,
 ): PerseusItem => {
     return {
         question: {
@@ -19,6 +20,7 @@ const createItemJson = (
                     graded: true,
                     options: widgetOptions,
                     version: widgetVersion,
+                    static: static_,
                 },
             },
         },
@@ -129,3 +131,23 @@ export const expressionItem4: PerseusItem = createItemJson({
     buttonsVisible: "always",
     extraKeys: ["x"],
 });
+
+export const expressionItemStatic: PerseusItem = createItemJson(
+    {
+        answerForms: [
+            {
+                considered: "correct",
+                form: false,
+                simplify: false,
+                value: "5/8",
+            },
+        ],
+        times: true,
+        buttonSets: ["basic+div"],
+        functions: ["f", "g", "h"],
+        buttonsVisible: "always",
+        extraKeys: ["x"],
+    },
+    undefined,
+    true,
+);

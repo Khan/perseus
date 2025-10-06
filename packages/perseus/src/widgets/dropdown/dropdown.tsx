@@ -1,20 +1,19 @@
+import type {
+    PerseusDropdownUserInput,
+    PerseusDropdownWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
-import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactDOM from "react-dom";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
-import type {
-    PerseusDropdownWidgetOptions,
-    PerseusDropdownUserInput,
-} from "@khanacademy/perseus-core";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
 type Props = WidgetProps<
     PerseusDropdownWidgetOptions,
@@ -167,7 +166,7 @@ function getStartUserInput(): PerseusDropdownUserInput {
 function getCorrectUserInput(
     options: PerseusDropdownWidgetOptions,
 ): PerseusDropdownUserInput {
-    return {value: options.choices.findIndex((c) => c.correct)};
+    return {value: options.choices.findIndex((c) => c.correct) + 1};
 }
 
 export default {

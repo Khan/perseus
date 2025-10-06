@@ -1,14 +1,13 @@
-import * as React from "react";
-
+import type {Meta, StoryObj} from "@storybook/react-vite";
+import type * as React from "react";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import expressionExport from "../expression";
 import {
     expressionItem2,
     expressionItem3,
     expressionItem4,
+    expressionItemStatic,
 } from "../expression.testdata";
-
-import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Expression",
@@ -88,5 +87,11 @@ export const AnswerlessExpression: Story = {
     args: {
         item: expressionItem3,
         startAnswerless: true,
+    },
+};
+
+export const StaticExpression: Story = {
+    args: {
+        item: expressionItemStatic,
     },
 };
