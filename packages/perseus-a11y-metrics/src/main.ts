@@ -5,35 +5,14 @@ import {isItemAccessible} from "@khanacademy/perseus-core";
 import {GcsContentRepository} from "./gcs-content-repository";
 import {getPublishedContentVersion} from "./content-version";
 import {ContentRepository} from "./content-types";
+import {compileStats} from "./compile-stats";
 
 async function main() {
     const locale = "en";
     const contentVersion = await getPublishedContentVersion(locale);
     const contentRepo: ContentRepository = new GcsContentRepository({contentVersion, locale});
 
-    const a11yStats = {
-        full: 0,
-        limited: 0,
-        inaccessible: 0,
-    };
-
-    const exercises = await contentRepo.getExercises();
-    for (const exercise of exercises) {
-        const items = await contentRepo.getAssessmentItems(exercise.id);
-        const accessibleItems = items.filter(
-            (item) =>
-                !item.isContextInaccessible &&
-                isItemAccessible(item.perseusItem),
-        );
-
-        if (accessibleItems.length === items.length) {
-            a11yStats.full++;
-        } else if (accessibleItems.length >= exercise.exerciseLength) {
-            a11yStats.limited++;
-        } else {
-            a11yStats.inaccessible++;
-        }
-    }
+    const a11yStats = await compileStats(contentRepo);
 
     // eslint-disable-next-line no-console
     console.log(
@@ -44,7 +23,7 @@ async function main() {
             `limited:      ${a11yStats.limited} exercises`,
             `inaccessible: ${a11yStats.inaccessible} exercises`,
             `-----------------------------`,
-            `total: ${exercises.length} exercises`,
+            `total: ${a11yStats.total} exercises`,
         ].join("\n"),
     );
 }
