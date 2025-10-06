@@ -1,5 +1,3 @@
-import type {Meta, StoryObj} from "@storybook/react-vite";
-import type * as React from "react";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import expressionExport from "../expression";
 import {
@@ -8,6 +6,9 @@ import {
     expressionItem4,
     expressionItemStatic,
 } from "../expression.testdata";
+
+import type {Meta, StoryObj} from "@storybook/react-vite";
+import type * as React from "react";
 
 const meta: Meta = {
     title: "Widgets/Expression",
