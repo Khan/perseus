@@ -88,15 +88,20 @@ export async function convertImageMarkdownToImageWidget(
     });
 }
 
-export function getAllCtasMap(
+export function getCtaForIssueId(
+    issueId: string,
     question: PerseusRenderer,
     onEditorChange: (newProps: any) => void,
-): Record<string, IssueCta> {
-    return {
-        "image-markdown": {
-            label: "Convert all image markdown to image widget",
-            onClick: () =>
-                convertImageMarkdownToImageWidget(question, onEditorChange),
-        },
-    };
+): IssueCta | null {
+    switch (issueId) {
+        case "image-markdown":
+            return {
+                label: "Convert all image markdown to widget",
+                onClick: () =>
+                    convertImageMarkdownToImageWidget(question, onEditorChange),
+            };
+        // Add more cases here as we develop more CTAs for issues.
+        default:
+            return null;
+    }
 }

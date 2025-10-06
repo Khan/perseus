@@ -4,14 +4,19 @@ import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import PerseusEditorAccordion from "./components/perseus-editor-accordion";
+import IssueCta from "./issue-cta";
 
 import type {Issue} from "./issues-panel";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 type IssueProps = {
     issue: Issue;
+    question?: PerseusRenderer;
+    onEditorChange: (newProps: any) => void;
+    cta?: React.ReactNode;
 };
 
-const IssueDetails = ({issue}: IssueProps) => {
+const IssueDetails = ({issue, question, onEditorChange}: IssueProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const toggleVisibility = () => setExpanded(!expanded);
 
@@ -48,6 +53,11 @@ const IssueDetails = ({issue}: IssueProps) => {
                 Issue:
             </LabelSmall>
             <span>{issue.message}</span>
+            <IssueCta
+                issue={issue}
+                question={question}
+                onEditorChange={onEditorChange}
+            />
         </PerseusEditorAccordion>
     );
 };

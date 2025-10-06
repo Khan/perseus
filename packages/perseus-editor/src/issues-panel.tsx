@@ -7,7 +7,6 @@ import * as React from "react";
 import {useState} from "react";
 
 import ToggleableCaret from "./components/toggleable-caret";
-import IssueCtas from "./issue-ctas";
 import IssueDetails from "./issue-details";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -78,13 +77,13 @@ const IssuesPanel = ({
             {showPanel && (
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
-                        <IssueCtas
-                            issues={issues}
-                            question={question}
-                            onEditorChange={onEditorChange}
-                        />
                         {issues.map((issue) => (
-                            <IssueDetails key={issue.id} issue={issue} />
+                            <IssueDetails
+                                key={issue.id}
+                                issue={issue}
+                                question={question}
+                                onEditorChange={onEditorChange}
+                            />
                         ))}
                     </div>
                 </div>
