@@ -15,9 +15,7 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "files": [
-        "dist"
-    ],
+    "exports": {},
     "scripts": {
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
