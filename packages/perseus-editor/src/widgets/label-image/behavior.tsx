@@ -8,6 +8,7 @@ import * as React from "react";
 
 import Checkbox from "../../components/checkbox";
 import {gray17} from "../../styles/global-colors";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 
 export type PreferredPopoverDirection =
     | "NONE"
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
     },
 
     selectLabel: {
-        marginRight: 8,
+        marginRight: sizing.size_080,
     },
 });
 
