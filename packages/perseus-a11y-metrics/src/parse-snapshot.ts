@@ -1,5 +1,13 @@
 import {array, boolean, number, object, string, type Infer} from "zod";
 
+export type Snapshot = Infer<typeof SnapshotSchema>;
+
+export function parseSnapshot(rawData: unknown): Snapshot {
+    return SnapshotSchema.parse(
+        typeof rawData === "string" ? JSON.parse(rawData) : rawData,
+    );
+}
+
 const ItemSchema = object({
     id: string(),
     isContextInaccessible: boolean(),
@@ -21,13 +29,3 @@ const ExerciseSchema = object({
 const SnapshotSchema = object({
     exercises: array(ExerciseSchema),
 });
-
-export type Exercise = Infer<typeof ExerciseSchema>;
-
-export type Snapshot = Infer<typeof SnapshotSchema>;
-
-export function parseSnapshot(rawData: unknown): Snapshot {
-    return SnapshotSchema.parse(
-        typeof rawData === "string" ? JSON.parse(rawData) : rawData,
-    );
-}

@@ -3,13 +3,13 @@ import {join} from "path";
 
 import _ from "underscore";
 
-import {ContentRepository} from "./content-repository";
+import {GcsContentRepository} from "./gcs-content-repository";
 import {gcloudStorage} from "./gcloud-storage";
 
-describe("ContentRepository.getExercises()", () => {
+describe("GcsContentRepository.getExercises()", () => {
     it("lists the exercises appearing in the latest snapshot file on GCS", async () => {
         // Arrange:
-        const contentRepository = new ContentRepository({
+        const contentRepository = new GcsContentRepository({
             contentVersion: "abc123",
             locale: "lol",
             cacheDirectory: join(
@@ -63,7 +63,7 @@ describe("ContentRepository.getExercises()", () => {
 
     it("returns consistent results if called multiple times", async () => {
         // Arrange:
-        const contentRepository = new ContentRepository({
+        const contentRepository = new GcsContentRepository({
             contentVersion: "abc123",
             locale: "lol",
             cacheDirectory: join(
@@ -111,7 +111,7 @@ describe("ContentRepository.getExercises()", () => {
 
     it("uses the local filesystem cache if called multiple times", async () => {
         // Arrange:
-        const contentRepository = new ContentRepository({
+        const contentRepository = new GcsContentRepository({
             contentVersion: "abc123",
             locale: "lol",
             cacheDirectory: join(
@@ -161,7 +161,7 @@ describe("ContentRepository.getExercises()", () => {
 describe("ContentRepository.getAssessmentItems()", () => {
     it("gets the assessment items for an exercise", async () => {
         // Arrange:
-        const contentRepository = new ContentRepository({
+        const contentRepository = new GcsContentRepository({
             contentVersion: "theVersion",
             locale: "lol",
             cacheDirectory: join(

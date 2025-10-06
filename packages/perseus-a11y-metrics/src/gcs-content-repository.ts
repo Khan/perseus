@@ -8,35 +8,30 @@ import {command} from "./command";
 import {gcloudStorage} from "./gcloud-storage";
 import {parseSnapshot} from "./parse-snapshot";
 
-import type {Exercise, Snapshot} from "./parse-snapshot";
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {Snapshot} from "./parse-snapshot";
+import {Exercise, AssessmentItem, ContentRepository} from "./content-types";
 
-export interface ContentRepositoryOptions {
+export interface GcsContentRepositoryOptions {
     contentVersion: string;
     locale: string;
     /**
-     * A directory in which to cache data downloaded from Google Cloud
-     * Storage. Will be defaulted if not provided. The ContentRepository will
-     * create the directory if it doesn't yet exist.
+     * A directory in which to cache data. Will be defaulted if not provided.
+     * The content repository will create the directory if it doesn't yet
+     * exist.
      */
     cacheDirectory?: string;
 }
 
-export interface AssessmentItem {
-    isContextInaccessible: boolean;
-    perseusItem: PerseusItem;
-}
-
 /**
- * The ContentRepository provides content data to the rest of the program.
+ * The GcsContentRepository provides content data to the rest of the program.
  * It knows where to find the data on Google Cloud Storage, and it keeps
  * track of a local copy of the data on disk. Requests to read data from the
  * repository will download the data if it's not yet stored locally.
  */
-export class ContentRepository {
+export class GcsContentRepository implements ContentRepository {
     private snapshotCache?: Snapshot;
     private mapOfIdsToExercisesCache?: Record<string, Exercise>;
-    constructor(private options: ContentRepositoryOptions) {}
+    constructor(private options: GcsContentRepositoryOptions) {}
 
     async getExercises(): Promise<Exercise[]> {
         const snapshot = await this.getSnapshot();
