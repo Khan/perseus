@@ -1,4 +1,21 @@
 import {KeypadInput} from "@khanacademy/math-input";
+import {expressionLogic} from "@khanacademy/perseus-core";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {css, StyleSheet} from "aphrodite";
+import * as React from "react";
+import ReactDOM from "react-dom";
+
+import {PerseusI18nContext} from "../../components/i18n-context";
+import MathInput from "../../components/math-input";
+import {useDependencies} from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
+
+import type {DependenciesContext} from "../../dependencies";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
     KeypadConfiguration,
     KeypadKey,
@@ -6,22 +23,7 @@ import type {
     PerseusExpressionUserInput,
     PerseusExpressionWidgetOptions,
 } from "@khanacademy/perseus-core";
-import {expressionLogic} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import {View} from "@khanacademy/wonder-blocks-core";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
-import {css, StyleSheet} from "aphrodite";
-import * as React from "react";
-import ReactDOM from "react-dom";
-import {PerseusI18nContext} from "../../components/i18n-context";
-import MathInput from "../../components/math-input";
-import type {DependenciesContext} from "../../dependencies";
-import {useDependencies} from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 type InputPath = ReadonlyArray<string>;
 
