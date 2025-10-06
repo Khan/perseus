@@ -43,11 +43,6 @@ export class ContentRepository {
         return snapshot.exercises;
     }
 
-    async getExerciseById(id: string): Promise<Exercise | undefined> {
-        const map = await this.getMapOfIdsToExercises();
-        return map[id];
-    }
-
     async getAssessmentItems(exerciseId: string): Promise<AssessmentItem[]> {
         const exercise = await this.getExerciseById(exerciseId);
         if (exercise == null) {
@@ -84,7 +79,12 @@ export class ContentRepository {
         });
     }
 
-    async getSnapshot(): Promise<Snapshot> {
+    private async getExerciseById(id: string): Promise<Exercise | undefined> {
+        const map = await this.getMapOfIdsToExercises();
+        return map[id];
+    }
+
+    private async getSnapshot(): Promise<Snapshot> {
         this.snapshotCache ??= parseSnapshot(await this.getSnapshotJson());
         return this.snapshotCache;
     }
