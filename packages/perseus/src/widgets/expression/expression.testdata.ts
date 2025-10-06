@@ -7,7 +7,6 @@ import {
 
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,
-    widgetVersion = expressionLogic.version,
     static_ = false,
 ): PerseusItem => {
     return {
@@ -19,7 +18,7 @@ const createItemJson = (
                     type: "expression",
                     graded: true,
                     options: widgetOptions,
-                    version: widgetVersion,
+                    version: expressionLogic.version,
                     static: static_,
                 },
             },
@@ -132,7 +131,7 @@ export const expressionItem4: PerseusItem = createItemJson({
     extraKeys: ["x"],
 });
 
-export const expressionItemStatic: PerseusItem = createItemJson(
+export const expressionItem4Static: PerseusItem = createItemJson(
     {
         answerForms: [
             {
@@ -148,6 +147,5 @@ export const expressionItemStatic: PerseusItem = createItemJson(
         buttonsVisible: "always",
         extraKeys: ["x"],
     },
-    undefined,
     true,
 );

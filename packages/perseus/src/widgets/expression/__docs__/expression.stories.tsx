@@ -1,14 +1,15 @@
+import * as React from "react";
+
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import expressionExport from "../expression";
 import {
     expressionItem2,
     expressionItem3,
     expressionItem4,
-    expressionItemStatic,
+    expressionItem4Static,
 } from "../expression.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
-import type * as React from "react";
 
 const meta: Meta = {
     title: "Widgets/Expression",
@@ -38,6 +39,7 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
                 alignment={null}
                 visibleLabel=""
                 ariaLabel=""
+                isLastUsedWidget
                 containerSizeClass="small"
                 findWidgets={(callback) => []}
                 problemNum={1}
@@ -92,6 +94,28 @@ export const AnswerlessExpression: Story = {
 
 export const StaticExpression: Story = {
     args: {
-        item: expressionItemStatic,
+        item: expressionItem4Static,
     },
+};
+
+/** This story shows how the expression widget looks when the keypad is
+ * configured with _every_ option it supports.  */
+// TODO: use a Renderer wrapper rather than rendering this directly
+export const ShowAnswerButton = (): React.ReactElement => {
+    const [showAnswer, setShowAnswer] = React.useState(true);
+    return (
+        <div style={{padding: "2rem"}}>
+            <label>
+                <input
+                    type="checkbox"
+                    checked={showAnswer}
+                    onChange={() => setShowAnswer(!showAnswer)}
+                />
+                Show answer
+            </label>
+            <ServerItemRendererWithDebugUI
+                item={showAnswer ? expressionItem4Static : expressionItem4}
+            />
+        </div>
+    );
 };
