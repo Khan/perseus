@@ -2,4 +2,5 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Rollback popover direction removal from label image editor and fix bug
+Add popover direction selector back to label image editor to still allow content authors to add popover direction
+preference; also fix a bug where their selection did not persist in the editor.
