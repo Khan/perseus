@@ -105,6 +105,7 @@ export type PerseusDropdownRubric = {
 };
 
 export type PerseusDropdownUserInput = {
+    // 1-indexed selection
     value: number;
 };
 
