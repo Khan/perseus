@@ -2,6 +2,8 @@ import {array, boolean, number, object, string, type Infer} from "zod";
 
 export type Snapshot = Infer<typeof SnapshotSchema>;
 
+export type ExerciseData = Infer<typeof ExerciseSchema>;
+
 export function parseSnapshot(rawData: unknown): Snapshot {
     return SnapshotSchema.parse(
         typeof rawData === "string" ? JSON.parse(rawData) : rawData,

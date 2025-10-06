@@ -2,14 +2,14 @@
 
 import {isItemAccessible} from "@khanacademy/perseus-core";
 
-import {ContentRepository} from "./content-repository";
+import {GcsContentRepository} from "./gcs-content-repository";
 import {getPublishedContentVersion} from "./content-version";
+import {ContentRepository} from "./content-types";
 
 async function main() {
     const locale = "en";
     const contentVersion = await getPublishedContentVersion(locale);
-
-    const contentRepo = new ContentRepository({contentVersion, locale});
+    const contentRepo: ContentRepository = new GcsContentRepository({contentVersion, locale});
 
     const a11yStats = {
         full: 0,

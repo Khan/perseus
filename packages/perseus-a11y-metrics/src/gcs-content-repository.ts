@@ -6,10 +6,10 @@ import {array, object, string, unknown} from "zod";
 
 import {command} from "./command";
 import {gcloudStorage} from "./gcloud-storage";
-import {parseSnapshot} from "./parse-snapshot";
+import {ExerciseData, parseSnapshot} from "./parse-snapshot";
 
 import type {Snapshot} from "./parse-snapshot";
-import {Exercise, AssessmentItem, ContentRepository} from "./content-types";
+import {AssessmentItem, ContentRepository} from "./content-types";
 
 export interface GcsContentRepositoryOptions {
     contentVersion: string;
@@ -30,10 +30,10 @@ export interface GcsContentRepositoryOptions {
  */
 export class GcsContentRepository implements ContentRepository {
     private snapshotCache?: Snapshot;
-    private mapOfIdsToExercisesCache?: Record<string, Exercise>;
+    private mapOfIdsToExercisesCache?: Record<string, ExerciseData>;
     constructor(private options: GcsContentRepositoryOptions) {}
 
-    async getExercises(): Promise<Exercise[]> {
+    async getExercises(): Promise<ExerciseData[]> {
         const snapshot = await this.getSnapshot();
         return snapshot.exercises;
     }
@@ -74,7 +74,7 @@ export class GcsContentRepository implements ContentRepository {
         });
     }
 
-    private async getExerciseById(id: string): Promise<Exercise | undefined> {
+    private async getExerciseById(id: string): Promise<ExerciseData | undefined> {
         const map = await this.getMapOfIdsToExercises();
         return map[id];
     }
@@ -84,7 +84,7 @@ export class GcsContentRepository implements ContentRepository {
         return this.snapshotCache;
     }
 
-    private async getMapOfIdsToExercises(): Promise<Record<string, Exercise>> {
+    private async getMapOfIdsToExercises(): Promise<Record<string, ExerciseData>> {
         if (this.mapOfIdsToExercisesCache == null) {
             this.mapOfIdsToExercisesCache = {};
             for (const exercise of await this.getExercises()) {
