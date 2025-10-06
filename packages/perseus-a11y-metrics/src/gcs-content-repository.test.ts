@@ -3,8 +3,8 @@ import {join} from "path";
 
 import _ from "underscore";
 
-import {GcsContentRepository} from "./gcs-content-repository";
 import {gcloudStorage} from "./gcloud-storage";
+import {GcsContentRepository} from "./gcs-content-repository";
 
 describe("GcsContentRepository.getExercises()", () => {
     it("lists the exercises appearing in the latest snapshot file on GCS", async () => {
@@ -25,6 +25,7 @@ describe("GcsContentRepository.getExercises()", () => {
                 {
                     id: "exercise-1",
                     exerciseLength: 7,
+                    problemTypes: [],
                     translatedPerseusContentSha:
                         "the-translated-perseus-content-sha",
                 },
@@ -55,6 +56,7 @@ describe("GcsContentRepository.getExercises()", () => {
             {
                 id: "exercise-1",
                 exerciseLength: 7,
+                problemTypes: [],
                 translatedPerseusContentSha:
                     "the-translated-perseus-content-sha",
             },
@@ -79,6 +81,7 @@ describe("GcsContentRepository.getExercises()", () => {
                 {
                     id: "exercise-1",
                     exerciseLength: 7,
+                    problemTypes: [],
                     translatedPerseusContentSha:
                         "the-translated-perseus-content-sha",
                 },
@@ -127,6 +130,7 @@ describe("GcsContentRepository.getExercises()", () => {
                 {
                     id: "exercise-1",
                     exerciseLength: 7,
+                    problemTypes: [],
                     translatedPerseusContentSha:
                         "the-translated-perseus-content-sha",
                 },

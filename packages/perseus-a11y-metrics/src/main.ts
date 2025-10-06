@@ -1,16 +1,18 @@
 #!/usr/bin/env -S node -r @swc-node/register
 
-import {isItemAccessible} from "@khanacademy/perseus-core";
-
-import {GcsContentRepository} from "./gcs-content-repository";
-import {getPublishedContentVersion} from "./content-version";
-import {ContentRepository} from "./content-types";
 import {compileStats} from "./compile-stats";
+import {getPublishedContentVersion} from "./content-version";
+import {GcsContentRepository} from "./gcs-content-repository";
+
+import type {ContentRepository} from "./content-types";
 
 async function main() {
     const locale = "en";
     const contentVersion = await getPublishedContentVersion(locale);
-    const contentRepo: ContentRepository = new GcsContentRepository({contentVersion, locale});
+    const contentRepo: ContentRepository = new GcsContentRepository({
+        contentVersion,
+        locale,
+    });
 
     const a11yStats = await compileStats(contentRepo);
 

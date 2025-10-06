@@ -6,10 +6,10 @@ import {array, object, string, unknown} from "zod";
 
 import {command} from "./command";
 import {gcloudStorage} from "./gcloud-storage";
-import {ExerciseData, parseSnapshot} from "./parse-snapshot";
+import {parseSnapshot} from "./parse-snapshot";
 
-import type {Snapshot} from "./parse-snapshot";
-import {AssessmentItem, ContentRepository} from "./content-types";
+import type {AssessmentItem, ContentRepository} from "./content-types";
+import type {Snapshot, ExerciseData} from "./parse-snapshot";
 
 export interface GcsContentRepositoryOptions {
     contentVersion: string;
@@ -74,7 +74,9 @@ export class GcsContentRepository implements ContentRepository {
         });
     }
 
-    private async getExerciseById(id: string): Promise<ExerciseData | undefined> {
+    private async getExerciseById(
+        id: string,
+    ): Promise<ExerciseData | undefined> {
         const map = await this.getMapOfIdsToExercises();
         return map[id];
     }
@@ -84,7 +86,9 @@ export class GcsContentRepository implements ContentRepository {
         return this.snapshotCache;
     }
 
-    private async getMapOfIdsToExercises(): Promise<Record<string, ExerciseData>> {
+    private async getMapOfIdsToExercises(): Promise<
+        Record<string, ExerciseData>
+    > {
         if (this.mapOfIdsToExercisesCache == null) {
             this.mapOfIdsToExercisesCache = {};
             for (const exercise of await this.getExercises()) {

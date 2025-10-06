@@ -1,5 +1,6 @@
-import {ContentRepository} from "./content-types";
 import {isItemAccessible} from "@khanacademy/perseus-core";
+
+import type {ContentRepository} from "./content-types";
 
 export interface A11yStats {
     /**
@@ -23,7 +24,9 @@ export interface A11yStats {
     total: number;
 }
 
-export async function compileStats(contentRepo: ContentRepository): Promise<A11yStats> {
+export async function compileStats(
+    contentRepo: ContentRepository,
+): Promise<A11yStats> {
     const a11yStats = {
         full: 0,
         limited: 0,
@@ -40,7 +43,7 @@ export async function compileStats(contentRepo: ContentRepository): Promise<A11y
                 isItemAccessible(item.perseusItem),
         );
 
-        a11yStats.total++
+        a11yStats.total++;
 
         if (accessibleItems.length === items.length) {
             a11yStats.full++;
@@ -51,5 +54,5 @@ export async function compileStats(contentRepo: ContentRepository): Promise<A11y
         }
     }
 
-    return a11yStats
+    return a11yStats;
 }
