@@ -4,6 +4,7 @@ import {
     createBaseExercise,
     createBaseLesson,
     createBaseUnit,
+    createEmptyContentRepo,
 } from "./content-mocks";
 import {getDculPaths} from "./dcul";
 
@@ -15,17 +16,6 @@ import type {
     Lesson,
     Unit,
 } from "./content-types";
-
-function createEmptyContentRepo(): ContentRepository {
-    return {
-        getAssessmentItems: async () => [],
-        getExercises: async () => [],
-        getDomainById: async () => undefined,
-        getCourseById: async () => undefined,
-        getUnitById: async () => undefined,
-        getLessonById: async () => undefined,
-    };
-}
 
 describe("getDculPaths", () => {
     it("returns no paths when there are no curation nodes", async () => {
