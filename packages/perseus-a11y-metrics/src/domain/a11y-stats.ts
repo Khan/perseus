@@ -29,8 +29,8 @@ export interface A11yStats {
      * places on the site, it will be listed multiple times -- once for each
      * place where it appears.
      *
-     * Unlisted paths, i.e. those that are not learner-visible, are not
-     * included in this list.
+     * Unlisted paths, i.e. those that are not learner-visible, are excluded
+     * from this list.
      *
      * This means that to find out e.g. what fraction of exercises in the
      * `math` domain are accessible, you can do something like this:
