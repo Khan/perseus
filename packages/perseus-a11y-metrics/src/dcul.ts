@@ -1,5 +1,11 @@
 import type {ContentRepository, Exercise} from "./content-types";
 
+/**
+ * Represents the path to an exercise within our content hierarchy.
+ *
+ * DCUL stands for "domain, course, unit, lesson". All our content is
+ * organized into this four-level hierarchical structure.
+ */
 export interface DculPath {
     /**
      * The domain slug.
@@ -19,6 +25,13 @@ export interface DculPath {
     lesson: string;
 }
 
+/**
+ * Returns all the DCUL paths where the given exercise can be found.
+ *
+ * Note that the DCUL hierarchy is not a tree, but a directed acyclic graph. A
+ * lesson can be part of multiple units, a unit can be part of multiple
+ * courses, etc. That is why this function can return multiple paths.
+ */
 export async function getDculPaths(
     exercise: Exercise,
     contentRepo: ContentRepository,
