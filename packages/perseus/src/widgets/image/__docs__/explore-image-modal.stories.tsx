@@ -26,7 +26,7 @@ type Story = StoryObj<typeof ExploreImageModal>;
 export const LargeImage: Story = {
     args: {
         backgroundImage: frescoImage,
-        imageSize: {width: frescoImage.width, height: frescoImage.height},
+        zoomSize: {width: frescoImage.width, height: frescoImage.height},
         title: "*The Offer of the Casa Madre to Victory*, 1932",
         alt: "Fresco alt",
         caption:
@@ -40,7 +40,7 @@ export const LargeImage: Story = {
 export const LargeImageWithoutCaptionOrTitle: Story = {
     args: {
         backgroundImage: frescoImage,
-        imageSize: {width: frescoImage.width, height: frescoImage.height},
+        zoomSize: {width: frescoImage.width, height: frescoImage.height},
         alt: "Fresco alt",
         longDescription:
             "In the apse, or semicircular recess, The Offer of the Casa Madre to Victory (L’Offerta della Casa Madre alla Vittoria) fresco recalls medieval apse decorative schemes with Christ surrounded by saints to whom the Church is dedicated. Santagata replaced Mary with a triumphant and wingless figure representing Victory, and he replaced saints with sentries. The charismatic wounded veteran Carlo Delcroix, who became the AMNIG president, is depicted presenting a model of the Casa Madre to Victory (not unlike the medieval patron Enrico Scrovegni, who offered the Arena chapel he commissioned to the Virgin Mary).\n\nThis image has some stuff in it. *Here is some italic text.* **Here is some bold text.**",
@@ -51,7 +51,7 @@ export const LargeImageWithoutCaptionOrTitle: Story = {
 export const SmallImage: Story = {
     args: {
         backgroundImage: earthMoonImage,
-        imageSize: {width: earthMoonImage.width, height: earthMoonImage.height},
+        zoomSize: {width: earthMoonImage.width, height: earthMoonImage.height},
         longDescription:
             "This is a *very* long description of the earth and moon.",
         apiOptions: ApiOptions.defaults,
@@ -61,7 +61,7 @@ export const SmallImage: Story = {
 export const PortraitImage: Story = {
     args: {
         backgroundImage: monasteryImage,
-        imageSize: {width: monasteryImage.width, height: monasteryImage.height},
+        zoomSize: {width: monasteryImage.width, height: monasteryImage.height},
         caption:
             "Kalenić Monastery, after 1407, Serbia (photo: [Ванилица](https://commons.wikimedia.org/wiki/File:Wiki_%C5%A0umadija_XI_Kaleni%C4%87_Monastery_874.jpg), CC BY-SA 4.0)",
         title: "Kalenić Monastery",

@@ -30,13 +30,13 @@ export interface ImageDescriptionAndCaptionProps {
     range: [Interval, Interval];
     linterContext: LinterContextProps;
     apiOptions: APIOptions;
-    imageSize: ImageSize;
+    zoomSize: ImageSize;
 }
 
 export const ImageDescriptionAndCaption = (
     props: ImageDescriptionAndCaptionProps,
 ) => {
-    const {caption, longDescription, apiOptions, linterContext, imageSize} =
+    const {caption, longDescription, apiOptions, linterContext, zoomSize} =
         props;
 
     const context = React.useContext(PerseusI18nContext);
@@ -61,7 +61,7 @@ export const ImageDescriptionAndCaption = (
                 <figcaption
                     className="perseus-image-caption"
                     style={{
-                        maxWidth: imageSize.width,
+                        maxWidth: zoomSize.width,
                     }}
                 >
                     {/* The Renderer component is used here so that the caption

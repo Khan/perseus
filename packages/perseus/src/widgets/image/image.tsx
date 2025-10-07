@@ -131,7 +131,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {/* Description & Caption */}
             {(caption || (imageUpgradeFF && longDescription)) && (
                 <ImageDescriptionAndCaption
-                    imageSize={largerImageSize}
+                    zoomSize={largerImageSize}
                     {...props}
                 />
             )}
