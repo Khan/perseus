@@ -115,7 +115,7 @@ export class GcsContentRepository implements ContentRepository {
     private async readLocalSnapshotJsonWithJqFiltering(): Promise<string> {
         // The snapshot data is too large (600 MB) to fit into a NodeJS string.
         // The maximum size of a string is 512 MB. So we use `jq` to filter the
-        // data to just the exercises.
+        // data to just what we need.
         const path = this.getLocalSnapshotPath();
 
         const jqProgram = `
