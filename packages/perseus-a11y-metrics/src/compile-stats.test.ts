@@ -21,7 +21,9 @@ function createBlankPerseusItem(): PerseusItem {
 
 describe("compileStats", () => {
     it("considers an item fully accessible if it has accessible context and no widgets", async () => {
-        const exercises: Exercise[] = [{id: "exercise-1", exerciseLength: 1}];
+        const exercises: Exercise[] = [
+            {id: "exercise-1", exerciseLength: 1, listedAncestorIds: []},
+        ];
 
         const assessmentItems: AssessmentItem[] = [
             {
@@ -33,6 +35,10 @@ describe("compileStats", () => {
         const contentRepository: ContentRepository = {
             getExercises: async () => exercises,
             getAssessmentItems: async () => assessmentItems,
+            getDomainById: async () => undefined,
+            getCourseById: async () => undefined,
+            getUnitById: async () => undefined,
+            getLessonById: async () => undefined,
         };
 
         expect(await compileStats(contentRepository)).toEqual({

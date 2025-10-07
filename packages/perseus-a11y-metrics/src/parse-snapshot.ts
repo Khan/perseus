@@ -4,6 +4,12 @@ export type Snapshot = Infer<typeof SnapshotSchema>;
 
 export type ExerciseData = Infer<typeof ExerciseSchema>;
 
+export type DomainData = Infer<typeof DomainSchema>;
+
+export type IntermediateCurationNodeData = Infer<
+    typeof IntermediateCurationNodeSchema
+>;
+
 export function parseSnapshot(rawData: unknown): Snapshot {
     return SnapshotSchema.parse(
         typeof rawData === "string" ? JSON.parse(rawData) : rawData,

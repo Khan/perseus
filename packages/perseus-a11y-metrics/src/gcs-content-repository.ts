@@ -9,7 +9,12 @@ import {gcloudStorage} from "./gcloud-storage";
 import {parseSnapshot} from "./parse-snapshot";
 
 import type {AssessmentItem, ContentRepository} from "./content-types";
-import type {Snapshot, ExerciseData} from "./parse-snapshot";
+import type {
+    Snapshot,
+    ExerciseData,
+    IntermediateCurationNodeData,
+    DomainData,
+} from "./parse-snapshot";
 
 export interface GcsContentRepositoryOptions {
     contentVersion: string;
@@ -30,8 +35,44 @@ export interface GcsContentRepositoryOptions {
  */
 export class GcsContentRepository implements ContentRepository {
     private snapshotCache?: Snapshot;
+    private mapOfIdsToDomainsCache?: Record<string, DomainData>;
+    private mapOfIdsToCoursesCache?: Record<
+        string,
+        IntermediateCurationNodeData
+    >;
+    private mapOfIdsToUnitsCache?: Record<string, IntermediateCurationNodeData>;
+    private mapOfIdsToLessonsCache?: Record<
+        string,
+        IntermediateCurationNodeData
+    >;
     private mapOfIdsToExercisesCache?: Record<string, ExerciseData>;
     constructor(private options: GcsContentRepositoryOptions) {}
+
+    async getDomainById(id: string): Promise<DomainData | undefined> {
+        const map = await this.getMapOfIdsToDomains();
+        return map[id];
+    }
+
+    async getCourseById(
+        id: string,
+    ): Promise<IntermediateCurationNodeData | undefined> {
+        const map = await this.getMapOfIdsToCourses();
+        return map[id];
+    }
+
+    async getUnitById(
+        id: string,
+    ): Promise<IntermediateCurationNodeData | undefined> {
+        const map = await this.getMapOfIdsToUnits();
+        return map[id];
+    }
+
+    async getLessonById(
+        id: string,
+    ): Promise<IntermediateCurationNodeData | undefined> {
+        const map = await this.getMapOfIdsToLessons();
+        return map[id];
+    }
 
     async getExercises(): Promise<ExerciseData[]> {
         const snapshot = await this.getSnapshot();
@@ -86,6 +127,52 @@ export class GcsContentRepository implements ContentRepository {
         return this.snapshotCache;
     }
 
+    private async getMapOfIdsToDomains(): Promise<Record<string, DomainData>> {
+        if (this.mapOfIdsToDomainsCache == null) {
+            this.mapOfIdsToDomainsCache = {};
+            for (const domain of await this.getDomains()) {
+                this.mapOfIdsToDomainsCache[domain.id] = domain;
+            }
+        }
+        return this.mapOfIdsToDomainsCache;
+    }
+
+    private async getMapOfIdsToCourses(): Promise<
+        Record<string, IntermediateCurationNodeData>
+    > {
+        if (this.mapOfIdsToCoursesCache == null) {
+            this.mapOfIdsToCoursesCache = {};
+            for (const course of await this.getCourses()) {
+                this.mapOfIdsToCoursesCache[course.id] = course;
+            }
+        }
+        return this.mapOfIdsToCoursesCache;
+    }
+
+    private async getMapOfIdsToUnits(): Promise<
+        Record<string, IntermediateCurationNodeData>
+    > {
+        if (this.mapOfIdsToUnitsCache == null) {
+            this.mapOfIdsToUnitsCache = {};
+            for (const unit of await this.getUnits()) {
+                this.mapOfIdsToUnitsCache[unit.id] = unit;
+            }
+        }
+        return this.mapOfIdsToUnitsCache;
+    }
+
+    private async getMapOfIdsToLessons(): Promise<
+        Record<string, IntermediateCurationNodeData>
+    > {
+        if (this.mapOfIdsToLessonsCache == null) {
+            this.mapOfIdsToLessonsCache = {};
+            for (const lesson of await this.getLessons()) {
+                this.mapOfIdsToLessonsCache[lesson.id] = lesson;
+            }
+        }
+        return this.mapOfIdsToLessonsCache;
+    }
+
     private async getMapOfIdsToExercises(): Promise<
         Record<string, ExerciseData>
     > {
@@ -96,6 +183,26 @@ export class GcsContentRepository implements ContentRepository {
             }
         }
         return this.mapOfIdsToExercisesCache;
+    }
+
+    private async getDomains(): Promise<DomainData[]> {
+        const snapshot = await this.getSnapshot();
+        return snapshot.domains;
+    }
+
+    private async getCourses(): Promise<IntermediateCurationNodeData[]> {
+        const snapshot = await this.getSnapshot();
+        return snapshot.courses;
+    }
+
+    private async getUnits(): Promise<IntermediateCurationNodeData[]> {
+        const snapshot = await this.getSnapshot();
+        return snapshot.units;
+    }
+
+    private async getLessons(): Promise<IntermediateCurationNodeData[]> {
+        const snapshot = await this.getSnapshot();
+        return snapshot.lessons;
     }
 
     private async getSnapshotJson(): Promise<string> {
