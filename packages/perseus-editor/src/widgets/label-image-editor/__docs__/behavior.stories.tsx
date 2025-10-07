@@ -8,7 +8,7 @@ import type {PreferredPopoverDirection} from "../behavior";
 import type {Meta} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Widgets/Label Image/Behavior",
+    title: "Widgets/Label Image/Widget Internal Components/Behavior",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {

@@ -11,7 +11,7 @@ type Story = {
 };
 
 export default {
-    title: "Widgets/Label Image/Marker",
+    title: "Widgets/Label Image/Widget Internal Components/Marker",
 } as Story;
 
 const styles = StyleSheet.create({
