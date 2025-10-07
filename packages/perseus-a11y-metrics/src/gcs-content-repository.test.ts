@@ -32,7 +32,7 @@ describe("GcsContentRepository.getExercises()", () => {
                     problemTypes: [],
                     translatedPerseusContentSha:
                         "the-translated-perseus-content-sha",
-                    listedAncestorIds: []
+                    listedAncestorIds: [],
                 },
             ],
         });

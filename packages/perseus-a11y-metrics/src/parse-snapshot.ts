@@ -19,7 +19,9 @@ const ProblemTypeSchema = object({
     items: array(ItemSchema),
 });
 
-const stringArrayDefaultEmpty = array(string()).nullable().transform((value) => value ?? []);
+const stringArrayDefaultEmpty = array(string())
+    .nullable()
+    .transform((value) => value ?? []);
 
 const ExerciseSchema = object({
     // NOTE: there are more fields in the exercise object. This schema just
@@ -34,13 +36,13 @@ const ExerciseSchema = object({
 const DomainSchema = object({
     id: string(),
     slug: string(),
-})
+});
 
 const IntermediateCurationNodeSchema = object({
     id: string(),
     slug: string(),
-    listedAncestorIds: stringArrayDefaultEmpty
-})
+    listedAncestorIds: stringArrayDefaultEmpty,
+});
 
 const SnapshotSchema = object({
     exercises: array(ExerciseSchema),

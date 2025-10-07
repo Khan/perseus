@@ -1,7 +1,6 @@
 import {describe, it, expect} from "@jest/globals";
 
 import {parseSnapshot} from "./parse-snapshot";
-import {array, string} from "zod";
 
 describe("parseSnapshot", () => {
     it("rejects an empty object", () => {
@@ -26,13 +25,13 @@ describe("parseSnapshot", () => {
             "units": [],
             "lessons": [],
             "exercises": []
-        }`
+        }`;
         expect(parseSnapshot(json)).toEqual({
             domains: [],
             courses: [],
             units: [],
             lessons: [],
-            exercises: []
+            exercises: [],
         });
     });
 
@@ -45,21 +44,21 @@ describe("parseSnapshot", () => {
                     id: "course-1",
                     slug: "course-1-slug",
                     listedAncestorIds: null,
-                }
+                },
             ],
             units: [
                 {
                     id: "unit-1",
                     slug: "unit-1-slug",
                     listedAncestorIds: null,
-                }
+                },
             ],
             lessons: [
                 {
                     id: "lesson-1",
                     slug: "lesson-1-slug",
                     listedAncestorIds: null,
-                }
+                },
             ],
             exercises: [
                 {
@@ -68,15 +67,15 @@ describe("parseSnapshot", () => {
                     problemTypes: [],
                     translatedPerseusContentSha: "",
                     listedAncestorIds: null,
-                }
+                },
             ],
         };
 
         const parsed = parseSnapshot(data);
 
-        expect(parsed.courses[0].listedAncestorIds).toEqual([])
-        expect(parsed.units[0].listedAncestorIds).toEqual([])
-        expect(parsed.lessons[0].listedAncestorIds).toEqual([])
-        expect(parsed.exercises[0].listedAncestorIds).toEqual([])
-    })
+        expect(parsed.courses[0].listedAncestorIds).toEqual([]);
+        expect(parsed.units[0].listedAncestorIds).toEqual([]);
+        expect(parsed.lessons[0].listedAncestorIds).toEqual([]);
+        expect(parsed.exercises[0].listedAncestorIds).toEqual([]);
+    });
 });

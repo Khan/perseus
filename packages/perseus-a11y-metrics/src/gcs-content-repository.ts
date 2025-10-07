@@ -134,7 +134,7 @@ export class GcsContentRepository implements ContentRepository {
                     }),
                 })
             }
-        `
+        `;
 
         const getExercisesCommand = command("jq", jqProgram, path);
         const {stdout: snapshotJson} = await getExercisesCommand
