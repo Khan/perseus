@@ -117,7 +117,21 @@ export class GcsContentRepository implements ContentRepository {
         // The maximum size of a string is 512 MB. So we use `jq` to filter the
         // data to just the exercises.
         const path = this.getLocalSnapshotPath();
-        const getExercisesCommand = command("jq", "pick(.exercises)", path);
+
+        const jqProgram = `
+            {
+                exercises: .exercises | map({
+                    exerciseLength: .exerciseLength,
+                    id: .id,
+                    translatedPerseusContentSha: .translatedPerseusContentSha,
+                    problemTypes: .problemTypes | map({
+                        items: .items  | map(pick(.id, .isContextInaccessible))
+                    }),
+                })
+            }
+        `
+
+        const getExercisesCommand = command("jq", jqProgram, path);
         const {stdout: snapshotJson} = await getExercisesCommand
             .withStdoutToString()
             .run();
