@@ -1,4 +1,5 @@
 import type {
+    AssessmentItem,
     ContentRepository,
     Course,
     Domain,
@@ -6,6 +7,7 @@ import type {
     Lesson,
     Unit,
 } from "./content-types";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export function createEmptyContentRepo(): ContentRepository {
     return {
@@ -15,6 +17,32 @@ export function createEmptyContentRepo(): ContentRepository {
         getCourseById: async () => undefined,
         getUnitById: async () => undefined,
         getLessonById: async () => undefined,
+    };
+}
+
+export function createBlankPerseusItem(): PerseusItem {
+    return {
+        answerArea: null,
+        hints: [],
+        question: {
+            content: "",
+            widgets: {},
+            images: {},
+        },
+    };
+}
+
+export function createAccessibleAssessmentItem(): AssessmentItem {
+    return {
+        perseusItem: createBlankPerseusItem(),
+        isContextInaccessible: false,
+    };
+}
+
+export function createInaccessibleAssessmentItem(): AssessmentItem {
+    return {
+        perseusItem: createBlankPerseusItem(),
+        isContextInaccessible: true,
     };
 }
 

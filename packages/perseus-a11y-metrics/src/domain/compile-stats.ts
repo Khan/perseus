@@ -1,5 +1,6 @@
-import {isItemAccessible} from "@khanacademy/perseus-core";
+import {getAccessibilityLevel} from "./accessibility-level";
 
+import type {AccessibilityLevel} from "./accessibility-level";
 import type {ContentRepository} from "./content-types";
 
 export interface A11yStats {
@@ -52,14 +53,14 @@ export interface A11yStats {
         unit: string;
         lesson: string;
         exercise: string;
-        accessibility: "full" | "limited" | "inaccessible";
+        accessibility: AccessibilityLevel;
     }>;
 }
 
 export async function compileStats(
     contentRepo: ContentRepository,
 ): Promise<A11yStats> {
-    const a11yStats = {
+    const a11yStats: A11yStats = {
         full: 0,
         limited: 0,
         inaccessible: 0,
@@ -70,22 +71,9 @@ export async function compileStats(
 
     const exercises = await contentRepo.getExercises();
     for (const exercise of exercises) {
-        const items = await contentRepo.getAssessmentItems(exercise.id);
-        const accessibleItems = items.filter(
-            (item) =>
-                !item.isContextInaccessible &&
-                isItemAccessible(item.perseusItem),
-        );
-
+        const a11yLevel = await getAccessibilityLevel(contentRepo, exercise);
+        a11yStats[a11yLevel]++;
         a11yStats.total++;
-
-        if (accessibleItems.length === items.length) {
-            a11yStats.full++;
-        } else if (accessibleItems.length >= exercise.exerciseLength) {
-            a11yStats.limited++;
-        } else {
-            a11yStats.inaccessible++;
-        }
     }
 
     return a11yStats;
