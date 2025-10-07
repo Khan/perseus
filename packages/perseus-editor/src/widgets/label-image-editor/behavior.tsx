@@ -2,13 +2,11 @@
  * Controlled component to display and change widget options.
  */
 
-import {bodyXsmallBold} from "@khanacademy/perseus";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Checkbox from "../../components/checkbox";
-import {gray17} from "../../styles/global-colors";
+
+import styles from "./label-image-editor.module.css";
 
 export type PreferredPopoverDirection =
     | "NONE"
@@ -39,10 +37,10 @@ const Behavior = ({
     onChange,
 }: Props): React.ReactElement => (
     <div>
-        <div className={css(styles.title)}>Behavior</div>
+        <div className={styles.title}>Behavior</div>
 
         <ul>
-            <li className={css(styles.option)}>
+            <li className={styles.option}>
                 <Checkbox
                     checked={multipleAnswers}
                     onChange={() =>
@@ -50,12 +48,12 @@ const Behavior = ({
                     }
                 />
 
-                <span className={css(styles.label)}>
+                <span className={styles.label}>
                     Allow multiple answers per marker
                 </span>
             </li>
 
-            <li className={css(styles.option)}>
+            <li className={styles.option}>
                 <Checkbox
                     checked={hideChoicesFromInstructions}
                     onChange={() =>
@@ -66,13 +64,13 @@ const Behavior = ({
                     }
                 />
 
-                <span className={css(styles.label)}>
+                <span className={styles.label}>
                     Do not display answer choices in instructions
                 </span>
             </li>
 
-            <li className={css(styles.option)}>
-                <span className={css(styles.label, styles.selectLabel)}>
+            <li className={styles.option}>
+                <span className={[styles.label, styles.selectLabel].join(" ")}>
                     Preferred pop-over direction
                 </span>
                 <select
@@ -94,36 +92,5 @@ const Behavior = ({
         </ul>
     </div>
 );
-
-const styles = StyleSheet.create({
-    title: {
-        ...bodyXsmallBold,
-
-        marginBottom: 6,
-
-        color: gray17,
-    },
-
-    option: {
-        display: "flex",
-
-        padding: "6px 0",
-    },
-
-    label: {
-        // TODO: could we use WB typography?
-        fontFamily: "inherit",
-        fontSize: 15,
-        lineHeight: 1.25,
-
-        marginLeft: 16,
-
-        color: gray17,
-    },
-
-    selectLabel: {
-        marginRight: sizing.size_080,
-    },
-});
 
 export default Behavior;
