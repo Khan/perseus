@@ -1,10 +1,10 @@
 #!/usr/bin/env -S node -r @swc-node/register
 
-import {compileStats} from "./compile-stats";
 import {getPublishedContentVersion} from "./content-version";
+import {compileStats} from "./domain/compile-stats";
 import {GcsContentRepository} from "./gcs-content-repository";
 
-import type {ContentRepository} from "./content-types";
+import type {ContentRepository} from "./domain/content-types";
 
 async function main() {
     const locale = "en";

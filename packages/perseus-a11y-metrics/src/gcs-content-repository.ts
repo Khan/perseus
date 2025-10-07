@@ -4,11 +4,11 @@ import {join} from "node:path";
 import {isFailure, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
 import {array, object, string, unknown} from "zod";
 
-import {command} from "./command";
-import {gcloudStorage} from "./gcloud-storage";
 import {parseSnapshot} from "./parse-snapshot";
+import {command} from "./platform/command";
+import {gcloudStorage} from "./platform/gcloud-storage";
 
-import type {AssessmentItem, ContentRepository} from "./content-types";
+import type {AssessmentItem, ContentRepository} from "./domain/content-types";
 import type {
     Snapshot,
     ExerciseData,

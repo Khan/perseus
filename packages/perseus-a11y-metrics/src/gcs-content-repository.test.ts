@@ -3,8 +3,8 @@ import {join} from "path";
 
 import _ from "underscore";
 
-import {gcloudStorage} from "./gcloud-storage";
 import {GcsContentRepository} from "./gcs-content-repository";
+import {gcloudStorage} from "./platform/gcloud-storage";
 
 describe("GcsContentRepository.getExercises()", () => {
     it("lists the exercises appearing in the latest snapshot file on GCS", async () => {
