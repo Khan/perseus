@@ -178,7 +178,7 @@ describe("GcsContentRepository.getExercises()", () => {
     });
 });
 
-describe("ContentRepository.getAssessmentItems()", () => {
+describe("GcsContentRepository.getAssessmentItems()", () => {
     it("gets the assessment items for an exercise", async () => {
         // Arrange:
         const contentRepository = new GcsContentRepository({
