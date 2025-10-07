@@ -57,7 +57,7 @@ export interface A11yStats {
     }>;
 }
 
-export async function compileStats(
+export async function compileA11yStats(
     contentRepo: ContentRepository,
 ): Promise<A11yStats> {
     const a11yStats: A11yStats = {

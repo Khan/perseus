@@ -1,7 +1,7 @@
 #!/usr/bin/env -S node -r @swc-node/register
 
 import {getPublishedContentVersion} from "./content-version";
-import {compileStats} from "./domain/compile-stats";
+import {compileA11yStats} from "./domain/a11y-stats";
 import {GcsContentRepository} from "./gcs-content-repository";
 
 import type {ContentRepository} from "./domain/content-types";
@@ -14,7 +14,7 @@ async function main() {
         locale,
     });
 
-    const a11yStats = await compileStats(contentRepo);
+    const a11yStats = await compileA11yStats(contentRepo);
 
     // eslint-disable-next-line no-console
     console.log(

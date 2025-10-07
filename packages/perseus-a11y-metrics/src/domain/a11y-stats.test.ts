@@ -1,4 +1,4 @@
-import {compileStats} from "./compile-stats";
+import {compileA11yStats} from "./a11y-stats";
 
 import type {
     AssessmentItem,
@@ -41,7 +41,7 @@ describe("compileStats", () => {
             getLessonById: async () => undefined,
         };
 
-        expect(await compileStats(contentRepository)).toEqual({
+        expect(await compileA11yStats(contentRepository)).toEqual({
             full: 1,
             limited: 0,
             inaccessible: 0,
