@@ -137,6 +137,53 @@ export const v2Widget = {
     },
 };
 
+export const v2WidgetWithRationale = {
+    type: "radio" as const,
+    graded: true,
+    options: {
+        choices: [
+            {
+                content: "I am a correct choice",
+                correct: true,
+                rationale: "I am some rationale for a choice",
+                isNoneOfTheAbove: true,
+                widgets: undefined,
+            },
+            {
+                content: "I am an incorrect choice",
+                correct: false,
+                rationale: "I am some rationale for a choice",
+                widgets: undefined,
+            },
+            {
+                content: "I am an incorrect choice",
+                correct: false,
+                isNoneOfTheAbove: false,
+                widgets: {},
+            },
+            {
+                content: "I am content for a choice",
+                rationale: "I am some rationale for a choice",
+                isNoneOfTheAbove: false,
+            },
+            {content: "I am a choice with only content"},
+        ],
+        numCorrect: 1,
+        hasNoneOfTheAbove: false,
+        countChoices: false,
+        randomize: false,
+        multipleSelect: false,
+        deselectEnabled: false,
+        onePerLine: false,
+        displayCount: false,
+        noneOfTheAbove: undefined,
+    },
+    version: {
+        major: 2,
+        minor: 0,
+    },
+};
+
 export const v3Widget = {
     type: "radio" as const,
     graded: true,

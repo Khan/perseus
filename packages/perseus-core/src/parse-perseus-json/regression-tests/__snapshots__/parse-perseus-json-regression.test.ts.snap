@@ -4809,12 +4809,14 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
               "isNoneOfTheAbove": undefined,
             },
           ],
+          "countChoices": false,
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
           "numCorrect": undefined,
           "randomize": false,
         },
+        "static": false,
         "type": "radio",
         "version": {
           "major": 3,
@@ -12698,12 +12700,14 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
               "isNoneOfTheAbove": undefined,
             },
           ],
+          "countChoices": false,
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": true,
           "numCorrect": undefined,
           "randomize": true,
         },
+        "static": false,
         "type": "radio",
         "version": {
           "major": 3,
@@ -16040,12 +16044,14 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
               "isNoneOfTheAbove": undefined,
             },
           ],
+          "countChoices": false,
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
           "numCorrect": undefined,
           "randomize": false,
         },
+        "static": false,
         "type": "radio",
         "version": {
           "major": 3,
@@ -17103,11 +17109,14 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               "isNoneOfTheAbove": undefined,
             },
           ],
+          "countChoices": false,
+          "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
           "numCorrect": undefined,
           "randomize": false,
         },
+        "static": false,
         "type": "radio",
         "version": {
           "major": 3,
@@ -17130,11 +17139,14 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               "isNoneOfTheAbove": undefined,
             },
           ],
+          "countChoices": false,
+          "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
           "numCorrect": undefined,
           "randomize": false,
         },
+        "static": false,
         "type": "radio",
         "version": {
           "major": 3,
@@ -17548,12 +17560,14 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
               "isNoneOfTheAbove": undefined,
             },
           ],
+          "countChoices": false,
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
           "numCorrect": undefined,
           "randomize": true,
         },
+        "static": false,
         "type": "radio",
         "version": {
           "major": 3,
@@ -18093,12 +18107,14 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
+                "countChoices": false,
                 "deselectEnabled": false,
                 "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
                 "numCorrect": undefined,
                 "randomize": false,
               },
+              "static": false,
               "type": "radio",
               "version": {
                 "major": 3,
@@ -18149,12 +18165,14 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
+                "countChoices": false,
                 "deselectEnabled": false,
                 "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
                 "numCorrect": undefined,
                 "randomize": false,
               },
+              "static": false,
               "type": "radio",
               "version": {
                 "major": 3,
@@ -18205,12 +18223,14 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
+                "countChoices": false,
                 "deselectEnabled": false,
                 "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
                 "numCorrect": undefined,
                 "randomize": false,
               },
+              "static": false,
               "type": "radio",
               "version": {
                 "major": 3,
@@ -18261,12 +18281,558 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
+                "countChoices": false,
                 "deselectEnabled": false,
                 "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
                 "numCorrect": undefined,
                 "randomize": false,
               },
+              "static": false,
+              "type": "radio",
+              "version": {
+                "major": 3,
+                "minor": 0,
+              },
+            },
+          },
+        },
+        "static": false,
+        "type": "group",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "
+
+[[☃ group 1]]
+
+[[☃ group 2]]
+
+[[☃ group 3]]
+
+[[☃ group 4]]",
+    "images": {},
+    "widgets": {
+      "group 1": {
+        "graded": true,
+        "options": {
+          "content": "
+
+[[☃ radio 1]]",
+          "images": {},
+          "widgets": {
+            "radio 1": {
+              "graded": true,
+              "options": {
+                "choices": [
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-0",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-1",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-2",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-3",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                ],
+                "countChoices": undefined,
+                "deselectEnabled": false,
+                "hasNoneOfTheAbove": undefined,
+                "multipleSelect": false,
+                "numCorrect": undefined,
+                "randomize": false,
+              },
+              "type": "radio",
+              "version": {
+                "major": 3,
+                "minor": 0,
+              },
+            },
+          },
+        },
+        "type": "group",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "group 2": {
+        "graded": true,
+        "options": {
+          "content": "
+
+[[☃ radio 1]]",
+          "images": {},
+          "widgets": {
+            "radio 1": {
+              "graded": true,
+              "options": {
+                "choices": [
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-0",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-1",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-2",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-3",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                ],
+                "countChoices": undefined,
+                "deselectEnabled": false,
+                "hasNoneOfTheAbove": undefined,
+                "multipleSelect": false,
+                "numCorrect": undefined,
+                "randomize": false,
+              },
+              "type": "radio",
+              "version": {
+                "major": 3,
+                "minor": 0,
+              },
+            },
+          },
+        },
+        "type": "group",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "group 3": {
+        "graded": true,
+        "options": {
+          "content": "
+
+[[☃ radio 1]]",
+          "images": {},
+          "widgets": {
+            "radio 1": {
+              "graded": true,
+              "options": {
+                "choices": [
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-0",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-1",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-2",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-3",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                ],
+                "countChoices": undefined,
+                "deselectEnabled": false,
+                "hasNoneOfTheAbove": undefined,
+                "multipleSelect": false,
+                "numCorrect": undefined,
+                "randomize": false,
+              },
+              "type": "radio",
+              "version": {
+                "major": 3,
+                "minor": 0,
+              },
+            },
+          },
+        },
+        "type": "group",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "group 4": {
+        "graded": true,
+        "options": {
+          "content": "
+
+[[☃ radio 1]]",
+          "images": {},
+          "widgets": {
+            "radio 1": {
+              "graded": true,
+              "options": {
+                "choices": [
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-0",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-1",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-2",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                  {
+                    "content": "This is some content",
+                    "correct": false,
+                    "id": "radio-choice-3",
+                    "isNoneOfTheAbove": false,
+                    "rationale": "This is some rationale",
+                  },
+                ],
+                "countChoices": undefined,
+                "deselectEnabled": false,
+                "hasNoneOfTheAbove": undefined,
+                "multipleSelect": false,
+                "numCorrect": undefined,
+                "randomize": false,
+              },
+              "type": "radio",
+              "version": {
+                "major": 3,
+                "minor": 0,
+              },
+            },
+          },
+        },
+        "type": "group",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "
+
+[[☃ group 1]]
+
+[[☃ group 2]]
+
+[[☃ group 3]]
+
+[[☃ group 4]]",
+    "images": {},
+    "widgets": {
+      "group 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "content": "
+
+[[☃ radio 1]]",
+          "images": {},
+          "widgets": {
+            "radio 1": {
+              "alignment": "default",
+              "graded": true,
+              "options": {
+                "choices": [
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-0",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-1",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-2",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-3",
+                    "isNoneOfTheAbove": false,
+                  },
+                ],
+                "countChoices": false,
+                "deselectEnabled": false,
+                "hasNoneOfTheAbove": false,
+                "multipleSelect": false,
+                "numCorrect": undefined,
+                "randomize": false,
+              },
+              "static": false,
+              "type": "radio",
+              "version": {
+                "major": 3,
+                "minor": 0,
+              },
+            },
+          },
+        },
+        "static": false,
+        "type": "group",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "group 2": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "content": "
+
+[[☃ radio 1]]",
+          "images": {},
+          "widgets": {
+            "radio 1": {
+              "alignment": "default",
+              "graded": true,
+              "options": {
+                "choices": [
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-0",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-1",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-2",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-3",
+                    "isNoneOfTheAbove": false,
+                  },
+                ],
+                "countChoices": false,
+                "deselectEnabled": false,
+                "hasNoneOfTheAbove": false,
+                "multipleSelect": false,
+                "numCorrect": undefined,
+                "randomize": false,
+              },
+              "static": false,
+              "type": "radio",
+              "version": {
+                "major": 3,
+                "minor": 0,
+              },
+            },
+          },
+        },
+        "static": false,
+        "type": "group",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "group 3": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "content": "
+
+[[☃ radio 1]]",
+          "images": {},
+          "widgets": {
+            "radio 1": {
+              "alignment": "default",
+              "graded": true,
+              "options": {
+                "choices": [
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-0",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-1",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-2",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-3",
+                    "isNoneOfTheAbove": false,
+                  },
+                ],
+                "countChoices": false,
+                "deselectEnabled": false,
+                "hasNoneOfTheAbove": false,
+                "multipleSelect": false,
+                "numCorrect": undefined,
+                "randomize": false,
+              },
+              "static": false,
+              "type": "radio",
+              "version": {
+                "major": 3,
+                "minor": 0,
+              },
+            },
+          },
+        },
+        "static": false,
+        "type": "group",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "group 4": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "content": "
+
+[[☃ radio 1]]",
+          "images": {},
+          "widgets": {
+            "radio 1": {
+              "alignment": "default",
+              "graded": true,
+              "options": {
+                "choices": [
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-0",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-1",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-2",
+                    "isNoneOfTheAbove": false,
+                  },
+                  {
+                    "content": "This is some content",
+                    "id": "radio-choice-3",
+                    "isNoneOfTheAbove": false,
+                  },
+                ],
+                "countChoices": false,
+                "deselectEnabled": false,
+                "hasNoneOfTheAbove": false,
+                "multipleSelect": false,
+                "numCorrect": undefined,
+                "randomize": false,
+              },
+              "static": false,
               "type": "radio",
               "version": {
                 "major": 3,
@@ -19030,7 +19596,12 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
               "isNoneOfTheAbove": undefined,
             },
           ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
           "numCorrect": undefined,
+          "randomize": false,
         },
         "static": false,
         "type": "radio",

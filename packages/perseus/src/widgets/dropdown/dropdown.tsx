@@ -1,5 +1,5 @@
 import {Id, View} from "@khanacademy/wonder-blocks-core";
-import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -12,8 +12,8 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dr
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {
-    PerseusDropdownWidgetOptions,
     PerseusDropdownUserInput,
+    PerseusDropdownWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<
@@ -164,10 +164,17 @@ function getStartUserInput(): PerseusDropdownUserInput {
     };
 }
 
+function getCorrectUserInput(
+    options: PerseusDropdownWidgetOptions,
+): PerseusDropdownUserInput {
+    return {value: options.choices.findIndex((c) => c.correct) + 1};
+}
+
 export default {
     name: "dropdown",
     displayName: "Drop down",
     widget: Dropdown,
     getStartUserInput,
+    getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Dropdown>;

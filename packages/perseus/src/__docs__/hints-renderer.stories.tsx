@@ -1,6 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
+import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import HintsRenderer from "../hints-renderer";
 import {ApiOptions} from "../perseus-api";
 import {interactiveGraphQuestionBuilder} from "../widgets/interactive-graphs/interactive-graph-question-builder";
@@ -35,6 +36,7 @@ type Story = StoryObj<typeof HintsRenderer>;
 
 export const Interactive: Story = {
     args: {
+        dependencies: storybookDependenciesV2,
         hints: [
             {
                 content: "this is hint 1",
@@ -61,6 +63,7 @@ export const Interactive: Story = {
 export const WithAllInteractiveGraphs: Story = {
     args: {
         apiOptions: defaultApiOptions,
+        dependencies: storybookDependenciesV2,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withAngle().build(),

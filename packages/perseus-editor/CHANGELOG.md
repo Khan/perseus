@@ -1,5 +1,55 @@
 # @khanacademy/perseus-editor
 
+## 28.3.1
+
+### Patch Changes
+
+-   [#2936](https://github.com/Khan/perseus/pull/2936) [`d81b0ec4ff`](https://github.com/Khan/perseus/commit/d81b0ec4ffb3b2b74a37ca2ef1f2286e7009de93) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Adding tests for ItemDiff component
+
+-   Updated dependencies [[`7e830864aa`](https://github.com/Khan/perseus/commit/7e830864aab51afd1192cd92fdebd9adc664f74b), [`ea232094e7`](https://github.com/Khan/perseus/commit/ea232094e764e77d61067509cc137c5ed53f8f0e)]:
+    -   @khanacademy/perseus@71.2.0
+
+## 28.3.0
+
+### Minor Changes
+
+-   [#2939](https://github.com/Khan/perseus/pull/2939) [`18c925f3e0`](https://github.com/Khan/perseus/commit/18c925f3e057dcb0c3f970af5e78a62591c4ce55) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add a warning in editor if markdown images are detected
+
+### Patch Changes
+
+-   Updated dependencies [[`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6), [`18c925f3e0`](https://github.com/Khan/perseus/commit/18c925f3e057dcb0c3f970af5e78a62591c4ce55), [`97271406f2`](https://github.com/Khan/perseus/commit/97271406f2e929ff00306cbfdeb6ca950512a7af)]:
+    -   @khanacademy/perseus-core@19.5.0
+    -   @khanacademy/perseus-linter@4.4.0
+    -   @khanacademy/perseus@71.1.1
+    -   @khanacademy/keypad-context@3.2.10
+    -   @khanacademy/kmath@2.2.10
+    -   @khanacademy/math-input@26.2.11
+    -   @khanacademy/perseus-score@7.7.10
+
+## 28.2.0
+
+### Minor Changes
+
+-   [#2930](https://github.com/Khan/perseus/pull/2930) [`c56aaf2a70`](https://github.com/Khan/perseus/commit/c56aaf2a7052f0c0ea35dadfc6e544deb22cd7d4) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add decorative toggle for Image widget editor and hide it behind a feature flag
+
+### Patch Changes
+
+-   Updated dependencies [[`94b7669578`](https://github.com/Khan/perseus/commit/94b76695781bf8c29bd40c7094aa209ab197ad33), [`e8bcb1b1ef`](https://github.com/Khan/perseus/commit/e8bcb1b1efc96317fd8b55dc0ff563d704e44e0b), [`cf3a7b54de`](https://github.com/Khan/perseus/commit/cf3a7b54decc21fa28e05fbcbd7c847168a48b53), [`51b6617d74`](https://github.com/Khan/perseus/commit/51b6617d7411fb0c099facc6fa8bde875dbba25f)]:
+    -   @khanacademy/perseus@71.1.0
+    -   @khanacademy/math-input@26.2.10
+
+## 28.1.0
+
+### Minor Changes
+
+-   [#2926](https://github.com/Khan/perseus/pull/2926) [`9ec9b038ce`](https://github.com/Khan/perseus/commit/9ec9b038ce2d389516f557dc5048a8189d566746) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Make image dimensions editable in Image widget editor
+
+### Patch Changes
+
+-   Updated dependencies [[`75a9cf1143`](https://github.com/Khan/perseus/commit/75a9cf1143606b2afd2f1e5dacbbea793069e89e), [`e62fd04eb1`](https://github.com/Khan/perseus/commit/e62fd04eb14ddb7fd7ab258ae77b8c995f5f1735), [`413fc41cf6`](https://github.com/Khan/perseus/commit/413fc41cf658b21458e794e264d01f3e794295be), [`3277e34456`](https://github.com/Khan/perseus/commit/3277e3445654903e41e145ce7d50b6016261511c)]:
+    -   @khanacademy/perseus@71.0.0
+    -   @khanacademy/perseus-linter@4.3.10
+
 ## 28.0.0
 
 ### Major Changes

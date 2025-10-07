@@ -1,5 +1,59 @@
 # @khanacademy/perseus
 
+## 71.2.0
+
+### Minor Changes
+
+-   [#2941](https://github.com/Khan/perseus/pull/2941) [`ea232094e7`](https://github.com/Khan/perseus/commit/ea232094e764e77d61067509cc137c5ed53f8f0e) Thanks [@jaredly](https://github.com/jaredly)! - Add getCorrectUserInput for dropdown, expression, input-number, label-image, and numeric-input
+
+### Patch Changes
+
+-   [#2947](https://github.com/Khan/perseus/pull/2947) [`7e830864aa`](https://github.com/Khan/perseus/commit/7e830864aab51afd1192cd92fdebd9adc664f74b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Additional space needed between choice text and rationale
+
+## 71.1.1
+
+### Patch Changes
+
+-   [#2945](https://github.com/Khan/perseus/pull/2945) [`97271406f2`](https://github.com/Khan/perseus/commit/97271406f2e929ff00306cbfdeb6ca950512a7af) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Borders next to correct choices should not show
+
+-   Updated dependencies [[`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6), [`18c925f3e0`](https://github.com/Khan/perseus/commit/18c925f3e057dcb0c3f970af5e78a62591c4ce55)]:
+    -   @khanacademy/perseus-core@19.5.0
+    -   @khanacademy/perseus-linter@4.4.0
+    -   @khanacademy/keypad-context@3.2.10
+    -   @khanacademy/kmath@2.2.10
+    -   @khanacademy/math-input@26.2.11
+    -   @khanacademy/perseus-score@7.7.10
+
+## 71.1.0
+
+### Minor Changes
+
+-   [#2820](https://github.com/Khan/perseus/pull/2820) [`51b6617d74`](https://github.com/Khan/perseus/commit/51b6617d7411fb0c099facc6fa8bde875dbba25f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Remove the isLastUsedWidget property from Perseus, as it is not used.
+
+### Patch Changes
+
+-   [#2928](https://github.com/Khan/perseus/pull/2928) [`94b7669578`](https://github.com/Khan/perseus/commit/94b76695781bf8c29bd40c7094aa209ab197ad33) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Ensure fade bars match the background color of container
+
+*   [#2895](https://github.com/Khan/perseus/pull/2895) [`cf3a7b54de`](https://github.com/Khan/perseus/commit/cf3a7b54decc21fa28e05fbcbd7c847168a48b53) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing several iOS app bugs related to Interactive Graph
+
+*   Updated dependencies [[`e8bcb1b1ef`](https://github.com/Khan/perseus/commit/e8bcb1b1efc96317fd8b55dc0ff563d704e44e0b)]:
+    -   @khanacademy/math-input@26.2.10
+
+## 71.0.0
+
+### Major Changes
+
+-   [#2934](https://github.com/Khan/perseus/pull/2934) [`75a9cf1143`](https://github.com/Khan/perseus/commit/75a9cf1143606b2afd2f1e5dacbbea793069e89e) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Require dependencies as a prop for HintRenderer
+
+### Patch Changes
+
+-   [#2919](https://github.com/Khan/perseus/pull/2919) [`413fc41cf6`](https://github.com/Khan/perseus/commit/413fc41cf658b21458e794e264d01f3e794295be) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Add screen reader announcements to help clarify state to the user
+
+*   [#2922](https://github.com/Khan/perseus/pull/2922) [`3277e34456`](https://github.com/Khan/perseus/commit/3277e3445654903e41e145ce7d50b6016261511c) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove the internal concept of ReviewModeRubric
+
+*   Updated dependencies [[`e62fd04eb1`](https://github.com/Khan/perseus/commit/e62fd04eb14ddb7fd7ab258ae77b8c995f5f1735)]:
+    -   @khanacademy/perseus-linter@4.3.10
+
 ## 70.1.0
 
 ### Minor Changes

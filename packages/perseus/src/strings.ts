@@ -111,6 +111,8 @@ export type PerseusStrings = {
     choiceIncorrect: ({letter}: {letter: string}) => string;
     choiceChecked: ({letter}: {letter: string}) => string;
     choice: ({letter}: {letter: string}) => string;
+    notSelected: string;
+    choicesSelected: ({num}: {num: number}) => string;
     bringBack: string;
     openMenuForChoice: ({letter}: {letter: string}) => string;
     letters: string;
@@ -651,6 +653,14 @@ export const strings = {
     choiceIncorrect: "(Choice %(letter)s, Incorrect)",
     choiceChecked: "(Choice %(letter)s, Checked)",
     choice: "(Choice %(letter)s)",
+    notSelected: {
+        context: "Screen reader announcement for a choice that is not selected",
+        message: "not selected",
+    },
+    choicesSelected: {
+        one: "%(num)s choice selected",
+        other: "%(num)s choices selected",
+    },
     bringBack: "Bring back",
     openMenuForChoice: "Open menu for Choice %(letter)s",
     letters: {
@@ -1248,6 +1258,9 @@ export const mockStrings: PerseusStrings = {
     choiceIncorrect: ({letter}) => `(Choice ${letter}, Incorrect)`,
     choiceChecked: ({letter}) => `(Choice ${letter}, Checked)`,
     choice: ({letter}) => `(Choice ${letter})`,
+    notSelected: "not selected",
+    choicesSelected: ({num}) =>
+        num === 1 ? `${num} choice selected` : `${num} choices selected`,
     bringBack: "Bring back",
     openMenuForChoice: ({letter}) => `Open menu for Choice ${letter}`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",

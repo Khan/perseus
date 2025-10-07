@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 19.5.0
+
+### Minor Changes
+
+-   [#2946](https://github.com/Khan/perseus/pull/2946) [`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update the Radio Widget current version to 3.0
+
 ## 19.4.0
 
 ### Minor Changes

@@ -6,6 +6,7 @@ import {
     expressionItem2,
     expressionItem3,
     expressionItem4,
+    expressionItem4Static,
 } from "../expression.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -40,7 +41,6 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
                 ariaLabel=""
                 containerSizeClass="small"
                 findWidgets={(callback) => []}
-                isLastUsedWidget={false}
                 problemNum={1}
                 static={false}
                 handleUserInput={() => {}}
@@ -89,4 +89,32 @@ export const AnswerlessExpression: Story = {
         item: expressionItem3,
         startAnswerless: true,
     },
+};
+
+export const StaticExpression: Story = {
+    args: {
+        item: expressionItem4Static,
+    },
+};
+
+/** This story shows how the expression widget looks when the keypad is
+ * configured with _every_ option it supports.  */
+// TODO: use a Renderer wrapper rather than rendering this directly
+export const ShowAnswerButton = (): React.ReactElement => {
+    const [showAnswer, setShowAnswer] = React.useState(true);
+    return (
+        <div style={{padding: "2rem"}}>
+            <label>
+                <input
+                    type="checkbox"
+                    checked={showAnswer}
+                    onChange={() => setShowAnswer(!showAnswer)}
+                />
+                Show answer
+            </label>
+            <ServerItemRendererWithDebugUI
+                item={showAnswer ? expressionItem4Static : expressionItem4}
+            />
+        </div>
+    );
 };
