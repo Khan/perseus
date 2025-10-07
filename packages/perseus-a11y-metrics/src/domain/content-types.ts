@@ -10,24 +10,20 @@ export interface ContentRepository {
 }
 
 export interface Domain {
-    id: string;
     slug: string;
 }
 
 export interface Course {
-    id: string;
     slug: string;
     listedAncestorIds: string[];
 }
 
 export interface Unit {
-    id: string;
     slug: string;
     listedAncestorIds: string[];
 }
 
 export interface Lesson {
-    id: string;
     slug: string;
     listedAncestorIds: string[];
 }

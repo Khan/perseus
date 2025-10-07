@@ -28,7 +28,6 @@ export function createBaseExercise(): Exercise {
 
 export function createBaseLesson(): Lesson {
     return {
-        id: "lesson-id-do-not-assert",
         slug: "lesson-slug-do-not-assert",
         listedAncestorIds: [],
     };
@@ -36,7 +35,6 @@ export function createBaseLesson(): Lesson {
 
 export function createBaseUnit(): Unit {
     return {
-        id: "unit-id-do-not-assert",
         slug: "unit-slug-do-not-assert",
         listedAncestorIds: [],
     };
@@ -44,7 +42,6 @@ export function createBaseUnit(): Unit {
 
 export function createBaseCourse(): Course {
     return {
-        id: "course-id-do-not-assert",
         slug: "course-slug-do-not-assert",
         listedAncestorIds: [],
     };
@@ -52,7 +49,6 @@ export function createBaseCourse(): Course {
 
 export function createBaseDomain(): Domain {
     return {
-        id: "domain-id-do-not-assert",
         slug: "domain-slug-do-not-assert",
     };
 }
