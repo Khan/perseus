@@ -26,7 +26,9 @@ export interface DculPath {
 }
 
 /**
- * Returns all the DCUL paths where the given exercise can be found.
+ * Returns all listed DCUL paths where the given exercise can be found.
+ *
+ * "Listed" means the path is visible to learners.
  *
  * Note that the DCUL hierarchy is not a tree, but a directed acyclic graph. A
  * lesson can be part of multiple units, a unit can be part of multiple

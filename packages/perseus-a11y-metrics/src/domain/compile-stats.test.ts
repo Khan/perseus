@@ -46,6 +46,7 @@ describe("compileStats", () => {
             limited: 0,
             inaccessible: 0,
             total: 1,
+            exercisesWithDcul: [],
         });
     });
 });

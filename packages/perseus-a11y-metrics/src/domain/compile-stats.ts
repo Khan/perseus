@@ -22,6 +22,38 @@ export interface A11yStats {
      * The total number of exercises.
      */
     total: number;
+    /**
+     * Locations where exercises can be found within our content hierarchy,
+     * annotated with accessibility level. If an exercise appears in multiple
+     * places on the site, it will be listed multiple times -- once for each
+     * place where it appears.
+     *
+     * Unlisted paths, i.e. those that are not learner-visible, are not
+     * included in this list.
+     *
+     * This means that to find out e.g. what fraction of exercises in the
+     * `math` domain are accessible, you can do something like this:
+     *
+     * ```ts
+     * const accessible = exercisesWithDcul
+     *     .filter((e) => e.domain === "math" && e.accessibility === "full")
+     *     .length;
+     *
+     * const total = exercisesWithDcul
+     *     .filter((e) => e.domain === "math")
+     *     .length;
+     *
+     * console.log(accessible / total);
+     * ```
+     */
+    exercisesWithDcul: Array<{
+        domain: string;
+        course: string;
+        unit: string;
+        lesson: string;
+        exercise: string;
+        accessibility: "full" | "limited" | "inaccessible";
+    }>;
 }
 
 export async function compileStats(
@@ -32,6 +64,8 @@ export async function compileStats(
         limited: 0,
         inaccessible: 0,
         total: 0,
+        // FIXME: fill this in
+        exercisesWithDcul: [],
     };
 
     const exercises = await contentRepo.getExercises();
