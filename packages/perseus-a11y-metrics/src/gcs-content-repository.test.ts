@@ -21,6 +21,10 @@ describe("GcsContentRepository.getExercises()", () => {
         });
 
         const snapshotJson = JSON.stringify({
+            domains: [],
+            courses: [],
+            units: [],
+            lessons: [],
             exercises: [
                 {
                     id: "exercise-1",
@@ -28,6 +32,7 @@ describe("GcsContentRepository.getExercises()", () => {
                     problemTypes: [],
                     translatedPerseusContentSha:
                         "the-translated-perseus-content-sha",
+                    listedAncestorIds: []
                 },
             ],
         });
@@ -59,6 +64,7 @@ describe("GcsContentRepository.getExercises()", () => {
                 problemTypes: [],
                 translatedPerseusContentSha:
                     "the-translated-perseus-content-sha",
+                listedAncestorIds: [],
             },
         ]);
     });
@@ -77,6 +83,10 @@ describe("GcsContentRepository.getExercises()", () => {
         });
 
         const snapshotJson = JSON.stringify({
+            domains: [],
+            courses: [],
+            units: [],
+            lessons: [],
             exercises: [
                 {
                     id: "exercise-1",
@@ -84,6 +94,7 @@ describe("GcsContentRepository.getExercises()", () => {
                     problemTypes: [],
                     translatedPerseusContentSha:
                         "the-translated-perseus-content-sha",
+                    listedAncestorIds: [],
                 },
             ],
         });
@@ -126,6 +137,10 @@ describe("GcsContentRepository.getExercises()", () => {
         });
 
         const snapshotJson = JSON.stringify({
+            domains: [],
+            courses: [],
+            units: [],
+            lessons: [],
             exercises: [
                 {
                     id: "exercise-1",
@@ -133,6 +148,7 @@ describe("GcsContentRepository.getExercises()", () => {
                     problemTypes: [],
                     translatedPerseusContentSha:
                         "the-translated-perseus-content-sha",
+                    listedAncestorIds: [],
                 },
             ],
         });
@@ -181,11 +197,16 @@ describe("ContentRepository.getAssessmentItems()", () => {
         ]);
 
         const snapshotJson = JSON.stringify({
+            domains: [],
+            courses: [],
+            units: [],
+            lessons: [],
             exercises: [
                 {
                     id: "theExerciseId",
                     exerciseLength: 7,
                     translatedPerseusContentSha: "theContentSha",
+                    listedAncestorIds: [],
                     problemTypes: [
                         {
                             items: [

@@ -19,6 +19,8 @@ const ProblemTypeSchema = object({
     items: array(ItemSchema),
 });
 
+const stringArrayDefaultEmpty = array(string()).nullable().transform((value) => value ?? []);
+
 const ExerciseSchema = object({
     // NOTE: there are more fields in the exercise object. This schema just
     // lists the fields we currently care about.
@@ -26,8 +28,24 @@ const ExerciseSchema = object({
     id: string(),
     problemTypes: array(ProblemTypeSchema),
     translatedPerseusContentSha: string(),
+    listedAncestorIds: stringArrayDefaultEmpty,
 });
+
+const DomainSchema = object({
+    id: string(),
+    slug: string(),
+})
+
+const IntermediateCurationNodeSchema = object({
+    id: string(),
+    slug: string(),
+    listedAncestorIds: stringArrayDefaultEmpty
+})
 
 const SnapshotSchema = object({
     exercises: array(ExerciseSchema),
+    domains: array(DomainSchema),
+    courses: array(IntermediateCurationNodeSchema),
+    units: array(IntermediateCurationNodeSchema),
+    lessons: array(IntermediateCurationNodeSchema),
 });

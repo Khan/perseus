@@ -120,10 +120,15 @@ export class GcsContentRepository implements ContentRepository {
 
         const jqProgram = `
             {
+                domains: .domains | map(pick(.id, .slug)),
+                courses: .courses | map(pick(.id, .slug, .listedAncestorIds)),
+                units: .units | map(pick(.id, .slug, .listedAncestorIds)),
+                lessons: .lessons | map(pick(.id, .slug, .listedAncestorIds)),
                 exercises: .exercises | map({
                     exerciseLength: .exerciseLength,
                     id: .id,
                     translatedPerseusContentSha: .translatedPerseusContentSha,
+                    listedAncestorIds: .listedAncestorIds,
                     problemTypes: .problemTypes | map({
                         items: .items  | map(pick(.id, .isContextInaccessible))
                     }),
