@@ -32,7 +32,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
-    const [largerImageSize, setLargerImageSize] = React.useState<ImageSize>({
+    const [zoomSize, setZoomSize] = React.useState<ImageSize>({
         width: backgroundImage.width || 0,
         height: backgroundImage.height || 0,
     });
@@ -43,7 +43,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         // saved background image size for zooming.
         Util.getImageSizeModern(backgroundImage.url!).then((naturalSize) => {
             if (naturalSize[0] > (backgroundImage.width || 0)) {
-                setLargerImageSize({
+                setZoomSize({
                     width: naturalSize[0],
                     height: naturalSize[1],
                 });
@@ -61,9 +61,10 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                 <SvgImage
                     src={backgroundImage.url!}
                     // Between the original image size and the saved background
-                    // image size, use the larger size.
-                    width={largerImageSize.width}
-                    height={largerImageSize.height}
+                    // image size, use the larger size to determine if the
+                    // image is large enough to allow zooming.
+                    width={zoomSize.width}
+                    height={zoomSize.height}
                     preloader={apiOptions.imagePreloader}
                     extraGraphie={{
                         box: box,
@@ -130,10 +131,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
 
             {/* Description & Caption */}
             {(caption || (imageUpgradeFF && longDescription)) && (
-                <ImageDescriptionAndCaption
-                    zoomSize={largerImageSize}
-                    {...props}
-                />
+                <ImageDescriptionAndCaption zoomSize={zoomSize} {...props} />
             )}
         </figure>
     );
