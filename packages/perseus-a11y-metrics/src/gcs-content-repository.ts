@@ -234,6 +234,7 @@ export class GcsContentRepository implements ContentRepository {
                 exercises: .exercises | map({
                     exerciseLength: .exerciseLength,
                     id: .id,
+                    slug: .slug,
                     translatedPerseusContentSha: .translatedPerseusContentSha,
                     listedAncestorIds: .listedAncestorIds,
                     problemTypes: .problemTypes | map({

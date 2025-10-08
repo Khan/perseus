@@ -31,6 +31,7 @@ export interface Lesson {
 export interface Exercise {
     exerciseLength: number;
     id: string;
+    slug: string;
     listedAncestorIds: string[];
 }
 

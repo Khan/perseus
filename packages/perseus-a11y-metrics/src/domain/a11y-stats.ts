@@ -1,4 +1,5 @@
 import {getAccessibilityLevel} from "./accessibility-level";
+import {getDculPaths} from "./dcul";
 
 import type {AccessibilityLevel} from "./accessibility-level";
 import type {ContentRepository} from "./content-types";
@@ -65,7 +66,6 @@ export async function compileA11yStats(
         limited: 0,
         inaccessible: 0,
         total: 0,
-        // FIXME: fill this in
         exercisesWithDcul: [],
     };
 
@@ -74,6 +74,15 @@ export async function compileA11yStats(
         const a11yLevel = await getAccessibilityLevel(contentRepo, exercise);
         a11yStats[a11yLevel]++;
         a11yStats.total++;
+
+        const dculPaths = await getDculPaths(exercise, contentRepo);
+        a11yStats.exercisesWithDcul.push(
+            ...dculPaths.map((path) => ({
+                ...path,
+                exercise: exercise.slug,
+                accessibility: a11yLevel,
+            })),
+        );
     }
 
     return a11yStats;

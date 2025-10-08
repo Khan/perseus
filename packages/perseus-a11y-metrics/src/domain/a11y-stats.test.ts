@@ -1,4 +1,5 @@
 import {compileA11yStats} from "./a11y-stats";
+import {createBaseExercise} from "./content-mocks";
 
 import type {
     AssessmentItem,
@@ -22,7 +23,12 @@ function createBlankPerseusItem(): PerseusItem {
 describe("compileStats", () => {
     it("considers an item fully accessible if it has accessible context and no widgets", async () => {
         const exercises: Exercise[] = [
-            {id: "exercise-1", exerciseLength: 1, listedAncestorIds: []},
+            {
+                ...createBaseExercise(),
+                exerciseLength: 1,
+                slug: "the-exercise",
+                listedAncestorIds: ["1"],
+            },
         ];
 
         const assessmentItems: AssessmentItem[] = [
@@ -35,10 +41,22 @@ describe("compileStats", () => {
         const contentRepository: ContentRepository = {
             getExercises: async () => exercises,
             getAssessmentItems: async () => assessmentItems,
-            getDomainById: async () => undefined,
-            getCourseById: async () => undefined,
-            getUnitById: async () => undefined,
-            getLessonById: async () => undefined,
+            getDomainById: async () => ({slug: "the-domain"}),
+            getCourseById: async () => ({
+                slug: "the-course",
+                id: "3",
+                listedAncestorIds: [""],
+            }),
+            getUnitById: async () => ({
+                slug: "the-unit",
+                id: "2",
+                listedAncestorIds: ["3"],
+            }),
+            getLessonById: async () => ({
+                slug: "the-lesson",
+                id: "1",
+                listedAncestorIds: ["2"],
+            }),
         };
 
         expect(await compileA11yStats(contentRepository)).toEqual({
@@ -46,7 +64,16 @@ describe("compileStats", () => {
             limited: 0,
             inaccessible: 0,
             total: 1,
-            exercisesWithDcul: [],
+            exercisesWithDcul: [
+                {
+                    domain: "the-domain",
+                    course: "the-course",
+                    unit: "the-unit",
+                    lesson: "the-lesson",
+                    exercise: "the-exercise",
+                    accessibility: "full",
+                },
+            ],
         });
     });
 });

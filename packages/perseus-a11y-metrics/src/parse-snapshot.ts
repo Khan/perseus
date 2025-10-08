@@ -34,6 +34,7 @@ const ExerciseSchema = object({
     // lists the fields we currently care about.
     exerciseLength: number(),
     id: string(),
+    slug: string(),
     problemTypes: array(ProblemTypeSchema),
     translatedPerseusContentSha: string(),
     listedAncestorIds: stringArrayDefaultEmpty,
