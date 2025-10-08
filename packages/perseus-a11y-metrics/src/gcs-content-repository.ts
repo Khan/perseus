@@ -1,7 +1,4 @@
-import {isFailure, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
-// FIXME: move parser to its own file, parse-assessment-items.json
-import {array, object, string, unknown} from "zod";
-
+import {parseAssessmentItemList} from "./parse-assessment-item-list";
 import {parseSnapshot} from "./parse-snapshot";
 
 import type {AssessmentItem, ContentRepository} from "./domain/content-types";
@@ -85,18 +82,7 @@ export class GcsContentRepository implements ContentRepository {
         }
 
         const json = await this.getAssessmentItemJson(exerciseId);
-        const data = JSON.parse(json);
-        const itemListSchema = array(
-            object({item_data: unknown(), id: string()}),
-        );
-        return itemListSchema.parse(data).map((item) => {
-            const parseResult = parseAndMigratePerseusItem(item.item_data);
-            if (isFailure(parseResult)) {
-                throw new Error(
-                    `Failed to parse Perseus item: ${parseResult.detail.message}`,
-                );
-            }
-
+        return parseAssessmentItemList(json).map((item) => {
             const itemMetadata = exercise.problemTypes
                 .flatMap((problemType) => problemType.items)
                 .find((itemMetadata) => itemMetadata.id === item.id);
@@ -108,7 +94,7 @@ export class GcsContentRepository implements ContentRepository {
             }
 
             return {
-                perseusItem: parseResult.value,
+                perseusItem: item.item_data,
                 isContextInaccessible: itemMetadata.isContextInaccessible,
             };
         });
