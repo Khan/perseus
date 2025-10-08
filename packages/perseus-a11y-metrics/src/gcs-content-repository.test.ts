@@ -1,28 +1,10 @@
-import * as fs from "node:fs/promises";
-import {join} from "path";
-
-import _ from "underscore";
-
-import {GcsContentJsonRepository} from "./gcs-content-json-repository";
 import {GcsContentRepository} from "./gcs-content-repository";
-import {gcloudStorage} from "./platform/gcloud-storage";
+
+import type {ContentJsonRepository} from "./gcs-content-repository";
 
 describe("GcsContentRepository.getExercises()", () => {
     it("lists the exercises appearing in the latest snapshot file on GCS", async () => {
         // Arrange:
-        const contentRepository = new GcsContentRepository({
-            contentJsonRepository: new GcsContentJsonRepository({
-                contentVersion: "abc123",
-                locale: "lol",
-                dataDirectory: join(
-                    "/",
-                    "tmp",
-                    "perseus-tests",
-                    `${Math.random()}`,
-                ),
-            }),
-        });
-
         const snapshotJson = JSON.stringify({
             domains: [],
             courses: [],
@@ -41,21 +23,16 @@ describe("GcsContentRepository.getExercises()", () => {
             ],
         });
 
-        gcloudStorage.cp = jest
-            .fn()
-            .mockImplementation(async (sources, dest, options) => {
-                const expectedUrl = `gs://ka-content-data/lol/snapshot-abc123.json`;
-                if (
-                    _.isEqual(sources, [expectedUrl]) &&
-                    options.project === "khan-academy"
-                ) {
-                    await fs.writeFile(dest, snapshotJson, {encoding: "utf-8"});
-                } else {
-                    throw Error(
-                        `Mock for gcloudStorage.cp was called with unexpected arguments: ${JSON.stringify(sources)}, ${JSON.stringify(dest)}, ${JSON.stringify(options)}`,
-                    );
-                }
-            });
+        const contentJsonRepository: ContentJsonRepository = {
+            getSnapshotJson: async () => snapshotJson,
+            getAssessmentItemJson() {
+                throw Error("getAssessmentItemJson not implemented.");
+            },
+        };
+
+        const contentRepository = new GcsContentRepository({
+            contentJsonRepository,
+        });
 
         // Act:
         const result = await contentRepository.getExercises();
@@ -76,19 +53,6 @@ describe("GcsContentRepository.getExercises()", () => {
 
     it("returns consistent results if called multiple times", async () => {
         // Arrange:
-        const contentRepository = new GcsContentRepository({
-            contentJsonRepository: new GcsContentJsonRepository({
-                contentVersion: "abc123",
-                locale: "lol",
-                dataDirectory: join(
-                    "/",
-                    "tmp",
-                    "perseus-tests",
-                    `${Math.random()}`,
-                ),
-            }),
-        });
-
         const snapshotJson = JSON.stringify({
             domains: [],
             courses: [],
@@ -107,21 +71,16 @@ describe("GcsContentRepository.getExercises()", () => {
             ],
         });
 
-        gcloudStorage.cp = jest
-            .fn()
-            .mockImplementation(async (sources, dest, options) => {
-                const expectedUrl = `gs://ka-content-data/lol/snapshot-abc123.json`;
-                if (
-                    _.isEqual(sources, [expectedUrl]) &&
-                    options.project === "khan-academy"
-                ) {
-                    await fs.writeFile(dest, snapshotJson, {encoding: "utf-8"});
-                } else {
-                    throw Error(
-                        `Mock for gcloudStorage.cp was called with unexpected arguments: ${JSON.stringify(sources)}, ${JSON.stringify(dest)}, ${JSON.stringify(options)}`,
-                    );
-                }
-            });
+        const contentJsonRepository: ContentJsonRepository = {
+            getSnapshotJson: async () => snapshotJson,
+            getAssessmentItemJson() {
+                throw Error("getAssessmentItemJson not implemented.");
+            },
+        };
+
+        const contentRepository = new GcsContentRepository({
+            contentJsonRepository,
+        });
 
         // Act:
         const result1 = await contentRepository.getExercises();
@@ -130,82 +89,11 @@ describe("GcsContentRepository.getExercises()", () => {
         // Assert:
         expect(result2).toEqual(result1);
     });
-
-    it("uses the local filesystem cache if called multiple times", async () => {
-        // Arrange:
-        const contentRepository = new GcsContentRepository({
-            contentJsonRepository: new GcsContentJsonRepository({
-                contentVersion: "abc123",
-                locale: "lol",
-                dataDirectory: join(
-                    "/",
-                    "tmp",
-                    "perseus-tests",
-                    `${Math.random()}`,
-                ),
-            }),
-        });
-
-        const snapshotJson = JSON.stringify({
-            domains: [],
-            courses: [],
-            units: [],
-            lessons: [],
-            exercises: [
-                {
-                    id: "exercise-1",
-                    slug: "",
-                    exerciseLength: 7,
-                    problemTypes: [],
-                    translatedPerseusContentSha:
-                        "the-translated-perseus-content-sha",
-                    listedAncestorIds: [],
-                },
-            ],
-        });
-
-        gcloudStorage.cp = jest
-            .fn()
-            .mockImplementation(async (sources, dest, options) => {
-                const expectedUrl = `gs://ka-content-data/lol/snapshot-abc123.json`;
-                if (
-                    _.isEqual(sources, [expectedUrl]) &&
-                    options.project === "khan-academy"
-                ) {
-                    await fs.writeFile(dest, snapshotJson, {encoding: "utf-8"});
-                } else {
-                    throw Error(
-                        `Mock for gcloudStorage.cp was called with unexpected arguments: ${JSON.stringify(sources)}, ${JSON.stringify(dest)}, ${JSON.stringify(options)}`,
-                    );
-                }
-            });
-
-        // Act:
-        await contentRepository.getExercises();
-        await contentRepository.getExercises();
-
-        // Assert:
-        expect(gcloudStorage.cp).toHaveBeenCalledTimes(1);
-    });
 });
 
 describe("GcsContentRepository.getAssessmentItems()", () => {
     it("gets the assessment items for an exercise", async () => {
         // Arrange:
-        const contentRepository = new GcsContentRepository({
-            // FIXME: mock the ContentJsonRepository instead of mocking gcloudStorage.cp.
-            contentJsonRepository: new GcsContentJsonRepository({
-                contentVersion: "theVersion",
-                locale: "lol",
-                dataDirectory: join(
-                    "/",
-                    "tmp",
-                    "perseus-tests",
-                    `${Math.random()}`,
-                ),
-            }),
-        });
-
         const assessmentItemsJson = JSON.stringify([
             {id: "theItemId", item_data: {}},
         ]);
@@ -233,36 +121,20 @@ describe("GcsContentRepository.getAssessmentItems()", () => {
             ],
         });
 
-        gcloudStorage.cp = jest
-            .fn()
-            .mockImplementation(async (sources, dest, options) => {
-                const assessmentItemsUrl = `gs://content-property.khanacademy.org/Exercise.TranslatedPerseusContent/lol`;
-                const snapshotUrl = `gs://ka-content-data/lol/snapshot-theVersion.json`;
-                if (
-                    _.isEqual(sources, [assessmentItemsUrl]) &&
-                    options.project === "khan-academy" &&
-                    options.recursive
-                ) {
-                    await fs.mkdir(join(dest, "lol"));
-                    await fs.writeFile(
-                        join(dest, "lol", "theExerciseId-theContentSha.json"),
-                        assessmentItemsJson,
-                        {encoding: "utf-8"},
-                    );
-                } else if (
-                    _.isEqual(sources, [snapshotUrl]) &&
-                    options.project === "khan-academy"
-                ) {
-                    await fs.writeFile(dest, snapshotJson, {encoding: "utf-8"});
-                } else {
-                    throw Error(
-                        `Mock for gcloudStorage.cp was called with unexpected arguments: ${JSON.stringify(sources)}, ${JSON.stringify(dest)}, ${JSON.stringify(options)}`,
-                    );
-                }
-            });
+        const contentJsonRepository: ContentJsonRepository = {
+            getSnapshotJson: async () => snapshotJson,
+            getAssessmentItemJson: async () => assessmentItemsJson,
+        };
 
+        const contentRepository = new GcsContentRepository({
+            contentJsonRepository,
+        });
+
+        // Act:
         const items =
             await contentRepository.getAssessmentItems("theExerciseId");
+
+        // Assert:
         expect(items).toEqual([
             {
                 isContextInaccessible: true,
