@@ -1,5 +1,5 @@
-import {parseAssessmentItemList} from "./parse-assessment-item-list";
-import {parseSnapshot} from "./parse-snapshot";
+import {parseAssessmentItemList} from "./parsers/parse-assessment-item-list";
+import {parseSnapshot} from "./parsers/parse-snapshot";
 
 import type {AssessmentItem, ContentRepository} from "./domain/content-types";
 import type {
@@ -7,7 +7,7 @@ import type {
     ExerciseData,
     IntermediateCurationNodeData,
     DomainData,
-} from "./parse-snapshot";
+} from "./parsers/parse-snapshot";
 
 export interface GcsContentRepositoryOptions {
     /**
