@@ -11,11 +11,11 @@ import {normalizeCorrectAnswerForms} from "./utils";
 import type {Focusable, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
-    PerseusNumericInputWidgetOptions,
-    PerseusNumericInputAnswerForm,
     MathFormat,
+    PerseusNumericInputAnswerForm,
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
+    PerseusNumericInputWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -151,11 +151,60 @@ function getUserInputFromSerializedState(
     };
 }
 
+function findCommonFractions(value: number) {
+    if (Number.isInteger(value)) {
+        return;
+    }
+    // it's brute force, but it's honest work
+    for (let num = 1; num < 100; num++) {
+        for (let denom = 2; denom < 100; denom++) {
+            if (Math.abs(value - num / denom) < 1e-10) {
+                return {num, denom};
+            }
+        }
+    }
+}
+
+function getCorrectUserInput(
+    options: PerseusNumericInputWidgetOptions,
+): PerseusNumericInputUserInput {
+    for (const answer of options.answers) {
+        if (answer.status === "correct" && answer.value != null) {
+            if (answer.answerForms?.includes("decimal")) {
+                return {currentValue: answer.value.toString()};
+            }
+            if (answer.answerForms?.includes("improper")) {
+                const frac = findCommonFractions(answer.value);
+                if (frac) {
+                    return {currentValue: `${frac.num}/${frac.denom}`};
+                }
+            }
+            if (answer.answerForms?.includes("proper")) {
+                const frac = findCommonFractions(answer.value);
+                if (frac) {
+                    const {num, denom} = frac;
+                    if (num > denom) {
+                        const whole = Math.floor(num / denom);
+                        const remainder = num - whole * denom;
+                        return {currentValue: `${whole} ${remainder}/${denom}`};
+                    } else {
+                        return {currentValue: `${num}/${denom}`};
+                    }
+                }
+            }
+            // 🤷
+            return {currentValue: answer.value.toString()};
+        }
+    }
+    return {currentValue: ""};
+}
+
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
     widget: NumericInput,
     isLintable: true,
+    getCorrectUserInput,
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {
