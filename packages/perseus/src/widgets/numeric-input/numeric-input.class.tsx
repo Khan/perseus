@@ -151,14 +151,23 @@ function getUserInputFromSerializedState(
     };
 }
 
+function findPrecision(value: number) {
+    for (let i = 0; i < 10; i++) {
+        if (value === +value.toFixed(i)) {
+            return i;
+        }
+    }
+}
+
 function findCommonFractions(value: number) {
     if (Number.isInteger(value)) {
         return;
     }
+    const precision = findPrecision(value);
     // it's brute force, but it's honest work
     for (let num = 1; num < 100; num++) {
         for (let denom = 2; denom < 100; denom++) {
-            if (Math.abs(value - num / denom) < 1e-10) {
+            if (+(num / denom).toFixed(precision) === value) {
                 return {num, denom};
             }
         }
