@@ -9,6 +9,7 @@ import {command} from "./platform/command";
 import {gcloudStorage} from "./platform/gcloud-storage";
 
 import type {AssessmentItem, ContentRepository} from "./domain/content-types";
+import type {GcsContentJsonRepository} from "./gcs-content-json-repository";
 import type {
     Snapshot,
     ExerciseData,
@@ -24,6 +25,7 @@ export interface GcsContentRepositoryOptions {
      * create the directory if it doesn't yet exist.
      */
     dataDirectory: string;
+    contentJsonRepository: GcsContentJsonRepository; // FIXME: interface
 }
 
 /**

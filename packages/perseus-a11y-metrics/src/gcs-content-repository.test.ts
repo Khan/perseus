@@ -3,6 +3,7 @@ import {join} from "path";
 
 import _ from "underscore";
 
+import {GcsContentJsonRepository} from "./gcs-content-json-repository";
 import {GcsContentRepository} from "./gcs-content-repository";
 import {gcloudStorage} from "./platform/gcloud-storage";
 
@@ -18,6 +19,16 @@ describe("GcsContentRepository.getExercises()", () => {
                 "perseus-tests",
                 `${Math.random()}`,
             ),
+            contentJsonRepository: new GcsContentJsonRepository({
+                contentVersion: "abc123",
+                locale: "lol",
+                dataDirectory: join(
+                    "/",
+                    "tmp",
+                    "perseus-tests",
+                    `${Math.random()}`,
+                ),
+            }),
         });
 
         const snapshotJson = JSON.stringify({
@@ -82,6 +93,16 @@ describe("GcsContentRepository.getExercises()", () => {
                 "perseus-tests",
                 `${Math.random()}`,
             ),
+            contentJsonRepository: new GcsContentJsonRepository({
+                contentVersion: "abc123",
+                locale: "lol",
+                dataDirectory: join(
+                    "/",
+                    "tmp",
+                    "perseus-tests",
+                    `${Math.random()}`,
+                ),
+            }),
         });
 
         const snapshotJson = JSON.stringify({
@@ -137,6 +158,16 @@ describe("GcsContentRepository.getExercises()", () => {
                 "perseus-tests",
                 `${Math.random()}`,
             ),
+            contentJsonRepository: new GcsContentJsonRepository({
+                contentVersion: "abc123",
+                locale: "lol",
+                dataDirectory: join(
+                    "/",
+                    "tmp",
+                    "perseus-tests",
+                    `${Math.random()}`,
+                ),
+            }),
         });
 
         const snapshotJson = JSON.stringify({
@@ -194,6 +225,16 @@ describe("GcsContentRepository.getAssessmentItems()", () => {
                 "perseus-tests",
                 `${Math.random()}`,
             ),
+            contentJsonRepository: new GcsContentJsonRepository({
+                contentVersion: "theVersion",
+                locale: "lol",
+                dataDirectory: join(
+                    "/",
+                    "tmp",
+                    "perseus-tests",
+                    `${Math.random()}`,
+                ),
+            }),
         });
 
         const assessmentItemsJson = JSON.stringify([
