@@ -25,6 +25,7 @@ export interface ContentJsonRepository {
     ): Promise<string>;
 }
 
+// FIXME: find a better name. This thing doens't know about GCS.
 /**
  * The GcsContentRepository provides content data to the rest of the program.
  * It reads and parses JSON data from an underlying ContentJsonRepository.

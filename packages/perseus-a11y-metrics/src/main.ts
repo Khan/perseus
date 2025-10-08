@@ -16,12 +16,14 @@ async function main() {
     const contentVersion = await getPublishedContentVersion(locale);
     const dataDirectory = join("/", "tmp", "perseus-a11y-metrics");
 
+    const contentJsonRepo = new GcsContentJsonRepository({
+        locale,
+        contentVersion,
+        dataDirectory,
+    });
+
     const contentRepo: ContentRepository = new GcsContentRepository({
-        contentJsonRepository: new GcsContentJsonRepository({
-            locale,
-            contentVersion,
-            dataDirectory,
-        }),
+        contentJsonRepository: contentJsonRepo,
     });
 
     const a11yStats = await compileA11yStats(contentRepo);

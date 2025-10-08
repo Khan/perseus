@@ -16,6 +16,15 @@ export interface GcsContentJsonRepositoryOptions {
     dataDirectory: string;
 }
 
+/**
+ * The GcsContentJsonRepository knows where to find content JSON on Google
+ * Cloud Storage (GCS). It keeps track of a local cache of the content on
+ * disk, and avoids re-downloading data if it already has a local copy.
+ *
+ * The main reason this class exists is to make the GcsContentRepository,
+ * which contains logic and indexes for specific queries, easier to test
+ * without involving or mocking Google Cloud or `jq`.
+ */
 export class GcsContentJsonRepository implements ContentJsonRepository {
     constructor(private options: GcsContentJsonRepositoryOptions) {}
 
