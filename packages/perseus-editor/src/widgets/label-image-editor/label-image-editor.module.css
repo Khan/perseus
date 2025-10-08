@@ -2,14 +2,14 @@
     font-family: inherit;
     font-size: 15px;
     font-weight: bold;
-    line-height: 22px;
-    margin-bottom: 6px;
+    line-height: var(--wb-font-body-lineHeight-large);
+    margin-bottom: var(--wb-sizing-size_060);
     color: #626569; /* gray17 */
 }
 
 .option {
     display: flex;
-    padding: 6px 0;
+    padding: var(--wb-sizing-size_060) var(--wb-sizing-size_0);
 }
 
 .label {
@@ -17,7 +17,7 @@
     font-family: inherit;
     font-size: 15px;
     line-height: 1.25;
-    margin-left: 16px;
+    margin-left: var(--wb-sizing-size_160);
     color: #626569; /* gray17 */
 }
 
