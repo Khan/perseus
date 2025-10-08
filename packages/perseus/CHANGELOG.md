@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 71.2.2
+
+### Patch Changes
+
+-   [#2956](https://github.com/Khan/perseus/pull/2956) [`2274854c9b`](https://github.com/Khan/perseus/commit/2274854c9b033e502695bc28173b43e75c628301) Thanks [@jaredly](https://github.com/jaredly)! - Fix bug where user selection would be moved to the end after every input in a math-input widget
+
+*   [#2943](https://github.com/Khan/perseus/pull/2943) [`572916984f`](https://github.com/Khan/perseus/commit/572916984fcac1248393a8e5023273043a018e4f) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Use large image size for zoom if available
+
 ## 71.2.1
 
 ### Patch Changes
