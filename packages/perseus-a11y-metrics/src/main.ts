@@ -1,11 +1,14 @@
 #!/usr/bin/env -S node -r @swc-node/register
 
+import * as fs from "node:fs/promises";
+import {join} from "node:path";
+
 import {getPublishedContentVersion} from "./content-version";
 import {compileA11yStats} from "./domain/a11y-stats";
+import {formatExerciseAccessibilityData} from "./format-exercise-accessibility-data";
 import {GcsContentRepository} from "./gcs-content-repository";
 
 import type {ContentRepository} from "./domain/content-types";
-import {join} from "node:path";
 
 async function main() {
     const locale = "en";
@@ -18,6 +21,12 @@ async function main() {
     });
 
     const a11yStats = await compileA11yStats(contentRepo);
+
+    await fs.writeFile(
+        join(dataDirectory, "exercises.json"),
+        formatExerciseAccessibilityData(a11yStats),
+        "utf-8",
+    );
 
     // eslint-disable-next-line no-console
     console.log(
