@@ -1,0 +1,26 @@
+.title {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: var(--wb-font-body-lineHeight-large);
+    margin-bottom: var(--wb-sizing-size_060);
+    color: #626569; /* gray17 */
+}
+
+.option {
+    display: flex;
+    padding: var(--wb-sizing-size_060) var(--wb-sizing-size_0);
+}
+
+.label {
+    /* TODO: could we use WB typography? */
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.25;
+    margin-left: var(--wb-sizing-size_160);
+    color: #626569; /* gray17 */
+}
+
+.selectLabel {
+    margin-right: var(--wb-sizing-size_080);
+}
