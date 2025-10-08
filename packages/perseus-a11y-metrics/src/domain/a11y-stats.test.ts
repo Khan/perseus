@@ -1,11 +1,7 @@
 import {compileA11yStats} from "./a11y-stats";
 import {createBaseExercise} from "./content-mocks";
 
-import type {
-    AssessmentItem,
-    ContentRepository,
-    Exercise,
-} from "./content-types";
+import type {AssessmentItem, ContentProvider, Exercise} from "./content-types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
 function createBlankPerseusItem(): PerseusItem {
@@ -38,7 +34,7 @@ describe("compileStats", () => {
             },
         ];
 
-        const contentRepository: ContentRepository = {
+        const contentRepository: ContentProvider = {
             getExercises: async () => exercises,
             getAssessmentItems: async () => assessmentItems,
             getDomainById: async () => ({slug: "the-domain"}),

@@ -10,11 +10,7 @@ import {
     createInaccessibleAssessmentItem,
 } from "./content-mocks";
 
-import type {
-    AssessmentItem,
-    ContentRepository,
-    Exercise,
-} from "./content-types";
+import type {AssessmentItem, ContentProvider, Exercise} from "./content-types";
 import type {InteractionWidget, RadioWidget} from "@khanacademy/perseus-core";
 
 describe("getAccessibilityLevel", () => {
@@ -37,7 +33,7 @@ describe("getAccessibilityLevel", () => {
             exerciseLength: 1,
         };
 
-        const contentRepo: ContentRepository = {
+        const contentRepo: ContentProvider = {
             ...createEmptyContentRepo(),
             async getAssessmentItems(): Promise<AssessmentItem[]> {
                 return [createAccessibleAssessmentItem()];
@@ -61,7 +57,7 @@ describe("getAccessibilityLevel", () => {
             exerciseLength: 2,
         };
 
-        const contentRepo: ContentRepository = {
+        const contentRepo: ContentProvider = {
             ...createEmptyContentRepo(),
             async getAssessmentItems(): Promise<AssessmentItem[]> {
                 return [
@@ -88,7 +84,7 @@ describe("getAccessibilityLevel", () => {
             exerciseLength: 1,
         };
 
-        const contentRepo: ContentRepository = {
+        const contentRepo: ContentProvider = {
             ...createEmptyContentRepo(),
             async getAssessmentItems(): Promise<AssessmentItem[]> {
                 return [

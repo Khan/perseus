@@ -4,7 +4,7 @@ import {join} from "node:path";
 import {command} from "./platform/command";
 import {gcloudStorage} from "./platform/gcloud-storage";
 
-import type {ContentJsonRepository} from "./gcs-content-repository";
+import type {ContentJsonRepository} from "./content-repository";
 
 export interface GcsContentJsonRepositoryOptions {
     locale: string;
@@ -21,9 +21,9 @@ export interface GcsContentJsonRepositoryOptions {
  * Cloud Storage (GCS). It keeps track of a local cache of the content on
  * disk, and avoids re-downloading data if it already has a local copy.
  *
- * The main reason this class exists is to make the GcsContentRepository,
- * which contains logic and indexes for specific queries, easier to test
- * without involving or mocking Google Cloud or `jq`.
+ * The main reason this class exists is to make the ContentRepository, which
+ * contains logic and indexes for specific queries, easier to test without
+ * involving or mocking Google Cloud or `jq`.
  */
 export class GcsContentJsonRepository implements ContentJsonRepository {
     constructor(private options: GcsContentJsonRepositoryOptions) {}

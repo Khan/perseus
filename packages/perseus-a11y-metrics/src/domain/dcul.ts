@@ -1,4 +1,4 @@
-import type {ContentRepository, Exercise} from "./content-types";
+import type {ContentProvider, Exercise} from "./content-types";
 
 /**
  * Represents the path to an exercise within our content hierarchy.
@@ -36,7 +36,7 @@ export interface DculPath {
  */
 export async function getDculPaths(
     exercise: Exercise,
-    contentRepo: ContentRepository,
+    contentRepo: ContentProvider,
 ): Promise<DculPath[]> {
     const results: DculPath[] = [];
 

@@ -3,26 +3,29 @@
 import * as fs from "node:fs/promises";
 import {join} from "node:path";
 
+import {ContentRepository} from "./content-repository";
 import {getPublishedContentVersion} from "./content-version";
 import {compileA11yStats} from "./domain/a11y-stats";
 import {formatExerciseAccessibilityData} from "./format-exercise-accessibility-data";
 import {GcsContentJsonRepository} from "./gcs-content-json-repository";
-import {GcsContentRepository} from "./gcs-content-repository";
 
-import type {ContentRepository} from "./domain/content-types";
+import type {ContentJsonRepository} from "./content-repository";
+import type {ContentProvider} from "./domain/content-types";
 
 async function main() {
     const locale = "en";
     const contentVersion = await getPublishedContentVersion(locale);
     const dataDirectory = join("/", "tmp", "perseus-a11y-metrics");
 
-    const contentJsonRepo = new GcsContentJsonRepository({
-        locale,
-        contentVersion,
-        dataDirectory,
-    });
+    const contentJsonRepo: ContentJsonRepository = new GcsContentJsonRepository(
+        {
+            locale,
+            contentVersion,
+            dataDirectory,
+        },
+    );
 
-    const contentRepo: ContentRepository = new GcsContentRepository({
+    const contentRepo: ContentProvider = new ContentRepository({
         contentJsonRepository: contentJsonRepo,
     });
 
@@ -33,6 +36,8 @@ async function main() {
         formatExerciseAccessibilityData(a11yStats),
         "utf-8",
     );
+
+    // FIXME: `await contentJsonRepo.prune()` to delete old data from disk.
 
     // eslint-disable-next-line no-console
     console.log(

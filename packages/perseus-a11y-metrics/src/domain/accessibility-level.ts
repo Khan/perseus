@@ -1,15 +1,11 @@
 import {isItemAccessible} from "@khanacademy/perseus-core";
 
-import type {
-    AssessmentItem,
-    ContentRepository,
-    Exercise,
-} from "./content-types";
+import type {AssessmentItem, ContentProvider, Exercise} from "./content-types";
 
 export type AccessibilityLevel = "full" | "limited" | "inaccessible";
 
 export async function getAccessibilityLevel(
-    contentRepo: ContentRepository,
+    contentRepo: ContentProvider,
     exercise: Exercise,
 ): Promise<AccessibilityLevel> {
     const items = await contentRepo.getAssessmentItems(exercise.id);

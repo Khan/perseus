@@ -1,6 +1,6 @@
 import type {
     AssessmentItem,
-    ContentRepository,
+    ContentProvider,
     Course,
     Domain,
     Exercise,
@@ -9,7 +9,7 @@ import type {
 } from "./content-types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
-export function createEmptyContentRepo(): ContentRepository {
+export function createEmptyContentRepo(): ContentProvider {
     return {
         getAssessmentItems: async () => [],
         getExercises: async () => [],

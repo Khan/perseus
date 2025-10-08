@@ -1,6 +1,6 @@
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
-export interface ContentRepository {
+export interface ContentProvider {
     getDomainById(id: string): Promise<Domain | undefined>;
     getCourseById(id: string): Promise<Course | undefined>;
     getUnitById(id: string): Promise<Unit | undefined>;

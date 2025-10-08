@@ -1,8 +1,8 @@
-import {GcsContentRepository} from "./gcs-content-repository";
+import {ContentRepository} from "./content-repository";
 
-import type {ContentJsonRepository} from "./gcs-content-repository";
+import type {ContentJsonRepository} from "./content-repository";
 
-describe("GcsContentRepository.getExercises()", () => {
+describe("ContentRepository.getExercises()", () => {
     it("lists the exercises appearing in the latest snapshot file on GCS", async () => {
         // Arrange:
         const snapshotJson = JSON.stringify({
@@ -30,7 +30,7 @@ describe("GcsContentRepository.getExercises()", () => {
             },
         };
 
-        const contentRepository = new GcsContentRepository({
+        const contentRepository = new ContentRepository({
             contentJsonRepository,
         });
 
@@ -78,7 +78,7 @@ describe("GcsContentRepository.getExercises()", () => {
             },
         };
 
-        const contentRepository = new GcsContentRepository({
+        const contentRepository = new ContentRepository({
             contentJsonRepository,
         });
 
@@ -91,7 +91,7 @@ describe("GcsContentRepository.getExercises()", () => {
     });
 });
 
-describe("GcsContentRepository.getAssessmentItems()", () => {
+describe("ContentRepository.getAssessmentItems()", () => {
     it("gets the assessment items for an exercise", async () => {
         // Arrange:
         const assessmentItemsJson = JSON.stringify([
@@ -126,7 +126,7 @@ describe("GcsContentRepository.getAssessmentItems()", () => {
             getAssessmentItemJson: async () => assessmentItemsJson,
         };
 
-        const contentRepository = new GcsContentRepository({
+        const contentRepository = new ContentRepository({
             contentJsonRepository,
         });
 

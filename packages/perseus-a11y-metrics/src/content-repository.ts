@@ -1,7 +1,7 @@
 import {parseAssessmentItemList} from "./parsers/parse-assessment-item-list";
 import {parseSnapshot} from "./parsers/parse-snapshot";
 
-import type {AssessmentItem, ContentRepository} from "./domain/content-types";
+import type {AssessmentItem, ContentProvider} from "./domain/content-types";
 import type {
     Snapshot,
     ExerciseData,
@@ -9,7 +9,7 @@ import type {
     DomainData,
 } from "./parsers/parse-snapshot";
 
-export interface GcsContentRepositoryOptions {
+export interface ContentRepositoryOptions {
     /**
      * Provides access to the raw JSON for content items. Passed as an option
      * for ease of mocking.
@@ -17,6 +17,9 @@ export interface GcsContentRepositoryOptions {
     contentJsonRepository: ContentJsonRepository;
 }
 
+/**
+ * The ContentRepository uses this to get the raw JSON data.
+ */
 export interface ContentJsonRepository {
     getSnapshotJson(): Promise<string>;
     getAssessmentItemJson(
@@ -25,12 +28,11 @@ export interface ContentJsonRepository {
     ): Promise<string>;
 }
 
-// FIXME: find a better name. This thing doens't know about GCS.
 /**
- * The GcsContentRepository provides content data to the rest of the program.
+ * The ContentRepository provides content data to the rest of the program.
  * It reads and parses JSON data from an underlying ContentJsonRepository.
  */
-export class GcsContentRepository implements ContentRepository {
+export class ContentRepository implements ContentProvider {
     private snapshotCache?: Snapshot;
     private mapOfIdsToDomainsCache?: Record<string, DomainData>;
     private mapOfIdsToCoursesCache?: Record<
@@ -43,7 +45,7 @@ export class GcsContentRepository implements ContentRepository {
         IntermediateCurationNodeData
     >;
     private mapOfIdsToExercisesCache?: Record<string, ExerciseData>;
-    constructor(private options: GcsContentRepositoryOptions) {}
+    constructor(private options: ContentRepositoryOptions) {}
 
     async getDomainById(id: string): Promise<DomainData | undefined> {
         const map = await this.getMapOfIdsToDomains();

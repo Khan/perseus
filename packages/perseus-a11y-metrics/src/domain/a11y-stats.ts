@@ -2,7 +2,7 @@ import {getAccessibilityLevel} from "./accessibility-level";
 import {getDculPaths} from "./dcul";
 
 import type {AccessibilityLevel} from "./accessibility-level";
-import type {ContentRepository} from "./content-types";
+import type {ContentProvider} from "./content-types";
 
 export interface A11yStats {
     /**
@@ -59,7 +59,7 @@ export interface A11yStats {
 }
 
 export async function compileA11yStats(
-    contentRepo: ContentRepository,
+    contentRepo: ContentProvider,
 ): Promise<A11yStats> {
     const a11yStats: A11yStats = {
         full: 0,

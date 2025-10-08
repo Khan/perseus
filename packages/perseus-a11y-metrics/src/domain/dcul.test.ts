@@ -9,7 +9,7 @@ import {
 import {getDculPaths} from "./dcul";
 
 import type {
-    ContentRepository,
+    ContentProvider,
     Course,
     Domain,
     Exercise,
@@ -74,7 +74,7 @@ describe("getDculPaths", () => {
             },
         };
 
-        const contentRepo: ContentRepository = {
+        const contentRepo: ContentProvider = {
             ...createEmptyContentRepo(),
             getDomainById: async (id) => domains[id],
             getCourseById: async (id) => courses[id],
@@ -140,7 +140,7 @@ describe("getDculPaths", () => {
             },
         };
 
-        const contentRepo: ContentRepository = {
+        const contentRepo: ContentProvider = {
             ...createEmptyContentRepo(),
             getDomainById: async (id) => domains[id],
             getCourseById: async (id) => courses[id],
@@ -212,7 +212,7 @@ describe("getDculPaths", () => {
             },
         };
 
-        const contentRepo: ContentRepository = {
+        const contentRepo: ContentProvider = {
             ...createEmptyContentRepo(),
             getDomainById: async (id) => domains[id],
             getCourseById: async (id) => courses[id],
@@ -284,7 +284,7 @@ describe("getDculPaths", () => {
             },
         };
 
-        const contentRepo: ContentRepository = {
+        const contentRepo: ContentProvider = {
             ...createEmptyContentRepo(),
             getDomainById: async (id) => domains[id],
             getCourseById: async (id) => courses[id],
@@ -355,7 +355,7 @@ describe("getDculPaths", () => {
             },
         };
 
-        const contentRepo: ContentRepository = {
+        const contentRepo: ContentProvider = {
             ...createEmptyContentRepo(),
             getDomainById: async (id) => domains[id],
             getCourseById: async (id) => courses[id],
