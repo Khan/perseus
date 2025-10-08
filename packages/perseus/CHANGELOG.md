@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 71.2.1
+
+### Patch Changes
+
+-   [#2950](https://github.com/Khan/perseus/pull/2950) [`ce47e5afa4`](https://github.com/Khan/perseus/commit/ce47e5afa4f1d253e6de9d29f85b273b2a582bcd) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Selected choices don't turn blue when in articles
+
 ## 71.2.0
 
 ### Minor Changes

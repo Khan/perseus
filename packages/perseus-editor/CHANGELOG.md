@@ -1,5 +1,17 @@
 # @khanacademy/perseus-editor
 
+## 28.4.0
+
+### Minor Changes
+
+-   [#2949](https://github.com/Khan/perseus/pull/2949) [`9b2effcc25`](https://github.com/Khan/perseus/commit/9b2effcc253eca60bb907007704a2f2ea847dc0c) Thanks [@Myranae](https://github.com/Myranae)! - Add popover direction selector back to label image editor to still allow content authors to add popover direction
+    preference; also fix a bug where their selection did not persist in the editor.
+
+### Patch Changes
+
+-   Updated dependencies [[`ce47e5afa4`](https://github.com/Khan/perseus/commit/ce47e5afa4f1d253e6de9d29f85b273b2a582bcd)]:
+    -   @khanacademy/perseus@71.2.1
+
 ## 28.3.1
 
 ### Patch Changes
