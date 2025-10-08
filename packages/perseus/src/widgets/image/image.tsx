@@ -11,8 +11,7 @@ import {ImageDescriptionAndCaption} from "./components/image-description-and-cap
 import styles from "./image-widget.module.css";
 
 import type {ImageWidgetProps} from "./image.class";
-
-export type ImageSize = {width: number; height: number};
+import type {Size} from "@khanacademy/perseus-core";
 
 export const ImageComponent = (props: ImageWidgetProps) => {
     const {
@@ -32,21 +31,21 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
-    const [zoomSize, setZoomSize] = React.useState<ImageSize>({
-        width: backgroundImage.width || 0,
-        height: backgroundImage.height || 0,
-    });
+    const [zoomSize, setZoomSize] = React.useState<Size>([
+        backgroundImage.width || 0,
+        backgroundImage.height || 0,
+    ]);
+
+    const [zoomWidth, zoomHeight] = zoomSize;
 
     React.useEffect(() => {
         // Wait to figure out what the original size of the image is.
         // Use whichever is larger between the original image size and the
         // saved background image size for zooming.
         Util.getImageSizeModern(backgroundImage.url!).then((naturalSize) => {
-            if (naturalSize[0] > (backgroundImage.width || 0)) {
-                setZoomSize({
-                    width: naturalSize[0],
-                    height: naturalSize[1],
-                });
+            const [naturalWidth, naturalHeight] = naturalSize;
+            if (naturalWidth > (backgroundImage.width || 0)) {
+                setZoomSize([naturalWidth, naturalHeight]);
             }
         });
     }, [backgroundImage]);
@@ -63,8 +62,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     // Between the original image size and the saved background
                     // image size, use the larger size to determine if the
                     // image is large enough to allow zooming.
-                    width={zoomSize.width}
-                    height={zoomSize.height}
+                    width={zoomWidth}
+                    height={zoomHeight}
                     preloader={apiOptions.imagePreloader}
                     extraGraphie={{
                         box: box,

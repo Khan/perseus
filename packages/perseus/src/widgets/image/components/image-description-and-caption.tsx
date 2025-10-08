@@ -10,7 +10,6 @@ import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
 
 import type {APIOptions} from "../../../types";
-import type {ImageSize} from "../image";
 import type {
     Interval,
     PerseusImageBackground,
@@ -36,7 +35,7 @@ export interface ImageDescriptionAndCaptionProps {
      * when the content is written). This larger image size is used to
      * determine if the image is large enough to allow zooming.
      */
-    zoomSize: ImageSize;
+    zoomSize: Size;
 }
 
 export const ImageDescriptionAndCaption = (
@@ -44,6 +43,8 @@ export const ImageDescriptionAndCaption = (
 ) => {
     const {caption, longDescription, apiOptions, linterContext, zoomSize} =
         props;
+
+    const [zoomWidth, _] = zoomSize;
 
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
@@ -67,7 +68,7 @@ export const ImageDescriptionAndCaption = (
                 <figcaption
                     className="perseus-image-caption"
                     style={{
-                        maxWidth: zoomSize.width,
+                        maxWidth: zoomWidth,
                     }}
                 >
                     {/* The Renderer component is used here so that the caption
