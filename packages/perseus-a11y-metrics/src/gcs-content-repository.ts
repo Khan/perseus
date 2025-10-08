@@ -1,15 +1,9 @@
-import * as fs from "node:fs/promises";
-import {join} from "node:path";
-
 import {isFailure, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
 import {array, object, string, unknown} from "zod";
 
 import {parseSnapshot} from "./parse-snapshot";
-import {command} from "./platform/command";
-import {gcloudStorage} from "./platform/gcloud-storage";
 
 import type {AssessmentItem, ContentRepository} from "./domain/content-types";
-import type {GcsContentJsonRepository} from "./gcs-content-json-repository";
 import type {
     Snapshot,
     ExerciseData,
@@ -18,21 +12,24 @@ import type {
 } from "./parse-snapshot";
 
 export interface GcsContentRepositoryOptions {
-    contentVersion: string;
-    locale: string;
+    contentVersion: string; // FIXME remove
+    locale: string; // FIXME remove
+    dataDirectory: string; // FIXME remove
     /**
-     * A directory in which to download data. The content repository will
-     * create the directory if it doesn't yet exist.
+     * Provides access to the raw JSON for content items. Passed as an option
+     * for ease of mocking.
      */
-    dataDirectory: string;
-    contentJsonRepository: GcsContentJsonRepository; // FIXME: interface
+    contentJsonRepository: ContentJsonRepository;
+}
+
+export interface ContentJsonRepository {
+    getSnapshotJson(): Promise<string>;
+    getAssessmentItemJson(exerciseId: string, contentSha: string): Promise<string>;
 }
 
 /**
  * The GcsContentRepository provides content data to the rest of the program.
- * It knows where to find the data on Google Cloud Storage, and it keeps
- * track of a local copy of the data on disk. Requests to read data from the
- * repository will download the data if it's not yet stored locally.
+ * It reads and parses JSON data from an underlying ContentJsonRepository.
  */
 export class GcsContentRepository implements ContentRepository {
     private snapshotCache?: Snapshot;
@@ -207,49 +204,7 @@ export class GcsContentRepository implements ContentRepository {
     }
 
     private async getSnapshotJson(): Promise<string> {
-        const gcloudUrl = `gs://ka-content-data/${this.getLocale()}/snapshot-${this.getContentVersion()}.json`;
-        try {
-            return await this.readLocalSnapshotJsonWithJqFiltering();
-        } catch {
-            // The file doesn't exist or can't be read. Try downloading it.
-            await fs.mkdir(this.getDataDir(), {recursive: true});
-            await gcloudStorage.cp([gcloudUrl], this.getLocalSnapshotPath(), {
-                project: "khan-academy",
-            });
-            return await this.readLocalSnapshotJsonWithJqFiltering();
-        }
-    }
-
-    private async readLocalSnapshotJsonWithJqFiltering(): Promise<string> {
-        // The snapshot data is too large (600 MB) to fit into a NodeJS string.
-        // The maximum size of a string is 512 MB. So we use `jq` to filter the
-        // data to just what we need.
-        const path = this.getLocalSnapshotPath();
-
-        const jqProgram = `
-            {
-                domains: .domains | map(pick(.id, .slug)),
-                courses: .courses | map(pick(.id, .slug, .listedAncestorIds)),
-                units: .units | map(pick(.id, .slug, .listedAncestorIds)),
-                lessons: .lessons | map(pick(.id, .slug, .listedAncestorIds)),
-                exercises: .exercises | map({
-                    exerciseLength: .exerciseLength,
-                    id: .id,
-                    slug: .slug,
-                    translatedPerseusContentSha: .translatedPerseusContentSha,
-                    listedAncestorIds: .listedAncestorIds,
-                    problemTypes: .problemTypes | map({
-                        items: .items  | map(pick(.id, .isContextInaccessible))
-                    }),
-                })
-            }
-        `;
-
-        const getExercisesCommand = command("jq", jqProgram, path);
-        const {stdout: snapshotJson} = await getExercisesCommand
-            .withStdoutToString()
-            .run();
-        return snapshotJson;
+        return this.getJsonRepository().getSnapshotJson();
     }
 
     private async getAssessmentItemJson(exerciseId: string): Promise<string> {
@@ -263,43 +218,10 @@ export class GcsContentRepository implements ContentRepository {
         // are different (TODO: why?) so we have to be sure to use the
         // translatedPerseusContentSha here.
         const contentSha = exercise.translatedPerseusContentSha;
-        const exercisesDir = join(this.getDataDir(), "exercises");
-        const localFilePath = join(
-            exercisesDir,
-            this.getLocale(),
-            `${exerciseId}-${contentSha}.json`,
-        );
-        const gcloudUrl = `gs://content-property.khanacademy.org/Exercise.TranslatedPerseusContent/${this.getLocale()}`;
-        try {
-            return await fs.readFile(localFilePath, "utf-8");
-        } catch {
-            await fs.mkdir(exercisesDir, {recursive: true});
-            // The file doesn't exist or can't be read. Download all the exercise content.
-            await gcloudStorage.cp([gcloudUrl], exercisesDir, {
-                project: "khan-academy",
-                recursive: true,
-            });
-            return await fs.readFile(localFilePath, "utf-8");
-        }
+        return this.getJsonRepository().getAssessmentItemJson(exerciseId, contentSha);
     }
 
-    private getLocalSnapshotPath(): string {
-        return join(this.getDataDir(), `snapshot-${this.getLocale()}.json`);
-    }
-
-    private getDataDir(): string {
-        return join(this.getCacheDirectory(), this.getContentVersion());
-    }
-
-    private getLocale(): string {
-        return this.options.locale;
-    }
-
-    private getContentVersion(): string {
-        return this.options.contentVersion;
-    }
-
-    private getCacheDirectory(): string {
-        return this.options.dataDirectory;
+    private getJsonRepository(): ContentJsonRepository {
+        return this.options.contentJsonRepository;
     }
 }

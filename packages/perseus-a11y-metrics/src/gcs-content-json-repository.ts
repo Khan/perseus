@@ -3,14 +3,19 @@ import {join} from "node:path";
 
 import {command} from "./platform/command";
 import {gcloudStorage} from "./platform/gcloud-storage";
+import {ContentJsonRepository} from "./gcs-content-repository";
 
 export interface GcsContentJsonRepositoryOptions {
     locale: string;
     contentVersion: string;
+    /**
+     * A directory in which to store data. The GcsContentJsonRepository will
+     * create the directory if it doesn't yet exist.
+     */
     dataDirectory: string;
 }
 
-export class GcsContentJsonRepository {
+export class GcsContentJsonRepository implements ContentJsonRepository {
     constructor(private options: GcsContentJsonRepositoryOptions) {}
 
     async getSnapshotJson(): Promise<string> {
