@@ -123,6 +123,10 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     componentDidUpdate(prevProps: Readonly<InnerProps>): void {
         if (prevProps.value !== this.props.value) {
+            // Don't do anything if the user is currently focused on this input
+            if (this.state.focused) {
+                return;
+            }
             const field = this.mathField();
             if (!field) {
                 return;
