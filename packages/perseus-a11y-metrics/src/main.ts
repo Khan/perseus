@@ -5,13 +5,16 @@ import {compileA11yStats} from "./domain/a11y-stats";
 import {GcsContentRepository} from "./gcs-content-repository";
 
 import type {ContentRepository} from "./domain/content-types";
+import {join} from "node:path";
 
 async function main() {
     const locale = "en";
     const contentVersion = await getPublishedContentVersion(locale);
+    const dataDirectory = join("/", "tmp", "perseus-a11y-metrics");
     const contentRepo: ContentRepository = new GcsContentRepository({
-        contentVersion,
         locale,
+        contentVersion,
+        dataDirectory,
     });
 
     const a11yStats = await compileA11yStats(contentRepo);

@@ -20,11 +20,10 @@ export interface GcsContentRepositoryOptions {
     contentVersion: string;
     locale: string;
     /**
-     * A directory in which to cache data. Will be defaulted if not provided.
-     * The content repository will create the directory if it doesn't yet
-     * exist.
+     * A directory in which to download data. The content repository will
+     * create the directory if it doesn't yet exist.
      */
-    cacheDirectory?: string;
+    dataDirectory: string;
 }
 
 /**
@@ -299,7 +298,6 @@ export class GcsContentRepository implements ContentRepository {
     }
 
     private getCacheDirectory(): string {
-        const defaultValue = join("/", "tmp", "perseus-a11y-metrics");
-        return this.options.cacheDirectory ?? defaultValue;
+        return this.options.dataDirectory;
     }
 }

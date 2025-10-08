@@ -12,7 +12,7 @@ describe("GcsContentRepository.getExercises()", () => {
         const contentRepository = new GcsContentRepository({
             contentVersion: "abc123",
             locale: "lol",
-            cacheDirectory: join(
+            dataDirectory: join(
                 "/",
                 "tmp",
                 "perseus-tests",
@@ -74,7 +74,7 @@ describe("GcsContentRepository.getExercises()", () => {
         const contentRepository = new GcsContentRepository({
             contentVersion: "abc123",
             locale: "lol",
-            cacheDirectory: join(
+            dataDirectory: join(
                 "/",
                 "tmp",
                 "perseus-tests",
@@ -128,7 +128,7 @@ describe("GcsContentRepository.getExercises()", () => {
         const contentRepository = new GcsContentRepository({
             contentVersion: "abc123",
             locale: "lol",
-            cacheDirectory: join(
+            dataDirectory: join(
                 "/",
                 "tmp",
                 "perseus-tests",
@@ -184,7 +184,7 @@ describe("GcsContentRepository.getAssessmentItems()", () => {
         const contentRepository = new GcsContentRepository({
             contentVersion: "theVersion",
             locale: "lol",
-            cacheDirectory: join(
+            dataDirectory: join(
                 "/",
                 "tmp",
                 "perseus-tests",
