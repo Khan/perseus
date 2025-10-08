@@ -30,7 +30,9 @@ export interface ImageDescriptionAndCaptionProps {
     linterContext: LinterContextProps;
     apiOptions: APIOptions;
     /**
-     * zoomSize is whichever one is larger between the natural size of the
+     * zoomSize represents the larger of the image’s natural size (calculated on load)
+     * and the saved backgroundImage size (specified when the content is written). This
+     * ensures that zooming is enabled only if the image is sufficiently large.
      * image (calculated on load) and the saved backgroundImage size (specified
      * when the content is written). This larger image size is used to
      * determine if the image is large enough to allow zooming.
