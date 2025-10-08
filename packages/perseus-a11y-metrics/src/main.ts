@@ -9,7 +9,6 @@ import {compileA11yStats} from "./domain/a11y-stats";
 import {formatExerciseAccessibilityData} from "./format-exercise-accessibility-data";
 import {GcsContentJsonRepository} from "./gcs-content-json-repository";
 
-import type {ContentJsonRepository} from "./content-repository";
 import type {ContentProvider} from "./domain/content-types";
 
 async function main() {
@@ -17,13 +16,11 @@ async function main() {
     const contentVersion = await getPublishedContentVersion(locale);
     const dataDirectory = join("/", "tmp", "perseus-a11y-metrics");
 
-    const contentJsonRepo: ContentJsonRepository = new GcsContentJsonRepository(
-        {
-            locale,
-            contentVersion,
-            dataDirectory,
-        },
-    );
+    const contentJsonRepo = new GcsContentJsonRepository({
+        locale,
+        contentVersion,
+        dataDirectory,
+    });
 
     const contentRepo: ContentProvider = new ContentRepository({
         contentJsonRepository: contentJsonRepo,
@@ -31,13 +28,13 @@ async function main() {
 
     const a11yStats = await compileA11yStats(contentRepo);
 
+    await contentJsonRepo.prune();
+
     await fs.writeFile(
         join(dataDirectory, "exercises.json"),
         formatExerciseAccessibilityData(a11yStats),
         "utf-8",
     );
-
-    // FIXME: `await contentJsonRepo.prune()` to delete old data from disk.
 
     // eslint-disable-next-line no-console
     console.log(

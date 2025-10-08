@@ -46,7 +46,7 @@ export class GcsContentJsonRepository implements ContentJsonRepository {
         exerciseId: string,
         contentSha: string,
     ): Promise<string> {
-        const exercisesDir = join(this.getDataDir(), "exercises");
+        const exercisesDir = join(this.getVersionedDataDir(), "exercises");
         const localFilePath = join(
             exercisesDir,
             this.getLocale(),
@@ -66,6 +66,24 @@ export class GcsContentJsonRepository implements ContentJsonRepository {
         }
     }
 
+    /**
+     * Removes old versions of the content data from disk.
+     */
+    async prune(): Promise<void> {
+        const dataDir = this.getUnversionedDataDir();
+        const contentVersion = this.getContentVersion();
+
+        const dataDirEntries = await fs.readdir(dataDir);
+        for (const entry of dataDirEntries) {
+            if (entry !== contentVersion) {
+                await fs.rm(join(dataDir, entry), {
+                    recursive: true,
+                    force: true,
+                });
+            }
+        }
+    }
+
     private getLocalSnapshotPath(): string {
         return join(
             this.getVersionedDataDir(),
@@ -74,10 +92,10 @@ export class GcsContentJsonRepository implements ContentJsonRepository {
     }
 
     private getVersionedDataDir(): string {
-        return join(this.getDataDir(), this.getContentVersion());
+        return join(this.getUnversionedDataDir(), this.getContentVersion());
     }
 
-    private getDataDir(): string {
+    private getUnversionedDataDir(): string {
         return join(this.options.dataDirectory);
     }
 
