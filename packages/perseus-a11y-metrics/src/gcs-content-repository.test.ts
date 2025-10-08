@@ -11,14 +11,6 @@ describe("GcsContentRepository.getExercises()", () => {
     it("lists the exercises appearing in the latest snapshot file on GCS", async () => {
         // Arrange:
         const contentRepository = new GcsContentRepository({
-            contentVersion: "abc123",
-            locale: "lol",
-            dataDirectory: join(
-                "/",
-                "tmp",
-                "perseus-tests",
-                `${Math.random()}`,
-            ),
             contentJsonRepository: new GcsContentJsonRepository({
                 contentVersion: "abc123",
                 locale: "lol",
@@ -85,14 +77,6 @@ describe("GcsContentRepository.getExercises()", () => {
     it("returns consistent results if called multiple times", async () => {
         // Arrange:
         const contentRepository = new GcsContentRepository({
-            contentVersion: "abc123",
-            locale: "lol",
-            dataDirectory: join(
-                "/",
-                "tmp",
-                "perseus-tests",
-                `${Math.random()}`,
-            ),
             contentJsonRepository: new GcsContentJsonRepository({
                 contentVersion: "abc123",
                 locale: "lol",
@@ -150,14 +134,6 @@ describe("GcsContentRepository.getExercises()", () => {
     it("uses the local filesystem cache if called multiple times", async () => {
         // Arrange:
         const contentRepository = new GcsContentRepository({
-            contentVersion: "abc123",
-            locale: "lol",
-            dataDirectory: join(
-                "/",
-                "tmp",
-                "perseus-tests",
-                `${Math.random()}`,
-            ),
             contentJsonRepository: new GcsContentJsonRepository({
                 contentVersion: "abc123",
                 locale: "lol",
@@ -217,14 +193,7 @@ describe("GcsContentRepository.getAssessmentItems()", () => {
     it("gets the assessment items for an exercise", async () => {
         // Arrange:
         const contentRepository = new GcsContentRepository({
-            contentVersion: "theVersion",
-            locale: "lol",
-            dataDirectory: join(
-                "/",
-                "tmp",
-                "perseus-tests",
-                `${Math.random()}`,
-            ),
+            // FIXME: mock the ContentJsonRepository instead of mocking gcloudStorage.cp.
             contentJsonRepository: new GcsContentJsonRepository({
                 contentVersion: "theVersion",
                 locale: "lol",

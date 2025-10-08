@@ -3,7 +3,8 @@ import {join} from "node:path";
 
 import {command} from "./platform/command";
 import {gcloudStorage} from "./platform/gcloud-storage";
-import {ContentJsonRepository} from "./gcs-content-repository";
+
+import type {ContentJsonRepository} from "./gcs-content-repository";
 
 export interface GcsContentJsonRepositoryOptions {
     locale: string;

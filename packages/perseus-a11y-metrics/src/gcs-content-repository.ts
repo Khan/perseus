@@ -1,4 +1,5 @@
 import {isFailure, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
+// FIXME: move parser to its own file, parse-assessment-items.json
 import {array, object, string, unknown} from "zod";
 
 import {parseSnapshot} from "./parse-snapshot";
@@ -12,9 +13,6 @@ import type {
 } from "./parse-snapshot";
 
 export interface GcsContentRepositoryOptions {
-    contentVersion: string; // FIXME remove
-    locale: string; // FIXME remove
-    dataDirectory: string; // FIXME remove
     /**
      * Provides access to the raw JSON for content items. Passed as an option
      * for ease of mocking.
@@ -24,7 +22,10 @@ export interface GcsContentRepositoryOptions {
 
 export interface ContentJsonRepository {
     getSnapshotJson(): Promise<string>;
-    getAssessmentItemJson(exerciseId: string, contentSha: string): Promise<string>;
+    getAssessmentItemJson(
+        exerciseId: string,
+        contentSha: string,
+    ): Promise<string>;
 }
 
 /**
@@ -218,7 +219,10 @@ export class GcsContentRepository implements ContentRepository {
         // are different (TODO: why?) so we have to be sure to use the
         // translatedPerseusContentSha here.
         const contentSha = exercise.translatedPerseusContentSha;
-        return this.getJsonRepository().getAssessmentItemJson(exerciseId, contentSha);
+        return this.getJsonRepository().getAssessmentItemJson(
+            exerciseId,
+            contentSha,
+        );
     }
 
     private getJsonRepository(): ContentJsonRepository {

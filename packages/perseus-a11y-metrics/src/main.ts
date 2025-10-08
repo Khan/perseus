@@ -17,9 +17,6 @@ async function main() {
     const dataDirectory = join("/", "tmp", "perseus-a11y-metrics");
 
     const contentRepo: ContentRepository = new GcsContentRepository({
-        locale,
-        contentVersion,
-        dataDirectory,
         contentJsonRepository: new GcsContentJsonRepository({
             locale,
             contentVersion,
