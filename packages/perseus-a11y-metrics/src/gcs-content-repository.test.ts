@@ -28,6 +28,7 @@ describe("GcsContentRepository.getExercises()", () => {
             exercises: [
                 {
                     id: "exercise-1",
+                    slug: "slug-1",
                     exerciseLength: 7,
                     problemTypes: [],
                     translatedPerseusContentSha:
@@ -60,6 +61,7 @@ describe("GcsContentRepository.getExercises()", () => {
         expect(result).toEqual([
             {
                 id: "exercise-1",
+                slug: "slug-1",
                 exerciseLength: 7,
                 problemTypes: [],
                 translatedPerseusContentSha:
@@ -90,6 +92,7 @@ describe("GcsContentRepository.getExercises()", () => {
             exercises: [
                 {
                     id: "exercise-1",
+                    slug: "",
                     exerciseLength: 7,
                     problemTypes: [],
                     translatedPerseusContentSha:
@@ -144,6 +147,7 @@ describe("GcsContentRepository.getExercises()", () => {
             exercises: [
                 {
                     id: "exercise-1",
+                    slug: "",
                     exerciseLength: 7,
                     problemTypes: [],
                     translatedPerseusContentSha:
@@ -204,6 +208,7 @@ describe("GcsContentRepository.getAssessmentItems()", () => {
             exercises: [
                 {
                     id: "theExerciseId",
+                    slug: "",
                     exerciseLength: 7,
                     translatedPerseusContentSha: "theContentSha",
                     listedAncestorIds: [],

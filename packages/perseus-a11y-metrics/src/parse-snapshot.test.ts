@@ -63,6 +63,7 @@ describe("parseSnapshot", () => {
             exercises: [
                 {
                     id: "exercise-1",
+                    slug: "exercise-slug-1",
                     exerciseLength: 7,
                     problemTypes: [],
                     translatedPerseusContentSha: "",
