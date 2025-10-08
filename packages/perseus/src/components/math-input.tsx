@@ -123,7 +123,18 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     componentDidUpdate(prevProps: Readonly<InnerProps>): void {
         if (prevProps.value !== this.props.value) {
-            this.mathField()?.latex(this.props.value);
+            // Don't do anything if the user is currently focused on this input
+            if (this.state.focused) {
+                return;
+            }
+            const field = this.mathField();
+            if (!field) {
+                return;
+            }
+            const current = field.latex();
+            if (this.props.value !== current) {
+                field.latex(this.props.value);
+            }
         }
     }
 
