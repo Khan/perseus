@@ -123,7 +123,14 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     componentDidUpdate(prevProps: Readonly<InnerProps>): void {
         if (prevProps.value !== this.props.value) {
-            this.mathField()?.latex(this.props.value);
+            const field = this.mathField();
+            if (!field) {
+                return;
+            }
+            const current = field.latex();
+            if (this.props.value !== current) {
+                field.latex(this.props.value);
+            }
         }
     }
 
