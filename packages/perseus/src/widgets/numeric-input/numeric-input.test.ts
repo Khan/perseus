@@ -12,22 +12,25 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import NumericInputWidgetExport from "./numeric-input.class";
+import NumericInputWidgetExport, {
+    findCommonFractions,
+    findPrecision,
+} from "./numeric-input.class";
 import {
-    question1AndAnswer,
-    multipleAnswers,
-    percentageProblem,
-    multipleAnswersWithDecimals,
-    question1,
-    duplicatedAnswers,
-    withCoefficient,
     correctAndWrongAnswers,
+    duplicatedAnswers,
+    multipleAnswers,
+    multipleAnswersWithDecimals,
+    percentageProblem,
+    question1,
+    question1AndAnswer,
+    withCoefficient,
 } from "./numeric-input.testdata";
 
 import type {
     PerseusItem,
-    PerseusRenderer,
     PerseusNumericInputRubric,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -538,4 +541,29 @@ describe("interactive: full vs answerless", () => {
             expect(score).toHaveBeenAnsweredCorrectly();
         },
     );
+});
+
+describe("findPrecision", () => {
+    it.each([
+        [1.23, 2],
+        [0.3334, 4],
+        [1, 0],
+    ])("should find the correct precision", (num, precision) => {
+        expect(findPrecision(num)).toEqual(precision);
+    });
+});
+
+describe("findCommonFractions", () => {
+    it.each([
+        [1 / 8, 1, 8],
+        [+(2 / 3).toFixed(4), 2, 3],
+        [500.5, 1001, 2],
+    ])("should find the correct representation", (value, num, denom) => {
+        const found = findCommonFractions(value);
+        expect(found).toEqual({num, denom});
+    });
+
+    it.each([2, 20, 500])("should skip whole numbers", (num) => {
+        expect(findCommonFractions(num)).toBeFalsy();
+    });
 });
