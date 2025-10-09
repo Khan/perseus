@@ -56,8 +56,8 @@ export class GcsContentJsonRepository implements ContentJsonRepository {
         try {
             return await fs.readFile(localFilePath, "utf-8");
         } catch {
-            await fs.mkdir(exercisesDir, {recursive: true});
             // The file doesn't exist or can't be read. Download all the exercise content.
+            await fs.mkdir(exercisesDir, {recursive: true});
             await gcloudStorage.cp([gcloudUrl], exercisesDir, {
                 project: "khan-academy",
                 recursive: true,
