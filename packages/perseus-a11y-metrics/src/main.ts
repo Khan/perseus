@@ -16,6 +16,7 @@ async function main() {
     const locale = "en";
     const contentVersion = await getPublishedContentVersion(locale);
     const dataDirectory = join("/", "tmp", "perseus-a11y-metrics");
+    const outputFilePath = join(dataDirectory, "exercises.json");
 
     const contentJsonRepo = new GcsContentJsonRepository({
         locale,
@@ -32,7 +33,7 @@ async function main() {
     await contentJsonRepo.prune();
 
     await fs.writeFile(
-        join(dataDirectory, "exercises.json"),
+        outputFilePath,
         formatExerciseAccessibilityData(a11yStats),
         "utf-8",
     );
@@ -40,7 +41,7 @@ async function main() {
     // TODO(benchristel): should the extension for the data file be .ndjson?
     // See: https://github.com/ndjson/ndjson-spec?tab=readme-ov-file#33-mediatype-and-file-extensions
     await gcloudStorage.cp(
-        [join(dataDirectory, "exercises.json")],
+        [outputFilePath],
         `gs://khanflow-prod-bq-archive-unused-table-expiration/khan_test/perseus/analytics/${urlSafeDate(now)}/exercise-accessibility-data-nl.json`,
         {project: "khan-data-lake"},
     );
