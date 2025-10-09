@@ -336,6 +336,7 @@ This demonstrates all Perseus widget types in a disabled editing state.
                     categories: ["Fruits", "Vegetables"],
                     values: [0, 1, 0, 1],
                     randomizeItems: false,
+                    static: false,
                 },
             },
             "interactive-graph 1": {
@@ -366,6 +367,15 @@ This demonstrates all Perseus widget types in a disabled editing state.
                             [1, 3],
                         ],
                     },
+                    markings: "graph",
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showProtractor: false,
+                    lockedFigures: [],
                 },
             },
             "number-line 1": {
@@ -377,6 +387,14 @@ This demonstrates all Perseus widget types in a disabled editing state.
                     range: [-5, 5],
                     initialX: 2,
                     correctX: 2,
+                    labelRange: [-5, 5],
+                    labelStyle: "integer",
+                    isTickCtrl: false,
+                    isInequality: false,
+                    divisionRange: [1, 12],
+                    snapDivisions: 2,
+                    labelTicks: true,
+                    static: false,
                 },
             },
             "matrix 1": {
@@ -387,8 +405,8 @@ This demonstrates all Perseus widget types in a disabled editing state.
                 options: {
                     matrixBoardSize: [2, 2],
                     answers: [
-                        ["1", "0"],
-                        ["0", "1"],
+                        [1, 0],
+                        [0, 1],
                     ],
                 },
             },
@@ -415,6 +433,7 @@ This demonstrates all Perseus widget types in a disabled editing state.
                     explanation:
                         "This is a detailed explanation of the concept with step-by-step reasoning.",
                     static: false,
+                    widgets: {},
                 },
             },
             "image 1": {
@@ -464,10 +483,9 @@ This demonstrates all Perseus widget types in a disabled editing state.
                     scaleY: 1,
                     maxY: 10,
                     snapsPerLine: 2,
-                    correct: [
-                        [2, 4],
-                        [3, 6],
-                    ],
+                    correct: [2, 4, 3],
+                    starting: [0, 0, 0, 6],
+                    plotDimensions: [300, 300],
                 },
             },
             "sorter 1": {
