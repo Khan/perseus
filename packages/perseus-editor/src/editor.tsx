@@ -122,6 +122,7 @@ type Props = Readonly<{
     widgets: PerseusWidgetsMap;
     images: any;
     disabled: boolean;
+    editingDisabled?: boolean;
     widgetEnabled: boolean;
     immutableWidgets: boolean;
     showWordCount: boolean;
@@ -136,6 +137,7 @@ type Props = Readonly<{
 type DefaultProps = {
     content: string;
     disabled: boolean;
+    editingDisabled: boolean;
     images: Record<any, any>;
     immutableWidgets: boolean;
     placeholder: string;
@@ -168,6 +170,7 @@ class Editor extends React.Component<Props, State> {
         widgets: {},
         images: {},
         disabled: false,
+        editingDisabled: false,
         widgetEnabled: true,
         immutableWidgets: false,
         showWordCount: false,
@@ -1098,7 +1101,11 @@ class Editor extends React.Component<Props, State> {
         return (
             <div
                 className={
-                    "perseus-single-editor " + (this.props.className || "")
+                    "perseus-single-editor " +
+                    (this.props.className || "") +
+                    (this.props.editingDisabled
+                        ? " perseus-editor-disabled"
+                        : "")
                 }
             >
                 {textareaWrapper}

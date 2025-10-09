@@ -90,17 +90,24 @@ class TableEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        const isEditingDisabled = this.props.editingDisabled ?? false;
+
         const tableProps: Partial<PropsFor<typeof Table>> = {
             headers: this.props.headers,
             onChange: this.props.onChange,
             userInput: this.props.answers,
-            handleUserInput: (userInput) => {
-                // In the editing experience,
-                // user input is actually editing answers
-                this.props.onChange({answers: userInput});
+            handleUserInput: isEditingDisabled
+                ? () => {}
+                : (userInput) => {
+                      // In the editing experience,
+                      // user input is actually editing answers
+                      this.props.onChange({answers: userInput});
+                  },
+            apiOptions: {
+                ...this.props.apiOptions,
+                readOnly: isEditingDisabled,
             },
-            apiOptions: this.props.apiOptions,
-            editableHeaders: true,
+            editableHeaders: !isEditingDisabled,
             onFocus: () => {},
             onBlur: () => {},
             trackInteraction: () => {},
@@ -115,12 +122,20 @@ class TableEditor extends React.Component<Props> {
                         <NumberInput
                             ref={this.numberOfColumns}
                             value={this.props.columns}
-                            onChange={(val) => {
-                                if (val) {
-                                    this.onSizeInput(this.props.rows, val);
-                                }
-                            }}
+                            onChange={
+                                isEditingDisabled
+                                    ? () => {}
+                                    : (val) => {
+                                          if (val) {
+                                              this.onSizeInput(
+                                                  this.props.rows,
+                                                  val,
+                                              );
+                                          }
+                                      }
+                            }
                             useArrowKeys={true}
+                            disabled={isEditingDisabled}
                         />
                     </label>
                 </div>
@@ -131,12 +146,20 @@ class TableEditor extends React.Component<Props> {
                             // eslint-disable-next-line react/no-string-refs
                             ref="numberOfRows"
                             value={this.props.rows}
-                            onChange={(val) => {
-                                if (val) {
-                                    this.onSizeInput(val, this.props.columns);
-                                }
-                            }}
+                            onChange={
+                                isEditingDisabled
+                                    ? () => {}
+                                    : (val) => {
+                                          if (val) {
+                                              this.onSizeInput(
+                                                  val,
+                                                  this.props.columns,
+                                              );
+                                          }
+                                      }
+                            }
                             useArrowKeys={true}
+                            disabled={isEditingDisabled}
                         />
                     </label>
                 </div>

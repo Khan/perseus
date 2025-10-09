@@ -154,6 +154,7 @@ class ItemEditor extends React.Component<Props, State> {
         const isMobile =
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         return (
             <ItemEditorContext.Provider
@@ -182,6 +183,7 @@ class ItemEditor extends React.Component<Props, State> {
                                 imageUploader={this.props.imageUploader}
                                 onChange={this.handleEditorChange}
                                 apiOptions={this.props.apiOptions}
+                                editingDisabled={editingDisabled}
                                 showWordCount={true}
                                 widgetIsOpen={this.props.widgetIsOpen}
                                 additionalTemplates={
