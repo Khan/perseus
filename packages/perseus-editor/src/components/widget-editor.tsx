@@ -142,6 +142,8 @@ class WidgetEditor extends React.Component<
 
     render(): React.ReactNode {
         const widgetInfo = this.state.widgetInfo;
+        const isEditingDisabled =
+            this.props.apiOptions?.editingDisabled ?? false;
 
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
@@ -185,6 +187,7 @@ class WidgetEditor extends React.Component<
                         <LabeledSwitch
                             label="Static"
                             checked={!!widgetInfo.static}
+                            disabled={isEditingDisabled}
                             onChange={this._setStatic}
                         />
                     )}
@@ -192,6 +195,7 @@ class WidgetEditor extends React.Component<
                         <select
                             className="alignment"
                             value={widgetInfo.alignment}
+                            disabled={isEditingDisabled}
                             onChange={this._handleAlignmentChange}
                         >
                             {supportedAlignments.map((alignment) => (
@@ -232,14 +236,15 @@ function LabeledSwitch(props: {
     label: string;
     checked: boolean;
     onChange: (value: boolean) => unknown;
+    disabled: boolean;
 }) {
-    const {label, ...switchProps} = props;
+    const {label, disabled, ...switchProps} = props;
     const id = useId();
     return (
         <>
             <label htmlFor={id}>{label}</label>
             <Strut size={spacing.xxSmall_6} />
-            <Switch id={id} {...switchProps} />
+            <Switch id={id} {...switchProps} disabled={disabled} />
         </>
     );
 }

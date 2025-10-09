@@ -9,10 +9,11 @@ import type {ShowAxisArrows} from "@khanacademy/perseus-core";
 interface AxisArrowSwitchesProps {
     showAxisArrows: ShowAxisArrows;
     onChange: (axis: keyof ShowAxisArrows) => void;
+    editingDisabled: boolean;
 }
 
 export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
-    const {showAxisArrows, onChange} = props;
+    const {showAxisArrows, onChange, editingDisabled} = props;
 
     return (
         <>
@@ -32,6 +33,7 @@ export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
                         labelSide="start"
                         size="small"
                         checked={showAxisArrows.xMin}
+                        disabled={editingDisabled}
                         onChange={() => onChange("xMin")}
                     />
                 </div>
@@ -41,6 +43,7 @@ export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
                         labelSide="start"
                         size="small"
                         checked={showAxisArrows.yMin}
+                        disabled={editingDisabled}
                         onChange={() => onChange("yMin")}
                     />
                 </div>
@@ -60,6 +63,7 @@ export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
                         labelSide="start"
                         size="small"
                         checked={showAxisArrows.xMax}
+                        disabled={editingDisabled}
                         onChange={() => onChange("xMax")}
                     />
                 </div>
@@ -69,6 +73,7 @@ export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
                         labelSide="start"
                         size="small"
                         checked={showAxisArrows.yMax}
+                        disabled={editingDisabled}
                         onChange={() => onChange("yMax")}
                     />
                 </div>
