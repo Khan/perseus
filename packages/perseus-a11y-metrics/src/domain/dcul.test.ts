@@ -23,7 +23,7 @@ describe("getDculPaths", () => {
 
         const exercise = createBaseExercise();
 
-        const dculPaths = await getDculPaths(exercise, contentRepo);
+        const dculPaths = await getDculPaths(contentRepo, exercise);
 
         expect(dculPaths).toEqual([]);
     });
@@ -36,7 +36,7 @@ describe("getDculPaths", () => {
             listedAncestorIds: ["i-do-not-exist"],
         };
 
-        const dculPaths = await getDculPaths(exercise, contentRepo);
+        const dculPaths = await getDculPaths(contentRepo, exercise);
 
         expect(dculPaths).toEqual([]);
     });
@@ -88,7 +88,7 @@ describe("getDculPaths", () => {
         };
 
         // Act:
-        const dculPaths = await getDculPaths(exercise, contentRepo);
+        const dculPaths = await getDculPaths(contentRepo, exercise);
 
         // Assert:
         expect(dculPaths).toEqual([
@@ -154,7 +154,7 @@ describe("getDculPaths", () => {
         };
 
         // Act:
-        const dculPaths = await getDculPaths(exercise, contentRepo);
+        const dculPaths = await getDculPaths(contentRepo, exercise);
 
         // Assert:
         expect(dculPaths).toEqual([
@@ -226,7 +226,7 @@ describe("getDculPaths", () => {
         };
 
         // Act:
-        const dculPaths = await getDculPaths(exercise, contentRepo);
+        const dculPaths = await getDculPaths(contentRepo, exercise);
 
         // Assert:
         expect(dculPaths).toEqual([
@@ -298,7 +298,7 @@ describe("getDculPaths", () => {
         };
 
         // Act:
-        const dculPaths = await getDculPaths(exercise, contentRepo);
+        const dculPaths = await getDculPaths(contentRepo, exercise);
 
         // Assert:
         expect(dculPaths).toEqual([
@@ -369,7 +369,7 @@ describe("getDculPaths", () => {
         };
 
         // Act:
-        const dculPaths = await getDculPaths(exercise, contentRepo);
+        const dculPaths = await getDculPaths(contentRepo, exercise);
 
         // Assert:
         expect(dculPaths).toEqual([

@@ -75,7 +75,7 @@ export async function compileA11yStats(
         a11yStats[a11yLevel]++;
         a11yStats.total++;
 
-        const dculPaths = await getDculPaths(exercise, contentRepo);
+        const dculPaths = await getDculPaths(contentRepo, exercise);
         a11yStats.exercisesWithDcul.push(
             ...dculPaths.map((path) => ({
                 ...path,

@@ -35,8 +35,8 @@ export interface DculPath {
  * courses, etc. That is why this function can return multiple paths.
  */
 export async function getDculPaths(
-    exercise: Exercise,
     contentRepo: ContentProvider,
+    exercise: Exercise,
 ): Promise<DculPath[]> {
     const results: DculPath[] = [];
 
