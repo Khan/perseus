@@ -5,7 +5,7 @@ import type {AssessmentItem, ContentProvider} from "./domain/content-types";
 import type {
     Snapshot,
     ExerciseData,
-    IntermediateCurationNodeData,
+    CurationNodeData,
     DomainData,
 } from "./parsers/parse-snapshot";
 
@@ -35,16 +35,11 @@ export interface ContentJsonRepository {
 export class ContentRepository implements ContentProvider {
     private snapshotCache?: Snapshot;
     private mapOfIdsToDomainsCache?: Record<string, DomainData>;
-    private mapOfIdsToCoursesCache?: Record<
-        string,
-        IntermediateCurationNodeData
-    >;
-    private mapOfIdsToUnitsCache?: Record<string, IntermediateCurationNodeData>;
-    private mapOfIdsToLessonsCache?: Record<
-        string,
-        IntermediateCurationNodeData
-    >;
+    private mapOfIdsToCoursesCache?: Record<string, CurationNodeData>;
+    private mapOfIdsToUnitsCache?: Record<string, CurationNodeData>;
+    private mapOfIdsToLessonsCache?: Record<string, CurationNodeData>;
     private mapOfIdsToExercisesCache?: Record<string, ExerciseData>;
+
     constructor(private options: ContentRepositoryOptions) {}
 
     async getDomainById(id: string): Promise<DomainData | undefined> {
@@ -52,23 +47,17 @@ export class ContentRepository implements ContentProvider {
         return map[id];
     }
 
-    async getCourseById(
-        id: string,
-    ): Promise<IntermediateCurationNodeData | undefined> {
+    async getCourseById(id: string): Promise<CurationNodeData | undefined> {
         const map = await this.getMapOfIdsToCourses();
         return map[id];
     }
 
-    async getUnitById(
-        id: string,
-    ): Promise<IntermediateCurationNodeData | undefined> {
+    async getUnitById(id: string): Promise<CurationNodeData | undefined> {
         const map = await this.getMapOfIdsToUnits();
         return map[id];
     }
 
-    async getLessonById(
-        id: string,
-    ): Promise<IntermediateCurationNodeData | undefined> {
+    async getLessonById(id: string): Promise<CurationNodeData | undefined> {
         const map = await this.getMapOfIdsToLessons();
         return map[id];
     }
@@ -126,7 +115,7 @@ export class ContentRepository implements ContentProvider {
     }
 
     private async getMapOfIdsToCourses(): Promise<
-        Record<string, IntermediateCurationNodeData>
+        Record<string, CurationNodeData>
     > {
         if (this.mapOfIdsToCoursesCache == null) {
             this.mapOfIdsToCoursesCache = {};
@@ -138,7 +127,7 @@ export class ContentRepository implements ContentProvider {
     }
 
     private async getMapOfIdsToUnits(): Promise<
-        Record<string, IntermediateCurationNodeData>
+        Record<string, CurationNodeData>
     > {
         if (this.mapOfIdsToUnitsCache == null) {
             this.mapOfIdsToUnitsCache = {};
@@ -150,7 +139,7 @@ export class ContentRepository implements ContentProvider {
     }
 
     private async getMapOfIdsToLessons(): Promise<
-        Record<string, IntermediateCurationNodeData>
+        Record<string, CurationNodeData>
     > {
         if (this.mapOfIdsToLessonsCache == null) {
             this.mapOfIdsToLessonsCache = {};
@@ -178,17 +167,17 @@ export class ContentRepository implements ContentProvider {
         return snapshot.domains;
     }
 
-    private async getCourses(): Promise<IntermediateCurationNodeData[]> {
+    private async getCourses(): Promise<CurationNodeData[]> {
         const snapshot = await this.getSnapshot();
         return snapshot.courses;
     }
 
-    private async getUnits(): Promise<IntermediateCurationNodeData[]> {
+    private async getUnits(): Promise<CurationNodeData[]> {
         const snapshot = await this.getSnapshot();
         return snapshot.units;
     }
 
-    private async getLessons(): Promise<IntermediateCurationNodeData[]> {
+    private async getLessons(): Promise<CurationNodeData[]> {
         const snapshot = await this.getSnapshot();
         return snapshot.lessons;
     }

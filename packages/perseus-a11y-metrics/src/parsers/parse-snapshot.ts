@@ -6,9 +6,7 @@ export type ExerciseData = Infer<typeof ExerciseSchema>;
 
 export type DomainData = Infer<typeof DomainSchema>;
 
-export type IntermediateCurationNodeData = Infer<
-    typeof IntermediateCurationNodeSchema
->;
+export type CurationNodeData = Infer<typeof CurationNodeSchema>;
 
 export function parseSnapshot(rawData: unknown): Snapshot {
     return SnapshotSchema.parse(
@@ -45,7 +43,7 @@ const DomainSchema = object({
     slug: string(),
 });
 
-const IntermediateCurationNodeSchema = object({
+const CurationNodeSchema = object({
     id: string(),
     slug: string(),
     listedAncestorIds: stringArrayDefaultEmpty,
@@ -54,7 +52,7 @@ const IntermediateCurationNodeSchema = object({
 const SnapshotSchema = object({
     exercises: array(ExerciseSchema),
     domains: array(DomainSchema),
-    courses: array(IntermediateCurationNodeSchema),
-    units: array(IntermediateCurationNodeSchema),
-    lessons: array(IntermediateCurationNodeSchema),
+    courses: array(CurationNodeSchema),
+    units: array(CurationNodeSchema),
+    lessons: array(CurationNodeSchema),
 });
