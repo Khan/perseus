@@ -1,4 +1,4 @@
-import {parseAssessmentItemList} from "./parsers/parse-assessment-item-list";
+import {parseExerciseContent} from "./parsers/parse-exercise-content";
 import {parseSnapshot} from "./parsers/parse-snapshot";
 
 import type {AssessmentItem, ContentProvider} from "./domain/content-types";
@@ -74,7 +74,7 @@ export class ContentRepository implements ContentProvider {
         }
 
         const json = await this.getAssessmentItemJson(exerciseId);
-        return parseAssessmentItemList(json).map((item) => {
+        return parseExerciseContent(json).map((item) => {
             const itemMetadata = exercise.problemTypes
                 .flatMap((problemType) => problemType.items)
                 .find((itemMetadata) => itemMetadata.id === item.id);

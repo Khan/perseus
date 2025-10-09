@@ -4,15 +4,15 @@ import {array, object, string, unknown} from "zod";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Infer} from "zod";
 
-export function parseAssessmentItemList(
+export function parseExerciseContent(
     raw: unknown,
-): Infer<typeof AssessmentItemListSchema> {
-    return AssessmentItemListSchema.parse(
+): Infer<typeof ExerciseContentSchema> {
+    return ExerciseContentSchema.parse(
         typeof raw === "string" ? JSON.parse(raw) : raw,
     );
 }
 
-const AssessmentItemListSchema = array(
+const ExerciseContentSchema = array(
     object({
         item_data: unknown().transform(parsePerseusItemOrThrow),
         id: string(),
