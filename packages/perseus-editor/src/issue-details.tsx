@@ -1,4 +1,5 @@
 // WidgetIssueDetails.tsx
+import {isFeatureOn, type PerseusRenderer} from "@khanacademy/perseus-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -7,18 +8,26 @@ import PerseusEditorAccordion from "./components/perseus-editor-accordion";
 import IssueCta from "./issue-cta";
 
 import type {Issue} from "./issues-panel";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {APIOptions} from "@khanacademy/perseus";
 
 type IssueProps = {
+    apiOptions?: APIOptions;
     issue: Issue;
     question?: PerseusRenderer;
     onEditorChange: (newProps: any) => void;
     cta?: React.ReactNode;
 };
 
-const IssueDetails = ({issue, question, onEditorChange}: IssueProps) => {
+const IssueDetails = ({
+    apiOptions,
+    issue,
+    question,
+    onEditorChange,
+}: IssueProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const toggleVisibility = () => setExpanded(!expanded);
+
+    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     return (
         <PerseusEditorAccordion
@@ -53,11 +62,13 @@ const IssueDetails = ({issue, question, onEditorChange}: IssueProps) => {
                 Issue:
             </LabelSmall>
             <span>{issue.message}</span>
-            <IssueCta
-                issue={issue}
-                question={question}
-                onEditorChange={onEditorChange}
-            />
+            {imageUpgradeFF && (
+                <IssueCta
+                    issue={issue}
+                    question={question}
+                    onEditorChange={onEditorChange}
+                />
+            )}
         </PerseusEditorAccordion>
     );
 };

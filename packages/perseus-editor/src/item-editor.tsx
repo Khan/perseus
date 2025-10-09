@@ -158,6 +158,7 @@ class ItemEditor extends React.Component<Props, State> {
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
                         <IssuesPanel
+                            apiOptions={this.props.apiOptions}
                             issues={this.state.issues}
                             question={this.props.question}
                             onEditorChange={this.handleEditorChange}

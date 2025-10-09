@@ -9,6 +9,7 @@ import {useState} from "react";
 import ToggleableCaret from "./components/toggleable-caret";
 import IssueDetails from "./issue-details";
 
+import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export type IssueImpact = "low" | "medium" | "high";
@@ -22,12 +23,14 @@ export type Issue = {
 };
 
 type IssuesPanelProps = {
+    apiOptions?: APIOptions;
     issues?: Issue[];
     question?: PerseusRenderer;
     onEditorChange: (newProps: any) => void;
 };
 
 const IssuesPanel = ({
+    apiOptions,
     issues = [],
     question,
     onEditorChange,
@@ -79,6 +82,7 @@ const IssuesPanel = ({
                     <div className="perseus-widget-editor-content">
                         {issues.map((issue) => (
                             <IssueDetails
+                                apiOptions={apiOptions}
                                 key={issue.id}
                                 issue={issue}
                                 question={question}
