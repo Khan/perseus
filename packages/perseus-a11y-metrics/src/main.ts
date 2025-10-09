@@ -11,8 +11,6 @@ import {GcsContentJsonRepository} from "./gcs-content-json-repository";
 import {urlSafeDate} from "./lib/date";
 import {gcloudStorage} from "./platform/gcloud-storage";
 
-import type {ContentProvider} from "./domain/content-types";
-
 async function main() {
     const now = new Date();
     const locale = "en";
@@ -25,7 +23,7 @@ async function main() {
         dataDirectory,
     });
 
-    const contentRepo: ContentProvider = new ContentRepository({
+    const contentRepo = new ContentRepository({
         contentJsonRepository: contentJsonRepo,
     });
 
