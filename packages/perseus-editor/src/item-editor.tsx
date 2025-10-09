@@ -153,6 +153,8 @@ class ItemEditor extends React.Component<Props, State> {
         const isMobile =
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+
         return (
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
@@ -171,6 +173,7 @@ class ItemEditor extends React.Component<Props, State> {
                             imageUploader={this.props.imageUploader}
                             onChange={this.handleEditorChange}
                             apiOptions={this.props.apiOptions}
+                            editingDisabled={editingDisabled}
                             showWordCount={true}
                             widgetIsOpen={this.props.widgetIsOpen}
                             additionalTemplates={this.props.additionalTemplates}

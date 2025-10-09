@@ -245,87 +245,93 @@ class EditorPage extends React.Component<Props, State> {
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
             >
-                <div id="perseus" className={className}>
-                    <div style={{marginBottom: 10}}>
-                        {this.props.developerMode && (
-                            <span>
-                                <label>
-                                    {" "}
-                                    Developer JSON Mode:{" "}
-                                    <input
-                                        type="checkbox"
-                                        checked={this.props.jsonMode}
-                                        onChange={this.toggleJsonMode}
-                                    />
-                                </label>{" "}
-                            </span>
+                <fieldset disabled={this.props.apiOptions?.editingDisabled}>
+                    <div id="perseus" className={className}>
+                        <div style={{marginBottom: 10}}>
+                            {this.props.developerMode && (
+                                <span>
+                                    <label>
+                                        {" "}
+                                        Developer JSON Mode:{" "}
+                                        <input
+                                            type="checkbox"
+                                            checked={this.props.jsonMode}
+                                            onChange={this.toggleJsonMode}
+                                        />
+                                    </label>{" "}
+                                </span>
+                            )}
+
+                            {!this.props.jsonMode && (
+                                <ViewportResizer
+                                    deviceType={this.props.previewDevice}
+                                    onViewportSizeChanged={
+                                        this.props.onPreviewDeviceChange
+                                    }
+                                />
+                            )}
+
+                            {!this.props.jsonMode && (
+                                <HUD
+                                    message="Style warnings"
+                                    enabled={this.state.highlightLint}
+                                    onClick={() => {
+                                        this.setState({
+                                            highlightLint:
+                                                !this.state.highlightLint,
+                                        });
+                                    }}
+                                />
+                            )}
+                        </div>
+
+                        {this.props.developerMode && this.props.jsonMode && (
+                            <div>
+                                <JsonEditor
+                                    multiLine={true}
+                                    value={this.state.json}
+                                    onChange={this.changeJSON}
+                                />
+                            </div>
                         )}
 
-                        {!this.props.jsonMode && (
-                            <ViewportResizer
+                        {(!this.props.developerMode ||
+                            !this.props.jsonMode) && (
+                            <ItemEditor
+                                ref={this.itemEditor}
+                                itemId={this.props.itemId}
+                                question={this.props.question}
+                                answerArea={this.props.answerArea}
+                                imageUploader={this.props.imageUploader}
+                                onChange={this.handleChange}
                                 deviceType={this.props.previewDevice}
-                                onViewportSizeChanged={
-                                    this.props.onPreviewDeviceChange
+                                widgetIsOpen={this.state.widgetsAreOpen}
+                                apiOptions={deviceBasedApiOptions}
+                                previewURL={this.props.previewURL}
+                                issues={this.props.issues}
+                                additionalTemplates={
+                                    this.props.additionalTemplates
                                 }
                             />
                         )}
 
-                        {!this.props.jsonMode && (
-                            <HUD
-                                message="Style warnings"
-                                enabled={this.state.highlightLint}
-                                onClick={() => {
-                                    this.setState({
-                                        highlightLint:
-                                            !this.state.highlightLint,
-                                    });
-                                }}
+                        {(!this.props.developerMode ||
+                            !this.props.jsonMode) && (
+                            <CombinedHintsEditor
+                                ref={this.hintsEditor}
+                                itemId={this.props.itemId}
+                                hints={this.props.hints}
+                                imageUploader={this.props.imageUploader}
+                                onChange={this.handleChange}
+                                deviceType={this.props.previewDevice}
+                                apiOptions={deviceBasedApiOptions}
+                                previewURL={this.props.previewURL}
+                                highlightLint={this.state.highlightLint}
+                                widgetIsOpen={this.state.widgetsAreOpen}
                             />
                         )}
                     </div>
-
-                    {this.props.developerMode && this.props.jsonMode && (
-                        <div>
-                            <JsonEditor
-                                multiLine={true}
-                                value={this.state.json}
-                                onChange={this.changeJSON}
-                            />
-                        </div>
-                    )}
-
-                    {(!this.props.developerMode || !this.props.jsonMode) && (
-                        <ItemEditor
-                            ref={this.itemEditor}
-                            itemId={this.props.itemId}
-                            question={this.props.question}
-                            answerArea={this.props.answerArea}
-                            imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
-                            deviceType={this.props.previewDevice}
-                            widgetIsOpen={this.state.widgetsAreOpen}
-                            apiOptions={deviceBasedApiOptions}
-                            previewURL={this.props.previewURL}
-                            issues={this.props.issues}
-                            additionalTemplates={this.props.additionalTemplates}
-                        />
-                    )}
-
-                    {(!this.props.developerMode || !this.props.jsonMode) && (
-                        <CombinedHintsEditor
-                            ref={this.hintsEditor}
-                            itemId={this.props.itemId}
-                            hints={this.props.hints}
-                            imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
-                            deviceType={this.props.previewDevice}
-                            apiOptions={deviceBasedApiOptions}
-                            previewURL={this.props.previewURL}
-                            highlightLint={this.state.highlightLint}
-                            widgetIsOpen={this.state.widgetsAreOpen}
-                        />
-                    )}
-                </div>
+                </fieldset>
             </Dependencies.DependenciesContext.Provider>
         );
     }
