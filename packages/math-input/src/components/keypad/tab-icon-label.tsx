@@ -7,7 +7,7 @@ type Props = {
     type: KeypadPageType;
 };
 
-const IconAsset = function ({tintColor, type}: Props): React.ReactElement {
+const TabIconLabel = function ({tintColor, type}: Props): React.ReactElement {
     switch (type) {
         case "Geometry": {
             return (
@@ -137,4 +137,4 @@ const IconAsset = function ({tintColor, type}: Props): React.ReactElement {
     }
 };
 
-export default IconAsset;
+export default TabIconLabel;
