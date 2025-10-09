@@ -14,7 +14,7 @@ interface Props {
 }
 
 const IssueCta = ({issue, question, onEditorChange}: Props) => {
-    const cta = getCtaForIssueId(issue.id, question!, onEditorChange);
+    const cta = getCtaForIssueId(issue.id, question, onEditorChange);
 
     if (!cta) {
         return null;

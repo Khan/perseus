@@ -25,7 +25,7 @@ describe("IssuesPanel", () => {
 
     it("shows passing icon and '0 issues' when no data is passed", () => {
         // Arrange
-        render(<IssuesPanel issues={[]} />);
+        render(<IssuesPanel issues={[]} onEditorChange={() => {}} />);
 
         // Assert
         expect(screen.getByText("0 issues")).toBeInTheDocument();
@@ -43,7 +43,12 @@ describe("IssuesPanel", () => {
 
     it("shows warning icon for warnings", () => {
         // Arrange
-        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
+        render(
+            <IssuesPanel
+                issues={[makeIssue("warn1")]}
+                onEditorChange={() => {}}
+            />,
+        );
 
         // Assert
         expect(screen.getByText("1 issue")).toBeInTheDocument();
@@ -62,7 +67,10 @@ describe("IssuesPanel", () => {
     it("shows warning icon for warnings and correct issue count when multiple warnings are passed", async () => {
         // Arrange
         render(
-            <IssuesPanel issues={[makeIssue("warn1"), makeIssue("warn2")]} />,
+            <IssuesPanel
+                issues={[makeIssue("warn1"), makeIssue("warn2")]}
+                onEditorChange={() => {}}
+            />,
         );
 
         // Assert
@@ -81,7 +89,12 @@ describe("IssuesPanel", () => {
 
     it("opens the panel when the heading is clicked", async () => {
         // Arrange
-        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
+        render(
+            <IssuesPanel
+                issues={[makeIssue("warn1")]}
+                onEditorChange={() => {}}
+            />,
+        );
         const toggleHeader = screen.getByText("Issues");
 
         //Act
@@ -93,7 +106,12 @@ describe("IssuesPanel", () => {
 
     it("closes the panel when the heading is clicked again", async () => {
         //Arrange
-        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
+        render(
+            <IssuesPanel
+                issues={[makeIssue("warn1")]}
+                onEditorChange={() => {}}
+            />,
+        );
         const toggleHeader = screen.getByText("Issues");
         await userEvent.click(toggleHeader);
         expect(screen.getByText("Warning: warn1")).toBeInTheDocument();

@@ -90,9 +90,13 @@ export async function convertImageMarkdownToImageWidget(
 
 export function getCtaForIssueId(
     issueId: string,
-    question: PerseusRenderer,
+    question: PerseusRenderer | undefined,
     onEditorChange: (newProps: any) => void,
 ): IssueCta | null {
+    if (!question) {
+        return null;
+    }
+
     switch (issueId) {
         case "image-markdown":
             return {
