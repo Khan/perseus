@@ -110,6 +110,8 @@ type Props = {
     showTooltips: boolean;
 
     onChange: (arg1: Partial<Props>) => void;
+
+    editingDisabled: boolean;
 };
 
 type State = {
@@ -178,6 +180,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             yMin: true,
             yMax: true,
         },
+        editingDisabled: false,
     };
 
     componentDidMount() {
@@ -606,6 +609,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     this.state.showAxisArrowsSwitches
                                 }
                                 onChange={this.changeShowAxisArrows}
+                                editingDisabled={this.props.editingDisabled}
                             />
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">

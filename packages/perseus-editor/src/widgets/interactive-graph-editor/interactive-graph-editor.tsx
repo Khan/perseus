@@ -305,6 +305,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 lockedFigures: this.props.lockedFigures,
                 fullGraphAriaLabel: this.props.fullGraphAriaLabel,
                 fullGraphAriaDescription: this.props.fullGraphAriaDescription,
+                static: this.props.apiOptions.editingDisabled ?? false,
                 trackInteraction: function () {},
                 userInput: correct,
                 handleUserInput: (
@@ -430,6 +431,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         <InteractiveGraphSRTree
                             graphId={graphId}
                             correct={this.props.correct}
+                            editingDisabled={
+                                this.props.apiOptions.editingDisabled
+                            }
                             fullGraphAriaLabel={this.props.fullGraphAriaLabel}
                             fullGraphAriaDescription={
                                 this.props.fullGraphAriaDescription
@@ -451,6 +455,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             showProtractor={this.props.showProtractor}
                             showTooltips={this.props.showTooltips}
                             onChange={this.props.onChange}
+                            editingDisabled={
+                                this.props.apiOptions.editingDisabled
+                            }
                         />
                         <LockedFiguresSection
                             figures={this.props.lockedFigures}

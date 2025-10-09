@@ -4,14 +4,14 @@ import {
     dropdownLogic,
     type DropdownDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
+import Button from "@khanacademy/wonder-blocks-button";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
-import {iconPlus} from "../styles/icon-paths";
 
 const {InfoTip, InlineIcon} = components;
 
@@ -72,9 +72,7 @@ class DropdownEditor extends React.Component<Props> {
         this.props.onChange({choices: choices});
     };
 
-    addChoice: (arg1: React.MouseEvent) => void = (e) => {
-        e.preventDefault();
-
+    addChoice: () => void = () => {
         const choices = this.props.choices;
         const blankChoice = {content: "", correct: false} as const;
         this.props.onChange(
@@ -245,14 +243,14 @@ class DropdownEditor extends React.Component<Props> {
                 </ul>
 
                 <div className="add-choice-container">
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a
-                        href="#"
-                        className="simple-button orange"
+                    <Button
+                        kind="secondary"
+                        disabled={this.props.editingDisabled}
                         onClick={this.addChoice}
+                        startIcon={plusIcon}
                     >
-                        <InlineIcon {...iconPlus} /> Add a choice{" "}
-                    </a>
+                        Add a choice
+                    </Button>
                 </div>
             </div>
         );
