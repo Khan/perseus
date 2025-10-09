@@ -229,7 +229,6 @@ class WidgetEditor extends React.Component<
                             onChange={this._handleWidgetChange}
                             static={widgetInfo.static}
                             apiOptions={this.props.apiOptions}
-                            editingDisabled={isEditingDisabled}
                             {...widgetInfo.options}
                         />
                     )}
