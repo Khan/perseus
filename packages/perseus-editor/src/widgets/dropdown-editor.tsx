@@ -245,7 +245,7 @@ class DropdownEditor extends React.Component<Props> {
                 <div className="add-choice-container">
                     <Button
                         kind="secondary"
-                        disabled={!this.props.apiOptions.editingDisabled}
+                        disabled={this.props.apiOptions?.editingDisabled}
                         onClick={this.addChoice}
                         startIcon={plusIcon}
                     >
