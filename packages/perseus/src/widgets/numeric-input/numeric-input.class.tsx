@@ -153,6 +153,9 @@ function getUserInputFromSerializedState(
 
 export function findPrecision(value: number) {
     for (let i = 0; i < 10; i++) {
+        // `toFixed` handily rounds a number to a given precision...
+        // ...but also turns it into a string. so `+` turns it back
+        // into a number.
         if (value === +value.toFixed(i)) {
             return i;
         }
