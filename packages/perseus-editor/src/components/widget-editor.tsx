@@ -242,14 +242,15 @@ function LabeledSwitch(props: {
     label: string;
     checked: boolean;
     onChange: (value: boolean) => unknown;
+    disabled: boolean;
 }) {
-    const {label, ...switchProps} = props;
+    const {label, disabled, ...switchProps} = props;
     const id = useId();
     return (
         <>
             <label htmlFor={id}>{label}</label>
             <Strut size={spacing.xxSmall_6} />
-            <Switch id={id} {...switchProps} />
+            <Switch id={id} {...switchProps} disabled={disabled} />
         </>
     );
 }
