@@ -211,12 +211,12 @@ export const WithSaveWarnings = (): React.ReactElement => {
 
     const editorPageRef = React.useRef<EditorPage>(null);
 
-    // React.useEffect(() => {
-    //     if (editorPageRef.current) {
-    //         const warnings = editorPageRef.current.getSaveWarnings();
-    //         setSaveWarnings(warnings);
-    //     }
-    // }, [editorPageRef, question, hints]);
+    React.useEffect(() => {
+        if (editorPageRef.current) {
+            const warnings = editorPageRef.current.getSaveWarnings();
+            setSaveWarnings(warnings);
+        }
+    }, [editorPageRef, question, hints]);
 
     return (
         <View style={styles.container}>
