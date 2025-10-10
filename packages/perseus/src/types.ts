@@ -136,6 +136,12 @@ export type ChangeHandler = (
     silent?: boolean,
 ) => unknown;
 
+export type ChangeHandlerV2<T> = (
+    args: T,
+    callback?: () => void,
+    silent?: boolean,
+) => unknown;
+
 export type ImageUploader = (
     file: File,
     callback: (url: string) => unknown,

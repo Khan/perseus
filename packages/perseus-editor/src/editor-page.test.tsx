@@ -60,6 +60,7 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={question}
                 onChange={(next) => (callbackValue = next)}
+                onJsonModeChange={() => {}}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
@@ -84,6 +85,7 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={callbackValue.question}
                 onChange={(next) => (callbackValue = next)}
+                onJsonModeChange={() => {}}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
@@ -143,6 +145,7 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={startRenderer}
                 onChange={onChangeMock}
+                onJsonModeChange={() => {}}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""

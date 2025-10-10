@@ -1441,6 +1441,7 @@ class Renderer
         );
     }
 
+    // dead code
     handleStateUpdate(id: string, cb: () => boolean, silent?: boolean) {
         // Wait until all components have rendered. In React 16 setState
         // callback fires immediately after this componentDidUpdate, and

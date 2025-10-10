@@ -16,8 +16,8 @@ import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
-    // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
+    ChangeHandlerV2,
     DeviceType,
     ImageUploader,
     PerseusDependenciesV2,
@@ -31,6 +31,17 @@ import type {
 
 const {HUD} = components;
 
+type OnChangeArgs =
+    | {
+          type: "valid";
+          perseusItem: PerseusItem;
+      }
+    | {
+          type: "invalid";
+          // The warnings returned by getSaveWarnings()
+          warnings: string[];
+      };
+
 type Props = {
     /** Additional templates that the host application would like to display
      * within the Perseus Editor.
@@ -43,7 +54,7 @@ type Props = {
     dependencies: PerseusDependenciesV2;
     /** "Power user" mode. Shows the raw JSON of the question. */
     developerMode: boolean;
-    hints?: ReadonlyArray<Hint>; // related to the question,
+    hints?: Array<Hint>; // related to the question,
     /** A function which takes a file object (guaranteed to be an image) and
      * a callback, then calls the callback with the url where the image
      * will be hosted. Image drag and drop is disabled when imageUploader
@@ -58,7 +69,8 @@ type Props = {
      */
     jsonMode: boolean;
     /** A function which is called with the new JSON blob of content. */
-    onChange: ChangeHandler;
+    onChange: ChangeHandlerV2<OnChangeArgs>;
+    onJsonModeChange: (jsonMode: boolean) => unknown;
     /** A function which is called when the preview device changes. */
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
@@ -145,9 +157,7 @@ class EditorPage extends React.Component<Props, State> {
                 json: this.serialize({keepDeletedWidgets: true}),
             },
             () => {
-                this.props.onChange({
-                    jsonMode: !this.props.jsonMode,
-                });
+                this.props.onJsonModeChange(!this.props.jsonMode);
             },
         );
     };
@@ -212,17 +222,91 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     // eslint-disable-next-line import/no-deprecated
-    handleChange: ChangeHandler = (toChange, cb, silent) => {
-        const newProps = _(this.props).pick("question", "hints", "answerArea");
-        _(newProps).extend(toChange);
-        this.props.onChange(newProps, cb, silent);
+    handleChange = (
+        toChange: Partial<PerseusItem>,
+        cb?: () => void,
+        silent?: boolean,
+    ) => {
+        const newProps = {
+            question: this.props.question,
+            hints: this.props.hints,
+            answerArea: this.props.answerArea,
+            ...toChange,
+        };
+
+        // If there are null values, return an invalid response
+        if (
+            newProps.question == null ||
+            newProps.hints == null ||
+            newProps.answerArea == null
+        ) {
+            this.props.onChange(
+                {
+                    type: "invalid",
+                    warnings: [
+                        "Question, hints, or answer area cannot be null.",
+                    ],
+                },
+                cb,
+                silent,
+            );
+            return;
+        }
+
+        // Check for errors
+
+        const errors = this.getSaveWarnings();
+
+        // If there are errors, return an invalid response
+        if (errors.length > 0) {
+            this.props.onChange(
+                {type: "invalid", warnings: errors},
+                cb,
+                silent,
+            );
+            return;
+        }
+
+        // If there are no errors, return a valid response
+        this.props.onChange(
+            {
+                type: "valid",
+                perseusItem: {
+                    question: newProps.question,
+                    answerArea: newProps.answerArea,
+                    hints: newProps.hints,
+                },
+            },
+            cb,
+            silent,
+        );
+    };
+
+    handleItemEditorChange: ChangeHandler = (toChange, cb, silent) => {
+        const newProps = {
+            question: toChange.question,
+            answerArea: toChange.answerArea,
+        };
+
+        this.handleChange(newProps, cb, silent);
+    };
+
+    handleHintsEditorChange: ChangeHandler = (toChange, cb, silent) => {
+        const hints = toChange?.hints ?? [];
+
+        const newProps = {
+            hints: [...hints],
+        };
+
+        this.handleChange(newProps, cb, silent);
     };
 
     changeJSON: (newJson: PerseusItem) => void = (newJson: PerseusItem) => {
         this.setState({
             json: newJson,
         });
-        this.props.onChange(newJson);
+
+        this.handleChange(newJson);
     };
 
     render(): React.ReactNode {
@@ -301,7 +385,7 @@ class EditorPage extends React.Component<Props, State> {
                             question={this.props.question}
                             answerArea={this.props.answerArea}
                             imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
+                            onChange={this.handleItemEditorChange}
                             deviceType={this.props.previewDevice}
                             widgetIsOpen={this.state.widgetsAreOpen}
                             apiOptions={deviceBasedApiOptions}
@@ -317,7 +401,7 @@ class EditorPage extends React.Component<Props, State> {
                             itemId={this.props.itemId}
                             hints={this.props.hints}
                             imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
+                            onChange={this.handleHintsEditorChange}
                             deviceType={this.props.previewDevice}
                             apiOptions={deviceBasedApiOptions}
                             previewURL={this.props.previewURL}
