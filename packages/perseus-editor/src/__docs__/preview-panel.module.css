@@ -5,7 +5,9 @@
     min-width: 500px;
     height: 90vh;
     overflow: auto;
-    background-color: var(--wb-semanticColor-core-background-instructive-subtle);
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-subtle
+    );
     padding: var(--wb-sizing-size_160);
     border-radius: var(--wb-sizing-size_120);
     display: flex;
