@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 71.2.3
+
+### Patch Changes
+
+-   [#2954](https://github.com/Khan/perseus/pull/2954) [`2db4326665`](https://github.com/Khan/perseus/commit/2db43266656b058503818a6550ce9c520d1086fb) Thanks [@jaredly](https://github.com/jaredly)! - Fix numeric-input fraction approximation
+
 ## 71.2.2
 
 ### Patch Changes
