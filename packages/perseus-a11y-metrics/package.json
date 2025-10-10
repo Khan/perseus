@@ -16,6 +16,7 @@
         "url": "https://github.com/Khan/perseus/issues"
     },
     "exports": {},
+    "source": "src/main.ts",
     "scripts": {
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },

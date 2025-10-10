@@ -17,9 +17,6 @@ fs.readdirSync(path.join(__dirname, "../../packages")).forEach((name) => {
     }
     const pkgPath = path.join("../../packages", name, "package.json");
     const pkgJson = require(pkgPath);
-    if (pkgJson.source == null) {
-        return;
-    }
     aliases["@khanacademy/" + name] = path.join(
         __dirname,
         "../../packages",
