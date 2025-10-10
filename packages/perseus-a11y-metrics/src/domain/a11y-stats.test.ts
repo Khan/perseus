@@ -67,6 +67,7 @@ describe("compileStats", () => {
                     unit: "the-unit",
                     lesson: "the-lesson",
                     exercise: "the-exercise",
+                    exerciseId: "1234567890",
                     accessibility: "full",
                 },
             ],

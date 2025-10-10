@@ -54,6 +54,7 @@ export interface A11yStats {
         unit: string;
         lesson: string;
         exercise: string;
+        exerciseId: string;
         accessibility: AccessibilityLevel;
     }>;
 }
@@ -80,6 +81,7 @@ export async function compileA11yStats(
             ...dculPaths.map((path) => ({
                 ...path,
                 exercise: exercise.slug,
+                exerciseId: exercise.id,
                 accessibility: a11yLevel,
             })),
         );

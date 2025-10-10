@@ -48,7 +48,7 @@ export function createInaccessibleAssessmentItem(): AssessmentItem {
 
 export function createBaseExercise(): Exercise {
     return {
-        id: "exercise-id-do-not-assert",
+        id: "1234567890",
         slug: "exercise-slug-do-not-assert",
         exerciseLength: 468417,
         listedAncestorIds: [],
