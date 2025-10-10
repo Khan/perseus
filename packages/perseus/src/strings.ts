@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import type {ErrorCodes} from "@khanacademy/perseus-score";
+import type {ErrorCodes} from "@khanacademy/perseus-core";
 
 /**
  * The translated strings that are used to render Perseus.
@@ -23,6 +23,7 @@ export type PerseusStrings = {
     WRONG_CASE_ERROR: string;
     WRONG_LETTER_ERROR: string;
     invalidSelection: string;
+    INVALID_CHOICE_SELECTION: string;
     ERROR_TITLE: string;
     ERROR_MESSAGE: string;
     USER_INPUT_EMPTY: string;
@@ -557,6 +558,7 @@ export const strings = {
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
     invalidSelection: "Make sure you select something for every row.",
+    INVALID_CHOICE_SELECTION: "Invalid choice selection",
     ERROR_TITLE: "Oops!",
     ERROR_MESSAGE: "Sorry, I don't understand that!",
     hints: "Hints",
@@ -1170,6 +1172,7 @@ export const mockStrings: PerseusStrings = {
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
     invalidSelection: "Make sure you select something for every row.",
+    INVALID_CHOICE_SELECTION: "Invalid choice selection",
     ERROR_TITLE: "Oops!",
     ERROR_MESSAGE: "Sorry, I don't understand that!",
     hints: "Hints",
@@ -1482,6 +1485,7 @@ const errorToString: ErrorStringMap = {
     WRONG_CASE_ERROR: "WRONG_CASE_ERROR",
     WRONG_LETTER_ERROR: "WRONG_LETTER_ERROR",
     MULTIPLICATION_SIGN_ERROR: "MULTIPLICATION_SIGN_ERROR",
+    INVALID_CHOICE_SELECTION: "INVALID_CHOICE_SELECTION",
     INVALID_SELECTION_ERROR: "invalidSelection",
     CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
     NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",

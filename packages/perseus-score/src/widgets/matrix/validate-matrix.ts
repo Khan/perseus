@@ -1,6 +1,4 @@
-import {getMatrixSize} from "@khanacademy/perseus-core";
-
-import ErrorCodes from "../../error-codes";
+import {ErrorCodes, getMatrixSize} from "@khanacademy/perseus-core";
 
 import type {
     PerseusMatrixUserInput,
