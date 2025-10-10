@@ -56,7 +56,7 @@ export const With1Tooltip = {
     },
 };
 
-export const WithMultipleTooltip = {
+export const WithMultipleTooltips = {
     args: {
         item: generateTestPerseusItem({
             question: numericInputQuestionBuilder()
