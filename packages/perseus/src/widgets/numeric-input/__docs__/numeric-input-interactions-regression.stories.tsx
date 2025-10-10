@@ -77,9 +77,10 @@ function NumericInputQuestionRenderer(props: {
     rtl?: boolean;
 }) {
     const {item, rtl} = props;
+    const style = {margin: 20};
 
     return (
-        <div dir={rtl ? "rtl" : "ltr"}>
+        <div dir={rtl ? "rtl" : "ltr"} style={style}>
             <ServerItemRenderer
                 item={item}
                 apiOptions={{
