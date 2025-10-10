@@ -29,7 +29,6 @@
  * ```
  */
 
-import type {ErrorCode} from "./error-codes";
 import type {
     GrapherAnswerTypes,
     PerseusDropdownChoice,
@@ -46,6 +45,7 @@ import type {
     MakeWidgetMap,
     PerseusFreeResponseWidgetScoringCriterion,
 } from "./data-schema";
+import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
 
 export type WidgetValidatorFunction = (
