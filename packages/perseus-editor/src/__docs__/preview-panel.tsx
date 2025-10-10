@@ -24,10 +24,6 @@ type PreviewPanelProps = {
      */
     onOpenChange?: (isOpen: boolean) => void;
     /**
-     * Optional: Additional CSS class for the panel
-     */
-    panelClassName?: string;
-    /**
      * Optional: Additional CSS class for the open button
      */
     openButtonClassName?: string;
@@ -45,7 +41,6 @@ function PreviewPanel({
     openButtonText,
     isOpen: controlledIsOpen,
     onOpenChange,
-    panelClassName,
     openButtonClassName,
 }: PreviewPanelProps) {
     const [internalIsOpen, setInternalIsOpen] = React.useState<boolean>(false);
@@ -72,7 +67,7 @@ function PreviewPanel({
 
             {/* Panel */}
             {isOpen && (
-                <div className={`${styles.panel} ${panelClassName || ""}`}>
+                <div className={styles.panel}>
                     {/* Close button */}
                     <div className={styles.closeButton}>
                         <IconButton
