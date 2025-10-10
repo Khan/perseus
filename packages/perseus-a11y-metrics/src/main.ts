@@ -8,11 +8,9 @@ import {getPublishedContentVersion} from "./content-version";
 import {compileA11yStats} from "./domain/a11y-stats";
 import {formatExerciseAccessibilityData} from "./format-exercise-accessibility-data";
 import {GcsContentJsonRepository} from "./gcs-content-json-repository";
-import {urlSafeDate} from "./lib/date";
 import {gcloudStorage} from "./platform/gcloud-storage";
 
 async function main() {
-    const now = new Date();
     const locale = "en";
     const contentVersion = await getPublishedContentVersion(locale);
     const dataDirectory = join("/", "tmp", "perseus-a11y-metrics");
@@ -38,11 +36,14 @@ async function main() {
         "utf-8",
     );
 
+    // TODO(benchristel): there is probably a better place for the data to
+    // live. I'm not sure what the khanflow-prod-bq-archive-unused-table-expiration
+    // bucket is supposed to be for.
     // TODO(benchristel): should the extension for the data file be .ndjson?
     // See: https://github.com/ndjson/ndjson-spec?tab=readme-ov-file#33-mediatype-and-file-extensions
     await gcloudStorage.cp(
         [outputFilePath],
-        `gs://khanflow-prod-bq-archive-unused-table-expiration/khan_test/perseus/analytics/${urlSafeDate(now)}/exercise-accessibility-data-nl.json`,
+        `gs://khanflow-prod-bq-archive-unused-table-expiration/khan_test/perseus/analytics/exercise-accessibility-data-nl.json`,
         {project: "khan-data-lake"},
     );
 
