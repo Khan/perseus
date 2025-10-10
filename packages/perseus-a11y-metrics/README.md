@@ -52,6 +52,34 @@ dependencies, we'd have to:
 - install the [`@google-cloud/storage`] package from NPM. This is more
   complicated than it sounds, because the library depends on a version of
   `uuid` that's incompatible with our Jest setup — installing it causes the
-  test runner to crash.
+  test runner to crash. I think the issue has something to do with Jest expecting
+  commonjs packages, and `uuid` not exporting commonjs.
+  - We could avoid the Jest problem entirely by moving this package to its
+    own git repository.
 
 [`@google-cloud/storage`]: https://www.npmjs.com/package/@google-cloud/storage
+
+Moving this package to a new, private git repository would have other benefits
+as well:
+
+- It doesn't really belong in perseus, because this analytics data isn't
+  needed by our partners to run the repo.
+- The GCS buckets used are private and can't be accessed by anyone outside
+  Khan Academy.
+
+On the other hand, keeping the package in the perseus repo has benefits. The
+analytics script depends on `@khanacademy/perseus-core`, and keeping it in the
+perseus repo ensures that it's always using the latest version.
+
+If we moved the analytics script to its own repo, we might be able to ensure
+it's always using the latest `@khanacademy/perseus-core` by:
+
+- allowing any version of `@khanacademy/perseus-core` in `package.json`:
+  ```json
+  "@khanacademy/perseus-core": "*",
+  ```
+- releasing the script as a package on NPM.
+- running it via `pnpx`:
+  ```bash
+  pnpx @khanacademy/perseus-a11y-metrics
+  ```
