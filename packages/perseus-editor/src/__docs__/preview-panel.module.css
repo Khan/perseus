@@ -1,0 +1,36 @@
+.panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    min-width: 500px;
+    height: 90vh;
+    overflow: auto;
+    background-color: var(--wb-semanticColor-core-background-instructive-subtle);
+    padding: var(--wb-sizing-size_160);
+    border-radius: var(--wb-sizing-size_120);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.closeButton {
+    align-self: flex-end;
+    margin-bottom: var(--wb-sizing-size_080);
+}
+
+.innerPanel {
+    flex: none;
+    background-color: var(--wb-semanticColor-core-background-base-default);
+    border-radius: var(--wb-sizing-size_080);
+    margin-top: var(--wb-sizing-size_160);
+    width: 100%;
+    padding: var(--wb-sizing-size_080);
+}
+
+.openPanelButton {
+    position: fixed;
+    right: var(--wb-sizing-size_200); /* Align with "Style warnings" button */
+    /* Positioned just above the "Style warnings" button
+       (20px bottom + 36px height + 8px gap = 64px) */
+    bottom: var(--wb-sizing-size_640);
+}
