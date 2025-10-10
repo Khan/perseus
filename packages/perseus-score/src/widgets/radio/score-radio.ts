@@ -1,10 +1,11 @@
+import {ErrorCodes} from "@khanacademy/perseus-core";
+
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
     PerseusScore,
     RecursiveReadonly,
 } from "@khanacademy/perseus-core";
-import {ErrorCodes} from "@khanacademy/perseus-core";
 
 function scoreRadio(
     // NOTE(benchristel): userInput can be undefined if the widget has never
