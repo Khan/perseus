@@ -17,6 +17,15 @@ import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widget
 
 import type {UserEvent} from "@testing-library/user-event";
 
+const defaultAnswerArea = {
+    calculator: false,
+    periodicTable: false,
+    financialCalculatorMonthlyPayment: false,
+    financialCalculatorTotalAmount: false,
+    financialCalculatorTimeToPayOff: false,
+    periodicTableWithKey: false,
+};
+
 describe("EditorPage", () => {
     beforeAll(() => {
         registerAllWidgetsAndEditorsForTesting();
@@ -59,6 +68,8 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={question}
+                hints={[]}
+                answerArea={defaultAnswerArea}
                 onChange={(next) => (callbackValue = next)}
                 onJsonModeChange={() => {}}
                 onPreviewDeviceChange={() => {}}
@@ -76,14 +87,16 @@ describe("EditorPage", () => {
 
         expect(staticSwitch).not.toBeChecked();
         expect(question.widgets["categorizer 1"].static).toBe(false);
-        expect(callbackValue.question.widgets["categorizer 1"].static).toBe(
-            true,
-        );
+        expect(
+            callbackValue.perseusItem.question.widgets["categorizer 1"].static,
+        ).toBe(true);
 
         rerender(
             <EditorPage
                 dependencies={testDependenciesV2}
-                question={callbackValue.question}
+                question={callbackValue.perseusItem.question}
+                hints={callbackValue.perseusItem.hints}
+                answerArea={callbackValue.perseusItem.answerArea}
                 onChange={(next) => (callbackValue = next)}
                 onJsonModeChange={() => {}}
                 onPreviewDeviceChange={() => {}}
@@ -144,6 +157,8 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={startRenderer}
+                hints={[]}
+                answerArea={defaultAnswerArea}
                 onChange={onChangeMock}
                 onJsonModeChange={() => {}}
                 onPreviewDeviceChange={() => {}}
@@ -165,7 +180,9 @@ describe("EditorPage", () => {
 
         // Get the widget options directly to avoid having to mock the entire PerseusItem
         const widgetOptions =
-            onChangeMock.mock.lastCall[0].question.widgets["orderer 1"].options;
+            onChangeMock.mock.lastCall[0].perseusItem.question.widgets[
+                "orderer 1"
+            ].options;
 
         // Verify the options were updated correctly
         expect(widgetOptions).toEqual(
@@ -181,6 +198,97 @@ describe("EditorPage", () => {
                     },
                 ],
             }),
+        );
+    });
+
+    it("calls onChange with new text", async () => {
+        const onChangeMock = jest.fn();
+        render(
+            // Editor page with minimal text and no widgets
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{
+                    content: "ab",
+                    widgets: {},
+                    images: {},
+                }}
+                onChange={onChangeMock}
+                onJsonModeChange={() => {}}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={false}
+                jsonMode={false}
+                widgetsAreOpen={true}
+                hints={[]}
+                answerArea={defaultAnswerArea}
+            />,
+        );
+
+        const input = screen.getByDisplayValue("ab");
+        await userEvent.type(input, "c");
+
+        expect(onChangeMock).toHaveBeenCalledWith(
+            {
+                type: "valid",
+                perseusItem: expect.objectContaining({
+                    question: expect.objectContaining({
+                        content: "abc",
+                    }),
+                }),
+            },
+            undefined,
+            undefined,
+        );
+    });
+
+    it("calls onChange with new widget", async () => {
+        const onChangeMock = jest.fn();
+        render(
+            // Editor page with minimal text and no widgets
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{
+                    content: "ab",
+                    widgets: {},
+                    images: {},
+                }}
+                onChange={onChangeMock}
+                onJsonModeChange={() => {}}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={false}
+                jsonMode={false}
+                widgetsAreOpen={true}
+                hints={[]}
+                answerArea={defaultAnswerArea}
+            />,
+        );
+
+        const widgetDropdown = screen.getByTestId("editor__widget-select");
+
+        // Use selectOptions instead of clicking on individual options
+        await userEvent.selectOptions(widgetDropdown, "image");
+
+        expect(onChangeMock).toHaveBeenCalledWith(
+            {
+                type: "valid",
+                perseusItem: expect.objectContaining({
+                    question: expect.objectContaining({
+                        content: "ab[[☃ image 1]]\n\nab",
+                        widgets: expect.objectContaining({
+                            "image 1": expect.objectContaining({
+                                type: "image",
+                            }),
+                        }),
+                    }),
+                }),
+            },
+            expect.any(Function),
+            undefined,
         );
     });
 });

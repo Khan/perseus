@@ -16,6 +16,7 @@ import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
+    // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
     ChangeHandlerV2,
     DeviceType,
