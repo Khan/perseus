@@ -98,6 +98,7 @@ type State = {
     json: PerseusItem;
     highlightLint: boolean;
     widgetsAreOpen: boolean;
+    latestSaveWarnings: string[];
 };
 
 class EditorPage extends React.Component<Props, State> {
@@ -122,6 +123,7 @@ class EditorPage extends React.Component<Props, State> {
             wasAnswered: false,
             highlightLint: true,
             widgetsAreOpen: this.props.widgetsAreOpen ?? true,
+            latestSaveWarnings: [],
         };
 
         this._isMounted = false;
@@ -145,6 +147,7 @@ class EditorPage extends React.Component<Props, State> {
         // eslint-disable-next-line no-restricted-syntax
         setTimeout(() => {
             this.updateRenderer();
+            this.checkSaveWarnings();
         });
     }
 
@@ -213,6 +216,48 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
+    checkSaveWarnings = () => {
+        if (
+            !this._isMounted ||
+            !this.props.question ||
+            !this.props.answerArea ||
+            !this.props.hints
+        ) {
+            return;
+        }
+
+        const currentErrors = this.getSaveWarnings();
+
+        // Convert the errors to strings so we can do a deep equality check.
+        const currentErrorStrings = JSON.stringify(currentErrors);
+        const lastErrorStrings = JSON.stringify(this.state.latestSaveWarnings);
+
+        // Optimization: only call onChange if the save warnings have changed.
+        if (currentErrorStrings !== lastErrorStrings) {
+            const perseusItem = {
+                question: this.props.question,
+                answerArea: this.props.answerArea,
+                hints: this.props.hints,
+            };
+
+            if (currentErrors.length > 0) {
+                this.props.onChange(
+                    {type: "invalid", warnings: currentErrors},
+                    undefined,
+                    undefined,
+                );
+            } else {
+                this.props.onChange(
+                    {type: "valid", perseusItem},
+                    undefined,
+                    undefined,
+                );
+            }
+
+            this.setState({latestSaveWarnings: currentErrors});
+        }
+    };
+
     serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
@@ -254,20 +299,9 @@ class EditorPage extends React.Component<Props, State> {
             return;
         }
 
-        // Check for errors
-        const errors = this.getSaveWarnings();
-
-        // If there are errors, return an invalid response
-        if (errors.length > 0) {
-            this.props.onChange(
-                {type: "invalid", warnings: errors},
-                cb,
-                silent,
-            );
-            return;
-        }
-
-        // If there are no errors, return a valid response
+        // NOTE: `getSaveWarnings` check happens in `componentDidUpdate`
+        // rather than here, in order to ensure that it checks for errors
+        // after the current update has completed.
         this.props.onChange(
             {
                 type: "valid",
