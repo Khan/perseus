@@ -21,7 +21,8 @@ class VoidCommand implements Command<void> {
     ) {}
 
     /**
-     * Runs the command and returns the exit code.
+     * Runs the command. The returned promise is rejected if the command exits
+     * with a nonzero code or is killed by a signal.
      */
     run(): Promise<void> {
         return new Promise((resolve, reject) => {
