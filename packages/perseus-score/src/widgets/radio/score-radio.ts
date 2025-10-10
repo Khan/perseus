@@ -1,11 +1,10 @@
-import ErrorCodes from "../../error-codes";
-
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
     PerseusScore,
     RecursiveReadonly,
 } from "@khanacademy/perseus-core";
+import {ErrorCodes} from "@khanacademy/perseus-core";
 
 function scoreRadio(
     // NOTE(benchristel): userInput can be undefined if the widget has never
@@ -22,7 +21,7 @@ function scoreRadio(
         (id) => !rubric.choices.some((choice) => choice.id === id),
     );
     if (invalidIds.length > 0) {
-        return {type: "invalid", message: "Invalid choice selection"};
+        return {type: "invalid", message: ErrorCodes.INVALID_CHOICE_SELECTION};
     }
 
     const numSelected = userInput.selectedChoiceIds.length;

@@ -1,5 +1,6 @@
 import * as KAS from "@khanacademy/kas";
 import {
+    ErrorCodes,
     Errors,
     getDecimalSeparator,
     getDivideSymbol,
@@ -7,7 +8,6 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import ErrorCodes from "../../error-codes";
 import KhanAnswerTypes from "../../util/answer-types";
 
 import type {Score} from "../../util/answer-types";

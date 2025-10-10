@@ -29,6 +29,7 @@
  * ```
  */
 
+import type {ErrorCode} from "./error-codes";
 import type {
     GrapherAnswerTypes,
     PerseusDropdownChoice,
@@ -66,7 +67,7 @@ export type WidgetScorerFunction = (
 export type PerseusScore =
     | {
           type: "invalid";
-          message?: string | null | undefined;
+          message?: ErrorCode | null;
           suppressAlmostThere?: boolean | null | undefined;
       }
     | {
