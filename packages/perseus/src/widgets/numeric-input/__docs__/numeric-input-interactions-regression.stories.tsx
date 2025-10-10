@@ -77,7 +77,7 @@ function NumericInputQuestionRenderer(props: {
     rtl?: boolean;
 }) {
     const {item, rtl} = props;
-    const style = {margin: 20};
+    const style = {padding: 20};
 
     return (
         <div dir={rtl ? "rtl" : "ltr"} style={style}>
