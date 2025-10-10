@@ -83,24 +83,20 @@ function EditorPageWithStorybookPreview(props: Props) {
                 jsonMode={jsonMode}
                 answerArea={answerArea}
                 question={question}
-                hints={hints}
+                hints={[...(hints ?? [])]}
                 previewURL="about:blank"
                 itemId="1"
                 onChange={(props) => {
                     onChangeAction(props);
 
-                    if ("jsonMode" in props) {
-                        setJsonMode(props.jsonMode);
+                    if (props.type === "valid") {
+                        setAnswerArea(props.perseusItem.answerArea);
+                        setQuestion(props.perseusItem.question);
+                        setHints(props.perseusItem.hints);
                     }
-                    if ("answerArea" in props) {
-                        setAnswerArea(props.answerArea);
-                    }
-                    if ("question" in props) {
-                        setQuestion(props.question);
-                    }
-                    if ("hints" in props) {
-                        setHints(props.hints);
-                    }
+                }}
+                onJsonModeChange={(newJsonMode) => {
+                    setJsonMode(newJsonMode);
                 }}
                 additionalTemplates={{
                     "Side by Side": "Left hand side\n=====\nRight hand side",

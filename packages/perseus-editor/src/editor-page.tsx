@@ -255,7 +255,6 @@ class EditorPage extends React.Component<Props, State> {
         }
 
         // Check for errors
-
         const errors = this.getSaveWarnings();
 
         // If there are errors, return an invalid response

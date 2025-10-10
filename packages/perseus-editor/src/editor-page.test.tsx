@@ -268,6 +268,14 @@ describe("EditorPage", () => {
             />,
         );
 
+        // First, click on the textarea to focus it and move cursor to end
+        const textarea = screen.getByPlaceholderText(
+            "Type your question here...",
+        );
+        await userEvent.click(textarea);
+        // Move cursor to end of existing text
+        await userEvent.keyboard("{Control>}{End}{/Control}");
+
         const widgetDropdown = screen.getByTestId("editor__widget-select");
 
         // Use selectOptions instead of clicking on individual options
@@ -278,7 +286,7 @@ describe("EditorPage", () => {
                 type: "valid",
                 perseusItem: expect.objectContaining({
                     question: expect.objectContaining({
-                        content: "ab[[☃ image 1]]\n\nab",
+                        content: "ab\n\n[[☃ image 1]]\n\n",
                         widgets: expect.objectContaining({
                             "image 1": expect.objectContaining({
                                 type: "image",
