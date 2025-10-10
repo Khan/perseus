@@ -9,7 +9,8 @@ export function numericInputQuestionBuilder(): NumericInputQuestionBuilder {
 }
 
 class NumericInputQuestionBuilder {
-    private content: string = "[[☃ numeric input 1]]";
+    private content: string =
+        "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]";
     private static: boolean = false;
     private answers: PerseusNumericInputAnswer[] = [];
     private size: "small" | "normal" = "normal";
@@ -37,13 +38,24 @@ class NumericInputQuestionBuilder {
         };
     }
 
-    withContent(content: string): NumericInputQuestionBuilder {
-        this.content = content;
+    withAnswer(
+        answerInfo: Partial<PerseusNumericInputAnswer>,
+    ): NumericInputQuestionBuilder {
+        const answer = {
+            value: answerInfo.value ?? 1701,
+            status: answerInfo.status ?? "correct",
+            message: answerInfo.message ?? "Enterprise",
+            simplify: answerInfo.simplify ?? "optional",
+            strict: answerInfo.strict ?? false,
+            maxError: answerInfo.maxError,
+            answerForms: answerInfo.answerForms ?? [],
+        } satisfies PerseusNumericInputAnswer;
+        this.answers.push(answer);
         return this;
     }
 
-    withStatic(isStatic: boolean): NumericInputQuestionBuilder {
-        this.static = isStatic;
+    withContent(content: string): NumericInputQuestionBuilder {
+        this.content = content;
         return this;
     }
 

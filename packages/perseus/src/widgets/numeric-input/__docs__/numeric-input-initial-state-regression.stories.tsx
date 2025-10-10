@@ -4,8 +4,7 @@ import * as React from "react";
 import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
-import {NumericInput} from "../numeric-input.class";
-import {defaultQuestion} from "../numeric-input.testdata";
+import {numericInputQuestionBuilder} from "../numeric-input-question-builder";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {StoryObj} from "@storybook/react-vite";
@@ -13,7 +12,7 @@ import type {StoryObj} from "@storybook/react-vite";
 type Story = StoryObj<typeof NumericInputQuestionRenderer>;
 
 /**
- * This is a visual regression story for the radio widget.
+ * This is a visual regression story for the numeric input widget.
  */
 
 export default {
@@ -31,10 +30,18 @@ export default {
     },
 };
 
-export const Basic: Story = {
+export const Narrow: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: defaultQuestion,
+            question: numericInputQuestionBuilder().withSize("small").build(),
+        }),
+    },
+};
+
+export const Wide: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: numericInputQuestionBuilder().withSize("normal").build(),
         }),
     },
 };
