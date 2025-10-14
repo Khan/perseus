@@ -1,0 +1,1 @@
+import{ap as s}from"./iframe-B6KTqCWL.js";const i={serialize:function(){return s(this.props)}};export{i as E};
