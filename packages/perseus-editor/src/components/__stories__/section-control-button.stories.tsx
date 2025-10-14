@@ -19,6 +19,7 @@ export const ButtonForEditingSectionsOfContentWithInArticleEditor = (
     return (
         <SectionControlButton
             icon={iconTrash}
+            disabled={false}
             onClick={() => {}}
             title="Remove image widget"
         />
