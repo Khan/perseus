@@ -154,20 +154,6 @@ Finally, click on the definition below to learn more about [[\u2603 definition 1
 };
 
 export const WithEditingDisabled = (): React.ReactElement => {
-    const testApiOptions = {
-        editingDisabled: true,
-        isMobile: false,
-    };
-
-    return (
-        <EditorPageWithStorybookPreview
-            question={singleSelectQuestion}
-            apiOptions={testApiOptions}
-        />
-    );
-};
-
-export const AllWidgetsDisabled = (): React.ReactElement => {
     const disabledApiOptions = {
         editingDisabled: true,
         isMobile: false,

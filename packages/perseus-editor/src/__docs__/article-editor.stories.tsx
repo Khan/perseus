@@ -56,7 +56,7 @@ export const Demo = (): React.ReactElement => {
     );
 };
 
-export const AllWidgetsDisabled = (): React.ReactElement => {
+export const WithEditingDisabled = (): React.ReactElement => {
     const articleEditorRef = useRef();
     const disabledApiOptions = {
         ...ApiOptions.defaults,
