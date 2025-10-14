@@ -30,7 +30,7 @@ export default {
     },
 };
 
-export const Narrow: Story = {
+export const SizeSmall: Story = {
     args: {
         item: generateTestPerseusItem({
             question: numericInputQuestionBuilder().withSize("small").build(),
@@ -38,7 +38,7 @@ export const Narrow: Story = {
     },
 };
 
-export const Wide: Story = {
+export const SizeNormal: Story = {
     args: {
         item: generateTestPerseusItem({
             question: numericInputQuestionBuilder().withSize("normal").build(),
