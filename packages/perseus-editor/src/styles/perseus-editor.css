@@ -1061,6 +1061,7 @@ code {
 .perseus-single-editor.perseus-editor-disabled input,
 .perseus-single-editor.perseus-editor-disabled textarea,
 .perseus-single-editor.perseus-editor-disabled select,
+.perseus-single-editor.perseus-editor-disabled button,
 .perseus-single-editor.perseus-editor-disabled .perseus-math-input,
 .perseus-single-editor.perseus-editor-disabled .keypad-input {
     opacity: 0.6 !important;
@@ -1069,16 +1070,7 @@ code {
     border-color: #ccc !important;
 }
 
-.perseus-single-editor.perseus-editor-disabled button:not([disabled]) {
-    opacity: 0.6 !important;
-    cursor: not-allowed !important;
-    pointer-events: none !important;
-}
-/* Plotter is a special case due to it's archaic graphie implementation. */
+/* Plotter is a special case due to the archaic graphie implementation. */
 .perseus-editor-disabled .perseus-widget-plotter {
-    pointer-events: none;
-}
-
-.perseus-editor-disabled .perseus-widget-plotter canvas {
     pointer-events: none;
 }

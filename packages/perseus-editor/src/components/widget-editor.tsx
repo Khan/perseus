@@ -211,6 +211,7 @@ class WidgetEditor extends React.Component<
                     )}
                     <SectionControlButton
                         icon={iconTrash}
+                        disabled={isEditingDisabled}
                         onClick={() => {
                             this.props.onRemove();
                         }}
