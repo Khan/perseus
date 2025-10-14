@@ -103,9 +103,8 @@ class TableEditor extends React.Component<Props> {
                 // user input is actually editing answers
                 this.props.onChange({answers: userInput});
             },
-            apiOptions: {
-                ...this.props.apiOptions,
-            },
+            apiOptions: this.props.apiOptions,
+            editableHeaders: true,
             onFocus: () => {},
             onBlur: () => {},
             trackInteraction: () => {},
