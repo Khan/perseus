@@ -76,6 +76,7 @@ class GrapherEditor extends React.Component<Props> {
                 containerSizeClass: sizeClass,
                 graph: this.props.graph,
                 userInput: this.props.correct,
+                correct: this.props.correct,
                 handleUserInput: (userInput, cb) => {
                     let correct = this.props.correct;
                     if (correct.type === userInput?.type) {
@@ -88,6 +89,7 @@ class GrapherEditor extends React.Component<Props> {
                 },
                 availableTypes: this.props.availableTypes,
                 trackInteraction: function () {},
+                static: this.props.apiOptions?.editingDisabled ?? false,
             };
 
             graph = (
