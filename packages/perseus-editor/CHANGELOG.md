@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 28.4.2
+
+### Patch Changes
+
+-   [#2959](https://github.com/Khan/perseus/pull/2959) [`31892b605d`](https://github.com/Khan/perseus/commit/31892b605d54038c6d8898276cae5801ebf853dc) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add article preview panel for the article editor this will be used in our docs.
+
+-   Updated dependencies [[`b3a751707c`](https://github.com/Khan/perseus/commit/b3a751707c44437875efc16a21b505a7ec7879c6), [`b328f7fa6a`](https://github.com/Khan/perseus/commit/b328f7fa6a5c11be53554b60a93d4e03e7e79d6a), [`2db4326665`](https://github.com/Khan/perseus/commit/2db43266656b058503818a6550ce9c520d1086fb)]:
+    -   @khanacademy/perseus-core@20.0.0
+    -   @khanacademy/perseus-score@8.0.0
+    -   @khanacademy/perseus@71.2.3
+    -   @khanacademy/keypad-context@3.2.11
+    -   @khanacademy/kmath@2.2.11
+    -   @khanacademy/math-input@26.2.12
+    -   @khanacademy/perseus-linter@4.4.1
+
 ## 28.4.1
 
 ### Patch Changes

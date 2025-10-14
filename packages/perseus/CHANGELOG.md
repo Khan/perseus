@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 71.2.3
+
+### Patch Changes
+
+-   [#2960](https://github.com/Khan/perseus/pull/2960) [`b328f7fa6a`](https://github.com/Khan/perseus/commit/b328f7fa6a5c11be53554b60a93d4e03e7e79d6a) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Numeric Input] Add visual regression tests
+
+*   [#2954](https://github.com/Khan/perseus/pull/2954) [`2db4326665`](https://github.com/Khan/perseus/commit/2db43266656b058503818a6550ce9c520d1086fb) Thanks [@jaredly](https://github.com/jaredly)! - Fix numeric-input fraction approximation
+
+*   Updated dependencies [[`b3a751707c`](https://github.com/Khan/perseus/commit/b3a751707c44437875efc16a21b505a7ec7879c6)]:
+    -   @khanacademy/perseus-core@20.0.0
+    -   @khanacademy/perseus-score@8.0.0
+    -   @khanacademy/keypad-context@3.2.11
+    -   @khanacademy/kmath@2.2.11
+    -   @khanacademy/math-input@26.2.12
+    -   @khanacademy/perseus-linter@4.4.1
+
 ## 71.2.2
 
 ### Patch Changes
