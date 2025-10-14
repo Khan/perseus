@@ -1,9 +1,8 @@
-import ErrorCodes from "../../error-codes";
-
-import type {
-    PerseusCategorizerUserInput,
-    PerseusCategorizerValidationData,
-    ValidationResult,
+import {
+    ErrorCodes,
+    type PerseusCategorizerUserInput,
+    type PerseusCategorizerValidationData,
+    type ValidationResult,
 } from "@khanacademy/perseus-core";
 
 /**

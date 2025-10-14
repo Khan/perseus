@@ -1,4 +1,4 @@
-import ErrorCodes from "../../error-codes";
+import {ErrorCodes} from "@khanacademy/perseus-core";
 
 import type {
     PerseusRadioRubric,
@@ -22,7 +22,7 @@ function scoreRadio(
         (id) => !rubric.choices.some((choice) => choice.id === id),
     );
     if (invalidIds.length > 0) {
-        return {type: "invalid", message: "Invalid choice selection"};
+        return {type: "invalid", message: ErrorCodes.INVALID_CHOICE_SELECTION};
     }
 
     const numSelected = userInput.selectedChoiceIds.length;
