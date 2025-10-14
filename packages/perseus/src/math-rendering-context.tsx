@@ -17,3 +17,5 @@ export const MathRenderingContext: React.Context<MathRenderingContextType> =
     }>({
         shouldAddAriaLabels: false,
     });
+
+export default MathRenderingContext;
