@@ -11,12 +11,14 @@ import QuestionMarkers from "./question-markers";
 import SelectImage from "./select-image";
 
 import type {PreferredPopoverDirection} from "./behavior";
+import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusLabelImageWidgetOptions,
     LabelImageDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 type Props = {
+    apiOptions: APIOptions;
     // List of answer choices to label question image with.
     choices: string[];
     // The question image properties.
@@ -32,6 +34,8 @@ type Props = {
     hideChoicesFromInstructions: boolean;
     // Callback for when a widget prop is changed.
     onChange: (options: any) => void;
+    // Whether the editor is disabled.
+    editingDisabled: boolean;
     preferredPopoverDirection: PreferredPopoverDirection;
 };
 
@@ -228,6 +232,9 @@ class LabelImageEditor extends React.Component<Props> {
 
                 <AnswerChoices
                     choices={choices}
+                    editingDisabled={
+                        this.props.apiOptions?.editingDisabled ?? false
+                    }
                     onChange={this.handleChoicesChange}
                 />
 
