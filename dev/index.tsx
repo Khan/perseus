@@ -4,8 +4,14 @@ import * as React from "react";
 import {useEffect, useReducer} from "react";
 import {createRoot} from "react-dom/client";
 
-import {setDependencies} from "../packages/perseus/src/dependencies";
-import {storybookTestDependencies} from "../testing/test-dependencies";
+import {
+    DependenciesContext,
+    setDependencies,
+} from "../packages/perseus/src/dependencies";
+import {
+    storybookDependenciesV2,
+    storybookTestDependencies,
+} from "../testing/test-dependencies";
 
 import {Flipbook} from "./flipbook";
 import {Gallery} from "./gallery";
@@ -19,7 +25,9 @@ if (rootEl === null) {
 const root = createRoot(rootEl);
 root.render(
     <RenderStateRoot>
-        <Router />
+        <DependenciesContext.Provider value={storybookDependenciesV2}>
+            <Router />
+        </DependenciesContext.Provider>
     </RenderStateRoot>,
 );
 

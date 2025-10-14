@@ -9,7 +9,7 @@ import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useEffect, useId, useMemo, useState} from "react";
 
-import {Renderer} from "../packages/perseus/src";
+import {Renderer, UserInputManager} from "../packages/perseus/src";
 import {mockStrings} from "../packages/perseus/src/strings";
 import * as grapher from "../packages/perseus/src/widgets/grapher/grapher.testdata";
 import * as interactiveGraph from "../packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
@@ -204,14 +204,23 @@ function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
     return (
         <div className={css(styles.card)}>
             <div style={{padding: 28}} className="framework-perseus">
-                <Renderer
-                    content={question.content}
-                    images={question.images}
-                    widgets={question.widgets}
-                    problemNum={0}
-                    apiOptions={apiOptions}
-                    strings={mockStrings}
-                />
+                <UserInputManager widgets={question.widgets} problemNum={0}>
+                    {({userInput, handleUserInput, initializeUserInput}) => {
+                        return (
+                            <Renderer
+                                content={question.content}
+                                images={question.images}
+                                widgets={question.widgets}
+                                problemNum={0}
+                                apiOptions={apiOptions}
+                                strings={mockStrings}
+                                userInput={userInput}
+                                handleUserInput={handleUserInput}
+                                initializeUserInput={initializeUserInput}
+                            />
+                        );
+                    }}
+                </UserInputManager>
             </div>
             <Button
                 onClick={() => {
