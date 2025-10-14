@@ -404,19 +404,18 @@ code {
     border-radius: 5px;
     padding: 5px;
 }
-.perseus-widget-dropdown input[type="text"].correct {
-    background: #aaffaa;
-}
-.perseus-widget-dropdown input[type="text"].incorrect {
-    background: #ffcccc;
-}
+
 .perseus-widget-dropdown .dropdown-choices {
     margin: 20px 0;
 }
-.perseus-widget-dropdown .dropdown-choices input[type="text"] {
-    margin: 0 5px;
-    width: 70%;
+.perseus-widget-dropdown .dropdown-choices .dropdown-choice {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
 }
+
 .perseus-widget-dropdown .dropdown-info {
     display: inline-flex;
     margin-bottom: 16px;
@@ -1062,6 +1061,7 @@ code {
 .perseus-single-editor.perseus-editor-disabled textarea,
 .perseus-single-editor.perseus-editor-disabled select,
 .perseus-single-editor.perseus-editor-disabled button,
+.perseus-single-editor.perseus-editor-disabled checkbox,
 .perseus-single-editor.perseus-editor-disabled .perseus-math-input,
 .perseus-single-editor.perseus-editor-disabled .keypad-input {
     opacity: 0.6 !important;

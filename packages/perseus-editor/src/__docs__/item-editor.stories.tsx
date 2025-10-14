@@ -21,6 +21,7 @@ const Wrapper = (props: Props) => {
                 onChange?.(e); // to register action in storybook
                 setExtras((prevExtras) => ({...prevExtras, ...e}));
             }}
+            editingDisabled={false}
         />
     );
 };

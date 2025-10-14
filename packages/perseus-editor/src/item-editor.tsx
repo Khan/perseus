@@ -183,7 +183,6 @@ class ItemEditor extends React.Component<Props, State> {
                                 imageUploader={this.props.imageUploader}
                                 onChange={this.handleEditorChange}
                                 apiOptions={this.props.apiOptions}
-                                editingDisabled={editingDisabled}
                                 showWordCount={true}
                                 widgetIsOpen={this.props.widgetIsOpen}
                                 additionalTemplates={
@@ -223,6 +222,7 @@ class ItemEditor extends React.Component<Props, State> {
                             <ItemExtrasEditor
                                 ref={this.itemExtrasEditor}
                                 onChange={this.handleItemExtrasChange}
+                                editingDisabled={editingDisabled}
                                 {...this.props.answerArea}
                             />
                         </div>

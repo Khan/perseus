@@ -151,91 +151,103 @@ export default class ArticleEditor extends React.Component<Props, State> {
         } as const;
 
         const sections = this._sections();
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         return (
             <div className="perseus-editor-table">
-                {sections.map((section, i) => {
-                    return [
-                        <div className="perseus-editor-row" key={i}>
-                            <div className="perseus-editor-left-cell">
-                                <div className="pod-title">
-                                    Section {i + 1}
-                                    <div
-                                        style={{
-                                            display: "inline-block",
-                                            float: "right",
-                                        }}
-                                    >
-                                        {sectionImageUploadGenerator(i)}
-                                        <SectionControlButton
-                                            icon={iconPlus}
-                                            onClick={() => {
-                                                this._handleAddSectionAfter(i);
+                <fieldset disabled={editingDisabled}>
+                    {sections.map((section, i) => {
+                        return [
+                            <div className="perseus-editor-row" key={i}>
+                                <div className="perseus-editor-left-cell">
+                                    <div className="pod-title">
+                                        Section {i + 1}
+                                        <div
+                                            style={{
+                                                display: "inline-block",
+                                                float: "right",
                                             }}
-                                            title="Add a new section after this one"
-                                        />
-                                        {i + 1 < sections.length && (
+                                        >
+                                            {sectionImageUploadGenerator(i)}
                                             <SectionControlButton
-                                                icon={iconCircleArrowDown}
+                                                icon={iconPlus}
+                                                disabled={editingDisabled}
                                                 onClick={() => {
-                                                    this._handleMoveSectionLater(
+                                                    this._handleAddSectionAfter(
                                                         i,
                                                     );
                                                 }}
-                                                title="Move this section down"
+                                                title="Add a new section after this one"
                                             />
-                                        )}
-                                        {i > 0 && (
+                                            {i + 1 < sections.length && (
+                                                <SectionControlButton
+                                                    icon={iconCircleArrowDown}
+                                                    disabled={editingDisabled}
+                                                    onClick={() => {
+                                                        this._handleMoveSectionLater(
+                                                            i,
+                                                        );
+                                                    }}
+                                                    title="Move this section down"
+                                                />
+                                            )}
+                                            {i > 0 && (
+                                                <SectionControlButton
+                                                    icon={iconCircleArrowUp}
+                                                    disabled={editingDisabled}
+                                                    onClick={() => {
+                                                        this._handleMoveSectionEarlier(
+                                                            i,
+                                                        );
+                                                    }}
+                                                    title="Move this section up"
+                                                />
+                                            )}
                                             <SectionControlButton
-                                                icon={iconCircleArrowUp}
+                                                icon={iconTrash}
+                                                disabled={editingDisabled}
                                                 onClick={() => {
-                                                    this._handleMoveSectionEarlier(
-                                                        i,
-                                                    );
+                                                    const msg =
+                                                        "Are you sure you " +
+                                                        "want to delete section " +
+                                                        (i + 1) +
+                                                        "?";
+                                                    /* eslint-disable no-alert */
+                                                    if (confirm(msg)) {
+                                                        this._handleRemoveSection(
+                                                            i,
+                                                        );
+                                                    }
+                                                    /* eslint-enable no-alert */
                                                 }}
-                                                title="Move this section up"
+                                                title="Delete this section"
                                             />
-                                        )}
-                                        <SectionControlButton
-                                            icon={iconTrash}
-                                            onClick={() => {
-                                                const msg =
-                                                    "Are you sure you " +
-                                                    "want to delete section " +
-                                                    (i + 1) +
-                                                    "?";
-                                                /* eslint-disable no-alert */
-                                                if (confirm(msg)) {
-                                                    this._handleRemoveSection(
-                                                        i,
-                                                    );
-                                                }
-                                                /* eslint-enable no-alert */
-                                            }}
-                                            title="Delete this section"
-                                        />
+                                        </div>
                                     </div>
+                                    <Editor
+                                        {...section}
+                                        apiOptions={apiOptions}
+                                        imageUploader={imageUploader}
+                                        onChange={(newProps) =>
+                                            this._handleEditorChange(
+                                                i,
+                                                newProps,
+                                            )
+                                        }
+                                        placeholder="Type your section text here..."
+                                        ref={"editor" + i}
+                                    />
                                 </div>
-                                <Editor
-                                    {...section}
-                                    apiOptions={apiOptions}
-                                    imageUploader={imageUploader}
-                                    onChange={(newProps) =>
-                                        this._handleEditorChange(i, newProps)
-                                    }
-                                    placeholder="Type your section text here..."
-                                    ref={"editor" + i}
-                                />
-                            </div>
 
-                            <div className="editor-preview">
-                                {this._renderIframePreview(i, true)}
-                            </div>
-                        </div>,
-                    ];
-                })}
-                {this._renderAddSection()}
-                {this._renderLinterHUD()}
+                                <div className="editor-preview">
+                                    {this._renderIframePreview(i, true)}
+                                </div>
+                            </div>,
+                        ];
+                    })}
+                    {this._renderAddSection()}
+                    {this._renderLinterHUD()}
+                </fieldset>
             </div>
         );
         /* eslint-enable max-len */
