@@ -37,7 +37,7 @@ describe("dropdown-editor", () => {
         render(<DropdownEditor onChange={onChangeMock} />);
 
         await userEvent.click(
-            screen.getByRole("link", {name: "Delete choice"}),
+            screen.getByRole("button", {name: "Delete choice"}),
         );
 
         expect(onChangeMock).toBeCalledWith({choices: []});
