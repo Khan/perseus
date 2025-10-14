@@ -4,6 +4,7 @@ import * as React from "react";
 import {useRef, useState} from "react";
 
 import {testDependenciesV2} from "../../../../testing/test-dependencies";
+import {comprehensiveQuestion} from "../__testdata__/editing-disabled.testdata";
 import ArticleEditor from "../article-editor";
 import ContentPreview from "../content-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
@@ -52,5 +53,34 @@ export const Demo = (): React.ReactElement => {
                 />
             </PreviewPanel>
         </View>
+    );
+};
+
+export const AllWidgetsDisabled = (): React.ReactElement => {
+    const articleEditorRef = useRef();
+    const disabledApiOptions = {
+        ...ApiOptions.defaults,
+        editingDisabled: true,
+    };
+
+    function serialize() {
+        // eslint-disable-next-line no-console
+        console.log((articleEditorRef.current as any).serialize());
+    }
+
+    return (
+        <>
+            <button onClick={serialize}>Serialize</button>
+            <hr />
+            <ArticleEditor
+                dependencies={testDependenciesV2}
+                apiOptions={disabledApiOptions}
+                imageUploader={() => {}}
+                json={[comprehensiveQuestion]}
+                onChange={() => {}}
+                previewURL="/perseus/frame"
+                ref={articleEditorRef as any}
+            />
+        </>
     );
 };
