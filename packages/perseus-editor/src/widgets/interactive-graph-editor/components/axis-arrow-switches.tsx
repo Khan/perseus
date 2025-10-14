@@ -9,11 +9,11 @@ import type {ShowAxisArrows} from "@khanacademy/perseus-core";
 interface AxisArrowSwitchesProps {
     showAxisArrows: ShowAxisArrows;
     onChange: (axis: keyof ShowAxisArrows) => void;
-    editingDisabled: boolean;
+    disabled: boolean;
 }
 
 export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
-    const {showAxisArrows, onChange, editingDisabled} = props;
+    const {showAxisArrows, onChange, disabled} = props;
 
     return (
         <>
@@ -33,7 +33,7 @@ export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
                         labelSide="start"
                         size="small"
                         checked={showAxisArrows.xMin}
-                        disabled={editingDisabled}
+                        disabled={disabled}
                         onChange={() => onChange("xMin")}
                     />
                 </div>
@@ -43,7 +43,7 @@ export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
                         labelSide="start"
                         size="small"
                         checked={showAxisArrows.yMin}
-                        disabled={editingDisabled}
+                        disabled={disabled}
                         onChange={() => onChange("yMin")}
                     />
                 </div>
@@ -63,7 +63,7 @@ export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
                         labelSide="start"
                         size="small"
                         checked={showAxisArrows.xMax}
-                        disabled={editingDisabled}
+                        disabled={disabled}
                         onChange={() => onChange("xMax")}
                     />
                 </div>
@@ -73,7 +73,7 @@ export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
                         labelSide="start"
                         size="small"
                         checked={showAxisArrows.yMax}
-                        disabled={editingDisabled}
+                        disabled={disabled}
                         onChange={() => onChange("yMax")}
                     />
                 </div>

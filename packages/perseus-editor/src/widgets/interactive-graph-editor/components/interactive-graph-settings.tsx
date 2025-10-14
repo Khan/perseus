@@ -609,7 +609,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     this.state.showAxisArrowsSwitches
                                 }
                                 onChange={this.changeShowAxisArrows}
-                                editingDisabled={this.props.editingDisabled}
+                                disabled={this.props.editingDisabled}
                             />
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">

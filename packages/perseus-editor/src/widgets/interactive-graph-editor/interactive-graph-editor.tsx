@@ -305,6 +305,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 lockedFigures: this.props.lockedFigures,
                 fullGraphAriaLabel: this.props.fullGraphAriaLabel,
                 fullGraphAriaDescription: this.props.fullGraphAriaDescription,
+                // Set the "correct answer" graph to static when editing is disabled
                 static: this.props.apiOptions.editingDisabled ?? false,
                 trackInteraction: function () {},
                 userInput: correct,

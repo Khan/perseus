@@ -14,11 +14,12 @@ type SectionControlButtonProps = {
     icon: InlineIconProps;
     onClick: () => unknown;
     title: string;
+    disabled: boolean;
 };
 
 export default class SectionControlButton extends React.Component<SectionControlButtonProps> {
     render(): React.ReactNode {
-        const {icon, onClick, title} = this.props;
+        const {icon, onClick, title, disabled} = this.props;
 
         return (
             <Clickable
@@ -31,6 +32,7 @@ export default class SectionControlButton extends React.Component<SectionControl
                     e.preventDefault();
                     onClick();
                 }}
+                disabled={disabled}
                 role="button"
                 hideDefaultFocusRing={true}
                 aria-label={title}
