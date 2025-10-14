@@ -34,8 +34,6 @@ type Props = {
     hideChoicesFromInstructions: boolean;
     // Callback for when a widget prop is changed.
     onChange: (options: any) => void;
-    // Whether the editor is disabled.
-    editingDisabled: boolean;
     preferredPopoverDirection: PreferredPopoverDirection;
 };
 
