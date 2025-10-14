@@ -16,7 +16,9 @@ describe("ItemExtrasEditor", () => {
 
     it("should render correctly with default props", async () => {
         // Act
-        render(<ItemExtrasEditor onChange={() => {}} />);
+        render(
+            <ItemExtrasEditor editingDisabled={false} onChange={() => {}} />,
+        );
 
         // Assert
         expect(
@@ -33,7 +35,13 @@ describe("ItemExtrasEditor", () => {
     it("should call onChange with updated calculator value", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<ItemExtrasEditor calculator={false} onChange={onChangeMock} />);
+        render(
+            <ItemExtrasEditor
+                editingDisabled={false}
+                calculator={false}
+                onChange={onChangeMock}
+            />,
+        );
         const checkbox = screen.getByRole("checkbox", {
             name: "Show calculator",
         });
@@ -50,6 +58,7 @@ describe("ItemExtrasEditor", () => {
         const onChangeMock = jest.fn();
         render(
             <ItemExtrasEditor
+                editingDisabled={false}
                 periodicTable={true}
                 periodicTableWithKey={true}
                 onChange={onChangeMock}
@@ -105,6 +114,7 @@ describe("ItemExtrasEditor", () => {
 
             return (
                 <ItemExtrasEditor
+                    editingDisabled={false}
                     onChange={handleChange}
                     financialCalculatorMonthlyPayment={monthlyPayment}
                     financialCalculatorTotalAmount={totalAmount}
@@ -186,7 +196,12 @@ describe("ItemExtrasEditor", () => {
         it("when parent is checked, callback should check children", async () => {
             // Arrange
             const onChangeMock = jest.fn();
-            render(<ItemExtrasEditor onChange={onChangeMock} />);
+            render(
+                <ItemExtrasEditor
+                    editingDisabled={false}
+                    onChange={onChangeMock}
+                />,
+            );
             const checkbox = screen.getByRole("checkbox", {
                 name: "Show financial calculator",
             });
@@ -207,6 +222,7 @@ describe("ItemExtrasEditor", () => {
             const onChangeMock = jest.fn();
             render(
                 <ItemExtrasEditor
+                    editingDisabled={false}
                     onChange={onChangeMock}
                     financialCalculatorMonthlyPayment={true}
                     financialCalculatorTotalAmount={true}
