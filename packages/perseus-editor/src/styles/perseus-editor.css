@@ -1064,7 +1064,9 @@ code {
 .perseus-single-editor.perseus-editor-disabled .perseus-math-input,
 .perseus-single-editor.perseus-editor-disabled .keypad-input {
     opacity: 0.6 !important;
-    background-color: var(--wb-semanticColor-core-background-neutral-subtle) !important;
+    background-color: var(
+        --wb-semanticColor-core-background-neutral-subtle
+    ) !important;
     cursor: not-allowed !important;
     border-color: var(--wb-semanticColor-core-border-neutral-subtle) !important;
 }
