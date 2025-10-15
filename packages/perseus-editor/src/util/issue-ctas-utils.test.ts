@@ -14,6 +14,7 @@ import {
 import {
     getFirstAvailableWidgetIndex,
     convertImageMarkdownToImageWidget,
+    getCtaForIssueId,
 } from "./issue-ctas-utils";
 
 import type {PerseusWidgetsMap, RadioWidget} from "@khanacademy/perseus-core";
@@ -357,4 +358,52 @@ describe("convertImageMarkdownToImageWidget", () => {
     });
 });
 
-describe("getCtaForIssueId", () => {});
+describe("getCtaForIssueId", () => {
+    it("returns null when the question is undefined", () => {
+        const onEditorChange = jest.fn();
+        const cta = getCtaForIssueId(
+            "image-markdown",
+            undefined, // question is undefined
+            onEditorChange,
+        );
+        expect(cta).toBeNull();
+    });
+
+    it("returns null when no issue id is found", () => {
+        const question = generateTestPerseusRenderer({
+            content: "Hello World",
+            widgets: {},
+            images: {},
+        });
+        const onEditorChange = jest.fn();
+        const cta = getCtaForIssueId(
+            "unknown-issue-id",
+            question,
+            onEditorChange,
+        );
+        expect(cta).toBeNull();
+    });
+
+    it.each([
+        {
+            issueId: "image-markdown",
+            exectedCtaLabel: "Convert all image markdown to widget",
+        },
+        // Add more cases here as we develop more CTAs for issues.
+    ])(
+        "returns the correct cta for the issue id",
+        ({issueId, exectedCtaLabel}) => {
+            const question = generateTestPerseusRenderer({
+                content: "![alt text](url)",
+                widgets: {},
+                images: {},
+            });
+            const onEditorChange = jest.fn();
+            const cta = getCtaForIssueId(issueId, question, onEditorChange);
+            expect(cta).toEqual({
+                label: exectedCtaLabel,
+                onClick: expect.any(Function),
+            });
+        },
+    );
+});
