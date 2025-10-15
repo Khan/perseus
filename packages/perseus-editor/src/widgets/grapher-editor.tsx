@@ -89,6 +89,7 @@ class GrapherEditor extends React.Component<Props> {
                 },
                 availableTypes: this.props.availableTypes,
                 trackInteraction: function () {},
+                // Set the "correct answer" graph to static when editing is disabled
                 static: this.props.apiOptions.editingDisabled,
             };
 

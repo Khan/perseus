@@ -153,8 +153,7 @@ const AnswerChoices = ({
         <ul className={css(styles.answers)}>
             {choices.map((answer, index) => (
                 <Answer
-                    answer={answer} // TODO(michaelpolyak): When answer reording is implemented,
-                    // key by index may not re-render correctly, CP-117
+                    answer={answer}
                     key={index}
                     // Update answer for choice.
                     onChange={(answer) => {

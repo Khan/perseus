@@ -100,7 +100,6 @@ describe("InteractiveGraphSRTree", () => {
             fullGraphAriaLabel: "full graph aria label",
             fullGraphAriaDescription: "full graph description",
             lockedFigures: [],
-            editingDisabled: false,
         };
         render(
             <View id="test-id">

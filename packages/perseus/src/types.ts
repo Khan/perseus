@@ -196,7 +196,8 @@ export type APIOptions = Readonly<{
     readOnly?: boolean;
     /**
      * A boolean that indicates whether the editor interface should be
-     * disabled, preventing content creators from making changes.
+     * disabled, preventing content creators from making changes — such
+     * as when we are performing Content Backfills or other migrations.
      */
     editingDisabled?: boolean;
     answerableCallback?: (arg1: boolean) => unknown;
