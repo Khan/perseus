@@ -1095,7 +1095,7 @@ class Editor extends React.Component<Props, State> {
             backgroundColor: "pink",
         } as const;
 
-        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const editingDisabled = this.props.apiOptions.editingDisabled;
 
         return (
             <div

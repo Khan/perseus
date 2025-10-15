@@ -277,8 +277,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);
-        const isEditingDisabled =
-            this.props.apiOptions?.editingDisabled ?? false;
+        const isEditingDisabled = this.props.apiOptions.editingDisabled;
 
         return (
             <div>
