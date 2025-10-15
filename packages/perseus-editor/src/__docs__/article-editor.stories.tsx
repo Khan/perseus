@@ -63,24 +63,15 @@ export const WithEditingDisabled = (): React.ReactElement => {
         editingDisabled: true,
     };
 
-    function serialize() {
-        // eslint-disable-next-line no-console
-        console.log((articleEditorRef.current as any).serialize());
-    }
-
     return (
-        <>
-            <button onClick={serialize}>Serialize</button>
-            <hr />
-            <ArticleEditor
-                dependencies={testDependenciesV2}
-                apiOptions={disabledApiOptions}
-                imageUploader={() => {}}
-                json={[comprehensiveQuestion]}
-                onChange={() => {}}
-                previewURL="/perseus/frame"
-                ref={articleEditorRef as any}
-            />
-        </>
+        <ArticleEditor
+            dependencies={testDependenciesV2}
+            apiOptions={disabledApiOptions}
+            imageUploader={() => {}}
+            json={[comprehensiveQuestion]}
+            onChange={() => {}}
+            previewURL="/perseus/frame"
+            ref={articleEditorRef as any}
+        />
     );
 };
