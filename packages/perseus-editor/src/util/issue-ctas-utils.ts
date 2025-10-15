@@ -40,7 +40,7 @@ export async function convertImageMarkdownToImageWidget(
     question: PerseusRenderer,
     onEditorChange: (newProps: any) => void,
 ) {
-    const {content, widgets = {}} = question;
+    const {content, widgets} = question;
     const newWidgets = {...widgets};
 
     // Find all image markdown matches

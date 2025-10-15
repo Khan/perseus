@@ -6,7 +6,10 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {mockImageLoading} from "../../../../testing/image-loader-utils";
-import {earthMoonImage} from "../../../perseus/src/widgets/image/utils";
+import {
+    earthMoonImage,
+    frescoImage,
+} from "../../../perseus/src/widgets/image/utils";
 
 import {
     getFirstAvailableWidgetIndex,
@@ -119,6 +122,17 @@ describe("convertImageMarkdownToImageWidget", () => {
     afterEach(() => {
         unmockImageLoading();
         jest.restoreAllMocks();
+    });
+
+    it("returns when no image markdown is found", () => {
+        const question = {
+            content: "Hello World",
+            widgets: {},
+            images: {},
+        };
+        const onEditorChange = jest.fn();
+        convertImageMarkdownToImageWidget(question, onEditorChange);
+        expect(onEditorChange).not.toHaveBeenCalled();
     });
 
     it("converts image markdown to image widget", async () => {
@@ -304,6 +318,38 @@ describe("convertImageMarkdownToImageWidget", () => {
                     options: generateImageOptions({
                         backgroundImage: earthMoonImage,
                         alt: "alt 1",
+                    }),
+                }),
+            },
+        });
+    });
+
+    it("converts image markdown within markdown tables", async () => {
+        const question = generateTestPerseusRenderer({
+            content: `| col 1 | col 2 |\n| --- | --- |\n| ![markdown 1](${earthMoonImage.url}) | ![markdown 2](${frescoImage.url}) |`,
+            widgets: {},
+            images: {},
+        });
+        const onEditorChange = jest.fn();
+        await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        expect(onEditorChange).toHaveBeenCalledWith({
+            content: `| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |`,
+            widgets: {
+                "image 1": generateImageWidget({
+                    options: generateImageOptions({
+                        backgroundImage: earthMoonImage,
+                        alt: "markdown 1",
+                    }),
+                }),
+                "image 2": generateImageWidget({
+                    options: generateImageOptions({
+                        backgroundImage: {
+                            url: frescoImage.url,
+                            width: 400, // mocked
+                            height: 225, // mocked
+                        },
+                        alt: "markdown 2",
                     }),
                 }),
             },
