@@ -12,7 +12,7 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Label Image/Question Markers",
+    title: "Widgets/Label Image/Widget Internal Components/Question Markers",
 } as Story;
 
 const styles = StyleSheet.create({

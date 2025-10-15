@@ -1,13 +1,14 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+
 import {
-    DesktopKeypad,
-    getKeyTranslator,
-    createMathField,
-    mathQuillInstance,
     CursorContext,
-    getCursorContext,
     convertDotToTimesByLocale,
+    createMathField,
+    DesktopKeypad,
+    getCursorContext,
+    getKeyTranslator,
     MathInputI18nContext,
+    mathQuillInstance,
 } from "@khanacademy/math-input";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -118,6 +119,23 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         // Ideally, we would be able to pass an initial value directly into
         // the constructor
         this.mathField()?.latex(this.props.value);
+    }
+
+    componentDidUpdate(prevProps: Readonly<InnerProps>): void {
+        if (prevProps.value !== this.props.value) {
+            // Don't do anything if the user is currently focused on this input
+            if (this.state.focused) {
+                return;
+            }
+            const field = this.mathField();
+            if (!field) {
+                return;
+            }
+            const current = field.latex();
+            if (this.props.value !== current) {
+                field.latex(this.props.value);
+            }
+        }
     }
 
     openKeypad() {

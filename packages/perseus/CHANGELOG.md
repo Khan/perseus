@@ -1,5 +1,45 @@
 # @khanacademy/perseus
 
+## 71.2.3
+
+### Patch Changes
+
+-   [#2960](https://github.com/Khan/perseus/pull/2960) [`b328f7fa6a`](https://github.com/Khan/perseus/commit/b328f7fa6a5c11be53554b60a93d4e03e7e79d6a) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Numeric Input] Add visual regression tests
+
+*   [#2954](https://github.com/Khan/perseus/pull/2954) [`2db4326665`](https://github.com/Khan/perseus/commit/2db43266656b058503818a6550ce9c520d1086fb) Thanks [@jaredly](https://github.com/jaredly)! - Fix numeric-input fraction approximation
+
+*   Updated dependencies [[`b3a751707c`](https://github.com/Khan/perseus/commit/b3a751707c44437875efc16a21b505a7ec7879c6)]:
+    -   @khanacademy/perseus-core@20.0.0
+    -   @khanacademy/perseus-score@8.0.0
+    -   @khanacademy/keypad-context@3.2.11
+    -   @khanacademy/kmath@2.2.11
+    -   @khanacademy/math-input@26.2.12
+    -   @khanacademy/perseus-linter@4.4.1
+
+## 71.2.2
+
+### Patch Changes
+
+-   [#2956](https://github.com/Khan/perseus/pull/2956) [`2274854c9b`](https://github.com/Khan/perseus/commit/2274854c9b033e502695bc28173b43e75c628301) Thanks [@jaredly](https://github.com/jaredly)! - Fix bug where user selection would be moved to the end after every input in a math-input widget
+
+*   [#2943](https://github.com/Khan/perseus/pull/2943) [`572916984f`](https://github.com/Khan/perseus/commit/572916984fcac1248393a8e5023273043a018e4f) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Use large image size for zoom if available
+
+## 71.2.1
+
+### Patch Changes
+
+-   [#2950](https://github.com/Khan/perseus/pull/2950) [`ce47e5afa4`](https://github.com/Khan/perseus/commit/ce47e5afa4f1d253e6de9d29f85b273b2a582bcd) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Selected choices don't turn blue when in articles
+
+## 71.2.0
+
+### Minor Changes
+
+-   [#2941](https://github.com/Khan/perseus/pull/2941) [`ea232094e7`](https://github.com/Khan/perseus/commit/ea232094e764e77d61067509cc137c5ed53f8f0e) Thanks [@jaredly](https://github.com/jaredly)! - Add getCorrectUserInput for dropdown, expression, input-number, label-image, and numeric-input
+
+### Patch Changes
+
+-   [#2947](https://github.com/Khan/perseus/pull/2947) [`7e830864aa`](https://github.com/Khan/perseus/commit/7e830864aab51afd1192cd92fdebd9adc664f74b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Additional space needed between choice text and rationale
+
 ## 71.1.1
 
 ### Patch Changes

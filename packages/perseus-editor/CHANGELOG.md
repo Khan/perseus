@@ -1,5 +1,48 @@
 # @khanacademy/perseus-editor
 
+## 28.4.2
+
+### Patch Changes
+
+-   [#2959](https://github.com/Khan/perseus/pull/2959) [`31892b605d`](https://github.com/Khan/perseus/commit/31892b605d54038c6d8898276cae5801ebf853dc) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add article preview panel for the article editor this will be used in our docs.
+
+-   Updated dependencies [[`b3a751707c`](https://github.com/Khan/perseus/commit/b3a751707c44437875efc16a21b505a7ec7879c6), [`b328f7fa6a`](https://github.com/Khan/perseus/commit/b328f7fa6a5c11be53554b60a93d4e03e7e79d6a), [`2db4326665`](https://github.com/Khan/perseus/commit/2db43266656b058503818a6550ce9c520d1086fb)]:
+    -   @khanacademy/perseus-core@20.0.0
+    -   @khanacademy/perseus-score@8.0.0
+    -   @khanacademy/perseus@71.2.3
+    -   @khanacademy/keypad-context@3.2.11
+    -   @khanacademy/kmath@2.2.11
+    -   @khanacademy/math-input@26.2.12
+    -   @khanacademy/perseus-linter@4.4.1
+
+## 28.4.1
+
+### Patch Changes
+
+-   Updated dependencies [[`2274854c9b`](https://github.com/Khan/perseus/commit/2274854c9b033e502695bc28173b43e75c628301), [`572916984f`](https://github.com/Khan/perseus/commit/572916984fcac1248393a8e5023273043a018e4f)]:
+    -   @khanacademy/perseus@71.2.2
+
+## 28.4.0
+
+### Minor Changes
+
+-   [#2949](https://github.com/Khan/perseus/pull/2949) [`9b2effcc25`](https://github.com/Khan/perseus/commit/9b2effcc253eca60bb907007704a2f2ea847dc0c) Thanks [@Myranae](https://github.com/Myranae)! - Add popover direction selector back to label image editor to still allow content authors to add popover direction
+    preference; also fix a bug where their selection did not persist in the editor.
+
+### Patch Changes
+
+-   Updated dependencies [[`ce47e5afa4`](https://github.com/Khan/perseus/commit/ce47e5afa4f1d253e6de9d29f85b273b2a582bcd)]:
+    -   @khanacademy/perseus@71.2.1
+
+## 28.3.1
+
+### Patch Changes
+
+-   [#2936](https://github.com/Khan/perseus/pull/2936) [`d81b0ec4ff`](https://github.com/Khan/perseus/commit/d81b0ec4ffb3b2b74a37ca2ef1f2286e7009de93) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Adding tests for ItemDiff component
+
+-   Updated dependencies [[`7e830864aa`](https://github.com/Khan/perseus/commit/7e830864aab51afd1192cd92fdebd9adc664f74b), [`ea232094e7`](https://github.com/Khan/perseus/commit/ea232094e764e77d61067509cc137c5ed53f8f0e)]:
+    -   @khanacademy/perseus@71.2.0
+
 ## 28.3.0
 
 ### Minor Changes
