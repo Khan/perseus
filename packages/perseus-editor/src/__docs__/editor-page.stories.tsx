@@ -67,3 +67,7 @@ export const WithEditingDisabled = (): React.ReactElement => {
         />
     );
 };
+
+export const WithAllWidgets = (): React.ReactElement => {
+    return <EditorPageWithStorybookPreview question={comprehensiveQuestion} />;
+};
