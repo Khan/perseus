@@ -50,14 +50,6 @@ if (typeof window !== "undefined") {
         assign: jest.fn(),
     };
     /* eslint-enable no-restricted-syntax */
-
-    // Override window.alert which doesn't exist in node and log any
-    // alerts to the console instead.
-    // @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
-    delete window.alert;
-    window.alert = function (message: any) {
-        console.log(`KA_TEST captured: window.alert("${message}")`);
-    };
 }
 
 require("./attach-jsdom-window-shims")(globalThis);
