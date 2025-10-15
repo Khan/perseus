@@ -110,7 +110,7 @@ class DropdownEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const dropdownGroupName = _.uniqueId("perseus_dropdown_");
-        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const editingDisabled = this.props.apiOptions.editingDisabled;
         return (
             <div className="perseus-widget-dropdown">
                 <div className="dropdown-info">

@@ -145,7 +145,7 @@ class WidgetEditor extends React.Component<
     render(): React.ReactNode {
         const widgetInfo = this.state.widgetInfo;
         const isEditingDisabled =
-            this.props.apiOptions?.editingDisabled ?? false;
+            this.props.apiOptions.editingDisabled ?? false;
 
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;

@@ -89,7 +89,7 @@ class GrapherEditor extends React.Component<Props> {
                 },
                 availableTypes: this.props.availableTypes,
                 trackInteraction: function () {},
-                static: this.props.apiOptions?.editingDisabled ?? false,
+                static: this.props.apiOptions.editingDisabled,
             };
 
             graph = (
