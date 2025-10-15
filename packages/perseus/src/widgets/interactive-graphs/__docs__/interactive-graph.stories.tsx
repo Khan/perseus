@@ -1,5 +1,4 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {ApiOptions} from "../../../perseus-api";
