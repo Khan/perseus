@@ -29,7 +29,7 @@ const defaultWidgetOptions: ImageDefaultWidgetOptions = {
 const imageWidgetLogic: WidgetLogic = {
     name: "image",
     defaultWidgetOptions,
-    supportedAlignments: ["block", "full-width"],
+    supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     defaultAlignment: "block",
     // This widget's accessibility depends on its widget option: if the image
     // has a background but no alt text, it is not accessible

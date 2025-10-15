@@ -1,0 +1,113 @@
+/* Highlight states for editor/interaction */
+.perseus-widget-container.widget-nohighlight {
+    transition: all 0.15s;
+}
+
+.perseus-widget-container.widget-highlight {
+    box-shadow: 0px 0px 0px var(--wb-sizing-size_020) #ffa500;
+    transition: all 0.15s;
+}
+
+/* Start for WidgetContainer's alignment CSS styling */
+
+/* Base display modes */
+.perseus-widget-container.widget-inline {
+    display: inline;
+}
+.perseus-widget-container.widget-inline-block {
+    display: inline-block;
+    vertical-align: bottom;
+}
+.perseus-widget-container.widget-block {
+    display: block;
+}
+
+/* Base float alignment (applies to all contexts) */
+.perseus-widget-container.widget-float-left {
+    float: left;
+    display: inline-block;
+}
+
+.perseus-widget-container.widget-float-right {
+    float: right;
+    display: inline-block;
+}
+
+/* Desktop article context - spacing and constraints */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-widget-container.widget-float-left,
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-widget-container.widget-float-right {
+    max-width: 50%;
+    padding-top: var(--wb-sizing-size_320);
+    width: 100%;
+}
+
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-widget-container.widget-float-left {
+    float: inline-start;
+    padding-right: var(--wb-sizing-size_320);
+}
+
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-widget-container.widget-float-right {
+    float: inline-end;
+    padding-left: var(--wb-sizing-size_320);
+}
+
+/* Mobile context - spacing and constraints */
+.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left,
+.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
+    max-width: 50%;
+    padding-top: var(--wb-sizing-size_320);
+    width: 100%;
+}
+
+.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left {
+    padding-right: var(--wb-sizing-size_320);
+}
+
+.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
+    padding-left: var(--wb-sizing-size_320);
+}
+
+/* End for WidgetContainer's alignment CSS styling */
+
+/* Typography and sizing */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-widget-container:not(.perseus-widget__definition) {
+    font-size: var(--wb-sizing-size_140);
+    line-height: 19.6px;
+}
+
+.framework-perseus.perseus-mobile .perseus-widget-container {
+    font-size: var(--wb-sizing-size_140);
+    line-height: 19.6px;
+}
+
+/* Specific for perseus-image-widget caption styling within floated widgets */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-widget-container.widget-float-left
+    .perseus-image-caption
+    .paragraph
+    .paragraph,
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-widget-container.widget-float-right
+    .perseus-image-caption
+    .paragraph
+    .paragraph {
+    margin-bottom: 0;
+}
+
+.framework-perseus.perseus-mobile
+    .perseus-widget-container.widget-float-left
+    .perseus-image-caption
+    .paragraph
+    .paragraph,
+.framework-perseus.perseus-mobile
+    .perseus-widget-container.widget-float-right
+    .perseus-image-caption
+    .paragraph
+    .paragraph {
+    margin-bottom: 0;
+}
