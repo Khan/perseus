@@ -840,12 +840,12 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
-    serialize: (options?: any) => {
+    serialize: (options?: {keepDeletedWidgets?: boolean}) => {
         content: string;
         images: any;
         replace: any | undefined;
         widgets: Record<any, any>;
-    } = (options: any) => {
+    } = (options) => {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
