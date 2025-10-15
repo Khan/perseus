@@ -100,13 +100,19 @@ describe("getFirstAvailableWidgetIndex", () => {
     it.each(testCases)(
         "returns $expected when widgets has keys: $widgets",
         ({widgetType, widgets, expected}) => {
+            // Arrange, Act
             const index = getFirstAvailableWidgetIndex(widgetType, widgets);
+
+            // Assert
             expect(index).toBe(expected);
         },
     );
 
     it("returns 1 when widgets is empty", () => {
+        // Arrange, Act
         const index = getFirstAvailableWidgetIndex("image", {});
+
+        // Assert
         expect(index).toBe(1);
     });
 });
@@ -126,24 +132,34 @@ describe("convertImageMarkdownToImageWidget", () => {
     });
 
     it("returns when no image markdown is found", () => {
+        // Arrange
         const question = {
             content: "Hello World",
             widgets: {},
             images: {},
         };
         const onEditorChange = jest.fn();
+
+        // Act
         convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
         expect(onEditorChange).not.toHaveBeenCalled();
     });
 
     it("converts image markdown to image widget", async () => {
+        // Arrange
         const question = {
             content: `![some alt text](${earthMoonImage.url})`,
             widgets: {},
             images: {},
         };
         const onEditorChange = jest.fn();
+
+        // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
         expect(onEditorChange).toHaveBeenCalledWith({
             content: "[[☃ image 1]]",
             widgets: {
@@ -158,13 +174,18 @@ describe("convertImageMarkdownToImageWidget", () => {
     });
 
     it("converts image markdown to image widget with surrounding text", async () => {
+        // Arrange
         const question = {
             content: `Hello ![some alt text](${earthMoonImage.url}) World`,
             widgets: {},
             images: {},
         };
         const onEditorChange = jest.fn();
+
+        // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
         expect(onEditorChange).toHaveBeenCalledWith({
             content: "Hello [[☃ image 1]] World",
             widgets: {
@@ -179,6 +200,7 @@ describe("convertImageMarkdownToImageWidget", () => {
     });
 
     it("converts the image markdown and keep surrounding widgets", async () => {
+        // Arrange
         const question = generateTestPerseusRenderer({
             content: `Hello ![some alt text](${earthMoonImage.url}) World [[☃ image 1]]`,
             widgets: {
@@ -192,7 +214,11 @@ describe("convertImageMarkdownToImageWidget", () => {
         });
 
         const onEditorChange = jest.fn();
+
+        // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `Hello [[☃ image 2]] World [[☃ image 1]]`,
             widgets: {
@@ -213,13 +239,18 @@ describe("convertImageMarkdownToImageWidget", () => {
     });
 
     it("converts multiple images", async () => {
+        // Arrange
         const question = generateTestPerseusRenderer({
             content: `![alt 1](${earthMoonImage.url}) ![alt 2](${earthMoonImage.url})`,
             widgets: {},
             images: {},
         });
         const onEditorChange = jest.fn();
+
+        // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `[[☃ image 1]] [[☃ image 2]]`,
             widgets: {
@@ -240,6 +271,7 @@ describe("convertImageMarkdownToImageWidget", () => {
     });
 
     it("converts multiple images with skipped indices", async () => {
+        // Arrange
         const question = generateTestPerseusRenderer({
             content: `[[☃ image 3]] ![markdown 1](${earthMoonImage.url}) ![markdown 2](${earthMoonImage.url}) [[☃ image 2]]`,
             widgets: {
@@ -259,7 +291,11 @@ describe("convertImageMarkdownToImageWidget", () => {
             images: {},
         });
         const onEditorChange = jest.fn();
+
+        // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `[[☃ image 3]] [[☃ image 1]] [[☃ image 4]] [[☃ image 2]]`,
             widgets: {
@@ -292,6 +328,7 @@ describe("convertImageMarkdownToImageWidget", () => {
     });
 
     it("preserves other markdown", async () => {
+        // Arrange
         const question = generateTestPerseusRenderer({
             content: `![markdown 1](${earthMoonImage.url}) [[☃ image 1]] **bold** *italic* \n\n| col 1 | col 2 |\n| --- | --- |\n| row 1 | row 2 |`,
             widgets: {
@@ -305,7 +342,11 @@ describe("convertImageMarkdownToImageWidget", () => {
             images: {},
         });
         const onEditorChange = jest.fn();
+
+        // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `[[☃ image 2]] [[☃ image 1]] **bold** *italic* \n\n| col 1 | col 2 |\n| --- | --- |\n| row 1 | row 2 |`,
             widgets: {
@@ -326,13 +367,18 @@ describe("convertImageMarkdownToImageWidget", () => {
     });
 
     it("converts image markdown within markdown tables", async () => {
+        // Arrange
         const question = generateTestPerseusRenderer({
             content: `| col 1 | col 2 |\n| --- | --- |\n| ![markdown 1](${earthMoonImage.url}) | ![markdown 2](${frescoImage.url}) |`,
             widgets: {},
             images: {},
         });
         const onEditorChange = jest.fn();
+
+        // Act
         await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
 
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |`,
@@ -360,27 +406,37 @@ describe("convertImageMarkdownToImageWidget", () => {
 
 describe("getCtaForIssueId", () => {
     it("returns null when the question is undefined", () => {
+        // Arrange
         const onEditorChange = jest.fn();
+
+        // Act
         const cta = getCtaForIssueId(
             "image-markdown",
             undefined, // question is undefined
             onEditorChange,
         );
+
+        // Assert
         expect(cta).toBeNull();
     });
 
     it("returns null when no issue id is found", () => {
+        // Arrange
         const question = generateTestPerseusRenderer({
             content: "Hello World",
             widgets: {},
             images: {},
         });
         const onEditorChange = jest.fn();
+
+        // Act
         const cta = getCtaForIssueId(
             "unknown-issue-id",
             question,
             onEditorChange,
         );
+
+        // Assert
         expect(cta).toBeNull();
     });
 
@@ -393,13 +449,18 @@ describe("getCtaForIssueId", () => {
     ])(
         "returns the correct cta for the issue id",
         ({issueId, exectedCtaLabel}) => {
+            // Arrange
             const question = generateTestPerseusRenderer({
                 content: "![alt text](url)",
                 widgets: {},
                 images: {},
             });
             const onEditorChange = jest.fn();
+
+            // Act
             const cta = getCtaForIssueId(issueId, question, onEditorChange);
+
+            // Assert
             expect(cta).toEqual({
                 label: exectedCtaLabel,
                 onClick: expect.any(Function),
