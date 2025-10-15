@@ -10,6 +10,8 @@ import {earthMoonImage} from "../../../perseus/src/widgets/image/utils";
 
 import {convertImageMarkdownToImageWidget} from "./issue-ctas-utils";
 
+describe("getFirstAvailableWidgetIndex", () => {});
+
 describe("convertImageMarkdownToImageWidget", () => {
     let unmockImageLoading: () => void;
 
@@ -213,3 +215,5 @@ describe("convertImageMarkdownToImageWidget", () => {
         });
     });
 });
+
+describe("getCtaForIssueId", () => {});
