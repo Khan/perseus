@@ -29,6 +29,9 @@ const defaultWidgetOptions: ImageDefaultWidgetOptions = {
 const imageWidgetLogic: WidgetLogic = {
     name: "image",
     defaultWidgetOptions,
+    // The float alignments will be set to inline-block floated left or right.
+    // This will allow text to wrap around the widget and not have large space
+    // on either side.
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     defaultAlignment: "block",
     // This widget's accessibility depends on its widget option: if the image
