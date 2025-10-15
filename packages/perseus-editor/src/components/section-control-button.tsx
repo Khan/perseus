@@ -1,17 +1,9 @@
-import {components} from "@khanacademy/perseus";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-const {InlineIcon} = components;
-
-type InlineIconProps = PropsFor<typeof InlineIcon>;
-
 type SectionControlButtonProps = {
-    icon: InlineIconProps;
+    icon: any;
     onClick: () => unknown;
     title: string;
     disabled: boolean;
@@ -22,34 +14,20 @@ export default class SectionControlButton extends React.Component<SectionControl
         const {icon, onClick, title, disabled} = this.props;
 
         return (
-            <Clickable
-                className={
-                    "section-control-button " +
-                    "simple-button " +
-                    "simple-button--small "
-                }
-                onClick={(e) => {
-                    e.preventDefault();
-                    onClick();
-                }}
+            <IconButton
+                icon={icon}
                 disabled={disabled}
-                role="button"
-                hideDefaultFocusRing={true}
                 aria-label={title}
                 style={styles.button}
-            >
-                {({hovered, focused, pressed}) => <InlineIcon {...icon} />}
-            </Clickable>
+                size="xsmall"
+                onClick={onClick}
+            />
         );
     }
 }
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: color.gold,
-        margin: 2,
-        paddingRight: 10,
-        paddingLeft: 10,
-        paddingBottom: 2,
+        marginLeft: 5,
     },
 });

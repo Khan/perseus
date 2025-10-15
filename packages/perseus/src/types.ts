@@ -442,6 +442,7 @@ export type APIOptionsWithDefaults = Readonly<
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         isMobileApp: NonNullable<APIOptions["isMobileApp"]>;
+        editingDisabled: NonNullable<APIOptions["editingDisabled"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
         setDrawingAreaAvailable: NonNullable<

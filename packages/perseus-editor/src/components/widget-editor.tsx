@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {Widgets, excludeDenylistKeys, iconTrash} from "@khanacademy/perseus";
+import {Widgets, excludeDenylistKeys} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
@@ -9,6 +9,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import {useId} from "react";
 
@@ -210,7 +211,7 @@ class WidgetEditor extends React.Component<
                         </select>
                     )}
                     <SectionControlButton
-                        icon={iconTrash}
+                        icon={trashIcon}
                         disabled={isEditingDisabled}
                         onClick={() => {
                             this.props.onRemove();
