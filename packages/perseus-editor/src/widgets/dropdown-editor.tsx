@@ -5,7 +5,7 @@ import {
     type DropdownDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
-import {TextField, Checkbox} from "@khanacademy/wonder-blocks-form";
+import {TextField, Radio} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
@@ -52,7 +52,7 @@ class DropdownEditor extends React.Component<Props> {
         this.props.onChange({placeholder});
     };
 
-    onCorrectChange: (arg1: number, arg2: boolean) => void = (choiceIndex) => {
+    onCorrectChange: (arg1: number) => void = (choiceIndex) => {
         const choices = _.map(this.props.choices, function (choice, i) {
             return _.extend({}, choice, {
                 correct: i === choiceIndex,
@@ -186,16 +186,14 @@ class DropdownEditor extends React.Component<Props> {
                         return (
                             <li key={"" + i}>
                                 <div className="dropdown-choice">
-                                    <Checkbox
+                                    <input
+                                        type="radio"
                                         ref={"radio" + i}
-                                        checked={choice.correct ? true : false}
-                                        onChange={(newCheckedState) =>
-                                            this.onCorrectChange(
-                                                i,
-                                                newCheckedState,
-                                            )
-                                        }
+                                        name={dropdownGroupName}
+                                        checked={choice.correct}
+                                        onChange={() => this.onCorrectChange(i)}
                                     />
+
                                     <TextField
                                         value={choice.content}
                                         ref={"editor" + i}
