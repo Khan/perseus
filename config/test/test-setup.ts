@@ -31,25 +31,6 @@ if (typeof window !== "undefined") {
     // See https://github.com/testing-library/dom-testing-library/issues/477
     // Release notes: https://github.com/testing-library/dom-testing-library/releases/tag/v7.0.0
     window.MutationObserver = MutationObserver;
-
-    // Override the window.location implementation to mock out assign()
-    // We need to access window.location.assign to verify that we're
-    // redirecting to the right place.
-    const oldLocation = window.location;
-    // @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
-    delete window.location;
-    const mockedLocation = new URL("http://localhost:8081");
-    window.location = {
-        ...oldLocation,
-        host: mockedLocation.host,
-        hostname: mockedLocation.hostname,
-        href: mockedLocation.href,
-        origin: mockedLocation.origin,
-        port: mockedLocation.port,
-        protocol: mockedLocation.protocol,
-        assign: jest.fn(),
-    };
-    /* eslint-enable no-restricted-syntax */
 }
 
 require("./attach-jsdom-window-shims")(globalThis);
