@@ -4,7 +4,7 @@ import * as React from "react";
 import {useRef, useState} from "react";
 
 import {testDependenciesV2} from "../../../../testing/test-dependencies";
-import {comprehensiveQuestion} from "../__testdata__/editing-disabled.testdata";
+import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
 import ContentPreview from "../content-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";

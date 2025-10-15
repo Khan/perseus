@@ -131,6 +131,7 @@ export const ApiOptions = {
         isArticle: false,
         isMobile: false,
         isMobileApp: false,
+        editingDisabled: false,
         onFocusChange: function () {},
         GroupMetadataEditor: StubTagEditor,
         showAlignmentOptions: false,
