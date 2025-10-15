@@ -8,9 +8,104 @@ import {
 import {mockImageLoading} from "../../../../testing/image-loader-utils";
 import {earthMoonImage} from "../../../perseus/src/widgets/image/utils";
 
-import {convertImageMarkdownToImageWidget} from "./issue-ctas-utils";
+import {
+    getFirstAvailableWidgetIndex,
+    convertImageMarkdownToImageWidget,
+} from "./issue-ctas-utils";
 
-describe("getFirstAvailableWidgetIndex", () => {});
+import type {PerseusWidgetsMap, RadioWidget} from "@khanacademy/perseus-core";
+
+const defaultImageWidget = generateImageWidget({
+    options: generateImageOptions({}),
+});
+
+const defaultRadioWidget: RadioWidget = {
+    type: "radio",
+    options: {
+        choices: [],
+    },
+};
+
+describe("getFirstAvailableWidgetIndex", () => {
+    // Breaking this out so that it won't complain about types.
+    const testCases: Array<{
+        widgetType: string;
+        widgets: PerseusWidgetsMap;
+        expected: number;
+    }> = [
+        {
+            widgetType: "image",
+            widgets: {"image 1": defaultImageWidget},
+            expected: 2,
+        },
+        {
+            widgetType: "image",
+            widgets: {"image 3": defaultImageWidget},
+            expected: 1,
+        },
+        {
+            widgetType: "image",
+            widgets: {
+                "image 1": defaultImageWidget,
+                "image 2": defaultImageWidget,
+            },
+            expected: 3,
+        },
+        {
+            widgetType: "image",
+            widgets: {
+                "image 1": defaultImageWidget,
+                "image 3": defaultImageWidget,
+            },
+            expected: 2,
+        },
+        {
+            widgetType: "image",
+            widgets: {
+                "image 2": defaultImageWidget,
+                "image 4": defaultImageWidget,
+            },
+            expected: 1,
+        },
+        {
+            widgetType: "image",
+            widgets: {
+                "image 1": defaultImageWidget,
+                "radio 1": defaultRadioWidget,
+            },
+            expected: 2,
+        },
+        {
+            widgetType: "image",
+            widgets: {
+                "image 1": defaultImageWidget,
+                "radio 2": defaultRadioWidget,
+            },
+            expected: 2,
+        },
+        {
+            widgetType: "image",
+            widgets: {
+                "image 2": defaultImageWidget,
+                "radio 1": defaultRadioWidget,
+            },
+            expected: 1,
+        },
+    ];
+
+    it.each(testCases)(
+        "returns $expected when widgets has keys: $widgets",
+        ({widgetType, widgets, expected}) => {
+            const index = getFirstAvailableWidgetIndex(widgetType, widgets);
+            expect(index).toBe(expected);
+        },
+    );
+
+    it("returns 1 when widgets is empty", () => {
+        const index = getFirstAvailableWidgetIndex("image", {});
+        expect(index).toBe(1);
+    });
+});
 
 describe("convertImageMarkdownToImageWidget", () => {
     let unmockImageLoading: () => void;

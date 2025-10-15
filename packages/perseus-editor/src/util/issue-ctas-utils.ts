@@ -14,13 +14,14 @@ type IssueCta = {
     onClick: () => void;
 };
 
-function getFirstAvailableWidgetIndex(
+// Exported for testing
+export function getFirstAvailableWidgetIndex(
     widgetType: string,
     widgets: PerseusWidgetsMap,
 ): number {
-    const widgetNames = Object.keys(widgets ?? {});
+    const widgetNames = Object.keys(widgets);
 
-    for (let i = 1; i <= 1000; i++) {
+    for (let i = 1; i <= widgetNames.length + 1; i++) {
         if (!widgetNames.includes(`${widgetType} ${i}`)) {
             return i;
         }
