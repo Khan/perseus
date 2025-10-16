@@ -8,8 +8,7 @@
     transition: all 0.15s;
 }
 
-/* Start for WidgetContainer's alignment CSS styling */
-
+/******************* Start for WidgetContainer's alignment CSS styling *******************/
 /* Base display modes */
 .perseus-widget-container.widget-inline {
     display: inline;
@@ -24,12 +23,12 @@
 
 /* Base float alignment (applies to all contexts) */
 .perseus-widget-container.widget-float-left {
-    float: left;
+    float: inline-start;
     display: inline-block;
 }
 
 .perseus-widget-container.widget-float-right {
-    float: right;
+    float: inline-end;
     display: inline-block;
 }
 
@@ -70,8 +69,7 @@
 .framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
     padding-left: var(--wb-sizing-size_320);
 }
-
-/* End for WidgetContainer's alignment CSS styling */
+/******************* End for WidgetContainer's alignment CSS styling *******************/
 
 /* Typography and sizing */
 .framework-perseus.perseus-article:not(.perseus-mobile)
