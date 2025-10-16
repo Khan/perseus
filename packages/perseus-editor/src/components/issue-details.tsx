@@ -13,7 +13,6 @@ import type {APIOptions} from "@khanacademy/perseus";
 type IssueProps = {
     apiOptions?: APIOptions;
     issue: Issue;
-    cta?: React.ReactNode;
 };
 
 const IssueDetails = ({apiOptions, issue}: IssueProps) => {
