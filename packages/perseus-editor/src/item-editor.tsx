@@ -4,9 +4,9 @@ import * as React from "react";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
+import IssuesPanel from "./components/issues-panel";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
-import IssuesPanel from "./components/issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
 
@@ -160,7 +160,11 @@ class ItemEditor extends React.Component<Props, State> {
                         <IssuesPanel
                             apiOptions={this.props.apiOptions}
                             issues={this.state.issues}
-                            question={this.props.question}
+                            question={
+                                // Question is guaranteed to be set because
+                                // it's in the default props.
+                                this.props.question!
+                            }
                             onEditorChange={this.handleEditorChange}
                         />
                         <div className="pod-title">Question</div>

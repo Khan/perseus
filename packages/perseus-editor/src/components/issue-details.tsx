@@ -13,7 +13,7 @@ import type {APIOptions} from "@khanacademy/perseus";
 type IssueProps = {
     apiOptions?: APIOptions;
     issue: Issue;
-    question?: PerseusRenderer;
+    question: PerseusRenderer;
     onEditorChange: (newProps: any) => void;
     cta?: React.ReactNode;
 };

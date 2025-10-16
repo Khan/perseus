@@ -405,21 +405,6 @@ describe("convertImageMarkdownToImageWidget", () => {
 });
 
 describe("getCtaForIssueId", () => {
-    it("returns null when the question is undefined", () => {
-        // Arrange
-        const onEditorChange = jest.fn();
-
-        // Act
-        const cta = getCtaForIssueId(
-            "image-markdown",
-            undefined, // question is undefined
-            onEditorChange,
-        );
-
-        // Assert
-        expect(cta).toBeNull();
-    });
-
     it("returns null when no issue id is found", () => {
         // Arrange
         const question = generateTestPerseusRenderer({

@@ -9,7 +9,7 @@ import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 interface Props {
     issue: Issue;
-    question?: PerseusRenderer;
+    question: PerseusRenderer;
     onEditorChange: (newProps: any) => void;
 }
 

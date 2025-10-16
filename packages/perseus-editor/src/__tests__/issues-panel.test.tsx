@@ -39,6 +39,7 @@ describe("IssuesPanel", () => {
             <IssuesPanel
                 apiOptions={ApiOptions.defaults}
                 issues={[]}
+                question={{content: "", widgets: {}, images: {}}}
                 onEditorChange={() => {}}
             />,
         );
@@ -63,6 +64,7 @@ describe("IssuesPanel", () => {
             <IssuesPanel
                 apiOptions={ApiOptions.defaults}
                 issues={[makeIssue("warn1")]}
+                question={{content: "", widgets: {}, images: {}}}
                 onEditorChange={() => {}}
             />,
         );
@@ -87,6 +89,7 @@ describe("IssuesPanel", () => {
             <IssuesPanel
                 apiOptions={ApiOptions.defaults}
                 issues={[makeIssue("warn1"), makeIssue("warn2")]}
+                question={{content: "", widgets: {}, images: {}}}
                 onEditorChange={() => {}}
             />,
         );
@@ -111,6 +114,7 @@ describe("IssuesPanel", () => {
             <IssuesPanel
                 apiOptions={ApiOptions.defaults}
                 issues={[makeIssue("warn1")]}
+                question={{content: "", widgets: {}, images: {}}}
                 onEditorChange={() => {}}
             />,
         );
@@ -129,6 +133,7 @@ describe("IssuesPanel", () => {
             <IssuesPanel
                 apiOptions={ApiOptions.defaults}
                 issues={[makeIssue("warn1")]}
+                question={{content: "", widgets: {}, images: {}}}
                 onEditorChange={() => {}}
             />,
         );

@@ -6,8 +6,8 @@ import iconWarning from "@phosphor-icons/core/fill/warning-fill.svg";
 import * as React from "react";
 import {useState} from "react";
 
-import ToggleableCaret from "./toggleable-caret";
 import IssueDetails from "./issue-details";
+import ToggleableCaret from "./toggleable-caret";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -25,7 +25,7 @@ export type Issue = {
 type IssuesPanelProps = {
     apiOptions?: APIOptions;
     issues?: Issue[];
-    question?: PerseusRenderer;
+    question: PerseusRenderer;
     onEditorChange: (newProps: any) => void;
 };
 
