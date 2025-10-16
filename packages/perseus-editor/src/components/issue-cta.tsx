@@ -39,5 +39,6 @@ export default IssueCta;
 const styles = {
     button: {
         marginTop: sizing.size_080,
+        marginBottom: sizing.size_080,
     },
 };
