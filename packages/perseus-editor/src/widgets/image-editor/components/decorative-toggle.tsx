@@ -40,7 +40,7 @@ export default function DecorativeToggle({
         if (shouldReset) {
             onChange({
                 decorative: true,
-                alt: undefined,
+                alt: "",
                 caption: undefined,
                 title: undefined,
                 longDescription: undefined,
