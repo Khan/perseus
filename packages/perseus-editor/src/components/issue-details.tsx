@@ -4,8 +4,8 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import PerseusEditorAccordion from "./components/perseus-editor-accordion";
 import IssueCta from "./issue-cta";
+import PerseusEditorAccordion from "./perseus-editor-accordion";
 
 import type {Issue} from "./issues-panel";
 import type {APIOptions} from "@khanacademy/perseus";

@@ -6,7 +6,7 @@ import iconWarning from "@phosphor-icons/core/fill/warning-fill.svg";
 import * as React from "react";
 import {useState} from "react";
 
-import ToggleableCaret from "./components/toggleable-caret";
+import ToggleableCaret from "./toggleable-caret";
 import IssueDetails from "./issue-details";
 
 import type {APIOptions} from "@khanacademy/perseus";

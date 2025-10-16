@@ -12,7 +12,7 @@ import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
 
-import type {Issue} from "./issues-panel";
+import type {Issue} from "./components/issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,

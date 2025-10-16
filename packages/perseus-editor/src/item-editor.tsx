@@ -6,11 +6,11 @@ import _ from "underscore";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
-import IssuesPanel from "./issues-panel";
+import IssuesPanel from "./components/issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
 
-import type {Issue} from "./issues-panel";
+import type {Issue} from "./components/issues-panel";
 import type {
     APIOptions,
     ImageUploader,

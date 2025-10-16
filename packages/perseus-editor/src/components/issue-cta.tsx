@@ -2,7 +2,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import {getCtaForIssueId} from "./util/issue-ctas-utils";
+import {getCtaForIssueId} from "../util/issue-ctas-utils";
 
 import type {Issue} from "./issues-panel";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
