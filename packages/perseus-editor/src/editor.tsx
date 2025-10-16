@@ -1106,6 +1106,7 @@ class Editor extends React.Component<Props, State> {
 
         return (
             <div
+                data-testid="perseus-single-editor"
                 className={
                     "perseus-single-editor " +
                     (this.props.className || "") +

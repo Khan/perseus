@@ -82,6 +82,25 @@ describe("ItemExtrasEditor", () => {
         });
     });
 
+    it("should disable all checkboxes when editingDisabled is true", () => {
+        render(<ItemExtrasEditor editingDisabled={true} onChange={() => {}} />);
+
+        const calculatorCheckbox = screen.getByRole("checkbox", {
+            name: "Show calculator",
+        });
+        const periodicTableCheckbox = screen.getByRole("checkbox", {
+            name: "Show periodic table",
+        });
+
+        const financialCalculatorCheckbox = screen.getByRole("checkbox", {
+            name: "Show financial calculator",
+        });
+
+        expect(calculatorCheckbox).toBeDisabled();
+        expect(periodicTableCheckbox).toBeDisabled();
+        expect(financialCalculatorCheckbox).toBeDisabled();
+    });
+
     describe("financial calculator", () => {
         function TestComponent(props: {
             monthlyPayment?: boolean;
