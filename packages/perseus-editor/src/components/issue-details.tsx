@@ -1,5 +1,5 @@
 // WidgetIssueDetails.tsx
-import {isFeatureOn, type PerseusRenderer} from "@khanacademy/perseus-core";
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -13,17 +13,10 @@ import type {APIOptions} from "@khanacademy/perseus";
 type IssueProps = {
     apiOptions?: APIOptions;
     issue: Issue;
-    question: PerseusRenderer;
-    onEditorChange: (newProps: any) => void;
     cta?: React.ReactNode;
 };
 
-const IssueDetails = ({
-    apiOptions,
-    issue,
-    question,
-    onEditorChange,
-}: IssueProps) => {
+const IssueDetails = ({apiOptions, issue}: IssueProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const toggleVisibility = () => setExpanded(!expanded);
 
@@ -62,13 +55,7 @@ const IssueDetails = ({
                 Issue:
             </LabelSmall>
             <span>{issue.message}</span>
-            {imageUpgradeFF && (
-                <IssueCta
-                    issue={issue}
-                    question={question}
-                    onEditorChange={onEditorChange}
-                />
-            )}
+            {imageUpgradeFF && <IssueCta issue={issue} />}
         </PerseusEditorAccordion>
     );
 };

@@ -35,14 +35,7 @@ describe("IssuesPanel", () => {
 
     it("shows passing icon and '0 issues' when no data is passed", () => {
         // Arrange
-        render(
-            <IssuesPanel
-                apiOptions={ApiOptions.defaults}
-                issues={[]}
-                question={{content: "", widgets: {}, images: {}}}
-                onEditorChange={() => {}}
-            />,
-        );
+        render(<IssuesPanel apiOptions={ApiOptions.defaults} issues={[]} />);
 
         // Assert
         expect(screen.getByText("0 issues")).toBeInTheDocument();
@@ -64,8 +57,6 @@ describe("IssuesPanel", () => {
             <IssuesPanel
                 apiOptions={ApiOptions.defaults}
                 issues={[makeIssue("warn1")]}
-                question={{content: "", widgets: {}, images: {}}}
-                onEditorChange={() => {}}
             />,
         );
 
@@ -89,8 +80,6 @@ describe("IssuesPanel", () => {
             <IssuesPanel
                 apiOptions={ApiOptions.defaults}
                 issues={[makeIssue("warn1"), makeIssue("warn2")]}
-                question={{content: "", widgets: {}, images: {}}}
-                onEditorChange={() => {}}
             />,
         );
 
@@ -114,8 +103,6 @@ describe("IssuesPanel", () => {
             <IssuesPanel
                 apiOptions={ApiOptions.defaults}
                 issues={[makeIssue("warn1")]}
-                question={{content: "", widgets: {}, images: {}}}
-                onEditorChange={() => {}}
             />,
         );
         const toggleHeader = screen.getByText("Issues");
@@ -133,8 +120,6 @@ describe("IssuesPanel", () => {
             <IssuesPanel
                 apiOptions={ApiOptions.defaults}
                 issues={[makeIssue("warn1")]}
-                question={{content: "", widgets: {}, images: {}}}
-                onEditorChange={() => {}}
             />,
         );
         const toggleHeader = screen.getByText("Issues");
@@ -155,12 +140,6 @@ describe("IssuesPanel", () => {
                 apiOptions={imageUpdateFFOptions}
                 // "image-markdown" issue ID has a CTA associated with it
                 issues={[makeIssue("image-markdown")]}
-                onEditorChange={() => {}}
-                question={{
-                    content: "![alt text](url)",
-                    widgets: {},
-                    images: {},
-                }}
             />,
         );
 
@@ -183,12 +162,6 @@ describe("IssuesPanel", () => {
                 apiOptions={ApiOptions.defaults}
                 // "image-markdown" issue ID has a CTA associated with it
                 issues={[makeIssue("image-markdown")]}
-                onEditorChange={() => {}}
-                question={{
-                    content: "![alt text](url)",
-                    widgets: {},
-                    images: {},
-                }}
             />,
         );
 

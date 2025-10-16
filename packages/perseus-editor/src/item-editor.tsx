@@ -9,6 +9,7 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
+import {ItemEditorContext} from "./util/item-editor-context";
 
 import type {Issue} from "./components/issues-panel";
 import type {
@@ -153,77 +154,81 @@ class ItemEditor extends React.Component<Props, State> {
         const isMobile =
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
-        return (
-            <div className="perseus-editor-table">
-                <div className="perseus-editor-row perseus-question-container">
-                    <div className="perseus-editor-left-cell">
-                        <IssuesPanel
-                            apiOptions={this.props.apiOptions}
-                            issues={this.state.issues}
-                            question={
-                                // Question is guaranteed to be set because
-                                // it's in the default props.
-                                this.props.question!
-                            }
-                            onEditorChange={this.handleEditorChange}
-                        />
-                        <div className="pod-title">Question</div>
-                        <Editor
-                            ref={this.questionEditor}
-                            // Using the AssessmentItem content ID as the key
-                            // ensures that when the user navigates to another
-                            // item in the Sidebar, the question editor is
-                            // re-rendered by React.
-                            key={this.props.itemId}
-                            placeholder="Type your question here..."
-                            className="perseus-question-editor"
-                            imageUploader={this.props.imageUploader}
-                            onChange={this.handleEditorChange}
-                            apiOptions={this.props.apiOptions}
-                            showWordCount={true}
-                            widgetIsOpen={this.props.widgetIsOpen}
-                            additionalTemplates={this.props.additionalTemplates}
-                            {...this.props.question}
-                        />
-                    </div>
 
-                    <div className="perseus-editor-right-cell">
-                        <div id="problemarea">
-                            <DeviceFramer
-                                deviceType={this.props.deviceType}
-                                nochrome={true}
-                            >
-                                <IframeContentRenderer
-                                    ref={this.frame}
-                                    key={this.props.deviceType}
-                                    datasetKey="mobile"
-                                    datasetValue={isMobile}
-                                    seamless={true}
-                                    url={this.props.previewURL}
-                                />
-                            </DeviceFramer>
-                            <div
-                                id="hintsarea"
-                                className="hintsarea"
-                                style={{display: "none"}}
+        return (
+            <ItemEditorContext.Provider
+                value={{
+                    question: this.props.question!,
+                    onEditorChange: this.handleEditorChange,
+                }}
+            >
+                <div className="perseus-editor-table">
+                    <div className="perseus-editor-row perseus-question-container">
+                        <div className="perseus-editor-left-cell">
+                            <IssuesPanel
+                                apiOptions={this.props.apiOptions}
+                                issues={this.state.issues}
+                            />
+                            <div className="pod-title">Question</div>
+                            <Editor
+                                ref={this.questionEditor}
+                                // Using the AssessmentItem content ID as the key
+                                // ensures that when the user navigates to another
+                                // item in the Sidebar, the question editor is
+                                // re-rendered by React.
+                                key={this.props.itemId}
+                                placeholder="Type your question here..."
+                                className="perseus-question-editor"
+                                imageUploader={this.props.imageUploader}
+                                onChange={this.handleEditorChange}
+                                apiOptions={this.props.apiOptions}
+                                showWordCount={true}
+                                widgetIsOpen={this.props.widgetIsOpen}
+                                additionalTemplates={
+                                    this.props.additionalTemplates
+                                }
+                                {...this.props.question}
                             />
                         </div>
+
+                        <div className="perseus-editor-right-cell">
+                            <div id="problemarea">
+                                <DeviceFramer
+                                    deviceType={this.props.deviceType}
+                                    nochrome={true}
+                                >
+                                    <IframeContentRenderer
+                                        ref={this.frame}
+                                        key={this.props.deviceType}
+                                        datasetKey="mobile"
+                                        datasetValue={isMobile}
+                                        seamless={true}
+                                        url={this.props.previewURL}
+                                    />
+                                </DeviceFramer>
+                                <div
+                                    id="hintsarea"
+                                    className="hintsarea"
+                                    style={{display: "none"}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="perseus-editor-row perseus-answer-container">
+                        <div className="perseus-editor-left-cell">
+                            <div className="pod-title">Question extras</div>
+                            <ItemExtrasEditor
+                                ref={this.itemExtrasEditor}
+                                onChange={this.handleItemExtrasChange}
+                                {...this.props.answerArea}
+                            />
+                        </div>
+
+                        <div className="perseus-editor-right-cell" />
                     </div>
                 </div>
-
-                <div className="perseus-editor-row perseus-answer-container">
-                    <div className="perseus-editor-left-cell">
-                        <div className="pod-title">Question extras</div>
-                        <ItemExtrasEditor
-                            ref={this.itemExtrasEditor}
-                            onChange={this.handleItemExtrasChange}
-                            {...this.props.answerArea}
-                        />
-                    </div>
-
-                    <div className="perseus-editor-right-cell" />
-                </div>
-            </div>
+            </ItemEditorContext.Provider>
         );
     }
 }

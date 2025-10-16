@@ -3,17 +3,16 @@ import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {getCtaForIssueId} from "../util/issue-ctas-utils";
+import useItemEditorContext from "../util/item-editor-context";
 
 import type {Issue} from "./issues-panel";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 interface Props {
     issue: Issue;
-    question: PerseusRenderer;
-    onEditorChange: (newProps: any) => void;
 }
 
-const IssueCta = ({issue, question, onEditorChange}: Props) => {
+const IssueCta = ({issue}: Props) => {
+    const {question, onEditorChange} = useItemEditorContext();
     const cta = getCtaForIssueId(issue.id, question, onEditorChange);
 
     if (!cta) {
