@@ -76,13 +76,14 @@ export async function convertImageMarkdownToImageWidget(
         const imageAlt = imageNode[0].content[0].alt;
 
         const imageSize = await Util.getImageSizeModern(imageUrl);
+        const [width, height] = imageSize;
 
         newWidgets[`image ${imageIndex}`] = generateImageWidget({
             options: generateImageOptions({
                 backgroundImage: {
                     url: imageUrl,
-                    width: imageSize[0],
-                    height: imageSize[1],
+                    width,
+                    height,
                 },
                 alt: imageAlt,
             }),
