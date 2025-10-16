@@ -195,6 +195,8 @@ class LabelImageEditor extends React.Component<Props> {
             preferredPopoverDirection,
         } = this.props;
 
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+
         const imageSelected = imageUrl && imageWidth > 0 && imageHeight > 0;
 
         return (
@@ -216,6 +218,7 @@ class LabelImageEditor extends React.Component<Props> {
                 <div className={css(styles.largeSpacer)} />
 
                 <QuestionMarkers
+                    editingDisabled={editingDisabled}
                     choices={choices}
                     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     imageUrl={imageSelected ? imageUrl : ""}

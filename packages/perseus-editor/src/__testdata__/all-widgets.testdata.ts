@@ -274,7 +274,15 @@ This demonstrates all Perseus widget types in a disabled editing state.
                     yMax: true,
                 },
                 showProtractor: false,
-                lockedFigures: [],
+                lockedFigures: [
+                    {
+                        type: "point",
+                        coord: [5, 5],
+                        color: "blue",
+                        filled: true,
+                        labels: [],
+                    },
+                ],
             },
         },
         "number-line 1": {
@@ -468,7 +476,7 @@ This demonstrates all Perseus widget types in a disabled editing state.
                 static: false,
                 choices: ["Label 1", "Label 2"],
                 imageUrl:
-                    "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png",
+                    "https://cdn.kastatic.org/ka-content-images/227d402cb09ebc1b67f197467212fa4ab3ced5b3.jpg",
                 imageAlt: "Sample diagram",
                 imageWidth: 300,
                 imageHeight: 200,

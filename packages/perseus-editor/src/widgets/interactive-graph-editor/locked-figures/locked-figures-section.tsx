@@ -24,15 +24,19 @@ import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus-core";
 type Props = {
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
+    editingDisabled: boolean;
 };
 
 const LockedFiguresSection = (props: Props) => {
     // Keep track of all figures' accordions' expanded states for the
-    // expand/collapse all button. Set the whole array to false initially.
-    const collapsedStateArray = Array((props.figures ?? []).length).fill(false);
+    // expand/collapse all button. When editing is disabled, default to
+    // all open so content can still be reviewed. Otherwise, default to closed.
+    const defaultState = props.editingDisabled ?? false;
+    const collapsedStateArray = Array((props.figures ?? []).length).fill(
+        defaultState,
+    );
     const [expandedStates, setExpandedStates] =
         React.useState(collapsedStateArray);
-
     const [isExpanded, setIsExpanded] = React.useState(true);
 
     const uniqueId = useId();
