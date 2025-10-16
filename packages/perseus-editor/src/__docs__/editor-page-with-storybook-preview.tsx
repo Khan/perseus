@@ -16,7 +16,6 @@ import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-// eslint-disable-next-line import/no-relative-packages
 import {getFeatureFlags} from "../../../../testing/feature-flags-util";
 import {mockStrings} from "../../../perseus/src/strings";
 import ContentPreview from "../content-preview";
