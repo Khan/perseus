@@ -3,6 +3,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useRef, useState} from "react";
 
+import {getFeatureFlags} from "../../../../testing/feature-flags-util";
 import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import ArticleEditor from "../article-editor";
 import ContentPreview from "../content-preview";
@@ -21,11 +22,16 @@ export const Demo = (): React.ReactElement => {
     const [article, setArticle] = useState(undefined);
     const articleEditorRef = useRef();
 
+    // TODO(ivy): remove feature flag check after code review/testing
     return (
         <View>
             <ArticleEditor
                 dependencies={testDependenciesV2}
-                apiOptions={{...ApiOptions.defaults, isArticle: true}}
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    isArticle: true,
+                    flags: getFeatureFlags({"image-widget-upgrade": true}),
+                }}
                 imageUploader={() => {}}
                 json={article}
                 onChange={(value) => {
@@ -41,6 +47,7 @@ export const Demo = (): React.ReactElement => {
                         ...ApiOptions.defaults,
                         isArticle: true,
                         showAlignmentOptions: true,
+                        flags: getFeatureFlags({"image-widget-upgrade": true}),
                     }}
                     linterContext={{
                         contentType: "article",
