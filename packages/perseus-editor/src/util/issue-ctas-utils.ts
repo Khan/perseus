@@ -15,6 +15,17 @@ type IssueCta = {
 };
 
 // Exported for testing
+/**
+ * Based on the given widgets within a question, return the first available
+ * index for a specified widget type.
+ *
+ * Example: If the question has two image widgets named "image 1" and "image 3",
+ * the next available index for an image widget would be 2, for "image 2".
+ *
+ * @param widgetType - The type of the widget to get the index for. (e.g. "image", "radio", etc.)
+ * @param widgets - The question's `widgets` to search through.
+ * @returns The first available index for the given widget type, starting from 1.
+ */
 export function getFirstAvailableWidgetIndex(
     widgetType: string,
     widgets: PerseusWidgetsMap,
@@ -30,12 +41,18 @@ export function getFirstAvailableWidgetIndex(
     return 1;
 }
 
-// Use regex to find image markdown, then replace it with image widget.
-//
-// NOTE: Not using PerseusMarkdown to parse the content for image markdown,
-// because PerseusMarkdown doesn't have a node-to-text converter. We'd have
-// to manually process the tree to convert every single other markdown syntax
-// type back to its text content form.
+/**
+ * Convert all image markdown in a question to image widgets.
+ *
+ * This function uses regex to find image markdown, then replaces it with an
+ * image widget. It does not use PerseusMarkdown to parse the content for image
+ * markdown, because PerseusMarkdown doesn't have a node-to-text converter. We'd
+ * have to manually process the tree to convert every single other markdown syntax
+ * type back to its text content form.
+ *
+ * @param question - The question being parsed for image markdown.
+ * @param onEditorChange - The function to update the editor's content.
+ */
 export async function convertImageMarkdownToImageWidget(
     question: PerseusRenderer,
     onEditorChange: (newProps: any) => void,
@@ -89,6 +106,18 @@ export async function convertImageMarkdownToImageWidget(
     });
 }
 
+/**
+ * Based on the given issue id, return the appropriate CTA for the issue.
+ * Example: If the issue id is "image-markdown", return the CTA to convert all
+ * image markdown to image widgets.
+ *
+ * @param issueId - The id of the issue to get the CTA for.
+ * @param question - The question being parsed for the issue.
+ * @param onEditorChange - The function to update the editor's content.
+ * @returns the `label` for the button text and the `onClick` function to call
+ *          when the button is clicked. Returns `null` if no CTA is found for
+ *          the given issue id.
+ */
 export function getCtaForIssueId(
     issueId: string,
     question: PerseusRenderer,
