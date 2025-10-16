@@ -22,6 +22,8 @@ export type Issue = {
 };
 
 type IssuesPanelProps = {
+    // TODO(LEMS-3520): Remove the `apiOptions` prop once the
+    // "image-widget-upgrade" feature flag is has been fully rolled out.
     apiOptions?: APIOptions;
     issues?: Issue[];
 };

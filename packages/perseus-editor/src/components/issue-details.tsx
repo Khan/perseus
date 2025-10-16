@@ -19,6 +19,8 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const toggleVisibility = () => setExpanded(!expanded);
 
+    // TODO(LEMS-3520): Remove this once the "image-widget-upgrade" feature
+    // flag is has been fully rolled out. Also remove the `apiOptions` prop.
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     return (
