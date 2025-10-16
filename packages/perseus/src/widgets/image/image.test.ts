@@ -665,4 +665,33 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(screen.getByAltText("widget alt text")).toBeVisible();
         });
     });
+
+    it("should render image with float-right alignment", () => {
+        // Arrange
+        const imageQuestion = generateTestPerseusRenderer({
+            content: "[[☃ image 1]]",
+            widgets: {
+                "image 1": generateImageWidget({
+                    alignment: "float-right",
+                    options: generateImageOptions({
+                        backgroundImage: earthMoonImage,
+                        alt: "widget alt",
+                        title: "widget title",
+                        caption: "widget caption",
+                    }),
+                }),
+            },
+        });
+
+        // Act, Assert
+        const {container} = renderQuestion(imageQuestion, apiOptions);
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        // Assert
+        const figure = screen.getByRole("figure");
+        expect(figure).toBeVisible();
+        expect(container).toMatchSnapshot("widget-float-right");
+    });
 });
