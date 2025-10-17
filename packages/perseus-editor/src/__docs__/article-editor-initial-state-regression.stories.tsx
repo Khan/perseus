@@ -1,7 +1,6 @@
 import {ApiOptions} from "@khanacademy/perseus";
-import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import {useRef, useState} from "react";
+import {useRef} from "react";
 
 import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
@@ -22,7 +21,7 @@ export default {
                     "Visual regression tests for the article editor in initial state.",
             },
         },
-        chromatic: {disableSnapshot: false},
+        chromatic: {disableSnapshot: false, delay: 1000},
     },
 };
 
