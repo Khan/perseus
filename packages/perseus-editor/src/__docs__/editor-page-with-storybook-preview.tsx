@@ -16,7 +16,6 @@ import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {getFeatureFlags} from "../../../../testing/feature-flags-util";
 import {mockStrings} from "../../../perseus/src/strings";
 import ContentPreview from "../content-preview";
 import EditorPage from "../editor-page";
@@ -64,7 +63,6 @@ function EditorPageWithStorybookPreview(props: Props) {
     );
 
     const apiOptions = props.apiOptions ?? {
-        flags: getFeatureFlags({"image-widget-upgrade": true}),
         isMobile: false,
     };
 
