@@ -293,6 +293,7 @@ class EditorPage extends React.Component<Props, State> {
                                 multiLine={true}
                                 value={this.state.json}
                                 onChange={this.changeJSON}
+                                editingDisabled={editingDisabled}
                             />
                         </div>
                     )}

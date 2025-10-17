@@ -427,6 +427,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
@@ -448,6 +449,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                 multiLine={true}
                                 onChange={this._handleJsonChange}
                                 value={this.props.json}
+                                editingDisabled={editingDisabled}
                             />
                         </div>
                     )}
