@@ -122,7 +122,7 @@ describe("DecorativeToggle", () => {
         );
         expect(mockOnChange).toHaveBeenCalledWith({
             decorative: true,
-            alt: undefined,
+            alt: "",
             caption: undefined,
             title: undefined,
             longDescription: undefined,
