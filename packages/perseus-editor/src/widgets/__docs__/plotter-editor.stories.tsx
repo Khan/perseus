@@ -5,6 +5,9 @@ import PlotterEditor from "../plotter-editor";
 
 import type {StoryObj} from "@storybook/react-vite";
 
+// This helps ensure the styles are loaded correctly and timely in storybook preview
+import "../../styles/perseus-editor.css";
+
 const meta = {
     title: "Widgets/Plotter/Editor Demo",
     component: PlotterEditor,

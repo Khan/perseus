@@ -7,7 +7,9 @@ import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-wi
 import DropdownEditor from "../dropdown-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
-import "../../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
+
+// This helps ensure the styles are loaded correctly and timely in storybook preview
+import "../../styles/perseus-editor.css";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
