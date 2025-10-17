@@ -247,6 +247,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         return true;
     };
 
+    // TODO(LEMS-3643): Remove this function once the save warnings util is
+    // complete and in use.
     getSaveWarnings: () => ReadonlyArray<string> = () => {
         if (!_.some(_.pluck(this.props.choices, "correct"))) {
             return ["No choice is marked as correct."];
