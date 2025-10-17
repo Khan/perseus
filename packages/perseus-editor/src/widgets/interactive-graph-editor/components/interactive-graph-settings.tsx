@@ -111,6 +111,7 @@ type Props = {
 
     onChange: (arg1: Partial<Props>) => void;
 
+    // Whether the editor is disabled, usually set to true during Content Backfills.
     editingDisabled: boolean;
 };
 

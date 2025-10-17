@@ -150,6 +150,26 @@ describe("label-image-editor", () => {
         });
     });
 
+    it("should not allow markers to be added when editingDisabled is true", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        render(
+            <LabelImageEditor
+                {...defaultProps}
+                onChange={onChangeMock}
+                apiOptions={{editingDisabled: true}}
+            />,
+        );
+
+        // Act
+        // Double click on the image to add a marker
+        await userEvent.dblClick(screen.getByRole("presentation"));
+
+        // Assert
+        expect(onChangeMock).not.toHaveBeenCalled();
+    });
+
     describe("popover direction snapshots", () => {
         it("should render with UP popover direction", () => {
             const {container} = render(

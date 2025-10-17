@@ -24,7 +24,7 @@ type Props = {
     markers: PerseusLabelImageWidgetOptions["markers"];
     // Callback for when any of markers change.
     onChange: (markers: PerseusLabelImageWidgetOptions["markers"]) => void;
-    // Whether the editor is disabled.
+    // Whether the editor is disabled, usually set to true during Content Backfills.
     editingDisabled: boolean;
 };
 
