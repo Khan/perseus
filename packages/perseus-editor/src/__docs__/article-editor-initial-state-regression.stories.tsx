@@ -21,7 +21,7 @@ export default {
                     "Visual regression tests for the article editor in initial state.",
             },
         },
-        chromatic: {disableSnapshot: false, delay: 1000},
+        chromatic: {disableSnapshot: false, delay: 10000},
     },
 };
 
