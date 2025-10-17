@@ -6,6 +6,7 @@ import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
@@ -21,7 +22,7 @@ export default {
                     "Visual regression tests for the article editor in initial state.",
             },
         },
-        chromatic: {disableSnapshot: false, delay: 10000},
+        chromatic: {disableSnapshot: false, delay: 500},
     },
 };
 
