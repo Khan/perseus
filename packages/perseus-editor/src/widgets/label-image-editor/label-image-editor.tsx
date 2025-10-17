@@ -233,9 +233,7 @@ class LabelImageEditor extends React.Component<Props> {
 
                 <AnswerChoices
                     choices={choices}
-                    editingDisabled={
-                        this.props.apiOptions.editingDisabled ?? false
-                    }
+                    editingDisabled={editingDisabled}
                     onChange={this.handleChoicesChange}
                 />
 

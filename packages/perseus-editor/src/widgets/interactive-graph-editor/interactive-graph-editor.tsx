@@ -456,9 +456,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             showProtractor={this.props.showProtractor}
                             showTooltips={this.props.showTooltips}
                             onChange={this.props.onChange}
-                            editingDisabled={
-                                this.props.apiOptions.editingDisabled
-                            }
+                            editingDisabled={editingDisabled}
                         />
                         <LockedFiguresSection
                             figures={this.props.lockedFigures}

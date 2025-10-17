@@ -42,6 +42,9 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+// This helps ensure the styles are loaded correctly and timely in storybook preview
+import "../../styles/perseus-editor.css";
+
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
