@@ -25,11 +25,13 @@
 .perseus-widget-container.widget-float-left {
     float: inline-start;
     display: inline-block;
+    margin-bottom: var(--wb-sizing-size_220);
 }
 
 .perseus-widget-container.widget-float-right {
     float: inline-end;
     display: inline-block;
+    margin-bottom: var(--wb-sizing-size_220);
 }
 
 /* Desktop article context - spacing and constraints */
