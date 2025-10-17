@@ -181,7 +181,7 @@ describe("EditorPage", () => {
         );
     });
 
-    it("should disable all editor components when editingDisabled is set", () => {
+    it("should disable editor components when editingDisabled is set", () => {
         const question: PerseusRenderer = {
             content: "[[☃ categorizer 1]]",
             images: {},

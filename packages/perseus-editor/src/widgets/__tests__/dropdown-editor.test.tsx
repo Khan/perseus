@@ -63,4 +63,20 @@ describe("dropdown-editor", () => {
             expect.anything(),
         );
     });
+    it("should disable add and delete choice buttons when editingDisabled is true", () => {
+        render(
+            <DropdownEditor
+                apiOptions={{editingDisabled: true}}
+                onChange={() => {}}
+            />,
+        );
+
+        // Wonder Blocks buttons use aria-disabled instead of the disabled attribute
+        expect(
+            screen.getByRole("button", {name: "Add a choice"}),
+        ).toHaveAttribute("aria-disabled", "true");
+        expect(
+            screen.getByRole("button", {name: "Delete choice"}),
+        ).toHaveAttribute("aria-disabled", "true");
+    });
 });

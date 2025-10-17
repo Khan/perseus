@@ -12,6 +12,7 @@ const {InfoTip} = components;
 
 type Props = PerseusAnswerArea & {
     onChange: (props: Partial<PerseusAnswerArea>) => void;
+    // Whether the editor is disabled, usually set to true during Content Backfills.
     editingDisabled: boolean;
 };
 
