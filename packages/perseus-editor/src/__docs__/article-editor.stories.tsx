@@ -10,6 +10,7 @@ import ContentPreview from "../content-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import PreviewPanel from "./preview-panel";
+import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
