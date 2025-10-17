@@ -4,11 +4,13 @@ import * as React from "react";
 import {useRef, useState} from "react";
 
 import {testDependenciesV2} from "../../../../testing/test-dependencies";
+import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
 import ContentPreview from "../content-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import PreviewPanel from "./preview-panel";
+import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
@@ -52,5 +54,25 @@ export const Demo = (): React.ReactElement => {
                 />
             </PreviewPanel>
         </View>
+    );
+};
+
+export const WithEditingDisabled = (): React.ReactElement => {
+    const articleEditorRef = useRef();
+    const disabledApiOptions = {
+        ...ApiOptions.defaults,
+        editingDisabled: true,
+    };
+
+    return (
+        <ArticleEditor
+            dependencies={testDependenciesV2}
+            apiOptions={disabledApiOptions}
+            imageUploader={() => {}}
+            json={[comprehensiveQuestion]}
+            onChange={() => {}}
+            previewURL="/perseus/frame"
+            ref={articleEditorRef as any}
+        />
     );
 };

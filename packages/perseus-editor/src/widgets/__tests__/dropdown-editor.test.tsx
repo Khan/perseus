@@ -37,7 +37,7 @@ describe("dropdown-editor", () => {
         render(<DropdownEditor onChange={onChangeMock} />);
 
         await userEvent.click(
-            screen.getByRole("link", {name: "Delete choice"}),
+            screen.getByRole("button", {name: "Delete choice"}),
         );
 
         expect(onChangeMock).toBeCalledWith({choices: []});
@@ -48,7 +48,9 @@ describe("dropdown-editor", () => {
 
         render(<DropdownEditor onChange={onChangeMock} />);
 
-        await userEvent.click(screen.getByRole("link", {name: "Add a choice"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Add a choice"}),
+        );
 
         expect(onChangeMock).toBeCalledWith(
             {
@@ -60,5 +62,21 @@ describe("dropdown-editor", () => {
             // there's some anonymous function that's also passed
             expect.anything(),
         );
+    });
+    it("should disable add and delete choice buttons when editingDisabled is true", () => {
+        render(
+            <DropdownEditor
+                apiOptions={{editingDisabled: true}}
+                onChange={() => {}}
+            />,
+        );
+
+        // Wonder Blocks buttons use aria-disabled instead of the disabled attribute
+        expect(
+            screen.getByRole("button", {name: "Add a choice"}),
+        ).toHaveAttribute("aria-disabled", "true");
+        expect(
+            screen.getByRole("button", {name: "Delete choice"}),
+        ).toHaveAttribute("aria-disabled", "true");
     });
 });

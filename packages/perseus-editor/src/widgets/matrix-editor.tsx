@@ -39,6 +39,9 @@ class MatrixEditor extends React.Component<Props> {
         matrixLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
+        if (this.props.apiOptions.editingDisabled) {
+            return;
+        }
         return Changeable.change.apply(this, args);
     };
 
