@@ -18,11 +18,17 @@ import type {
  *          the item from being saved/published.
  */
 export function getSaveWarningsForItem(item: PerseusItem): Array<string> {
-    console.log("getSaveWarningsForItem", item);
     const allSaveWarnings: Array<string> = [];
     const widgets: PerseusWidgetsMap = item.question.widgets;
+    const content = item.question.content;
 
-    for (const [_, widget] of Object.entries(widgets)) {
+    // Only check widgets that are actually referenced in the content
+    // (widgets can remain in the widgets object after being deleted from content)
+    for (const [widgetId, widget] of Object.entries(widgets)) {
+        if (!content.includes(widgetId)) {
+            continue;
+        }
+
         switch (widget.type) {
             case "radio":
                 allSaveWarnings.push(...getSaveWarningsForRadioWidget(widget));

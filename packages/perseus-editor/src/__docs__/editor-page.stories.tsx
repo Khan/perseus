@@ -124,11 +124,11 @@ export const WithSaveWarningsNewUtil = (): React.ReactElement => {
     React.useEffect(() => {
         const warnings = getSaveWarningsForItem({
             question: question ?? {content: "", widgets: {}, images: {}},
-            hints: [],
-            answerArea: null,
+            hints: [...(hints ?? [])],
+            answerArea: answerArea ?? null,
         });
         setSaveWarnings(warnings);
-    }, [question, hints]);
+    }, [question, hints, answerArea]);
 
     return (
         <View style={styles.container}>
