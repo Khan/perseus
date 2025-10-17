@@ -1,7 +1,5 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import * as React from "react";
 
-import {Flipbook} from "../../../../../../dev/flipbook";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {ApiOptions} from "../../../perseus-api";
 import {
@@ -56,9 +54,6 @@ export const Angle: Story = {
         item: generateTestPerseusItem({question: angleQuestion}),
     },
 };
-
-// TODO(ivy): check if this was intentionally added in interactive-graph docs
-export const SideBySideFlipbook = (): React.ReactElement => <Flipbook />;
 
 export const Circle: Story = {
     args: {
