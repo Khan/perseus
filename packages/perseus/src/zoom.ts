@@ -161,10 +161,17 @@ ZoomServiceClass.prototype.handleZoomClick = function (
     enableMobilePinch: any,
 ) {
     this._initialize(enableMobilePinch);
-    const target = e.target;
+    let target = e.target;
 
+    // If the target is not an IMG (e.g., it's the Clickable wrapper
+    // around an IMG), try to find an IMG element within it.
     if (!target || target.tagName !== "IMG") {
-        return;
+        const imgElement = target?.querySelector("img");
+        if (imgElement) {
+            target = imgElement;
+        } else {
+            return;
+        }
     }
 
     if (this._$body.hasClass("zoom-overlay-open")) {

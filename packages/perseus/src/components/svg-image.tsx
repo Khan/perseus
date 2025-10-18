@@ -2,7 +2,6 @@
 /* eslint-disable react/no-unsafe */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
-import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
