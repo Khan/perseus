@@ -1791,24 +1791,6 @@ var reactFor = function (outputFunc: ReactNodeOutput): ReactOutput {
     return nestedOutput;
 };
 
-/** (deprecated)
- */
-var htmlFor = function (outputFunc: HtmlNodeOutput): HtmlOutput {
-    var nestedOutput: HtmlOutput = function (ast, state) {
-        state = state || {};
-        if (Array.isArray(ast)) {
-            return ast
-                .map(function (node) {
-                    return nestedOutput(node, state);
-                })
-                .join("");
-        } else {
-            return outputFunc(ast, nestedOutput, state);
-        }
-    };
-    return nestedOutput;
-};
-
 var outputFor = function <Rule>(
     rules: OutputRules<Rule>,
     property: keyof Rule,
@@ -1938,7 +1920,6 @@ type Exports = {
         param: keyof Rule,
     ) => NodeOutput<any>;
     readonly reactFor: (arg1: ReactNodeOutput) => ReactOutput;
-    readonly htmlFor: (arg1: HtmlNodeOutput) => HtmlOutput;
     readonly inlineRegex: (regex: RegExp) => MatchFunction;
     readonly blockRegex: (regex: RegExp) => MatchFunction;
     readonly anyScopeRegex: (regex: RegExp) => MatchFunction;
@@ -2082,7 +2063,6 @@ var SimpleMarkdown: Exports = {
     defaultRawParse: defaultRawParse,
     ruleOutput: ruleOutput,
     reactFor: reactFor,
-    htmlFor: htmlFor,
 
     defaultParse: function (...args) {
         if (typeof console !== "undefined") {
