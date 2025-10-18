@@ -4738,18 +4738,6 @@ describe("simple markdown", function () {
             });
         });
 
-        describe("markdownToHtml", function () {
-            it("should work on a basic 2 paragraph input", function () {
-                var html = SimpleMarkdown.markdownToHtml("Hi there!\n\nYay!");
-
-                assert.strictEqual(
-                    html,
-                    '<div class="paragraph">Hi there!</div>' +
-                        '<div class="paragraph">Yay!</div>',
-                );
-            });
-        });
-
         describe("ReactMarkdown component", function () {
             it("should work on a basic 2 paragraph input", function () {
                 var elem = React.createElement(SimpleMarkdown.ReactMarkdown, {

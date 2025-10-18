@@ -1880,10 +1880,6 @@ var markdownToReact = function (
     return defaultReactOutput(defaultBlockParse(source, state), state);
 };
 
-var markdownToHtml = function (source: string, state?: State | null): string {
-    return defaultHtmlOutput(defaultBlockParse(source, state), state);
-};
-
 type Props = any;
 var ReactMarkdown = function (props: Props): React.ReactElement {
     var divProps: Record<string, any> = {};
@@ -1934,10 +1930,6 @@ type Exports = {
         source: string,
         state?: State | null | undefined,
     ) => ReactElements;
-    readonly markdownToHtml: (
-        source: string,
-        state?: State | null | undefined,
-    ) => string;
     readonly ReactMarkdown: (props: {
         source: string;
         [key: string]: any;
@@ -2039,7 +2031,6 @@ var SimpleMarkdown: Exports = {
 
     // default wrappers:
     markdownToReact: markdownToReact,
-    markdownToHtml: markdownToHtml,
     ReactMarkdown: ReactMarkdown,
 
     defaultBlockParse: defaultBlockParse,
