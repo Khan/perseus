@@ -37,6 +37,8 @@ type Props = {
     preloader: (() => React.ReactNode) | null | undefined;
     src: string;
     dependencies: PerseusDependenciesV2;
+    // Use forwardedRef instead of ref to avoid React's special prop handling
+    forwardedRef?: React.RefObject<HTMLImageElement>;
 };
 
 type State = {
@@ -125,12 +127,20 @@ class ImageLoader extends React.Component<Props, State> {
     };
 
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
-        const {src, imgProps} = this.props;
+        const {src, imgProps, forwardedRef} = this.props;
         // Destructure to exclude props that shouldn't be on the <img> element
-        const {onClick, clickAriaLabel, ...otherImgProps} = imgProps;
+        const {
+            // Don't pass onClick or clickAriaLabel to the <img> element
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            onClick,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            clickAriaLabel,
+            ...otherImgProps
+        } = imgProps;
 
-        const image = (
+        return (
             <img
+                ref={forwardedRef}
                 src={this.props.dependencies.generateUrl({
                     url: src,
                     context: "image_loader:image_url",
@@ -150,30 +160,41 @@ class ImageLoader extends React.Component<Props, State> {
                 {...otherImgProps}
             />
         );
+    };
 
-        // Return a an image within a button if the image is interactive.
-        if (onClick) {
-            return (
+    renderMaybeClickableImage: () => React.ReactNode = () => {
+        const {onClick, clickAriaLabel, style} = this.props.imgProps;
+
+        if (!onClick) {
+            return this.renderImg();
+        }
+
+        return (
+            <>
+                {this.renderImg()}
                 <Clickable
                     aria-label={clickAriaLabel}
                     onClick={onClick}
-                    style={{margin: 0, padding: 0}}
+                    style={{
+                        // Overlay the button over the image.
+                        position: "absolute",
+                        width: style?.width ?? "100%",
+                        height: style?.height ?? "100%",
+                        overflow: "hidden",
+                    }}
                 >
                     {() => {
-                        return image;
+                        return <React.Fragment />;
                     }}
                 </Clickable>
-            );
-        }
-
-        // Return a normal image if the image is not interactive.
-        return image;
+            </>
+        );
     };
 
     render(): React.ReactNode {
         switch (this.state.status) {
             case Status.LOADED:
-                return this.renderImg();
+                return this.renderMaybeClickableImage();
 
             case Status.FAILED:
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

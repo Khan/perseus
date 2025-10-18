@@ -157,6 +157,8 @@ class SvgImage extends React.Component<Props, State> {
         renderSpacer: true,
     };
 
+    imageRef: React.RefObject<HTMLImageElement> = React.createRef();
+
     constructor(props: Props) {
         super(props);
         props.setAssetStatus(props.src, false);
@@ -389,7 +391,37 @@ class SvgImage extends React.Component<Props, State> {
         // nothing in that case as well. Figuring this out correctly
         // likely required accounting for the image alignment and margins.
 
-        Zoom.ZoomService.handleZoomClick(e, this.props.zoomToFullSizeOnMobile);
+        // Don't attempt to zoom if the image ref isn't available or the
+        // image hasn't finished loading yet
+        if (!this.imageRef.current || !this.state.imageLoaded) {
+            return;
+        }
+
+        // Prevent the event from bubbling up to avoid interference with
+        // the zoom service's document-level event handlers (especially the
+        // key handler that would immediately close the zoom if Enter/Space
+        // was pressed to activate the Clickable)
+        e.stopPropagation();
+        e.preventDefault();
+
+        const imageElement = this.imageRef.current;
+
+        // Create an event-like object with the image element as the target
+        // The Zoom service expects an event object with specific properties
+        // Note: We use the image element directly as both target and as the
+        // source for properties like src, since the actual event target is
+        // the Clickable wrapper, not the image itself
+        const syntheticEvent = {
+            target: imageElement,
+            stopPropagation: () => {},
+            metaKey: (e as any).metaKey || false,
+            ctrlKey: (e as any).ctrlKey || false,
+        };
+
+        Zoom.ZoomService.handleZoomClick(
+            syntheticEvent,
+            this.props.zoomToFullSizeOnMobile,
+        );
 
         this.props.trackInteraction?.();
     };
@@ -483,6 +515,7 @@ class SvgImage extends React.Component<Props, State> {
                         renderSpacer={this.props.renderSpacer}
                     >
                         <ImageLoader
+                            forwardedRef={this.imageRef}
                             src={imageSrc}
                             imgProps={imageProps}
                             preloader={preloader}
