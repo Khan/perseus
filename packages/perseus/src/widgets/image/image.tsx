@@ -74,7 +74,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     zoomToFullSizeOnMobile={apiOptions.isMobile}
                     constrainHeight={apiOptions.isMobile}
                     allowFullBleed={apiOptions.isMobile}
-                    renderSpacer={false}
                     alt={decorative || caption === alt ? "" : alt}
                     setAssetStatus={setAssetStatus}
                 />
