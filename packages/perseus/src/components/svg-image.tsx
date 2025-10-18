@@ -2,7 +2,6 @@
 /* eslint-disable react/no-unsafe */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
-import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
@@ -20,9 +19,6 @@ import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
 import type {Dimensions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
-
-// Minimum image width to make an image appear as zoomable.
-const ZOOMABLE_THRESHOLD = 700;
 
 function isImageProbablyPhotograph(imageUrl) {
     // TODO(david): Do an inventory to refine this heuristic. For example, what
@@ -384,8 +380,6 @@ class SvgImage extends React.Component<Props, State> {
     _handleZoomClick: (e: React.SyntheticEvent) => void = (
         e: React.SyntheticEvent,
     ) => {
-        const $image = $(e.target);
-
         // It's possible that the image is already displayed at its
         // full size, but we don't really know that until we get a chance
         // to measure it (just now, after the user clicks). We only zoom
@@ -395,16 +389,9 @@ class SvgImage extends React.Component<Props, State> {
         // already displayed as wide as possible, we may want to do
         // nothing in that case as well. Figuring this out correctly
         // likely required accounting for the image alignment and margins.
-        if (
-            // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-            $image.width() < this.props.width ||
-            this.props.zoomToFullSizeOnMobile
-        ) {
-            Zoom.ZoomService.handleZoomClick(
-                e,
-                this.props.zoomToFullSizeOnMobile,
-            );
-        }
+
+        Zoom.ZoomService.handleZoomClick(e, this.props.zoomToFullSizeOnMobile);
+
         this.props.trackInteraction?.();
     };
 
@@ -481,17 +468,12 @@ class SvgImage extends React.Component<Props, State> {
         // Just use a normal image if a normal image is provided
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
-                const wrapperClasses = classNames({
-                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                    zoomable: (width || 0) > ZOOMABLE_THRESHOLD,
-                    "svg-image": true,
-                });
-
                 imageProps.onClick = this._handleZoomClick;
+                imageProps.clickAriaLabel = "Zoom in on image";
 
                 return (
                     <FixedToResponsive
-                        className={wrapperClasses}
+                        className="zoomable svg-image"
                         width={width}
                         height={height}
                         constrainHeight={this.props.constrainHeight}

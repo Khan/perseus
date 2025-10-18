@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text, react/no-unsafe */
 // TODO(scottgrant): Enable the alt-text eslint rule above.
 
+import Clickable from "@khanacademy/wonder-blocks-clickable";
 import * as React from "react";
 
 import {type Dimensions, type PerseusDependenciesV2} from "../types";
@@ -21,6 +22,7 @@ export type ImageProps = {
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
     onClick?: (e: React.SyntheticEvent) => void;
+    clickAriaLabel?: string;
     style?: Dimensions;
 };
 
@@ -124,53 +126,48 @@ class ImageLoader extends React.Component<Props, State> {
 
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
         const {src, imgProps} = this.props;
-        let onKeyUp;
-        let onKeyDown;
-        if (imgProps.onClick != null) {
-            onKeyUp = (e: React.KeyboardEvent) => {
-                // 13 is enter key, 32 is space key
-                if (e.keyCode === 13 || e.keyCode === 32) {
-                    imgProps.onClick?.(e);
-                }
-            };
-            onKeyDown = (e: React.KeyboardEvent) => {
-                // 32 is space key
-                if (e.keyCode === 32) {
-                    // don't scroll on space when the image is focused
-                    e.preventDefault();
-                }
-            };
-        }
+        // Destructure to exclude props that shouldn't be on the <img> element
+        const {onClick, clickAriaLabel, ...otherImgProps} = imgProps;
 
-        // If the image is interactive, it should have a role of "button"
-        // to indicate that it is interactive.
-        const imageRole = imgProps.onClick !== null ? "button" : "img";
-
-        return (
-            // (LEMS-2871) NOTE: This image IS interactive if it requires zooming, and LevelAccess specifically requested
-            // that the role and tabIndex be set here. When users interact with the image on mobile, it will zoom in.
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+        const image = (
             <img
-                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO(LEMS-2871): Address a11y error
-                tabIndex={0}
-                role={imageRole}
                 src={this.props.dependencies.generateUrl({
                     url: src,
                     context: "image_loader:image_url",
                 })}
-                onKeyUp={onKeyUp}
-                onKeyDown={onKeyDown}
                 // Stop the image size from being larger than 100%
                 // when width and height are not explicitly provided.
-                style={
-                    imgProps.style ?? {
+                style={{
+                    // Using `display: block` to make sure the image outline
+                    // is flush with the image itself. Using a different
+                    // display value could cause a 4px gap below images.
+                    display: "block",
+                    ...(imgProps.style ?? {
                         width: "100%",
                         height: "100%",
-                    }
-                }
-                {...imgProps}
+                    }),
+                }}
+                {...otherImgProps}
             />
         );
+
+        // Return a an image within a button if the image is interactive.
+        if (onClick) {
+            return (
+                <Clickable
+                    aria-label={clickAriaLabel}
+                    onClick={onClick}
+                    style={{margin: 0, padding: 0}}
+                >
+                    {() => {
+                        return image;
+                    }}
+                </Clickable>
+            );
+        }
+
+        // Return a normal image if the image is not interactive.
+        return image;
     };
 
     render(): React.ReactNode {
