@@ -381,16 +381,6 @@ class SvgImage extends React.Component<Props, State> {
     _handleZoomClick: (e: React.SyntheticEvent) => void = (
         e: React.SyntheticEvent,
     ) => {
-        // It's possible that the image is already displayed at its
-        // full size, but we don't really know that until we get a chance
-        // to measure it (just now, after the user clicks). We only zoom
-        // if there's more image to be shown.
-        //
-        // TODO(kevindangoor) If the window is narrow and the image is
-        // already displayed as wide as possible, we may want to do
-        // nothing in that case as well. Figuring this out correctly
-        // likely required accounting for the image alignment and margins.
-
         // Don't attempt to zoom if the image ref isn't available or the
         // image hasn't finished loading yet
         if (!this.imageRef.current || !this.state.imageLoaded) {
