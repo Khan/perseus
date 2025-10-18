@@ -498,6 +498,43 @@ parsedCode.program.body
         };
     });
 
+// Objects within function components that use StyleSheet.create
+parsedCode.program.body
+    .filter((node) => node.type === "ExportNamedDeclaration")
+    .flatMap((node) => node.declaration.declarations)
+    .filter(
+        (declaration) =>
+            declaration.init?.type === "CallExpression" ||
+            declaration.init?.type === "ArrowFunctionExpression" ||
+            declaration.init?.type === "FunctionExpression",
+    )
+    .flatMap((declaration) => {
+        return declaration.init?.type === "CallExpression"
+            ? declaration.init.arguments.flatMap(
+                  (argument) => argument.body.body,
+              )
+            : declaration.init.body.body;
+    })
+    .filter(isVariableDeclaration)
+    .flatMap((node) => {
+        return node.declarations.map((declaration) => {
+            return {
+                declaration,
+                comments: node.leadingComments ?? [],
+            };
+        });
+    })
+    .filter((node) => isStylesheetNode(node.declaration))
+    .forEach((node) => {
+        node.declaration.init.arguments[0].properties.forEach((property) => {
+            cssRules[getClassName(property)] = {
+                comments: node.comments,
+                properties: property.value.properties,
+            };
+        });
+        codeBlocksToDelete.push(node.declaration);
+    });
+
 // Objects within React class 'render' method that are passed to 'style' property
 parsedCode.program.body
     .filter((node) => node.type === "ClassDeclaration")
