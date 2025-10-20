@@ -189,8 +189,15 @@ div.graphie {
 .framework-perseus .fixed-to-responsive {
     position: relative;
     width: 100%;
-    /* Use CSS aspect-ratio property to maintain aspect ratio
-     * without needing a spacer div. The aspect-ratio is set inline via style prop. */
+    /* Modern approach: Use ::before pseudo-element with aspect-ratio property
+     * to establish container height without extra DOM elements. */
+}
+.framework-perseus .fixed-to-responsive::before {
+    content: "";
+    display: block;
+    width: 100%;
+    /* Read aspect ratio from CSS custom property set inline */
+    aspect-ratio: var(--aspect-ratio);
 }
 .framework-perseus .fixed-to-responsive > * {
     position: absolute;

@@ -114,14 +114,15 @@ class FixedToResponsive extends React.Component<Props, State> {
         }
 
         // Prevent child components from growing (aka "the Peter Pan effect")
-        // and maintain aspect ratio using modern CSS
+        // Use CSS custom property to pass aspect ratio to the ::before pseudo-element
         const style = {
             maxWidth: width,
             maxHeight: height,
-            aspectRatio: aspectRatio.toFixed(4),
-        } as const;
+            "--aspect-ratio": aspectRatio.toFixed(4),
+        } as React.CSSProperties;
 
         // NOTE(jeremy): This depends on styles defined in perseus-renderer.css
+        // The ::before pseudo-element establishes height using aspect-ratio
         const className = classNames(
             "fixed-to-responsive",
             this.props.className,
