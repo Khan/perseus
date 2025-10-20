@@ -1048,6 +1048,13 @@ code {
     border-bottom: 1px dashed #444;
     margin: 30px 0 10px 0;
 }
+/* Reset fieldset min-width as our editors include a fieldset element
+nested within a table cell, which results in native browser styling that
+breaks the layout depending on the widget editors used.*/
+.perseus-editor-table fieldset {
+    min-inline-size: 0;
+    min-width: 0;
+}
 /**
  * Disabled Editing Mode Styles
  *
