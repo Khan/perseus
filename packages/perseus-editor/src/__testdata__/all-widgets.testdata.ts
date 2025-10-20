@@ -116,9 +116,6 @@ This demonstrates all Perseus widget types in a disabled editing state.
 **Python Program:** Python coding:
 [[\u2603 python-program 1]]
 
-**Molecule Renderer:** Chemical structure:
-[[\u2603 molecule-renderer 1]]
-
 **PhET Simulation:** Interactive simulation:
 [[\u2603 phet-simulation 1]]
 
@@ -197,12 +194,6 @@ This demonstrates all Perseus widget types in a disabled editing state.
                         content: "Option B",
                         correct: false,
                         rationale: "This is incorrect.",
-                    },
-                    {
-                        id: "choice-3",
-                        content: "Option C",
-                        correct: false,
-                        rationale: "This is also incorrect.",
                     },
                 ],
                 multipleSelect: false,
@@ -717,17 +708,6 @@ This demonstrates all Perseus widget types in a disabled editing state.
                 height: 400,
             },
             alignment: "block",
-        },
-        "molecule-renderer 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "molecule-renderer",
-            options: {
-                smiles: "CCO",
-                rotationAngle: 0,
-                widgetId: "molecule-renderer 1",
-            },
         },
         "phet-simulation 1": {
             graded: false,
