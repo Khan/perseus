@@ -6,9 +6,6 @@ import FreeResponseEditor from "../free-response-editor";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// This helps ensure the styles are loaded correctly and timely in storybook preview
-import "../../styles/perseus-editor.css";
-
 type StoryArgs = Record<any, any>;
 
 const meta: Meta = {

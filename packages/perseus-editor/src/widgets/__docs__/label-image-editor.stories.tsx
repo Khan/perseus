@@ -4,9 +4,6 @@ import LabelImageEditor from "../label-image-editor/label-image-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// This helps ensure the styles are loaded correctly and timely in storybook preview
-import "../../styles/perseus-editor.css";
-
 const meta: Meta = {
     title: "Widgets/Label Image/Editor Demo",
     component: LabelImageEditor,

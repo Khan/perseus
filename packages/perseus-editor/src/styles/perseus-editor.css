@@ -1048,13 +1048,6 @@ code {
     border-bottom: 1px dashed #444;
     margin: 30px 0 10px 0;
 }
-/* Reset fieldset styles to prevent layout issues */
-fieldset {
-    margin: 0;
-    padding: 0;
-    border: none;
-    min-inline-size: 0;
-}
 /**
  * Disabled Editing Mode Styles
  *

@@ -24,6 +24,8 @@ import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus-core";
 type Props = {
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
+    // Whether the editor is disabled. Can be set via API options
+    // to make the editor read-only when needed.
     editingDisabled: boolean;
 };
 

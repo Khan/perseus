@@ -2,8 +2,10 @@ import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {PhosphorIconAsset} from "@khanacademy/wonder-blocks-icon";
+
 type SectionControlButtonProps = {
-    icon: any;
+    icon: PhosphorIconAsset;
     onClick: () => unknown;
     title: string;
     disabled: boolean;
