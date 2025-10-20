@@ -31,7 +31,8 @@ type AnswerChoicesProps = {
     choices: ReadonlyArray<string>;
     // Callback for when answers change.
     onChange: (choices: ReadonlyArray<string>) => void;
-    // Whether the editor is disabled, usually set to true during Content Backfills.
+    // Whether the editor is disabled. Can be set via API options
+    // to make the editor read-only when needed.
     editingDisabled: boolean;
 };
 

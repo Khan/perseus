@@ -13,7 +13,7 @@
         html element. This allow us to use 10px as the base font size for scaling
         rem units properly. */
         font-size: var(--wb-sizing-size_140);
-        line-height: var(--wb-sizing-size_140);
+        line-height: 1.4;
         height: 100%;
         margin: var(--wb-sizing-size_0);
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
@@ -39,5 +39,13 @@
 
     .box-sizing-content-box-reset * {
         box-sizing: inherit;
+    }
+
+    /* Reset fieldset styles to prevent layout issues and replicate production styles */
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: none;
+        min-inline-size: 0;
     }
 }

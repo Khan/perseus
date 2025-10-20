@@ -4,9 +4,6 @@ import NumberLineEditor from "../number-line-editor";
 
 import type {StoryObj} from "@storybook/react-vite";
 
-// This helps ensure the styles are loaded correctly and timely in storybook preview
-import "../../styles/perseus-editor.css";
-
 const meta = {
     title: "Widgets/Number Line/Editor Demo",
     component: NumberLineEditor,

@@ -15,9 +15,6 @@ import ImageEditor from "../image-editor/image-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// This helps ensure the styles are loaded correctly and timely in storybook preview
-import "../../styles/perseus-editor.css";
-
 const PROD_EDITOR_WIDTH = 330;
 
 const withinEditorPageDecorator = (_, {args}) => {
