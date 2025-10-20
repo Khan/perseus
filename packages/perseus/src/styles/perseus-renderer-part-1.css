@@ -196,10 +196,33 @@ div.graphie {
     content: "";
     display: block;
     width: 100%;
+    height: 0;
     /* Read aspect ratio from CSS custom property set inline */
-    aspect-ratio: var(--aspect-ratio);
+    /* Use padding-bottom as fallback since it's calculated from width */
+    padding-bottom: calc(100% / var(--aspect-ratio));
 }
-.framework-perseus .fixed-to-responsive > * {
+.framework-perseus .fixed-to-responsive > *:not(::before) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Fallback: Apply without .framework-perseus for contexts where it might be missing */
+.fixed-to-responsive {
+    position: relative;
+    width: 100%;
+}
+.fixed-to-responsive::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0;
+    /* Use padding-bottom as fallback since it's calculated from width */
+    padding-bottom: calc(100% / var(--aspect-ratio));
+}
+.fixed-to-responsive > *:not(::before) {
     position: absolute;
     top: 0;
     left: 0;
