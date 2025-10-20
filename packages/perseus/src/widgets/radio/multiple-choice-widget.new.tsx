@@ -149,6 +149,9 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             };
 
             return (
+                // Using MathRenderingContext.Provider to ensure that any math
+                // within the choice content is readable by screen readers (via aria-label).
+                // See comments in math-rendering-context.tsx for more details.
                 <MathRenderingContext.Provider
                     value={{shouldAddAriaLabels: true}}
                 >
