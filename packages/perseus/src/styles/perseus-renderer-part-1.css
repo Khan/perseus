@@ -189,40 +189,10 @@ div.graphie {
 .framework-perseus .fixed-to-responsive {
     position: relative;
     width: 100%;
-    /* Modern approach: Use ::before pseudo-element with aspect-ratio property
-     * to establish container height without extra DOM elements. */
+    /* Use CSS aspect-ratio property to maintain aspect ratio
+     * without needing a spacer div. The aspect-ratio is set inline via style prop. */
 }
-.framework-perseus .fixed-to-responsive::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 0;
-    /* Read aspect ratio from CSS custom property set inline */
-    /* Use padding-bottom as fallback since it's calculated from width */
-    padding-bottom: calc(100% / var(--aspect-ratio));
-}
-.framework-perseus .fixed-to-responsive > *:not(::before) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* Fallback: Apply without .framework-perseus for contexts where it might be missing */
-.fixed-to-responsive {
-    position: relative;
-    width: 100%;
-}
-.fixed-to-responsive::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 0;
-    /* Use padding-bottom as fallback since it's calculated from width */
-    padding-bottom: calc(100% / var(--aspect-ratio));
-}
-.fixed-to-responsive > *:not(::before) {
+.framework-perseus .fixed-to-responsive > * {
     position: absolute;
     top: 0;
     left: 0;
