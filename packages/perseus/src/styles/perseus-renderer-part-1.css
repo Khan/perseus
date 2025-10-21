@@ -193,7 +193,6 @@ div.graphie {
      * without needing a spacer div. The aspect-ratio is set inline via style prop. */
 }
 .framework-perseus .fixed-to-responsive > * {
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
