@@ -122,7 +122,6 @@ class FixedToResponsive extends React.Component<Props, State> {
         } as React.CSSProperties;
 
         // NOTE(jeremy): This depends on styles defined in perseus-renderer-part-1.css
-        // The ::before pseudo-element establishes height using aspect-ratio
         const className = classNames(
             "fixed-to-responsive",
             this.props.className,
