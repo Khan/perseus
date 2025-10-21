@@ -1,5 +1,0 @@
-import{bw as c,bx as h,by as g,bz as p,$ as u,_ as r,h as d,E as f,af as y}from"./iframe-BxY6-TkQ.js";const b="@khanacademy/perseus",_="__lib_version__";c(b,_);h(g);p();const x=`Usage:
-  this.change({propName: 5}, callback);
-  this.change("propName", 5, callback);
-  this.change("propName")`,o=function(s,n,e){const i=y(s.props),t=r.extend(i,n);s.props.onChange(t,e)},a=function(s,n,e,i){if(e===void 0)return r.partial(a,s,n);const t={};t[n]=e,o(s,t,i)},E=function(s,n,e){if(r.isObject(s)&&e===void 0)return e=n,o(this,s,e);if(typeof s=="string")return a(this,s,n,e);throw new d("Invalid types sent to this.change(): "+r.toArray(arguments).join()+`
-`+x,f.Internal)},v={onChange:u.func.isRequired};export{E as c,v as p};
