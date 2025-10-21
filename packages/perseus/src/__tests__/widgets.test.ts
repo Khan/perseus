@@ -6,17 +6,6 @@ describe("Widget API support", () => {
         registerAllWidgetsForTesting();
     });
 
-    describe("replaceWidget", () => {
-        it("replaces an existing widget", () => {
-            Widgets.replaceWidget("transformer", "radio");
-            expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
-        });
-
-        it("Throws when the replacement isn't available", () => {
-            expect(() => Widgets.replaceWidget("radio", "dog-cat")).toThrow();
-        });
-    });
-
     describe("getVersionVector", () => {
         it("creates a map of all widget versions", () => {
             expect(Widgets.getVersionVector()).toEqual(
@@ -35,11 +24,11 @@ describe("Widget API support", () => {
                         minor: 1,
                     },
                     radio: {
-                        major: 2,
+                        major: 3,
                         minor: 0,
                     },
                     transformer: {
-                        major: 2,
+                        major: 0,
                         minor: 0,
                     },
                 }),
@@ -55,6 +44,17 @@ describe("Widget API support", () => {
                     },
                 }),
             );
+        });
+    });
+
+    describe("replaceWidget", () => {
+        it("replaces an existing widget", () => {
+            Widgets.replaceWidget("transformer", "radio");
+            expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
+        });
+
+        it("Throws when the replacement isn't available", () => {
+            expect(() => Widgets.replaceWidget("radio", "dog-cat")).toThrow();
         });
     });
 
@@ -205,19 +205,21 @@ describe("Widget API support", () => {
             "number-line",
             "plotter",
             "radio",
+            "dropdown",
+            "expression",
+            "numeric-input",
+            "input-number",
+            "label-image",
         ])("supportsStaticMode returns true: %s", (type: string) => {
             expect(Widgets.supportsStaticMode(type)).toBe(true);
         });
 
         // some widgets that shouldn't support static mode
-        it.each([
-            "expression",
-            "numeric-input",
-            "input-number",
-            "dropdown",
-            "definition",
-        ])("supportsStaticMode returns false: %s", (type: string) => {
-            expect(Widgets.supportsStaticMode(type)).toBe(false);
-        });
+        it.each(["definition"])(
+            "supportsStaticMode returns false: %s",
+            (type: string) => {
+                expect(Widgets.supportsStaticMode(type)).toBe(false);
+            },
+        );
     });
 });

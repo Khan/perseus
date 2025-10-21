@@ -1,0 +1,2586 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`label-image-editor popover direction snapshots should render with DOWN popover direction 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Image
+      </div>
+      <div
+        class="components_jro6t0"
+      >
+        <form
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+        >
+          <input
+            class="inputBase_w7cswd"
+            placeholder="URL"
+            value="https://example.com/test-image.png"
+          />
+        </form>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        <button
+          aria-disabled="false"
+          aria-label=""
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          type="button"
+        >
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+          >
+            Remove
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="smallSpacer_1y6xiyp"
+    />
+    <form
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+    >
+      <input
+        class="inputBase_w7cswd"
+        placeholder="Alt text (for screen readers)"
+        value="Test image alt text"
+      />
+    </form>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Markers
+      </div>
+      <div
+        class="subtitle_1w3vbu2"
+      >
+        <span>
+          Double-click on the image to add a marker.
+          <br />
+          <br />
+          Markers are read by screen readers in the order that you add them here, so add in a logical order for the learner (e.g. sequentially, clockwise). You can test order by using keyboard tabbing.
+        </span>
+      </div>
+      <div
+        class="markersCanvas_kfnsd"
+        style="max-width: 400px; max-height: 300px;"
+      >
+        <img
+          alt=""
+          class="image_17hjzsq"
+          src="mockStaticUrl(https://example.com/test-image.png)"
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 25%; top: 25%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 50%; top: 50%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+      </div>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Answer Choices
+      </div>
+      <ul
+        class="answers_9pyl0r"
+      >
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 1"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 2"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 3"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <a
+        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        href="javascript:void(0)"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          height="24"
+          role="img"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path
+            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+            fill="currentColor"
+          />
+        </svg>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        Add an answer choice
+      </a>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title"
+      >
+        Behavior
+      </div>
+      <ul>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Allow multiple answers per marker
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Do not display answer choices in instructions
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <span
+            class="label selectLabel"
+          >
+            Preferred pop-over direction
+          </span>
+          <select>
+            <option
+              value="NONE"
+            >
+               No Preference 
+            </option>
+            <option
+              value="UP"
+            >
+               Up 
+            </option>
+            <option
+              value="DOWN"
+            >
+               Down 
+            </option>
+            <option
+              value="LEFT"
+            >
+               Left 
+            </option>
+            <option
+              value="RIGHT"
+            >
+               Right 
+            </option>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`label-image-editor popover direction snapshots should render with LEFT popover direction 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Image
+      </div>
+      <div
+        class="components_jro6t0"
+      >
+        <form
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+        >
+          <input
+            class="inputBase_w7cswd"
+            placeholder="URL"
+            value="https://example.com/test-image.png"
+          />
+        </form>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        <button
+          aria-disabled="false"
+          aria-label=""
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          type="button"
+        >
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+          >
+            Remove
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="smallSpacer_1y6xiyp"
+    />
+    <form
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+    >
+      <input
+        class="inputBase_w7cswd"
+        placeholder="Alt text (for screen readers)"
+        value="Test image alt text"
+      />
+    </form>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Markers
+      </div>
+      <div
+        class="subtitle_1w3vbu2"
+      >
+        <span>
+          Double-click on the image to add a marker.
+          <br />
+          <br />
+          Markers are read by screen readers in the order that you add them here, so add in a logical order for the learner (e.g. sequentially, clockwise). You can test order by using keyboard tabbing.
+        </span>
+      </div>
+      <div
+        class="markersCanvas_kfnsd"
+        style="max-width: 400px; max-height: 300px;"
+      >
+        <img
+          alt=""
+          class="image_17hjzsq"
+          src="mockStaticUrl(https://example.com/test-image.png)"
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 25%; top: 25%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 50%; top: 50%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+      </div>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Answer Choices
+      </div>
+      <ul
+        class="answers_9pyl0r"
+      >
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 1"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 2"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 3"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <a
+        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        href="javascript:void(0)"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          height="24"
+          role="img"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path
+            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+            fill="currentColor"
+          />
+        </svg>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        Add an answer choice
+      </a>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title"
+      >
+        Behavior
+      </div>
+      <ul>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Allow multiple answers per marker
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Do not display answer choices in instructions
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <span
+            class="label selectLabel"
+          >
+            Preferred pop-over direction
+          </span>
+          <select>
+            <option
+              value="NONE"
+            >
+               No Preference 
+            </option>
+            <option
+              value="UP"
+            >
+               Up 
+            </option>
+            <option
+              value="DOWN"
+            >
+               Down 
+            </option>
+            <option
+              value="LEFT"
+            >
+               Left 
+            </option>
+            <option
+              value="RIGHT"
+            >
+               Right 
+            </option>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`label-image-editor popover direction snapshots should render with NONE popover direction 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Image
+      </div>
+      <div
+        class="components_jro6t0"
+      >
+        <form
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+        >
+          <input
+            class="inputBase_w7cswd"
+            placeholder="URL"
+            value="https://example.com/test-image.png"
+          />
+        </form>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        <button
+          aria-disabled="false"
+          aria-label=""
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          type="button"
+        >
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+          >
+            Remove
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="smallSpacer_1y6xiyp"
+    />
+    <form
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+    >
+      <input
+        class="inputBase_w7cswd"
+        placeholder="Alt text (for screen readers)"
+        value="Test image alt text"
+      />
+    </form>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Markers
+      </div>
+      <div
+        class="subtitle_1w3vbu2"
+      >
+        <span>
+          Double-click on the image to add a marker.
+          <br />
+          <br />
+          Markers are read by screen readers in the order that you add them here, so add in a logical order for the learner (e.g. sequentially, clockwise). You can test order by using keyboard tabbing.
+        </span>
+      </div>
+      <div
+        class="markersCanvas_kfnsd"
+        style="max-width: 400px; max-height: 300px;"
+      >
+        <img
+          alt=""
+          class="image_17hjzsq"
+          src="mockStaticUrl(https://example.com/test-image.png)"
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 25%; top: 25%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 50%; top: 50%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+      </div>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Answer Choices
+      </div>
+      <ul
+        class="answers_9pyl0r"
+      >
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 1"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 2"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 3"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <a
+        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        href="javascript:void(0)"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          height="24"
+          role="img"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path
+            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+            fill="currentColor"
+          />
+        </svg>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        Add an answer choice
+      </a>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title"
+      >
+        Behavior
+      </div>
+      <ul>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Allow multiple answers per marker
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Do not display answer choices in instructions
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <span
+            class="label selectLabel"
+          >
+            Preferred pop-over direction
+          </span>
+          <select>
+            <option
+              value="NONE"
+            >
+               No Preference 
+            </option>
+            <option
+              value="UP"
+            >
+               Up 
+            </option>
+            <option
+              value="DOWN"
+            >
+               Down 
+            </option>
+            <option
+              value="LEFT"
+            >
+               Left 
+            </option>
+            <option
+              value="RIGHT"
+            >
+               Right 
+            </option>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`label-image-editor popover direction snapshots should render with RIGHT popover direction 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Image
+      </div>
+      <div
+        class="components_jro6t0"
+      >
+        <form
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+        >
+          <input
+            class="inputBase_w7cswd"
+            placeholder="URL"
+            value="https://example.com/test-image.png"
+          />
+        </form>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        <button
+          aria-disabled="false"
+          aria-label=""
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          type="button"
+        >
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+          >
+            Remove
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="smallSpacer_1y6xiyp"
+    />
+    <form
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+    >
+      <input
+        class="inputBase_w7cswd"
+        placeholder="Alt text (for screen readers)"
+        value="Test image alt text"
+      />
+    </form>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Markers
+      </div>
+      <div
+        class="subtitle_1w3vbu2"
+      >
+        <span>
+          Double-click on the image to add a marker.
+          <br />
+          <br />
+          Markers are read by screen readers in the order that you add them here, so add in a logical order for the learner (e.g. sequentially, clockwise). You can test order by using keyboard tabbing.
+        </span>
+      </div>
+      <div
+        class="markersCanvas_kfnsd"
+        style="max-width: 400px; max-height: 300px;"
+      >
+        <img
+          alt=""
+          class="image_17hjzsq"
+          src="mockStaticUrl(https://example.com/test-image.png)"
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 25%; top: 25%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 50%; top: 50%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+      </div>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Answer Choices
+      </div>
+      <ul
+        class="answers_9pyl0r"
+      >
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 1"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 2"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 3"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <a
+        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        href="javascript:void(0)"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          height="24"
+          role="img"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path
+            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+            fill="currentColor"
+          />
+        </svg>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        Add an answer choice
+      </a>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title"
+      >
+        Behavior
+      </div>
+      <ul>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Allow multiple answers per marker
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Do not display answer choices in instructions
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <span
+            class="label selectLabel"
+          >
+            Preferred pop-over direction
+          </span>
+          <select>
+            <option
+              value="NONE"
+            >
+               No Preference 
+            </option>
+            <option
+              value="UP"
+            >
+               Up 
+            </option>
+            <option
+              value="DOWN"
+            >
+               Down 
+            </option>
+            <option
+              value="LEFT"
+            >
+               Left 
+            </option>
+            <option
+              value="RIGHT"
+            >
+               Right 
+            </option>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`label-image-editor popover direction snapshots should render with UP popover direction 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Image
+      </div>
+      <div
+        class="components_jro6t0"
+      >
+        <form
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+        >
+          <input
+            class="inputBase_w7cswd"
+            placeholder="URL"
+            value="https://example.com/test-image.png"
+          />
+        </form>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        <button
+          aria-disabled="false"
+          aria-label=""
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          type="button"
+        >
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+          >
+            Remove
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="smallSpacer_1y6xiyp"
+    />
+    <form
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+    >
+      <input
+        class="inputBase_w7cswd"
+        placeholder="Alt text (for screen readers)"
+        value="Test image alt text"
+      />
+    </form>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Markers
+      </div>
+      <div
+        class="subtitle_1w3vbu2"
+      >
+        <span>
+          Double-click on the image to add a marker.
+          <br />
+          <br />
+          Markers are read by screen readers in the order that you add them here, so add in a logical order for the learner (e.g. sequentially, clockwise). You can test order by using keyboard tabbing.
+        </span>
+      </div>
+      <div
+        class="markersCanvas_kfnsd"
+        style="max-width: 400px; max-height: 300px;"
+      >
+        <img
+          alt=""
+          class="image_17hjzsq"
+          src="mockStaticUrl(https://example.com/test-image.png)"
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 25%; top: 25%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+        <div
+          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+          style="left: 50%; top: 50%;"
+          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+        />
+      </div>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title_dt6zj3"
+      >
+        Answer Choices
+      </div>
+      <ul
+        class="answers_9pyl0r"
+      >
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 1"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 2"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="answer_1tougex"
+        >
+          <a
+            class="link_dwmetq"
+            href="javascript:void(0)"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path
+                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
+                fill="#D92916"
+              />
+            </svg>
+          </a>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              value="Choice 3"
+            />
+          </form>
+          <div
+            class="spacer_1ciyl4o"
+          />
+          <a
+            class="link_dwmetq-o_O-disabled_14ak7oz"
+            href="javascript:void(0)"
+            title="Answer reordering is not implemented."
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <filter
+                filterUnits="objectBoundingBox"
+                height="116.7%"
+                id="draggable-grip-shadow"
+                width="112.5%"
+                x="-6.2%"
+                y="-8.3%"
+              >
+                <fegaussianblur
+                  in="SourceAlpha"
+                  result="shadowBlurInner"
+                  stdDeviation=".5"
+                />
+                <feoffset
+                  dy="1"
+                  in="shadowBlurInner"
+                  result="shadowOffsetInner"
+                />
+                <fecomposite
+                  in="shadowOffsetInner"
+                  in2="SourceAlpha"
+                  k2="-1"
+                  k3="1"
+                  operator="arithmetic"
+                  result="shadowInnerInner"
+                />
+                <fecolormatrix
+                  in="shadowInnerInner"
+                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
+                />
+              </filter>
+              <path
+                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
+                fill="#21242C"
+                filter="url(#draggable-grip-shadow)"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <a
+        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        href="javascript:void(0)"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          height="24"
+          role="img"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path
+            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+            fill="currentColor"
+          />
+        </svg>
+        <div
+          class="spacer_1ciyl4o"
+        />
+        Add an answer choice
+      </a>
+    </div>
+    <div
+      class="largeSpacer_xwkmkn"
+    />
+    <div>
+      <div
+        class="title"
+      >
+        Behavior
+      </div>
+      <ul>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Allow multiple answers per marker
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <div
+            class="container_1y8zoyl"
+            data-checked="false"
+          >
+            <svg
+              class="svg_a755yf"
+              height="17"
+              viewBox="-0.5 -0.5
+                         17 17"
+              width="17"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <rect
+                  fill="#ffffff"
+                  height="15"
+                  rx="4"
+                  stroke="#888D93"
+                  stroke-width="1"
+                  width="15"
+                  x="0.5"
+                  y="0.5"
+                />
+              </g>
+            </svg>
+            <input
+              class="checkbox_xe15d2"
+              type="checkbox"
+            />
+          </div>
+          <span
+            class="label"
+          >
+            Do not display answer choices in instructions
+          </span>
+        </li>
+        <li
+          class="option"
+        >
+          <span
+            class="label selectLabel"
+          >
+            Preferred pop-over direction
+          </span>
+          <select>
+            <option
+              value="NONE"
+            >
+               No Preference 
+            </option>
+            <option
+              value="UP"
+            >
+               Up 
+            </option>
+            <option
+              value="DOWN"
+            >
+               Down 
+            </option>
+            <option
+              value="LEFT"
+            >
+               Left 
+            </option>
+            <option
+              value="RIGHT"
+            >
+               Right 
+            </option>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

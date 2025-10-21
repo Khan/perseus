@@ -1,5 +1,29 @@
 # @khanacademy/perseus-linter
 
+## 4.4.1
+
+### Patch Changes
+
+-   Updated dependencies [[`b3a751707c`](https://github.com/Khan/perseus/commit/b3a751707c44437875efc16a21b505a7ec7879c6)]:
+    -   @khanacademy/perseus-core@20.0.0
+
+## 4.4.0
+
+### Minor Changes
+
+-   [#2939](https://github.com/Khan/perseus/pull/2939) [`18c925f3e0`](https://github.com/Khan/perseus/commit/18c925f3e057dcb0c3f970af5e78a62591c4ce55) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add a warning in editor if markdown images are detected
+
+### Patch Changes
+
+-   Updated dependencies [[`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6)]:
+    -   @khanacademy/perseus-core@19.5.0
+
+## 4.3.10
+
+### Patch Changes
+
+-   [#2927](https://github.com/Khan/perseus/pull/2927) [`e62fd04eb1`](https://github.com/Khan/perseus/commit/e62fd04eb14ddb7fd7ab258ae77b8c995f5f1735) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Remove "math in caption" linter error
+
 ## 4.3.9
 
 ### Patch Changes

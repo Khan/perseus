@@ -15,7 +15,7 @@ import ImageEditor from "./widgets/image-editor/image-editor";
 import InputNumberEditor from "./widgets/input-number-editor";
 import InteractionEditor from "./widgets/interaction-editor";
 import InteractiveGraphEditor from "./widgets/interactive-graph-editor/interactive-graph-editor";
-import LabelImageEditor from "./widgets/label-image-editor";
+import LabelImageEditor from "./widgets/label-image-editor/label-image-editor";
 import MatcherEditor from "./widgets/matcher-editor";
 import MatrixEditor from "./widgets/matrix-editor";
 import MeasurerEditor from "./widgets/measurer-editor";

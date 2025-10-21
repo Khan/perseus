@@ -14,6 +14,7 @@ export type {
     KeypadContextRendererInterface,
 } from "./keypad";
 export type {ErrorKind} from "./error/errors";
+export {default as ErrorCodes, type ErrorCode} from "./error-codes";
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
 export type {Coords} from "./utils/grapher-types";
 export type * from "./validation.types";

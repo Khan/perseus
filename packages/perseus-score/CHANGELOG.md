@@ -1,5 +1,25 @@
 # @khanacademy/perseus-score
 
+## 8.0.0
+
+### Major Changes
+
+-   [#2961](https://github.com/Khan/perseus/pull/2961) [`b3a751707c`](https://github.com/Khan/perseus/commit/b3a751707c44437875efc16a21b505a7ec7879c6) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move ErrorCodes from @khanacademy/perseus-score to @khanacademy/perseus-core
+
+### Patch Changes
+
+-   Updated dependencies [[`b3a751707c`](https://github.com/Khan/perseus/commit/b3a751707c44437875efc16a21b505a7ec7879c6)]:
+    -   @khanacademy/perseus-core@20.0.0
+    -   @khanacademy/kmath@2.2.11
+
+## 7.7.10
+
+### Patch Changes
+
+-   Updated dependencies [[`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6)]:
+    -   @khanacademy/perseus-core@19.5.0
+    -   @khanacademy/kmath@2.2.10
+
 ## 7.7.9
 
 ### Patch Changes

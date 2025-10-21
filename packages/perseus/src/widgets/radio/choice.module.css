@@ -8,6 +8,13 @@
         font-weight: inherit;
         line-height: inherit;
     }
+
+    &:global(.perseus-article) {
+        .choice:not(.is-correct):has(> button[aria-pressed="true"])
+            :global(.paragraph) {
+            color: var(--wb-semanticColor-core-foreground-instructive-default);
+        }
+    }
 }
 
 .choice {
@@ -138,6 +145,26 @@
 .is-correct:hover,
 .is-wrong:hover {
     cursor: default;
+}
+
+/* Don't show borders for choices that come after a correct choice.
+   Here, the "choices that come after" is defined by the sibling selector:
+        + :not(.is-correct)
+   However, we only want to affect the top border of the sibling,
+     which is in the :before pseudo-element:
+        + :not(.is-correct):before
+*/
+.is-correct + :not(.is-correct):before {
+    --perseus-multiple-choice-divider-width: 0;
+}
+
+/* Don't show borders for choices that come before a correct choice.
+   Here, we want to affect the siblings "that come before", so we use :has().
+   This reads as "apply to any element that 'has' a sibling that 'is-correct'".
+   It also only applies the style change to the :after pseudo-element (the bottom border).
+*/
+:not(.is-correct):has(+ .is-correct):after {
+    --perseus-multiple-choice-divider-width: 0;
 }
 
 /**************

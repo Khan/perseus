@@ -14,14 +14,14 @@ import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 import type {DependenciesContext} from "../../dependencies";
-import type {WidgetProps, Widget, WidgetExports} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
-    PerseusExpressionWidgetOptions,
     KeypadConfiguration,
     KeypadKey,
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
+    PerseusExpressionWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -338,6 +338,17 @@ function getOneCorrectAnswerFromRubric(
     return correctAnswers[0].value;
 }
 
+function getCorrectUserInput(
+    options: PerseusExpressionWidgetOptions,
+): PerseusExpressionUserInput {
+    for (const form of options.answerForms) {
+        if (form.considered === "correct") {
+            return form.value;
+        }
+    }
+    return "";
+}
+
 export default {
     name: "expression",
     displayName: "Expression / Equation",
@@ -349,5 +360,6 @@ export default {
 
     getOneCorrectAnswerFromRubric,
     getStartUserInput,
+    getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof ExpressionWithDependencies>;

@@ -1,8 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    usesNumCorrect,
-    type PerseusRadioWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {usesNumCorrect} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -56,17 +53,10 @@ type Props = {
     countChoices: boolean | null | undefined;
     numCorrect: number;
     multipleSelect?: boolean;
-    // the logic checks whether this exists,
-    // so it must be optional
-    reviewModeRubric?: PerseusRadioWidgetOptions | null;
     reviewMode: boolean;
     // A callback indicating that this choice has changed. Its argument is an array of choice IDs for all currently selected choices
     onChange: (checkedChoiceIds: ReadonlyArray<string>) => void;
     registerFocusFunction?: (arg1: FocusFunction) => void;
-    // Whether this widget was the most recently used widget in this
-    // Renderer. Determines whether we'll auto-scroll the page upon
-    // entering review mode.
-    isLastUsedWidget?: boolean;
 };
 
 function getInstructionsText(
@@ -91,7 +81,6 @@ function getInstructionsText(
 
 const BaseRadio = function ({
     apiOptions,
-    reviewModeRubric,
     reviewMode,
     choices,
     editMode = false,
@@ -99,14 +88,13 @@ const BaseRadio = function ({
     labelWrap,
     countChoices,
     numCorrect,
-    isLastUsedWidget,
     onChange,
     registerFocusFunction,
 }: Props): React.ReactElement {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
-    const prevReviewModeRubric = useRef();
+    const prevReviewMode = useRef();
     const choiceRefs = useRef([]);
 
     useEffect(() => {
@@ -125,10 +113,8 @@ const BaseRadio = function ({
         // eye on this widget anymore).
         if (
             apiOptions.canScrollPage &&
-            isLastUsedWidget &&
-            reviewModeRubric &&
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            !prevReviewModeRubric.current
+            reviewMode &&
+            prevReviewMode.current != null
         ) {
             const checkedIndex = choices.findIndex((c) => c.checked);
             if (checkedIndex >= 0) {
@@ -149,8 +135,8 @@ const BaseRadio = function ({
         }
 
         // @ts-expect-error - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
-        prevReviewModeRubric.current = reviewModeRubric;
-    }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
+        prevReviewMode.current = reviewMode;
+    }, [apiOptions, choices, reviewMode]);
 
     // When a particular choice's `onChange` handler is called, indicating a
     // change in a single choice's values, we need to call our `onChange`
@@ -313,10 +299,8 @@ const BaseRadio = function ({
                     aphroditeClassName(true);
 
                     let correctnessClass;
-                    // reviewMode is only true if there's a rubric
-                    // but TypeScript doesn't understand that
-                    if (reviewMode && reviewModeRubric) {
-                        correctnessClass = reviewModeRubric.choices[i].correct
+                    if (reviewMode) {
+                        correctnessClass = choices[i].correct
                             ? ApiClassNames.CORRECT
                             : ApiClassNames.INCORRECT;
                     }

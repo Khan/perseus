@@ -11,41 +11,6 @@
     overflow: auto;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container:not(.perseus-widget__definition) {
-    font-size: 14px;
-    line-height: 19.6px;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
-    max-width: 50%;
-    padding-top: 32px;
-    width: 100%;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left
-    .perseus-image-caption
-    .paragraph
-    .paragraph,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right
-    .perseus-image-caption
-    .paragraph
-    .paragraph {
-    margin-bottom: 0;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left {
-    float: left;
-    padding-right: 32px;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
-    float: right;
-    padding-left: 32px;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .paragraph {
     color: #21242c;
@@ -286,22 +251,6 @@
     .paragraph
     mjx-container {
     color: #21242c;
-}
-.framework-perseus.perseus-mobile
-    .perseus-article
-    .perseus-widget-container.widget-float-left {
-    float: left;
-    padding-right: 1em;
-    max-width: 50%;
-    width: 100%;
-}
-.framework-perseus.perseus-mobile
-    .perseus-article
-    .perseus-widget-container.widget-float-right {
-    float: right;
-    padding-left: 1em;
-    max-width: 50%;
-    width: 100%;
 }
 .framework-perseus.perseus-mobile
     .perseus-article
@@ -878,36 +827,6 @@
         padding: 0 0 0 20px;
         border-left: 5px solid #d8d8d8;
     }
-}
-.framework-perseus.perseus-mobile .perseus-widget-container {
-    font-size: 14px;
-    line-height: 19.6px;
-}
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left,
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
-    max-width: 50%;
-    padding-top: 32px;
-    width: 100%;
-}
-.framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-left
-    .perseus-image-caption
-    .paragraph
-    .paragraph,
-.framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-right
-    .perseus-image-caption
-    .paragraph
-    .paragraph {
-    margin-bottom: 0;
-}
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left {
-    float: left;
-    padding-right: 32px;
-}
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
-    float: right;
-    padding-left: 32px;
 }
 .framework-perseus.perseus-mobile .MathJax .math {
     color: inherit;

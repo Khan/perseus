@@ -8,7 +8,13 @@ import {
     migrateV2toV3,
     parseRadioWidget,
 } from "./radio-widget";
-import {v0Widget, v1Widget, v2Widget, v3Widget} from "./radio-widget.mockData";
+import {
+    v0Widget,
+    v1Widget,
+    v2Widget,
+    v2WidgetWithRationale,
+    v3Widget,
+} from "./radio-widget.mockData";
 
 describe("parseRadioWidget", () => {
     const LATEST_VERSION = {major: 3, minor: 0};
@@ -154,5 +160,11 @@ describe("migration functions", () => {
 
     it("migrates v2 to v3", () => {
         expect(migrateV2toV3(v2Widget)).toEqual(v3Widget);
+    });
+
+    // Special case: v2 to v3, with rationale instead of clue
+    // See LEMS-3604 for details.
+    it("migrates v2 to v3, with rationale instead of clue", () => {
+        expect(migrateV2toV3(v2WidgetWithRationale)).toEqual(v3Widget);
     });
 });

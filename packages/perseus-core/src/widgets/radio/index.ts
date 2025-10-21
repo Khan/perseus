@@ -3,7 +3,7 @@ import getRadioPublicWidgetOptions from "./radio-util";
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export const currentVersion = {major: 2, minor: 0};
+export const currentVersion = {major: 3, minor: 0};
 
 export type RadioDefaultWidgetOptions = Pick<
     PerseusRadioWidgetOptions,

@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import LabelImageEditor from "../label-image-editor";
+import LabelImageEditor from "../label-image-editor/label-image-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

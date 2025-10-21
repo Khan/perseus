@@ -8,8 +8,19 @@ import {
     articleDecorator,
     mobileArticleDecorator,
     rtlDecorator,
+    articleFloatLeftDecorator,
+    articleFloatRightDecorator,
+    mobileArticleFloatRightDecorator,
+    mobileArticleFloatLeftDecorator,
 } from "../../__testutils__/story-decorators";
-import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
+import {
+    earthMoonImage,
+    frescoImage,
+    monasteryImage,
+    scienceImage,
+    scienceImageAlt,
+    scienceImageCaption,
+} from "../utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -228,5 +239,45 @@ export const DecorativeImageMobile: Story = {
         longDescription:
             "This is a *very* long description of the earth and moon.",
         decorative: true,
+    },
+};
+
+export const FloatLeftImageWithinArticle: Story = {
+    decorators: [imageRendererDecorator, articleFloatLeftDecorator],
+    args: {
+        backgroundImage: scienceImage,
+        alt: scienceImageAlt,
+        caption: scienceImageCaption,
+        alignment: "float-left",
+    },
+};
+
+export const FloatRightImageWithinArticle: Story = {
+    decorators: [imageRendererDecorator, articleFloatRightDecorator],
+    args: {
+        backgroundImage: scienceImage,
+        alt: scienceImageAlt,
+        caption: scienceImageCaption,
+        alignment: "float-right",
+    },
+};
+
+export const FloatLeftImageWithinArticleMobile: Story = {
+    decorators: [imageRendererDecorator, mobileArticleFloatLeftDecorator],
+    args: {
+        backgroundImage: scienceImage,
+        alt: scienceImageAlt,
+        caption: scienceImageCaption,
+        alignment: "float-left",
+    },
+};
+
+export const FloatRightImageWithinArticleMobile: Story = {
+    decorators: [imageRendererDecorator, mobileArticleFloatRightDecorator],
+    args: {
+        backgroundImage: scienceImage,
+        alt: scienceImageAlt,
+        caption: scienceImageCaption,
+        alignment: "float-right",
     },
 };

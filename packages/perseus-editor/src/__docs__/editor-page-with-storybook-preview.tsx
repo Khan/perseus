@@ -9,21 +9,19 @@ import {
     type PerseusAnswerArea,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
-import xIcon from "@phosphor-icons/core/regular/x.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-// eslint-disable-next-line import/no-relative-packages
 import {mockStrings} from "../../../perseus/src/strings";
 import ContentPreview from "../content-preview";
 import EditorPage from "../editor-page";
+
+import PreviewPanel from "./preview-panel";
+import styles from "./preview-panel.module.css";
 
 type Props = {
     apiOptions?: APIOptions;
@@ -63,8 +61,6 @@ function EditorPageWithStorybookPreview(props: Props) {
     const [hints, setHints] = React.useState<ReadonlyArray<Hint> | undefined>(
         props.hints,
     );
-
-    const [panelOpen, setPanelOpen] = React.useState<boolean>(true);
 
     const apiOptions = props.apiOptions ?? {
         isMobile: false,
@@ -107,88 +103,35 @@ function EditorPageWithStorybookPreview(props: Props) {
                 }}
             />
 
-            {/* Button to open panel */}
-            {!panelOpen && (
-                <Button
-                    onClick={() => setPanelOpen(!panelOpen)}
-                    style={styles.openPanelButton}
-                >
-                    Open preview (storybook only)
-                </Button>
-            )}
+            <PreviewPanel openButtonText="Open preview (storybook only)">
+                {/* Question preview */}
+                <ContentPreview
+                    question={question}
+                    previewDevice={previewDevice}
+                    apiOptions={apiOptions}
+                    linterContext={{
+                        contentType: "exercise",
+                        highlightLint: true,
+                        paths: [],
+                        stack: [],
+                    }}
+                />
 
-            {/* Panel to show the question/hint previews */}
-            {panelOpen && (
-                <View style={styles.panel}>
-                    {/* Close button */}
-                    <IconButton
-                        icon={xIcon}
-                        kind="tertiary"
-                        aria-label="Close preview"
-                        onClick={() => setPanelOpen(!panelOpen)}
-                    />
-
-                    <View style={styles.panelInner}>
-                        {/* Question preview */}
-                        <ContentPreview
-                            question={question}
-                            previewDevice={previewDevice}
+                {/* Hints preview */}
+                {hints?.map((hint, index) => (
+                    <View key={index} className={styles.innerPanel}>
+                        <Strut size={spacing.medium_16} />
+                        <LabelLarge>{`Hint ${index + 1}`}</LabelLarge>
+                        <Renderer
+                            strings={mockStrings}
                             apiOptions={apiOptions}
-                            linterContext={{
-                                contentType: "exercise",
-                                highlightLint: true,
-                                paths: [],
-                                stack: [],
-                            }}
+                            {...hint}
                         />
                     </View>
-
-                    {/* Hints preview */}
-                    {hints?.map((hint, index) => (
-                        <View key={index} style={styles.panelInner}>
-                            <Strut size={spacing.medium_16} />
-                            <LabelLarge>{`Hint ${index + 1}`}</LabelLarge>
-                            <Renderer
-                                strings={mockStrings}
-                                apiOptions={apiOptions}
-                                {...hint}
-                            />
-                        </View>
-                    ))}
-                </View>
-            )}
+                ))}
+            </PreviewPanel>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    panel: {
-        position: "fixed",
-        right: 0,
-        minWidth: 500,
-        height: "90vh",
-        overflow: "auto",
-        flex: "none",
-        backgroundColor: color.fadedBlue16,
-        padding: spacing.medium_16,
-        borderRadius: spacing.small_12,
-        alignItems: "end",
-    },
-    panelInner: {
-        flex: "none",
-        backgroundColor: color.white,
-        borderRadius: spacing.xSmall_8,
-        marginTop: spacing.medium_16,
-        width: "100%",
-        padding: spacing.xSmall_8,
-    },
-    openPanelButton: {
-        position: "fixed",
-        right: spacing.medium_16,
-        // Extra space so it doesn't get covered up by storybook's
-        // "Style warnings" button.
-        bottom: spacing.xxxLarge_64,
-    },
-});
 
 export default EditorPageWithStorybookPreview;

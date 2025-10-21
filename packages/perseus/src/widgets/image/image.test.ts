@@ -7,6 +7,7 @@ import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
+import {mockImageLoading} from "../../../../../testing/image-loader-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
@@ -20,13 +21,12 @@ import type {UserEvent} from "@testing-library/user-event";
 
 describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     let userEvent: UserEvent;
+    let unmockImageLoading: () => void;
 
     const apiOptions: APIOptions = {
         isMobile,
         flags: getFeatureFlags({"image-widget-upgrade": true}),
     };
-    const images: HTMLImageElement[] = [];
-    let originalImage;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -36,37 +36,12 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             testDependencies,
         );
 
-        // Mock window.Image for ImageLoader
-        originalImage = window.Image;
-        window.Image = jest.fn(() => {
-            const img = {} as HTMLImageElement;
-            images.push(img);
-            return img;
-        });
-
-        // Mocked for loading graphie in svg-image
-        global.fetch = jest.fn(() =>
-            Promise.resolve({
-                text: () => "",
-                ok: true,
-            }),
-        ) as jest.Mock;
+        unmockImageLoading = mockImageLoading();
     });
 
     afterEach(() => {
-        window.Image = originalImage;
+        unmockImageLoading();
     });
-
-    // Helper to simulate image loading completion
-    const markImagesAsLoaded = () => {
-        act(() => {
-            images.forEach((img) => {
-                if (img?.onload) {
-                    img.onload(new Event("load"));
-                }
-            });
-        });
-    };
 
     it("should snapshot", () => {
         // Arrange
@@ -127,7 +102,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Act
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(screen.getByRole("figure")).toBeVisible();
@@ -149,7 +126,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Act
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(screen.getByAltText("widget alt")).toBeVisible();
@@ -171,7 +150,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Act
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(screen.getByText("widget title")).toBeVisible();
@@ -193,7 +174,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Act
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(screen.getByText("widget caption")).toBeVisible();
@@ -215,7 +198,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Act
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         const button = screen.getByRole("button", {name: "Explore image"});
@@ -240,7 +225,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Act
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         const iconButton = screen.getByRole("button", {name: "Explore image"});
@@ -264,7 +251,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         //  Act
         const button = screen.getByRole("button", {name: "Explore image"});
@@ -290,7 +279,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         //  Act
         const button = screen.getByRole("button", {name: "Explore image"});
@@ -317,7 +308,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         //  Act
         const button = screen.getByRole("button", {name: "Explore image"});
@@ -347,7 +340,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         renderQuestion(imageQuestion, apiOptions);
-        markImagesAsLoaded(); // Simulate image loading completion
+        act(() => {
+            jest.runAllTimers();
+        });
 
         //  Act
         const button = screen.getByRole("button", {name: "Explore image"});
@@ -380,7 +375,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             };
 
             renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-            markImagesAsLoaded(); // Simulate image loading completion
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             const button = screen.getByRole("button", {name: "Explore image"});
@@ -409,7 +406,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             };
 
             renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-            markImagesAsLoaded(); // Simulate image loading completion
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             const iconButton = screen.getByRole("button", {
@@ -440,7 +439,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             };
 
             renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-            markImagesAsLoaded(); // Simulate image loading completion
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             const button = screen.queryByRole("button", {
@@ -470,7 +471,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             };
 
             renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-            markImagesAsLoaded(); // Simulate image loading completion
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             const iconButton = screen.queryByRole("button", {
@@ -498,7 +501,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act
             renderQuestion(imageQuestion, apiOptions);
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             expect(screen.queryByText("widget title")).not.toBeInTheDocument();
@@ -521,7 +526,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act
             renderQuestion(imageQuestion, apiOptions);
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             expect(
@@ -546,7 +553,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act
             renderQuestion(imageQuestion, apiOptions);
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             expect(
@@ -571,7 +580,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act
             renderQuestion(imageQuestion, apiOptions);
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             const image = screen.getByRole("button");
@@ -601,7 +612,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act
             renderQuestion(imageQuestion, apiOptions);
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             expect(screen.queryByText("widget title")).not.toBeInTheDocument();
@@ -639,7 +652,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act
             renderQuestion(imageQuestion, apiOptions);
-            markImagesAsLoaded();
+            act(() => {
+                jest.runAllTimers();
+            });
 
             // Assert
             expect(screen.getByText("widget title")).toBeVisible();
@@ -649,5 +664,63 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             ).toBeVisible();
             expect(screen.getByAltText("widget alt text")).toBeVisible();
         });
+    });
+
+    it("should render image with float-left alignment", () => {
+        // Arrange
+        const imageQuestion = generateTestPerseusRenderer({
+            content: "[[☃ image 1]]",
+            widgets: {
+                "image 1": generateImageWidget({
+                    alignment: "float-left",
+                    options: generateImageOptions({
+                        backgroundImage: earthMoonImage,
+                        alt: "widget alt",
+                        title: "widget title",
+                        caption: "widget caption",
+                    }),
+                }),
+            },
+        });
+
+        // Act, Assert
+        const {container} = renderQuestion(imageQuestion, apiOptions);
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        // Assert
+        const figure = screen.getByRole("figure");
+        expect(figure).toBeVisible();
+        expect(container).toMatchSnapshot("widget-float-left");
+    });
+
+    it("should render image with float-right alignment", () => {
+        // Arrange
+        const imageQuestion = generateTestPerseusRenderer({
+            content: "[[☃ image 1]]",
+            widgets: {
+                "image 1": generateImageWidget({
+                    alignment: "float-right",
+                    options: generateImageOptions({
+                        backgroundImage: earthMoonImage,
+                        alt: "widget alt",
+                        title: "widget title",
+                        caption: "widget caption",
+                    }),
+                }),
+            },
+        });
+
+        // Act, Assert
+        const {container} = renderQuestion(imageQuestion, apiOptions);
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        // Assert
+        const figure = screen.getByRole("figure");
+        expect(figure).toBeVisible();
+        expect(container).toMatchSnapshot("widget-float-right");
     });
 });

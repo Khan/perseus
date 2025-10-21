@@ -3,6 +3,7 @@ import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {mockImageLoading} from "../../../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
@@ -89,31 +90,15 @@ describe("Editor", () => {
 
     test("clicking on the widget editor should open it", async () => {
         // Arrange
-        const images: Array<Record<any, any>> = [];
-        const originalImage = window.Image;
         // The editor preview uses SvgImage, which uses ImageLoader.
         // We need to mock the image loading in ImageLoader for it to render.
-        // Mock HTML Image so we can trigger onLoad callbacks and see full
-        // image rendering.
-        // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
-        window.Image = jest.fn(() => {
-            const img: Record<string, any> = {};
-            images.push(img);
-            return img;
-        });
+        const unmockImageLoading = mockImageLoading();
 
         render(<Harnessed />);
 
         // Act
         const widgetDisclosure = screen.getByText("image 1");
         await userEvent.click(widgetDisclosure);
-
-        // Trigger the image load
-        images.forEach((img) => {
-            if (img?.onload) {
-                act(() => img.onload());
-            }
-        });
 
         // Assert
         const previewImage = screen.getByAltText(/Preview:/);
@@ -125,7 +110,7 @@ describe("Editor", () => {
         );
 
         // Cleanup
-        window.Image = originalImage;
+        unmockImageLoading();
     });
 
     it("should update values", async () => {
@@ -223,7 +208,7 @@ describe("Editor", () => {
         await userEvent.selectOptions(select, "Radio / Multiple choice");
 
         expect(cbData?.widgets?.["radio 1"]?.version).toEqual({
-            major: 2,
+            major: 3,
             minor: 0,
         });
     });

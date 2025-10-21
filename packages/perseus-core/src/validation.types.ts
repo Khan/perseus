@@ -45,6 +45,7 @@ import type {
     MakeWidgetMap,
     PerseusFreeResponseWidgetScoringCriterion,
 } from "./data-schema";
+import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
 
 export type WidgetValidatorFunction = (
@@ -66,7 +67,7 @@ export type WidgetScorerFunction = (
 export type PerseusScore =
     | {
           type: "invalid";
-          message?: string | null | undefined;
+          message?: ErrorCode | null;
           suppressAlmostThere?: boolean | null | undefined;
       }
     | {
@@ -105,6 +106,7 @@ export type PerseusDropdownRubric = {
 };
 
 export type PerseusDropdownUserInput = {
+    // 1-indexed selection
     value: number;
 };
 

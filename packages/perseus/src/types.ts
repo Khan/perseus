@@ -532,22 +532,18 @@ export type FilterCriterion =
 export type WidgetProps<
     TWidgetOptions,
     TUserInput = Empty,
-    Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = TWidgetOptions &
-    UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
+> = TWidgetOptions & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
 
 /**
  * The props passed to every widget, regardless of its `type`.
  */
 export type UniversalWidgetProps<
-    ReviewModeRubric = Empty,
     TUserInput = Empty,
     TrackingExtraArgs = Empty,
 > = {
-    reviewModeRubric?: ReviewModeRubric | null | undefined;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the
@@ -578,7 +574,6 @@ export type UniversalWidgetProps<
         silent?: boolean,
     ) => void;
     userInput: TUserInput;
-    isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;
     containerSizeClass: SizeClass;
