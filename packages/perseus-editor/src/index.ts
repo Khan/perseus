@@ -9,7 +9,7 @@ export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
 export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as ContentPreview} from "./content-preview";
-export type {Issue} from "./issues-panel.tsx";
+export type {Issue} from "./components/issues-panel";
 
 import "./styles/perseus-editor.css";
 

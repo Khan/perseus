@@ -21,6 +21,7 @@
 @import "widgets/radio.css";
 @import "widgets/sortable.css";
 @import "widgets/table.css";
+@import "widget-container.css";
 @import "./perseus-renderer-part-2.css";
 /*
   This file replicates the definition order of our styling when it was in LESS format.
