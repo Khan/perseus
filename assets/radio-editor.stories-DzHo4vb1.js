@@ -1,0 +1,15 @@
+import{j as i}from"./iframe-P8a0QwVR.js";import{E as u}from"./editor-page-with-storybook-preview-CprJurEP.js";import{s as h,m as _}from"./radio.testdata-O3hk9_Ox.js";import{R as O,r as E}from"./register-all-widgets-and-editors-for-testing-Bg9gPSdS.js";import"./changeable-2_-2l023.js";import"./article-renderer-c16ya0Fw.js";import"./server-item-renderer-BL8pKdky.js";import"./hints-renderer-CZfjqQ6B.js";import"./content-preview-CE-VvkH-.js";import"./editor-page-Ca3pUrs0.js";import"./components-OQVGND3S.js";import"./viewport-resizer-Cptbpqzy.js";import"./image-widget-generator-BkbJOfbU.js";import"./tex-error-view-BDPTkVrT.js";import"./item-extras-editor-rRR10RaA.js";import"./preview-panel-CAcaWMBV.js";import"./editor-jsonify-DU8NPScO.js";import"./blur-input-PUox0wYq.js";import"./free-response-editor-CpBM1B7A.js";import"./input-number-editor-DUOjklLd.js";import"./Popper-BR2hYYZN.js";import"./label-image-editor-C9iApMI6.js";import"./form-wrapped-text-field-CGTNxnfT.js";import"./global-colors-DSS4FaUr.js";import"./answer-choices-HN1-PvtF.js";import"./behavior-C4A5eemQ.js";import"./question-markers-CAKNKMOf.js";import"./marker-1cmjj7Uh.js";import"./select-image-ePcGyKe-.js";import"./matcher-editor-B35YOvDj.js";import"./number-line-editor-oGcon_v7.js";import"./phet-simulation-editor-DDNJRmeG.js";import"./plotter-editor-B-Rg7cLV.js";import"./python-program-editor-BDNyEZiB.js";import"./sorter-editor-BnuaPU49.js";const{action:R}=__STORYBOOK_MODULE_ACTIONS__,g=330;E();const ot={title:"Widgets/RadioNew/Editor Demo",component:O,tags:["!autodocs"]},e={args:{onChange:R("onChange"),apiOptions:Object.freeze({}),static:!1}},t=()=>i.jsx("div",{style:{width:g},children:i.jsx(u,{question:h})}),o=()=>i.jsx("div",{style:{width:g},children:i.jsx(u,{question:_})});t.__docgenInfo={description:"",methods:[],displayName:"SingleChoice"};o.__docgenInfo={description:"",methods:[],displayName:"MultiChoice"};var r,s,a;e.parameters={...e.parameters,docs:{...(r=e.parameters)==null?void 0:r.docs,source:{originalSource:`{
+  args: {
+    onChange: action("onChange"),
+    apiOptions: Object.freeze({}),
+    static: false
+  }
+}`,...(a=(s=e.parameters)==null?void 0:s.docs)==null?void 0:a.source}}};var m,n,p;t.parameters={...t.parameters,docs:{...(m=t.parameters)==null?void 0:m.docs,source:{originalSource:`(): React.ReactElement => <div style={{
+  width: PROD_EDITOR_WIDTH
+}}>
+        <EditorPageWithStorybookPreview question={singleSelectQuestion} />
+    </div>`,...(p=(n=t.parameters)==null?void 0:n.docs)==null?void 0:p.source}}};var c,d,l;o.parameters={...o.parameters,docs:{...(c=o.parameters)==null?void 0:c.docs,source:{originalSource:`(): React.ReactElement => <div style={{
+  width: PROD_EDITOR_WIDTH
+}}>
+        <EditorPageWithStorybookPreview question={multiChoiceQuestion} />
+    </div>`,...(l=(d=o.parameters)==null?void 0:d.docs)==null?void 0:l.source}}};const et=["Default","SingleChoice","MultiChoice"];export{e as Default,o as MultiChoice,t as SingleChoice,et as __namedExportsOrder,ot as default};
