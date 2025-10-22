@@ -1,5 +1,31 @@
 # @khanacademy/perseus-editor
 
+## 28.5.1
+
+### Patch Changes
+
+-   Updated dependencies [[`251f569213`](https://github.com/Khan/perseus/commit/251f56921327ea75a62ac8ba2647eba912d29e10)]:
+    -   @khanacademy/perseus@71.3.1
+
+## 28.5.0
+
+### Minor Changes
+
+-   [#2951](https://github.com/Khan/perseus/pull/2951) [`4632a864e8`](https://github.com/Khan/perseus/commit/4632a864e8f313bd5b7dd1c916eb8ffc3acf5bbc) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add a button to allow auto-conversion of markdown images to image widgets
+
+### Patch Changes
+
+-   [#2967](https://github.com/Khan/perseus/pull/2967) [`3d5bb1b0b5`](https://github.com/Khan/perseus/commit/3d5bb1b0b5c5cbd2b78974ddf826d93752f5bd66) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add decorative in accessible function in ImageWidget registry
+
+-   Updated dependencies [[`3d5bb1b0b5`](https://github.com/Khan/perseus/commit/3d5bb1b0b5c5cbd2b78974ddf826d93752f5bd66), [`3c32921888`](https://github.com/Khan/perseus/commit/3c3292188854a1ad4338c418a52ab27f3d4f2198), [`47ba785e06`](https://github.com/Khan/perseus/commit/47ba785e06a85b7592c55da19ffa3656bea710b7)]:
+    -   @khanacademy/perseus-core@20.1.0
+    -   @khanacademy/perseus@71.3.0
+    -   @khanacademy/keypad-context@3.2.12
+    -   @khanacademy/kmath@2.2.12
+    -   @khanacademy/math-input@26.2.13
+    -   @khanacademy/perseus-linter@4.4.2
+    -   @khanacademy/perseus-score@8.0.1
+
 ## 28.4.2
 
 ### Patch Changes

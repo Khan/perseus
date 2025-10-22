@@ -141,7 +141,6 @@
         "watch": "pnpm build --watch",
         "clean": "./utils/clean.sh",
         "coverage": "./utils/test-with-coverage.sh",
-        "dev": "pnpm --filter ./dev dev",
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
         "lint:timing": "cross-env TIMING=1 pnpm lint",
         "publish:ci": "utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && pnpm build && pnpm build:types && changeset publish",

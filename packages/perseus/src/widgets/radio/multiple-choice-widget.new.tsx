@@ -3,6 +3,7 @@ import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import {MathRenderingContext} from "../../math-rendering-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
@@ -148,15 +149,22 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             };
 
             return (
-                <Renderer
-                    key="choiceContentRenderer"
-                    content={parsedContent}
-                    widgets={extractedWidgets}
-                    findExternalWidgets={findWidgets}
-                    alwaysUpdate={true}
-                    linterContext={linterContext}
-                    strings={strings}
-                />
+                // Using MathRenderingContext.Provider to ensure that any math
+                // within the choice content is readable by screen readers (via aria-label).
+                // See comments in math-rendering-context.tsx for more details.
+                <MathRenderingContext.Provider
+                    value={{shouldAddAriaLabels: true}}
+                >
+                    <Renderer
+                        key="choiceContentRenderer"
+                        content={parsedContent}
+                        widgets={extractedWidgets}
+                        findExternalWidgets={findWidgets}
+                        alwaysUpdate={true}
+                        linterContext={linterContext}
+                        strings={strings}
+                    />
+                </MathRenderingContext.Provider>
             );
         };
 
