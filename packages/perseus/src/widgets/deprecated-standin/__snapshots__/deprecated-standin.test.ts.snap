@@ -38,7 +38,7 @@ exports[`Deprecated Standin widget should have a default snapshot: first render 
               >
                 <span
                   aria-label="info"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_iads8r"
+                  class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_i5hedm"
                   data-testid="banner-kind-icon"
                   role="img"
                 />

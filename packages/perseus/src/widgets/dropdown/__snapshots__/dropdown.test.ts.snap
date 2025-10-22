@@ -55,7 +55,7 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_18b4l55-o_O-inlineStyles_ih2lny"
+                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_18b4l55-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -135,7 +135,7 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_18b4l55-o_O-inlineStyles_ih2lny"
+                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_18b4l55-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>

@@ -56,7 +56,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                   aria-describedby=""
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_sdsn9f"
+                  class="textarea_xrj3rm-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n"
                   id=":r2:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
@@ -142,7 +142,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
                   aria-describedby=""
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_sdsn9f"
+                  class="textarea_xrj3rm-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n"
                   id=":r0:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
