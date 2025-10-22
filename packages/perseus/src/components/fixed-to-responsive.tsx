@@ -1,6 +1,6 @@
 /**
  * A wrapper for a component that would otherwise have a fixed width and
- * height, that magically makes it reponsive while preserving its aspect ratio.
+ * height, that magically makes it responsive while preserving its aspect ratio.
  * Specifically, the component will shrink dynamically when it needs to but
  * won't ever grow past its original dimensions.
  *
@@ -27,17 +27,12 @@ type Props = {
     className?: string;
     constrainHeight?: boolean;
     allowFullBleed?: boolean;
-    // This is used to determine if the spacer should be rendered. The spacer
-    // can cause a disruptive amount of space for Image widgets in certain
-    // cases (e.g. mobile Image widget within Grouped questions).
-    renderSpacer?: boolean;
 };
 
 type DefaultProps = {
     className: Props["className"];
     constrainHeight: Props["constrainHeight"];
     allowFullBleed: Props["allowFullBleed"];
-    renderSpacer: Props["renderSpacer"];
 };
 
 type State = {
@@ -52,7 +47,6 @@ class FixedToResponsive extends React.Component<Props, State> {
         className: "",
         constrainHeight: false,
         allowFullBleed: false,
-        renderSpacer: true,
     };
 
     state: State = {
@@ -103,24 +97,9 @@ class FixedToResponsive extends React.Component<Props, State> {
         // The ideal behavior for responsified, fixed size child components is
         // that they shrink when they need to (while preserving aspect ratio)
         // but never grow larger than their original dimensions. We accomplish
-        // this by absolutely positioning the children and telling them to fill
-        // up all of a space that has the correct aspect ratio.
+        // this using the modern CSS aspect-ratio property, which maintains
+        // the correct aspect ratio without requiring a spacer div.
         const aspectRatio = this.props.width / this.props.height;
-
-        // This works because padding percentages are interpreted in terms of
-        // the width of the containing block, so:
-        //     (fixed height / fixed width) * display width = display height
-        // Based on http://refills.bourbon.io/components/#video && medium.com
-        // TODO(LEMS-3549): Remove spacer once we figure out the best way
-        // to approach spacing with modern recommended practices.
-        const spacer = (
-            <div
-                style={{
-                    // @ts-expect-error - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
-                    paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + "%",
-                }}
-            />
-        );
 
         let {width, height} = this.props;
 
@@ -135,12 +114,14 @@ class FixedToResponsive extends React.Component<Props, State> {
         }
 
         // Prevent child components from growing (aka "the Peter Pan effect")
+        // and maintain the aspect ratio.
         const style = {
             maxWidth: width,
             maxHeight: height,
-        } as const;
+            aspectRatio: aspectRatio.toFixed(4),
+        } as React.CSSProperties;
 
-        // NOTE(jeremy): This depends on styles defined in perseus-renderer.css
+        // NOTE(jeremy): This depends on styles defined in perseus-renderer-part-1.css
         const className = classNames(
             "fixed-to-responsive",
             this.props.className,
@@ -148,7 +129,6 @@ class FixedToResponsive extends React.Component<Props, State> {
 
         const container = (
             <div className={className} style={style}>
-                {this.props.renderSpacer && spacer}
                 {this.props.children}
             </div>
         );
