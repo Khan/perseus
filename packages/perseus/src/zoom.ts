@@ -159,7 +159,11 @@ ZoomServiceClass.prototype._initialize = function (enableMobilePinch: any) {
 ZoomServiceClass.prototype.handleZoomClick = function (
     imageRefOrElement: any,
     enableMobilePinch: any,
-    options?: {metaKey?: boolean; ctrlKey?: boolean},
+    options?: {
+        metaKey?: boolean;
+        ctrlKey?: boolean;
+        clickedElement?: HTMLElement;
+    },
 ) {
     this._initialize(enableMobilePinch);
 
@@ -195,6 +199,9 @@ ZoomServiceClass.prototype.handleZoomClick = function (
 
     this._activeZoomClose(true);
 
+    // Store the clicked element to restore focus to it when closing
+    this._clickedElement = options?.clickedElement;
+
     // Enable page zooming in (i.e. make sure there's no maximum-scale). Also,
     // disable page zoom out on mobile devices, because the container that the
     // image is placed in becomes bigger than the viewport if the page can be
@@ -226,7 +233,11 @@ ZoomServiceClass.prototype.handleZoomClick = function (
 };
 
 ZoomServiceClass.prototype._zoom = function (target: any) {
-    this._activeZoom = new Zoom(target, this._enableMobilePinch);
+    this._activeZoom = new Zoom(
+        target,
+        this._enableMobilePinch,
+        this._clickedElement,
+    );
     this._activeZoom.zoomImage();
 };
 
@@ -309,7 +320,7 @@ ZoomServiceClass.prototype._touchMove = function (e) {
 /**
  * The zoom object
  */
-function Zoom(img: any, enableMobilePinch: any) {
+function Zoom(img: any, enableMobilePinch: any, clickedElement: any) {
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._fullHeight = this._fullWidth = this._overlay = null;
 
@@ -317,6 +328,8 @@ function Zoom(img: any, enableMobilePinch: any) {
     this._targetImage = img;
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._enableMobilePinch = enableMobilePinch;
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    this._clickedElement = clickedElement;
 
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._$body = $(document.body);
@@ -570,7 +583,22 @@ Zoom.prototype.dispose = function () {
         this._$body.removeClass("zoom-overlay-transitioning");
     }
     $(this._targetImage).css("visibility", "visible");
-    this._targetImage.focus();
+
+    // Determine which element to focus on when closing
+    // Prefer the clicked element (e.g., Clickable button) if available,
+    // otherwise fall back to the target image for screen reader accessibility
+    const elementToFocus = this._clickedElement || this._targetImage;
+
+    // Ensure the element is focusable for screen reader users
+    if (!elementToFocus.hasAttribute("tabindex")) {
+        elementToFocus.setAttribute("tabindex", "-1");
+    }
+
+    // Use setTimeout to ensure focus happens after all DOM updates complete.
+    // Otherwise, it may not find the element, and it won't focus.
+    setTimeout(() => {
+        elementToFocus.focus();
+    }, 0);
 };
 
 export const ZoomService: any = new ZoomServiceClass();

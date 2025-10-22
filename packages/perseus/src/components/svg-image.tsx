@@ -390,14 +390,16 @@ class SvgImage extends React.Component<Props, State> {
         e.stopPropagation();
         e.preventDefault();
 
-        // Pass the image ref directly to the zoom service
+        // Pass the image ref and the clicked element to the zoom service
         // The service will handle extracting the element from the ref
+        // and will focus on the clicked element when closing
         Zoom.ZoomService.handleZoomClick(
             this.imageRef,
             this.props.zoomToFullSizeOnMobile,
             {
                 metaKey: (e as any).metaKey || false,
                 ctrlKey: (e as any).ctrlKey || false,
+                clickedElement: e.currentTarget as HTMLElement,
             },
         );
 
