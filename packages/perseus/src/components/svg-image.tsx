@@ -48,6 +48,7 @@ function defaultPreloader(dimensions: Dimensions) {
 
 type Props = {
     allowFullBleed?: boolean;
+    allowZoom?: boolean;
     alt: string;
     constrainHeight?: boolean;
     extraGraphie?: {
@@ -483,12 +484,14 @@ class SvgImage extends React.Component<Props, State> {
         // Just use a normal image if a normal image is provided
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
-                imageProps.onClick = this._handleZoomClick;
-                imageProps.clickAriaLabel = "Zoom in on image";
+                if (this.props.allowZoom) {
+                    imageProps.onClick = this._handleZoomClick;
+                    imageProps.clickAriaLabel = "Zoom in on image";
+                }
 
                 return (
                     <FixedToResponsive
-                        className="zoomable svg-image"
+                        className="svg-image"
                         width={width}
                         height={height}
                         constrainHeight={this.props.constrainHeight}

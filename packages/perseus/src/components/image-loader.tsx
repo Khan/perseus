@@ -200,6 +200,7 @@ class ImageLoader extends React.Component<Props, State> {
                         width: style?.width ?? "100%",
                         height: style?.height ?? "100%",
                         overflow: "hidden",
+                        cursor: "zoom-in",
                     }}
                 >
                     {() => {
