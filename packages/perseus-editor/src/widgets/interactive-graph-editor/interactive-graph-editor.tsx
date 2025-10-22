@@ -284,6 +284,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
             this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
         const sizeClass = containerSizeClass.SMALL;
+
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+
         if (this.props.valid === true) {
             const correct = this.props.correct;
 
@@ -305,6 +308,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 lockedFigures: this.props.lockedFigures,
                 fullGraphAriaLabel: this.props.fullGraphAriaLabel,
                 fullGraphAriaDescription: this.props.fullGraphAriaDescription,
+                // Set the "correct answer" graph to static when editing is disabled
+                static: editingDisabled,
                 trackInteraction: function () {},
                 userInput: correct,
                 handleUserInput: (
@@ -451,10 +456,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             showProtractor={this.props.showProtractor}
                             showTooltips={this.props.showTooltips}
                             onChange={this.props.onChange}
+                            editingDisabled={editingDisabled}
                         />
                         <LockedFiguresSection
                             figures={this.props.lockedFigures}
                             onChange={this.props.onChange}
+                            editingDisabled={editingDisabled}
                         />
                     </View>
                 )}

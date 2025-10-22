@@ -64,6 +64,7 @@ class WithState extends React.Component<
                     imageHeight={1024}
                     markers={markers}
                     onChange={(markers) => this.setState({markers})}
+                    editingDisabled={false}
                 />
             </div>
         );
@@ -78,6 +79,7 @@ export const Empty = (args: StoryArgs): React.ReactElement => {
         imageHeight: 0,
         markers: [],
         onChange: () => {},
+        editingDisabled: false,
     } as const;
     return <Wrapper {...props} />;
 };

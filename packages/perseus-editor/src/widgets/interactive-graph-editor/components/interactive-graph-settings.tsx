@@ -110,6 +110,10 @@ type Props = {
     showTooltips: boolean;
 
     onChange: (arg1: Partial<Props>) => void;
+
+    // Whether the editor is disabled. Can be set via API options
+    // to make the editor read-only when needed.
+    editingDisabled: boolean;
 };
 
 type State = {
@@ -178,6 +182,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             yMin: true,
             yMax: true,
         },
+        editingDisabled: false,
     };
 
     componentDidMount() {
@@ -606,6 +611,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     this.state.showAxisArrowsSwitches
                                 }
                                 onChange={this.changeShowAxisArrows}
+                                disabled={this.props.editingDisabled}
                             />
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">

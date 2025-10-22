@@ -34,6 +34,7 @@ export const Controlled: StoryComponentType = {
             <LockedFiguresSection
                 figures={figures}
                 onChange={handlePropsUpdate}
+                editingDisabled={false}
             />
         );
     },
@@ -55,6 +56,7 @@ export const WithProdWidth: StoryComponentType = {
                 <LockedFiguresSection
                     figures={figures}
                     onChange={handlePropsUpdate}
+                    editingDisabled={false}
                 />
             </View>
         );

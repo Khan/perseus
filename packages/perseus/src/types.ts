@@ -194,6 +194,11 @@ export type APIOptions = Readonly<{
      * answered correctly and should no longer be interactive.
      */
     readOnly?: boolean;
+    /**
+     * A boolean that indicates whether the editor interface should be
+     * disabled, preventing content creators from making changes.
+     */
+    editingDisabled?: boolean;
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
     interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
@@ -437,6 +442,7 @@ export type APIOptionsWithDefaults = Readonly<
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         isMobileApp: NonNullable<APIOptions["isMobileApp"]>;
+        editingDisabled: NonNullable<APIOptions["editingDisabled"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
         setDrawingAreaAvailable: NonNullable<
