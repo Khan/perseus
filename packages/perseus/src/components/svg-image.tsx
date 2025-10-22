@@ -387,30 +387,18 @@ class SvgImage extends React.Component<Props, State> {
             return;
         }
 
-        // Prevent the event from bubbling up to avoid interference with
-        // the zoom service's document-level event handlers (especially the
-        // key handler that would immediately close the zoom if Enter/Space
-        // was pressed to activate the Clickable)
         e.stopPropagation();
         e.preventDefault();
 
-        const imageElement = this.imageRef.current;
-
-        // Create an event-like object with the image element as the target
-        // The Zoom service expects an event object with specific properties
-        // Note: We use the image element directly as both target and as the
-        // source for properties like src, since the actual event target is
-        // the Clickable wrapper, not the image itself
-        const syntheticEvent = {
-            target: imageElement,
-            stopPropagation: () => {},
-            metaKey: (e as any).metaKey || false,
-            ctrlKey: (e as any).ctrlKey || false,
-        };
-
+        // Pass the image ref directly to the zoom service
+        // The service will handle extracting the element from the ref
         Zoom.ZoomService.handleZoomClick(
-            syntheticEvent,
+            this.imageRef,
             this.props.zoomToFullSizeOnMobile,
+            {
+                metaKey: (e as any).metaKey || false,
+                ctrlKey: (e as any).ctrlKey || false,
+            },
         );
 
         this.props.trackInteraction?.();

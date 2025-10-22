@@ -157,14 +157,17 @@ ZoomServiceClass.prototype._initialize = function (enableMobilePinch: any) {
 };
 
 ZoomServiceClass.prototype.handleZoomClick = function (
-    e: any,
+    imageRefOrElement: any,
     enableMobilePinch: any,
+    options?: {metaKey?: boolean; ctrlKey?: boolean},
 ) {
     this._initialize(enableMobilePinch);
-    let target = e.target;
 
-    // If the target is not an IMG (e.g., it's the Clickable wrapper
-    // around an IMG), try to find an IMG element within it.
+    // Handle both React refs and direct element references
+    let target = imageRefOrElement?.current || imageRefOrElement;
+
+    // If the target is not an IMG (e.g., it's a wrapper element),
+    // try to find an IMG element within it.
     if (!target || target.tagName !== "IMG") {
         const imgElement = target?.querySelector("img");
         if (imgElement) {
@@ -178,8 +181,8 @@ ZoomServiceClass.prototype.handleZoomClick = function (
         return;
     }
 
-    if (e.metaKey || e.ctrlKey) {
-        return window.open(e.target.src, "_blank");
+    if (options?.metaKey || options?.ctrlKey) {
+        return window.open(target.src, "_blank");
     }
 
     if (
@@ -220,8 +223,6 @@ ZoomServiceClass.prototype.handleZoomClick = function (
     // we use a capturing phase here to prevent unintended js events
     // sadly no useCapture in jquery api (http://bugs.jquery.com/ticket/14953)
     document.addEventListener("click", this._boundClick, true);
-
-    e.stopPropagation();
 };
 
 ZoomServiceClass.prototype._zoom = function (target: any) {
@@ -379,6 +380,7 @@ Zoom.prototype.zoomImage = function () {
     img.alt = this._targetImage.alt;
     img.tabIndex = 0;
     img.role = "button";
+    img.ariaLabel = "Zoomed image. Press Escape, Space, or Enter to close.";
 
     this.$zoomedImage = $zoomedImage;
 };
@@ -509,6 +511,9 @@ Zoom.prototype._onZoomInFinish = function () {
         .removeClass("zoom-transition");
 
     $(this._overlay).scrollLeft(scrollLeft).scrollTop(scrollTop);
+
+    // Focus the zoomed image so keyboard events (Esc, Enter, Space) work
+    this.$zoomedImage[0].focus();
 };
 
 Zoom.prototype.close = function () {
