@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 71.3.1
+
+### Patch Changes
+
+-   [#2971](https://github.com/Khan/perseus/pull/2971) [`251f569213`](https://github.com/Khan/perseus/commit/251f56921327ea75a62ac8ba2647eba912d29e10) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix image not displaying in exercise translator
+
 ## 71.3.0
 
 ### Minor Changes
