@@ -12,6 +12,7 @@ import * as Zoom from "../zoom";
 
 import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
+import {PerseusI18nContext} from "./i18n-context";
 import ImageLoader from "./image-loader";
 
 import type {ImageProps} from "./image-loader";
@@ -138,6 +139,9 @@ type State = {
 };
 
 class SvgImage extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _isMounted: boolean;
 
     static defaultProps: DefaultProps = {
@@ -150,6 +154,8 @@ class SvgImage extends React.Component<Props, State> {
         setAssetStatus: (src: string, status: boolean) => {},
     };
 
+    // Create a ref to the underlying image element. This is used within the
+    // Zoom service to reference the image element to zoom into.
     imageRef: React.RefObject<HTMLImageElement> = React.createRef();
 
     constructor(props: Props) {
@@ -383,16 +389,21 @@ class SvgImage extends React.Component<Props, State> {
         e.stopPropagation();
         e.preventDefault();
 
-        // Pass the image ref and the clicked element to the zoom service
-        // The service will handle extracting the element from the ref
-        // and will focus on the clicked element when closing
+        // Pass the image ref and the clicked element to the zoom service.
+        // The image is the target element to zoom into, and the clicked
+        // element will be refocused after exiting the zoom view.
         Zoom.ZoomService.handleZoomClick(
             this.imageRef,
             this.props.zoomToFullSizeOnMobile,
             {
-                metaKey: (e as any).metaKey || false,
-                ctrlKey: (e as any).ctrlKey || false,
                 clickedElement: e.currentTarget as HTMLElement,
+                // Pass the translated string from i18n context
+                zoomedImageAriaLabel: this.context.strings.imageZoomedAriaLabel,
+                // Specify if the meta or ctrl key is being pressed.
+                // The zoom service uses this to determine if the image should
+                // be opened in a new tab when clicked.
+                metaKey: (e as React.KeyboardEvent).metaKey || false,
+                ctrlKey: (e as React.KeyboardEvent).ctrlKey || false,
             },
         );
 

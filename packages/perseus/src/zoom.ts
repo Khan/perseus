@@ -163,28 +163,22 @@ ZoomServiceClass.prototype.handleZoomClick = function (
         metaKey?: boolean;
         ctrlKey?: boolean;
         clickedElement?: HTMLElement;
+        zoomedImageAriaLabel?: string;
     },
 ) {
     this._initialize(enableMobilePinch);
 
-    // Handle both React refs and direct element references
-    let target = imageRefOrElement?.current || imageRefOrElement;
+    const target = imageRefOrElement?.current || imageRefOrElement;
 
-    // If the target is not an IMG (e.g., it's a wrapper element),
-    // try to find an IMG element within it.
     if (!target || target.tagName !== "IMG") {
-        const imgElement = target?.querySelector("img");
-        if (imgElement) {
-            target = imgElement;
-        } else {
-            return;
-        }
+        return;
     }
 
     if (this._$body.hasClass("zoom-overlay-open")) {
         return;
     }
 
+    // Open the image in a new tab if the meta or ctrl key is pressed
     if (options?.metaKey || options?.ctrlKey) {
         return window.open(target.src, "_blank");
     }
@@ -213,10 +207,10 @@ ZoomServiceClass.prototype.handleZoomClick = function (
         // Disable zoom out by setting minimum scale of 1 on the viewport tag.
         changeViewportTag(
             "width=device-width, initial-scale=1, minimum-scale=1",
-            () => this._zoom(target),
+            () => this._zoom(target, options?.zoomedImageAriaLabel),
         );
     } else {
-        this._zoom(target);
+        this._zoom(target, options?.zoomedImageAriaLabel);
     }
 
     if (!enableMobilePinch) {
@@ -232,11 +226,15 @@ ZoomServiceClass.prototype.handleZoomClick = function (
     document.addEventListener("click", this._boundClick, true);
 };
 
-ZoomServiceClass.prototype._zoom = function (target: any) {
+ZoomServiceClass.prototype._zoom = function (
+    target: any,
+    zoomedImageAriaLabel?: string,
+) {
     this._activeZoom = new Zoom(
         target,
         this._enableMobilePinch,
         this._clickedElement,
+        zoomedImageAriaLabel,
     );
     this._activeZoom.zoomImage();
 };
@@ -320,7 +318,12 @@ ZoomServiceClass.prototype._touchMove = function (e) {
 /**
  * The zoom object
  */
-function Zoom(img: any, enableMobilePinch: any, clickedElement: any) {
+function Zoom(
+    img: any,
+    enableMobilePinch: any,
+    clickedElement: any,
+    zoomedImageAriaLabel?: string,
+) {
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._fullHeight = this._fullWidth = this._overlay = null;
 
@@ -330,6 +333,8 @@ function Zoom(img: any, enableMobilePinch: any, clickedElement: any) {
     this._enableMobilePinch = enableMobilePinch;
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._clickedElement = clickedElement;
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    this._zoomedImageAriaLabel = zoomedImageAriaLabel;
 
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._$body = $(document.body);
@@ -389,11 +394,12 @@ Zoom.prototype.zoomImage = function () {
         this._zoomOriginal();
     }.bind(this);
 
+    // Props for the image inside the zoom focus state.
     img.src = this._targetImage.src;
     img.alt = this._targetImage.alt;
     img.tabIndex = 0;
     img.role = "button";
-    img.ariaLabel = "Zoomed image. Press Escape, Space, or Enter to close.";
+    img.ariaLabel = this._zoomedImageAriaLabel;
 
     this.$zoomedImage = $zoomedImage;
 };
@@ -525,7 +531,10 @@ Zoom.prototype._onZoomInFinish = function () {
 
     $(this._overlay).scrollLeft(scrollLeft).scrollTop(scrollTop);
 
-    // Focus the zoomed image so keyboard events (Esc, Enter, Space) work
+    // Focus the zoomed image for screen reader accessibility:
+    // Inform the screen reader that the image is now focused
+    // and can be closed with the Escape, Enter, or Space keys
+    // via the passed in aria label.
     this.$zoomedImage[0].focus();
 };
 
@@ -586,13 +595,8 @@ Zoom.prototype.dispose = function () {
 
     // Determine which element to focus on when closing
     // Prefer the clicked element (e.g., Clickable button) if available,
-    // otherwise fall back to the target image for screen reader accessibility
+    // otherwise fall back to the target image.
     const elementToFocus = this._clickedElement || this._targetImage;
-
-    // Ensure the element is focusable for screen reader users
-    if (!elementToFocus.hasAttribute("tabindex")) {
-        elementToFocus.setAttribute("tabindex", "-1");
-    }
 
     // Use setTimeout to ensure focus happens after all DOM updates complete.
     // Otherwise, it may not find the element, and it won't focus.

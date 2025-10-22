@@ -37,7 +37,7 @@ type Props = {
     preloader: (() => React.ReactNode) | null | undefined;
     src: string;
     dependencies: PerseusDependenciesV2;
-    // Use forwardedRef instead of ref to avoid React's special prop handling
+    // Reference to the underlying image element
     forwardedRef?: React.RefObject<HTMLImageElement>;
 };
 
@@ -126,6 +126,9 @@ class ImageLoader extends React.Component<Props, State> {
         }
     };
 
+    /**
+     * Render the `<img>` element, with no click-related props.
+     */
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
         const {src, imgProps, forwardedRef} = this.props;
         // Destructure to exclude props that shouldn't be on the <img> element
@@ -162,6 +165,17 @@ class ImageLoader extends React.Component<Props, State> {
         );
     };
 
+    /**
+     * If the image is clickable, render a <Clickable> component over the image.
+     * Otherwise, render the image itself.
+     *
+     * This approach is used to ensure that the button and the image remain
+     * separate elements in the DOM. This is important for accessibility, as
+     * the button and the image should be separate elements for screen readers
+     * to identify. This way, the image has the alt text to identify the image
+     * content, and the button has the click prompt that informs the user that
+     * they can click for some action (i.e. zooming in on the image).
+     */
     renderMaybeClickableImage: () => React.ReactNode = () => {
         const {onClick, clickAriaLabel, style} = this.props.imgProps;
 
@@ -170,6 +184,11 @@ class ImageLoader extends React.Component<Props, State> {
         }
 
         return (
+            // Rendering the image and the button as siblings to that the
+            // screen reader can identify them separately. If the image
+            // were a child of the button, this would become a button
+            // group, with the user having to additionally navigate into
+            // the button content to get to the image.
             <>
                 {this.renderImg()}
                 <Clickable
