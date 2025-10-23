@@ -38,7 +38,7 @@ exports[`image widget - isMobile(false) should render image with float-left alig
               </div>
             </div>
             <div
-              class="fixed-to-responsive zoomable svg-image"
+              class="fixed-to-responsive svg-image"
               style="max-width: 400px; max-height: 225px;"
             >
               <img
@@ -48,8 +48,8 @@ exports[`image widget - isMobile(false) should render image with float-left alig
               />
               <button
                 aria-disabled="false"
-                aria-label="Zoom in on image"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_11psnim"
+                aria-label="Zoom image."
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                 type="button"
               />
             </div>
@@ -122,7 +122,7 @@ exports[`image widget - isMobile(false) should render image with float-right ali
               </div>
             </div>
             <div
-              class="fixed-to-responsive zoomable svg-image"
+              class="fixed-to-responsive svg-image"
               style="max-width: 400px; max-height: 225px;"
             >
               <img
@@ -132,8 +132,8 @@ exports[`image widget - isMobile(false) should render image with float-right ali
               />
               <button
                 aria-disabled="false"
-                aria-label="Zoom in on image"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_11psnim"
+                aria-label="Zoom image."
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                 type="button"
               />
             </div>
@@ -384,7 +384,7 @@ exports[`image widget - isMobile(true) should render image with float-left align
               </div>
             </div>
             <div
-              class="fixed-to-responsive zoomable svg-image"
+              class="fixed-to-responsive svg-image"
               style="max-width: 400px; max-height: 225px;"
             >
               <img
@@ -394,8 +394,8 @@ exports[`image widget - isMobile(true) should render image with float-left align
               />
               <button
                 aria-disabled="false"
-                aria-label="Zoom in on image"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_11psnim"
+                aria-label="Zoom image."
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                 type="button"
               />
             </div>
@@ -468,7 +468,7 @@ exports[`image widget - isMobile(true) should render image with float-right alig
               </div>
             </div>
             <div
-              class="fixed-to-responsive zoomable svg-image"
+              class="fixed-to-responsive svg-image"
               style="max-width: 400px; max-height: 225px;"
             >
               <img
@@ -478,8 +478,8 @@ exports[`image widget - isMobile(true) should render image with float-right alig
               />
               <button
                 aria-disabled="false"
-                aria-label="Zoom in on image"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_11psnim"
+                aria-label="Zoom image."
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                 type="button"
               />
             </div>

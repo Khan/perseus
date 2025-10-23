@@ -22,7 +22,7 @@ exports[`group widget should snapshot: initial render 1`] = `
               class="paragraph"
             >
               <div
-                class="fixed-to-responsive zoomable svg-image"
+                class="fixed-to-responsive svg-image"
                 style="max-width: 428px; max-height: 480px;"
               >
                 <span

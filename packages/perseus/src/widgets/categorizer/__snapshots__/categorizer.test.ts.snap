@@ -333,7 +333,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
         class="paragraph"
       >
         <div
-          class="fixed-to-responsive zoomable svg-image"
+          class="fixed-to-responsive svg-image"
           style="max-width: 220px; max-height: 223px;"
         >
           <span
@@ -379,7 +379,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
         class="paragraph"
       >
         <div
-          class="fixed-to-responsive zoomable svg-image"
+          class="fixed-to-responsive svg-image"
           style="max-width: 244px; max-height: 223px;"
         >
           <span
@@ -834,7 +834,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
         class="paragraph"
       >
         <div
-          class="fixed-to-responsive zoomable svg-image"
+          class="fixed-to-responsive svg-image"
           style="max-width: 220px; max-height: 223px;"
         >
           <span
@@ -880,7 +880,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
         class="paragraph"
       >
         <div
-          class="fixed-to-responsive zoomable svg-image"
+          class="fixed-to-responsive svg-image"
           style="max-width: 244px; max-height: 223px;"
         >
           <span
