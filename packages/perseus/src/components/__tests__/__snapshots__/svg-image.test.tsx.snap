@@ -7,6 +7,7 @@ exports[`SvgImage should load and render a localized graphie svg 1`] = `
   >
     <img
       alt="svg image"
+      class="image-loader-img"
       src="https://ka-perseus-graphie.s3.amazonaws.com/ccefe63aa1bd05f1d11123f72790a49378d2e42b.svg"
     />
   </div>
@@ -20,6 +21,7 @@ exports[`SvgImage should load and render a normal graphie svg 1`] = `
   >
     <img
       alt="svg image"
+      class="image-loader-img"
       src="https://ka-perseus-graphie.s3.amazonaws.com/ccefe63aa1bd05f1d11123f72790a49378d2e42b.svg"
     />
   </div>
@@ -30,6 +32,7 @@ exports[`SvgImage should load and render a png 1`] = `
 <div>
   <img
     alt="png image"
+    class="image-loader-img"
     src="http://localhost/sample.png"
   />
 </div>
