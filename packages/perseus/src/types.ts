@@ -195,14 +195,6 @@ export type APIOptions = Readonly<{
     getAnotherHint?: () => unknown;
     interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
     /**
-     * A function that takes in the relative problem number (starts at
-     * 0 and is incremented for each group widget), and the ID of the
-     * group widget, then returns a react component that will be added
-     * immediately above the renderer in the group widget. If the
-     * function returns null, no annotation will be added.
-     */
-    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
-    /**
      * If imagePlaceholder is set, Perseus will render the placeholder instead
      * of the image node.
      */
@@ -430,7 +422,6 @@ export type APIOptionsWithDefaults = Readonly<
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
         editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
-        groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         isMobileApp: NonNullable<APIOptions["isMobileApp"]>;
