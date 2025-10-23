@@ -127,21 +127,27 @@ class ImageLoader extends React.Component<Props, State> {
     };
 
     /**
-     * Render the `<img>` element, with no click-related props.
+     * If the image is clickable, render a <Clickable> component over the image.
+     * Otherwise, render the image itself.
+     *
+     * This approach is used to ensure that the button and the image remain
+     * separate elements in the DOM. This is important for accessibility, as
+     * the button and the image should be separate elements for screen readers
+     * to identify. This way, the image has the alt text to identify the image
+     * content, and the button has the click prompt that informs the user that
+     * they can click for some action (i.e. zooming in on the image).
      */
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
         const {src, imgProps, forwardedRef} = this.props;
         // Destructure to exclude props that shouldn't be on the <img> element
         const {
             // Don't pass onClick or clickAriaLabel to the <img> element
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             onClick,
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             clickAriaLabel,
             ...otherImgProps
         } = imgProps;
 
-        return (
+        const imgElement = (
             <img
                 // Class name makes this img findable in Cypress tests.
                 className="image-loader-img"
@@ -165,42 +171,22 @@ class ImageLoader extends React.Component<Props, State> {
                 {...otherImgProps}
             />
         );
-    };
-
-    /**
-     * If the image is clickable, render a <Clickable> component over the image.
-     * Otherwise, render the image itself.
-     *
-     * This approach is used to ensure that the button and the image remain
-     * separate elements in the DOM. This is important for accessibility, as
-     * the button and the image should be separate elements for screen readers
-     * to identify. This way, the image has the alt text to identify the image
-     * content, and the button has the click prompt that informs the user that
-     * they can click for some action (i.e. zooming in on the image).
-     */
-    renderMaybeClickableImage: () => React.ReactNode = () => {
-        const {onClick, clickAriaLabel, style} = this.props.imgProps;
 
         if (!onClick) {
-            return this.renderImg();
+            return imgElement;
         }
 
         return (
-            // Rendering the image and the button as siblings to that the
-            // screen reader can identify them separately. If the image
-            // were a child of the button, this would become a button
-            // group, with the user having to additionally navigate into
-            // the button content to get to the image.
             <>
-                {this.renderImg()}
+                {imgElement}
                 <Clickable
                     aria-label={clickAriaLabel}
                     onClick={onClick}
                     style={{
                         // Overlay the button over the image.
                         position: "absolute",
-                        width: style?.width ?? "100%",
-                        height: style?.height ?? "100%",
+                        width: this.props.imgProps.style?.width ?? "100%",
+                        height: this.props.imgProps.style?.height ?? "100%",
                         overflow: "hidden",
                         cursor: "zoom-in",
                     }}
@@ -216,7 +202,7 @@ class ImageLoader extends React.Component<Props, State> {
     render(): React.ReactNode {
         switch (this.state.status) {
             case Status.LOADED:
-                return this.renderMaybeClickableImage();
+                return this.renderImg();
 
             case Status.FAILED:
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
