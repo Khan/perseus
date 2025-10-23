@@ -188,6 +188,7 @@ export type {
     APIOptions,
     APIOptionsWithDefaults,
     ChangeHandler,
+    ChangeHandlerV2,
     DeviceType,
     DomInsertCheckFn,
     EditorMode,

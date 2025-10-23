@@ -48,7 +48,7 @@ registerAllWidgetsAndEditorsForTesting();
 const meta: Meta = {
     title: "Widgets/Interactive Graph/Editor Demo",
     component: InteractiveGraphEditor,
-    tags: ["!dev"],
+    // tags: ["!dev"],
 } satisfies Meta<typeof InteractiveGraphEditor>;
 export default meta;
 
@@ -234,23 +234,23 @@ export const WithSaveWarnings = (): React.ReactElement => {
                 jsonMode={jsonMode}
                 answerArea={answerArea}
                 question={question}
-                hints={hints}
+                hints={[...(hints ?? [])]}
                 previewURL="about:blank"
                 itemId="1"
+                onJsonModeChange={setJsonMode}
                 onChange={(props) => {
                     onChangeAction(props);
 
-                    if ("jsonMode" in props) {
-                        setJsonMode(props.jsonMode);
+                    if (props.type === "valid") {
+                        setAnswerArea(props.perseusItem.answerArea);
+                        setQuestion(props.perseusItem.question);
+                        setHints(props.perseusItem.hints);
+                        // Reset the save warnings when the question is valid
+                        setSaveWarnings([]);
                     }
-                    if ("answerArea" in props) {
-                        setAnswerArea(props.answerArea);
-                    }
-                    if ("question" in props) {
-                        setQuestion(props.question);
-                    }
-                    if ("hints" in props) {
-                        setHints(props.hints);
+
+                    if (props.type === "invalid") {
+                        setSaveWarnings(props.warnings);
                     }
                 }}
             />

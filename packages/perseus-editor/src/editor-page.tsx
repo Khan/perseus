@@ -18,6 +18,7 @@ import type {
     APIOptionsWithDefaults,
     // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
+    ChangeHandlerV2,
     DeviceType,
     ImageUploader,
     PerseusDependenciesV2,
@@ -31,6 +32,17 @@ import type {
 
 const {HUD} = components;
 
+type OnChangeArgs =
+    | {
+          type: "valid";
+          perseusItem: PerseusItem;
+      }
+    | {
+          type: "invalid";
+          // The warnings returned by getSaveWarnings()
+          warnings: string[];
+      };
+
 type Props = {
     /** Additional templates that the host application would like to display
      * within the Perseus Editor.
@@ -43,7 +55,7 @@ type Props = {
     dependencies: PerseusDependenciesV2;
     /** "Power user" mode. Shows the raw JSON of the question. */
     developerMode: boolean;
-    hints?: ReadonlyArray<Hint>; // related to the question,
+    hints?: Array<Hint>; // related to the question,
     /** A function which takes a file object (guaranteed to be an image) and
      * a callback, then calls the callback with the url where the image
      * will be hosted. Image drag and drop is disabled when imageUploader
@@ -58,7 +70,8 @@ type Props = {
      */
     jsonMode: boolean;
     /** A function which is called with the new JSON blob of content. */
-    onChange: ChangeHandler;
+    onChange: ChangeHandlerV2<OnChangeArgs>;
+    onJsonModeChange: (jsonMode: boolean) => unknown;
     /** A function which is called when the preview device changes. */
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
@@ -85,6 +98,7 @@ type State = {
     json: PerseusItem;
     highlightLint: boolean;
     widgetsAreOpen: boolean;
+    latestSaveWarnings: string[];
 };
 
 class EditorPage extends React.Component<Props, State> {
@@ -109,6 +123,7 @@ class EditorPage extends React.Component<Props, State> {
             wasAnswered: false,
             highlightLint: true,
             widgetsAreOpen: this.props.widgetsAreOpen ?? true,
+            latestSaveWarnings: [],
         };
 
         this._isMounted = false;
@@ -132,6 +147,7 @@ class EditorPage extends React.Component<Props, State> {
         // eslint-disable-next-line no-restricted-syntax
         setTimeout(() => {
             this.updateRenderer();
+            this.checkSaveWarnings();
         });
     }
 
@@ -145,9 +161,7 @@ class EditorPage extends React.Component<Props, State> {
                 json: this.serialize({keepDeletedWidgets: true}),
             },
             () => {
-                this.props.onChange({
-                    jsonMode: !this.props.jsonMode,
-                });
+                this.props.onJsonModeChange(!this.props.jsonMode);
             },
         );
     };
@@ -202,6 +216,48 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
+    checkSaveWarnings = () => {
+        if (
+            !this._isMounted ||
+            !this.props.question ||
+            !this.props.answerArea ||
+            !this.props.hints
+        ) {
+            return;
+        }
+
+        const currentErrors = this.getSaveWarnings();
+
+        // Convert the errors to strings so we can do a deep equality check.
+        const currentErrorStrings = JSON.stringify(currentErrors);
+        const lastErrorStrings = JSON.stringify(this.state.latestSaveWarnings);
+
+        // Optimization: only call onChange if the save warnings have changed.
+        if (currentErrorStrings !== lastErrorStrings) {
+            const perseusItem = {
+                question: this.props.question,
+                answerArea: this.props.answerArea,
+                hints: this.props.hints,
+            };
+
+            if (currentErrors.length > 0) {
+                this.props.onChange(
+                    {type: "invalid", warnings: currentErrors},
+                    undefined,
+                    undefined,
+                );
+            } else {
+                this.props.onChange(
+                    {type: "valid", perseusItem},
+                    undefined,
+                    undefined,
+                );
+            }
+
+            this.setState({latestSaveWarnings: currentErrors});
+        }
+    };
+
     serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
@@ -212,17 +268,79 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     // eslint-disable-next-line import/no-deprecated
-    handleChange: ChangeHandler = (toChange, cb, silent) => {
-        const newProps = _(this.props).pick("question", "hints", "answerArea");
-        _(newProps).extend(toChange);
-        this.props.onChange(newProps, cb, silent);
+    handleChange = (
+        toChange: Partial<PerseusItem>,
+        cb?: () => void,
+        silent?: boolean,
+    ) => {
+        const newProps = {
+            question: this.props.question,
+            hints: this.props.hints,
+            answerArea: this.props.answerArea,
+            ...toChange,
+        };
+
+        // If there are null values, return an invalid response
+        if (
+            newProps.question == null ||
+            newProps.hints == null ||
+            newProps.answerArea == null
+        ) {
+            this.props.onChange(
+                {
+                    type: "invalid",
+                    warnings: [
+                        "Question, hints, or answer area cannot be null.",
+                    ],
+                },
+                cb,
+                silent,
+            );
+            return;
+        }
+
+        // NOTE: `getSaveWarnings` check happens in `componentDidUpdate`
+        // rather than here, in order to ensure that it checks for errors
+        // after the current update has completed.
+        this.props.onChange(
+            {
+                type: "valid",
+                perseusItem: {
+                    question: newProps.question,
+                    answerArea: newProps.answerArea,
+                    hints: newProps.hints,
+                },
+            },
+            cb,
+            silent,
+        );
+    };
+
+    handleItemEditorChange: ChangeHandler = (toChange, cb, silent) => {
+        const newProps = {
+            question: toChange.question,
+            answerArea: toChange.answerArea,
+        };
+
+        this.handleChange(newProps, cb, silent);
+    };
+
+    handleHintsEditorChange: ChangeHandler = (toChange, cb, silent) => {
+        const hints = toChange?.hints ?? [];
+
+        const newProps = {
+            hints: [...hints],
+        };
+
+        this.handleChange(newProps, cb, silent);
     };
 
     changeJSON: (newJson: PerseusItem) => void = (newJson: PerseusItem) => {
         this.setState({
             json: newJson,
         });
-        this.props.onChange(newJson);
+
+        this.handleChange(newJson);
     };
 
     render(): React.ReactNode {
@@ -301,7 +419,7 @@ class EditorPage extends React.Component<Props, State> {
                             question={this.props.question}
                             answerArea={this.props.answerArea}
                             imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
+                            onChange={this.handleItemEditorChange}
                             deviceType={this.props.previewDevice}
                             widgetIsOpen={this.state.widgetsAreOpen}
                             apiOptions={deviceBasedApiOptions}
@@ -317,7 +435,7 @@ class EditorPage extends React.Component<Props, State> {
                             itemId={this.props.itemId}
                             hints={this.props.hints}
                             imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
+                            onChange={this.handleHintsEditorChange}
                             deviceType={this.props.previewDevice}
                             apiOptions={deviceBasedApiOptions}
                             previewURL={this.props.previewURL}
