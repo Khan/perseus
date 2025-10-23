@@ -1,0 +1,141 @@
+import fs from "node:fs/promises";
+import {join} from "node:path";
+
+import {command} from "./platform/command";
+import {gcloudStorage} from "./platform/gcloud-storage";
+
+import type {ContentJsonRepository} from "./content-repository";
+
+export interface GcsContentJsonRepositoryOptions {
+    locale: string;
+    contentVersion: string;
+    /**
+     * A directory in which to store data. The GcsContentJsonRepository will
+     * create the directory if it doesn't yet exist.
+     */
+    dataDirectory: string;
+}
+
+/**
+ * The GcsContentJsonRepository knows where to find content JSON on Google
+ * Cloud Storage (GCS). It keeps track of a local cache of the content on
+ * disk, and avoids re-downloading data if it already has a local copy.
+ *
+ * The main reason this class exists is to make the ContentRepository, which
+ * contains logic and indexes for specific queries, easier to test without
+ * involving or mocking Google Cloud or `jq`.
+ */
+export class GcsContentJsonRepository implements ContentJsonRepository {
+    constructor(private options: GcsContentJsonRepositoryOptions) {}
+
+    async getSnapshotJson(): Promise<string> {
+        const gcloudUrl = `gs://ka-content-data/${this.getLocale()}/snapshot-${this.getContentVersion()}.json`;
+        try {
+            return await this.readLocalSnapshotJsonWithJqFiltering();
+        } catch {
+            // The file doesn't exist or can't be read. Try downloading it.
+            await fs.mkdir(this.getVersionedDataDir(), {recursive: true});
+            await gcloudStorage.cp([gcloudUrl], this.getLocalSnapshotPath(), {
+                project: "khan-academy",
+            });
+            return await this.readLocalSnapshotJsonWithJqFiltering();
+        }
+    }
+
+    async getAssessmentItemJson(
+        exerciseId: string,
+        contentSha: string,
+    ): Promise<string> {
+        const exercisesDir = join(this.getVersionedDataDir(), "exercises");
+        const localFilePath = join(
+            exercisesDir,
+            this.getLocale(),
+            `${exerciseId}-${contentSha}.json`,
+        );
+        const gcloudUrl = `gs://content-property.khanacademy.org/Exercise.TranslatedPerseusContent/${this.getLocale()}`;
+        try {
+            return await fs.readFile(localFilePath, "utf-8");
+        } catch {
+            // The file doesn't exist or can't be read. Download all the exercise content.
+            await fs.mkdir(exercisesDir, {recursive: true});
+            await gcloudStorage.cp([gcloudUrl], exercisesDir, {
+                project: "khan-academy",
+                recursive: true,
+            });
+            return await fs.readFile(localFilePath, "utf-8");
+        }
+    }
+
+    /**
+     * Removes old versions of the content data from disk.
+     */
+    async prune(): Promise<void> {
+        const dataDir = this.getUnversionedDataDir();
+        const contentVersion = this.getContentVersion();
+
+        const dataDirEntries = await fs.readdir(dataDir);
+        for (const entry of dataDirEntries) {
+            if (entry !== contentVersion) {
+                await fs.rm(join(dataDir, entry), {
+                    recursive: true,
+                    force: true,
+                });
+            }
+        }
+    }
+
+    private getLocalSnapshotPath(): string {
+        return join(
+            this.getVersionedDataDir(),
+            `snapshot-${this.getLocale()}.json`,
+        );
+    }
+
+    private getVersionedDataDir(): string {
+        return join(this.getUnversionedDataDir(), this.getContentVersion());
+    }
+
+    private getUnversionedDataDir(): string {
+        return join(this.options.dataDirectory);
+    }
+
+    private getLocale(): string {
+        return this.options.locale;
+    }
+
+    private getContentVersion(): string {
+        return this.options.contentVersion;
+    }
+
+    private async readLocalSnapshotJsonWithJqFiltering(): Promise<string> {
+        // The snapshot data is too large (600 MB) to fit into a NodeJS string.
+        // The maximum size of a string is 512 MB. So we use `jq` to filter the
+        // data to just what we need.
+        const path = this.getLocalSnapshotPath();
+
+        const jqProgram = `
+            {
+                domains: .domains | map(pick(.id, .slug)),
+                courses: .courses | map(pick(.id, .slug, .listedAncestorIds)),
+                units: .units | map(pick(.id, .slug, .listedAncestorIds)),
+                lessons: .lessons | map(pick(.id, .slug, .listedAncestorIds)),
+                exercises: .exercises | map({
+                    exerciseLength: .exerciseLength,
+                    id: .id,
+                    slug: .slug,
+                    translatedPerseusContentSha: .translatedPerseusContentSha,
+                    listedAncestorIds: .listedAncestorIds,
+                    problemTypes: .problemTypes | map({
+                        items: .items  | map(pick(.id, .isContextInaccessible))
+                    }),
+                })
+            }
+        `;
+
+        const getExercisesCommand = command("jq", jqProgram, path);
+        const {stdout: snapshotJson} = await getExercisesCommand
+            .withStdoutToString()
+            .run();
+        return snapshotJson;
+    }
+}
