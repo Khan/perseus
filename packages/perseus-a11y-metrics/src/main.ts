@@ -41,6 +41,8 @@ async function main() {
     // bucket is supposed to be for.
     // TODO(benchristel): should the extension for the data file be .ndjson?
     // See: https://github.com/ndjson/ndjson-spec?tab=readme-ov-file#33-mediatype-and-file-extensions
+    // TODO(LEMS-3674): Script can throw 404 errors when updating an existing object. Until fixed
+    // you might need to append a number at the end to make a new object.
     await gcloudStorage.cp(
         [outputFilePath],
         `gs://khanflow-prod-bq-archive-unused-table-expiration/khan_test/perseus/analytics/exercise-accessibility-data-nl.json`,
