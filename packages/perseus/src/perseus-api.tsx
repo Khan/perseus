@@ -30,8 +30,6 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import StubTagEditor from "./components/stub-tag-editor";
-
 import type {APIOptionsWithDefaults} from "./types";
 
 export const ApiOptions = {
@@ -39,7 +37,6 @@ export const ApiOptions = {
         isArticle: PropTypes.bool.isRequired,
 
         onFocusChange: PropTypes.func.isRequired,
-        GroupMetadataEditor: PropTypes.func.isRequired,
         showAlignmentOptions: PropTypes.bool.isRequired,
         readOnly: PropTypes.bool.isRequired,
 
@@ -132,7 +129,6 @@ export const ApiOptions = {
         isMobile: false,
         isMobileApp: false,
         onFocusChange: function () {},
-        GroupMetadataEditor: StubTagEditor,
         showAlignmentOptions: false,
         readOnly: false,
         groupAnnotator: function (): null {
