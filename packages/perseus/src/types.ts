@@ -143,8 +143,6 @@ export type ImageUploader = (
 
 export type Path = ReadonlyArray<string>;
 
-type StubTagEditorType = any; // from "./components/stub-tag-editor";
-
 type TrackInteractionArgs = {
     // The widget type that this interaction originates from
     type: string;
@@ -184,10 +182,6 @@ export type APIOptions = Readonly<{
         keypadHeight?: number,
         focusedElement?: HTMLElement,
     ) => unknown;
-    /**
-     * @deprecated - metadata is no longer used by the Group widget
-     */
-    GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
     showAlignmentOptions?: boolean;
     /**
      * A boolean that indicates whether the associated problem has been

@@ -170,7 +170,7 @@ class IframeContentRenderer extends React.Component<Props> {
             this._lastData = data;
 
             // We can't use JSON.stringify/parse for this because the apiOptions
-            // includes the functions GroupMetadataEditor, groupAnnotator, and onFocusChange.
+            // includes the functions groupAnnotator, and onFocusChange.
             // @ts-expect-error - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
             window.iframeDataStore[this.iframeID] = data;
             frame.contentWindow.postMessage(this.iframeID, "*");
