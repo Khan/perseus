@@ -727,6 +727,7 @@ export class LabelImage
                                     width={imageWidth}
                                     height={imageHeight}
                                     setAssetStatus={setAssetStatus}
+                                    allowZoom={true}
                                 />
                             )}
                         </AssetContext.Consumer>
