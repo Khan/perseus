@@ -143,6 +143,8 @@ class ImageLoader extends React.Component<Props, State> {
 
         return (
             <img
+                // Class name makes this img findable in Cypress tests.
+                className="image-loader-img"
                 ref={forwardedRef}
                 src={this.props.dependencies.generateUrl({
                     url: src,
