@@ -434,9 +434,10 @@ class Editor extends React.Component<Props, State> {
     handleChange: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void = (
         e: React.SyntheticEvent<HTMLTextAreaElement>,
     ) => {
-        this.setState({textAreaValue: e.currentTarget.value});
-        if (this.state.textAreaValue !== this.props.content) {
-            this.props.onChange({content: this.state.textAreaValue});
+        const newValue = e.currentTarget.value;
+        this.setState({textAreaValue: newValue});
+        if (newValue !== this.props.content) {
+            this.props.onChange({content: newValue});
         }
     };
 
