@@ -10,6 +10,8 @@
 
 import $ from "jquery";
 
+import type React from "react";
+
 /*jshint browser:true, node:true */
 
 /* ========================================================================
@@ -157,8 +159,8 @@ ZoomServiceClass.prototype._initialize = function (enableMobilePinch: any) {
 };
 
 ZoomServiceClass.prototype.handleZoomClick = function (
-    imageRefOrElement: any,
-    enableMobilePinch: any,
+    imageRefOrElement: React.RefObject<HTMLImageElement>,
+    enableMobilePinch: boolean,
     options?: {
         metaKey?: boolean;
         ctrlKey?: boolean;
@@ -168,9 +170,9 @@ ZoomServiceClass.prototype.handleZoomClick = function (
 ) {
     this._initialize(enableMobilePinch);
 
-    const target = imageRefOrElement?.current || imageRefOrElement;
+    const target = imageRefOrElement?.current;
 
-    if (!target || target.tagName !== "IMG") {
+    if (!target) {
         return;
     }
 
