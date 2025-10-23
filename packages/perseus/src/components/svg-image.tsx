@@ -399,7 +399,8 @@ class SvgImage extends React.Component<Props, State> {
             {
                 clickedElement: e.currentTarget as HTMLElement,
                 // Pass the translated string from i18n context
-                zoomedImageAriaLabel: this.context.strings.imageZoomedAriaLabel,
+                zoomedImageAriaLabel:
+                    this.context.strings.imageResetZoomAriaLabel,
                 // Specify if the meta or ctrl key is being pressed.
                 // The zoom service uses this to determine if the image should
                 // be opened in a new tab when clicked.
@@ -486,7 +487,8 @@ class SvgImage extends React.Component<Props, State> {
             if (responsive) {
                 if (this.props.allowZoom) {
                     imageProps.onClick = this._handleZoomClick;
-                    imageProps.clickAriaLabel = "Zoom in on image";
+                    imageProps.clickAriaLabel =
+                        this.context.strings.imageZoomAriaLabel;
                 }
 
                 return (
