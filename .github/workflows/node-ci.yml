@@ -294,6 +294,7 @@ jobs:
         permissions:
             id-token: write # required for publishing to npm with provenance
             pull-requests: write # required because we write a comment on the PR
+            contents: write # STOPSHIP: Remove before landing PR!!
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -341,6 +342,19 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+
+            # STOPSHIP: Remove before landing PR!!
+            - name: Build Storybook
+              # Generate a static version of storybook inside "storybook-static/"
+              run: pnpm build-storybook
+
+            - name: Deploy to GitHub pages
+              uses: JamesIves/github-pages-deploy-action@v4.5.0
+              with:
+                  # The branch the action should deploy to.
+                  branch: gh-pages
+                  # The folder the action should deploy.
+                  folder: storybook-static
 
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
