@@ -1166,7 +1166,34 @@ class Renderer
             if (imagePlaceholder && rImageURL.test(node.content)) {
                 return imagePlaceholder;
             }
-            return node.content;
+
+            // Decode HTML entities from translation systems like Crowdin.
+            // Translation systems inject HTML-encoded text to preserve special
+            // characters during the translation workflow. We need to decode these
+            // entities so they display correctly to translators and end users.
+            // Common entities: &#39; &#x27; &apos; (apostrophe), &quot; (quote)
+            // React will automatically escape any dangerous characters when rendering,
+            // so it's safe to decode these entities here.
+            const decodeHtmlEntities = (text: string): string => {
+                const entityMap: Record<string, string> = {
+                    "&amp;": "&",
+                    "&lt;": "<",
+                    "&gt;": ">",
+                    "&quot;": '"',
+                    "&#x27;": "'",
+                    "&#39;": "'",
+                    "&apos;": "'",
+                    "&#x2F;": "/",
+                    "&#47;": "/",
+                    "&#96;": "`",
+                };
+                return text.replace(
+                    /&(?:amp|lt|gt|quot|#x27|#39|apos|#x2F|#47|#96);/g,
+                    (entity) => entityMap[entity] || entity,
+                );
+            };
+
+            return decodeHtmlEntities(node.content);
         }
         if (node.type === "table" || node.type === "titledTable") {
             const output = PerseusMarkdown.ruleOutput(node, nestedOutput, {

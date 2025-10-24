@@ -620,6 +620,43 @@ describe("perseus markdown", () => {
         });
     });
 
+    describe("output with HTML entities (Crowdin)", () => {
+        it("should keep HTML entities intact in parse output (decoding happens in Renderer)", () => {
+            // Arrange
+            const content = "Don&#39;t worry";
+
+            // Act
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            const parsed = parse(content);
+            const output = basicOutput(parsed);
+
+            // Assert
+            // HTML entities are NOT decoded at the parse/output level.
+            // They are decoded later in the Renderer component (renderer.tsx:1172-1191)
+            // This test verifies that entities are preserved through parsing
+            expect(output).toMatchSnapshot();
+        });
+
+        it("should keep HTML entities intact during parsing", () => {
+            // Arrange
+            const content = "Don&#39;t worry";
+
+            // Act
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            const parsed = parse(content);
+
+            // Assert
+            // Verify that HTML entities are kept together in a single text node
+            // (not split across multiple nodes). This is important so the Renderer
+            // can properly decode them.
+            expect(parsed).toHaveLength(1);
+            expect(parsed[0].type).toBe("paragraph");
+            expect(parsed[0].content).toHaveLength(1);
+            expect(parsed[0].content[0].type).toBe("text");
+            expect(parsed[0].content[0].content).toBe("Don&#39;t worry");
+        });
+    });
+
     describe("characterCount", () => {
         it.each([
             ["", 0],

@@ -152,6 +152,16 @@ exports[`perseus markdown output should render \`\`\`alt screenreader blocks 1`]
 ]
 `;
 
+exports[`perseus markdown output with HTML entities (Crowdin) should keep HTML entities intact in parse output (decoding happens in Renderer) 1`] = `
+[
+  <div
+    className="paragraph"
+  >
+    Don&#39;t worry
+  </div>,
+]
+`;
+
 exports[`perseus markdown output with linter should output titled table with unescaped dollars in lint 1`] = `
 [
   <div

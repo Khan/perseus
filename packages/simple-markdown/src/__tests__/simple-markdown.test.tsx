@@ -2083,12 +2083,16 @@ describe("simple markdown", function () {
             var parsed = blockParse(
                 "paragraph # text\n" + "more paragraph\n\n",
             );
+            // Note: With &#; in the allowed character set (for HTML entity preservation),
+            // the # character mid-paragraph is treated as regular text and doesn't split nodes.
             validateParse(parsed, [
                 {
                     type: "paragraph",
                     content: [
-                        {content: "paragraph ", type: "text"},
-                        {content: "# text\nmore paragraph", type: "text"},
+                        {
+                            content: "paragraph # text\nmore paragraph",
+                            type: "text",
+                        },
                     ],
                 },
             ]);
