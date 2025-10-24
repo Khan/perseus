@@ -34,6 +34,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         permissions:
             id-token: write # required for publishing to npm with provenance
+            contents: write
         strategy:
             matrix:
                 os: [ubuntu-latest]
