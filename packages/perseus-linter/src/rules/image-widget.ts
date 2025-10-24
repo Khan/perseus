@@ -28,15 +28,21 @@ export default Rule.makeRule({
             return;
         }
 
-        // Make sure there is alt text
+        // Decorative images don't need alt text validation
+        if (widget.options.decorative) {
+            return;
+        }
+
         const alt = widget.options.alt;
+
+        // Non-decorative images must have alt text
         if (!alt) {
             return `Images should have alt text:
 for accessibility, all images should have a text description.
 Add a description in the "Alt Text" box of the image widget.`;
         }
 
-        // Make sure the alt text it is not trivial
+        // Alt text must be descriptive (at least 8 characters)
         if (alt.trim().length < 8) {
             return `Images should have alt text:
 for accessibility, all images should have descriptive alt text.

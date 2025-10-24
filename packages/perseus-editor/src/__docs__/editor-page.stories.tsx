@@ -1,4 +1,5 @@
 import {getSaveWarningsForItem} from "@khanacademy/perseus";
+import {PerseusFeatureFlags} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {
@@ -33,8 +34,30 @@ export default {
 
 const onChangeAction = action("onChange");
 
+/**
+ * Current state of the editor page. (All feature flags are off.)
+ */
 export const Demo = (): React.ReactElement => {
     return <EditorPageWithStorybookPreview />;
+};
+
+/**
+ * Editor with all feature flags on.
+ */
+export const WithAllFlags = (): React.ReactElement => {
+    const allFlags: Record<string, boolean> = {};
+
+    for (const flag of PerseusFeatureFlags) {
+        allFlags[flag] = true;
+    }
+
+    return (
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: allFlags,
+            }}
+        />
+    );
 };
 
 export const WithSaveWarningsCurrent = (): React.ReactElement => {

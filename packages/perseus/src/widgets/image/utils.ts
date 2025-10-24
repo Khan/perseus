@@ -15,3 +15,12 @@ export const monasteryImage = {
     width: 448,
     height: 500,
 };
+
+export const scienceImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/4f38f705977774bcac3b5bed9f81b56710abc8b0.png",
+    width: 300,
+    height: 223,
+};
+export const scienceImageCaption =
+    "*A diagram of prophase. During this stage of mitosis, chromosomes condense, the nuclear envelope breaks apart, and the mitotic spindle begins to form. Created with [Biorender.com](BioRender.com).*";
+export const scienceImageAlt = "A diagram shows a single, circular cell.";

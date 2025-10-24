@@ -3,6 +3,7 @@ import {Widgets, excludeDenylistKeys, iconTrash} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
+    isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -145,7 +146,12 @@ class WidgetEditor extends React.Component<
 
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
-        if (this.props.apiOptions.showAlignmentOptions) {
+        const imageUpgradeFF = isFeatureOn(this.props, "image-widget-upgrade");
+
+        if (widgetInfo.type === "image" && !imageUpgradeFF) {
+            // TODO(LEMS-3520): Feature flag cleanup
+            supportedAlignments = ["block", "full-width"];
+        } else if (this.props.apiOptions.showAlignmentOptions) {
             supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
                 widgetInfo.type,
             );

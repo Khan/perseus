@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 71.3.1
+
+### Patch Changes
+
+-   [#2971](https://github.com/Khan/perseus/pull/2971) [`251f569213`](https://github.com/Khan/perseus/commit/251f56921327ea75a62ac8ba2647eba912d29e10) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix image not displaying in exercise translator
+
+## 71.3.0
+
+### Minor Changes
+
+-   [#2964](https://github.com/Khan/perseus/pull/2964) [`47ba785e06`](https://github.com/Khan/perseus/commit/47ba785e06a85b7592c55da19ffa3656bea710b7) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add support for aligning the image widget to float left or float right
+
+### Patch Changes
+
+-   [#2965](https://github.com/Khan/perseus/pull/2965) [`3c32921888`](https://github.com/Khan/perseus/commit/3c3292188854a1ad4338c418a52ab27f3d4f2198) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Make choice indicator read math when using screen reader
+
+-   Updated dependencies [[`3d5bb1b0b5`](https://github.com/Khan/perseus/commit/3d5bb1b0b5c5cbd2b78974ddf826d93752f5bd66), [`47ba785e06`](https://github.com/Khan/perseus/commit/47ba785e06a85b7592c55da19ffa3656bea710b7)]:
+    -   @khanacademy/perseus-core@20.1.0
+    -   @khanacademy/keypad-context@3.2.12
+    -   @khanacademy/kmath@2.2.12
+    -   @khanacademy/math-input@26.2.13
+    -   @khanacademy/perseus-linter@4.4.2
+    -   @khanacademy/perseus-score@8.0.1
+
 ## 71.2.3
 
 ### Patch Changes

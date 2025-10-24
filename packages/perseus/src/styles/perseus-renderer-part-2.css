@@ -1,17 +1,5 @@
-.perseus-widget-container.widget-nohighlight {
-    transition: all 0.15s;
-}
-.perseus-widget-container.widget-highlight {
-    box-shadow: 0px 0px 0px 2px #ffa500;
-    transition: all 0.15s;
-}
-.perseus-widget-container.widget-inline {
-    display: inline;
-}
-.perseus-widget-container.widget-inline-block {
-    display: inline-block;
-    vertical-align: bottom;
-}
+/* All perseus-widget-container styles moved to widget-container.css */
+
 .bibliotron-exercise .perseus-hint-renderer {
     border-left: 4px solid #f6f7f7;
     padding-left: 16px;
