@@ -135,7 +135,12 @@ pnpm changeset version --snapshot "$PR_NUMBER"
 # tag that always exists).
 # You can see this for yourself by running:
 # `pnpm info react --json | jq '.data["dist-tags"]'
-pnpm changeset publish --no-git-tag --tag "${PR_NUMBER}"
+#
+# Note: We set this so that (p)npm publish will include the
+# provenance information in the package.json file and surface
+# it in the npm registry.
+# See: https://docs.npmjs.com/generating-provenance-statements
+pnpm changeset publish --no-git-tag --tag "${PR_NUMBER}" --provenance
 
 # Now we export the npm tag name so that later Github Action steps have access
 # to this value in the form of:
