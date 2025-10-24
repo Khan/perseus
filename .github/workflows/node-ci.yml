@@ -293,8 +293,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         permissions:
             id-token: write # required for publishing to npm with provenance
-            issues: write # required because we write a comment on the PR
-            contents: write # required because we write a comment on the PR
+            pull-requests: write # required because we write a comment on the PR
         strategy:
             matrix:
                 os: [ubuntu-latest]
