@@ -202,7 +202,6 @@ module.exports = {
     ],
     rules: {
         "new-cap": "off",
-        "no-alert": "error",
         "no-invalid-this": "off", // @typescript-eslint/no-invalid-this supersedes it
         "no-unused-expressions": "off", // @typescript-eslint/no-unused-expression supersedes it
         "object-curly-spacing": "off",
