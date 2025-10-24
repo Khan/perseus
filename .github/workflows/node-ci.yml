@@ -291,6 +291,8 @@ jobs:
         if: |
             !startsWith(github.head_ref, 'changeset-release/')
         runs-on: ${{ matrix.os }}
+        permissions:
+            id-token: write # required for publishing to npm with provenance
         strategy:
             matrix:
                 os: [ubuntu-latest]
