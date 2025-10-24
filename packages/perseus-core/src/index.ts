@@ -38,6 +38,7 @@ export {
 } from "./utils/test-utils";
 export {itemHasRationales} from "./utils/item-has-rationales";
 export {itemHasHints} from "./utils/item-has-hints";
+export {getSaveWarningsForItem} from "./utils/get-save-warnings-for-item";
 
 export {
     parsePerseusItem,

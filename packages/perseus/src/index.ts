@@ -106,7 +106,6 @@ export {
     getAnswerFromUserInput,
     getImagesWithoutAltData,
 } from "./util/extract-perseus-data";
-export {getSaveWarningsForItem} from "./util/get-save-warnings-for-item";
 export {
     /**
      * @deprecated - import this function from perseus-core instead
