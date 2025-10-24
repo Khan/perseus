@@ -41,6 +41,7 @@ type RendererProps = {
 };
 
 type JsonType = RendererProps | ReadonlyArray<RendererProps>;
+
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
     json: JsonType;
@@ -133,9 +134,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _sections(): ReadonlyArray<RendererProps> {
-        return Array.isArray(this.props.json)
-            ? this.props.json
-            : [this.props.json];
+        const json = this.props.json;
+        return json instanceof Array ? json : [json];
     }
 
     _renderEditor(): React.ReactElement<React.ComponentProps<"div">> {
