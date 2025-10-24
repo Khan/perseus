@@ -1,5 +1,16 @@
 # @khanacademy/math-input
 
+## 26.2.14
+
+### Patch Changes
+
+-   [#2982](https://github.com/Khan/perseus/pull/2982) [`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Include provenance information when publishing to npmjs
+
+-   Updated dependencies [[`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374)]:
+    -   @khanacademy/keypad-context@3.2.13
+    -   @khanacademy/perseus-core@20.1.1
+    -   @khanacademy/perseus-utils@2.1.1
+
 ## 26.2.13
 
 ### Patch Changes
