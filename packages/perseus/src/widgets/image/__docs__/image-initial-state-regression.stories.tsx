@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {themeModes} from "../../../../../../.storybook/modes";
 import {getWidget} from "../../../widgets";
 import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
@@ -38,7 +39,13 @@ const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
     component: ImageWidget,
     parameters: {
-        chromatic: {disableSnapshot: false},
+        docs: {
+            description: {
+                component:
+                    "Regression tests for the Image widget that do NOT need any interactions to test, which will be used with Chromatic. Stories are all displayed on one page.",
+            },
+        },
+        chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
 export default meta;
