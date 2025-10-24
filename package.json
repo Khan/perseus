@@ -123,7 +123,7 @@
         "style-loader": "^3.3.3",
         "swc_mut_cjs_exports": "^8.0.1",
         "tiny-invariant": "catalog:devDeps",
-        "typescript": "5.7.2",
+        "typescript": "5.9.3",
         "typescript-coverage-report": "^0.7.0",
         "typescript-plugin-css-modules": "^5.1.0",
         "vite": "catalog:devDeps",
