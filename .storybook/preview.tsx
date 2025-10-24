@@ -4,16 +4,15 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
     ThemeSwitcher,
-    ThemeSwitcherContext,
 } from "@khanacademy/wonder-blocks-theming";
 
 import {
-    DependenciesContext,
     setDependencies,
+    DependenciesContext,
 } from "../packages/perseus/src/dependencies";
 import {
-    storybookDependenciesV2,
     storybookTestDependencies,
+    storybookDependenciesV2,
 } from "../testing/test-dependencies";
 
 // This will bring in the shared styles from prod so that the components can
@@ -56,9 +55,9 @@ const withThemeSwitcher: Decorator = (Story, context: StoryContext) => {
     }, [theme]);
 
     return (
-            <ThemeSwitcher theme={theme}>
-                <Story />
-            </ThemeSwitcher>
+        <ThemeSwitcher theme={theme}>
+            <Story />
+        </ThemeSwitcher>
     );
 };
 
