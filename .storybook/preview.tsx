@@ -1,7 +1,11 @@
 import * as React from "react";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {ThemeSwitcher} from "@khanacademy/wonder-blocks-theming";
+import {
+    ThemeSwitcherContext,
+    ThemeSwitcher,
+    THEME_DATA_ATTRIBUTE,
+} from "@khanacademy/wonder-blocks-theming";
 
 import {
     setDependencies,
@@ -16,7 +20,7 @@ import {
 // have the same styles as prod when viewed within Storybook.
 import "./styles/shared.css";
 
-import type {Decorator, Preview} from "@storybook/react-vite";
+import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
@@ -42,13 +46,38 @@ const withPerseusDecorator: Decorator = (Story) => {
     );
 };
 
-const withThemeSwitcher: Decorator = (Story, context) => {
+const withThemeSwitcher: Decorator = (
+    Story,
+    context: StoryContext,
+) => {
     const theme = context.globals.theme;
+    const [localTheme, setLocalTheme] = React.useState(null);
+    React.useEffect(() => {
+        if (theme) {
+            // Switch the body class based on the theme.
+            document.body.setAttribute(THEME_DATA_ATTRIBUTE, theme);
+            setLocalTheme(theme);
+        }
+    }, [theme]);
+
+    if (context.parameters.enableRenderStateRootDecorator) {
+        return (
+            <RenderStateRoot key={localTheme}>
+                <ThemeSwitcherContext.Provider value={theme}>
+                    <ThemeSwitcher theme={theme}>
+                        <Story />
+                    </ThemeSwitcher>
+                </ThemeSwitcherContext.Provider>
+            </RenderStateRoot>
+        );
+    }
 
     return (
-        <ThemeSwitcher theme={theme}>
-            <Story />
-        </ThemeSwitcher>
+        <ThemeSwitcherContext.Provider value={theme} key={localTheme}>
+            <ThemeSwitcher theme={theme}>
+                <Story />
+            </ThemeSwitcher>
+        </ThemeSwitcherContext.Provider>
     );
 };
 
