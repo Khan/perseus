@@ -70,6 +70,11 @@ jobs:
                   # repo scope.
                   GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  # We set this so that (p)npm publish will include the
+                  # provenance information in the package.json file and surface
+                  # it in the npm registry.
+                  # See: https://docs.npmjs.com/generating-provenance-statements
+                  NPM_CONFIG_PROVENANCE: true
 
             - name: Send a Slack notification if a publish fails
               if: failure()
