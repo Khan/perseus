@@ -2,8 +2,6 @@
 /* eslint-disable react/no-unsafe */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
-import classNames from "classnames";
-import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
@@ -14,15 +12,13 @@ import * as Zoom from "../zoom";
 
 import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
+import {PerseusI18nContext} from "./i18n-context";
 import ImageLoader from "./image-loader";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
 import type {Dimensions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
-
-// Minimum image width to make an image appear as zoomable.
-const ZOOMABLE_THRESHOLD = 700;
 
 function isImageProbablyPhotograph(imageUrl) {
     // TODO(david): Do an inventory to refine this heuristic. For example, what
@@ -52,6 +48,7 @@ function defaultPreloader(dimensions: Dimensions) {
 
 type Props = {
     allowFullBleed?: boolean;
+    allowZoom?: boolean;
     alt: string;
     constrainHeight?: boolean;
     extraGraphie?: {
@@ -143,6 +140,9 @@ type State = {
 };
 
 class SvgImage extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _isMounted: boolean;
 
     static defaultProps: DefaultProps = {
@@ -154,6 +154,10 @@ class SvgImage extends React.Component<Props, State> {
         zoomToFullSizeOnMobile: false,
         setAssetStatus: (src: string, status: boolean) => {},
     };
+
+    // Create a ref to the underlying image element. This is used within the
+    // Zoom service to reference the image element to zoom into.
+    imageRef: React.RefObject<HTMLImageElement> = React.createRef();
 
     constructor(props: Props) {
         super(props);
@@ -377,27 +381,34 @@ class SvgImage extends React.Component<Props, State> {
     _handleZoomClick: (e: React.SyntheticEvent) => void = (
         e: React.SyntheticEvent,
     ) => {
-        const $image = $(e.target);
-
-        // It's possible that the image is already displayed at its
-        // full size, but we don't really know that until we get a chance
-        // to measure it (just now, after the user clicks). We only zoom
-        // if there's more image to be shown.
-        //
-        // TODO(kevindangoor) If the window is narrow and the image is
-        // already displayed as wide as possible, we may want to do
-        // nothing in that case as well. Figuring this out correctly
-        // likely required accounting for the image alignment and margins.
-        if (
-            // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-            $image.width() < this.props.width ||
-            this.props.zoomToFullSizeOnMobile
-        ) {
-            Zoom.ZoomService.handleZoomClick(
-                e,
-                this.props.zoomToFullSizeOnMobile,
-            );
+        // Don't attempt to zoom if the image ref isn't available or the
+        // image hasn't finished loading yet
+        if (!this.imageRef.current || !this.state.imageLoaded) {
+            return;
         }
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        // Pass the image ref and the clicked element to the zoom service.
+        // The image is the target element to zoom into, and the clicked
+        // element will be refocused after exiting the zoom view.
+        Zoom.ZoomService.handleZoomClick(
+            this.imageRef,
+            this.props.zoomToFullSizeOnMobile,
+            {
+                clickedElement: e.currentTarget as HTMLElement,
+                // Pass the translated string from i18n context
+                zoomedImageAriaLabel:
+                    this.context.strings.imageResetZoomAriaLabel,
+                // Specify if the meta or ctrl key is being pressed.
+                // The zoom service uses this to determine if the image should
+                // be opened in a new tab when clicked.
+                metaKey: (e as React.KeyboardEvent).metaKey || false,
+                ctrlKey: (e as React.KeyboardEvent).ctrlKey || false,
+            },
+        );
+
         this.props.trackInteraction?.();
     };
 
@@ -474,17 +485,15 @@ class SvgImage extends React.Component<Props, State> {
         // Just use a normal image if a normal image is provided
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
-                const wrapperClasses = classNames({
-                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                    zoomable: (width || 0) > ZOOMABLE_THRESHOLD,
-                    "svg-image": true,
-                });
-
-                imageProps.onClick = this._handleZoomClick;
+                if (this.props.allowZoom) {
+                    imageProps.onClick = this._handleZoomClick;
+                    imageProps.clickAriaLabel =
+                        this.context.strings.imageZoomAriaLabel;
+                }
 
                 return (
                     <FixedToResponsive
-                        className={wrapperClasses}
+                        className="svg-image"
                         width={width}
                         height={height}
                         constrainHeight={this.props.constrainHeight}
@@ -494,6 +503,7 @@ class SvgImage extends React.Component<Props, State> {
                         }
                     >
                         <ImageLoader
+                            forwardedRef={this.imageRef}
                             src={imageSrc}
                             imgProps={imageProps}
                             preloader={preloader}
