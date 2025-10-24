@@ -140,7 +140,7 @@ pnpm changeset version --snapshot "$PR_NUMBER"
 # provenance information in the package.json file and surface
 # it in the npm registry.
 # See: https://docs.npmjs.com/generating-provenance-statements
-pnpm changeset publish --no-git-tag --tag "${PR_NUMBER}" --provenance
+env NPM_CONFIG_PROVENANCE=true pnpm changeset publish --no-git-tag --tag "${PR_NUMBER}"
 
 # Now we export the npm tag name so that later Github Action steps have access
 # to this value in the form of:
