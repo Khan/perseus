@@ -2,18 +2,18 @@ import * as React from "react";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
-    ThemeSwitcherContext,
-    ThemeSwitcher,
     THEME_DATA_ATTRIBUTE,
+    ThemeSwitcher,
+    ThemeSwitcherContext,
 } from "@khanacademy/wonder-blocks-theming";
 
 import {
-    setDependencies,
     DependenciesContext,
+    setDependencies,
 } from "../packages/perseus/src/dependencies";
 import {
-    storybookTestDependencies,
     storybookDependenciesV2,
+    storybookTestDependencies,
 } from "../testing/test-dependencies";
 
 // This will bring in the shared styles from prod so that the components can
@@ -46,10 +46,7 @@ const withPerseusDecorator: Decorator = (Story) => {
     );
 };
 
-const withThemeSwitcher: Decorator = (
-    Story,
-    context: StoryContext,
-) => {
+const withThemeSwitcher: Decorator = (Story, context: StoryContext) => {
     const theme = context.globals.theme;
     const [localTheme, setLocalTheme] = React.useState(null);
     React.useEffect(() => {
