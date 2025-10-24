@@ -48,33 +48,17 @@ const withPerseusDecorator: Decorator = (Story) => {
 
 const withThemeSwitcher: Decorator = (Story, context: StoryContext) => {
     const theme = context.globals.theme;
-    const [localTheme, setLocalTheme] = React.useState(null);
     React.useEffect(() => {
         if (theme) {
             // Switch the body class based on the theme.
             document.body.setAttribute(THEME_DATA_ATTRIBUTE, theme);
-            setLocalTheme(theme);
         }
     }, [theme]);
 
-    if (context.parameters.enableRenderStateRootDecorator) {
-        return (
-            <RenderStateRoot key={localTheme}>
-                <ThemeSwitcherContext.Provider value={theme}>
-                    <ThemeSwitcher theme={theme}>
-                        <Story />
-                    </ThemeSwitcher>
-                </ThemeSwitcherContext.Provider>
-            </RenderStateRoot>
-        );
-    }
-
     return (
-        <ThemeSwitcherContext.Provider value={theme} key={localTheme}>
             <ThemeSwitcher theme={theme}>
                 <Story />
             </ThemeSwitcher>
-        </ThemeSwitcherContext.Provider>
     );
 };
 
