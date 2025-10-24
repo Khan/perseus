@@ -107,22 +107,6 @@ class Group extends React.Component<Props> implements Widget {
             },
         };
 
-        // Allow a problem number annotation to be added.
-        // This is cyclical and should probably be reconsidered. In order to
-        // render the annotation ("Question 3 of 10"), we call findWidgets to
-        // figure out our index in the list of all fellow group widgets. On
-        // first render, though, we don't exist yet in this list, and so we
-        // give ourselves number -1. To combat this, we forceUpdate in
-        // componentDidMount so that we can number ourselves properly. But,
-        // really we should have a more unidirectional flow. TODO(marcia): fix.
-        const groupWidgets: ReadonlyArray<Widget> =
-            this.props.findWidgets("group");
-        const number: number = groupWidgets.indexOf(this);
-        const problemNumComponent = this.props.apiOptions.groupAnnotator(
-            number,
-            this.props.widgetId,
-        );
-
         // TODO(mdr): Widgets inside this Renderer are not discoverable through
         //     the parent Renderer's `findWidgets` function.
         return (
@@ -131,7 +115,6 @@ class Group extends React.Component<Props> implements Widget {
                     "perseus-group": true,
                 })}
             >
-                {problemNumComponent}
                 <Renderer
                     userInput={this.props.userInput}
                     handleUserInput={(widgetId, userInput) => {
