@@ -1,5 +1,15 @@
 # @khanacademy/pure-markdown
 
+## 2.2.1
+
+### Patch Changes
+
+-   [#2982](https://github.com/Khan/perseus/pull/2982) [`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Include provenance information when publishing to npmjs
+
+-   Updated dependencies [[`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374)]:
+    -   @khanacademy/perseus-utils@2.1.1
+    -   @khanacademy/simple-markdown@2.1.1
+
 ## 2.2.0
 
 ### Minor Changes

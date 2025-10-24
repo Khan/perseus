@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 71.3.2
+
+### Patch Changes
+
+-   [#2982](https://github.com/Khan/perseus/pull/2982) [`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Include provenance information when publishing to npmjs
+
+-   Updated dependencies [[`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374), [`f5fa5d5203`](https://github.com/Khan/perseus/commit/f5fa5d520333e747ae65a0d3b5bc6bda79b3e7f1)]:
+    -   @khanacademy/kas@2.1.3
+    -   @khanacademy/keypad-context@3.2.13
+    -   @khanacademy/kmath@2.2.13
+    -   @khanacademy/math-input@26.2.14
+    -   @khanacademy/perseus-core@20.1.1
+    -   @khanacademy/perseus-linter@4.4.3
+    -   @khanacademy/perseus-score@8.0.2
+    -   @khanacademy/perseus-utils@2.1.1
+    -   @khanacademy/pure-markdown@2.2.1
+    -   @khanacademy/simple-markdown@2.1.1
+
 ## 71.3.1
 
 ### Patch Changes
