@@ -1641,6 +1641,77 @@ describe("isDifferentQuestion", () => {
     });
 });
 
+describe("HTML entity decoding (Crowdin)", () => {
+    it("should decode apostrophe HTML entities in text content", () => {
+        // Arrange - Content with HTML entities like from Crowdin translations
+        const question: PerseusRenderer = {
+            content: "Don&#39;t worry, it&#39;s fine!",
+            images: {},
+            widgets: {},
+        };
+
+        // Act
+        renderQuestion(question);
+
+        // Assert - Entities should be decoded to actual apostrophes
+        expect(screen.getByText("Don't worry, it's fine!")).toBeInTheDocument();
+    });
+
+    it("should decode multiple HTML entity formats", () => {
+        // Arrange - Different entity formats for apostrophe
+        const question: PerseusRenderer = {
+            content:
+                "Test &#39;numeric&#39;, &#x27;hex&#x27;, and &apos;named&apos; entities.",
+            images: {},
+            widgets: {},
+        };
+
+        // Act
+        renderQuestion(question);
+
+        // Assert - All formats should be decoded
+        expect(
+            screen.getByText("Test 'numeric', 'hex', and 'named' entities."),
+        ).toBeInTheDocument();
+    });
+
+    it("should decode other common HTML entities", () => {
+        // Arrange
+        const question: PerseusRenderer = {
+            content: "5 &lt; 10 &amp; 20 &gt; 15",
+            images: {},
+            widgets: {},
+        };
+
+        // Act
+        renderQuestion(question);
+
+        // Assert
+        expect(screen.getByText("5 < 10 & 20 > 15")).toBeInTheDocument();
+    });
+
+    it("should decode entities in multiple paragraphs", () => {
+        // Arrange
+        const question: PerseusRenderer = {
+            content:
+                "First paragraph with &#39;quotes&#39;.\n\nSecond paragraph with &amp; symbols.",
+            images: {},
+            widgets: {},
+        };
+
+        // Act
+        renderQuestion(question);
+
+        // Assert
+        expect(
+            screen.getByText(/First paragraph with 'quotes'/),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/Second paragraph with & symbols/),
+        ).toBeInTheDocument();
+    });
+});
+
 testWidgetIdExtraction(
     "the Renderer component",
     (question: PerseusRenderer) => {
