@@ -69,7 +69,7 @@ describe("Editor", () => {
         );
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({content: ""});
+        expect(onChangeMock).toHaveBeenCalledWith({content: "", widgets: {}});
     });
 
     it("should NOT delete widget if not confirmed", async () => {
