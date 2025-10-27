@@ -1,6 +1,7 @@
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
+    RadioWidget,
 } from "../../data-schema";
 
 /**
@@ -38,6 +39,26 @@ function getRadioChoicePublicData(
         content,
         isNoneOfTheAbove,
     };
+}
+
+export function getSaveWarningsForRadioWidget(
+    widget: RadioWidget,
+): Array<string> {
+    const issues: Array<string> = [];
+
+    // Radio widget must have at least one correct choice.
+    let hasCorrectChoice = false;
+    for (const choice of widget.options.choices) {
+        if (choice.correct) {
+            hasCorrectChoice = true;
+            break;
+        }
+    }
+    if (!hasCorrectChoice) {
+        issues.push("No choice is marked as correct.");
+    }
+
+    return issues;
 }
 
 /**

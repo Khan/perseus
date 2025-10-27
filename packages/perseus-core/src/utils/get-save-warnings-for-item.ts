@@ -1,12 +1,23 @@
 import {traverse} from "../traversal";
+import {getSaveWarningsFnForWidget} from "../widgets/core-widget-registry";
 
-import type {PerseusItem, RadioWidget} from "../data-schema";
+import type {PerseusItem} from "../data-schema";
 
-// The save warning functions that correspond to each widget type.
-// Found in each widget's respective file.
-const widgetTypeToSaveWarningFunction = {
-    radio: getSaveWarningsForRadioWidget,
-};
+/* TODO(LEMS-3643): The following widgets have getSaveWarnings implemented
+within their editors.
+ - Expression
+ - Free Response
+ - Graded Group
+ - Graded Group Set
+ - Group
+ - Matcher
+ - Numeric Input
+ - Phet Simulation
+ - Python Program
+ - Interactive Graph
+ - Label Image
+ - Radio (already done)
+*/
 
 // TODO(LEMS-3643): Remove the "WORK IN PROGRESS" comment below once all
 // widgets have been migrated and the function is ready for use.
@@ -30,49 +41,12 @@ export function getSaveWarningsForItem(item: PerseusItem): Array<string> {
         null,
         // widgetCallback - called for each widget in the tree, including nested widgets
         (widgetInfo, _) => {
-            const saveWarningFunction =
-                widgetTypeToSaveWarningFunction[widgetInfo.type];
-            if (saveWarningFunction) {
-                const saveWarnings = saveWarningFunction(widgetInfo);
-                allSaveWarnings.push(...saveWarnings);
-            }
+            const saveWarningsFn = getSaveWarningsFnForWidget(widgetInfo.type);
+            const saveWarnings = saveWarningsFn(widgetInfo);
+            allSaveWarnings.push(...saveWarnings);
             return undefined; // keep the widget unchanged
         },
     );
 
     return allSaveWarnings;
-}
-
-/* TODO(LEMS-3643): The following widgets have getSaveWarnings implemented
-within their editors. Migrate them here:
- - Expression
- - Free Response
- - Graded Group
- - Graded Group Set
- - Group
- - Matcher
- - Numeric Input
- - Phet Simulation
- - Python Program
- - Interactive Graph
- - Label Image
- - Radio (already done)
-*/
-
-function getSaveWarningsForRadioWidget(widget: RadioWidget): Array<string> {
-    const issues: Array<string> = [];
-
-    // Radio widget must have at least one correct choice.
-    let hasCorrectChoice = false;
-    for (const choice of widget.options.choices) {
-        if (choice.correct) {
-            hasCorrectChoice = true;
-            break;
-        }
-    }
-    if (!hasCorrectChoice) {
-        issues.push("No choice is marked as correct.");
-    }
-
-    return issues;
 }

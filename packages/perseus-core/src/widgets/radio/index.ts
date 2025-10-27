@@ -1,4 +1,6 @@
-import getRadioPublicWidgetOptions from "./radio-util";
+import getRadioPublicWidgetOptions, {
+    getSaveWarningsForRadioWidget,
+} from "./radio-util";
 
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
@@ -34,6 +36,7 @@ const radioWidgetLogic: WidgetLogic = {
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
     getPublicWidgetOptions: getRadioPublicWidgetOptions,
+    getSaveWarnings: getSaveWarningsForRadioWidget,
     accessible: true,
 };
 
