@@ -1,9 +1,15 @@
 import {radioQuestionBuilder} from "../../../perseus/src/widgets/radio/radio-question-builder";
+import {registerCoreWidgets} from "../widgets/core-widget-registry";
 
 import {getSaveWarningsForItem} from "./get-save-warnings-for-item";
 import {generateTestPerseusItem} from "./test-utils";
 
+import type {ExplanationWidget, RadioWidget} from "../data-schema";
+
 describe("getSaveWarningsForItem", () => {
+    beforeAll(() => {
+        registerCoreWidgets();
+    });
     it("should return an empty array for an empty item", () => {
         const item = generateTestPerseusItem();
         expect(getSaveWarningsForItem(item)).toEqual([]);
@@ -14,6 +20,51 @@ describe("getSaveWarningsForItem", () => {
             question: {content: "Hello world!", widgets: {}, images: {}},
         });
         expect(getSaveWarningsForItem(item)).toEqual([]);
+    });
+
+    it("should return warnings for nested widgets", () => {
+        // Arrange
+        const radioWidget: RadioWidget = {
+            type: "radio",
+            options: {
+                choices: [
+                    {
+                        id: "radio-choice-0",
+                        content: "Incorrect",
+                        correct: false,
+                    },
+                ],
+            },
+        };
+
+        const explanationWidgetWithNestedRadio: ExplanationWidget = {
+            type: "explanation",
+            options: {
+                explanation: "Explanation",
+                widgets: {
+                    "radio 1": radioWidget,
+                },
+                showPrompt: "Show",
+                hidePrompt: "Hide",
+                static: false,
+            },
+        };
+
+        const item = generateTestPerseusItem({
+            question: {
+                content: "[[☃ explanation 1]]",
+                widgets: {
+                    "explanation 1": explanationWidgetWithNestedRadio,
+                },
+                images: {},
+            },
+        });
+
+        // Act
+        const warnings = getSaveWarningsForItem(item);
+
+        // Assert
+        expect(warnings).toEqual(["No choice is marked as correct."]);
     });
 
     describe("radio widget", () => {

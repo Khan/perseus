@@ -1,4 +1,6 @@
-import type {PerseusItem, PerseusWidgetsMap, RadioWidget} from "../data-schema";
+import {traverse} from "../traversal";
+
+import type {PerseusItem, RadioWidget} from "../data-schema";
 
 /* ------- Main save warnings function for the whole item ------- */
 
@@ -15,24 +17,27 @@ import type {PerseusItem, PerseusWidgetsMap, RadioWidget} from "../data-schema";
  */
 export function getSaveWarningsForItem(item: PerseusItem): Array<string> {
     const allSaveWarnings: Array<string> = [];
-    const widgets: PerseusWidgetsMap = item.question.widgets;
-    const content = item.question.content;
 
-    // Only check widgets that are actually referenced in the content
-    // (widgets can remain in the widgets object after being deleted from content)
-    for (const [widgetId, widget] of Object.entries(widgets)) {
-        if (!content.includes(widgetId)) {
-            continue;
-        }
-
-        switch (widget.type) {
-            case "radio":
-                allSaveWarnings.push(...getSaveWarningsForRadioWidget(widget));
-                break;
-            default:
-                break;
-        }
-    }
+    // Use traverse to check all widgets, including nested widgets
+    // (e.g., widgets inside graded-group, explanation, etc.)
+    traverse(
+        item.question,
+        null, // contentCallback - not needed for this use case
+        (widgetInfo, _) => {
+            // widgetCallback - called for each widget in the tree
+            switch (widgetInfo.type) {
+                case "radio":
+                    allSaveWarnings.push(
+                        ...getSaveWarningsForRadioWidget(widgetInfo),
+                    );
+                    break;
+                default:
+                    break;
+            }
+            // Return undefined to keep the widget unchanged
+            return undefined;
+        },
+    );
 
     return allSaveWarnings;
 }
