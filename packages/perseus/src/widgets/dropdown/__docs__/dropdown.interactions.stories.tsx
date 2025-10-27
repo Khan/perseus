@@ -26,13 +26,13 @@ export default {
 } satisfies Meta;
 
 /**
- * Tests dropdown styling in article context with paragraph text and math in choices.
- * This tests the CSS rule:
+ * Tests dropdown styling in article context with paragraph text and block math in choices.
+ * This tests the CSS rules:
  * .perseus-article .perseus-dropdown .perseus-renderer .paragraph
- * which sets margin-bottom: 0 and font-size: 18px
+ * .perseus-article .perseus-dropdown .perseus-renderer .perseus-block-math
+ * which set margin-bottom: 0 and font-size: 18px
  *
- * Note: The CSS rule also mentions .perseus-block-math, but block math ($$...$$)
- * does not actually render in dropdown choices - it gets converted to inline math.
+ * Block math is math that appears on its own line (followed by two newlines).
  */
 export const OpenedDropdownInArticleWithParagraphs = (): React.ReactNode => {
     const question: PerseusRenderer = {
@@ -51,17 +51,17 @@ export const OpenedDropdownInArticleWithParagraphs = (): React.ReactNode => {
                     choices: [
                         {
                             content:
-                                "A **function** is a relation where each input has exactly one output.\n\nFor example: $f(x) = x^2$",
+                                "A **function** is a relation where each input has exactly one output.\n\n$f(x) = x^2$\n\nThis is an example of a function.",
                             correct: true,
                         },
                         {
                             content:
-                                "A **variable** is a symbol that represents a value.\n\nFor example: In $y = 2x + 1$, both $x$ and $y$ are variables.",
+                                "A **variable** is a symbol that represents a value.\n\n$y = 2x + 1$\n\nIn this equation, both $x$ and $y$ are variables.",
                             correct: false,
                         },
                         {
                             content:
-                                "An **equation** is a mathematical statement that two expressions are equal.\n\nFor example: $3x + 5 = 20$",
+                                "An **equation** is a mathematical statement that two expressions are equal.\n\n$3x + 5 = 20$\n\nThis can be solved for $x$.",
                             correct: false,
                         },
                     ],
