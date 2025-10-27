@@ -2,7 +2,11 @@ import {traverse} from "../traversal";
 
 import type {PerseusItem, RadioWidget} from "../data-schema";
 
-/* ------- Main save warnings function for the whole item ------- */
+// The save warning functions that correspond to each widget type.
+// Found in each widget's respective file.
+const widgetTypeToSaveWarningFunction = {
+    radio: getSaveWarningsForRadioWidget,
+};
 
 // TODO(LEMS-3643): Remove the "WORK IN PROGRESS" comment below once all
 // widgets have been migrated and the function is ready for use.
@@ -22,27 +26,22 @@ export function getSaveWarningsForItem(item: PerseusItem): Array<string> {
     // (e.g., widgets inside graded-group, explanation, etc.)
     traverse(
         item.question,
-        null, // contentCallback - not needed for this use case
+        // contentCallback - not needed for this use case
+        null,
+        // widgetCallback - called for each widget in the tree, including nested widgets
         (widgetInfo, _) => {
-            // widgetCallback - called for each widget in the tree
-            switch (widgetInfo.type) {
-                case "radio":
-                    allSaveWarnings.push(
-                        ...getSaveWarningsForRadioWidget(widgetInfo),
-                    );
-                    break;
-                default:
-                    break;
+            const saveWarningFunction =
+                widgetTypeToSaveWarningFunction[widgetInfo.type];
+            if (saveWarningFunction) {
+                const saveWarnings = saveWarningFunction(widgetInfo);
+                allSaveWarnings.push(...saveWarnings);
             }
-            // Return undefined to keep the widget unchanged
-            return undefined;
+            return undefined; // keep the widget unchanged
         },
     );
 
     return allSaveWarnings;
 }
-
-/* ------- Widget-specific save warnings helper functions ------- */
 
 /* TODO(LEMS-3643): The following widgets have getSaveWarnings implemented
 within their editors. Migrate them here:
