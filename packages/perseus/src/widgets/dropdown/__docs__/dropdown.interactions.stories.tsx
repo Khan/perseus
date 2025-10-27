@@ -1,11 +1,11 @@
 import * as React from "react";
 
+import {themeModes} from "../../../../../../.storybook/modes";
 import {storybookDependenciesV2} from "../../../../../../testing/test-dependencies";
 import ArticleRenderer from "../../../article-renderer";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
-import {themeModes} from "../../../../../../.storybook/modes";
 
 /**
  * Visual regression tests for dropdown widget interactions.

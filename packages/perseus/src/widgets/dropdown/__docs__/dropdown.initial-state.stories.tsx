@@ -1,6 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {themeModes} from "../../../../../../.storybook/modes";
 import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
@@ -10,10 +11,8 @@ import {
     inlineDropdownWithVisibleLabel,
 } from "../dropdown.testdata";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, PerseusItem} from "@khanacademy/perseus-core";
 import type {StoryObj} from "@storybook/react-vite";
-import {themeModes} from "../../../../../../.storybook/modes";
 
 type Story = StoryObj<typeof DropdownQuestionRenderer>;
 
@@ -106,10 +105,7 @@ function createDropdownQuestion(config: {
     };
 }
 
-function DropdownQuestionRenderer(props: {
-    item: PerseusItem;
-    rtl?: boolean;
-}) {
+function DropdownQuestionRenderer(props: {item: PerseusItem; rtl?: boolean}) {
     const {item, rtl} = props;
 
     return (
