@@ -20,7 +20,7 @@ const numeric = pipeParsers(defaulted(numberOrString, () => NaN)).then(
 ).parser;
 
 export const parseMatrixWidget = parseWidget(
-    defaulted(constant("matrix"), () => "matrix"),
+    defaulted(constant("matrix"), () => "matrix" as const),
     object({
         prefix: optional(string),
         suffix: optional(string),

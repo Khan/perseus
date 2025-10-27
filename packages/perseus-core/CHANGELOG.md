@@ -1,5 +1,26 @@
 # @khanacademy/perseus-core
 
+## 20.1.1
+
+### Patch Changes
+
+-   [#2982](https://github.com/Khan/perseus/pull/2982) [`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Include provenance information when publishing to npmjs
+
+-   Updated dependencies [[`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374)]:
+    -   @khanacademy/kas@2.1.3
+    -   @khanacademy/perseus-utils@2.1.1
+    -   @khanacademy/pure-markdown@2.2.1
+
+## 20.1.0
+
+### Minor Changes
+
+-   [#2964](https://github.com/Khan/perseus/pull/2964) [`47ba785e06`](https://github.com/Khan/perseus/commit/47ba785e06a85b7592c55da19ffa3656bea710b7) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add support for aligning the image widget to float left or float right
+
+### Patch Changes
+
+-   [#2967](https://github.com/Khan/perseus/pull/2967) [`3d5bb1b0b5`](https://github.com/Khan/perseus/commit/3d5bb1b0b5c5cbd2b78974ddf826d93752f5bd66) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add decorative in accessible function in ImageWidget registry
+
 ## 20.0.0
 
 ### Major Changes

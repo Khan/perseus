@@ -1,5 +1,24 @@
 # @khanacademy/perseus-linter
 
+## 4.4.3
+
+### Patch Changes
+
+-   [#2982](https://github.com/Khan/perseus/pull/2982) [`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Include provenance information when publishing to npmjs
+
+*   [#2968](https://github.com/Khan/perseus/pull/2968) [`f5fa5d5203`](https://github.com/Khan/perseus/commit/f5fa5d520333e747ae65a0d3b5bc6bda79b3e7f1) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update issues panel warning for ImageWidget, decorative images don't need alt text validation
+
+*   Updated dependencies [[`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374)]:
+    -   @khanacademy/perseus-core@20.1.1
+    -   @khanacademy/perseus-utils@2.1.1
+
+## 4.4.2
+
+### Patch Changes
+
+-   Updated dependencies [[`3d5bb1b0b5`](https://github.com/Khan/perseus/commit/3d5bb1b0b5c5cbd2b78974ddf826d93752f5bd66), [`47ba785e06`](https://github.com/Khan/perseus/commit/47ba785e06a85b7592c55da19ffa3656bea710b7)]:
+    -   @khanacademy/perseus-core@20.1.0
+
 ## 4.4.1
 
 ### Patch Changes
