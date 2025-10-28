@@ -3,7 +3,7 @@ import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
-import {MathRenderingContext} from "../../math-rendering-context";
+import MathRenderingContext from "../../math-rendering-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
