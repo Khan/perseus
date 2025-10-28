@@ -25,7 +25,7 @@ jobs:
 
             - name: Build Storybook
               # Generate a static version of storybook inside "storybook-static/"
-              run: pnpm build:storybook
+              run: pnpm build-storybook
 
             - name: Upload Storybook artifact
               uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
