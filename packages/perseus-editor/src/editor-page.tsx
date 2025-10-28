@@ -59,6 +59,10 @@ type Props = {
     jsonMode: boolean;
     /** A function which is called with the new JSON blob of content. */
     onChange: ChangeHandler;
+    /** A function which is called when the issues are updated.
+     * Receives the new array of issues as a parameter.
+     */
+    onIssuesChange?: (issues: Issue[]) => void;
     /** A function which is called when the preview device changes. */
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
@@ -79,6 +83,7 @@ type DefaultProps = {
     developerMode: Props["developerMode"];
     jsonMode: Props["jsonMode"];
     onChange: Props["onChange"];
+    onIssuesChange: Props["onIssuesChange"];
 };
 
 type State = {
@@ -97,6 +102,7 @@ class EditorPage extends React.Component<Props, State> {
         developerMode: false,
         jsonMode: false,
         onChange: () => {},
+        onIssuesChange: () => {},
     };
 
     constructor(props: Props) {
@@ -302,6 +308,7 @@ class EditorPage extends React.Component<Props, State> {
                             answerArea={this.props.answerArea}
                             imageUploader={this.props.imageUploader}
                             onChange={this.handleChange}
+                            onIssuesChange={this.props.onIssuesChange}
                             deviceType={this.props.previewDevice}
                             widgetIsOpen={this.state.widgetsAreOpen}
                             apiOptions={deviceBasedApiOptions}
