@@ -45,6 +45,10 @@ type Props = {
      */
     itemId?: string;
     issues?: Issue[];
+    /** Callback function that is called when the issues are updated.
+     * Receives the new array of issues as a parameter.
+     */
+    onIssuesChange?: (issues: Issue[]) => void;
 };
 
 type State = {
@@ -112,6 +116,16 @@ class ItemEditor extends React.Component<Props, State> {
                 ) ?? []),
             ],
         };
+    }
+
+    componentDidUpdate(prevProps: Props, prevState: State): void {
+        // Notify parent when issues change
+        if (
+            this.state.issues !== prevState.issues &&
+            this.props.onIssuesChange
+        ) {
+            this.props.onIssuesChange(this.state.issues);
+        }
     }
 
     // Notify the parent that the question or answer area has been updated.
