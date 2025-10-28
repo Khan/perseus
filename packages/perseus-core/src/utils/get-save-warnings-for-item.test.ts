@@ -1,4 +1,3 @@
-import {radioQuestionBuilder} from "../../../perseus/src/widgets/radio/radio-question-builder";
 import {registerCoreWidgets} from "../widgets/core-widget-registry";
 
 import {getSaveWarningsForItem} from "./get-save-warnings-for-item";
@@ -6,6 +5,8 @@ import {generateTestPerseusItem} from "./test-utils";
 
 import type {ExplanationWidget, RadioWidget} from "../data-schema";
 
+// NOTE: All the tests for individual widgets' save warnings are in
+// the widget-specific test files.
 describe("getSaveWarningsForItem", () => {
     beforeAll(() => {
         registerCoreWidgets();
@@ -65,37 +66,5 @@ describe("getSaveWarningsForItem", () => {
 
         // Assert
         expect(warnings).toEqual(["No choice is marked as correct."]);
-    });
-
-    describe("radio widget", () => {
-        it("should return a warning when no correct choice is selected", () => {
-            // Arrange
-            const question = radioQuestionBuilder()
-                .addChoice("Incorrect 1", {correct: false})
-                .addChoice("Incorrect 2", {correct: false})
-                .build();
-            const item = generateTestPerseusItem({question});
-
-            // Act
-            const warnings = getSaveWarningsForItem(item);
-
-            // Assert
-            expect(warnings).toEqual(["No choice is marked as correct."]);
-        });
-
-        it("should return an empty array when a correct choice is selected", () => {
-            // Arrange
-            const question = radioQuestionBuilder()
-                .addChoice("Correct", {correct: true})
-                .addChoice("Incorrect", {correct: false})
-                .build();
-            const item = generateTestPerseusItem({question});
-
-            // Act
-            const warnings = getSaveWarningsForItem(item);
-
-            // Assert
-            expect(warnings).toEqual([]);
-        });
     });
 });

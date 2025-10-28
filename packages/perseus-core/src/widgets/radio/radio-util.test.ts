@@ -1,4 +1,9 @@
-import getRadioPublicWidgetOptions from "./radio-util";
+import {radioQuestionBuilder} from "../../../../perseus/src/widgets/radio/radio-question-builder";
+import {registerCoreWidgets} from "../core-widget-registry";
+
+import getRadioPublicWidgetOptions, {
+    getSaveWarningsForRadioWidget,
+} from "./radio-util";
 
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 
@@ -165,5 +170,56 @@ describe("getRadioPublicWidgetOptions", () => {
             countChoices: false,
             multipleSelect: true,
         });
+    });
+});
+
+describe("getSaveWarningsForRadioWidget", () => {
+    beforeAll(() => {
+        registerCoreWidgets();
+    });
+
+    it("returns a warning when there are no choices", () => {
+        // Arrange
+        const question = radioQuestionBuilder().build();
+
+        // Act
+        const warnings = getSaveWarningsForRadioWidget(
+            question.widgets["radio 1"],
+        );
+
+        // Assert
+        expect(warnings).toEqual(["No choice is marked as correct."]);
+    });
+
+    it("returns a warning when no correct choice is selected", () => {
+        // Arrange
+        const question = radioQuestionBuilder()
+            .addChoice("Incorrect 1", {correct: false})
+            .addChoice("Incorrect 2", {correct: false})
+            .build();
+
+        // Act
+        const warnings = getSaveWarningsForRadioWidget(
+            question.widgets["radio 1"],
+        );
+
+        // Assert
+        expect(warnings).toEqual(["No choice is marked as correct."]);
+    });
+
+    it("returns an empty array when there are no save warnings", () => {
+        // Arrange
+        const question = radioQuestionBuilder()
+            .addChoice("Correct", {correct: true})
+            .addChoice("Incorrect", {correct: false})
+            .build();
+
+        // Act
+        const warnings = getSaveWarningsForRadioWidget(
+            question.widgets["radio 1"],
+        );
+
+        // Assert
+        expect(warnings).toEqual([]);
     });
 });
