@@ -4,8 +4,8 @@ import {getSaveWarningsFnForWidget} from "../widgets/core-widget-registry";
 import type {PerseusItem} from "../data-schema";
 
 /* TODO(LEMS-3643): The following widgets have getSaveWarnings implemented
-within their editors.
- - Expression
+within their editors. Update this list as they are migrated.
+ - Expression (already done)
  - Free Response
  - Graded Group
  - Graded Group Set
