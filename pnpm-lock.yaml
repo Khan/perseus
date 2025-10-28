@@ -955,6 +955,9 @@ importers:
       '@khanacademy/perseus-core':
         specifier: workspace:*
         version: link:../perseus-core
+      '@khanacademy/perseus-utils':
+        specifier: workspace:*
+        version: link:../perseus-utils
     devDependencies:
       perseus-build-settings:
         specifier: workspace:*
