@@ -18,7 +18,11 @@ import type getPlotterPublicWidgetOptions from "./plotter/plotter-util";
 import type getRadioPublicWidgetOptions from "./radio/radio-util";
 import type getSorterPublicWidgetOptions from "./sorter/sorter-util";
 import type getTablePublicWidgetOptions from "./table/table-util";
-import type {PerseusWidgetOptions, Version} from "../data-schema";
+import type {
+    PerseusWidget,
+    PerseusWidgetOptions,
+    Version,
+} from "../data-schema";
 import type {Alignment} from "../types";
 
 export type WidgetOptionsUpgradeMap = {
@@ -54,6 +58,8 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
+export type SaveWarningsFunction = (widget: PerseusWidget) => Array<string>;
+
 export type WidgetLogic = {
     name: string;
     version?: Version;
@@ -68,4 +74,9 @@ export type WidgetLogic = {
      * be shared with the client.
      */
     getPublicWidgetOptions?: PublicWidgetOptionsFunction;
+
+    /**
+     * A function that provides the save warnings for the widget.
+     */
+    getSaveWarnings?: SaveWarningsFunction;
 };

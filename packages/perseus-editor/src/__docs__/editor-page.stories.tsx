@@ -149,6 +149,8 @@ export const WithSaveWarningsNewUtil = (): React.ReactElement => {
     React.useEffect(() => {
         const warnings = getSaveWarningsForItem({
             question: question ?? {content: "", widgets: {}, images: {}},
+            // Need to spread this because `hints` is a readonly array,
+            // so we can't assign it directly to the new state.
             hints: [...(hints ?? [])],
             answerArea: answerArea ?? null,
         });

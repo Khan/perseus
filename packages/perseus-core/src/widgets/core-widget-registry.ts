@@ -59,6 +59,11 @@ export function getCurrentVersion(type: string) {
     return widgetLogic?.version || {major: 0, minor: 0};
 }
 
+export function getSaveWarningsFnForWidget(type: string) {
+    const widgetLogic = widgets.get(type);
+    return widgetLogic?.getSaveWarnings ?? (() => []);
+}
+
 // TODO(LEMS-2870): getPublicWidgetOptionsFunction/PublicWidgetOptionsFunction
 // need better types
 export const getPublicWidgetOptionsFunction = (
