@@ -66,7 +66,15 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
             <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>
                 Issue:
             </LabelSmall>
-            <span>{issue.message}</span>
+            <span
+                style={{
+                    // Allow newlines in the message
+                    whiteSpace: "pre-line",
+                    color: semanticColor.core.foreground.critical.subtle,
+                }}
+            >
+                {issue.message}
+            </span>
             {imageUpgradeFF && <IssueCta issue={issue} />}
         </PerseusEditorAccordion>
     );
