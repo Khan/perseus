@@ -2,10 +2,15 @@ name: Release
 
 on:
     push:
-        branches:
-            - main
+        branches: [main]
+    workflow_dispatch:
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+# IMPORTANT! We have a concurrency solely on this workflow, meaning that this
+# workflow can only run one instance at a time. This prevents us from trying to
+# publish a snapshot and a release at the same time (which has historically
+# caused problems). We also do not want to cancel in-progress runs, because we
+# don't want a production publish to be interrupted by a snapshot publish ever.
+concurrency: ${{ github.workflow }}
 
 # This workflow will run changesets depending on two different scenarios:
 #
