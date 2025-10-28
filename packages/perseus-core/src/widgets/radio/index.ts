@@ -3,7 +3,7 @@ import getRadioPublicWidgetOptions from "./radio-util";
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export const currentVersion = {major: 3, minor: 0};
+const currentVersion = {major: 3, minor: 0};
 
 export type RadioDefaultWidgetOptions = Pick<
     PerseusRadioWidgetOptions,
@@ -15,7 +15,7 @@ export type RadioDefaultWidgetOptions = Pick<
     | "deselectEnabled"
 >;
 
-export const defaultWidgetOptions: RadioDefaultWidgetOptions = {
+const defaultWidgetOptions: RadioDefaultWidgetOptions = {
     choices: [
         {content: "", id: "radio-choice-0"},
         {content: "", id: "radio-choice-1"},
