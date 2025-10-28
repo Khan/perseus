@@ -95,6 +95,8 @@ class ExpressionEditor extends React.Component<Props, State> {
         };
     }
 
+    // TODO(LEMS-3643): Remove this function once the save warnings util is
+    // complete and in use.
     getSaveWarnings: () => any = () => {
         const issues: Array<any | string> = [];
 

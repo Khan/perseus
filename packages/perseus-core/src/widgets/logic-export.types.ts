@@ -3,6 +3,7 @@ import {type getSaveWarningsForRadioWidget} from "./radio/radio-util";
 import type getCategorizerPublicWidgetOptions from "./categorizer/categorizer-util";
 import type getCSProgramPublicWidgetOptions from "./cs-program/cs-program-util";
 import type getDropdownPublicWidgetOptions from "./dropdown/dropdown-util";
+import type {getSaveWarningsForExpressionWidget} from "./expression/expression-util";
 import type getExpressionPublicWidgetOptions from "./expression/expression-util";
 import type getFreeResponsePublicWidgetOptions from "./free-response/free-response-util";
 import type getGrapherPublicWidgetOptions from "./grapher/grapher-util";
@@ -56,7 +57,9 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
-export type SaveWarningsFunction = typeof getSaveWarningsForRadioWidget;
+export type SaveWarningsFunction =
+    | typeof getSaveWarningsForRadioWidget
+    | typeof getSaveWarningsForExpressionWidget;
 
 export type WidgetLogic = {
     name: string;

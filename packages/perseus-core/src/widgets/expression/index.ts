@@ -1,4 +1,6 @@
-import getExpressionPublicWidgetOptions from "./expression-util";
+import getExpressionPublicWidgetOptions, {
+    getSaveWarningsForExpressionWidget,
+} from "./expression-util";
 
 import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
@@ -23,6 +25,7 @@ const expressionWidgetLogic: WidgetLogic = {
     defaultWidgetOptions: defaultWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getExpressionPublicWidgetOptions,
+    getSaveWarnings: getSaveWarningsForExpressionWidget,
     accessible: true,
 };
 
