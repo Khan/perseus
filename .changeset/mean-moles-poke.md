@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Moving debouncing to frontend (better changeset later after testing)
+Resolving a long-standing Perseus Editor cursor jumping bug by removing the debounce on changes in the Editor and moving it upstream.
