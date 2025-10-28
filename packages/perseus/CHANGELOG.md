@@ -1,5 +1,33 @@
 # @khanacademy/perseus
 
+## 71.4.0
+
+### Minor Changes
+
+-   [#2899](https://github.com/Khan/perseus/pull/2899) [`8796333c12`](https://github.com/Khan/perseus/commit/8796333c1282577c761d799f44d066c4837b04ba) Thanks [@Myranae](https://github.com/Myranae)! - Refactor Definition to use semantic colors and font styling
+
+*   [#2911](https://github.com/Khan/perseus/pull/2911) [`96341cf42f`](https://github.com/Khan/perseus/commit/96341cf42fa253055edbf22cf28b5133e024140c) Thanks [@Myranae](https://github.com/Myranae)! - Refactor Image to use semantic colors and font styling
+
+-   [#2909](https://github.com/Khan/perseus/pull/2909) [`7ab2de8dad`](https://github.com/Khan/perseus/commit/7ab2de8dadd2d9d9042952ba1f6fe9c0654e0824) Thanks [@Myranae](https://github.com/Myranae)! - Refactor Explanation to use semantic font size
+
+### Patch Changes
+
+-   [#2933](https://github.com/Khan/perseus/pull/2933) [`43001b76c1`](https://github.com/Khan/perseus/commit/43001b76c165affe34ccc098bc54f29dd8d3a2e1) Thanks [@Myranae](https://github.com/Myranae)! - Remove unneeded interactions stories
+
+*   [#2981](https://github.com/Khan/perseus/pull/2981) [`1ddcb6b800`](https://github.com/Khan/perseus/commit/1ddcb6b800ebc19fce4665598f20817200330123) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor type fixes
+
+-   [#2942](https://github.com/Khan/perseus/pull/2942) [`39c9590f1f`](https://github.com/Khan/perseus/commit/39c9590f1f20269c97decacbd259e513e1b44287) Thanks [@Myranae](https://github.com/Myranae)! - Definition style update based on Figma designs
+
+*   [#2980](https://github.com/Khan/perseus/pull/2980) [`63a52f3ee1`](https://github.com/Khan/perseus/commit/63a52f3ee1e26ab0ec7b88fbcfd61e40d5b159dc) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor type fixes preparing for upgrade to TypeScript 5.9.3
+
+*   Updated dependencies [[`1ddcb6b800`](https://github.com/Khan/perseus/commit/1ddcb6b800ebc19fce4665598f20817200330123)]:
+    -   @khanacademy/perseus-core@20.1.2
+    -   @khanacademy/keypad-context@3.2.14
+    -   @khanacademy/kmath@2.2.14
+    -   @khanacademy/math-input@26.2.15
+    -   @khanacademy/perseus-linter@4.4.4
+    -   @khanacademy/perseus-score@8.0.3
+
 ## 71.3.2
 
 ### Patch Changes

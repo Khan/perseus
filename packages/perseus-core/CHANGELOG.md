@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 20.1.2
+
+### Patch Changes
+
+-   [#2981](https://github.com/Khan/perseus/pull/2981) [`1ddcb6b800`](https://github.com/Khan/perseus/commit/1ddcb6b800ebc19fce4665598f20817200330123) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor type fixes
+
 ## 20.1.1
 
 ### Patch Changes
