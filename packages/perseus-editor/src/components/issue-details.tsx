@@ -1,6 +1,6 @@
 // WidgetIssueDetails.tsx
 import {isFeatureOn} from "@khanacademy/perseus-core";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
@@ -9,6 +9,12 @@ import PerseusEditorAccordion from "./perseus-editor-accordion";
 
 import type {Issue} from "./issues-panel";
 import type {APIOptions} from "@khanacademy/perseus";
+
+const impactStringMap = {
+    high: "Error",
+    medium: "Warning",
+    low: "Guideline",
+};
 
 type IssueProps = {
     apiOptions?: APIOptions;
@@ -28,7 +34,12 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
             animated={true}
             expanded={expanded}
             onToggle={toggleVisibility}
-            containerStyle={{backgroundColor: color.fadedGold8}}
+            containerStyle={{
+                backgroundColor:
+                    issue.impact === "high"
+                        ? semanticColor.core.background.critical.subtle
+                        : semanticColor.core.background.warning.subtle,
+            }}
             panelStyle={{backgroundColor: "white"}}
             header={
                 <LabelLarge
@@ -39,7 +50,7 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
                         whiteSpace: "nowrap",
                     }}
                 >
-                    {`Warning: ${issue.id}`}
+                    {`${impactStringMap[issue.impact]}: ${issue.id}`}
                 </LabelLarge>
             }
         >

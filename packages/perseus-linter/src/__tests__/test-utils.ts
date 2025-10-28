@@ -1,8 +1,7 @@
 import {parse} from "@khanacademy/pure-markdown";
 
+import Rule from "../rule";
 import TreeTransformer from "../tree-transformer";
-
-import type Rule from "../rule";
 
 type CheckReturnType = ReturnType<InstanceType<typeof Rule>["check"]>;
 
@@ -54,6 +53,18 @@ export function expectWarning(rule, strings: string | Array<string>, context?) {
 
     it.each(strings)(`Rule ${rule.name} warns with: %s`, (string) => {
         expect(testRule(rule, string, context)).not.toBeNull();
+        expect(rule.severity).toBe(Rule.Severity.WARNING);
+    });
+}
+
+export function expectError(rule, strings: string | Array<string>, context?) {
+    if (typeof strings === "string") {
+        strings = [strings];
+    }
+
+    it.each(strings)(`Rule ${rule.name} warns with: %s`, (string) => {
+        expect(testRule(rule, string, context)).not.toBeNull();
+        expect(rule.severity).toBe(Rule.Severity.ERROR);
     });
 }
 
