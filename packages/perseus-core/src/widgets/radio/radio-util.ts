@@ -1,7 +1,7 @@
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
-    PerseusWidget,
+    RadioWidget,
 } from "../../data-schema";
 
 /**
@@ -42,12 +42,8 @@ function getRadioChoicePublicData(
 }
 
 export function getSaveWarningsForRadioWidget(
-    widget: PerseusWidget,
+    widget: RadioWidget,
 ): Array<string> {
-    if (widget.type !== "radio") {
-        return [];
-    }
-
     const issues: Array<string> = [];
 
     // Radio widget must have at least one correct choice.
