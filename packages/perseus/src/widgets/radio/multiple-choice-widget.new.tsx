@@ -43,7 +43,7 @@ export interface ChoiceType {
     disabled: boolean;
 }
 
-export type RadioProps = {
+type RadioProps = {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;

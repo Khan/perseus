@@ -3,7 +3,7 @@
  */
 import * as React from "react";
 
-export type MathRenderingContextType = {
+type MathRenderingContextType = {
     shouldAddAriaLabels: boolean;
 };
 
