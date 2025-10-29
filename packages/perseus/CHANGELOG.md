@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 71.4.2
+
+### Patch Changes
+
+-   [#2995](https://github.com/Khan/perseus/pull/2995) [`f77253dfe4`](https://github.com/Khan/perseus/commit/f77253dfe47f5845ac0a1b3373d0ad17c8e0141b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Interactive Graph] Bugfix - Locked functions not rendering when domain is not set
+
 ## 71.4.1
 
 ### Patch Changes
