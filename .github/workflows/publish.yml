@@ -4,6 +4,16 @@ on:
     push:
         branches: [main]
     workflow_dispatch:
+        inputs:
+            run_type:
+                description: "The type of publish to test"
+                required: true
+                default: "snapshot"
+                type: choice
+                options:
+                    - snapshot
+                    - release
+
     pull_request:
         # edited is needed because that's the trigger when the base branch is
         # changed on a PR
@@ -40,9 +50,9 @@ jobs:
     #      b) There's a Release PR, then the changesets action will update the
     #         existing Release PR with the new commit.
     #
-    #    NOTE: (in both cases, changesets will modify the new version in
+    #    NOTE: in both cases, changesets will modify the new version in
     #    package.json for each package, and will remove the MD files as part of the
-    #    Release PR).
+    #    Release PR.
     #
     # 2. If we are landing the Release PR into main, then the changesets action
     #    will publish the changes to npm.
@@ -51,7 +61,9 @@ jobs:
     # https://github.com/changesets/action#usage
     release:
         name: Release
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: |
+            (github.event_name == 'workflow_dispatch' && inputs.run_type == 'release') ||
+            (github.event_name == 'push' && github.ref == 'refs/heads/main')
         runs-on: ${{ matrix.os }}
         permissions:
             id-token: write # required for publishing to npm with provenance
@@ -120,7 +132,8 @@ jobs:
         name: Publish npm snapshot
         # We don't publish snapshots on Changeset "Version Packages" PRs
         if: |
-            !startsWith(github.head_ref, 'changeset-release/')
+            (github.event_name == 'workflow_dispatch' && inputs.run_type == 'snapshot') ||
+            (github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/'))
         runs-on: ${{ matrix.os }}
         permissions:
             id-token: write # required for publishing to npm with provenance
@@ -157,9 +170,9 @@ jobs:
                   GH_TOKEN: ${{ github.token }}
               run: |
                   # Releases are triggered by merging "Version Packages" PRs.
-                  # So we look for instances of the release.yml workflow, with
+                  # So we look for instances of the publish.yml workflow, with
                   # a title containing "Version Packages", that are in progress.
-                  release_count=$(gh run list --workflow release.yml --json status,displayTitle --jq '[.[] | select(.status == "in_progress" and ((.displayTitle | contains("Version Packages")) or (.displayTitle | contains("RELEASING:"))))] | length')
+                  release_count=$(gh run list --workflow publish.yml --json status,displayTitle --jq '[.[] | select(.status == "in_progress" and ((.displayTitle | contains("Version Packages")) or (.displayTitle | contains("RELEASING:"))))] | length')
                   echo "release_count=$release_count" >> $GITHUB_OUTPUT
                   if [ "$release_count" -ne 0 ]; then
                     echo "Error: There are $release_count releases in progress."
