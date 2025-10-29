@@ -1,5 +1,14 @@
 # @khanacademy/keypad-context
 
+## 3.2.15
+
+### Patch Changes
+
+-   [#2990](https://github.com/Khan/perseus/pull/2990) [`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465) Thanks [@handeyeco](https://github.com/handeyeco)! - Run knip to clean up unused code and exports
+
+-   Updated dependencies [[`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465)]:
+    -   @khanacademy/perseus-core@20.1.3
+
 ## 3.2.14
 
 ### Patch Changes
