@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 20.1.3
+
+### Patch Changes
+
+-   [#2990](https://github.com/Khan/perseus/pull/2990) [`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465) Thanks [@handeyeco](https://github.com/handeyeco)! - Run knip to clean up unused code and exports
+
 ## 20.1.2
 
 ### Patch Changes
