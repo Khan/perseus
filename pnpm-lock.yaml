@@ -10,77 +10,77 @@ catalogs:
       specifier: 3.0.0
       version: 3.0.0
     '@khanacademy/wonder-blocks-accordion':
-      specifier: 3.1.42
-      version: 3.1.42
+      specifier: 3.1.44
+      version: 3.1.44
     '@khanacademy/wonder-blocks-announcer':
-      specifier: 1.0.3
-      version: 1.0.3
+      specifier: 1.0.4
+      version: 1.0.4
     '@khanacademy/wonder-blocks-banner':
-      specifier: 5.0.0
-      version: 5.0.0
+      specifier: 5.0.2
+      version: 5.0.2
     '@khanacademy/wonder-blocks-button':
-      specifier: 11.2.4
-      version: 11.2.4
+      specifier: 11.2.6
+      version: 11.2.6
     '@khanacademy/wonder-blocks-clickable':
-      specifier: 8.0.0
-      version: 8.0.0
+      specifier: 8.0.2
+      version: 8.0.2
     '@khanacademy/wonder-blocks-core':
-      specifier: 12.4.0
-      version: 12.4.0
+      specifier: 12.4.1
+      version: 12.4.1
     '@khanacademy/wonder-blocks-data':
-      specifier: 14.1.6
-      version: 14.1.6
+      specifier: 14.1.7
+      version: 14.1.7
     '@khanacademy/wonder-blocks-dropdown':
-      specifier: 10.4.7
-      version: 10.4.7
+      specifier: 10.4.10
+      version: 10.4.10
     '@khanacademy/wonder-blocks-form':
-      specifier: 7.4.1
-      version: 7.4.1
+      specifier: 7.4.3
+      version: 7.4.3
     '@khanacademy/wonder-blocks-icon':
-      specifier: 5.3.0
-      version: 5.3.0
+      specifier: 5.3.2
+      version: 5.3.2
     '@khanacademy/wonder-blocks-icon-button':
-      specifier: 10.5.3
-      version: 10.5.3
+      specifier: 10.5.5
+      version: 10.5.5
     '@khanacademy/wonder-blocks-labeled-field':
-      specifier: 4.0.6
-      version: 4.0.6
+      specifier: 4.0.8
+      version: 4.0.8
     '@khanacademy/wonder-blocks-layout':
-      specifier: 3.1.37
-      version: 3.1.37
+      specifier: 3.1.39
+      version: 3.1.39
     '@khanacademy/wonder-blocks-link':
-      specifier: 10.0.1
-      version: 10.0.1
+      specifier: 10.0.3
+      version: 10.0.3
     '@khanacademy/wonder-blocks-modal':
-      specifier: 8.5.0
-      version: 8.5.0
+      specifier: 8.5.3
+      version: 8.5.3
     '@khanacademy/wonder-blocks-pill':
-      specifier: 3.1.43
-      version: 3.1.43
+      specifier: 3.1.45
+      version: 3.1.45
     '@khanacademy/wonder-blocks-popover':
-      specifier: 6.1.37
-      version: 6.1.37
+      specifier: 6.1.40
+      version: 6.1.40
     '@khanacademy/wonder-blocks-progress-spinner':
-      specifier: 3.1.37
-      version: 3.1.37
+      specifier: 3.1.39
+      version: 3.1.39
     '@khanacademy/wonder-blocks-switch':
-      specifier: 3.3.20
-      version: 3.3.20
+      specifier: 3.3.22
+      version: 3.3.22
     '@khanacademy/wonder-blocks-theming':
-      specifier: 4.0.0
-      version: 4.0.0
+      specifier: 4.0.1
+      version: 4.0.1
     '@khanacademy/wonder-blocks-timing':
-      specifier: 7.0.2
-      version: 7.0.2
+      specifier: 7.0.3
+      version: 7.0.3
     '@khanacademy/wonder-blocks-tokens':
-      specifier: 14.0.0
-      version: 14.0.0
+      specifier: 14.1.0
+      version: 14.1.0
     '@khanacademy/wonder-blocks-tooltip':
-      specifier: 4.1.51
-      version: 4.1.51
+      specifier: 4.1.54
+      version: 4.1.54
     '@khanacademy/wonder-blocks-typography':
-      specifier: 4.2.22
-      version: 4.2.22
+      specifier: 4.2.24
+      version: 4.2.24
     '@khanacademy/wonder-stuff-core':
       specifier: 1.5.5
       version: 1.5.5
@@ -176,37 +176,37 @@ importers:
         version: 3.0.0
       '@khanacademy/wonder-blocks-accordion':
         specifier: catalog:devDeps
-        version: 3.1.42(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+        version: 3.1.44(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-button':
         specifier: catalog:devDeps
-        version: 11.2.4(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+        version: 11.2.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-core':
         specifier: catalog:devDeps
-        version: 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+        version: 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-icon':
         specifier: catalog:devDeps
-        version: 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+        version: 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-layout':
         specifier: catalog:devDeps
-        version: 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+        version: 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-popover':
         specifier: catalog:devDeps
-        version: 6.1.37(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+        version: 6.1.40(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-switch':
         specifier: catalog:devDeps
-        version: 3.3.20(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+        version: 3.3.22(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-theming':
         specifier: catalog:devDeps
-        version: 4.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 4.0.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-timing':
         specifier: catalog:devDeps
-        version: 7.0.2(react@18.2.0)
+        version: 7.0.3(react@18.2.0)
       '@khanacademy/wonder-blocks-tokens':
         specifier: catalog:devDeps
-        version: 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-typography':
         specifier: catalog:devDeps
-        version: 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+        version: 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core':
         specifier: catalog:devDeps
         version: 2.0.2
@@ -572,19 +572,19 @@ importers:
         version: 3.0.0
       '@khanacademy/wonder-blocks-clickable':
         specifier: catalog:devDeps
-        version: 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-core':
         specifier: catalog:devDeps
-        version: 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-popover':
         specifier: catalog:devDeps
-        version: 6.1.37(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 6.1.40(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-timing':
         specifier: catalog:devDeps
-        version: 7.0.2(react@18.2.0)
+        version: 7.0.3(react@18.2.0)
       '@khanacademy/wonder-blocks-tokens':
         specifier: catalog:devDeps
-        version: 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-stuff-core':
         specifier: catalog:devDeps
         version: 1.5.5
@@ -663,70 +663,70 @@ importers:
     devDependencies:
       '@khanacademy/wonder-blocks-announcer':
         specifier: catalog:devDeps
-        version: 1.0.3(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 1.0.4(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-banner':
         specifier: catalog:devDeps
-        version: 5.0.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 5.0.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-button':
         specifier: catalog:devDeps
-        version: 11.2.4(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 11.2.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-clickable':
         specifier: catalog:devDeps
-        version: 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-core':
         specifier: catalog:devDeps
-        version: 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-data':
         specifier: catalog:devDeps
-        version: 14.1.6(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 14.1.7(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-dropdown':
         specifier: catalog:devDeps
-        version: 10.4.7(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react-window@1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
+        version: 10.4.10(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react-window@1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-form':
         specifier: catalog:devDeps
-        version: 7.4.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 7.4.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-icon':
         specifier: catalog:devDeps
-        version: 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-icon-button':
         specifier: catalog:devDeps
-        version: 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-labeled-field':
         specifier: catalog:devDeps
-        version: 4.0.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 4.0.8(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-layout':
         specifier: catalog:devDeps
-        version: 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-link':
         specifier: catalog:devDeps
-        version: 10.0.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 10.0.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-modal':
         specifier: catalog:devDeps
-        version: 8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-pill':
         specifier: catalog:devDeps
-        version: 3.1.43(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 3.1.45(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-popover':
         specifier: catalog:devDeps
-        version: 6.1.37(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 6.1.40(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-progress-spinner':
         specifier: catalog:devDeps
-        version: 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-switch':
         specifier: catalog:devDeps
-        version: 3.3.20(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 3.3.22(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-timing':
         specifier: catalog:devDeps
-        version: 7.0.2(react@18.2.0)
+        version: 7.0.3(react@18.2.0)
       '@khanacademy/wonder-blocks-tokens':
         specifier: catalog:devDeps
-        version: 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-tooltip':
         specifier: catalog:devDeps
-        version: 4.1.51(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 4.1.54(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-typography':
         specifier: catalog:devDeps
-        version: 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-stuff-core':
         specifier: catalog:devDeps
         version: 1.5.5
@@ -842,58 +842,58 @@ importers:
         version: 3.0.0
       '@khanacademy/wonder-blocks-accordion':
         specifier: catalog:devDeps
-        version: 3.1.42(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 3.1.44(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-banner':
         specifier: catalog:devDeps
-        version: 5.0.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 5.0.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-button':
         specifier: catalog:devDeps
-        version: 11.2.4(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 11.2.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-clickable':
         specifier: catalog:devDeps
-        version: 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-core':
         specifier: catalog:devDeps
-        version: 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-dropdown':
         specifier: catalog:devDeps
-        version: 10.4.7(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react-window@1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
+        version: 10.4.10(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react-window@1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-form':
         specifier: catalog:devDeps
-        version: 7.4.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 7.4.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-icon':
         specifier: catalog:devDeps
-        version: 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-icon-button':
         specifier: catalog:devDeps
-        version: 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-labeled-field':
         specifier: catalog:devDeps
-        version: 4.0.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 4.0.8(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-layout':
         specifier: catalog:devDeps
-        version: 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-link':
         specifier: catalog:devDeps
-        version: 10.0.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 10.0.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-pill':
         specifier: catalog:devDeps
-        version: 3.1.43(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 3.1.45(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-switch':
         specifier: catalog:devDeps
-        version: 3.3.20(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 3.3.22(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-timing':
         specifier: catalog:devDeps
-        version: 7.0.2(react@18.2.0)
+        version: 7.0.3(react@18.2.0)
       '@khanacademy/wonder-blocks-tokens':
         specifier: catalog:devDeps
-        version: 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-tooltip':
         specifier: catalog:devDeps
-        version: 4.1.51(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 4.1.54(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-typography':
         specifier: catalog:devDeps
-        version: 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+        version: 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-stuff-core':
         specifier: catalog:devDeps
         version: 1.5.5
@@ -2223,34 +2223,34 @@ packages:
   '@khanacademy/mathjax-renderer@3.0.0':
     resolution: {integrity: sha512-sY6v+ZqAqdjNj1vEhidym0bQfCN9n7kPOJJy2ShZ+f3QCIMKNdDEs9X7PEK2Tcei0jLdwzI2SZmAakKnyqjHiQ==}
 
-  '@khanacademy/wonder-blocks-accordion@3.1.42':
-    resolution: {integrity: sha512-QpBqh6O0ZM8PD75mpup5QZ2gctS9mvk/OfBs/p5R58Rmx10+imSzDWVcKUvvMPQpOBL3a8L5+SjQjW+d+ipD/w==}
+  '@khanacademy/wonder-blocks-accordion@3.1.44':
+    resolution: {integrity: sha512-iV6/u+ImSlIQIuCyQVrjEH3PRYZ4Ks9LrGcW+5oPAuSDNWxxZyu2PCD1/J7OH4yVvC3dUOcbkYUhpkMv8Lj7Tg==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-announcer@1.0.3':
-    resolution: {integrity: sha512-giOAQEpbquxnu2vxU3gsh9HYrLFsi31dgmVEdPxCTl9xBlSHUmHi/tWejptDJKDbH1fdvQy5zZckEe++1jaxHg==}
+  '@khanacademy/wonder-blocks-announcer@1.0.4':
+    resolution: {integrity: sha512-PRdO15wuj7AFz8zRUPB//ppWKort4irE10DciGXljz+68WzF1wuTXEzWInn1U1D0Niy+G8eRHKO2b/uq1IkHBA==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-banner@5.0.0':
-    resolution: {integrity: sha512-glNGv5ffS5S/LCr5CtA5jEAyDgdn2wdDNAXL+RX/HTzkYwyAb0pMU63qWCK2fCFqIp7olpz47WLJTaF66buB5A==}
+  '@khanacademy/wonder-blocks-banner@5.0.2':
+    resolution: {integrity: sha512-IS+TLbiVIDjVkBmHg/E/ErhJwCMnSaPF0AT5RigimpLRzapKAEwNWsgO21AjkhRzbAfTwqvXJGVABIEzTU08Fg==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-breadcrumbs@3.2.4':
-    resolution: {integrity: sha512-u2qHOfLaVI6o1R/NxekI4O5kZmLK6D5yYoQgWhIT6C7x6KqR8z5p+dEahv43piaYRnIpxS2LXfzR4uoV3Ipm6A==}
+  '@khanacademy/wonder-blocks-breadcrumbs@3.2.6':
+    resolution: {integrity: sha512-wvHR2WR4Yzo8xf55W+iwpZqNAtXYebdLObWhRqL8jNQ615HfogaSTiyuby69Z4KDaiCDdmsAtSc3fgn8WY31VA==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-button@11.2.4':
-    resolution: {integrity: sha512-/3eY0yEiolGoN/Ico3iDAeTM/1cnohqiT6Y0OZummsiAGEDSAoAi0saWzJ7UzN06BDTwaQpmFeWDodS4Sff2yw==}
+  '@khanacademy/wonder-blocks-button@11.2.6':
+    resolution: {integrity: sha512-jQTz2NVoNGcO+ZFldZ6Vmtq+M9RN9E930fhop6s2tMPam83NfGTiqtHB81Xlo35gO8M2/sQ6h7DGDTwXthW4ug==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
@@ -2258,14 +2258,14 @@ packages:
       react-router-dom: 5.3.4
       react-router-dom-v5-compat: ^6.30.0
 
-  '@khanacademy/wonder-blocks-cell@6.1.0':
-    resolution: {integrity: sha512-9nmpESUx4kv6QJ5lRPf31zRslvNY/eC+DtpzhwzChbQ2qz238Cs415xEXZa+C4Id+KWyxrEE8hZCD7ylEH4zQA==}
+  '@khanacademy/wonder-blocks-cell@6.1.2':
+    resolution: {integrity: sha512-AMritDYXFc3HjPs1dVP2RtkCin3dDcbIi8o/WeRiJY/ypHWJaOV7QCuqVRrzeK39dgBrASR32DQtY8Uf/bVlsQ==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-clickable@8.0.0':
-    resolution: {integrity: sha512-imkkuBVfN0Xjn8CUESn8Ib4T9K+YgKGG7G4pY5YUIFXK1J4qPUOv1PG45ZiY2CHxPot1Smtt/rdJSEviwTh/KQ==}
+  '@khanacademy/wonder-blocks-clickable@8.0.2':
+    resolution: {integrity: sha512-O0uY0lClhHd7Ocw45aTj1/2Z/BJqjP6la8iwdyxJyRgp9vdDRcQSQ8NG8gEOWqjHehawjf6V7wE/wVyJ7akHYw==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
@@ -2274,8 +2274,8 @@ packages:
       react-router-dom: 5.3.4
       react-router-dom-v5-compat: ^6.30.0
 
-  '@khanacademy/wonder-blocks-core@12.4.0':
-    resolution: {integrity: sha512-nGq6pCxOsKDsUQVRUA8CvulOGLx2c7MD2415o4iWTPD/I4kD9NczaGzqjutxOCsPtB2+9kfZBWIFfgYSO3rurQ==}
+  '@khanacademy/wonder-blocks-core@12.4.1':
+    resolution: {integrity: sha512-gEcGJDHCXcdSqHFYmbv/PKfQcEseSSQCJI1bxZPr4qDD5pUuXJVwiZDKRVGWDYT9hrMnbJUBfnCYvRJAqf84fA==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
@@ -2284,14 +2284,14 @@ packages:
       react-router-dom: 5.3.4
       react-router-dom-v5-compat: ^6.30.0
 
-  '@khanacademy/wonder-blocks-data@14.1.6':
-    resolution: {integrity: sha512-gBnJp+j9mQ0EDVxx7toIfgG2JO8L5oYa1mUyhGlqIVmeWGeMYDbHUuIhrAjux90l2lwYjC9TAgXiKZ5MehHhnA==}
+  '@khanacademy/wonder-blocks-data@14.1.7':
+    resolution: {integrity: sha512-4PIGeTCJHcWkGE7HJcc6r0GFrsZ3cufin7AgqiZHKcb4yaAqsiuFnzZvw+edftvGtcYRcOwePT+IiXm8agD45Q==}
     peerDependencies:
       '@khanacademy/wonder-stuff-core': ^1.5.4
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-dropdown@10.4.7':
-    resolution: {integrity: sha512-yfQMQ2MgQrjs8ek7NCSVlJREXQb19aC4lRFBggEliA+Tr5PNB2itluk44UChGVz8wWFeeSS75xKq9w6k7Pt06Q==}
+  '@khanacademy/wonder-blocks-dropdown@10.4.10':
+    resolution: {integrity: sha512-znzEz+nJ2MfKsWfLpnUfJgA7JZZIRIZ03h42mrNCXmZmSzmpQxVA8gWReaa8gPfwAcgq+Lcbnp90yc64k0Uz8Q==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       '@popperjs/core': ^2.10.1
@@ -2304,15 +2304,15 @@ packages:
       react-router-dom-v5-compat: ^6.30.0
       react-window: ^1.8.11
 
-  '@khanacademy/wonder-blocks-form@7.4.1':
-    resolution: {integrity: sha512-68dqc5GAOjDQGHZVACHvfvd3yAofok+3fNSqNZtTQbrZZLgJk82iclZ8JcQ4n2HFQZNHMqFU3QzkQla8pQ7BDQ==}
+  '@khanacademy/wonder-blocks-form@7.4.3':
+    resolution: {integrity: sha512-pU+eayDUKBmIQHnAf46nJkxRqC3Ci279Dd2q4tD3kaeh83AvixkUBQMrlbbSQncGOsGz/ruKk8p2CwDyCRavZg==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-icon-button@10.5.3':
-    resolution: {integrity: sha512-M/SNRlrCqh6OYKWADc1ftemdwvG0rKBl29pGwbCUfnr3dl4YQIaumiI7q6iivSTNKMY37B4cQac1ZyBAYaP+IQ==}
+  '@khanacademy/wonder-blocks-icon-button@10.5.5':
+    resolution: {integrity: sha512-8/aZRRYCLQCUKN5ekSDlGhKkX3xtY+E48TWLlvtwG+G+ceuxdIGYB9CIui0ESgtyt8JtliAbpno+tcJzyTo5cw==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
@@ -2320,28 +2320,28 @@ packages:
       react-router-dom: 5.3.4
       react-router-dom-v5-compat: ^6.30.0
 
-  '@khanacademy/wonder-blocks-icon@5.3.0':
-    resolution: {integrity: sha512-EQJdNWOQe5iLQLy+Yw4m8PjLqIsKQdXPPyU9yDyUsqzYx8/lpph2NvJfrram69/ofT4tdA/JSaErDmjcVTHDNg==}
+  '@khanacademy/wonder-blocks-icon@5.3.2':
+    resolution: {integrity: sha512-7HBwc/Q/HkN1BGQMsQPw9ryOR01VId3ojIZ2ZfAeMKrwlGLS3sqgJJO4GMWtYnQeWuuu4upyWeO06MC3JncbEA==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-labeled-field@4.0.6':
-    resolution: {integrity: sha512-HcCX6X/nKHWF8LlAWkExBlf2BpxxHMdpMDjjW7ZPwwl8U6zxBI9OCYaehUoCb4FnturwCuvekeb9XLnTu9tuYw==}
+  '@khanacademy/wonder-blocks-labeled-field@4.0.8':
+    resolution: {integrity: sha512-6D/OUoiaQyGk7X4iKjjKf3QwqzTqJ/KdeF9aFuPSa1eAjUrVd7O1auzAfFsWZym2lW39eG5M7Lzkvyta3tHSYQ==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-layout@3.1.37':
-    resolution: {integrity: sha512-gIrGkjeYDdUEEX1duIFBKqCZ0rdhiV/s68XlCpxrmjK3Dn7UpbZLt9Apri+/+lKNk6GNNBMzFX/owYpKCe1Geg==}
+  '@khanacademy/wonder-blocks-layout@3.1.39':
+    resolution: {integrity: sha512-ql2Hdy3p0chpuxNBex5LOxgQcgNphme4P47E0IcwuC+8K2Jmnv2EZenp9ywgN6rSZNMBAD8HBWSo56PyEcYnJw==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-link@10.0.1':
-    resolution: {integrity: sha512-C6ljSfBlkQ0/iVaNVW13nphqLbTl7ygaiK1+ug2C+7YgVGST3kmoIPHNeCexRORLRNjriMAppYVaSV6G1+rr1Q==}
+  '@khanacademy/wonder-blocks-link@10.0.3':
+    resolution: {integrity: sha512-HoxHh5N6ABlY81VTQUgCTSUl2xojvC1NJvscFa5O7W+VaTEyasnojxCAaTlaCYmeiBLgRV4ZHdW7MtGyQY40WA==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       aphrodite: ^1.2.5
@@ -2350,22 +2350,22 @@ packages:
       react-router-dom: 5.3.4
       react-router-dom-v5-compat: ^6.30.0
 
-  '@khanacademy/wonder-blocks-modal@8.5.0':
-    resolution: {integrity: sha512-fuDlgYiFrsf1KXQwkrs8q1n4rWaQl1Fx0ZGYlU8hsmSXXRTbEjbbdxmwwxz80YTijTtHt74CHG4GW50Rs5h0ow==}
+  '@khanacademy/wonder-blocks-modal@8.5.3':
+    resolution: {integrity: sha512-A0z36YaiFzatz+f/vui0CnD4qasKwl76um0CnC0qX2vOZMh2ORYqmM4PW59OYgkhKPX5+51Ql57r+Uk5KqKHzA==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       aphrodite: ^1.2.5
       react: 18.2.0
       react-dom: 18.2.0
 
-  '@khanacademy/wonder-blocks-pill@3.1.43':
-    resolution: {integrity: sha512-Ulp/0z5WREq2qiSORjHkbm2G2MLwxSOy5RwulALD9XCvXubyhPAhmfus42DN051zxVX7vwngJ3k8DjKFungbbw==}
+  '@khanacademy/wonder-blocks-pill@3.1.45':
+    resolution: {integrity: sha512-QBS1l3/VCpKAuUOYpU9IUucQyiz+w2aIfgNl+H/g1ZXxd5U4rKmnNpvPVNrlzAxICDtECv4Je+2/UTCR6rFmYg==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-popover@6.1.37':
-    resolution: {integrity: sha512-dea0OgZImEP4hkxE/kEVZRGKiIitZPutiyOWm0RtCqZnOsumUxZuX66P1klgH0dpMmVuV7htKnims13yzNfUvA==}
+  '@khanacademy/wonder-blocks-popover@6.1.40':
+    resolution: {integrity: sha512-GFDdgPOBu0PVgA+jSxalho6Lxe4PaM7aW3AlTlMYVJGuqVs80rT+QLCc47vmJqsvwXf7suL9SIrNPEZywxMIaQ==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       '@popperjs/core': ^2.10.1
@@ -2374,46 +2374,46 @@ packages:
       react-dom: 18.2.0
       react-popper: ^2.3.0
 
-  '@khanacademy/wonder-blocks-progress-spinner@3.1.37':
-    resolution: {integrity: sha512-nG/CvTSyebmCzMncZYrxEqzul2aDeIjRX0RMbjlQUJbMNN4wbEb7Iy1htme+R1jQk6yblveaKBncpONiEonkkA==}
+  '@khanacademy/wonder-blocks-progress-spinner@3.1.39':
+    resolution: {integrity: sha512-24V9XYMx5jZs2ETAynw8D3wk/598ZILjQQ6TH/tLie+SWtdKmy4pb2w89J24IJNjKLF/2r+1HwGCtI40ECYKZA==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-search-field@5.1.49':
-    resolution: {integrity: sha512-IOJMKMdlRngWogvSmSgggd+uUilROLi8I5+mIfjxnJexjuFRFt3ItGLL9/Nj1d2qLD7yAy8KNJgokYJDLLnx1A==}
+  '@khanacademy/wonder-blocks-search-field@5.1.51':
+    resolution: {integrity: sha512-61RqbKJux3rpLmZ0Ggp9gpUa2wYvnTooMW6fteDrNELoHO3/EsyozuAd1G5ZHdL8DrxOy4SXks9PDWj9PmLYAQ==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-styles@0.2.32':
-    resolution: {integrity: sha512-CgjR4WTy7COixziOP02gDP0LfOl9m1sy+dcKSjFIVJ8aFRb2JHw10COMygcvURfxlpTJCIZ//BjmT2PlnI0YyQ==}
+  '@khanacademy/wonder-blocks-styles@0.2.34':
+    resolution: {integrity: sha512-GfV3s2aqqLuq7ERuS6cOZOFHzJU4/QPDGEOnuvuKBZYKDJRHgCt1iB5Bj3pb0F5NJYZt8iFE1C2auQr1zrjHeA==}
 
-  '@khanacademy/wonder-blocks-switch@3.3.20':
-    resolution: {integrity: sha512-tbBqW3wEChfo8hQ2s55cRo6AMuyT11v6I2NnWb1Q0WCXwsU5r3k9qQPY9bWaapFqXvAnr1tjbsoSJmXcOex43Q==}
+  '@khanacademy/wonder-blocks-switch@3.3.22':
+    resolution: {integrity: sha512-1ODfFKHjYKJ9oMA3PTIOC/9R29iyC1kHIqWLZapeQB+t6L9bSd175AralUUnCFuYr54jNebLQRAGVaMM4ko3Aw==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-theming@4.0.0':
-    resolution: {integrity: sha512-lF3fGurf0ZDPO7+mVRLivdr6ydtsIHyRu3E2rITftFvgLdgIszJYsrweO9ZCLm7APFQd3+UmkHuw9XS3JwFyuA==}
+  '@khanacademy/wonder-blocks-theming@4.0.1':
+    resolution: {integrity: sha512-ERpfzawg4ZYkOW/ho6FDbcli5NBqTBxEChCaQC7nza+stTFXx0ahvCrgFdKQrQJWCrqOCrEaSDl//Pa7BodZJg==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
       react-dom: 18.2.0
 
-  '@khanacademy/wonder-blocks-timing@7.0.2':
-    resolution: {integrity: sha512-6JcFMo+XR2QCv4zcyjkj4M4EzqpWTEZopbQ4SrwB+6pjNYXd20YA3Y7EIsFIa1KHsZ2S1wsjiQliqQOXjB2VwQ==}
+  '@khanacademy/wonder-blocks-timing@7.0.3':
+    resolution: {integrity: sha512-jz1E0ARt/1lG2qKB3jd27aYsZoR0O/3bOalybcHnlEeAOk0R8gBy/WGmZjFI0FdJd12wiY7UAURT7UJcLfHb6g==}
     peerDependencies:
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-tokens@14.0.0':
-    resolution: {integrity: sha512-8OYnTunwPdaw3kNAsRGGlKarZLUpMsFurEp1A/HOUm0vIRHqHVk2eg10rfAaIdCd4mxxpXybb7oRi7ncTo0WSw==}
+  '@khanacademy/wonder-blocks-tokens@14.1.0':
+    resolution: {integrity: sha512-XuElCp1eAw1VdtltTI1EuY/AnYTRBxEeDu2IY10di3A1vad41iqQdNBE4t97HNe81cEDp6rSScC7Xxj/+nX1BA==}
     hasBin: true
 
-  '@khanacademy/wonder-blocks-tooltip@4.1.51':
-    resolution: {integrity: sha512-opCePOTAfrVjBW3wo6WyYMW/MtsGKLHZlPIe1IehNvUvpIB053PEIWidmwcE7NBjw3rUDnjyKefx3UwjX8nQSQ==}
+  '@khanacademy/wonder-blocks-tooltip@4.1.54':
+    resolution: {integrity: sha512-pc0ae/UVbQz0KYI0zt3gROLSmSdPpf0mHoolWCK6J5HPTaSjqpeG0anHpro9bHm/nDa61dR9hnzZK4FjzF0EzA==}
     peerDependencies:
       '@popperjs/core': ^2.10.1
       aphrodite: ^1.2.5
@@ -2421,8 +2421,8 @@ packages:
       react-dom: 18.2.0
       react-popper: ^2.3.0
 
-  '@khanacademy/wonder-blocks-typography@4.2.22':
-    resolution: {integrity: sha512-D52TS7hMNcJtBDbm9l7LVuJJvh00CjaLNpQB5BbPYqDkbN0AzNdolnqk/UoaBj5i9lgXVrAWP3Aw5NZKu8daXQ==}
+  '@khanacademy/wonder-blocks-typography@4.2.24':
+    resolution: {integrity: sha512-EDAxiq6rofdQQSdpsXIRkg0LtK4F8Q1gD/cmBa/WH7tB7zxvzcV1xJVxeiZJ1mwrDWwnfHE7Z+ibVVz5Ovx7cQ==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
@@ -10724,13 +10724,13 @@ snapshots:
       mathjax-full: 3.2.2
       mu-lambda: 0.0.3
 
-  '@khanacademy/wonder-blocks-accordion@3.1.42(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-accordion@3.1.44(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -10740,13 +10740,13 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-accordion@3.1.42(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-accordion@3.1.44(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -10756,9 +10756,9 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-announcer@1.0.3(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-announcer@1.0.4(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -10767,15 +10767,15 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-banner@5.0.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-banner@5.0.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-button': 11.2.4(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon-button': 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-link': 10.0.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-button': 11.2.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon-button': 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-link': 10.0.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -10785,10 +10785,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-breadcrumbs@3.2.4(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-breadcrumbs@3.2.6(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -10797,10 +10797,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-breadcrumbs@3.2.4(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-breadcrumbs@3.2.6(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -10809,15 +10809,15 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-button@11.2.4(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-button@11.2.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-progress-spinner': 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-progress-spinner': 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
       react-router: 5.3.4(react@18.2.0)
@@ -10827,15 +10827,15 @@ snapshots:
       - '@phosphor-icons/core'
       - react-dom
 
-  '@khanacademy/wonder-blocks-button@11.2.4(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-button@11.2.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-progress-spinner': 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-progress-spinner': 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
       react-router: 6.30.0(react@18.2.0)
@@ -10845,13 +10845,13 @@ snapshots:
       - '@phosphor-icons/core'
       - react-dom
 
-  '@khanacademy/wonder-blocks-cell@6.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-cell@6.1.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -10860,10 +10860,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-clickable@8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-clickable@8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -10871,10 +10871,10 @@ snapshots:
       react-router-dom: 5.3.4(react@18.2.0)
       react-router-dom-v5-compat: 6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0)
 
-  '@khanacademy/wonder-blocks-clickable@8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-clickable@8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -10882,7 +10882,7 @@ snapshots:
       react-router-dom: 5.3.4(react@18.2.0)
       react-router-dom-v5-compat: 6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0)
 
-  '@khanacademy/wonder-blocks-core@12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-core@12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
       aphrodite: 1.2.5
       react: 18.2.0
@@ -10891,7 +10891,7 @@ snapshots:
       react-router-dom: 5.3.4(react@18.2.0)
       react-router-dom-v5-compat: 6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0)
 
-  '@khanacademy/wonder-blocks-core@12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-core@12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       aphrodite: 1.2.5
       react: 18.2.0
@@ -10900,9 +10900,9 @@ snapshots:
       react-router-dom: 5.3.4(react@18.2.0)
       react-router-dom-v5-compat: 6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0)
 
-  '@khanacademy/wonder-blocks-data@14.1.6(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-data@14.1.7(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-stuff-core': 1.5.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -10912,22 +10912,22 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-dropdown@10.4.7(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react-window@1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-dropdown@10.4.10(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react-window@1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-announcer': 1.0.3(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-cell': 6.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-form': 7.4.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon-button': 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-modal': 8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-pill': 3.1.43(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-search-field': 5.1.49(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-timing': 7.0.2(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-announcer': 1.0.4(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-cell': 6.1.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-form': 7.4.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon-button': 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-modal': 8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-pill': 3.1.45(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-search-field': 5.1.51(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-timing': 7.0.3(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       '@popperjs/core': 2.10.2
       aphrodite: 1.2.5
@@ -10939,22 +10939,22 @@ snapshots:
       react-router-dom-v5-compat: 6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0)
       react-window: 1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
-  '@khanacademy/wonder-blocks-dropdown@10.4.7(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react-window@1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-dropdown@10.4.10(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react-window@1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-announcer': 1.0.3(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-cell': 6.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-form': 7.4.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon-button': 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-modal': 8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-pill': 3.1.43(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-search-field': 5.1.49(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-timing': 7.0.2(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-announcer': 1.0.4(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-cell': 6.1.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-form': 7.4.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon-button': 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-modal': 8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-pill': 3.1.45(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-search-field': 5.1.51(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-timing': 7.0.3(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       '@popperjs/core': 2.11.8
       aphrodite: 1.2.5
@@ -10966,14 +10966,14 @@ snapshots:
       react-router-dom-v5-compat: 6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0)
       react-window: 1.8.10(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
-  '@khanacademy/wonder-blocks-form@7.4.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-form@7.4.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-layout': 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-layout': 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -10983,15 +10983,15 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-icon-button@10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-icon-button@10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-theming': 4.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-theming': 4.0.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
       react-router: 5.3.4(react@18.2.0)
@@ -11001,15 +11001,15 @@ snapshots:
       - '@phosphor-icons/core'
       - react-dom
 
-  '@khanacademy/wonder-blocks-icon-button@10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-icon-button@10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-theming': 4.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-theming': 4.0.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
       react-router: 6.30.0(react@18.2.0)
@@ -11019,10 +11019,10 @@ snapshots:
       - '@phosphor-icons/core'
       - react-dom
 
-  '@khanacademy/wonder-blocks-icon@5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-icon@5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11032,10 +11032,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-icon@5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-icon@5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11045,12 +11045,12 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-labeled-field@4.0.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-labeled-field@4.0.8(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-layout': 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-layout': 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11060,10 +11060,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-layout@3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-layout@3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -11072,10 +11072,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-layout@3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-layout@3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -11084,14 +11084,14 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-link@10.0.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-link@10.0.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11101,16 +11101,16 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@khanacademy/wonder-blocks-modal@8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-modal@8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-breadcrumbs': 3.2.4(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon-button': 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-layout': 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-timing': 7.0.2(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-breadcrumbs': 3.2.6(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon-button': 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-layout': 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-timing': 7.0.3(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11120,16 +11120,16 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-modal@8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-modal@8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-breadcrumbs': 3.2.4(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon-button': 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-layout': 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-timing': 7.0.2(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-breadcrumbs': 3.2.6(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon-button': 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-layout': 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-timing': 7.0.3(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11139,14 +11139,14 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-pill@3.1.43(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-pill@3.1.45(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-clickable': 8.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-link': 10.0.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-clickable': 8.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-link': 10.0.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -11156,15 +11156,15 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-popover@6.1.37(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-popover@6.1.40(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon-button': 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-modal': 8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tooltip': 4.1.51(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon-button': 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-modal': 8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tooltip': 4.1.54(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       '@popperjs/core': 2.10.2
       aphrodite: 1.2.5
@@ -11176,15 +11176,15 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-popover@6.1.37(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-popover@6.1.40(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon-button': 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-modal': 8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tooltip': 4.1.51(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon-button': 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-modal': 8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tooltip': 4.1.54(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       '@popperjs/core': 2.11.8
       aphrodite: 1.2.5
@@ -11196,15 +11196,15 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-popover@6.1.37(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-popover@6.1.40(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon-button': 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-modal': 8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tooltip': 4.1.51(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon-button': 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-modal': 8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tooltip': 4.1.54(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       '@popperjs/core': 2.11.8
       aphrodite: 1.2.5
@@ -11216,10 +11216,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-progress-spinner@3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-progress-spinner@3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -11228,10 +11228,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-progress-spinner@3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-progress-spinner@3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -11240,14 +11240,14 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-search-field@5.1.49(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-search-field@5.1.51(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-form': 7.4.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon-button': 10.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-form': 7.4.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon-button': 10.5.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11257,21 +11257,21 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-styles@0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-styles@0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
     transitivePeerDependencies:
       - aphrodite
       - react
       - react-dom
 
-  '@khanacademy/wonder-blocks-switch@3.3.20(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-switch@3.3.22(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-theming': 4.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-theming': 4.0.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -11281,13 +11281,13 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-switch@3.3.20(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-switch@3.3.22(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-icon': 5.3.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-styles': 0.2.32(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-theming': 4.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-icon': 5.3.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-styles': 0.2.34(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-theming': 4.0.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -11297,31 +11297,31 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-theming@4.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-theming@4.0.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       aphrodite: 1.2.5
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
-  '@khanacademy/wonder-blocks-timing@7.0.2(react@18.2.0)':
+  '@khanacademy/wonder-blocks-timing@7.0.3(react@18.2.0)':
     dependencies:
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-tokens@14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-tokens@14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-theming': 4.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-theming': 4.0.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
     transitivePeerDependencies:
       - aphrodite
       - react
       - react-dom
 
-  '@khanacademy/wonder-blocks-tooltip@4.1.51(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-tooltip@4.1.54(@phosphor-icons/core@2.0.2)(@popperjs/core@2.10.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-layout': 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-modal': 8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-layout': 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-modal': 8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@popperjs/core': 2.10.2
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11333,13 +11333,13 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-tooltip@4.1.51(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-tooltip@4.1.54(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-layout': 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-modal': 8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-layout': 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-modal': 8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
       '@popperjs/core': 2.11.8
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11351,13 +11351,13 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-tooltip@4.1.51(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-tooltip@4.1.54(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-layout': 3.1.37(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-modal': 8.5.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-typography': 4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-layout': 3.1.39(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-modal': 8.5.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-typography': 4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
       '@popperjs/core': 2.11.8
       aphrodite: 1.2.5
       react: 18.2.0
@@ -11369,10 +11369,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-typography@4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-typography@4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
@@ -11381,10 +11381,10 @@ snapshots:
       - react-router-dom
       - react-router-dom-v5-compat
 
-  '@khanacademy/wonder-blocks-typography@4.2.22(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
+  '@khanacademy/wonder-blocks-typography@4.2.24(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@khanacademy/wonder-blocks-core': 12.4.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
-      '@khanacademy/wonder-blocks-tokens': 14.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-core': 12.4.1(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@6.30.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens': 14.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       aphrodite: 1.2.5
       react: 18.2.0
     transitivePeerDependencies:
