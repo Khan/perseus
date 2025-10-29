@@ -511,11 +511,25 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         return;
                     }
 
-                    const elementRect =
-                        event.currentTarget.getBoundingClientRect();
+                    // Get the SVG element for coordinate transformation in order
+                    // to handle potential viewport/text scaling issues on mobile
+                    const svg = event.currentTarget.ownerSVGElement;
+                    const ctm = event.currentTarget.getScreenCTM();
+                    // These should never be null as we're always within an SVG element
+                    if (!svg || !ctm) {
+                        return;
+                    }
 
-                    const x = event.clientX - elementRect.x;
-                    const y = event.clientY - elementRect.y;
+                    // Create point using the SVG element's coordinate system
+                    // and then transform it to the graph's coordinate system
+                    const pt = svg.createSVGPoint();
+                    pt.x = event.clientX;
+                    pt.y = event.clientY;
+                    const svgPoint = pt.matrixTransform(ctm.inverse());
+
+                    // Calculate position relative to the rect's position
+                    const x = svgPoint.x - left;
+                    const y = svgPoint.y - top;
 
                     const graphCoordinates = pixelsToVectors(
                         [[x, y]],
