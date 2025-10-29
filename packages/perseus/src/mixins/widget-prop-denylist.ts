@@ -58,5 +58,3 @@ export function excludeDenylistKeys(obj: Record<any, any>) {
     }
     return rv;
 }
-
-export default denylist;
