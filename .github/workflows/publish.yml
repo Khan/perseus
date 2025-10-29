@@ -10,7 +10,11 @@ on:
 # publish a snapshot and a release at the same time (which has historically
 # caused problems). We also do not want to cancel in-progress runs, because we
 # don't want a production publish to be interrupted by a snapshot publish ever.
-concurrency: ${{ github.workflow }}
+concurrency:
+    group: ${{ github.workflow }}
+    # IMPORTANT! We do not want to cancel in-progress runs, because we don't
+    # want a production publish to be interrupted by a snapshot publish ever.
+    cancel-in-progress: false
 
 jobs:
     # Production Release
