@@ -16,6 +16,12 @@ concurrency:
     # want a production publish to be interrupted by a snapshot publish ever.
     cancel-in-progress: false
 
+permissions:
+    id-token: write # Required for OIDC/Trusted Publishing and provenance
+    contents: write # For GitHub pages and creating release PRs
+    pull-requests: write # For snapshot PR comments
+    issues: write # For PR comments
+
 jobs:
     # Production Release
     #
