@@ -1,4 +1,5 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -9,7 +10,6 @@ import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 import type {WidgetExports, FocusPath, Widget, WidgetProps} from "../../types";
