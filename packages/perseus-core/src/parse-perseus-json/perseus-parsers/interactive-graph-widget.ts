@@ -209,6 +209,11 @@ const parseLockedPolygonType = object({
 // Exported for testing.
 export const parseLockedFunctionDomain = defaulted(
     pair(
+        // NOTE: Infinity does not serialize (becomes null), so we cannot assume
+        //       that this function acts as a validator for the widget. This
+        //       will ensure that parsed data is up-to-date, but it is quite
+        //       probable that the data is serialized after being parsed. The
+        //       widget should therefore account for null values in the domain.
         defaulted(number, () => -Infinity),
         defaulted(number, () => Infinity),
     ),
