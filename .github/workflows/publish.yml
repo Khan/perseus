@@ -12,28 +12,28 @@ on:
 # don't want a production publish to be interrupted by a snapshot publish ever.
 concurrency: ${{ github.workflow }}
 
-# This workflow will run changesets depending on two different scenarios:
-#
-# 1. If we are landing a specific commit into main (Author PR), then
-#    changesets will check if there are changes verifying the Markdown files
-#    generated automatically:
-#
-#    a) There are new versions and there's NO Release PR, then the changesets
-#    action will create a new Release PR.
-#
-#    b) There's a Release PR, then the changesets action will update the
-#    existing Release PR with the new commit.
-#
-#    NOTE: (in both cases, changesets will modify the new version in
-#    package.json for each package, and will remove the MD files as part of the
-#    Release PR).
-#
-# 2. If we are landing the Release PR into main, then the changesets action
-#    will publish the changes to npm.
-#
-# For more info about this workflow, see:
-# https://github.com/changesets/action#usage
 jobs:
+    # Production Release
+    #
+    # This workflow will run changesets depending on two different scenarios:
+    #
+    # 1. If we are landing a specific commit into main (Author PR), then
+    #    changesets will check if there are changes verifying the Markdown files
+    #    generated automatically:
+    #      a) There are new versions and there's NO Release PR, then the
+    #         changesets action will create a new Release PR.
+    #      b) There's a Release PR, then the changesets action will update the
+    #         existing Release PR with the new commit.
+    #
+    #    NOTE: (in both cases, changesets will modify the new version in
+    #    package.json for each package, and will remove the MD files as part of the
+    #    Release PR).
+    #
+    # 2. If we are landing the Release PR into main, then the changesets action
+    #    will publish the changes to npm.
+    #
+    # For more info about this workflow, see:
+    # https://github.com/changesets/action#usage
     release:
         name: Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
