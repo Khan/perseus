@@ -68,7 +68,7 @@ export const getLabelTransform = (
  * Calculate the maximum number of digits needed to display tick labels on the y-axis.
  * This accounts for both the integer part of the range values and decimal places in the tick step.
  */
-export const calculateMaxDigitsInRange = (
+const calculateMaxDigitsInRange = (
     range: [number, number],
     tickStep: number,
 ): number => {

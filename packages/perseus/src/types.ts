@@ -169,8 +169,6 @@ export type GenerateUrlArgs = {
     context: GenerateUrlContext;
 };
 
-export type GenerateUrlFn = (args: GenerateUrlArgs) => string;
-
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -540,10 +538,7 @@ export type WidgetProps<
 /**
  * The props passed to every widget, regardless of its `type`.
  */
-export type UniversalWidgetProps<
-    TUserInput = Empty,
-    TrackingExtraArgs = Empty,
-> = {
+type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the

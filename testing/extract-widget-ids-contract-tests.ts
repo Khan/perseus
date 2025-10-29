@@ -5,7 +5,7 @@ import type {
     RadioWidget,
 } from "@khanacademy/perseus-core";
 
-export const radio: RadioWidget = {
+const radio: RadioWidget = {
     type: "radio",
     graded: true,
     options: {
@@ -17,7 +17,7 @@ export const radio: RadioWidget = {
     },
 };
 
-export const numericInput: NumericInputWidget = {
+const numericInput: NumericInputWidget = {
     type: "numeric-input",
     graded: true,
     options: {
@@ -36,7 +36,7 @@ export const numericInput: NumericInputWidget = {
     },
 };
 
-export const expression: ExpressionWidget = {
+const expression: ExpressionWidget = {
     type: "expression",
     graded: true,
     options: {
