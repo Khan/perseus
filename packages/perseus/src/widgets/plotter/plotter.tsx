@@ -49,7 +49,7 @@ type State = {
 
 const plotterDefaults = CoreWidgetRegistry.getDefaultWidgetOptions("plotter");
 
-export class Plotter extends React.Component<Props, State> implements Widget {
+class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
