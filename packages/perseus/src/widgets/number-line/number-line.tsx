@@ -9,7 +9,7 @@ import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
-import KhanColors from "../../util/colors";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 import type {WidgetExports, FocusPath, Widget, WidgetProps} from "../../types";
@@ -148,10 +148,12 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
     }
 
     const highlightedLineStyle = {
-        stroke: KhanColors.BLUE,
+        stroke: semanticColor.core.border.instructive.default,
         strokeWidth: 3.5,
     };
-    const highlightedTextStyle = {color: KhanColors.BLUE};
+    const highlightedTextStyle = {
+        color: semanticColor.core.foreground.instructive.subtle,
+    };
 
     // Generate an array of tick numbers:
     //    `Array(Math.round(numDivisions))` makes an array of null values - one for every division marker
@@ -458,25 +460,29 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         // it can't be interacted with.
         let fill;
         if (isOpen) {
-            fill = KhanColors._BACKGROUND;
+            fill = semanticColor.core.background.disabled.subtle;
         } else if (props.static) {
-            fill = KhanColors.BLUE;
+            fill = semanticColor.core.background.instructive.default;
         } else {
-            fill = KhanColors.GREEN;
+            fill = semanticColor.core.background.success.default;
         }
         const normalStyle = {
             fill: fill,
-            stroke: props.static ? KhanColors.BLUE : KhanColors.GREEN,
+            stroke: props.static
+                ? semanticColor.core.border.instructive.default
+                : semanticColor.core.border.success.default,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
         const highlightStyle = {
-            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
+            fill: isOpen
+                ? semanticColor.core.background.disabled.subtle
+                : semanticColor.core.background.success.default,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
         const mobileDotStyle = props.isInequality
             ? {
-                  stroke: KhanColors.GREEN,
+                  stroke: semanticColor.core.border.success.default,
                   "fill-opacity": isOpen ? 0 : 1,
               }
             : {};
@@ -545,8 +551,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             const style = {
                 arrows: "->",
                 stroke: this.props.apiOptions.isMobile
-                    ? KhanColors.GREEN
-                    : KhanColors.BLUE,
+                    ? semanticColor.core.border.success.default
+                    : semanticColor.core.border.instructive.default,
                 strokeWidth: 3.5,
             } as const;
 
