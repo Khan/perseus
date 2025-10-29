@@ -883,11 +883,6 @@
 :root {
     --perseus-zoom-overlay-z-index: 9000;
 }
-.zoomable {
-    cursor: pointer;
-    cursor: -webkit-zoom-in;
-    cursor: -moz-zoom-in;
-}
 .zoom-img {
     background-color: white;
     position: absolute;

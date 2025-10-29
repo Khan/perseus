@@ -43,10 +43,15 @@ exports[`image widget - isMobile(false) should render image with float-left alig
             >
               <img
                 alt="widget alt"
-                role="button"
+                class="image-loader-img"
                 src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
-                style="width: 100%; height: 100%;"
-                tabindex="0"
+                style="display: block; width: 100%; height: 100%;"
+              />
+              <button
+                aria-disabled="false"
+                aria-label="Zoom image."
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                type="button"
               />
             </div>
             <div
@@ -123,10 +128,15 @@ exports[`image widget - isMobile(false) should render image with float-right ali
             >
               <img
                 alt="widget alt"
-                role="button"
+                class="image-loader-img"
                 src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
-                style="width: 100%; height: 100%;"
-                tabindex="0"
+                style="display: block; width: 100%; height: 100%;"
+              />
+              <button
+                aria-disabled="false"
+                aria-label="Zoom image."
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                type="button"
               />
             </div>
             <div
@@ -381,10 +391,15 @@ exports[`image widget - isMobile(true) should render image with float-left align
             >
               <img
                 alt="widget alt"
-                role="button"
+                class="image-loader-img"
                 src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
-                style="width: 100%; height: 100%;"
-                tabindex="0"
+                style="display: block; width: 100%; height: 100%;"
+              />
+              <button
+                aria-disabled="false"
+                aria-label="Zoom image."
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                type="button"
               />
             </div>
             <div
@@ -461,10 +476,15 @@ exports[`image widget - isMobile(true) should render image with float-right alig
             >
               <img
                 alt="widget alt"
-                role="button"
+                class="image-loader-img"
                 src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
-                style="width: 100%; height: 100%;"
-                tabindex="0"
+                style="display: block; width: 100%; height: 100%;"
+              />
+              <button
+                aria-disabled="false"
+                aria-label="Zoom image."
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                type="button"
               />
             </div>
             <div
