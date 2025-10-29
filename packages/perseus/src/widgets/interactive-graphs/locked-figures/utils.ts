@@ -11,7 +11,9 @@ export function clampDomain(
     graphBounds: [number, number],
 ): [number, number] | null {
     // Infinity values are lost (converted to null) when passed through
-    // JSON serialization.
+    // JSON serialization. Therefore, we shouldn't rely upon the parser to
+    // validate the domain values. Instead, that responsibility should be
+    // maintained here.
     const normalizedDomain: [number, number] = [
         domain[0] === null ? -Infinity : domain[0],
         domain[1] === null ? Infinity : domain[1],
