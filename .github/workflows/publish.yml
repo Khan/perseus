@@ -36,6 +36,7 @@ concurrency: ${{ github.workflow }}
 jobs:
     release:
         name: Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ${{ matrix.os }}
         permissions:
             id-token: write # required for publishing to npm with provenance
