@@ -46,7 +46,7 @@ export const ExploreImageModal = (props: ImageDescriptionAndCaptionProps) => {
     );
 };
 
-// TODO: Use CSS modules after Wonder Blocks styles
+// TODO(LEMS-3686): Use CSS modules after Wonder Blocks styles
 // are moved to a different layer.
 const wbStyles = {
     root: {

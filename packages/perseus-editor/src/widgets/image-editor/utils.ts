@@ -1,6 +1,6 @@
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 
-// TODO: Use CSS modules after Wonder Blocks styles
+// TODO(LEMS-3686): Use CSS modules after Wonder Blocks styles
 // are moved to a different layer.
 export const wbFieldStyles = {
     root: {

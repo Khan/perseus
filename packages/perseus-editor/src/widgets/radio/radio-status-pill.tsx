@@ -21,7 +21,7 @@ export function RadioStatusPill({
     return (
         <Pill
             size="large"
-            // TODO: Update to use CSS modules when we can
+            // TODO(LEMS-3686): Update to use CSS modules when we can
             // use them with Wonder Blocks.
             style={{
                 // Space between the pill and the text
