@@ -44,6 +44,7 @@ describe("update-catalog-hashes-cli", () => {
         process.argv = ["node", "update-catalog-hashes-cli.ts", ...args];
         // Import the CLI script (which will execute main immediately)
         // Using require instead of import so it runs synchronously
+        // eslint-disable-next-line import/no-unassigned-import
         require("../update-catalog-hashes-cli");
     };
 

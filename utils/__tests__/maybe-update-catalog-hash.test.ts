@@ -1,9 +1,9 @@
 /**
  * @jest-environment node
  */
-import {describe, expect, it, jest, beforeEach} from "@jest/globals";
 import fs from "node:fs";
-import path from "node:path";
+
+import {describe, expect, it, jest, beforeEach} from "@jest/globals";
 
 import * as GetCatalogDepsHash from "../get-catalog-deps-hash";
 import {maybeUpdateCatalogHash} from "../maybe-update-catalog-hash";
