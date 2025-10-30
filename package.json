@@ -146,6 +146,7 @@
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
         "lint:timing": "cross-env TIMING=1 pnpm lint",
         "publish:ci": "utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && pnpm build && pnpm build:types && changeset publish",
+        "update-catalog-hashes": "utils/update-catalog-hashes-cli.ts",
         "sloc": "sloc packages --exclude node_modules",
         "test": "jest",
         "storybook": "storybook dev -p 6006",
