@@ -17,8 +17,12 @@ function printHelp() {
     console.log("Updates catalog hashes in package.json files");
     console.log("");
     console.log("Options:");
-    console.log("  --dry-run    Show what would be updated without making changes");
-    console.log("  --verbose    Show detailed information about catalog dependencies");
+    console.log(
+        "  --dry-run    Show what would be updated without making changes",
+    );
+    console.log(
+        "  --verbose    Show detailed information about catalog dependencies",
+    );
     console.log("  --help       Show this help message");
     console.log("");
     console.log("Examples:");
@@ -42,7 +46,7 @@ function main(argv: string[]) {
         updateCatalogHashes(isDryRun, verbose);
     } catch (error) {
         console.error(
-            `‼️ Unexpected error: ${error instanceof Error ? (error.stack ?? error) : error}`,
+            `‼️ Unexpected error: ${error instanceof Error ? error.stack ?? error : error}`,
         );
         process.exit(1);
     }

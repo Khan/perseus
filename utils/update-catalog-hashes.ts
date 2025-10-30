@@ -56,10 +56,7 @@ function findAllPackageJsons(): string[] {
  * what would be updated.
  * @param verbose If true, will log detailed information about catalog dependencies.
  */
-export function updateCatalogHashes(
-    isDryRun: boolean,
-    verbose = false,
-): void {
+export function updateCatalogHashes(isDryRun: boolean, verbose = false): void {
     // Get the set of packages that we don't publish, per the changeset config.
     const {ignore = []} = loadChangesetConfig();
     const unpublishedPackages = new Set<string>(ignore);
