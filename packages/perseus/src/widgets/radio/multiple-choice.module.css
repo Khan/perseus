@@ -102,13 +102,27 @@
 }
 
 .rationale {
-    display: block !important; /* Override the overly broad rule in radio.css causing all <div> and <p> tags to be inline. */
+    /*display: block !important; !* Override the overly broad rule in radio.css causing all <div> and <p> tags to be inline. *!*/
     font-size: var(--wb-font-size-medium);
     line-height: var(--wb-font-lineHeight-medium);
 }
 
 .rationale.is-correct {
     color: var(--wb-semanticColor-core-foreground-neutral-default);
+}
+
+.rationale :global(.perseus-renderer) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+}
+
+.rationale :global(.perseus-renderer .paragraph) {
+    margin: 0;
+}
+
+.rationale :global(.perseus-renderer > .paragraph:not(:has(*))) {
+    display: none;
 }
 
 .review-answers {

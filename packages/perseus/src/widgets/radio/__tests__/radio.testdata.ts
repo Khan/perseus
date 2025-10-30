@@ -53,32 +53,29 @@ export const questionWithPassage: PerseusRenderer = {
             options: {
                 choices: [
                     {
-                        id: "0-0-0-0-0",
-                        content: "$-8$ and $8$",
+                        content: "\"The leather wallet and *The Raconteur's Commonplace Book* were still there on his desk, right where he'd left them, but once again, something was wrong.\"",
                         correct: false,
-                        rationale:
-                            "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                        rationale: "\nThis quotation doesn't show why Milo is surprised about the theft. It explains how he knew that something was wrong but not why he's surprised that the map got stolen.\n",
+                        id: "radio-choice-0"
                     },
                     {
-                        id: "1-1-1-1-1",
-                        content: "$-8$",
+                        content: "\"He could feel Meddy watching him as he carefully eased out the page with two fingers and unfolded it. It was blank.\" ",
                         correct: false,
-                        rationale:
-                            "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                        rationale: "\nThis quotation doesn't show why Milo is surprised about the theft. It describes how Milo checks to see if the map has been stolen. It doesn't tell us anything about why he's surprised by the theft.",
+                        id: "radio-choice-1"
                     },
                     {
-                        id: "2-2-2-2-2",
-                        content: "$8$ {{passage-ref 1 1}}\n\n",
+                        content: "\"Milo couldn't believe that someone would come into his room without his permission. The thought of someone sneaking in made him feel both angry and sad at the same time.\"",
+                        correct: false,
+                        rationale: "\nThis quotation doesn't show why Milo is surprised about the theft. This quotation isn't even in the text! Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.' All transporters off." +
+                            "\n\n**Top tip!** Studies show that we can forget information only seconds after we read it. Go back to check the text for answers!",
+                        id: "radio-choice-2"
+                    },
+                    {
+                        content: "\"In all his years of living at Greenglass House, in all the years of smugglers and what lots of people would call unsavory characters passing through, never had anyone invaded Milo's space.\"",
+                        rationale: "\n**This is the best choice.** Milo is surprised by the theft because, even though he has lived for years at a place that houses people who break the law, \"never had anyone invaded Milo's space.\" So no one has ever broken into his room before. ",
                         correct: true,
-                        isNoneOfTheAbove: false,
-                        rationale: "$8$ is the positive square root of $64$.",
-                    },
-                    {
-                        id: "3-3-3-3-3",
-                        content: "No value of $x$ satisfies the equation.",
-                        correct: false,
-                        isNoneOfTheAbove: false,
-                        rationale: "$8$ satisfies the equation.",
+                        id: "radio-choice-3"
                     },
                 ],
                 countChoices: false,
