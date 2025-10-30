@@ -1,4 +1,4 @@
-import {iconTrash} from "@khanacademy/perseus";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
 import SectionControlButton from "../section-control-button";
@@ -18,7 +18,8 @@ export const ButtonForEditingSectionsOfContentWithInArticleEditor = (
 ): React.ReactElement => {
     return (
         <SectionControlButton
-            icon={iconTrash}
+            icon={trashIcon}
+            disabled={false}
             onClick={() => {}}
             title="Remove image widget"
         />

@@ -17,6 +17,7 @@ type Props = {
     labelSide?: "start" | "end";
     size?: "small" | "medium";
     style?: StyleType;
+    disabled?: boolean;
     onChange: (newValue: boolean) => void;
 };
 
@@ -27,6 +28,7 @@ const LabeledSwitch = (props: Props) => {
         labelSide = "end",
         size = "medium",
         style,
+        disabled = false,
         onChange,
     } = props;
     const Typography = typographyMap[size];
@@ -48,7 +50,12 @@ const LabeledSwitch = (props: Props) => {
                     {strut}
                 </>
             )}
-            <Switch id={switchId} checked={checked} onChange={onChange} />
+            <Switch
+                id={switchId}
+                checked={checked}
+                disabled={disabled}
+                onChange={onChange}
+            />
             {labelSide === "end" && (
                 <>
                     {strut}

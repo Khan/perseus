@@ -404,19 +404,18 @@ code {
     border-radius: 5px;
     padding: 5px;
 }
-.perseus-widget-dropdown input[type="text"].correct {
-    background: #aaffaa;
-}
-.perseus-widget-dropdown input[type="text"].incorrect {
-    background: #ffcccc;
-}
+
 .perseus-widget-dropdown .dropdown-choices {
     margin: 20px 0;
 }
-.perseus-widget-dropdown .dropdown-choices input[type="text"] {
-    margin: 0 5px;
-    width: 70%;
+.perseus-widget-dropdown .dropdown-choices .dropdown-choice {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
 }
+
 .perseus-widget-dropdown .dropdown-info {
     display: inline-flex;
     margin-bottom: 16px;
@@ -1048,4 +1047,43 @@ code {
 .perseus-diff .diff-separator {
     border-bottom: 1px dashed #444;
     margin: 30px 0 10px 0;
+}
+/* Reset fieldset min-width as our editors include a fieldset element
+nested within a table cell, which results in native browser styling that
+breaks the layout depending on the widget editors used.*/
+.perseus-editor-table fieldset {
+    min-inline-size: 0;
+    min-width: 0;
+}
+/**
+ * Disabled Editing Mode Styles
+ *
+ * Applied when editingDisabled=true to prevent content creators from making
+ * changes while still allowing them to view the editor interface.
+ *
+ * Targets all form controls and interactive elements within disabled editors.
+ */
+.perseus-single-editor.perseus-editor-disabled input,
+.perseus-single-editor.perseus-editor-disabled textarea,
+.perseus-single-editor.perseus-editor-disabled select,
+.perseus-single-editor.perseus-editor-disabled checkbox,
+.perseus-single-editor.perseus-editor-disabled .perseus-math-input,
+.perseus-single-editor.perseus-editor-disabled .keypad-input {
+    opacity: 0.6 !important;
+    background-color: var(
+        --wb-semanticColor-core-background-neutral-subtle
+    ) !important;
+    cursor: not-allowed !important;
+    border-color: var(--wb-semanticColor-core-border-neutral-subtle) !important;
+}
+
+/* We want to keep the button colors as it often helps denote correctness. */
+.perseus-single-editor.perseus-editor-disabled button {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+/* Plotter is a special case due to the archaic graphie implementation. */
+.perseus-editor-disabled .perseus-widget-plotter {
+    pointer-events: none;
 }

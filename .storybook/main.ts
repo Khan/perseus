@@ -105,6 +105,7 @@ const config: StorybookConfig = {
         body {
             font-size: 1.4rem;
             padding: 1.6rem 1.6rem 1.6rem 4.8rem !important;
+            line-height: 1.4;
         }
         </style>
     `,

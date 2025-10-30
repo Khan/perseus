@@ -213,6 +213,13 @@ describe("Editor", () => {
         });
     });
 
+    it("should apply perseus-editor-disabled class when editingDisabled", () => {
+        render(<Harnessed apiOptions={{editingDisabled: true}} />);
+        expect(screen.queryByTestId("perseus-single-editor")).toHaveClass(
+            "perseus-editor-disabled",
+        );
+    });
+
     test("default templates work", async () => {
         // PerseusRenderer but TS is being dumb
         let cbData: any;

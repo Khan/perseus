@@ -88,4 +88,23 @@ describe("CombinedHintsEditor", () => {
             hints: [{content: "Ok, the answer is 3", widgets: {}, images: {}}],
         });
     });
+
+    it("should disable all editor components when editingDisabled is set", () => {
+        render(
+            <CombinedHintsEditor
+                deviceType="phone"
+                previewURL="about:blank"
+                apiOptions={{editingDisabled: true}}
+                hints={[
+                    {content: "You know this one!", widgets: {}, images: {}},
+                ]}
+            />,
+        );
+
+        const removeButton = screen.getAllByText("Remove this hint")[0];
+        const addButton = screen.getByText("Add a hint");
+
+        expect(removeButton).toBeDisabled();
+        expect(addButton).toBeDisabled();
+    });
 });

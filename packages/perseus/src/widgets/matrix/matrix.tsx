@@ -377,7 +377,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                             margin: INPUT_MARGIN,
                                         },
                                         disabled:
-                                            this.props.apiOptions.readOnly,
+                                            this.props.apiOptions.readOnly ||
+                                            this.props.apiOptions
+                                                .editingDisabled,
                                         onFocus: () => {
                                             // We store this locally so that we can use
                                             // the new information in the `onBlur`
