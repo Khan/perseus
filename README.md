@@ -2,6 +2,9 @@
 
 ![npm Version](https://img.shields.io/npm/v/@khanacademy/perseus)
 ![License](https://img.shields.io/github/license/Khan/perseus)
+<!-- The DeepWiki badge isn't 100% necessary, but adding it causes DeepWiki to
+     re-index this repo automatically, and it seems like a useful tool. -->
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Khan/perseus)
 
 <p align="center"><img src="logo.png" alt="perseus logo" width="150px"/></p>
 
