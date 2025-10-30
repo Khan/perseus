@@ -35,7 +35,7 @@ export function getCatalogDepsHash(
     // Generate a list of all dependency names and their resolved versions
     const catalogDepVersions: Array<[string, string]> = [];
 
-    // Process regular dependencies (prodDeps and peerDeps)
+    // Process regular dependencies (prodDeps and peerDeps, but NOT devDeps)
     for (const [dep, version] of Object.entries(
         packageJson.dependencies ?? {},
     )) {
@@ -44,6 +44,10 @@ export function getCatalogDepsHash(
                 "catalog:",
                 "",
             ) as keyof typeof pnpmWorkspace.catalogs;
+            // Skip devDeps catalog
+            if (catalogName === "devDeps") {
+                continue;
+            }
             const resolvedVersion = pnpmWorkspace.catalogs[catalogName]?.[dep];
             if (resolvedVersion) {
                 catalogDepVersions.push([dep, resolvedVersion]);
