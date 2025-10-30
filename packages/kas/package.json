@@ -42,5 +42,8 @@
         "expression",
         "algebra",
         "symbolic"
-    ]
+    ],
+    "khan": {
+        "catalogHash": "1315561098"
+    }
 }
