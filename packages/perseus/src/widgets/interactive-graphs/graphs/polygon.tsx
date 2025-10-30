@@ -438,6 +438,9 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
         400, // Safari Webkit has up to a 350ms delay before a click event is fired
     );
 
+    // Debug state to display diagnostic info on mobile
+    const [debugInfo, setDebugInfo] = useState<string>("");
+
     const id = React.useId();
     const polygonPointsNumId = id + "-points-num";
     const polygonPointsId = id + "-points";
@@ -511,33 +514,52 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         return;
                     }
 
-                    // Get the SVG element for coordinate transformation in order
-                    // to handle potential viewport/text scaling issues on mobile
-                    const svg = event.currentTarget.ownerSVGElement;
-                    const ctm = event.currentTarget.getScreenCTM();
-                    // These should never be null as we're always within an SVG element
-                    if (!svg || !ctm) {
-                        return;
-                    }
+                    const elementRect =
+                        event.currentTarget.getBoundingClientRect();
 
-                    // Create point using the SVG element's coordinate system
-                    // and then transform it to the graph's coordinate system
-                    const pt = svg.createSVGPoint();
-                    pt.x = event.clientX;
-                    pt.y = event.clientY;
-                    const svgPoint = pt.matrixTransform(ctm.inverse());
+                    // Calculate click position relative to the rect
+                    const x = event.clientX - elementRect.left;
+                    const y = event.clientY - elementRect.top;
 
-                    // Calculate position relative to the rect's position
-                    const x = svgPoint.x - left;
-                    const y = svgPoint.y - top;
+                    // Capture diagnostic info for mobile debugging
+                    const info = `Click: ${event.clientX.toFixed(0)}, ${event.clientY.toFixed(0)}
+Rect: ${elementRect.width.toFixed(0)}x${elementRect.height.toFixed(0)}
+Config: ${graphConfig.width}x${graphConfig.height}
+Relative: ${x.toFixed(1)}, ${y.toFixed(1)}`;
+                    setDebugInfo(info);
+
+                    // Use actual rendered dimensions instead of graphConfig dimensions
+                    // to account for any iOS text scaling
+                    const actualDimensions = {
+                        range: graphConfig.range,
+                        width: elementRect.width,
+                        height: elementRect.height,
+                    };
 
                     const graphCoordinates = pixelsToVectors(
                         [[x, y]],
-                        graphConfig,
+                        actualDimensions,
                     );
                     dispatch(actions.polygon.addPoint(graphCoordinates[0]));
                 }}
             />
+            {/* Debug text for mobile - displays click diagnostic info */}
+            {debugInfo && (
+                <text
+                    x={left + 10}
+                    y={top + 30}
+                    fill="red"
+                    fontSize="16"
+                    fontFamily="monospace"
+                    style={{pointerEvents: "none"}}
+                >
+                    {debugInfo.split("\n").map((line, i) => (
+                        <tspan key={i} x={left + 10} dy={i === 0 ? 0 : 18}>
+                            {line}
+                        </tspan>
+                    ))}
+                </text>
+            )}
             {coords.map((point, i) => {
                 const angleId = `${id}-angle-${i}`;
                 let sideIds = "";
