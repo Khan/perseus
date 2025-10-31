@@ -84,7 +84,7 @@
 .content {
     display: flex;
     flex-direction: column;
-    gap: var(--wb-sizing-size_080);
+    gap: var(--wb-sizing-size_120);
     margin-inline-start: var(--perseus-multiple-choice-content-margin);
     position: relative; /* Needed to enable the z-index to work */
     z-index: -1; /* Ensures that the content is below the indicator and scroll fade */
@@ -102,9 +102,8 @@
 }
 
 .rationale {
-    /*display: block !important; !* Override the overly broad rule in radio.css causing all <div> and <p> tags to be inline. *!*/
-    font-size: var(--wb-font-size-medium);
-    line-height: var(--wb-font-lineHeight-medium);
+    font-size: var(--wb-font-body-size-medium);
+    line-height: var(--wb-font-body-lineHeight-medium);
 }
 
 .rationale.is-correct {
@@ -114,7 +113,7 @@
 .rationale :global(.perseus-renderer) {
     display: flex;
     flex-direction: column;
-    gap: var(--wb-sizing-size_080);
+    gap: var(--wb-sizing-size_120);
 }
 
 .rationale :global(.perseus-renderer .paragraph) {
