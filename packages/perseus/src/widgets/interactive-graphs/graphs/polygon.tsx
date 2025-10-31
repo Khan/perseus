@@ -514,27 +514,44 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         return;
                     }
 
+                    const svg = event.currentTarget.ownerSVGElement;
+                    const ctm = event.currentTarget.getScreenCTM();
+                    if (!svg || !ctm) {
+                        return;
+                    }
+
+                    const pt = svg.createSVGPoint();
+                    pt.x = event.clientX;
+                    pt.y = event.clientY;
+                    const svgPoint = pt.matrixTransform(ctm.inverse());
+
+                    // Subtract left/top to get position relative to rect
+                    const x = svgPoint.x - left;
+                    const y = svgPoint.y - top;
+
+                    // Use actual rendered dimensions
                     const elementRect =
                         event.currentTarget.getBoundingClientRect();
-
-                    // Calculate click position relative to the rect
-                    const x = event.clientX - elementRect.left;
-                    const y = event.clientY - elementRect.top;
-
-                    // Capture diagnostic info for mobile debugging
-                    const info = `Click: ${event.clientX.toFixed(0)}, ${event.clientY.toFixed(0)}
-Rect: ${elementRect.width.toFixed(0)}x${elementRect.height.toFixed(0)}
-Config: ${graphConfig.width}x${graphConfig.height}
-Relative: ${x.toFixed(1)}, ${y.toFixed(1)}`;
-                    setDebugInfo(info);
-
-                    // Use actual rendered dimensions instead of graphConfig dimensions
-                    // to account for any iOS text scaling
                     const actualDimensions = {
                         range: graphConfig.range,
                         width: elementRect.width,
                         height: elementRect.height,
                     };
+
+                    // Capture diagnostic info for mobile debugging
+                    const graphCoords = pixelsToVectors(
+                        [[x, y]],
+                        actualDimensions,
+                    );
+                    const info = `Click: ${event.clientX.toFixed(0)}, ${event.clientY.toFixed(0)}
+SVG: ${svgPoint.x.toFixed(1)}, ${svgPoint.y.toFixed(1)}
+Left/Top: ${left.toFixed(1)}, ${top.toFixed(1)}
+Relative: ${x.toFixed(1)}, ${y.toFixed(1)}
+Expected: ${widthPx}x${heightPx}
+Actual: ${elementRect.width.toFixed(0)}x${elementRect.height.toFixed(0)}
+Range: [${graphConfig.range[0][0]},${graphConfig.range[0][1]}],[${graphConfig.range[1][0]},${graphConfig.range[1][1]}]
+Result: [${graphCoords[0][0].toFixed(1)}, ${graphCoords[0][1].toFixed(1)}]`;
+                    setDebugInfo(info);
 
                     const graphCoordinates = pixelsToVectors(
                         [[x, y]],
