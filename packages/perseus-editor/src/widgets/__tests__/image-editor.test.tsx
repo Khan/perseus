@@ -50,7 +50,10 @@ describe("image editor", () => {
             testDependencies,
         );
 
-        unmockImageLoading = mockImageLoading();
+        unmockImageLoading = mockImageLoading({
+            naturalWidth: earthMoonImage.width,
+            naturalHeight: earthMoonImage.height,
+        });
     });
 
     afterEach(() => {
@@ -425,6 +428,54 @@ describe("image editor", () => {
                 height: 100,
             },
         });
+    });
+
+    it("should call onChange with original image size when reset to original size is clicked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                backgroundImage={{
+                    url: earthMoonImage.url,
+                    width: earthMoonImage.width / 2,
+                    height: earthMoonImage.height / 2,
+                }}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const resetToOriginalSizeButton = screen.getByRole("button", {
+            name: "Reset to original size",
+        });
+        await userEvent.click(resetToOriginalSizeButton);
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            backgroundImage: earthMoonImage,
+        });
+    });
+
+    it("should not call onChange when reset to original size is clicked and the image size is already the original size", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                backgroundImage={earthMoonImage}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const resetToOriginalSizeButton = screen.getByRole("button", {
+            name: "Reset to original size",
+        });
+        await userEvent.click(resetToOriginalSizeButton);
+
+        // Assert
+        expect(onChangeMock).not.toHaveBeenCalled();
     });
 
     it("should call onChange with new alt text", async () => {
