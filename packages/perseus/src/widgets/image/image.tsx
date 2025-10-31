@@ -75,6 +75,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     constrainHeight={apiOptions.isMobile}
                     allowFullBleed={apiOptions.isMobile}
                     allowZoom={!decorative}
+                    renderSpacer={false}
                     alt={decorative || caption === alt ? "" : alt}
                     setAssetStatus={setAssetStatus}
                 />

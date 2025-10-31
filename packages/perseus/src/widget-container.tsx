@@ -115,8 +115,7 @@ class WidgetContainer extends React.Component<Props, State> {
             alignment = CoreWidgetRegistry.getDefaultAlignment(type);
         }
 
-        // This will set the WidgetContainer's alignment
-        className += CoreWidgetRegistry.getAlignmentClassName(type, alignment);
+        className += " widget-" + alignment;
 
         const apiOptions = this.props.widgetProps.apiOptions;
 
