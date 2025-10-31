@@ -32,5 +32,8 @@
         "perseus-build-settings": "workspace:*"
     },
     "peerDependencies": {},
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "5381"
+    }
 }

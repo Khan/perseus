@@ -109,5 +109,8 @@
         "react-dom": "catalog:peerDeps",
         "underscore": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "3388811657"
+    }
 }

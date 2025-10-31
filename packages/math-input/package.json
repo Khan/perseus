@@ -78,5 +78,8 @@
         "react-dom": "catalog:peerDeps",
         "react-transition-group": "^4.4.1"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "4265157434"
+    }
 }

@@ -28,5 +28,8 @@
     "dependencies": {},
     "devDependencies": {
         "perseus-build-settings": "workspace:*"
+    },
+    "khan": {
+        "catalogHash": "5381"
     }
 }
