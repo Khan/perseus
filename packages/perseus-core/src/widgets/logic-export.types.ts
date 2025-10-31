@@ -1,3 +1,5 @@
+import {type getSaveWarningsForRadioWidget} from "./radio/radio-util";
+
 import type getCategorizerPublicWidgetOptions from "./categorizer/categorizer-util";
 import type getCSProgramPublicWidgetOptions from "./cs-program/cs-program-util";
 import type getDropdownPublicWidgetOptions from "./dropdown/dropdown-util";
@@ -54,6 +56,8 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
+export type SaveWarningsFunction = typeof getSaveWarningsForRadioWidget;
+
 export type WidgetLogic = {
     name: string;
     version?: Version;
@@ -68,4 +72,9 @@ export type WidgetLogic = {
      * be shared with the client.
      */
     getPublicWidgetOptions?: PublicWidgetOptionsFunction;
+
+    /**
+     * A function that provides the save warnings for the widget.
+     */
+    getSaveWarnings?: SaveWarningsFunction;
 };
