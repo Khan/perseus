@@ -33,6 +33,9 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
               style="max-width: 1280px; max-height: 720px;"
             >
               <div
+                style="padding-bottom: 56.25%;"
+              />
+              <div
                 class="default_xu2jcg-o_O-srOnly_19bpjuy"
               >
                 Khan Academy video wrapper
@@ -106,6 +109,9 @@ exports[`video widget should snapshot: first render 1`] = `
               class="fixed-to-responsive"
               style="max-width: 1280px; max-height: 720px;"
             >
+              <div
+                style="padding-bottom: 56.25%;"
+              />
               <div
                 class="default_xu2jcg-o_O-srOnly_19bpjuy"
               >

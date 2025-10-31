@@ -98,6 +98,11 @@ type Props = {
      * If not, it defaults to a no-op.
      */
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
+    /**
+     * This is used to determine if the spacer should be rendered. The spacer
+     * can cause a disruptive amount of space for Image widgets in certain cases.
+     */
+    renderSpacer?: boolean;
 };
 
 type DefaultProps = {
@@ -108,6 +113,7 @@ type DefaultProps = {
     setAssetStatus: NonNullable<Props["setAssetStatus"]>;
     src: NonNullable<Props["src"]>;
     zoomToFullSizeOnMobile: NonNullable<Props["zoomToFullSizeOnMobile"]>;
+    renderSpacer: NonNullable<Props["renderSpacer"]>;
 };
 
 type Label = {
@@ -153,6 +159,7 @@ class SvgImage extends React.Component<Props, State> {
         scale: 1,
         zoomToFullSizeOnMobile: false,
         setAssetStatus: (src: string, status: boolean) => {},
+        renderSpacer: true,
     };
 
     // Create a ref to the underlying image element. This is used within the
@@ -501,6 +508,7 @@ class SvgImage extends React.Component<Props, State> {
                             this.props.allowFullBleed &&
                             isImageProbablyPhotograph(imageSrc)
                         }
+                        renderSpacer={this.props.renderSpacer}
                     >
                         <ImageLoader
                             forwardedRef={this.imageRef}
@@ -574,6 +582,7 @@ class SvgImage extends React.Component<Props, State> {
                     width={width}
                     height={height}
                     constrainHeight={this.props.constrainHeight}
+                    renderSpacer={this.props.renderSpacer}
                 >
                     <ImageLoader
                         src={imageUrl}
