@@ -883,16 +883,6 @@
 :root {
     --perseus-zoom-overlay-z-index: 9000;
 }
-.zoom-img {
-    background-color: white;
-    position: absolute;
-    z-index: calc(var(--perseus-zoom-overlay-z-index) + 1);
-}
-img.zoom-img {
-    cursor: pointer;
-    cursor: -webkit-zoom-out;
-    cursor: -moz-zoom-out;
-}
 .zoom-transition {
     transition: transform 300ms ease;
 }
