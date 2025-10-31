@@ -8,7 +8,6 @@ import _ from "underscore";
 import {getDependencies} from "../dependencies";
 import Util from "../util";
 import {loadGraphie} from "../util/graphie-utils";
-import * as Zoom from "../zoom";
 
 import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
@@ -378,40 +377,6 @@ class SvgImage extends React.Component<Props, State> {
         return parseFloat(value) || null;
     }
 
-    _handleZoomClick: (e: React.SyntheticEvent) => void = (
-        e: React.SyntheticEvent,
-    ) => {
-        // Don't attempt to zoom if the image ref isn't available or the
-        // image hasn't finished loading yet
-        if (!this.imageRef.current || !this.state.imageLoaded) {
-            return;
-        }
-
-        e.stopPropagation();
-        e.preventDefault();
-
-        // Pass the image ref and the clicked element to the zoom service.
-        // The image is the target element to zoom into, and the clicked
-        // element will be refocused after exiting the zoom view.
-        Zoom.ZoomService.handleZoomClick(
-            this.imageRef,
-            this.props.zoomToFullSizeOnMobile,
-            {
-                clickedElement: e.currentTarget as HTMLElement,
-                // Pass the translated string from i18n context
-                zoomedImageAriaLabel:
-                    this.context.strings.imageResetZoomAriaLabel,
-                // Specify if the meta or ctrl key is being pressed.
-                // The zoom service uses this to determine if the image should
-                // be opened in a new tab when clicked.
-                metaKey: (e as React.KeyboardEvent).metaKey || false,
-                ctrlKey: (e as React.KeyboardEvent).ctrlKey || false,
-            },
-        );
-
-        this.props.trackInteraction?.();
-    };
-
     handleUpdate: (status: string) => void = (status: string) => {
         this.props.onUpdate();
         // NOTE: Labeled SVG images use this.onImageLoad to set imageLoaded
@@ -485,12 +450,6 @@ class SvgImage extends React.Component<Props, State> {
         // Just use a normal image if a normal image is provided
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
-                if (this.props.allowZoom) {
-                    imageProps.onClick = this._handleZoomClick;
-                    imageProps.clickAriaLabel =
-                        this.context.strings.imageZoomAriaLabel;
-                }
-
                 return (
                     <FixedToResponsive
                         className="svg-image"
@@ -503,6 +462,7 @@ class SvgImage extends React.Component<Props, State> {
                         }
                     >
                         <ImageLoader
+                            allowZoom={this.props.allowZoom}
                             forwardedRef={this.imageRef}
                             src={imageSrc}
                             imgProps={imageProps}

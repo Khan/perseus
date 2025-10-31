@@ -2,12 +2,12 @@
 /* eslint-disable jsx-a11y/alt-text, react/no-unsafe */
 // TODO(scottgrant): Enable the alt-text eslint rule above.
 
-import Clickable from "@khanacademy/wonder-blocks-clickable";
 import * as React from "react";
 
 import {type Dimensions, type PerseusDependenciesV2} from "../types";
 
 import {withDependencies} from "./with-dependencies";
+import {ZoomImageButton} from "./zoom-image-button";
 
 const Status = {
     PENDING: "pending",
@@ -21,14 +21,13 @@ export type ImageProps = {
     title?: string;
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
-    onClick?: (e: React.SyntheticEvent) => void;
-    clickAriaLabel?: string;
     style?: Dimensions;
 };
 
 type Props = {
     children?: React.ReactNode;
     imgProps: ImageProps;
+    allowZoom?: boolean;
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
     // When the DOM updates to replace the preloader with the image, or
@@ -140,12 +139,6 @@ class ImageLoader extends React.Component<Props, State> {
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
         const {src, imgProps, forwardedRef} = this.props;
         // Destructure to exclude props that shouldn't be on the <img> element
-        const {
-            // Don't pass onClick or clickAriaLabel to the <img> element
-            onClick,
-            clickAriaLabel,
-            ...otherImgProps
-        } = imgProps;
 
         const imgElement = (
             <img
@@ -168,33 +161,23 @@ class ImageLoader extends React.Component<Props, State> {
                         height: "100%",
                     }),
                 }}
-                {...otherImgProps}
+                {...imgProps}
             />
         );
 
-        if (!onClick) {
+        if (!this.props.allowZoom) {
             return imgElement;
         }
 
         return (
             <>
                 {imgElement}
-                <Clickable
-                    aria-label={clickAriaLabel}
-                    onClick={onClick}
-                    style={{
-                        // Overlay the button over the image.
-                        position: "absolute",
-                        width: this.props.imgProps.style?.width ?? "100%",
-                        height: this.props.imgProps.style?.height ?? "100%",
-                        overflow: "hidden",
-                        cursor: "zoom-in",
-                    }}
-                >
-                    {() => {
-                        return <React.Fragment />;
-                    }}
-                </Clickable>
+                <ZoomImageButton
+                    imgElement={imgElement}
+                    imgSrc={src}
+                    width={imgProps?.style?.width}
+                    height={imgProps?.style?.height}
+                />
             </>
         );
     };
