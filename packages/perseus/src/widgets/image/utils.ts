@@ -24,3 +24,11 @@ export const scienceImage = {
 export const scienceImageCaption =
     "*A diagram of prophase. During this stage of mitosis, chromosomes condense, the nuclear envelope breaks apart, and the mitotic spindle begins to form. Created with [Biorender.com](BioRender.com).*";
 export const scienceImageAlt = "A diagram shows a single, circular cell.";
+
+export const graphieImage = {
+    url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138",
+    width: 420,
+    height: 345,
+};
+export const graphieImageAlt =
+    "An array of isosceles triangles. A triangle has height A. Two smaller triangle, one with height B and one with height C, have approximately the same combined height as A.";
