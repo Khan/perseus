@@ -207,3 +207,36 @@ export const ImageWithDifferentSizes: Story = {
         );
     },
 };
+
+/**
+ * Images within a markdown table.
+ */
+export const ImagesWithMarkdownTable: Story = {
+    render: function Render() {
+        return (
+            // Limit width so zoom becomes possible.
+            <div style={{width: 600}}>
+                <ImageQuestionRenderer
+                    question={generateTestPerseusRenderer({
+                        content:
+                            "| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |",
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: frescoImage,
+                                    alt: "Fresco painting",
+                                }),
+                            }),
+                            "image 2": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and Moon",
+                                }),
+                            }),
+                        },
+                    })}
+                />
+            </div>
+        );
+    },
+};
