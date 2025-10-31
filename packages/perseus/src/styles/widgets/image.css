@@ -49,7 +49,6 @@
 }
 
 /******************* Perseus hint renderer styles *******************/
-/* Note: all alignment styling are defined in widget-container.css */
 
 .perseus-hint-renderer .perseus-image-widget {
     margin-inline-start: 0;

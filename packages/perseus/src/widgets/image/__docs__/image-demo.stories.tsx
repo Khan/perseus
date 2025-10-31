@@ -14,16 +14,8 @@ import {
     mobileDecorator,
     articleDecorator,
     mobileArticleDecorator,
-    articleFloatLeftDecorator,
 } from "../../__testutils__/story-decorators";
-import {
-    earthMoonImage,
-    frescoImage,
-    monasteryImage,
-    scienceImage,
-    scienceImageAlt,
-    scienceImageCaption,
-} from "../utils";
+import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -104,16 +96,6 @@ export const ImageWithinArticleMobile: Story = {
         alt: "Earth and Moon",
         caption: earthMoonImageCaption,
         title: "Earth and Moon",
-    },
-};
-
-export const ImageFloatLeftWithinArticle: Story = {
-    decorators: [imageRendererDecorator, articleFloatLeftDecorator],
-    args: {
-        backgroundImage: scienceImage,
-        alt: scienceImageAlt,
-        caption: scienceImageCaption,
-        alignment: "float-left",
     },
 };
 
