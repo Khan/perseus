@@ -35,7 +35,7 @@ import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
 const widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
-const rWidgetSplit = new RegExp(
+export const rWidgetSplit = new RegExp(
     widgetRegExp.replace("{id}", "[a-z-]+ [0-9]+"),
     "g",
 );
@@ -128,6 +128,9 @@ type Props = Readonly<{
     warnNoPrompt: boolean;
     warnNoWidgets: boolean;
     widgetIsOpen?: boolean;
+    // Maybe this should be optional, since the editor is used in the normal editor and in the hint editor.
+    // Also, perhaps a different name, since there's already a "widgets" property.
+    widgetsInExercise: PerseusWidgetsMap;
     imageUploader?: ImageUploader;
     // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;

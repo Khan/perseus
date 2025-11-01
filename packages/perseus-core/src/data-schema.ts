@@ -1344,6 +1344,8 @@ export type PerseusRadioWidgetOptions = {
     numCorrect?: number;
     // Randomize the order of the options or keep them as defined
     randomize?: boolean;
+    // Synchronize option order with another radio widget
+    syncWithRadioId?: number;
     // Does this set allow for multiple selections to be correct?
     multipleSelect?: boolean;
     // deprecated

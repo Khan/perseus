@@ -2,7 +2,7 @@ import {
     components,
     ApiOptions,
     ClassNames,
-    Dependencies,
+    Dependencies, Util,
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
@@ -28,6 +28,7 @@ import type {
     PerseusItem,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import {rWidgetSplit} from "./editor";
 
 const {HUD} = components;
 
@@ -323,6 +324,7 @@ class EditorPage extends React.Component<Props, State> {
                             previewURL={this.props.previewURL}
                             highlightLint={this.state.highlightLint}
                             widgetIsOpen={this.state.widgetsAreOpen}
+                            widgetsInExercise={this.props.question?.widgets ?? {}}
                         />
                     )}
                 </div>

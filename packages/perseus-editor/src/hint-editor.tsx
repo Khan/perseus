@@ -53,6 +53,7 @@ type HintEditorProps = {
     onChange: ChangeHandler;
     __type?: "hint";
     widgetIsOpen?: boolean;
+    widgetsInExercise: PerseusWidgetsMap;
 };
 
 /* Renders a hint editor box
@@ -120,6 +121,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                     imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange}
                     widgetIsOpen={this.props.widgetIsOpen}
+                    widgetsInExercise={this.props.widgetsInExercise}
                 />
                 <div className="hint-controls-container clearfix">
                     {this.props.showMoveButtons && (
@@ -188,6 +190,7 @@ type CombinedHintEditorProps = {
     // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
     widgetIsOpen?: boolean;
+    widgetsInExercise: PerseusWidgetsMap;
 };
 
 /* A single hint-row containing a hint editor and preview */
@@ -265,6 +268,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                         onMove={this.props.onMove}
                         apiOptions={this.props.apiOptions}
                         widgetIsOpen={this.props.widgetIsOpen}
+                        widgetsInExercise={this.props.widgetsInExercise}
                     />
                 </div>
                 <div className="perseus-editor-right-cell">
@@ -300,6 +304,8 @@ type CombinedHintsEditorProps = {
     // for non-content library exercise questions.
     itemId?: string;
     widgetIsOpen?: boolean;
+    // List of widgets in the exercise, in case hints need to reference them.
+    widgetsInExercise: PerseusWidgetsMap;
 };
 
 /* The entire hints editing/preview area
@@ -446,6 +452,8 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         contentPaths={[]}
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         widgetIsOpen={this.props.widgetIsOpen}
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        widgetsInExercise={this.props.widgetsInExercise}
                     />
                 );
             },
