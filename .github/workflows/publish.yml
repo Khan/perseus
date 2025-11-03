@@ -20,13 +20,17 @@ on:
         # The rest are the defaults.
         types: [edited, opened, synchronize, reopened]
 
-# IMPORTANT! We have a concurrency solely on this workflow, meaning that this
-# workflow can only run one instance at a time. This prevents us from trying to
-# publish a snapshot and a release at the same time (which has historically
-# caused problems). We also do not want to cancel in-progress runs, because we
-# don't want a production publish to be interrupted by a snapshot publish ever.
+# IMPORTANT! We set concurrency to this workflow and the branch (github.ref),
+# meaning that this workflow can only run one instance, per branch, at a time.
+# This prevents us from having two production releases publishing at the same
+# time, creating a race condition, and from trying to publish multiple snapshots
+# for the same PR at the same time (potentially publishing an earlier commit as
+# "latest" and causing confusion).
+#
+# We also do not want to cancel in-progress runs, because we don't want a
+# production publish to be interrupted by a snapshot publish ever.
 concurrency:
-    group: ${{ github.workflow }}
+    group: ${{ github.workflow }}-${{ github.ref }}
     # IMPORTANT! We do not want to cancel in-progress runs, because we don't
     # want a production publish to be interrupted by a snapshot publish ever.
     cancel-in-progress: false
