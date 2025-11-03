@@ -112,16 +112,19 @@
 }
 
 .rationale :global(.perseus-renderer) {
+    /* Ensures that multiple paragraphs are stacked with spacing */
     display: flex;
     flex-direction: column;
     gap: var(--wb-sizing-size_120);
 }
 
 .rationale :global(.perseus-renderer .paragraph) {
+    /* Removes margin that is added by overly-broad styling for .paragraph - the gap in the rule above handles spacing */
     margin: 0;
 }
 
 .rationale :global(.perseus-renderer > .paragraph:not(:has(*))) {
+    /* Ensures that empty paragraphs do not take up space */
     display: none;
 }
 
