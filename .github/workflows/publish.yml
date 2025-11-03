@@ -91,12 +91,10 @@ jobs:
                   # the account of someone with appropriate access levels and given the
                   # repo scope.
                   GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  # We set this so that (p)npm publish will include the
-                  # provenance information in the package.json file and surface
-                  # it in the npm registry.
-                  # See: https://docs.npmjs.com/generating-provenance-statements
-                  NPM_CONFIG_PROVENANCE: true
+                  # Note: we no longer use the NPM_TOKEN secret because we've enabled
+                  # Trusted Publishing (https://docs.npmjs.com/trusted-publishers) on
+                  # the npmjs.com side. Eg:
+                  # https://www.npmjs.com/package/@khanacademy/perseus/access
 
             - name: Send a Slack notification if a publish fails
               if: failure()
@@ -189,8 +187,11 @@ jobs:
               id: publish-snapshot
               run: ./utils/publish-snapshot.sh # All config is via Github env vars
               env:
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  # Note: we no longer use the NPM_TOKEN secret because we've enabled
+                  # Trusted Publishing (https://docs.npmjs.com/trusted-publishers) on
+                  # the npmjs.com side. Eg:
+                  # https://www.npmjs.com/package/@khanacademy/perseus/access
 
             - name: Calculate short SHA for this commit
               id: short-sha
