@@ -543,12 +543,26 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         [[x, y]],
                         actualDimensions,
                     );
+
+                    // Get all possible diagnostic values
+                    const scaleX = Math.sqrt(ctm.a * ctm.a + ctm.b * ctm.b);
+                    const scaleY = Math.sqrt(ctm.c * ctm.c + ctm.d * ctm.d);
+                    const visualViewportScale =
+                        window.visualViewport?.scale ?? 1;
+                    const devicePixelRatio = window.devicePixelRatio ?? 1;
+                    const parentSvg = svg.getBoundingClientRect();
+
                     const info = `Click: ${event.clientX.toFixed(0)}, ${event.clientY.toFixed(0)}
 SVG: ${svgPoint.x.toFixed(1)}, ${svgPoint.y.toFixed(1)}
+CTM: a=${ctm.a.toFixed(2)} d=${ctm.d.toFixed(2)}
+CTM Scale: ${scaleX.toFixed(3)}, ${scaleY.toFixed(3)}
+VVP Scale: ${visualViewportScale.toFixed(3)}
+DPR: ${devicePixelRatio.toFixed(3)}
 Left/Top: ${left.toFixed(1)}, ${top.toFixed(1)}
 Relative: ${x.toFixed(1)}, ${y.toFixed(1)}
 Expected: ${widthPx}x${heightPx}
 Actual: ${elementRect.width.toFixed(0)}x${elementRect.height.toFixed(0)}
+Parent SVG: ${parentSvg.width.toFixed(0)}x${parentSvg.height.toFixed(0)}
 Range: [${graphConfig.range[0][0]},${graphConfig.range[0][1]}],[${graphConfig.range[1][0]},${graphConfig.range[1][1]}]
 Result: [${graphCoords[0][0].toFixed(1)}, ${graphCoords[0][1].toFixed(1)}]`;
                     setDebugInfo(info);
