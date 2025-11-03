@@ -35,12 +35,6 @@ concurrency:
     # want a production publish to be interrupted by a snapshot publish ever.
     cancel-in-progress: false
 
-permissions:
-    id-token: write # Required for OIDC/Trusted Publishing and provenance
-    contents: write # For GitHub pages and creating release PRs
-    pull-requests: write # For snapshot PR comments
-    issues: write # For PR comments
-
 jobs:
     # Production Release
     #
@@ -70,8 +64,8 @@ jobs:
             (github.event_name == 'push' && github.ref == 'refs/heads/main')
         runs-on: ${{ matrix.os }}
         permissions:
-            id-token: write # required for publishing to npm with provenance
-            contents: write # required for creating pull requests
+            id-token: write # For trusted publishing to npm (includes provenance)
+            contents: write # For GitHub pages and creating release PRs
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -140,8 +134,9 @@ jobs:
             (github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/'))
         runs-on: ${{ matrix.os }}
         permissions:
-            id-token: write # required for publishing to npm with provenance
-            pull-requests: write # required because we write a comment on the PR
+            id-token: write # For trusted publishing to npm (includes provenance)
+            pull-requests: write # For creating/updating "snapshot created/updated" comment
+            issues: write # For PR comments
         strategy:
             matrix:
                 os: [ubuntu-latest]
