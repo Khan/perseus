@@ -91,6 +91,7 @@ jobs:
                   # the account of someone with appropriate access levels and given the
                   # repo scope.
                   GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
+                  # TODO(LEMS_3681): Remove once trusted publishing enabled in npmjs.com
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
                   # We set this so that (p)npm publish will include the
                   # provenance information in the package.json file and surface
@@ -189,6 +190,7 @@ jobs:
               id: publish-snapshot
               run: ./utils/publish-snapshot.sh # All config is via Github env vars
               env:
+                  # TODO(LEMS_3681): Remove once trusted publishing enabled in npmjs.com
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
