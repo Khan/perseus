@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 28.5.6
+
+### Patch Changes
+
+-   [#3011](https://github.com/Khan/perseus/pull/3011) [`79959b9d3e`](https://github.com/Khan/perseus/commit/79959b9d3e37f2a46690a4d4847ff9bbe17353e9) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   [#3007](https://github.com/Khan/perseus/pull/3007) [`9a0bdcd7d2`](https://github.com/Khan/perseus/commit/9a0bdcd7d224aaaa127cd574225ed1e6e18c73f7) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add a button to reset image to original dimensions
+
+-   [#3008](https://github.com/Khan/perseus/pull/3008) [`7180091927`](https://github.com/Khan/perseus/commit/7180091927b3115e33ac9b31164ae4a2545b636c) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix image stretching vertically in markdown tables in Safari
+
+-   Updated dependencies [[`d0309d0b1f`](https://github.com/Khan/perseus/commit/d0309d0b1f59e88b4a59fe23fd6d737c900f1c7d), [`79959b9d3e`](https://github.com/Khan/perseus/commit/79959b9d3e37f2a46690a4d4847ff9bbe17353e9), [`79959b9d3e`](https://github.com/Khan/perseus/commit/79959b9d3e37f2a46690a4d4847ff9bbe17353e9), [`7180091927`](https://github.com/Khan/perseus/commit/7180091927b3115e33ac9b31164ae4a2545b636c)]:
+    -   @khanacademy/perseus@71.5.0
+    -   @khanacademy/math-input@26.2.17
+
 ## 28.5.5
 
 ### Patch Changes
