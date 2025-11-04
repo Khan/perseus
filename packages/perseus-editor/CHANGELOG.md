@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 28.6.1
+
+### Patch Changes
+
+-   [#3015](https://github.com/Khan/perseus/pull/3015) [`1ed3e9c757`](https://github.com/Khan/perseus/commit/1ed3e9c757c4bea177f07de211bccc72a4c3d23b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Moving the key up to resolve a missed bug for react
+
 ## 28.6.0
 
 ### Minor Changes
