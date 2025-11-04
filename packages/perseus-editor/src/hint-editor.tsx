@@ -416,10 +416,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             hints,
             function (hint, i) {
                 return (
-                    <fieldset disabled={editingDisabled}>
+                    <fieldset disabled={editingDisabled} key={"hintEditor" + i}>
                         <CombinedHintEditor
                             ref={"hintEditor" + i}
-                            key={"hintEditor" + i}
                             isFirst={i === 0}
                             isLast={i + 1 === hints.length}
                             itemId={itemId}
