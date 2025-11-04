@@ -65,6 +65,10 @@ const config: StorybookConfig = {
     // TODO(ivy): Simplify code below once improvements are done
     // stories: ["../src/**/*.stories.@(ts|tsx|mdx)"]
     stories: [
+        // This is a special story that provides support for the editor's
+        // iframe-based preview system in Storybook.
+        "../testing/preview.stories.tsx",
+
         // This will be used for the main documentation pages
         "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
 

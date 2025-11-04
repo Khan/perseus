@@ -66,6 +66,10 @@ function EditorPageWithStorybookPreview(props: Props) {
         isMobile: false,
     };
 
+    const storybookPreviewUrl = React.useMemo(() => {
+        return `${window.location.origin}/iframe.html?id=dev-support-preview--default&viewMode=story`;
+    }, []);
+
     return (
         <View>
             <EditorPage
@@ -80,7 +84,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                 answerArea={answerArea}
                 question={question}
                 hints={hints}
-                previewURL="about:blank"
+                previewURL={storybookPreviewUrl}
                 itemId="1"
                 onChange={(props) => {
                     onChangeAction(props);
@@ -102,34 +106,6 @@ function EditorPageWithStorybookPreview(props: Props) {
                     "Side by Side": "Left hand side\n=====\nRight hand side",
                 }}
             />
-
-            <PreviewPanel openButtonText="Open preview (storybook only)">
-                {/* Question preview */}
-                <ContentPreview
-                    question={question}
-                    previewDevice={previewDevice}
-                    apiOptions={apiOptions}
-                    linterContext={{
-                        contentType: "exercise",
-                        highlightLint: true,
-                        paths: [],
-                        stack: [],
-                    }}
-                />
-
-                {/* Hints preview */}
-                {hints?.map((hint, index) => (
-                    <View key={index} className={styles.innerPanel}>
-                        <Strut size={spacing.medium_16} />
-                        <LabelLarge>{`Hint ${index + 1}`}</LabelLarge>
-                        <Renderer
-                            strings={mockStrings}
-                            apiOptions={apiOptions}
-                            {...hint}
-                        />
-                    </View>
-                ))}
-            </PreviewPanel>
         </View>
     );
 }
