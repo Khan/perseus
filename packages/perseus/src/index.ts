@@ -83,6 +83,12 @@ export {
     usePerseusI18n,
 } from "./components/i18n-context";
 
+// Context for managing API options
+export {
+    APIOptionsContext,
+    useAPIOptionsContext,
+} from "./components/api-options-context";
+
 /**
  * Util
  */

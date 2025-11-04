@@ -1,4 +1,4 @@
-import {ApiOptions} from "@khanacademy/perseus";
+import {ApiOptions, APIOptionsContext} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -35,7 +35,7 @@ describe("IssuesPanel", () => {
 
     it("shows passing icon and '0 issues' when no data is passed", () => {
         // Arrange
-        render(<IssuesPanel apiOptions={ApiOptions.defaults} issues={[]} />);
+        render(<IssuesPanel issues={[]} />);
 
         // Assert
         expect(screen.getByText("0 issues")).toBeInTheDocument();
@@ -53,12 +53,7 @@ describe("IssuesPanel", () => {
 
     it("shows warning icon for warnings", () => {
         // Arrange
-        render(
-            <IssuesPanel
-                apiOptions={ApiOptions.defaults}
-                issues={[makeIssue("warn1")]}
-            />,
-        );
+        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
 
         // Assert
         expect(screen.getByText("1 issue")).toBeInTheDocument();
@@ -77,10 +72,7 @@ describe("IssuesPanel", () => {
     it("shows warning icon for warnings and correct issue count when multiple warnings are passed", async () => {
         // Arrange
         render(
-            <IssuesPanel
-                apiOptions={ApiOptions.defaults}
-                issues={[makeIssue("warn1"), makeIssue("warn2")]}
-            />,
+            <IssuesPanel issues={[makeIssue("warn1"), makeIssue("warn2")]} />,
         );
 
         // Assert
@@ -99,12 +91,7 @@ describe("IssuesPanel", () => {
 
     it("opens the panel when the heading is clicked", async () => {
         // Arrange
-        render(
-            <IssuesPanel
-                apiOptions={ApiOptions.defaults}
-                issues={[makeIssue("warn1")]}
-            />,
-        );
+        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
         const toggleHeader = screen.getByText("Issues");
 
         //Act
@@ -116,12 +103,7 @@ describe("IssuesPanel", () => {
 
     it("closes the panel when the heading is clicked again", async () => {
         //Arrange
-        render(
-            <IssuesPanel
-                apiOptions={ApiOptions.defaults}
-                issues={[makeIssue("warn1")]}
-            />,
-        );
+        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
         const toggleHeader = screen.getByText("Issues");
         await userEvent.click(toggleHeader);
         expect(screen.getByText("Warning: warn1")).toBeInTheDocument();
@@ -136,11 +118,14 @@ describe("IssuesPanel", () => {
     it("shows the CTA button when the issue has one", async () => {
         // Arrange
         render(
-            <IssuesPanel
-                apiOptions={imageUpdateFFOptions}
-                // "image-markdown" issue ID has a CTA associated with it
-                issues={[makeIssue("image-markdown")]}
-            />,
+            <APIOptionsContext.Provider
+                value={{apiOptions: imageUpdateFFOptions}}
+            >
+                <IssuesPanel
+                    // "image-markdown" issue ID has a CTA associated with it
+                    issues={[makeIssue("image-markdown")]}
+                />
+            </APIOptionsContext.Provider>,
         );
 
         // Act
@@ -159,7 +144,6 @@ describe("IssuesPanel", () => {
         // Arrange - same setup as above but without feature flag
         render(
             <IssuesPanel
-                apiOptions={ApiOptions.defaults}
                 // "image-markdown" issue ID has a CTA associated with it
                 issues={[makeIssue("image-markdown")]}
             />,
