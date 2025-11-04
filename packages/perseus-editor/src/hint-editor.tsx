@@ -4,7 +4,12 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {APIOptionsContext, components, iconTrash} from "@khanacademy/perseus";
+import {
+    APIOptionsContext,
+    ApiOptions,
+    components,
+    iconTrash,
+} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
@@ -216,7 +221,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
 
     editor = React.createRef<HintEditor>();
     frame = React.createRef<IframeContentRenderer>();
-    private contextApiOptions?: APIOptions;
+    private contextApiOptions: APIOptions = ApiOptions.defaults;
 
     componentDidMount() {
         this.updatePreview();

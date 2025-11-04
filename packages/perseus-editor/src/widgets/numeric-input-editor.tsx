@@ -23,7 +23,6 @@ import Heading from "../components/heading";
 import PerseusEditorAccordion from "../components/perseus-editor-accordion";
 import Editor from "../editor";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {ClickableRole} from "@khanacademy/wonder-blocks-clickable";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import type {
@@ -64,7 +63,6 @@ const initAnswer = (status: string) => {
 // The "static" property is not used in this widget (per the type definition comments)
 type Props = Omit<PerseusNumericInputWidgetOptions, "static"> & {
     onChange: (results: any) => any;
-    apiOptions?: APIOptionsWithDefaults;
 };
 
 type State = {
