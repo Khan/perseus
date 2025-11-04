@@ -6,127 +6,7 @@ import type {PerseusRenderer} from "@khanacademy/perseus-core";
  * the full range of Perseus widgets.
  */
 export const comprehensiveQuestion: PerseusRenderer = {
-    content: `# Perseus Editor - All Widgets Showcase (Disabled)
-
-This demonstrates all Perseus widget types in a disabled editing state.
-
-## Math & Input Widgets
-
-**Numeric Input:** Solve for x: $2x + 5 = 13$ → x = [[\u2603 numeric-input 1]]
-
-**Expression Input:** Enter the expanded form: [[\u2603 expression 1]]
-
-## Choice Widgets
-
-**Radio (Single Select):** Which is the correct answer?
-[[\u2603 radio 1]]
-
-
-**Dropdown:** The answer is [[\u2603 dropdown 1]] than 10.
-
-**Categorizer:** Drag items to correct categories:
-[[\u2603 categorizer 1]]
-
-## Interactive Widgets
-
-**Interactive Graph:** Plot the function y = 2x + 1:
-[[\u2603 interactive-graph 1]]
-
-**Number Line:** Mark the solution on the number line:
-[[\u2603 number-line 1]]
-
-**Matrix:** Enter the 2×2 identity matrix:
-[[\u2603 matrix 1]]
-
-## Content Widgets
-
-**Definition:** Click to learn about [[\u2603 definition 1]].
-
-**Explanation:** [[\u2603 explanation 1]]
-
-**Image:** Label the parts of this diagram:
-[[\u2603 image 1]]
-
-## Advanced Widgets
-
-**Table:** Fill in the multiplication table:
-[[\u2603 table 1]]
-
-**Plotter:** Plot points on the coordinate plane:
-[[\u2603 plotter 1]]
-
-**Sorter:** Arrange in ascending order:
-[[\u2603 sorter 1]]
-
-## Input Widgets
-
-**Input Number:** Enter the value as a decimal:
-[[\u2603 input-number 1]]
-
-**Free Response:** Provide your answer:
-[[\u2603 free-response 1]]
-
-## Ordering & Matching
-
-**Orderer:** Arrange from least to greatest:
-[[\u2603 orderer 1]]
-
-**Matcher:** Match items:
-[[\u2603 matcher 1]]
-
-## Interactive Image Widgets
-
-**Label Image:** Label the diagram:
-[[\u2603 label-image 1]]
-
-**Grapher:** Graph the function:
-[[\u2603 grapher 1]]
-
-## Grouping Widgets
-
-**Group:** Multiple widgets grouped:
-[[\u2603 group 1]]
-
-**Graded Group:** Graded question group:
-[[\u2603 graded-group 1]]
-
-**Graded Group Set:** Set of graded groups:
-[[\u2603 graded-group-set 1]]
-
-## Media Widgets
-
-**Video:** Watch the video:
-[[\u2603 video 1]]
-
-**Iframe:** Interactive content:
-[[\u2603 iframe 1]]
-
-## Reading Widgets
-
-**Passage:** Read the passage below:
-[[\u2603 passage 1]]
-
-**Passage Reference:** See [[\u2603 passage-ref 1]]
-
-## Specialized Widgets
-
-**CS Program:** Programming exercise:
-[[\u2603 cs-program 1]]
-
-**Python Program:** Python coding:
-[[\u2603 python-program 1]]
-
-**PhET Simulation:** Interactive simulation:
-[[\u2603 phet-simulation 1]]
-
-**Interaction:** Custom interactive element:
-[[\u2603 interaction 1]]
-
-**Measurer:** Measurement tool:
-[[\u2603 measurer 1]]
-
----
-*All widgets above should be in disabled editing mode - you can see their configuration but cannot modify settings.*`,
+    content: `[[\u2603 categorizer 1]] [[\u2603 cs-program 1]] [[\u2603 definition 1]] [[\u2603 dropdown 1]] [[\u2603 expression 1]] [[\u2603 explanation 1]] [[\u2603 free-response 1]] [[\u2603 graded-group 1]] [[\u2603 graded-group-set 1]] [[\u2603 grapher 1]] [[\u2603 group 1]] [[\u2603 iframe 1]] [[\u2603 image 1]] [[\u2603 input-number 1]] [[\u2603 interaction 1]] [[\u2603 interactive-graph 1]] [[\u2603 label-image 1]] [[\u2603 matcher 1]] [[\u2603 matrix 1]] [[\u2603 measurer 1]] [[\u2603 number-line 1]] [[\u2603 numeric-input 1]] [[\u2603 orderer 1]] [[\u2603 passage 1]] [[\u2603 passage-ref 1]] [[\u2603 phet-simulation 1]] [[\u2603 plotter 1]] [[\u2603 python-program 1]] [[\u2603 radio 1]] [[\u2603 sorter 1]] [[\u2603 table 1]] [[\u2603 video 1]]`,
     images: {
         "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png": {
             width: 300,
@@ -222,7 +102,7 @@ This demonstrates all Perseus widget types in a disabled editing state.
             static: false,
             type: "categorizer",
             options: {
-                items: ["Apple", "Carrot", "Banana", "Broccoli"],
+                items: ["Apple", "Carrot", "Orange"],
                 categories: ["Fruits", "Vegetables"],
                 values: [0, 1, 0, 1],
                 randomizeItems: false,
@@ -379,10 +259,10 @@ This demonstrates all Perseus widget types in a disabled editing state.
                 labels: ["x", "y"],
                 categories: ["blue"],
                 scaleY: 1,
-                maxY: 10,
+                maxY: 5,
                 snapsPerLine: 2,
                 correct: [2, 4, 3],
-                starting: [0, 0, 0, 6],
+                starting: [0, 0, 0, 2],
                 plotDimensions: [300, 300],
             },
         },
