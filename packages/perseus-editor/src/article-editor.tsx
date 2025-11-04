@@ -7,6 +7,7 @@
 import {
     components,
     ApiOptions,
+    APIOptionsContext,
     iconTrash,
     Dependencies,
 } from "@khanacademy/perseus";
@@ -141,7 +142,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     _renderEditor(): React.ReactElement<React.ComponentProps<"div">> {
         const {imageUploader, sectionImageUploadGenerator} = this.props;
 
-        const apiOptions = {
+        const apiOptionsForArticle = {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,
 
@@ -216,16 +217,22 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                         />
                                     </div>
                                 </div>
-                                <Editor
-                                    {...section}
-                                    apiOptions={apiOptions}
-                                    imageUploader={imageUploader}
-                                    onChange={(newProps) =>
-                                        this._handleEditorChange(i, newProps)
-                                    }
-                                    placeholder="Type your section text here..."
-                                    ref={"editor" + i}
-                                />
+                                <APIOptionsContext.Provider
+                                    value={{apiOptions: apiOptionsForArticle}}
+                                >
+                                    <Editor
+                                        {...section}
+                                        imageUploader={imageUploader}
+                                        onChange={(newProps) =>
+                                            this._handleEditorChange(
+                                                i,
+                                                newProps,
+                                            )
+                                        }
+                                        placeholder="Type your section text here..."
+                                        ref={"editor" + i}
+                                    />
+                                </APIOptionsContext.Provider>
                             </div>
 
                             <div className="editor-preview">

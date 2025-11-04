@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import {ApiOptions} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {action} from "storybook/actions";
@@ -21,7 +20,6 @@ export default {
 export const Demo = (): React.ReactElement => {
     return (
         <Editor
-            apiOptions={ApiOptions.defaults}
             content={question1.content}
             placeholder=""
             widgets={question1.widgets}
@@ -98,7 +96,6 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                     <View style={{width: "360px", margin: "20px"}}>
                         <Editor
                             ref={editorRef}
-                            apiOptions={ApiOptions.defaults}
                             content={content}
                             placeholder=""
                             widgets={widgets}

@@ -43,7 +43,6 @@ class GroupEditor extends React.Component<Props> {
                     ref={this.editor}
                     content={this.props.content}
                     widgets={this.props.widgets}
-                    apiOptions={this.props.apiOptions}
                     images={this.props.images}
                     widgetEnabled={true}
                     immutableWidgets={false}

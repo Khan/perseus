@@ -100,7 +100,6 @@ class MatrixEditor extends React.Component<Props> {
                     <Editor
                         // eslint-disable-next-line react/no-string-refs
                         ref="prefix"
-                        apiOptions={this.props.apiOptions}
                         content={this.props.prefix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
@@ -114,7 +113,6 @@ class MatrixEditor extends React.Component<Props> {
                     <Editor
                         // eslint-disable-next-line react/no-string-refs
                         ref="suffix"
-                        apiOptions={this.props.apiOptions}
                         content={this.props.suffix}
                         widgetEnabled={false}
                         onChange={(newProps) => {

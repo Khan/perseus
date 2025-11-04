@@ -39,7 +39,6 @@ class PassageEditor extends React.Component<Props> {
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="passage-editor"
-                apiOptions={this.props.apiOptions}
                 content={this.props.passageText}
                 widgetEnabled={false}
                 placeholder="Type passage here..."
@@ -54,7 +53,6 @@ class PassageEditor extends React.Component<Props> {
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="passage-footnotes-editor"
-                apiOptions={this.props.apiOptions}
                 content={this.props.footnotes}
                 widgetEnabled={false}
                 placeholder="Type footnotes here..."

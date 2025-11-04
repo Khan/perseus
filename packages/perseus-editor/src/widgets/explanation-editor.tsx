@@ -69,7 +69,6 @@ class ExplanationEditor extends React.Component<Props, State> {
                 </div>
                 <div className="perseus-widget-row">
                     <Editor
-                        apiOptions={this.props.apiOptions}
                         content={this.props.explanation}
                         widgets={this.props.widgets}
                         widgetEnabled={true}
