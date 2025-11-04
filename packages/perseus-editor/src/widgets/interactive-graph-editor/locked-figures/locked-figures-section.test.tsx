@@ -40,9 +40,15 @@ describe("LockedFiguresSection", () => {
 
     test("renders", () => {
         // Arrange, Act
-        render(<LockedFiguresSection onChange={jest.fn()} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <LockedFiguresSection
+                onChange={jest.fn()}
+                editingDisabled={false}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
 
         // Assert
         expect(screen.getByText("Add locked figure")).toBeInTheDocument();
@@ -50,9 +56,15 @@ describe("LockedFiguresSection", () => {
 
     test("renders no expand/collapse button when there are no figures", () => {
         // Arrange, Act
-        render(<LockedFiguresSection onChange={jest.fn()} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <LockedFiguresSection
+                onChange={jest.fn()}
+                editingDisabled={false}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
 
         // Assert
         expect(screen.queryByRole("button", {name: "Expand all"})).toBeNull();
@@ -65,6 +77,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
+                editingDisabled={false}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -86,6 +99,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
+                editingDisabled={false}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -109,6 +123,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
+                editingDisabled={false}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -138,6 +153,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
+                editingDisabled={false}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -172,6 +188,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
+                editingDisabled={false}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -201,6 +218,7 @@ describe("LockedFiguresSection", () => {
                     getDefaultFigureForType("line"),
                 ]}
                 onChange={jest.fn()}
+                editingDisabled={false}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -224,5 +242,29 @@ describe("LockedFiguresSection", () => {
         expect(point2Header.getAttribute("aria-expanded")).toBe("true");
         expect(pointHeader.getAttribute("aria-expanded")).toBe("false");
         expect(lineHeader.getAttribute("aria-expanded")).toBe("false");
+    });
+
+    test("should disable inputs and expand the accordions when editingDisabled is true", () => {
+        // Arrange
+        render(
+            <fieldset disabled>
+                <LockedFiguresSection
+                    figures={defaultFigures}
+                    editingDisabled={true}
+                    onChange={jest.fn()}
+                />
+            </fieldset>,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+        const pointHeader = getDefaultFigureHeader("point");
+        const lineHeader = getDefaultFigureHeader("line");
+        const vectorHeader = getDefaultFigureHeader("vector");
+
+        // Assert: All figures are expanded
+        expect(pointHeader.getAttribute("aria-expanded")).toBe("true");
+        expect(lineHeader.getAttribute("aria-expanded")).toBe("true");
+        expect(vectorHeader.getAttribute("aria-expanded")).toBe("true");
     });
 });

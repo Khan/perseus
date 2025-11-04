@@ -6,6 +6,7 @@ import {
     PerseusMarkdown,
     Util,
     Widgets,
+    ApiOptions,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
@@ -29,7 +30,11 @@ import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
 // eslint-disable-next-line import/no-deprecated
-import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    ChangeHandler,
+    ImageUploader,
+} from "@khanacademy/perseus";
 import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 // like [[snowman numeric-input 1]]
@@ -147,6 +152,7 @@ type DefaultProps = {
         [name: string]: PerseusWidget;
     };
     additionalTemplates: Props["additionalTemplates"];
+    apiOptions: APIOptions;
 };
 
 type State = {
@@ -174,6 +180,7 @@ class Editor extends React.Component<Props, State> {
         warnNoPrompt: false,
         warnNoWidgets: false,
         additionalTemplates: {},
+        apiOptions: ApiOptions.defaults,
     };
 
     state: State = {
@@ -1095,10 +1102,15 @@ class Editor extends React.Component<Props, State> {
             backgroundColor: "pink",
         } as const;
 
+        const editingDisabled = this.props.apiOptions.editingDisabled;
+
         return (
             <div
+                data-testid="perseus-single-editor"
                 className={
-                    "perseus-single-editor " + (this.props.className || "")
+                    "perseus-single-editor " +
+                    (this.props.className || "") +
+                    (editingDisabled ? " perseus-editor-disabled" : "")
                 }
             >
                 {textareaWrapper}
