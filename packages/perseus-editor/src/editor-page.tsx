@@ -162,20 +162,11 @@ class EditorPage extends React.Component<Props, State> {
             return;
         }
 
-        const touch =
-            this.props.previewDevice === "phone" ||
-            this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getDeviceBasedApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
-
         this.itemEditor.current?.triggerPreviewUpdate({
             type: "question",
             data: _({
                 item: this.serialize(),
-                apiOptions: deviceBasedApiOptions,
+                apiOptions: this.getDeviceBasedApiOptions(),
                 initialHintsVisible: 0,
                 device: this.props.previewDevice,
                 linterContext: {

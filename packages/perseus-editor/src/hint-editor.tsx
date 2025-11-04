@@ -118,7 +118,6 @@ class HintEditor extends React.Component<HintEditorProps> {
                             // item in the Sidebar, the question editor is
                             // re-rendered by React.
                             key={this.props.itemId}
-                            apiOptions={apiOptions}
                             widgets={this.props.widgets || undefined}
                             content={this.props.content || undefined}
                             images={this.props.images}
