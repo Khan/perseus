@@ -4,55 +4,18 @@
  * To simulate the environment of content rendered by itself, content previews
  * are rendered inside iframes, where components such as the math keypad work
  * because the body of the document is not the body of the editor. To make this
- * work, this component renders an iframe and can communicate objects to it
- * through postMessage. The recipient then needs to listen for these messages
- * and pull out the appropriate object stored in the parent's iframeDataStore
- * to get the data to render. When the iframe is loaded, it's javascript calls
- * its requestIframeData function in the parent, which triggers the parent to
- * send the current data.
+ * work, this component renders an iframe and communicates with it via postMessage
+ * using the preview hooks system.
  */
-import {Log} from "@khanacademy/perseus";
 import * as React from "react";
 
-let nextIframeID = 0;
-const requestIframeData: Record<string, any> = {};
-const updateIframeHeight: Record<string, any> = {};
-// @ts-expect-error - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
-window.iframeDataStore = {};
+import {usePreviewHost} from "./preview/use-preview-host";
 
-// This is called once after Perseus is loaded and the iframe
-// is ready to render content, then twice a second afterwards
-// to capture the result of animations.
-window.addEventListener("message", (event) => {
-    if (typeof event.data === "string") {
-        // In Perseus, we expect the callback to exist, as it is added by
-        // `IframeContentRenderer.componentDidMount()`. Unfortunately, this
-        // event listener also gets added in Manticore (since we include Perseus
-        // from there), and Crowdin fires its own "message" events. So we'll
-        // just have to ignore the event when we can't find the callback.
-        const callback = requestIframeData[event.data];
-        if (callback) {
-            callback();
-        }
-    } else if (event.data.id) {
-        if (event.data.height !== undefined) {
-            updateIframeHeight[event.data.id](event.data.height);
-        } else if (event.data.lintWarnings) {
-            // This is a lint report being sent back from the linter.
-            // TODO:
-            // We'll want to display the number of warnings in the HUD.
-            // But for now, we just log it to the console
-            Log.log("LINTER REPORT", {
-                lintWarnings: JSON.stringify(event.data.lintWarnings),
-            });
-        }
-    }
-});
+import type {PreviewContent} from "./preview/message-types";
+
+let nextIframeID = 0;
 
 type Props = {
-    // The HTML content to render to the iframe
-    // content?: string,
-
     // The URL that the iframe should load
     url: string;
     // The data-* suffix for passing information to the iframe's JS
@@ -64,92 +27,43 @@ type Props = {
     seamless: boolean;
 };
 
-class IframeContentRenderer extends React.Component<Props> {
-    _frame: HTMLIFrameElement | null | undefined;
-    container = React.createRef<HTMLDivElement>();
+type IframeContentRendererHandle = {
+    sendNewData: (data: PreviewContent) => void;
+};
 
-    // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
-    _isMounted: boolean;
-    _lastData: any;
-    // @ts-expect-error - TS2564 - Property '_lastHeight' has no initializer and is not definitely assigned in the constructor.
-    _lastHeight: number;
-    // @ts-expect-error - TS2564 - Property 'iframeID' has no initializer and is not definitely assigned in the constructor.
-    iframeID: number;
+const IframeContentRenderer = React.forwardRef<
+    IframeContentRendererHandle,
+    Props
+>((props, ref) => {
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const iframeRef = React.useRef<HTMLIFrameElement>(null);
+    const [iframe, setIframe] = React.useState<HTMLIFrameElement | null>(null);
+    const iframeIdRef = React.useRef<number>(nextIframeID++);
+    const lastDataRef = React.useRef<PreviewContent | null>(null);
 
-    componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
-        // this.isMounted() but is still considered an anti-pattern.
-        this._isMounted = true;
+    const {sendData, height} = usePreviewHost(iframeRef);
 
-        this.iframeID = nextIframeID;
-        nextIframeID++;
-
-        this._prepareFrame();
-        requestIframeData[this.iframeID] = () => {
-            this.sendNewData(this._lastData);
-        };
-
-        updateIframeHeight[this.iframeID] = (height: any) => {
-            this._lastHeight = height;
-            if (
-                this._isMounted &&
-                this.props.seamless &&
-                this.container.current
-            ) {
-                this.container.current.style.height = height + "px";
-            }
-        };
-    }
-
-    shouldComponentUpdate(nextProps: Props): boolean {
-        return (
-            nextProps.datasetValue !== this.props.datasetValue ||
-            nextProps.seamless !== this.props.seamless
-        );
-    }
-
-    componentDidUpdate(prevProps: Props) {
-        if (this.container.current) {
-            if (!this.props.seamless) {
-                this.container.current.style.height = "100%";
-            } else {
-                this.container.current.style.height = this._lastHeight + "px";
-            }
-        }
-
-        if (prevProps.datasetValue !== this.props.datasetValue) {
-            // Not just a change in seamless
-            this._prepareFrame();
-        }
-    }
-
-    componentWillUnmount() {
-        requestIframeData[this.iframeID] = null;
-        updateIframeHeight[this.iframeID] = null;
-
-        this._isMounted = false;
-    }
-
-    _prepareFrame() {
-        // Don't initialize the iframe until the page has loaded
-        if (this._frame) {
-            this.container.current?.removeChild(this._frame);
+    // Create iframe and set it up
+    React.useEffect(() => {
+        const container = containerRef.current;
+        if (!container) {
+            return;
         }
 
         const frame = document.createElement("iframe");
         frame.style.width = "100%";
         frame.style.height = "100%";
-        frame.src = this.props.url;
+        frame.src = props.url;
 
-        if (this.props.datasetKey) {
+        if (props.datasetKey) {
             // If the user has specified a data-* attribute to place on the
             // iframe, we set it here. Right now, this is used to
             // communicate if the iframe should be enabling touch emulation.
-            frame.dataset[this.props.datasetKey] = this.props.datasetValue;
+            frame.dataset[props.datasetKey] = props.datasetValue;
         }
-        frame.dataset.id = String(this.iframeID);
+        frame.dataset.id = String(iframeIdRef.current);
 
-        if (this.props.seamless) {
+        if (props.seamless) {
             // The seamless prop is the same as the "nochrome" prop that
             // gets passed to DeviceFramer. If it is set, then we're going
             // to be displaying editor previews and want to leave some room
@@ -159,29 +73,58 @@ class IframeContentRenderer extends React.Component<Props> {
             frame.dataset.lintGutter = "true";
         }
 
-        this.container.current?.appendChild(frame);
+        container.appendChild(frame);
+        setIframe(frame);
 
-        this._frame = frame;
-    }
+        return () => {
+            if (frame.parentNode) {
+                container.removeChild(frame);
+            }
+            setIframe(null);
+        };
+    }, [props.url, props.datasetKey, props.datasetValue, props.seamless]);
 
-    sendNewData(data: any) {
-        const frame = this._frame;
-        if (this._isMounted && data && frame?.contentWindow) {
-            this._lastData = data;
-
-            // We can't use JSON.stringify/parse for this because the apiOptions
-            // includes the function onFocusChange.
-            // @ts-expect-error - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
-            window.iframeDataStore[this.iframeID] = data;
-            frame.contentWindow.postMessage(this.iframeID, "*");
+    // Update iframeRef when iframe changes
+    React.useEffect(() => {
+        // This is a workaround since we can't directly assign to ref.current
+        // We need to recreate the ref object
+        if (iframe) {
+            Object.defineProperty(iframeRef, "current", {
+                value: iframe,
+                writable: true,
+                configurable: true,
+            });
         }
-    }
+    }, [iframe]);
 
-    render(): React.ReactNode {
-        return (
-            <div ref={this.container} style={{width: "100%", height: "100%"}} />
-        );
-    }
-}
+    // Update container height based on iframe content height
+    React.useEffect(() => {
+        if (!containerRef.current) {
+            return;
+        }
+
+        if (!props.seamless) {
+            containerRef.current.style.height = "100%";
+        } else if (height !== null) {
+            containerRef.current.style.height = `${height}px`;
+        }
+    }, [height, props.seamless]);
+
+    // Expose sendNewData method via ref
+    React.useImperativeHandle(
+        ref,
+        () => ({
+            sendNewData: (data: PreviewContent) => {
+                lastDataRef.current = data;
+                sendData(data);
+            },
+        }),
+        [sendData],
+    );
+
+    return <div ref={containerRef} style={{width: "100%", height: "100%"}} />;
+});
+
+IframeContentRenderer.displayName = "IframeContentRenderer";
 
 export default IframeContentRenderer;
