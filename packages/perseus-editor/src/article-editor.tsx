@@ -115,7 +115,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 showAlignmentOptions: true,
                 isArticle: true,
             },
-            json: section,
+            // Spread section content at top level for preview
+            content: section.content || "",
+            widgets: section.widgets || {},
+            images: section.images || {},
             useNewStyles: this.props.useNewStyles,
             linterContext: {
                 contentType: "article",

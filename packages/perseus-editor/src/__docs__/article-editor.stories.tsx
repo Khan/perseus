@@ -1,15 +1,13 @@
 import {ApiOptions} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import {useRef, useState} from "react";
+import {useRef, useState, useMemo} from "react";
 
 import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
-import ContentPreview from "../content-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
-import PreviewPanel from "./preview-panel";
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
@@ -20,8 +18,15 @@ export default {
 };
 
 export const Demo = (): React.ReactElement => {
-    const [article, setArticle] = useState(undefined);
+    // Start with one empty section so the editor and preview are visible
+    const [article, setArticle] = useState([
+        {content: "", widgets: {}, images: {}},
+    ]);
     const articleEditorRef = useRef();
+
+    const storybookPreviewUrl = useMemo(() => {
+        return `${window.location.origin}/iframe.html?id=dev-support-preview--default&viewMode=story`;
+    }, []);
 
     return (
         <View>
@@ -31,28 +36,11 @@ export const Demo = (): React.ReactElement => {
                 imageUploader={() => {}}
                 json={article}
                 onChange={(value) => {
-                    setArticle(value.json[0]);
+                    setArticle(value.json);
                 }}
-                previewURL="about:blank"
+                previewURL={storybookPreviewUrl}
                 ref={articleEditorRef as any}
             />
-            <PreviewPanel openButtonText="Open preview (storybook only)">
-                <ContentPreview
-                    question={article}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        isArticle: true,
-                        showAlignmentOptions: true,
-                    }}
-                    linterContext={{
-                        contentType: "article",
-                        highlightLint: true,
-                        paths: [],
-                        stack: [],
-                    }}
-                    previewDevice={"desktop"}
-                />
-            </PreviewPanel>
         </View>
     );
 };
@@ -64,6 +52,10 @@ export const WithEditingDisabled = (): React.ReactElement => {
         editingDisabled: true,
     };
 
+    const storybookPreviewUrl = useMemo(() => {
+        return `${window.location.origin}/iframe.html?id=dev-support-preview--default&viewMode=story`;
+    }, []);
+
     return (
         <ArticleEditor
             dependencies={testDependenciesV2}
@@ -71,7 +63,7 @@ export const WithEditingDisabled = (): React.ReactElement => {
             imageUploader={() => {}}
             json={[comprehensiveQuestion]}
             onChange={() => {}}
-            previewURL="/perseus/frame"
+            previewURL={storybookPreviewUrl}
             ref={articleEditorRef as any}
         />
     );

@@ -61,10 +61,7 @@ export type HintPreviewData = {
 /**
  * Data for article section preview
  */
-export type ArticlePreviewData = {
-    content: string;
-    widgets: PerseusRenderer["widgets"];
-    images: PerseusRenderer["images"];
+export type ArticlePreviewData = PerseusRenderer & {
     apiOptions: APIOptions;
 };
 

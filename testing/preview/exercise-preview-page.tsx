@@ -19,6 +19,19 @@ const ExercisePreviewPage = () => {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const lastHeightRef = React.useRef<number | null>(null);
 
+    // Handle body overflow for article-all type (allows scrolling)
+    React.useEffect(() => {
+        if (data?.type === "article-all") {
+            document.body.style.overflow = "scroll";
+        } else {
+            document.body.style.overflow = "hidden";
+        }
+
+        return () => {
+            document.body.style.overflow = "hidden";
+        };
+    }, [data?.type]);
+
     // Send height updates to parent
     React.useEffect(() => {
         if (!containerRef.current) {

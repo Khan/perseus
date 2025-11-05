@@ -7,10 +7,10 @@ import {
 } from "@khanacademy/keypad-context";
 import {MobileKeypad} from "@khanacademy/math-input";
 import {
+    ArticleRenderer,
     Dependencies,
     HintRenderer,
     ServerItemRenderer,
-    usePerseusI18n,
 } from "@khanacademy/perseus";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -144,12 +144,110 @@ export function PreviewRenderer({data}: Props) {
         );
     }
 
-    // TODO: Implement article rendering when needed
-    if (data.type === "article" || data.type === "article-all") {
+    if (data.type === "article") {
+        const {content, widgets, images, apiOptions} = data.data;
+
         return (
-            <View style={styles.container}>
-                <div>Article preview not yet implemented</div>
-            </View>
+            <Dependencies.DependenciesContext.Provider
+                value={storybookDependenciesV2}
+            >
+                <View
+                    className={`framework-perseus ${className}`}
+                    style={[
+                        styles.container,
+                        hasLintGutter ? styles.gutter : undefined,
+                    ]}
+                >
+                    <StatefulKeypadContextProvider>
+                        <KeypadContext.Consumer>
+                            {({
+                                setKeypadActive,
+                                keypadElement,
+                                setKeypadElement,
+                            }) => (
+                                <>
+                                    <ArticleRenderer
+                                        json={{content, widgets, images}}
+                                        apiOptions={{...apiOptions, isMobile}}
+                                        keypadElement={keypadElement}
+                                        linterContext={
+                                            PerseusLinter.linterContextDefault
+                                        }
+                                        dependencies={storybookDependenciesV2}
+                                        useNewStyles={false}
+                                    />
+
+                                    <MobileKeypad
+                                        onAnalyticsEvent={() =>
+                                            Promise.resolve()
+                                        }
+                                        onDismiss={() => setKeypadActive(false)}
+                                        onElementMounted={setKeypadElement}
+                                    />
+                                </>
+                            )}
+                        </KeypadContext.Consumer>
+                    </StatefulKeypadContextProvider>
+                </View>
+            </Dependencies.DependenciesContext.Provider>
+        );
+    }
+
+    if (data.type === "article-all") {
+        const sections = data.data;
+
+        // For article-all, render multiple sections
+        return (
+            <Dependencies.DependenciesContext.Provider
+                value={storybookDependenciesV2}
+            >
+                <View
+                    className={`framework-perseus ${className}`}
+                    style={[
+                        styles.container,
+                        hasLintGutter ? styles.gutter : undefined,
+                        styles.articleAll,
+                    ]}
+                >
+                    <StatefulKeypadContextProvider>
+                        <KeypadContext.Consumer>
+                            {({
+                                setKeypadActive,
+                                keypadElement,
+                                setKeypadElement,
+                            }) => (
+                                <>
+                                    <ArticleRenderer
+                                        json={sections.map((section) => ({
+                                            content: section.content,
+                                            widgets: section.widgets,
+                                            images: section.images,
+                                        }))}
+                                        apiOptions={{
+                                            ...sections[0]?.apiOptions,
+                                            isMobile,
+                                        }}
+                                        keypadElement={keypadElement}
+                                        linterContext={
+                                            PerseusLinter.linterContextDefault
+                                        }
+                                        dependencies={storybookDependenciesV2}
+                                        useNewStyles={false}
+                                    />
+
+                                    <MobileKeypad
+                                        onAnalyticsEvent={() =>
+                                            Promise.resolve()
+                                        }
+                                        onDismiss={() => setKeypadActive(false)}
+                                        onElementMounted={setKeypadElement}
+                                    />
+                                </>
+                            )}
+                        </KeypadContext.Consumer>
+                    </StatefulKeypadContextProvider>
+                </View>
+            </Dependencies.DependenciesContext.Provider>
         );
     }
 
@@ -164,5 +262,9 @@ const styles = StyleSheet.create({
     },
     gutter: {
         marginRight: lintGutterWidth,
+    },
+    articleAll: {
+        // For article-all type, allow scrolling to see full content
+        overflow: "auto",
     },
 });
