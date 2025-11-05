@@ -36,7 +36,7 @@ const IframeContentRenderer = React.forwardRef<
     const containerRef = React.useRef<HTMLDivElement>(null);
     const iframeRef = React.useRef<HTMLIFrameElement>(null);
     // ID is for debugging/logging, not routing (which uses event.source)
-    const iframeId = React.useRef(String(nextIframeID++));
+    const [iframeId] = React.useState(() => String(nextIframeID++));
 
     const {sendData, height} = usePreviewHost(iframeRef);
 
@@ -68,8 +68,8 @@ const IframeContentRenderer = React.forwardRef<
         <div ref={containerRef} style={{width: "100%", height: "100%"}}>
             <iframe
                 ref={iframeRef}
-                title={`perseus-preview-${iframeId.current}`}
-                data-id={iframeId.current}
+                title={`perseus-preview-${iframeId}`}
+                data-id={iframeId}
                 data-mobile={props.isMobile ? "true" : "false"}
                 // The seamless prop is the same as the "nochrome" prop that
                 // gets passed to DeviceFramer. If it is set, then we're going
