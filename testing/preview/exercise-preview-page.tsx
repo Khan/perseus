@@ -29,7 +29,12 @@ const ExercisePreviewPage = () => {
             const height = containerRef.current?.scrollHeight;
             if (height && height !== lastHeightRef.current) {
                 lastHeightRef.current = height;
-                reportHeight(height);
+
+                // NOTE(Jeremy) I'm not sure where this comes from but it's how
+                // production does it.
+                const bottomMargin = 30;
+
+                reportHeight(height + bottomMargin);
             }
         };
 
