@@ -67,7 +67,7 @@ export function usePreviewHost(
     iframeRef: React.RefObject<HTMLIFrameElement>,
 ): UsePreviewHostResult {
     const [height, setHeight] = React.useState<number | null>(null);
-    const pendingDataRef = React.useRef<PreviewContent[]>([]);
+    const pendingDataRef = React.useRef<PreviewContent | null>(null);
     const iframeIdRef = React.useRef<string | null>(null);
 
     // Helper function to sanitize apiOptions in preview content
@@ -113,17 +113,14 @@ export function usePreviewHost(
                     // Store the iframe ID (used for debugging/logging, not routing)
                     iframeIdRef.current = String(message.id);
 
-                    // Send only the most recent pending message (if any)
-                    if (pendingDataRef.current.length > 0) {
+                    // Send the pending message (if any)
+                    if (pendingDataRef.current) {
                         const iframe = iframeRef.current;
                         const contentWindow = iframe?.contentWindow;
                         if (contentWindow && iframeIdRef.current) {
-                            const latestData =
-                                pendingDataRef.current[
-                                    pendingDataRef.current.length - 1
-                                ];
-                            const sanitizedData =
-                                sanitizePreviewData(latestData);
+                            const sanitizedData = sanitizePreviewData(
+                                pendingDataRef.current,
+                            );
 
                             const msg: ParentToIframeMessage = {
                                 source: PREVIEW_MESSAGE_SOURCE,
@@ -133,8 +130,8 @@ export function usePreviewHost(
                             };
                             contentWindow.postMessage(msg, "*");
                         }
-                        // Clear the queue
-                        pendingDataRef.current = [];
+                        // Clear the pending data
+                        pendingDataRef.current = null;
                     }
                     break;
                 }
@@ -170,9 +167,9 @@ export function usePreviewHost(
                 return;
             }
 
-            // If iframe hasn't sent request-data yet, queue the data
+            // If iframe hasn't sent request-data yet, store the data
             if (!iframeIdRef.current) {
-                pendingDataRef.current.push(data);
+                pendingDataRef.current = data;
                 return;
             }
 
