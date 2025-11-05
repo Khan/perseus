@@ -67,6 +67,7 @@ const config: StorybookConfig = {
     stories: [
         // This is a special story that provides support for the editor's
         // iframe-based preview system in Storybook.
+        // DO NOT remove this.
         "../testing/preview.stories.tsx",
 
         // This will be used for the main documentation pages

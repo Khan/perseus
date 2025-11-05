@@ -10,6 +10,11 @@ import type {
 
 type UsePreviewClientResult = {
     /**
+     * The iframe's unique identifier (from data-id attribute). Use for
+     * debugging/logging, but not for message routing.
+     */
+    id: string | null;
+    /**
      * The preview content data received from the parent, or null if not yet loaded
      */
     data: PreviewContent | null;
@@ -21,11 +26,6 @@ type UsePreviewClientResult = {
      * Whether to show the lint gutter (from data-lint-gutter attribute)
      */
     hasLintGutter: boolean;
-    /**
-     * The iframe's unique identifier (from data-id attribute). Use for
-     * debugging/logging, but not for message routing.
-     */
-    id: string | null;
     /**
      * Function to report the current height of the iframe content to the parent
      */

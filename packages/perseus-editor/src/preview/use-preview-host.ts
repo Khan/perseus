@@ -12,7 +12,7 @@ import type {
 
 type UsePreviewHostResult = {
     /**
-     * Function to send preview content data to the iframe
+     * Send preview content data to the iframe
      */
     sendData: (data: PreviewContent) => void;
     /**
