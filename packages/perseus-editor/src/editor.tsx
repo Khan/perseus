@@ -6,10 +6,12 @@ import {
     PerseusMarkdown,
     Util,
     Widgets,
+    ApiOptions,
     withAPIOptions,
     // eslint-disable-next-line import/no-deprecated
     type ChangeHandler,
     type ImageUploader,
+    type APIOptions,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
@@ -116,7 +118,7 @@ const imageUrlsFromContent = function (content: string) {
 
 type Props = Readonly<{
     additionalTemplates: Record<string, string>;
-    apiOptions: any;
+    apiOptions: APIOptions;
     className?: string;
     content: string;
     replace?: any;
@@ -149,6 +151,7 @@ type DefaultProps = {
         [name: string]: PerseusWidget;
     };
     additionalTemplates: Props["additionalTemplates"];
+    apiOptions: APIOptions;
 };
 
 type State = {
@@ -176,6 +179,7 @@ class EditorInner extends React.Component<Props, State> {
         warnNoPrompt: false,
         warnNoWidgets: false,
         additionalTemplates: {},
+        apiOptions: ApiOptions.defaults,
     };
 
     state: State = {
@@ -1097,10 +1101,15 @@ class EditorInner extends React.Component<Props, State> {
             backgroundColor: "pink",
         } as const;
 
+        const editingDisabled = this.props.apiOptions.editingDisabled;
+
         return (
             <div
+                data-testid="perseus-single-editor"
                 className={
-                    "perseus-single-editor " + (this.props.className || "")
+                    "perseus-single-editor " +
+                    (this.props.className || "") +
+                    (editingDisabled ? " perseus-editor-disabled" : "")
                 }
             >
                 {textareaWrapper}

@@ -1,4 +1,4 @@
-import {Dependencies} from "@khanacademy/perseus";
+import {Dependencies, ApiOptions} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -10,6 +10,7 @@ import type {PreferredPopoverDirection} from "../label-image-editor/behavior";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
+    apiOptions: ApiOptions.defaults,
     choices: ["Choice 1", "Choice 2", "Choice 3"],
     imageAlt: "Test image alt text",
     imageUrl: "https://example.com/test-image.png",
@@ -147,6 +148,26 @@ describe("label-image-editor", () => {
                 defaultProps.hideChoicesFromInstructions,
             preferredPopoverDirection: defaultProps.preferredPopoverDirection,
         });
+    });
+
+    it("should not allow markers to be added when editingDisabled is true", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        render(
+            <LabelImageEditor
+                {...defaultProps}
+                onChange={onChangeMock}
+                apiOptions={{editingDisabled: true}}
+            />,
+        );
+
+        // Act
+        // Double click on the image to add a marker
+        await userEvent.dblClick(screen.getByRole("presentation"));
+
+        // Assert
+        expect(onChangeMock).not.toHaveBeenCalled();
     });
 
     describe("popover direction snapshots", () => {

@@ -228,6 +228,7 @@ class EditorPage extends React.Component<Props, State> {
     render(): React.ReactNode {
         let className = "framework-perseus";
         const apiOptions = this.getDeviceBasedApiOptions();
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         if (apiOptions.isMobile) {
             className += " " + ClassNames.MOBILE;
@@ -237,11 +238,7 @@ class EditorPage extends React.Component<Props, State> {
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
             >
-                <APIOptionsContext.Provider
-                    value={{
-                        apiOptions: apiOptions,
-                    }}
-                >
+                <APIOptionsContext.Provider value={{apiOptions}}>
                     <div id="perseus" className={className}>
                         <div style={{marginBottom: 10}}>
                             {this.props.developerMode && (
@@ -252,6 +249,10 @@ class EditorPage extends React.Component<Props, State> {
                                         <input
                                             type="checkbox"
                                             checked={this.props.jsonMode}
+                                            disabled={
+                                                this.props.apiOptions
+                                                    ?.editingDisabled
+                                            }
                                             onChange={this.toggleJsonMode}
                                         />
                                     </label>{" "}
@@ -280,13 +281,13 @@ class EditorPage extends React.Component<Props, State> {
                                 />
                             )}
                         </div>
-
                         {this.props.developerMode && this.props.jsonMode && (
                             <div>
                                 <JsonEditor
                                     multiLine={true}
                                     value={this.state.json}
                                     onChange={this.changeJSON}
+                                    editingDisabled={editingDisabled}
                                 />
                             </div>
                         )}
