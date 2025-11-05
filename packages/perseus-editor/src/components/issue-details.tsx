@@ -1,6 +1,6 @@
 // WidgetIssueDetails.tsx
 import {isFeatureOn} from "@khanacademy/perseus-core";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
@@ -19,6 +19,11 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const toggleVisibility = () => setExpanded(!expanded);
 
+    const accordionColor =
+        issue.type === "Alert"
+            ? semanticColor.status.critical.background
+            : semanticColor.status.warning.background;
+
     // TODO(LEMS-3520): Remove this once the "image-widget-upgrade" feature
     // flag is has been fully rolled out. Also remove the `apiOptions` prop.
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
@@ -28,7 +33,9 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
             animated={true}
             expanded={expanded}
             onToggle={toggleVisibility}
-            containerStyle={{backgroundColor: color.fadedGold8}}
+            containerStyle={{
+                backgroundColor: accordionColor,
+            }}
             panelStyle={{backgroundColor: "white"}}
             header={
                 <LabelLarge
@@ -39,7 +46,7 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
                         whiteSpace: "nowrap",
                     }}
                 >
-                    {`Warning: ${issue.id}`}
+                    {`${issue.type}: ${issue.id}`}
                 </LabelLarge>
             }
         >

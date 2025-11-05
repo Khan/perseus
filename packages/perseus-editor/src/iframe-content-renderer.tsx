@@ -140,6 +140,24 @@ class IframeContentRenderer extends React.Component<Props> {
         frame.style.width = "100%";
         frame.style.height = "100%";
         frame.src = this.props.url;
+        // Add axe-core library to the iFrame
+        frame.onload = () => {
+            const iframeDoc =
+                frame.contentDocument || frame.contentWindow?.document;
+            if (iframeDoc) {
+                const axeCoreScriptElement = iframeDoc.createElement("script");
+                axeCoreScriptElement.src =
+                    "https://unpkg.com/axe-core@4.11.0/axe.js";
+                iframeDoc.body.appendChild(axeCoreScriptElement);
+            } else {
+                // eslint-disable-next-line no-console
+                console.warn("Unable to add axe-core to iframe document");
+            }
+            setTimeout(() => {
+                // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
+                const iFrameAxe = frame.contentWindow?.axe;
+            }, 1000);
+        };
 
         if (this.props.datasetKey) {
             // If the user has specified a data-* attribute to place on the

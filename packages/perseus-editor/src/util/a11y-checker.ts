@@ -1,0 +1,130 @@
+import * as axeCore from "axe-core";
+
+import type {Issue, IssueType} from "../components/issues-panel";
+import type axe from "axe-core";
+
+const axeCoreEditorOptions = {
+    include: {
+        fromFrames: ["iframe", "#page-container"],
+    },
+    exclude: {
+        fromFrames: ["iframe", '[target="lint-help-window"]'],
+    },
+};
+
+const axeCoreStorybookOptions = {
+    include: ["#preview-panel"],
+    exclude: ['[target="lint-help-window"]'],
+};
+
+const convertAxeImpactToIssueImpact = (
+    impact?: axe.ImpactValue,
+): Issue["impact"] => {
+    switch (impact) {
+        case "critical":
+            return "high";
+        case "serious":
+            return "high";
+        case "moderate":
+            return "medium";
+        case "minor":
+            return "low";
+        default:
+            return "low";
+    }
+};
+
+const getIssueMessage = (nodes: axe.NodeResult[]): string => {
+    return nodes
+        .map((node) => {
+            return node.all
+                .concat(node.any, node.none)
+                .map((result) => result.message)
+                .join(" ");
+        })
+        .join(" ");
+};
+
+const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
+    const nodeToCheck = nodes.length > 0 ? [nodes[0]] : [];
+    // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'Element[]'.
+    return nodeToCheck.flatMap((node) => {
+        // @ts-expect-error TS2769: No overload matches this call.
+        return node.target.reduce((elements: Element[], target: string) => {
+            // eslint-disable-next-line no-console
+            console.log(`   Issue Target: `, target);
+            let element: Element | null;
+            if (
+                elements.length > 0 &&
+                elements[elements.length - 1].tagName.toLowerCase() === "iframe"
+            ) {
+                // eslint-disable-next-line no-console
+                console.log(`   Prior target is iFrame`);
+                element =
+                    // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'
+                    elements[elements.length - 1].contentDocument.querySelector(
+                        target,
+                    );
+            } else {
+                // eslint-disable-next-line no-console
+                console.log(`   Prior target is NOT iFrame`);
+                element = document.querySelector(target);
+            }
+            // eslint-disable-next-line no-console
+            console.log(`   Element: `, element);
+            if (element) {
+                elements.push(element);
+            }
+            return elements;
+        }, []);
+    });
+};
+
+const mapResultsToIssues = (
+    results: axe.Result[],
+    type: IssueType,
+): Issue[] => {
+    return results.map((result) => {
+        return {
+            id: result.id,
+            description: "", //result.description,
+            helpUrl: result.helpUrl,
+            help: result.help,
+            impact: convertAxeImpactToIssueImpact(result.impact),
+            message: getIssueMessage(result.nodes),
+            type: type,
+        };
+    });
+};
+
+const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void) => {
+    const isInStorybook = !!document.getElementById("storybook-root");
+    const options = isInStorybook
+        ? axeCoreStorybookOptions
+        : axeCoreEditorOptions;
+    axeCore.configure({reporter: "v2"});
+    // @ts-expect-error TS2769: No overload matches this call.
+    axeCore.run(options).then(
+        (results) => {
+            // eslint-disable-next-line no-console
+            console.log(`Accessibility Results: `, results);
+            const violations = mapResultsToIssues(results.violations, "Alert");
+            const incompletes = mapResultsToIssues(
+                results.incomplete,
+                "Warning",
+            );
+            const issues = violations.concat(incompletes);
+            console.log(`  Issues: `, issues);
+            updateIssuesFn(issues);
+        },
+        (error) => {
+            // eslint-disable-next-line no-console
+            console.log(`      Error: `, error);
+        },
+    );
+};
+
+export const runAxeCoreOnUpdate = (priorTimeoutId, setState): any => {
+    clearTimeout(priorTimeoutId);
+    return setTimeout(runAxeCore, 1500, setState);
+};

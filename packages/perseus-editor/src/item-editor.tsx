@@ -9,6 +9,7 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
+import {runAxeCoreOnUpdate} from "./util/a11y-checker";
 import {ItemEditorContext} from "./util/item-editor-context";
 
 import type {Issue} from "./components/issues-panel";
@@ -49,6 +50,7 @@ type Props = {
 
 type State = {
     issues: Issue[];
+    axeCoreIssues: Issue[];
 };
 
 class ItemEditor extends React.Component<Props, State> {
@@ -63,6 +65,7 @@ class ItemEditor extends React.Component<Props, State> {
     };
     static prevContent: string | undefined;
     static prevWidgets: PerseusWidgetsMap | undefined;
+    a11yCheckerTimeoutId: any;
 
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
@@ -70,31 +73,31 @@ class ItemEditor extends React.Component<Props, State> {
 
     state = {
         issues: [],
+        axeCoreIssues: [],
     };
 
-    static getDerivedStateFromProps(props: Props): Partial<State> | null {
+    componentDidUpdate(prevProps: Props) {
         // Short-circuit if nothing changed
         if (
-            props.question?.content === ItemEditor.prevContent &&
-            props.question?.widgets === ItemEditor.prevWidgets
+            this.props.question?.content === prevProps.question?.content &&
+            this.props.question?.widgets === prevProps.question?.widgets
         ) {
-            return null;
+            return;
         }
 
-        // Update cached values
-        ItemEditor.prevContent = props.question?.content;
-        ItemEditor.prevWidgets = props.question?.widgets;
-
-        const parsed = PerseusMarkdown.parse(props.question?.content ?? "", {});
+        const parsed = PerseusMarkdown.parse(
+            this.props.question?.content ?? "",
+            {},
+        );
         const linterContext = {
-            content: props.question?.content,
-            widgets: props.question?.widgets,
+            content: this.props.question?.content,
+            widgets: this.props.question?.widgets,
             stack: [],
         };
 
-        return {
-            issues: [
-                ...(props.issues ?? []),
+        const gatherIssues = () => {
+            return [
+                ...(this.props.issues ?? []),
                 ...(PerseusLinter.runLinter(parsed, linterContext, false)?.map(
                     (linterWarning) => {
                         if (linterWarning.rule === "inaccessible-widget") {
@@ -109,8 +112,24 @@ class ItemEditor extends React.Component<Props, State> {
                         );
                     },
                 ) ?? []),
-            ],
+                ...this.state.axeCoreIssues,
+            ];
         };
+
+        this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
+            this.a11yCheckerTimeoutId,
+            (issues) => {
+                const allIssues = [...this.state.issues, ...issues];
+                this.setState({
+                    issues: allIssues,
+                    axeCoreIssues: issues,
+                });
+            },
+        );
+
+        this.setState({
+            issues: gatherIssues(),
+        });
     }
 
     // Notify the parent that the question or answer area has been updated.
