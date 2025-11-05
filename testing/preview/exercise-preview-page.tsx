@@ -4,9 +4,9 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {usePreviewClient} from "../../packages/perseus-editor/src/preview/use-preview-client";
 import {PreviewRenderer} from "./preview-renderer";
 import {debounce} from "underscore";
+import {usePreviewClient} from "@khanacademy/perseus-editor";
 
 /**
  * Loads the exercise preview frame
