@@ -46,7 +46,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
-                widgetType: "IMAGE",
+                widgetType: "image",
                 widgetId: "image",
             },
         });
