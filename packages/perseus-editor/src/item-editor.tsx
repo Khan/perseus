@@ -209,11 +209,6 @@ class ItemEditor extends React.Component<Props, State> {
                                         url={this.props.previewURL}
                                     />
                                 </DeviceFramer>
-                                <div
-                                    id="hintsarea"
-                                    className="hintsarea"
-                                    style={{display: "none"}}
-                                />
                             </div>
                         </div>
                     </div>
