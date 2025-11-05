@@ -1,8 +1,9 @@
 /**
  * Higher-Order Component that provides APIOptions to the wrapped component.
  */
-import {APIOptionsContext} from "@khanacademy/perseus";
 import React from "react";
+
+import {APIOptionsContext} from "./api-options-context";
 
 export default function withAPIOptions<T>(
     WrappedComponent: React.ComponentType<any>,
@@ -10,11 +11,7 @@ export default function withAPIOptions<T>(
     return React.forwardRef<T, any>(function WithApiOptions(props, ref) {
         const apiOptions = React.useContext(APIOptionsContext);
         return (
-            <WrappedComponent
-                ref={ref}
-                apiOptions={apiOptions}
-                {...props}
-            />
+            <WrappedComponent ref={ref} apiOptions={apiOptions} {...props} />
         );
     });
 }

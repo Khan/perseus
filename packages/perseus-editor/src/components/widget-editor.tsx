@@ -14,8 +14,8 @@ import {useId} from "react";
 
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
-import Editor from "../editor";
 
+import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 

@@ -6,11 +6,17 @@ import {
     PerseusMarkdown,
     Util,
     Widgets,
+    withAPIOptions,
+    // eslint-disable-next-line import/no-deprecated
+    type ChangeHandler,
+    type ImageUploader,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     Errors,
     PerseusError,
+    type PerseusWidget,
+    type PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
 import katex from "katex";
@@ -27,11 +33,6 @@ import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
-
-// eslint-disable-next-line import/no-deprecated
-import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
-import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
-import {withAPIOptions} from "@khanacademy/perseus";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
