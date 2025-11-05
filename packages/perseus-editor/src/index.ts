@@ -16,19 +16,6 @@ export * as PreviewSystem from "./preview";
 export {usePreviewHost} from "./preview/use-preview-host";
 export {usePreviewClient} from "./preview/use-preview-client";
 export {sanitizeApiOptions} from "./preview/sanitize-api-options";
-export {PREVIEW_MESSAGE_SOURCE} from "./preview/message-types";
-export type {
-    PreviewContent,
-    QuestionPreviewData,
-    HintPreviewData,
-    ArticlePreviewData,
-    PreviewDataRequestMessage,
-    PreviewDataResponseMessage,
-    PreviewHeightUpdateMessage,
-    PreviewLintReportMessage,
-    IframeToParentMessage,
-    ParentToIframeMessage,
-} from "./preview/message-types";
 
 import "./styles/perseus-editor.css";
 
