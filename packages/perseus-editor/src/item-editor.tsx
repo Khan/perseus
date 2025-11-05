@@ -64,7 +64,7 @@ class ItemEditor extends React.Component<Props, State> {
     static prevContent: string | undefined;
     static prevWidgets: PerseusWidgetsMap | undefined;
 
-    frame = React.createRef<IframeContentRenderer>();
+    frame = React.createRef<React.ElementRef<typeof IframeContentRenderer>>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
