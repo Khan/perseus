@@ -28,6 +28,7 @@ const ExercisePreviewPage = () => {
         const sendHeightUpdate = () => {
             const height = containerRef.current?.scrollHeight;
             if (height && height !== lastHeightRef.current) {
+                lastHeightRef.current = height;
                 reportHeight(height);
             }
         };

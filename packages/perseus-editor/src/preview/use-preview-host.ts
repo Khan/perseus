@@ -67,8 +67,8 @@ export function usePreviewHost(
     iframeRef: React.RefObject<HTMLIFrameElement>,
 ): UsePreviewHostResult {
     const [height, setHeight] = React.useState<number | null>(null);
-    const iframeIdRef = React.useRef<string | null>(null);
     const pendingDataRef = React.useRef<PreviewContent[]>([]);
+    const iframeIdRef = React.useRef<string | null>(null);
 
     // Helper function to sanitize apiOptions in preview content
     const sanitizePreviewData = React.useCallback(
@@ -95,17 +95,22 @@ export function usePreviewHost(
     // Listen for messages from iframe
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
+            // Filter by source window - only messages from OUR iframe
+            if (event.source !== iframeRef.current?.contentWindow) {
+                return;
+            }
+
             const message = event.data;
 
-            // Ignore messages that aren't from Perseus preview system
+            // Check if it's a Perseus preview message
             if (!isIframeToParentMessage(message)) {
                 return;
             }
 
-            // Handle data request
+            // Handle the message
             switch (message.type) {
                 case "request-data": {
-                    // Store the iframe ID for future reference
+                    // Store the iframe ID for future use
                     iframeIdRef.current = String(message.id);
 
                     // Send only the most recent pending message (if any)
@@ -151,7 +156,9 @@ export function usePreviewHost(
         return () => {
             window.removeEventListener("message", handleMessage);
         };
-    }, [sanitizePreviewData, iframeRef]);
+        // iframeRef is intentionally excluded - it's a stable ref that shouldn't trigger re-runs
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sanitizePreviewData]);
 
     // Memoized function to send data to iframe
     const sendData = React.useCallback(
@@ -181,7 +188,9 @@ export function usePreviewHost(
 
             contentWindow.postMessage(message, "*");
         },
-        [sanitizePreviewData, iframeRef],
+        // iframeRef is intentionally excluded - it's a stable ref that shouldn't trigger re-runs
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [sanitizePreviewData],
     );
 
     return {
