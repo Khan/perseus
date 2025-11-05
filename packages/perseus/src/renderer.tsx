@@ -77,6 +77,7 @@ import type {
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.css";
+import {APIOptionsContext} from "./components/api-options-context";
 
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
@@ -1680,7 +1681,9 @@ class Renderer
 
         return (
             <DefinitionProvider>
-                <div className={className}>{markdownContents}</div>
+                <APIOptionsContext.Provider value={{apiOptions: apiOptions}}>
+                    <div className={className}>{markdownContents}</div>
+                </APIOptionsContext.Provider>
             </DefinitionProvider>
         );
     }

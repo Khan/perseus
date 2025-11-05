@@ -22,6 +22,7 @@ import type {
     PerseusRenderer,
     KeypadContextRendererInterface,
 } from "@khanacademy/perseus-core";
+import { APIOptionsContext } from "./components/api-options-context";
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> &
     SharedRendererProps & {
@@ -276,7 +277,9 @@ class ArticleRenderer
         return (
             <div className={classes}>
                 <DependenciesContext.Provider value={this.props.dependencies}>
-                    {sections}
+                    <APIOptionsContext.Provider value={{apiOptions: apiOptions}}>
+                        {sections}
+                    </APIOptionsContext.Provider>
                 </DependenciesContext.Provider>
             </div>
         );

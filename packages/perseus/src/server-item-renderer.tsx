@@ -42,6 +42,7 @@ import type {
     UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {APIOptionsContext} from "./components/api-options-context";
 
 type OwnProps = {
     hintsVisible?: number;
@@ -412,58 +413,66 @@ export class ServerItemRenderer
 
         const questionRenderer = (
             <AssetContext.Provider value={contextValue}>
-                <UserInputManager
-                    widgets={this.props.item.question.widgets}
-                    problemNum={this.props.problemNum ?? 0}
-                >
-                    {({userInput, handleUserInput, initializeUserInput}) => {
-                        this.userInput = userInput;
-                        return (
-                            <Renderer
-                                keypadElement={this.props.keypadElement}
-                                problemNum={this.props.problemNum}
-                                onInteractWithWidget={
-                                    this.handleInteractWithWidget
-                                }
-                                highlightedWidgets={
-                                    this.state.questionHighlightedWidgets
-                                }
-                                apiOptions={apiOptions}
-                                questionCompleted={this.state.questionCompleted}
-                                reviewMode={this.props.reviewMode}
-                                showSolutions={this.props.showSolutions}
-                                ref={(elem) => {
-                                    if (elem != null) {
-                                        this.questionRenderer = elem;
+                <APIOptionsContext.Provider value={{apiOptions: apiOptions}}>
+                    <UserInputManager
+                        widgets={this.props.item.question.widgets}
+                        problemNum={this.props.problemNum ?? 0}
+                    >
+                        {({
+                            userInput,
+                            handleUserInput,
+                            initializeUserInput,
+                        }) => {
+                            this.userInput = userInput;
+                            return (
+                                <Renderer
+                                    keypadElement={this.props.keypadElement}
+                                    problemNum={this.props.problemNum}
+                                    onInteractWithWidget={
+                                        this.handleInteractWithWidget
                                     }
-                                }}
-                                content={this.props.item.question.content}
-                                widgets={this.props.item.question.widgets}
-                                images={this.props.item.question.images}
-                                linterContext={PerseusLinter.pushContextStack(
-                                    this.props.linterContext,
-                                    "question",
-                                )}
-                                strings={this.context.strings}
-                                {...this.props.dependencies}
-                                userInput={userInput}
-                                handleUserInput={(
-                                    id,
-                                    userInput,
-                                    widgetsEmpty,
-                                ) => {
-                                    handleUserInput(
+                                    highlightedWidgets={
+                                        this.state.questionHighlightedWidgets
+                                    }
+                                    apiOptions={apiOptions}
+                                    questionCompleted={
+                                        this.state.questionCompleted
+                                    }
+                                    reviewMode={this.props.reviewMode}
+                                    showSolutions={this.props.showSolutions}
+                                    ref={(elem) => {
+                                        if (elem != null) {
+                                            this.questionRenderer = elem;
+                                        }
+                                    }}
+                                    content={this.props.item.question.content}
+                                    widgets={this.props.item.question.widgets}
+                                    images={this.props.item.question.images}
+                                    linterContext={PerseusLinter.pushContextStack(
+                                        this.props.linterContext,
+                                        "question",
+                                    )}
+                                    strings={this.context.strings}
+                                    {...this.props.dependencies}
+                                    userInput={userInput}
+                                    handleUserInput={(
                                         id,
                                         userInput,
                                         widgetsEmpty,
-                                    );
-                                    this.handleInteractWithWidget(id);
-                                }}
-                                initializeUserInput={initializeUserInput}
-                            />
-                        );
-                    }}
-                </UserInputManager>
+                                    ) => {
+                                        handleUserInput(
+                                            id,
+                                            userInput,
+                                            widgetsEmpty,
+                                        );
+                                        this.handleInteractWithWidget(id);
+                                    }}
+                                    initializeUserInput={initializeUserInput}
+                                />
+                            );
+                        }}
+                    </UserInputManager>
+                </APIOptionsContext.Provider>
             </AssetContext.Provider>
         );
 
