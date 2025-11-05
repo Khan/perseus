@@ -8,6 +8,21 @@ import type {
     PreviewContent,
 } from "./message-types";
 
+/**
+ * Type guard to check if a message is from the Perseus preview system.
+ */
+function isParentToIframeMessage(
+    message: unknown,
+): message is ParentToIframeMessage {
+    return (
+        typeof message === "object" &&
+        message !== null &&
+        "source" in message &&
+        typeof message.source === "string" &&
+        message.source === PREVIEW_MESSAGE_SOURCE
+    );
+}
+
 type UsePreviewClientResult = {
     /**
      * The iframe's unique identifier (from data-id attribute). Use for
@@ -70,31 +85,34 @@ export function usePreviewClient(): UsePreviewClientResult {
     // Read iframe configuration from dataset attributes
     React.useEffect(() => {
         const iframe = window.frameElement as HTMLIFrameElement | null;
-        if (iframe) {
-            // ID is used for debugging/logging, not message routing
-            const id = iframe.dataset.id;
-            const mobile = iframe.dataset.mobile === "true";
-            const lintGutter = iframe.dataset.lintGutter === "true";
-
-            if (id) {
-                setIframeId(id);
-            }
-            setIsMobile(mobile);
-            setHasLintGutter(lintGutter);
+        if (iframe == null) {
+            throw new Error("usePreviewClient must be used within an iframe");
         }
+
+        // ID is used for debugging/logging, not message routing
+        const id = iframe.dataset.id;
+        const mobile = iframe.dataset.mobile === "true";
+        const lintGutter = iframe.dataset.lintGutter === "true";
+
+        if (id) {
+            setIframeId(id);
+        }
+        setIsMobile(mobile);
+        setHasLintGutter(lintGutter);
     }, []);
 
     // Listen for data from parent
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent<ParentToIframeMessage>) => {
+            // Filter by source window - only messages from parent
+            if (event.source !== window.parent) {
+                return;
+            }
+
             const message = event.data;
 
             // Ignore messages that aren't from Perseus preview system
-            if (
-                typeof message !== "object" ||
-                message === null ||
-                message.source !== PREVIEW_MESSAGE_SOURCE
-            ) {
+            if (!isParentToIframeMessage(message)) {
                 return;
             }
 
