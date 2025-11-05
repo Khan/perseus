@@ -92,7 +92,7 @@ class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
 
     itemEditor = React.createRef<ItemEditor>();
-    hintsEditor = React.createRef<CombinedHintsEditor>();
+    hintsEditor = React.createRef<React.ElementRef<typeof CombinedHintsEditor>>();
 
     static defaultProps: DefaultProps = {
         developerMode: false,

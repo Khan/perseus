@@ -88,6 +88,7 @@ export {
     APIOptionsContext,
     useAPIOptionsContext,
 } from "./components/api-options-context";
+export {default as withAPIOptions} from "./components/with-api-options";
 
 /**
  * Util

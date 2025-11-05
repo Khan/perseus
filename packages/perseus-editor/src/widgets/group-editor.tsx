@@ -26,7 +26,7 @@ class GroupEditor extends React.Component<Props> {
     static defaultProps: GroupDefaultWidgetOptions =
         groupLogic.defaultWidgetOptions;
 
-    editor = React.createRef<Editor>();
+    editor = React.createRef<React.ElementRef<typeof Editor>>();
 
     getSaveWarnings: () => ReadonlyArray<any> = () => {
         return this.editor.current?.getSaveWarnings();

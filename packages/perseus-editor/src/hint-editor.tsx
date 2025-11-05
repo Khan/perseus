@@ -4,12 +4,7 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {
-    APIOptionsContext,
-    ApiOptions,
-    components,
-    iconTrash,
-} from "@khanacademy/perseus";
+import {components, iconTrash, withAPIOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
@@ -40,6 +35,7 @@ const {InfoTip, InlineIcon} = components;
 
 type HintEditorProps = {
     itemId?: string;
+    apiOptions?: APIOptions;
     className: string;
     imageUploader?: ImageUploader;
     showMoveButtons?: boolean;
@@ -84,7 +80,7 @@ class HintEditor extends React.Component<HintEditorProps> {
         showRemoveButton: true,
     };
 
-    editor = React.createRef<Editor>();
+    editor = React.createRef<React.ElementRef<typeof Editor>>();
 
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -106,96 +102,76 @@ class HintEditor extends React.Component<HintEditorProps> {
 
     render(): React.ReactNode {
         return (
-            <APIOptionsContext.Consumer>
-                {({apiOptions}) => (
-                    <div
-                        className={
-                            "perseus-hint-editor " + this.props.className
-                        }
-                    >
-                        {this.props.showTitle && (
-                            <div className="pod-title">Hint</div>
-                        )}
-                        <Editor
-                            ref={this.editor}
-                            // Using the AssessmentItem content ID as the key
-                            // ensures that when the user navigates to another
-                            // item in the Sidebar, the question editor is
-                            // re-rendered by React.
-                            key={this.props.itemId}
-                            widgets={this.props.widgets || undefined}
-                            content={this.props.content || undefined}
-                            images={this.props.images}
-                            replace={this.props.replace}
-                            placeholder="Type your hint here..."
-                            imageUploader={this.props.imageUploader}
-                            onChange={this.props.onChange}
-                            widgetIsOpen={this.props.widgetIsOpen}
-                        />
-                        <div className="hint-controls-container clearfix">
-                            {this.props.showMoveButtons && (
-                                <span className="reorder-hints">
-                                    <button
-                                        type="button"
-                                        className={
-                                            this.props.isLast ? "hidden" : ""
-                                        }
-                                        onClick={_.partial(
-                                            this.props.onMove,
-                                            1,
-                                        )}
-                                    >
-                                        <InlineIcon {...iconCircleArrowDown} />
-                                    </button>{" "}
-                                    <button
-                                        type="button"
-                                        className={
-                                            this.props.isFirst ? "hidden" : ""
-                                        }
-                                        onClick={_.partial(
-                                            this.props.onMove,
-                                            -1,
-                                        )}
-                                    >
-                                        <InlineIcon {...iconCircleArrowUp} />
-                                    </button>{" "}
-                                    {this.props.isLast && (
-                                        <InfoTip>
-                                            <p>
-                                                The last hint is automatically
-                                                bolded.
-                                            </p>
-                                        </InfoTip>
-                                    )}
-                                </span>
+            <div className={"perseus-hint-editor " + this.props.className}>
+                {this.props.showTitle && <div className="pod-title">Hint</div>}
+                <Editor
+                    ref={this.editor}
+                    // Using the AssessmentItem content ID as the key
+                    // ensures that when the user navigates to another
+                    // item in the Sidebar, the question editor is
+                    // re-rendered by React.
+                    key={this.props.itemId}
+                    widgets={this.props.widgets || undefined}
+                    content={this.props.content || undefined}
+                    images={this.props.images}
+                    replace={this.props.replace}
+                    placeholder="Type your hint here..."
+                    imageUploader={this.props.imageUploader}
+                    onChange={this.props.onChange}
+                    widgetIsOpen={this.props.widgetIsOpen}
+                />
+                <div className="hint-controls-container clearfix">
+                    {this.props.showMoveButtons && (
+                        <span className="reorder-hints">
+                            <button
+                                type="button"
+                                className={this.props.isLast ? "hidden" : ""}
+                                onClick={_.partial(this.props.onMove, 1)}
+                            >
+                                <InlineIcon {...iconCircleArrowDown} />
+                            </button>{" "}
+                            <button
+                                type="button"
+                                className={this.props.isFirst ? "hidden" : ""}
+                                onClick={_.partial(this.props.onMove, -1)}
+                            >
+                                <InlineIcon {...iconCircleArrowUp} />
+                            </button>{" "}
+                            {this.props.isLast && (
+                                <InfoTip>
+                                    <p>
+                                        The last hint is automatically bolded.
+                                    </p>
+                                </InfoTip>
                             )}
-                            <input
-                                type="checkbox"
-                                // @ts-expect-error - TS2322 - Type 'boolean | null | undefined' is not assignable to type 'boolean | undefined'.
-                                checked={this.props.replace}
-                                onChange={this.handleChange}
-                            />
-                            Replace previous hint
-                            {this.props.showRemoveButton && (
-                                <button
-                                    type="button"
-                                    className="remove-hint simple-button orange"
-                                    onClick={this.props.onRemove}
-                                >
-                                    <InlineIcon {...iconTrash} />
-                                    Remove this hint{" "}
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                )}
-            </APIOptionsContext.Consumer>
+                        </span>
+                    )}
+                    <input
+                        type="checkbox"
+                        // @ts-expect-error - TS2322 - Type 'boolean | null | undefined' is not assignable to type 'boolean | undefined'.
+                        checked={this.props.replace}
+                        onChange={this.handleChange}
+                    />
+                    Replace previous hint
+                    {this.props.showRemoveButton && (
+                        <button
+                            type="button"
+                            className="remove-hint simple-button orange"
+                            onClick={this.props.onRemove}
+                        >
+                            <InlineIcon {...iconTrash} />
+                            Remove this hint{" "}
+                        </button>
+                    )}
+                </div>
+            </div>
         );
     }
 }
 
 type CombinedHintEditorProps = {
     itemId?: string;
+    apiOptions?: APIOptions;
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
     highlightLint?: boolean;
@@ -221,7 +197,6 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
 
     editor = React.createRef<HintEditor>();
     frame = React.createRef<IframeContentRenderer>();
-    private contextApiOptions: APIOptions = ApiOptions.defaults;
 
     componentDidMount() {
         this.updatePreview();
@@ -241,7 +216,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                 hint: this.props.hint,
                 bold: shouldBold,
                 pos: this.props.pos,
-                apiOptions: this.contextApiOptions,
+                apiOptions: this.props.apiOptions,
                 linterContext: {
                     contentType: "hint",
                     highlightLint: this.props.highlightLint,
@@ -268,57 +243,50 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
         return (
-            <APIOptionsContext.Consumer>
-                {({apiOptions}) => {
-                    // Store context value for use in updatePreview
-                    this.contextApiOptions = apiOptions;
-                    return (
-                        <div
-                            className={
-                                "perseus-combined-hint-editor " +
-                                "perseus-editor-row"
-                            }
-                        >
-                            <div className="perseus-editor-left-cell">
-                                <HintEditor
-                                    ref={this.editor}
-                                    itemId={this.props.itemId}
-                                    isFirst={this.props.isFirst}
-                                    isLast={this.props.isLast}
-                                    widgets={this.props.hint.widgets}
-                                    content={this.props.hint.content}
-                                    images={this.props.hint.images}
-                                    replace={this.props.hint.replace}
-                                    imageUploader={this.props.imageUploader}
-                                    onChange={this.props.onChange}
-                                    onRemove={this.props.onRemove}
-                                    onMove={this.props.onMove}
-                                    widgetIsOpen={this.props.widgetIsOpen}
-                                />
-                            </div>
-                            <div className="perseus-editor-right-cell">
-                                <DeviceFramer
-                                    deviceType={this.props.deviceType}
-                                    nochrome={true}
-                                >
-                                    <IframeContentRenderer
-                                        ref={this.frame}
-                                        datasetKey="mobile"
-                                        datasetValue={isMobile}
-                                        seamless={true}
-                                        url={this.props.previewURL}
-                                    />
-                                </DeviceFramer>
-                            </div>
-                        </div>
-                    );
-                }}
-            </APIOptionsContext.Consumer>
+            <div
+                className={
+                    "perseus-combined-hint-editor " + "perseus-editor-row"
+                }
+            >
+                <div className="perseus-editor-left-cell">
+                    <HintEditor
+                        ref={this.editor}
+                        itemId={this.props.itemId}
+                        isFirst={this.props.isFirst}
+                        isLast={this.props.isLast}
+                        widgets={this.props.hint.widgets}
+                        content={this.props.hint.content}
+                        images={this.props.hint.images}
+                        replace={this.props.hint.replace}
+                        imageUploader={this.props.imageUploader}
+                        onChange={this.props.onChange}
+                        onRemove={this.props.onRemove}
+                        onMove={this.props.onMove}
+                        apiOptions={this.props.apiOptions}
+                        widgetIsOpen={this.props.widgetIsOpen}
+                    />
+                </div>
+                <div className="perseus-editor-right-cell">
+                    <DeviceFramer
+                        deviceType={this.props.deviceType}
+                        nochrome={true}
+                    >
+                        <IframeContentRenderer
+                            ref={this.frame}
+                            datasetKey="mobile"
+                            datasetValue={isMobile}
+                            seamless={true}
+                            url={this.props.previewURL}
+                        />
+                    </DeviceFramer>
+                </div>
+            </div>
         );
     }
 }
 
 type CombinedHintsEditorProps = {
+    apiOptions?: APIOptions;
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
     highlightLint?: boolean;
@@ -340,7 +308,7 @@ type CombinedHintsEditorProps = {
  *  ~ All the hint previews
  *  ~ The "add a hint" button
  */
-class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
+class CombinedHintsEditorInner extends React.Component<CombinedHintsEditorProps> {
     static HintEditor: typeof HintEditor = HintEditor;
 
     static defaultProps: {
@@ -468,6 +436,8 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         deviceType={this.props.deviceType}
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        apiOptions={this.props.apiOptions}
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         highlightLint={this.props.highlightLint}
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         previewURL={this.props.previewURL}
@@ -501,4 +471,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     }
 }
 
+const CombinedHintsEditor = withAPIOptions<CombinedHintsEditorInner>(
+    CombinedHintsEditorInner,
+);
 export default CombinedHintsEditor;

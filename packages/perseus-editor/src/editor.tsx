@@ -6,8 +6,6 @@ import {
     PerseusMarkdown,
     Util,
     Widgets,
-    APIOptionsContext,
-    ApiOptions,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
@@ -31,12 +29,9 @@ import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
 // eslint-disable-next-line import/no-deprecated
-import type {
-    APIOptions,
-    ChangeHandler,
-    ImageUploader,
-} from "@khanacademy/perseus";
+import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
 import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import {withAPIOptions} from "@khanacademy/perseus";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -120,6 +115,7 @@ const imageUrlsFromContent = function (content: string) {
 
 type Props = Readonly<{
     additionalTemplates: Record<string, string>;
+    apiOptions: any;
     className?: string;
     content: string;
     replace?: any;
@@ -159,15 +155,13 @@ type State = {
 };
 
 // eslint-disable-next-line react/no-unsafe
-class Editor extends React.Component<Props, State> {
+class EditorInner extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
     deferredChange: any | null | undefined;
     widgetIds: any | null | undefined;
 
     underlay = React.createRef<HTMLDivElement>();
     textarea = React.createRef<HTMLTextAreaElement>();
-
-    private contextApiOptions: APIOptions = ApiOptions.defaults;
 
     static defaultProps: DefaultProps = {
         content: "",
@@ -278,7 +272,7 @@ class Editor extends React.Component<Props, State> {
                 onChange={this._handleWidgetEditorChange.bind(this, id)}
                 // eslint-disable-next-line react/jsx-no-bind
                 onRemove={this._handleWidgetEditorRemove.bind(this, id)}
-                apiOptions={this.contextApiOptions}
+                apiOptions={this.props.apiOptions}
                 widgetIsOpen={this.props.widgetIsOpen}
             />
         );
@@ -451,7 +445,7 @@ class Editor extends React.Component<Props, State> {
             if (this.state.textAreaValue !== this.props.content) {
                 this.props.onChange({content: this.state.textAreaValue});
             }
-        }, this.contextApiOptions.editorChangeDelay);
+        }, this.props.apiOptions.editorChangeDelay);
     };
 
     _handleKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void = (
@@ -1103,39 +1097,31 @@ class Editor extends React.Component<Props, State> {
         } as const;
 
         return (
-            <APIOptionsContext.Consumer>
-                {({apiOptions}) => {
-                    this.contextApiOptions = apiOptions;
-                    return (
-                        <div
-                            className={
-                                "perseus-single-editor " +
-                                (this.props.className || "")
-                            }
-                        >
-                            {textareaWrapper}
-                            {katexErrorList.length > 0 && (
-                                <TexErrorView errorList={katexErrorList} />
-                            )}
-                            {this.props.warnNoPrompt && noPrompt && (
-                                <div style={warningStyle}>
-                                    Graded Groups should contain a prompt
-                                </div>
-                            )}
-                            {this.props.warnNoWidgets && noWidgets && (
-                                <div style={warningStyle}>
-                                    Graded Groups should contain at least one
-                                    widget
-                                </div>
-                            )}
-                            {wordCountDisplay}
-                            {widgetsAndTemplates}
-                        </div>
-                    );
-                }}
-            </APIOptionsContext.Consumer>
+            <div
+                className={
+                    "perseus-single-editor " + (this.props.className || "")
+                }
+            >
+                {textareaWrapper}
+                {katexErrorList.length > 0 && (
+                    <TexErrorView errorList={katexErrorList} />
+                )}
+                {this.props.warnNoPrompt && noPrompt && (
+                    <div style={warningStyle}>
+                        Graded Groups should contain a prompt
+                    </div>
+                )}
+                {this.props.warnNoWidgets && noWidgets && (
+                    <div style={warningStyle}>
+                        Graded Groups should contain at least one widget
+                    </div>
+                )}
+                {wordCountDisplay}
+                {widgetsAndTemplates}
+            </div>
         );
     }
 }
 
+const Editor = withAPIOptions<EditorInner>(EditorInner);
 export default Editor;

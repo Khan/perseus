@@ -14,8 +14,8 @@ import {useId} from "react";
 
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
+import Editor from "../editor";
 
-import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
@@ -53,7 +53,7 @@ class WidgetEditor extends React.Component<
     WidgetEditorProps,
     WidgetEditorState
 > {
-    widget: React.RefObject<Editor>;
+    widget: React.RefObject<React.ElementRef<typeof Editor>>;
 
     constructor(props: WidgetEditorProps) {
         super(props);
@@ -135,8 +135,7 @@ class WidgetEditor extends React.Component<
             static: widgetInfo.static,
             graded: widgetInfo.graded,
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            options: this.widget.current.serialize(),
+            options: this.widget.current?.serialize(),
             version: widgetInfo.version,
         };
     };

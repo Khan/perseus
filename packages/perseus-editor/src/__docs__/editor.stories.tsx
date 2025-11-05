@@ -36,7 +36,7 @@ export const Demo = (): React.ReactElement => {
 };
 
 export const DemoInteractiveGraph = (): React.ReactElement => {
-    const editorRef = React.useRef<Editor>(null);
+    const editorRef = React.useRef<React.ElementRef<typeof Editor>>(null);
     const [options, setOptions] = React.useState({});
     const [content, setContent] = React.useState(
         "[[\u2603 interactive-graph 1]]",
