@@ -35,6 +35,7 @@ const IframeContentRenderer = React.forwardRef<
 >((props, ref) => {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const iframeRef = React.useRef<HTMLIFrameElement>(null);
+    // ID is for debugging/logging, not routing (which uses event.source)
     const iframeId = React.useRef(String(nextIframeID++));
 
     const {sendData, height} = usePreviewHost(iframeRef);

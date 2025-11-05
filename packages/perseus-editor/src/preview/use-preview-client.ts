@@ -22,7 +22,8 @@ type UsePreviewClientResult = {
      */
     hasLintGutter: boolean;
     /**
-     * The iframe's unique identifier (from data-id attribute)
+     * The iframe's unique identifier (from data-id attribute). Use for
+     * debugging/logging, but not for message routing.
      */
     id: string | null;
     /**
@@ -70,6 +71,7 @@ export function usePreviewClient(): UsePreviewClientResult {
     React.useEffect(() => {
         const iframe = window.frameElement as HTMLIFrameElement | null;
         if (iframe) {
+            // ID is used for debugging/logging, not message routing
             const id = iframe.dataset.id;
             const mobile = iframe.dataset.mobile === "true";
             const lintGutter = iframe.dataset.lintGutter === "true";
@@ -97,6 +99,7 @@ export function usePreviewClient(): UsePreviewClientResult {
             }
 
             // Handle content data
+            // Note: ID check is for extra validation/debugging; actual routing is by event.source
             if (message.type === "content-data" && message.id === iframeId) {
                 setData(message.content);
             }
@@ -105,7 +108,7 @@ export function usePreviewClient(): UsePreviewClientResult {
         window.addEventListener("message", handleMessage);
 
         // Request initial data if we have an ID
-        if (iframeId && window.parent) {
+        if (iframeId && window.parent != null) {
             const requestMessage: IframeToParentMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "request-data",
@@ -122,7 +125,7 @@ export function usePreviewClient(): UsePreviewClientResult {
     // Memoized callback to report height
     const reportHeight = React.useCallback(
         (height: number) => {
-            if (!iframeId || !window.parent) {
+            if (!iframeId || window.parent == null) {
                 return;
             }
 
@@ -140,7 +143,7 @@ export function usePreviewClient(): UsePreviewClientResult {
     // Memoized callback to report lint warnings
     const reportLintWarnings = React.useCallback(
         (lintWarnings: ReadonlyArray<any>) => {
-            if (!iframeId || !window.parent) {
+            if (!iframeId || window.parent == null) {
                 return;
             }
 

@@ -110,7 +110,7 @@ export function usePreviewHost(
             // Handle the message
             switch (message.type) {
                 case "request-data": {
-                    // Store the iframe ID for future use
+                    // Store the iframe ID (used for debugging/logging, not routing)
                     iframeIdRef.current = String(message.id);
 
                     // Send only the most recent pending message (if any)

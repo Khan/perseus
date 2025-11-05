@@ -25,6 +25,10 @@ interface PreviewMessageBase {
 
 /**
  * Base type for messages with iframe ID
+ *
+ * Note: The ID is primarily used for debugging/logging purposes.
+ * Message routing is handled by event.source filtering in the hooks,
+ * not by comparing ID strings.
  */
 interface PreviewMessageWithId extends PreviewMessageBase {
     id: string;
