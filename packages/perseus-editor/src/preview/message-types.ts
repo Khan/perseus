@@ -27,7 +27,7 @@ interface PreviewMessageBase {
  * Base type for messages with iframe ID
  */
 interface PreviewMessageWithId extends PreviewMessageBase {
-    id: string | number;
+    id: string;
 }
 
 /**

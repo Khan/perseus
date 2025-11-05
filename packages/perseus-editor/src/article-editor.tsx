@@ -299,8 +299,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 <IframeContentRenderer
                     ref={"frame-" + i}
                     key={this.props.screen}
-                    datasetKey="mobile"
-                    datasetValue={isMobile}
+                    isMobile={isMobile}
                     seamless={nochrome}
                     url={this.props.previewURL}
                 />

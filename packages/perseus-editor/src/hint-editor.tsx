@@ -275,8 +275,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                     >
                         <IframeContentRenderer
                             ref={this.frame}
-                            datasetKey="mobile"
-                            datasetValue={isMobile}
+                            isMobile={isMobile}
                             seamless={true}
                             url={this.props.previewURL}
                         />

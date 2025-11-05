@@ -18,10 +18,8 @@ let nextIframeID = 0;
 type Props = {
     // The URL that the iframe should load
     url: string;
-    // The data-* suffix for passing information to the iframe's JS
-    datasetKey: string;
-    // The value of the data-* attribute
-    datasetValue: any;
+    // Whether the iframe should be displaying in mobile mode
+    isMobile: boolean;
     // Whether to make the iframe's height match its content's height,
     // used to prevent scrolling inside the iframe.
     seamless: boolean;
