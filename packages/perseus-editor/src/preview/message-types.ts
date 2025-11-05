@@ -21,6 +21,12 @@ export const PREVIEW_MESSAGE_SOURCE = "perseus-preview" as const;
  */
 interface PreviewMessageBase {
     source: typeof PREVIEW_MESSAGE_SOURCE;
+}
+
+/**
+ * Base type for messages with iframe ID
+ */
+interface PreviewMessageWithId extends PreviewMessageBase {
     id: string | number;
 }
 
@@ -70,20 +76,23 @@ export type PreviewContent =
 
 /**
  * Message from iframe requesting data from parent
- * (iframe sends its ID as a string)
  */
-export type PreviewDataRequestMessage = string;
+export type PreviewDataRequestMessage = PreviewMessageWithId & {
+    type: "request-data";
+};
 
 /**
- * Message from parent sending data to iframe
- * (parent sends iframe ID as a string, iframe looks up data in iframeDataStore)
+ * Message from parent sending content data to iframe
  */
-export type PreviewDataResponseMessage = string | number;
+export type PreviewDataResponseMessage = PreviewMessageWithId & {
+    type: "content-data";
+    content: PreviewContent;
+};
 
 /**
  * Message from iframe reporting its content height
  */
-export type PreviewHeightUpdateMessage = PreviewMessageBase & {
+export type PreviewHeightUpdateMessage = PreviewMessageWithId & {
     type: "height-update";
     height: number;
 };
@@ -91,7 +100,7 @@ export type PreviewHeightUpdateMessage = PreviewMessageBase & {
 /**
  * Message from iframe reporting lint warnings
  */
-export type PreviewLintReportMessage = PreviewMessageBase & {
+export type PreviewLintReportMessage = PreviewMessageWithId & {
     type: "lint-report";
     lintWarnings: ReadonlyArray<any>;
 };

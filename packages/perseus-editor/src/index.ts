@@ -11,6 +11,24 @@ export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as ContentPreview} from "./content-preview";
 export type {Issue} from "./components/issues-panel";
 
+// Preview system hooks and utilities
+export {usePreviewHost} from "./preview/use-preview-host";
+export {usePreviewClient} from "./preview/use-preview-client";
+export {sanitizeApiOptions} from "./preview/sanitize-api-options";
+export {PREVIEW_MESSAGE_SOURCE} from "./preview/message-types";
+export type {
+    PreviewContent,
+    QuestionPreviewData,
+    HintPreviewData,
+    ArticlePreviewData,
+    PreviewDataRequestMessage,
+    PreviewDataResponseMessage,
+    PreviewHeightUpdateMessage,
+    PreviewLintReportMessage,
+    IframeToParentMessage,
+    ParentToIframeMessage,
+} from "./preview/message-types";
+
 import "./styles/perseus-editor.css";
 
 // eslint-disable-next-line import/order
