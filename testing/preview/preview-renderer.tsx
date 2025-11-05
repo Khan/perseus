@@ -12,6 +12,7 @@ import {
     ServerItemRenderer,
     usePerseusI18n,
 } from "@khanacademy/perseus";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -46,8 +47,6 @@ export function PreviewRenderer({data}: Props) {
             problemNum,
         } = data.data;
 
-        console.log("Linter Context:", JSON.stringify(linterContext, null, 2));
-
         return (
             <Dependencies.DependenciesContext.Provider
                 value={storybookDependenciesV2}
@@ -71,7 +70,10 @@ export function PreviewRenderer({data}: Props) {
                                         item={item}
                                         apiOptions={{...apiOptions, isMobile}}
                                         keypadElement={keypadElement}
-                                        linterContext={linterContext}
+                                        linterContext={PerseusLinter.pushContextStack(
+                                            linterContext,
+                                            "item",
+                                        )}
                                         hintsVisible={initialHintsVisible}
                                         reviewMode={reviewMode}
                                         problemNum={problemNum}
@@ -129,7 +131,10 @@ export function PreviewRenderer({data}: Props) {
                                         images={hint.images}
                                         apiOptions={{...apiOptions, isMobile}}
                                         keypadElement={keypadElement}
-                                        linterContext={linterContext}
+                                        linterContext={PerseusLinter.pushContextStack(
+                                            linterContext,
+                                            "hint",
+                                        )}
                                     />
 
                                     <MobileKeypad
