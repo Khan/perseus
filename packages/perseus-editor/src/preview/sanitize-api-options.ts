@@ -1,14 +1,31 @@
 import type {APIOptions} from "@khanacademy/perseus";
 
 /**
- * Removes non-serializable functions from apiOptions before sending via postMessage.
+ * Removes non-serializable functions and React components from APIOptions
+ * before sending via postMessage.
  *
- * These functions are not needed in the preview iframe:
- * - onFocusChange: Focus tracking not needed in preview
+ * All function callbacks and React components are removed as they cannot be
+ * cloned by the structured clone algorithm used by postMessage.
+ *
+ * Serializable options (booleans, strings, numbers) are preserved.
  */
 export function sanitizeApiOptions(
     apiOptions: APIOptions,
-): Omit<APIOptions, "onFocusChange"> {
-    const {onFocusChange: _, ...rest} = apiOptions;
-    return rest;
+): Partial<APIOptions> {
+    const {
+        onFocusChange: _,
+        answerableCallback: __,
+        getAnotherHint: ___,
+        interactionCallback: ____,
+        imagePreloader: _____,
+        trackInteraction: ______,
+        setDrawingAreaAvailable: ________,
+        baseElements: _________,
+        // Remove React nodes (placeholders)
+        imagePlaceholder: __________,
+        widgetPlaceholder: ___________,
+        ...serializableOptions
+    } = apiOptions;
+
+    return serializableOptions;
 }
