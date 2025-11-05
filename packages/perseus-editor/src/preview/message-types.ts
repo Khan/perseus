@@ -53,7 +53,6 @@ export type QuestionPreviewData = {
  */
 export type HintPreviewData = {
     hint: Hint;
-    bold: boolean;
     pos: number;
     apiOptions: APIOptions;
     linterContext: LinterContextProps;

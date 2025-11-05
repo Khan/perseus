@@ -97,13 +97,7 @@ export function PreviewRenderer({data}: Props) {
     }
 
     if (data.type === "hint") {
-        const {hint, bold, apiOptions, linterContext} = data.data;
-
-        // Apply bold styling if needed
-        const content =
-            bold && !/\*\*/.test(hint.content)
-                ? `**${hint.content}**`
-                : hint.content;
+        const {hint, apiOptions, linterContext} = data.data;
 
         return (
             <Dependencies.DependenciesContext.Provider
