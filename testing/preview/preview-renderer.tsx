@@ -8,7 +8,7 @@ import {
 import {MobileKeypad} from "@khanacademy/math-input";
 import {
     Dependencies,
-    Renderer,
+    HintRenderer,
     ServerItemRenderer,
     usePerseusI18n,
 } from "@khanacademy/perseus";
@@ -30,7 +30,6 @@ type Props = {
  * Renders the appropriate content based on preview data type
  */
 export function PreviewRenderer({data}: Props) {
-    const i18n = usePerseusI18n();
     const iframe = window.frameElement as HTMLIFrameElement | null;
     const isMobile = iframe?.dataset.mobile === "true";
     const hasLintGutter = iframe?.dataset.lintGutter === "true";
@@ -118,13 +117,11 @@ export function PreviewRenderer({data}: Props) {
                                 setKeypadElement,
                             }) => (
                                 <>
-                                    <Renderer
-                                        strings={i18n.strings}
-                                        content={content}
-                                        widgets={hint.widgets}
-                                        images={hint.images}
+                                    <HintRenderer
+                                        hint={hint}
                                         apiOptions={{...apiOptions, isMobile}}
-                                        keypadElement={keypadElement}
+                                        dependencies={storybookDependenciesV2}
+                                        pos={0}
                                         linterContext={PerseusLinter.pushContextStack(
                                             linterContext,
                                             "hint",
