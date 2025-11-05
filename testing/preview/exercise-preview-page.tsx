@@ -6,6 +6,7 @@ import * as React from "react";
 
 import {usePreviewClient} from "../../packages/perseus-editor/src/preview/use-preview-client";
 import {PreviewRenderer} from "./preview-renderer";
+import {debounce} from "underscore";
 
 /**
  * Loads the exercise preview frame
@@ -16,6 +17,7 @@ import {PreviewRenderer} from "./preview-renderer";
 const ExercisePreviewPage = () => {
     const {data, reportHeight} = usePreviewClient();
     const containerRef = React.useRef<HTMLDivElement>(null);
+    const lastHeightRef = React.useRef<number | null>(null);
 
     // Send height updates to parent
     React.useEffect(() => {
@@ -25,7 +27,7 @@ const ExercisePreviewPage = () => {
 
         const sendHeightUpdate = () => {
             const height = containerRef.current?.scrollHeight;
-            if (height) {
+            if (height && height !== lastHeightRef.current) {
                 reportHeight(height);
             }
         };
@@ -33,20 +35,16 @@ const ExercisePreviewPage = () => {
         // Send initial height
         sendHeightUpdate();
 
-        // Poll for height changes (to capture animations, etc.)
-        const interval = setInterval(sendHeightUpdate, 500);
-
         // Also send on resize
         let resizeObserver: ResizeObserver | undefined;
         const container = containerRef.current;
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (container) {
-            resizeObserver = new ResizeObserver(sendHeightUpdate);
+        if (container != null) {
+            const debouncedSend = debounce(sendHeightUpdate, 100);
+            resizeObserver = new ResizeObserver(debouncedSend);
             resizeObserver.observe(container);
         }
 
         return () => {
-            clearInterval(interval);
             resizeObserver?.disconnect();
         };
     }, [data, reportHeight]);
