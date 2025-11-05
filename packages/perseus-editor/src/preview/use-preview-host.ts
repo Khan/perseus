@@ -22,6 +22,19 @@ type UsePreviewHostResult = {
 };
 
 /**
+ * Predicate to check if an object is an {IframeToParentMessage} type.
+ */
+function isIframeToParentMessage(msg: unknown): msg is IframeToParentMessage {
+    return (
+        typeof msg === "object" &&
+        msg !== null &&
+        "source" in msg &&
+        typeof msg.source === "string" &&
+        msg.source === PREVIEW_MESSAGE_SOURCE
+    );
+}
+
+/**
  * Hook for parent/editor to send data to preview iframe and receive updates.
  *
  * This hook:
@@ -55,39 +68,81 @@ export function usePreviewHost(
 ): UsePreviewHostResult {
     const [height, setHeight] = React.useState<number | null>(null);
     const iframeIdRef = React.useRef<string | null>(null);
+    const pendingDataRef = React.useRef<PreviewContent[]>([]);
+
+    // Helper function to sanitize apiOptions in preview content
+    const sanitizePreviewData = React.useCallback(
+        (data: PreviewContent): PreviewContent => {
+            if (
+                (data.type === "question" ||
+                    data.type === "hint" ||
+                    data.type === "article") &&
+                data.data.apiOptions != null
+            ) {
+                return {
+                    ...data,
+                    data: {
+                        ...data.data,
+                        apiOptions: sanitizeApiOptions(data.data.apiOptions),
+                    },
+                } as PreviewContent;
+            }
+            return data;
+        },
+        [],
+    );
 
     // Listen for messages from iframe
     React.useEffect(() => {
-        const handleMessage = (event: MessageEvent<IframeToParentMessage>) => {
+        const handleMessage = (event: MessageEvent) => {
             const message = event.data;
 
             // Ignore messages that aren't from Perseus preview system
-            if (
-                typeof message !== "object" ||
-                message === null ||
-                message.source !== PREVIEW_MESSAGE_SOURCE
-            ) {
+            if (!isIframeToParentMessage(message)) {
                 return;
             }
 
             // Handle data request
-            if (message.type === "request-data") {
-                // Store the iframe ID for future reference
-                iframeIdRef.current = String(message.id);
-                // Note: Data will be sent via sendData(), not here
-                // This just registers that the iframe is ready
-            }
+            switch (message.type) {
+                case "request-data": {
+                    // Store the iframe ID for future reference
+                    iframeIdRef.current = String(message.id);
 
-            // Handle height update
-            if (message.type === "height-update") {
-                setHeight(message.height);
-            }
+                    // Send only the most recent pending message (if any)
+                    if (pendingDataRef.current.length > 0) {
+                        const iframe = iframeRef.current;
+                        const contentWindow = iframe?.contentWindow;
+                        if (contentWindow && iframeIdRef.current) {
+                            const latestData =
+                                pendingDataRef.current[
+                                    pendingDataRef.current.length - 1
+                                ];
+                            const sanitizedData =
+                                sanitizePreviewData(latestData);
 
-            // Handle lint report
-            if (message.type === "lint-report") {
-                Log.log("LINTER REPORT", {
-                    lintWarnings: JSON.stringify(message.lintWarnings),
-                });
+                            const msg: ParentToIframeMessage = {
+                                source: PREVIEW_MESSAGE_SOURCE,
+                                type: "content-data",
+                                id: iframeIdRef.current,
+                                content: sanitizedData,
+                            };
+                            contentWindow.postMessage(msg, "*");
+                        }
+                        // Clear the queue
+                        pendingDataRef.current = [];
+                    }
+                    break;
+                }
+
+                case "height-update":
+                    setHeight(message.height);
+                    break;
+
+                case "lint-report":
+                    Log.log("LINTER REPORT", {
+                        lintWarnings: JSON.stringify(message.lintWarnings),
+                    });
+                    break;
             }
         };
 
@@ -96,7 +151,7 @@ export function usePreviewHost(
         return () => {
             window.removeEventListener("message", handleMessage);
         };
-    }, []);
+    }, [sanitizePreviewData, iframeRef]);
 
     // Memoized function to send data to iframe
     const sendData = React.useCallback(
@@ -104,37 +159,18 @@ export function usePreviewHost(
             const iframe = iframeRef.current;
             const contentWindow = iframe?.contentWindow;
 
-            if (!contentWindow || !iframeIdRef.current) {
+            if (!contentWindow) {
                 return;
             }
 
-            // Sanitize apiOptions in the data before sending
-            let sanitizedData = data;
-            if (data.type === "question" && data.data.apiOptions) {
-                sanitizedData = {
-                    ...data,
-                    data: {
-                        ...data.data,
-                        apiOptions: sanitizeApiOptions(data.data.apiOptions),
-                    },
-                };
-            } else if (data.type === "hint" && data.data.apiOptions) {
-                sanitizedData = {
-                    ...data,
-                    data: {
-                        ...data.data,
-                        apiOptions: sanitizeApiOptions(data.data.apiOptions),
-                    },
-                };
-            } else if (data.type === "article" && data.data.apiOptions) {
-                sanitizedData = {
-                    ...data,
-                    data: {
-                        ...data.data,
-                        apiOptions: sanitizeApiOptions(data.data.apiOptions),
-                    },
-                };
+            // If iframe hasn't sent request-data yet, queue the data
+            if (!iframeIdRef.current) {
+                pendingDataRef.current.push(data);
+                return;
             }
+
+            // Iframe is ready, send immediately
+            const sanitizedData = sanitizePreviewData(data);
 
             const message: ParentToIframeMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
@@ -145,7 +181,7 @@ export function usePreviewHost(
 
             contentWindow.postMessage(message, "*");
         },
-        [iframeRef],
+        [sanitizePreviewData, iframeRef],
     );
 
     return {
