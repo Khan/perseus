@@ -259,6 +259,9 @@ code {
     float: left;
     padding-bottom: 38px;
 }
+#storybook-root #problemarea {
+    display: none;
+}
 #problemarea a:link,
 #problemarea input,
 #problemarea label,
