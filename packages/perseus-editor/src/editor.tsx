@@ -922,7 +922,7 @@ class Editor extends React.Component<Props, State> {
         }
 
         if (this.props.widgetEnabled) {
-            pieces = Util.split(this.props.content, rWidgetSplit);
+            pieces = this.props.content.split(rWidgetSplit);
             widgets = {};
             underlayPieces = [];
 
