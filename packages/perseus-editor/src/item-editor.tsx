@@ -161,7 +161,7 @@ class ItemEditor extends React.Component<Props, State> {
                 }}
             >
                 <APIOptionsContext.Consumer>
-                    {({apiOptions}) => {
+                    {(apiOptions) => {
                         const editingDisabled =
                             apiOptions.editingDisabled ?? false;
                         return (

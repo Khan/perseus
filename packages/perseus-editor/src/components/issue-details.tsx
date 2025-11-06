@@ -20,7 +20,7 @@ const IssueDetails = ({issue}: IssueProps) => {
 
     // TODO(LEMS-3520): Remove this once the "image-widget-upgrade" feature
     // flag is has been fully rolled out.
-    const {apiOptions} = useAPIOptionsContext();
+    const apiOptions = useAPIOptionsContext();
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     return (

@@ -238,7 +238,7 @@ class EditorPage extends React.Component<Props, State> {
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
             >
-                <APIOptionsContext.Provider value={{apiOptions}}>
+                <APIOptionsContext.Provider value={apiOptions}>
                     <div id="perseus" className={className}>
                         <div style={{marginBottom: 10}}>
                             {this.props.developerMode && (

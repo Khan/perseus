@@ -154,9 +154,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         return (
-            <APIOptionsContext.Provider
-                value={{apiOptions: apiOptionsForArticle}}
-            >
+            <APIOptionsContext.Provider value={apiOptionsForArticle}>
                 <div className="perseus-editor-table">
                     {sections.map((section, i) => {
                         return [

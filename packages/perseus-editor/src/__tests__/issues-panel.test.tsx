@@ -118,9 +118,7 @@ describe("IssuesPanel", () => {
     it("shows the CTA button when the issue has one", async () => {
         // Arrange
         render(
-            <APIOptionsContext.Provider
-                value={{apiOptions: imageUpdateFFOptions}}
-            >
+            <APIOptionsContext.Provider value={imageUpdateFFOptions}>
                 <IssuesPanel
                     // "image-markdown" issue ID has a CTA associated with it
                     issues={[makeIssue("image-markdown")]}
