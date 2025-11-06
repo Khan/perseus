@@ -10,7 +10,6 @@ export {default as Editor} from "./editor";
 export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as ContentPreview} from "./content-preview";
 export type {Issue} from "./components/issues-panel";
-export * as PreviewSystem from "./preview";
 
 // Preview system hooks and utilities
 export {usePreviewHost} from "./preview/use-preview-host";
