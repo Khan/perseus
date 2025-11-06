@@ -210,7 +210,6 @@ class ItemEditor extends React.Component<Props, State> {
                                 />
                             </fieldset>
                         </div>
-{/*
                         <div className="perseus-editor-right-cell">
                             <div id="problemarea">
                                 <DeviceFramer
@@ -233,7 +232,6 @@ class ItemEditor extends React.Component<Props, State> {
                                 />
                             </div>
                         </div>
-*/}
                     </div>
                     <div className="perseus-editor-row perseus-answer-container">
                         <div className="perseus-editor-left-cell">
