@@ -1,6 +1,5 @@
 import {
     type PerseusDependenciesV2,
-    Renderer,
     type APIOptions,
     type DeviceType,
 } from "@khanacademy/perseus";
@@ -10,18 +9,10 @@ import {
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {mockStrings} from "../../../perseus/src/strings";
-import ContentPreview from "../content-preview";
 import EditorPage from "../editor-page";
-
-import PreviewPanel from "./preview-panel";
-import styles from "./preview-panel.module.css";
 
 type Props = {
     apiOptions?: APIOptions;
