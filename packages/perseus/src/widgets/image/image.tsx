@@ -48,7 +48,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                 setZoomSize([naturalWidth, naturalHeight]);
             }
         });
-    }, [backgroundImage]);
+    }, [backgroundImage.url, backgroundImage.width]);
 
     if (!backgroundImage.url) {
         return null;
