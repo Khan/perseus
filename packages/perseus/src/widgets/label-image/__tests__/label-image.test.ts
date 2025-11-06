@@ -829,6 +829,22 @@ describe("LabelImage", function () {
             );
         });
 
+        it("sends an analytics event when widget is rendered", async () => {
+            // render component
+            renderQuestion(textQuestion);
+
+            expect(
+                testDependenciesV2.analytics.onAnalyticsEvent,
+            ).toHaveBeenCalledWith({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: "null",
+                    widgetType: "label-image",
+                    widgetId: "label-image",
+                },
+            });
+        });
+
         it("sends an analytics event when the toggle is interacted with", async () => {
             // render component
             renderQuestion(textQuestion);
