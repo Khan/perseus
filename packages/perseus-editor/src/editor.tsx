@@ -116,26 +116,30 @@ const imageUrlsFromContent = function (content: string) {
     return allMatches(IMAGE_REGEX, content).map((capture) => capture[1]);
 };
 
-type Props = Readonly<{
-    additionalTemplates: Record<string, string>;
+type WithAPIOptionsProps = {
     apiOptions: APIOptions;
-    className?: string;
-    content: string;
-    replace?: any;
-    placeholder: string;
-    widgets: PerseusWidgetsMap;
-    images: any;
-    disabled: boolean;
-    widgetEnabled: boolean;
-    immutableWidgets: boolean;
-    showWordCount: boolean;
-    warnNoPrompt: boolean;
-    warnNoWidgets: boolean;
-    widgetIsOpen?: boolean;
-    imageUploader?: ImageUploader;
-    // eslint-disable-next-line import/no-deprecated
-    onChange: ChangeHandler;
-}>;
+};
+
+type Props = WithAPIOptionsProps &
+    Readonly<{
+        additionalTemplates: Record<string, string>;
+        className?: string;
+        content: string;
+        replace?: any;
+        placeholder: string;
+        widgets: PerseusWidgetsMap;
+        images: any;
+        disabled: boolean;
+        widgetEnabled: boolean;
+        immutableWidgets: boolean;
+        showWordCount: boolean;
+        warnNoPrompt: boolean;
+        warnNoWidgets: boolean;
+        widgetIsOpen?: boolean;
+        imageUploader?: ImageUploader;
+        // eslint-disable-next-line import/no-deprecated
+        onChange: ChangeHandler;
+    }>;
 
 type DefaultProps = {
     content: string;

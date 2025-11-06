@@ -285,8 +285,11 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     }
 }
 
-type CombinedHintsEditorProps = {
-    apiOptions?: APIOptions;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptions;
+};
+
+type CombinedHintsEditorProps = WithAPIOptionsProps & {
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
     highlightLint?: boolean;
