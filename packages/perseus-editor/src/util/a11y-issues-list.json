@@ -1,0 +1,19 @@
+{
+    "axe-core": {
+        "user-fixable": [
+            "aria-input-field-name",
+            "aria-meter-name",
+            "aria-toggle-field-name",
+            "image-alt",
+            "input-image-alt",
+            "label",
+            "link-name",
+            "list",
+            "role-img-alt",
+            "select-name",
+            "summary-name",
+            "svg-img-alt",
+            "video-caption"
+        ]
+    }
+}

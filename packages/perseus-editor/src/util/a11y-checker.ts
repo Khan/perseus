@@ -1,7 +1,12 @@
 import * as axeCore from "axe-core";
 
+import issuesList from "./a11y-issues-list.json";
+
 import type {Issue, IssueType} from "../components/issues-panel";
 import type axe from "axe-core";
+
+const assistanceNeededMessage =
+    "Developer assistance needed - Please send this exercise and warning info to the LEMS team for review.";
 
 const axeCoreEditorOptions = {
     include: {
@@ -11,7 +16,6 @@ const axeCoreEditorOptions = {
         fromFrames: ["iframe", '[target="lint-help-window"]'],
     },
 };
-
 const axeCoreStorybookOptions = {
     include: ["#preview-panel"],
     exclude: ['[target="lint-help-window"]'],
@@ -84,10 +88,18 @@ const mapResultsToIssues = (
     results: axe.Result[],
     type: IssueType,
 ): Issue[] => {
+    console.log("Issues List: ", issuesList);
+    console.log("User Fixable Issues: ", issuesList["user-fixable"]);
     return results.map((result) => {
+        const isUserFixable =
+            type === "Alert" &&
+            issuesList["axe-core"]["user-fixable"].some(
+                (testId) => testId === result.id,
+            );
+        const description = isUserFixable ? "" : assistanceNeededMessage;
         return {
             id: result.id,
-            description: "", //result.description,
+            description: description,
             elements: getIssueElements(result.nodes),
             helpUrl: result.helpUrl,
             help: result.help,

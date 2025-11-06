@@ -43,10 +43,10 @@ const IssuesPanel = ({apiOptions, issues = []}: IssuesPanelProps) => {
 
     const icon = hasAlerts ? iconAlert : hasWarnings ? iconWarning : iconPass;
     const iconColor = hasAlerts
-        ? semanticColor.status.critical.foreground
+        ? semanticColor.feedback.critical.strong.icon
         : hasWarnings
-          ? semanticColor.status.warning.foreground
-          : semanticColor.status.success.foreground;
+          ? semanticColor.feedback.warning.strong.icon
+          : semanticColor.feedback.success.strong.icon;
 
     const togglePanel = () => {
         if (hasWarnings) {

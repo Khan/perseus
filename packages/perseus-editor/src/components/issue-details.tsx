@@ -22,8 +22,8 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
 
     const accordionColor =
         issue.type === "Alert"
-            ? semanticColor.status.critical.background
-            : semanticColor.status.warning.background;
+            ? semanticColor.feedback.critical.subtle.background
+            : semanticColor.feedback.warning.subtle.background;
 
     // TODO(LEMS-3520): Remove this once the "image-widget-upgrade" feature
     // flag is has been fully rolled out. Also remove the `apiOptions` prop.
