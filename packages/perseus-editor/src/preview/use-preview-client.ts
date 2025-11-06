@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {isParentToIframeMessage} from "./message-validators";
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
 
 import type {
@@ -7,21 +8,6 @@ import type {
     ParentToIframeMessage,
     PreviewContent,
 } from "./message-types";
-
-/**
- * Type guard to check if a message is from the Perseus preview system.
- */
-function isParentToIframeMessage(
-    message: unknown,
-): message is ParentToIframeMessage {
-    return (
-        typeof message === "object" &&
-        message !== null &&
-        "source" in message &&
-        typeof message.source === "string" &&
-        message.source === PREVIEW_MESSAGE_SOURCE
-    );
-}
 
 type UsePreviewClientResult = {
     /**

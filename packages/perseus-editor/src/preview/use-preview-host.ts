@@ -2,13 +2,9 @@ import {Log} from "@khanacademy/perseus";
 import * as React from "react";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
-import {sanitizeApiOptions} from "./sanitize-api-options";
+import {isIframeToParentMessage} from "./message-validators";
 
-import type {
-    IframeToParentMessage,
-    ParentToIframeMessage,
-    PreviewContent,
-} from "./message-types";
+import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 
 type UsePreviewHostResult = {
     /**
@@ -20,19 +16,6 @@ type UsePreviewHostResult = {
      */
     height: number | null;
 };
-
-/**
- * Predicate to check if an object is an {IframeToParentMessage} type.
- */
-function isIframeToParentMessage(msg: unknown): msg is IframeToParentMessage {
-    return (
-        typeof msg === "object" &&
-        msg !== null &&
-        "source" in msg &&
-        typeof msg.source === "string" &&
-        msg.source === PREVIEW_MESSAGE_SOURCE
-    );
-}
 
 /**
  * Hook for parent/editor to send data to preview iframe and receive updates.
