@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 72.0.0
+
+### Major Changes
+
+-   [#2978](https://github.com/Khan/perseus/pull/2978) [`2c7d4139e9`](https://github.com/Khan/perseus/commit/2c7d4139e9f8768530897ce1dccd7b3803155ad7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove deprecated APIOption: GroupMetadataEditor
+
+*   [#2979](https://github.com/Khan/perseus/pull/2979) [`8539c08bcf`](https://github.com/Khan/perseus/commit/8539c08bcf1b48d22745f7ab9a9d5188a1265523) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused/deprecated APIOption: groupAnnotator
+
+### Patch Changes
+
+-   [#2979](https://github.com/Khan/perseus/pull/2979) [`8539c08bcf`](https://github.com/Khan/perseus/commit/8539c08bcf1b48d22745f7ab9a9d5188a1265523) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Comment update removing reference to deleted APIOption: groupAnnotator
+
 ## 71.6.0
 
 ### Minor Changes
