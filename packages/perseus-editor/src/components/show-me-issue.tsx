@@ -5,6 +5,13 @@ import {useState} from "react";
 
 import type {CSSProperties} from "react";
 
+type BoundaryRect = {
+    top: number;
+    left: number;
+    height: number;
+    width: number;
+};
+
 const ShowMe = ({elements}: {elements?: Element[]}) => {
     const [showMe, setShowMe] = useState(false);
 
@@ -13,8 +20,8 @@ const ShowMe = ({elements}: {elements?: Element[]}) => {
     }
     // eslint-disable-next-line no-console
     console.log(`   Issue Elements: `, elements);
-    const issueBoundary = elements.reduce(
-        (boundary: DOMRect, element: Element, index: number) => {
+    const issueBoundary = elements?.reduce(
+        (boundary: BoundaryRect, element: Element, index: number) => {
             const elementBoundary = element.getBoundingClientRect();
             // eslint-disable-next-line no-console
             console.log(`      Initial Boundary: `, boundary);
