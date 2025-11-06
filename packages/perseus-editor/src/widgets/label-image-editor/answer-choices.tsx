@@ -31,6 +31,9 @@ type AnswerChoicesProps = {
     choices: ReadonlyArray<string>;
     // Callback for when answers change.
     onChange: (choices: ReadonlyArray<string>) => void;
+    // Whether the editor is disabled. Can be set via API options
+    // to make the editor read-only when needed.
+    editingDisabled: boolean;
 };
 
 const addIcon = {
@@ -142,6 +145,7 @@ const Answer = ({
  */
 const AnswerChoices = ({
     choices,
+    editingDisabled,
     onChange,
 }: AnswerChoicesProps): React.ReactElement => (
     <div>
@@ -151,31 +155,40 @@ const AnswerChoices = ({
             {choices.map((answer, index) => (
                 <Answer
                     answer={answer}
-                    // TODO(michaelpolyak): When answer reording is implemented,
-                    // key by index may not re-render correctly, CP-117
                     key={index}
                     // Update answer for choice.
-                    onChange={(answer) =>
+                    onChange={(answer) => {
+                        if (editingDisabled) {
+                            return;
+                        }
                         onChange([
                             ...choices.slice(0, index),
                             answer,
                             ...choices.slice(index + 1),
-                        ])
-                    }
+                        ]);
+                    }}
                     // Remove answer from choices.
-                    onRemove={() =>
+                    onRemove={() => {
+                        if (editingDisabled) {
+                            return;
+                        }
                         onChange([
                             ...choices.slice(0, index),
                             ...choices.slice(index + 1),
-                        ])
-                    }
+                        ]);
+                    }}
                 />
             ))}
         </ul>
 
         <AddAnswer
             // Append a new empty answer to choices.
-            onClick={() => onChange([...choices, ""])}
+            onClick={() => {
+                if (editingDisabled) {
+                    return;
+                }
+                onChange([...choices, ""]);
+            }}
         />
     </div>
 );

@@ -4,13 +4,13 @@
  * multiple (Renderer) sections concatenated together.
  */
 
-import {
-    components,
-    ApiOptions,
-    iconTrash,
-    Dependencies,
-} from "@khanacademy/perseus";
+import {components, ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import Button from "@khanacademy/wonder-blocks-button";
+import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
+import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.svg";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import _ from "underscore";
 
@@ -19,11 +19,6 @@ import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
-import {
-    iconCircleArrowDown,
-    iconCircleArrowUp,
-    iconPlus,
-} from "./styles/icon-paths";
 
 import type {
     APIOptions,
@@ -32,7 +27,7 @@ import type {
     PerseusDependenciesV2,
 } from "@khanacademy/perseus";
 
-const {HUD, InlineIcon} = components;
+const {HUD} = components;
 
 type RendererProps = {
     content?: string;
@@ -151,111 +146,128 @@ export default class ArticleEditor extends React.Component<Props, State> {
         } as const;
 
         const sections = this._sections();
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         return (
             <div className="perseus-editor-table">
                 {sections.map((section, i) => {
                     return [
                         <div className="perseus-editor-row" key={i}>
-                            <div className="perseus-editor-left-cell">
-                                <div className="pod-title">
-                                    Section {i + 1}
-                                    <div
-                                        style={{
-                                            display: "inline-block",
-                                            float: "right",
-                                        }}
-                                    >
-                                        {sectionImageUploadGenerator(i)}
-                                        <SectionControlButton
-                                            icon={iconPlus}
-                                            onClick={() => {
-                                                this._handleAddSectionAfter(i);
+                            <fieldset disabled={editingDisabled}>
+                                <div className="perseus-editor-left-cell">
+                                    <div className="pod-title">
+                                        Section {i + 1}
+                                        <div
+                                            style={{
+                                                display: "inline-block",
+                                                float: "right",
                                             }}
-                                            title="Add a new section after this one"
-                                        />
-                                        {i + 1 < sections.length && (
+                                        >
+                                            {sectionImageUploadGenerator(i)}
                                             <SectionControlButton
-                                                icon={iconCircleArrowDown}
+                                                icon={plusIcon}
+                                                disabled={editingDisabled}
                                                 onClick={() => {
-                                                    this._handleMoveSectionLater(
+                                                    this._handleAddSectionAfter(
                                                         i,
                                                     );
                                                 }}
-                                                title="Move this section down"
+                                                title="Add a new section after this one"
                                             />
-                                        )}
-                                        {i > 0 && (
+                                            {i + 1 < sections.length && (
+                                                <SectionControlButton
+                                                    icon={arrowCircleDownIcon}
+                                                    disabled={editingDisabled}
+                                                    onClick={() => {
+                                                        this._handleMoveSectionLater(
+                                                            i,
+                                                        );
+                                                    }}
+                                                    title="Move this section down"
+                                                />
+                                            )}
+                                            {i > 0 && (
+                                                <SectionControlButton
+                                                    icon={arrowCircleUpIcon}
+                                                    disabled={editingDisabled}
+                                                    onClick={() => {
+                                                        this._handleMoveSectionEarlier(
+                                                            i,
+                                                        );
+                                                    }}
+                                                    title="Move this section up"
+                                                />
+                                            )}
                                             <SectionControlButton
-                                                icon={iconCircleArrowUp}
+                                                icon={trashIcon}
+                                                disabled={editingDisabled}
                                                 onClick={() => {
-                                                    this._handleMoveSectionEarlier(
-                                                        i,
-                                                    );
+                                                    const msg =
+                                                        "Are you sure you " +
+                                                        "want to delete section " +
+                                                        (i + 1) +
+                                                        "?";
+                                                    /* eslint-disable no-alert */
+                                                    if (confirm(msg)) {
+                                                        this._handleRemoveSection(
+                                                            i,
+                                                        );
+                                                    }
+                                                    /* eslint-enable no-alert */
                                                 }}
-                                                title="Move this section up"
+                                                title="Delete this section"
                                             />
-                                        )}
-                                        <SectionControlButton
-                                            icon={iconTrash}
-                                            onClick={() => {
-                                                const msg =
-                                                    "Are you sure you " +
-                                                    "want to delete section " +
-                                                    (i + 1) +
-                                                    "?";
-                                                /* eslint-disable no-alert */
-                                                if (confirm(msg)) {
-                                                    this._handleRemoveSection(
-                                                        i,
-                                                    );
-                                                }
-                                                /* eslint-enable no-alert */
-                                            }}
-                                            title="Delete this section"
-                                        />
+                                        </div>
                                     </div>
+                                    <Editor
+                                        {...section}
+                                        apiOptions={apiOptions}
+                                        imageUploader={imageUploader}
+                                        onChange={(newProps) =>
+                                            this._handleEditorChange(
+                                                i,
+                                                newProps,
+                                            )
+                                        }
+                                        placeholder="Type your section text here..."
+                                        ref={"editor" + i}
+                                    />
                                 </div>
-                                <Editor
-                                    {...section}
-                                    apiOptions={apiOptions}
-                                    imageUploader={imageUploader}
-                                    onChange={(newProps) =>
-                                        this._handleEditorChange(i, newProps)
-                                    }
-                                    placeholder="Type your section text here..."
-                                    ref={"editor" + i}
-                                />
-                            </div>
 
-                            <div className="editor-preview">
-                                {this._renderIframePreview(i, true)}
-                            </div>
+                                <div className="editor-preview">
+                                    {this._renderIframePreview(i, true)}
+                                </div>
+                            </fieldset>
                         </div>,
                     ];
                 })}
-                {this._renderAddSection()}
+
+                {this._renderAddSection(editingDisabled)}
                 {this._renderLinterHUD()}
             </div>
         );
         /* eslint-enable max-len */
     }
 
-    _renderAddSection(): React.ReactElement<React.ComponentProps<"div">> {
+    _renderAddSection(
+        editingDisabled: boolean,
+    ): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div className="perseus-editor-row">
                 <div className="perseus-editor-left-cell">
-                    <a
-                        href="#"
-                        className="simple-button orange"
+                    <Button
+                        startIcon={plusIcon}
+                        disabled={editingDisabled}
+                        kind="tertiary"
+                        aria-label="Add a section"
                         onClick={() => {
                             this._handleAddSectionAfter(
                                 this._sections().length - 1,
                             );
                         }}
                     >
-                        <InlineIcon {...iconPlus} /> Add a section
-                    </a>
+                        Add a section
+                    </Button>
                 </div>
             </div>
         );
@@ -415,6 +427,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
@@ -436,6 +449,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                 multiLine={true}
                                 onChange={this._handleJsonChange}
                                 value={this.props.json}
+                                editingDisabled={editingDisabled}
                             />
                         </div>
                     )}
