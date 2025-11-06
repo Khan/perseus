@@ -1,6 +1,6 @@
 import * as axeCore from "axe-core";
 
-import issuesList from "./a11y-issues-list.json";
+import issuesList from "./a11y-issues-list";
 
 import type {Issue, IssueType} from "../components/issues-panel";
 import type axe from "axe-core";

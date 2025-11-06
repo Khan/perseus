@@ -1,4 +1,4 @@
-{
+export default {
     "axe-core": {
         "user-fixable": [
             "aria-input-field-name",
@@ -13,7 +13,7 @@
             "select-name",
             "summary-name",
             "svg-img-alt",
-            "video-caption"
-        ]
-    }
-}
+            "video-caption",
+        ],
+    },
+};
