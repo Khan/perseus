@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import React from "react";
+
 import type {APIOptions} from "@khanacademy/perseus";
 
 /**
@@ -22,9 +24,10 @@ export function sanitizeApiOptions(
         trackInteraction: ______,
         setDrawingAreaAvailable: ________,
         baseElements: _________,
+        nativeKeypadProxy: __________,
         // Remove React nodes (placeholders)
-        imagePlaceholder: __________,
-        widgetPlaceholder: ___________,
+        imagePlaceholder: ___________,
+        widgetPlaceholder: ____________,
         ...serializableOptions
     } = apiOptions;
 
