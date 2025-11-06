@@ -167,9 +167,9 @@ class ItemEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        // const isMobile =
-        //     this.props.deviceType === "phone" ||
-        //     this.props.deviceType === "tablet";
+        const isMobile =
+            this.props.deviceType === "phone" ||
+            this.props.deviceType === "tablet";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         const allIssues = this.state.issues.concat(this.state.axeCoreIssues);
 
