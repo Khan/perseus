@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 28.6.2
+
+### Patch Changes
+
+-   [#2978](https://github.com/Khan/perseus/pull/2978) [`2c7d4139e9`](https://github.com/Khan/perseus/commit/2c7d4139e9f8768530897ce1dccd7b3803155ad7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update comment about GroupMetadataEditor (which is now gone)
+
+-   Updated dependencies [[`2c7d4139e9`](https://github.com/Khan/perseus/commit/2c7d4139e9f8768530897ce1dccd7b3803155ad7), [`8539c08bcf`](https://github.com/Khan/perseus/commit/8539c08bcf1b48d22745f7ab9a9d5188a1265523), [`8539c08bcf`](https://github.com/Khan/perseus/commit/8539c08bcf1b48d22745f7ab9a9d5188a1265523)]:
+    -   @khanacademy/perseus@72.0.0
+
 ## 28.6.1
 
 ### Patch Changes
