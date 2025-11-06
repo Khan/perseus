@@ -95,6 +95,15 @@ class ItemEditor extends React.Component<Props, State> {
             stack: [],
         };
 
+        this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
+            this.a11yCheckerTimeoutId,
+            (issues) => {
+                this.setState({
+                    axeCoreIssues: issues,
+                });
+            },
+        );
+
         const gatherIssues = () => {
             return [
                 ...(this.props.issues ?? []),
@@ -112,20 +121,8 @@ class ItemEditor extends React.Component<Props, State> {
                         );
                     },
                 ) ?? []),
-                ...this.state.axeCoreIssues,
             ];
         };
-
-        this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
-            this.a11yCheckerTimeoutId,
-            (issues) => {
-                const allIssues = [...this.state.issues, ...issues];
-                this.setState({
-                    issues: allIssues,
-                    axeCoreIssues: issues,
-                });
-            },
-        );
 
         this.setState({
             issues: gatherIssues(),
@@ -170,10 +167,11 @@ class ItemEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const isMobile =
-            this.props.deviceType === "phone" ||
-            this.props.deviceType === "tablet";
+        // const isMobile =
+        //     this.props.deviceType === "phone" ||
+        //     this.props.deviceType === "tablet";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const allIssues = this.state.issues.concat(this.state.axeCoreIssues);
 
         return (
             <ItemEditorContext.Provider
@@ -187,7 +185,7 @@ class ItemEditor extends React.Component<Props, State> {
                         <div className="perseus-editor-left-cell">
                             <IssuesPanel
                                 apiOptions={this.props.apiOptions}
-                                issues={this.state.issues}
+                                issues={allIssues}
                             />
                             <div className="pod-title">Question</div>
                             <fieldset disabled={editingDisabled}>
@@ -212,7 +210,7 @@ class ItemEditor extends React.Component<Props, State> {
                                 />
                             </fieldset>
                         </div>
-
+{/*
                         <div className="perseus-editor-right-cell">
                             <div id="problemarea">
                                 <DeviceFramer
@@ -235,8 +233,8 @@ class ItemEditor extends React.Component<Props, State> {
                                 />
                             </div>
                         </div>
+*/}
                     </div>
-
                     <div className="perseus-editor-row perseus-answer-container">
                         <div className="perseus-editor-left-cell">
                             <div className="pod-title">Question extras</div>

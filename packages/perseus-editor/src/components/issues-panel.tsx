@@ -17,6 +17,7 @@ export type IssueType = "Warning" | "Alert";
 export type Issue = {
     id: string;
     description: string;
+    elements?: Element[];
     helpUrl: string;
     help: string;
     impact: IssueImpact;

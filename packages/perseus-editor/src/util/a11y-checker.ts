@@ -88,6 +88,7 @@ const mapResultsToIssues = (
         return {
             id: result.id,
             description: "", //result.description,
+            elements: getIssueElements(result.nodes),
             helpUrl: result.helpUrl,
             help: result.help,
             impact: convertAxeImpactToIssueImpact(result.impact),
@@ -97,7 +98,7 @@ const mapResultsToIssues = (
     });
 };
 
-const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void) => {
+const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
     const isInStorybook = !!document.getElementById("storybook-root");
     const options = isInStorybook
         ? axeCoreStorybookOptions

@@ -233,6 +233,8 @@ code {
 }
 #perseus {
     margin: 20px;
+    width: calc(100% - 500px);
+    z-index: 10;
 }
 #perseus #problemarea #workarea {
     margin: 0;

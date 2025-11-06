@@ -6,6 +6,7 @@ import * as React from "react";
 
 import IssueCta from "./issue-cta";
 import PerseusEditorAccordion from "./perseus-editor-accordion";
+import ShowMe from "./show-me-issue";
 
 import type {Issue} from "./issues-panel";
 import type {APIOptions} from "@khanacademy/perseus";
@@ -63,6 +64,7 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
                 Issue:
             </LabelSmall>
             <span>{issue.message}</span>
+            <ShowMe elements={issue.elements} />
             {imageUpgradeFF && <IssueCta issue={issue} />}
         </PerseusEditorAccordion>
     );
