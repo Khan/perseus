@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import {isParentToIframeMessage} from "./message-validators";
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
+import {isParentToIframeMessage} from "./message-validators";
 
 import type {
     IframeToParentMessage,
@@ -80,9 +80,13 @@ export function usePreviewClient(): UsePreviewClientResult {
         const mobile = iframe.dataset.mobile === "true";
         const lintGutter = iframe.dataset.lintGutter === "true";
 
-        if (id) {
-            setIframeId(id);
+        if (id == null) {
+            throw new Error(
+                "usePreviewClient could not identify its id from the hosting iframe",
+            );
         }
+
+        setIframeId(id);
         setIsMobile(mobile);
         setHasLintGutter(lintGutter);
     }, []);
