@@ -5,8 +5,11 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {PreviewRenderer} from "./preview-renderer";
-import {debounce} from "underscore";
 import {usePreviewClient} from "@khanacademy/perseus-editor";
+
+// Yeah, I know it's not great to do a relative import, but this is testing
+// code!
+import {debounce} from "../../packages/perseus/src/util/debounce";
 
 /**
  * Loads the exercise preview frame
