@@ -25,63 +25,62 @@ type Props = {
     seamless: boolean;
 };
 
-type IframeContentRendererHandle = {
+export type IframeContentRendererRef = {
     sendNewData: (data: PreviewContent) => void;
 };
 
-const IframeContentRenderer = React.forwardRef<
-    IframeContentRendererHandle,
-    Props
->((props, ref) => {
-    const containerRef = React.useRef<HTMLDivElement>(null);
-    const iframeRef = React.useRef<HTMLIFrameElement>(null);
-    // ID is for debugging/logging, not routing (which uses event.source)
-    const [iframeId] = React.useState(() => String(nextIframeID++));
+const IframeContentRenderer = React.forwardRef<IframeContentRendererRef, Props>(
+    (props, ref) => {
+        const containerRef = React.useRef<HTMLDivElement>(null);
+        const iframeRef = React.useRef<HTMLIFrameElement>(null);
+        // ID is for debugging/logging, not routing (which uses event.source)
+        const [iframeId] = React.useState(() => String(nextIframeID++));
 
-    const {sendData, height} = usePreviewHost(iframeRef);
+        const {sendData, height} = usePreviewHost(iframeRef);
 
-    // Update container height based on iframe content height
-    React.useEffect(() => {
-        if (!containerRef.current) {
-            return;
-        }
+        // Update container height based on iframe content height
+        React.useEffect(() => {
+            if (!containerRef.current) {
+                return;
+            }
 
-        if (!props.seamless) {
-            containerRef.current.style.height = "100%";
-        } else if (height !== null) {
-            containerRef.current.style.height = `${height}px`;
-        }
-    }, [height, props.seamless]);
+            if (!props.seamless) {
+                containerRef.current.style.height = "100%";
+            } else if (height !== null) {
+                containerRef.current.style.height = `${height}px`;
+            }
+        }, [height, props.seamless]);
 
-    // Expose sendNewData method via ref
-    React.useImperativeHandle(
-        ref,
-        () => ({
-            sendNewData: (data: PreviewContent) => {
-                sendData(data);
-            },
-        }),
-        [sendData],
-    );
+        // Expose sendNewData method via ref
+        React.useImperativeHandle(
+            ref,
+            () => ({
+                sendNewData: (data: PreviewContent) => {
+                    sendData(data);
+                },
+            }),
+            [sendData],
+        );
 
-    return (
-        <div ref={containerRef} style={{width: "100%", height: "100%"}}>
-            <iframe
-                ref={iframeRef}
-                title={`perseus-preview-${iframeId}`}
-                data-id={iframeId}
-                data-mobile={props.isMobile ? "true" : "false"}
-                // The seamless prop is the same as the "nochrome" prop that
-                // gets passed to DeviceFramer. If it is set, then we're going
-                // to be displaying editor previews and want to leave some room
-                // for lint indicators in the right margin.
-                data-lint-gutter={props.seamless ? "true" : "false"}
-                style={{width: "100%", height: "100%"}}
-                src={props.url}
-            />
-        </div>
-    );
-});
+        return (
+            <div ref={containerRef} style={{width: "100%", height: "100%"}}>
+                <iframe
+                    ref={iframeRef}
+                    title={`perseus-preview-${iframeId}`}
+                    data-id={iframeId}
+                    data-mobile={props.isMobile ? "true" : "false"}
+                    // The seamless prop is the same as the "nochrome" prop that
+                    // gets passed to DeviceFramer. If it is set, then we're going
+                    // to be displaying editor previews and want to leave some room
+                    // for lint indicators in the right margin.
+                    data-lint-gutter={props.seamless ? "true" : "false"}
+                    style={{width: "100%", height: "100%"}}
+                    src={props.url}
+                />
+            </div>
+        );
+    },
+);
 
 IframeContentRenderer.displayName = "IframeContentRenderer";
 

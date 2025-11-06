@@ -87,6 +87,16 @@ export function usePreviewHost(
                     },
                 } as PreviewContent;
             }
+
+            if (data.type === "article-all") {
+                return {
+                    ...data,
+                    data: data.data.map((section) => ({
+                        ...section,
+                        apiOptions: sanitizeApiOptions(section.apiOptions),
+                    })),
+                } as PreviewContent;
+            }
             return data;
         },
         [],
