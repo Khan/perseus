@@ -15,7 +15,6 @@ export * as PreviewSystem from "./preview";
 // Preview system hooks and utilities
 export {usePreviewHost} from "./preview/use-preview-host";
 export {usePreviewClient} from "./preview/use-preview-client";
-export {sanitizeApiOptions} from "./preview/sanitize-api-options";
 
 import "./styles/perseus-editor.css";
 

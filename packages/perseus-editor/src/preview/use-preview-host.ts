@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
 import {isIframeToParentMessage} from "./message-validators";
+import {sanitizePreviewData} from "./preview-data-sanitizer";
 
 import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 
@@ -52,38 +53,6 @@ export function usePreviewHost(
     const [height, setHeight] = React.useState<number | null>(null);
     const pendingDataRef = React.useRef<PreviewContent | null>(null);
     const iframeIdRef = React.useRef<string | null>(null);
-
-    // Helper function to sanitize apiOptions in preview content
-    const sanitizePreviewData = React.useCallback(
-        (data: PreviewContent): PreviewContent => {
-            if (
-                (data.type === "question" ||
-                    data.type === "hint" ||
-                    data.type === "article") &&
-                data.data.apiOptions != null
-            ) {
-                return {
-                    ...data,
-                    data: {
-                        ...data.data,
-                        apiOptions: sanitizeApiOptions(data.data.apiOptions),
-                    },
-                } as PreviewContent;
-            }
-
-            if (data.type === "article-all") {
-                return {
-                    ...data,
-                    data: data.data.map((section) => ({
-                        ...section,
-                        apiOptions: sanitizeApiOptions(section.apiOptions),
-                    })),
-                } as PreviewContent;
-            }
-            return data;
-        },
-        [],
-    );
 
     // Listen for messages from iframe
     React.useEffect(() => {
@@ -148,7 +117,7 @@ export function usePreviewHost(
         };
         // iframeRef is intentionally excluded - it's a stable ref that shouldn't trigger re-runs
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sanitizePreviewData]);
+    }, []);
 
     // Memoized function to send data to iframe
     const sendData = React.useCallback(
@@ -180,7 +149,7 @@ export function usePreviewHost(
         },
         // iframeRef is intentionally excluded - it's a stable ref that shouldn't trigger re-runs
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [sanitizePreviewData],
+        [],
     );
 
     return {

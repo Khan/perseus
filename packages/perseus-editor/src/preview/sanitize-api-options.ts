@@ -14,7 +14,11 @@ import type {APIOptions} from "@khanacademy/perseus";
  */
 export function sanitizeApiOptions(
     apiOptions: APIOptions,
-): Partial<APIOptions> {
+): Partial<APIOptions> | null {
+    if (apiOptions == null) {
+        return null;
+    }
+
     const {
         onFocusChange: _,
         answerableCallback: __,
