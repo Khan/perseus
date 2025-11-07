@@ -286,6 +286,8 @@ code {
     width: 360px;
     max-width: 360px;
     min-width: 360px;
+    position: relative;
+    z-index: 10;
 }
 .perseus-editor-right-cell {
     box-sizing: border-box;

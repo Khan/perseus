@@ -10,7 +10,7 @@ const assistanceNeededMessage =
 
 const axeCoreEditorOptions = {
     include: {
-        fromFrames: ["iframe", "#page-container"],
+        fromFrames: ['iframe[src^="/perseus/frame"]', "#page-container"],
     },
     exclude: {
         fromFrames: ["iframe", '[target="lint-help-window"]'],
