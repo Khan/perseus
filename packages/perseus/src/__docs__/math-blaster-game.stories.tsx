@@ -6,10 +6,10 @@ import {useEffect, useRef, useState} from "react";
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
 
+import gameOverAudio from "./Game Over II.ogg";
 import neonOwlAudio from "./Zodik - Neon Owl.ogg";
 import tedoxAudio from "./Zodik - Tedox.ogg";
 import alexBouncyMixAudio from "./alexbouncymix2.ogg";
-import gameOverAudio from "./Game Over II.ogg";
 import alien1Img from "./alien1.png";
 import alien2Img from "./alien2.png";
 import alien3Img from "./alien3.png";
@@ -848,7 +848,7 @@ const MathBlasterGame = (): React.ReactElement => {
             const lampHeight = 270; // Height of lamp post (same as above)
             const lampWidth = 120; // Width of lamp post
             const groundLevel = GROUND_Y + CHARACTER_HEIGHT;
-            const beamWidth = 256; // Width of light beam (also scaled up)
+            const beamWidth = 230; // Width of light beam (also scaled up)
             const beamHeight = 256; // Fixed height for light beam
 
             // Use same scroll offset as lamp posts
@@ -865,7 +865,7 @@ const MathBlasterGame = (): React.ReactElement => {
 
                 // Beam starts 1/5 down from the top of the lamp
                 const lampTopY = groundLevel - lampHeight;
-                const beamStartY = lampTopY - 20;
+                const beamStartY = lampTopY + 20;
 
                 // Draw with some transparency so we can see through it
                 ctx.save();
