@@ -165,6 +165,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
         lockedFigures: [],
     };
 
+    graphRef = React.createRef<InstanceType<typeof InteractiveGraph>>();
+
     changeStartCoords = (coords) => {
         if (!this.props.graph?.type) {
             return;
@@ -200,11 +202,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "fullGraphAriaDescription",
         );
 
-        // eslint-disable-next-line react/no-string-refs
-        const graph = this.refs.graph;
+        const graph = this.graphRef.current;
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (graph) {
-            // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             const correct = graph && graph.getUserInput();
             _.extend(json, {
@@ -295,7 +295,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
                         // TODO(aria): send these down all at once
                         const graphProps = {
-                            ref: "graph",
+                            ref: this.graphRef,
                             box: this.props.box,
                             range: this.props.range,
                             showAxisArrows: this.props.showAxisArrows,
