@@ -13,7 +13,10 @@ const axeCoreEditorOptions = {
         fromFrames: ['iframe[src^="/perseus/frame"]', "#page-container"],
     },
     exclude: {
-        fromFrames: ["iframe", '[target="lint-help-window"]'],
+        fromFrames: [
+            'iframe[src^="/perseus/frame"]',
+            '[target="lint-help-window"]',
+        ],
     },
 };
 const axeCoreStorybookOptions = {
