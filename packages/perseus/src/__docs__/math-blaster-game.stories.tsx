@@ -9,6 +9,7 @@ import {ServerItemRenderer} from "../server-item-renderer";
 import neonOwlAudio from "./Zodik - Neon Owl.ogg";
 import tedoxAudio from "./Zodik - Tedox.ogg";
 import alexBouncyMixAudio from "./alexbouncymix2.ogg";
+import gameOverAudio from "./Game Over II.ogg";
 import alien1Img from "./alien1.png";
 import alien2Img from "./alien2.png";
 import alien3Img from "./alien3.png";
@@ -114,6 +115,7 @@ const MathBlasterGame = (): React.ReactElement => {
     const menuAudioRef = useRef<HTMLAudioElement | null>(null); // Menu music (bouncy mix)
     const gameAudioRef = useRef<HTMLAudioElement | null>(null); // Gameplay music (tedox)
     const neonOwlAudioRef = useRef<HTMLAudioElement | null>(null); // Extended gameplay music (neon owl)
+    const gameOverAudioRef = useRef<HTMLAudioElement | null>(null); // Game over music
 
     // Refs for values that game loop needs to read in real-time
     const isJumpingRef = useRef(false);
@@ -197,6 +199,11 @@ const MathBlasterGame = (): React.ReactElement => {
         neonOwl.volume = 0.5; // Set to 50% volume
         neonOwlAudioRef.current = neonOwl;
 
+        const gameOver = new Audio(gameOverAudio);
+        gameOver.loop = false;
+        gameOver.volume = 0.5;
+        gameOverAudioRef.current = gameOver;
+
         // When tedox ends, automatically start neon owl
         const handleTedoxEnded = () => {
             if (neonOwlAudioRef.current && !isMutedRef.current) {
@@ -222,6 +229,10 @@ const MathBlasterGame = (): React.ReactElement => {
             if (neonOwlAudioRef.current) {
                 neonOwlAudioRef.current.pause();
                 neonOwlAudioRef.current = null;
+            }
+            if (gameOverAudioRef.current) {
+                gameOverAudioRef.current.pause();
+                gameOverAudioRef.current = null;
             }
         };
     }, []);
@@ -301,6 +312,9 @@ const MathBlasterGame = (): React.ReactElement => {
             if (neonOwlAudioRef.current) {
                 neonOwlAudioRef.current.pause();
             }
+            if (gameOverAudioRef.current) {
+                gameOverAudioRef.current.pause();
+            }
             return;
         }
 
@@ -341,8 +355,8 @@ const MathBlasterGame = (): React.ReactElement => {
                     console.log("Game audio play failed:", error);
                 });
             }
-        } else {
-            // Pause all audio (gameover, carBonus)
+        } else if (gameState === "gameover") {
+            // Play game over music on lose screen
             if (menuAudioRef.current) {
                 menuAudioRef.current.pause();
             }
@@ -351,6 +365,26 @@ const MathBlasterGame = (): React.ReactElement => {
             }
             if (neonOwlAudioRef.current) {
                 neonOwlAudioRef.current.pause();
+            }
+            if (gameOverAudioRef.current) {
+                gameOverAudioRef.current.currentTime = 0;
+                gameOverAudioRef.current.play().catch((error) => {
+                    console.log("Game over audio play failed:", error);
+                });
+            }
+        } else {
+            // Pause all audio (carBonus, etc.)
+            if (menuAudioRef.current) {
+                menuAudioRef.current.pause();
+            }
+            if (gameAudioRef.current) {
+                gameAudioRef.current.pause();
+            }
+            if (neonOwlAudioRef.current) {
+                neonOwlAudioRef.current.pause();
+            }
+            if (gameOverAudioRef.current) {
+                gameOverAudioRef.current.pause();
             }
         }
     }, [gameState, isMuted]);
@@ -825,7 +859,7 @@ const MathBlasterGame = (): React.ReactElement => {
 
                 // Beam starts 1/5 down from the top of the lamp
                 const lampTopY = groundLevel - lampHeight;
-                const beamStartY = lampTopY;
+                const beamStartY = lampTopY - 20;
 
                 // Draw with some transparency so we can see through it
                 ctx.save();
@@ -1330,8 +1364,8 @@ const MathBlasterGame = (): React.ReactElement => {
                     </div>
                 )}
 
-                {/* TEMPORARY Debug Button */}
-                {gameState === "playing" && (
+                {/* TEMPORARY Debug Button - Hidden */}
+                {/* {gameState === "playing" && (
                     <button
                         onClick={jumpToAlmostMidnight}
                         style={{
@@ -1351,7 +1385,7 @@ const MathBlasterGame = (): React.ReactElement => {
                     >
                         DEBUG: Jump to 11:59:30
                     </button>
-                )}
+                )} */}
 
                 {/* Question Overlay */}
                 {gameState === "playing" &&

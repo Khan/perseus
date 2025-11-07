@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap');
+
 .gameContainer {
     position: relative;
     width: 800px;
@@ -6,6 +8,7 @@
     border: 2px solid #333;
     background: #87ceeb;
     overflow: hidden;
+    font-family: 'Quantico', sans-serif;
 }
 
 .gameCanvas {
@@ -58,6 +61,7 @@
     max-width: 400px;
     z-index: 10;
     color: #fff;
+    pointer-events: all;
 }
 
 .questionOverlay :global(.perseus-widget-container),
@@ -89,7 +93,7 @@
     font-size: 18px;
     font-weight: bold;
     color: #00ffff;
-    font-family: "Courier New", "Lucida Console", monospace;
+    font-family: 'Quantico', sans-serif;
     text-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff;
     border: 2px solid #00ffff;
     box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 255, 255, 0.4);
@@ -122,7 +126,7 @@
     display: flex;
     gap: 10px;
     align-items: center;
-    font-family: "Courier New", "Lucida Console", monospace;
+    font-family: 'Quantico', sans-serif;
     color: #ff00ff;
     font-weight: bold;
     font-size: 18px;
@@ -164,10 +168,13 @@
     pointer-events: all;
     transition: transform 0.2s ease;
     z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    animation: buttonShine 2s ease-in-out infinite;
 }
 
 .gameOverButton:hover {
     transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
 }
 
 .startScreen {
@@ -189,6 +196,7 @@
     font-size: 48px;
     margin: 0 0 20px 0;
     color: white !important;
+    font-family: 'Quantico', sans-serif;
 }
 
 .startScreen p {
@@ -196,6 +204,7 @@
     margin: 10px 0;
     line-height: 1.5;
     color: white !important;
+    font-family: 'Quantico', sans-serif;
 }
 
 .startScreen button {
@@ -208,6 +217,7 @@
     border-radius: 6px;
     cursor: pointer;
     pointer-events: all;
+    font-family: 'Quantico', sans-serif;
 }
 
 .startScreen button:hover {
@@ -222,10 +232,22 @@
     pointer-events: all;
     transition: transform 0.2s ease;
     z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    animation: buttonShine 2s ease-in-out infinite;
 }
 
 .startButton:hover {
     transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
+}
+
+@keyframes buttonShine {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+    }
 }
 
 .checkButton {
@@ -238,6 +260,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    font-family: 'Quantico', sans-serif;
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
     transition: all 0.2s ease;
 }
@@ -263,6 +286,7 @@
     font-weight: bold;
     font-size: 16px;
     text-align: center;
+    font-family: 'Quantico', sans-serif;
 }
 
 .feedbackCorrect {
@@ -336,6 +360,7 @@
     color: #000;
     text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
     z-index: 1;
+    font-family: 'Quantico', sans-serif;
 }
 
 .benevolenceMessage {
@@ -345,12 +370,13 @@
     transform: translate(-50%, -50%);
     font-size: 72px;
     font-weight: bold;
-    color: #9370db;
+    color: #ff00ff;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px
-            rgba(147, 112, 219, 0.6);
+            rgba(255, 0, 255, 0.6);
     z-index: 30;
     animation: benevolencePulse 2s ease-in-out;
     pointer-events: none;
+    font-family: 'Quantico', sans-serif;
 }
 
 @keyframes benevolencePulse {
@@ -389,10 +415,13 @@
     pointer-events: all;
     transition: transform 0.2s ease;
     z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    animation: buttonShine 2s ease-in-out infinite;
 }
 
 .storyNextButton:hover {
     transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
 }
 
 .victoryScreen {
@@ -416,9 +445,12 @@
     pointer-events: all;
     transition: transform 0.2s ease;
     z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    animation: buttonShine 2s ease-in-out infinite;
 }
 
 .victoryButton:hover {
     transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
 }
 

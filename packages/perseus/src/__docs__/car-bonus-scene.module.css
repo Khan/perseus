@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap');
+
 .overlay {
     position: absolute;
     top: 0;
@@ -25,7 +27,7 @@
     top: 20%;
     left: 50%;
     transform: translateX(-50%);
-    font-family: "Courier New", monospace;
+    font-family: 'Quantico', sans-serif;
     font-size: 48px;
     font-weight: bold;
     color: #ffffff;
@@ -88,13 +90,29 @@
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: "Courier New", monospace;
+    font-family: 'Quantico', sans-serif;
     font-size: 72px;
     font-weight: bold;
     color: #ffff00;
     text-shadow: 4px 4px 0px #000000, 0 0 20px #ffff00;
     letter-spacing: 4px;
     z-index: 20;
+    white-space: nowrap;
+}
+
+.nevermindText {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Quantico', sans-serif;
+    font-size: 72px;
+    font-weight: bold;
+    color: #ffff00;
+    text-shadow: 4px 4px 0px #000000, 0 0 20px #ffff00;
+    letter-spacing: 4px;
+    z-index: 20;
+    white-space: nowrap;
 }
 
 .nextButton {
@@ -105,8 +123,20 @@
     pointer-events: all;
     transition: transform 0.2s ease;
     z-index: 30;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    animation: buttonShine 2s ease-in-out infinite;
 }
 
 .nextButton:hover {
     transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
+}
+
+@keyframes buttonShine {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+    }
 }

@@ -114,28 +114,30 @@ function generateMultiplicationQuestion(): PerseusItem {
 
     return {
         question: {
-            content: `What is $${a} \\times ${b}$?\n\n[[☃ expression 1]]`,
+            content: `What is $${a} \\times ${b}$?\n\n[[☃ numeric-input 1]]`,
             images: {},
             widgets: {
-                "expression 1": {
-                    type: "expression",
+                "numeric-input 1": {
+                    type: "numeric-input",
                     alignment: "default",
                     static: false,
                     graded: true,
                     options: {
-                        answerForms: [
+                        answers: [
                             {
-                                considered: "correct",
-                                form: false,
-                                simplify: false,
-                                value: String(answer),
+                                value: answer,
+                                status: "correct",
+                                message: "",
+                                strict: false,
+                                simplify: "optional",
+                                maxError: 0,
                             },
                         ],
-                        buttonSets: ["basic"],
-                        functions: [],
-                        times: false,
+                        size: "normal",
+                        coefficient: false,
+                        labelText: "",
                     },
-                    version: {major: 1, minor: 0},
+                    version: {major: 0, minor: 0},
                 },
             },
         },

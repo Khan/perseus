@@ -20,10 +20,13 @@ export const CarBonusScene = ({onComplete}: CarBonusSceneProps) => {
     const [bonusState, setBonusState] = useState<BonusState>("skid");
     const [displayText, setDisplayText] = useState("");
     const [flashVisible, setFlashVisible] = useState(true);
+    const [nevermindFlashVisible, setNevermindFlashVisible] = useState(true);
+    const [showSkidImage, setShowSkidImage] = useState(false);
 
     const tireSquealRef = useRef<HTMLAudioElement | null>(null);
     const bonusGameRef = useRef<HTMLAudioElement | null>(null);
     const explosionRef = useRef<HTMLAudioElement | null>(null);
+    const nevermindIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     useEffect(() => {
         // Initialize audio
@@ -45,77 +48,38 @@ export const CarBonusScene = ({onComplete}: CarBonusSceneProps) => {
         // Sequence timing
         const timers: ReturnType<typeof setTimeout>[] = [];
 
-        // Phase 1: Skid (show skid image, play tire squeal, show text)
+        // Phase 1a: Black screen + tire squeal (play only 1.5 seconds)
         tireSqueal.play().catch((error) => {
             console.log("Tire squeal audio play failed:", error);
         });
 
+        // Stop tire squeal after 1.5 seconds
         timers.push(
             setTimeout(() => {
-                setDisplayText("Oh. I guess it stopped.");
-            }, 500),
+                if (tireSquealRef.current) {
+                    tireSquealRef.current.pause();
+                    tireSquealRef.current.currentTime = 0;
+                }
+            }, 1500),
         );
 
-        // Phase 2: Bonus Level (show bonus1, flash "BONUS LEVEL" 2 times, play bonus music)
+        // Phase 1b: Show skid image after black screen
         timers.push(
             setTimeout(() => {
-                setBonusState("bonusLevel");
-                setDisplayText(""); // Clear previous text
+                setShowSkidImage(true);
+                setDisplayText("Oh. I guess it stopped.");
+            }, 1500),
+        );
 
-                // Start bonus level music
-                bonusGame.play().catch((error) => {
-                    console.log("Bonus game audio play failed:", error);
-                });
-
-                // Flash "BONUS LEVEL" 2 times (each flash is on + off = 2 cycles per flash)
-                let flashCount = 0;
-                const flashInterval = setInterval(() => {
-                    setFlashVisible((prev) => {
-                        const newValue = !prev;
-                        // Count complete flashes (when turning visible again after being hidden)
-                        if (newValue) {
-                            flashCount++;
-                            if (flashCount >= 2) {
-                                clearInterval(flashInterval);
-                            }
-                        }
-                        return newValue;
-                    });
-                }, 500); // 500ms on, 500ms off = 1 second per flash
-            }, 2500),
-        ); // Show skid for 2.5 seconds
-
-        // Phase 3: Explosion (stop music, play explosion, show bonus2, show text)
-        // Now 3s for bonus level (was 2s)
-        timers.push(
-            setTimeout(() => {
-                // Abruptly stop bonus music
-                if (bonusGameRef.current) {
-                    bonusGameRef.current.pause();
-                    bonusGameRef.current.currentTime = 0;
-                }
-
-                // Play explosion
-                explosion.play().catch((error) => {
-                    console.log("Explosion audio play failed:", error);
-                });
-
-                setBonusState("explosion");
-                setFlashVisible(false); // Stop flashing
-
-                // Show explosion text after a brief delay
-                setTimeout(() => {
-                    setDisplayText("Oh. Maybe not then.");
-                }, 300);
-            }, 2500 + 3000),
-        ); // 2.5s skid + 3s bonus level flashing
-
-        // Phase 4: Complete - now triggered by next button click instead of timer
-        // No automatic transition, user must click next button
+        // Note: Phase 2 (Bonus Level) is now triggered by user clicking next button on skid screen
+        // No automatic transition from skid to bonus level
 
         // Cleanup
         return () => {
             timers.forEach((timer) => clearTimeout(timer));
+            if (nevermindIntervalRef.current) {
+                clearInterval(nevermindIntervalRef.current);
+            }
             if (tireSquealRef.current) {
                 tireSquealRef.current.pause();
                 tireSquealRef.current.currentTime = 0;
@@ -133,7 +97,7 @@ export const CarBonusScene = ({onComplete}: CarBonusSceneProps) => {
 
     // Determine which image to show based on state
     let backgroundImage: string | null = null;
-    if (bonusState === "skid") {
+    if (bonusState === "skid" && showSkidImage) {
         backgroundImage = skidImg;
     } else if (bonusState === "bonusLevel") {
         backgroundImage = bonus1Img;
@@ -141,7 +105,55 @@ export const CarBonusScene = ({onComplete}: CarBonusSceneProps) => {
         backgroundImage = bonus2Img;
     }
 
-    const handleNextClick = () => {
+    const handleSkidNext = () => {
+        // Transition from skid to bonus level
+        setBonusState("bonusLevel");
+        setDisplayText(""); // Clear previous text
+
+        // Start bonus level music
+        if (bonusGameRef.current) {
+            bonusGameRef.current.play().catch((error) => {
+                console.log("Bonus game audio play failed:", error);
+            });
+        }
+
+        // Flash "BONUS LEVEL" continuously for the entire duration
+        const flashInterval = setInterval(() => {
+            setFlashVisible((prev) => !prev);
+        }, 500); // 500ms on, 500ms off
+
+        // After 7 seconds, transition to explosion
+        setTimeout(() => {
+            clearInterval(flashInterval);
+
+            // Abruptly stop bonus music
+            if (bonusGameRef.current) {
+                bonusGameRef.current.pause();
+                bonusGameRef.current.currentTime = 0;
+            }
+
+            // Play explosion
+            if (explosionRef.current) {
+                explosionRef.current.play().catch((error) => {
+                    console.log("Explosion audio play failed:", error);
+                });
+            }
+
+            setBonusState("explosion");
+            setFlashVisible(false);
+
+            // Start flashing "NEVERMIND" text
+            nevermindIntervalRef.current = setInterval(() => {
+                setNevermindFlashVisible((prev) => !prev);
+            }, 500);
+        }, 7000); // 7 seconds for bonus level
+    };
+
+    const handleExplosionNext = () => {
+        // Clear the nevermind flashing interval
+        if (nevermindIntervalRef.current) {
+            clearInterval(nevermindIntervalRef.current);
+        }
         setBonusState("complete");
         onComplete();
     };
@@ -164,11 +176,24 @@ export const CarBonusScene = ({onComplete}: CarBonusSceneProps) => {
                 <div className={styles.bonusLevelText}>BONUS LEVEL</div>
             )}
 
+            {bonusState === "explosion" && nevermindFlashVisible && (
+                <div className={styles.nevermindText}>NEVERMIND</div>
+            )}
+
+            {bonusState === "skid" && showSkidImage && (
+                <img
+                    src={nextImg}
+                    alt="Next"
+                    onClick={handleSkidNext}
+                    className={styles.nextButton}
+                />
+            )}
+
             {bonusState === "explosion" && (
                 <img
                     src={nextImg}
                     alt="Next"
-                    onClick={handleNextClick}
+                    onClick={handleExplosionNext}
                     className={styles.nextButton}
                 />
             )}
