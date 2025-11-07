@@ -55,7 +55,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 const GROUND_Y = 450;
-const SCROLL_SPEED = 2.5; // Slowed down from 3
+const SCROLL_SPEED = 2; // Slowed down from 3
 const CHARACTER_X = 100;
 const SPRITE_SIZE = 128; // Updated to 128x128 for new sprite sheet
 const CHARACTER_WIDTH = SPRITE_SIZE;
