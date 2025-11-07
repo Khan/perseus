@@ -1,11 +1,11 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
+    APIOptionsContext,
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
     InteractiveGraphWidget,
     interactiveSizes,
     Util,
-    withAPIOptions,
 } from "@khanacademy/perseus";
 import {
     type LockedFigure,
@@ -38,7 +38,6 @@ import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const InteractiveGraph = InteractiveGraphWidget.widget;
@@ -47,11 +46,7 @@ type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
 
 type Range = [min: number, max: number];
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptionsWithDefaults;
-};
-
-export type Props = WithAPIOptionsProps & {
+export type Props = {
     /**
      * The labels for the x and y axes.
      */
@@ -157,7 +152,7 @@ export type Props = WithAPIOptionsProps & {
  *
  * Used in the exercise editor.
  */
-class InteractiveGraphEditorClass extends React.Component<Props> {
+class InteractiveGraphEditor extends React.Component<Props> {
     static widgetName = "interactive-graph";
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
@@ -271,204 +266,234 @@ class InteractiveGraphEditorClass extends React.Component<Props> {
     };
 
     render() {
-        let graph;
-        let equationString;
-
-        const gridStep =
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            this.props.gridStep ||
-            Util.getGridStep(
-                this.props.range,
-                this.props.step,
-                interactiveSizes.defaultBoxSize,
-            );
-        const snapStep =
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
-
-        const sizeClass = containerSizeClass.SMALL;
-
-        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
-
-        if (this.props.valid === true) {
-            const correct = this.props.correct;
-
-            // TODO(aria): send these down all at once
-            const graphProps = {
-                ref: "graph",
-                box: this.props.box,
-                range: this.props.range,
-                showAxisArrows: this.props.showAxisArrows,
-                labels: this.props.labels,
-                labelLocation: this.props.labelLocation,
-                step: this.props.step,
-                gridStep: gridStep,
-                snapStep: snapStep,
-                backgroundImage: this.props.backgroundImage,
-                markings: this.props.markings,
-                showProtractor: this.props.showProtractor,
-                showTooltips: this.props.showTooltips,
-                lockedFigures: this.props.lockedFigures,
-                fullGraphAriaLabel: this.props.fullGraphAriaLabel,
-                fullGraphAriaDescription: this.props.fullGraphAriaDescription,
-                // Set the "correct answer" graph to static when editing is disabled
-                static: editingDisabled,
-                trackInteraction: function () {},
-                userInput: correct,
-                handleUserInput: (
-                    newGraph: InteractiveGraphProps["userInput"],
-                ) => {
-                    let correct = this.props.correct;
-                    // TODO(benchristel): can we improve the type of onChange
-                    // so this invariant isn't necessary?
-                    invariant(newGraph != null);
-                    if (correct.type === newGraph.type) {
-                        correct = mergeGraphs(correct, newGraph);
-                    } else {
-                        // Clear options from previous graph
-                        correct = newGraph;
-                    }
-                    this.props.onChange({
-                        correct: correct,
-                        graph: this.props.graph,
-                    });
-                },
-            } as const;
-
-            graph = (
-                // There are a bunch of props that renderer.jsx passes to widgets via
-                // getWidgetProps() and widget-container.jsx that the editors don't
-                // bother passing.
-                // @ts-expect-error - TS2769 - No overload matches this call.
-                <InteractiveGraph
-                    {...graphProps}
-                    containerSizeClass={sizeClass}
-                    apiOptions={{
-                        ...this.props.apiOptions,
-                        isMobile: false,
-                    }}
-                />
-            );
-            // TODO(kevinb): Update getEquationString to only accept the data it actually
-            // needs to compute the equation string.
-            // @ts-expect-error - TS2345 - Argument of type '{ readonly ref: "graph"; readonly box: any; readonly range: any; readonly labels: any; readonly step: any; readonly gridStep: any; readonly snapStep: any; readonly graph: any; readonly backgroundImage: any; ... 6 more ...; readonly onChange: (newProps: Pick<...> & ... 1 more ... & InexactPartial<...>) => void; }' is not assignable to parameter of type 'Props'.
-            equationString = InteractiveGraph.getEquationString(graphProps);
-        } else {
-            graph = <div className="perseus-error">{this.props.valid}</div>;
-        }
-
         return (
-            <Id>
-                {(graphId) => (
-                    <View>
-                        <LabeledRow label="Answer type:">
-                            <GraphTypeSelector
-                                graphType={
-                                    this.props.graph?.type ??
-                                    InteractiveGraph.defaultProps.userInput.type
-                                }
-                                // TODO(LEMS-2656): remove TS suppression
-                                onChange={
-                                    ((
-                                        type: Required<InteractiveGraphProps>["userInput"]["type"],
-                                    ) => {
-                                        this.props.onChange({
-                                            graph: {type},
-                                            correct: {type},
-                                        });
-                                    }) as any
-                                }
-                            />
-                        </LabeledRow>
-                        <InteractiveGraphDescription
-                            ariaLabelValue={this.props.fullGraphAriaLabel ?? ""}
-                            ariaDescriptionValue={
-                                this.props.fullGraphAriaDescription ?? ""
-                            }
-                            onChange={this.props.onChange}
-                        />
-                        <InteractiveGraphCorrectAnswer
-                            id={graphId}
-                            equationString={equationString}
-                        >
-                            {graph}
-                        </InteractiveGraphCorrectAnswer>
+            <APIOptionsContext.Consumer>
+                {(apiOptions) => {
+                    let graph;
+                    let equationString;
 
-                        {this.props.correct?.type === "angle" && (
-                            <AngleAnswerOptions
-                                correct={this.props.correct}
-                                graph={this.props.graph}
-                                onChange={this.props.onChange}
-                            />
-                        )}
-                        {this.props.correct?.type === "point" && (
-                            <GraphPointsCountSelector
-                                correct={this.props.correct}
-                                graph={this.props.graph}
-                                onChange={this.props.onChange}
-                            />
-                        )}
-                        {this.props.correct?.type === "polygon" && (
-                            <PolygonAnswerOptions
-                                correct={this.props.correct}
-                                graph={this.props.graph}
-                                onChange={this.props.onChange}
-                            />
-                        )}
-                        {this.props.correct?.type === "segment" && (
-                            <SegmentCountSelector
-                                correct={this.props.correct}
-                                graph={this.props.graph}
-                                onChange={this.props.onChange}
-                            />
-                        )}
+                    const gridStep =
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                        this.props.gridStep ||
+                        Util.getGridStep(
+                            this.props.range,
+                            this.props.step,
+                            interactiveSizes.defaultBoxSize,
+                        );
+                    const snapStep =
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                        this.props.snapStep ||
+                        Util.snapStepFromGridStep(gridStep);
 
-                        {this.props.graph?.type &&
-                            shouldShowStartCoordsUI(
-                                this.props.graph,
-                                this.props.static,
-                            ) && (
-                                <StartCoordsSettings
-                                    {...this.props.graph}
-                                    range={this.props.range}
-                                    step={this.props.step}
-                                    onChange={this.changeStartCoords}
-                                />
+                    const sizeClass = containerSizeClass.SMALL;
+
+                    const editingDisabled =
+                        apiOptions?.editingDisabled ?? false;
+
+                    if (this.props.valid === true) {
+                        const correct = this.props.correct;
+
+                        // TODO(aria): send these down all at once
+                        const graphProps = {
+                            ref: "graph",
+                            box: this.props.box,
+                            range: this.props.range,
+                            showAxisArrows: this.props.showAxisArrows,
+                            labels: this.props.labels,
+                            labelLocation: this.props.labelLocation,
+                            step: this.props.step,
+                            gridStep: gridStep,
+                            snapStep: snapStep,
+                            backgroundImage: this.props.backgroundImage,
+                            markings: this.props.markings,
+                            showProtractor: this.props.showProtractor,
+                            showTooltips: this.props.showTooltips,
+                            lockedFigures: this.props.lockedFigures,
+                            fullGraphAriaLabel: this.props.fullGraphAriaLabel,
+                            fullGraphAriaDescription:
+                                this.props.fullGraphAriaDescription,
+                            // Set the "correct answer" graph to static when editing is disabled
+                            static: editingDisabled,
+                            trackInteraction: function () {},
+                            userInput: correct,
+                            handleUserInput: (
+                                newGraph: InteractiveGraphProps["userInput"],
+                            ) => {
+                                let correct = this.props.correct;
+                                // TODO(benchristel): can we improve the type of onChange
+                                // so this invariant isn't necessary?
+                                invariant(newGraph != null);
+                                if (correct.type === newGraph.type) {
+                                    correct = mergeGraphs(correct, newGraph);
+                                } else {
+                                    // Clear options from previous graph
+                                    correct = newGraph;
+                                }
+                                this.props.onChange({
+                                    correct: correct,
+                                    graph: this.props.graph,
+                                });
+                            },
+                        } as const;
+
+                        graph = (
+                            // There are a bunch of props that renderer.jsx passes to widgets via
+                            // getWidgetProps() and widget-container.jsx that the editors don't
+                            // bother passing.
+                            // @ts-expect-error - TS2769 - No overload matches this call.
+                            <InteractiveGraph
+                                {...graphProps}
+                                containerSizeClass={sizeClass}
+                                apiOptions={{
+                                    ...apiOptions,
+                                    isMobile: false,
+                                }}
+                            />
+                        );
+                        // TODO(kevinb): Update getEquationString to only accept the data it actually
+                        // needs to compute the equation string.
+                        equationString =
+                            // @ts-expect-error - TS2345 - Argument of type '{ readonly ref: "graph"; readonly box: any; readonly range: any; readonly labels: any; readonly step: any; readonly gridStep: any; readonly snapStep: any; readonly graph: any; readonly backgroundImage: any; ... 6 more ...; readonly onChange: (newProps: Pick<...> & ... 1 more ... & InexactPartial<...>) => void; }' is not assignable to parameter of type 'Props'.
+                            InteractiveGraph.getEquationString(graphProps);
+                    } else {
+                        graph = (
+                            <div className="perseus-error">
+                                {this.props.valid}
+                            </div>
+                        );
+                    }
+
+                    return (
+                        <Id>
+                            {(graphId) => (
+                                <View>
+                                    <LabeledRow label="Answer type:">
+                                        <GraphTypeSelector
+                                            graphType={
+                                                this.props.graph?.type ??
+                                                InteractiveGraph.defaultProps
+                                                    .userInput.type
+                                            }
+                                            // TODO(LEMS-2656): remove TS suppression
+                                            onChange={
+                                                ((
+                                                    type: Required<InteractiveGraphProps>["userInput"]["type"],
+                                                ) => {
+                                                    this.props.onChange({
+                                                        graph: {type},
+                                                        correct: {type},
+                                                    });
+                                                }) as any
+                                            }
+                                        />
+                                    </LabeledRow>
+                                    <InteractiveGraphDescription
+                                        ariaLabelValue={
+                                            this.props.fullGraphAriaLabel ?? ""
+                                        }
+                                        ariaDescriptionValue={
+                                            this.props
+                                                .fullGraphAriaDescription ?? ""
+                                        }
+                                        onChange={this.props.onChange}
+                                    />
+                                    <InteractiveGraphCorrectAnswer
+                                        id={graphId}
+                                        equationString={equationString}
+                                    >
+                                        {graph}
+                                    </InteractiveGraphCorrectAnswer>
+
+                                    {this.props.correct?.type === "angle" && (
+                                        <AngleAnswerOptions
+                                            correct={this.props.correct}
+                                            graph={this.props.graph}
+                                            onChange={this.props.onChange}
+                                        />
+                                    )}
+                                    {this.props.correct?.type === "point" && (
+                                        <GraphPointsCountSelector
+                                            correct={this.props.correct}
+                                            graph={this.props.graph}
+                                            onChange={this.props.onChange}
+                                        />
+                                    )}
+                                    {this.props.correct?.type === "polygon" && (
+                                        <PolygonAnswerOptions
+                                            correct={this.props.correct}
+                                            graph={this.props.graph}
+                                            onChange={this.props.onChange}
+                                        />
+                                    )}
+                                    {this.props.correct?.type === "segment" && (
+                                        <SegmentCountSelector
+                                            correct={this.props.correct}
+                                            graph={this.props.graph}
+                                            onChange={this.props.onChange}
+                                        />
+                                    )}
+
+                                    {this.props.graph?.type &&
+                                        shouldShowStartCoordsUI(
+                                            this.props.graph,
+                                            this.props.static,
+                                        ) && (
+                                            <StartCoordsSettings
+                                                {...this.props.graph}
+                                                range={this.props.range}
+                                                step={this.props.step}
+                                                onChange={
+                                                    this.changeStartCoords
+                                                }
+                                            />
+                                        )}
+                                    <InteractiveGraphSRTree
+                                        graphId={graphId}
+                                        correct={this.props.correct}
+                                        fullGraphAriaLabel={
+                                            this.props.fullGraphAriaLabel
+                                        }
+                                        fullGraphAriaDescription={
+                                            this.props.fullGraphAriaDescription
+                                        }
+                                        lockedFigures={this.props.lockedFigures}
+                                    />
+                                    <InteractiveGraphSettings
+                                        box={getInteractiveBoxFromSizeClass(
+                                            sizeClass,
+                                        )}
+                                        range={this.props.range}
+                                        showAxisArrows={
+                                            this.props.showAxisArrows
+                                        }
+                                        labels={this.props.labels}
+                                        labelLocation={this.props.labelLocation}
+                                        step={this.props.step}
+                                        gridStep={gridStep}
+                                        snapStep={snapStep}
+                                        valid={this.props.valid}
+                                        backgroundImage={
+                                            this.props.backgroundImage
+                                        }
+                                        markings={this.props.markings}
+                                        showProtractor={
+                                            this.props.showProtractor
+                                        }
+                                        showTooltips={this.props.showTooltips}
+                                        onChange={this.props.onChange}
+                                        editingDisabled={editingDisabled}
+                                    />
+                                    <LockedFiguresSection
+                                        figures={this.props.lockedFigures}
+                                        onChange={this.props.onChange}
+                                        editingDisabled={editingDisabled}
+                                    />
+                                </View>
                             )}
-                        <InteractiveGraphSRTree
-                            graphId={graphId}
-                            correct={this.props.correct}
-                            fullGraphAriaLabel={this.props.fullGraphAriaLabel}
-                            fullGraphAriaDescription={
-                                this.props.fullGraphAriaDescription
-                            }
-                            lockedFigures={this.props.lockedFigures}
-                        />
-                        <InteractiveGraphSettings
-                            box={getInteractiveBoxFromSizeClass(sizeClass)}
-                            range={this.props.range}
-                            showAxisArrows={this.props.showAxisArrows}
-                            labels={this.props.labels}
-                            labelLocation={this.props.labelLocation}
-                            step={this.props.step}
-                            gridStep={gridStep}
-                            snapStep={snapStep}
-                            valid={this.props.valid}
-                            backgroundImage={this.props.backgroundImage}
-                            markings={this.props.markings}
-                            showProtractor={this.props.showProtractor}
-                            showTooltips={this.props.showTooltips}
-                            onChange={this.props.onChange}
-                            editingDisabled={editingDisabled}
-                        />
-                        <LockedFiguresSection
-                            figures={this.props.lockedFigures}
-                            onChange={this.props.onChange}
-                            editingDisabled={editingDisabled}
-                        />
-                    </View>
-                )}
-            </Id>
+                        </Id>
+                    );
+                }}
+            </APIOptionsContext.Consumer>
         );
     }
 }
@@ -524,5 +549,4 @@ function mergeGraphs(
     }
 }
 
-const InteractiveGraphEditor = withAPIOptions(InteractiveGraphEditorClass);
 export default InteractiveGraphEditor;

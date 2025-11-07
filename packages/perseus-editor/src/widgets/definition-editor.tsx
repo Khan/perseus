@@ -1,26 +1,19 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    components,
-    Changeable,
-    EditorJsonify,
-    withAPIOptions,
-    APIOptions,
-} from "@khanacademy/perseus";
-import {definitionLogic} from "@khanacademy/perseus-core";
+import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
 
-import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import {
+    definitionLogic,
+    type DefinitionDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptions;
-};
-
-type Props = WithAPIOptionsProps & {
+type Props = {
     togglePrompt: string;
     definition: string;
     onChange: (options: any) => void;
@@ -31,7 +24,7 @@ type Props = WithAPIOptionsProps & {
  * An editor for adding an interactive definition widget that allows content
  * editors to embed clickable terms with expandable explanations within content.
  */
-class DefinitionEditorClass extends React.Component<Props> {
+class DefinitionEditor extends React.Component<Props> {
     static widgetName = "definition" as const;
 
     static defaultProps: DefinitionDefaultWidgetOptions =
@@ -86,5 +79,4 @@ class DefinitionEditorClass extends React.Component<Props> {
     }
 }
 
-const DefinitionEditor = withAPIOptions(DefinitionEditorClass);
 export default DefinitionEditor;

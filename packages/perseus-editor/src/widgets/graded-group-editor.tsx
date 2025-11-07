@@ -1,34 +1,21 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {
-    components,
-    ApiOptions,
-    Changeable,
-    iconTrash,
-    withAPIOptions,
-    APIOptions,
-    ChangeHandler,
-} from "@khanacademy/perseus";
-import {gradedGroupLogic} from "@khanacademy/perseus-core";
+import {components, Changeable, iconTrash} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import Editor from "../editor";
 import {iconPlus} from "../styles/icon-paths";
 
-import type {
-    GradedGroupDefaultWidgetOptions,
-    PerseusRenderer,
+import {
+    gradedGroupLogic,
+    type GradedGroupDefaultWidgetOptions,
+    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 const {InlineIcon, TextInput} = components;
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptions;
-};
-
-type Props = WithAPIOptionsProps & {
+type Props = {
     title: string;
     content: string;
     widgets: any;
@@ -37,7 +24,7 @@ type Props = WithAPIOptionsProps & {
     onChange: (options: any, callback?: () => void) => void;
 };
 
-class GradedGroupEditorClass extends React.Component<Props> {
+class GradedGroupEditor extends React.Component<Props> {
     static widgetName = "graded-group" as const;
 
     static defaultProps: GradedGroupDefaultWidgetOptions =
@@ -166,5 +153,4 @@ const styles = StyleSheet.create({
     },
 });
 
-const GradedGroupEditor = withAPIOptions(GradedGroupEditorClass);
 export default GradedGroupEditor;

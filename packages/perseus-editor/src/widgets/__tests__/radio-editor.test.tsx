@@ -35,12 +35,7 @@ function renderRadioEditor(
     props: Partial<RadioEditorProps> = {},
 ) {
     return render(
-        <RadioEditor
-            onChange={onChangeMock}
-            apiOptions={ApiOptions.defaults}
-            static={false}
-            {...props}
-        />,
+        <RadioEditor onChange={onChangeMock} static={false} {...props} />,
         {wrapper: RenderStateRoot},
     );
 }
@@ -325,7 +320,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 ref={editorRef}
                 onChange={() => {}}
-                apiOptions={ApiOptions.defaults}
                 static={false}
                 choices={fourChoices}
             />,
@@ -352,7 +346,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 ref={editorRef}
                 onChange={() => {}}
-                apiOptions={ApiOptions.defaults}
                 static={false}
                 choices={[
                     getCorrectChoice(),
@@ -375,7 +368,6 @@ describe("radio-editor", () => {
         render(
             <RadioEditor
                 onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
                 static={false}
                 multipleSelect={true}
                 countChoices={true}
@@ -611,7 +603,6 @@ describe("radio-editor", () => {
         render(
             <RadioEditor
                 onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
                 static={false}
                 choices={[
                     getCorrectChoice(),
@@ -644,7 +635,6 @@ describe("radio-editor", () => {
         render(
             <RadioEditor
                 onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
                 static={false}
                 multipleSelect={true}
                 choices={[
@@ -679,7 +669,6 @@ describe("radio-editor", () => {
         render(
             <RadioEditor
                 onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
                 static={false}
                 multipleSelect={false}
                 choices={[
@@ -714,7 +703,6 @@ describe("radio-editor", () => {
         render(
             <RadioEditor
                 onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
                 static={false}
                 multipleSelect={true}
                 choices={[
@@ -1325,7 +1313,6 @@ describe("radio-editor", () => {
                 <RadioEditor
                     ref={editorRef}
                     onChange={() => {}}
-                    apiOptions={ApiOptions.defaults}
                     static={false}
                 />,
                 {wrapper: RenderStateRoot},
@@ -1343,7 +1330,6 @@ describe("radio-editor", () => {
                 <RadioEditor
                     ref={editorRef}
                     onChange={() => {}}
-                    apiOptions={ApiOptions.defaults}
                     static={false}
                 />,
                 {wrapper: RenderStateRoot},
@@ -1366,7 +1352,6 @@ describe("radio-editor", () => {
                 <RadioEditor
                     ref={editorRef}
                     onChange={() => {}}
-                    apiOptions={ApiOptions.defaults}
                     static={false}
                 />,
                 {wrapper: RenderStateRoot},
@@ -1390,7 +1375,6 @@ describe("radio-editor", () => {
                 <RadioEditor
                     ref={editorRef}
                     onChange={() => {}}
-                    apiOptions={ApiOptions.defaults}
                     static={false}
                 />,
                 {wrapper: RenderStateRoot},

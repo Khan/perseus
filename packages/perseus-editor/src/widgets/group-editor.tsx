@@ -1,29 +1,23 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {APIOptions, ApiOptions, withAPIOptions} from "@khanacademy/perseus";
 import {
     groupLogic,
-    PerseusWidgetsMap,
     type GroupDefaultWidgetOptions,
+    type PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptions;
-};
-
-type Props = WithAPIOptionsProps & {
+type Props = {
     content: string;
     widgets: PerseusWidgetsMap;
     images: any;
     onChange: (options: any) => void;
 };
 
-class GroupEditorClass extends React.Component<Props> {
+class GroupEditor extends React.Component<Props> {
     static widgetName = "group" as const;
 
     static defaultProps: GroupDefaultWidgetOptions =
@@ -56,5 +50,4 @@ class GroupEditorClass extends React.Component<Props> {
     }
 }
 
-const GroupEditor = withAPIOptions(GroupEditorClass);
 export default GroupEditor;

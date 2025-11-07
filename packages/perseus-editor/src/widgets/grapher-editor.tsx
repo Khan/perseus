@@ -6,8 +6,7 @@ import {
     GrapherWidget,
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
-    withAPIOptions,
-    APIOptionsWithDefaults,
+    APIOptionsContext,
 } from "@khanacademy/perseus";
 import {
     GrapherUtil as CoreGrapherUtil,
@@ -29,18 +28,14 @@ const Grapher = GrapherWidget.widget;
 const {chooseType, defaultPlotProps, getEquationString, typeToButton} =
     GrapherUtil;
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptionsWithDefaults;
-};
-
-type Props = WithAPIOptionsProps & {
+type Props = {
     availableTypes: Array<any>;
     correct: any;
     graph: any;
     onChange: (options: any, callback?: () => void) => void;
 };
 
-class GrapherEditorClass extends React.Component<Props> {
+class GrapherEditor extends React.Component<Props> {
     static widgetName = "grapher" as const;
 
     static defaultProps: GrapherDefaultWidgetOptions =
@@ -74,93 +69,108 @@ class GrapherEditorClass extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const sizeClass = containerSizeClass.SMALL;
-        let equationString;
-        let graph;
-        if (this.props.graph.valid === true) {
-            const graphProps: Partial<PropsFor<typeof Grapher>> = {
-                apiOptions: this.props.apiOptions,
-                containerSizeClass: sizeClass,
-                graph: this.props.graph,
-                userInput: this.props.correct,
-                correct: this.props.correct,
-                handleUserInput: (userInput, cb) => {
-                    let correct = this.props.correct;
-                    if (correct.type === userInput?.type) {
-                        correct = _.extend({}, correct, userInput);
-                    } else {
-                        // Clear options from previous graph
-                        correct = userInput;
-                    }
-                    this.props.onChange({correct: correct}, cb);
-                },
-                availableTypes: this.props.availableTypes,
-                trackInteraction: function () {},
-                // Set the "correct answer" graph to static when editing is disabled
-                static: this.props.apiOptions.editingDisabled,
-            };
-
-            graph = (
-                // NOTE(jeremy): This editor doesn't pass in a bunch of
-                // standard props that the Renderer provides normally (eg.
-                // alignment, findWidgets, etc).
-                <Grapher {...(graphProps as PropsFor<typeof Grapher>)} />
-            );
-            equationString = getEquationString(
-                graphProps.userInput as GrapherAnswerTypes,
-            );
-        } else {
-            graph = (
-                <div className="perseus-error">{this.props.graph.valid}</div>
-            );
-        }
-
         return (
-            <div>
-                <div>
-                    Correct answer{" "}
-                    <InfoTip>
-                        <p>
-                            Graph the correct answer in the graph below and
-                            ensure the equation or point coordinates displayed
-                            represent the correct answer.
-                        </p>
-                    </InfoTip>{" "}
-                    : {equationString}
-                </div>
+            <APIOptionsContext.Consumer>
+                {(apiOptions) => {
+                    const sizeClass = containerSizeClass.SMALL;
+                    let equationString;
+                    let graph;
+                    if (this.props.graph.valid === true) {
+                        const graphProps: Partial<PropsFor<typeof Grapher>> = {
+                            apiOptions: apiOptions,
+                            containerSizeClass: sizeClass,
+                            graph: this.props.graph,
+                            userInput: this.props.correct,
+                            correct: this.props.correct,
+                            handleUserInput: (userInput, cb) => {
+                                let correct = this.props.correct;
+                                if (correct.type === userInput?.type) {
+                                    correct = _.extend({}, correct, userInput);
+                                } else {
+                                    // Clear options from previous graph
+                                    correct = userInput;
+                                }
+                                this.props.onChange({correct: correct}, cb);
+                            },
+                            availableTypes: this.props.availableTypes,
+                            trackInteraction: function () {},
+                            // Set the "correct answer" graph to static when editing is disabled
+                            static: apiOptions.editingDisabled,
+                        };
 
-                <GraphSettings
-                    editableSettings={["graph", "snap", "image"]}
-                    box={getInteractiveBoxFromSizeClass(sizeClass)}
-                    range={this.props.graph.range}
-                    labels={this.props.graph.labels}
-                    step={this.props.graph.step}
-                    gridStep={this.props.graph.gridStep}
-                    snapStep={this.props.graph.snapStep}
-                    valid={this.props.graph.valid}
-                    backgroundImage={this.props.graph.backgroundImage}
-                    markings={this.props.graph.markings}
-                    rulerLabel={this.props.graph.rulerLabel}
-                    rulerTicks={this.props.graph.rulerTicks}
-                    showTooltips={this.props.graph.showTooltips}
-                    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                    onChange={this.change("graph")}
-                />
-                <div className="perseus-widget-row">
-                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
-                    <label>Available functions: </label>
-                    <MultiButtonGroup
-                        allowEmpty={false}
-                        values={this.props.availableTypes}
-                        buttons={_.map(CoreGrapherUtil.allTypes, typeToButton)}
-                        onChange={this.handleAvailableTypesChange}
-                    />
-                </div>
-                {graph}
-            </div>
+                        graph = (
+                            // NOTE(jeremy): This editor doesn't pass in a bunch of
+                            // standard props that the Renderer provides normally (eg.
+                            // alignment, findWidgets, etc).
+                            <Grapher
+                                {...(graphProps as PropsFor<typeof Grapher>)}
+                            />
+                        );
+                        equationString = getEquationString(
+                            graphProps.userInput as GrapherAnswerTypes,
+                        );
+                    } else {
+                        graph = (
+                            <div className="perseus-error">
+                                {this.props.graph.valid}
+                            </div>
+                        );
+                    }
+
+                    return (
+                        <div>
+                            <div>
+                                Correct answer{" "}
+                                <InfoTip>
+                                    <p>
+                                        Graph the correct answer in the graph
+                                        below and ensure the equation or point
+                                        coordinates displayed represent the
+                                        correct answer.
+                                    </p>
+                                </InfoTip>{" "}
+                                : {equationString}
+                            </div>
+
+                            <GraphSettings
+                                editableSettings={["graph", "snap", "image"]}
+                                box={getInteractiveBoxFromSizeClass(sizeClass)}
+                                range={this.props.graph.range}
+                                labels={this.props.graph.labels}
+                                step={this.props.graph.step}
+                                gridStep={this.props.graph.gridStep}
+                                snapStep={this.props.graph.snapStep}
+                                valid={this.props.graph.valid}
+                                backgroundImage={
+                                    this.props.graph.backgroundImage
+                                }
+                                markings={this.props.graph.markings}
+                                rulerLabel={this.props.graph.rulerLabel}
+                                rulerTicks={this.props.graph.rulerTicks}
+                                showTooltips={this.props.graph.showTooltips}
+                                // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
+                                onChange={this.change("graph")}
+                            />
+                            <div className="perseus-widget-row">
+                                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                                <label>Available functions: </label>
+                                <MultiButtonGroup
+                                    allowEmpty={false}
+                                    values={this.props.availableTypes}
+                                    buttons={_.map(
+                                        CoreGrapherUtil.allTypes,
+                                        typeToButton,
+                                    )}
+                                    onChange={this.handleAvailableTypesChange}
+                                />
+                            </div>
+                            {graph}
+                        </div>
+                    );
+                }}
+            </APIOptionsContext.Consumer>
         );
     }
 }
 
-const GrapherEditor = withAPIOptions(GrapherEditorClass);
 export default GrapherEditor;

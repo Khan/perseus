@@ -1,5 +1,9 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {Widgets, excludeDenylistKeys, withAPIOptions} from "@khanacademy/perseus";
+import {
+    APIOptionsContext,
+    Widgets,
+    excludeDenylistKeys,
+} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
@@ -17,14 +21,10 @@ import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
 
 import type Editor from "../editor";
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptions, APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptions;
-};
-
-type WidgetEditorProps = WithAPIOptionsProps & {
+type WidgetEditorProps = {
     // Unserialized props
     id: string;
     onChange: (
@@ -53,11 +53,11 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
 // eslint-disable-next-line react/no-unsafe
-class WidgetEditorClass extends React.Component<
+class WidgetEditor extends React.Component<
     WidgetEditorProps,
     WidgetEditorState
 > {
-    widget: React.RefObject<React.ElementRef<typeof Editor>>;
+    widget: React.RefObject<Editor>;
 
     constructor(props: WidgetEditorProps) {
         super(props);
@@ -139,105 +139,121 @@ class WidgetEditorClass extends React.Component<
             static: widgetInfo.static,
             graded: widgetInfo.graded,
             // eslint-disable-next-line react/no-string-refs
-            options: this.widget.current?.serialize(),
+            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+            options: this.widget.current.serialize(),
             version: widgetInfo.version,
         };
     };
 
     render(): React.ReactNode {
-        const widgetInfo = this.state.widgetInfo;
-        const isEditingDisabled =
-            this.props.apiOptions.editingDisabled ?? false;
-
-        const Ed = Widgets.getEditor(widgetInfo.type);
-        let supportedAlignments: ReadonlyArray<Alignment>;
-        const imageUpgradeFF = isFeatureOn(this.props, "image-widget-upgrade");
-
-        if (widgetInfo.type === "image" && !imageUpgradeFF) {
-            // TODO(LEMS-3520): Feature flag cleanup
-            supportedAlignments = ["block", "full-width"];
-        } else if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
-                widgetInfo.type,
-            );
-        } else {
-            // NOTE(kevinb): "default" is not one in `validAlignments` in widgets.js.
-            supportedAlignments = ["default"];
-        }
-
-        const supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
-
         return (
-            <div className="perseus-widget-editor">
-                <div
-                    className={
-                        "perseus-widget-editor-title " +
-                        (this.state.showWidget ? "open" : "closed")
-                    }
-                >
-                    <div className="perseus-widget-editor-title-id">
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                gap: "0.25em",
-                            }}
-                            onClick={this._toggleWidget}
-                        >
-                            <ToggleableCaret
-                                isExpanded={this.state.showWidget}
-                            />
-                            <span>{this.props.id}</span>
-                        </View>
-                    </div>
+            <APIOptionsContext.Consumer>
+                {(apiOptions) => {
+                    const widgetInfo = this.state.widgetInfo;
+                    const isEditingDisabled =
+                        apiOptions.editingDisabled ?? false;
 
-                    {supportsStaticMode && (
-                        <LabeledSwitch
-                            label="Static"
-                            checked={!!widgetInfo.static}
-                            disabled={isEditingDisabled}
-                            onChange={this._setStatic}
-                        />
-                    )}
-                    {supportedAlignments.length > 1 && (
-                        <select
-                            className="alignment"
-                            value={widgetInfo.alignment}
-                            disabled={isEditingDisabled}
-                            onChange={this._handleAlignmentChange}
-                        >
-                            {supportedAlignments.map((alignment) => (
-                                <option key={alignment}>{alignment}</option>
-                            ))}
-                        </select>
-                    )}
-                    <SectionControlButton
-                        icon={trashIcon}
-                        disabled={isEditingDisabled}
-                        onClick={() => {
-                            this.props.onRemove();
-                        }}
-                        title="Remove image widget"
-                    />
-                </div>
-                <div
-                    className={
-                        "perseus-widget-editor-content " +
-                        (this.state.showWidget ? "enter" : "leave")
+                    const Ed = Widgets.getEditor(widgetInfo.type);
+                    let supportedAlignments: ReadonlyArray<Alignment>;
+                    const imageUpgradeFF = isFeatureOn(
+                        {apiOptions},
+                        "image-widget-upgrade",
+                    );
+
+                    if (widgetInfo.type === "image" && !imageUpgradeFF) {
+                        // TODO(LEMS-3520): Feature flag cleanup
+                        supportedAlignments = ["block", "full-width"];
+                    } else if (apiOptions.showAlignmentOptions) {
+                        supportedAlignments =
+                            CoreWidgetRegistry.getSupportedAlignments(
+                                widgetInfo.type,
+                            );
+                    } else {
+                        // NOTE(kevinb): "default" is not one in `validAlignments` in widgets.js.
+                        supportedAlignments = ["default"];
                     }
-                >
-                    {Ed && (
-                        <Ed
-                            ref={this.widget}
-                            onChange={this._handleWidgetChange}
-                            static={widgetInfo.static}
-                            apiOptions={this.props.apiOptions}
-                            {...widgetInfo.options}
-                        />
-                    )}
-                </div>
-            </div>
+
+                    const supportsStaticMode = Widgets.supportsStaticMode(
+                        widgetInfo.type,
+                    );
+
+                    return (
+                        <div className="perseus-widget-editor">
+                            <div
+                                className={
+                                    "perseus-widget-editor-title " +
+                                    (this.state.showWidget ? "open" : "closed")
+                                }
+                            >
+                                <div className="perseus-widget-editor-title-id">
+                                    <View
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            gap: "0.25em",
+                                        }}
+                                        onClick={this._toggleWidget}
+                                    >
+                                        <ToggleableCaret
+                                            isExpanded={this.state.showWidget}
+                                        />
+                                        <span>{this.props.id}</span>
+                                    </View>
+                                </div>
+
+                                {supportsStaticMode && (
+                                    <LabeledSwitch
+                                        label="Static"
+                                        checked={!!widgetInfo.static}
+                                        disabled={isEditingDisabled}
+                                        onChange={this._setStatic}
+                                    />
+                                )}
+                                {supportedAlignments.length > 1 && (
+                                    <select
+                                        className="alignment"
+                                        value={widgetInfo.alignment}
+                                        disabled={isEditingDisabled}
+                                        onChange={this._handleAlignmentChange}
+                                    >
+                                        {supportedAlignments.map(
+                                            (alignment) => (
+                                                <option key={alignment}>
+                                                    {alignment}
+                                                </option>
+                                            ),
+                                        )}
+                                    </select>
+                                )}
+                                <SectionControlButton
+                                    icon={trashIcon}
+                                    disabled={isEditingDisabled}
+                                    onClick={() => {
+                                        this.props.onRemove();
+                                    }}
+                                    title="Remove image widget"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    "perseus-widget-editor-content " +
+                                    (this.state.showWidget ? "enter" : "leave")
+                                }
+                            >
+                                {Ed && (
+                                    <Ed
+                                        ref={this.widget}
+                                        onChange={this._handleWidgetChange}
+                                        static={widgetInfo.static}
+                                        {...widgetInfo.options}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    );
+                }}
+            </APIOptionsContext.Consumer>
         );
     }
 }
@@ -259,5 +275,4 @@ function LabeledSwitch(props: {
     );
 }
 
-const WidgetEditor = withAPIOptions(WidgetEditorClass);
 export default WidgetEditor;

@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import {type Changeable, APIOptionsContext} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import Link from "@khanacademy/wonder-blocks-link";
@@ -14,25 +15,14 @@ import {RadioOptionSettings} from "./radio-option-settings";
 import {getMovedChoices} from "./utils";
 
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
-import {
-    type Changeable,
-    type APIOptions,
-    withAPIOptions,
-} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptions;
-};
-
 // Exported for testing
-export interface RadioEditorProps
-    extends WithAPIOptionsProps,
-        Changeable.ChangeableProps {
+export interface RadioEditorProps extends Changeable.ChangeableProps {
     countChoices: boolean;
     choices: PerseusRadioChoice[];
     randomize: boolean;
@@ -46,7 +36,7 @@ export interface RadioEditorProps
 /**
  * An editor for adding a radio widget that allows users to select a single option from multiple choices.
  */
-class RadioEditorClass extends React.Component<RadioEditorProps> {
+class RadioEditor extends React.Component<RadioEditorProps> {
     static widgetName = "radio" as const;
 
     static defaultProps: RadioDefaultWidgetOptions =
@@ -285,102 +275,112 @@ class RadioEditorClass extends React.Component<RadioEditorProps> {
     }
 
     render(): React.ReactNode {
-        const numCorrect = deriveNumCorrect(this.props.choices);
-        const isEditingDisabled = this.props.apiOptions.editingDisabled;
-
         return (
-            <div>
-                <Link
-                    href="https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
-                    target="_blank"
-                >
-                    Multiple choice best practices
-                </Link>
-                <div className="perseus-widget-row">
-                    <LabeledSwitch
-                        label="Randomize order"
-                        checked={this.props.randomize}
-                        disabled={isEditingDisabled}
-                        onChange={(value) => {
-                            this.props.onChange({randomize: value});
-                        }}
-                        style={{marginBlockEnd: sizing.size_060}}
-                    />
-                    <LabeledSwitch
-                        label="Multiple selections"
-                        checked={this.props.multipleSelect}
-                        disabled={isEditingDisabled}
-                        onChange={(value) => {
-                            this.onMultipleSelectChange({
-                                multipleSelect: value,
-                            });
-                        }}
-                        style={{marginBlockEnd: sizing.size_060}}
-                    />
-                    {this.props.multipleSelect && (
-                        <>
-                            <LabeledSwitch
-                                label="Specify number correct"
-                                checked={this.props.countChoices}
-                                disabled={isEditingDisabled}
-                                onChange={(value) => {
-                                    this.onCountChoicesChange({
-                                        countChoices: value,
-                                    });
-                                }}
-                                style={{marginBlockEnd: sizing.size_060}}
-                            />
-                            <Footnote>
-                                Current number correct: {numCorrect}
-                            </Footnote>
-                        </>
-                    )}
-                </div>
+            <APIOptionsContext.Consumer>
+                {(apiOptions) => {
+                    const numCorrect = deriveNumCorrect(this.props.choices);
+                    const isEditingDisabled = apiOptions.editingDisabled;
 
-                {this.props.choices.map((choice, index) => (
-                    <RadioOptionSettings
-                        key={`choice-${choice.id}}`}
-                        index={index}
-                        choice={choice}
-                        multipleSelect={this.props.multipleSelect}
-                        onStatusChange={this.onStatusChange}
-                        onContentChange={this.onContentChange}
-                        onRationaleChange={this.onRationaleChange}
-                        showDelete={this.props.choices.length >= 2}
-                        showMove={
-                            this.props.choices.length > 1 &&
-                            !choice.isNoneOfTheAbove
-                        }
-                        onDelete={() => this.onDelete(index)}
-                        onMove={this.handleMove}
-                    />
-                ))}
+                    return (
+                        <div>
+                            <Link
+                                href="https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
+                                target="_blank"
+                            >
+                                Multiple choice best practices
+                            </Link>
+                            <div className="perseus-widget-row">
+                                <LabeledSwitch
+                                    label="Randomize order"
+                                    checked={this.props.randomize}
+                                    disabled={isEditingDisabled}
+                                    onChange={(value) => {
+                                        this.props.onChange({randomize: value});
+                                    }}
+                                    style={{marginBlockEnd: sizing.size_060}}
+                                />
+                                <LabeledSwitch
+                                    label="Multiple selections"
+                                    checked={this.props.multipleSelect}
+                                    disabled={isEditingDisabled}
+                                    onChange={(value) => {
+                                        this.onMultipleSelectChange({
+                                            multipleSelect: value,
+                                        });
+                                    }}
+                                    style={{marginBlockEnd: sizing.size_060}}
+                                />
+                                {this.props.multipleSelect && (
+                                    <>
+                                        <LabeledSwitch
+                                            label="Specify number correct"
+                                            checked={this.props.countChoices}
+                                            disabled={isEditingDisabled}
+                                            onChange={(value) => {
+                                                this.onCountChoicesChange({
+                                                    countChoices: value,
+                                                });
+                                            }}
+                                            style={{
+                                                marginBlockEnd: sizing.size_060,
+                                            }}
+                                        />
+                                        <Footnote>
+                                            Current number correct: {numCorrect}
+                                        </Footnote>
+                                    </>
+                                )}
+                            </div>
 
-                <div className="add-choice-container">
-                    <Button
-                        size="small"
-                        kind="tertiary"
-                        startIcon={plusIcon}
-                        onClick={this.addChoice.bind(this, false)}
-                        style={{marginInlineEnd: "2.4rem"}}
-                    >
-                        Add a choice
-                    </Button>
-                    {!this.props.hasNoneOfTheAbove && (
-                        <Button
-                            size="small"
-                            kind="tertiary"
-                            startIcon={plusIcon}
-                            onClick={this.addChoice.bind(this, true)}
-                        >
-                            None of the above
-                        </Button>
-                    )}
-                </div>
-            </div>
+                            {this.props.choices.map((choice, index) => (
+                                <RadioOptionSettings
+                                    key={`choice-${choice.id}}`}
+                                    index={index}
+                                    choice={choice}
+                                    multipleSelect={this.props.multipleSelect}
+                                    onStatusChange={this.onStatusChange}
+                                    onContentChange={this.onContentChange}
+                                    onRationaleChange={this.onRationaleChange}
+                                    showDelete={this.props.choices.length >= 2}
+                                    showMove={
+                                        this.props.choices.length > 1 &&
+                                        !choice.isNoneOfTheAbove
+                                    }
+                                    onDelete={() => this.onDelete(index)}
+                                    onMove={this.handleMove}
+                                />
+                            ))}
+
+                            <div className="add-choice-container">
+                                <Button
+                                    size="small"
+                                    kind="tertiary"
+                                    startIcon={plusIcon}
+                                    onClick={this.addChoice.bind(this, false)}
+                                    style={{marginInlineEnd: "2.4rem"}}
+                                >
+                                    Add a choice
+                                </Button>
+                                {!this.props.hasNoneOfTheAbove && (
+                                    <Button
+                                        size="small"
+                                        kind="tertiary"
+                                        startIcon={plusIcon}
+                                        onClick={this.addChoice.bind(
+                                            this,
+                                            true,
+                                        )}
+                                    >
+                                        None of the above
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                    );
+                }}
+            </APIOptionsContext.Consumer>
         );
     }
 }
 
-const RadioEditor = withAPIOptions(RadioEditorClass);
 export default RadioEditor;

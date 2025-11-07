@@ -1,15 +1,13 @@
 import {
-    APIOptionsWithDefaults,
+    APIOptionsContext,
     components,
     TableWidget,
     Util,
-    withAPIOptions,
 } from "@khanacademy/perseus";
 import {
     tableLogic,
     type TableDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -20,11 +18,7 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 const {InfoTip, NumberInput} = components;
 const Table = TableWidget.widget;
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptionsWithDefaults;
-};
-
-type Props = WithAPIOptionsProps & {
+type Props = {
     rows: number;
     columns: number;
     headers: string[];
@@ -32,7 +26,7 @@ type Props = WithAPIOptionsProps & {
     onChange: (options: any) => void;
 };
 
-class TableEditorClass extends React.Component<Props> {
+class TableEditor extends React.Component<Props> {
     static widgetName = "table" as const;
 
     static defaultProps: TableDefaultWidgetOptions =
@@ -99,78 +93,92 @@ class TableEditorClass extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const tableProps: Partial<PropsFor<typeof Table>> = {
-            headers: this.props.headers,
-            onChange: this.props.onChange,
-            userInput: this.props.answers,
-            handleUserInput: (userInput) => {
-                // Disable table input changes when editing is disabled
-                if (this.props.apiOptions?.editingDisabled) {
-                    return;
-                }
-                // In the editing experience,
-                // user input is actually editing answers
-                this.props.onChange({answers: userInput});
-            },
-            apiOptions: this.props.apiOptions,
-            editableHeaders: true,
-            onFocus: () => {},
-            onBlur: () => {},
-            trackInteraction: () => {},
-            Editor: Editor,
-        };
-
         return (
-            <div>
-                <div className="perseus-widget-row">
-                    <label>
-                        Number of columns:{" "}
-                        <NumberInput
-                            ref={this.numberOfColumns}
-                            value={this.props.columns}
-                            onChange={(val) => {
-                                if (val) {
-                                    this.onSizeInput(this.props.rows, val);
-                                }
-                            }}
-                            useArrowKeys={true}
-                        />
-                    </label>
-                </div>
-                <div className="perseus-widget-row">
-                    <label>
-                        Number of rows:{" "}
-                        <NumberInput
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="numberOfRows"
-                            value={this.props.rows}
-                            onChange={(val) => {
-                                if (val) {
-                                    this.onSizeInput(val, this.props.columns);
-                                }
-                            }}
-                            useArrowKeys={true}
-                        />
-                    </label>
-                </div>
-                <div>
-                    {" "}
-                    Table of answers:{" "}
-                    <InfoTip>
-                        <p>
-                            The student has to fill out all cells in the table.
-                            For partially filled tables create a table using the
-                            template, and insert text input boxes as desired.
-                        </p>
-                    </InfoTip>
-                </div>
-                <div>
-                    <Table {...(tableProps as PropsFor<typeof Table>)} />
-                </div>
-            </div>
+            <APIOptionsContext.Consumer>
+                {(apiOptions) => {
+                    const tableProps: Partial<PropsFor<typeof Table>> = {
+                        headers: this.props.headers,
+                        onChange: this.props.onChange,
+                        userInput: this.props.answers,
+                        handleUserInput: (userInput) => {
+                            // Disable table input changes when editing is disabled
+                            if (apiOptions?.editingDisabled) {
+                                return;
+                            }
+                            // In the editing experience,
+                            // user input is actually editing answers
+                            this.props.onChange({answers: userInput});
+                        },
+                        apiOptions: apiOptions,
+                        editableHeaders: true,
+                        onFocus: () => {},
+                        onBlur: () => {},
+                        trackInteraction: () => {},
+                        Editor: Editor,
+                    };
+
+                    return (
+                        <div>
+                            <div className="perseus-widget-row">
+                                <label>
+                                    Number of columns:{" "}
+                                    <NumberInput
+                                        ref={this.numberOfColumns}
+                                        value={this.props.columns}
+                                        onChange={(val) => {
+                                            if (val) {
+                                                this.onSizeInput(
+                                                    this.props.rows,
+                                                    val,
+                                                );
+                                            }
+                                        }}
+                                        useArrowKeys={true}
+                                    />
+                                </label>
+                            </div>
+                            <div className="perseus-widget-row">
+                                <label>
+                                    Number of rows:{" "}
+                                    <NumberInput
+                                        // eslint-disable-next-line react/no-string-refs
+                                        ref="numberOfRows"
+                                        value={this.props.rows}
+                                        onChange={(val) => {
+                                            if (val) {
+                                                this.onSizeInput(
+                                                    val,
+                                                    this.props.columns,
+                                                );
+                                            }
+                                        }}
+                                        useArrowKeys={true}
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                {" "}
+                                Table of answers:{" "}
+                                <InfoTip>
+                                    <p>
+                                        The student has to fill out all cells in
+                                        the table. For partially filled tables
+                                        create a table using the template, and
+                                        insert text input boxes as desired.
+                                    </p>
+                                </InfoTip>
+                            </div>
+                            <div>
+                                <Table
+                                    {...(tableProps as PropsFor<typeof Table>)}
+                                />
+                            </div>
+                        </div>
+                    );
+                }}
+            </APIOptionsContext.Consumer>
         );
     }
 }
 
-const TableEditor = withAPIOptions(TableEditorClass);
-export default TableEditorClass;
+export default TableEditor;

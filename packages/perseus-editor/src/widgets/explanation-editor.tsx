@@ -1,14 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {
-    components,
-    Changeable,
-    EditorJsonify,
-    withAPIOptions,
-    APIOptions,
-} from "@khanacademy/perseus";
+import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {explanationLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -18,11 +11,7 @@ import type {ExplanationDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptions;
-};
-
-type Props = WithAPIOptionsProps & {
+type Props = {
     showPrompt: string;
     hidePrompt: string;
     explanation: string;
@@ -34,7 +23,7 @@ type Props = WithAPIOptionsProps & {
 /**
  * An editor for adding an explanation widget that provides supplementary information to users.
  */
-class ExplanationEditorClass extends React.Component<Props> {
+class ExplanationEditor extends React.Component<Props> {
     static widgetName = "explanation" as const;
 
     static defaultProps: ExplanationDefaultWidgetOptions =
@@ -95,5 +84,4 @@ class ExplanationEditorClass extends React.Component<Props> {
     }
 }
 
-const ExplanationEditor = withAPIOptions(ExplanationEditorClass);
 export default ExplanationEditor;

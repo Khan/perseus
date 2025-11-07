@@ -1,4 +1,8 @@
-import {Dependencies, ApiOptions} from "@khanacademy/perseus";
+import {
+    Dependencies,
+    ApiOptions,
+    APIOptionsContext,
+} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -154,11 +158,11 @@ describe("label-image-editor", () => {
         const onChangeMock = jest.fn();
 
         render(
-            <LabelImageEditor
-                {...defaultProps}
-                onChange={onChangeMock}
-                apiOptions={{editingDisabled: true}}
-            />,
+            <APIOptionsContext.Provider
+                value={{...ApiOptions.defaults, editingDisabled: true}}
+            >
+                <LabelImageEditor {...defaultProps} onChange={onChangeMock} />
+            </APIOptionsContext.Provider>,
         );
 
         // Act

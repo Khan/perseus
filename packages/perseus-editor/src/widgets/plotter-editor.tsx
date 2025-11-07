@@ -1,7 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import {number as knumber} from "@khanacademy/kmath";
-import {components, PlotterWidget, Util, withAPIOptions} from "@khanacademy/perseus";
+import {components, PlotterWidget, Util} from "@khanacademy/perseus";
 import {plotterLogic, plotterPlotTypes} from "@khanacademy/perseus-core";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -9,7 +9,6 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
-import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusPlotterWidgetOptions,
     PlotterDefaultWidgetOptions,
@@ -41,11 +40,7 @@ const editorDefaults = {
     snapsPerLine: 2,
 } as const;
 
-type WithAPIOptionsProps = {
-    apiOptions: APIOptions;
-}
-
-type Props = WithAPIOptionsProps & {
+type Props = {
     type: PerseusPlotterWidgetOptions["type"];
     labels: Array<string>;
     categories: ReadonlyArray<string | number>;
@@ -78,7 +73,7 @@ const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 /**
  * An editor for adding a plotter widget that allows users to create and customize data visualizations.
  */
-class PlotterEditorClass extends React.Component<Props, State> {
+class PlotterEditor extends React.Component<Props, State> {
     static widgetName = "plotter" as const;
 
     static defaultProps: PlotterDefaultWidgetOptions =
@@ -513,5 +508,4 @@ class PlotterEditorClass extends React.Component<Props, State> {
     }
 }
 
-const PlotterEditor = withAPIOptions(PlotterEditorClass);
 export default PlotterEditor;
