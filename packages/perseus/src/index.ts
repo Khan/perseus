@@ -18,6 +18,7 @@ export {default as ServerItemRenderer} from "./server-item-renderer";
 export {default as HintsRenderer} from "./hints-renderer";
 export {default as HintRenderer} from "./hint-renderer";
 export {default as Renderer} from "./renderer";
+export {default as RendererWithAPIOptions} from "./renderer-with-api-options";
 
 /**
  * Widgets
