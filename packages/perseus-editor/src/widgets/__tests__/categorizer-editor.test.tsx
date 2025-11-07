@@ -1,4 +1,4 @@
-import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -21,12 +21,7 @@ describe("categorizer-editor", () => {
     });
 
     it("should render", async () => {
-        render(
-            <CategorizerEditor
-                onChange={() => undefined}
-                apiOptions={ApiOptions.defaults}
-            />,
-        );
+        render(<CategorizerEditor onChange={() => undefined} />);
 
         expect(
             await screen.findByText("Randomize item order"),
@@ -36,12 +31,7 @@ describe("categorizer-editor", () => {
     it("should be possible to change randomize item order", async () => {
         const onChangeMock = jest.fn();
 
-        render(
-            <CategorizerEditor
-                onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
-            />,
-        );
+        render(<CategorizerEditor onChange={onChangeMock} />);
 
         await userEvent.click(
             screen.getByRole("checkbox", {

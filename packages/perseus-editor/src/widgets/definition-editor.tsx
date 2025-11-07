@@ -1,15 +1,13 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
-
-import * as React from "react";
-import _ from "underscore";
-
-import Editor from "../editor";
-
 import {
     definitionLogic,
     type DefinitionDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
+import * as React from "react";
+import _ from "underscore";
+
+import Editor from "../editor";
 
 const {TextInput} = components;
 

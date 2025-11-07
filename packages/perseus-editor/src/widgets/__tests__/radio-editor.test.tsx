@@ -1,4 +1,4 @@
-import {Dependencies, ApiOptions} from "@khanacademy/perseus";
+import {Dependencies} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";

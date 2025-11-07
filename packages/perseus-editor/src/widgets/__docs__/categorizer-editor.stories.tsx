@@ -1,4 +1,3 @@
-import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import {action} from "storybook/actions";
 

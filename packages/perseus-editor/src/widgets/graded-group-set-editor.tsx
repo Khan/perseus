@@ -47,10 +47,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
         };
     };
 
-    renderGroups: () => React.ReactElement[] | null = () => {
-        if (!this.props.gradedGroups) {
-            return null;
-        }
+    renderGroups: () => React.ReactElement[] = () => {
         return this.props.gradedGroups.map((group, i) => (
             <GradedGroupEditor
                 key={i}
@@ -73,7 +70,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     addGroup: () => void = () => {
-        const groups = this.props.gradedGroups || [];
+        const groups = this.props.gradedGroups ?? [];
         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change(
             "gradedGroups",
