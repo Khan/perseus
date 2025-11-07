@@ -132,8 +132,8 @@ describe("Dropdown widget", () => {
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
-                widgetType: "explanation",
-                widgetId: "explanation",
+                widgetType: "dropdown",
+                widgetId: "dropdown",
             },
         });
     });
