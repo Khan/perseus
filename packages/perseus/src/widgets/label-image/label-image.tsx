@@ -352,6 +352,14 @@ export class LabelImage
     }
 
     componentDidMount() {
+        this.props.analytics?.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "label-image",
+                widgetId: "label-image",
+            },
+        });
         this._mounted = true;
     }
 

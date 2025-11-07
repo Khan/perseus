@@ -1,9 +1,11 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import AssetContext from "../../asset-context";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
+import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
@@ -30,6 +32,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     } = props;
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
+    const {analytics} = useDependencies();
 
     const [zoomSize, setZoomSize] = React.useState<Size>([
         backgroundImage.width || 0,
@@ -37,6 +40,17 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     ]);
 
     const [zoomWidth, zoomHeight] = zoomSize;
+
+    useOnMountEffect(() => {
+        analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "image",
+                widgetId: "image",
+            },
+        });
+    });
 
     React.useEffect(() => {
         // Wait to figure out what the original size of the image is.
