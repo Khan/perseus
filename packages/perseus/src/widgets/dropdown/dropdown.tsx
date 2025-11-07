@@ -5,37 +5,37 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import {ApiOptions} from "../../perseus-api";
+import withAPIOptions from "../../components/with-api-options";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {APIOptions, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {
     PerseusDropdownUserInput,
     PerseusDropdownWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<
-    PerseusDropdownWidgetOptions,
-    PerseusDropdownUserInput
->;
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
+type Props = PropsWithAPIOptions &
+    WidgetProps<PerseusDropdownWidgetOptions, PerseusDropdownUserInput>;
 
 type DefaultProps = {
     choices: Props["choices"];
     placeholder: Props["placeholder"];
-    apiOptions: Props["apiOptions"];
     userInput: Props["userInput"];
 };
 
-class Dropdown extends React.Component<Props> implements Widget {
+class DropdownClass extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
         choices: [],
         placeholder: "",
-        apiOptions: ApiOptions.defaults,
         userInput: {value: 0},
     };
 
@@ -169,6 +169,8 @@ function getCorrectUserInput(
 ): PerseusDropdownUserInput {
     return {value: options.choices.findIndex((c) => c.correct) + 1};
 }
+
+const Dropdown = withAPIOptions(DropdownClass);
 
 export default {
     name: "dropdown",

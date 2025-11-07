@@ -12,22 +12,27 @@ import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import withAPIOptions from "../../components/with-api-options";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {APIOptions, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-type Props = WidgetProps<
-    PlotterPublicWidgetOptions,
-    PerseusPlotterUserInput
-> & {
-    labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
-    picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
 };
+
+type Props = PropsWithAPIOptions &
+    WidgetProps<PlotterPublicWidgetOptions, PerseusPlotterUserInput> & {
+        labelInterval: NonNullable<
+            PerseusPlotterWidgetOptions["labelInterval"]
+        >;
+        picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
+    };
 
 type DefaultProps = {
     type: Props["type"];
@@ -49,7 +54,7 @@ type State = {
 
 const plotterDefaults = CoreWidgetRegistry.getDefaultWidgetOptions("plotter");
 
-class Plotter extends React.Component<Props, State> implements Widget {
+class PlotterClass extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -1187,6 +1192,8 @@ function getUserInputFromSerializedState(
 ): PerseusPlotterUserInput {
     return serializedState.values;
 }
+
+const Plotter = withAPIOptions(PlotterClass);
 
 export default {
     name: "plotter",

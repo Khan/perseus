@@ -9,6 +9,7 @@ import * as React from "react";
 import ButtonGroup from "../../components/button-group";
 import Graphie from "../../components/graphie";
 import SvgImage from "../../components/svg-image";
+import withAPIOptions from "../../components/with-api-options";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import {interactiveSizes} from "../../styles/constants";
@@ -30,7 +31,7 @@ import {
 } from "./util";
 
 import type {Coord, Line} from "../../interactive2/types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {APIOptions, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 import type {
@@ -338,10 +339,15 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type Props = WidgetProps<PerseusGrapherWidgetOptions, PerseusGrapherUserInput>;
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
+type Props = PropsWithAPIOptions &
+    WidgetProps<PerseusGrapherWidgetOptions, PerseusGrapherUserInput>;
 
 /* Widget and editor. */
-class Grapher extends React.Component<Props> implements Widget {
+class GrapherClass extends React.Component<Props> implements Widget {
     horizHairline: any;
     vertHairline: any;
 
@@ -624,6 +630,8 @@ function getCorrectUserInput(
 ): PerseusGrapherUserInput {
     return options.correct;
 }
+
+const Grapher = withAPIOptions(GrapherClass);
 
 0 as any as WidgetProps<
     PerseusGrapherWidgetOptions,

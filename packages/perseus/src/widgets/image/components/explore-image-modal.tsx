@@ -3,12 +3,12 @@ import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import RendererWithAPIOptions from "../../../renderer-with-api-options";
 import styles from "../image-widget.module.css";
 
 import ExploreImageModalContent from "./explore-image-modal-content";
 
 import type {ImageDescriptionAndCaptionProps} from "./image-description-and-caption";
-import RendererWithAPIOptions from "../../../renderer-with-api-options";
 
 export const ExploreImageModal = (props: ImageDescriptionAndCaptionProps) => {
     const i18n = usePerseusI18n();

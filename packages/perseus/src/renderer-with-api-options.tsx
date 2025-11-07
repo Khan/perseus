@@ -1,6 +1,7 @@
 import * as React from "react";
-import Renderer from "./renderer";
+
 import {APIOptionsContext} from "./components/api-options-context";
+import Renderer from "./renderer";
 
 type RendererProps = React.ComponentProps<typeof Renderer>;
 

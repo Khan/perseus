@@ -9,12 +9,12 @@ import ReactDOM from "react-dom";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
+import withAPIOptions from "../../components/with-api-options";
 import {useDependencies} from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 import type {DependenciesContext} from "../../dependencies";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {APIOptions, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
     KeypadConfiguration,
@@ -52,14 +52,18 @@ const normalizeTex = (tex: string): string => {
     return anglicizeOperators(tex);
 };
 
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
 type ExternalProps = WidgetProps<
     PerseusExpressionWidgetOptions,
     PerseusExpressionUserInput
 >;
 
-type Props = ExternalProps &
+type Props = PropsWithAPIOptions &
+    ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
-        apiOptions: NonNullable<ExternalProps["apiOptions"]>;
         buttonSets: NonNullable<ExternalProps["buttonSets"]>;
         functions: NonNullable<ExternalProps["functions"]>;
         linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -71,7 +75,6 @@ type Props = ExternalProps &
     };
 
 type DefaultProps = {
-    apiOptions: Props["apiOptions"];
     buttonSets: Props["buttonSets"];
     functions: Props["functions"];
     linterContext: Props["linterContext"];
@@ -82,7 +85,7 @@ type DefaultProps = {
 };
 
 // The new, MathQuill input expression widget
-export class Expression extends React.Component<Props> implements Widget {
+class ExpressionClass extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -95,7 +98,6 @@ export class Expression extends React.Component<Props> implements Widget {
         buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
         onFocus: () => {},
         onBlur: () => {},
-        apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
         userInput: "",
     };
@@ -303,12 +305,14 @@ const styles = StyleSheet.create({
 });
 
 const ExpressionWithDependencies = React.forwardRef<
-    Expression,
+    ExpressionClass,
     Omit<PropsFor<typeof Expression>, keyof ReturnType<typeof useDependencies>>
 >((props, ref) => {
     const deps = useDependencies();
     return <Expression ref={ref} analytics={deps.analytics} {...props} />;
 });
+// Required for lint
+ExpressionWithDependencies.displayName = "ExpressionWithDependencies";
 
 /**
  * @deprecated and likely a very broken API
@@ -348,6 +352,8 @@ function getCorrectUserInput(
     }
     return "";
 }
+
+export const Expression = withAPIOptions(ExpressionClass);
 
 export default {
     name: "expression",

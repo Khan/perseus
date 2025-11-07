@@ -2,8 +2,10 @@ import {isFeatureOn} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import AssetContext from "../../asset-context";
+import {useAPIOptionsContext} from "../../components/api-options-context";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
+import RendererWithAPIOptions from "../../renderer-with-api-options";
 import Util from "../../util";
 
 import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
@@ -11,11 +13,9 @@ import styles from "./image-widget.module.css";
 
 import type {ImageWidgetProps} from "./image.class";
 import type {Size} from "@khanacademy/perseus-core";
-import RendererWithAPIOptions from "../../renderer-with-api-options";
 
 export const ImageComponent = (props: ImageWidgetProps) => {
     const {
-        apiOptions,
         alt,
         backgroundImage,
         box,
@@ -29,6 +29,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         trackInteraction,
     } = props;
     const context = React.useContext(PerseusI18nContext);
+    const apiOptions = useAPIOptionsContext();
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     const [zoomSize, setZoomSize] = React.useState<Size>([

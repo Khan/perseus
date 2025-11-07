@@ -6,12 +6,18 @@ import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
-import {ApiOptions} from "../../perseus-api";
+import withAPIOptions from "../../components/with-api-options";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import InputWithExamples from "../numeric-input/input-with-examples";
 
 import type {PerseusStrings} from "../../strings";
-import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    APIOptions,
+    Path,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import type {
     PerseusInputNumberWidgetOptions,
@@ -50,31 +56,30 @@ const formExamples: Record<string, FormExampleFunction> = {
     },
 } as const;
 
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
 type ExternalProps = WidgetProps<
     PerseusInputNumberWidgetOptions,
     PerseusInputNumberUserInput
 >;
-type Props = ExternalProps & {
-    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
-    linterContext: NonNullable<ExternalProps["linterContext"]>;
-    rightAlign: NonNullable<ExternalProps["rightAlign"]>;
-    size: NonNullable<ExternalProps["size"]>;
-    // NOTE(kevinb): This was the only default prop that is listed as
-    // not-required in PerseusInputNumberWidgetOptions.
-    answerType: NonNullable<ExternalProps["answerType"]>;
-};
+type Props = PropsWithAPIOptions &
+    ExternalProps & {
+        linterContext: NonNullable<ExternalProps["linterContext"]>;
+        rightAlign: NonNullable<ExternalProps["rightAlign"]>;
+        size: NonNullable<ExternalProps["size"]>;
+        // NOTE(kevinb): This was the only default prop that is listed as
+        // not-required in PerseusInputNumberWidgetOptions.
+        answerType: NonNullable<ExternalProps["answerType"]>;
+    };
 
 type DefaultProps = Pick<
     Props,
-    | "answerType"
-    | "apiOptions"
-    | "linterContext"
-    | "rightAlign"
-    | "size"
-    | "userInput"
+    "answerType" | "linterContext" | "rightAlign" | "size" | "userInput"
 >;
 
-class InputNumber extends React.Component<Props> implements Widget {
+class InputNumberClass extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -82,9 +87,6 @@ class InputNumber extends React.Component<Props> implements Widget {
         size: "normal",
         answerType: "number",
         rightAlign: false,
-        // NOTE(kevinb): renderer.jsx should be provide this so we probably don't
-        // need to include it in defaultProps.
-        apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
         userInput: {currentValue: ""},
     };
@@ -283,6 +285,8 @@ function getCorrectUserInput(
 ): PerseusInputNumberUserInput {
     return {currentValue: options.value.toString()};
 }
+
+const InputNumber = withAPIOptions(InputNumberClass);
 
 export default {
     name: "input-number",

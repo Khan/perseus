@@ -9,19 +9,24 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import TextInput from "../../components/text-input";
+import withAPIOptions from "../../components/with-api-options";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    APIOptions,
+    FocusPath,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 import type {
     MatrixPublicWidgetOptions,
     PerseusMatrixUserInput,
     PerseusMatrixWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
 
@@ -72,24 +77,17 @@ const getRefForPath = function (path: FocusPath) {
     return "answer" + row + "," + column;
 };
 
-// Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
-// as props to this component. This ensures that the PerseusMatrixWidgetOptions
-// stays in sync with the prop types. The PropsFor<Component> type takes
-// defaultProps into account, which is important because
-// PerseusMatrixWidgetOptions has optional fields which receive defaults via
-// defaultProps.
-0 as any as WidgetProps<
-    PerseusMatrixWidgetOptions,
-    PerseusMatrixUserInput
-> satisfies PropsFor<typeof Matrix>;
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
 
-type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput>;
+type Props = PropsWithAPIOptions &
+    WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput>;
 
 type DefaultProps = {
     matrixBoardSize: Props["matrixBoardSize"];
     prefix: string;
     suffix: string;
-    apiOptions: Props["apiOptions"];
     linterContext: Props["linterContext"];
     userInput: PerseusMatrixUserInput;
 };
@@ -100,7 +98,7 @@ type State = {
     enterTheMatrix: number;
 };
 
-class Matrix extends React.Component<Props, State> implements Widget {
+class MatrixClass extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -111,7 +109,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
         matrixBoardSize: [3, 3],
         prefix: "",
         suffix: "",
-        apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
         userInput: {
             answers: [[]],
@@ -512,6 +509,8 @@ function getUserInputFromSerializedState(
 ): PerseusMatrixUserInput {
     return {answers: serializedState.answers};
 }
+
+const Matrix = withAPIOptions(MatrixClass);
 
 export default {
     name: "matrix",

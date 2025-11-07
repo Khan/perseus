@@ -5,6 +5,7 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
+import RendererWithAPIOptions from "../../../renderer-with-api-options";
 import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
 import {interactiveGraphQuestionBuilder} from "../interactive-graph-question-builder";
@@ -12,7 +13,6 @@ import {sinusoidWithPiTicks} from "../interactive-graph.testdata";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
-import RendererWithAPIOptions from "../../../renderer-with-api-options";
 
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 

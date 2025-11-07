@@ -13,7 +13,7 @@ import {
 import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
-import {LabelImage, getComputedSelectedState} from "../label-image";
+import {LabelImageClass, getComputedSelectedState} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
 
@@ -205,73 +205,73 @@ describe("LabelImage", function () {
     describe("imageSideForMarkerPosition", function () {
         it("should return side: top", function () {
             expect(
-                LabelImage.imageSideForMarkerPosition(21, 0, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(21, 0, "NONE"),
             ).toEqual("top");
             expect(
-                LabelImage.imageSideForMarkerPosition(79, 0, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(79, 0, "NONE"),
             ).toEqual("top");
             expect(
-                LabelImage.imageSideForMarkerPosition(50, 0, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(50, 0, "NONE"),
             ).toEqual("top");
             expect(
-                LabelImage.imageSideForMarkerPosition(50, 25, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(50, 25, "NONE"),
             ).toEqual("top");
             expect(
-                LabelImage.imageSideForMarkerPosition(50, 50, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(50, 50, "NONE"),
             ).toEqual("top");
         });
 
         it("should return side: right", function () {
             expect(
-                LabelImage.imageSideForMarkerPosition(100, 0, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(100, 0, "NONE"),
             ).toEqual("right");
             expect(
-                LabelImage.imageSideForMarkerPosition(100, 100, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(100, 100, "NONE"),
             ).toEqual("right");
             expect(
-                LabelImage.imageSideForMarkerPosition(100, 50, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(100, 50, "NONE"),
             ).toEqual("right");
             expect(
-                LabelImage.imageSideForMarkerPosition(75, 50, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(75, 50, "NONE"),
             ).toEqual("right");
             expect(
-                LabelImage.imageSideForMarkerPosition(51, 50, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(51, 50, "NONE"),
             ).toEqual("right");
         });
 
         it("should return side: bottom", function () {
             expect(
-                LabelImage.imageSideForMarkerPosition(21, 100, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(21, 100, "NONE"),
             ).toEqual("bottom");
             expect(
-                LabelImage.imageSideForMarkerPosition(79, 100, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(79, 100, "NONE"),
             ).toEqual("bottom");
             expect(
-                LabelImage.imageSideForMarkerPosition(50, 100, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(50, 100, "NONE"),
             ).toEqual("bottom");
             expect(
-                LabelImage.imageSideForMarkerPosition(50, 75, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(50, 75, "NONE"),
             ).toEqual("bottom");
             expect(
-                LabelImage.imageSideForMarkerPosition(50, 51, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(50, 51, "NONE"),
             ).toEqual("bottom");
         });
 
         it("should return side: left", function () {
-            expect(LabelImage.imageSideForMarkerPosition(0, 0, "NONE")).toEqual(
-                "left",
-            );
             expect(
-                LabelImage.imageSideForMarkerPosition(0, 100, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(0, 0, "NONE"),
             ).toEqual("left");
             expect(
-                LabelImage.imageSideForMarkerPosition(0, 50, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(0, 100, "NONE"),
             ).toEqual("left");
             expect(
-                LabelImage.imageSideForMarkerPosition(25, 50, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(0, 50, "NONE"),
             ).toEqual("left");
             expect(
-                LabelImage.imageSideForMarkerPosition(49, 50, "NONE"),
+                LabelImageClass.imageSideForMarkerPosition(25, 50, "NONE"),
+            ).toEqual("left");
+            expect(
+                LabelImageClass.imageSideForMarkerPosition(49, 50, "NONE"),
             ).toEqual("left");
         });
     });
@@ -311,7 +311,11 @@ describe("LabelImage", function () {
 
             expect(
                 markers[
-                    LabelImage.navigateToMarkerIndex({x: 0, y: 0}, markers, 0)
+                    LabelImageClass.navigateToMarkerIndex(
+                        {x: 0, y: 0},
+                        markers,
+                        0,
+                    )
                 ].label,
             ).toEqual("this");
         });
@@ -344,7 +348,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -374,7 +378,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -404,7 +408,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -434,7 +438,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -468,7 +472,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -498,7 +502,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -528,7 +532,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -558,7 +562,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -592,7 +596,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -622,7 +626,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -652,7 +656,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -682,7 +686,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -716,7 +720,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -746,7 +750,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -776,7 +780,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,
@@ -806,7 +810,7 @@ describe("LabelImage", function () {
 
                     expect(
                         markers[
-                            LabelImage.navigateToMarkerIndex(
+                            LabelImageClass.navigateToMarkerIndex(
                                 navigateDirecton,
                                 markers,
                                 0,

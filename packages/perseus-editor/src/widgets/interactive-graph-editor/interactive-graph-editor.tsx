@@ -344,10 +344,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             <InteractiveGraph
                                 {...graphProps}
                                 containerSizeClass={sizeClass}
-                                apiOptions={{
-                                    ...apiOptions,
-                                    isMobile: false,
-                                }}
                             />
                         );
                         // TODO(kevinb): Update getEquationString to only accept the data it actually

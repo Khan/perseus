@@ -13,15 +13,17 @@ import * as React from "react";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
+import {APIOptionsContext} from "./components/api-options-context";
 import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
 import LoadingContext from "./loading-context";
 import {ApiOptions} from "./perseus-api";
-import Renderer from "./renderer";
+import RendererWithAPIOptions from "./renderer-with-api-options";
 import UserInputManager from "./user-input-manager";
 import Util from "./util";
 
+import type Renderer from "./renderer";
 import type {
     FocusPath,
     PerseusDependenciesV2,
@@ -42,8 +44,6 @@ import type {
     UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import {APIOptionsContext} from "./components/api-options-context";
-import RendererWithAPIOptions from "./renderer-with-api-options";
 
 type OwnProps = {
     hintsVisible?: number;
@@ -414,7 +414,7 @@ export class ServerItemRenderer
 
         const questionRenderer = (
             <AssetContext.Provider value={contextValue}>
-                <APIOptionsContext.Provider value={{apiOptions: apiOptions}}>
+                <APIOptionsContext.Provider value={apiOptions}>
                     <UserInputManager
                         widgets={this.props.item.question.widgets}
                         problemNum={this.props.problemNum ?? 0}

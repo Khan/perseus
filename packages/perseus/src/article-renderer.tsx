@@ -7,6 +7,7 @@ import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
+import {APIOptionsContext} from "./components/api-options-context";
 import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext, getDependencies} from "./dependencies";
 import JiptParagraphs from "./jipt-paragraphs";
@@ -22,7 +23,6 @@ import type {
     PerseusRenderer,
     KeypadContextRendererInterface,
 } from "@khanacademy/perseus-core";
-import { APIOptionsContext } from "./components/api-options-context";
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> &
     SharedRendererProps & {
@@ -277,7 +277,7 @@ class ArticleRenderer
         return (
             <div className={classes}>
                 <DependenciesContext.Provider value={this.props.dependencies}>
-                    <APIOptionsContext.Provider value={{apiOptions: apiOptions}}>
+                    <APIOptionsContext.Provider value={apiOptions}>
                         {sections}
                     </APIOptionsContext.Provider>
                 </DependenciesContext.Provider>

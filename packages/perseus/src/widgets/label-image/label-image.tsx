@@ -17,6 +17,7 @@ import * as ReactDOM from "react-dom";
 import AssetContext from "../../asset-context";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
+import withAPIOptions from "../../components/with-api-options";
 import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {bodyXsmallBold} from "../../styles/global-styles";
@@ -28,7 +29,7 @@ import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 
 import type {DependencyProps} from "../../dependencies";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {APIOptions, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 import type {
     InteractiveMarkerType,
@@ -74,17 +75,22 @@ export type OptionalAnswersMarkerType = Omit<
     answers?: string[];
 };
 
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
 type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
     // The list of label markers on the question image.
     markers: ReadonlyArray<OptionalAnswersMarkerType>;
 };
 
-type Props = WidgetProps<Options, PerseusLabelImageUserInput> & {
-    analytics: DependencyProps["analytics"];
-    // preferred placement for popover (preference, not MUST)
-    // TODO: this is sus, probably never passed in
-    preferredPopoverDirection?: PreferredPopoverDirection;
-};
+type Props = PropsWithAPIOptions &
+    WidgetProps<Options, PerseusLabelImageUserInput> & {
+        analytics: DependencyProps["analytics"];
+        // preferred placement for popover (preference, not MUST)
+        // TODO: this is sus, probably never passed in
+        preferredPopoverDirection?: PreferredPopoverDirection;
+    };
 
 type LabelImageState = {
     // The user selected marker index, defaults to -1, no selection.
@@ -137,7 +143,8 @@ export function getComputedSelectedState(
     }
 }
 
-export class LabelImage
+// Exported to test class methods
+export class LabelImageClass
     extends React.Component<Props, LabelImageState>
     implements Widget
 {
@@ -223,7 +230,7 @@ export class LabelImage
         for (const side of sides) {
             const corners = triangles[side];
 
-            if (LabelImage.pointInTriangle(p, ...corners)) {
+            if (LabelImageClass.pointInTriangle(p, ...corners)) {
                 return side;
             }
         }
@@ -434,7 +441,7 @@ export class LabelImage
         // Focus on the closest marker along the direction of navigation.
         const marker =
             this._markers[
-                LabelImage.navigateToMarkerIndex(
+                LabelImageClass.navigateToMarkerIndex(
                     navigateDirection,
                     markers,
                     index,
@@ -485,7 +492,7 @@ export class LabelImage
                 side = marker.y > 50 ? "top" : "bottom";
                 markerPosition = marker.y > 50 ? "bottom" : "top";
             } else {
-                markerPosition = LabelImage.imageSideForMarkerPosition(
+                markerPosition = LabelImageClass.imageSideForMarkerPosition(
                     marker.x,
                     marker.y,
                     preferredPopoverDirection,
@@ -755,12 +762,14 @@ export class LabelImage
 }
 
 const LabelImageWithDependencies = React.forwardRef<
-    LabelImage,
+    LabelImageClass,
     Omit<PropsFor<typeof LabelImage>, keyof ReturnType<typeof useDependencies>>
 >((props, ref) => {
     const deps = useDependencies();
     return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
 });
+// Required for lint
+LabelImageWithDependencies.displayName = "LabelImageWithDependencies";
 
 ({}) as WidgetProps<
     PerseusLabelImageWidgetOptions,
@@ -807,6 +816,8 @@ function getCorrectUserInput(
         })),
     };
 }
+
+export const LabelImage = withAPIOptions(LabelImageClass);
 
 export default {
     name: "label-image",

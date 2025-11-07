@@ -9,6 +9,7 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
+import withAPIOptions from "../../components/with-api-options";
 import {iconOk, iconRemove} from "../../icon-paths";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
@@ -28,6 +29,7 @@ import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
 import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 import type {
+    APIOptions,
     FocusPath,
     TrackingGradedGroupExtraArguments,
     Widget,
@@ -68,14 +70,19 @@ const getNextState = (
     }
 };
 
-type Props = WidgetProps<
-    PerseusGradedGroupWidgetOptions,
-    Empty,
-    TrackingGradedGroupExtraArguments
-> & {
-    inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
-    onNextQuestion?: () => unknown; // Set by graded-group-set.jsx
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
 };
+
+type Props = PropsWithAPIOptions &
+    WidgetProps<
+        PerseusGradedGroupWidgetOptions,
+        Empty,
+        TrackingGradedGroupExtraArguments
+    > & {
+        inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
+        onNextQuestion?: () => unknown; // Set by graded-group-set.jsx
+    };
 
 type DefaultProps = {
     title: Props["title"];
@@ -109,10 +116,7 @@ type State = {
 // answer button below the rendered content. When clicked, the widget grades
 // the stuff inside and displays feedback about whether the inputted answer was
 // correct or not.
-export class GradedGroup
-    extends React.Component<Props, State>
-    implements Widget
-{
+class GradedGroupClass extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -277,7 +281,8 @@ export class GradedGroup
         // looks incorrect because a user has modified it afterwards.
         const isCorrect = answerBarState === "CORRECT";
         const readOnly =
-            gradedGroupAPIOptions.readOnly || (gradedGroupAPIOptions.isMobile && isCorrect);
+            gradedGroupAPIOptions.readOnly ||
+            (gradedGroupAPIOptions.isMobile && isCorrect);
 
         // We only want to show the solutions and rationale if the answer is correct
         const showSolutions = isCorrect ? "all" : "none";
@@ -431,7 +436,7 @@ export class GradedGroup
                     ))}
                 {gradedGroupAPIOptions.isMobile && (
                     <GradedGroupAnswerBar
-                        apiOptions={apiOptions}
+                        apiOptions={gradedGroupAPIOptions}
                         answerBarState={answerBarState}
                         onCheckAnswer={this._checkAnswer}
                         onNextQuestion={this.props.onNextQuestion}
@@ -495,6 +500,8 @@ const styles = StyleSheet.create({
         letterSpacing: 0.8,
     },
 });
+
+export const GradedGroup = withAPIOptions(GradedGroupClass);
 
 export default {
     name: "graded-group",

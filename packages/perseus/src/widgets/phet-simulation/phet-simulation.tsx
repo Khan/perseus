@@ -13,15 +13,21 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import withAPIOptions from "../../components/with-api-options";
 import {getDependencies} from "../../dependencies";
 import {phoneMargin} from "../../styles/constants";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/phet-simulation-ai-utils";
 
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {APIOptions, WidgetExports, WidgetProps, Widget} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusPhetSimulationWidgetOptions>;
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
+type Props = PropsWithAPIOptions &
+    WidgetProps<PerseusPhetSimulationWidgetOptions>;
 
 type State = {
     banner: {
@@ -38,7 +44,7 @@ type State = {
 const MOBILE_APP_BOTTOM_BAR_HEIGHT = 66;
 
 // This renders the PhET sim
-export class PhetSimulation
+class PhetSimulationClass
     extends React.Component<Props, State>
     implements Widget
 {
@@ -358,6 +364,8 @@ const styles = StyleSheet.create({
         borderRadius: "50%",
     },
 });
+
+export const PhetSimulation = withAPIOptions(PhetSimulationClass);
 
 export default {
     name: "phet-simulation",

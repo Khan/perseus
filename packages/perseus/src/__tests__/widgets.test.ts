@@ -50,7 +50,7 @@ describe("Widget API support", () => {
     describe("replaceWidget", () => {
         it("replaces an existing widget", () => {
             Widgets.replaceWidget("transformer", "radio");
-            expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
+            expect(Widgets.getWidgetExport("transformer")?.name).toBe("radio");
         });
 
         it("Throws when the replacement isn't available", () => {

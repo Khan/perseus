@@ -4,11 +4,11 @@ import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import RendererWithAPIOptions from "../../renderer-with-api-options";
 
 import type {APIOptions, WidgetExports, Widget} from "../../types";
 import type {PerseusPassageRefTargetWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import RendererWithAPIOptions from "../../renderer-with-api-options";
 
 type Props = {
     apiOptions: APIOptions;

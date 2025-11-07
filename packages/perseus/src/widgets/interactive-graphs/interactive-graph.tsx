@@ -9,6 +9,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import _ from "underscore";
 
+import {APIOptionsContext} from "../../components/api-options-context";
 import Util from "../../util";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
@@ -338,15 +339,19 @@ class InteractiveGraph extends React.Component<Props, State> {
         };
 
         return (
-            <StatefulMafsGraph
-                {...mafsProps}
-                ref={this.mafsRef}
-                gridStep={gridStep}
-                snapStep={snapStep}
-                box={box}
-                showTooltips={!!this.props.showTooltips}
-                readOnly={this.props.apiOptions?.readOnly}
-            />
+            <APIOptionsContext.Consumer>
+                {(apiOptions) => (
+                    <StatefulMafsGraph
+                        {...mafsProps}
+                        ref={this.mafsRef}
+                        gridStep={gridStep}
+                        snapStep={snapStep}
+                        box={box}
+                        showTooltips={!!this.props.showTooltips}
+                        readOnly={apiOptions.readOnly}
+                    />
+                )}
+            </APIOptionsContext.Consumer>
         );
     }
 

@@ -4,12 +4,18 @@ import ReactDOM from "react-dom";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
+import withAPIOptions from "../../components/with-api-options";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    APIOptions,
+    FocusPath,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {
     PerseusTableWidgetOptions,
     PerseusTableUserInput,
@@ -17,17 +23,21 @@ import type {
 
 const {assert} = InteractiveUtil;
 
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
 type EditorProps = {
     editableHeaders: boolean;
     Editor: any;
     onChange: (headers: PerseusTableWidgetOptions["headers"]) => void;
 };
 
-type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
+type Props = PropsWithAPIOptions &
+    WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
     EditorProps;
 
 type DefaultProps = {
-    apiOptions: Props["apiOptions"];
     headers: Props["headers"];
     editableHeaders: Props["editableHeaders"];
     rows: Props["rows"];
@@ -67,14 +77,13 @@ function getRefForPath(path: Path): string {
     return "answer" + row + "," + column;
 }
 
-class Table extends React.Component<Props> implements Widget {
+class TableClass extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
     headerRefs: Record<string, any> = {};
     answerRefs: Record<string, any> = {};
 
     static defaultProps: DefaultProps = {
-        apiOptions: ApiOptions.defaults,
         headers: [""],
         editableHeaders: false,
         rows: 4,
@@ -306,6 +315,8 @@ function getUserInputFromSerializedState(
 ): PerseusTableUserInput {
     return serializedState.answers;
 }
+
+const Table = withAPIOptions(TableClass);
 
 export default {
     name: "table",

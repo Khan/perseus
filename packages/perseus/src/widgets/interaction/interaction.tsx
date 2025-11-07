@@ -6,11 +6,12 @@ import * as React from "react";
 import _ from "underscore";
 
 import Graphie from "../../components/graphie";
+import withAPIOptions from "../../components/with-api-options";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
 
 import type {Coord} from "../../interactive2/types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {APIOptions, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusInteractionElement,
@@ -95,7 +96,11 @@ const KAScompile = (
     return cached;
 };
 
-type Props = WidgetProps<PerseusInteractionWidgetOptions>;
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
+type Props = PropsWithAPIOptions & WidgetProps<PerseusInteractionWidgetOptions>;
 
 type DefaultProps = {
     graph: Props["graph"];
@@ -107,7 +112,7 @@ type State = {
     functions: any;
 };
 
-class Interaction extends React.Component<Props, State> implements Widget {
+class InteractionClass extends React.Component<Props, State> implements Widget {
     static defaultProps: DefaultProps = {
         graph: {
             box: [400, 400],
@@ -798,6 +803,8 @@ const _getInitialFunctions: (
         (element) => element.options.funcName,
     );
 };
+
+const Interaction = withAPIOptions(InteractionClass);
 
 export default {
     name: "interaction",

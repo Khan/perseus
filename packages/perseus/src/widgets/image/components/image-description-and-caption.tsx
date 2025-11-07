@@ -2,7 +2,9 @@ import {isFeatureOn} from "@khanacademy/perseus-core";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import * as React from "react";
 
+import {useAPIOptionsContext} from "../../../components/api-options-context";
 import {usePerseusI18n} from "../../../components/i18n-context";
+import RendererWithAPIOptions from "../../../renderer-with-api-options";
 import styles from "../image-widget.module.css";
 
 import ExploreImageButton from "./explore-image-button";
@@ -15,8 +17,6 @@ import type {
     Size,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import RendererWithAPIOptions from "../../../renderer-with-api-options";
-import {APIOptions} from "../../../types";
 
 export interface ImageDescriptionAndCaptionProps {
     backgroundImage: PerseusImageBackground;
@@ -28,7 +28,6 @@ export interface ImageDescriptionAndCaptionProps {
     labels: Array<PerseusImageLabel>;
     range: [Interval, Interval];
     linterContext: LinterContextProps;
-    apiOptions: APIOptions;
     /**
      * zoomSize represents the larger of the image’s natural size (calculated on load)
      * and the saved backgroundImage size (specified when the content is written). This
@@ -43,12 +42,12 @@ export interface ImageDescriptionAndCaptionProps {
 export const ImageDescriptionAndCaption = (
     props: ImageDescriptionAndCaptionProps,
 ) => {
-    const {caption, longDescription, apiOptions, linterContext, zoomSize} =
-        props;
+    const {caption, longDescription, linterContext, zoomSize} = props;
 
     const [zoomWidth, _] = zoomSize;
 
     const i18n = usePerseusI18n();
+    const apiOptions = useAPIOptionsContext();
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     return (

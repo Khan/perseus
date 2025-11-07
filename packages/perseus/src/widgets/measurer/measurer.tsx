@@ -8,11 +8,12 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import SvgImage from "../../components/svg-image";
+import withAPIOptions from "../../components/with-api-options";
 import GraphUtils from "../../util/graph-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
 
 import type {Coord} from "../../interactive2/types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {APIOptions, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
@@ -22,12 +23,17 @@ const defaultImage = {
     left: 0,
 } as const;
 
-type Props = WidgetProps<PerseusMeasurerWidgetOptions> & {
-    // TODO: these don't show up anywhere else in code
-    // I'm guessing they could just be constants
-    protractorX: number;
-    protractorY: number;
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
 };
+
+type Props = PropsWithAPIOptions &
+    WidgetProps<PerseusMeasurerWidgetOptions> & {
+        // TODO: these don't show up anywhere else in code
+        // I'm guessing they could just be constants
+        protractorX: number;
+        protractorY: number;
+    };
 
 type DefaultProps = {
     box: Props["box"];
@@ -43,7 +49,7 @@ type DefaultProps = {
 };
 
 // TODO: Add documentation for the Measurer widget
-class Measurer extends React.Component<Props> implements Widget {
+class MeasurerClass extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         box: [480, 480],
         image: defaultImage,
@@ -180,6 +186,8 @@ class Measurer extends React.Component<Props> implements Widget {
         );
     }
 }
+
+const Measurer = withAPIOptions(MeasurerClass);
 
 export default {
     name: "measurer",

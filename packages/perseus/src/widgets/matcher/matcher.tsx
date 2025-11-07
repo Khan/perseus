@@ -7,12 +7,13 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Sortable from "../../components/sortable";
+import withAPIOptions from "../../components/with-api-options";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {APIOptions, WidgetExports, WidgetProps, Widget} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {
     PerseusMatcherWidgetOptions,
@@ -22,7 +23,12 @@ import type {
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
-type Props = WidgetProps<PerseusMatcherWidgetOptions, PerseusMatcherUserInput>;
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
+type Props = PropsWithAPIOptions &
+    WidgetProps<PerseusMatcherWidgetOptions, PerseusMatcherUserInput>;
 
 type DefaultProps = {
     labels: Props["labels"];
@@ -39,7 +45,8 @@ type State = {
     texRendererLoaded: boolean;
 };
 
-export class Matcher extends React.Component<Props, State> implements Widget {
+// Exported to test class methods
+class MatcherClass extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -251,6 +258,8 @@ function getUserInputFromSerializedState(
         right: serializedState.right,
     };
 }
+
+export const Matcher = withAPIOptions(MatcherClass);
 
 export default {
     name: "matcher",

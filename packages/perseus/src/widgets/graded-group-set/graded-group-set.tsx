@@ -209,10 +209,8 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                 </div>
                 {/* TODO(jeremy): Don't spread this.props, instead
                     pass in all props GradedGroup needs explicitly */}
-                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <GradedGroup
                     key={this.state.currentGroup}
-                    // @ts-expect-error - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
                     //  Type 'null' is not assignable to type 'GradedGroup'.
                     ref={(comp) => (this._childGroup = comp)}
                     // We should pass in the set of props explicitly

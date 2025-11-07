@@ -1,14 +1,9 @@
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import {
-    forwardRef,
-    useContext,
-    useImperativeHandle,
-    useRef,
-    useState,
-} from "react";
+import {forwardRef, useImperativeHandle, useRef, useState} from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {useAPIOptionsContext} from "../../components/api-options-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 
 import InputWithExamples from "./input-with-examples";
@@ -24,7 +19,8 @@ import type {Focusable} from "../../types";
  */
 export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
     function NumericInputComponent(props, ref) {
-        const context = useContext(PerseusI18nContext);
+        const i18n = usePerseusI18n();
+        const apiOptions = useAPIOptionsContext();
         const inputRef = useRef<Focusable>(null);
         const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -80,7 +76,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
         });
 
         // (mobile-only) If the custom keypad is enabled, use the SimpleKeypadInput component
-        if (props.apiOptions.customKeypad) {
+        if (apiOptions.customKeypad) {
             const alignmentClass = props.rightAlign
                 ? "perseus-input-right-align"
                 : undefined;
@@ -104,12 +100,12 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
                 value={props.userInput.currentValue}
                 onChange={handleChange}
                 labelText={props.labelText}
-                examples={generateExamples(props.answerForms, context.strings)}
+                examples={generateExamples(props.answerForms, i18n.strings)}
                 shouldShowExamples={shouldShowExamples(props.answerForms)}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 id={props.widgetId}
-                disabled={props.apiOptions.readOnly}
+                disabled={apiOptions.readOnly}
                 style={styles.inputWithExamples}
             />
         );

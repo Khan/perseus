@@ -8,27 +8,33 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
+import withAPIOptions from "../../components/with-api-options";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {APIOptions, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
     PerseusCategorizerWidgetOptions,
     PerseusCategorizerUserInput,
 } from "@khanacademy/perseus-core";
 
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
 type ExternalProps = WidgetProps<
     PerseusCategorizerWidgetOptions,
     PerseusCategorizerUserInput
 >;
 
-type Props = ExternalProps & {
-    linterContext: NonNullable<ExternalProps["linterContext"]>;
-};
+type Props = PropsWithAPIOptions &
+    ExternalProps & {
+        linterContext: NonNullable<ExternalProps["linterContext"]>;
+    };
 
 type DefaultProps = Pick<
     Props,
@@ -39,10 +45,7 @@ type State = {
     uniqueId: string;
 };
 
-export class Categorizer
-    extends React.Component<Props, State>
-    implements Widget
-{
+class CategorizerClass extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -314,6 +317,8 @@ function getStartUserInput(): PerseusCategorizerUserInput {
         values: [],
     };
 }
+
+export const Categorizer = withAPIOptions(CategorizerClass);
 
 export default {
     name: "categorizer",

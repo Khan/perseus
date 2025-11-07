@@ -2,7 +2,6 @@ import {KhanMath} from "@khanacademy/kmath";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
-import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import {NumericInputComponent} from "./numeric-input";
@@ -27,7 +26,6 @@ type ExternalProps = WidgetProps<
 export type NumericInputProps = ExternalProps & {
     size: NonNullable<ExternalProps["size"]>;
     rightAlign: NonNullable<ExternalProps["rightAlign"]>;
-    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     coefficient: NonNullable<ExternalProps["coefficient"]>;
     answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
     labelText: string;
@@ -38,7 +36,6 @@ type DefaultProps = Pick<
     NumericInputProps,
     | "size"
     | "rightAlign"
-    | "apiOptions"
     | "coefficient"
     | "answerForms"
     | "labelText"
@@ -74,7 +71,6 @@ export class NumericInput
     static defaultProps: DefaultProps = {
         size: "normal",
         rightAlign: false,
-        apiOptions: ApiOptions.defaults,
         coefficient: false,
         answerForms: [],
         labelText: "",

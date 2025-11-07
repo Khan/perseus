@@ -2,6 +2,7 @@ import {shuffleSorter} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
+import {APIOptionsContext} from "../../components/api-options-context";
 import Sortable from "../../components/sortable";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
@@ -26,6 +27,7 @@ type DefaultProps = {
 
 class Sorter extends React.Component<Props> implements Widget {
     _isMounted: boolean = false;
+    sortableRef = React.createRef<Sortable>();
 
     static defaultProps: DefaultProps = {
         correct: [],
@@ -62,10 +64,8 @@ class Sorter extends React.Component<Props> implements Widget {
      * This is to help keep the two in sync for now.
      */
     _getOptionsFromSortable(): string[] {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-        const options = this.refs.sortable.getOptions();
-        return options;
+        const options = this.sortableRef.current?.getOptions();
+        return options ? [...options] : [];
     }
 
     getPromptJSON(): SorterPromptJSON {
@@ -76,9 +76,7 @@ class Sorter extends React.Component<Props> implements Widget {
         option,
         index,
     ) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
-        this.refs.sortable.moveOptionToIndex(option, index);
+        this.sortableRef.current?.moveOptionToIndex(option, index);
     };
 
     /**
@@ -95,22 +93,24 @@ class Sorter extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
-        const {apiOptions, userInput} = this.props;
-        const marginPx = apiOptions.isMobile ? 8 : 5;
+        const {userInput} = this.props;
 
         return (
-            <div className="perseus-widget-sorter perseus-clearfix">
-                <Sortable
-                    options={userInput.options}
-                    layout={this.props.layout}
-                    margin={marginPx}
-                    padding={this.props.padding}
-                    onChange={this.handleChange}
-                    linterContext={this.props.linterContext}
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="sortable"
-                />
-            </div>
+            <APIOptionsContext.Consumer>
+                {(apiOptions) => (
+                    <div className="perseus-widget-sorter perseus-clearfix">
+                        <Sortable
+                            options={userInput.options}
+                            layout={this.props.layout}
+                            margin={apiOptions.isMobile ? 8 : 5}
+                            padding={this.props.padding}
+                            onChange={this.handleChange}
+                            linterContext={this.props.linterContext}
+                            ref={this.sortableRef}
+                        />
+                    </div>
+                )}
+            </APIOptionsContext.Consumer>
         );
     }
 }

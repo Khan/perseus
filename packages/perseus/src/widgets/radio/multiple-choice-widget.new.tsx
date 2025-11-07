@@ -2,6 +2,7 @@ import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
+import {useAPIOptionsContext} from "../../components/api-options-context";
 import {usePerseusI18n} from "../../components/i18n-context";
 import MathRenderingContext from "../../math-rendering-context";
 import Renderer from "../../renderer";
@@ -90,7 +91,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             choiceStates,
             questionCompleted,
             static: isStatic,
-            apiOptions,
             onChange,
             trackInteraction,
             findWidgets,
@@ -98,6 +98,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
         } = props;
 
         const {strings} = usePerseusI18n();
+        const apiOptions = useAPIOptionsContext();
 
         // Perseus Widget API methods
         // TODO(LEMS-2994): When we remove the old Radio files, we may need to move some

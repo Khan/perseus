@@ -155,13 +155,6 @@ const meta: Meta<typeof NumericInput> = {
                 type: {summary: "boolean"},
             },
         },
-        // ApiOptions and linterContext are large objects and not particularly applicable to this story,
-        // so we're hiding them from view to simplify the UI.
-        apiOptions: {
-            table: {
-                disable: true,
-            },
-        },
         linterContext: {
             table: {
                 disable: true,

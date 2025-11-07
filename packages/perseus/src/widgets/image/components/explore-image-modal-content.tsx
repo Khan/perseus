@@ -4,11 +4,12 @@ import * as React from "react";
 
 import AssetContext from "../../../asset-context";
 import {SvgImage} from "../../../components";
+import {useAPIOptionsContext} from "../../../components/api-options-context";
 import {usePerseusI18n} from "../../../components/i18n-context";
+import RendererWithAPIOptions from "../../../renderer-with-api-options";
 import styles from "../image-widget.module.css";
 
 import type {ImageDescriptionAndCaptionProps} from "./image-description-and-caption";
-import RendererWithAPIOptions from "../../../renderer-with-api-options";
 
 const MODAL_HEIGHT = 568;
 
@@ -18,7 +19,6 @@ export default function ExploreImageModalContent({
     alt,
     longDescription,
     linterContext,
-    apiOptions,
     box,
     labels,
     range,
@@ -26,7 +26,7 @@ export default function ExploreImageModalContent({
 }: ImageDescriptionAndCaptionProps) {
     const i18n = usePerseusI18n();
     const assetContext = React.useContext(AssetContext);
-
+    const apiOptions = useAPIOptionsContext();
     const [zoomWidth, zoomHeight] = zoomSize;
 
     if (

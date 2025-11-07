@@ -7,12 +7,18 @@ import Graphie from "../../components/graphie";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
+import withAPIOptions from "../../components/with-api-options";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {WidgetExports, FocusPath, Widget, WidgetProps} from "../../types";
+import type {
+    APIOptions,
+    WidgetExports,
+    FocusPath,
+    Widget,
+    WidgetProps,
+} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     Relationship,
@@ -190,13 +196,15 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
     return results;
 });
 
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
+
 /**
  * The type of `this.props` inside the NumberLine widget.
  */
-type Props = WidgetProps<
-    PerseusNumberLineWidgetOptions,
-    PerseusNumberLineUserInput
->;
+type Props = PropsWithAPIOptions &
+    WidgetProps<PerseusNumberLineWidgetOptions, PerseusNumberLineUserInput>;
 
 type CalculatedProps = Props & {
     tickStep: number;
@@ -212,13 +220,12 @@ type DefaultProps = {
     isInequality: Props["isInequality"];
     snapDivisions: Props["snapDivisions"];
     showTooltips: Props["showTooltips"];
-    apiOptions: Props["apiOptions"];
 };
 
 type State = {
     numDivisionsEmpty: boolean;
 };
-class NumberLine extends React.Component<Props, State> implements Widget {
+class NumberLineClass extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -232,7 +239,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         isInequality: false,
         snapDivisions: 2,
         showTooltips: false,
-        apiOptions: ApiOptions.defaults,
     };
 
     state: any = {
@@ -245,7 +251,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
      * so this handles both null/undefined
      */
     getIsTickCtrl() {
-        return this.props.isTickCtrl ?? NumberLine.defaultProps.isTickCtrl;
+        return this.props.isTickCtrl ?? NumberLineClass.defaultProps.isTickCtrl;
     }
 
     /**
@@ -255,7 +261,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
      */
     getSnapDivisions() {
         return (
-            this.props.snapDivisions ?? NumberLine.defaultProps.snapDivisions
+            this.props.snapDivisions ??
+            NumberLineClass.defaultProps.snapDivisions
         );
     }
 
@@ -784,6 +791,8 @@ function getStartUserInput(
         rel: options.isInequality ? "ge" : "eq",
     };
 }
+
+const NumberLine = withAPIOptions(NumberLineClass);
 
 export default {
     name: "number-line",

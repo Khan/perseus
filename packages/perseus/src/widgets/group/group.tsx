@@ -12,6 +12,7 @@ import classNames from "classnames";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import withAPIOptions from "../../components/with-api-options";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {
@@ -22,6 +23,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group
 
 import type {
     APIOptions,
+    APIOptionsWithDefaults,
     FocusPath,
     Widget,
     WidgetExports,
@@ -34,7 +36,12 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusGroupWidgetOptions, PerseusGroupUserInput>;
+type PropsWithAPIOptions = {
+    apiOptions: APIOptionsWithDefaults;
+};
+
+type Props = PropsWithAPIOptions &
+    WidgetProps<PerseusGroupWidgetOptions, PerseusGroupUserInput>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];
@@ -42,7 +49,7 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-class Group extends React.Component<Props> implements Widget {
+class GroupClass extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -172,6 +179,8 @@ function getUserInputFromSerializedState(
         widgetOptions.widgets,
     );
 }
+
+const Group = withAPIOptions(GroupClass);
 
 export default {
     name: "group",

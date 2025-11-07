@@ -22,6 +22,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
+import {APIOptionsContext} from "./components/api-options-context";
 import {PerseusI18nContext} from "./components/i18n-context";
 import SvgImage from "./components/svg-image";
 import TeX from "./components/tex";
@@ -77,7 +78,6 @@ import type {
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.css";
-import {APIOptionsContext} from "./components/api-options-context";
 
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;

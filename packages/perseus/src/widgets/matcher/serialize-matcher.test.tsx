@@ -10,7 +10,6 @@ import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
-import type {Matcher} from "./matcher";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
 /**
@@ -78,8 +77,7 @@ describe("Matcher serialization", () => {
         // Arrange
         const {renderer} = renderQuestion(generateBasicMatcher());
 
-        const matcher: Matcher =
-            renderer.questionRenderer.findWidgets("matcher 1")[0];
+        const matcher = renderer.questionRenderer.findWidgets("matcher 1")[0];
         act(() => {
             // these don't seem to do anything
             // but I think they're supposed to?

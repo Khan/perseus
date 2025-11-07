@@ -6,17 +6,24 @@ import {
 import * as React from "react";
 import _ from "underscore";
 
+import withAPIOptions from "../../components/with-api-options";
+
 import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
 import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
 import type {RadioProps} from "./radio-component";
-import type {ChoiceState, WidgetProps} from "../../types";
+import type {APIOptions, ChoiceState, WidgetProps} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
+
+type PropsWithAPIOptions = {
+    apiOptions: APIOptions;
+};
 
 // TODO: this should be using PerseusRadioWidgetOptions instead of RadioProps
 // but the component inheritance makes this hard to change right now
-type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
+type Props = PropsWithAPIOptions &
+    WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 
 type ChoiceStateWithoutSelected = Omit<ChoiceState, "selected">;
 
@@ -43,7 +50,7 @@ function initChoiceStates(choices: Props["choices"]) {
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-class Radio extends RadioOld {
+class RadioClass extends RadioOld {
     ffIsOn = false;
     radioRef = React.createRef<RadioOld>();
 
@@ -148,7 +155,7 @@ class Radio extends RadioOld {
         }
     }
 
-    _mergePropsAndState(): Props {
+    _mergePropsAndState(): Omit<Props, "apiOptions"> {
         /**
          * Inside the Radio component(s) we use ChoiceState
          * which includes both UI state and UserInput state.
@@ -216,5 +223,7 @@ class Radio extends RadioOld {
         );
     }
 }
+
+const Radio = withAPIOptions(RadioClass);
 
 export default Radio;

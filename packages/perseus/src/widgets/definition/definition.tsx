@@ -5,6 +5,7 @@ import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
+import RendererWithAPIOptions from "../../renderer-with-api-options";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -13,7 +14,6 @@ import type {
     PerseusDefinitionWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import RendererWithAPIOptions from "../../renderer-with-api-options";
 
 type DefinitionProps = WidgetProps<PerseusDefinitionWidgetOptions> & {
     widgets: PerseusRenderer["widgets"];

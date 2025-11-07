@@ -8,6 +8,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import withAPIOptions from "../../components/with-api-options";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import * as styleConstants from "../../styles/constants";
 import mediaQueries from "../../styles/media-queries";
@@ -44,8 +45,11 @@ export type FocusFunction = (
     choiceIndex?: number | null | undefined,
 ) => boolean;
 
-type Props = {
+type PropsWithAPIOptions = {
     apiOptions: APIOptions;
+};
+
+type Props = PropsWithAPIOptions & {
     choices: ReadonlyArray<ChoiceType>;
     deselectEnabled?: boolean;
     editMode?: boolean;
@@ -79,7 +83,7 @@ function getInstructionsText(
     return strings.chooseOneAnswer;
 }
 
-const BaseRadio = function ({
+const BaseRadioClass = function ({
     apiOptions,
     reviewMode,
     choices,
@@ -472,5 +476,7 @@ const styles: StyleDeclaration = StyleSheet.create({
         minWidth: "auto",
     },
 });
+
+const BaseRadio = withAPIOptions(BaseRadioClass);
 
 export default BaseRadio;

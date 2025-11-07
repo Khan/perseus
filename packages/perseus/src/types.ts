@@ -556,7 +556,6 @@ type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     alignment: string | null | undefined;
     static: boolean | null | undefined;
     problemNum: number | null | undefined;
-    apiOptions: APIOptionsWithDefaults;
     keypadElement?: any;
     /**
      * questionCompleted is used to signal that a learner has attempted

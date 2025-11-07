@@ -280,7 +280,6 @@ class Radio extends React.Component<Props> implements Widget {
                 onChange={this.updateChoices}
                 reviewMode={this.props.reviewMode}
                 deselectEnabled={this.props.deselectEnabled}
-                apiOptions={this.props.apiOptions}
                 registerFocusFunction={(i) => this.registerFocusFunction(i)}
             />
         );
