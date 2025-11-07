@@ -1651,7 +1651,7 @@ const MathBlasterGame = (): React.ReactElement => {
 };
 
 const meta: Meta = {
-    title: "Games/Math Blaster",
+    title: "Games/Crash Course",
     component: MathBlasterGame,
     parameters: {
         docs: {
