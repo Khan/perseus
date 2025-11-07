@@ -115,6 +115,20 @@ const mapResultsToIssues = (
 
 const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
     const isInStorybook = !!document.getElementById("storybook-root");
+    if (!isInStorybook) {
+        let frameHasLoaded = false;
+        const frame = document.querySelector('iframe[src^="/perseus/frame"]');
+        if (frame) {
+            const frameDocument =
+                // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'.
+                frame.contentDocument || frame.contentWindow?.document;
+            frameHasLoaded = frameDocument?.readyState === "complete";
+        }
+        if (!frameHasLoaded) {
+            setTimeout(runAxeCore, 100);
+            return;
+        }
+    }
     const options = isInStorybook
         ? axeCoreStorybookOptions
         : axeCoreEditorOptions;
