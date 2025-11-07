@@ -453,6 +453,12 @@ const MathBlasterGame = (): React.ReactElement => {
 
         lastSpawnTimeRef.current = Date.now();
 
+        // Stop game over music if playing
+        if (gameOverAudioRef.current) {
+            gameOverAudioRef.current.pause();
+            gameOverAudioRef.current.currentTime = 0;
+        }
+
         // Music will be handled by the useEffect based on game state
     };
 
