@@ -2,14 +2,12 @@ import {isFeatureOn} from "@khanacademy/perseus-core";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../../../components/i18n-context";
-import Renderer from "../../../renderer";
+import {usePerseusI18n} from "../../../components/i18n-context";
 import styles from "../image-widget.module.css";
 
 import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
 
-import type {APIOptions} from "../../../types";
 import type {
     Interval,
     PerseusImageBackground,
@@ -17,6 +15,8 @@ import type {
     Size,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import RendererWithAPIOptions from "../../../renderer-with-api-options";
+import {APIOptions} from "../../../types";
 
 export interface ImageDescriptionAndCaptionProps {
     backgroundImage: PerseusImageBackground;
@@ -48,7 +48,7 @@ export const ImageDescriptionAndCaption = (
 
     const [zoomWidth, _] = zoomSize;
 
-    const context = React.useContext(PerseusI18nContext);
+    const i18n = usePerseusI18n();
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     return (
@@ -75,11 +75,10 @@ export const ImageDescriptionAndCaption = (
                 >
                     {/* The Renderer component is used here so that the caption
                         can support markdown and TeX. */}
-                    <Renderer
+                    <RendererWithAPIOptions
                         content={caption}
-                        apiOptions={apiOptions}
                         linterContext={linterContext}
-                        strings={context.strings}
+                        strings={i18n.strings}
                     />
                 </figcaption>
             )}

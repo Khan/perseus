@@ -92,7 +92,7 @@ class Group extends React.Component<Props> implements Widget {
     };
 
     render(): React.ReactNode {
-        const apiOptions: APIOptions = {
+        const groupAPIOptions: APIOptions = {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,
             // Api Rewriting to support correct onFocus/onBlur
@@ -144,7 +144,7 @@ class Group extends React.Component<Props> implements Widget {
                     widgets={this.props.widgets}
                     images={this.props.images}
                     ref={(ref) => (this.rendererRef = ref)}
-                    apiOptions={apiOptions}
+                    apiOptions={groupAPIOptions}
                     findExternalWidgets={this.props.findWidgets}
                     reviewMode={this.props.reviewMode}
                     showSolutions={this.props.showSolutions}

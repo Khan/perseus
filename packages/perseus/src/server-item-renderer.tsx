@@ -43,6 +43,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {APIOptionsContext} from "./components/api-options-context";
+import RendererWithAPIOptions from "./renderer-with-api-options";
 
 type OwnProps = {
     hintsVisible?: number;
@@ -425,7 +426,7 @@ export class ServerItemRenderer
                         }) => {
                             this.userInput = userInput;
                             return (
-                                <Renderer
+                                <RendererWithAPIOptions
                                     keypadElement={this.props.keypadElement}
                                     problemNum={this.props.problemNum}
                                     onInteractWithWidget={
@@ -434,7 +435,6 @@ export class ServerItemRenderer
                                     highlightedWidgets={
                                         this.state.questionHighlightedWidgets
                                     }
-                                    apiOptions={apiOptions}
                                     questionCompleted={
                                         this.state.questionCompleted
                                     }

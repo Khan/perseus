@@ -4,11 +4,11 @@ import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import Renderer from "../../renderer";
 
 import type {APIOptions, WidgetExports, Widget} from "../../types";
 import type {PerseusPassageRefTargetWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import RendererWithAPIOptions from "../../renderer-with-api-options";
 
 type Props = {
     apiOptions: APIOptions;
@@ -36,14 +36,13 @@ class PassageRefTarget extends React.Component<Props> implements Widget {
 
     render(): React.ReactNode {
         return (
-            <Renderer
+            <RendererWithAPIOptions
                 content={this.props.content}
                 // This was already here before inline was recently added (#873)
                 // It was for a different use case a long time ago:
                 // https://phabricator.khanacademy.org/D12113
                 // Commenting out to prevent unanticipated side effects
                 // inline={true}
-                apiOptions={this.props.apiOptions}
                 linterContext={this.props.linterContext}
                 strings={this.context.strings}
             />

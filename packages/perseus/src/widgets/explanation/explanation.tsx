@@ -8,13 +8,13 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import Renderer from "../../renderer";
 import UserInputManager from "../../user-input-manager";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
+import RendererWithAPIOptions from "../../renderer-with-api-options";
 
 type Props = WidgetProps<PerseusExplanationWidgetOptions>;
 
@@ -154,10 +154,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
                                         initializeUserInput,
                                     }) => {
                                         return (
-                                            <Renderer
-                                                apiOptions={
-                                                    this.props.apiOptions
-                                                }
+                                            <RendererWithAPIOptions
                                                 content={this.props.explanation}
                                                 widgets={this.props.widgets}
                                                 linterContext={

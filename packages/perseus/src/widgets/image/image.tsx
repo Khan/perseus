@@ -4,7 +4,6 @@ import * as React from "react";
 import AssetContext from "../../asset-context";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
-import Renderer from "../../renderer";
 import Util from "../../util";
 
 import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
@@ -12,6 +11,7 @@ import styles from "./image-widget.module.css";
 
 import type {ImageWidgetProps} from "./image.class";
 import type {Size} from "@khanacademy/perseus-core";
+import RendererWithAPIOptions from "../../renderer-with-api-options";
 
 export const ImageComponent = (props: ImageWidgetProps) => {
     const {
@@ -116,9 +116,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                 <div className={`perseus-image-title ${styles.titleContainer}`}>
                     {/* The Renderer component is used here so that the title
                         can support Markdown and TeX. */}
-                    <Renderer
+                    <RendererWithAPIOptions
                         content={title}
-                        apiOptions={apiOptions}
                         linterContext={linterContext}
                         strings={context.strings}
                     />

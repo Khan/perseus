@@ -222,7 +222,7 @@ export class GradedGroup
     };
 
     render(): React.ReactNode {
-        const apiOptions = _.extend(
+        const gradedGroupAPIOptions = _.extend(
             {},
             ApiOptions.defaults,
             this.props.apiOptions,
@@ -260,12 +260,12 @@ export class GradedGroup
             : css(styles.gradedGroup);
 
         const classes = classNames({
-            [mobileClass]: apiOptions.isMobile,
+            [mobileClass]: gradedGroupAPIOptions.isMobile,
             "perseus-graded-group": true,
-            "answer-correct": apiOptions.isMobile
+            "answer-correct": gradedGroupAPIOptions.isMobile
                 ? false
                 : this.state.status === GRADING_STATUSES.correct,
-            "answer-incorrect": apiOptions.isMobile
+            "answer-incorrect": gradedGroupAPIOptions.isMobile
                 ? false
                 : this.state.status === GRADING_STATUSES.incorrect,
         });
@@ -277,7 +277,7 @@ export class GradedGroup
         // looks incorrect because a user has modified it afterwards.
         const isCorrect = answerBarState === "CORRECT";
         const readOnly =
-            apiOptions.readOnly || (apiOptions.isMobile && isCorrect);
+            gradedGroupAPIOptions.readOnly || (gradedGroupAPIOptions.isMobile && isCorrect);
 
         // We only want to show the solutions and rationale if the answer is correct
         const showSolutions = isCorrect ? "all" : "none";
@@ -312,7 +312,7 @@ export class GradedGroup
                             // }}
                             ref={this.rendererRef}
                             keypadElement={this.props.keypadElement}
-                            apiOptions={{...apiOptions, readOnly}}
+                            apiOptions={{...gradedGroupAPIOptions, readOnly}}
                             showSolutions={showSolutions}
                             linterContext={this.props.linterContext}
                             strings={this.context.strings}
@@ -320,7 +320,7 @@ export class GradedGroup
                     )}
                 </UserInputManager>
 
-                {!apiOptions.isMobile && (
+                {!gradedGroupAPIOptions.isMobile && (
                     <>
                         {icon != null && (
                             <div className="group-icon">{icon}</div>
@@ -402,7 +402,7 @@ export class GradedGroup
                                                 initializeUserInput
                                             }
                                             ref={this.hintRendererRef}
-                                            apiOptions={apiOptions}
+                                            apiOptions={gradedGroupAPIOptions}
                                             linterContext={
                                                 this.props.linterContext
                                             }
@@ -429,7 +429,7 @@ export class GradedGroup
                             {this.context.strings.explain}
                         </button>
                     ))}
-                {apiOptions.isMobile && (
+                {gradedGroupAPIOptions.isMobile && (
                     <GradedGroupAnswerBar
                         apiOptions={apiOptions}
                         answerBarState={answerBarState}

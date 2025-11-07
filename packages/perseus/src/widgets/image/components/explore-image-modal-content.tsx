@@ -4,11 +4,11 @@ import * as React from "react";
 
 import AssetContext from "../../../asset-context";
 import {SvgImage} from "../../../components";
-import {PerseusI18nContext} from "../../../components/i18n-context";
-import Renderer from "../../../renderer";
+import {usePerseusI18n} from "../../../components/i18n-context";
 import styles from "../image-widget.module.css";
 
 import type {ImageDescriptionAndCaptionProps} from "./image-description-and-caption";
+import RendererWithAPIOptions from "../../../renderer-with-api-options";
 
 const MODAL_HEIGHT = 568;
 
@@ -24,7 +24,8 @@ export default function ExploreImageModalContent({
     range,
     zoomSize,
 }: ImageDescriptionAndCaptionProps) {
-    const context = React.useContext(PerseusI18nContext);
+    const i18n = usePerseusI18n();
+    const assetContext = React.useContext(AssetContext);
 
     const [zoomWidth, zoomHeight] = zoomSize;
 
@@ -49,26 +50,22 @@ export default function ExploreImageModalContent({
         <div className={styles.modalPanelContainer}>
             <div className={styles.modalImageContainer}>
                 {/* Need to use SvgImage in order to load Graphie images */}
-                <AssetContext.Consumer>
-                    {({setAssetStatus}) => (
-                        <SvgImage
-                            src={backgroundImage.url!}
-                            alt={caption === alt ? "" : alt}
-                            width={width}
-                            height={modalImageHeight}
-                            preloader={apiOptions.imagePreloader}
-                            extraGraphie={{
-                                box: box,
-                                range: range,
-                                labels: labels ?? [],
-                            }}
-                            zoomToFullSizeOnMobile={apiOptions.isMobile}
-                            constrainHeight={apiOptions.isMobile}
-                            allowFullBleed={apiOptions.isMobile}
-                            setAssetStatus={setAssetStatus}
-                        />
-                    )}
-                </AssetContext.Consumer>
+                <SvgImage
+                    src={backgroundImage.url!}
+                    alt={caption === alt ? "" : alt}
+                    width={width}
+                    height={modalImageHeight}
+                    preloader={apiOptions.imagePreloader}
+                    extraGraphie={{
+                        box: box,
+                        range: range,
+                        labels: labels ?? [],
+                    }}
+                    zoomToFullSizeOnMobile={apiOptions.isMobile}
+                    constrainHeight={apiOptions.isMobile}
+                    allowFullBleed={apiOptions.isMobile}
+                    setAssetStatus={assetContext.setAssetStatus}
+                />
             </div>
             <div
                 className={`perseus-image-modal-description ${styles.modalDescriptionContainer}`}
@@ -76,23 +73,21 @@ export default function ExploreImageModalContent({
                 {caption && (
                     <div className={styles.modalCaptionContainer}>
                         {/* Use Renderer so that the caption can support markdown and TeX. */}
-                        <Renderer
+                        <RendererWithAPIOptions
                             content={caption}
-                            apiOptions={apiOptions}
                             linterContext={linterContext}
-                            strings={context.strings}
+                            strings={i18n.strings}
                         />
                     </div>
                 )}
                 <HeadingMedium tag="h2" style={wbStyles.descriptionHeading}>
-                    {context.strings.imageDescriptionLabel}
+                    {i18n.strings.imageDescriptionLabel}
                 </HeadingMedium>
                 {/* Use Renderer so that the description can support markdown and TeX. */}
-                <Renderer
+                <RendererWithAPIOptions
                     content={longDescription}
-                    apiOptions={apiOptions}
                     linterContext={linterContext}
-                    strings={context.strings}
+                    strings={i18n.strings}
                 />
             </div>
         </div>

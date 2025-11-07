@@ -31,12 +31,21 @@ type RendererWithAPIOptionsProps = Omit<
  * Renderer that takes in `apiOptions` from the context, rather than
  * requiring it to be passed in as a prop.
  */
-export default function RendererWithAPIOptions(
-    props: RendererWithAPIOptionsProps,
-) {
+const RendererWithAPIOptions = React.forwardRef<
+    Renderer,
+    RendererWithAPIOptionsProps
+>((props, ref) => {
     return (
         <APIOptionsContext.Consumer>
-            {(apiOptions) => <Renderer {...props} apiOptions={apiOptions} />}
+            {(apiOptions) => (
+                <Renderer ref={ref} {...props} apiOptions={apiOptions} />
+            )}
         </APIOptionsContext.Consumer>
     );
-}
+});
+
+// Add a display name so that it doesn't show up as "ForwardRef"
+// in React Dev Tools
+RendererWithAPIOptions.displayName = "RendererWithAPIOptions";
+
+export default RendererWithAPIOptions;

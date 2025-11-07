@@ -62,14 +62,10 @@ function EditorPageWithStorybookPreview(props: Props) {
         props.hints,
     );
 
-    const apiOptions = props.apiOptions ?? {
-        isMobile: false,
-    };
-
     return (
         <View>
             <EditorPage
-                apiOptions={apiOptions}
+                apiOptions={props.apiOptions}
                 previewDevice={previewDevice}
                 onPreviewDeviceChange={(newDevice) =>
                     setPreviewDevice(newDevice)
@@ -108,7 +104,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                 <ContentPreview
                     question={question}
                     previewDevice={previewDevice}
-                    apiOptions={apiOptions}
+                    apiOptions={props.apiOptions}
                     linterContext={{
                         contentType: "exercise",
                         highlightLint: true,
@@ -124,7 +120,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                         <LabelLarge>{`Hint ${index + 1}`}</LabelLarge>
                         <Renderer
                             strings={mockStrings}
-                            apiOptions={apiOptions}
+                            apiOptions={props.apiOptions}
                             {...hint}
                         />
                     </View>
