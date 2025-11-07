@@ -1,4 +1,4 @@
-import {components} from "@khanacademy/perseus";
+import {components, useAPIOptionsContext} from "@khanacademy/perseus";
 import {isFeatureOn} from "@khanacademy/perseus-core";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import * as React from "react";
@@ -23,13 +23,13 @@ const altTextTooShortError =
 export default function ImageSettings({
     alt,
     backgroundImage,
-    apiOptions,
     caption,
     decorative,
     longDescription,
     title,
     onChange,
 }: Props) {
+    const apiOptions = useAPIOptionsContext();
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
     const [altFieldError, setAltFieldError] = React.useState<string | null>(
         null,

@@ -1,38 +1,29 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
+import {components, Changeable, iconTrash} from "@khanacademy/perseus";
 import {
-    components,
-    ApiOptions,
-    Changeable,
-    iconTrash,
-} from "@khanacademy/perseus";
-import {gradedGroupLogic} from "@khanacademy/perseus-core";
+    gradedGroupLogic,
+    type GradedGroupDefaultWidgetOptions,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import Editor from "../editor";
 import {iconPlus} from "../styles/icon-paths";
 
-import type {
-    GradedGroupDefaultWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
-
 const {InlineIcon, TextInput} = components;
 
-type Props = any;
+type Props = {
+    title: string;
+    content: string;
+    widgets: any;
+    images: any;
+    hint: PerseusRenderer | null | undefined;
+    onChange: (options: any, callback?: () => void) => void;
+};
 
 class GradedGroupEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        title: PropTypes.string,
-        content: PropTypes.string,
-        widgets: PropTypes.object,
-        images: PropTypes.object,
-        apiOptions: ApiOptions.propTypes,
-    };
-
     static widgetName = "graded-group" as const;
 
     static defaultProps: GradedGroupDefaultWidgetOptions =
@@ -111,13 +102,9 @@ class GradedGroupEditor extends React.Component<Props> {
                         <div className={css(styles.hintsTitle)}>Hint</div>
                         <Editor
                             ref={this.hintEditor}
-                            content={
-                                this.props.hint ? this.props.hint.content : ""
-                            }
-                            widgets={
-                                this.props.hint ? this.props.hint.widgets : {}
-                            }
-                            images={this.props.hint && this.props.hint.images}
+                            content={this.props.hint}
+                            widgets={this.props.hint.widgets}
+                            images={this.props.hint.images}
                             widgetEnabled={true}
                             immutableWidgets={false}
                             onChange={(props) => {

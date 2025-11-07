@@ -1,25 +1,21 @@
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
-import {ApiOptions, Changeable} from "@khanacademy/perseus";
-import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
+import {Changeable} from "@khanacademy/perseus";
+import {
+    gradedGroupSetLogic,
+    type GradedGroupSetDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import GradedGroupEditor from "./graded-group-editor";
 
-import type {GradedGroupSetDefaultWidgetOptions} from "@khanacademy/perseus-core";
-
-type Props = any;
+type Props = {
+    gradedGroups: Array<any>;
+    onChange: (options: any) => void;
+};
 
 class GradedGroupSetEditor extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
     _editors: Array<any>;
-
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        gradedGroups: PropTypes.array,
-        onChange: PropTypes.func.isRequired,
-    };
 
     static widgetName = "graded-group-set" as const;
 
@@ -51,16 +47,12 @@ class GradedGroupSetEditor extends React.Component<Props> {
         };
     };
 
-    renderGroups: () => React.ReactElement = () => {
-        if (!this.props.gradedGroups) {
-            return null;
-        }
+    renderGroups: () => React.ReactElement[] = () => {
         return this.props.gradedGroups.map((group, i) => (
             <GradedGroupEditor
                 key={i}
                 ref={(el) => (this._editors[i] = el)}
                 {...group}
-                apiOptions={this.props.apiOptions}
                 widgetEnabled={true}
                 immutableWidgets={false}
                 onChange={(data) =>
@@ -78,7 +70,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     addGroup: () => void = () => {
-        const groups = this.props.gradedGroups || [];
+        const groups = this.props.gradedGroups ?? [];
         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change(
             "gradedGroups",

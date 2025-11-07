@@ -27,7 +27,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         onChange: action("onChange"),
-        apiOptions: Object.freeze({}),
         static: false,
     },
 };

@@ -1,4 +1,3 @@
-import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import {action} from "storybook/actions";
 
@@ -23,7 +22,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         onChange: action("onChange"),
-        apiOptions: ApiOptions.defaults,
     },
 };
 

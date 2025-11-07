@@ -1,4 +1,4 @@
-import {EditorJsonify, Util} from "@khanacademy/perseus";
+import {APIOptionsContext, EditorJsonify, Util} from "@khanacademy/perseus";
 import {labelImageLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -11,14 +11,12 @@ import QuestionMarkers from "./question-markers";
 import SelectImage from "./select-image";
 
 import type {PreferredPopoverDirection} from "./behavior";
-import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusLabelImageWidgetOptions,
     LabelImageDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 type Props = {
-    apiOptions: APIOptions;
     // List of answer choices to label question image with.
     choices: string[];
     // The question image properties.
@@ -183,69 +181,86 @@ class LabelImageEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const {
-            choices,
-            imageAlt,
-            imageUrl,
-            imageWidth,
-            imageHeight,
-            markers,
-            multipleAnswers,
-            hideChoicesFromInstructions,
-            preferredPopoverDirection,
-        } = this.props;
-
-        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
-
-        const imageSelected = imageUrl && imageWidth > 0 && imageHeight > 0;
-
         return (
-            <div>
-                <SelectImage onChange={this.handleImageChange} url={imageUrl} />
+            <APIOptionsContext.Consumer>
+                {(apiOptions) => {
+                    const {
+                        choices,
+                        imageAlt,
+                        imageUrl,
+                        imageWidth,
+                        imageHeight,
+                        markers,
+                        multipleAnswers,
+                        hideChoicesFromInstructions,
+                        preferredPopoverDirection,
+                    } = this.props;
 
-                <div className={css(styles.smallSpacer)} />
+                    const editingDisabled =
+                        apiOptions?.editingDisabled ?? false;
 
-                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-                {imageSelected && (
-                    <FormWrappedTextField
-                        placeholder="Alt text (for screen readers)"
-                        onChange={(e) => this.handleAltChange(e.target.value)}
-                        value={imageAlt}
-                        width="100%"
-                    />
-                )}
+                    const imageSelected =
+                        imageUrl && imageWidth > 0 && imageHeight > 0;
 
-                <div className={css(styles.largeSpacer)} />
+                    return (
+                        <div>
+                            <SelectImage
+                                onChange={this.handleImageChange}
+                                url={imageUrl}
+                            />
 
-                <QuestionMarkers
-                    editingDisabled={editingDisabled}
-                    choices={choices}
-                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                    imageUrl={imageSelected ? imageUrl : ""}
-                    imageWidth={imageWidth}
-                    imageHeight={imageHeight}
-                    markers={markers}
-                    onChange={this.handleMarkersChange}
-                    ref={(node) => (this._questionMarkers = node)}
-                />
+                            <div className={css(styles.smallSpacer)} />
 
-                <div className={css(styles.largeSpacer)} />
+                            {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
+                            {imageSelected && (
+                                <FormWrappedTextField
+                                    placeholder="Alt text (for screen readers)"
+                                    onChange={(e) =>
+                                        this.handleAltChange(e.target.value)
+                                    }
+                                    value={imageAlt}
+                                    width="100%"
+                                />
+                            )}
 
-                <AnswerChoices
-                    choices={choices}
-                    editingDisabled={editingDisabled}
-                    onChange={this.handleChoicesChange}
-                />
+                            <div className={css(styles.largeSpacer)} />
 
-                <div className={css(styles.largeSpacer)} />
+                            <QuestionMarkers
+                                editingDisabled={editingDisabled}
+                                choices={choices}
+                                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                                imageUrl={imageSelected ? imageUrl : ""}
+                                imageWidth={imageWidth}
+                                imageHeight={imageHeight}
+                                markers={markers}
+                                onChange={this.handleMarkersChange}
+                                ref={(node) => (this._questionMarkers = node)}
+                            />
 
-                <Behavior
-                    preferredPopoverDirection={preferredPopoverDirection}
-                    multipleAnswers={multipleAnswers}
-                    hideChoicesFromInstructions={hideChoicesFromInstructions}
-                    onChange={this.handleBehaviorChange}
-                />
-            </div>
+                            <div className={css(styles.largeSpacer)} />
+
+                            <AnswerChoices
+                                choices={choices}
+                                editingDisabled={editingDisabled}
+                                onChange={this.handleChoicesChange}
+                            />
+
+                            <div className={css(styles.largeSpacer)} />
+
+                            <Behavior
+                                preferredPopoverDirection={
+                                    preferredPopoverDirection
+                                }
+                                multipleAnswers={multipleAnswers}
+                                hideChoicesFromInstructions={
+                                    hideChoicesFromInstructions
+                                }
+                                onChange={this.handleBehaviorChange}
+                            />
+                        </div>
+                    );
+                }}
+            </APIOptionsContext.Consumer>
         );
     }
 }

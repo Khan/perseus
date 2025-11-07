@@ -7,9 +7,9 @@ import {getFeatureFlags} from "../../../../testing/feature-flags-util";
 import IssuesPanel from "../components/issues-panel";
 
 import type {IssueImpact} from "../components/issues-panel";
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
-const imageUpdateFFOptions: APIOptions = {
+const imageUpdateFFOptions: APIOptionsWithDefaults = {
     ...ApiOptions.defaults,
     flags: getFeatureFlags({
         "image-widget-upgrade": true,

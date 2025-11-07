@@ -9,7 +9,6 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
-import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusPlotterWidgetOptions,
     PlotterDefaultWidgetOptions,
@@ -42,7 +41,6 @@ const editorDefaults = {
 } as const;
 
 type Props = {
-    apiOptions: APIOptions;
     type: PerseusPlotterWidgetOptions["type"];
     labels: Array<string>;
     categories: ReadonlyArray<string | number>;

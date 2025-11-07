@@ -1,4 +1,8 @@
-import {Dependencies, ApiOptions} from "@khanacademy/perseus";
+import {
+    Dependencies,
+    ApiOptions,
+    APIOptionsContext,
+} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -10,7 +14,6 @@ import type {PreferredPopoverDirection} from "../label-image-editor/behavior";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
-    apiOptions: ApiOptions.defaults,
     choices: ["Choice 1", "Choice 2", "Choice 3"],
     imageAlt: "Test image alt text",
     imageUrl: "https://example.com/test-image.png",
@@ -155,11 +158,11 @@ describe("label-image-editor", () => {
         const onChangeMock = jest.fn();
 
         render(
-            <LabelImageEditor
-                {...defaultProps}
-                onChange={onChangeMock}
-                apiOptions={{editingDisabled: true}}
-            />,
+            <APIOptionsContext.Provider
+                value={{...ApiOptions.defaults, editingDisabled: true}}
+            >
+                <LabelImageEditor {...defaultProps} onChange={onChangeMock} />
+            </APIOptionsContext.Provider>,
         );
 
         // Act

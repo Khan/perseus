@@ -1,4 +1,3 @@
-import {ApiOptions} from "@khanacademy/perseus";
 import {action} from "storybook/actions";
 
 import PlotterEditor from "../plotter-editor";
@@ -16,7 +15,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         onChange: action("onChange"),
-        apiOptions: ApiOptions.defaults,
         categories: ["0", "1", "2"],
         plotDimensions: [300, 300],
         correct: [0, 1, 2],

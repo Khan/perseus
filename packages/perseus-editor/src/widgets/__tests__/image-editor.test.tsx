@@ -1,4 +1,9 @@
-import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
+import {
+    ApiOptions,
+    APIOptionsContext,
+    Dependencies,
+    Util,
+} from "@khanacademy/perseus";
 import {act, render, screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -32,7 +37,9 @@ const apiOptions = {
 const ImageEditorWithDependencies = (props: PropsFor<typeof ImageEditor>) => {
     return (
         <DependenciesContext.Provider value={testDependenciesV2}>
-            <ImageEditor {...props} />
+            <APIOptionsContext.Provider value={apiOptions}>
+                <ImageEditor {...props} />
+            </APIOptionsContext.Provider>
         </DependenciesContext.Provider>
     );
 };
@@ -73,7 +80,6 @@ describe("image editor", () => {
             // Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
                     onChange={() => {}}
                     backgroundImage={backgroundImage}
                 />,
@@ -103,7 +109,6 @@ describe("image editor", () => {
         // Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 alt="Earth and moon alt"
                 longDescription="Earth and moon long description"
@@ -154,7 +159,6 @@ describe("image editor", () => {
         // Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={() => {}}
             />,
@@ -200,7 +204,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={{}}
                 onChange={onChangeMock}
             />,
@@ -223,7 +226,6 @@ describe("image editor", () => {
         render(
             <DependenciesContext.Provider value={testDependenciesV2}>
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     alt="Earth and moon alt"
                     onChange={() => {}}
@@ -246,7 +248,6 @@ describe("image editor", () => {
         render(
             <DependenciesContext.Provider value={testDependenciesV2}>
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={() => {}}
                 />
@@ -267,7 +268,6 @@ describe("image editor", () => {
         // Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={() => {}}
             />,
@@ -287,7 +287,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={{}}
                 onChange={onChangeMock}
             />,
@@ -313,12 +312,7 @@ describe("image editor", () => {
     it("should call onChange with empty image url", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(
-            <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                onChange={onChangeMock}
-            />,
-        );
+        render(<ImageEditorWithDependencies onChange={onChangeMock} />);
 
         // Act
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
@@ -342,7 +336,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={{url: "abc"}}
             />,
@@ -371,7 +364,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={{
                     url: earthMoonImage.url,
                     // Using easier to verify side lengths.
@@ -403,7 +395,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={{
                     url: earthMoonImage.url,
                     // Using easier to verify side lengths.
@@ -435,7 +426,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={{
                     url: earthMoonImage.url,
                     width: earthMoonImage.width / 2,
@@ -462,7 +452,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
             />,
@@ -483,7 +472,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
             />,
@@ -505,7 +493,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 alt="Earth and moon"
                 onChange={onChangeMock}
@@ -527,7 +514,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
             />,
@@ -551,7 +537,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 longDescription="Earth and moon long description"
                 onChange={onChangeMock}
@@ -574,13 +559,16 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditorWithDependencies
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                    flags: getFeatureFlags({"image-widget-upgrade": false}),
-                }}
-                onChange={onChangeMock}
-            />,
+            <DependenciesContext.Provider value={testDependenciesV2}>
+                <APIOptionsContext.Provider
+                    value={{
+                        ...ApiOptions.defaults,
+                        flags: getFeatureFlags({"image-widget-upgrade": false}),
+                    }}
+                >
+                    <ImageEditor onChange={onChangeMock} />
+                </APIOptionsContext.Provider>
+            </DependenciesContext.Provider>,
         );
 
         // Assert
@@ -592,7 +580,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
             />,
@@ -614,7 +601,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 caption="Earth and moon"
                 onChange={onChangeMock}
@@ -635,7 +621,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
             />,
@@ -657,7 +642,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 title="Earth and moon"
                 onChange={onChangeMock}
@@ -679,7 +663,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={earthMoonImage}
             />,
@@ -702,7 +685,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={earthMoonImage}
             />,
@@ -722,7 +704,6 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={earthMoonImage}
                 alt="aaa" // Start with short alt text that will trigger error on blur
@@ -750,7 +731,6 @@ describe("image editor", () => {
             // Arrange & Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={() => {}}
                 />,
@@ -766,14 +746,21 @@ describe("image editor", () => {
         it("should not render feature flag is disabled", () => {
             // Arrange & Act
             render(
-                <ImageEditorWithDependencies
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: getFeatureFlags({"image-widget-upgrade": false}),
-                    }}
-                    backgroundImage={earthMoonImage}
-                    onChange={() => {}}
-                />,
+                <DependenciesContext.Provider value={testDependenciesV2}>
+                    <APIOptionsContext.Provider
+                        value={{
+                            ...ApiOptions.defaults,
+                            flags: getFeatureFlags({
+                                "image-widget-upgrade": false,
+                            }),
+                        }}
+                    >
+                        <ImageEditor
+                            backgroundImage={earthMoonImage}
+                            onChange={() => {}}
+                        />
+                    </APIOptionsContext.Provider>
+                </DependenciesContext.Provider>,
             );
 
             // Assert
@@ -789,7 +776,6 @@ describe("image editor", () => {
             // Arrange & Act
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     decorative={true}
                     onChange={() => {}}
@@ -809,7 +795,6 @@ describe("image editor", () => {
             const onChangeMock = jest.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={onChangeMock}
                 />,
