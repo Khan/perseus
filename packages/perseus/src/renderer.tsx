@@ -1681,7 +1681,7 @@ class Renderer
 
         return (
             <DefinitionProvider>
-                <APIOptionsContext.Provider value={{apiOptions: apiOptions}}>
+                <APIOptionsContext.Provider value={apiOptions}>
                     <div className={className}>{markdownContents}</div>
                 </APIOptionsContext.Provider>
             </DefinitionProvider>
