@@ -16,7 +16,6 @@ const defaultLine = getDefaultFigureForType("line");
 const defaultPolygon = getDefaultFigureForType("polygon");
 
 const baseProps = {
-    apiOptions: ApiOptions.defaults,
     box: [288, 288] as [number, number],
     gridStep: [1, 1] as [number, number],
     snapStep: [1, 1] as [number, number],

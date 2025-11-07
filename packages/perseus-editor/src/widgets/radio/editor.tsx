@@ -14,16 +14,25 @@ import {RadioOptionSettings} from "./radio-option-settings";
 import {getMovedChoices} from "./utils";
 
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
-import type {Changeable, APIOptions} from "@khanacademy/perseus";
+import {
+    type Changeable,
+    type APIOptions,
+    withAPIOptions,
+} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-// Exported for testing
-export interface RadioEditorProps extends Changeable.ChangeableProps {
+type WithAPIOptionsProps = {
     apiOptions: APIOptions;
+};
+
+// Exported for testing
+export interface RadioEditorProps
+    extends WithAPIOptionsProps,
+        Changeable.ChangeableProps {
     countChoices: boolean;
     choices: PerseusRadioChoice[];
     randomize: boolean;
@@ -37,7 +46,7 @@ export interface RadioEditorProps extends Changeable.ChangeableProps {
 /**
  * An editor for adding a radio widget that allows users to select a single option from multiple choices.
  */
-class RadioEditor extends React.Component<RadioEditorProps> {
+class RadioEditorClass extends React.Component<RadioEditorProps> {
     static widgetName = "radio" as const;
 
     static defaultProps: RadioDefaultWidgetOptions =
@@ -373,4 +382,5 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     }
 }
 
+const RadioEditor = withAPIOptions(RadioEditorClass);
 export default RadioEditor;

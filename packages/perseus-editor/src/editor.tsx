@@ -163,7 +163,7 @@ type State = {
 };
 
 // eslint-disable-next-line react/no-unsafe
-class EditorInner extends React.Component<Props, State> {
+class EditorClass extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
     deferredChange: any | null | undefined;
     widgetIds: any | null | undefined;
@@ -1137,5 +1137,5 @@ class EditorInner extends React.Component<Props, State> {
     }
 }
 
-const Editor = withAPIOptions<EditorInner>(EditorInner);
+const Editor = withAPIOptions<EditorClass>(EditorClass);
 export default Editor;

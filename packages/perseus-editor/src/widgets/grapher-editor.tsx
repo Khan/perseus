@@ -6,6 +6,8 @@ import {
     GrapherWidget,
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
+    withAPIOptions,
+    APIOptionsWithDefaults,
 } from "@khanacademy/perseus";
 import {
     GrapherUtil as CoreGrapherUtil,
@@ -27,13 +29,18 @@ const Grapher = GrapherWidget.widget;
 const {chooseType, defaultPlotProps, getEquationString, typeToButton} =
     GrapherUtil;
 
-type Props = any;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptionsWithDefaults;
+};
 
-class GrapherEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-    };
+type Props = WithAPIOptionsProps & {
+    availableTypes: Array<any>;
+    correct: any;
+    graph: any;
+    onChange: (options: any, callback?: () => void) => void;
+};
 
+class GrapherEditorClass extends React.Component<Props> {
     static widgetName = "grapher" as const;
 
     static defaultProps: GrapherDefaultWidgetOptions =
@@ -155,4 +162,5 @@ class GrapherEditor extends React.Component<Props> {
     }
 }
 
+const GrapherEditor = withAPIOptions(GrapherEditorClass);
 export default GrapherEditor;

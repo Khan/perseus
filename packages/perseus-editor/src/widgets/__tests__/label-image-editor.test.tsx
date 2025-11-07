@@ -10,7 +10,6 @@ import type {PreferredPopoverDirection} from "../label-image-editor/behavior";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
-    apiOptions: ApiOptions.defaults,
     choices: ["Choice 1", "Choice 2", "Choice 3"],
     imageAlt: "Test image alt text",
     imageUrl: "https://example.com/test-image.png",

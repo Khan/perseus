@@ -1,5 +1,10 @@
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
-import {ApiOptions, Changeable} from "@khanacademy/perseus";
+import {
+    APIOptions,
+    ApiOptions,
+    Changeable,
+    withAPIOptions,
+} from "@khanacademy/perseus";
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -8,18 +13,18 @@ import GradedGroupEditor from "./graded-group-editor";
 
 import type {GradedGroupSetDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = any;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptions;
+};
 
-class GradedGroupSetEditor extends React.Component<Props> {
+type Props = WithAPIOptionsProps & {
+    gradedGroups: Array<any>;
+    onChange: (options: any) => void;
+};
+
+class GradedGroupSetEditorClass extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
     _editors: Array<any>;
-
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        gradedGroups: PropTypes.array,
-        onChange: PropTypes.func.isRequired,
-    };
 
     static widgetName = "graded-group-set" as const;
 
@@ -51,7 +56,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
         };
     };
 
-    renderGroups: () => React.ReactElement = () => {
+    renderGroups: () => React.JSX.Element[] | null = () => {
         if (!this.props.gradedGroups) {
             return null;
         }
@@ -102,4 +107,5 @@ const setArrayItem = (list, i: any, value) => [
     ...list.slice(i + 1),
 ];
 
+const GradedGroupSetEditor = withAPIOptions(GradedGroupSetEditorClass);
 export default GradedGroupSetEditor;

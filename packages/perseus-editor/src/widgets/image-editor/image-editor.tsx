@@ -9,10 +9,7 @@ import * as React from "react";
 import ImageSettings from "./components/image-settings";
 import ImageUrlInput from "./components/image-url-input";
 
-import type {APIOptions} from "@khanacademy/perseus";
-
 export interface Props extends PerseusImageWidgetOptions {
-    apiOptions: APIOptions;
     onChange: (newValues: Partial<PerseusImageWidgetOptions>) => void;
 }
 

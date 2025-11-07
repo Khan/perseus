@@ -4,6 +4,8 @@ import {
     Categorizer as CategorizerWidget,
     Changeable,
     EditorJsonify,
+    withAPIOptions,
+    APIOptionsWithDefaults,
 } from "@khanacademy/perseus";
 import {categorizerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -17,13 +19,24 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 const {TextListEditor} = components;
 const Categorizer = CategorizerWidget.widget;
 
-type Props = any;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptionsWithDefaults;
+};
+
+type Props = WithAPIOptionsProps &
+    Readonly<{
+        items: string[];
+        categories: string[];
+        values: number[];
+        randomizeItems: boolean;
+        onChange: (options: any) => void;
+    }>;
 
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a categorizer widget that allows users to sort items into categories.
  */
-class CategorizerEditor extends React.Component<Props> {
+class CategorizerEditorClass extends React.Component<Props> {
     static propTypes = {
         ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
@@ -109,4 +122,5 @@ class CategorizerEditor extends React.Component<Props> {
     }
 }
 
+const CategorizerEditor = withAPIOptions(CategorizerEditorClass);
 export default CategorizerEditor;

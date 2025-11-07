@@ -5,6 +5,7 @@ import {
     InteractiveGraphWidget,
     interactiveSizes,
     Util,
+    withAPIOptions,
 } from "@khanacademy/perseus";
 import {
     type LockedFigure,
@@ -46,9 +47,11 @@ type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
 
 type Range = [min: number, max: number];
 
-export type Props = {
+type WithAPIOptionsProps = {
     apiOptions: APIOptionsWithDefaults;
+};
 
+export type Props = WithAPIOptionsProps & {
     /**
      * The labels for the x and y axes.
      */
@@ -154,7 +157,7 @@ export type Props = {
  *
  * Used in the exercise editor.
  */
-class InteractiveGraphEditor extends React.Component<Props> {
+class InteractiveGraphEditorClass extends React.Component<Props> {
     static widgetName = "interactive-graph";
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
@@ -521,4 +524,5 @@ function mergeGraphs(
     }
 }
 
+const InteractiveGraphEditor = withAPIOptions(InteractiveGraphEditorClass);
 export default InteractiveGraphEditor;

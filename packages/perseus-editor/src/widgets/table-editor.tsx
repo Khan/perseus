@@ -1,4 +1,10 @@
-import {components, TableWidget, Util} from "@khanacademy/perseus";
+import {
+    APIOptionsWithDefaults,
+    components,
+    TableWidget,
+    Util,
+    withAPIOptions,
+} from "@khanacademy/perseus";
 import {
     tableLogic,
     type TableDefaultWidgetOptions,
@@ -14,16 +20,19 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 const {InfoTip, NumberInput} = components;
 const Table = TableWidget.widget;
 
-type Props = any;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptionsWithDefaults;
+};
 
-class TableEditor extends React.Component<Props> {
-    static propTypes = {
-        rows: PropTypes.number,
-        columns: PropTypes.number,
-        headers: PropTypes.arrayOf(PropTypes.string),
-        answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-    };
+type Props = WithAPIOptionsProps & {
+    rows: number;
+    columns: number;
+    headers: string[];
+    answers: string[][];
+    onChange: (options: any) => void;
+};
 
+class TableEditorClass extends React.Component<Props> {
     static widgetName = "table" as const;
 
     static defaultProps: TableDefaultWidgetOptions =
@@ -163,4 +172,5 @@ class TableEditor extends React.Component<Props> {
     }
 }
 
-export default TableEditor;
+const TableEditor = withAPIOptions(TableEditorClass);
+export default TableEditorClass;

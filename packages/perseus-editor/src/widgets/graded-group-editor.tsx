@@ -5,6 +5,9 @@ import {
     ApiOptions,
     Changeable,
     iconTrash,
+    withAPIOptions,
+    APIOptions,
+    ChangeHandler,
 } from "@khanacademy/perseus";
 import {gradedGroupLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
@@ -21,18 +24,20 @@ import type {
 
 const {InlineIcon, TextInput} = components;
 
-type Props = any;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptions;
+};
 
-class GradedGroupEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        title: PropTypes.string,
-        content: PropTypes.string,
-        widgets: PropTypes.object,
-        images: PropTypes.object,
-        apiOptions: ApiOptions.propTypes,
-    };
+type Props = WithAPIOptionsProps & {
+    title: string;
+    content: string;
+    widgets: any;
+    images: any;
+    hint: PerseusRenderer | null | undefined;
+    onChange: (options: any, callback?: () => void) => void;
+};
 
+class GradedGroupEditorClass extends React.Component<Props> {
     static widgetName = "graded-group" as const;
 
     static defaultProps: GradedGroupDefaultWidgetOptions =
@@ -161,4 +166,5 @@ const styles = StyleSheet.create({
     },
 });
 
+const GradedGroupEditor = withAPIOptions(GradedGroupEditorClass);
 export default GradedGroupEditor;

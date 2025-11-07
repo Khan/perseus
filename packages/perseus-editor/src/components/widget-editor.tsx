@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {Widgets, excludeDenylistKeys} from "@khanacademy/perseus";
+import {Widgets, excludeDenylistKeys, withAPIOptions} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
@@ -20,7 +20,11 @@ import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
-type WidgetEditorProps = {
+type WithAPIOptionsProps = {
+    apiOptions: APIOptions;
+};
+
+type WidgetEditorProps = WithAPIOptionsProps & {
     // Unserialized props
     id: string;
     onChange: (
@@ -29,7 +33,6 @@ type WidgetEditorProps = {
         silent?: boolean,
     ) => unknown;
     onRemove: () => unknown;
-    apiOptions: APIOptions;
     widgetIsOpen?: boolean;
 } & Omit<PerseusWidget, "key">;
 
@@ -50,7 +53,7 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
 // eslint-disable-next-line react/no-unsafe
-class WidgetEditor extends React.Component<
+class WidgetEditorClass extends React.Component<
     WidgetEditorProps,
     WidgetEditorState
 > {
@@ -256,4 +259,5 @@ function LabeledSwitch(props: {
     );
 }
 
+const WidgetEditor = withAPIOptions(WidgetEditorClass);
 export default WidgetEditor;

@@ -1,6 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {
+    components,
+    Changeable,
+    EditorJsonify,
+    withAPIOptions,
+    APIOptions,
+} from "@khanacademy/perseus";
 import {explanationLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -12,29 +18,27 @@ import type {ExplanationDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-type Props = any;
-type State = any;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptions;
+};
+
+type Props = WithAPIOptionsProps & {
+    showPrompt: string;
+    hidePrompt: string;
+    explanation: string;
+    widgets: any;
+    onChange: (options: any) => void;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding an explanation widget that provides supplementary information to users.
  */
-class ExplanationEditor extends React.Component<Props, State> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        showPrompt: PropTypes.string,
-        hidePrompt: PropTypes.string,
-        explanation: PropTypes.string,
-        widgets: PropTypes.object,
-        apiOptions: PropTypes.any,
-    };
-
+class ExplanationEditorClass extends React.Component<Props> {
     static widgetName = "explanation" as const;
 
     static defaultProps: ExplanationDefaultWidgetOptions =
         explanationLogic.defaultWidgetOptions;
-
-    state: State = {};
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
@@ -91,4 +95,5 @@ class ExplanationEditor extends React.Component<Props, State> {
     }
 }
 
+const ExplanationEditor = withAPIOptions(ExplanationEditorClass);
 export default ExplanationEditor;

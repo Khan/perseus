@@ -1,7 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {
+    components,
+    Changeable,
+    EditorJsonify,
+    withAPIOptions,
+    APIOptions,
+} from "@khanacademy/perseus";
 import {definitionLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -11,21 +16,22 @@ import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-type Props = any;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptions;
+};
+
+type Props = WithAPIOptionsProps & {
+    togglePrompt: string;
+    definition: string;
+    onChange: (options: any) => void;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding an interactive definition widget that allows content
  * editors to embed clickable terms with expandable explanations within content.
  */
-class DefinitionEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        togglePrompt: PropTypes.string,
-        definition: PropTypes.string,
-        apiOptions: PropTypes.any,
-    };
-
+class DefinitionEditorClass extends React.Component<Props> {
     static widgetName = "definition" as const;
 
     static defaultProps: DefinitionDefaultWidgetOptions =
@@ -80,4 +86,5 @@ class DefinitionEditor extends React.Component<Props> {
     }
 }
 
+const DefinitionEditor = withAPIOptions(DefinitionEditorClass);
 export default DefinitionEditor;

@@ -1,4 +1,4 @@
-import {EditorJsonify, Util} from "@khanacademy/perseus";
+import {EditorJsonify, Util, withAPIOptions} from "@khanacademy/perseus";
 import {labelImageLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -17,8 +17,11 @@ import type {
     LabelImageDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = {
+type WithAPIOptionsProps = {
     apiOptions: APIOptions;
+};
+
+type Props = WithAPIOptionsProps & {
     // List of answer choices to label question image with.
     choices: string[];
     // The question image properties.
@@ -45,7 +48,7 @@ type Props = {
  * that involve the use of images, and enable learners to demonstrate their
  * knowledge by directly interacting with the image.
  */
-class LabelImageEditor extends React.Component<Props> {
+class LabelImageEditorClass extends React.Component<Props> {
     _questionMarkers: QuestionMarkers | null | undefined;
 
     static defaultProps: LabelImageDefaultWidgetOptions =
@@ -260,4 +263,6 @@ const styles = StyleSheet.create({
     },
 });
 
+
+const LabelImageEditor = withAPIOptions(LabelImageEditorClass);
 export default LabelImageEditor;

@@ -13,7 +13,6 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const baseProps = {
-    apiOptions: ApiOptions.defaults,
     box: [288, 288] as [number, number],
     gridStep: [1, 1] as [number, number],
     snapStep: [1, 1] as [number, number],
