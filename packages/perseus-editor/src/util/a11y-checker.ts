@@ -125,7 +125,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
             frameHasLoaded = frameDocument?.readyState === "complete";
         }
         if (!frameHasLoaded) {
-            setTimeout(runAxeCore, 100);
+            setTimeout(runAxeCore, 1000);
             return;
         }
     }
