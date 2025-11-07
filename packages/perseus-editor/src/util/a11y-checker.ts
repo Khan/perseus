@@ -152,7 +152,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
                 results.passes.length === 0
             ) {
                 console.log("No valid results - Retrying...");
-                setTimeout(runAxeCore, 1000); // No valid results indicates that content may not be fully loaded yet
+                setTimeout(runAxeCore, 1000, updateIssuesFn); // No valid results indicates that content may not be fully loaded yet
             } else {
                 updateIssuesFn(issues);
             }
