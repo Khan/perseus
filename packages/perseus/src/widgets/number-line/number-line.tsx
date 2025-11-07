@@ -7,12 +7,19 @@ import Graphie from "../../components/graphie";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
+import {withDependencies} from "../../components/with-dependencies";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {WidgetExports, FocusPath, Widget, WidgetProps} from "../../types";
+import type {
+    WidgetExports,
+    FocusPath,
+    Widget,
+    WidgetProps,
+    PerseusDependenciesV2,
+} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     Relationship,
@@ -196,7 +203,9 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
 type Props = WidgetProps<
     PerseusNumberLineWidgetOptions,
     PerseusNumberLineUserInput
->;
+> & {
+    dependencies: PerseusDependenciesV2;
+};
 
 type CalculatedProps = Props & {
     tickStep: number;
@@ -238,6 +247,17 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     state: any = {
         numDivisionsEmpty: false,
     };
+
+    componentDidMount() {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "number-line",
+                widgetId: "number-line",
+            },
+        });
+    }
 
     /**
      * isTickCtrl seems like it can be null
@@ -785,11 +805,13 @@ function getStartUserInput(
     };
 }
 
+const WrappedNumberLine = withDependencies(NumberLine);
+
 export default {
     name: "number-line",
     displayName: "Number line",
-    widget: NumberLine,
+    widget: WrappedNumberLine,
     getCorrectUserInput,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof NumberLine>;
+} satisfies WidgetExports<typeof WrappedNumberLine>;
