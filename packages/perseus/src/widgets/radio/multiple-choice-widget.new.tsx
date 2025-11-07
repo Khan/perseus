@@ -1,8 +1,10 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import {useDependencies} from "../../dependencies";
 import MathRenderingContext from "../../math-rendering-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
@@ -98,6 +100,18 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
         } = props;
 
         const {strings} = usePerseusI18n();
+        const {analytics} = useDependencies();
+
+        useOnMountEffect(() => {
+            analytics.onAnalyticsEvent({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: "null",
+                    widgetType: "radio",
+                    widgetId: "radio",
+                },
+            });
+        });
 
         // Perseus Widget API methods
         // TODO(LEMS-2994): When we remove the old Radio files, we may need to move some

@@ -5,7 +5,10 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {clone} from "../../../../../../testing/object-utils";
-import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
@@ -466,6 +469,27 @@ describe("Multiple Choice Widget", () => {
 
             // Assert
             expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
+        });
+
+        it("should send analytics event when widget is rendered", async () => {
+            // Arrange
+            const onAnalyticsEventSpy = jest.spyOn(
+                testDependenciesV2.analytics,
+                "onAnalyticsEvent",
+            );
+
+            // Act
+            renderQuestion(question, apiOptions);
+
+            // Assert
+            expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: "null",
+                    widgetType: "radio",
+                    widgetId: "radio",
+                },
+            });
         });
 
         it("should display all rationales when static is true", async () => {
