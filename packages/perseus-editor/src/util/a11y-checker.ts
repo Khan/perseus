@@ -125,7 +125,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
             frameHasLoaded = frameDocument?.readyState === "complete";
         }
         if (!frameHasLoaded) {
-            setTimeout(runAxeCore, 1000);
+            setTimeout(runAxeCore, 100);
             return;
         }
     }
@@ -145,7 +145,15 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
             );
             const issues = violations.concat(incompletes);
             console.log(`  Issues: `, issues);
-            updateIssuesFn(issues);
+            if (
+                violations.length === 0 &&
+                incompletes.length === 0 &&
+                results.passes.length === 0
+            ) {
+                setTimeout(runAxeCore, 1000); // No valid results indicates that content may not be fully loaded yet
+            } else {
+                updateIssuesFn(issues);
+            }
         },
         (error) => {
             // eslint-disable-next-line no-console
