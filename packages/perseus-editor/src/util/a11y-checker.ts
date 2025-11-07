@@ -125,6 +125,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
             frameHasLoaded = frameDocument?.readyState === "complete";
         }
         if (!frameHasLoaded) {
+            console.log("Frame has NOT loaded");
             setTimeout(runAxeCore, 100);
             return;
         }
@@ -150,6 +151,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
                 incompletes.length === 0 &&
                 results.passes.length === 0
             ) {
+                console.log("No valid results - Retrying...");
                 setTimeout(runAxeCore, 1000); // No valid results indicates that content may not be fully loaded yet
             } else {
                 updateIssuesFn(issues);
