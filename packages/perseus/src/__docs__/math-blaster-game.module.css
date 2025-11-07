@@ -18,7 +18,7 @@
 
 .muteButton {
     position: absolute;
-    top: 10px;
+    top: 12px;
     right: 10px;
     width: 40px;
     height: 40px;
@@ -32,24 +32,42 @@
     transform: scale(1.1);
 }
 
+.hudBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.4) 70%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    z-index: 4;
+    pointer-events: none;
+}
+
 .questionOverlay {
     position: absolute;
-    background: rgba(255, 255, 255, 0.95);
-    border: 3px solid #4a90e2;
+    background: rgba(0, 0, 0, 0.92);
+    border: 3px solid #00ffff;
     border-radius: 8px;
     padding: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 255, 0.4);
     max-width: 400px;
     z-index: 10;
-    color: #000;
+    color: #fff;
 }
 
 .questionOverlay :global(.perseus-widget-container),
 .questionOverlay :global(p),
 .questionOverlay :global(div),
 .questionOverlay :global(label),
-.questionOverlay :global(span) {
-    color: #000 !important;
+.questionOverlay :global(span),
+.questionOverlay :global(.katex),
+.questionOverlay :global(.katex *) {
+    color: #fff !important;
 }
 
 .hud {
@@ -59,14 +77,14 @@
     right: 60px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     z-index: 5;
     pointer-events: none;
 }
 
 .score {
     background: rgba(0, 0, 0, 0.85);
-    padding: 8px 16px;
+    padding: 10px 16px;
     border-radius: 4px;
     font-size: 18px;
     font-weight: bold;
@@ -75,13 +93,16 @@
     text-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff;
     border: 2px solid #00ffff;
     box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 255, 255, 0.4);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .gameTime {
     background: #1a1a1a;
-    padding: 6px 16px;
+    padding: 10px 16px;
     border-radius: 4px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     color: #ff0000;
     font-family: "Courier New", "Lucida Console", monospace;
@@ -89,11 +110,14 @@
     text-shadow: 0 0 8px #ff0000, 0 0 16px #ff0000;
     border: 2px solid #333;
     box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 8px rgba(255, 0, 0, 0.3);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .lives {
     background: rgba(0, 0, 0, 0.85);
-    padding: 8px 16px;
+    padding: 10px 16px;
     border-radius: 4px;
     display: flex;
     gap: 10px;
@@ -101,13 +125,15 @@
     font-family: "Courier New", "Lucida Console", monospace;
     color: #ff00ff;
     font-weight: bold;
+    font-size: 18px;
     text-shadow: 0 0 8px #ff00ff, 0 0 16px #ff00ff;
     border: 2px solid #ff00ff;
     box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 0, 255, 0.4);
+    min-height: 44px;
 }
 
 .alien {
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .alienLost {
@@ -206,20 +232,28 @@
     margin-top: 12px;
     padding: 8px 16px;
     font-size: 16px;
-    background: #4a90e2;
-    color: white;
-    border: none;
+    background: #00ffff;
+    color: #000;
+    border: 2px solid #00ffff;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    transition: all 0.2s ease;
 }
 
 .checkButton:hover {
-    background: #357abd;
+    background: #00cccc;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+    transform: translateY(-1px);
 }
 
 .checkButton:disabled {
-    background: #ccc;
+    background: #333;
+    color: #666;
+    border-color: #333;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
 .feedback {
@@ -232,15 +266,19 @@
 }
 
 .feedbackCorrect {
-    background: #d4edda;
-    color: #155724;
-    border: 2px solid #28a745;
+    background: rgba(0, 255, 100, 0.15);
+    color: #00ff66;
+    border: 2px solid #00ff66;
+    text-shadow: 0 0 8px rgba(0, 255, 100, 0.8);
+    box-shadow: 0 0 15px rgba(0, 255, 100, 0.4);
 }
 
 .feedbackIncorrect {
-    background: #f8d7da;
-    color: #721c24;
-    border: 2px solid #dc3545;
+    background: rgba(255, 0, 100, 0.15);
+    color: #ff0066;
+    border: 2px solid #ff0066;
+    text-shadow: 0 0 8px rgba(255, 0, 100, 0.8);
+    box-shadow: 0 0 15px rgba(255, 0, 100, 0.4);
     animation: pulse 0.5s ease-in-out;
 }
 

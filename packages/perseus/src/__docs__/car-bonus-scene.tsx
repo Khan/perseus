@@ -1,125 +1,176 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
+import bonusGameAudio from "./bonusgame.wav";
+import bonus1Img from "./bonus1.png";
+import bonus2Img from "./bonus2.png";
 import styles from "./car-bonus-scene.module.css";
-import car1Img from "./car1.png";
-import car2Img from "./car2.png";
+import explosionAudio from "./explosion.wav";
+import nextImg from "./next.png";
+import skidImg from "./skid.png";
+import tireSquealAudio from "./tires_squal_loop.wav";
 
-type CarState = "sliding" | "intact" | "flickering" | "destroyed" | "complete";
+type BonusState = "skid" | "bonusLevel" | "explosion" | "complete";
 
 type CarBonusSceneProps = {
     onComplete: () => void;
 };
 
 export const CarBonusScene = ({onComplete}: CarBonusSceneProps) => {
-    const [carState, setCarState] = useState<CarState>("sliding");
+    const [bonusState, setBonusState] = useState<BonusState>("skid");
     const [displayText, setDisplayText] = useState("");
-    const [flickerSprite, setFlickerSprite] = useState<"car1" | "car2">("car1");
+    const [flashVisible, setFlashVisible] = useState(true);
+
+    const tireSquealRef = useRef<HTMLAudioElement | null>(null);
+    const bonusGameRef = useRef<HTMLAudioElement | null>(null);
+    const explosionRef = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
-        const fullText = "BONUS LEVEL";
-        const targetLength = Math.floor(fullText.length * 0.75); // 75% of the way
-        let currentIndex = 0;
+        // Initialize audio
+        const tireSqueal = new Audio(tireSquealAudio);
+        tireSqueal.loop = false;
+        tireSqueal.volume = 0.7;
+        tireSquealRef.current = tireSqueal;
 
-        // Car slides in for 800ms, then stops
-        const slideTimer = setTimeout(() => {
-            setCarState("intact");
-        }, 800);
+        const bonusGame = new Audio(bonusGameAudio);
+        bonusGame.loop = false;
+        bonusGame.volume = 0.7;
+        bonusGameRef.current = bonusGame;
 
-        // Start typing after car stops (wait 800ms for slide + 300ms pause)
-        const typingStartDelay = 1100;
+        const explosion = new Audio(explosionAudio);
+        explosion.loop = false;
+        explosion.volume = 0.7;
+        explosionRef.current = explosion;
 
-        // Type each letter with 150ms delay
-        const typingInterval = setInterval(() => {
-            if (currentIndex < targetLength) {
-                setDisplayText(fullText.substring(0, currentIndex + 1));
-                currentIndex++;
-            } else {
-                clearInterval(typingInterval);
-            }
-        }, 150);
+        // Sequence timing
+        const timers: ReturnType<typeof setTimeout>[] = [];
 
-        // Start flickering at 75% of typing (after typing completes)
-        const flickerStartTime = typingStartDelay + targetLength * 150;
-        let flickerInterval: ReturnType<typeof setInterval>;
+        // Phase 1: Skid (show skid image, play tire squeal, show text)
+        tireSqueal.play().catch((error) => {
+            console.log("Tire squeal audio play failed:", error);
+        });
 
-        const flickerTimer = setTimeout(() => {
-            setCarState("flickering");
-            // Rapidly swap between sprites
-            flickerInterval = setInterval(() => {
-                setFlickerSprite((prev) => (prev === "car1" ? "car2" : "car1"));
-            }, 80); // Very fast flicker
-        }, flickerStartTime);
-
-        // Final explosion after 500ms of flickering
-        const explodeTimer = setTimeout(() => {
-            if (flickerInterval !== undefined) {
-                clearInterval(flickerInterval);
-            }
-            setCarState("destroyed");
-            // Update text after explosion
+        timers.push(
             setTimeout(() => {
-                setDisplayText("oh. Nevermind.");
-            }, 300);
-        }, flickerStartTime + 500);
-
-        // Complete sequence after showing "oh. Nevermind." for 2s
-        const completeTimer = setTimeout(
-            () => {
-                setCarState("complete");
-                onComplete();
-            },
-            flickerStartTime + 500 + 2300,
+                setDisplayText("Oh. I guess it stopped.");
+            }, 500),
         );
 
-        // Cleanup timers on unmount
+        // Phase 2: Bonus Level (show bonus1, flash "BONUS LEVEL" 2 times, play bonus music)
+        timers.push(
+            setTimeout(() => {
+                setBonusState("bonusLevel");
+                setDisplayText(""); // Clear previous text
+
+                // Start bonus level music
+                bonusGame.play().catch((error) => {
+                    console.log("Bonus game audio play failed:", error);
+                });
+
+                // Flash "BONUS LEVEL" 2 times (each flash is on + off = 2 cycles per flash)
+                let flashCount = 0;
+                const flashInterval = setInterval(() => {
+                    setFlashVisible((prev) => {
+                        const newValue = !prev;
+                        // Count complete flashes (when turning visible again after being hidden)
+                        if (newValue) {
+                            flashCount++;
+                            if (flashCount >= 2) {
+                                clearInterval(flashInterval);
+                            }
+                        }
+                        return newValue;
+                    });
+                }, 500); // 500ms on, 500ms off = 1 second per flash
+            }, 2500),
+        ); // Show skid for 2.5 seconds
+
+        // Phase 3: Explosion (stop music, play explosion, show bonus2, show text)
+        // Now 3s for bonus level (was 2s)
+        timers.push(
+            setTimeout(() => {
+                // Abruptly stop bonus music
+                if (bonusGameRef.current) {
+                    bonusGameRef.current.pause();
+                    bonusGameRef.current.currentTime = 0;
+                }
+
+                // Play explosion
+                explosion.play().catch((error) => {
+                    console.log("Explosion audio play failed:", error);
+                });
+
+                setBonusState("explosion");
+                setFlashVisible(false); // Stop flashing
+
+                // Show explosion text after a brief delay
+                setTimeout(() => {
+                    setDisplayText("Oh. Maybe not then.");
+                }, 300);
+            }, 2500 + 3000),
+        ); // 2.5s skid + 3s bonus level flashing
+
+        // Phase 4: Complete - now triggered by next button click instead of timer
+        // No automatic transition, user must click next button
+
+        // Cleanup
         return () => {
-            clearTimeout(slideTimer);
-            clearInterval(typingInterval);
-            clearTimeout(flickerTimer);
-            if (flickerInterval !== undefined) {
-                clearInterval(flickerInterval);
+            timers.forEach((timer) => clearTimeout(timer));
+            if (tireSquealRef.current) {
+                tireSquealRef.current.pause();
+                tireSquealRef.current.currentTime = 0;
             }
-            clearTimeout(explodeTimer);
-            clearTimeout(completeTimer);
+            if (bonusGameRef.current) {
+                bonusGameRef.current.pause();
+                bonusGameRef.current.currentTime = 0;
+            }
+            if (explosionRef.current) {
+                explosionRef.current.pause();
+                explosionRef.current.currentTime = 0;
+            }
         };
     }, [onComplete]);
 
-    const isSliding = carState === "sliding";
-    const showCar = carState !== "complete";
-
-    // Determine which sprite to show
-    let carSprite = car1Img;
-    if (carState === "destroyed") {
-        carSprite = car2Img;
-    } else if (carState === "flickering") {
-        carSprite = flickerSprite === "car1" ? car1Img : car2Img;
+    // Determine which image to show based on state
+    let backgroundImage: string | null = null;
+    if (bonusState === "skid") {
+        backgroundImage = skidImg;
+    } else if (bonusState === "bonusLevel") {
+        backgroundImage = bonus1Img;
+    } else if (bonusState === "explosion") {
+        backgroundImage = bonus2Img;
     }
+
+    const handleNextClick = () => {
+        setBonusState("complete");
+        onComplete();
+    };
 
     return (
         <div className={styles.overlay}>
-            {displayText && (
-                <div className={styles.text}>
-                    {displayText}
-                    {carState === "intact" && (
-                        <span className={styles.cursor}>_</span>
-                    )}
-                </div>
+            {backgroundImage && (
+                <img
+                    src={backgroundImage}
+                    alt="Bonus scene"
+                    className={styles.backgroundImage}
+                />
             )}
-            {showCar && (
-                <div
-                    className={`${styles.carContainer} ${isSliding ? styles.sliding : styles.stopped}`}
-                >
-                    <img
-                        src={carSprite}
-                        alt={
-                            carState === "destroyed"
-                                ? "Destroyed car"
-                                : "Intact car"
-                        }
-                        className={styles.carImage}
-                    />
-                </div>
+
+            {displayText && (
+                <div className={styles.text}>{displayText}</div>
+            )}
+
+            {bonusState === "bonusLevel" && flashVisible && (
+                <div className={styles.bonusLevelText}>BONUS LEVEL</div>
+            )}
+
+            {bonusState === "explosion" && (
+                <img
+                    src={nextImg}
+                    alt="Next"
+                    onClick={handleNextClick}
+                    className={styles.nextButton}
+                />
             )}
         </div>
     );

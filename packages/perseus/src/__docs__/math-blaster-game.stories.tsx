@@ -6,10 +6,10 @@ import {useEffect, useRef, useState} from "react";
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
 
-import alexBouncyMixAudio from "./alexbouncymix2.ogg";
-import alien1Img from "./alien1.png";
 import neonOwlAudio from "./Zodik - Neon Owl.ogg";
 import tedoxAudio from "./Zodik - Tedox.ogg";
+import alexBouncyMixAudio from "./alexbouncymix2.ogg";
+import alien1Img from "./alien1.png";
 import alien2Img from "./alien2.png";
 import alien3Img from "./alien3.png";
 import beamImg from "./beam.png";
@@ -22,12 +22,10 @@ import citySemiFarImg from "./city-semi-far.png";
 import impactImg from "./impact.png";
 import lampLightImg from "./lamplight.png";
 import loseImg from "./lose.png";
-import muteImg from "./mute.png";
-import nextImg from "./next.png";
-import unmuteImg from "./unmute.png";
 import styles from "./math-blaster-game.module.css";
 import {createObstacle} from "./math-blaster-utils";
-import titleImg from "./title.png";
+import muteImg from "./mute.png";
+import nextImg from "./next.png";
 import run1Img from "./run1.png";
 import run2Img from "./run2.png";
 import run3Img from "./run3.png";
@@ -44,6 +42,8 @@ import story5Img from "./story5.png";
 import story6Img from "./story6.png";
 import story7Img from "./story7.png";
 import streetLampImg from "./streetlamp.png";
+import titleImg from "./title.png";
+import unmuteImg from "./unmute.png";
 import victoryImg from "./victory.png";
 
 import type {Obstacle} from "./math-blaster-utils";
@@ -887,7 +887,7 @@ const MathBlasterGame = (): React.ReactElement => {
             const currentTimeInSeconds = startTimeInSeconds + elapsedSeconds;
 
             // Handle midnight rollover
-            let hours = Math.floor(currentTimeInSeconds / 3600) % 24;
+            const hours = Math.floor(currentTimeInSeconds / 3600) % 24;
             const minutes = Math.floor((currentTimeInSeconds % 3600) / 60);
             const seconds = currentTimeInSeconds % 60;
 
@@ -1064,7 +1064,7 @@ const MathBlasterGame = (): React.ReactElement => {
                         setLives(localLives);
 
                         if (localLives <= 0) {
-                            // Out of lives! Show impact and alien flies away
+                            // Out of lives! Transition to carBonus immediately
                             localCharacterState = "impact";
                             setCharacterState("impact");
                             triggerShake();
@@ -1074,14 +1074,14 @@ const MathBlasterGame = (): React.ReactElement => {
                             setIsAlienFlyingAway(true);
                             setAlienFlyAwayStartTime(now);
 
-                            // Delay game over transition to let alien fly away
+                            // Transition to carBonus almost immediately
                             setTimeout(() => {
                                 setGameState("carBonus");
                                 setCharacterState("loss");
                                 // Clear all obstacles for car bonus scene
                                 obstaclesRef.current = [];
                                 setObstacles([]);
-                            }, 2000); // 2 seconds for alien to fly away
+                            }, 100); // Transition immediately to show skid screen
                         } else {
                             // Still have lives - alien abduction to the rescue!
                             if (!isJumpingRef.current) {
@@ -1287,11 +1287,16 @@ const MathBlasterGame = (): React.ReactElement => {
                     return null;
                 })()}
 
+                {/* HUD Background */}
+                {gameState === "playing" && (
+                    <div className={styles.hudBackground} />
+                )}
+
                 {/* HUD */}
                 {gameState === "playing" && (
                     <div className={styles.hud}>
-                        <div className={styles.score}>Score: {score}</div>
                         <div className={styles.gameTime}>{gameTime}</div>
+                        <div className={styles.score}>Score: {score}</div>
                         <div className={styles.lives}>
                             <span>Alien Benevolence:</span>
                             <span
@@ -1449,36 +1454,39 @@ const MathBlasterGame = (): React.ReactElement => {
                 {gameState === "start" && (
                     <div className={styles.startScreen}>
                         {!imagesLoaded && <p>Loading sprites...</p>}
-                        {imagesLoaded && (() => {
-                            const titleImage = spriteImagesRef.current.get("title");
-                            const startButton = spriteImagesRef.current.get("start");
+                        {imagesLoaded &&
+                            (() => {
+                                const titleImage =
+                                    spriteImagesRef.current.get("title");
+                                const startButton =
+                                    spriteImagesRef.current.get("start");
 
-                            if (titleImage && startButton) {
-                                return (
-                                    <>
-                                        <img
-                                            src={titleImage.src}
-                                            alt="Grand Khan Auto"
-                                            style={{
-                                                width: "100%",
-                                                height: "100%",
-                                                objectFit: "cover",
-                                                position: "absolute",
-                                                top: 0,
-                                                left: 0,
-                                            }}
-                                        />
-                                        <img
-                                            src={startButton.src}
-                                            alt="Start Game"
-                                            onClick={startGame}
-                                            className={styles.startButton}
-                                        />
-                                    </>
-                                );
-                            }
-                            return <p>Loading...</p>;
-                        })()}
+                                if (titleImage && startButton) {
+                                    return (
+                                        <>
+                                            <img
+                                                src={titleImage.src}
+                                                alt="Grand Khan Auto"
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    objectFit: "cover",
+                                                    position: "absolute",
+                                                    top: 0,
+                                                    left: 0,
+                                                }}
+                                            />
+                                            <img
+                                                src={startButton.src}
+                                                alt="Start Game"
+                                                onClick={startGame}
+                                                className={styles.startButton}
+                                            />
+                                        </>
+                                    );
+                                }
+                                return <p>Loading...</p>;
+                            })()}
                     </div>
                 )}
 
@@ -1489,9 +1497,12 @@ const MathBlasterGame = (): React.ReactElement => {
                             const storyImg = spriteImagesRef.current.get(
                                 `story${storyPage}`,
                             );
-                            const nextButton = spriteImagesRef.current.get("next");
-                            const startButton = spriteImagesRef.current.get("start");
-                            const buttonToUse = storyPage < 7 ? nextButton : startButton;
+                            const nextButton =
+                                spriteImagesRef.current.get("next");
+                            const startButton =
+                                spriteImagesRef.current.get("start");
+                            const buttonToUse =
+                                storyPage < 7 ? nextButton : startButton;
 
                             if (storyImg && buttonToUse) {
                                 return (
@@ -1507,7 +1518,9 @@ const MathBlasterGame = (): React.ReactElement => {
                                         />
                                         <img
                                             src={buttonToUse.src}
-                                            alt={storyPage < 7 ? "Next" : "Start"}
+                                            alt={
+                                                storyPage < 7 ? "Next" : "Start"
+                                            }
                                             onClick={handleStoryNext}
                                             className={styles.storyNextButton}
                                         />
@@ -1523,8 +1536,10 @@ const MathBlasterGame = (): React.ReactElement => {
                 {gameState === "gameover" && (
                     <div className={styles.gameOver}>
                         {(() => {
-                            const loseImage = spriteImagesRef.current.get("lose");
-                            const startButton = spriteImagesRef.current.get("start");
+                            const loseImage =
+                                spriteImagesRef.current.get("lose");
+                            const startButton =
+                                spriteImagesRef.current.get("start");
                             if (loseImage && startButton) {
                                 return (
                                     <>
@@ -1560,7 +1575,8 @@ const MathBlasterGame = (): React.ReactElement => {
                         {(() => {
                             const victoryImage =
                                 spriteImagesRef.current.get("victory");
-                            const startButton = spriteImagesRef.current.get("start");
+                            const startButton =
+                                spriteImagesRef.current.get("start");
                             if (victoryImage && startButton) {
                                 return (
                                     <>

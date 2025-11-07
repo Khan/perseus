@@ -8,6 +8,16 @@
     align-items: center;
     justify-content: center;
     pointer-events: none;
+    background: #000;
+}
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .text {
@@ -71,4 +81,32 @@
     100% {
         opacity: 0;
     }
+}
+
+.bonusLevelText {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Courier New", monospace;
+    font-size: 72px;
+    font-weight: bold;
+    color: #ffff00;
+    text-shadow: 4px 4px 0px #000000, 0 0 20px #ffff00;
+    letter-spacing: 4px;
+    z-index: 20;
+}
+
+.nextButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    z-index: 30;
+}
+
+.nextButton:hover {
+    transform: scale(1.05);
 }
