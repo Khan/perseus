@@ -1,0 +1,386 @@
+.gameContainer {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    margin: 20px auto;
+    border: 2px solid #333;
+    background: #87ceeb;
+    overflow: hidden;
+}
+
+.gameCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.muteButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 100;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+}
+
+.muteButton:hover {
+    transform: scale(1.1);
+}
+
+.questionOverlay {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    border: 3px solid #4a90e2;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    z-index: 10;
+    color: #000;
+}
+
+.questionOverlay :global(.perseus-widget-container),
+.questionOverlay :global(p),
+.questionOverlay :global(div),
+.questionOverlay :global(label),
+.questionOverlay :global(span) {
+    color: #000 !important;
+}
+
+.hud {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.score {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #00ffff;
+    font-family: "Courier New", "Lucida Console", monospace;
+    text-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff;
+    border: 2px solid #00ffff;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+.gameTime {
+    background: #1a1a1a;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff0000;
+    font-family: "Courier New", "Lucida Console", monospace;
+    letter-spacing: 3px;
+    text-shadow: 0 0 8px #ff0000, 0 0 16px #ff0000;
+    border: 2px solid #333;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 8px rgba(255, 0, 0, 0.3);
+}
+
+.lives {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-family: "Courier New", "Lucida Console", monospace;
+    color: #ff00ff;
+    font-weight: bold;
+    text-shadow: 0 0 8px #ff00ff, 0 0 16px #ff00ff;
+    border: 2px solid #ff00ff;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 0, 255, 0.4);
+}
+
+.alien {
+    font-size: 24px;
+}
+
+.alienLost {
+    opacity: 0.3;
+    text-decoration: line-through;
+}
+
+.gameOver {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: white !important;
+    text-align: center;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameOverButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    z-index: 10;
+}
+
+.gameOverButton:hover {
+    transform: scale(1.05);
+}
+
+.startScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: white !important;
+    text-align: center;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.startScreen h1 {
+    font-size: 48px;
+    margin: 0 0 20px 0;
+    color: white !important;
+}
+
+.startScreen p {
+    font-size: 18px;
+    margin: 10px 0;
+    line-height: 1.5;
+    color: white !important;
+}
+
+.startScreen button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 18px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.startScreen button:hover {
+    background: #357abd;
+}
+
+.startButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    z-index: 10;
+}
+
+.startButton:hover {
+    transform: scale(1.05);
+}
+
+.checkButton {
+    margin-top: 12px;
+    padding: 8px 16px;
+    font-size: 16px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.checkButton:hover {
+    background: #357abd;
+}
+
+.checkButton:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+.feedbackCorrect {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #28a745;
+}
+
+.feedbackIncorrect {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #dc3545;
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.debugInfo {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #0f0;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+    max-width: 400px;
+    z-index: 15;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.timerContainer {
+    position: relative;
+    width: 100%;
+    height: 24px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.timerBar {
+    height: 100%;
+    transition: width 0.1s linear, background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+.timerText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+    z-index: 1;
+}
+
+.benevolenceMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 72px;
+    font-weight: bold;
+    color: #9370db;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px
+            rgba(147, 112, 219, 0.6);
+    z-index: 30;
+    animation: benevolencePulse 2s ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes benevolencePulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+.storyScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.storyNextButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    z-index: 10;
+}
+
+.storyNextButton:hover {
+    transform: scale(1.05);
+}
+
+.victoryScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.victoryButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    z-index: 10;
+}
+
+.victoryButton:hover {
+    transform: scale(1.05);
+}
+

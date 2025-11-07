@@ -1,0 +1,74 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.text {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Courier New", monospace;
+    font-size: 48px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 3px 3px 0px #000000;
+    letter-spacing: 2px;
+    z-index: 10;
+}
+
+.cursor {
+    animation: blink 0.5s infinite;
+}
+
+.carContainer {
+    position: absolute;
+    bottom: 22px; /* Ground level: 600px canvas - 578px ground = 22px (GROUND_Y 450 + CHARACTER_HEIGHT 128) */
+    left: 50%;
+}
+
+.carContainer.sliding {
+    animation: slideInObstacle 0.8s ease-out forwards;
+}
+
+.carContainer.stopped {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.carImage {
+    width: 256px;
+    height: 256px;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+@keyframes slideInObstacle {
+    from {
+        left: 100%;
+        transform: translateX(0);
+    }
+    to {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes blink {
+    0%,
+    50% {
+        opacity: 1;
+    }
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
