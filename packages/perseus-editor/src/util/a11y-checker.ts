@@ -58,27 +58,19 @@ const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
     return nodeToCheck.flatMap((node) => {
         // @ts-expect-error TS2769: No overload matches this call.
         return node.target.reduce((elements: Element[], target: string) => {
-            // eslint-disable-next-line no-console
-            console.log(`   Issue Target: `, target);
             let element: Element | null;
             if (
                 elements.length > 0 &&
                 elements[elements.length - 1].tagName.toLowerCase() === "iframe"
             ) {
-                // eslint-disable-next-line no-console
-                console.log(`   Prior target is iFrame`);
                 element =
                     // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'
                     elements[elements.length - 1].contentDocument.querySelector(
                         target,
                     );
             } else {
-                // eslint-disable-next-line no-console
-                console.log(`   Prior target is NOT iFrame`);
                 element = document.querySelector(target);
             }
-            // eslint-disable-next-line no-console
-            console.log(`   Element: `, element);
             if (element) {
                 elements.push(element);
             }
@@ -91,8 +83,6 @@ const mapResultsToIssues = (
     results: axe.Result[],
     type: IssueType,
 ): Issue[] => {
-    console.log("Issues List: ", issuesList);
-    console.log("User Fixable Issues: ", issuesList["user-fixable"]);
     return results.map((result) => {
         const isUserFixable =
             type === "Alert" &&
@@ -125,7 +115,6 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
             frameHasLoaded = frameDocument?.readyState === "complete";
         }
         if (!frameHasLoaded) {
-            console.log("Frame has NOT loaded");
             setTimeout(runAxeCore, 100, updateIssuesFn);
             return;
         }
@@ -145,13 +134,13 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
                 "Warning",
             );
             const issues = violations.concat(incompletes);
+            // eslint-disable-next-line no-console
             console.log(`  Issues: `, issues);
             if (
                 violations.length === 0 &&
                 incompletes.length === 0 &&
                 results.passes.length === 0
             ) {
-                console.log("No valid results - Retrying...");
                 setTimeout(runAxeCore, 1500, updateIssuesFn); // No valid results indicates that content may not be fully loaded yet
             } else {
                 updateIssuesFn(issues);

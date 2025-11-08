@@ -153,10 +153,6 @@ class IframeContentRenderer extends React.Component<Props> {
                 // eslint-disable-next-line no-console
                 console.warn("Unable to add axe-core to iframe document");
             }
-            // setTimeout(() => {
-            //     // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
-            //     const iFrameAxe = frame.contentWindow?.axe;
-            // }, 1000);
         };
 
         if (this.props.datasetKey) {

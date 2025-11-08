@@ -18,31 +18,19 @@ const ShowMe = ({elements}: {elements?: Element[]}) => {
     if (!elements || elements.length === 0) {
         return null;
     }
-    // eslint-disable-next-line no-console
-    console.log(`   Issue Elements: `, elements);
     const issueBoundary = elements?.reduce(
         (boundary: BoundaryRect, element: Element, index: number) => {
             const elementBoundary = element.getBoundingClientRect();
-            // eslint-disable-next-line no-console
-            console.log(`      Initial Boundary: `, boundary);
-            // eslint-disable-next-line no-console
-            console.log(`      Element: `, element);
-            // eslint-disable-next-line no-console
-            console.log(`      Element Boundary: `, elementBoundary);
             boundary.top += elementBoundary.top;
             boundary.left += elementBoundary.left;
             if (index === elements.length - 1) {
                 boundary.height = elementBoundary.height;
                 boundary.width = elementBoundary.width;
             }
-            // eslint-disable-next-line no-console
-            console.log(`      Adjusted Boundary: `, boundary);
             return boundary;
         },
         {top: 0, left: 0, height: 0, width: 0},
     );
-    // eslint-disable-next-line no-console
-    console.log(`      Final Boundary: `, issueBoundary);
     const showMeStyle = {
         marginTop: "1em",
         fontWeight: "bold",
