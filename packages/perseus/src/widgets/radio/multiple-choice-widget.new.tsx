@@ -106,7 +106,9 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             analytics.onAnalyticsEvent({
                 type: "perseus:widget:rendered:ti",
                 payload: {
-                    widgetSubType: "null",
+                    widgetSubType: multipleSelect
+                        ? "multiple-select"
+                        : "single-select",
                     widgetType: "radio",
                     widgetId: "radio",
                 },

@@ -22,7 +22,7 @@ import {
     questionWithUndefinedCorrect,
 } from "./radio.testdata";
 
-import type {APIOptions} from "../../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -473,19 +473,28 @@ describe("Multiple Choice Widget", () => {
 
         it("should send analytics event when widget is rendered", async () => {
             // Arrange
-            const onAnalyticsEventSpy = jest.spyOn(
-                testDependenciesV2.analytics,
-                "onAnalyticsEvent",
-            );
+            const onAnalyticsEventSpy = jest.fn();
+            const depsV2: PerseusDependenciesV2 = {
+                ...testDependenciesV2,
+                analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+            };
 
             // Act
-            renderQuestion(question, apiOptions);
+            // Analytics event only exists on the new radio widget.
+            // Please remove once fully released.
+            renderQuestion(
+                question,
+                {flags: getFeatureFlags({"new-radio-widget": true})},
+                undefined,
+                undefined,
+                depsV2,
+            );
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
                 type: "perseus:widget:rendered:ti",
                 payload: {
-                    widgetSubType: "null",
+                    widgetSubType: "single-select",
                     widgetType: "radio",
                     widgetId: "radio",
                 },
