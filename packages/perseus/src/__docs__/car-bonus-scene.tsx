@@ -1,14 +1,14 @@
 import * as React from "react";
 import {useEffect, useRef, useState} from "react";
 
-import bonusGameAudio from "./bonusgame.wav";
-import bonus1Img from "./bonus1.png";
-import bonus2Img from "./bonus2.png";
+import bonusGameAudio from "../games/crash-course/assets/audio/bonusgame.wav";
+import bonus1Img from "../games/crash-course/assets/ui/bonus1.png";
+import bonus2Img from "../games/crash-course/assets/ui/bonus2.png";
 import styles from "./car-bonus-scene.module.css";
-import explosionAudio from "./explosion.wav";
-import nextImg from "./next.png";
-import skidImg from "./skid.png";
-import tireSquealAudio from "./tires_squal_loop.wav";
+import explosionAudio from "../games/crash-course/assets/audio/explosion.wav";
+import nextImg from "../games/crash-course/assets/ui/next.png";
+import skidImg from "../games/crash-course/assets/ui/skid.png";
+import tireSquealAudio from "../games/crash-course/assets/audio/tires_squal_loop.wav";
 
 type BonusState = "skid" | "bonusLevel" | "explosion" | "complete";
 
