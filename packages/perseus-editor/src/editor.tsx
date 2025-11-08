@@ -905,8 +905,11 @@ class EditorClass extends React.Component<Props, State> {
             message: never;
         }> = [];
 
+        // Ensure content is always a string to prevent runtime errors
+        const content = typeof this.props.content === "string" ? this.props.content : "";
+
         if (this.props.showWordCount) {
-            const numChars = PerseusMarkdown.characterCount(this.props.content);
+            const numChars = PerseusMarkdown.characterCount(content);
             const numWords = Math.floor(numChars / 6);
             wordCountDisplay = (
                 <span
@@ -925,7 +928,7 @@ class EditorClass extends React.Component<Props, State> {
         }
 
         if (this.props.widgetEnabled) {
-            pieces = Util.split(this.props.content, rWidgetSplit);
+            pieces = Util.split(content, rWidgetSplit);
             widgets = {};
             underlayPieces = [];
 
@@ -1048,7 +1051,7 @@ class EditorClass extends React.Component<Props, State> {
                 wordCountDisplay = null;
             }
         } else {
-            underlayPieces = [this.props.content];
+            underlayPieces = [content];
         }
 
         // Without this, the underlay isn't the proper size when the text ends
@@ -1090,14 +1093,12 @@ class EditorClass extends React.Component<Props, State> {
             );
         }
 
-        const contentWithoutWidgets = this.props.content.replace(
+        const contentWithoutWidgets = content.replace(
             /\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g,
             "",
         );
         const noPrompt = contentWithoutWidgets.trim().length === 0;
-        const noWidgets = !/\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g.test(
-            this.props.content,
-        );
+        const noWidgets = !/\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g.test(content);
 
         const warningStyle = {
             borderTop: "none",

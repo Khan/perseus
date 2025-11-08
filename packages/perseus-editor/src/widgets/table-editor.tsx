@@ -33,6 +33,7 @@ class TableEditor extends React.Component<Props> {
         tableLogic.defaultWidgetOptions;
 
     numberOfColumns = React.createRef<components.NumberInput>();
+    numberOfRows = React.createRef<components.NumberInput>();
 
     focus: () => void = () => {
         this.numberOfColumns.current?.focus();
@@ -141,8 +142,7 @@ class TableEditor extends React.Component<Props> {
                                 <label>
                                     Number of rows:{" "}
                                     <NumberInput
-                                        // eslint-disable-next-line react/no-string-refs
-                                        ref="numberOfRows"
+                                        ref={this.numberOfRows}
                                         value={this.props.rows}
                                         onChange={(val) => {
                                             if (val) {

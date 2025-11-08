@@ -105,26 +105,30 @@ const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
     /(.)/g,
 ).length
     ? function (str: string, r) {
-          return str.split(r);
+          // Defensive check to ensure str is a string
+          const safeStr = typeof str === "string" ? str : "";
+          return safeStr.split(r);
       }
     : function (str: string, r: RegExp) {
+          // Defensive check to ensure str is a string
+          const safeStr = typeof str === "string" ? str : "";
           // Based on Steven Levithan's MIT-licensed split, available at
           // http://blog.stevenlevithan.com/archives/cross-browser-split
           const output = [];
           let lastIndex = (r.lastIndex = 0);
           let match;
 
-          while ((match = r.exec(str))) {
+          while ((match = r.exec(safeStr))) {
               const m = match;
               // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-              output.push(str.slice(lastIndex, m.index));
+              output.push(safeStr.slice(lastIndex, m.index));
               // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
               output.push(...m.slice(1));
               lastIndex = m.index + m[0].length;
           }
 
           // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-          output.push(str.slice(lastIndex));
+          output.push(safeStr.slice(lastIndex));
           return output;
       };
 
