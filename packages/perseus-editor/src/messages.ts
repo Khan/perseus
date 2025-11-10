@@ -1,4 +1,16 @@
 import type {Issue} from "./components/issues-panel";
+
+// Severities are defined in the perseus-linter package in `rule.ts`
+const SEVERITY_ERROR = 1;
+const SEVERITY_WARNING = 2;
+const SEVERITY_GUIDELINE = 3;
+
+const SEVERITY_MAP = {
+    [SEVERITY_ERROR]: "high",
+    [SEVERITY_WARNING]: "medium",
+    [SEVERITY_GUIDELINE]: "low",
+};
+
 // This file is meant to contain any and all perseus-editor messages
 // we want to show within the Issues Panel.
 export const WARNINGS = {
@@ -13,13 +25,17 @@ export const WARNINGS = {
             "Selecting inaccessible widgets for a practice item will result in this exercise being hidden from users with 'Hide visually dependant content' setting set to true. Please select another widget or create an alternative practice item.",
     }),
 
-    genericLinterWarning: (rule: string, message: string): Issue => ({
+    genericLinterWarning: (
+        rule: string,
+        message: string,
+        severity: number | undefined,
+    ): Issue => ({
         id: rule,
         description: message,
         help: "Learn more about best practices for authoring items",
         helpUrl:
             "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
-        impact: "low",
+        impact: SEVERITY_MAP[severity ?? SEVERITY_GUIDELINE],
         message: message,
     }),
 };

@@ -7,6 +7,7 @@
 import AbsoluteUrl from "./absolute-url";
 import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
 import ExpressionWidget from "./expression-widget";
+import ExpressionWidgetError from "./expression-widget-error";
 import ExtraContentSpacing from "./extra-content-spacing";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
@@ -31,6 +32,7 @@ import MathStartsWithSpace from "./math-starts-with-space";
 import MathTextEmpty from "./math-text-empty";
 import MathWithoutDollars from "./math-without-dollars";
 import NestedLists from "./nested-lists";
+import RadioWidgetError from "./radio-widget-error";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
 import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
@@ -70,4 +72,6 @@ export default [
     ImageSpacesAroundUrls,
     ImageWidget,
     InaccessibleWidget,
+    RadioWidgetError,
+    ExpressionWidgetError,
 ];
