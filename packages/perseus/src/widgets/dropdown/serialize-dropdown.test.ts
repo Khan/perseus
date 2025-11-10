@@ -5,7 +5,10 @@ import {
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
@@ -91,6 +94,7 @@ describe("Dropdown serialization", () => {
                     alignment: "default",
                     static: false,
                     choices: ["Correct", "Incorrect"],
+                    dependencies: testDependenciesV2,
                     placeholder: "Choose",
                     // selected is added to Dropdown props and
                     // represents user input

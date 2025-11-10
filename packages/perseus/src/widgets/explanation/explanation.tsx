@@ -8,15 +8,23 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import {withDependencies} from "../../components/with-dependencies";
 import Renderer from "../../renderer";
 import UserInputManager from "../../user-input-manager";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusExplanationWidgetOptions>;
+type Props = WidgetProps<PerseusExplanationWidgetOptions> & {
+    dependencies: PerseusDependenciesV2;
+};
 
 type DefaultProps = {
     showPrompt: Props["showPrompt"];
@@ -60,6 +68,14 @@ class Explanation extends React.Component<Props, State> implements Widget {
 
     componentDidMount() {
         this._mounted = true;
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "explanation",
+                widgetId: "explanation",
+            },
+        });
     }
 
     componentWillUnmount() {
@@ -236,9 +252,11 @@ const styles = StyleSheet.create({
     },
 });
 
+const WrappedExplanation = withDependencies(Explanation);
+
 export default {
     name: "explanation",
     displayName: "Explanation",
-    widget: Explanation,
+    widget: WrappedExplanation,
     isLintable: true,
-} satisfies WidgetExports<typeof Explanation>;
+} satisfies WidgetExports<typeof WrappedExplanation>;

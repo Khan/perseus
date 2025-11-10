@@ -1,12 +1,16 @@
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./explanation.testdata";
 
+import type {PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("Explanation", function () {
@@ -90,6 +94,28 @@ describe("Explanation", function () {
         // The only real difference between expanded and not expanded is the
         //     classes and aria that are applied.
         expect(container).toMatchSnapshot("expanded");
+    });
+
+    it("should send analytics when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Arrange and Act
+        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "explanation",
+                widgetId: "explanation",
+            },
+        });
     });
 
     it("can be expanded and collapsed with a mouse click", async function () {
