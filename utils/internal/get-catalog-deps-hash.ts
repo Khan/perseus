@@ -1,18 +1,6 @@
 import stringHash from "string-hash";
 
-type PackageJson = {
-    name: string;
-    dependencies?: Record<string, string>;
-    peerDependencies?: Record<string, string>;
-};
-
-type PnpmWorkspace = {
-    catalogs: {
-        prodDeps?: Record<string, string>;
-        peerDeps?: Record<string, string>;
-        devDeps?: Record<string, string>;
-    };
-};
+import type {PackageJson, PnpmWorkspace} from "./catalog-hash-utils";
 
 /**
  * Get the hash of the catalog dependencies for a package.

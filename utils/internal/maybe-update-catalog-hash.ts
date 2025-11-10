@@ -3,33 +3,17 @@ import path from "node:path";
 
 import {getCatalogDepsHash} from "./get-catalog-deps-hash";
 
-type PackageJson = {
-    name: string;
-    dependencies?: Record<string, string>;
-    peerDependencies?: Record<string, string>;
-    khan?: {
-        catalogHash?: string;
-    };
-};
-
-type PnpmWorkspace = {
-    catalogs: {
-        prodDeps?: Record<string, string>;
-        peerDeps?: Record<string, string>;
-        devDeps?: Record<string, string>;
-    };
-};
+import type {PackageJson, PnpmWorkspace} from "./catalog-hash-utils";
 
 /**
  * Update the catalog hash in a package.json file if it has changed.
  *
  * This function checks if a package should have its catalog hash updated based on:
- * - Whether the package is in the unpublished packages set (skips if so)
+ * - Whether the package is marked as private (skips if so)
  * - Whether the package is in the packages directory (only processes packages)
  * - Whether the current catalog hash differs from the newly calculated hash
  *
  * @param packageJsonPath - The absolute path to the package.json file to potentially update
- * @param unpublishedPackages - Set of package names that should not be updated
  * @param pnpmWorkspace - The pnpm workspace configuration containing catalog dependencies
  * @param isDryRun - If true, logs what would be updated but doesn't actually modify the file
  * @param verbose - If true, logs verbose information about catalog dependencies
@@ -37,7 +21,6 @@ type PnpmWorkspace = {
  */
 export function maybeUpdateCatalogHash(
     packageJsonPath: string,
-    unpublishedPackages: Set<string>,
     pnpmWorkspace: PnpmWorkspace,
     isDryRun: boolean,
     verbose = false,
@@ -46,7 +29,8 @@ export function maybeUpdateCatalogHash(
     const packageJson: PackageJson = JSON.parse(packageJsonContent);
     const name = packageJson.name;
 
-    if (unpublishedPackages.has(name)) {
+    // Skip private packages (not published to npm)
+    if (packageJson.private === true) {
         return false;
     }
 

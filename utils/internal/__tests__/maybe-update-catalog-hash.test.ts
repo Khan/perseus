@@ -19,7 +19,6 @@ type PnpmWorkspace = {
     };
 };
 
-const getMockUnpublishedPackages = () => new Set<string>();
 const getMockPnpmWorkspace = (): PnpmWorkspace => ({
     catalogs: {
         prodDeps: {
@@ -59,19 +58,21 @@ describe("maybeUpdateCatalogHash", () => {
         jest.spyOn(process, "cwd").mockReturnValue("/mock/perseus/root");
     });
 
-    describe("when package is in unpublished packages", () => {
+    describe("when package is marked as private", () => {
         it("should return false", () => {
             // Arrange
-            const unpublishedPackages = new Set(["@khanacademy/test-package"]);
+            const privatePackageJson = {
+                ...getMockPackageJson(),
+                private: true,
+            };
             jest.spyOn(fs, "readFileSync").mockReturnValue(
-                JSON.stringify(getMockPackageJson()),
+                JSON.stringify(privatePackageJson),
             );
             jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
 
             // Act
             const result = maybeUpdateCatalogHash(
                 "/mock/perseus/root/packages/test-package/package.json",
-                unpublishedPackages,
                 getMockPnpmWorkspace(),
                 false,
             );
@@ -82,9 +83,12 @@ describe("maybeUpdateCatalogHash", () => {
 
         it("should not update the package", () => {
             // Arrange
-            const unpublishedPackages = new Set(["@khanacademy/test-package"]);
+            const privatePackageJson = {
+                ...getMockPackageJson(),
+                private: true,
+            };
             jest.spyOn(fs, "readFileSync").mockReturnValue(
-                JSON.stringify(getMockPackageJson()),
+                JSON.stringify(privatePackageJson),
             );
             const mockWriteFileSync = jest
                 .spyOn(fs, "writeFileSync")
@@ -93,7 +97,6 @@ describe("maybeUpdateCatalogHash", () => {
             // Act
             maybeUpdateCatalogHash(
                 "/mock/perseus/root/packages/test-package/package.json",
-                unpublishedPackages,
                 getMockPnpmWorkspace(),
                 false,
             );
@@ -114,7 +117,6 @@ describe("maybeUpdateCatalogHash", () => {
             // Act
             const result = maybeUpdateCatalogHash(
                 "/mock/perseus/root/vendor/foo/package.json",
-                getMockUnpublishedPackages(),
                 getMockPnpmWorkspace(),
                 false,
             );
@@ -135,7 +137,6 @@ describe("maybeUpdateCatalogHash", () => {
             // Act
             maybeUpdateCatalogHash(
                 "/mock/perseus/root/vendor/foo/package.json",
-                getMockUnpublishedPackages(),
                 getMockPnpmWorkspace(),
                 false,
             );
@@ -161,7 +162,6 @@ describe("maybeUpdateCatalogHash", () => {
             // Act
             const result = maybeUpdateCatalogHash(
                 "/mock/perseus/root/packages/test-package/package.json",
-                getMockUnpublishedPackages(),
                 getMockPnpmWorkspace(),
                 false,
             );
@@ -187,7 +187,6 @@ describe("maybeUpdateCatalogHash", () => {
             // Act
             maybeUpdateCatalogHash(
                 "/mock/perseus/root/packages/test-package/package.json",
-                getMockUnpublishedPackages(),
                 getMockPnpmWorkspace(),
                 false,
             );
@@ -215,7 +214,6 @@ describe("maybeUpdateCatalogHash", () => {
             // Act
             maybeUpdateCatalogHash(
                 "/mock/perseus/root/packages/test-package/package.json",
-                getMockUnpublishedPackages(),
                 getMockPnpmWorkspace(),
                 true,
                 true, // verbose
@@ -242,7 +240,6 @@ describe("maybeUpdateCatalogHash", () => {
                 // Act
                 const result = maybeUpdateCatalogHash(
                     "/mock/perseus/root/packages/test-package/package.json",
-                    getMockUnpublishedPackages(),
                     getMockPnpmWorkspace(),
                     true,
                 );
@@ -267,7 +264,6 @@ describe("maybeUpdateCatalogHash", () => {
                 // Act
                 maybeUpdateCatalogHash(
                     "/mock/perseus/root/packages/test-package/package.json",
-                    getMockUnpublishedPackages(),
                     getMockPnpmWorkspace(),
                     true,
                 );
@@ -292,7 +288,6 @@ describe("maybeUpdateCatalogHash", () => {
                 // Act
                 const result = maybeUpdateCatalogHash(
                     "/mock/perseus/root/packages/test-package/package.json",
-                    getMockUnpublishedPackages(),
                     getMockPnpmWorkspace(),
                     false,
                 );
@@ -318,7 +313,6 @@ describe("maybeUpdateCatalogHash", () => {
                 // Act
                 maybeUpdateCatalogHash(
                     "/mock/perseus/root/packages/test-package/package.json",
-                    getMockUnpublishedPackages(),
                     getMockPnpmWorkspace(),
                     false,
                 );
@@ -361,7 +355,6 @@ describe("maybeUpdateCatalogHash", () => {
             // Act
             const result = maybeUpdateCatalogHash(
                 "/mock/perseus/root/packages/test-package/package.json",
-                getMockUnpublishedPackages(),
                 getMockPnpmWorkspace(),
                 false,
             );
@@ -390,7 +383,6 @@ describe("maybeUpdateCatalogHash", () => {
             // Act
             maybeUpdateCatalogHash(
                 "/mock/perseus/root/packages/test-package/package.json",
-                getMockUnpublishedPackages(),
                 getMockPnpmWorkspace(),
                 false,
             );
@@ -411,58 +403,6 @@ describe("maybeUpdateCatalogHash", () => {
     });
 
     describe("edge cases", () => {
-        describe("empty unpublished packages set", () => {
-            it("should process the package when hash changes", () => {
-                // Arrange
-                const emptyUnpublishedPackages = new Set<string>();
-                jest.spyOn(fs, "readFileSync").mockReturnValue(
-                    JSON.stringify(getMockPackageJson()),
-                );
-                jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
-                jest.spyOn(
-                    GetCatalogDepsHash,
-                    "getCatalogDepsHash",
-                ).mockReturnValue("new-hash-456");
-
-                // Act
-                const result = maybeUpdateCatalogHash(
-                    "/mock/perseus/root/packages/test-package/package.json",
-                    emptyUnpublishedPackages,
-                    getMockPnpmWorkspace(),
-                    false,
-                );
-
-                // Assert
-                expect(result).toBe(true);
-            });
-
-            it("should update the package", () => {
-                // Arrange
-                const emptyUnpublishedPackages = new Set<string>();
-                jest.spyOn(fs, "readFileSync").mockReturnValue(
-                    JSON.stringify(getMockPackageJson()),
-                );
-                const mockWriteFileSync = jest
-                    .spyOn(fs, "writeFileSync")
-                    .mockImplementation(() => {});
-                jest.spyOn(
-                    GetCatalogDepsHash,
-                    "getCatalogDepsHash",
-                ).mockReturnValue("new-hash-456");
-
-                // Act
-                maybeUpdateCatalogHash(
-                    "/mock/perseus/root/packages/test-package/package.json",
-                    emptyUnpublishedPackages,
-                    getMockPnpmWorkspace(),
-                    false,
-                );
-
-                // Assert
-                expect(mockWriteFileSync).toHaveBeenCalled();
-            });
-        });
-
         describe("package.json with no catalog dependencies", () => {
             it("should return true when hash changes", () => {
                 // Arrange
@@ -488,7 +428,6 @@ describe("maybeUpdateCatalogHash", () => {
                 // Act
                 const result = maybeUpdateCatalogHash(
                     "/mock/perseus/root/packages/test-package/package.json",
-                    getMockUnpublishedPackages(),
                     getMockPnpmWorkspace(),
                     false,
                 );
@@ -522,7 +461,6 @@ describe("maybeUpdateCatalogHash", () => {
                 // Act
                 maybeUpdateCatalogHash(
                     "/mock/perseus/root/packages/test-package/package.json",
-                    getMockUnpublishedPackages(),
                     mockWorkspace,
                     false,
                 );

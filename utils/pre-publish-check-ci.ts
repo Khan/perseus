@@ -12,7 +12,7 @@ import {
     checkSource,
     checkPublishConfig,
 } from "./internal/pre-publish-utils";
-import {verifyCatalogHashes} from "./verify-catalog-hashes";
+import {verifyCatalogHashes} from "./internal/verify-catalog-hashes";
 
 // eslint-disable-next-line promise/catch-or-return
 fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(

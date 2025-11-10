@@ -5,7 +5,7 @@ import {describe, expect, it, jest, beforeEach} from "@jest/globals";
 
 // We need to mock the module before importing it
 const mockUpdateCatalogHashes = jest.fn();
-jest.mock("../update-catalog-hashes", () => ({
+jest.mock("../internal/update-catalog-hashes", () => ({
     updateCatalogHashes: mockUpdateCatalogHashes,
 }));
 
@@ -55,7 +55,7 @@ describe("update-catalog-hashes-cli", () => {
 
             // Assert
             expect(mockConsoleLog).toHaveBeenCalledWith(
-                "Usage: update-catalog-hashes [options]",
+                "Usage: update-catalog-hashes-cli.ts [options]",
             );
             expect(mockExit).toHaveBeenCalledWith(0);
         });
@@ -66,7 +66,7 @@ describe("update-catalog-hashes-cli", () => {
 
             // Assert
             expect(mockConsoleLog).toHaveBeenCalledWith(
-                "Usage: update-catalog-hashes [options]",
+                "Usage: update-catalog-hashes-cli.ts [options]",
             );
             expect(mockExit).toHaveBeenCalledWith(0);
         });

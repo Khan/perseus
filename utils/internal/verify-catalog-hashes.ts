@@ -1,60 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import fastGlob from "fast-glob";
-import yaml from "yaml";
-
 import {getCatalogDepsHash} from "./get-catalog-deps-hash";
+import {findAllPackageJsons, loadPnpmWorkspace} from "./catalog-hash-utils";
 
-const ROOT_PACKAGE_NAME = "perseus";
-
-type PackageJson = {
-    name: string;
-    dependencies?: Record<string, string>;
-    peerDependencies?: Record<string, string>;
-    khan?: {
-        catalogHash?: string;
-    };
-};
-
-type ChangesetConfig = {
-    ignore?: string[];
-};
-
-type PnpmWorkspace = {
-    catalogs: {
-        prodDeps?: Record<string, string>;
-        peerDeps?: Record<string, string>;
-        devDeps?: Record<string, string>;
-    };
-};
-
-/**
- * Load the changeset configuration to determine which packages are unpublished.
- */
-function loadChangesetConfig(): ChangesetConfig {
-    const configContent = fs.readFileSync(".changeset/config.json", "utf-8");
-    return JSON.parse(configContent);
-}
-
-/**
- * Load the pnpm workspace configuration containing catalog dependencies.
- */
-function loadPnpmWorkspace(): PnpmWorkspace {
-    const workspaceContent = fs.readFileSync("pnpm-workspace.yaml", "utf-8");
-    return yaml.parse(workspaceContent);
-}
-
-/**
- * Find all package.json files in the workspace.
- */
-function findAllPackageJsons(): string[] {
-    const packageJsonPaths = fastGlob.sync("**/package.json", {
-        absolute: true,
-        ignore: ["**/node_modules/**", "**/dist/**"],
-    });
-    return packageJsonPaths;
-}
+import type {PackageJson} from "./catalog-hash-utils";
 
 /**
  * Verify that catalog hashes are up-to-date for all published packages.
@@ -65,10 +15,6 @@ export function verifyCatalogHashes(): {
     success: boolean;
     errors: string[];
 } {
-    const {ignore = []} = loadChangesetConfig();
-    const unpublishedPackages = new Set<string>(ignore);
-    unpublishedPackages.add(ROOT_PACKAGE_NAME);
-
     const allPackagePaths = findAllPackageJsons();
     const pnpmWorkspace = loadPnpmWorkspace();
     const errors: string[] = [];
@@ -78,8 +24,8 @@ export function verifyCatalogHashes(): {
         const packageJson: PackageJson = JSON.parse(packageJsonContent);
         const name = packageJson.name;
 
-        // Skip unpublished packages
-        if (unpublishedPackages.has(name)) {
+        // Skip private packages (not published to npm)
+        if (packageJson.private === true) {
             continue;
         }
 

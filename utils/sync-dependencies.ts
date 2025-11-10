@@ -12,7 +12,7 @@ import fs from "node:fs";
 import semver from "semver";
 import yaml from "yaml";
 
-import {updateCatalogHashes} from "./update-catalog-hashes";
+import {updateCatalogHashes} from "./internal/update-catalog-hashes";
 
 function printHelp() {
     console.log("--- Package Dependency Sync ---");

@@ -9,10 +9,10 @@
  */
 import process from "node:process";
 
-import {updateCatalogHashes} from "./update-catalog-hashes";
+import {updateCatalogHashes} from "./internal/update-catalog-hashes";
 
 function printHelp() {
-    console.log("Usage: update-catalog-hashes [options]");
+    console.log("Usage: update-catalog-hashes-cli.ts [options]");
     console.log("");
     console.log("Updates catalog hashes in package.json files");
     console.log("");
@@ -25,10 +25,6 @@ function printHelp() {
     );
     console.log("  --help       Show this help message");
     console.log("");
-    console.log("Examples:");
-    console.log("  update-catalog-hashes");
-    console.log("  update-catalog-hashes --dry-run");
-    console.log("  update-catalog-hashes --verbose");
 }
 
 function main(argv: string[]) {
