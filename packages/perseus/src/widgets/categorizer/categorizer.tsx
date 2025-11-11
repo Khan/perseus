@@ -70,7 +70,7 @@ export class Categorizer
             payload: {
                 widgetSubType: "null",
                 widgetType: "categorizer",
-                widgetId: "categorizer",
+                widgetId: this.props.widgetId,
             },
         });
     }

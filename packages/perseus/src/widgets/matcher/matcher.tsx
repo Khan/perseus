@@ -78,7 +78,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             payload: {
                 widgetSubType: "null",
                 widgetType: "matcher",
-                widgetId: "matcher",
+                widgetId: this.props.widgetId,
             },
         });
     }
