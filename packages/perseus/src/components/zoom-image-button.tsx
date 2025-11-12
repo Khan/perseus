@@ -17,13 +17,13 @@ export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
 
     return (
         <ModalLauncher
-            modal={({closeModal}) =>
-                ZoomedImageView({
-                    imgElement,
-                    imgSrc,
-                    onClose: closeModal,
-                })
-            }
+            modal={({closeModal}) => (
+                <ZoomedImageView
+                    imgElement={imgElement}
+                    imgSrc={imgSrc}
+                    onClose={closeModal}
+                />
+            )}
         >
             {({openModal}) => (
                 <Clickable
