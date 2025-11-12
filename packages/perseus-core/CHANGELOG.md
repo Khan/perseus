@@ -1,5 +1,18 @@
 # @khanacademy/perseus-core
 
+## 20.1.4
+
+### Patch Changes
+
+-   [#3030](https://github.com/Khan/perseus/pull/3030) [`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-publish to enable trusted publishing
+
+*   [#3028](https://github.com/Khan/perseus/pull/3028) [`8859e97f01`](https://github.com/Khan/perseus/commit/8859e97f0140a18e8924d13f6b18a6d38206dbf2) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Update the axis labels to be TeX by default again
+
+*   Updated dependencies [[`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480)]:
+    -   @khanacademy/kas@2.1.4
+    -   @khanacademy/perseus-utils@2.1.2
+    -   @khanacademy/pure-markdown@2.2.2
+
 ## 20.1.3
 
 ### Patch Changes
