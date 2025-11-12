@@ -1,7 +1,10 @@
 {
-  "name": "raphael",
-  "private": "true",
-  "version": "1.5.4",
-  "main": "raphael.js",
-  "types": "raphael.d.ts"
+    "name": "raphael",
+    "private": "true",
+    "version": "1.5.4",
+    "main": "raphael.js",
+    "types": "raphael.d.ts",
+    "khan": {
+        "catalogHash": "e3b0c44298fc1c14"
+    }
 }

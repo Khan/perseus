@@ -30,6 +30,6 @@
         "perseus-build-settings": "workspace:*"
     },
     "khan": {
-        "catalogHash": "5381"
+        "catalogHash": "e3b0c44298fc1c14"
     }
 }
