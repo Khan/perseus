@@ -1,6 +1,7 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {ModalDialog, ModalPanel} from "@khanacademy/wonder-blocks-modal";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {usePerseusI18n} from "./i18n-context";
@@ -32,15 +33,7 @@ export const ZoomedImageView = ({imgElement, imgSrc, onClose}: Props) => {
             // is no title for the modal. Since there is no element within
             // this modal for it to be labeled by, we pass an empty string.
             aria-labelledby=""
-            // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
-            // supports it instead of inline styles.
-            style={{
-                width: "auto",
-                height: "auto",
-                // Add padding so that the image doesn't touch the
-                // edges of the screen.
-                padding: sizing.size_320,
-            }}
+            style={wbStyles.dialog}
         >
             <ModalPanel
                 closeButtonVisible={false}
@@ -61,3 +54,20 @@ export const ZoomedImageView = ({imgElement, imgSrc, onClose}: Props) => {
         </ModalDialog>
     );
 };
+
+// TODO(LEMS-3686): Use CSS modules after Wonder Blocks
+// supports it instead of inline styles.
+const wbStyles = StyleSheet.create({
+    dialog: {
+        width: "auto",
+        height: "auto",
+        // Add padding so that the image doesn't touch the edges
+        // of the screen on desktop.
+        padding: sizing.size_320,
+
+        // Allow the image to touch the edges of the screen on mobile.
+        "@media (max-width: 767px)": {
+            padding: 0,
+        },
+    },
+});
