@@ -1,5 +1,47 @@
 # @khanacademy/perseus-editor
 
+## 28.6.2
+
+### Patch Changes
+
+-   [#2978](https://github.com/Khan/perseus/pull/2978) [`2c7d4139e9`](https://github.com/Khan/perseus/commit/2c7d4139e9f8768530897ce1dccd7b3803155ad7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update comment about GroupMetadataEditor (which is now gone)
+
+-   Updated dependencies [[`2c7d4139e9`](https://github.com/Khan/perseus/commit/2c7d4139e9f8768530897ce1dccd7b3803155ad7), [`8539c08bcf`](https://github.com/Khan/perseus/commit/8539c08bcf1b48d22745f7ab9a9d5188a1265523), [`8539c08bcf`](https://github.com/Khan/perseus/commit/8539c08bcf1b48d22745f7ab9a9d5188a1265523)]:
+    -   @khanacademy/perseus@72.0.0
+
+## 28.6.1
+
+### Patch Changes
+
+-   [#3015](https://github.com/Khan/perseus/pull/3015) [`1ed3e9c757`](https://github.com/Khan/perseus/commit/1ed3e9c757c4bea177f07de211bccc72a4c3d23b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Moving the key up to resolve a missed bug for react
+
+## 28.6.0
+
+### Minor Changes
+
+-   [#2958](https://github.com/Khan/perseus/pull/2958) [`f89e3f6f72`](https://github.com/Khan/perseus/commit/f89e3f6f72d781e39134ed012991f16a562036a3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of a new editingDisabled mode for our Perseus Editors
+
+### Patch Changes
+
+-   [#3014](https://github.com/Khan/perseus/pull/3014) [`88077ed7f6`](https://github.com/Khan/perseus/commit/88077ed7f6ea208980ad2c88f97edd567e6e204a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Reduce the height of the all widgets test data for chromatic and storybook.
+
+-   Updated dependencies [[`f89e3f6f72`](https://github.com/Khan/perseus/commit/f89e3f6f72d781e39134ed012991f16a562036a3)]:
+    -   @khanacademy/perseus@71.6.0
+
+## 28.5.6
+
+### Patch Changes
+
+-   [#3011](https://github.com/Khan/perseus/pull/3011) [`79959b9d3e`](https://github.com/Khan/perseus/commit/79959b9d3e37f2a46690a4d4847ff9bbe17353e9) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   [#3007](https://github.com/Khan/perseus/pull/3007) [`9a0bdcd7d2`](https://github.com/Khan/perseus/commit/9a0bdcd7d224aaaa127cd574225ed1e6e18c73f7) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add a button to reset image to original dimensions
+
+-   [#3008](https://github.com/Khan/perseus/pull/3008) [`7180091927`](https://github.com/Khan/perseus/commit/7180091927b3115e33ac9b31164ae4a2545b636c) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix image stretching vertically in markdown tables in Safari
+
+-   Updated dependencies [[`d0309d0b1f`](https://github.com/Khan/perseus/commit/d0309d0b1f59e88b4a59fe23fd6d737c900f1c7d), [`79959b9d3e`](https://github.com/Khan/perseus/commit/79959b9d3e37f2a46690a4d4847ff9bbe17353e9), [`79959b9d3e`](https://github.com/Khan/perseus/commit/79959b9d3e37f2a46690a4d4847ff9bbe17353e9), [`7180091927`](https://github.com/Khan/perseus/commit/7180091927b3115e33ac9b31164ae4a2545b636c)]:
+    -   @khanacademy/perseus@71.5.0
+    -   @khanacademy/math-input@26.2.17
+
 ## 28.5.5
 
 ### Patch Changes

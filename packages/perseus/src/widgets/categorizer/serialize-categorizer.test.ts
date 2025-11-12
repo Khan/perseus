@@ -5,7 +5,10 @@ import {
 import {screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
@@ -97,6 +100,7 @@ describe("Categorizer serialization", () => {
                      * - value: represents which category is selected for that item
                      */
                     values: [undefined, 0],
+                    dependencies: testDependenciesV2,
                 },
             },
             hints: [],

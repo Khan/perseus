@@ -7,12 +7,18 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Sortable from "../../components/sortable";
+import {withDependencies} from "../../components/with-dependencies";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {
+    WidgetExports,
+    WidgetProps,
+    Widget,
+    PerseusDependenciesV2,
+} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {
     PerseusMatcherWidgetOptions,
@@ -22,7 +28,12 @@ import type {
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
-type Props = WidgetProps<PerseusMatcherWidgetOptions, PerseusMatcherUserInput>;
+type Props = WidgetProps<
+    PerseusMatcherWidgetOptions,
+    PerseusMatcherUserInput
+> & {
+    dependencies: PerseusDependenciesV2;
+};
 
 type DefaultProps = {
     labels: Props["labels"];
@@ -60,6 +71,17 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         rightHeight: 0,
         texRendererLoaded: false,
     };
+
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "matcher",
+                widgetId: "matcher",
+            },
+        });
+    }
 
     changeAndTrack: () => void = () => {
         const nextUserInput = this._getUserInputFromSortable();
@@ -252,14 +274,16 @@ function getUserInputFromSerializedState(
     };
 }
 
+const WrappedMatcher = withDependencies(Matcher);
+
 export default {
     name: "matcher",
     displayName: "Matcher (two column)",
-    widget: Matcher,
+    widget: WrappedMatcher,
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Matcher>;
+} satisfies WidgetExports<typeof WrappedMatcher>;
 
 const padding = 5;
 const border = "1px solid #444";
