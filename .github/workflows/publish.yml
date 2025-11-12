@@ -80,6 +80,14 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
+            - name: ⬆️ Upgrade npm for OIDC support
+              shell: bash
+              run: |
+                  # npm trusted publishing requires npm CLI v11.5.1+
+                  # Node.js 22 ships with npm 10.x, so we need to upgrade
+                  npm install -g npm@latest
+                  echo "✅ npm upgraded to $(npm --version)"
+
             - name: Create Release Pull Request or Publish to npm
               id: changesets
               uses: changesets/action@v1
@@ -91,8 +99,11 @@ jobs:
                   # the account of someone with appropriate access levels and given the
                   # repo scope.
                   GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
-                  # TODO(LEMS_3681): Remove once trusted publishing enabled in npmjs.com
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  # Note: we no longer use the NPM_TOKEN secret because we've enabled
+                  # Trusted Publishing (https://docs.npmjs.com/trusted-publishers) on
+                  # the npmjs.com side:
+                  # https://www.npmjs.com/package/@khanacademy/mathjax-renderer/access
+                  #
                   # We set this so that (p)npm publish will include the
                   # provenance information in the package.json file and surface
                   # it in the npm registry.
