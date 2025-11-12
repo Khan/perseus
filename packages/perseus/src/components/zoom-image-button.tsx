@@ -29,6 +29,8 @@ export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
                 <Clickable
                     aria-label={i18n.strings.imageZoomAriaLabel}
                     onClick={openModal}
+                    // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
+                    // supports it instead of inline styles.
                     style={{
                         // Overlay the button over the image.
                         position: "absolute",

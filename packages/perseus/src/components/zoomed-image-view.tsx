@@ -32,6 +32,8 @@ export const ZoomedImageView = ({imgElement, imgSrc, onClose}: Props) => {
             // is no title for the modal. Since there is no element within
             // this modal for it to be labeled by, we pass an empty string.
             aria-labelledby=""
+            // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
+            // supports it instead of inline styles.
             style={{
                 width: "auto",
                 height: "auto",
