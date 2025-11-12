@@ -1,5 +1,15 @@
 # @khanacademy/pure-markdown
 
+## 2.2.2
+
+### Patch Changes
+
+-   [#3030](https://github.com/Khan/perseus/pull/3030) [`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-publish to enable trusted publishing
+
+-   Updated dependencies [[`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480)]:
+    -   @khanacademy/perseus-utils@2.1.2
+    -   @khanacademy/simple-markdown@2.1.2
+
 ## 2.2.1
 
 ### Patch Changes
