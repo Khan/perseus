@@ -40,7 +40,7 @@ export interface KeypadProps {
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
 export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
-    const {onAnalyticsEvent, fractionsOnly, expandedView, onClickKey} = props;
+    const {onAnalyticsEvent, fractionsOnly, expandedView} = props;
     // If we're using the Fractions keypad, we want to default select that page
     // Otherwise, we want to default to the Numbers page
     const defaultSelectedPage = fractionsOnly ? "Fractions" : "Numbers";
@@ -89,11 +89,7 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
                 tabs={availableTabs}
                 selectedTabId={selectedPage}
                 onTabSelected={(newSelectedPage: string) => {
-                    if (newSelectedPage === "Dismiss") {
-                        onClickKey("DISMISS");
-                    } else {
-                        setSelectedPage(newSelectedPage as KeypadPageType);
-                    }
+                    setSelectedPage(newSelectedPage as KeypadPageType);
                 }}
                 styles={{
                     root: expandedView

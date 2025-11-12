@@ -22,10 +22,10 @@ import * as React from "react";
 import _ from "underscore";
 import {v4 as uuid} from "uuid";
 
-import a11y from "../util/a11y";
-import {debounce} from "../util/debounce";
+import a11y from "../../util/a11y";
+import {debounce} from "../../util/debounce";
 
-import {PerseusI18nContext} from "./i18n-context";
+import {PerseusI18nContext} from "../i18n-context";
 
 import type {MathFieldInterface} from "@khanacademy/math-input";
 import type {
@@ -303,10 +303,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         if (e?.type === "click") {
             this.focus();
         }
-
-        if (key === "DISMISS") {
-            this.closeKeypad();
-        }
     };
 
     render(): React.ReactNode {
@@ -366,6 +362,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         rootBoundary="document"
                         aria-label={this.context.strings.mathInputTitle}
                         aria-describedby={`popover-content-${popoverContentUniqueId}`}
+                        onClose={() => this.closeKeypad()}
                         content={() => (
                             <>
                                 <HeadingMedium
@@ -376,6 +373,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 </HeadingMedium>
                                 <PopoverContentCore
                                     style={styles.popoverContent}
+                                    closeButtonVisible={true}
                                 >
                                     <DesktopKeypad
                                         onAnalyticsEvent={
