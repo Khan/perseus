@@ -66,7 +66,7 @@ We use [changesets](https://github.com/changesets/changesets) to help manage our
 
 ### Catalog Hashes
 
-Catalog hashes ensure packages are rebuilt when their catalog dependencies (Wonder Blocks, React, etc.) are updated. These hashes are automatically updated when running `utils/sync-dependencies.ts`. If you manually add catalog dependencies to a package.json, run `pnpm update-catalog-hashes` to update the hashes. The pre-publish check will verify all hashes are current before releasing.
+Catalog hashes ensure packages are republished when their catalog dependencies (Wonder Blocks, React, etc.) are updated. When a catalog dependency version changes, the hash changes, signaling that affected packages should be version-bumped and republished even if their source code hasn't changed. These hashes are automatically updated when running `utils/sync-dependencies.ts`. If you manually add catalog dependencies to a package.json, run `pnpm update-catalog-hashes` to update the hashes. The pre-publish check will verify all hashes are current before releasing.
 
 ### Releasing Perseus to npm
 

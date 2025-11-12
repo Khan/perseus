@@ -1,4 +1,4 @@
-import stringHash from "string-hash";
+import {createHash} from "node:crypto";
 
 import type {PackageJson, PnpmWorkspace} from "./catalog-hash-utils";
 
@@ -66,13 +66,18 @@ export function getCatalogDepsHash(
         );
     }
 
-    // Create a hash of the catalogDeps using string-hash
-    return stringHash(
-        catalogDepVersions
-            // Sort by dependency name so that the hash is deterministic
-            .sort((a, b) => a[0].localeCompare(b[0]))
-            // Include both the name and version so that the hash is deterministic
-            .map(([dep, version]) => `${dep}@${version}`)
-            .join(","),
-    ).toString();
+    // Create a hash of the catalogDeps using Node's built-in crypto
+    const inputString = catalogDepVersions
+        // Sort by dependency name so that the hash is deterministic
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        // Include both the name and version so that the hash is deterministic
+        .map(([dep, version]) => `${dep}@${version}`)
+        .join(",");
+
+    // Use first 16 characters of SHA-256 (64 bits) for a shorter, more readable hash
+    // while maintaining extremely low collision probability
+    return createHash("sha256")
+        .update(inputString)
+        .digest("hex")
+        .substring(0, 16);
 }

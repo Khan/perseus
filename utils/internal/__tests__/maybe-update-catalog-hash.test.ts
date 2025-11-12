@@ -106,46 +106,6 @@ describe("maybeUpdateCatalogHash", () => {
         });
     });
 
-    describe("when package is not in packages directory", () => {
-        it("should return false", () => {
-            // Arrange
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                JSON.stringify(getMockPackageJson()),
-            );
-            jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
-
-            // Act
-            const result = maybeUpdateCatalogHash(
-                "/mock/perseus/root/vendor/foo/package.json",
-                getMockPnpmWorkspace(),
-                false,
-            );
-
-            // Assert
-            expect(result).toBe(false);
-        });
-
-        it("should not update the package", () => {
-            // Arrange
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                JSON.stringify(getMockPackageJson()),
-            );
-            const mockWriteFileSync = jest
-                .spyOn(fs, "writeFileSync")
-                .mockImplementation(() => {});
-
-            // Act
-            maybeUpdateCatalogHash(
-                "/mock/perseus/root/vendor/foo/package.json",
-                getMockPnpmWorkspace(),
-                false,
-            );
-
-            // Assert
-            expect(mockWriteFileSync).not.toHaveBeenCalled();
-        });
-    });
-
     describe("when catalog hash has not changed", () => {
         it("should return false", () => {
             // Arrange

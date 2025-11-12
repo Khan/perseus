@@ -1,19 +1,11 @@
 /**
  * @jest-environment node
  */
-import fs from "node:fs";
-
 import {describe, expect, it, jest, beforeEach} from "@jest/globals";
-import fastGlob from "fast-glob";
-import yaml from "yaml";
 
+import * as CatalogHashUtils from "../catalog-hash-utils";
 import * as MaybeUpdateCatalogHash from "../maybe-update-catalog-hash";
 import {updateCatalogHashes} from "../update-catalog-hashes";
-
-// Mock fs to prevent actual file system operations
-jest.mock("node:fs");
-jest.mock("fast-glob");
-jest.mock("yaml");
 
 type PnpmWorkspace = {
     catalogs: {
@@ -47,14 +39,16 @@ describe("updateCatalogHashes", () => {
     describe("package processing", () => {
         it("should process all package.json files", () => {
             // Arrange
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(getMockPnpmWorkspace())); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(getMockPnpmWorkspace());
-            jest.spyOn(fastGlob, "sync").mockReturnValue([
-                "/mock/perseus/root/packages/package1/package.json",
-                "/mock/perseus/root/packages/package2/package.json",
-                "/mock/perseus/root/packages/package3/package.json",
-            ] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                [
+                    "/mock/perseus/root/packages/package1/package.json",
+                    "/mock/perseus/root/packages/package2/package.json",
+                    "/mock/perseus/root/packages/package3/package.json",
+                ],
+            );
             const maybeUpdateSpy = jest
                 .spyOn(MaybeUpdateCatalogHash, "maybeUpdateCatalogHash")
                 .mockReturnValue(false);
@@ -71,10 +65,12 @@ describe("updateCatalogHashes", () => {
             const packagePath =
                 "/mock/perseus/root/packages/package1/package.json";
             const mockWorkspace = getMockPnpmWorkspace();
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(mockWorkspace)); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(mockWorkspace);
-            jest.spyOn(fastGlob, "sync").mockReturnValue([packagePath] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                mockWorkspace,
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                [packagePath],
+            );
             const maybeUpdateSpy = jest
                 .spyOn(MaybeUpdateCatalogHash, "maybeUpdateCatalogHash")
                 .mockReturnValue(false);
@@ -100,13 +96,15 @@ describe("updateCatalogHashes", () => {
             const consoleLogSpy = jest
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(getMockPnpmWorkspace())); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(getMockPnpmWorkspace());
-            jest.spyOn(fastGlob, "sync").mockReturnValue([
-                "/mock/perseus/root/packages/package1/package.json",
-                "/mock/perseus/root/packages/package2/package.json",
-            ] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                [
+                    "/mock/perseus/root/packages/package1/package.json",
+                    "/mock/perseus/root/packages/package2/package.json",
+                ],
+            );
             jest.spyOn(
                 MaybeUpdateCatalogHash,
                 "maybeUpdateCatalogHash",
@@ -126,14 +124,16 @@ describe("updateCatalogHashes", () => {
             const consoleLogSpy = jest
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(getMockPnpmWorkspace())); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(getMockPnpmWorkspace());
-            jest.spyOn(fastGlob, "sync").mockReturnValue([
-                "/mock/perseus/root/packages/package1/package.json",
-                "/mock/perseus/root/packages/package2/package.json",
-                "/mock/perseus/root/packages/package3/package.json",
-            ] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                [
+                    "/mock/perseus/root/packages/package1/package.json",
+                    "/mock/perseus/root/packages/package2/package.json",
+                    "/mock/perseus/root/packages/package3/package.json",
+                ],
+            );
             jest.spyOn(MaybeUpdateCatalogHash, "maybeUpdateCatalogHash")
                 .mockReturnValueOnce(true)
                 .mockReturnValueOnce(false)
@@ -150,12 +150,12 @@ describe("updateCatalogHashes", () => {
 
         it("should call maybeUpdateCatalogHash with isDryRun=true", () => {
             // Arrange
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(getMockPnpmWorkspace())); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(getMockPnpmWorkspace());
-            jest.spyOn(fastGlob, "sync").mockReturnValue([
-                "/mock/perseus/root/packages/package1/package.json",
-            ] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                ["/mock/perseus/root/packages/package1/package.json"],
+            );
             const maybeUpdateSpy = jest
                 .spyOn(MaybeUpdateCatalogHash, "maybeUpdateCatalogHash")
                 .mockReturnValue(false);
@@ -179,13 +179,15 @@ describe("updateCatalogHashes", () => {
             const consoleLogSpy = jest
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(getMockPnpmWorkspace())); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(getMockPnpmWorkspace());
-            jest.spyOn(fastGlob, "sync").mockReturnValue([
-                "/mock/perseus/root/packages/package1/package.json",
-                "/mock/perseus/root/packages/package2/package.json",
-            ] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                [
+                    "/mock/perseus/root/packages/package1/package.json",
+                    "/mock/perseus/root/packages/package2/package.json",
+                ],
+            );
             jest.spyOn(
                 MaybeUpdateCatalogHash,
                 "maybeUpdateCatalogHash",
@@ -205,14 +207,16 @@ describe("updateCatalogHashes", () => {
             const consoleLogSpy = jest
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(getMockPnpmWorkspace())); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(getMockPnpmWorkspace());
-            jest.spyOn(fastGlob, "sync").mockReturnValue([
-                "/mock/perseus/root/packages/package1/package.json",
-                "/mock/perseus/root/packages/package2/package.json",
-                "/mock/perseus/root/packages/package3/package.json",
-            ] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                [
+                    "/mock/perseus/root/packages/package1/package.json",
+                    "/mock/perseus/root/packages/package2/package.json",
+                    "/mock/perseus/root/packages/package3/package.json",
+                ],
+            );
             jest.spyOn(MaybeUpdateCatalogHash, "maybeUpdateCatalogHash")
                 .mockReturnValueOnce(true)
                 .mockReturnValueOnce(false)
@@ -231,12 +235,12 @@ describe("updateCatalogHashes", () => {
     describe("verbose mode", () => {
         it("should pass verbose flag to maybeUpdateCatalogHash", () => {
             // Arrange
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(getMockPnpmWorkspace())); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(getMockPnpmWorkspace());
-            jest.spyOn(fastGlob, "sync").mockReturnValue([
-                "/mock/perseus/root/packages/package1/package.json",
-            ] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                ["/mock/perseus/root/packages/package1/package.json"],
+            );
             const maybeUpdateSpy = jest
                 .spyOn(MaybeUpdateCatalogHash, "maybeUpdateCatalogHash")
                 .mockReturnValue(false);
@@ -260,10 +264,12 @@ describe("updateCatalogHashes", () => {
             const consoleLogSpy = jest
                 .spyOn(console, "log")
                 .mockImplementation(() => {});
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(getMockPnpmWorkspace())); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(getMockPnpmWorkspace());
-            jest.spyOn(fastGlob, "sync").mockReturnValue([] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                [],
+            );
             const maybeUpdateSpy = jest
                 .spyOn(MaybeUpdateCatalogHash, "maybeUpdateCatalogHash")
                 .mockReturnValue(false);
@@ -278,14 +284,14 @@ describe("updateCatalogHashes", () => {
             );
         });
 
-        it("should process all packages found by glob", () => {
+        it("should process all packages found by git ls-files", () => {
             // Arrange
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValue(yaml.stringify(getMockPnpmWorkspace())); // pnpm workspace
-            jest.spyOn(yaml, "parse").mockReturnValue(getMockPnpmWorkspace());
-            jest.spyOn(fastGlob, "sync").mockReturnValue([
-                "/mock/perseus/root/packages/package1/package.json",
-            ] as any);
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                ["/mock/perseus/root/packages/package1/package.json"],
+            );
             const maybeUpdateSpy = jest
                 .spyOn(MaybeUpdateCatalogHash, "maybeUpdateCatalogHash")
                 .mockReturnValue(false);

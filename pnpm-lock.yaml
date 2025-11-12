@@ -12,57 +12,21 @@ catalogs:
     '@khanacademy/wonder-blocks-accordion':
       specifier: 3.1.44
       version: 3.1.44
-    '@khanacademy/wonder-blocks-announcer':
-      specifier: 1.0.4
-      version: 1.0.4
-    '@khanacademy/wonder-blocks-banner':
-      specifier: 5.0.2
-      version: 5.0.2
     '@khanacademy/wonder-blocks-button':
       specifier: 11.2.6
       version: 11.2.6
-    '@khanacademy/wonder-blocks-clickable':
-      specifier: 8.0.2
-      version: 8.0.2
     '@khanacademy/wonder-blocks-core':
       specifier: 12.4.1
       version: 12.4.1
-    '@khanacademy/wonder-blocks-data':
-      specifier: 14.1.7
-      version: 14.1.7
-    '@khanacademy/wonder-blocks-dropdown':
-      specifier: 10.4.10
-      version: 10.4.10
-    '@khanacademy/wonder-blocks-form':
-      specifier: 7.4.3
-      version: 7.4.3
     '@khanacademy/wonder-blocks-icon':
       specifier: 5.3.2
       version: 5.3.2
-    '@khanacademy/wonder-blocks-icon-button':
-      specifier: 10.5.5
-      version: 10.5.5
-    '@khanacademy/wonder-blocks-labeled-field':
-      specifier: 4.0.8
-      version: 4.0.8
     '@khanacademy/wonder-blocks-layout':
       specifier: 3.1.39
       version: 3.1.39
-    '@khanacademy/wonder-blocks-link':
-      specifier: 10.0.3
-      version: 10.0.3
-    '@khanacademy/wonder-blocks-modal':
-      specifier: 8.5.3
-      version: 8.5.3
-    '@khanacademy/wonder-blocks-pill':
-      specifier: 3.1.45
-      version: 3.1.45
     '@khanacademy/wonder-blocks-popover':
       specifier: 6.1.40
       version: 6.1.40
-    '@khanacademy/wonder-blocks-progress-spinner':
-      specifier: 3.1.39
-      version: 3.1.39
     '@khanacademy/wonder-blocks-switch':
       specifier: 3.3.22
       version: 3.3.22
@@ -75,33 +39,15 @@ catalogs:
     '@khanacademy/wonder-blocks-tokens':
       specifier: 14.1.0
       version: 14.1.0
-    '@khanacademy/wonder-blocks-tooltip':
-      specifier: 4.1.54
-      version: 4.1.54
     '@khanacademy/wonder-blocks-typography':
       specifier: 4.2.24
       version: 4.2.24
-    '@khanacademy/wonder-stuff-core':
-      specifier: 1.5.5
-      version: 1.5.5
     '@phosphor-icons/core':
       specifier: 2.0.2
       version: 2.0.2
-    '@popperjs/core':
-      specifier: 2.10.2
-      version: 2.10.2
     aphrodite:
       specifier: 1.2.5
       version: 1.2.5
-    classnames:
-      specifier: 1.1.4
-      version: 1.1.4
-    jquery:
-      specifier: 2.1.1
-      version: 2.1.1
-    prop-types:
-      specifier: 15.6.1
-      version: 15.6.1
     react:
       specifier: 18.2.0
       version: 18.2.0
@@ -111,23 +57,9 @@ catalogs:
     tiny-invariant:
       specifier: 1.3.1
       version: 1.3.1
-    underscore:
-      specifier: 1.4.4
-      version: 1.4.4
     vite:
       specifier: 5.4.0
       version: 5.4.0
-  peerDeps:
-    react:
-      specifier: ^18.2.0
-      version: 18.3.1
-    react-dom:
-      specifier: ^18.2.0
-      version: 18.3.1
-  prodDeps:
-    tiny-invariant:
-      specifier: 1.3.1
-      version: 1.3.1
 
 patchedDependencies:
   postcss-url:
@@ -282,9 +214,6 @@ importers:
       '@types/semver':
         specifier: 7.7.0
         version: 7.7.0
-      '@types/string-hash':
-        specifier: ^1.1.3
-        version: 1.1.3
       '@types/underscore':
         specifier: ^1.11.4
         version: 1.11.4
@@ -474,9 +403,6 @@ importers:
       storybook-multilevel-sort:
         specifier: ^2.0.1
         version: 2.0.1
-      string-hash:
-        specifier: ^1.1.3
-        version: 1.1.3
       style-loader:
         specifier: ^3.3.3
         version: 3.3.3(webpack@5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0))
@@ -3251,9 +3177,6 @@ packages:
 
   '@types/stack-utils@2.0.1':
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
-
-  '@types/string-hash@1.1.3':
-    resolution: {integrity: sha512-p6skq756fJWiA59g2Uss+cMl6tpoDGuCBuxG0SI1t0NwJmYOU66LAMS6QiCgu7cUh3/hYCaMl5phcCW1JP5wOA==}
 
   '@types/tough-cookie@4.0.2':
     resolution: {integrity: sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==}
@@ -12165,8 +12088,6 @@ snapshots:
   '@types/stack-utils@1.0.1': {}
 
   '@types/stack-utils@2.0.1': {}
-
-  '@types/string-hash@1.1.3': {}
 
   '@types/tough-cookie@4.0.2': {}
 

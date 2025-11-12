@@ -1,9 +1,17 @@
 /**
  * @jest-environment node
  */
+import {createHash} from "node:crypto";
+
 import {describe, expect, it, jest} from "@jest/globals";
 
 import {getCatalogDepsHash} from "../get-catalog-deps-hash";
+
+// SHA-256 hash of an empty string (truncated to 16 chars) - used when a package has no catalog dependencies
+const EMPTY_CATALOG_HASH = createHash("sha256")
+    .update("")
+    .digest("hex")
+    .substring(0, 16);
 
 type PnpmWorkspace = {
     catalogs: {
@@ -89,8 +97,8 @@ describe("getCatalogDepsHash", () => {
         // Act
         const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
 
-        // Assert - Empty string hashes to "5381" with string-hash
-        expect(result).toBe("5381");
+        // Assert - Empty catalog dependencies produce the empty string hash
+        expect(result).toBe(EMPTY_CATALOG_HASH);
     });
 
     it("should return hash of empty string for package with no dependencies", () => {
@@ -111,8 +119,8 @@ describe("getCatalogDepsHash", () => {
         // Act
         const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
 
-        // Assert - Empty string hashes to "5381" with string-hash
-        expect(result).toBe("5381");
+        // Assert - Empty catalog dependencies produce the empty string hash
+        expect(result).toBe(EMPTY_CATALOG_HASH);
     });
 
     it("should return hash of empty string for package with undefined dependencies", () => {
@@ -135,8 +143,8 @@ describe("getCatalogDepsHash", () => {
         // Act
         const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
 
-        // Assert - Empty string hashes to "5381" with string-hash
-        expect(result).toBe("5381");
+        // Assert - Empty catalog dependencies produce the empty string hash
+        expect(result).toBe(EMPTY_CATALOG_HASH);
     });
 
     it("should sort dependencies alphabetically for deterministic hash", () => {
@@ -305,8 +313,8 @@ describe("getCatalogDepsHash", () => {
         // Act
         const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
 
-        // Assert - Empty string hashes to "5381" with string-hash
-        expect(result).toBe("5381");
+        // Assert - Empty catalog dependencies produce the empty string hash
+        expect(result).toBe(EMPTY_CATALOG_HASH);
     });
 
     it("should handle single catalog dependency", () => {
@@ -330,8 +338,12 @@ describe("getCatalogDepsHash", () => {
         // Act
         const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
 
-        // Assert - Should be consistent
-        expect(result).toBe("1430796529"); // "react@^18.2.0"
+        // Assert - Should be consistent and deterministic
+        const expectedHash = createHash("sha256")
+            .update("react@^18.2.0")
+            .digest("hex")
+            .substring(0, 16);
+        expect(result).toBe(expectedHash);
     });
 
     it("should handle only prodDeps catalog", () => {
@@ -433,6 +445,10 @@ describe("getCatalogDepsHash", () => {
 
         // Assert - Should produce same hash since devDeps are excluded
         expect(resultWithDevDeps).toBe(resultWithoutDevDeps);
-        expect(resultWithDevDeps).toBe("1430796529"); // "react@^18.2.0"
+        const expectedHash = createHash("sha256")
+            .update("react@^18.2.0")
+            .digest("hex")
+            .substring(0, 16);
+        expect(resultWithDevDeps).toBe(expectedHash);
     });
 });

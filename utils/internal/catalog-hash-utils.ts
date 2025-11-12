@@ -1,6 +1,7 @@
+import {execSync} from "node:child_process";
 import fs from "node:fs";
+import path from "node:path";
 
-import fastGlob from "fast-glob";
 import yaml from "yaml";
 
 export type PackageJson = {
@@ -30,14 +31,27 @@ export function loadPnpmWorkspace(): PnpmWorkspace {
 }
 
 /**
- * Find all package.json files in the workspace.
+ * Find all package.json files in the workspace that are tracked by git.
+ * This automatically excludes node_modules, dist, and other untracked files.
  */
 export function findAllPackageJsons(): string[] {
-    const packageJsonPaths = fastGlob.sync("**/package.json", {
-        absolute: true,
-        ignore: ["**/node_modules/**", "**/dist/**"],
-    });
-    return packageJsonPaths;
+    try {
+        const output = execSync(
+            'git ls-files "package.json" "**/package.json"',
+            {
+                encoding: "utf-8",
+            },
+        );
+        return output
+            .trim()
+            .split("\n")
+            .filter(Boolean)
+            .map((p) => path.resolve(process.cwd(), p));
+    } catch (error) {
+        const errorMessage =
+            error instanceof Error ? error.message : String(error);
+        throw new Error(
+            `Failed to find package.json files using git. Ensure you're in a git repository. ${errorMessage}`,
+        );
+    }
 }
-
-export const ROOT_PACKAGE_NAME = "perseus";

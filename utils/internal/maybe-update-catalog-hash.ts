@@ -1,5 +1,4 @@
 import fs from "node:fs";
-import path from "node:path";
 
 import {getCatalogDepsHash} from "./get-catalog-deps-hash";
 
@@ -10,7 +9,6 @@ import type {PackageJson, PnpmWorkspace} from "./catalog-hash-utils";
  *
  * This function checks if a package should have its catalog hash updated based on:
  * - Whether the package is marked as private (skips if so)
- * - Whether the package is in the packages directory (only processes packages)
  * - Whether the current catalog hash differs from the newly calculated hash
  *
  * @param packageJsonPath - The absolute path to the package.json file to potentially update
@@ -31,16 +29,6 @@ export function maybeUpdateCatalogHash(
 
     // Skip private packages (not published to npm)
     if (packageJson.private === true) {
-        return false;
-    }
-
-    const relativePackageJsonPath = path.relative(
-        process.cwd(),
-        packageJsonPath,
-    );
-
-    // We only care about packages in the packages directory
-    if (!relativePackageJsonPath.startsWith("packages")) {
         return false;
     }
 
