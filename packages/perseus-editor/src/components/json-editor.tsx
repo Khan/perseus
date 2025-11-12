@@ -7,6 +7,7 @@ type Props = {
     multiLine: boolean;
     value: any;
     onChange: (newJson: any) => void;
+    editingDisabled: boolean;
 };
 
 type DefaultProps = {
@@ -144,6 +145,7 @@ class JsonEditor extends React.Component<Props, State> {
                 onChange={this.handleChange}
                 onKeyDown={this.handleKeyDown}
                 onBlur={this.handleBlur}
+                disabled={this.props.editingDisabled}
             />
         );
     }

@@ -142,7 +142,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: type,
-                widgetType: "INTERACTIVE_GRAPH",
+                widgetType: "interactive-graph",
                 widgetId: "interactive-graph",
             },
         });

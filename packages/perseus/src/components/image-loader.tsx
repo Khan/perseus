@@ -164,8 +164,13 @@ class ImageLoader extends React.Component<Props, State> {
                     // display value could cause a 4px gap below images.
                     display: "block",
                     ...(imgProps.style ?? {
+                        // Not adding `height` to styles here, because it
+                        // gets set automatically based on the width and
+                        // aspect ratio of the image. Setting `height: 100%`
+                        // could cause the image to stretch vertically in
+                        // certain cases (example: images inside markdown
+                        // tables in Safari).
                         width: "100%",
-                        height: "100%",
                     }),
                 }}
                 {...otherImgProps}

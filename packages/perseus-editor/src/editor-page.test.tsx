@@ -180,4 +180,50 @@ describe("EditorPage", () => {
             }),
         );
     });
+
+    it("should disable editor components when editingDisabled is set", () => {
+        const question: PerseusRenderer = {
+            content: "[[☃ categorizer 1]]",
+            images: {},
+            widgets: {
+                "categorizer 1": {
+                    type: "categorizer",
+                    static: false, // <= important
+                    options: {
+                        static: false, // <= maybe important?
+                        items: ["Zero", "One", "Uno"],
+                        categories: ["Column 0", "Column 1"],
+                        values: [0, 1, 1],
+                        randomizeItems: false,
+                    },
+                },
+            },
+        };
+
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={question}
+                onChange={() => {}}
+                apiOptions={{editingDisabled: true}}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={false}
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Check that main textarea is disabled
+        const textarea = screen.getByPlaceholderText(
+            "Type your question here...",
+        );
+        expect(textarea).toBeDisabled();
+
+        // Check that add widget button is disabled
+        const widgetSelect = screen.getByTestId("editor__widget-select");
+        expect(widgetSelect).toBeDisabled();
+    });
 });

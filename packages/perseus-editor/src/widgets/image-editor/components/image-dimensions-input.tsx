@@ -1,4 +1,7 @@
+import {Util} from "@khanacademy/perseus";
+import Button from "@khanacademy/wonder-blocks-button";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import * as React from "react";
 
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
@@ -60,29 +63,59 @@ export default function ImageDimensionsInput({
         });
     }
 
+    async function handleResetToOriginalSize() {
+        const naturalSize = await Util.getImageSizeModern(backgroundImage.url!);
+        const [naturalWidth, naturalHeight] = naturalSize;
+
+        if (
+            naturalWidth === backgroundImage.width &&
+            naturalHeight === backgroundImage.height
+        ) {
+            return;
+        }
+
+        onChange({
+            backgroundImage: {
+                ...backgroundImage,
+                width: naturalWidth,
+                height: naturalHeight,
+            },
+        });
+    }
+
     return (
         <div className={styles.dimensionsContainer}>
-            <LabeledField
-                label="Width"
-                field={
-                    <ScrolllessNumberTextField
-                        value={backgroundImage.width?.toString() ?? ""}
-                        onChange={handleWidthChange}
-                    />
-                }
-                styles={wbFieldStyles}
-            />
-            <span className={styles.xSpan}>x</span>
-            <LabeledField
-                label="Height"
-                field={
-                    <ScrolllessNumberTextField
-                        value={backgroundImage.height?.toString() ?? ""}
-                        onChange={handleHeightChange}
-                    />
-                }
-                styles={wbFieldStyles}
-            />
+            <div className={styles.dimensionsFieldContainer}>
+                <LabeledField
+                    label="Width"
+                    field={
+                        <ScrolllessNumberTextField
+                            value={backgroundImage.width?.toString() ?? ""}
+                            onChange={handleWidthChange}
+                        />
+                    }
+                    styles={wbFieldStyles}
+                />
+                <span className={styles.xSpan}>x</span>
+                <LabeledField
+                    label="Height"
+                    field={
+                        <ScrolllessNumberTextField
+                            value={backgroundImage.height?.toString() ?? ""}
+                            onChange={handleHeightChange}
+                        />
+                    }
+                    styles={wbFieldStyles}
+                />
+            </div>
+            <Button
+                kind="tertiary"
+                size="small"
+                startIcon={arrowCounterClockwise}
+                onClick={handleResetToOriginalSize}
+            >
+                Reset to original size
+            </Button>
         </div>
     );
 }

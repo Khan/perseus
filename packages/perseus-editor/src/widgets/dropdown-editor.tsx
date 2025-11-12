@@ -1,19 +1,22 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, EditorJsonify, iconTrash} from "@khanacademy/perseus";
+import {components, EditorJsonify} from "@khanacademy/perseus";
 import {
     dropdownLogic,
     type DropdownDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
+import Button from "@khanacademy/wonder-blocks-button";
 import {TextField} from "@khanacademy/wonder-blocks-form";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {iconPlus} from "../styles/icon-paths";
-
-const {InfoTip, InlineIcon} = components;
+const {InfoTip} = components;
 
 type Props = any;
 
@@ -49,10 +52,7 @@ class DropdownEditor extends React.Component<Props> {
         this.props.onChange({placeholder});
     };
 
-    onCorrectChange: (
-        arg1: number,
-        arg2: React.ChangeEvent<HTMLInputElement>,
-    ) => void = (choiceIndex) => {
+    onCorrectChange: (arg1: number) => void = (choiceIndex) => {
         const choices = _.map(this.props.choices, function (choice, i) {
             return _.extend({}, choice, {
                 correct: i === choiceIndex,
@@ -61,20 +61,18 @@ class DropdownEditor extends React.Component<Props> {
         this.props.onChange({choices: choices});
     };
 
-    onContentChange: (
-        arg1: number,
-        arg2: React.ChangeEvent<HTMLInputElement>,
-    ) => void = (choiceIndex, e) => {
+    onContentChange: (arg1: number, arg2: string) => void = (
+        choiceIndex,
+        newContent,
+    ) => {
         const choices = this.props.choices.slice();
         const choice = _.clone(choices[choiceIndex]);
-        choice.content = e.target.value;
+        choice.content = newContent;
         choices[choiceIndex] = choice;
         this.props.onChange({choices: choices});
     };
 
-    addChoice: (arg1: React.MouseEvent) => void = (e) => {
-        e.preventDefault();
-
+    addChoice: () => void = () => {
         const choices = this.props.choices;
         const blankChoice = {content: "", correct: false} as const;
         this.props.onChange(
@@ -85,11 +83,7 @@ class DropdownEditor extends React.Component<Props> {
         );
     };
 
-    removeChoice: (arg1: number, arg2: React.MouseEvent) => void = (
-        choiceIndex,
-        e,
-    ) => {
-        e.preventDefault();
+    removeChoice: (arg1: number) => void = (choiceIndex) => {
         const choices = _(this.props.choices).clone();
         choices.splice(choiceIndex, 1);
         this.props.onChange({
@@ -109,6 +103,7 @@ class DropdownEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const dropdownGroupName = _.uniqueId("perseus_dropdown_");
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
             <div className="perseus-widget-dropdown">
                 <div className="dropdown-info">
@@ -183,61 +178,43 @@ class DropdownEditor extends React.Component<Props> {
                 <div className="clearfix" />
                 <LabelMedium>Choices</LabelMedium>
                 <ul className="dropdown-choices">
-                    {this.props.choices.map(function (choice, i) {
-                        const checkedClass = choice.correct
-                            ? "correct"
-                            : "incorrect";
+                    {this.props.choices.map((choice, i) => {
+                        const choiceBackgroundColor = choice.correct
+                            ? semanticColor.core.background.success.subtle
+                            : semanticColor.core.background.critical.subtle;
 
                         return (
                             <li key={"" + i}>
-                                <div>
+                                <div className="dropdown-choice">
                                     <input
-                                        ref={"radio" + i}
                                         type="radio"
+                                        ref={"radio" + i}
                                         name={dropdownGroupName}
-                                        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'boolean | undefined'.
-                                        checked={
-                                            choice.correct ? "checked" : ""
-                                        }
-                                        // eslint-disable-next-line react/jsx-no-bind
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        onChange={this.onCorrectChange.bind(
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this,
-                                            i,
-                                        )}
-                                        value={i}
+                                        checked={choice.correct}
+                                        onChange={() => this.onCorrectChange(i)}
                                     />
-                                    <input
-                                        type="text"
-                                        ref={"editor" + i}
-                                        // eslint-disable-next-line react/jsx-no-bind
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        onChange={this.onContentChange.bind(
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this,
-                                            i,
-                                        )}
-                                        className={checkedClass}
+
+                                    <TextField
                                         value={choice.content}
+                                        ref={"editor" + i}
+                                        aria-label={`Choice ${i + 1} content`}
+                                        disabled={editingDisabled}
+                                        style={{
+                                            backgroundColor:
+                                                choiceBackgroundColor,
+                                        }}
+                                        onChange={(newContent) =>
+                                            this.onContentChange(i, newContent)
+                                        }
                                     />
-                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                    <a
-                                        href="#"
-                                        className="simple-button orange"
+                                    <IconButton
+                                        icon={trashIcon}
                                         aria-label="Delete choice"
-                                        // eslint-disable-next-line react/jsx-no-bind
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        onClick={this.removeChoice.bind(
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this,
-                                            i,
-                                        )}
-                                    >
-                                        <span className="remove-choice">
-                                            <InlineIcon {...iconTrash} />
-                                        </span>
-                                    </a>
+                                        disabled={editingDisabled}
+                                        kind="tertiary"
+                                        size="small"
+                                        onClick={() => this.removeChoice(i)}
+                                    />
                                 </div>
                             </li>
                         );
@@ -245,14 +222,14 @@ class DropdownEditor extends React.Component<Props> {
                 </ul>
 
                 <div className="add-choice-container">
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a
-                        href="#"
-                        className="simple-button orange"
+                    <Button
+                        kind="secondary"
+                        disabled={editingDisabled}
                         onClick={this.addChoice}
+                        startIcon={plusIcon}
                     >
-                        <InlineIcon {...iconPlus} /> Add a choice{" "}
-                    </a>
+                        Add a choice
+                    </Button>
                 </div>
             </div>
         );

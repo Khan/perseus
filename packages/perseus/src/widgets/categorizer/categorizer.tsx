@@ -8,13 +8,19 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
+import {withDependencies} from "../../components/with-dependencies";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
     PerseusCategorizerWidgetOptions,
@@ -28,6 +34,7 @@ type ExternalProps = WidgetProps<
 
 type Props = ExternalProps & {
     linterContext: NonNullable<ExternalProps["linterContext"]>;
+    dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = Pick<
@@ -56,6 +63,17 @@ export class Categorizer
     state: State = {
         uniqueId: _.uniqueId("perseus_radio_"),
     };
+
+    componentDidMount() {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "categorizer",
+                widgetId: "categorizer",
+            },
+        });
+    }
 
     /**
      * @deprecated and likely very broken API
@@ -315,13 +333,18 @@ function getStartUserInput(): PerseusCategorizerUserInput {
     };
 }
 
+const WrappedCategorizer = withDependencies(Categorizer);
+
 export default {
     name: "categorizer",
     displayName: "Categorizer",
     hidden: true,
-    widget: Categorizer,
+    widget: WrappedCategorizer,
     getUserInputFromSerializedState,
     getCorrectUserInput,
     getStartUserInput,
     isLintable: true,
-} satisfies WidgetExports<typeof Categorizer, PerseusCategorizerUserInput>;
+} satisfies WidgetExports<
+    typeof WrappedCategorizer,
+    PerseusCategorizerUserInput
+>;

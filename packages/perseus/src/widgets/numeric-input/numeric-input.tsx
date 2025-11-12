@@ -1,3 +1,4 @@
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {
@@ -10,6 +11,7 @@ import {
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
+import {useDependencies} from "../../dependencies";
 
 import InputWithExamples from "./input-with-examples";
 import {type NumericInputProps} from "./numeric-input.class";
@@ -24,9 +26,21 @@ import type {Focusable} from "../../types";
  */
 export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
     function NumericInputComponent(props, ref) {
+        const {analytics} = useDependencies();
         const context = useContext(PerseusI18nContext);
         const inputRef = useRef<Focusable>(null);
         const [isFocused, setIsFocused] = useState<boolean>(false);
+
+        useOnMountEffect(() => {
+            analytics.onAnalyticsEvent({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: "null",
+                    widgetType: "numeric-input",
+                    widgetId: "numeric-input",
+                },
+            });
+        });
 
         // Pass the focus and blur methods to the Numeric Input Class component
         useImperativeHandle(ref, () => ({
