@@ -58,7 +58,10 @@ export function getAvailableTabs(
             label: <TabIconLabel type="Extras" tintColor="currentColor" />,
             panel: (
                 <RenderKeyPadPanel {...props} selectedPage={selectedPage}>
-                    <ExtrasPage onClickKey={onClickKey} extraKeys={extraKeys} />
+                    <ExtrasPage
+                        onClickKey={onClickKey}
+                        extraKeys={extraKeys ?? []}
+                    />
                 </RenderKeyPadPanel>
             ),
         },
@@ -85,12 +88,6 @@ export function getAvailableTabs(
                     <GeometryPage onClickKey={onClickKey} />
                 </RenderKeyPadPanel>
             ),
-        },
-        // TODO(ivy): Handle proper styling of the Dismiss button to close the keypad
-        {
-            id: "Dismiss",
-            label: <TabIconLabel type="Dismiss" tintColor="currentColor" />,
-            panel: <></>,
         },
     ];
 
