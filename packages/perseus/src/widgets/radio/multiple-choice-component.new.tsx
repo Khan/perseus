@@ -113,7 +113,7 @@ const MultipleChoiceComponent = ({
             >
                 <legend
                     id={legendId}
-                    aria-hidden="true"
+                    // aria-hidden="true"
                     className={styles.instructions}
                 >
                     {instructions}
