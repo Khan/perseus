@@ -20,10 +20,10 @@ import * as React from "react";
 import _ from "underscore";
 import {v4 as uuid} from "uuid";
 
-import a11y from "../util/a11y";
-import {debounce} from "../util/debounce";
+import a11y from "../../util/a11y";
+import {debounce} from "../../util/debounce";
 
-import {PerseusI18nContext} from "./i18n-context";
+import {PerseusI18nContext} from "../i18n-context";
 
 import type {MathFieldInterface} from "@khanacademy/math-input";
 import type {
@@ -377,6 +377,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 </HeadingMedium>
                                 <PopoverContentCore
                                     style={styles.popoverContent}
+                                    closeButtonVisible={true}
                                 >
                                     <DesktopKeypad
                                         onAnalyticsEvent={

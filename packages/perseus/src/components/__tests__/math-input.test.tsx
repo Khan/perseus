@@ -4,9 +4,9 @@ import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import MathInput from "../math-input";
+import MathInput from "../math-input/math-input";
 
-import type {KeypadButtonSets} from "../math-input";
+import type {KeypadButtonSets} from "../math-input/math-input";
 import type {UserEvent} from "@testing-library/user-event";
 
 const allButtonSets: KeypadButtonSets = {
