@@ -23,7 +23,7 @@ export type InteractiveGraphDefaultWidgetOptions = Pick<
 >;
 
 const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
-    labels: ["x", "y"],
+    labels: ["$x$", "$y$"],
     labelLocation: "onAxis",
     range: [
         [-10, 10],
