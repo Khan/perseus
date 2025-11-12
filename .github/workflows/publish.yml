@@ -1,0 +1,277 @@
+name: Release
+
+on:
+    push:
+        branches: [main]
+    workflow_dispatch:
+        inputs:
+            run_type:
+                description: "The type of publish to test"
+                required: true
+                default: "snapshot"
+                type: choice
+                options:
+                    - snapshot
+                    - release
+
+    pull_request:
+        # edited is needed because that's the trigger when the base branch is
+        # changed on a PR
+        # The rest are the defaults.
+        types: [edited, opened, synchronize, reopened]
+
+# IMPORTANT! We set concurrency to this workflow and the branch (github.ref),
+# meaning that this workflow can only run one instance, per branch, at a time.
+# This prevents us from having two production releases publishing at the same
+# time, creating a race condition, and from trying to publish multiple snapshots
+# for the same PR at the same time (potentially publishing an earlier commit as
+# "latest" and causing confusion).
+#
+# We also do not want to cancel in-progress runs, because we don't want a
+# production publish to be interrupted by a snapshot publish ever.
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    # IMPORTANT! We do not want to cancel in-progress runs, because we don't
+    # want a production publish to be interrupted by a snapshot publish ever.
+    cancel-in-progress: false
+
+jobs:
+    # Production Release
+    #
+    # This workflow will run changesets depending on two different scenarios:
+    #
+    # 1. If we are landing a specific commit into main (Author PR), then
+    #    changesets will check if there are changes verifying the Markdown files
+    #    generated automatically:
+    #      a) There are new versions and there's NO Release PR, then the
+    #         changesets action will create a new Release PR.
+    #      b) There's a Release PR, then the changesets action will update the
+    #         existing Release PR with the new commit.
+    #
+    #    NOTE: in both cases, changesets will modify the new version in
+    #    package.json for each package, and will remove the MD files as part of the
+    #    Release PR.
+    #
+    # 2. If we are landing the Release PR into main, then the changesets action
+    #    will publish the changes to npm.
+    #
+    # For more info about this workflow, see:
+    # https://github.com/changesets/action#usage
+    release:
+        name: Release
+        if: |
+            (github.event_name == 'workflow_dispatch' && inputs.run_type == 'release') ||
+            (github.event_name == 'push' && github.ref == 'refs/heads/main')
+        runs-on: ${{ matrix.os }}
+        permissions:
+            id-token: write # For trusted publishing to npm (includes provenance)
+            contents: write # For GitHub pages and creating release PRs
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Create Release Pull Request or Publish to npm
+              id: changesets
+              uses: changesets/action@v1
+              with:
+                  publish: pnpm publish:ci
+              env:
+                  # We use a Personal Access Token here rather than the GITHUB_TOKEN
+                  # so that it will trigger our other actions. The token has to be on
+                  # the account of someone with appropriate access levels and given the
+                  # repo scope.
+                  GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
+                  # TODO(LEMS_3681): Remove once trusted publishing enabled in npmjs.com
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  # We set this so that (p)npm publish will include the
+                  # provenance information in the package.json file and surface
+                  # it in the npm registry.
+                  # See: https://docs.npmjs.com/generating-provenance-statements
+                  NPM_CONFIG_PROVENANCE: true
+
+            - name: Send a Slack notification if a publish fails
+              if: failure()
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                  SLACK_WEBHOOK: ${{ secrets.SLACK_EXERCISENEXT_WEBHOOK }}
+                  SLACK_CHANNEL: eng-perseus
+                  SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
+                  SLACK_USERNAME: GithubGoose
+                  SLACK_ICON_EMOJI: ":goose:"
+                  SLACK_MESSAGE: "Something went wrong with the release of ${{ github.event.repository.name }}. \nPlease check the logs → https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  SLACK_TITLE: "Oops! I'm the Bad News Goose!"
+                  SLACK_FOOTER: Perseus Slack Notification
+                  MSG_MINIMAL: true
+
+            - name: Send a Slack notification for web if a publish happens
+              if: steps.changesets.outputs.published == 'true'
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                  SLACK_WEBHOOK: ${{ secrets.SLACK_EXERCISENEXT_WEBHOOK }}
+                  SLACK_CHANNEL: eng-perseus
+                  SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
+                  SLACK_USERNAME: GithubGoose
+                  SLACK_ICON_EMOJI: ":goose:"
+                  SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! \nRelease notes → https://github.com/${{ github.repository }}/releases/"
+                  SLACK_TITLE: "New Perseus release!"
+                  SLACK_FOOTER: Perseus Slack Notification
+                  MSG_MINIMAL: true
+
+    publish_snapshot:
+        name: Publish npm snapshot
+        # We don't publish snapshots on Changeset "Version Packages" PRs
+        if: |
+            (github.event_name == 'workflow_dispatch' && inputs.run_type == 'snapshot') ||
+            (github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/'))
+        runs-on: ${{ matrix.os }}
+        permissions:
+            id-token: write # For trusted publishing to npm (includes provenance)
+            pull-requests: write # For creating/updating "snapshot created/updated" comment
+            issues: write # For PR comments
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
+        steps:
+            # We need to checkout all history, so that the changeseat tool can diff it
+            - name: Checkout current commit
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: "0"
+
+            - name: Ensure main branch is available
+              run: |
+                  REF=$(git rev-parse HEAD)
+                  git checkout main
+                  git checkout $REF
+
+            # Helper to get the URL of the current run, if we need it.
+            - name: Get workflow run URL
+              id: get-run-url
+              run: echo "run_url=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+
+            # We need to see if any releases are in progress.
+            # We do not want to try and publish anything if a publish is
+            # pending. We fail here, but we make sure to update the
+            # PR comment later. This has to come after the checkout.
+            - name: Check for release
+              id: check-release
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  # Releases are triggered by merging "Version Packages" PRs.
+                  # So we look for instances of the publish.yml workflow, with
+                  # a title containing "Version Packages", that are in progress.
+                  release_count=$(gh run list --workflow publish.yml --json status,displayTitle --jq '[.[] | select(.status == "in_progress" and ((.displayTitle | contains("Version Packages")) or (.displayTitle | contains("RELEASING:"))))] | length')
+                  echo "release_count=$release_count" >> $GITHUB_OUTPUT
+                  if [ "$release_count" -ne 0 ]; then
+                    echo "Error: There are $release_count releases in progress."
+                    exit 1
+                  else
+                    echo "No releases in progress."
+                  fi
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Publish Snapshot Release to npm
+              id: publish-snapshot
+              run: ./utils/publish-snapshot.sh # All config is via Github env vars
+              env:
+                  # TODO(LEMS_3681): Remove once trusted publishing enabled in npmjs.com
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Calculate short SHA for this commit
+              id: short-sha
+              # Why not GITHUB_SHA here? Because that is the last merge-commit
+              # for the PR (ie. the ephemeral commit that Github creates for
+              # each PR merging the base branch into the pull request HEAD) for
+              # Github Action runs). We want to reference the commit that was
+              # pushed, not this ephemeral commit.
+              run: echo "short_sha=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-8)" >> $GITHUB_OUTPUT
+
+            # Note: these two actions are locked to the latest version that were
+            # published when I created this yml file (just for security).
+            - name: Find existing comment
+              # Even if we're failing, we want to update the comments.
+              if: always()
+              uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
+              id: find-comment
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: "npm Snapshot:"
+
+            - name: Create or update npm snapshot comment - success
+              if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # npm Snapshot: Published
+
+                      Good news!! We've packaged up the latest commit from this PR (${{
+                      steps.short-sha.outputs.short_sha }}) and published it to npm. You
+                      can install it using the tag `${{
+                      steps.publish-snapshot.outputs.npm_snapshot_tag }}`.
+
+                      Example:
+                      ```sh
+                      pnpm add @khanacademy/perseus@${{
+                      steps.publish-snapshot.outputs.npm_snapshot_tag }}
+                      ```
+
+                      If you are working in Khan Academy's frontend, you can run the below command.
+                      ```sh
+                      ./dev/tools/bump_perseus_version.ts -t PR${{ github.event.pull_request.number }}
+                      ```
+
+                      If you are working in Khan Academy's webapp, you can run the below command.
+                      ```sh
+                      ./dev/tools/bump_perseus_version.js -t PR${{ github.event.pull_request.number }}
+                      ```
+
+            - name: Create or update npm snapshot comment - failure, snapshot publish failed
+              if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # npm Snapshot: **NOT** Published
+
+                      Oh noes!! We couldn't find any changesets in this PR (${{
+                      steps.short-sha.outputs.short_sha }}). As a result, we did not
+                      publish an npm snapshot for you.
+
+            - name: Create or update npm snapshot comment - failure, concurrent with release
+              if: failure() && steps.check-release.outputs.release_count != '0'
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # npm Snapshot: **NOT** Published
+
+                      Oh noes!! We couldn't publish an npm snapshot for you because
+                      there is a release in progress. Please wait for the release to
+                      finish, then retry this workflow.
+
+                      [View the workflow run](${{ steps.get-run-url.outputs.run_url }})
