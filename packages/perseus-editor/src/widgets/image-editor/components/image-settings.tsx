@@ -79,6 +79,8 @@ export default function ImageSettings({
                     <SvgImage
                         src={backgroundImage.url}
                         alt={`Preview: ${alt || "No alt text"}`}
+                        // No need to allow zooming within the editor.
+                        allowZoom={false}
                     />
                 }
                 styles={wbFieldStyles}

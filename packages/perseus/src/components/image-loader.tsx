@@ -27,7 +27,7 @@ export type ImageProps = {
 type Props = {
     children?: React.ReactNode;
     imgProps: ImageProps;
-    allowZoom?: boolean;
+    allowZoom: boolean;
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
     // When the DOM updates to replace the preloader with the image, or

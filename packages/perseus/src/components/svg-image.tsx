@@ -47,7 +47,7 @@ function defaultPreloader(dimensions: Dimensions) {
 
 type Props = {
     allowFullBleed?: boolean;
-    allowZoom?: boolean;
+    allowZoom: boolean;
     alt: string;
     constrainHeight?: boolean;
     extraGraphie?: {
@@ -477,6 +477,8 @@ class SvgImage extends React.Component<Props, State> {
             return (
                 <ImageLoader
                     src={imageSrc}
+                    // Don't allow zooming on non-responsive images
+                    allowZoom={false}
                     preloader={preloader}
                     imgProps={imageProps}
                     onUpdate={this.handleUpdate}
@@ -537,6 +539,8 @@ class SvgImage extends React.Component<Props, State> {
                 >
                     <ImageLoader
                         src={imageUrl}
+                        // Don't allow zooming on Graphie images (yet)
+                        allowZoom={false}
                         onLoad={this.onImageLoad}
                         onUpdate={this.handleUpdate}
                         preloader={preloader}
@@ -552,6 +556,8 @@ class SvgImage extends React.Component<Props, State> {
             <div className="unresponsive-svg-image" style={dimensions}>
                 <ImageLoader
                     src={imageUrl}
+                    // Don't allow zooming on non-responsive images
+                    allowZoom={false}
                     onLoad={this.onImageLoad}
                     onUpdate={this.handleUpdate}
                     preloader={preloader}

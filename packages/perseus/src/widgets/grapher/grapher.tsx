@@ -298,6 +298,9 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                 // @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
                 <SvgImage
                     src={imageDescription.url}
+                    allowZoom={false}
+                    // Don't allow zooming on an image that's being
+                    // used as a graph background.
                     width={imageDescription.width}
                     height={imageDescription.height}
                     scale={scale}
