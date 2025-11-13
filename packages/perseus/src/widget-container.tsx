@@ -176,6 +176,7 @@ class WidgetContainer extends React.Component<Props, State> {
                                         widgetType: type,
                                         widgetId: this.props.id,
                                         message: error.message,
+                                        stack: error.stack,
                                         userAgent: userAgent,
                                     },
                                 });
