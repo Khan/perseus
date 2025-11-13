@@ -11,6 +11,10 @@ export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as ContentPreview} from "./content-preview";
 export type {Issue} from "./components/issues-panel";
 
+// Preview system hooks and utilities
+export {usePreviewHost} from "./preview/use-preview-host";
+export {usePreviewClient} from "./preview/use-preview-client";
+
 import "./styles/perseus-editor.css";
 
 // eslint-disable-next-line import/order

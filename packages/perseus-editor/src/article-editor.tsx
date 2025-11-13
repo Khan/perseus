@@ -20,6 +20,7 @@ import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 
+import type {IframeContentRendererRef} from "./iframe-content-renderer";
 import type {
     APIOptions,
     Changeable,
@@ -58,6 +59,7 @@ type Props = DefaultProps & {
 type State = {
     highlightLint: boolean;
 };
+
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
@@ -72,32 +74,47 @@ export default class ArticleEditor extends React.Component<Props, State> {
         highlightLint: true,
     };
 
+    // Store refs for preview iframes (keyed by section index or "all")
+    private frameRefs: Record<string, IframeContentRendererRef | null> = {};
+
     componentDidMount() {
-        this._updatePreviewFrames();
+        // Defer updatePreviewFrames to ensure refs are set
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
+        // eslint-disable-next-line no-restricted-syntax
+        setTimeout(() => {
+            this._updatePreviewFrames();
+        }, 0);
     }
 
     componentDidUpdate() {
-        this._updatePreviewFrames();
+        // Defer updatePreviewFrames to allow for child renders
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
+        // eslint-disable-next-line no-restricted-syntax
+        setTimeout(() => {
+            this._updatePreviewFrames();
+        }, 0);
     }
 
     _updatePreviewFrames() {
         if (this.props.mode === "preview") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-            this.refs["frame-all"].sendNewData({
-                type: "article-all",
-                data: this._sections().map((section, i) => {
-                    return this._apiOptionsForSection(section, i);
-                }),
-            });
+            const frameAll = this.frameRefs["all"];
+            if (frameAll) {
+                frameAll.sendNewData({
+                    type: "article-all",
+                    data: this._sections().map((section, i) => {
+                        return this._apiOptionsForSection(section, i);
+                    }),
+                });
+            }
         } else if (this.props.mode === "edit") {
             this._sections().forEach((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-                this.refs["frame-" + i].sendNewData({
-                    type: "article",
-                    data: this._apiOptionsForSection(section, i),
-                });
+                const frame = this.frameRefs[String(i)];
+                if (frame) {
+                    frame.sendNewData({
+                        type: "article",
+                        data: this._apiOptionsForSection(section, i),
+                    });
+                }
             });
         }
     }
@@ -115,7 +132,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 showAlignmentOptions: true,
                 isArticle: true,
             },
-            json: section,
+            // Spread section content at top level for preview
+            content: section.content || "",
+            widgets: section.widgets || {},
+            images: section.images || {},
             useNewStyles: this.props.useNewStyles,
             linterContext: {
                 contentType: "article",
@@ -297,10 +317,11 @@ export default class ArticleEditor extends React.Component<Props, State> {
         return (
             <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
                 <IframeContentRenderer
-                    ref={"frame-" + i}
+                    ref={(node) => {
+                        this.frameRefs[String(i)] = node;
+                    }}
                     key={this.props.screen}
-                    datasetKey="mobile"
-                    datasetValue={isMobile}
+                    isMobile={isMobile}
                     seamless={nochrome}
                     url={this.props.previewURL}
                 />
