@@ -3,7 +3,7 @@ import {
     getLegacyExpressionWidget,
     getTestDropdownWidget,
 } from "./util/test-helpers";
-import {emptyWidgetsFunctional} from "./validate";
+import {emptyWidgetsFunctional, validateWidgets} from "./validate";
 
 import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
 
@@ -269,6 +269,46 @@ describe("emptyWidgetsFunctional", () => {
             userInputMap,
             "en",
         );
+
+        // Assert
+        expect(result).toEqual([]);
+    });
+});
+
+describe("validateWidgets", () => {
+    it("validates an invalid widget", () => {
+        // Arrange
+        const widgets: PerseusWidgetsMap = {
+            "dropdown 1": getTestDropdownWidget(),
+        };
+        const widgetIds: Array<string> = ["dropdown 1"];
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {
+                value: 0,
+            },
+        };
+
+        // Act
+        const result = validateWidgets(widgets, widgetIds, userInputMap, "en");
+
+        // Assert
+        expect(result).toEqual(["dropdown 1"]);
+    });
+
+    it("does not return widget IDs that are not empty", () => {
+        // Arrange
+        const widgets: PerseusWidgetsMap = {
+            "dropdown 1": getTestDropdownWidget(),
+        };
+        const widgetIds: Array<string> = ["dropdown 1"];
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {
+                value: 1,
+            },
+        };
+
+        // Act
+        const result = validateWidgets(widgets, widgetIds, userInputMap, "en");
 
         // Assert
         expect(result).toEqual([]);

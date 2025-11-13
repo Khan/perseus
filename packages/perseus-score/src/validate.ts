@@ -36,3 +36,34 @@ export function emptyWidgetsFunctional(
         return false;
     });
 }
+
+// TODO: this is very similar to emptyWidgetsFunctional,
+// they should be merged
+export function validateWidgets(
+    widgets: ValidationDataMap,
+    // This is a port of old code, I'm not sure why
+    // we need widgetIds vs the keys of the widgets object
+    widgetIds: ReadonlyArray<string>,
+    userInputMap: UserInputMap,
+    locale: string,
+): ReadonlyArray<string> {
+    return widgetIds.filter((id) => {
+        const widget = widgets[id];
+        if (!widget || widget.static === true) {
+            // Static widgets shouldn't count as empty
+            return false;
+        }
+
+        const validator = getWidgetValidator(widget.type);
+        const userInput = userInputMap[id];
+        const validationData = widget.options;
+        const score = validator?.(userInput, validationData, locale);
+
+        if (score) {
+            return score.type === "invalid";
+        }
+
+        // If validator returned null, the widget is valid/filled, so not empty
+        return false;
+    });
+}
