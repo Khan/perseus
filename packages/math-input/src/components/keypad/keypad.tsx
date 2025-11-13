@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Tabs} from "@khanacademy/wonder-blocks-tabs";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {useEffect} from "react";
 
@@ -92,30 +92,19 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
                     setSelectedPage(newSelectedPage as KeypadPageType);
                 }}
                 styles={{
-                    root: expandedView
-                        ? {
-                              backgroundColor:
-                                  semanticColor.core.background.base.default,
-                              borderWidth: "1px 1px 0 1px",
-                              borderStyle: "solid",
-                              borderColor:
-                                  semanticColor.core.border.neutral.default,
-                              maxWidth: 500,
-                              borderRadius: "3px 3px 0 0",
-                          }
-                        : {
-                              backgroundColor:
-                                  semanticColor.core.background.base.default,
-                          },
+                    tab: {
+                        marginBlockStart: sizing.size_080,
+                        marginBlockEnd: sizing.size_080,
+                    },
                     tablist: {
-                        margin: 0,
+                        gap: sizing.size_080,
+                        paddingInline: sizing.size_080,
                     },
                     tabPanel: {
                         display: "flex",
                         flexDirection: "row",
-                        backgroundColor: "#DBDCDD",
-                        // Even in RTL languages, math is LTR.
-                        // So we force this component to always render LTR
+                        backgroundColor:
+                            semanticColor.core.background.disabled.strong,
                         direction: "ltr",
                     },
                 }}
