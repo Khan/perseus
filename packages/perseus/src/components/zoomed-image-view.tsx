@@ -6,14 +6,23 @@ import * as React from "react";
 
 import {usePerseusI18n} from "./i18n-context";
 import styles from "./zoomed-image-view.module.css";
+import FixedToResponsive from "./fixed-to-responsive";
 
 type Props = {
     imgElement: React.ReactNode;
     imgSrc: string;
+    width: number;
+    height: number;
     onClose: () => void;
 };
 
-export const ZoomedImageView = ({imgElement, imgSrc, onClose}: Props) => {
+export const ZoomedImageView = ({
+    imgElement,
+    imgSrc,
+    width,
+    height,
+    onClose,
+}: Props) => {
     const i18n = usePerseusI18n();
     // Check for "Command + Click" or "Control + Click" to open the image
     // in a new tab. This feature was part of the old zoom service, so
@@ -46,7 +55,17 @@ export const ZoomedImageView = ({imgElement, imgSrc, onClose}: Props) => {
                                 cursor: "zoom-out",
                             }}
                         >
-                            {() => imgElement}
+                            {() => (
+                                <div className="framework-perseus">
+                                    <FixedToResponsive
+                                        className="svg-image"
+                                        width={width}
+                                        height={height}
+                                    >
+                                        {imgElement}
+                                    </FixedToResponsive>
+                                </div>
+                            )}
                         </Clickable>
                     </div>
                 }

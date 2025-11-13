@@ -18,6 +18,7 @@ import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
 import type {Dimensions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
+import {ZoomImageButton} from "./zoom-image-button";
 
 function isImageProbablyPhotograph(imageUrl) {
     // TODO(david): Do an inventory to refine this heuristic. For example, what
@@ -153,10 +154,6 @@ class SvgImage extends React.Component<Props, State> {
         zoomToFullSizeOnMobile: false,
         setAssetStatus: (src: string, status: boolean) => {},
     };
-
-    // Create a ref to the underlying image element. This is used within the
-    // Zoom service to reference the image element to zoom into.
-    imageRef: React.RefObject<HTMLImageElement> = React.createRef();
 
     constructor(props: Props) {
         super(props);
@@ -450,6 +447,18 @@ class SvgImage extends React.Component<Props, State> {
         // Just use a normal image if a normal image is provided
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
+                const imageContent = (
+                    <>
+                        <ImageLoader
+                            src={imageSrc}
+                            imgProps={imageProps}
+                            preloader={preloader}
+                            onUpdate={this.handleUpdate}
+                        />
+                        {extraGraphie}
+                    </>
+                );
+
                 return (
                     <FixedToResponsive
                         className="svg-image"
@@ -461,18 +470,19 @@ class SvgImage extends React.Component<Props, State> {
                             isImageProbablyPhotograph(imageSrc)
                         }
                     >
-                        <ImageLoader
-                            allowZoom={this.props.allowZoom}
-                            forwardedRef={this.imageRef}
-                            src={imageSrc}
-                            imgProps={imageProps}
-                            preloader={preloader}
-                            onUpdate={this.handleUpdate}
-                        />
-                        {extraGraphie}
+                        {imageContent}
+                        {this.props.allowZoom && (
+                            <ZoomImageButton
+                                imgElement={imageContent}
+                                imgSrc={imageSrc}
+                                width={width}
+                                height={height}
+                            />
+                        )}
                     </FixedToResponsive>
                 );
             }
+
             imageProps.style = dimensions;
             return (
                 <ImageLoader
@@ -530,13 +540,8 @@ class SvgImage extends React.Component<Props, State> {
         }
 
         if (responsive) {
-            return (
-                <FixedToResponsive
-                    className="svg-image"
-                    width={width}
-                    height={height}
-                    constrainHeight={this.props.constrainHeight}
-                >
+            const imageContent = (
+                <>
                     <ImageLoader
                         src={imageUrl}
                         // Don't allow zooming on Graphie images (yet)
@@ -548,6 +553,25 @@ class SvgImage extends React.Component<Props, State> {
                     />
                     {graphie}
                     {extraGraphie}
+                </>
+            );
+
+            return (
+                <FixedToResponsive
+                    className="svg-image"
+                    width={width}
+                    height={height}
+                    constrainHeight={this.props.constrainHeight}
+                >
+                    {imageContent}
+                    {this.props.allowZoom && (
+                        <ZoomImageButton
+                            imgElement={imageContent}
+                            imgSrc={imageUrl}
+                            width={width}
+                            height={height}
+                        />
+                    )}
                 </FixedToResponsive>
             );
         }
