@@ -1,3 +1,4 @@
+import {ApiOptions} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -34,7 +35,7 @@ export const Controlled: StoryComponentType = {
             <LockedFiguresSection
                 figures={figures}
                 onChange={handlePropsUpdate}
-                editingDisabled={false}
+                apiOptions={ApiOptions.defaults}
             />
         );
     },
@@ -56,7 +57,7 @@ export const WithProdWidth: StoryComponentType = {
                 <LockedFiguresSection
                     figures={figures}
                     onChange={handlePropsUpdate}
-                    editingDisabled={false}
+                    apiOptions={ApiOptions.defaults}
                 />
             </View>
         );
