@@ -99,40 +99,6 @@ describe("keypad", () => {
         expect(container).toMatchSnapshot("first render");
     });
 
-    it(`shows optional dismiss button`, async () => {
-        // Arrange
-        // Act
-        render(
-            <Keypad
-                onClickKey={() => {}}
-                onAnalyticsEvent={async () => {}}
-                showDismiss
-            />,
-        );
-
-        // Assert
-        expect(
-            screen.getByRole("button", {
-                name: "Dismiss",
-            }),
-        ).toBeInTheDocument();
-    });
-
-    it(`hides optional dismiss button`, () => {
-        // Arrange
-        // Act
-        render(
-            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
-        );
-
-        // Assert
-        expect(
-            screen.queryByRole("button", {
-                name: "Dismiss",
-            }),
-        ).not.toBeInTheDocument();
-    });
-
     it(`shows the dot symbol when convertDotToTimes is false`, async () => {
         // Arrange
         // Act

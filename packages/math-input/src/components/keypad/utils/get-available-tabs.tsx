@@ -39,6 +39,7 @@ export function getAvailableTabs(
                     />
                 </RenderKeyPadPanel>
             ),
+            "aria-label": "Fractions",
         },
         {
             id: "Numbers",
@@ -51,6 +52,7 @@ export function getAvailableTabs(
                     />
                 </RenderKeyPadPanel>
             ),
+            "aria-label": "Numbers",
         },
         {
             id: "Extras",
@@ -63,6 +65,7 @@ export function getAvailableTabs(
                     />
                 </RenderKeyPadPanel>
             ),
+            "aria-label": "Extras",
         },
         {
             id: "Operators",
@@ -78,6 +81,7 @@ export function getAvailableTabs(
                     />
                 </RenderKeyPadPanel>
             ),
+            "aria-label": "Operators",
         },
         {
             id: "Geometry",
@@ -87,6 +91,7 @@ export function getAvailableTabs(
                     <GeometryPage onClickKey={onClickKey} />
                 </RenderKeyPadPanel>
             ),
+            "aria-label": "Geometry",
         },
     ];
 

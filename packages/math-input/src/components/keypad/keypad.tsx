@@ -81,7 +81,6 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
     // TODO(ivy): figure out how the getAvailableTabs influences mobile fractions keypad
     const availableTabs = getAvailableTabs({...props, extraKeys}, selectedPage);
 
-    // TODO(ivy): Handle proper styling of the Dismiss button to close the keypad
     return (
         <View className={expandedView ? styles.keypadOuterContainer : ""}>
             <Tabs
