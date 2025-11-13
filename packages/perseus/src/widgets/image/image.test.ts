@@ -3,7 +3,7 @@ import {
     generateImageWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {act, screen} from "@testing-library/react";
+import {act, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
@@ -391,6 +391,37 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         const dialog = screen.getByRole("dialog");
         expect(dialog).toBeVisible();
         expect(dialog).toHaveTextContent("Explore image and description");
+    });
+
+    it("should not allow zooming inside the explore image modal", async () => {
+        // Arrange
+        const imageQuestion = generateTestPerseusRenderer({
+            content: "[[☃ image 1]]",
+            widgets: {
+                "image 1": generateImageWidget({
+                    options: generateImageOptions({
+                        backgroundImage: earthMoonImage,
+                        longDescription: "widget long description",
+                    }),
+                }),
+            },
+        });
+
+        renderQuestion(imageQuestion, apiOptions);
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        //  Act - open the modal, check for zoom button
+        const button = screen.getByRole("button", {name: "Explore image"});
+        await userEvent.click(button);
+        const withinDialog = within(screen.getByRole("dialog"));
+        const zoomButton = withinDialog.queryByRole("button", {
+            name: "Zoom image.",
+        });
+
+        // Assert
+        expect(zoomButton).not.toBeInTheDocument();
     });
 
     describe("zoom feature", () => {
