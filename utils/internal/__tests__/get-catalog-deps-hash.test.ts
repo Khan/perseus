@@ -56,10 +56,16 @@ describe("getCatalogDepsHash", () => {
         const result1 = getCatalogDepsHash(pnpmWorkspace, packageJson);
         const result2 = getCatalogDepsHash(pnpmWorkspace, packageJson);
 
-        // Assert - Should be deterministic
+        // Assert - Should be deterministic and produce valid hash
         expect(result1).toBe(result2);
-        expect(result1).toBeTruthy();
-        expect(typeof result1).toBe("string");
+        expect(result1).toMatch(/^[0-9a-f]{16}$/); // 16-char hex string
+
+        // Verify it's the correct hash for these dependencies
+        const expectedHash = createHash("sha256")
+            .update("react@^18.2.0,react-dom@^18.2.0,tiny-invariant@1.3.1")
+            .digest("hex")
+            .substring(0, 16);
+        expect(result1).toBe(expectedHash);
     });
 
     it("should return hash of empty string for packages with no catalog dependencies", () => {
@@ -232,9 +238,12 @@ describe("getCatalogDepsHash", () => {
         // Act
         const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
 
-        // Assert - Should only include catalog dependencies
-        expect(result).toBeTruthy();
-        expect(typeof result).toBe("string");
+        // Assert - Should only include catalog dependencies (sorted: lodash, react)
+        const expectedHash = createHash("sha256")
+            .update("lodash@4.17.21,react@^18.2.0")
+            .digest("hex")
+            .substring(0, 16);
+        expect(result).toBe(expectedHash);
     });
 
     it("should handle single catalog dependency", () => {
