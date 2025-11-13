@@ -111,11 +111,7 @@ const MultipleChoiceComponent = ({
                 ref={containerRef}
                 style={cssVariableDeclaration}
             >
-                <legend
-                    id={legendId}
-                    // aria-hidden="true"
-                    className={styles.instructions}
-                >
+                <legend id={legendId} className={styles.instructions}>
                     {instructions}
                 </legend>
                 <ScrollableView id={scrollId} overflowX="auto">
