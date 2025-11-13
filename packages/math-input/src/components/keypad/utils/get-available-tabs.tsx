@@ -27,7 +27,6 @@ export function getAvailableTabs(
         extraKeys,
     } = props;
 
-    // TODO: update IconAsset to not use tintColor
     const tabPanels = [
         {
             id: "Fractions",

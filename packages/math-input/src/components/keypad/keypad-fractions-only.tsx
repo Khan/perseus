@@ -8,17 +8,15 @@ import {RenderKeyPadPanel} from "./render-keypad-panel";
 import type {KeypadProps} from "./keypad";
 import type {KeypadPageType} from "../../types";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface KeypadFractionsOnlyProps
-    extends Pick<
-        KeypadProps,
-        | "fractionsOnly"
-        | "onClickKey"
-        | "cursorContext"
-        | "convertDotToTimes"
-        | "divisionKey"
-        | "expandedView"
-    > {}
+export type KeypadFractionsOnlyProps = Pick<
+    KeypadProps,
+    | "fractionsOnly"
+    | "onClickKey"
+    | "cursorContext"
+    | "convertDotToTimes"
+    | "divisionKey"
+    | "expandedView"
+>;
 
 export function KeypadFractionsOnly(props: KeypadFractionsOnlyProps) {
     const {onClickKey, cursorContext, expandedView} = props;
@@ -30,10 +28,7 @@ export function KeypadFractionsOnly(props: KeypadFractionsOnlyProps) {
                 className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
             >
                 <View className={styles.keypadInnerContainer}>
-                    <View
-                        // className={`${styles.keypadGrid} ${styles.fractionsGrid}`}
-                        aria-label="Keypad"
-                    >
+                    <View aria-label="Keypad">
                         <RenderKeyPadPanel
                             {...props}
                             selectedPage={selectedPage}

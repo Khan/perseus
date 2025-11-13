@@ -1,4 +1,4 @@
-.keypadOuterContainer {
+.keypad-outer-container {
     display: flex;
     align-items: center;
 }
@@ -7,7 +7,7 @@
     background-color: var(--wb-semanticColor-core-background-base-default);
 }
 
-.expandedWrapper {
+.expanded-wrapper {
     border-width: 1px 1px 0 1px;
     border-color: var(--wb-semanticColor-core-border-neutral-default);
     /* see expandedViewThreshold */
@@ -15,7 +15,7 @@
     border-radius: 3px 3px 0 0;
 }
 
-.keypadInnerContainer {
+.keypad-inner-container {
     display: flex;
     flex-direction: row;
     background-color: var(--wb-semanticColor-core-background-disabled-strong);
@@ -23,22 +23,12 @@
     direction: ltr;
 }
 
-.keypadGrid {
+.keypad-grid {
     display: grid !important;
     grid-template-rows: repeat(4, 1fr);
     flex: 1;
 }
 
-.fractionsGrid {
+.fractions-grid {
     grid-template-columns: repeat(5, 1fr);
-}
-
-/* Position the tablist as flex container */
-/*[role="tablist"] {*/
-/*    display: flex;*/
-/*}*/
-
-/* Push the Dismiss tab to the right */
-#Dismiss-tab {
-    margin-left: auto !important;
 }
