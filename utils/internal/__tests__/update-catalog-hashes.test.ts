@@ -7,13 +7,7 @@ import * as CatalogHashUtils from "../catalog-hash-utils";
 import * as MaybeUpdateCatalogHash from "../maybe-update-catalog-hash";
 import {updateCatalogHashes} from "../update-catalog-hashes";
 
-type PnpmWorkspace = {
-    catalogs: {
-        prodDeps?: Record<string, string>;
-        peerDeps?: Record<string, string>;
-        devDeps?: Record<string, string>;
-    };
-};
+import type {PnpmWorkspace} from "../catalog-hash-utils";
 
 describe("updateCatalogHashes", () => {
     beforeEach(() => {

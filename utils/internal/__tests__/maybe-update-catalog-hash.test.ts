@@ -8,16 +8,10 @@ import {describe, expect, it, jest, beforeEach} from "@jest/globals";
 import * as GetCatalogDepsHash from "../get-catalog-deps-hash";
 import {maybeUpdateCatalogHash} from "../maybe-update-catalog-hash";
 
+import type {PnpmWorkspace} from "../catalog-hash-utils";
+
 // Mock fs to prevent actual file writes
 jest.mock("node:fs");
-
-type PnpmWorkspace = {
-    catalogs: {
-        prodDeps?: Record<string, string>;
-        peerDeps?: Record<string, string>;
-        devDeps?: Record<string, string>;
-    };
-};
 
 const getMockPnpmWorkspace = (): PnpmWorkspace => ({
     catalogs: {

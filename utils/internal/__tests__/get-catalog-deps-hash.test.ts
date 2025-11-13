@@ -7,26 +7,13 @@ import {describe, expect, it, jest} from "@jest/globals";
 
 import {getCatalogDepsHash} from "../get-catalog-deps-hash";
 
+import type {PackageJson, PnpmWorkspace} from "../catalog-hash-utils";
+
 // SHA-256 hash of an empty string (truncated to 16 chars) - used when a package has no catalog dependencies
 const EMPTY_CATALOG_HASH = createHash("sha256")
     .update("")
     .digest("hex")
     .substring(0, 16);
-
-type PnpmWorkspace = {
-    catalogs: {
-        prodDeps?: Record<string, string>;
-        peerDeps?: Record<string, string>;
-        devDeps?: Record<string, string>;
-    };
-};
-
-type PackageJson = {
-    name: string;
-    version: string;
-    dependencies?: Record<string, string>;
-    peerDependencies?: Record<string, string>;
-};
 
 const getMessagesFromSpy = (
     spy: jest.SpiedFunction<typeof console.log>,
@@ -75,7 +62,7 @@ describe("getCatalogDepsHash", () => {
         expect(typeof result1).toBe("string");
     });
 
-    it("should return hash of empty string for package with no catalog dependencies", () => {
+    it("should return hash of empty string for packages with no catalog dependencies", () => {
         // Arrange
         const pnpmWorkspace: PnpmWorkspace = {
             catalogs: {
@@ -85,7 +72,7 @@ describe("getCatalogDepsHash", () => {
             },
         };
 
-        const packageJson: PackageJson = {
+        const packageJsonNoCatalog: PackageJson = {
             name: "@khanacademy/test-package",
             version: "1.0.0",
             dependencies: {
@@ -94,57 +81,18 @@ describe("getCatalogDepsHash", () => {
             },
         };
 
-        // Act
-        const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
-
-        // Assert - Empty catalog dependencies produce the empty string hash
-        expect(result).toBe(EMPTY_CATALOG_HASH);
-    });
-
-    it("should return hash of empty string for package with no dependencies", () => {
-        // Arrange
-        const pnpmWorkspace: PnpmWorkspace = {
-            catalogs: {
-                peerDeps: {
-                    react: "^18.2.0",
-                },
-            },
-        };
-
-        const packageJson: PackageJson = {
+        const packageJsonNoDeps: PackageJson = {
             name: "@khanacademy/test-package",
             version: "1.0.0",
         };
 
         // Act
-        const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
+        const result1 = getCatalogDepsHash(pnpmWorkspace, packageJsonNoCatalog);
+        const result2 = getCatalogDepsHash(pnpmWorkspace, packageJsonNoDeps);
 
-        // Assert - Empty catalog dependencies produce the empty string hash
-        expect(result).toBe(EMPTY_CATALOG_HASH);
-    });
-
-    it("should return hash of empty string for package with undefined dependencies", () => {
-        // Arrange
-        const pnpmWorkspace: PnpmWorkspace = {
-            catalogs: {
-                peerDeps: {
-                    react: "^18.2.0",
-                },
-            },
-        };
-
-        const packageJson: PackageJson = {
-            name: "@khanacademy/test-package",
-            version: "1.0.0",
-            dependencies: undefined,
-            peerDependencies: undefined,
-        };
-
-        // Act
-        const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
-
-        // Assert - Empty catalog dependencies produce the empty string hash
-        expect(result).toBe(EMPTY_CATALOG_HASH);
+        // Assert - Both should produce the empty string hash
+        expect(result1).toBe(EMPTY_CATALOG_HASH);
+        expect(result2).toBe(EMPTY_CATALOG_HASH);
     });
 
     it("should sort dependencies alphabetically for deterministic hash", () => {
@@ -289,34 +237,6 @@ describe("getCatalogDepsHash", () => {
         expect(typeof result).toBe("string");
     });
 
-    it("should handle empty catalog dependencies array", () => {
-        // Arrange
-        const pnpmWorkspace: PnpmWorkspace = {
-            catalogs: {
-                peerDeps: {
-                    react: "^18.2.0",
-                },
-            },
-        };
-
-        const packageJson: PackageJson = {
-            name: "@khanacademy/test-package",
-            version: "1.0.0",
-            dependencies: {
-                "some-other-dep": "1.0.0",
-            },
-            peerDependencies: {
-                "another-dep": "^2.0.0",
-            },
-        };
-
-        // Act
-        const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
-
-        // Assert - Empty catalog dependencies produce the empty string hash
-        expect(result).toBe(EMPTY_CATALOG_HASH);
-    });
-
     it("should handle single catalog dependency", () => {
         // Arrange
         const pnpmWorkspace: PnpmWorkspace = {
@@ -367,9 +287,12 @@ describe("getCatalogDepsHash", () => {
         // Act
         const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
 
-        // Assert - Should produce a consistent hash
-        expect(result).toBeTruthy();
-        expect(typeof result).toBe("string");
+        // Assert - Should produce correct hash for prodDeps
+        const expectedHash = createHash("sha256")
+            .update("tiny-invariant@1.3.1")
+            .digest("hex")
+            .substring(0, 16);
+        expect(result).toBe(expectedHash);
     });
 
     it("should handle only peerDeps catalog", () => {
@@ -395,9 +318,12 @@ describe("getCatalogDepsHash", () => {
         // Act
         const result = getCatalogDepsHash(pnpmWorkspace, packageJson);
 
-        // Assert - Should produce a consistent hash
-        expect(result).toBeTruthy();
-        expect(typeof result).toBe("string");
+        // Assert - Should produce correct hash for peerDeps (sorted alphabetically)
+        const expectedHash = createHash("sha256")
+            .update("react@^18.2.0,react-dom@^18.2.0")
+            .digest("hex")
+            .substring(0, 16);
+        expect(result).toBe(expectedHash);
     });
 
     it("should exclude devDeps catalog dependencies", () => {
