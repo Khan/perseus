@@ -197,6 +197,14 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
+            - name: ⬆️ Upgrade npm for OIDC support
+              shell: bash
+              run: |
+                  # npm trusted publishing requires npm CLI v11.5.1+
+                  # Node.js 22 ships with npm 10.x, so we need to upgrade
+                  npm install -g npm@latest
+                  echo "✅ npm upgraded to $(npm --version)"
+
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
               run: ./utils/publish-snapshot.sh # All config is via Github env vars
