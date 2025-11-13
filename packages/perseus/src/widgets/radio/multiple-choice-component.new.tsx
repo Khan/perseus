@@ -115,10 +115,7 @@ const MultipleChoiceComponent = ({
                     {instructions}
                 </legend>
                 <ScrollableView id={scrollId} overflowX="auto">
-                    <ul
-                        aria-labelledby={legendId}
-                        className={choiceListClasses}
-                    >
+                    <ul className={choiceListClasses}>
                         <ChoiceListItems
                             choices={choices}
                             i18nStrings={strings}
