@@ -30,6 +30,7 @@ export function emptyWidgetsFunctional(
         const score = validator?.(userInput, validationData, locale);
 
         if (score) {
+            // only keep the invalid results that are considered "empty"
             return scoreIsEmpty(score);
         }
 
@@ -61,11 +62,7 @@ export function validateWidgets(
         const validationData = widget.options;
         const score = validator?.(userInput, validationData, locale);
 
-        if (score) {
-            return score.type === "invalid";
-        }
-
-        // If validator returned null, the widget is valid/filled, so not empty
-        return false;
+        // keep IDs for all invalid widgets
+        return score?.type === "invalid";
     });
 }
