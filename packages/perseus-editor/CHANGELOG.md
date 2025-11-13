@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 28.6.4
+
+### Patch Changes
+
+-   [#3034](https://github.com/Khan/perseus/pull/3034) [`ce19ec912c`](https://github.com/Khan/perseus/commit/ce19ec912c1452211f43d792436003154f19a23f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing Interactive Graph Options due to Regression
+
 ## 28.6.3
 
 ### Patch Changes
