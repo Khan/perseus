@@ -520,4 +520,75 @@ describe("scorePerseusItem", () => {
             shouldHavePoints: true,
         });
     });
+
+    it.only("why is this question invalid and empty", () => {
+        const question = {
+            content:
+                "**Complete the equations with powers of $10$.**\n\n$63.85 \\times {}$[[☃ expression 8]] $=6{,}385$\n\n$63.85 \\times {}$[[☃ expression 9]] $=63{,}850$\n\n$63.85 \\times {}$[[☃ expression 10]] $=638{,}500$",
+            images: {},
+            widgets: {
+                "expression 10": {
+                    alignment: "default",
+                    graded: true,
+                    options: {
+                        buttonSets: ["basic", "prealgebra"],
+                        functions: ["f", "g", "h"],
+                        times: false,
+                        extraKeys: ["PI"],
+                        answerForms: [],
+                    },
+                    static: false,
+                    type: "expression",
+                    version: {
+                        major: 2,
+                        minor: 0,
+                    },
+                },
+                "expression 8": {
+                    alignment: "default",
+                    graded: true,
+                    options: {
+                        buttonSets: ["basic", "prealgebra"],
+                        functions: ["f", "g", "h"],
+                        times: false,
+                        extraKeys: ["PI"],
+                        answerForms: [],
+                    },
+                    static: false,
+                    type: "expression",
+                    version: {
+                        major: 2,
+                        minor: 0,
+                    },
+                },
+                "expression 9": {
+                    alignment: "default",
+                    graded: true,
+                    options: {
+                        buttonSets: ["basic", "prealgebra"],
+                        functions: ["f", "g", "h"],
+                        times: false,
+                        extraKeys: ["PI"],
+                        answerForms: [],
+                    },
+                    static: false,
+                    type: "expression",
+                    version: {
+                        major: 2,
+                        minor: 0,
+                    },
+                },
+            },
+        };
+        const userInput = {
+            "expression 10": "10000",
+            "expression 8": "100",
+            "expression 9": "1000",
+        };
+        const score = scorePerseusItem(question as any, userInput, "en");
+        console.log(score);
+        expect(score["type"]).not.toEqual("invalid");
+
+        // expect(score["dropdown 1"]).toHaveInvalidInput();
+    });
 });
