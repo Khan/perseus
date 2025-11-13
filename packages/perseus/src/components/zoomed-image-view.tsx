@@ -56,7 +56,13 @@ export const ZoomedImageView = ({
                             }}
                         >
                             {() => (
-                                <div className="framework-perseus">
+                                <div
+                                    // We need to include the framework-perseus
+                                    // class here to ensure that the image is
+                                    // styled correctly. Otherwise the Graphie
+                                    // labels may not be in the correct positions.
+                                    className="framework-perseus"
+                                >
                                     <FixedToResponsive
                                         className="svg-image"
                                         width={width}
