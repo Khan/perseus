@@ -1,4 +1,4 @@
-import {Dependencies, Util} from "@khanacademy/perseus";
+import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
 import {render, screen, waitFor, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -36,7 +36,7 @@ describe("InteractiveGraphSettings", () => {
     test("common graph settings are shown, by default", async () => {
         // Arrange
         // Act
-        render(<InteractiveGraphSettings onChange={() => {}} />);
+        render(<InteractiveGraphSettings onChange={() => {}} apiOptions={ApiOptions.defaults} />);
 
         // Assert
         expect(screen.getByText("x Label")).toBeVisible();
@@ -44,7 +44,7 @@ describe("InteractiveGraphSettings", () => {
 
     test("hides common graph settings when heading clicked", async () => {
         // Arrange
-        render(<InteractiveGraphSettings onChange={() => {}} />);
+        render(<InteractiveGraphSettings onChange={() => {}} apiOptions={ApiOptions.defaults} />);
 
         // Act
         await userEvent.click(screen.getByText("Common Graph Settings"));
@@ -55,7 +55,7 @@ describe("InteractiveGraphSettings", () => {
 
     test("shows common graph settings when heading clicked a second time", async () => {
         // Arrange
-        render(<InteractiveGraphSettings onChange={() => {}} />);
+        render(<InteractiveGraphSettings onChange={() => {}} apiOptions={ApiOptions.defaults} />);
         await userEvent.click(screen.getByText("Common Graph Settings"));
 
         // Act
@@ -68,7 +68,7 @@ describe("InteractiveGraphSettings", () => {
     test("displays graph, snap, image, and measure settings when common settings shown", async () => {
         // Arrange
         // Act
-        render(<InteractiveGraphSettings onChange={() => {}} />);
+        render(<InteractiveGraphSettings onChange={() => {}} apiOptions={ApiOptions.defaults} />);
 
         // Assert
         expect(screen.getByText("x Label")).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("InteractiveGraphSettings", () => {
     test("calls onChange when markings are changed", async () => {
         // Arrange
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const button = screen.getByRole("button", {name: "Grid"});
@@ -105,7 +105,7 @@ describe("InteractiveGraphSettings", () => {
         };
         jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {
@@ -138,7 +138,7 @@ describe("InteractiveGraphSettings", () => {
         };
         jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {
@@ -166,7 +166,7 @@ describe("InteractiveGraphSettings", () => {
         const mockGetImageSize = (url, cb: (width, height) => void) => {};
         jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {
@@ -194,7 +194,7 @@ describe("InteractiveGraphSettings", () => {
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
 
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {
@@ -216,6 +216,7 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphSettings
                 showProtractor
                 onChange={() => undefined}
+                apiOptions={ApiOptions.defaults}
             />,
         );
 
@@ -232,11 +233,12 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphSettings
                 showProtractor
                 onChange={() => undefined}
+                apiOptions={ApiOptions.defaults}
             />,
         );
 
         // Act
-        rerender(<InteractiveGraphSettings onChange={() => undefined} />);
+        rerender(<InteractiveGraphSettings onChange={() => undefined} apiOptions={ApiOptions.defaults} />);
 
         // Assert
         const banner = screen.queryByRole("alert");
@@ -250,6 +252,7 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphSettings
                 showProtractor={true}
                 onChange={onChange}
+                apiOptions={ApiOptions.defaults}
             />,
         );
 
@@ -271,7 +274,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         // Note: The textbox's `name` attribute is "x Range 10" because it's
@@ -303,7 +306,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "y Range 10"});
@@ -330,7 +333,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "x Range 10"});
@@ -357,7 +360,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "Tick Step 1"});
@@ -381,7 +384,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "Tick Step 1"});
@@ -412,6 +415,7 @@ describe("InteractiveGraphSettings", () => {
                     [-100, 100],
                 ]}
                 onChange={onChange}
+                apiOptions={ApiOptions.defaults}
             />,
         );
 
@@ -437,7 +441,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "Snap Step 1"});
@@ -462,7 +466,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "Snap Step 1"});
@@ -487,7 +491,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "Grid Step 1"});
@@ -512,7 +516,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "Grid Step 1"});
@@ -537,7 +541,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "x Label"});
@@ -561,7 +565,7 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         userEvent = userEventForRealTimers();
         const onChange = jest.fn();
-        render(<InteractiveGraphSettings onChange={onChange} />);
+        render(<InteractiveGraphSettings onChange={onChange} apiOptions={ApiOptions.defaults} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "y Label"});
@@ -604,6 +608,7 @@ describe("InteractiveGraphSettings", () => {
                 <InteractiveGraphSettings
                     range={inputRange}
                     onChange={onChange}
+                    apiOptions={ApiOptions.defaults}
                 />,
             );
 
@@ -649,7 +654,7 @@ describe("InteractiveGraphSettings", () => {
             // Arrange
 
             // Act
-            render(<InteractiveGraphSettings onChange={() => {}} />);
+            render(<InteractiveGraphSettings onChange={() => {}} apiOptions={ApiOptions.defaults} />);
 
             // Assert
             expect(screen.getByRole("switch", {name: "x min"})).toBeChecked();
@@ -678,6 +683,7 @@ describe("InteractiveGraphSettings", () => {
                             // Set the axis arrow being tested to false.
                             [axis]: false,
                         }}
+                        apiOptions={ApiOptions.defaults}
                     />,
                 );
 
@@ -705,6 +711,7 @@ describe("InteractiveGraphSettings", () => {
                     <InteractiveGraphSettings
                         onChange={onChange}
                         showAxisArrows={defaultShowAxisArrows}
+                        apiOptions={ApiOptions.defaults}
                     />,
                 );
 

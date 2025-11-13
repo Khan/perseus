@@ -22,6 +22,7 @@ import LabeledRow from "../locked-figures/labeled-row";
 
 import AxisArrowSwitches from "./axis-arrow-switches";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     AxisLabelLocation,
     ShowAxisArrows,
@@ -111,9 +112,7 @@ type Props = {
 
     onChange: (arg1: Partial<Props>) => void;
 
-    // Whether the editor is disabled. Can be set via API options
-    // to make the editor read-only when needed.
-    editingDisabled: boolean;
+    apiOptions: APIOptionsWithDefaults;
 };
 
 type State = {
@@ -182,7 +181,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             yMin: true,
             yMax: true,
         },
-        editingDisabled: false,
     };
 
     componentDidMount() {
@@ -611,7 +609,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     this.state.showAxisArrowsSwitches
                                 }
                                 onChange={this.changeShowAxisArrows}
-                                disabled={this.props.editingDisabled}
+                                disabled={this.props.apiOptions?.editingDisabled ?? false}
                             />
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
