@@ -111,11 +111,12 @@ const MultipleChoiceComponent = ({
                 ref={containerRef}
                 style={cssVariableDeclaration}
             >
-                <legend id={legendId} className={styles.instructions}>
+                <legend id={legendId} className={styles.instructions} aria-hidden={true}>
                     {instructions}
                 </legend>
                 <ScrollableView id={scrollId} overflowX="auto">
-                    <ul className={choiceListClasses}>
+                    {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
+                    <ul className={choiceListClasses} role="list" aria-labelledby={legendId}>
                         <ChoiceListItems
                             choices={choices}
                             i18nStrings={strings}
