@@ -17,6 +17,8 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
+// temp for testing
+
 const AnimationDurationInMS = 200;
 
 type Props = {
