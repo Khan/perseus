@@ -4,9 +4,9 @@ import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import FixedToResponsive from "./fixed-to-responsive";
 import {usePerseusI18n} from "./i18n-context";
 import styles from "./zoomed-image-view.module.css";
-import FixedToResponsive from "./fixed-to-responsive";
 
 type Props = {
     imgElement: React.ReactNode;

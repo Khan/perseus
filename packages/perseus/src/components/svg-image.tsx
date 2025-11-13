@@ -13,12 +13,12 @@ import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import {PerseusI18nContext} from "./i18n-context";
 import ImageLoader from "./image-loader";
+import {ZoomImageButton} from "./zoom-image-button";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
 import type {Dimensions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
-import {ZoomImageButton} from "./zoom-image-button";
 
 function isImageProbablyPhotograph(imageUrl) {
     // TODO(david): Do an inventory to refine this heuristic. For example, what
