@@ -52,6 +52,71 @@ describe("maybeUpdateCatalogHash", () => {
         jest.spyOn(process, "cwd").mockReturnValue("/mock/perseus/root");
     });
 
+    describe("when package is in vendor directory", () => {
+        it("should return false", () => {
+            // Arrange
+            const vendorPackageJson = getMockPackageJson();
+            jest.spyOn(fs, "readFileSync").mockReturnValue(
+                JSON.stringify(vendorPackageJson),
+            );
+            jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
+
+            // Act
+            const result = maybeUpdateCatalogHash(
+                "/mock/perseus/root/vendor/raphael/package.json",
+                getMockPnpmWorkspace(),
+                false,
+            );
+
+            // Assert
+            expect(result).toBe(false);
+        });
+
+        it("should not update the package", () => {
+            // Arrange
+            const vendorPackageJson = getMockPackageJson();
+            jest.spyOn(fs, "readFileSync").mockReturnValue(
+                JSON.stringify(vendorPackageJson),
+            );
+            const mockWriteFileSync = jest
+                .spyOn(fs, "writeFileSync")
+                .mockImplementation(() => {});
+
+            // Act
+            maybeUpdateCatalogHash(
+                "/mock/perseus/root/vendor/jsdiff/package.json",
+                getMockPnpmWorkspace(),
+                false,
+            );
+
+            // Assert
+            expect(mockWriteFileSync).not.toHaveBeenCalled();
+        });
+
+        it("should skip even if hash calculation would differ", () => {
+            // Arrange
+            const vendorPackageJson = getMockPackageJson();
+            jest.spyOn(fs, "readFileSync").mockReturnValue(
+                JSON.stringify(vendorPackageJson),
+            );
+            jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
+            const getCatalogDepsHashSpy = jest.spyOn(
+                GetCatalogDepsHash,
+                "getCatalogDepsHash",
+            );
+
+            // Act
+            maybeUpdateCatalogHash(
+                "/mock/perseus/root/vendor/some-lib/package.json",
+                getMockPnpmWorkspace(),
+                false,
+            );
+
+            // Assert
+            expect(getCatalogDepsHashSpy).not.toHaveBeenCalled();
+        });
+    });
+
     describe("when package is marked as private", () => {
         it("should return false", () => {
             // Arrange

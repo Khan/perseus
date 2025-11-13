@@ -8,6 +8,7 @@ import type {PackageJson, PnpmWorkspace} from "./catalog-hash-utils";
  * Update the catalog hash in a package.json file if it has changed.
  *
  * This function checks if a package should have its catalog hash updated based on:
+ * - Whether the package is in the vendor directory (skips if so)
  * - Whether the package is marked as private (skips if so)
  * - Whether the current catalog hash differs from the newly calculated hash
  *
@@ -26,6 +27,11 @@ export function maybeUpdateCatalogHash(
     const packageJsonContent = fs.readFileSync(packageJsonPath, "utf-8");
     const packageJson: PackageJson = JSON.parse(packageJsonContent);
     const name = packageJson.name;
+
+    // Skip vendor packages (third-party code we don't control)
+    if (packageJsonPath.includes("/vendor/")) {
+        return false;
+    }
 
     // Skip private packages (not published to npm)
     if (packageJson.private === true) {
