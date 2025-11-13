@@ -82,10 +82,7 @@ export class SpriteAnimator {
     /**
      * Define a named animation sequence
      */
-    addAnimation(
-        name: string,
-        config: SpriteAnimationConfig,
-    ): void {
+    addAnimation(name: string, config: SpriteAnimationConfig): void {
         this.animations.set(name, {
             frames: config.frames,
             fps: config.fps ?? 8,
@@ -162,7 +159,9 @@ export class SpriteAnimator {
      * Advance to the next frame
      */
     private advanceFrame(): void {
-        if (!this.currentAnimation) return;
+        if (!this.currentAnimation) {
+            return;
+        }
 
         const anim = this.animations.get(this.currentAnimation)!;
         this.currentFrameIndex++;
@@ -190,7 +189,9 @@ export class SpriteAnimator {
         }
 
         const anim = this.animations.get(this.currentAnimation);
-        if (!anim) return null;
+        if (!anim) {
+            return null;
+        }
 
         const frameIndex = anim.frames[this.currentFrameIndex];
         return this.frames[frameIndex] ?? null;

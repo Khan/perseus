@@ -11,6 +11,7 @@ import {PhysicsSystem} from "./systems/physics-system";
 import {SpriteManager} from "./sprite-manager";
 import {ASSET_MANIFEST} from "./asset-manifest";
 import {generateQuestion} from "./question-generator";
+import * as CONSTANTS from "./constants";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PerseusGameEngine} from "../../shared/perseus/perseus-game-engine";
@@ -51,12 +52,25 @@ export class CrashCourseEngine implements PerseusGameEngine {
     private obstacles: Obstacle[] = [];
     private lastSpawnTime: number = 0;
 
+    // Rendering state
+    private parallaxOffsets = {
+        cityFar: 0,
+        citySemiFar: 0,
+        citySemiClose: 0,
+        cityClose: 0,
+    };
+    private lampOffset: number = 0;
+
     // Engine systems
     private assetLoader: AssetLoader;
     private audioSystem: AudioSystem;
     private renderSystem: RenderSystem;
     private physicsSystem: PhysicsSystem;
     private spriteManager: SpriteManager;
+
+    // Sprite IDs
+    private characterSpriteId = "character";
+    private alienSpriteId = "alien";
 
     constructor(config: EngineConfig) {
         this.canvas = config.canvas;
@@ -71,7 +85,7 @@ export class CrashCourseEngine implements PerseusGameEngine {
         this.assetLoader = new AssetLoader();
         this.audioSystem = new AudioSystem();
         this.renderSystem = new RenderSystem(this.canvas);
-        this.physicsSystem = new PhysicsSystem(450); // Ground Y = 450
+        this.physicsSystem = new PhysicsSystem(CONSTANTS.GROUND_Y);
         this.spriteManager = new SpriteManager(this.assetLoader);
     }
 
@@ -101,7 +115,54 @@ export class CrashCourseEngine implements PerseusGameEngine {
             this.audioSystem.setupTransition("gameplay", "extended");
         }
 
+        // Create character sprite with animations
+        await this.createCharacterSprite();
+
         console.log("Engine initialized - assets loaded");
+    }
+
+    /**
+     * Create character sprite with all animations
+     */
+    private async createCharacterSprite(): Promise<void> {
+        // Create character sprite with all animation frames
+        await this.spriteManager.create(this.characterSpriteId, {
+            frames: ["run1", "run2", "run3", "run4", "run5", "run6", "impact"],
+            animations: {
+                running: {
+                    frames: [0, 1, 2, 3, 4, 5], // run1-run6
+                    fps: CONSTANTS.CHARACTER_ANIMATION_FPS,
+                    loop: true,
+                },
+                coolMode: {
+                    frames: [0, 1, 2, 3, 4, 5], // run1-run6 (will add purple tint)
+                    fps: CONSTANTS.CHARACTER_ANIMATION_FPS,
+                    loop: true,
+                },
+                impact: {
+                    frames: [6], // impact frame
+                    fps: 1,
+                    loop: false,
+                },
+                loss: {
+                    frames: [0], // run1 (character being abducted)
+                    fps: 1,
+                    loop: false,
+                },
+            },
+            position: {
+                x: CONSTANTS.CHARACTER_X,
+                y: CONSTANTS.GROUND_Y,
+            },
+            size: {
+                width: CONSTANTS.SPRITE_SIZE,
+                height: CONSTANTS.SPRITE_SIZE,
+            },
+            layer: "character",
+        });
+
+        // Start with running animation
+        this.spriteManager.play(this.characterSpriteId, "running");
     }
 
     /**
@@ -183,15 +244,28 @@ export class CrashCourseEngine implements PerseusGameEngine {
         // Update physics (jumping, character state)
         this.physicsSystem.update(deltaTime);
 
+        // Sync character sprite with physics state
+        this.syncCharacterSprite();
+
         // Update sprite animations
         this.spriteManager.updateAll(deltaTime);
 
+        // Update parallax scrolling
+        this.parallaxOffsets.cityFar +=
+            CONSTANTS.SCROLL_SPEED * CONSTANTS.PARALLAX_SPEEDS.cityFar;
+        this.parallaxOffsets.citySemiFar +=
+            CONSTANTS.SCROLL_SPEED * CONSTANTS.PARALLAX_SPEEDS.citySemiFar;
+        this.parallaxOffsets.citySemiClose +=
+            CONSTANTS.SCROLL_SPEED * CONSTANTS.PARALLAX_SPEEDS.citySemiClose;
+        this.parallaxOffsets.cityClose +=
+            CONSTANTS.SCROLL_SPEED * CONSTANTS.PARALLAX_SPEEDS.cityClose;
+        this.lampOffset += CONSTANTS.SCROLL_SPEED;
+
         // Update obstacles (move them left)
-        const SCROLL_SPEED = 2;
         const currentTime = Date.now();
 
         this.obstacles = this.obstacles.filter((obs) => {
-            obs.x -= SCROLL_SPEED;
+            obs.x -= CONSTANTS.SCROLL_SPEED;
 
             // Check collision if obstacle is in collision zone and not answered
             if (
@@ -220,8 +294,10 @@ export class CrashCourseEngine implements PerseusGameEngine {
         });
 
         // Spawn new obstacles
-        const OBSTACLE_SPAWN_INTERVAL = 5000;
-        if (currentTime - this.lastSpawnTime > OBSTACLE_SPAWN_INTERVAL) {
+        if (
+            currentTime - this.lastSpawnTime >
+            CONSTANTS.OBSTACLE_SPAWN_INTERVAL
+        ) {
             this.spawnObstacle();
             this.lastSpawnTime = currentTime;
         }
@@ -230,8 +306,7 @@ export class CrashCourseEngine implements PerseusGameEngine {
         this.updateCurrentQuestion();
 
         // Check victory condition (5 minutes elapsed)
-        const GAME_DURATION = 300000; // 5 minutes
-        if (currentTime - this.gameStartTime >= GAME_DURATION) {
+        if (currentTime - this.gameStartTime >= CONSTANTS.GAME_DURATION) {
             this.transitionToState("victory");
         }
     }
@@ -240,11 +315,211 @@ export class CrashCourseEngine implements PerseusGameEngine {
      * Render everything to canvas
      */
     private render(): void {
-        // TODO: Tasks 5, 11-14
-        // - Clear canvas
-        // - Draw parallax backgrounds
-        // - Draw sprites (character, aliens, obstacles)
-        // - Draw effects
+        // Clear canvas
+        this.renderSystem.clear();
+
+        // Only render game visuals during playing state
+        if (this.gameState !== "playing") {
+            return;
+        }
+
+        // Draw sky background (static)
+        const skyImg = this.assetLoader.getImage("sky");
+        if (skyImg) {
+            this.renderSystem.drawImage(
+                skyImg,
+                0,
+                0,
+                CONSTANTS.CANVAS_WIDTH,
+                CONSTANTS.CANVAS_HEIGHT,
+            );
+        }
+
+        // Draw parallax city layers
+        const cityFarImg = this.assetLoader.getImage("cityFar");
+        const citySemiFarImg = this.assetLoader.getImage("citySemiFar");
+        const citySemiCloseImg = this.assetLoader.getImage("citySemiClose");
+        const cityCloseImg = this.assetLoader.getImage("cityClose");
+
+        if (cityFarImg) {
+            this.renderSystem.drawParallaxLayer(
+                cityFarImg,
+                this.parallaxOffsets.cityFar,
+                CONSTANTS.PARALLAX_LAYERS.cityFar.y,
+                CONSTANTS.PARALLAX_LAYERS.cityFar.height,
+            );
+        }
+        if (citySemiFarImg) {
+            this.renderSystem.drawParallaxLayer(
+                citySemiFarImg,
+                this.parallaxOffsets.citySemiFar,
+                CONSTANTS.PARALLAX_LAYERS.citySemiFar.y,
+                CONSTANTS.PARALLAX_LAYERS.citySemiFar.height,
+            );
+        }
+        if (citySemiCloseImg) {
+            this.renderSystem.drawParallaxLayer(
+                citySemiCloseImg,
+                this.parallaxOffsets.citySemiClose,
+                CONSTANTS.PARALLAX_LAYERS.citySemiClose.y,
+                CONSTANTS.PARALLAX_LAYERS.citySemiClose.height,
+            );
+        }
+        if (cityCloseImg) {
+            this.renderSystem.drawParallaxLayer(
+                cityCloseImg,
+                this.parallaxOffsets.cityClose,
+                CONSTANTS.PARALLAX_LAYERS.cityClose.y,
+                CONSTANTS.PARALLAX_LAYERS.cityClose.height,
+            );
+        }
+
+        // Draw ground
+        this.renderSystem.drawRect(
+            0,
+            CONSTANTS.GROUND_Y,
+            CONSTANTS.CANVAS_WIDTH,
+            150,
+            "#2a2a2a",
+        );
+
+        // Draw streetlamps with lights
+        this.drawStreetlamps();
+
+        // Draw obstacles (cars)
+        this.drawObstacles();
+
+        // Draw character
+        this.drawCharacter();
+    }
+
+    /**
+     * Draw streetlamps with their lights
+     */
+    private drawStreetlamps(): void {
+        const streetlampImg = this.assetLoader.getImage("streetlamp");
+        const lamplightImg = this.assetLoader.getImage("lamplight");
+
+        if (!streetlampImg || !lamplightImg) {
+            return;
+        }
+
+        // Calculate how many lamps we need to cover the screen plus overflow
+        const numLamps =
+            Math.ceil(CONSTANTS.CANVAS_WIDTH / CONSTANTS.LAMP_SPACING) + 2;
+
+        for (let i = 0; i < numLamps; i++) {
+            const baseX = i * CONSTANTS.LAMP_SPACING;
+            const x = baseX - (this.lampOffset % CONSTANTS.LAMP_SPACING);
+
+            // Draw lamplight glow
+            this.renderSystem.drawImage(
+                lamplightImg,
+                x - lamplightImg.width / 2,
+                CONSTANTS.GROUND_Y + CONSTANTS.LAMP_LIGHT_Y_OFFSET,
+                lamplightImg.width,
+                lamplightImg.height,
+            );
+
+            // Draw streetlamp
+            this.renderSystem.drawImage(
+                streetlampImg,
+                x - streetlampImg.width / 2,
+                CONSTANTS.GROUND_Y - streetlampImg.height,
+                streetlampImg.width,
+                streetlampImg.height,
+            );
+        }
+    }
+
+    /**
+     * Draw obstacles (cars)
+     */
+    private drawObstacles(): void {
+        const carImg = this.assetLoader.getImage("car1");
+
+        if (!carImg) {
+            return;
+        }
+
+        for (const obs of this.obstacles) {
+            // Calculate Y position based on ground
+            const carY = CONSTANTS.GROUND_Y - obs.height;
+
+            // Draw car at obstacle position
+            this.renderSystem.drawImage(
+                carImg,
+                obs.x,
+                carY,
+                obs.width,
+                obs.height,
+            );
+        }
+    }
+
+    /**
+     * Sync character sprite with physics state
+     */
+    private syncCharacterSprite(): void {
+        const characterPhysics = this.physicsSystem.getCharacterState();
+        const characterSprite = this.spriteManager.get(this.characterSpriteId);
+
+        if (!characterSprite) {
+            return;
+        }
+
+        // Update position to match physics
+        characterSprite.setPosition(characterPhysics.x, characterPhysics.y);
+
+        // Update animation based on state
+        const currentAnim = characterSprite.getCurrentAnimation();
+        const desiredAnim = this.getCharacterAnimation(characterPhysics.state);
+
+        if (currentAnim !== desiredAnim) {
+            this.spriteManager.play(this.characterSpriteId, desiredAnim);
+
+            // Add purple tint for cool mode
+            if (characterPhysics.state === "coolMode") {
+                characterSprite.setEffect({
+                    type: "tint",
+                    color: CONSTANTS.COOL_MODE_TINT,
+                });
+            } else {
+                characterSprite.clearEffect();
+            }
+        }
+    }
+
+    /**
+     * Get animation name for character state
+     */
+    private getCharacterAnimation(state: CharacterState): string {
+        switch (state) {
+            case "running":
+                return "running";
+            case "coolMode":
+                return "coolMode";
+            case "impact":
+                return "impact";
+            case "loss":
+                return "loss";
+            default:
+                return "running";
+        }
+    }
+
+    /**
+     * Draw character using sprite system
+     */
+    private drawCharacter(): void {
+        const characterSprite = this.spriteManager.get(this.characterSpriteId);
+
+        if (!characterSprite) {
+            return;
+        }
+
+        // Draw character sprite
+        characterSprite.draw(this.ctx);
     }
 
     /**
@@ -258,13 +533,12 @@ export class CrashCourseEngine implements PerseusGameEngine {
      * Spawn a new obstacle with a question
      */
     private spawnObstacle(): void {
-        const CANVAS_WIDTH = 800;
         const obstacle: Obstacle = {
             id: `obstacle-${Date.now()}-${Math.random()}`,
-            x: CANVAS_WIDTH,
+            x: CONSTANTS.CANVAS_WIDTH,
             y: 0, // Ground level (will adjust in rendering)
-            width: 154, // Car sprite at 0.6 scale (256 * 0.6)
-            height: 154,
+            width: CONSTANTS.CAR_WIDTH,
+            height: CONSTANTS.CAR_HEIGHT,
             question: generateQuestion(),
             answered: false,
             correct: false,
@@ -274,11 +548,12 @@ export class CrashCourseEngine implements PerseusGameEngine {
 
     /**
      * Update current question based on closest obstacle
-     * Question is shown when obstacle is within 700px
+     * Question is shown when obstacle is within threshold distance
      */
     private updateCurrentQuestion(): void {
         const closestObstacle = this.obstacles.find(
-            (obs) => !obs.answered && obs.x < 700,
+            (obs) =>
+                !obs.answered && obs.x < CONSTANTS.QUESTION_DISPLAY_DISTANCE,
         );
 
         // If we have a new obstacle to show, update current question
@@ -405,8 +680,8 @@ export class CrashCourseEngine implements PerseusGameEngine {
             case "start":
                 // Reset to menu
                 this.storyPage = 1;
-                this.score = 0;
-                this.lives = 3;
+                this.score = CONSTANTS.STARTING_SCORE;
+                this.lives = CONSTANTS.STARTING_LIVES;
                 this.gameStartTime = 0;
                 this.lastSpawnTime = 0;
                 this.obstacles = [];
@@ -429,11 +704,27 @@ export class CrashCourseEngine implements PerseusGameEngine {
                 // Start gameplay
                 this.gameStartTime = Date.now();
                 this.lastSpawnTime = Date.now();
-                this.score = 0;
-                this.lives = 3;
+                this.score = CONSTANTS.STARTING_SCORE;
+                this.lives = CONSTANTS.STARTING_LIVES;
                 this.obstacles = [];
                 this.currentQuestion = null;
                 this.physicsSystem.resetToRunning();
+                // Reset parallax offsets
+                this.parallaxOffsets = {
+                    cityFar: 0,
+                    citySemiFar: 0,
+                    citySemiClose: 0,
+                    cityClose: 0,
+                };
+                this.lampOffset = 0;
+                // Reset character sprite animation
+                this.spriteManager.play(this.characterSpriteId, "running");
+                const characterSprite = this.spriteManager.get(
+                    this.characterSpriteId,
+                );
+                if (characterSprite) {
+                    characterSprite.clearEffect();
+                }
                 // Gameplay music should already be playing from story state
                 break;
 

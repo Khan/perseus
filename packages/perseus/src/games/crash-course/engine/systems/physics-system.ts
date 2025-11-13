@@ -6,6 +6,8 @@
  * - Collision detection
  * - Character state management (running, jumping, coolMode, impact, loss)
  */
+import * as CONSTANTS from "../constants";
+
 import type {CharacterState, CollisionZone, Obstacle} from "../types";
 
 /**
@@ -29,20 +31,13 @@ export class PhysicsSystem {
     private character: CharacterPhysics;
     private groundY: number;
 
-    // Physics constants
-    private readonly JUMP_HEIGHT = 140;
-    private readonly JUMP_DURATION = 1000; // ms
-    private readonly COOL_MODE_DURATION = 2000; // ms
-    private readonly CHARACTER_X = 100;
-    private readonly SPRITE_SIZE = 128;
-
-    constructor(groundY: number = 450) {
+    constructor(groundY: number = CONSTANTS.GROUND_Y) {
         this.groundY = groundY;
         this.character = {
-            x: this.CHARACTER_X,
+            x: CONSTANTS.CHARACTER_X,
             y: groundY,
-            width: this.SPRITE_SIZE,
-            height: this.SPRITE_SIZE,
+            width: CONSTANTS.SPRITE_SIZE,
+            height: CONSTANTS.SPRITE_SIZE,
             state: "running",
             isJumping: false,
             jumpStartTime: 0,
@@ -81,15 +76,15 @@ export class PhysicsSystem {
     private updateJump(currentTime: number): void {
         const elapsed = currentTime - this.character.jumpStartTime;
 
-        if (elapsed >= this.JUMP_DURATION) {
+        if (elapsed >= CONSTANTS.JUMP_DURATION) {
             // Jump complete
             this.character.isJumping = false;
             this.character.y = this.groundY;
         } else {
             // Calculate jump arc using sine wave
-            const progress = elapsed / this.JUMP_DURATION;
+            const progress = elapsed / CONSTANTS.JUMP_DURATION;
             const jumpArc = Math.sin(progress * Math.PI); // 0 -> 1 -> 0
-            this.character.y = this.groundY - jumpArc * this.JUMP_HEIGHT;
+            this.character.y = this.groundY - jumpArc * CONSTANTS.JUMP_HEIGHT;
         }
     }
 
@@ -111,7 +106,8 @@ export class PhysicsSystem {
      */
     triggerCoolMode(): void {
         this.character.state = "coolMode";
-        this.character.coolModeEndTime = Date.now() + this.COOL_MODE_DURATION;
+        this.character.coolModeEndTime =
+            Date.now() + CONSTANTS.COOL_MODE_DURATION;
     }
 
     /**
@@ -177,13 +173,11 @@ export class PhysicsSystem {
      * Collision zone is slightly ahead of character for better timing
      */
     checkCollisionZone(obstacle: Obstacle): boolean {
-        const COLLISION_ZONE_X = this.CHARACTER_X + this.SPRITE_SIZE + 20;
-        const COLLISION_ZONE_WIDTH = 100;
-
         // Check if obstacle is in the collision zone
         return (
-            obstacle.x < COLLISION_ZONE_X + COLLISION_ZONE_WIDTH &&
-            obstacle.x + obstacle.width > COLLISION_ZONE_X
+            obstacle.x <
+                CONSTANTS.COLLISION_ZONE_X + CONSTANTS.COLLISION_ZONE_WIDTH &&
+            obstacle.x + obstacle.width > CONSTANTS.COLLISION_ZONE_X
         );
     }
 
@@ -200,10 +194,10 @@ export class PhysicsSystem {
      */
     reset(): void {
         this.character = {
-            x: this.CHARACTER_X,
+            x: CONSTANTS.CHARACTER_X,
             y: this.groundY,
-            width: this.SPRITE_SIZE,
-            height: this.SPRITE_SIZE,
+            width: CONSTANTS.SPRITE_SIZE,
+            height: CONSTANTS.SPRITE_SIZE,
             state: "running",
             isJumping: false,
             jumpStartTime: 0,
