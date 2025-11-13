@@ -1,7 +1,7 @@
 {
-    "name": "raphael",
-    "private": "true",
-    "version": "1.5.4",
-    "main": "raphael.js",
-    "types": "raphael.d.ts"
+  "name": "raphael",
+  "private": "true",
+  "version": "1.5.4",
+  "main": "raphael.js",
+  "types": "raphael.d.ts"
 }
