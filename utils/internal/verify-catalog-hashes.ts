@@ -23,6 +23,11 @@ export function verifyCatalogHashes(): {
         const packageJson: PackageJson = JSON.parse(packageJsonContent);
         const name = packageJson.name;
 
+        // Skip vendor packages (third-party code we don't control)
+        if (packageJsonPath.includes("/vendor/")) {
+            continue;
+        }
+
         // Skip private packages (not published to npm)
         if (packageJson.private === true) {
             continue;
@@ -36,8 +41,7 @@ export function verifyCatalogHashes(): {
         if (actualHash !== expectedHash) {
             errors.push(
                 `${name}: catalog hash is ${actualHash === undefined ? "missing" : "out of date"}. ` +
-                    `Expected "${expectedHash}", got "${actualHash}". ` +
-                    `Run "pnpm update-catalog-hashes" to fix.`,
+                    `Expected "${expectedHash}", got "${actualHash}".`,
             );
         }
     }

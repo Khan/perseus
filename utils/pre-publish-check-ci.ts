@@ -41,6 +41,7 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
             for (const error of catalogHashResult.errors) {
                 console.error(`  - ${error}`);
             }
+            console.error("\nTo fix, run: pnpm update-catalog-hashes\n");
             allPassed = false;
         } else {
             console.log("✅ All catalog hashes are up-to-date");
