@@ -142,6 +142,7 @@ describe("widget-container", () => {
         expect(Object.keys(analyticsEventArgument)).toEqual(
             Object.keys(expectedEventInfo),
         );
+        expect(analyticsEventArgument.type).toEqual(expectedEventInfo.type);
         expect(Object.keys(analyticsEventArgument.payload)).toEqual(
             Object.keys(expectedPayload),
         );
