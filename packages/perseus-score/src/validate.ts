@@ -10,8 +10,9 @@ import type {UserInputMap, ValidationDataMap} from "@khanacademy/perseus-core";
  */
 export function emptyWidgetsFunctional(
     widgets: ValidationDataMap,
-    // This is a port of old code, I'm not sure why
-    // we need widgetIds vs the keys of the widgets object
+    // there _could_ be widgets in the widgets map that isn't in the content,
+    // so these widget IDs should be the widget IDs that are actually used
+    // (see: getWidgetIdsFromContent)
     widgetIds: ReadonlyArray<string>,
     userInputMap: UserInputMap,
     locale: string,
@@ -41,8 +42,9 @@ export function emptyWidgetsFunctional(
 // they should be merged
 export function validateWidgets(
     widgets: ValidationDataMap,
-    // This is a port of old code, I'm not sure why
-    // we need widgetIds vs the keys of the widgets object
+    // there _could_ be widgets in the widgets map that isn't in the content,
+    // so these widget IDs should be the widget IDs that are actually used
+    // (see: getWidgetIdsFromContent)
     widgetIds: ReadonlyArray<string>,
     userInputMap: UserInputMap,
     locale: string,
