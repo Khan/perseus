@@ -19,6 +19,8 @@ import {
 import {
     earthMoonImage,
     frescoImage,
+    graphieImage,
+    graphieImageAlt,
     monasteryImage,
     scienceImage,
     scienceImageAlt,
@@ -140,6 +142,14 @@ export const DecorativeImageMobile: Story = {
         longDescription:
             "This is a *very* long description of the earth and moon.",
         decorative: true,
+    },
+};
+
+export const GraphieImage: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: graphieImageAlt,
     },
 };
 

@@ -450,15 +450,14 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(button).toBeVisible();
         });
 
-        it("does not render a zoom image button for decorative images", () => {
+        it("renders a zoom image button for graphie images", () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
-                            backgroundImage: earthMoonImage,
-                            decorative: true,
+                            backgroundImage: graphieImage,
                         }),
                     }),
                 },
@@ -469,17 +468,18 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert
             const button = screen.queryByRole("button");
-            expect(button).not.toBeInTheDocument();
+            expect(button).toBeInTheDocument();
         });
 
-        it("does not render a zoom image button for graphie images", () => {
+        it("does not render a zoom image button for decorative images", () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
-                            backgroundImage: graphieImage,
+                            backgroundImage: earthMoonImage,
+                            decorative: true,
                         }),
                     }),
                 },

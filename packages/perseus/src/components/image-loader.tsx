@@ -7,7 +7,6 @@ import * as React from "react";
 import {type Dimensions, type PerseusDependenciesV2} from "../types";
 
 import {withDependencies} from "./with-dependencies";
-import {ZoomImageButton} from "./zoom-image-button";
 
 const Status = {
     PENDING: "pending",
@@ -27,7 +26,6 @@ export type ImageProps = {
 type Props = {
     children?: React.ReactNode;
     imgProps: ImageProps;
-    allowZoom: boolean;
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
     // When the DOM updates to replace the preloader with the image, or
@@ -36,8 +34,6 @@ type Props = {
     preloader: (() => React.ReactNode) | null | undefined;
     src: string;
     dependencies: PerseusDependenciesV2;
-    // Reference to the underlying image element
-    forwardedRef?: React.RefObject<HTMLImageElement>;
 };
 
 type State = {
@@ -137,14 +133,13 @@ class ImageLoader extends React.Component<Props, State> {
      * they can click for some action (i.e. zooming in on the image).
      */
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
-        const {src, imgProps, forwardedRef} = this.props;
+        const {src, imgProps} = this.props;
         // Destructure to exclude props that shouldn't be on the <img> element
 
-        const imgElement = (
+        return (
             <img
                 // Class name makes this img findable in Cypress tests.
                 className="image-loader-img"
-                ref={forwardedRef}
                 src={this.props.dependencies.generateUrl({
                     url: src,
                     context: "image_loader:image_url",
@@ -168,22 +163,6 @@ class ImageLoader extends React.Component<Props, State> {
                 }}
                 {...imgProps}
             />
-        );
-
-        if (!this.props.allowZoom) {
-            return imgElement;
-        }
-
-        return (
-            <>
-                {imgElement}
-                <ZoomImageButton
-                    imgElement={imgElement}
-                    imgSrc={src}
-                    width={imgProps?.style?.width}
-                    height={imgProps?.style?.height}
-                />
-            </>
         );
     };
 

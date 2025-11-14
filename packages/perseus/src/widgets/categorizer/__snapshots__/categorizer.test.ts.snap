@@ -356,6 +356,12 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
               </svg>
             </div>
           </span>
+          <button
+            aria-disabled="false"
+            aria-label="Zoom image."
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+            type="button"
+          />
         </div>
       </div>
     </div>
@@ -402,6 +408,12 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
               </svg>
             </div>
           </span>
+          <button
+            aria-disabled="false"
+            aria-label="Zoom image."
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+            type="button"
+          />
         </div>
           
       </div>
@@ -857,6 +869,12 @@ exports[`categorizer widget should snapshot: first render 1`] = `
               </svg>
             </div>
           </span>
+          <button
+            aria-disabled="false"
+            aria-label="Zoom image."
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+            type="button"
+          />
         </div>
       </div>
     </div>
@@ -903,6 +921,12 @@ exports[`categorizer widget should snapshot: first render 1`] = `
               </svg>
             </div>
           </span>
+          <button
+            aria-disabled="false"
+            aria-label="Zoom image."
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+            type="button"
+          />
         </div>
           
       </div>
