@@ -301,7 +301,7 @@
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio, .indicatorContainer)
+    ul:not([data-widget="radio"], .indicatorContainer)
     > li {
     padding-left: 10px;
     margin-bottom: 24px;

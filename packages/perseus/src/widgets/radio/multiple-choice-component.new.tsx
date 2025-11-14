@@ -107,7 +107,7 @@ const MultipleChoiceComponent = ({
         <>
             <fieldset
                 className={styles.container}
-                data-feature-flag="feature flag is ON"
+                data-widget="radio"
                 ref={containerRef}
                 style={cssVariableDeclaration}
             >
