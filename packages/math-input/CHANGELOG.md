@@ -1,5 +1,16 @@
 # @khanacademy/math-input
 
+## 26.2.18
+
+### Patch Changes
+
+-   [#3030](https://github.com/Khan/perseus/pull/3030) [`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-publish to enable trusted publishing
+
+-   Updated dependencies [[`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480), [`8859e97f01`](https://github.com/Khan/perseus/commit/8859e97f0140a18e8924d13f6b18a6d38206dbf2)]:
+    -   @khanacademy/keypad-context@3.2.16
+    -   @khanacademy/perseus-core@20.1.4
+    -   @khanacademy/perseus-utils@2.1.2
+
 ## 26.2.17
 
 ### Patch Changes
