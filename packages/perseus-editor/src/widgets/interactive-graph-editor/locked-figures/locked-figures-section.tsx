@@ -19,21 +19,20 @@ import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../interactive-graph-editor";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus-core";
 
 type Props = {
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
-    // Whether the editor is disabled. Can be set via API options
-    // to make the editor read-only when needed.
-    editingDisabled: boolean;
+    apiOptions: APIOptionsWithDefaults;
 };
 
 const LockedFiguresSection = (props: Props) => {
     // Keep track of all figures' accordions' expanded states for the
     // expand/collapse all button. When editing is disabled, default to
     // all open so content can still be reviewed. Otherwise, default to closed.
-    const defaultState = props.editingDisabled ?? false;
+    const defaultState = props.apiOptions?.editingDisabled ?? false;
     const collapsedStateArray = Array((props.figures ?? []).length).fill(
         defaultState,
     );

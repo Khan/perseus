@@ -1,5 +1,32 @@
 # @khanacademy/perseus-editor
 
+## 28.6.4
+
+### Patch Changes
+
+-   [#3034](https://github.com/Khan/perseus/pull/3034) [`ce19ec912c`](https://github.com/Khan/perseus/commit/ce19ec912c1452211f43d792436003154f19a23f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing Interactive Graph Options due to Regression
+
+## 28.6.3
+
+### Patch Changes
+
+-   [#3030](https://github.com/Khan/perseus/pull/3030) [`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-publish to enable trusted publishing
+
+*   [#3020](https://github.com/Khan/perseus/pull/3020) [`ac6267009e`](https://github.com/Khan/perseus/commit/ac6267009e1308f317f306f95a39f6b56a397fc8) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update to version of Perseus without `Util.split()` and just use the native string.split()
+
+-   [#3020](https://github.com/Khan/perseus/pull/3020) [`ac6267009e`](https://github.com/Khan/perseus/commit/ac6267009e1308f317f306f95a39f6b56a397fc8) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove `Util.split` - was needed to patch a bug in IE8.
+
+-   Updated dependencies [[`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480), [`6fa388c9e7`](https://github.com/Khan/perseus/commit/6fa388c9e72a39822e1c8374857f95e7961498f1), [`13543516c2`](https://github.com/Khan/perseus/commit/13543516c2666486d65077ab055a9ac8d456e01e), [`ac6267009e`](https://github.com/Khan/perseus/commit/ac6267009e1308f317f306f95a39f6b56a397fc8), [`8859e97f01`](https://github.com/Khan/perseus/commit/8859e97f0140a18e8924d13f6b18a6d38206dbf2), [`86dfe96298`](https://github.com/Khan/perseus/commit/86dfe96298dcdb64a1ba9096241354395f30ce02)]:
+    -   @khanacademy/kas@2.1.4
+    -   @khanacademy/keypad-context@3.2.16
+    -   @khanacademy/kmath@2.2.16
+    -   @khanacademy/math-input@26.2.18
+    -   @khanacademy/perseus@72.1.0
+    -   @khanacademy/perseus-core@20.1.4
+    -   @khanacademy/perseus-linter@4.4.6
+    -   @khanacademy/perseus-score@8.0.5
+    -   @khanacademy/perseus-utils@2.1.2
+
 ## 28.6.2
 
 ### Patch Changes
