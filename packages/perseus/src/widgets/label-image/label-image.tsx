@@ -357,7 +357,7 @@ export class LabelImage
             payload: {
                 widgetSubType: "null",
                 widgetType: "label-image",
-                widgetId: "label-image",
+                widgetId: this.props.widgetId,
             },
         });
         this._mounted = true;

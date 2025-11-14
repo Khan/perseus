@@ -108,7 +108,7 @@ export class Expression extends React.Component<Props> implements Widget {
             payload: {
                 widgetSubType: "null",
                 widgetType: "expression",
-                widgetId: "expression",
+                widgetId: this.props.widgetId,
             },
         });
 

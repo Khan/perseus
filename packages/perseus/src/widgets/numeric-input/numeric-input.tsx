@@ -37,7 +37,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
                 payload: {
                     widgetSubType: "null",
                     widgetType: "numeric-input",
-                    widgetId: "numeric-input",
+                    widgetId: props.widgetId,
                 },
             });
         });
