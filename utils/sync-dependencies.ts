@@ -12,6 +12,8 @@ import fs from "node:fs";
 import semver from "semver";
 import yaml from "yaml";
 
+import {updateCatalogHashes} from "./internal/update-catalog-hashes";
+
 function printHelp() {
     console.log("--- Package Dependency Sync ---");
 
@@ -152,6 +154,10 @@ function main(argv: string[]) {
 
     process.stderr.write("> pnpm install\n");
     spawnSync("pnpm", ["install"], {stdio: "inherit"});
+
+    // Update catalog hashes after syncing dependencies
+    console.log("\n> Updating catalog hashes...");
+    updateCatalogHashes(false, false);
 }
 
 main(process.argv);

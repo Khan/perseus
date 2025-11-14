@@ -53,5 +53,8 @@
         "@khanacademy/wonder-stuff-core": "catalog:peerDeps",
         "underscore": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "14dd1a093a029c15"
+    }
 }
