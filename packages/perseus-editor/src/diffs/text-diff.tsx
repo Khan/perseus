@@ -53,6 +53,7 @@ class ImageDiffSide extends React.Component<any> {
                                 <SvgImage
                                     src={entry.value}
                                     title={entry.value}
+                                    allowZoom={false}
                                 />
                             </div>
                         </div>

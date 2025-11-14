@@ -3,7 +3,7 @@ import {
     generateImageWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {act, screen} from "@testing-library/react";
+import {act, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
@@ -17,7 +17,7 @@ import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question} from "./image.testdata";
-import {earthMoonImage} from "./utils";
+import {earthMoonImage, graphieImage} from "./utils";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -391,6 +391,164 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         const dialog = screen.getByRole("dialog");
         expect(dialog).toBeVisible();
         expect(dialog).toHaveTextContent("Explore image and description");
+    });
+
+    it("should not allow zooming inside the explore image modal", async () => {
+        // Arrange
+        const imageQuestion = generateTestPerseusRenderer({
+            content: "[[☃ image 1]]",
+            widgets: {
+                "image 1": generateImageWidget({
+                    options: generateImageOptions({
+                        backgroundImage: earthMoonImage,
+                        longDescription: "widget long description",
+                    }),
+                }),
+            },
+        });
+
+        renderQuestion(imageQuestion, apiOptions);
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        //  Act - open the modal, check for zoom button
+        const button = screen.getByRole("button", {name: "Explore image"});
+        await userEvent.click(button);
+        const withinDialog = within(screen.getByRole("dialog"));
+        const zoomButton = withinDialog.queryByRole("button", {
+            name: "Zoom image.",
+        });
+
+        // Assert
+        expect(zoomButton).not.toBeInTheDocument();
+    });
+
+    describe("zoom feature", () => {
+        it("renders a zoom image button for normal images", async () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Assert
+            // Can't use `getByRole` here because we need to wait
+            // for the image to load for the button to be appear.
+            const button = await screen.findByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(button).toBeVisible();
+        });
+
+        it("does not render a zoom image button for decorative images", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            decorative: true,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Assert
+            const button = screen.queryByRole("button");
+            expect(button).not.toBeInTheDocument();
+        });
+
+        it("does not render a zoom image button for graphie images", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: graphieImage,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Assert
+            const button = screen.queryByRole("button");
+            expect(button).not.toBeInTheDocument();
+        });
+
+        it("opens a modal when the zoom image button is clicked", async () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Act
+            const button = await screen.findByRole("button", {
+                name: "Zoom image.",
+            });
+            await userEvent.click(button);
+
+            // Assert
+            expect(screen.getByRole("dialog")).toBeVisible();
+        });
+
+        it("closes the modal when the image is clicked", async () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Act - open the modal
+            const button = await screen.findByRole("button", {
+                name: "Zoom image.",
+            });
+            await userEvent.click(button);
+
+            // Assert
+            expect(screen.getByRole("dialog")).toBeVisible();
+
+            // Act - close the modal
+            const resetZoomButton = screen.getByRole("button", {
+                name: "Reset zoom.",
+            });
+            await userEvent.click(resetZoomButton);
+
+            // Assert
+            expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+        });
     });
 
     describe("upgrade-image-widget feature flag", () => {

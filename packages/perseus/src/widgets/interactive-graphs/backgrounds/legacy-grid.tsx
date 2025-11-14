@@ -33,6 +33,9 @@ export const LegacyGrid = ({box, backgroundImage}: Props) => {
                     {({setAssetStatus}) => (
                         <SvgImage
                             src={url}
+                            // Don't allow zooming on an image that's being
+                            // used as a graph background.
+                            allowZoom={false}
                             width={width}
                             height={height}
                             scale={scale}

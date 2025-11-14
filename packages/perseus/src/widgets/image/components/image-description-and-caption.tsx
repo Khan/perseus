@@ -55,7 +55,7 @@ export const ImageDescriptionAndCaption = (
         <div className={styles.descriptionAndCaptionContainer}>
             {/* Description */}
             {imageUpgradeFF && longDescription && (
-                <ModalLauncher modal={ExploreImageModal(props)}>
+                <ModalLauncher modal={<ExploreImageModal {...props} />}>
                     {({openModal}) => (
                         <ExploreImageButton
                             hasCaption={!!caption}

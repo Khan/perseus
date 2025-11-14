@@ -50,7 +50,7 @@ exports[`image widget - isMobile(false) should render image with float-left alig
               <button
                 aria-disabled="false"
                 aria-label="Zoom image."
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_13cfj6a"
                 type="button"
               />
             </div>
@@ -135,7 +135,7 @@ exports[`image widget - isMobile(false) should render image with float-right ali
               <button
                 aria-disabled="false"
                 aria-label="Zoom image."
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_13cfj6a"
                 type="button"
               />
             </div>
@@ -398,7 +398,7 @@ exports[`image widget - isMobile(true) should render image with float-left align
               <button
                 aria-disabled="false"
                 aria-label="Zoom image."
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_13cfj6a"
                 type="button"
               />
             </div>
@@ -483,7 +483,7 @@ exports[`image widget - isMobile(true) should render image with float-right alig
               <button
                 aria-disabled="false"
                 aria-label="Zoom image."
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_13cfj6a"
                 type="button"
               />
             </div>
