@@ -23,6 +23,7 @@ const makeIssue = (id: string, impact: IssueImpact = "medium") => ({
     help: "Example help",
     impact,
     message: "Example message",
+    type: "Warning" as const,
 });
 
 describe("IssuesPanel", () => {

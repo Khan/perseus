@@ -1,8 +1,9 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
 import iconWarning from "@phosphor-icons/core/fill/warning-fill.svg";
+import iconAlert from "@phosphor-icons/core/fill/warning-octagon-fill.svg";
 import * as React from "react";
 import {useState} from "react";
 
@@ -12,13 +13,16 @@ import ToggleableCaret from "./toggleable-caret";
 import type {APIOptions} from "@khanacademy/perseus";
 
 export type IssueImpact = "low" | "medium" | "high";
+export type IssueType = "Warning" | "Alert";
 export type Issue = {
     id: string;
     description: string;
+    elements?: Element[];
     helpUrl: string;
     help: string;
     impact: IssueImpact;
     message: string;
+    type: IssueType;
 };
 
 type IssuesPanelProps = {
@@ -32,18 +36,34 @@ const IssuesPanel = ({apiOptions, issues = []}: IssuesPanelProps) => {
     const [showPanel, setShowPanel] = useState(false);
 
     const hasWarnings = issues.length > 0;
+    const hasAlerts = issues.some((issue) => issue.type === "Alert");
     const issuesCount = `${issues.length} issue${
         issues.length === 1 ? "" : "s"
     }`;
 
-    const icon = hasWarnings ? iconWarning : iconPass;
-    const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
+    const icon = hasAlerts ? iconAlert : hasWarnings ? iconWarning : iconPass;
+    const iconColor = hasAlerts
+        ? semanticColor.feedback.critical.strong.icon
+        : hasWarnings
+          ? semanticColor.feedback.warning.strong.icon
+          : semanticColor.feedback.success.strong.icon;
 
     const togglePanel = () => {
         if (hasWarnings) {
             setShowPanel(!showPanel);
         }
     };
+
+    const impactOrder = {high: 3, medium: 2, low: 1};
+    const sortedIssues = issues.sort((a, b) => {
+        if (a.type !== b.type) {
+            return a.type === "Alert" ? -1 : 1;
+        }
+        if (impactOrder[b.impact] !== impactOrder[a.impact]) {
+            return impactOrder[b.impact] - impactOrder[a.impact];
+        }
+        return a.id.localeCompare(b.id);
+    });
 
     return (
         <div className="perseus-widget-editor">
@@ -74,7 +94,7 @@ const IssuesPanel = ({apiOptions, issues = []}: IssuesPanelProps) => {
             {showPanel && (
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
-                        {issues.map((issue) => (
+                        {sortedIssues.map((issue) => (
                             <IssueDetails
                                 apiOptions={apiOptions}
                                 key={issue.id}
