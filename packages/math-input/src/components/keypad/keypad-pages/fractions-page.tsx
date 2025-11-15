@@ -121,7 +121,7 @@ export default function FractionsPage(props: Props) {
                 keyConfig={Keys.BACKSPACE}
                 onClickKey={onClickKey}
                 coord={[4, 3]}
-                action
+                secondary
             />
         </>
     );
