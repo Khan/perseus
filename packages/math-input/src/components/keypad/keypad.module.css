@@ -18,6 +18,7 @@
 .keypad-inner-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     background-color: var(--wb-semanticColor-core-background-disabled-strong);
     /* Even in RTL languages, math is LTR, So we force this component to always render LTR. */
     direction: ltr;

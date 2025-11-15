@@ -1,6 +1,7 @@
 .keypad-inner-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     background-color: var(--wb-semanticColor-core-background-disabled-strong);
     direction: ltr;
 }

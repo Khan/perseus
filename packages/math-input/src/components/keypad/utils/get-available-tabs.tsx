@@ -110,9 +110,6 @@ export function getAvailableTabs(
     if (props.extraKeys?.length) {
         tabIds.push("Extras");
     }
-    if (props?.showDismiss) {
-        tabIds.push("Dismiss");
-    }
 
     return tabPanels.filter((tab) => tabIds.includes(tab.id as KeypadPageType));
 }

@@ -278,6 +278,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     blur: () => void = () => this.setState({focused: false});
 
     handleKeypadPress: (key: KeypadKey, e: any) => void = (key, e) => {
+        // Handle dismiss key to close the keypad
+        if (key === "DISMISS") {
+            this.closeKeypad();
+            return;
+        }
+
         const {locale} = this.context;
         const translator = getKeyTranslator(locale, this.context.strings)[key];
         const mathField = this.mathField();
@@ -370,7 +376,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 </HeadingMedium>
                                 <PopoverContentCore
                                     style={styles.popoverContent}
-                                    closeButtonVisible={true}
                                 >
                                     <DesktopKeypad
                                         onAnalyticsEvent={
