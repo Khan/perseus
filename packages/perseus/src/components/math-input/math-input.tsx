@@ -376,7 +376,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 </HeadingMedium>
                                 <PopoverContentCore
                                     style={styles.popoverContent}
-                                    closeButtonVisible={true}
                                 >
                                     <DesktopKeypad
                                         onAnalyticsEvent={
