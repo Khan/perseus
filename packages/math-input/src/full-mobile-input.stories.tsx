@@ -53,7 +53,7 @@ const Basic = ({keypadElement, setKeypadElement}) => {
     }, [keypadElement, expression, times]);
 
     return (
-        <div style={{padding: "1rem 2rem"}}>
+        <div style={{padding: "1rem 2rem", minHeight: "400px"}}>
             <div>
                 <div>
                     NOTE: To properly test the input interaction, you will need

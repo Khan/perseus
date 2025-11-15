@@ -1,6 +1,8 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Tabs} from "@khanacademy/wonder-blocks-tabs";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import xBold from "@phosphor-icons/core/bold/x-bold.svg";
 import * as React from "react";
 import {useEffect} from "react";
 
@@ -40,7 +42,13 @@ export interface KeypadProps {
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
 export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
-    const {onAnalyticsEvent, fractionsOnly, expandedView} = props;
+    const {
+        onAnalyticsEvent,
+        fractionsOnly,
+        expandedView,
+        showDismiss,
+        onClickKey,
+    } = props;
     // If we're using the Fractions keypad, we want to default select that page
     // Otherwise, we want to default to the Numbers page
     const defaultSelectedPage = fractionsOnly ? "Fractions" : "Numbers";
@@ -83,31 +91,62 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
 
     return (
         <View className={expandedView ? styles.keypadOuterContainer : ""}>
-            <Tabs
-                aria-label="Keypad"
-                tabs={availableTabs}
-                selectedTabId={selectedPage}
-                onTabSelected={(newSelectedPage: string) => {
-                    setSelectedPage(newSelectedPage as KeypadPageType);
-                }}
-                styles={{
-                    tab: {
-                        marginBlockStart: sizing.size_080,
-                        marginBlockEnd: sizing.size_080,
-                    },
-                    tablist: {
-                        gap: sizing.size_080,
-                        paddingInline: sizing.size_080,
-                    },
-                    tabPanel: {
-                        display: "flex",
-                        flexDirection: "row",
-                        backgroundColor:
-                            semanticColor.core.background.disabled.strong,
-                        direction: "ltr",
-                    },
-                }}
-            />
+            <View
+                className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
+                style={{position: "relative"}}
+            >
+                {showDismiss && (
+                    <View
+                        style={{
+                            position: "absolute",
+                            top: sizing.size_120,
+                            right: sizing.size_080,
+                            zIndex: 10,
+                        }}
+                    >
+                        <IconButton
+                            icon={xBold}
+                            kind="tertiary"
+                            aria-label="Dismiss"
+                            onClick={() => onClickKey("DISMISS")}
+                            size="xsmall"
+                            tabIndex={0}
+                            style={{
+                                color: semanticColor.core.foreground.neutral
+                                    .default,
+                            }}
+                        />
+                    </View>
+                )}
+                <Tabs
+                    aria-label="Keypad"
+                    tabs={availableTabs}
+                    selectedTabId={selectedPage}
+                    onTabSelected={(newSelectedPage: string) => {
+                        setSelectedPage(newSelectedPage as KeypadPageType);
+                    }}
+                    styles={{
+                        tab: {
+                            marginBlockStart: sizing.size_080,
+                            marginBlockEnd: sizing.size_080,
+                        },
+                        tablist: {
+                            gap: sizing.size_080,
+                            paddingInline: sizing.size_080,
+                        },
+                        tabPanel: {
+                            display: "flex",
+                            flexDirection: "row",
+                            flexWrap: "nowrap",
+                            backgroundColor:
+                                semanticColor.core.background.disabled.strong,
+                            // Even in RTL languages, math is LTR.
+                            // So we force this component to always render LTR
+                            direction: "ltr",
+                        },
+                    }}
+                />
+            </View>
         </View>
     );
 }

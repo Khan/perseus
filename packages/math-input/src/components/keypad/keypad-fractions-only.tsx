@@ -1,4 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import FractionsPage from "./keypad-pages/fractions-page";
@@ -18,6 +19,18 @@ export type KeypadFractionsOnlyProps = Pick<
     | "expandedView"
 >;
 
+// Inline styles needed because CSS modules don't have enough specificity
+// to override Wonder Blocks View default styles
+const keypadInnerContainerStyle = {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    backgroundColor: semanticColor.core.background.disabled.strong,
+    // Even in RTL languages, math is LTR.
+    // So we force this component to always render LTR
+    direction: "ltr",
+} as const;
+
 export function KeypadFractionsOnly(props: KeypadFractionsOnlyProps) {
     const {onClickKey, cursorContext, expandedView} = props;
     const selectedPage: KeypadPageType = "Fractions";
@@ -27,18 +40,13 @@ export function KeypadFractionsOnly(props: KeypadFractionsOnlyProps) {
             <View
                 className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
             >
-                <View className={styles.keypadInnerContainer}>
-                    <View aria-label="Keypad">
-                        <RenderKeyPadPanel
-                            {...props}
-                            selectedPage={selectedPage}
-                        >
-                            <FractionsPage
-                                onClickKey={onClickKey}
-                                cursorContext={cursorContext}
-                            />
-                        </RenderKeyPadPanel>
-                    </View>
+                <View style={keypadInnerContainerStyle}>
+                    <RenderKeyPadPanel {...props} selectedPage={selectedPage}>
+                        <FractionsPage
+                            onClickKey={onClickKey}
+                            cursorContext={cursorContext}
+                        />
+                    </RenderKeyPadPanel>
                 </View>
             </View>
         </View>
