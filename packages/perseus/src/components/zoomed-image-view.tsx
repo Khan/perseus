@@ -10,7 +10,6 @@ import styles from "./zoomed-image-view.module.css";
 
 type Props = {
     imgElement: React.ReactNode;
-    imgSrc: string;
     width: number;
     height: number;
     onClose: () => void;
@@ -18,23 +17,11 @@ type Props = {
 
 export const ZoomedImageView = ({
     imgElement,
-    imgSrc,
     width,
     height,
     onClose,
 }: Props) => {
     const i18n = usePerseusI18n();
-    // Check for "Command + Click" or "Control + Click" to open the image
-    // in a new tab. This feature was part of the old zoom service, so
-    // we're adding it here to keep the behavior consistent.
-    const handleClick = (event: React.SyntheticEvent<Element>) => {
-        const mouseEvent = event as React.MouseEvent;
-        if (mouseEvent.metaKey || mouseEvent.ctrlKey) {
-            window.open(imgSrc, "_blank");
-        } else {
-            onClose();
-        }
-    };
 
     return (
         <ModalDialog
@@ -49,7 +36,7 @@ export const ZoomedImageView = ({
                 content={
                     <div className={styles.contentWrapper}>
                         <Clickable
-                            onClick={handleClick}
+                            onClick={onClose}
                             aria-label={i18n.strings.imageResetZoomAriaLabel}
                             style={{
                                 cursor: "zoom-out",
