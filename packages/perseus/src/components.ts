@@ -4,7 +4,7 @@ export {default as HUD} from "./components/hud";
 export {default as Icon} from "./components/icon";
 export {default as InfoTip} from "./components/info-tip";
 export {default as InlineIcon} from "./components/inline-icon";
-export {default as MathInput} from "./components/math-input/math-input";
+export {default as MathInput} from "./components/math-input";
 export {default as MultiButtonGroup} from "./components/multi-button-group";
 export {default as NumberInput} from "./components/number-input";
 export {default as RangeInput} from "./components/range-input";

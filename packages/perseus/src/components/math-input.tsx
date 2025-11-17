@@ -20,9 +20,9 @@ import * as React from "react";
 import _ from "underscore";
 import {v4 as uuid} from "uuid";
 
-import a11y from "../../util/a11y";
-import {debounce} from "../../util/debounce";
-import {PerseusI18nContext} from "../i18n-context";
+import a11y from "../util/a11y";
+import {debounce} from "../util/debounce";
+import {PerseusI18nContext} from "./i18n-context";
 
 import type {MathFieldInterface} from "@khanacademy/math-input";
 import type {

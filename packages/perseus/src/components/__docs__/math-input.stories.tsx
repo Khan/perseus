@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import MathInput from "../math-input/math-input";
+import MathInput from "../math-input";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
