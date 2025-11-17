@@ -8,7 +8,7 @@ import {useEffect} from "react";
 
 import {KeypadFractionsOnly} from "./keypad-fractions-only";
 import styles from "./keypad.module.css";
-import {getAvailableTabs} from "./utils";
+import {getAvailableTabs} from "./utils/get-available-tabs";
 
 import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
