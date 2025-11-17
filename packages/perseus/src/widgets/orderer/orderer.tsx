@@ -8,12 +8,18 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import {withDependencies} from "../../components/with-dependencies";
 import {Log} from "../../logging/log";
 import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {
     PerseusOrdererWidgetOptions,
@@ -297,7 +303,7 @@ class Card extends React.Component<CardProps, CardState> {
 type OrdererProps = WidgetProps<
     OrdererPublicWidgetOptions,
     PerseusOrdererUserInput
->;
+> & {dependencies: PerseusDependenciesV2};
 
 type OrdererDefaultProps = Pick<
     OrdererProps,
@@ -322,12 +328,12 @@ type OrdererState = {
 0 as any as WidgetProps<
     PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput
-> satisfies PropsFor<typeof Orderer>;
+> satisfies PropsFor<typeof WrappedOrderer>;
 
 0 as any as WidgetProps<
     OrdererPublicWidgetOptions,
     PerseusOrdererUserInput
-> satisfies PropsFor<typeof Orderer>;
+> satisfies PropsFor<typeof WrappedOrderer>;
 
 class Orderer
     extends React.Component<OrdererProps, OrdererState>
@@ -758,12 +764,14 @@ function getStartUserInput(): PerseusOrdererUserInput {
     return {current: []};
 }
 
+const WrappedOrderer = withDependencies(Orderer);
+
 export default {
     name: "orderer",
     displayName: "Orderer",
     hidden: true,
-    widget: Orderer,
+    widget: WrappedOrderer,
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Orderer>;
+} satisfies WidgetExports<typeof WrappedOrderer>;

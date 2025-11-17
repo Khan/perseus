@@ -8,6 +8,7 @@ import classNames from "classnames";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import {withDependencies} from "../../components/with-dependencies";
 import {getDependencies} from "../../dependencies";
 import {
     gray76,
@@ -19,7 +20,13 @@ import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    FocusPath,
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import type {
     PerseusGradedGroupSetWidgetOptions,
@@ -90,6 +97,7 @@ class Indicators extends React.Component<IndicatorsProps> {
 
 type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
     trackInteraction: () => void;
+    dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = {
@@ -115,6 +123,17 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     state: State = {
         currentGroup: 0,
     };
+
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetType: "graded-group-set",
+                widgetSubType: "null",
+                widgetId: this.props.widgetId,
+            },
+        });
+    }
 
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
         return nextProps !== this.props || nextState !== this.state;
@@ -228,15 +247,17 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     }
 }
 
+const WrappedGradedGroupSet = withDependencies(GradedGroupSet);
+
 export default {
     name: "graded-group-set",
     displayName: "Graded group set (articles only)",
-    widget: GradedGroupSet,
+    widget: WrappedGradedGroupSet,
     // TODO(michaelpolyak): This widget should be available for articles only
     hidden: false,
     tracking: "all",
     isLintable: true,
-} satisfies WidgetExports<typeof GradedGroupSet>;
+} satisfies WidgetExports<typeof WrappedGradedGroupSet>;
 
 const styles = StyleSheet.create({
     top: {

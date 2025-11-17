@@ -3,7 +3,10 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, render, screen} from "@testing-library/react";
 import React from "react";
 
-import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
@@ -31,6 +34,7 @@ function renderPassage(
         passageTitle: "",
         showLineNumbers: false,
         static: true,
+        dependencies: testDependenciesV2,
     } as const;
 
     const base = {
