@@ -3,7 +3,7 @@ import * as React from "react";
 import KeyConfigs from "../../../data/key-configs";
 import {useMathInputI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
-import {getCursorContextConfig} from "../utils";
+import {getCursorContextConfig} from "../utils/get-cursor-context-config";
 
 import type {ClickKeyCallback} from "../../../types";
 import type {CursorContext} from "../../input/cursor-contexts";
