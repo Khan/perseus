@@ -154,14 +154,6 @@ export const sinusoidWithStartingCoordsAndPiTicksQuestion: PerseusRenderer =
 export const sinusoidMinimalQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder().withSinusoid().build();
 
-export const noneQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
-    .withContent("This graph isn't interactive.\n\n[[☃ interactive-graph 1]]")
-    .withNoInteractiveFigure()
-    .addLockedFunction("5*sin(x)+x^3/20-ln(abs(x))", {color: "green"})
-    .addLockedEllipse([-5, 5], [2, 2], {color: "red", fillStyle: "translucent"})
-    .addLockedEllipse([5, -5], [2, 2], {color: "red", fillStyle: "translucent"})
-    .build();
-
 export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7, {labels: [{text: "A"}], ariaLabel: "Point A"})

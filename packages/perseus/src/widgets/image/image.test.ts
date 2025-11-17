@@ -8,7 +8,10 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
 import {mockImageLoading} from "../../../../../testing/image-loader-utils";
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependenciesV2,
+    testDependencies,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -16,7 +19,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {question} from "./image.testdata";
 import {earthMoonImage} from "./utils";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
@@ -108,6 +111,42 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Assert
         expect(screen.getByRole("figure")).toBeVisible();
+    });
+
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const imageQuestion = generateTestPerseusRenderer({
+            content: "[[☃ image 1]]",
+            widgets: {
+                "image 1": generateImageWidget({
+                    options: generateImageOptions({
+                        backgroundImage: earthMoonImage,
+                    }),
+                }),
+            },
+        });
+
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(imageQuestion, apiOptions, undefined, undefined, depsV2);
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "image",
+                widgetId: "image",
+            },
+        });
     });
 
     it("should render image with alt text", () => {
@@ -585,7 +624,8 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            const image = screen.getByRole("button");
+            // Decorative images have role="presentation" due to empty alt text
+            const image = screen.getByRole("presentation");
             expect(image).toHaveAttribute("alt", "");
             expect(
                 screen.queryByAltText("widget alt text"),
@@ -625,7 +665,8 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 screen.queryByRole("button", {name: "Explore image"}),
             ).not.toBeInTheDocument();
 
-            const image = screen.getByRole("button");
+            // Decorative images have role="presentation" due to empty alt text
+            const image = screen.getByRole("presentation");
             expect(image).toHaveAttribute("alt", "");
             expect(
                 screen.queryByAltText("widget alt text"),

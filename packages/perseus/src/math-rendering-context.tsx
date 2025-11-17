@@ -3,7 +3,7 @@
  */
 import * as React from "react";
 
-export type MathRenderingContextType = {
+type MathRenderingContextType = {
     shouldAddAriaLabels: boolean;
 };
 
@@ -17,7 +17,7 @@ export type MathRenderingContextType = {
  * addition of aria labels for times when the element is not within such
  * containers.
  */
-export const MathRenderingContext: React.Context<MathRenderingContextType> =
+const MathRenderingContext: React.Context<MathRenderingContextType> =
     React.createContext<{
         shouldAddAriaLabels: boolean;
     }>({

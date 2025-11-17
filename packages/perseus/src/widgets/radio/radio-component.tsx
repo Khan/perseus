@@ -39,11 +39,7 @@ export type RadioProps = PerseusRadioWidgetOptions & {
     onChange: ChangeHandler;
 };
 
-export type Props = WidgetProps<
-    RadioProps,
-    PerseusRadioUserInput,
-    PerseusRadioRubric
->;
+type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 
 type DefaultProps = Required<
     Pick<

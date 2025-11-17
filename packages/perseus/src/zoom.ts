@@ -10,6 +10,8 @@
 
 import $ from "jquery";
 
+import type React from "react";
+
 /*jshint browser:true, node:true */
 
 /* ========================================================================
@@ -157,13 +159,20 @@ ZoomServiceClass.prototype._initialize = function (enableMobilePinch: any) {
 };
 
 ZoomServiceClass.prototype.handleZoomClick = function (
-    e: any,
-    enableMobilePinch: any,
+    imageRefOrElement: React.RefObject<HTMLImageElement>,
+    enableMobilePinch: boolean,
+    options?: {
+        metaKey?: boolean;
+        ctrlKey?: boolean;
+        clickedElement?: HTMLElement;
+        zoomedImageAriaLabel?: string;
+    },
 ) {
     this._initialize(enableMobilePinch);
-    const target = e.target;
 
-    if (!target || target.tagName !== "IMG") {
+    const target = imageRefOrElement?.current;
+
+    if (!target) {
         return;
     }
 
@@ -171,8 +180,9 @@ ZoomServiceClass.prototype.handleZoomClick = function (
         return;
     }
 
-    if (e.metaKey || e.ctrlKey) {
-        return window.open(e.target.src, "_blank");
+    // Open the image in a new tab if the meta or ctrl key is pressed
+    if (options?.metaKey || options?.ctrlKey) {
+        return window.open(target.src, "_blank");
     }
 
     if (
@@ -185,6 +195,9 @@ ZoomServiceClass.prototype.handleZoomClick = function (
 
     this._activeZoomClose(true);
 
+    // Store the clicked element to restore focus to it when closing
+    this._clickedElement = options?.clickedElement;
+
     // Enable page zooming in (i.e. make sure there's no maximum-scale). Also,
     // disable page zoom out on mobile devices, because the container that the
     // image is placed in becomes bigger than the viewport if the page can be
@@ -196,10 +209,10 @@ ZoomServiceClass.prototype.handleZoomClick = function (
         // Disable zoom out by setting minimum scale of 1 on the viewport tag.
         changeViewportTag(
             "width=device-width, initial-scale=1, minimum-scale=1",
-            () => this._zoom(target),
+            () => this._zoom(target, options?.zoomedImageAriaLabel),
         );
     } else {
-        this._zoom(target);
+        this._zoom(target, options?.zoomedImageAriaLabel);
     }
 
     if (!enableMobilePinch) {
@@ -213,12 +226,18 @@ ZoomServiceClass.prototype.handleZoomClick = function (
     // we use a capturing phase here to prevent unintended js events
     // sadly no useCapture in jquery api (http://bugs.jquery.com/ticket/14953)
     document.addEventListener("click", this._boundClick, true);
-
-    e.stopPropagation();
 };
 
-ZoomServiceClass.prototype._zoom = function (target: any) {
-    this._activeZoom = new Zoom(target, this._enableMobilePinch);
+ZoomServiceClass.prototype._zoom = function (
+    target: any,
+    zoomedImageAriaLabel?: string,
+) {
+    this._activeZoom = new Zoom(
+        target,
+        this._enableMobilePinch,
+        this._clickedElement,
+        zoomedImageAriaLabel,
+    );
     this._activeZoom.zoomImage();
 };
 
@@ -301,7 +320,12 @@ ZoomServiceClass.prototype._touchMove = function (e) {
 /**
  * The zoom object
  */
-function Zoom(img: any, enableMobilePinch: any) {
+function Zoom(
+    img: any,
+    enableMobilePinch: any,
+    clickedElement: any,
+    zoomedImageAriaLabel?: string,
+) {
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._fullHeight = this._fullWidth = this._overlay = null;
 
@@ -309,6 +333,10 @@ function Zoom(img: any, enableMobilePinch: any) {
     this._targetImage = img;
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._enableMobilePinch = enableMobilePinch;
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    this._clickedElement = clickedElement;
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    this._zoomedImageAriaLabel = zoomedImageAriaLabel;
 
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._$body = $(document.body);
@@ -368,10 +396,12 @@ Zoom.prototype.zoomImage = function () {
         this._zoomOriginal();
     }.bind(this);
 
+    // Props for the image inside the zoom focus state.
     img.src = this._targetImage.src;
     img.alt = this._targetImage.alt;
     img.tabIndex = 0;
     img.role = "button";
+    img.ariaLabel = this._zoomedImageAriaLabel;
 
     this.$zoomedImage = $zoomedImage;
 };
@@ -502,6 +532,12 @@ Zoom.prototype._onZoomInFinish = function () {
         .removeClass("zoom-transition");
 
     $(this._overlay).scrollLeft(scrollLeft).scrollTop(scrollTop);
+
+    // Focus the zoomed image for screen reader accessibility:
+    // Inform the screen reader that the image is now focused
+    // and can be closed with the Escape, Enter, or Space keys
+    // via the passed in aria label.
+    this.$zoomedImage[0].focus();
 };
 
 Zoom.prototype.close = function () {
@@ -558,7 +594,17 @@ Zoom.prototype.dispose = function () {
         this._$body.removeClass("zoom-overlay-transitioning");
     }
     $(this._targetImage).css("visibility", "visible");
-    this._targetImage.focus();
+
+    // Determine which element to focus on when closing
+    // Prefer the clicked element (e.g., Clickable button) if available,
+    // otherwise fall back to the target image.
+    const elementToFocus = this._clickedElement || this._targetImage;
+
+    // Use setTimeout to ensure focus happens after all DOM updates complete.
+    // Otherwise, it may not find the element, and it won't focus.
+    setTimeout(() => {
+        elementToFocus.focus();
+    }, 0);
 };
 
 export const ZoomService: any = new ZoomServiceClass();

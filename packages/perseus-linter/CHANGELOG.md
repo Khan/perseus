@@ -1,5 +1,31 @@
 # @khanacademy/perseus-linter
 
+## 4.4.6
+
+### Patch Changes
+
+-   [#3030](https://github.com/Khan/perseus/pull/3030) [`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-publish to enable trusted publishing
+
+-   Updated dependencies [[`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480), [`8859e97f01`](https://github.com/Khan/perseus/commit/8859e97f0140a18e8924d13f6b18a6d38206dbf2)]:
+    -   @khanacademy/perseus-core@20.1.4
+    -   @khanacademy/perseus-utils@2.1.2
+
+## 4.4.5
+
+### Patch Changes
+
+-   [#2990](https://github.com/Khan/perseus/pull/2990) [`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465) Thanks [@handeyeco](https://github.com/handeyeco)! - Run knip to clean up unused code and exports
+
+-   Updated dependencies [[`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465)]:
+    -   @khanacademy/perseus-core@20.1.3
+
+## 4.4.4
+
+### Patch Changes
+
+-   Updated dependencies [[`1ddcb6b800`](https://github.com/Khan/perseus/commit/1ddcb6b800ebc19fce4665598f20817200330123)]:
+    -   @khanacademy/perseus-core@20.1.2
+
 ## 4.4.3
 
 ### Patch Changes

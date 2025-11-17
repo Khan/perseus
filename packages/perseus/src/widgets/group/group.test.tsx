@@ -2,7 +2,6 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 // eslint-disable-next-line testing-library/no-manual-cleanup
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -43,27 +42,6 @@ describe("group widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("initial render");
-    });
-
-    it("should render annotations if groupAnnotator provided", () => {
-        // Arrange
-        const groupAnnotator = jest.fn().mockImplementation((...args) => {
-            return (
-                <div data-widget-id={args[1]}>{`Group Widget: ${args[1]}`}</div>
-            );
-        });
-
-        // Act
-        renderQuestion(question1, {
-            groupAnnotator,
-        });
-
-        // Assert
-        // Annotations should be in the DOM
-        const annotations = screen.getAllByText(/Group Widget:/);
-        expect(annotations).toHaveLength(2);
-        expect(annotations[0]).toHaveTextContent("Group Widget: group 1");
-        expect(annotations[1]).toHaveTextContent("Group Widget: group 2");
     });
 
     describe("focus management", () => {

@@ -22,6 +22,7 @@ import LabeledRow from "../locked-figures/labeled-row";
 
 import AxisArrowSwitches from "./axis-arrow-switches";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     AxisLabelLocation,
     ShowAxisArrows,
@@ -110,6 +111,8 @@ type Props = {
     showTooltips: boolean;
 
     onChange: (arg1: Partial<Props>) => void;
+
+    apiOptions: APIOptionsWithDefaults;
 };
 
 type State = {
@@ -606,6 +609,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     this.state.showAxisArrowsSwitches
                                 }
                                 onChange={this.changeShowAxisArrows}
+                                disabled={
+                                    this.props.apiOptions?.editingDisabled ??
+                                    false
+                                }
                             />
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">

@@ -458,6 +458,30 @@ describe("Expression Widget", function () {
             );
         });
 
+        it("should send analytics event when widget is rendered", () => {
+            // Arrange
+            const onAnalyticsEventSpy = jest.spyOn(
+                testDependenciesV2.analytics,
+                "onAnalyticsEvent",
+            );
+
+            // Act
+            renderQuestion(expressionItem2.question);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: "null",
+                    widgetType: "expression",
+                    widgetId: "expression",
+                },
+            });
+        });
+
         it("supports mobile rendering", async () => {
             // arrange and act
             renderQuestion(expressionItem2.question, {

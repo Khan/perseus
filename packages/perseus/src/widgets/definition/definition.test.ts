@@ -1,11 +1,15 @@
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
+import type {PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question = {
@@ -49,6 +53,28 @@ describe("Definition widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("first render");
+    });
+
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Arrange and Act
+        renderQuestion(question, undefined, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "definition",
+                widgetId: "definition",
+            },
+        });
     });
 
     it("should have an open state snapshot", async () => {

@@ -5,11 +5,17 @@ import {act} from "@testing-library/react";
  * the load event.
  * @returns A function to unmock the image loading
  */
-export const mockImageLoading = () => {
+export const mockImageLoading = (options?: {
+    naturalWidth?: number;
+    naturalHeight?: number;
+}) => {
     const originalImage = window.Image;
 
     const mockImage = jest.fn(() => {
-        const img = {} as HTMLImageElement;
+        const img = {
+            naturalWidth: options?.naturalWidth,
+            naturalHeight: options?.naturalHeight,
+        } as HTMLImageElement;
         // Immediately trigger onload using setTimeout to ensure it happens after render
         setTimeout(() => {
             if (img.onload) {

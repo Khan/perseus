@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text, react/no-unsafe */
 // TODO(scottgrant): Enable the alt-text eslint rule above.
 
+import Clickable from "@khanacademy/wonder-blocks-clickable";
 import * as React from "react";
 
 import {type Dimensions, type PerseusDependenciesV2} from "../types";
@@ -21,6 +22,7 @@ export type ImageProps = {
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
     onClick?: (e: React.SyntheticEvent) => void;
+    clickAriaLabel?: string;
     style?: Dimensions;
 };
 
@@ -35,6 +37,8 @@ type Props = {
     preloader: (() => React.ReactNode) | null | undefined;
     src: string;
     dependencies: PerseusDependenciesV2;
+    // Reference to the underlying image element
+    forwardedRef?: React.RefObject<HTMLImageElement>;
 };
 
 type State = {
@@ -122,54 +126,81 @@ class ImageLoader extends React.Component<Props, State> {
         }
     };
 
+    /**
+     * If the image is clickable, render a <Clickable> component over the image.
+     * Otherwise, render the image itself.
+     *
+     * This approach is used to ensure that the button and the image remain
+     * separate elements in the DOM. This is important for accessibility, as
+     * the button and the image should be separate elements for screen readers
+     * to identify. This way, the image has the alt text to identify the image
+     * content, and the button has the click prompt that informs the user that
+     * they can click for some action (i.e. zooming in on the image).
+     */
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
-        const {src, imgProps} = this.props;
-        let onKeyUp;
-        let onKeyDown;
-        if (imgProps.onClick != null) {
-            onKeyUp = (e: React.KeyboardEvent) => {
-                // 13 is enter key, 32 is space key
-                if (e.keyCode === 13 || e.keyCode === 32) {
-                    imgProps.onClick?.(e);
-                }
-            };
-            onKeyDown = (e: React.KeyboardEvent) => {
-                // 32 is space key
-                if (e.keyCode === 32) {
-                    // don't scroll on space when the image is focused
-                    e.preventDefault();
-                }
-            };
-        }
+        const {src, imgProps, forwardedRef} = this.props;
+        // Destructure to exclude props that shouldn't be on the <img> element
+        const {
+            // Don't pass onClick or clickAriaLabel to the <img> element
+            onClick,
+            clickAriaLabel,
+            ...otherImgProps
+        } = imgProps;
 
-        // If the image is interactive, it should have a role of "button"
-        // to indicate that it is interactive.
-        const imageRole = imgProps.onClick !== null ? "button" : "img";
-
-        return (
-            // (LEMS-2871) NOTE: This image IS interactive if it requires zooming, and LevelAccess specifically requested
-            // that the role and tabIndex be set here. When users interact with the image on mobile, it will zoom in.
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+        const imgElement = (
             <img
-                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO(LEMS-2871): Address a11y error
-                tabIndex={0}
-                role={imageRole}
+                // Class name makes this img findable in Cypress tests.
+                className="image-loader-img"
+                ref={forwardedRef}
                 src={this.props.dependencies.generateUrl({
                     url: src,
                     context: "image_loader:image_url",
                 })}
-                onKeyUp={onKeyUp}
-                onKeyDown={onKeyDown}
                 // Stop the image size from being larger than 100%
                 // when width and height are not explicitly provided.
-                style={
-                    imgProps.style ?? {
+                style={{
+                    // Using `display: block` to make sure the image outline
+                    // is flush with the image itself. Using a different
+                    // display value could cause a 4px gap below images.
+                    display: "block",
+                    ...(imgProps.style ?? {
+                        // Not adding `height` to styles here, because it
+                        // gets set automatically based on the width and
+                        // aspect ratio of the image. Setting `height: 100%`
+                        // could cause the image to stretch vertically in
+                        // certain cases (example: images inside markdown
+                        // tables in Safari).
                         width: "100%",
-                        height: "100%",
-                    }
-                }
-                {...imgProps}
+                    }),
+                }}
+                {...otherImgProps}
             />
+        );
+
+        if (!onClick) {
+            return imgElement;
+        }
+
+        return (
+            <>
+                {imgElement}
+                <Clickable
+                    aria-label={clickAriaLabel}
+                    onClick={onClick}
+                    style={{
+                        // Overlay the button over the image.
+                        position: "absolute",
+                        width: this.props.imgProps.style?.width ?? "100%",
+                        height: this.props.imgProps.style?.height ?? "100%",
+                        overflow: "hidden",
+                        cursor: "zoom-in",
+                    }}
+                >
+                    {() => {
+                        return <React.Fragment />;
+                    }}
+                </Clickable>
+            </>
         );
     };
 
