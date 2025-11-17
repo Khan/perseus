@@ -9,6 +9,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import _ from "underscore";
 
+import {withDependencies} from "../../components/with-dependencies";
 import Util from "../../util";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
@@ -16,7 +17,11 @@ import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive
 import type {StatefulMafsGraphType} from "./stateful-mafs-graph";
 import type {QuadraticGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDependenciesV2,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {InteractiveGraphPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
@@ -181,7 +186,7 @@ type InteractiveGraphProps = {
 type Props = WidgetProps<
     InteractiveGraphProps,
     PerseusInteractiveGraphUserInput
->;
+> & {dependencies: PerseusDependenciesV2};
 
 type DefaultProps = {
     labels: string[];
@@ -207,12 +212,12 @@ type State = any;
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
     PerseusInteractiveGraphUserInput
-> satisfies PropsFor<typeof InteractiveGraph>;
+> satisfies PropsFor<typeof WrappedInteractiveGraph>;
 
 0 as any as WidgetProps<
     InteractiveGraphPublicWidgetOptions,
     PerseusInteractiveGraphUserInput
-> satisfies PropsFor<typeof InteractiveGraph>;
+> satisfies PropsFor<typeof WrappedInteractiveGraph>;
 
 // TODO: there's another, very similar getSinusoidCoefficients function
 // they should probably be merged
@@ -286,6 +291,17 @@ class InteractiveGraph extends React.Component<Props, State> {
             type: "linear",
         },
     };
+
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetType: "interactive-graph",
+                widgetSubType: this.props.userInput.type,
+                widgetId: this.props.widgetId,
+            },
+        });
+    }
 
     getUserInput(): PerseusInteractiveGraphUserInput {
         if (this.mafsRef.current?.getUserInput) {
@@ -883,11 +899,13 @@ function getCorrectUserInput(
     return options.correct;
 }
 
+const WrappedInteractiveGraph = withDependencies(InteractiveGraph);
+
 export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
-    widget: InteractiveGraph,
+    widget: WrappedInteractiveGraph,
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof InteractiveGraph>;
+} satisfies WidgetExports<typeof WrappedInteractiveGraph>;
