@@ -8,7 +8,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import MathInput from "../../components/math-input/math-input";
+import MathInput from "../../components/math-input";
 import {useDependencies} from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
