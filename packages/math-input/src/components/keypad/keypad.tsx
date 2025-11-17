@@ -39,6 +39,24 @@ export interface KeypadProps {
     ) => void;
 }
 
+const tabsStyles = {
+    tab: {
+        marginBlockStart: sizing.size_080,
+        marginBlockEnd: sizing.size_080,
+    },
+    tablist: {
+        gap: sizing.size_080,
+        paddingInline: sizing.size_080,
+    },
+    tabPanel: {
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "nowrap",
+        backgroundColor: semanticColor.core.background.disabled.strong,
+        direction: "ltr",
+    },
+} as const;
+
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
 export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
@@ -125,26 +143,7 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
                     onTabSelected={(newSelectedPage: string) => {
                         setSelectedPage(newSelectedPage as KeypadPageType);
                     }}
-                    styles={{
-                        tab: {
-                            marginBlockStart: sizing.size_080,
-                            marginBlockEnd: sizing.size_080,
-                        },
-                        tablist: {
-                            gap: sizing.size_080,
-                            paddingInline: sizing.size_080,
-                        },
-                        tabPanel: {
-                            display: "flex",
-                            flexDirection: "row",
-                            flexWrap: "nowrap",
-                            backgroundColor:
-                                semanticColor.core.background.disabled.strong,
-                            // Even in RTL languages, math is LTR.
-                            // So we force this component to always render LTR
-                            direction: "ltr",
-                        },
-                    }}
+                    styles={tabsStyles}
                 />
             </View>
         </View>
