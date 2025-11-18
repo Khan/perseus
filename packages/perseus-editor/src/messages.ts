@@ -11,6 +11,7 @@ export const WARNINGS = {
         impact: "medium",
         message:
             "Selecting inaccessible widgets for a practice item will result in this exercise being hidden from users with 'Hide visually dependant content' setting set to true. Please select another widget or create an alternative practice item.",
+        type: "Warning",
     }),
 
     genericLinterWarning: (rule: string, message: string): Issue => ({
@@ -21,5 +22,6 @@ export const WARNINGS = {
             "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
         impact: "low",
         message: message,
+        type: "Warning",
     }),
 };

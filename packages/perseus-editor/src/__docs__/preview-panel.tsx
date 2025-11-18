@@ -78,7 +78,9 @@ function PreviewPanel({
                         />
                     </div>
 
-                    <View className={styles.innerPanel}>{children}</View>
+                    <View id="preview-panel" className={styles.innerPanel}>
+                        {children}
+                    </View>
                 </div>
             )}
         </View>

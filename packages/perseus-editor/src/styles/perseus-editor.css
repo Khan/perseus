@@ -233,6 +233,8 @@ code {
 }
 #perseus {
     margin: 20px;
+    width: calc(100% - 500px);
+    z-index: 10;
 }
 #perseus #problemarea #workarea {
     margin: 0;
@@ -256,6 +258,9 @@ code {
     position: relative;
     float: left;
     padding-bottom: 38px;
+}
+#storybook-root #problemarea {
+    display: none;
 }
 #problemarea a:link,
 #problemarea input,
@@ -281,6 +286,8 @@ code {
     width: 360px;
     max-width: 360px;
     min-width: 360px;
+    position: relative;
+    z-index: 10;
 }
 .perseus-editor-right-cell {
     box-sizing: border-box;
