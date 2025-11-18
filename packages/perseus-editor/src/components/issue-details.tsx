@@ -37,8 +37,8 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
             containerStyle={{
                 backgroundColor:
                     issue.impact === "high"
-                        ? semanticColor.core.background.critical.subtle
-                        : semanticColor.core.background.warning.subtle,
+                        ? semanticColor.feedback.critical.subtle.background
+                        : semanticColor.feedback.warning.subtle.background,
             }}
             panelStyle={{backgroundColor: "white"}}
             header={
