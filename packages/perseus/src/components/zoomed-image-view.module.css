@@ -10,5 +10,8 @@
     .contentWrapper {
         /* Smaller screens have a smaller inline gap */
         margin-inline: calc(-1 * var(--wb-c-modal-panel-layout-gap-small));
+        /* On mobile, allow the image to fill the entire viewport */
+        max-width: 100vw;
+        max-height: 100vh;
     }
 }

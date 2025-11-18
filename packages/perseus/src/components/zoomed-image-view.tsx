@@ -8,6 +8,9 @@ import FixedToResponsive from "./fixed-to-responsive";
 import {usePerseusI18n} from "./i18n-context";
 import styles from "./zoomed-image-view.module.css";
 
+// 32px on each side of the modal panel
+const WB_MODAL_PADDING_TOTAL = 64;
+
 type Props = {
     imgElement: React.ReactNode;
     width: number;
@@ -22,6 +25,22 @@ export const ZoomedImageView = ({
     onClose,
 }: Props) => {
     const i18n = usePerseusI18n();
+
+    // Calculate the maximum available space (account for the modal panel padding).
+    const maxWidth = window.innerWidth - WB_MODAL_PADDING_TOTAL;
+    const maxHeight = window.innerHeight - WB_MODAL_PADDING_TOTAL;
+
+    // Figure out the scale for the width and height, and use it to determine
+    // which dimension to use for the final size.
+    const scaleWidth = maxWidth / width;
+    const scaleHeight = maxHeight / height;
+    // Choose the smaller of the two so that the image fits inside
+    // the window - no scrolling.
+    const scale = Math.min(scaleWidth, scaleHeight, 1);
+
+    // Calculate the final dimensions, constraine by the window size.
+    const constrainedWidth = width * scale;
+    const constrainedHeight = height * scale;
 
     return (
         <ModalDialog
@@ -52,8 +71,8 @@ export const ZoomedImageView = ({
                                 >
                                     <FixedToResponsive
                                         className="svg-image"
-                                        width={width}
-                                        height={height}
+                                        width={constrainedWidth}
+                                        height={constrainedHeight}
                                     >
                                         {imgElement}
                                     </FixedToResponsive>

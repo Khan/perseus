@@ -10,11 +10,17 @@ export const frescoImage = {
     height: 955,
 };
 
-export const monasteryImage = {
-    url: "https://cdn.kastatic.org/ka-perseus-images/b2213be6c39a28d7e8ff40836a8a5fb068678fa4.jpg",
-    width: 448,
-    height: 500,
+export const portraitImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/45f60d824fb772181a1361352c9df64f9cca3e5a.jpg",
+    width: 1398,
+    height: 1851,
 };
+export const portraitImageTitle = "The Arnolfini Portrait";
+export const portraitImageAlt = "Jan van Eyck, The Arnolfini Portrait";
+export const portraitImageCaption =
+    "Jan van Eyck, *The Arnolfini Portrait*, 1434, oil on oak panel, 82.2 x 60 cm (National Gallery, London; photo: [Steven Zucker](https://flic.kr/p/2qEGNDi), CC BY-NC-SA 4.0)";
+export const portraitImageLongDescription =
+    "Jan van Eyck, The Arnolfini Portrait, 1434, oil on oak panel, 82.2 x 60 cm (National Gallery, London; photo: Steven Zucker, CC BY-NC-SA 4.0)";
 
 export const scienceImage = {
     url: "https://cdn.kastatic.org/ka-content-images/4f38f705977774bcac3b5bed9f81b56710abc8b0.png",
