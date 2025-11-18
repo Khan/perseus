@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 72.1.1
+
+### Patch Changes
+
+-   [#3032](https://github.com/Khan/perseus/pull/3032) [`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Error Boundary] Add stack trace to error payload to aid in troubleshooting rendering errors
+
+*   [#3046](https://github.com/Khan/perseus/pull/3046) [`b8e0ea16ff`](https://github.com/Khan/perseus/commit/b8e0ea16ff389466a2efc7e87749a9d6ddf716cc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   Updated dependencies [[`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015), [`b8e0ea16ff`](https://github.com/Khan/perseus/commit/b8e0ea16ff389466a2efc7e87749a9d6ddf716cc), [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84)]:
+    -   @khanacademy/perseus-core@20.2.0
+    -   @khanacademy/math-input@26.2.19
+    -   @khanacademy/keypad-context@3.2.17
+    -   @khanacademy/kmath@2.2.17
+    -   @khanacademy/perseus-linter@4.4.7
+    -   @khanacademy/perseus-score@8.0.6
+
 ## 72.1.0
 
 ### Minor Changes
