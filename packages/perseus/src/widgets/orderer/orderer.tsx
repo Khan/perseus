@@ -362,6 +362,17 @@ class Orderer
         grabPos: null,
     };
 
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetType: "orderer",
+                widgetSubType: "null",
+                widgetId: this.props.widgetId,
+            },
+        });
+    }
+
     onClick: (arg1: string, arg2: number, arg3: any, arg4: Element) => void = (
         type,
         index,
