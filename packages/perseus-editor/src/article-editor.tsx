@@ -4,8 +4,14 @@
  * multiple (Renderer) sections concatenated together.
  */
 
-import {components, ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {
+    components,
+    ApiOptions,
+    Dependencies,
+    PerseusMarkdown,
+} from "@khanacademy/perseus";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
 import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.svg";
@@ -15,11 +21,14 @@ import * as React from "react";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
+import IssuesPanel from "./components/issues-panel";
 import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
+import {WARNINGS} from "./messages";
 
+import type {Issue} from "./components/issues-panel";
 import type {
     APIOptions,
     Changeable,
@@ -53,11 +62,14 @@ type Props = DefaultProps & {
     imageUploader?: ImageUploader;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
+    issues?: Issue[];
 } & Changeable.ChangeableProps;
 
 type State = {
     highlightLint: boolean;
+    issues: Issue[];
 };
+
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
@@ -68,9 +80,59 @@ export default class ArticleEditor extends React.Component<Props, State> {
         useNewStyles: false,
     };
 
+    static prevJson: JsonType | undefined;
+
     state: State = {
         highlightLint: true,
+        issues: [],
     };
+
+    static getDerivedStateFromProps(props: Props): Partial<State> | null {
+        // Short-circuit if nothing changed
+        if (props.json === ArticleEditor.prevJson) {
+            return null;
+        }
+
+        // Update cached values
+        ArticleEditor.prevJson = props.json;
+
+        // Get sections array
+        const sections: ReadonlyArray<RendererProps> =
+            props.json instanceof Array ? props.json : [props.json];
+
+        // Run linter on all sections and collect issues
+        const allLinterIssues: Issue[] = [];
+        sections.forEach((section) => {
+            const parsed = PerseusMarkdown.parse(section.content ?? "", {});
+            const linterContext = {
+                content: section.content,
+                widgets: section.widgets,
+                stack: [],
+            };
+
+            const sectionIssues =
+                PerseusLinter.runLinter(parsed, linterContext, false)?.map(
+                    (linterWarning) => {
+                        if (linterWarning.rule === "inaccessible-widget") {
+                            return WARNINGS.inaccessibleWidget(
+                                linterWarning.metadata?.widgetType ?? "unknown",
+                                linterWarning.metadata?.widgetId ?? "unknown",
+                            );
+                        }
+                        return WARNINGS.genericLinterWarning(
+                            linterWarning.rule,
+                            linterWarning.message,
+                        );
+                    },
+                ) ?? [];
+
+            allLinterIssues.push(...sectionIssues);
+        });
+
+        return {
+            issues: [...(props.issues ?? []), ...allLinterIssues],
+        };
+    }
 
     componentDidMount() {
         this._updatePreviewFrames();
@@ -155,6 +217,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         <div className="perseus-editor-row" key={i}>
                             <fieldset disabled={editingDisabled}>
                                 <div className="perseus-editor-left-cell">
+                                    <IssuesPanel
+                                        apiOptions={this.props.apiOptions}
+                                        issues={this.state.issues}
+                                    />
                                     <div className="pod-title">
                                         Section {i + 1}
                                         <div
