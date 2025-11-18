@@ -4,7 +4,7 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {components, iconTrash} from "@khanacademy/perseus";
+import {components, iconTrash, withAPIOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
@@ -80,7 +80,7 @@ class HintEditor extends React.Component<HintEditorProps> {
         showRemoveButton: true,
     };
 
-    editor = React.createRef<Editor>();
+    editor = React.createRef<React.ElementRef<typeof Editor>>();
 
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -111,7 +111,6 @@ class HintEditor extends React.Component<HintEditorProps> {
                     // item in the Sidebar, the question editor is
                     // re-rendered by React.
                     key={this.props.itemId}
-                    apiOptions={this.props.apiOptions}
                     widgets={this.props.widgets || undefined}
                     content={this.props.content || undefined}
                     images={this.props.images}
@@ -286,8 +285,11 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     }
 }
 
-type CombinedHintsEditorProps = {
-    apiOptions?: APIOptions;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptions;
+};
+
+type CombinedHintsEditorProps = WithAPIOptionsProps & {
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
     highlightLint?: boolean;
@@ -309,7 +311,7 @@ type CombinedHintsEditorProps = {
  *  ~ All the hint previews
  *  ~ The "add a hint" button
  */
-class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
+class CombinedHintsEditorInner extends React.Component<CombinedHintsEditorProps> {
     static HintEditor: typeof HintEditor = HintEditor;
 
     static defaultProps: {
@@ -475,4 +477,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     }
 }
 
+const CombinedHintsEditor = withAPIOptions<CombinedHintsEditorInner>(
+    CombinedHintsEditorInner,
+);
 export default CombinedHintsEditor;

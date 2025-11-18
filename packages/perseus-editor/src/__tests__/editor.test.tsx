@@ -1,4 +1,4 @@
-import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
+import {Dependencies, Util} from "@khanacademy/perseus";
 import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -19,7 +19,6 @@ const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
     return (
         <DependenciesContext.Provider value={testDependenciesV2}>
             <Editor
-                apiOptions={ApiOptions.defaults}
                 onChange={() => {}}
                 content="[[☃ image 1]]"
                 widgets={{

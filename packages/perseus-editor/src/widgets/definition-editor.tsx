@@ -62,7 +62,6 @@ class DefinitionEditor extends React.Component<Props> {
                 </div>
                 <div className="perseus-widget-row">
                     <Editor
-                        apiOptions={this.props.apiOptions}
                         content={this.props.definition}
                         widgetEnabled={false}
                         placeholder="definition goes here"

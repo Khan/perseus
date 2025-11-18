@@ -38,8 +38,8 @@ class GradedGroupEditor extends React.Component<Props> {
     static defaultProps: GradedGroupDefaultWidgetOptions =
         gradedGroupLogic.defaultWidgetOptions;
 
-    editor = React.createRef<Editor>();
-    hintEditor = React.createRef<Editor>();
+    editor = React.createRef<React.ElementRef<typeof Editor>>();
+    hintEditor = React.createRef<React.ElementRef<typeof Editor>>();
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
@@ -89,7 +89,6 @@ class GradedGroupEditor extends React.Component<Props> {
                     ref={this.editor}
                     content={this.props.content}
                     widgets={this.props.widgets}
-                    apiOptions={this.props.apiOptions}
                     images={this.props.images}
                     widgetEnabled={true}
                     immutableWidgets={false}
@@ -118,7 +117,6 @@ class GradedGroupEditor extends React.Component<Props> {
                             widgets={
                                 this.props.hint ? this.props.hint.widgets : {}
                             }
-                            apiOptions={this.props.apiOptions}
                             images={this.props.hint && this.props.hint.images}
                             widgetEnabled={true}
                             immutableWidgets={false}

@@ -7,11 +7,18 @@ import {
     Util,
     Widgets,
     ApiOptions,
+    withAPIOptions,
+    // eslint-disable-next-line import/no-deprecated
+    type ChangeHandler,
+    type ImageUploader,
+    type APIOptions,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     Errors,
     PerseusError,
+    type PerseusWidget,
+    type PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
 import katex from "katex";
@@ -28,14 +35,6 @@ import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
-
-// eslint-disable-next-line import/no-deprecated
-import type {
-    APIOptions,
-    ChangeHandler,
-    ImageUploader,
-} from "@khanacademy/perseus";
-import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -117,26 +116,30 @@ const imageUrlsFromContent = function (content: string) {
     return allMatches(IMAGE_REGEX, content).map((capture) => capture[1]);
 };
 
-type Props = Readonly<{
-    additionalTemplates: Record<string, string>;
-    apiOptions: any;
-    className?: string;
-    content: string;
-    replace?: any;
-    placeholder: string;
-    widgets: PerseusWidgetsMap;
-    images: any;
-    disabled: boolean;
-    widgetEnabled: boolean;
-    immutableWidgets: boolean;
-    showWordCount: boolean;
-    warnNoPrompt: boolean;
-    warnNoWidgets: boolean;
-    widgetIsOpen?: boolean;
-    imageUploader?: ImageUploader;
-    // eslint-disable-next-line import/no-deprecated
-    onChange: ChangeHandler;
-}>;
+type WithAPIOptionsProps = {
+    apiOptions: APIOptions;
+};
+
+type Props = WithAPIOptionsProps &
+    Readonly<{
+        additionalTemplates: Record<string, string>;
+        className?: string;
+        content: string;
+        replace?: any;
+        placeholder: string;
+        widgets: PerseusWidgetsMap;
+        images: any;
+        disabled: boolean;
+        widgetEnabled: boolean;
+        immutableWidgets: boolean;
+        showWordCount: boolean;
+        warnNoPrompt: boolean;
+        warnNoWidgets: boolean;
+        widgetIsOpen?: boolean;
+        imageUploader?: ImageUploader;
+        // eslint-disable-next-line import/no-deprecated
+        onChange: ChangeHandler;
+    }>;
 
 type DefaultProps = {
     content: string;
@@ -160,7 +163,7 @@ type State = {
 };
 
 // eslint-disable-next-line react/no-unsafe
-class Editor extends React.Component<Props, State> {
+class EditorInner extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
     deferredChange: any | null | undefined;
     widgetIds: any | null | undefined;
@@ -1134,4 +1137,5 @@ class Editor extends React.Component<Props, State> {
     }
 }
 
+const Editor = withAPIOptions<EditorInner>(EditorInner);
 export default Editor;

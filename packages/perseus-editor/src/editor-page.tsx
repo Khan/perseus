@@ -3,6 +3,7 @@ import {
     ApiOptions,
     ClassNames,
     Dependencies,
+    APIOptionsContext,
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
@@ -91,7 +92,8 @@ class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
 
     itemEditor = React.createRef<ItemEditor>();
-    hintsEditor = React.createRef<CombinedHintsEditor>();
+    hintsEditor =
+        React.createRef<React.ElementRef<typeof CombinedHintsEditor>>();
 
     static defaultProps: DefaultProps = {
         developerMode: false,
@@ -161,20 +163,11 @@ class EditorPage extends React.Component<Props, State> {
             return;
         }
 
-        const touch =
-            this.props.previewDevice === "phone" ||
-            this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
-
         this.itemEditor.current?.triggerPreviewUpdate({
             type: "question",
             data: _({
                 item: this.serialize(),
-                apiOptions: deviceBasedApiOptions,
+                apiOptions: this.getDeviceBasedApiOptions(),
                 initialHintsVisible: 0,
                 device: this.props.previewDevice,
                 linterContext: {
@@ -189,10 +182,17 @@ class EditorPage extends React.Component<Props, State> {
         });
     }
 
-    getApiOptions(): APIOptionsWithDefaults {
+    getDeviceBasedApiOptions(): APIOptionsWithDefaults {
+        const touch =
+            this.props.previewDevice === "phone" ||
+            this.props.previewDevice === "tablet";
+
         return {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,
+            // device-based API options
+            customKeypad: touch,
+            isMobile: touch,
         };
     }
 
@@ -227,18 +227,10 @@ class EditorPage extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         let className = "framework-perseus";
+        const apiOptions = this.getDeviceBasedApiOptions();
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
-        const touch =
-            this.props.previewDevice === "phone" ||
-            this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
-
-        if (deviceBasedApiOptions.isMobile) {
+        if (apiOptions.isMobile) {
             className += " " + ClassNames.MOBILE;
         }
 
@@ -246,91 +238,95 @@ class EditorPage extends React.Component<Props, State> {
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
             >
-                <div id="perseus" className={className}>
-                    <div style={{marginBottom: 10}}>
-                        {this.props.developerMode && (
-                            <span>
-                                <label>
-                                    {" "}
-                                    Developer JSON Mode:{" "}
-                                    <input
-                                        type="checkbox"
-                                        checked={this.props.jsonMode}
-                                        disabled={
-                                            this.props.apiOptions
-                                                ?.editingDisabled
-                                        }
-                                        onChange={this.toggleJsonMode}
-                                    />
-                                </label>{" "}
-                            </span>
+                <APIOptionsContext.Provider value={apiOptions}>
+                    <div id="perseus" className={className}>
+                        <div style={{marginBottom: 10}}>
+                            {this.props.developerMode && (
+                                <span>
+                                    <label>
+                                        {" "}
+                                        Developer JSON Mode:{" "}
+                                        <input
+                                            type="checkbox"
+                                            checked={this.props.jsonMode}
+                                            disabled={
+                                                this.props.apiOptions
+                                                    ?.editingDisabled
+                                            }
+                                            onChange={this.toggleJsonMode}
+                                        />
+                                    </label>{" "}
+                                </span>
+                            )}
+
+                            {!this.props.jsonMode && (
+                                <ViewportResizer
+                                    deviceType={this.props.previewDevice}
+                                    onViewportSizeChanged={
+                                        this.props.onPreviewDeviceChange
+                                    }
+                                />
+                            )}
+
+                            {!this.props.jsonMode && (
+                                <HUD
+                                    message="Style warnings"
+                                    enabled={this.state.highlightLint}
+                                    onClick={() => {
+                                        this.setState({
+                                            highlightLint:
+                                                !this.state.highlightLint,
+                                        });
+                                    }}
+                                />
+                            )}
+                        </div>
+                        {this.props.developerMode && this.props.jsonMode && (
+                            <div>
+                                <JsonEditor
+                                    multiLine={true}
+                                    value={this.state.json}
+                                    onChange={this.changeJSON}
+                                    editingDisabled={editingDisabled}
+                                />
+                            </div>
                         )}
 
-                        {!this.props.jsonMode && (
-                            <ViewportResizer
+                        {(!this.props.developerMode ||
+                            !this.props.jsonMode) && (
+                            <ItemEditor
+                                ref={this.itemEditor}
+                                itemId={this.props.itemId}
+                                question={this.props.question}
+                                answerArea={this.props.answerArea}
+                                imageUploader={this.props.imageUploader}
+                                onChange={this.handleChange}
                                 deviceType={this.props.previewDevice}
-                                onViewportSizeChanged={
-                                    this.props.onPreviewDeviceChange
+                                widgetIsOpen={this.state.widgetsAreOpen}
+                                previewURL={this.props.previewURL}
+                                issues={this.props.issues}
+                                additionalTemplates={
+                                    this.props.additionalTemplates
                                 }
                             />
                         )}
 
-                        {!this.props.jsonMode && (
-                            <HUD
-                                message="Style warnings"
-                                enabled={this.state.highlightLint}
-                                onClick={() => {
-                                    this.setState({
-                                        highlightLint:
-                                            !this.state.highlightLint,
-                                    });
-                                }}
+                        {(!this.props.developerMode ||
+                            !this.props.jsonMode) && (
+                            <CombinedHintsEditor
+                                ref={this.hintsEditor}
+                                itemId={this.props.itemId}
+                                hints={this.props.hints}
+                                imageUploader={this.props.imageUploader}
+                                onChange={this.handleChange}
+                                deviceType={this.props.previewDevice}
+                                previewURL={this.props.previewURL}
+                                highlightLint={this.state.highlightLint}
+                                widgetIsOpen={this.state.widgetsAreOpen}
                             />
                         )}
                     </div>
-                    {this.props.developerMode && this.props.jsonMode && (
-                        <div>
-                            <JsonEditor
-                                multiLine={true}
-                                value={this.state.json}
-                                onChange={this.changeJSON}
-                                editingDisabled={editingDisabled}
-                            />
-                        </div>
-                    )}
-
-                    {(!this.props.developerMode || !this.props.jsonMode) && (
-                        <ItemEditor
-                            ref={this.itemEditor}
-                            itemId={this.props.itemId}
-                            question={this.props.question}
-                            answerArea={this.props.answerArea}
-                            imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
-                            deviceType={this.props.previewDevice}
-                            widgetIsOpen={this.state.widgetsAreOpen}
-                            apiOptions={deviceBasedApiOptions}
-                            previewURL={this.props.previewURL}
-                            issues={this.props.issues}
-                            additionalTemplates={this.props.additionalTemplates}
-                        />
-                    )}
-
-                    {(!this.props.developerMode || !this.props.jsonMode) && (
-                        <CombinedHintsEditor
-                            ref={this.hintsEditor}
-                            itemId={this.props.itemId}
-                            hints={this.props.hints}
-                            imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
-                            deviceType={this.props.previewDevice}
-                            apiOptions={deviceBasedApiOptions}
-                            previewURL={this.props.previewURL}
-                            highlightLint={this.state.highlightLint}
-                            widgetIsOpen={this.state.widgetsAreOpen}
-                        />
-                    )}
-                </div>
+                </APIOptionsContext.Provider>
             </Dependencies.DependenciesContext.Provider>
         );
     }
