@@ -283,7 +283,8 @@
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph:not(:first-child) {
-    margin-top: 32px;
+    margin-top: 22px;
+    margin-bottom: 22px;
 }
 .framework-perseus.perseus-mobile .perseus-renderer > .paragraph > .paragraph {
     margin: 0;
