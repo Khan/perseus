@@ -23,7 +23,7 @@ export type PerseusAnalyticsEvent =
               widgetType: string;
               widgetId: string;
               message: string;
-              stack: string | undefined;
+              stack: string;
               userAgent: string;
           };
       }
