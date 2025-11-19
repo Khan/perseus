@@ -44,8 +44,8 @@ describe("radio-widget-error", () => {
         widgets: {
             "matcher 1": {
                 options: {
-                    left: undefined,
-                    right: undefined,
+                    left: [],
+                    right: [],
                 },
             },
         },
