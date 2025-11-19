@@ -17,7 +17,7 @@ export default Rule.makeRule({
 
         // If it can't find a definition for the widget it does nothing
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        const widget = context && context.widgets && context.widgets[nodeId];
+        const widget = context?.widgets?.[nodeId];
         if (!widget) {
             return;
         }

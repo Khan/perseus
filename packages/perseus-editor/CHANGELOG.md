@@ -1,5 +1,24 @@
 # @khanacademy/perseus-editor
 
+## 28.6.5
+
+### Patch Changes
+
+-   [#3042](https://github.com/Khan/perseus/pull/3042) [`c9cfba3096`](https://github.com/Khan/perseus/commit/c9cfba3096bd723751d8078b643b53140788ec10) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Handle autogen aria label for open locked points
+
+*   [#3046](https://github.com/Khan/perseus/pull/3046) [`b8e0ea16ff`](https://github.com/Khan/perseus/commit/b8e0ea16ff389466a2efc7e87749a9d6ddf716cc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   [#3040](https://github.com/Khan/perseus/pull/3040) [`9b50f4c44c`](https://github.com/Khan/perseus/commit/9b50f4c44c6e3a3a02fc2a0f6c41d5ee0b9dff1b) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Put Image props in the editor in DOM order
+
+-   Updated dependencies [[`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015), [`b8e0ea16ff`](https://github.com/Khan/perseus/commit/b8e0ea16ff389466a2efc7e87749a9d6ddf716cc), [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84)]:
+    -   @khanacademy/perseus-core@20.2.0
+    -   @khanacademy/perseus@72.1.1
+    -   @khanacademy/math-input@26.2.19
+    -   @khanacademy/keypad-context@3.2.17
+    -   @khanacademy/kmath@2.2.17
+    -   @khanacademy/perseus-linter@4.4.7
+    -   @khanacademy/perseus-score@8.0.6
+
 ## 28.6.4
 
 ### Patch Changes

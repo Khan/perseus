@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 20.2.0
+
+### Minor Changes
+
+-   [#3032](https://github.com/Khan/perseus/pull/3032) [`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Error Boundary] Add stack trace to error payload to aid in troubleshooting rendering errors
+
+### Patch Changes
+
+-   [#3045](https://github.com/Khan/perseus/pull/3045) [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Error Boundary] Correct type for stack property in widget-rendering-error:ti
+
 ## 20.1.4
 
 ### Patch Changes
