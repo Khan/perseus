@@ -156,21 +156,29 @@ export const getDefaultAlignment = (type: string): Alignment => {
  * Returns the CSS class name corresponding to the specified widget alignment.
  * Uses explicit mapping to make it easy to locate related CSS style definitions.
  */
-export const getAlignmentClassName = (
-    type: string,
-    alignment: Alignment,
-): string => {
+export const getAlignmentClassName = ({
+    alignment,
+    isMobile,
+    type,
+}: {
+    alignment: Alignment;
+    isMobile: boolean;
+    type: string;
+}): string => {
+    const blockAlignment = " widget-block";
+
     switch (alignment) {
         case "block":
-            return " widget-block";
+            return blockAlignment;
         case "inline-block":
             return " widget-inline-block";
         case "inline":
             return " widget-inline";
+        // For mobile, content editors don't want to apply the float styles
         case "float-left":
-            return " widget-float-left";
+            return isMobile ? blockAlignment : " widget-float-left";
         case "float-right":
-            return " widget-float-right";
+            return isMobile ? blockAlignment : " widget-float-right";
         case "full-width":
             return " widget-full-width";
         case "default":
