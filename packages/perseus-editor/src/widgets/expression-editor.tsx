@@ -95,6 +95,8 @@ class ExpressionEditor extends React.Component<Props, State> {
         };
     }
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings: () => any = () => {
         const issues: Array<any | string> = [];
 
