@@ -115,8 +115,13 @@ class WidgetContainer extends React.Component<Props, State> {
             alignment = CoreWidgetRegistry.getDefaultAlignment(type);
         }
 
+        const isMobile = this.props.widgetProps.apiOptions.isMobile;
         // This will set the WidgetContainer's alignment
-        className += CoreWidgetRegistry.getAlignmentClassName(type, alignment);
+        className += CoreWidgetRegistry.getAlignmentClassName({
+            alignment,
+            isMobile,
+            type,
+        });
 
         const apiOptions = this.props.widgetProps.apiOptions;
 
