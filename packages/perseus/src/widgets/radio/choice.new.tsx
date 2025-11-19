@@ -34,8 +34,8 @@ const Choice = (props: IndicatorProps) => {
             Therefore, WCAG 2.1.1 is still satisfied since functionality is
                 aligned with the input method.
          */
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-redundant-roles
-        <li className={classes} onClick={clickHandler} role="listitem">
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
+        <li className={classes} onClick={clickHandler}>
             <Indicator
                 buttonRef={buttonRef}
                 checked={props.checked}
