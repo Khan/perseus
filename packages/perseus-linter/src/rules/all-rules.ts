@@ -9,6 +9,7 @@ import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
 import ExpressionWidget from "./expression-widget";
 import ExpressionWidgetError from "./expression-widget-error";
 import ExtraContentSpacing from "./extra-content-spacing";
+import FreeResponseWidgetError from "./free-response-widget-error";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
 import HeadingSentenceCase from "./heading-sentence-case";
@@ -74,4 +75,5 @@ export default [
     InaccessibleWidget,
     RadioWidgetError,
     ExpressionWidgetError,
+    FreeResponseWidgetError,
 ];
