@@ -60,7 +60,7 @@ const MultipleChoiceComponent = ({
     reviewMode,
 }: MultipleChoiceComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
-    const legendId = useId();
+    // const legendId = useId();
     const containerRef = useRef<HTMLFieldSetElement>(null);
     const [backgroundColor, setBackgroundColor] = useState("transparent");
 
@@ -111,19 +111,12 @@ const MultipleChoiceComponent = ({
                 ref={containerRef}
                 style={cssVariableDeclaration}
             >
-                {/* <legend className="perseus-sr-only">{instructions}</legend> */}
-                <div
-                    className={styles.instructions}
-                    aria-hidden="true"
-                    id={legendId}
-                >
+                <legend className="perseus-sr-only">{instructions}</legend>
+                <div className={styles.instructions} aria-hidden="true">
                     {instructions}
                 </div>
                 <ScrollableView id={scrollId} overflowX="auto">
-                    <ul
-                        className={choiceListClasses}
-                        aria-labelledby={legendId}
-                    >
+                    <ul className={choiceListClasses}>
                         <ChoiceListItems
                             choices={choices}
                             i18nStrings={strings}
