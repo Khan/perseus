@@ -80,25 +80,38 @@ export default class ArticleEditor extends React.Component<Props, State> {
         useNewStyles: false,
     };
 
-    static prevJson: JsonType | undefined;
-
     state: State = {
         highlightLint: true,
         issues: [],
     };
 
-    static getDerivedStateFromProps(props: Props): Partial<State> | null {
-        // Short-circuit if nothing changed
-        if (props.json === ArticleEditor.prevJson) {
-            return null;
+    componentDidMount() {
+        this._updateIssues();
+        this._updatePreviewFrames();
+    }
+
+    componentDidUpdate(prevProps: Props) {
+        // Only update issues if json or issues prop changed
+        if (
+            prevProps.json !== this.props.json ||
+            prevProps.issues !== this.props.issues
+        ) {
+            this._updateIssues();
         }
 
-        // Update cached values
-        ArticleEditor.prevJson = props.json;
+        this._updatePreviewFrames();
+    }
 
+    /**
+     * Updates the issues state with the linter issues for the current sections.
+     * Helper function to be used with componentDidMount and componentDidUpdate.
+     */
+    _updateIssues() {
         // Get sections array
         const sections: ReadonlyArray<RendererProps> =
-            props.json instanceof Array ? props.json : [props.json];
+            this.props.json instanceof Array
+                ? this.props.json
+                : [this.props.json];
 
         // Run linter on all sections and collect issues
         const allLinterIssues: Issue[] = [];
@@ -129,17 +142,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
             allLinterIssues.push(...sectionIssues);
         });
 
-        return {
-            issues: [...(props.issues ?? []), ...allLinterIssues],
-        };
-    }
-
-    componentDidMount() {
-        this._updatePreviewFrames();
-    }
-
-    componentDidUpdate() {
-        this._updatePreviewFrames();
+        this.setState({
+            issues: [...(this.props.issues ?? []), ...allLinterIssues],
+        });
     }
 
     _updatePreviewFrames() {
