@@ -930,6 +930,9 @@ importers:
 
   packages/perseus-linter:
     dependencies:
+      '@khanacademy/kas':
+        specifier: workspace:*
+        version: link:../kas
       '@khanacademy/perseus-core':
         specifier: workspace:*
         version: link:../perseus-core

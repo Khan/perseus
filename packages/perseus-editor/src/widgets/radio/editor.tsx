@@ -247,6 +247,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         return true;
     };
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings: () => ReadonlyArray<string> = () => {
         if (!_.some(_.pluck(this.props.choices, "correct"))) {
             return ["No choice is marked as correct."];
