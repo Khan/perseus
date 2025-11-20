@@ -66,6 +66,7 @@ catalogs:
         "@khanacademy/wonder-blocks-progress-spinner": ^3.1.41
         "@khanacademy/wonder-blocks-search-field": ^5.1.53
         "@khanacademy/wonder-blocks-switch": ^3.3.24
+        "@khanacademy/wonder-blocks-tabs": ^0.3.36
         "@khanacademy/wonder-blocks-theming": ^4.0.2
         "@khanacademy/wonder-blocks-timing": ^7.0.4
         "@khanacademy/wonder-blocks-tokens": ^14.1.2
@@ -106,6 +107,7 @@ catalogs:
         "@khanacademy/wonder-blocks-progress-spinner": 3.1.41
         "@khanacademy/wonder-blocks-search-field": 5.1.53
         "@khanacademy/wonder-blocks-switch": 3.3.24
+        "@khanacademy/wonder-blocks-tabs": 0.3.36
         "@khanacademy/wonder-blocks-theming": 4.0.2
         "@khanacademy/wonder-blocks-timing": 7.0.4
         "@khanacademy/wonder-blocks-tokens": 14.1.2
