@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-fix - remove aria hidden in radio to enable group label to be read
+fix - add roles to ul and li items to make sure they are visible to screen readers
