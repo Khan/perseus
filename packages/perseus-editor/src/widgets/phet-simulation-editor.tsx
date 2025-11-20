@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {makeSafeUrl} from "@khanacademy/perseus";
+import {makeSafeUrl} from "@khanacademy/perseus-core";
 import {
     phetSimulationLogic,
     type PerseusPhetSimulationWidgetOptions,
@@ -35,7 +35,10 @@ class PhetSimulationEditor extends React.Component<Props> {
     }
 
     getSaveWarnings: () => ReadonlyArray<string> = () => {
-        if (makeSafeUrl(this.props.url, "en") === null) {
+        if (
+            makeSafeUrl(this.props.url, "en", "https://phet.colorado.edu") ===
+            null
+        ) {
             return ["Please enter a URL from the PhET domain."];
         }
         return [];
