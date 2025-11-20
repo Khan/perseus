@@ -53,6 +53,7 @@ export default abstract class WrappedDrawing {
     toBack() {
         const parentNode = this.wrapper.parentNode;
         if (parentNode != null && parentNode.firstChild !== this.wrapper) {
+            console.log("*** insertBefore - wrapped-drawing.ts ***");
             parentNode.insertBefore(this.wrapper, parentNode.firstChild);
         }
     }

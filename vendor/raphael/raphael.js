@@ -1668,6 +1668,7 @@ export default (function () {
                 return this;
             }
             if (this.node.parentNode.firstChild != this.node) {
+                console.log("*** insertBefore - raphael - 1 ***");
                 this.node.parentNode.insertBefore(this.node, this.node.parentNode.firstChild);
                 toback(this, this.paper);
                 var svg = this.paper;
@@ -1680,6 +1681,7 @@ export default (function () {
             }
             var node = element.node || element[element.length - 1].node;
             if (node.nextSibling) {
+                console.log("*** insertBefore - raphael - 2 ***");
                 node.parentNode.insertBefore(this.node, node.nextSibling);
             } else {
                 node.parentNode[appendChild](this.node);
@@ -1692,6 +1694,7 @@ export default (function () {
                 return this;
             }
             var node = element.node || element[0].node;
+            console.log("*** insertBefore - raphael - 3 ***");
             node.parentNode.insertBefore(this.node, node);
             insertbefore(this, element, this.paper);
             return this;
@@ -1955,6 +1958,7 @@ export default (function () {
                         dstyle.left = 0;
                         dstyle.width = o.paper.width + "px";
                         dstyle.height = o.paper.height + "px";
+                        console.log("*** insertBefore - raphael - 4 ***");
                         group.parentNode.insertBefore(div, group);
                         div[appendChild](group);
                         node.clipRect = div;
@@ -2398,6 +2402,7 @@ export default (function () {
                 return this;
             }
             if (this.Group.parentNode.firstChild != this.Group) {
+                console.log("*** insertBefore - raphael - 5 ***");
                 this.Group.parentNode.insertBefore(this.Group, this.Group.parentNode.firstChild);
                 toback(this, this.paper);
             }
@@ -2411,6 +2416,7 @@ export default (function () {
                 element = element[element.length - 1];
             }
             if (element.Group.nextSibling) {
+                console.log("*** insertBefore - raphael - 6 ***");
                 element.Group.parentNode.insertBefore(this.Group, element.Group.nextSibling);
             } else {
                 element.Group.parentNode[appendChild](this.Group);
@@ -2425,6 +2431,7 @@ export default (function () {
             if (element.constructor == Set) {
                 element = element[0];
             }
+            console.log("*** insertBefore - raphael - 7 ***");
             element.Group.parentNode.insertBefore(this.Group, element.Group);
             insertbefore(this, element, this.paper);
             return this;
