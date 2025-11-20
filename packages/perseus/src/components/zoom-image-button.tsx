@@ -15,12 +15,26 @@ type Props = {
 export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
     const i18n = usePerseusI18n();
 
+    // Check for "Command + Click" or "Control + Click" to open the image
+    // in a new tab. This feature was part of the old zoom service, so
+    // we're adding it here to keep the behavior consistent.
+    const handleClick = (
+        event: React.SyntheticEvent<Element>,
+        openModal: () => void,
+    ) => {
+        const mouseEvent = event as React.MouseEvent;
+        if (mouseEvent.metaKey || mouseEvent.ctrlKey) {
+            window.open(imgSrc, "_blank");
+        } else {
+            openModal();
+        }
+    };
+
     return (
         <ModalLauncher
             modal={({closeModal}) => (
                 <ZoomedImageView
                     imgElement={imgElement}
-                    imgSrc={imgSrc}
                     width={width}
                     height={height}
                     onClose={closeModal}
@@ -30,7 +44,7 @@ export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
             {({openModal}) => (
                 <Clickable
                     aria-label={i18n.strings.imageZoomAriaLabel}
-                    onClick={openModal}
+                    onClick={(event) => handleClick(event, openModal)}
                     // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
                     // supports it instead of inline styles.
                     style={{

@@ -8,9 +8,11 @@ import FixedToResponsive from "./fixed-to-responsive";
 import {usePerseusI18n} from "./i18n-context";
 import styles from "./zoomed-image-view.module.css";
 
+// 32px on each side of the modal panel
+const WB_MODAL_PADDING_TOTAL = 64;
+
 type Props = {
     imgElement: React.ReactNode;
-    imgSrc: string;
     width: number;
     height: number;
     onClose: () => void;
@@ -18,23 +20,27 @@ type Props = {
 
 export const ZoomedImageView = ({
     imgElement,
-    imgSrc,
     width,
     height,
     onClose,
 }: Props) => {
     const i18n = usePerseusI18n();
-    // Check for "Command + Click" or "Control + Click" to open the image
-    // in a new tab. This feature was part of the old zoom service, so
-    // we're adding it here to keep the behavior consistent.
-    const handleClick = (event: React.SyntheticEvent<Element>) => {
-        const mouseEvent = event as React.MouseEvent;
-        if (mouseEvent.metaKey || mouseEvent.ctrlKey) {
-            window.open(imgSrc, "_blank");
-        } else {
-            onClose();
-        }
-    };
+
+    // Calculate the maximum available space (account for the modal panel padding).
+    const maxWidth = window.innerWidth - WB_MODAL_PADDING_TOTAL;
+    const maxHeight = window.innerHeight - WB_MODAL_PADDING_TOTAL;
+
+    // Figure out the scale for the width and height, and use it to determine
+    // which dimension to use for the final size.
+    const scaleWidth = maxWidth / width;
+    const scaleHeight = maxHeight / height;
+    // Choose the smaller of the two so that the image fits inside
+    // the window - no scrolling.
+    const scale = Math.min(scaleWidth, scaleHeight, 1);
+
+    // Calculate the final dimensions, constraine by the window size.
+    const constrainedWidth = width * scale;
+    const constrainedHeight = height * scale;
 
     return (
         <ModalDialog
@@ -49,7 +55,7 @@ export const ZoomedImageView = ({
                 content={
                     <div className={styles.contentWrapper}>
                         <Clickable
-                            onClick={handleClick}
+                            onClick={onClose}
                             aria-label={i18n.strings.imageResetZoomAriaLabel}
                             style={{
                                 cursor: "zoom-out",
@@ -65,8 +71,8 @@ export const ZoomedImageView = ({
                                 >
                                     <FixedToResponsive
                                         className="svg-image"
-                                        width={width}
-                                        height={height}
+                                        width={constrainedWidth}
+                                        height={constrainedHeight}
                                     >
                                         {imgElement}
                                     </FixedToResponsive>
