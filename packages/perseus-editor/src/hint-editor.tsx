@@ -4,7 +4,7 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {components, iconTrash} from "@khanacademy/perseus";
+import {ApiOptions, components, iconTrash} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
@@ -197,7 +197,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     };
 
     editor = React.createRef<HintEditor>();
-    frame = React.createRef<IframeContentRenderer>();
+    frame = React.createRef<React.ElementRef<typeof IframeContentRenderer>>();
 
     componentDidMount() {
         this.updatePreview();
@@ -208,20 +208,17 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     }
 
     updatePreview = () => {
-        const shouldBold =
-            this.props.isLast && !/\*\*/.test(this.props.hint.content);
-
         this.frame.current?.sendNewData({
             type: "hint",
             data: {
                 hint: this.props.hint,
-                bold: shouldBold,
                 pos: this.props.pos,
-                apiOptions: this.props.apiOptions,
+                apiOptions: this.props.apiOptions || ApiOptions.defaults,
                 linterContext: {
                     contentType: "hint",
-                    highlightLint: this.props.highlightLint,
+                    highlightLint: this.props.highlightLint || false,
                     paths: this.props.contentPaths,
+                    stack: [],
                 },
             },
         });
@@ -274,8 +271,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                     >
                         <IframeContentRenderer
                             ref={this.frame}
-                            datasetKey="mobile"
-                            datasetValue={isMobile}
+                            isMobile={isMobile}
                             seamless={true}
                             url={this.props.previewURL}
                         />

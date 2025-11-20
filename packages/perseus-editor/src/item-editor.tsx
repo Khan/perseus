@@ -64,7 +64,7 @@ class ItemEditor extends React.Component<Props, State> {
     static prevContent: string | undefined;
     static prevWidgets: PerseusWidgetsMap | undefined;
 
-    frame = React.createRef<IframeContentRenderer>();
+    frame = React.createRef<React.ElementRef<typeof IframeContentRenderer>>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
@@ -204,17 +204,11 @@ class ItemEditor extends React.Component<Props, State> {
                                     <IframeContentRenderer
                                         ref={this.frame}
                                         key={this.props.deviceType}
-                                        datasetKey="mobile"
-                                        datasetValue={isMobile}
+                                        isMobile={isMobile}
                                         seamless={true}
                                         url={this.props.previewURL}
                                     />
                                 </DeviceFramer>
-                                <div
-                                    id="hintsarea"
-                                    className="hintsarea"
-                                    style={{display: "none"}}
-                                />
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,470 @@
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
+
+import {sanitizePreviewData} from "./preview-data-sanitizer";
+
+import type {
+    ArticlePreviewData,
+    HintPreviewData,
+    PreviewContent,
+    QuestionPreviewData,
+} from "./message-types";
+import type {APIOptions} from "@khanacademy/perseus";
+
+// Mock API options with both serializable and non-serializable properties
+function createMockApiOptions(): APIOptions {
+    return {
+        // Serializable options
+        readOnly: true,
+        isMobile: false,
+        customKeypad: true,
+        // Non-serializable function callbacks (should be removed)
+        onFocusChange: jest.fn(),
+        answerableCallback: jest.fn(),
+        getAnotherHint: jest.fn(),
+        interactionCallback: jest.fn(),
+        trackInteraction: jest.fn(),
+    };
+}
+
+describe("sanitizePreviewData", () => {
+    describe("question preview data", () => {
+        it("sanitizes apiOptions in question data", () => {
+            const questionData: QuestionPreviewData = {
+                item: {
+                    question: {
+                        content: "What is 2+2?",
+                        widgets: {},
+                        images: {},
+                    },
+                    answerArea: getDefaultAnswerArea(),
+                    hints: [],
+                },
+                apiOptions: createMockApiOptions(),
+                initialHintsVisible: 0,
+                device: "phone",
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                    paths: [],
+                    stack: [],
+                },
+            };
+
+            const previewContent: PreviewContent = {
+                type: "question",
+                data: questionData,
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            expect(result.type).toBe("question");
+            if (result.type === "question") {
+                // Serializable options should remain
+                expect(result.data.apiOptions.readOnly).toBe(true);
+                expect(result.data.apiOptions.isMobile).toBe(false);
+                expect(result.data.apiOptions.customKeypad).toBe(true);
+
+                // Non-serializable functions should be removed
+                expect(result.data.apiOptions.onFocusChange).toBeUndefined();
+                expect(
+                    result.data.apiOptions.answerableCallback,
+                ).toBeUndefined();
+                expect(result.data.apiOptions.getAnotherHint).toBeUndefined();
+                expect(
+                    result.data.apiOptions.interactionCallback,
+                ).toBeUndefined();
+                expect(result.data.apiOptions.trackInteraction).toBeUndefined();
+
+                // Other properties should remain unchanged
+                expect(result.data.item).toBe(questionData.item);
+                expect(result.data.initialHintsVisible).toBe(0);
+            }
+        });
+
+        it("handles question data with null apiOptions", () => {
+            const questionData: QuestionPreviewData = {
+                item: {
+                    question: {content: "Test", widgets: {}, images: {}},
+                    answerArea: getDefaultAnswerArea(),
+                    hints: [],
+                },
+                apiOptions: null as any,
+                initialHintsVisible: 0,
+                device: "phone",
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                    paths: [],
+                    stack: [],
+                },
+            };
+
+            const previewContent: PreviewContent = {
+                type: "question",
+                data: questionData,
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            expect(result.type).toBe("question");
+            // Should return unchanged when apiOptions is null
+            expect(result).toEqual(previewContent);
+        });
+
+        it("does not mutate original question data", () => {
+            const apiOptions = createMockApiOptions();
+            const questionData: QuestionPreviewData = {
+                item: {
+                    question: {content: "Test", widgets: {}, images: {}},
+                    answerArea: getDefaultAnswerArea(),
+                    hints: [],
+                },
+                apiOptions,
+                initialHintsVisible: 0,
+                device: "phone",
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                    paths: [],
+                    stack: [],
+                },
+            };
+
+            const previewContent: PreviewContent = {
+                type: "question",
+                data: questionData,
+            };
+
+            sanitizePreviewData(previewContent);
+
+            // Original should still have functions
+            expect(apiOptions.onFocusChange).toBeDefined();
+            expect(apiOptions.answerableCallback).toBeDefined();
+        });
+    });
+
+    describe("hint preview data", () => {
+        it("sanitizes apiOptions in hint data", () => {
+            const hintData: HintPreviewData = {
+                hint: {
+                    content: "Try thinking about...",
+                    widgets: {},
+                    images: {},
+                },
+                pos: 0,
+                apiOptions: createMockApiOptions(),
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                    paths: [],
+                    stack: [],
+                },
+            };
+
+            const previewContent: PreviewContent = {
+                type: "hint",
+                data: hintData,
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            expect(result.type).toBe("hint");
+            if (result.type === "hint") {
+                // Serializable options should remain
+                expect(result.data.apiOptions.readOnly).toBe(true);
+
+                // Non-serializable functions should be removed
+                expect(result.data.apiOptions.onFocusChange).toBeUndefined();
+                expect(result.data.apiOptions.trackInteraction).toBeUndefined();
+
+                // Other properties should remain unchanged
+                expect(result.data.hint).toBe(hintData.hint);
+                expect(result.data.pos).toBe(0);
+            }
+        });
+
+        it("handles hint data with null apiOptions", () => {
+            const hintData: HintPreviewData = {
+                hint: {content: "Hint", widgets: {}, images: {}},
+                pos: 1,
+                apiOptions: null as any,
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                    paths: [],
+                    stack: [],
+                },
+            };
+
+            const previewContent: PreviewContent = {
+                type: "hint",
+                data: hintData,
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            expect(result).toEqual(previewContent);
+        });
+    });
+
+    describe("article preview data", () => {
+        it("sanitizes apiOptions in article data", () => {
+            const articleData: ArticlePreviewData = {
+                content: "# Article Title\n\nContent here",
+                widgets: {},
+                images: {},
+                apiOptions: createMockApiOptions(),
+            };
+
+            const previewContent: PreviewContent = {
+                type: "article",
+                data: articleData,
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            expect(result.type).toBe("article");
+            if (result.type === "article") {
+                // Serializable options should remain
+                expect(result.data.apiOptions.customKeypad).toBe(true);
+
+                // Non-serializable functions should be removed
+                expect(
+                    result.data.apiOptions.interactionCallback,
+                ).toBeUndefined();
+
+                // Other properties should remain unchanged
+                expect(result.data.content).toBe(articleData.content);
+            }
+        });
+
+        it("handles article data with null apiOptions", () => {
+            const articleData: ArticlePreviewData = {
+                content: "Content",
+                widgets: {},
+                images: {},
+                apiOptions: null as any,
+            };
+
+            const previewContent: PreviewContent = {
+                type: "article",
+                data: articleData,
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            expect(result).toEqual(previewContent);
+        });
+    });
+
+    describe("article-all preview data", () => {
+        it("sanitizes apiOptions in all article sections", () => {
+            const section1: ArticlePreviewData = {
+                content: "Section 1",
+                widgets: {},
+                images: {},
+                apiOptions: createMockApiOptions(),
+            };
+
+            const section2: ArticlePreviewData = {
+                content: "Section 2",
+                widgets: {},
+                images: {},
+                apiOptions: {
+                    ...createMockApiOptions(),
+                    readOnly: false,
+                },
+            };
+
+            const previewContent: PreviewContent = {
+                type: "article-all",
+                data: [section1, section2],
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            expect(result.type).toBe("article-all");
+            if (result.type === "article-all") {
+                expect(result.data).toHaveLength(2);
+
+                // First section
+                expect(result.data[0].apiOptions.readOnly).toBe(true);
+                expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
+                expect(result.data[0].content).toBe("Section 1");
+
+                // Second section
+                expect(result.data[1].apiOptions.readOnly).toBe(false);
+                expect(result.data[1].apiOptions.onFocusChange).toBeUndefined();
+                expect(result.data[1].content).toBe("Section 2");
+            }
+        });
+
+        it("handles empty article-all array", () => {
+            const previewContent: PreviewContent = {
+                type: "article-all",
+                data: [],
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            expect(result.type).toBe("article-all");
+            if (result.type === "article-all") {
+                expect(result.data).toHaveLength(0);
+            }
+        });
+
+        it("does not mutate original article-all data", () => {
+            const apiOptions1 = createMockApiOptions();
+            const apiOptions2 = createMockApiOptions();
+
+            const section1: ArticlePreviewData = {
+                content: "Section 1",
+                widgets: {},
+                images: {},
+                apiOptions: apiOptions1,
+            };
+
+            const section2: ArticlePreviewData = {
+                content: "Section 2",
+                widgets: {},
+                images: {},
+                apiOptions: apiOptions2,
+            };
+
+            const previewContent: PreviewContent = {
+                type: "article-all",
+                data: [section1, section2],
+            };
+
+            sanitizePreviewData(previewContent);
+
+            // Original should still have functions
+            expect(apiOptions1.onFocusChange).toBeDefined();
+            expect(apiOptions2.onFocusChange).toBeDefined();
+        });
+
+        it("handles mixed null and non-null apiOptions in sections", () => {
+            const section1: ArticlePreviewData = {
+                content: "Section 1",
+                widgets: {},
+                images: {},
+                apiOptions: createMockApiOptions(),
+            };
+
+            const section2: ArticlePreviewData = {
+                content: "Section 2",
+                widgets: {},
+                images: {},
+                apiOptions: null as any,
+            };
+
+            const previewContent: PreviewContent = {
+                type: "article-all",
+                data: [section1, section2],
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            expect(result.type).toBe("article-all");
+            if (result.type === "article-all") {
+                expect(result.data).toHaveLength(2);
+                // First section sanitized
+                expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
+                // Second section has null (will be sanitized but null becomes empty object)
+                expect(result.data[1].apiOptions).toBeDefined();
+            }
+        });
+    });
+
+    describe("edge cases", () => {
+        it("preserves data structure for all content types", () => {
+            const types: PreviewContent["type"][] = [
+                "question",
+                "hint",
+                "article",
+                "article-all",
+            ];
+
+            types.forEach((type) => {
+                let previewContent: PreviewContent;
+
+                switch (type) {
+                    case "question":
+                        previewContent = {
+                            type: "question",
+                            data: {
+                                item: {
+                                    question: {
+                                        content: "Q",
+                                        widgets: {},
+                                        images: {},
+                                    },
+                                    answerArea: getDefaultAnswerArea(),
+                                    hints: [],
+                                },
+                                apiOptions: {},
+                                initialHintsVisible: 0,
+                                device: "phone",
+                                linterContext: {
+                                    contentType: "exercise",
+                                    highlightLint: false,
+                                    paths: [],
+                                    stack: [],
+                                },
+                            },
+                        };
+                        break;
+                    case "hint":
+                        previewContent = {
+                            type: "hint",
+                            data: {
+                                hint: {content: "H", widgets: {}, images: {}},
+                                pos: 0,
+                                apiOptions: {},
+                                linterContext: {
+                                    contentType: "exercise",
+                                    highlightLint: false,
+                                    paths: [],
+                                    stack: [],
+                                },
+                            },
+                        };
+                        break;
+                    case "article":
+                        previewContent = {
+                            type: "article",
+                            data: {
+                                content: "A",
+                                widgets: {},
+                                images: {},
+                                apiOptions: {},
+                            },
+                        };
+                        break;
+                    case "article-all":
+                        previewContent = {
+                            type: "article-all",
+                            data: [
+                                {
+                                    content: "Paragraph A",
+                                    widgets: {},
+                                    images: {},
+                                    apiOptions: {},
+                                },
+                                {
+                                    content: "Paragraph B",
+                                    widgets: {},
+                                    images: {},
+                                    apiOptions: {},
+                                },
+                            ],
+                        };
+                        break;
+                }
+
+                const result = sanitizePreviewData(previewContent);
+                expect(result.type).toBe(type);
+            });
+        });
+    });
+});
