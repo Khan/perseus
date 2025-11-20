@@ -8,8 +8,8 @@ import {ZoomedImageView} from "./zoomed-image-view";
 type Props = {
     imgElement: React.ReactNode;
     imgSrc: string;
-    width?: number;
-    height?: number;
+    width: number;
+    height: number;
 };
 
 export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
@@ -21,6 +21,8 @@ export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
                 <ZoomedImageView
                     imgElement={imgElement}
                     imgSrc={imgSrc}
+                    width={width}
+                    height={height}
                     onClose={closeModal}
                 />
             )}
@@ -34,8 +36,8 @@ export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
                     style={{
                         // Overlay the button over the image.
                         position: "absolute",
-                        width: width ?? "100%",
-                        height: height,
+                        width: "100%",
+                        height: "100%",
                         overflow: "hidden",
                         cursor: "zoom-in",
                     }}
