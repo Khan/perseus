@@ -1668,6 +1668,7 @@ export default (function () {
                 return this;
             }
             if (this.node.parentNode.firstChild != this.node) {
+                // eslint-disable-next-line
                 console.log("*** insertBefore - raphael - 1 ***");
                 this.node.parentNode.insertBefore(this.node, this.node.parentNode.firstChild);
                 toback(this, this.paper);
@@ -1681,6 +1682,7 @@ export default (function () {
             }
             var node = element.node || element[element.length - 1].node;
             if (node.nextSibling) {
+                // eslint-disable-next-line
                 console.log("*** insertBefore - raphael - 2 ***");
                 node.parentNode.insertBefore(this.node, node.nextSibling);
             } else {
@@ -1694,6 +1696,7 @@ export default (function () {
                 return this;
             }
             var node = element.node || element[0].node;
+            // eslint-disable-next-line
             console.log("*** insertBefore - raphael - 3 ***");
             node.parentNode.insertBefore(this.node, node);
             insertbefore(this, element, this.paper);
@@ -1958,6 +1961,7 @@ export default (function () {
                         dstyle.left = 0;
                         dstyle.width = o.paper.width + "px";
                         dstyle.height = o.paper.height + "px";
+                        // eslint-disable-next-line
                         console.log("*** insertBefore - raphael - 4 ***");
                         group.parentNode.insertBefore(div, group);
                         div[appendChild](group);
@@ -2402,6 +2406,7 @@ export default (function () {
                 return this;
             }
             if (this.Group.parentNode.firstChild != this.Group) {
+                // eslint-disable-next-line
                 console.log("*** insertBefore - raphael - 5 ***");
                 this.Group.parentNode.insertBefore(this.Group, this.Group.parentNode.firstChild);
                 toback(this, this.paper);
@@ -2416,6 +2421,7 @@ export default (function () {
                 element = element[element.length - 1];
             }
             if (element.Group.nextSibling) {
+                // eslint-disable-next-line
                 console.log("*** insertBefore - raphael - 6 ***");
                 element.Group.parentNode.insertBefore(this.Group, element.Group.nextSibling);
             } else {
@@ -2431,6 +2437,7 @@ export default (function () {
             if (element.constructor == Set) {
                 element = element[0];
             }
+            // eslint-disable-next-line
             console.log("*** insertBefore - raphael - 7 ***");
             element.Group.parentNode.insertBefore(this.Group, element.Group);
             insertbefore(this, element, this.paper);
