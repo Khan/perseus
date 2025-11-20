@@ -116,8 +116,11 @@ const LockedPointSettings = (props: Props) => {
 
         let str = `Point${visiblelabel} at ${spokenX} comma ${spokenY}`;
 
-        const pointAppearance =
-            generateLockedFigureAppearanceDescription(pointColor);
+        const pointAppearance = generateLockedFigureAppearanceDescription(
+            pointColor,
+            "solid",
+            filled ? undefined : "none",
+        );
         str += pointAppearance;
 
         return str;

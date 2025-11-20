@@ -123,15 +123,35 @@ describe("widget-container", () => {
         );
 
         // Assert
-        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+        const expectedPayload = {
+            widgetSubType: "null",
+            widgetType: "mock-widget",
+            widgetId: "mock-widget 1",
+            message: "MockWidget failed to render",
+            stack: "Error: MockWidget failed to render\n    at MockWidgetComponent",
+            userAgent: "userAgent",
+        };
+        const expectedEventInfo = {
             type: "perseus:widget-rendering-error:ti",
-            payload: {
-                widgetSubType: "null",
-                widgetType: "mock-widget",
-                widgetId: "mock-widget 1",
-                message: "MockWidget failed to render",
-                userAgent: "userAgent",
-            },
-        });
+            payload: expectedPayload,
+        };
+        expect(onAnalyticsEventSpy).toHaveBeenCalledTimes(1);
+        // NOTE: We do a partial match on the stack trace since it may vary across
+        // environments/runs.
+        const analyticsEventArgument = onAnalyticsEventSpy.mock.calls[0][0];
+        expect(Object.keys(analyticsEventArgument)).toEqual(
+            Object.keys(expectedEventInfo),
+        );
+        expect(analyticsEventArgument.type).toEqual(expectedEventInfo.type);
+        expect(Object.keys(analyticsEventArgument.payload)).toEqual(
+            Object.keys(expectedPayload),
+        );
+        // Checking that only the beginning of the stack trace matches so that
+        // running this locally won't fail. Plus, the stack trace is frickin' long!
+        expect(
+            analyticsEventArgument.payload.stack.startsWith(
+                expectedPayload.stack,
+            ),
+        ).toEqual(true);
     });
 });
