@@ -3,7 +3,7 @@
 exports[`mobile keypad should not render the keypad when not active 1`] = `
 <div>
   <div
-    class="initial_4qg14c-o_O-keypadContainer_1jsjomm"
+    class="default_xu2jcg-o_O-keypadContainer_1jsjomm"
   />
 </div>
 `;
@@ -11,7 +11,7 @@ exports[`mobile keypad should not render the keypad when not active 1`] = `
 exports[`mobile keypad should render keypad when active 1`] = `
 <div>
   <div
-    class="initial_4qg14c-o_O-keypadContainer_1jsjomm"
+    class="default_xu2jcg-o_O-keypadContainer_1jsjomm"
   >
     <div
       class="default_xu2jcg inlineStyles_6alflt"
