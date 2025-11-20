@@ -34,6 +34,8 @@ class PhetSimulationEditor extends React.Component<Props> {
         };
     }
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings: () => ReadonlyArray<string> = () => {
         if (
             makeSafeUrl(this.props.url, "en", "https://phet.colorado.edu") ===
