@@ -1,9 +1,9 @@
+import {View} from "@khanacademy/wonder-blocks-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {View} from "../../fake-react-native-web/index";
 import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
 
 import Keypad from "./keypad";
@@ -181,7 +181,7 @@ class MobileKeypadInternals
         const convertDotToTimes = keypadConfig?.times;
 
         return (
-            <View style={containerStyle} forwardRef={this._containerRef}>
+            <View style={containerStyle} ref={this._containerRef}>
                 <AphroditeCssTransitionGroup
                     transitionEnterTimeout={AnimationDurationInMS}
                     transitionLeaveTimeout={AnimationDurationInMS}

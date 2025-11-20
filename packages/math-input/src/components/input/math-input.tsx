@@ -1,13 +1,13 @@
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {KeypadContext} from "@khanacademy/keypad-context";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {View} from "../../fake-react-native-web/index";
 import {MathInputI18nContext} from "../i18n-context";
 
 import CursorHandle from "./cursor-handle";
@@ -623,7 +623,7 @@ class MathInput extends React.Component<Props, State> {
     };
 
     handleTouchStart = (
-        e: React.TouchEvent<HTMLDivElement>,
+        e: React.TouchEvent<Element>,
         keypadActive: KeypadContextType["keypadActive"],
         setKeypadActive: KeypadContextType["setKeypadActive"],
     ): void => {
@@ -667,7 +667,7 @@ class MathInput extends React.Component<Props, State> {
     // when using ChromeOS third-party browsers that use mobile user agents,
     // but don't actually simulate touch events.
     handleClick = (
-        e: React.MouseEvent<HTMLDivElement>,
+        e: React.MouseEvent,
         keypadActive: KeypadContextType["keypadActive"],
         setKeypadActive: KeypadContextType["setKeypadActive"],
     ): void => {
@@ -705,7 +705,7 @@ class MathInput extends React.Component<Props, State> {
         this.inputRef?.focus();
     };
 
-    handleTouchMove: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
+    handleTouchMove: (arg1: React.TouchEvent<Element>) => void = (e) => {
         e.stopPropagation();
 
         // Update the handle-less cursor's location on move, if there's any
@@ -720,7 +720,7 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    handleTouchEnd: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
+    handleTouchEnd: (arg1: React.TouchEvent<Element>) => void = (e) => {
         e.stopPropagation();
 
         // And on touch-end, reveal the cursor, unless the input is empty. Note
@@ -981,7 +981,7 @@ class MathInput extends React.Component<Props, State> {
                 {({keypadActive, setKeypadActive}) => (
                     <View
                         style={styles.input}
-                        onTouchStart={(e: React.TouchEvent<HTMLDivElement>) => {
+                        onTouchStart={(e) => {
                             this.handleTouchStart(
                                 e,
                                 keypadActive,
@@ -990,13 +990,11 @@ class MathInput extends React.Component<Props, State> {
                         }}
                         onTouchMove={this.handleTouchMove}
                         onTouchEnd={this.handleTouchEnd}
-                        // TODO(LEMS-2656): remove TS suppression
-                        // @ts-expect-error: Type '(e: React.MouseEvent<HTMLDivElement>) => void' is not assignable to type '(arg1: SyntheticEvent<HTMLDivElement, Event>) => void'.
-                        onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                        onClick={(e) => {
                             this.handleClick(e, keypadActive, setKeypadActive);
                         }}
                         role={"textbox"}
-                        ariaLabel={ariaLabel}
+                        aria-label={ariaLabel}
                     >
                         {/* NOTE(charlie): This is used purely to namespace the styles in
                 overrides.css. */}
