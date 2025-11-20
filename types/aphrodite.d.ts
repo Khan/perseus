@@ -17,6 +17,7 @@ declare module "aphrodite" {
         /**
          * Media queries
          */
+        "@media (max-width: 767px)"?: React.CSSProperties;
         "@media (max-width: 1023px)"?: React.CSSProperties;
         "@media (min-width: 1024px)"?: React.CSSProperties;
         "@media (min-width: 1168px)"?: React.CSSProperties;
