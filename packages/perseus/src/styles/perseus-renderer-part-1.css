@@ -78,13 +78,13 @@ div.graphie {
 .framework-perseus
     .perseus-renderer
     > .paragraph
-    > ul:not(.perseus-widget-radio),
+    > ul:not([data-widget="radio"]),
 .framework-perseus .perseus-renderer > .paragraph > ol {
     margin: 0px 0px 22px 0px;
 }
 .framework-perseus
     .paragraph
-    ul:not(.perseus-widget-radio, .indicatorContainer) {
+    ul:not([data-widget="radio"], .indicatorContainer) {
     padding-left: 35px;
     list-style-type: disc;
 }

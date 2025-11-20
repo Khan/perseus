@@ -47,7 +47,7 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio) {
+    ul:not([data-widget="radio"]) {
     color: #21242c;
     font-size: 20px;
     line-height: 30px;
@@ -198,7 +198,7 @@
     > .paragraph
     .perseus-formats-tooltip
     .paragraph
-    ul:not(.perseus-widget-radio) {
+    ul:not([data-widget="radio"]) {
     font-size: 15px;
     line-height: 1.5;
     margin: 0;
@@ -294,7 +294,7 @@
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio, .indicatorContainer) {
+    ul:not([data-widget="radio"], .indicatorContainer) {
     margin: 0 0 0 1em;
     padding: 0;
 }
@@ -318,18 +318,18 @@
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio)
+    ul:not([data-widget="radio"])
     ol,
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
     ol
-    ul:not(.perseus-widget-radio),
+    ul:not([data-widget="radio"]),
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio)
-    ul:not(.perseus-widget-radio) {
+    ul:not([data-widget="radio"])
+    ul:not([data-widget="radio"]) {
     padding-top: 24px;
 }
 .framework-perseus.perseus-mobile .perseus-block-math {
@@ -389,7 +389,7 @@
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .paragraph
-        ul:not(.perseus-widget-radio) {
+        ul:not([data-widget="radio"]) {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
@@ -553,7 +553,7 @@
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .paragraph
-        ul:not(.perseus-widget-radio) {
+        ul:not([data-widget="radio"]) {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
@@ -717,7 +717,7 @@
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .paragraph
-        ul:not(.perseus-widget-radio) {
+        ul:not([data-widget="radio"]) {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
@@ -872,7 +872,7 @@
     > .paragraph
     .perseus-formats-tooltip
     .paragraph
-    ul:not(.perseus-widget-radio) {
+    ul:not([data-widget="radio"]) {
     font-size: 15px;
     line-height: 1.5;
     margin: 0;
