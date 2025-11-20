@@ -34,6 +34,7 @@ import MathStartsWithSpace from "./math-starts-with-space";
 import MathTextEmpty from "./math-text-empty";
 import MathWithoutDollars from "./math-without-dollars";
 import NestedLists from "./nested-lists";
+import NumericInputWidgetError from "./numeric-input-widget-error";
 import RadioWidgetError from "./radio-widget-error";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
 import TableMissingCells from "./table-missing-cells";
@@ -78,4 +79,5 @@ export default [
     ExpressionWidgetError,
     FreeResponseWidgetError,
     MatcherWidgetError,
+    NumericInputWidgetError,
 ];
