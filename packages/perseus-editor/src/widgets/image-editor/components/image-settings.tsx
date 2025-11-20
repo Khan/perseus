@@ -101,6 +101,21 @@ export default function ImageSettings({
                 />
             )}
 
+            {/* Properties in DOM order */}
+
+            {/* Title */}
+            <LabeledField
+                label="Title"
+                field={
+                    <AutoResizingTextArea
+                        value={title ?? ""}
+                        onChange={(value) => onChange({title: value})}
+                        disabled={decorative}
+                    />
+                }
+                styles={wbFieldStyles}
+            />
+
             {/* Alt text */}
             <LabeledField
                 label="Alt text"
@@ -133,19 +148,6 @@ export default function ImageSettings({
                     styles={wbFieldStyles}
                 />
             )}
-
-            {/* Title */}
-            <LabeledField
-                label="Title"
-                field={
-                    <AutoResizingTextArea
-                        value={title ?? ""}
-                        onChange={(value) => onChange({title: value})}
-                        disabled={decorative}
-                    />
-                }
-                styles={wbFieldStyles}
-            />
 
             {/* Caption */}
             <LabeledField
