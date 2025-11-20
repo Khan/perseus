@@ -1,0 +1,14 @@
+.contentWrapper {
+    /* Undo the ModalContent padding so that the image takes up the whole modal. */
+    margin-block: calc(-1 * var(--wb-c-modal-panel-layout-gap-default));
+    margin-inline: calc(-1 * var(--wb-c-modal-panel-layout-gap-default));
+    /* Remove inline spacing that creates a 1px gap below images */
+    line-height: 0;
+}
+
+@media (max-width: 767px) {
+    .contentWrapper {
+        /* Smaller screens have a smaller inline gap */
+        margin-inline: calc(-1 * var(--wb-c-modal-panel-layout-gap-small));
+    }
+}
