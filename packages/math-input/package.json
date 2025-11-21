@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "26.2.19",
+    "version": "26.2.20",
     "publishConfig": {
         "access": "public"
     },
@@ -48,7 +48,9 @@
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:devDeps",
         "@khanacademy/wonder-blocks-core": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-icon-button": "catalog:devDeps",
         "@khanacademy/wonder-blocks-popover": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-tabs": "catalog:devDeps",
         "@khanacademy/wonder-blocks-timing": "catalog:devDeps",
         "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
         "@khanacademy/wonder-stuff-core": "catalog:devDeps",
@@ -66,7 +68,9 @@
         "@khanacademy/mathjax-renderer": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-core": "catalog:peerDeps",
+        "@khanacademy/wonder-blocks-icon-button": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-popover": "catalog:peerDeps",
+        "@khanacademy/wonder-blocks-tabs": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-timing": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-tokens": "catalog:peerDeps",
         "@khanacademy/wonder-stuff-core": "catalog:peerDeps",
