@@ -24,7 +24,7 @@ export default Rule.makeRule({
         }
 
         const issues: Array<any | string> = [];
-        const {correct, graph, lockedFigures} = widget.options;
+        const {correct, lockedFigures} = widget.options;
 
         for (const figure of lockedFigures ?? []) {
             // A locked line on the graph cannot have length 0.

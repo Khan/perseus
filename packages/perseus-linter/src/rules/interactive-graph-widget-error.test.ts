@@ -158,7 +158,56 @@ describe("interactive-graph-widget-error", () => {
     expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
         widgets: {
             "interactive-graph 1": {
-                options: {},
+                options: {
+                    correct: {
+                        type: "polygon",
+                        numSides: "unlimited",
+                        coords: [
+                            [0, 0],
+                            [2, 0],
+                            [1, 1],
+                        ],
+                    },
+                    lockedFigures: [
+                        {
+                            type: "line",
+                            points: [
+                                {
+                                    type: "point",
+                                    coord: [0, 0],
+                                    color: "grayH",
+                                    filled: true,
+                                    labels: [],
+                                },
+                                {
+                                    type: "point",
+                                    coord: [2, 3],
+                                    color: "grayH",
+                                    filled: true,
+                                    labels: [],
+                                },
+                            ],
+                        },
+                        {
+                            type: "polygon",
+                            points: [
+                                [0, 0],
+                                [0, 2],
+                                [1, 1],
+                            ],
+                        },
+                        {
+                            type: "ellipse",
+                            center: [0, 0],
+                            radius: [2, 2],
+                            color: "grayH",
+                            fillStyle: "none",
+                            strokeStyle: "solid",
+                            weight: "medium",
+                            labels: [],
+                        },
+                    ],
+                },
             },
         },
     });
