@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 26.2.20
+
+### Patch Changes
+
+-   [#3054](https://github.com/Khan/perseus/pull/3054) [`ceb7a70bfa`](https://github.com/Khan/perseus/commit/ceb7a70bfad68e736fb670af8039bac17ae9df61) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add tabs and icon button package in math-input
+
 ## 26.2.19
 
 ### Patch Changes

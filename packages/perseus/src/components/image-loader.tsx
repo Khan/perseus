@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/alt-text, react/no-unsafe */
 // TODO(scottgrant): Enable the alt-text eslint rule above.
 
-import Clickable from "@khanacademy/wonder-blocks-clickable";
 import * as React from "react";
 
 import {type Dimensions, type PerseusDependenciesV2} from "../types";
@@ -21,8 +20,6 @@ export type ImageProps = {
     title?: string;
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
-    onClick?: (e: React.SyntheticEvent) => void;
-    clickAriaLabel?: string;
     style?: Dimensions;
 };
 
@@ -37,8 +34,6 @@ type Props = {
     preloader: (() => React.ReactNode) | null | undefined;
     src: string;
     dependencies: PerseusDependenciesV2;
-    // Reference to the underlying image element
-    forwardedRef?: React.RefObject<HTMLImageElement>;
 };
 
 type State = {
@@ -138,20 +133,13 @@ class ImageLoader extends React.Component<Props, State> {
      * they can click for some action (i.e. zooming in on the image).
      */
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
-        const {src, imgProps, forwardedRef} = this.props;
+        const {src, imgProps} = this.props;
         // Destructure to exclude props that shouldn't be on the <img> element
-        const {
-            // Don't pass onClick or clickAriaLabel to the <img> element
-            onClick,
-            clickAriaLabel,
-            ...otherImgProps
-        } = imgProps;
 
-        const imgElement = (
+        return (
             <img
                 // Class name makes this img findable in Cypress tests.
                 className="image-loader-img"
-                ref={forwardedRef}
                 src={this.props.dependencies.generateUrl({
                     url: src,
                     context: "image_loader:image_url",
@@ -173,34 +161,8 @@ class ImageLoader extends React.Component<Props, State> {
                         width: "100%",
                     }),
                 }}
-                {...otherImgProps}
+                {...imgProps}
             />
-        );
-
-        if (!onClick) {
-            return imgElement;
-        }
-
-        return (
-            <>
-                {imgElement}
-                <Clickable
-                    aria-label={clickAriaLabel}
-                    onClick={onClick}
-                    style={{
-                        // Overlay the button over the image.
-                        position: "absolute",
-                        width: this.props.imgProps.style?.width ?? "100%",
-                        height: this.props.imgProps.style?.height ?? "100%",
-                        overflow: "hidden",
-                        cursor: "zoom-in",
-                    }}
-                >
-                    {() => {
-                        return <React.Fragment />;
-                    }}
-                </Clickable>
-            </>
         );
     };
 
