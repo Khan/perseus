@@ -21,6 +21,7 @@ import ImageSpacesAroundUrls from "./image-spaces-around-urls";
 import ImageUrlEmpty from "./image-url-empty";
 import ImageWidget from "./image-widget";
 import InaccessibleWidget from "./inaccessible-widget";
+import InteractiveGraphWidgetError from "./interactive-graph-widget-error";
 import LabelImageWidgetError from "./label-image-widget-error";
 import LinkClickHere from "./link-click-here";
 import LongParagraph from "./long-paragraph";
@@ -86,4 +87,5 @@ export default [
     PhetSimulationWidgetError,
     PythonProgramWidgetError,
     LabelImageWidgetError,
+    InteractiveGraphWidgetError,
 ];

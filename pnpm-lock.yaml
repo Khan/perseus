@@ -942,6 +942,9 @@ importers:
       '@khanacademy/kas':
         specifier: workspace:*
         version: link:../kas
+      '@khanacademy/kmath':
+        specifier: workspace:*
+        version: link:../kmath
       '@khanacademy/perseus-core':
         specifier: workspace:*
         version: link:../perseus-core

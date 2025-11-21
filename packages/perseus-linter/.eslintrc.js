@@ -9,7 +9,6 @@ module.exports = {
         "@typescript-eslint/no-restricted-imports": [
             "error",
             "@khanacademy/keypad-context",
-            "@khanacademy/kmath",
             "@khanacademy/math-input",
             "@khanacademy/perseus",
             "@khanacademy/perseus-editor",

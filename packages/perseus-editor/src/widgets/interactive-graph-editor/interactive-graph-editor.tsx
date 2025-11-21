@@ -242,6 +242,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
         return json;
     }
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings = () => {
         const issues: Array<any | string> = [];
 
