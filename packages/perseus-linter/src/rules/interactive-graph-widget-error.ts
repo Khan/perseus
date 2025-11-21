@@ -38,6 +38,8 @@ export default Rule.makeRule({
             // A locked polygon can't have all coordinates be the same.
             if (figure.type === "polygon") {
                 if (
+                    // If every point is the same as the first point,
+                    // then all the points are the same.
                     figure.points.every((point) =>
                         kvector.equal(point, figure.points[0]),
                     )
