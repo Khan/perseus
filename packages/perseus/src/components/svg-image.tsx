@@ -8,12 +8,12 @@ import _ from "underscore";
 import {getDependencies} from "../dependencies";
 import Util from "../util";
 import {loadGraphie} from "../util/graphie-utils";
-import * as Zoom from "../zoom";
 
 import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import {PerseusI18nContext} from "./i18n-context";
 import ImageLoader from "./image-loader";
+import {ZoomImageButton} from "./zoom-image-button";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
@@ -48,7 +48,7 @@ function defaultPreloader(dimensions: Dimensions) {
 
 type Props = {
     allowFullBleed?: boolean;
-    allowZoom?: boolean;
+    allowZoom: boolean;
     alt: string;
     constrainHeight?: boolean;
     extraGraphie?: {
@@ -154,10 +154,6 @@ class SvgImage extends React.Component<Props, State> {
         zoomToFullSizeOnMobile: false,
         setAssetStatus: (src: string, status: boolean) => {},
     };
-
-    // Create a ref to the underlying image element. This is used within the
-    // Zoom service to reference the image element to zoom into.
-    imageRef: React.RefObject<HTMLImageElement> = React.createRef();
 
     constructor(props: Props) {
         super(props);
@@ -378,40 +374,6 @@ class SvgImage extends React.Component<Props, State> {
         return parseFloat(value) || null;
     }
 
-    _handleZoomClick: (e: React.SyntheticEvent) => void = (
-        e: React.SyntheticEvent,
-    ) => {
-        // Don't attempt to zoom if the image ref isn't available or the
-        // image hasn't finished loading yet
-        if (!this.imageRef.current || !this.state.imageLoaded) {
-            return;
-        }
-
-        e.stopPropagation();
-        e.preventDefault();
-
-        // Pass the image ref and the clicked element to the zoom service.
-        // The image is the target element to zoom into, and the clicked
-        // element will be refocused after exiting the zoom view.
-        Zoom.ZoomService.handleZoomClick(
-            this.imageRef,
-            this.props.zoomToFullSizeOnMobile,
-            {
-                clickedElement: e.currentTarget as HTMLElement,
-                // Pass the translated string from i18n context
-                zoomedImageAriaLabel:
-                    this.context.strings.imageResetZoomAriaLabel,
-                // Specify if the meta or ctrl key is being pressed.
-                // The zoom service uses this to determine if the image should
-                // be opened in a new tab when clicked.
-                metaKey: (e as React.KeyboardEvent).metaKey || false,
-                ctrlKey: (e as React.KeyboardEvent).ctrlKey || false,
-            },
-        );
-
-        this.props.trackInteraction?.();
-    };
-
     handleUpdate: (status: string) => void = (status: string) => {
         this.props.onUpdate();
         // NOTE: Labeled SVG images use this.onImageLoad to set imageLoaded
@@ -485,11 +447,17 @@ class SvgImage extends React.Component<Props, State> {
         // Just use a normal image if a normal image is provided
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
-                if (this.props.allowZoom) {
-                    imageProps.onClick = this._handleZoomClick;
-                    imageProps.clickAriaLabel =
-                        this.context.strings.imageZoomAriaLabel;
-                }
+                const imageContent = (
+                    <>
+                        <ImageLoader
+                            src={imageSrc}
+                            imgProps={imageProps}
+                            preloader={preloader}
+                            onUpdate={this.handleUpdate}
+                        />
+                        {extraGraphie}
+                    </>
+                );
 
                 return (
                     <FixedToResponsive
@@ -502,17 +470,19 @@ class SvgImage extends React.Component<Props, State> {
                             isImageProbablyPhotograph(imageSrc)
                         }
                     >
-                        <ImageLoader
-                            forwardedRef={this.imageRef}
-                            src={imageSrc}
-                            imgProps={imageProps}
-                            preloader={preloader}
-                            onUpdate={this.handleUpdate}
-                        />
-                        {extraGraphie}
+                        {imageContent}
+                        {this.props.allowZoom && (
+                            <ZoomImageButton
+                                imgElement={imageContent}
+                                imgSrc={imageSrc}
+                                width={width}
+                                height={height}
+                            />
+                        )}
                     </FixedToResponsive>
                 );
             }
+
             imageProps.style = dimensions;
             return (
                 <ImageLoader
@@ -568,13 +538,8 @@ class SvgImage extends React.Component<Props, State> {
         }
 
         if (responsive) {
-            return (
-                <FixedToResponsive
-                    className="svg-image"
-                    width={width}
-                    height={height}
-                    constrainHeight={this.props.constrainHeight}
-                >
+            const imageContent = (
+                <>
                     <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
@@ -584,6 +549,25 @@ class SvgImage extends React.Component<Props, State> {
                     />
                     {graphie}
                     {extraGraphie}
+                </>
+            );
+
+            return (
+                <FixedToResponsive
+                    className="svg-image"
+                    width={width}
+                    height={height}
+                    constrainHeight={this.props.constrainHeight}
+                >
+                    {imageContent}
+                    {this.props.allowZoom && (
+                        <ZoomImageButton
+                            imgElement={imageContent}
+                            imgSrc={imageUrl}
+                            width={width}
+                            height={height}
+                        />
+                    )}
                 </FixedToResponsive>
             );
         }
