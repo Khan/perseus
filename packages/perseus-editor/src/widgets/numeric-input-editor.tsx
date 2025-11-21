@@ -203,6 +203,8 @@ class NumericInputEditor extends React.Component<Props, State> {
         this.props.onChange({answers: answers});
     };
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings = () => {
         // Filter out all the empty answers
         const warnings = [];
