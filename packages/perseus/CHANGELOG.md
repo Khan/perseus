@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 72.2.1
+
+### Patch Changes
+
+-   [#3060](https://github.com/Khan/perseus/pull/3060) [`bae4cfa6f1`](https://github.com/Khan/perseus/commit/bae4cfa6f10410b2e2b5ea558a56c1231fa4e744) Thanks [@nishasy](https://github.com/nishasy)! - Add Label Image widget save warnings to perseus linter
+
+*   [#3058](https://github.com/Khan/perseus/pull/3058) [`58f942cb9c`](https://github.com/Khan/perseus/commit/58f942cb9cfb04638f74c79aad444ccfb6b7ce97) Thanks [@nishasy](https://github.com/nishasy)! - Add Python Program widget save warnings to perseus linter
+
+-   [#3061](https://github.com/Khan/perseus/pull/3061) [`022624f6f6`](https://github.com/Khan/perseus/commit/022624f6f682a18529b0c381746e3b7d8beb77f2) Thanks [@nishasy](https://github.com/nishasy)! - Add Interactive Graph widget save warnings to perseus linter
+
+*   [#3057](https://github.com/Khan/perseus/pull/3057) [`723d2101e7`](https://github.com/Khan/perseus/commit/723d2101e76509d7557d2a4745a9bbc7ecd55cc7) Thanks [@nishasy](https://github.com/nishasy)! - Add Phet Simulation widget save warnings to perseus linter
+
+-   [#3038](https://github.com/Khan/perseus/pull/3038) [`d697b6439b`](https://github.com/Khan/perseus/commit/d697b6439b094739bb457022986b250bd16b27b0) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updates css to reference new radio data widget name
+
+-   Updated dependencies [[`c9066e6ac0`](https://github.com/Khan/perseus/commit/c9066e6ac0d30eaae47b9568766751039d734db0), [`bae4cfa6f1`](https://github.com/Khan/perseus/commit/bae4cfa6f10410b2e2b5ea558a56c1231fa4e744), [`5f01d377f4`](https://github.com/Khan/perseus/commit/5f01d377f4d91e4ec66405aef8ea8cef7f1d4200), [`58f942cb9c`](https://github.com/Khan/perseus/commit/58f942cb9cfb04638f74c79aad444ccfb6b7ce97), [`022624f6f6`](https://github.com/Khan/perseus/commit/022624f6f682a18529b0c381746e3b7d8beb77f2), [`723d2101e7`](https://github.com/Khan/perseus/commit/723d2101e76509d7557d2a4745a9bbc7ecd55cc7)]:
+    -   @khanacademy/perseus-linter@4.6.0
+    -   @khanacademy/perseus-core@20.2.1
+    -   @khanacademy/keypad-context@3.2.18
+    -   @khanacademy/kmath@2.2.18
+    -   @khanacademy/math-input@26.2.21
+    -   @khanacademy/perseus-score@8.0.7
+
 ## 72.2.0
 
 ### Minor Changes
