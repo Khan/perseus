@@ -23,6 +23,7 @@ import ImageWidget from "./image-widget";
 import InaccessibleWidget from "./inaccessible-widget";
 import LinkClickHere from "./link-click-here";
 import LongParagraph from "./long-paragraph";
+import MatcherWidgetError from "./matcher-widget-error";
 import MathAdjacent from "./math-adjacent";
 import MathAlignExtraBreak from "./math-align-extra-break";
 import MathAlignLinebreaks from "./math-align-linebreaks";
@@ -76,4 +77,5 @@ export default [
     RadioWidgetError,
     ExpressionWidgetError,
     FreeResponseWidgetError,
+    MatcherWidgetError,
 ];

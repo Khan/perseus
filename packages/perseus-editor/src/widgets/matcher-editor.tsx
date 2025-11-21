@@ -40,6 +40,8 @@ class MatcherEditor extends React.Component<Props> {
         this.props.onChange({labels: labels});
     };
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings: () => ReadonlyArray<string> = () => {
         if (this.props.left.length !== this.props.right.length) {
             return [
