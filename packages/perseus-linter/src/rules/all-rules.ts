@@ -21,6 +21,7 @@ import ImageSpacesAroundUrls from "./image-spaces-around-urls";
 import ImageUrlEmpty from "./image-url-empty";
 import ImageWidget from "./image-widget";
 import InaccessibleWidget from "./inaccessible-widget";
+import LabelImageWidgetError from "./label-image-widget-error";
 import LinkClickHere from "./link-click-here";
 import LongParagraph from "./long-paragraph";
 import MatcherWidgetError from "./matcher-widget-error";
@@ -84,4 +85,5 @@ export default [
     NumericInputWidgetError,
     PhetSimulationWidgetError,
     PythonProgramWidgetError,
+    LabelImageWidgetError,
 ];
