@@ -139,7 +139,7 @@ describe("interactive-graph-widget-error", () => {
             widgets: {
                 "interactive-graph 1": {
                     options: {
-                        graph: {
+                        correct: {
                             type: "polygon",
                             numSides: "unlimited",
                             coords: undefined,

@@ -24,7 +24,7 @@ export default Rule.makeRule({
         }
 
         const issues: Array<any | string> = [];
-        const {lockedFigures, graph} = widget.options;
+        const {correct, graph, lockedFigures} = widget.options;
 
         for (const figure of lockedFigures ?? []) {
             // A locked line on the graph cannot have length 0.
@@ -60,9 +60,9 @@ export default Rule.makeRule({
 
         // Do not save a unlimited polygon that is open (coords is null).
         if (
-            graph?.type === "polygon" &&
-            graph.numSides === "unlimited" &&
-            graph.coords == null
+            correct?.type === "polygon" &&
+            correct.numSides === "unlimited" &&
+            correct.coords == null
         ) {
             issues.push("Polygon must be closed.");
         }
