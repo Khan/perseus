@@ -36,6 +36,7 @@ import MathWithoutDollars from "./math-without-dollars";
 import NestedLists from "./nested-lists";
 import NumericInputWidgetError from "./numeric-input-widget-error";
 import PhetSimulationWidgetError from "./phet-simulation-widget-error";
+import PythonProgramWidgetError from "./python-program-widget-error";
 import RadioWidgetError from "./radio-widget-error";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
 import TableMissingCells from "./table-missing-cells";
@@ -82,4 +83,5 @@ export default [
     MatcherWidgetError,
     NumericInputWidgetError,
     PhetSimulationWidgetError,
+    PythonProgramWidgetError,
 ];
