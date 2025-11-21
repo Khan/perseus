@@ -5,6 +5,7 @@ import {
     PerseusError,
 } from "@khanacademy/perseus-core";
 
+import {isScorable} from "./util/is-scorable";
 import {getWidgetScorer, getWidgetValidator} from "./widgets/widget-registry";
 
 import type {
@@ -164,8 +165,9 @@ export function scoreWidgetsFunctional(
         const props = upgradedWidgets[id];
         const widgetIsGraded: boolean = props?.graded == null || props.graded;
         const widgetIsStatic = !!props?.static;
-        // Ungraded widgets or widgets set to static shouldn't be graded.
-        return widgetIsGraded && !widgetIsStatic;
+        const widgetIsScorable = isScorable(props.type);
+        // Ungraded, static, or non-scorable widgets shouldn't be graded.
+        return widgetIsGraded && !widgetIsStatic && widgetIsScorable;
     });
 
     const widgetScores: Record<string, PerseusScore> = {};
