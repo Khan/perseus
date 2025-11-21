@@ -28,7 +28,7 @@ describe("label-image-widget-error", () => {
             },
         },
         {
-            message: "Question requires at least two answer choices",
+            message: "label-image widget must have at least two answer choices",
             severity: Rule.Severity.ERROR,
         },
     );
@@ -56,7 +56,7 @@ describe("label-image-widget-error", () => {
             },
         },
         {
-            message: "Image is not specified for question",
+            message: "No image url provided",
             severity: Rule.Severity.ERROR,
         },
     );
@@ -84,7 +84,7 @@ describe("label-image-widget-error", () => {
             },
         },
         {
-            message: "Question image has no alt text",
+            message: "No image alt text provided",
             severity: Rule.Severity.ERROR,
         },
     );
@@ -106,7 +106,7 @@ describe("label-image-widget-error", () => {
             },
         },
         {
-            message: "Question has no markers, to label answers on image",
+            message: "label-image widget requires at least one marker",
             severity: Rule.Severity.ERROR,
         },
     );
@@ -135,7 +135,8 @@ describe("label-image-widget-error", () => {
             },
         },
         {
-            message: "Question has 1 markers with no answers selected",
+            message:
+                "label-image widget has 1 markers with no answers selected",
             severity: Rule.Severity.ERROR,
         },
     );
@@ -164,7 +165,7 @@ describe("label-image-widget-error", () => {
             },
         },
         {
-            message: "Question has 1 markers with no ARIA label",
+            message: "label-image widget has 1 markers with no ARIA label",
             severity: Rule.Severity.ERROR,
         },
     );
