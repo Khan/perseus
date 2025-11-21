@@ -107,7 +107,6 @@ const MultipleChoiceComponent = ({
         <>
             <fieldset
                 className={styles.container}
-                data-feature-flag="feature flag is ON"
                 ref={containerRef}
                 style={cssVariableDeclaration}
             >
@@ -120,6 +119,7 @@ const MultipleChoiceComponent = ({
                 </legend>
                 <ScrollableView id={scrollId} overflowX="auto">
                     <ul
+                        data-widget="radio"
                         aria-labelledby={legendId}
                         className={choiceListClasses}
                     >

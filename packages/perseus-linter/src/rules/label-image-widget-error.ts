@@ -25,17 +25,19 @@ export default Rule.makeRule({
         const {choices, imageAlt, imageUrl, markers} = widget.options;
 
         if (choices.length < 2) {
-            warnings.push("Question requires at least two answer choices");
+            warnings.push(
+                "label-image widget must have at least two answer choices",
+            );
         }
 
         if (!imageUrl) {
-            warnings.push("Image is not specified for question");
+            warnings.push("No image url provided");
         } else if (!imageAlt) {
-            warnings.push("Question image has no alt text");
+            warnings.push("No image alt text provided");
         }
 
         if (!markers.length) {
-            warnings.push("Question has no markers, to label answers on image");
+            warnings.push("label-image widget requires at least one marker");
         } else {
             let numNoAnswers = 0;
             let numNoLabels = 0;
@@ -52,13 +54,13 @@ export default Rule.makeRule({
 
             if (numNoAnswers > 0) {
                 warnings.push(
-                    `Question has ${numNoAnswers} markers with no answers selected`,
+                    `label-image widget has ${numNoAnswers} markers with no answers selected`,
                 );
             }
 
             if (numNoLabels > 0) {
                 warnings.push(
-                    `Question has ${numNoLabels} markers with no ARIA label`,
+                    `label-image widget has ${numNoLabels} markers with no ARIA label`,
                 );
             }
         }

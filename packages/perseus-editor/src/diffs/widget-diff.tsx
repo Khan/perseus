@@ -229,7 +229,11 @@ class ImageWidgetDiff extends React.Component<any> {
                             })}
                         >
                             {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
-                            <SvgImage src={beforeSrc} title={beforeSrc} />
+                            <SvgImage
+                                src={beforeSrc}
+                                title={beforeSrc}
+                                allowZoom={false}
+                            />
                         </div>
                     )}
                 </div>
@@ -243,7 +247,11 @@ class ImageWidgetDiff extends React.Component<any> {
                             })}
                         >
                             {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
-                            <SvgImage src={afterSrc} title={afterSrc} />
+                            <SvgImage
+                                src={afterSrc}
+                                title={afterSrc}
+                                allowZoom={false}
+                            />
                         </div>
                     )}
                 </div>

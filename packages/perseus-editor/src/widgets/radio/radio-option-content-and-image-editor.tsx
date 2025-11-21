@@ -205,6 +205,8 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                     <SvgImage
                         src={image.url}
                         alt={`Preview: ${image.altText ?? "No alt text"}`}
+                        // No need to allow zooming within the editor.
+                        allowZoom={false}
                     />
                     <RadioImageEditor
                         initialImageUrl={image.url}
