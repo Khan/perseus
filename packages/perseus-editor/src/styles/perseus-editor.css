@@ -652,56 +652,56 @@ code {
     .perseus-textarea-underlay {
     margin-bottom: 0;
 }
-[data-widget="radio"] {
+.perseus-widget-radio {
     margin-bottom: 10px;
 }
-[data-widget="radio"] .choice-editor .perseus-single-editor {
+.perseus-widget-radio .choice-editor .perseus-single-editor {
     margin-bottom: 0;
 }
-[data-widget="radio"] .choice-editor.correct textarea {
+.perseus-widget-radio .choice-editor.correct textarea {
     background: #aaffaa;
 }
-[data-widget="radio"] .choice-editor.incorrect textarea {
+.perseus-widget-radio .choice-editor.incorrect textarea {
     background: #ffcccc;
 }
-[data-widget="radio"] textarea::placeholder {
+.perseus-widget-radio textarea::placeholder {
     color: #777;
 }
-[data-widget="radio"] .rationale-editor .perseus-textarea-pair {
+.perseus-widget-radio .rationale-editor .perseus-textarea-pair {
     border-top: 0;
 }
-[data-widget="radio"] .choice-rationale-editors,
-[data-widget="radio"] .choice-editor,
-[data-widget="radio"] .rationale-editor {
+.perseus-widget-radio .choice-rationale-editors,
+.perseus-widget-radio .choice-editor,
+.perseus-widget-radio .rationale-editor {
     display: inline-block;
     width: 100%;
 }
-[data-widget="radio"] .perseus-single-editor {
+.perseus-widget-radio .perseus-single-editor {
     border: 0;
     display: inline-block;
     margin: 0 0 5px;
     vertical-align: top;
 }
-[data-widget="radio"] .perseus-single-editor p {
+.perseus-widget-radio .perseus-single-editor p {
     margin: 0;
 }
-[data-widget="radio"] .perseus-textarea-pair,
-[data-widget="radio"] .perseus-textarea-underlay {
+.perseus-widget-radio .perseus-textarea-pair,
+.perseus-widget-radio .perseus-textarea-underlay {
     /* Wrap when text area has a long image link that overflows. */
     overflow-wrap: anywhere;
     display: block;
 }
-[data-widget="radio"] .perseus-textarea-pair > textarea,
-[data-widget="radio"] .perseus-textarea-pair > .perseus-textarea-underlay {
+.perseus-widget-radio .perseus-textarea-pair > textarea,
+.perseus-widget-radio .perseus-textarea-pair > .perseus-textarea-underlay {
     padding: 5px;
 }
 .perseus-widget-editor-content .add-choice-container .simple-button {
     margin-right: 10px;
 }
-.perseus-widget-editor-content [data-widget="radio"] {
+.perseus-widget-editor-content .perseus-widget-radio {
     position: static;
 }
-.perseus-widget-editor-content [data-widget="radio"] .checkbox {
+.perseus-widget-editor-content .perseus-widget-radio .checkbox {
     position: relative;
     top: -10px;
 }
@@ -716,7 +716,7 @@ code {
     .choice-editor.incorrect {
     opacity: 0.5;
 }
-#solutionarea [data-widget="radio"] li {
+#solutionarea .perseus-widget-radio li {
     padding: 7px 0;
 }
 .framework-perseus
