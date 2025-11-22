@@ -35,7 +35,11 @@ describe("SvgImage", () => {
 
         // Act
         const {container} = render(
-            <SvgImage src="http://localhost/sample.png" alt="png image" />,
+            <SvgImage
+                src="http://localhost/sample.png"
+                alt="png image"
+                allowZoom={false}
+            />,
         );
 
         // Assert
@@ -54,7 +58,11 @@ describe("SvgImage", () => {
 
         // Act
         const {container} = render(
-            <SvgImage src="http://localhost/sample.png" alt="png image" />,
+            <SvgImage
+                src="http://localhost/sample.png"
+                alt="png image"
+                allowZoom={false}
+            />,
         );
 
         act(() => {
@@ -73,7 +81,11 @@ describe("SvgImage", () => {
 
         // Act
         const {container} = render(
-            <SvgImage src={typicalCase.url} alt="svg image" />,
+            <SvgImage
+                src={typicalCase.url}
+                alt="svg image"
+                allowZoom={false}
+            />,
         );
 
         act(() => {
@@ -93,7 +105,11 @@ describe("SvgImage", () => {
 
         // Act
         const {container} = render(
-            <SvgImage src={typicalCase.url} alt="svg image" />,
+            <SvgImage
+                src={typicalCase.url}
+                alt="svg image"
+                allowZoom={false}
+            />,
         );
 
         act(() => {
@@ -114,7 +130,13 @@ describe("SvgImage", () => {
         });
 
         // Act
-        render(<SvgImage src="http://localhost/sample.png" alt="png image" />);
+        render(
+            <SvgImage
+                src="http://localhost/sample.png"
+                alt="png image"
+                allowZoom={false}
+            />,
+        );
 
         act(() => {
             jest.runAllTimers();

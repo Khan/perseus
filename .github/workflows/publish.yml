@@ -197,13 +197,23 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
+            - name: ⬆️ Upgrade npm for OIDC support
+              shell: bash
+              run: |
+                  # npm trusted publishing requires npm CLI v11.5.1+
+                  # Node.js 22 ships with npm 10.x, so we need to upgrade
+                  npm install -g npm@latest
+                  echo "✅ npm upgraded to $(npm --version)"
+
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
               run: ./utils/publish-snapshot.sh # All config is via Github env vars
               env:
-                  # TODO(LEMS_3681): Remove once trusted publishing enabled in npmjs.com
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  # Note: we no longer use the NPM_TOKEN secret because we've enabled
+                  # Trusted Publishing (https://docs.npmjs.com/trusted-publishers) on
+                  # the npmjs.com side:
+                  # https://www.npmjs.com/package/@khanacademy/mathjax-renderer/access
 
             - name: Calculate short SHA for this commit
               id: short-sha

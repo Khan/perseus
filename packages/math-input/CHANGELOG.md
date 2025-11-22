@@ -1,5 +1,21 @@
 # @khanacademy/math-input
 
+## 26.2.20
+
+### Patch Changes
+
+-   [#3054](https://github.com/Khan/perseus/pull/3054) [`ceb7a70bfa`](https://github.com/Khan/perseus/commit/ceb7a70bfad68e736fb670af8039bac17ae9df61) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add tabs and icon button package in math-input
+
+## 26.2.19
+
+### Patch Changes
+
+-   [#3046](https://github.com/Khan/perseus/pull/3046) [`b8e0ea16ff`](https://github.com/Khan/perseus/commit/b8e0ea16ff389466a2efc7e87749a9d6ddf716cc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   Updated dependencies [[`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015), [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84)]:
+    -   @khanacademy/perseus-core@20.2.0
+    -   @khanacademy/keypad-context@3.2.17
+
 ## 26.2.18
 
 ### Patch Changes

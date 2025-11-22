@@ -1,3 +1,4 @@
+import {ApiOptions} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {screen, render} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -43,7 +44,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 onChange={jest.fn()}
-                editingDisabled={false}
+                apiOptions={ApiOptions.defaults}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -59,7 +60,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 onChange={jest.fn()}
-                editingDisabled={false}
+                apiOptions={ApiOptions.defaults}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -77,7 +78,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
-                editingDisabled={false}
+                apiOptions={ApiOptions.defaults}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -99,7 +100,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
-                editingDisabled={false}
+                apiOptions={ApiOptions.defaults}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -123,7 +124,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
-                editingDisabled={false}
+                apiOptions={ApiOptions.defaults}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -153,7 +154,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
-                editingDisabled={false}
+                apiOptions={ApiOptions.defaults}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -188,7 +189,7 @@ describe("LockedFiguresSection", () => {
             <LockedFiguresSection
                 figures={defaultFigures}
                 onChange={jest.fn()}
-                editingDisabled={false}
+                apiOptions={ApiOptions.defaults}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -218,7 +219,7 @@ describe("LockedFiguresSection", () => {
                     getDefaultFigureForType("line"),
                 ]}
                 onChange={jest.fn()}
-                editingDisabled={false}
+                apiOptions={ApiOptions.defaults}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -250,7 +251,7 @@ describe("LockedFiguresSection", () => {
             <fieldset disabled>
                 <LockedFiguresSection
                     figures={defaultFigures}
-                    editingDisabled={true}
+                    apiOptions={{...ApiOptions.defaults, editingDisabled: true}}
                     onChange={jest.fn()}
                 />
             </fieldset>,

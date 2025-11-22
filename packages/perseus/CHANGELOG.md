@@ -1,5 +1,39 @@
 # @khanacademy/perseus
 
+## 72.2.0
+
+### Minor Changes
+
+-   [#3037](https://github.com/Khan/perseus/pull/3037) [`39c890acc5`](https://github.com/Khan/perseus/commit/39c890acc5d5dfd1d3961c2d25228eb93a86b616) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Allow zooming on Graphie images
+
+*   [#3009](https://github.com/Khan/perseus/pull/3009) [`8d3beb2743`](https://github.com/Khan/perseus/commit/8d3beb2743e4c0c2ee264f3cf782098a5b71ce76) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Remove ZoomService in favor of WB Modal
+
+### Patch Changes
+
+-   [#3044](https://github.com/Khan/perseus/pull/3044) [`78e15ef4e6`](https://github.com/Khan/perseus/commit/78e15ef4e64b97338a8f05b128b1c09c8bbc31f9) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Image zoom fixes - remove scrolling for portrait images, command click on main image instead of zoomed image
+
+*   [#3043](https://github.com/Khan/perseus/pull/3043) [`98245b0f3a`](https://github.com/Khan/perseus/commit/98245b0f3ae5fc398cce18f988ae48491ee16e59) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix bottom margin when rendering in mobile
+
+*   Updated dependencies [[`ceb7a70bfa`](https://github.com/Khan/perseus/commit/ceb7a70bfad68e736fb670af8039bac17ae9df61), [`fc6273b10d`](https://github.com/Khan/perseus/commit/fc6273b10de94819d41880eba9848a0ff50e618a), [`18261c3294`](https://github.com/Khan/perseus/commit/18261c3294bb5f0175e6d44e0c0bb61e75212192)]:
+    -   @khanacademy/math-input@26.2.20
+    -   @khanacademy/perseus-linter@4.5.0
+
+## 72.1.1
+
+### Patch Changes
+
+-   [#3032](https://github.com/Khan/perseus/pull/3032) [`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Error Boundary] Add stack trace to error payload to aid in troubleshooting rendering errors
+
+*   [#3046](https://github.com/Khan/perseus/pull/3046) [`b8e0ea16ff`](https://github.com/Khan/perseus/commit/b8e0ea16ff389466a2efc7e87749a9d6ddf716cc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   Updated dependencies [[`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015), [`b8e0ea16ff`](https://github.com/Khan/perseus/commit/b8e0ea16ff389466a2efc7e87749a9d6ddf716cc), [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84)]:
+    -   @khanacademy/perseus-core@20.2.0
+    -   @khanacademy/math-input@26.2.19
+    -   @khanacademy/keypad-context@3.2.17
+    -   @khanacademy/kmath@2.2.17
+    -   @khanacademy/perseus-linter@4.4.7
+    -   @khanacademy/perseus-score@8.0.6
+
 ## 72.1.0
 
 ### Minor Changes

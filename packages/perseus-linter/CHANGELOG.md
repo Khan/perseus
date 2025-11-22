@@ -1,5 +1,20 @@
 # @khanacademy/perseus-linter
 
+## 4.5.0
+
+### Minor Changes
+
+-   [#2992](https://github.com/Khan/perseus/pull/2992) [`fc6273b10d`](https://github.com/Khan/perseus/commit/fc6273b10de94819d41880eba9848a0ff50e618a) Thanks [@nishasy](https://github.com/nishasy)! - Add radio and expression save wanrnings to the perseus linter. Add a callback for issues changed to item-editor.tsx.
+
+*   [#3049](https://github.com/Khan/perseus/pull/3049) [`18261c3294`](https://github.com/Khan/perseus/commit/18261c3294bb5f0175e6d44e0c0bb61e75212192) Thanks [@nishasy](https://github.com/nishasy)! - Add Free Response widget save warnings to perseus linter
+
+## 4.4.7
+
+### Patch Changes
+
+-   Updated dependencies [[`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015), [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84)]:
+    -   @khanacademy/perseus-core@20.2.0
+
 ## 4.4.6
 
 ### Patch Changes

@@ -46,32 +46,33 @@ catalogs:
         "@phosphor-icons/core": ^2.0.2
         "@popperjs/core": ^2.10.2
         "@khanacademy/mathjax-renderer": ^3.0.0
-        "@khanacademy/wonder-blocks-accordion": ^3.1.44
-        "@khanacademy/wonder-blocks-announcer": ^1.0.4
-        "@khanacademy/wonder-blocks-banner": ^5.0.2
-        "@khanacademy/wonder-blocks-button": ^11.2.6
-        "@khanacademy/wonder-blocks-clickable": ^8.0.2
-        "@khanacademy/wonder-blocks-core": ^12.4.1
-        "@khanacademy/wonder-blocks-data": ^14.1.7
-        "@khanacademy/wonder-blocks-dropdown": ^10.4.10
-        "@khanacademy/wonder-blocks-form": ^7.4.3
-        "@khanacademy/wonder-blocks-icon-button": ^10.5.5
-        "@khanacademy/wonder-blocks-icon": ^5.3.2
-        "@khanacademy/wonder-blocks-labeled-field": ^4.0.8
-        "@khanacademy/wonder-blocks-layout": ^3.1.39
-        "@khanacademy/wonder-blocks-link": ^10.0.3
-        "@khanacademy/wonder-blocks-modal": ^8.5.3
-        "@khanacademy/wonder-blocks-pill": ^3.1.45
-        "@khanacademy/wonder-blocks-popover": ^6.1.40
-        "@khanacademy/wonder-blocks-progress-spinner": ^3.1.39
-        "@khanacademy/wonder-blocks-search-field": ^5.1.51
-        "@khanacademy/wonder-blocks-switch": ^3.3.22
-        "@khanacademy/wonder-blocks-theming": ^4.0.1
-        "@khanacademy/wonder-blocks-timing": ^7.0.3
-        "@khanacademy/wonder-blocks-tokens": ^14.1.0
-        "@khanacademy/wonder-blocks-toolbar": ^5.1.41
-        "@khanacademy/wonder-blocks-tooltip": ^4.1.54
-        "@khanacademy/wonder-blocks-typography": ^4.2.24
+        "@khanacademy/wonder-blocks-accordion": ^3.1.46
+        "@khanacademy/wonder-blocks-announcer": ^1.0.5
+        "@khanacademy/wonder-blocks-banner": ^5.0.4
+        "@khanacademy/wonder-blocks-button": ^11.2.8
+        "@khanacademy/wonder-blocks-clickable": ^8.0.4
+        "@khanacademy/wonder-blocks-core": ^12.4.2
+        "@khanacademy/wonder-blocks-data": ^14.1.8
+        "@khanacademy/wonder-blocks-dropdown": ^10.5.2
+        "@khanacademy/wonder-blocks-form": ^7.4.5
+        "@khanacademy/wonder-blocks-icon-button": ^10.5.7
+        "@khanacademy/wonder-blocks-icon": ^5.3.4
+        "@khanacademy/wonder-blocks-labeled-field": ^4.0.10
+        "@khanacademy/wonder-blocks-layout": ^3.1.41
+        "@khanacademy/wonder-blocks-link": ^10.0.5
+        "@khanacademy/wonder-blocks-modal": ^8.5.5
+        "@khanacademy/wonder-blocks-pill": ^3.1.47
+        "@khanacademy/wonder-blocks-popover": ^6.1.42
+        "@khanacademy/wonder-blocks-progress-spinner": ^3.1.41
+        "@khanacademy/wonder-blocks-search-field": ^5.1.53
+        "@khanacademy/wonder-blocks-switch": ^3.3.24
+        "@khanacademy/wonder-blocks-tabs": ^0.3.36
+        "@khanacademy/wonder-blocks-theming": ^4.0.2
+        "@khanacademy/wonder-blocks-timing": ^7.0.4
+        "@khanacademy/wonder-blocks-tokens": ^14.1.2
+        "@khanacademy/wonder-blocks-toolbar": ^5.1.43
+        "@khanacademy/wonder-blocks-tooltip": ^4.1.56
+        "@khanacademy/wonder-blocks-typography": ^4.2.26
         "@khanacademy/wonder-stuff-core": ^1.5.5
     devDeps:
         react: 18.2.0
@@ -86,32 +87,33 @@ catalogs:
         "@phosphor-icons/core": 2.0.2
         "@popperjs/core": 2.10.2
         "@khanacademy/mathjax-renderer": 3.0.0
-        "@khanacademy/wonder-blocks-accordion": 3.1.44
-        "@khanacademy/wonder-blocks-announcer": 1.0.4
-        "@khanacademy/wonder-blocks-banner": 5.0.2
-        "@khanacademy/wonder-blocks-button": 11.2.6
-        "@khanacademy/wonder-blocks-clickable": 8.0.2
-        "@khanacademy/wonder-blocks-core": 12.4.1
-        "@khanacademy/wonder-blocks-data": 14.1.7
-        "@khanacademy/wonder-blocks-dropdown": 10.4.10
-        "@khanacademy/wonder-blocks-form": 7.4.3
-        "@khanacademy/wonder-blocks-icon-button": 10.5.5
-        "@khanacademy/wonder-blocks-icon": 5.3.2
-        "@khanacademy/wonder-blocks-labeled-field": 4.0.8
-        "@khanacademy/wonder-blocks-layout": 3.1.39
-        "@khanacademy/wonder-blocks-link": 10.0.3
-        "@khanacademy/wonder-blocks-modal": 8.5.3
-        "@khanacademy/wonder-blocks-pill": 3.1.45
-        "@khanacademy/wonder-blocks-popover": 6.1.40
-        "@khanacademy/wonder-blocks-progress-spinner": 3.1.39
-        "@khanacademy/wonder-blocks-search-field": 5.1.51
-        "@khanacademy/wonder-blocks-switch": 3.3.22
-        "@khanacademy/wonder-blocks-theming": 4.0.1
-        "@khanacademy/wonder-blocks-timing": 7.0.3
-        "@khanacademy/wonder-blocks-tokens": 14.1.0
-        "@khanacademy/wonder-blocks-toolbar": 5.1.41
-        "@khanacademy/wonder-blocks-tooltip": 4.1.54
-        "@khanacademy/wonder-blocks-typography": 4.2.24
+        "@khanacademy/wonder-blocks-accordion": 3.1.46
+        "@khanacademy/wonder-blocks-announcer": 1.0.5
+        "@khanacademy/wonder-blocks-banner": 5.0.4
+        "@khanacademy/wonder-blocks-button": 11.2.8
+        "@khanacademy/wonder-blocks-clickable": 8.0.4
+        "@khanacademy/wonder-blocks-core": 12.4.2
+        "@khanacademy/wonder-blocks-data": 14.1.8
+        "@khanacademy/wonder-blocks-dropdown": 10.5.2
+        "@khanacademy/wonder-blocks-form": 7.4.5
+        "@khanacademy/wonder-blocks-icon-button": 10.5.7
+        "@khanacademy/wonder-blocks-icon": 5.3.4
+        "@khanacademy/wonder-blocks-labeled-field": 4.0.10
+        "@khanacademy/wonder-blocks-layout": 3.1.41
+        "@khanacademy/wonder-blocks-link": 10.0.5
+        "@khanacademy/wonder-blocks-modal": 8.5.5
+        "@khanacademy/wonder-blocks-pill": 3.1.47
+        "@khanacademy/wonder-blocks-popover": 6.1.42
+        "@khanacademy/wonder-blocks-progress-spinner": 3.1.41
+        "@khanacademy/wonder-blocks-search-field": 5.1.53
+        "@khanacademy/wonder-blocks-switch": 3.3.24
+        "@khanacademy/wonder-blocks-tabs": 0.3.36
+        "@khanacademy/wonder-blocks-theming": 4.0.2
+        "@khanacademy/wonder-blocks-timing": 7.0.4
+        "@khanacademy/wonder-blocks-tokens": 14.1.2
+        "@khanacademy/wonder-blocks-toolbar": 5.1.43
+        "@khanacademy/wonder-blocks-tooltip": 4.1.56
+        "@khanacademy/wonder-blocks-typography": 4.2.26
         "@khanacademy/wonder-stuff-core": 1.5.5
     prodDeps:
         tiny-invariant: 1.3.1
