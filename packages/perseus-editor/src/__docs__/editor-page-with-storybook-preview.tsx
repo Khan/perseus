@@ -109,6 +109,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                     question={question}
                     previewDevice={previewDevice}
                     apiOptions={apiOptions}
+                    reviewMode={true}
                     linterContext={{
                         contentType: "exercise",
                         highlightLint: true,
