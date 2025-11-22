@@ -13,7 +13,7 @@ const defaultWidgetOptions: VideoDefaultWidgetOptions = {
 const videoWidgetLogic: WidgetLogic = {
     name: "video",
     defaultWidgetOptions,
-    supportedAlignments: ["block", "float-left", "float-right", "full-width"],
+    supportedAlignments: ["block", "wrap-left", "wrap-right", "full-width"],
     defaultAlignment: "block",
     accessible: true,
 };

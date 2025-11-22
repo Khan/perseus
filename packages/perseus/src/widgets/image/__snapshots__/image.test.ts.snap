@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`image widget - isMobile(false) custom alignment should render image with float-left alignment: widget-float-left 1`] = `
+exports[`image widget - isMobile(false) custom alignment should render image with float-left alignment: widget-wrap-left 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -13,7 +13,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-float-left"
+          class="perseus-widget-container widget-nohighlight widget-wrap-left"
         >
           <figure
             class="perseus-image-widget"
@@ -98,7 +98,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-float-right"
+          class="perseus-widget-container widget-nohighlight widget-wrap-right"
         >
           <figure
             class="perseus-image-widget"
@@ -354,7 +354,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
 </div>
 `;
 
-exports[`image widget - isMobile(true) custom alignment should render image with float-left alignment: widget-float-left 1`] = `
+exports[`image widget - isMobile(true) custom alignment should render image with float-left alignment: widget-wrap-left 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

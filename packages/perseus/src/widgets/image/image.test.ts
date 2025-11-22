@@ -872,7 +872,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 content: "[[☃ image 1]]",
                 widgets: {
                     "image 1": generateImageWidget({
-                        alignment: "float-left",
+                        alignment: "wrap-left",
                         options: generateImageOptions({
                             backgroundImage: earthMoonImage,
                             alt: "widget alt",
@@ -892,7 +892,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Assert
             const figure = screen.getByRole("figure");
             expect(figure).toBeVisible();
-            expect(container).toMatchSnapshot("widget-float-left");
+            expect(container).toMatchSnapshot("widget-wrap-left");
         });
 
         it("should render image with float-right alignment", () => {
@@ -901,7 +901,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 content: "[[☃ image 1]]",
                 widgets: {
                     "image 1": generateImageWidget({
-                        alignment: "float-right",
+                        alignment: "wrap-right",
                         options: generateImageOptions({
                             backgroundImage: earthMoonImage,
                             alt: "widget alt",

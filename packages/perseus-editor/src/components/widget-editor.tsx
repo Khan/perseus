@@ -149,7 +149,8 @@ class WidgetEditor extends React.Component<
 
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
-        const imageUpgradeFF = isFeatureOn(this.props, "image-widget-upgrade");
+        // const imageUpgradeFF = isFeatureOn(this.props, "image-widget-upgrade");
+        const imageUpgradeFF = true;
 
         if (widgetInfo.type === "image" && !imageUpgradeFF) {
             // TODO(LEMS-3520): Feature flag cleanup
