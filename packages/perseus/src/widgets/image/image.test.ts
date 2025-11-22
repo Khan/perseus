@@ -866,7 +866,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     });
 
     describe("custom alignment", () => {
-        it("should render image with float-left alignment", () => {
+        it("should render image with wrap-left alignment", () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -895,7 +895,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(container).toMatchSnapshot("widget-wrap-left");
         });
 
-        it("should render image with float-right alignment", () => {
+        it("should render image with wrap-right alignment", () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -921,7 +921,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Assert
             const figure = screen.getByRole("figure");
             expect(figure).toBeVisible();
-            expect(container).toMatchSnapshot("widget-float-right");
+            expect(container).toMatchSnapshot("widget-wrap-right");
         });
     });
 });

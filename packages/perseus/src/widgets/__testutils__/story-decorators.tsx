@@ -47,7 +47,7 @@ export const mobileArticleFloatLeftDecorator = (Story) => (
 export const mobileArticleFloatRightDecorator = (Story) => (
     <div className="framework-perseus perseus-mobile perseus-article">
         <div className="paragraph">
-            <div className="perseus-widget-container widget-nohighlight widget-float-right">
+            <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
                 <Story />
             </div>
         </div>
@@ -73,7 +73,7 @@ export const articleFloatLeftDecorator = (Story) => (
 export const articleFloatRightDecorator = (Story) => (
     <div className="framework-perseus perseus-article">
         <div className="paragraph">
-            <div className="perseus-widget-container widget-nohighlight widget-float-right">
+            <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
                 <Story />
             </div>
         </div>
