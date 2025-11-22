@@ -167,10 +167,10 @@ export const getAlignmentClassName = (
             return " widget-inline-block";
         case "inline":
             return " widget-inline";
-        case "float-left":
-            return " widget-float-left";
-        case "float-right":
-            return " widget-float-right";
+        case "wrap-left":
+            return " widget-wrap-left";
+        case "wrap-right":
+            return " widget-wrap-right";
         case "full-width":
             return " widget-full-width";
         case "default":
