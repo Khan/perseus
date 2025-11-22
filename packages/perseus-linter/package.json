@@ -34,5 +34,8 @@
         "@khanacademy/pure-markdown": "workspace:*",
         "perseus-build-settings": "workspace:*"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "e3b0c44298fc1c14"
+    }
 }
