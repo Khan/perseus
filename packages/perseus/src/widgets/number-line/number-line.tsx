@@ -254,7 +254,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             payload: {
                 widgetSubType: "null",
                 widgetType: "number-line",
-                widgetId: "number-line",
+                widgetId: this.props.widgetId,
             },
         });
     }

@@ -50,7 +50,7 @@ class Sorter extends React.Component<Props> implements Widget {
             payload: {
                 widgetSubType: "null",
                 widgetType: "sorter",
-                widgetId: "sorter",
+                widgetId: this.props.widgetId,
             },
         });
     }

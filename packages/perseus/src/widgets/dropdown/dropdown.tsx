@@ -53,7 +53,7 @@ class Dropdown extends React.Component<Props> implements Widget {
             payload: {
                 widgetSubType: "null",
                 widgetType: "dropdown",
-                widgetId: "dropdown",
+                widgetId: this.props.widgetId,
             },
         });
     }

@@ -54,7 +54,7 @@ class Video extends React.Component<Props> implements Widget {
             payload: {
                 widgetSubType: "null",
                 widgetType: "video",
-                widgetId: "video",
+                widgetId: this.props.widgetId,
             },
         });
     }
