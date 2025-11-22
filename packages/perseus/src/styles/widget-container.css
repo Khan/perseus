@@ -34,6 +34,7 @@
     .perseus-widget-container.widget-wrap-right {
     max-width: 50%;
     padding-top: var(--wb-sizing-size_320);
+    margin-bottom: var(--wb-sizing-size_320);
     width: 100%;
 }
 
