@@ -5,7 +5,10 @@ import {
 import {screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
@@ -95,6 +98,7 @@ describe("Matrix serialization", () => {
                     prefix: "",
                     suffix: "",
                     cursorPosition: [1, 1],
+                    dependencies: testDependenciesV2,
                     answers: [
                         ["1", "2"],
                         ["3", "4"],

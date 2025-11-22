@@ -3,7 +3,10 @@ import {scorePerseusItem, validateMatrix} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {
@@ -16,7 +19,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import matrixExport from "./matrix";
 import {question1} from "./matrix.testdata";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("matrix widget", () => {
@@ -55,6 +58,27 @@ describe("matrix widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
+    });
+
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "matrix",
+                widgetId: "matrix 1",
+            },
+        });
     });
 
     // Regression (LEMS-3307)

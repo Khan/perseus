@@ -8,6 +8,7 @@ import _ from "underscore";
 
 import HighlightableContent from "../../components/highlighting/highlightable-content";
 import {PerseusI18nContext} from "../../components/i18n-context";
+import {withDependencies} from "../../components/with-dependencies";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage/passage-ai-utils";
@@ -17,7 +18,12 @@ import {isPassageWidget} from "./utils";
 
 import type {ParseState} from "./passage-markdown";
 import type {SerializedHighlightSet} from "../../components/highlighting/types";
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {
+    WidgetExports,
+    WidgetProps,
+    Widget,
+    PerseusDependenciesV2,
+} from "../../types";
 import type {PassagePromptJSON} from "../../widget-ai-utils/passage/passage-ai-utils";
 import type {
     PerseusPassageWidgetOptions,
@@ -64,6 +70,7 @@ type FindWidgetsCallback = (id: string, widgetInfo: PerseusWidget) => boolean;
 
 type PassageProps = WidgetProps<PerseusPassageWidgetOptions> & {
     findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>;
+    dependencies: PerseusDependenciesV2;
 };
 
 type DefaultPassageProps = {
@@ -160,6 +167,15 @@ export class Passage
         this._stylesAppiedTimer = window.setTimeout(() => {
             this.setState({stylesAreApplied: true});
         }, 0);
+
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetType: "passage",
+                widgetSubType: "null",
+                widgetId: this.props.widgetId,
+            },
+        });
     }
 
     shouldComponentUpdate(
@@ -541,10 +557,12 @@ export class Passage
     }
 }
 
+const WrappedPassage = withDependencies(Passage);
+
 export default {
     name: "passage",
     displayName: "Passage (SAT only)",
     hidden: true,
-    widget: Passage,
+    widget: WrappedPassage,
     isLintable: true,
-} satisfies WidgetExports<typeof Passage>;
+} satisfies WidgetExports<typeof WrappedPassage>;

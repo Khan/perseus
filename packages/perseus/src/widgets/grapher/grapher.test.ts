@@ -1,4 +1,7 @@
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -7,6 +10,8 @@ import {
     linearQuestion,
     multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
+
+import type {PerseusDependenciesV2} from "../../types";
 
 describe("grapher widget", () => {
     beforeEach(() => {
@@ -39,5 +44,26 @@ describe("grapher widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("initial render");
+    });
+
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(linearQuestion, undefined, undefined, undefined, depsV2);
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "grapher",
+                widgetId: "grapher 1",
+            },
+        });
     });
 });
