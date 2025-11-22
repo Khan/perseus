@@ -116,7 +116,7 @@ export const ImageFloatLeftWithinArticle: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "float-left",
+        alignment: "wrap-left",
     },
 };
 

@@ -22,29 +22,29 @@
 }
 
 /* Base float alignment classes (no float applied at base level) */
-.perseus-widget-container.widget-float-left,
-.perseus-widget-container.widget-float-right {
+.perseus-widget-container.widget-wrap-left,
+.perseus-widget-container.widget-wrap-right {
     display: inline-block;
 }
 
 /* Desktop article context - float + spacing */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left,
+    .perseus-widget-container.widget-wrap-left,
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
+    .perseus-widget-container.widget-wrap-right {
     max-width: 50%;
     padding-top: var(--wb-sizing-size_320);
     width: 100%;
 }
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left {
+    .perseus-widget-container.widget-wrap-left {
     float: inline-start;
     padding-right: var(--wb-sizing-size_320);
 }
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
+    .perseus-widget-container.widget-wrap-right {
     float: inline-end;
     padding-left: var(--wb-sizing-size_320);
 }
@@ -58,8 +58,8 @@
 }
 
 /* Mobile context - block display, no float */
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left,
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
+.framework-perseus.perseus-mobile .perseus-widget-container.widget-wrap-left,
+.framework-perseus.perseus-mobile .perseus-widget-container.widget-wrap-right {
     float: none;
     display: block;
     max-width: 100%;
@@ -84,12 +84,12 @@
 
 /* Specific for perseus-image-widget caption styling within floated widgets */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left
+    .perseus-widget-container.widget-wrap-left
     .perseus-image-caption
     .paragraph
     .paragraph,
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right
+    .perseus-widget-container.widget-wrap-right
     .perseus-image-caption
     .paragraph
     .paragraph {
@@ -97,12 +97,12 @@
 }
 
 .framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-left
+    .perseus-widget-container.widget-wrap-left
     .perseus-image-caption
     .paragraph
     .paragraph,
 .framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-right
+    .perseus-widget-container.widget-wrap-right
     .perseus-image-caption
     .paragraph
     .paragraph {

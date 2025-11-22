@@ -249,7 +249,7 @@ export const FloatLeftImageWithinArticle: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "float-left",
+        alignment: "wrap-left",
     },
 };
 
@@ -259,7 +259,7 @@ export const FloatRightImageWithinArticle: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "float-right",
+        alignment: "wrap-right",
     },
 };
 
@@ -269,7 +269,7 @@ export const FloatLeftImageWithinArticleMobile: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "float-left",
+        alignment: "wrap-left",
     },
 };
 
@@ -279,6 +279,6 @@ export const FloatRightImageWithinArticleMobile: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "float-right",
+        alignment: "wrap-right",
     },
 };

@@ -175,10 +175,10 @@ export const getAlignmentClassName = ({
         case "inline":
             return " widget-inline";
         // For mobile, content editors don't want to apply the float styles
-        case "float-left":
-            return isMobile ? blockAlignment : " widget-float-left";
-        case "float-right":
-            return isMobile ? blockAlignment : " widget-float-right";
+        case "wrap-left":
+            return isMobile ? blockAlignment : " widget-wrap-left";
+        case "wrap-right":
+            return isMobile ? blockAlignment : " widget-wrap-right";
         case "full-width":
             return " widget-full-width";
         case "default":
