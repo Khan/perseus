@@ -1,5 +1,15 @@
 # @khanacademy/pure-markdown
 
+## 2.2.3
+
+### Patch Changes
+
+-   [#3006](https://github.com/Khan/perseus/pull/3006) [`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb) Thanks [@Myranae](https://github.com/Myranae)! - Add catalog hash system for dependency tracking
+
+-   Updated dependencies [[`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb)]:
+    -   @khanacademy/perseus-utils@2.1.3
+    -   @khanacademy/simple-markdown@2.1.3
+
 ## 2.2.2
 
 ### Patch Changes
