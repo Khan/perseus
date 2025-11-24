@@ -1,5 +1,24 @@
 # @khanacademy/perseus-core
 
+## 20.2.1
+
+### Patch Changes
+
+-   [#3060](https://github.com/Khan/perseus/pull/3060) [`bae4cfa6f1`](https://github.com/Khan/perseus/commit/bae4cfa6f10410b2e2b5ea558a56c1231fa4e744) Thanks [@nishasy](https://github.com/nishasy)! - Add Label Image widget save warnings to perseus linter
+
+*   [#3058](https://github.com/Khan/perseus/pull/3058) [`58f942cb9c`](https://github.com/Khan/perseus/commit/58f942cb9cfb04638f74c79aad444ccfb6b7ce97) Thanks [@nishasy](https://github.com/nishasy)! - Add Python Program widget save warnings to perseus linter
+
+-   [#3061](https://github.com/Khan/perseus/pull/3061) [`022624f6f6`](https://github.com/Khan/perseus/commit/022624f6f682a18529b0c381746e3b7d8beb77f2) Thanks [@nishasy](https://github.com/nishasy)! - Add Interactive Graph widget save warnings to perseus linter
+
+*   [#3006](https://github.com/Khan/perseus/pull/3006) [`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb) Thanks [@Myranae](https://github.com/Myranae)! - Add catalog hash system for dependency tracking
+
+-   [#3057](https://github.com/Khan/perseus/pull/3057) [`723d2101e7`](https://github.com/Khan/perseus/commit/723d2101e76509d7557d2a4745a9bbc7ecd55cc7) Thanks [@nishasy](https://github.com/nishasy)! - Add Phet Simulation widget save warnings to perseus linter
+
+-   Updated dependencies [[`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb)]:
+    -   @khanacademy/kas@2.1.5
+    -   @khanacademy/perseus-utils@2.1.3
+    -   @khanacademy/pure-markdown@2.2.3
+
 ## 20.2.0
 
 ### Minor Changes
