@@ -92,7 +92,7 @@ const Indicator = (props: IndicatorProps) => {
             onClick={handleClick}
         >
             {icon}
-            {content.visible}
+            <span>{content.visible}</span>
         </button>
     );
 };
