@@ -37,5 +37,8 @@
         "jquery": "catalog:peerDeps",
         "underscore": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "d7663955f3310f2b"
+    }
 }
