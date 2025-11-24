@@ -78,10 +78,3 @@ export const WithLintErrors: Story = {
         question: withLintErrors,
     },
 };
-
-export const ReviewMode: Story = {
-    args: {
-        question: singleSelectQuestion,
-        reviewMode: true,
-    },
-};
