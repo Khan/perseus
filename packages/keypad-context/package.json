@@ -34,5 +34,8 @@
     "peerDependencies": {
         "react": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "27e03f4ce1585aa4"
+    }
 }
