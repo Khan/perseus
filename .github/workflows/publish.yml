@@ -11,6 +11,8 @@ on:
                 default: "release"
                 type: choice
                 options:
+                    # [FEI-7341] DISABLED: PR snapshot publishing
+                    #- snapshot
                     - release
 
     pull_request:
@@ -137,7 +139,7 @@ jobs:
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true
 
-    # [FEI-7341] DISABLED: PR snapshot publishing
+    # [FEI-7341]DISABLED: PR snapshot publishing
     # The publish_snapshot job has been disabled. If you need to re-enable it in the future,
     # you can find the snapshot publishing script at utils/publish-snapshot.sh
     #
