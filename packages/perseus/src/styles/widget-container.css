@@ -21,55 +21,91 @@
     display: block;
 }
 
-/* Base float alignment (applies to all contexts) */
-.perseus-widget-container.widget-float-left {
-    float: inline-start;
+/* Base wrap alignment classes */
+.perseus-widget-container.widget-wrap-left,
+.perseus-widget-container.widget-wrap-right {
     display: inline-block;
 }
 
-.perseus-widget-container.widget-float-right {
-    float: inline-end;
-    display: inline-block;
+/*** Desktop: Container-based wrap layout ***/
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-image-and-text {
+    display: flex;
+    gap: var(--wb-sizing-size_320);
+    align-items: flex-start;
+    margin-bottom: var(--wb-sizing-size_320);
 }
 
-/* Desktop article context - spacing and constraints */
+/* Wrap left: image on left, content wraps on right */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
+    .perseus-image-and-text
+    .perseus-widget-container.widget-wrap-left {
+    flex: 0 0 50%;
     max-width: 50%;
-    padding-top: var(--wb-sizing-size_320);
-    width: 100%;
+    order: -1; /* Image comes first */
+    float: none;
+    display: block;
 }
 
+/* Wrap right: image on right, content wraps on left */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left {
-    float: inline-start;
-    padding-right: var(--wb-sizing-size_320);
-}
-
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
-    float: inline-end;
-    padding-left: var(--wb-sizing-size_320);
-}
-
-/* Mobile context - spacing and constraints */
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left,
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
+    .perseus-image-and-text
+    .perseus-widget-container.widget-wrap-right {
+    flex: 0 0 50%;
     max-width: 50%;
-    padding-top: var(--wb-sizing-size_320);
+    order: 1; /* Image comes last */
+    float: none;
+    display: block;
+}
+
+/*** Mobile: Stack vertically, image at bottom ***/
+.framework-perseus.perseus-mobile .perseus-image-and-text {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--wb-sizing-size_320);
+}
+
+.framework-perseus.perseus-mobile
+    .perseus-image-and-text
+    .perseus-widget-container.widget-wrap-left,
+.framework-perseus.perseus-mobile
+    .perseus-image-and-text
+    .perseus-widget-container.widget-wrap-right {
+    float: none;
+    display: block;
+    max-width: 100%;
     width: 100%;
-}
-
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left {
-    padding-right: var(--wb-sizing-size_320);
-}
-
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
-    padding-left: var(--wb-sizing-size_320);
+    order: 999; /* Push image to bottom */
+    margin-top: var(--wb-sizing-size_320);
 }
 /******************* End for WidgetContainer's alignment CSS styling *******************/
+
+/* Specific for perseus-image-widget caption styling within wrapped widgets */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-widget-container.widget-wrap-left
+    .perseus-image-caption
+    .paragraph
+    .paragraph,
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-widget-container.widget-wrap-right
+    .perseus-image-caption
+    .paragraph
+    .paragraph {
+    margin-bottom: 0;
+}
+
+.framework-perseus.perseus-mobile
+    .perseus-widget-container.widget-wrap-left
+    .perseus-image-caption
+    .paragraph
+    .paragraph,
+.framework-perseus.perseus-mobile
+    .perseus-widget-container.widget-wrap-right
+    .perseus-image-caption
+    .paragraph
+    .paragraph {
+    margin-bottom: 0;
+}
 
 /* Typography and sizing */
 .framework-perseus.perseus-article:not(.perseus-mobile)
@@ -81,31 +117,4 @@
 .framework-perseus.perseus-mobile .perseus-widget-container {
     font-size: var(--wb-sizing-size_140);
     line-height: 19.6px;
-}
-
-/* Specific for perseus-image-widget caption styling within floated widgets */
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left
-    .perseus-image-caption
-    .paragraph
-    .paragraph,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right
-    .perseus-image-caption
-    .paragraph
-    .paragraph {
-    margin-bottom: 0;
-}
-
-.framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-left
-    .perseus-image-caption
-    .paragraph
-    .paragraph,
-.framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-right
-    .perseus-image-caption
-    .paragraph
-    .paragraph {
-    margin-bottom: 0;
 }
