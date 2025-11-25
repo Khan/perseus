@@ -129,8 +129,6 @@ export {
     isFailure,
 } from "@khanacademy/perseus-core";
 
-export {isScorable} from "@khanacademy/perseus-score";
-
 export {
     generateTestRadioWidget,
     generateTestInteractiveGraphWidget,
