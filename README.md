@@ -40,12 +40,13 @@ To make changes to Perseus, create a new branch based on `main`, commit your cha
 ### Everyday commands
 
 ```bash
-pnpm tsc -w     # run the typechecker in watch mode
-pnpm test       # run all tests
-pnpm lint       # find problems
-pnpm lint --fix # fix problems
-pnpm storybook  # open component gallery
-pnpm changeset  # create a changeset file (see below)
+pnpm tsc -w                  # run the typechecker in watch mode
+pnpm test                    # run all tests
+pnpm lint                    # find problems
+pnpm lint --fix              # fix problems
+pnpm storybook               # open component gallery
+pnpm changeset               # create a changeset file (see below)
+pnpm update-catalog-hashes   # update catalog dependency hashes (see below)
 ```
 
 Additionally, we use Khan Academy's Git extensions (OLC) to manage pull requests.
@@ -62,6 +63,10 @@ The components and widgets of Perseus are developed using [Storybook](https://gi
 ### Using Changesets
 
 We use [changesets](https://github.com/changesets/changesets) to help manage our versioning/releases. Each pull request must include a changeset file stating which packages changed and how their versions should be incremented. Run `pnpm changeset` to generate and commit a changeset file.
+
+### Catalog Hashes
+
+Catalog hashes ensure packages are republished when their catalog dependencies (Wonder Blocks, React, etc.) are updated. When a catalog dependency version changes, the hash changes, signaling that affected packages should be version-bumped and republished even if their source code hasn't changed. These hashes are automatically updated when running `utils/sync-dependencies.ts`. If you manually add catalog dependencies to a package.json, run `pnpm update-catalog-hashes` to update the hashes. The pre-publish check will verify all hashes are current before releasing.
 
 ### Releasing Perseus to npm
 

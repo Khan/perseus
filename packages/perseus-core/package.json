@@ -3,7 +3,7 @@
     "description": "Shared Perseus infrastructure",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "20.1.2",
+    "version": "20.2.1",
     "publishConfig": {
         "access": "public"
     },
@@ -53,5 +53,8 @@
         "@khanacademy/wonder-stuff-core": "catalog:peerDeps",
         "underscore": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "14dd1a093a029c15"
+    }
 }

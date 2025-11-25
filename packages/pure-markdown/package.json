@@ -3,7 +3,7 @@
     "description": "SimpleMarkdown instance with non-react Perseus rules",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.2.1",
+    "version": "2.2.3",
     "publishConfig": {
         "access": "public"
     },
@@ -32,5 +32,8 @@
         "perseus-build-settings": "workspace:*"
     },
     "peerDependencies": {},
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "e3b0c44298fc1c14"
+    }
 }

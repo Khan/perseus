@@ -2,27 +2,23 @@
 /* eslint-disable react/no-unsafe */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
-import classNames from "classnames";
-import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
 import Util from "../util";
 import {loadGraphie} from "../util/graphie-utils";
-import * as Zoom from "../zoom";
 
 import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
+import {PerseusI18nContext} from "./i18n-context";
 import ImageLoader from "./image-loader";
+import {ZoomImageButton} from "./zoom-image-button";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
 import type {Dimensions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
-
-// Minimum image width to make an image appear as zoomable.
-const ZOOMABLE_THRESHOLD = 700;
 
 function isImageProbablyPhotograph(imageUrl) {
     // TODO(david): Do an inventory to refine this heuristic. For example, what
@@ -52,6 +48,7 @@ function defaultPreloader(dimensions: Dimensions) {
 
 type Props = {
     allowFullBleed?: boolean;
+    allowZoom: boolean;
     alt: string;
     constrainHeight?: boolean;
     extraGraphie?: {
@@ -143,6 +140,9 @@ type State = {
 };
 
 class SvgImage extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _isMounted: boolean;
 
     static defaultProps: DefaultProps = {
@@ -374,33 +374,6 @@ class SvgImage extends React.Component<Props, State> {
         return parseFloat(value) || null;
     }
 
-    _handleZoomClick: (e: React.SyntheticEvent) => void = (
-        e: React.SyntheticEvent,
-    ) => {
-        const $image = $(e.target);
-
-        // It's possible that the image is already displayed at its
-        // full size, but we don't really know that until we get a chance
-        // to measure it (just now, after the user clicks). We only zoom
-        // if there's more image to be shown.
-        //
-        // TODO(kevindangoor) If the window is narrow and the image is
-        // already displayed as wide as possible, we may want to do
-        // nothing in that case as well. Figuring this out correctly
-        // likely required accounting for the image alignment and margins.
-        if (
-            // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-            $image.width() < this.props.width ||
-            this.props.zoomToFullSizeOnMobile
-        ) {
-            Zoom.ZoomService.handleZoomClick(
-                e,
-                this.props.zoomToFullSizeOnMobile,
-            );
-        }
-        this.props.trackInteraction?.();
-    };
-
     handleUpdate: (status: string) => void = (status: string) => {
         this.props.onUpdate();
         // NOTE: Labeled SVG images use this.onImageLoad to set imageLoaded
@@ -474,17 +447,21 @@ class SvgImage extends React.Component<Props, State> {
         // Just use a normal image if a normal image is provided
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
-                const wrapperClasses = classNames({
-                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                    zoomable: (width || 0) > ZOOMABLE_THRESHOLD,
-                    "svg-image": true,
-                });
-
-                imageProps.onClick = this._handleZoomClick;
+                const imageContent = (
+                    <>
+                        <ImageLoader
+                            src={imageSrc}
+                            imgProps={imageProps}
+                            preloader={preloader}
+                            onUpdate={this.handleUpdate}
+                        />
+                        {extraGraphie}
+                    </>
+                );
 
                 return (
                     <FixedToResponsive
-                        className={wrapperClasses}
+                        className="svg-image"
                         width={width}
                         height={height}
                         constrainHeight={this.props.constrainHeight}
@@ -493,16 +470,19 @@ class SvgImage extends React.Component<Props, State> {
                             isImageProbablyPhotograph(imageSrc)
                         }
                     >
-                        <ImageLoader
-                            src={imageSrc}
-                            imgProps={imageProps}
-                            preloader={preloader}
-                            onUpdate={this.handleUpdate}
-                        />
-                        {extraGraphie}
+                        {imageContent}
+                        {this.props.allowZoom && (
+                            <ZoomImageButton
+                                imgElement={imageContent}
+                                imgSrc={imageSrc}
+                                width={width}
+                                height={height}
+                            />
+                        )}
                     </FixedToResponsive>
                 );
             }
+
             imageProps.style = dimensions;
             return (
                 <ImageLoader
@@ -558,13 +538,8 @@ class SvgImage extends React.Component<Props, State> {
         }
 
         if (responsive) {
-            return (
-                <FixedToResponsive
-                    className="svg-image"
-                    width={width}
-                    height={height}
-                    constrainHeight={this.props.constrainHeight}
-                >
+            const imageContent = (
+                <>
                     <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
@@ -574,6 +549,25 @@ class SvgImage extends React.Component<Props, State> {
                     />
                     {graphie}
                     {extraGraphie}
+                </>
+            );
+
+            return (
+                <FixedToResponsive
+                    className="svg-image"
+                    width={width}
+                    height={height}
+                    constrainHeight={this.props.constrainHeight}
+                >
+                    {imageContent}
+                    {this.props.allowZoom && (
+                        <ZoomImageButton
+                            imgElement={imageContent}
+                            imgSrc={imageUrl}
+                            width={width}
+                            height={height}
+                        />
+                    )}
                 </FixedToResponsive>
             );
         }

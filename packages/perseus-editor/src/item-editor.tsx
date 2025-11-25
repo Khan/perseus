@@ -106,6 +106,7 @@ class ItemEditor extends React.Component<Props, State> {
                         return WARNINGS.genericLinterWarning(
                             linterWarning.rule,
                             linterWarning.message,
+                            linterWarning.severity,
                         );
                     },
                 ) ?? []),
@@ -154,6 +155,7 @@ class ItemEditor extends React.Component<Props, State> {
         const isMobile =
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         return (
             <ItemEditorContext.Provider
@@ -170,25 +172,27 @@ class ItemEditor extends React.Component<Props, State> {
                                 issues={this.state.issues}
                             />
                             <div className="pod-title">Question</div>
-                            <Editor
-                                ref={this.questionEditor}
-                                // Using the AssessmentItem content ID as the key
-                                // ensures that when the user navigates to another
-                                // item in the Sidebar, the question editor is
-                                // re-rendered by React.
-                                key={this.props.itemId}
-                                placeholder="Type your question here..."
-                                className="perseus-question-editor"
-                                imageUploader={this.props.imageUploader}
-                                onChange={this.handleEditorChange}
-                                apiOptions={this.props.apiOptions}
-                                showWordCount={true}
-                                widgetIsOpen={this.props.widgetIsOpen}
-                                additionalTemplates={
-                                    this.props.additionalTemplates
-                                }
-                                {...this.props.question}
-                            />
+                            <fieldset disabled={editingDisabled}>
+                                <Editor
+                                    ref={this.questionEditor}
+                                    // Using the AssessmentItem content ID as the key
+                                    // ensures that when the user navigates to another
+                                    // item in the Sidebar, the question editor is
+                                    // re-rendered by React.
+                                    key={this.props.itemId}
+                                    placeholder="Type your question here..."
+                                    className="perseus-question-editor"
+                                    imageUploader={this.props.imageUploader}
+                                    onChange={this.handleEditorChange}
+                                    apiOptions={this.props.apiOptions}
+                                    showWordCount={true}
+                                    widgetIsOpen={this.props.widgetIsOpen}
+                                    additionalTemplates={
+                                        this.props.additionalTemplates
+                                    }
+                                    {...this.props.question}
+                                />
+                            </fieldset>
                         </div>
 
                         <div className="perseus-editor-right-cell">
@@ -221,6 +225,7 @@ class ItemEditor extends React.Component<Props, State> {
                             <ItemExtrasEditor
                                 ref={this.itemExtrasEditor}
                                 onChange={this.handleItemExtrasChange}
+                                editingDisabled={editingDisabled}
                                 {...this.props.answerArea}
                             />
                         </div>

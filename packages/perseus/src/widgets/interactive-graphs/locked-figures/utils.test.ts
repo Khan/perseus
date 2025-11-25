@@ -20,6 +20,9 @@ describe("clampDomain", () => {
         ${[-Infinity, -9]}       | ${[-10, 10]} | ${[-10, -9]}
         ${[-Infinity, -11]}      | ${[-10, 10]} | ${null}
         ${[11, Infinity]}        | ${[-10, 10]} | ${null}
+        ${[null, null]}          | ${[-10, 10]} | ${[-10, 10]}
+        ${[-5, null]}            | ${[-10, 10]} | ${[-5, 10]}
+        ${[null, 5]}             | ${[-10, 10]} | ${[-10, 5]}
     `(
         "clampedDomain($domain, $graphXBounds) = $expected",
         ({domain, graphXBounds, expected}) => {

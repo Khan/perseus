@@ -3,7 +3,7 @@
     "description": "Perseus keypad context",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "3.2.14",
+    "version": "3.2.18",
     "publishConfig": {
         "access": "public"
     },
@@ -34,5 +34,8 @@
     "peerDependencies": {
         "react": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "27e03f4ce1585aa4"
+    }
 }

@@ -1,5 +1,65 @@
 # @khanacademy/perseus-linter
 
+## 4.6.0
+
+### Minor Changes
+
+-   [#3053](https://github.com/Khan/perseus/pull/3053) [`c9066e6ac0`](https://github.com/Khan/perseus/commit/c9066e6ac0d30eaae47b9568766751039d734db0) Thanks [@nishasy](https://github.com/nishasy)! - Add Numeric Input widget save warnings to perseus linter
+
+*   [#3060](https://github.com/Khan/perseus/pull/3060) [`bae4cfa6f1`](https://github.com/Khan/perseus/commit/bae4cfa6f10410b2e2b5ea558a56c1231fa4e744) Thanks [@nishasy](https://github.com/nishasy)! - Add Label Image widget save warnings to perseus linter
+
+-   [#3052](https://github.com/Khan/perseus/pull/3052) [`5f01d377f4`](https://github.com/Khan/perseus/commit/5f01d377f4d91e4ec66405aef8ea8cef7f1d4200) Thanks [@nishasy](https://github.com/nishasy)! - Add Matcher widget save warnings to perseus linter
+
+*   [#3058](https://github.com/Khan/perseus/pull/3058) [`58f942cb9c`](https://github.com/Khan/perseus/commit/58f942cb9cfb04638f74c79aad444ccfb6b7ce97) Thanks [@nishasy](https://github.com/nishasy)! - Add Python Program widget save warnings to perseus linter
+
+-   [#3061](https://github.com/Khan/perseus/pull/3061) [`022624f6f6`](https://github.com/Khan/perseus/commit/022624f6f682a18529b0c381746e3b7d8beb77f2) Thanks [@nishasy](https://github.com/nishasy)! - Add Interactive Graph widget save warnings to perseus linter
+
+*   [#3057](https://github.com/Khan/perseus/pull/3057) [`723d2101e7`](https://github.com/Khan/perseus/commit/723d2101e76509d7557d2a4745a9bbc7ecd55cc7) Thanks [@nishasy](https://github.com/nishasy)! - Add Phet Simulation widget save warnings to perseus linter
+
+### Patch Changes
+
+-   [#3006](https://github.com/Khan/perseus/pull/3006) [`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb) Thanks [@Myranae](https://github.com/Myranae)! - Add catalog hash system for dependency tracking
+
+-   Updated dependencies [[`bae4cfa6f1`](https://github.com/Khan/perseus/commit/bae4cfa6f10410b2e2b5ea558a56c1231fa4e744), [`58f942cb9c`](https://github.com/Khan/perseus/commit/58f942cb9cfb04638f74c79aad444ccfb6b7ce97), [`022624f6f6`](https://github.com/Khan/perseus/commit/022624f6f682a18529b0c381746e3b7d8beb77f2), [`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb), [`723d2101e7`](https://github.com/Khan/perseus/commit/723d2101e76509d7557d2a4745a9bbc7ecd55cc7)]:
+    -   @khanacademy/perseus-core@20.2.1
+    -   @khanacademy/kas@2.1.5
+    -   @khanacademy/kmath@2.2.18
+    -   @khanacademy/perseus-utils@2.1.3
+
+## 4.5.0
+
+### Minor Changes
+
+-   [#2992](https://github.com/Khan/perseus/pull/2992) [`fc6273b10d`](https://github.com/Khan/perseus/commit/fc6273b10de94819d41880eba9848a0ff50e618a) Thanks [@nishasy](https://github.com/nishasy)! - Add radio and expression save wanrnings to the perseus linter. Add a callback for issues changed to item-editor.tsx.
+
+*   [#3049](https://github.com/Khan/perseus/pull/3049) [`18261c3294`](https://github.com/Khan/perseus/commit/18261c3294bb5f0175e6d44e0c0bb61e75212192) Thanks [@nishasy](https://github.com/nishasy)! - Add Free Response widget save warnings to perseus linter
+
+## 4.4.7
+
+### Patch Changes
+
+-   Updated dependencies [[`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015), [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84)]:
+    -   @khanacademy/perseus-core@20.2.0
+
+## 4.4.6
+
+### Patch Changes
+
+-   [#3030](https://github.com/Khan/perseus/pull/3030) [`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-publish to enable trusted publishing
+
+-   Updated dependencies [[`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480), [`8859e97f01`](https://github.com/Khan/perseus/commit/8859e97f0140a18e8924d13f6b18a6d38206dbf2)]:
+    -   @khanacademy/perseus-core@20.1.4
+    -   @khanacademy/perseus-utils@2.1.2
+
+## 4.4.5
+
+### Patch Changes
+
+-   [#2990](https://github.com/Khan/perseus/pull/2990) [`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465) Thanks [@handeyeco](https://github.com/handeyeco)! - Run knip to clean up unused code and exports
+
+-   Updated dependencies [[`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465)]:
+    -   @khanacademy/perseus-core@20.1.3
+
 ## 4.4.4
 
 ### Patch Changes

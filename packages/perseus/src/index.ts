@@ -161,8 +161,6 @@ export {
     deriveUserInputFromSerializedState,
 } from "./user-input-manager";
 
-export {makeSafeUrl} from "./widgets/phet-simulation";
-
 // These exports are to support shared functionality between Perseus and Graphie2000
 export {parseDataFromJSONP} from "./util/graphie-utils";
 export type {

@@ -107,7 +107,34 @@ export const questionWithPassage: PerseusRenderer = {
     },
 };
 
-// Can't use radioQuestionBuilder here because it also includes a passage widget.
+export const questionWithRationale: PerseusRenderer = radioQuestionBuilder()
+    .withContent(
+        "What ship was Jean-Luc Picard's first command?\n\n[[\u2603 radio 1]]\n\n",
+    )
+    .addChoice("USS Voyager (NCC-74656)", {
+        correct: false,
+        rationale: "Commanded by Captain Kathryn Janeway.",
+    })
+    .addChoice("USS Enterprise (NCC-1701)", {
+        correct: false,
+        rationale:
+            "\nThis rationale has a blank line at the start, which should **NOT** affect the rendered rationale. More text: " +
+            "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. " +
+            "The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. " +
+            "Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.'" +
+            '\n\n**Top tip!** This is the ship he commands in the series, but it is not his first command. Watch *"The Battle"* (Season 1, Episode 9) for more. And, as always, beware of Ferengi!',
+    })
+    .addChoice("USS Enterprise (NX-01)", {
+        correct: false,
+        rationale: "Commanded by Captain Jonathan Archer.",
+    })
+    .addChoice("USS Stargazer (NCC-2893)", {
+        correct: true,
+        rationale:
+            "**This is the correct choice.** In one of the battles with the Ferengi, he killed the son of DaiMon Bok, who later sought revenge on Picard.",
+    })
+    .build();
+
 export const choicesWithImages: PerseusRenderer = {
     content:
         "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]",
@@ -180,21 +207,6 @@ export const choicesWithImages: PerseusRenderer = {
             },
             alignment: "default",
         } as RadioWidget,
-        "passage 1": {
-            alignment: "default",
-            graded: true,
-            options: {
-                footnotes: "",
-                passageText:
-                    "Here's a passage about the positive square root. It contains a {{reference to something}}.",
-                passageTitle: "",
-                showLineNumbers: true,
-                static: false,
-            },
-            static: false,
-            type: "passage",
-            version: {major: 0, minor: 0},
-        } as PassageWidget,
     },
 };
 
@@ -266,21 +278,6 @@ export const SingleSelectOverflowContent: PerseusRenderer = {
             },
             alignment: "default",
         } as RadioWidget,
-        "passage 1": {
-            alignment: "default",
-            graded: true,
-            options: {
-                footnotes: "",
-                passageText:
-                    "Here's a passage about the positive square root. It contains a {{reference to something}}.",
-                passageTitle: "",
-                showLineNumbers: true,
-                static: false,
-            },
-            static: false,
-            type: "passage",
-            version: {major: 0, minor: 0},
-        } as PassageWidget,
     },
 };
 

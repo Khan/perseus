@@ -10,6 +10,7 @@ import {
     choicesWithImages,
     overflowContentInGradedGroupSet,
     questionWithPassage,
+    questionWithRationale,
 } from "../__tests__/radio.testdata";
 import {radioQuestionBuilder} from "../radio-question-builder";
 
@@ -122,7 +123,7 @@ export const SingleSelectWithPassageRef: Story = {
 export const SingleSelectWithRationale = {
     args: {
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: questionWithRationale,
         }),
         showSolutions: "all",
     },

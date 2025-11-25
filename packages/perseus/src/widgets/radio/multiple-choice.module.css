@@ -84,7 +84,7 @@
 .content {
     display: flex;
     flex-direction: column;
-    gap: var(--wb-sizing-size_080);
+    gap: var(--wb-sizing-size_120);
     margin-inline-start: var(--perseus-multiple-choice-content-margin);
     position: relative; /* Needed to enable the z-index to work */
     z-index: -1; /* Ensures that the content is below the indicator and scroll fade */
@@ -102,13 +102,30 @@
 }
 
 .rationale {
-    display: block !important; /* Override the overly broad rule in radio.css causing all <div> and <p> tags to be inline. */
-    font-size: var(--wb-font-size-medium);
-    line-height: var(--wb-font-lineHeight-medium);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-medium);
+    line-height: var(--wb-font-body-lineHeight-medium);
 }
 
 .rationale.is-correct {
     color: var(--wb-semanticColor-core-foreground-neutral-default);
+}
+
+.rationale :global(.perseus-renderer) {
+    /* Ensures that multiple paragraphs are stacked with spacing */
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_120);
+}
+
+.rationale :global(.perseus-renderer .paragraph) {
+    /* Removes margin that is added by overly-broad styling for .paragraph - the gap in the rule above handles spacing */
+    margin: 0;
+}
+
+.rationale :global(.perseus-renderer > .paragraph:not(:has(*))) {
+    /* Ensures that empty paragraphs do not take up space */
+    display: none;
 }
 
 .review-answers {

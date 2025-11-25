@@ -19,7 +19,12 @@ import {
 import {
     earthMoonImage,
     frescoImage,
-    monasteryImage,
+    graphieImage,
+    graphieImageAlt,
+    portraitImage,
+    portraitImageCaption,
+    portraitImageLongDescription,
+    portraitImageTitle,
     scienceImage,
     scienceImageAlt,
     scienceImageCaption,
@@ -72,12 +77,10 @@ export const ImageMobile: Story = {
 export const ImagePortrait: Story = {
     decorators: [imageRendererDecorator],
     args: {
-        backgroundImage: monasteryImage,
-        caption:
-            "Kalenić Monastery, after 1407, Serbia (photo: [Ванилица](https://commons.wikimedia.org/wiki/File:Wiki_%C5%A0umadija_XI_Kaleni%C4%87_Monastery_874.jpg), CC BY-SA 4.0)",
-        title: "Kalenić Monastery",
-        longDescription:
-            "Later architecture in Serbia, notably that of the so-called Morava School, is smaller and more decorative, often utilizing the so-called Athonite plan (with choroi and subsidiary chapels), as at Ravanica (1370s), with five domes, or the smaller and simpler Kalenić (after 1407).",
+        backgroundImage: portraitImage,
+        caption: portraitImageCaption,
+        title: portraitImageTitle,
+        longDescription: portraitImageLongDescription,
     },
 };
 
@@ -143,6 +146,14 @@ export const DecorativeImageMobile: Story = {
     },
 };
 
+export const GraphieImage: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: graphieImageAlt,
+    },
+};
+
 /**
  * Images with different sizes.
  *
@@ -198,6 +209,39 @@ export const ImageWithDifferentSizes: Story = {
                                     backgroundImage: earthMoonImage,
                                     alt: "Earth and Moon",
                                     longDescription: "long description",
+                                }),
+                            }),
+                        },
+                    })}
+                />
+            </div>
+        );
+    },
+};
+
+/**
+ * Images within a markdown table.
+ */
+export const ImagesWithMarkdownTable: Story = {
+    render: function Render() {
+        return (
+            // Limit width so zoom becomes possible.
+            <div style={{width: 600}}>
+                <ImageQuestionRenderer
+                    question={generateTestPerseusRenderer({
+                        content:
+                            "| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |",
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: frescoImage,
+                                    alt: "Fresco painting",
+                                }),
+                            }),
+                            "image 2": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and Moon",
                                 }),
                             }),
                         },

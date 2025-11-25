@@ -34,7 +34,7 @@ describe("video widget", () => {
         expect(container).toMatchSnapshot("first mobile render");
     });
 
-    it("video widget should allow autoplay", () => {
+    it("should allow autoplay", () => {
         // Arrange
         const apiOptions: APIOptions = {
             isMobile: false,
@@ -51,7 +51,33 @@ describe("video widget", () => {
         );
     });
 
-    it("vimeo widget should contain dnt param", () => {
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            isMobile: false,
+        };
+
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(question1, apiOptions, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "video",
+                widgetId: "video",
+            },
+        });
+    });
+
+    it("should contain dnt param", () => {
         // Arrange
         const apiOptions: APIOptions = {
             isMobile: false,
@@ -67,7 +93,7 @@ describe("video widget", () => {
         );
     });
 
-    it("video widget should call the generateUrl dependency to set the iframe src", () => {
+    it("should call the generateUrl dependency to set the iframe src", () => {
         // Arrange
         const dependencies: PerseusDependenciesV2 = {
             ...testDependenciesV2,

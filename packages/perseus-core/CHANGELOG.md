@@ -1,5 +1,53 @@
 # @khanacademy/perseus-core
 
+## 20.2.1
+
+### Patch Changes
+
+-   [#3060](https://github.com/Khan/perseus/pull/3060) [`bae4cfa6f1`](https://github.com/Khan/perseus/commit/bae4cfa6f10410b2e2b5ea558a56c1231fa4e744) Thanks [@nishasy](https://github.com/nishasy)! - Add Label Image widget save warnings to perseus linter
+
+*   [#3058](https://github.com/Khan/perseus/pull/3058) [`58f942cb9c`](https://github.com/Khan/perseus/commit/58f942cb9cfb04638f74c79aad444ccfb6b7ce97) Thanks [@nishasy](https://github.com/nishasy)! - Add Python Program widget save warnings to perseus linter
+
+-   [#3061](https://github.com/Khan/perseus/pull/3061) [`022624f6f6`](https://github.com/Khan/perseus/commit/022624f6f682a18529b0c381746e3b7d8beb77f2) Thanks [@nishasy](https://github.com/nishasy)! - Add Interactive Graph widget save warnings to perseus linter
+
+*   [#3006](https://github.com/Khan/perseus/pull/3006) [`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb) Thanks [@Myranae](https://github.com/Myranae)! - Add catalog hash system for dependency tracking
+
+-   [#3057](https://github.com/Khan/perseus/pull/3057) [`723d2101e7`](https://github.com/Khan/perseus/commit/723d2101e76509d7557d2a4745a9bbc7ecd55cc7) Thanks [@nishasy](https://github.com/nishasy)! - Add Phet Simulation widget save warnings to perseus linter
+
+-   Updated dependencies [[`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb)]:
+    -   @khanacademy/kas@2.1.5
+    -   @khanacademy/perseus-utils@2.1.3
+    -   @khanacademy/pure-markdown@2.2.3
+
+## 20.2.0
+
+### Minor Changes
+
+-   [#3032](https://github.com/Khan/perseus/pull/3032) [`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Error Boundary] Add stack trace to error payload to aid in troubleshooting rendering errors
+
+### Patch Changes
+
+-   [#3045](https://github.com/Khan/perseus/pull/3045) [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Error Boundary] Correct type for stack property in widget-rendering-error:ti
+
+## 20.1.4
+
+### Patch Changes
+
+-   [#3030](https://github.com/Khan/perseus/pull/3030) [`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-publish to enable trusted publishing
+
+*   [#3028](https://github.com/Khan/perseus/pull/3028) [`8859e97f01`](https://github.com/Khan/perseus/commit/8859e97f0140a18e8924d13f6b18a6d38206dbf2) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Update the axis labels to be TeX by default again
+
+*   Updated dependencies [[`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480)]:
+    -   @khanacademy/kas@2.1.4
+    -   @khanacademy/perseus-utils@2.1.2
+    -   @khanacademy/pure-markdown@2.2.2
+
+## 20.1.3
+
+### Patch Changes
+
+-   [#2990](https://github.com/Khan/perseus/pull/2990) [`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465) Thanks [@handeyeco](https://github.com/handeyeco)! - Run knip to clean up unused code and exports
+
 ## 20.1.2
 
 ### Patch Changes

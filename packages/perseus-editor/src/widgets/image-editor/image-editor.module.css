@@ -1,7 +1,7 @@
 .dimensions-container {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: start;
     background-color: var(
         --wb-semanticColor-core-background-instructive-subtle
     );
@@ -10,6 +10,12 @@
     margin-block-start: var(--wb-sizing-size_080);
     margin-block-end: var(--wb-sizing-size_120);
     padding: var(--wb-sizing-size_080);
+}
+
+.dimensions-field-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .x-span {

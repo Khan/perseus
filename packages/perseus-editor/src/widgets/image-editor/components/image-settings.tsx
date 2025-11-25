@@ -79,6 +79,8 @@ export default function ImageSettings({
                     <SvgImage
                         src={backgroundImage.url}
                         alt={`Preview: ${alt || "No alt text"}`}
+                        // No need to allow zooming within the editor.
+                        allowZoom={false}
                     />
                 }
                 styles={wbFieldStyles}
@@ -98,6 +100,21 @@ export default function ImageSettings({
                     onChange={onChange}
                 />
             )}
+
+            {/* Properties in DOM order */}
+
+            {/* Title */}
+            <LabeledField
+                label="Title"
+                field={
+                    <AutoResizingTextArea
+                        value={title ?? ""}
+                        onChange={(value) => onChange({title: value})}
+                        disabled={decorative}
+                    />
+                }
+                styles={wbFieldStyles}
+            />
 
             {/* Alt text */}
             <LabeledField
@@ -131,19 +148,6 @@ export default function ImageSettings({
                     styles={wbFieldStyles}
                 />
             )}
-
-            {/* Title */}
-            <LabeledField
-                label="Title"
-                field={
-                    <AutoResizingTextArea
-                        value={title ?? ""}
-                        onChange={(value) => onChange({title: value})}
-                        disabled={decorative}
-                    />
-                }
-                styles={wbFieldStyles}
-            />
 
             {/* Caption */}
             <LabeledField
