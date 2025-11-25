@@ -1,7 +1,10 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
@@ -9,6 +12,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {dotPlotter} from "./plotter.testdata";
 
+import type {PerseusDependenciesV2} from "../../types";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("plotter widget", () => {
@@ -23,6 +27,28 @@ describe("plotter widget", () => {
         renderQuestion(dotPlotter);
 
         expect(screen.getByText("Average Temp")).toBeInTheDocument();
+    });
+
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(dotPlotter, undefined, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "plotter",
+                widgetId: "plotter 1",
+            },
+        });
     });
 
     describe("drag text", () => {
