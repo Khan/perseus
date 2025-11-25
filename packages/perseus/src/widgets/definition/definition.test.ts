@@ -72,7 +72,7 @@ describe("Definition widget", () => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "definition",
-                widgetId: "definition",
+                widgetId: "definition 1",
             },
         });
     });
