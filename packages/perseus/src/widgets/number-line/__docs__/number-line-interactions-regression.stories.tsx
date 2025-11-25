@@ -1,6 +1,5 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -19,7 +18,7 @@ const meta: Meta = {
                     "Regression tests for number-line widget interactions. Tests inequality control buttons' behavior which is controlled by Perseus.",
             },
         },
-        chromatic: {disableSnapshot: false, modes: themeModes},
+        chromatic: {disableSnapshot: false},
     },
 };
 

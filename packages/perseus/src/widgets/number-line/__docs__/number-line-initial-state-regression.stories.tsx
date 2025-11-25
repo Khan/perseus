@@ -1,7 +1,6 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {themeModes} from "../../../../../../.storybook/modes";
 import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
@@ -27,7 +26,7 @@ export default {
                     "Regression tests for the number-line widget that do NOT need any interactions to test, which will be used with Chromatic. Stories are all displayed on one page.",
             },
         },
-        chromatic: {disableSnapshot: false, modes: themeModes},
+        chromatic: {disableSnapshot: false},
     },
 };
 
