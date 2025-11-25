@@ -3,7 +3,7 @@
     "description": "Khan Academy's Javascript Numeric Math Utilities",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.2.15",
+    "version": "2.2.18",
     "publishConfig": {
         "access": "public"
     },
@@ -37,5 +37,8 @@
         "jquery": "catalog:peerDeps",
         "underscore": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "d7663955f3310f2b"
+    }
 }

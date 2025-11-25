@@ -78,6 +78,8 @@ class LabelImageEditor extends React.Component<Props> {
         }
     }
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings: () => ReadonlyArray<any | string> = () => {
         const {choices, imageAlt, imageUrl, markers} = this.props;
 

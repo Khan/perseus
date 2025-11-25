@@ -39,12 +39,6 @@ const IssuesPanel = ({apiOptions, issues = []}: IssuesPanelProps) => {
     const icon = hasWarnings ? iconWarning : iconPass;
     const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
 
-    const togglePanel = () => {
-        if (hasWarnings) {
-            setShowPanel(!showPanel);
-        }
-    };
-
     return (
         <div className="perseus-widget-editor">
             <div className="perseus-widget-editor-title">
@@ -56,7 +50,7 @@ const IssuesPanel = ({apiOptions, issues = []}: IssuesPanelProps) => {
                             alignItems: "center",
                             gap: "0.25em",
                         }}
-                        onClick={togglePanel}
+                        onClick={() => setShowPanel(!showPanel)}
                     >
                         <ToggleableCaret isExpanded={showPanel} />
                         <span>Issues</span>
@@ -81,6 +75,7 @@ const IssuesPanel = ({apiOptions, issues = []}: IssuesPanelProps) => {
                                 issue={issue}
                             />
                         ))}
+                        {issues.length === 0 && <div>No issues found</div>}
                     </div>
                 </div>
             )}

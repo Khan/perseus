@@ -242,6 +242,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
         return json;
     }
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings = () => {
         const issues: Array<any | string> = [];
 
@@ -285,8 +287,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         const sizeClass = containerSizeClass.SMALL;
 
-        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
-
         if (this.props.valid === true) {
             const correct = this.props.correct;
 
@@ -309,7 +309,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 fullGraphAriaLabel: this.props.fullGraphAriaLabel,
                 fullGraphAriaDescription: this.props.fullGraphAriaDescription,
                 // Set the "correct answer" graph to static when editing is disabled
-                static: editingDisabled,
+                static: this.props.apiOptions?.editingDisabled ?? false,
                 trackInteraction: function () {},
                 userInput: correct,
                 handleUserInput: (
@@ -456,12 +456,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             showProtractor={this.props.showProtractor}
                             showTooltips={this.props.showTooltips}
                             onChange={this.props.onChange}
-                            editingDisabled={editingDisabled}
+                            apiOptions={this.props.apiOptions}
                         />
                         <LockedFiguresSection
                             figures={this.props.lockedFigures}
                             onChange={this.props.onChange}
-                            editingDisabled={editingDisabled}
+                            apiOptions={this.props.apiOptions}
                         />
                     </View>
                 )}

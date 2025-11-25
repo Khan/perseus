@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "28.6.2",
+    "version": "28.8.0",
     "publishConfig": {
         "access": "public"
     },
@@ -109,5 +109,8 @@
         "react-dom": "catalog:peerDeps",
         "underscore": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "055a0d11e03b8181"
+    }
 }

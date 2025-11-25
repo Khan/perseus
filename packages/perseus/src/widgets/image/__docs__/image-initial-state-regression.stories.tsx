@@ -16,7 +16,10 @@ import {
 import {
     earthMoonImage,
     frescoImage,
-    monasteryImage,
+    portraitImage,
+    portraitImageCaption,
+    portraitImageLongDescription,
+    portraitImageTitle,
     scienceImage,
     scienceImageAlt,
     scienceImageCaption,
@@ -127,12 +130,10 @@ export const MobileImageWithTitle: Story = {
 export const PortraitImage: Story = {
     decorators: [imageRendererDecorator],
     args: {
-        backgroundImage: monasteryImage,
-        caption:
-            "Kalenić Monastery, after 1407, Serbia (photo: [Ванилица](https://commons.wikimedia.org/wiki/File:Wiki_%C5%A0umadija_XI_Kaleni%C4%87_Monastery_874.jpg), CC BY-SA 4.0)",
-        title: "Kalenić Monastery",
-        longDescription:
-            "Later architecture in Serbia, notably that of the so-called Morava School, is smaller and more decorative, often utilizing the so-called Athonite plan (with choroi and subsidiary chapels), as at Ravanica (1370s), with five domes, or the smaller and simpler Kalenić (after 1407).",
+        backgroundImage: portraitImage,
+        caption: portraitImageCaption,
+        title: portraitImageTitle,
+        longDescription: portraitImageLongDescription,
     },
 };
 
