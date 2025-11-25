@@ -173,7 +173,7 @@ describe("categorizer widget", () => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "categorizer",
-                widgetId: "categorizer",
+                widgetId: "categorizer 1",
             },
         });
     });

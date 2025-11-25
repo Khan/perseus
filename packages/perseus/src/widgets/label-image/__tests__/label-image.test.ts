@@ -840,7 +840,7 @@ describe("LabelImage", function () {
                 payload: {
                     widgetSubType: "null",
                     widgetType: "label-image",
-                    widgetId: "label-image",
+                    widgetId: "label-image 1",
                 },
             });
         });

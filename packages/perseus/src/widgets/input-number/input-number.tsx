@@ -103,7 +103,7 @@ class InputNumber extends React.Component<Props> implements Widget {
             payload: {
                 widgetSubType: "null",
                 widgetType: "input-number",
-                widgetId: "input-number",
+                widgetId: this.props.widgetId,
             },
         });
     }

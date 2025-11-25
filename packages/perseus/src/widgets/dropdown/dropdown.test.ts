@@ -133,7 +133,7 @@ describe("Dropdown widget", () => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "dropdown",
-                widgetId: "dropdown",
+                widgetId: "dropdown 1",
             },
         });
     });

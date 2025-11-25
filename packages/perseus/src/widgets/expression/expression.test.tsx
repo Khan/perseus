@@ -477,7 +477,7 @@ describe("Expression Widget", function () {
                 payload: {
                     widgetSubType: "null",
                     widgetType: "expression",
-                    widgetId: "expression",
+                    widgetId: "expression 1",
                 },
             });
         });

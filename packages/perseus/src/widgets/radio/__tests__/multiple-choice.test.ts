@@ -496,7 +496,7 @@ describe("Multiple Choice Widget", () => {
                 payload: {
                     widgetSubType: "single-select",
                     widgetType: "radio",
-                    widgetId: "radio",
+                    widgetId: "radio 1",
                 },
             });
         });
@@ -819,7 +819,7 @@ describe("Multiple Choice Widget", () => {
                 payload: {
                     widgetSubType: "multiple-select",
                     widgetType: "radio",
-                    widgetId: "radio",
+                    widgetId: "radio 1",
                 },
             });
         });
