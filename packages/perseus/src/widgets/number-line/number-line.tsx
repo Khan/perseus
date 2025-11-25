@@ -497,16 +497,14 @@ class NumberLine extends React.Component<Props, State> implements Widget {
 
         const mobileDotStyle = props.isInequality
             ? {
-                stroke: KhanColors.BLUE,
-                "fill-opacity": isOpen ? 0 : 1,
-            }
+                  stroke: KhanColors.BLUE,
+                  "fill-opacity": isOpen ? 0 : 1,
+              }
             : {};
 
         const mobileDotStaticStyle = {
-            fill: isOpen
-                ? KhanColors._BACKGROUND
-                : color.offBlack50,
-            stroke: color.offBlack50
+            fill: isOpen ? KhanColors._BACKGROUND : color.offBlack50,
+            stroke: color.offBlack50,
         };
 
         return (
@@ -532,7 +530,9 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                     this.movePosition(coord[0]);
                 }}
                 isMobile={this.props.apiOptions.isMobile}
-                mobileStyleOverride={props.static ? mobileDotStaticStyle : mobileDotStyle}
+                mobileStyleOverride={
+                    props.static ? mobileDotStaticStyle : mobileDotStyle
+                }
                 showTooltips={this.props.showTooltips}
                 xOnlyTooltip={true}
             />
