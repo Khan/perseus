@@ -76,10 +76,14 @@ const ExercisePreviewPage = () => {
         const sendHeightUpdate = () => {
             const height = containerRef.current?.scrollHeight;
             if (height) {
+                // NOTE(Jeremy) I'm not sure where this comes from but it's how
+                // production does it.
+                const bottomMargin = 30;
+
                 window.parent.postMessage(
                     {
                         id: iframeId,
-                        height,
+                        height: height + bottomMargin,
                     },
                     "*",
                 );
