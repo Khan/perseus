@@ -10,13 +10,14 @@
  * - Interactive Graph Elements
  */
 import Button from "@khanacademy/wonder-blocks-button";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import {useDependencies} from "../../dependencies";
 
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
@@ -100,6 +101,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         readOnly,
         fullGraphAriaLabel,
         fullGraphAriaDescription,
+        widgetId,
     } = props;
     const {type} = state;
     const [width, height] = props.box;
@@ -111,6 +113,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const instructionsId = `instructions-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
+    const {analytics} = useDependencies();
 
     // Set up the SVG attributes for the nested SVGs that help lock
     // the grid and graph elements to the bounds of the graph.
@@ -134,6 +137,17 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     const interactionPrompt =
         isUnlimitedGraphState(state) && state.showKeyboardInteractionInvitation;
+
+    useOnMountEffect(() => {
+        analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: type,
+                widgetType: "interactive-graph",
+                widgetId: widgetId,
+            },
+        });
+    });
 
     const {graph, interactiveElementsDescription} = renderGraphElements({
         state,
