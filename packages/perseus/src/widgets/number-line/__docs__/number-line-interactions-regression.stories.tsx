@@ -16,7 +16,7 @@ const meta: Meta = {
         docs: {
             description: {
                 component:
-                    "Regression tests for number-line widget interactions. Tests inequality control buttons which are controlled by Perseus styling.",
+                    "Regression tests for number-line widget interactions. Tests inequality control buttons' behavior which is controlled by Perseus.",
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
@@ -70,7 +70,7 @@ function createNumberLineQuestion(config: {
 /**
  * Tests clicking the "Switch direction" button on an inequality.
  * Starts with x ≥ (ray pointing right), then switches to x ≤ (ray pointing left).
- * This tests the Perseus-controlled button styling and ray direction rendering.
+ * This tests the Perseus-controlled button behavior and ray direction rendering.
  */
 export const InequalitySwitchDirection = {
     args: {
@@ -97,9 +97,10 @@ export const InequalitySwitchDirection = {
 /**
  * Tests clicking the "Make circle open" button on an inequality.
  * Starts with x ≥ (closed circle), then toggles to x > (open circle).
- * This tests the Perseus-controlled button styling and circle rendering.
+ * This tests the Perseus-controlled button behavior and circle
+ rendering.
  */
-export const InequalityToggleOpen = {
+export const InequalityMakeCircleOpen = {
     args: {
         item: generateTestPerseusItem({
             question: createNumberLineQuestion({
