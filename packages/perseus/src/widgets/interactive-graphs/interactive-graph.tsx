@@ -346,6 +346,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 box={box}
                 showTooltips={!!this.props.showTooltips}
                 readOnly={this.props.apiOptions?.readOnly}
+                widgetId={this.props.widgetId}
             />
         );
     }

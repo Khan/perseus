@@ -90,6 +90,7 @@ export type MafsGraphProps = {
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
     static: boolean | null | undefined;
+    widgetId: string;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
