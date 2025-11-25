@@ -14,7 +14,7 @@ import PassageWidgetExport, {LineHeightMeasurer} from "../passage";
 
 import {question1, question2} from "./passage.testdata";
 
-import type {APIOptions} from "../../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../../../types";
 
 function renderPassage(
     overwrite:
@@ -243,5 +243,27 @@ describe("passage widget", () => {
                 "indicates that question 1 references this portion of the passage",
             ),
         ).toBeInTheDocument();
+    });
+
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(question2, undefined, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "passage",
+                widgetId: "passage 1",
+            },
+        });
     });
 });
