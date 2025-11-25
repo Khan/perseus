@@ -495,12 +495,15 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
-        const mobileDotStyle = props.isInequality
-            ? {
-                  stroke: KhanColors.BLUE,
-                  "fill-opacity": isOpen ? 0 : 1,
-              }
-            : {};
+        const mobileDotStyle = {
+            fill: isOpen
+                ? KhanColors._BACKGROUND
+                : props.static
+                  ? color.offBlack50
+                  : KhanColors.BLUE,
+            stroke: props.static ? color.offBlack50 : KhanColors.BLUE,
+            ...(props.static ? {} : {"fill-opacity": isOpen ? 0 : 1}),
+        };
 
         return (
             <MovablePoint
