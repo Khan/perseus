@@ -72,7 +72,8 @@ export const RTL: Story = {
     args: {
         item: generateTestPerseusItem({
             question: createNumberLineQuestion({
-                content: "حرك النقطة إلى $-2.5$ على خط الأعداد [[☃ number-line 1]]",
+                content:
+                    "حرك النقطة إلى $-2.5$ على خط الأعداد [[☃ number-line 1]]",
                 correctX: -2.5,
                 range: [-4, 4],
                 initialX: -3,
@@ -125,10 +126,7 @@ function createNumberLineQuestion(config: {
     };
 }
 
-function NumberLineQuestionRenderer(props: {
-    item: PerseusItem;
-    rtl?: boolean;
-}) {
+function NumberLineQuestionRenderer(props: {item: PerseusItem; rtl?: boolean}) {
     const {item, rtl} = props;
 
     return (
