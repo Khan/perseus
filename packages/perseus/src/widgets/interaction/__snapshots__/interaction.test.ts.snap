@@ -667,11 +667,11 @@ exports[`interaction widget renders movable point elements with blank constraint
                     <ellipse
                       cx="NaN"
                       cy="NaN"
-                      fill="#00a60e"
+                      fill="#1865f2"
                       r="NaN"
                       rx="4"
                       ry="4"
-                      stroke="#00a60e"
+                      stroke="#1865f2"
                       style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                       transform=""
                     />
@@ -991,11 +991,11 @@ exports[`interaction widget should render 1`] = `
                     <ellipse
                       cx="NaN"
                       cy="NaN"
-                      fill="#00a60e"
+                      fill="#1865f2"
                       r="NaN"
                       rx="4"
                       ry="4"
-                      stroke="#00a60e"
+                      stroke="#1865f2"
                       style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                       transform=""
                     />
