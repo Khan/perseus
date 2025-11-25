@@ -27,27 +27,77 @@
     display: inline-block;
 }
 
-/* Desktop article context - float + spacing */
+/* ============================================
+   Desktop: CSS Grid Layout for Image Wrapping
+   ============================================ */
+
+/* Make the renderer inside perseus-group a grid container */
 .framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-group
+    .perseus-renderer {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 0 var(--wb-sizing-size_320); /* Horizontal gap only */
+    align-items: start;
+}
+
+/* By default, paragraphs span both columns (full width) */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-group
+    .perseus-renderer
+    > .paragraph {
+    grid-column: 1 / -1; /* Span all columns */
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* When wrap-left image present: text paragraphs go to right column */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-group
+    .perseus-renderer:has(.widget-wrap-left)
+    > .paragraph:not(:has(.widget-wrap-left)) {
+    grid-column: 2; /* Right column for text */
+}
+
+/* When wrap-right image present: text paragraphs go to left column */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-group
+    .perseus-renderer:has(.widget-wrap-right)
+    > .paragraph:not(:has(.widget-wrap-right)) {
+    grid-column: 1; /* Left column for text */
+}
+
+/* Image wrap-left: Place at row 1, left column */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-group
+    .perseus-renderer
+    > .paragraph:has(.widget-wrap-left) {
+    grid-column: 1; /* Left column */
+    grid-row: 1 / span 999; /* Start at row 1, span many rows */
+}
+
+/* Image wrap-right: Place at row 1, right column */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-group
+    .perseus-renderer
+    > .paragraph:has(.widget-wrap-right) {
+    grid-column: 2; /* Right column */
+    grid-row: 1 / span 999; /* Start at row 1, span many rows */
+}
+
+/* Widget container sizing within grid */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-group
     .perseus-widget-container.widget-wrap-left,
 .framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-group
     .perseus-widget-container.widget-wrap-right {
-    max-width: 50%;
+    display: block;
+    width: 100%;
+    max-width: 100%;
     padding-top: var(--wb-sizing-size_320);
     margin-bottom: var(--wb-sizing-size_320);
-    width: 100%;
-}
-
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-wrap-left {
-    float: inline-start;
-    padding-right: var(--wb-sizing-size_320);
-}
-
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-wrap-right {
-    float: inline-end;
-    padding-left: var(--wb-sizing-size_320);
 }
 
 /* Desktop: Prevent float from bleeding into next section */
@@ -56,6 +106,15 @@
     .paragraph
     > ol {
     clear: both;
+}
+
+/* ============================================
+   Mobile: Block Layout (Image after text)
+   ============================================ */
+
+/* Disable grid on mobile - use normal block flow */
+.framework-perseus.perseus-mobile .perseus-group .perseus-renderer {
+    display: block;
 }
 
 /* Mobile context - block display, no float */
@@ -68,6 +127,7 @@
     padding-top: var(--wb-sizing-size_320);
     padding-left: 0;
     padding-right: 0;
+    margin-bottom: var(--wb-sizing-size_320);
 }
 /******************* End for WidgetContainer's alignment CSS styling *******************/
 

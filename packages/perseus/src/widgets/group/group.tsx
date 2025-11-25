@@ -158,9 +158,9 @@ function getUserInputFromSerializedState(
 
 export default {
     name: "group",
-    displayName: "Group (SAT only)",
+    displayName: "Group (Image widget only)",
     widget: Group,
-    hidden: true,
+    hidden: false,
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
