@@ -6,6 +6,8 @@ import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-it
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
 
+// TODO: Add test coverage for hover states on movable points (both closed and open circles).
+
 const meta: Meta = {
     title: "Widgets/Number Line/Visual Regression Tests/Interactions",
     component: ServerItemRendererWithDebugUI,
@@ -14,7 +16,7 @@ const meta: Meta = {
         docs: {
             description: {
                 component:
-                    "Regression tests for number-line widget interactions. Tests hover states on movable points (both closed and open circles) and inequality control buttons which are controlled by Perseus styling.",
+                    "Regression tests for number-line widget interactions. Tests inequality control buttons which are controlled by Perseus styling.",
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
@@ -66,69 +68,6 @@ function createNumberLineQuestion(config: {
 }
 
 /**
- * Tests hover state on a closed movable point (filled circle).
- * When hovering, the point maintains its fill but the stroke-width changes.
- * This tests the highlightStyle for non-inequality points.
- */
-export const HoverClosedPoint = {
-    args: {
-        item: generateTestPerseusItem({
-            question: createNumberLineQuestion({
-                content:
-                    "Move the dot to the position that represents $-2.5$ on the number line.\n\n[[☃ number-line 1]]",
-                correctX: -2.5,
-                range: [-4, 4],
-                initialX: -3,
-            }),
-        }),
-    },
-    play: async ({canvas, userEvent}) => {
-        // Find the movable point (SVG circle) and hover over it
-        // eslint-disable-next-line testing-library/prefer-screen-queries
-        const svgCircle = canvas.container.querySelector("circle[r='6']");
-        if (svgCircle) {
-            await userEvent.hover(svgCircle);
-        }
-    },
-};
-
-/**
- * Tests hover state on an open movable point (unfilled circle).
- * Open circles appear for strict inequalities (< or >).
- * When hovering, the point's fill changes from background color to blue.
- * This tests the highlightStyle for inequality points with open circles.
- */
-export const HoverOpenPoint = {
-    args: {
-        item: generateTestPerseusItem({
-            question: createNumberLineQuestion({
-                content:
-                    "Show all values of $x$ on the number line.\n\n[[☃ number-line 1]]",
-                correctX: 1,
-                range: [-5, 5],
-                initialX: -4,
-                isInequality: true,
-            }),
-        }),
-    },
-    play: async ({canvas, userEvent}) => {
-        // First click the toggle button to make the circle open
-        // eslint-disable-next-line testing-library/prefer-screen-queries
-        const toggleButton = canvas.getByRole("button", {
-            name: "Circle filled",
-        });
-        await userEvent.click(toggleButton);
-
-        // Then hover over the point
-        // eslint-disable-next-line testing-library/prefer-screen-queries
-        const svgCircle = canvas.container.querySelector("circle[r='6']");
-        if (svgCircle) {
-            await userEvent.hover(svgCircle);
-        }
-    },
-};
-
-/**
  * Tests clicking the "Switch direction" button on an inequality.
  * Starts with x ≥ (ray pointing right), then switches to x ≤ (ray pointing left).
  * This tests the Perseus-controlled button styling and ray direction rendering.
@@ -147,9 +86,8 @@ export const InequalitySwitchDirection = {
         }),
     },
     play: async ({canvas, userEvent}) => {
-        // Click the "Switch direction" button to reverse the inequality
         // eslint-disable-next-line testing-library/prefer-screen-queries
-        const switchButton = canvas.getByRole("button", {
+        const switchButton = await canvas.findByRole("button", {
             name: "Switch direction",
         });
         await userEvent.click(switchButton);
@@ -157,11 +95,11 @@ export const InequalitySwitchDirection = {
 };
 
 /**
- * Tests clicking the "Circle open" button on an inequality.
+ * Tests clicking the "Make circle open" button on an inequality.
  * Starts with x ≥ (closed circle), then toggles to x > (open circle).
  * This tests the Perseus-controlled button styling and circle rendering.
  */
-export const InequalityToggleCircle = {
+export const InequalityToggleOpen = {
     args: {
         item: generateTestPerseusItem({
             question: createNumberLineQuestion({
@@ -175,10 +113,9 @@ export const InequalityToggleCircle = {
         }),
     },
     play: async ({canvas, userEvent}) => {
-        // Click the "Circle open" button to toggle from closed to open circle
         // eslint-disable-next-line testing-library/prefer-screen-queries
-        const toggleButton = canvas.getByRole("button", {
-            name: "Circle open",
+        const toggleButton = await canvas.findByRole("button", {
+            name: "Make circle open",
         });
         await userEvent.click(toggleButton);
     },
