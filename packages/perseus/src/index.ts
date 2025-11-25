@@ -130,8 +130,6 @@ export {
     getPerseusAIData,
 } from "@khanacademy/perseus-core";
 
-export {isScorable} from "@khanacademy/perseus-score";
-
 export {
     generateTestInteractiveGraphWidget,
     generateTestCategorizerWidget,
