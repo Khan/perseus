@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "72.1.0",
+    "version": "72.2.1",
     "publishConfig": {
         "access": "public"
     },
@@ -131,5 +131,8 @@
         "react-popper": "^2.2.5",
         "underscore": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "a9d23dc78db3a639"
+    }
 }

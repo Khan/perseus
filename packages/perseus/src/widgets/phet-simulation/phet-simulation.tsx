@@ -3,6 +3,7 @@
  * from https://phet.colorado.edu/.
  */
 
+import {makeSafeUrl} from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
@@ -108,7 +109,11 @@ export class PhetSimulation
     };
 
     async updateSimState(urlString: string) {
-        const url = makeSafeUrl(urlString, this.locale);
+        const url = makeSafeUrl(
+            urlString,
+            this.locale,
+            "https://phet.colorado.edu",
+        );
         if (url === null) {
             this.displayLoadFailure();
             return;
@@ -287,19 +292,6 @@ export class PhetSimulation
         );
     }
 }
-
-// Setting URL to null will display an error message in the iframe
-export const makeSafeUrl = (urlString: string, locale: string): URL | null => {
-    if (!URL.canParse(urlString)) {
-        return null;
-    }
-    const url = new URL(urlString);
-    if (url.origin !== "https://phet.colorado.edu") {
-        return null;
-    }
-    url.searchParams.set("locale", locale);
-    return url;
-};
 
 const styles = StyleSheet.create({
     widgetContainer: {

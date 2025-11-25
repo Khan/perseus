@@ -1,5 +1,11 @@
 # @khanacademy/shared-inline
 
+## 2.1.3
+
+### Patch Changes
+
+-   [#3006](https://github.com/Khan/perseus/pull/3006) [`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb) Thanks [@Myranae](https://github.com/Myranae)! - Add catalog hash system for dependency tracking
+
 ## 2.1.2
 
 ### Patch Changes

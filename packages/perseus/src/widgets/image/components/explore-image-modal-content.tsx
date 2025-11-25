@@ -53,6 +53,8 @@ export default function ExploreImageModalContent({
                     {({setAssetStatus}) => (
                         <SvgImage
                             src={backgroundImage.url!}
+                            // Don't allow opening a modal within a modal.
+                            allowZoom={false}
                             alt={caption === alt ? "" : alt}
                             width={width}
                             height={modalImageHeight}
