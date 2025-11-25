@@ -162,6 +162,7 @@ type State = {
 // eslint-disable-next-line react/no-unsafe
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
+    deferredChange: any | null | undefined;
     widgetIds: any | null | undefined;
 
     underlay = React.createRef<HTMLDivElement>();
@@ -248,6 +249,12 @@ class Editor extends React.Component<Props, State> {
         if (this.props.content !== prevProps.content) {
             this._sizeImages(this.props);
         }
+    }
+
+    componentWillUnmount() {
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+        // eslint-disable-next-line no-restricted-syntax
+        clearTimeout(this.deferredChange);
     }
 
     getWidgetEditor(
@@ -434,11 +441,17 @@ class Editor extends React.Component<Props, State> {
     handleChange: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void = (
         e: React.SyntheticEvent<HTMLTextAreaElement>,
     ) => {
-        const newValue = e.currentTarget.value;
-        this.setState({textAreaValue: newValue});
-        if (newValue !== this.props.content) {
-            this.props.onChange({content: newValue});
-        }
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+        // eslint-disable-next-line no-restricted-syntax
+        clearTimeout(this.deferredChange);
+        this.setState({textAreaValue: e.currentTarget.value});
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+        // eslint-disable-next-line no-restricted-syntax
+        this.deferredChange = setTimeout(() => {
+            if (this.state.textAreaValue !== this.props.content) {
+                this.props.onChange({content: this.state.textAreaValue});
+            }
+        }, this.props.apiOptions.editorChangeDelay);
     };
 
     _handleKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void = (
