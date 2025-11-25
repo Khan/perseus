@@ -1,67 +1,19 @@
 import {it, describe, beforeEach} from "@jest/globals";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {act, render, screen} from "@testing-library/react";
-import React from "react";
+import {act, screen} from "@testing-library/react";
 
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
-import {ApiOptions} from "../../../perseus-api";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
-import PassageWidgetExport, {LineHeightMeasurer} from "../passage";
+import {LineHeightMeasurer} from "../passage";
 
-import {question1, question2} from "./passage.testdata";
+import {question1, question2, question3} from "./passage.testdata";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../../types";
-
-function renderPassage(
-    overwrite:
-        | {
-              footnotes: string;
-          }
-        | {
-              passageText: string;
-          }
-        | {
-              passageTitle: string;
-          },
-) {
-    const widgetPropsBase = {
-        footnotes: "",
-        passageText: "",
-        passageTitle: "",
-        showLineNumbers: false,
-        static: true,
-        dependencies: testDependenciesV2,
-    } as const;
-
-    const base = {
-        ...widgetPropsBase,
-        alignment: null,
-        apiOptions: {
-            ...ApiOptions.defaults,
-        },
-        containerSizeClass: "small",
-        findWidgets: (callback) => [],
-        onBlur: () => {},
-        onChange: () => {},
-        handleUserInput: () => {},
-        userInput: {},
-        onFocus: () => {},
-        problemNum: 1,
-        static: true,
-        trackInteraction: () => {},
-        widgetId: "passage",
-        widgetIndex: 0,
-        reviewMode: false,
-    } as const;
-
-    const extended = {...base, ...overwrite} as const;
-    // TODO: use a Renderer wrapper rather than rendering this directly
-    return render(<PassageWidgetExport.widget {...extended} />);
-}
+import type PassageWidgetExport from "../passage";
 
 describe("passage widget", () => {
     beforeEach(() => {
@@ -202,41 +154,71 @@ describe("passage widget", () => {
     });
 
     it("should render passage title", () => {
-        renderPassage({passageTitle: "Passage title"});
-
-        expect(screen.getByText("Passage title")).toBeInTheDocument();
+        renderQuestion(
+            question3,
+            undefined,
+            undefined,
+            undefined,
+            testDependenciesV2,
+        );
+        expect(screen.getByText("Passage 1")).toBeInTheDocument();
     });
 
     it("should render passage text", () => {
-        renderPassage({passageText: "Passage text"});
+        renderQuestion(
+            question1,
+            undefined,
+            undefined,
+            undefined,
+            testDependenciesV2,
+        );
 
-        expect(screen.getByText("Passage text")).toBeInTheDocument();
+        expect(
+            screen.getByText(
+                "Sociologists study folktales because they provide a means of understanding the distinctive values of a culture",
+            ),
+        ).toBeInTheDocument();
     });
 
     it("should render footnotes", () => {
-        renderPassage({footnotes: "Footnote text"});
-
-        expect(screen.getByText("Footnote text")).toBeInTheDocument();
+        renderQuestion(
+            question3,
+            undefined,
+            undefined,
+            undefined,
+            testDependenciesV2,
+        );
+        expect(screen.getByText("An example footnote")).toBeInTheDocument();
     });
 
     it("should render first question instructions", () => {
-        renderPassage({passageText: "[[test]] Passage text"});
-
-        expect(screen.getByText("The symbol")).toBeInTheDocument();
-        expect(screen.getAllByText("[Marker for question test]")).toHaveLength(
-            2,
+        renderQuestion(
+            question2,
+            undefined,
+            undefined,
+            undefined,
+            testDependenciesV2,
         );
+
+        expect(screen.getAllByText("The symbol")).toHaveLength(2);
+        expect(screen.getAllByText("[Marker for question 1]")).toHaveLength(2);
         expect(
             screen.getByText(
-                "indicates that question test references this portion of the passage",
+                "indicates that question 1 references this portion of the passage",
             ),
         ).toBeInTheDocument();
     });
 
     it("should render first sentence instructions", () => {
-        renderPassage({passageText: "[[1]] Passage text"});
+        renderQuestion(
+            question2,
+            undefined,
+            undefined,
+            undefined,
+            testDependenciesV2,
+        );
 
-        expect(screen.getByText("The symbol")).toBeInTheDocument();
+        expect(screen.getAllByText("The symbol")).toHaveLength(2);
         expect(screen.getAllByText("[Marker for question 1]")).toHaveLength(2);
         expect(
             screen.getByText(
