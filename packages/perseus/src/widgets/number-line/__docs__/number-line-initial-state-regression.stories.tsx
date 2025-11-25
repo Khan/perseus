@@ -68,6 +68,36 @@ export const Inequality: Story = {
     },
 };
 
+export const StaticDesktop: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: createNumberLineQuestion({
+                content: "The answer is shown below:\n\n[[☃ number-line 1]]",
+                correctX: 2,
+                range: [-5, 5],
+                initialX: 2,
+                static: true,
+            }),
+        }),
+    },
+};
+
+export const StaticDesktopInequality: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: createNumberLineQuestion({
+                content: "The answer is shown below:\n\n[[☃ number-line 1]]",
+                correctX: 1,
+                range: [-5, 5],
+                initialX: 1,
+                isInequality: true,
+                correctRel: "ge",
+                static: true,
+            }),
+        }),
+    },
+};
+
 export const RTL: Story = {
     args: {
         item: generateTestPerseusItem({
@@ -83,6 +113,38 @@ export const RTL: Story = {
     },
 };
 
+export const StaticMobile: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: createNumberLineQuestion({
+                content: "The answer is shown below:\n\n[[☃ number-line 1]]",
+                correctX: 2,
+                range: [-5, 5],
+                initialX: 2,
+                static: true,
+            }),
+        }),
+        isMobile: true,
+    },
+};
+
+export const StaticMobileInequality: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: createNumberLineQuestion({
+                content: "The answer is shown below:\n\n[[☃ number-line 1]]",
+                correctX: 1,
+                range: [-5, 5],
+                initialX: 1,
+                isInequality: true,
+                correctRel: "ge",
+                static: true,
+            }),
+        }),
+        isMobile: true,
+    },
+};
+
 // Helper function to create number-line question data
 function createNumberLineQuestion(config: {
     content: string;
@@ -91,6 +153,7 @@ function createNumberLineQuestion(config: {
     initialX?: number;
     isInequality?: boolean;
     correctRel?: "eq" | "lt" | "gt" | "le" | "ge";
+    static?: boolean;
 }): PerseusRenderer {
     return {
         content: config.content,
@@ -99,10 +162,10 @@ function createNumberLineQuestion(config: {
             "number-line 1": {
                 type: "number-line",
                 alignment: "default",
-                static: false,
+                static: config.static ?? false,
                 graded: true,
                 options: {
-                    static: false,
+                    static: config.static ?? false,
                     labelRange: [null, null],
                     initialX: config.initialX ?? null,
                     tickStep: 1,
@@ -126,14 +189,23 @@ function createNumberLineQuestion(config: {
     };
 }
 
-function NumberLineQuestionRenderer(props: {item: PerseusItem; rtl?: boolean}) {
-    const {item, rtl} = props;
+function NumberLineQuestionRenderer(props: {
+    item: PerseusItem;
+    rtl?: boolean;
+    isMobile?: boolean;
+}) {
+    const {item, rtl, isMobile} = props;
+
+    const apiOptions = {
+        ...ApiOptions.defaults,
+        isMobile: isMobile ?? false,
+    };
 
     return (
         <div dir={rtl ? "rtl" : "ltr"}>
             <ServerItemRenderer
                 item={item}
-                apiOptions={ApiOptions.defaults}
+                apiOptions={apiOptions}
                 dependencies={testDependenciesV2}
             />
         </div>
