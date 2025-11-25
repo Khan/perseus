@@ -13,6 +13,14 @@ export interface IndicatorProps {
     showCorrectness?: "correct" | "wrong";
     updateChecked: (isChecked: boolean) => void;
 }
+/*
+ * NOTE: Redundant ARIA roles for <li> element
+ *          Redundant roles were added to address the issue of different screen
+ *          readers handling <fieldset> and <legend> elements inconsistently.
+ *          `role="listitem"` attribute preserves list semantics, as some screen
+ *          readers may remove the implicit list role when `list-style: none` is
+ *          applied via CSS.
+ */
 
 const Choice = (props: IndicatorProps) => {
     const showCorrectness = props.showCorrectness;
