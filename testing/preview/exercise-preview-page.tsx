@@ -48,6 +48,8 @@ const ExercisePreviewPage = () => {
                 } catch (e) {
                     // Cross-origin access might fail in some cases
                     // Silently ignore - this is expected in cross-origin scenarios
+                    // eslint-disable-next-line no-console
+                    console.error("Error accessing iframeDataStore", e);
                 }
             }
         };
