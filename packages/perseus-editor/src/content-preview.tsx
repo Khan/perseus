@@ -37,6 +37,7 @@ function ContentPreview({
     linterContext,
     legacyPerseusLint,
     previewDevice,
+    reviewMode,
 }: {
     /** The Perseus question to preview. */
     question?: PerseusRenderer;
@@ -55,6 +56,11 @@ function ContentPreview({
      * media queries based on the screen width).
      */
     previewDevice: DeviceType;
+    /**
+     * Whether the preview is in review mode. When true, widgets will show
+     * correct answers with explanations and prevent interaction.
+     */
+    reviewMode?: boolean;
 }) {
     const i18n = usePerseusI18n();
     const isMobile = previewDevice !== "desktop";
@@ -90,6 +96,7 @@ function ContentPreview({
                                         initializeUserInput={
                                             initializeUserInput
                                         }
+                                        reviewMode={reviewMode}
                                         {...question}
                                     />
                                 )}

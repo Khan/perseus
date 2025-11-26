@@ -348,6 +348,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                 isStatic,
                 showSolutions,
                 choiceStates,
+                reviewMode,
             });
 
             // Build the choice props from the updated choice states

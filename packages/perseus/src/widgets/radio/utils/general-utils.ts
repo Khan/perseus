@@ -10,15 +10,17 @@ interface GetChoiceStatesProps {
     isStatic?: boolean | null;
     showSolutions?: ShowSolutions;
     choiceStates?: ReadonlyArray<ChoiceState>;
+    reviewMode?: boolean;
 }
 
 /**
  * Determine the updated choice states for the Radio widget, based on the
- * widget's static / showSolutions states, and choiceStates.
+ * widget's static / showSolutions / reviewMode states, and choiceStates.
  *
  * @param choices - The choices for the Radio widget.
  * @param isStatic - Whether the widget is static.
  * @param showSolutions - Whether the widget is in showSolutions mode.
+ * @param reviewMode - Whether the widget is in review mode.
  * @param choiceStates - The choice states for the widget. (The user's current selection states.)
  * @returns The updated choice states for the widget.
  */
@@ -27,6 +29,7 @@ export const getChoiceStates = ({
     isStatic,
     showSolutions,
     choiceStates,
+    reviewMode,
 }: GetChoiceStatesProps): ReadonlyArray<ChoiceState> => {
     // The default state for a choice state object.
     const defaultState: ChoiceState = {
@@ -39,9 +42,9 @@ export const getChoiceStates = ({
     };
 
     // Case 1: Review mode
-    // The widget is in static or showSolutions mode.
+    // The widget is in static, showSolutions, or reviewMode.
     // — In this state, we display correct answers with explanations and prevent interaction.
-    if (isStatic || showSolutions === "all") {
+    if (isStatic || showSolutions === "all" || reviewMode) {
         return choices.map((choice) => ({
             ...defaultState,
             selected: !!choice.correct,

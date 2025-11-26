@@ -69,6 +69,26 @@ describe("getChoiceStates", () => {
             expect(result[1].selected).toBe(false);
             expect(result[2].selected).toBe(false);
         });
+
+        it("sets correct answers as selected when reviewMode is true", () => {
+            // Arrange & Act
+            const result = getChoiceStates({
+                choices: mockChoices,
+                reviewMode: true,
+            });
+
+            // Assert
+            expect(result).toHaveLength(3);
+            expect(result[0]).toEqual({
+                ...defaultState,
+                selected: true,
+                readOnly: true,
+                rationaleShown: true,
+                correctnessShown: true,
+            });
+            expect(result[1].selected).toBe(false);
+            expect(result[2].selected).toBe(false);
+        });
     });
 
     describe("Case 2: Active user selection without submission", () => {
