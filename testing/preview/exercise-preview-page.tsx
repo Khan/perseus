@@ -24,11 +24,8 @@ const ExercisePreviewPage = () => {
     // Read iframe configuration from dataset attributes
     React.useEffect(() => {
         const iframe = window.frameElement as HTMLIFrameElement | null;
-        if (iframe) {
-            const id = iframe.dataset.id;
-            if (id) {
-                setIframeId(id);
-            }
+        if (iframe?.dataset.id) {
+            setIframeId(iframe.dataset.id);
         }
     }, []);
 
