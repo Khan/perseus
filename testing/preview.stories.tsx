@@ -6,9 +6,9 @@ const meta: Meta = {
     title: "Dev Support/Preview",
     component: ExerciseFramePage,
     // 👇 Disable auto-generated documentation for this component. This
-    // component supports preview in dev mode only.
-    // STOPSHIP: Uncomment the tags thing here.
-    // tags: ["!autodocs"],
+    // component supports preview in dev mode and isn't meant to be used as a
+    // story by itself..
+    tags: ["!autodocs"],
 };
 export default meta;
 
