@@ -176,7 +176,6 @@ div.graphie {
 .framework-perseus .perseus-rendered-radio .unresponsive-svg-image {
     display: inline-block;
     position: relative;
-    overflow: hidden;
 }
 .framework-perseus .unresponsive-svg-image > .graphie-container,
 .framework-perseus
