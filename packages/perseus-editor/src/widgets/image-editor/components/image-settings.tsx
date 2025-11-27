@@ -1,17 +1,15 @@
-import {components} from "@khanacademy/perseus";
 import {isFeatureOn} from "@khanacademy/perseus-core";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import * as React from "react";
 
 import {AutoResizingTextArea} from "../../../components/auto-resizing-text-area";
+import ImagePreview from "../../../components/image-preview";
 import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
 import DecorativeToggle from "./decorative-toggle";
 import ImageDimensionsInput from "./image-dimensions-input";
 
 import type {Props} from "../image-editor";
-
-const {SvgImage} = components;
 
 const MIN_ALT_TEXT_LENGTH = 8;
 const MAX_ALT_TEXT_LENGTH = 150;
@@ -76,11 +74,11 @@ export default function ImageSettings({
             <LabeledField
                 label="Preview"
                 field={
-                    <SvgImage
+                    <ImagePreview
                         src={backgroundImage.url}
                         alt={`Preview: ${alt || "No alt text"}`}
-                        // No need to allow zooming within the editor.
-                        allowZoom={false}
+                        width={backgroundImage.width}
+                        height={backgroundImage.height}
                     />
                 }
                 styles={wbFieldStyles}
