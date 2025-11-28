@@ -1,5 +1,16 @@
 # @khanacademy/perseus-core
 
+## 20.2.2
+
+### Patch Changes
+
+-   [#3069](https://github.com/Khan/perseus/pull/3069) [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade to pnpm@10.22.0
+
+-   Updated dependencies [[`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66)]:
+    -   @khanacademy/kas@2.1.6
+    -   @khanacademy/perseus-utils@2.1.4
+    -   @khanacademy/pure-markdown@2.2.4
+
 ## 20.2.1
 
 ### Patch Changes
