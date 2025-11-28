@@ -11,7 +11,6 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {action} from "storybook/actions";
-import {useGlobals, useStorybookApi} from "storybook/manager-api";
 
 import EditorPage from "../editor-page";
 
