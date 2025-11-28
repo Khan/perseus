@@ -56,10 +56,13 @@ function EditorPageWithStorybookPreview(props: Props) {
     const apiOptions = props.apiOptions ?? {
         isMobile: false,
     };
-
+    const storybookBaseUrl = React.useMemo(
+        () => window.location.pathname.split("/").slice(0, -1).join("/"),
+        [],
+    );
     const storybookPreviewUrl = React.useMemo(() => {
-        return `${window.location.origin}/iframe.html?id=dev-support-preview--default&viewMode=story`;
-    }, []);
+        return `${storybookBaseUrl}/iframe.html?id=dev-support-preview--default&viewMode=story`;
+    }, [storybookBaseUrl]);
 
     return (
         <View>
