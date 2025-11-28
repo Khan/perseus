@@ -11,6 +11,7 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {action} from "storybook/actions";
+import {useGlobals, useStorybookApi} from "storybook/manager-api";
 
 import EditorPage from "../editor-page";
 
@@ -56,10 +57,13 @@ function EditorPageWithStorybookPreview(props: Props) {
     const apiOptions = props.apiOptions ?? {
         isMobile: false,
     };
-
+    const storybookBaseUrl = React.useMemo(
+        () => window.location.pathname.split("/").slice(0, -1).join("/"),
+        [],
+    );
     const storybookPreviewUrl = React.useMemo(() => {
-        return `${window.location.origin}/iframe.html?id=dev-support-preview--default&viewMode=story`;
-    }, []);
+        return `${storybookBaseUrl}/iframe.html?id=dev-support-preview--default&viewMode=story`;
+    }, [storybookBaseUrl]);
 
     return (
         <View>
