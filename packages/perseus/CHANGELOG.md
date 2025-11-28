@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 72.2.2
+
+### Patch Changes
+
+-   [#3067](https://github.com/Khan/perseus/pull/3067) [`9d7332d86d`](https://github.com/Khan/perseus/commit/9d7332d86daf62fbdda64ecf0dedfa8b5e17db86) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Chrome translate causes rendering error
+
+*   [#3027](https://github.com/Khan/perseus/pull/3027) [`d410783087`](https://github.com/Khan/perseus/commit/d41078308789fa63a3b815a2e0cc59eece986ede) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Analytics] Updating rendering analytics events to use accurate widgetIds
+
+-   [#3069](https://github.com/Khan/perseus/pull/3069) [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade to pnpm@10.22.0
+
+*   [#3039](https://github.com/Khan/perseus/pull/3039) [`ff91465ad5`](https://github.com/Khan/perseus/commit/ff91465ad524959600cae7ea690048e4367ea161) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding rendering events to grapher, graded-group, graded-group-set, matrix, orderer, passage, and plotter
+
+*   Updated dependencies [[`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66)]:
+    -   @khanacademy/kas@2.1.6
+    -   @khanacademy/keypad-context@3.2.19
+    -   @khanacademy/kmath@2.2.19
+    -   @khanacademy/math-input@26.2.22
+    -   @khanacademy/perseus-core@20.2.2
+    -   @khanacademy/perseus-linter@4.6.1
+    -   @khanacademy/perseus-score@8.0.8
+    -   @khanacademy/perseus-utils@2.1.4
+    -   @khanacademy/pure-markdown@2.2.4
+    -   @khanacademy/simple-markdown@2.1.4
+
 ## 72.2.1
 
 ### Patch Changes

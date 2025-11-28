@@ -1,5 +1,24 @@
 # @khanacademy/perseus-editor
 
+## 28.8.1
+
+### Patch Changes
+
+-   [#3069](https://github.com/Khan/perseus/pull/3069) [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade to pnpm@10.22.0
+
+*   [#3018](https://github.com/Khan/perseus/pull/3018) [`cf0c8f7eb7`](https://github.com/Khan/perseus/commit/cf0c8f7eb7adb04cf7b43299d24edc619f97dddf) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused hintsarea element from editor and introduce Typescript preview message types (for future work)
+
+*   Updated dependencies [[`9d7332d86d`](https://github.com/Khan/perseus/commit/9d7332d86daf62fbdda64ecf0dedfa8b5e17db86), [`d410783087`](https://github.com/Khan/perseus/commit/d41078308789fa63a3b815a2e0cc59eece986ede), [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66), [`ff91465ad5`](https://github.com/Khan/perseus/commit/ff91465ad524959600cae7ea690048e4367ea161)]:
+    -   @khanacademy/perseus@72.2.2
+    -   @khanacademy/kas@2.1.6
+    -   @khanacademy/keypad-context@3.2.19
+    -   @khanacademy/kmath@2.2.19
+    -   @khanacademy/math-input@26.2.22
+    -   @khanacademy/perseus-core@20.2.2
+    -   @khanacademy/perseus-linter@4.6.1
+    -   @khanacademy/perseus-score@8.0.8
+    -   @khanacademy/perseus-utils@2.1.4
+
 ## 28.8.0
 
 ### Minor Changes
