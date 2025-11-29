@@ -87,8 +87,8 @@ const KhanColors = {
     // background color used in exercises is subject to change at the whim
     // of any redesigns.
     _BACKGROUND: "#FDFDFD", // TODO(eater): Get rid of this altogether.
-    INTERACTING: color.green,
-    INTERACTIVE: color.green,
+    INTERACTING: color.blue,
+    INTERACTIVE: color.blue,
     DYNAMIC: color.blue,
 } as const;
 

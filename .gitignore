@@ -11,6 +11,8 @@ storybook-static
 /cypress/
 .idea
 .swc/
+.claude
 
 # Local development files
 CLAUDE.local.md
+/AGENTS.md
