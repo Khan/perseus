@@ -47,7 +47,7 @@
 .perseus-image-editor .graph-settings {
     margin-top: 5px;
 }
-/* This prevents the image to overflow in editor preview containers */
+/* This prevents the image from overflowing its container in editor previews */
 .perseus-image-preview-container .image-loader-img {
     overflow: hidden;
     max-width: 100%;
