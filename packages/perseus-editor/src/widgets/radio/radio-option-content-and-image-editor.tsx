@@ -47,7 +47,8 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         // Set images immediately without dimensions so they render right away
         setImages(parsedImages);
 
-        // Fetch dimensions for all images asynchronously
+        // Fetch dimensions for all images asynchronously,
+        // to prevent image from overflowing its container in editor previews
         async function fetchAllDimensions() {
             const imagesWithDimensions = await Promise.all(
                 parsedImages.map(async (image) => {
