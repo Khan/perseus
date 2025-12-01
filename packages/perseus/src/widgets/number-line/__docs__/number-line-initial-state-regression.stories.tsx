@@ -1,12 +1,11 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import * as React from "react";
 
-import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
-import {ApiOptions} from "../../../perseus-api";
-import {ServerItemRenderer} from "../../../server-item-renderer";
 import {tickCtrl} from "../number-line.testdata";
+import {
+    createNumberLineQuestion,
+    NumberLineQuestionRenderer,
+} from "../utils/number-line-utils";
 
-import type {PerseusRenderer, PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type Story = StoryObj<typeof NumberLineQuestionRenderer>;
@@ -145,70 +144,3 @@ export const StaticMobileInequality: Story = {
         isMobile: true,
     },
 };
-
-// Helper function to create number-line question data
-function createNumberLineQuestion(config: {
-    content: string;
-    correctX: number;
-    range: [number, number];
-    initialX?: number;
-    isInequality?: boolean;
-    correctRel?: "eq" | "lt" | "gt" | "le" | "ge";
-    static?: boolean;
-}): PerseusRenderer {
-    return {
-        content: config.content,
-        images: {},
-        widgets: {
-            "number-line 1": {
-                type: "number-line",
-                alignment: "default",
-                static: config.static ?? false,
-                graded: true,
-                options: {
-                    static: config.static ?? false,
-                    labelRange: [null, null],
-                    initialX: config.initialX ?? null,
-                    tickStep: 1,
-                    labelStyle: "decimal",
-                    labelTicks: true,
-                    isInequality: config.isInequality ?? false,
-                    snapDivisions: 2,
-                    range: config.range,
-                    correctRel: config.correctRel ?? "eq",
-                    numDivisions: null,
-                    divisionRange: [1, 10],
-                    correctX: config.correctX,
-                    isTickCtrl: false,
-                },
-                version: {
-                    major: 0,
-                    minor: 0,
-                },
-            },
-        },
-    };
-}
-
-function NumberLineQuestionRenderer(props: {
-    item: PerseusItem;
-    rtl?: boolean;
-    isMobile?: boolean;
-}) {
-    const {item, rtl, isMobile} = props;
-
-    const apiOptions = {
-        ...ApiOptions.defaults,
-        isMobile: isMobile ?? false,
-    };
-
-    return (
-        <div dir={rtl ? "rtl" : "ltr"}>
-            <ServerItemRenderer
-                item={item}
-                apiOptions={apiOptions}
-                dependencies={testDependenciesV2}
-            />
-        </div>
-    );
-}

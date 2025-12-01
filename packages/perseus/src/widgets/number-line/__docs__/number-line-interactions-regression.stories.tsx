@@ -1,15 +1,20 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {within} from "@testing-library/react";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {
+    createNumberLineQuestion,
+    NumberLineQuestionRenderer,
+} from "../utils/number-line-utils";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {Meta} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
+
+type Story = StoryObj<typeof NumberLineQuestionRenderer>;
 
 // TODO: Add test coverage for hover states on movable points (both closed and open circles).
 
 const meta: Meta = {
     title: "Widgets/Number Line/Visual Regression Tests/Interactions",
-    component: ServerItemRendererWithDebugUI,
+    component: NumberLineQuestionRenderer,
     tags: ["!autodocs"],
     parameters: {
         docs: {
@@ -24,54 +29,12 @@ const meta: Meta = {
 
 export default meta;
 
-// Helper function to create number-line question data
-function createNumberLineQuestion(config: {
-    content: string;
-    correctX: number;
-    range: [number, number];
-    initialX?: number;
-    isInequality?: boolean;
-}): PerseusRenderer {
-    return {
-        content: config.content,
-        images: {},
-        widgets: {
-            "number-line 1": {
-                type: "number-line",
-                alignment: "default",
-                static: false,
-                graded: true,
-                options: {
-                    static: false,
-                    labelRange: [null, null],
-                    initialX: config.initialX ?? null,
-                    tickStep: 1,
-                    labelStyle: "decimal",
-                    labelTicks: true,
-                    isInequality: config.isInequality ?? false,
-                    snapDivisions: 2,
-                    range: config.range,
-                    correctRel: "ge",
-                    numDivisions: null,
-                    divisionRange: [1, 10],
-                    correctX: config.correctX,
-                    isTickCtrl: false,
-                },
-                version: {
-                    major: 0,
-                    minor: 0,
-                },
-            },
-        },
-    };
-}
-
 /**
  * Tests clicking the "Switch direction" button on an inequality.
  * Starts with x ≥ (ray pointing right), then switches to x ≤ (ray pointing left).
  * This tests the Perseus-controlled button behavior and ray direction rendering.
  */
-export const InequalitySwitchDirection = {
+export const InequalitySwitchDirection: Story = {
     args: {
         item: generateTestPerseusItem({
             question: createNumberLineQuestion({
@@ -84,9 +47,10 @@ export const InequalitySwitchDirection = {
             }),
         }),
     },
-    play: async ({canvas, userEvent}) => {
+    play: async ({canvasElement, userEvent}) => {
+        const canvas = within(canvasElement);
         // eslint-disable-next-line testing-library/prefer-screen-queries
-        const switchButton = await canvas.findByRole("button", {
+        const switchButton = canvas.getByRole("button", {
             name: "Switch direction",
         });
         await userEvent.click(switchButton);
@@ -99,7 +63,7 @@ export const InequalitySwitchDirection = {
  * This tests the Perseus-controlled button behavior and circle
  rendering.
  */
-export const InequalityMakeCircleOpen = {
+export const InequalityMakeCircleOpen: Story = {
     args: {
         item: generateTestPerseusItem({
             question: createNumberLineQuestion({
@@ -112,9 +76,10 @@ export const InequalityMakeCircleOpen = {
             }),
         }),
     },
-    play: async ({canvas, userEvent}) => {
+    play: async ({canvasElement, userEvent}) => {
+        const canvas = within(canvasElement);
         // eslint-disable-next-line testing-library/prefer-screen-queries
-        const toggleButton = await canvas.findByRole("button", {
+        const toggleButton = canvas.getByRole("button", {
             name: "Make circle open",
         });
         await userEvent.click(toggleButton);
