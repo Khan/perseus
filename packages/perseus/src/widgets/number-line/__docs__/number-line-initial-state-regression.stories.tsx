@@ -7,7 +7,7 @@ import {ServerItemRenderer} from "../../../server-item-renderer";
 import {tickCtrl} from "../number-line.testdata";
 
 import type {PerseusRenderer, PerseusItem} from "@khanacademy/perseus-core";
-import type {StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type Story = StoryObj<typeof NumberLineQuestionRenderer>;
 
@@ -15,7 +15,7 @@ type Story = StoryObj<typeof NumberLineQuestionRenderer>;
  * This is a visual regression story for the number-line widget.
  */
 
-export default {
+const meta: Meta = {
     title: "Widgets/Number Line/Visual Regression Tests/Initial State",
     component: NumberLineQuestionRenderer,
     tags: ["!dev"],
@@ -29,6 +29,8 @@ export default {
         chromatic: {disableSnapshot: false},
     },
 };
+
+export default meta;
 
 export const BasicQuestion: Story = {
     args: {
