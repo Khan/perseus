@@ -1,3 +1,4 @@
+import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
@@ -15,8 +16,15 @@ import styles from "./radio-editor.module.css";
 interface RadioImageEditorProps {
     initialImageUrl: string;
     initialImageAltText: string;
+    initialImageWidth?: number;
+    initialImageHeight?: number;
     containerClassName?: string;
-    onSave: (imageUrl: string, imageAltText: string) => void;
+    onSave: (
+        imageUrl: string,
+        imageAltText: string,
+        width?: number,
+        height?: number,
+    ) => void;
     onClose?: () => void;
     onDelete?: () => void;
 }
@@ -24,6 +32,8 @@ interface RadioImageEditorProps {
 export default function RadioImageEditor({
     initialImageUrl,
     initialImageAltText,
+    initialImageWidth,
+    initialImageHeight,
     containerClassName,
     onSave,
     onClose,
@@ -31,25 +41,64 @@ export default function RadioImageEditor({
 }: RadioImageEditorProps): React.ReactElement {
     const [imageUrl, setImageUrl] = React.useState(initialImageUrl);
     const [imageAltText, setImageAltText] = React.useState(initialImageAltText);
+    const [imageWidth, setImageWidth] = React.useState(initialImageWidth);
+    const [imageHeight, setImageHeight] = React.useState(initialImageHeight);
 
     // Keep the image URL and alt text in sync with changes.
     React.useEffect(() => {
         setImageUrl(initialImageUrl ?? "");
         setImageAltText(initialImageAltText ?? "");
-    }, [initialImageUrl, initialImageAltText]);
+        setImageWidth(initialImageWidth);
+        setImageHeight(initialImageHeight);
+    }, [
+        initialImageUrl,
+        initialImageAltText,
+        initialImageWidth,
+        initialImageHeight,
+    ]);
 
     const uniqueId = React.useId();
     const imageUrlTextAreaId = `${uniqueId}-image-url-textarea`;
     const imageAltTextTextAreaId = `${uniqueId}-image-alt-text-textarea`;
 
+    // Fetch image dimensions when URL changes, this will be used for the
+    // proper display of the preview on the left side of the editor
+    React.useEffect(() => {
+        async function fetchDimensions() {
+            if (!imageUrl) {
+                setImageWidth(undefined);
+                setImageHeight(undefined);
+                return;
+            }
+
+            try {
+                const size = await Util.getImageSizeModern(imageUrl);
+                setImageWidth(size[0]);
+                setImageHeight(size[1]);
+            } catch (error) {
+                // If we can't get dimensions, that's okay - the image will
+                // still render, just without responsive sizing
+                setImageWidth(undefined);
+                setImageHeight(undefined);
+            }
+        }
+
+        // Only fetch if URL changed and we don't already have dimensions
+        if (imageUrl !== initialImageUrl) {
+            void fetchDimensions();
+        }
+    }, [imageUrl, initialImageUrl]);
+
     function handleClose() {
         setImageUrl("");
         setImageAltText("");
+        setImageWidth(undefined);
+        setImageHeight(undefined);
         onClose?.();
     }
 
     function handleSave() {
-        onSave(imageUrl, imageAltText);
+        onSave(imageUrl, imageAltText, imageWidth, imageHeight);
         handleClose();
     }
 
