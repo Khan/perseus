@@ -14,5 +14,5 @@ storybook-static
 .claude
 
 # Local development files
-CLAUDE.local.md
 AGENTS.md
+CLAUDE.local.md
