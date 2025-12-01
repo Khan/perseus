@@ -11,8 +11,7 @@ on:
                 default: "release"
                 type: choice
                 options:
-                    # [FEI-7341] DISABLED: PR snapshot publishing
-                    #- snapshot
+                    - snapshot
                     - release
 
     pull_request:
