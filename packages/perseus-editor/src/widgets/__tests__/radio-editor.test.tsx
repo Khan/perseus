@@ -601,6 +601,56 @@ describe("radio-editor", () => {
         );
     });
 
+    it("recalculates numCorrect on mount when multipleSelect and countChoices are enabled", () => {
+        const onChangeMock = jest.fn();
+        render(
+            <RadioEditor
+                onChange={onChangeMock}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                multipleSelect={true}
+                countChoices={true}
+                choices={[
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Should recalculate numCorrect (2 correct choices)
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                numCorrect: 2,
+            }),
+        );
+    });
+
+    it("does not recalculate numCorrect when countChoices is false", () => {
+        const onChangeMock = jest.fn();
+        render(
+            <RadioEditor
+                onChange={onChangeMock}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                multipleSelect={true}
+                countChoices={false}
+                choices={[
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Should NOT call onChange for numCorrect calculation
+        expect(onChangeMock).not.toHaveBeenCalled();
+    });
+
     it("updates numCorrect when deleting an option", async () => {
         jest.spyOn(window, "confirm").mockImplementation(
             // Confirm button clicked
