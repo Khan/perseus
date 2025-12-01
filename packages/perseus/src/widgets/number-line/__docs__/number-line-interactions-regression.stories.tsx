@@ -1,11 +1,15 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import {within} from "@testing-library/react";
+import * as React from "react";
 
-import {
-    createNumberLineQuestion,
-    NumberLineQuestionRenderer,
-} from "../utils/number-line-utils";
+import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
+import {ApiOptions} from "../../../perseus-api";
+import {ServerItemRenderer} from "../../../server-item-renderer";
 
+import type {
+    PerseusItem,
+    PerseusNumberLineWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type Story = StoryObj<typeof NumberLineQuestionRenderer>;
@@ -47,8 +51,8 @@ export const InequalitySwitchDirection: Story = {
             }),
         }),
     },
-    play: async ({canvasElement, userEvent}) => {
-        const canvas = within(canvasElement);
+    play: async ({canvas, userEvent}) => {
+        // @ts-expect-error - error TS2339: Property 'getByRole' does not exist on type 'Canvas'
         // eslint-disable-next-line testing-library/prefer-screen-queries
         const switchButton = canvas.getByRole("button", {
             name: "Switch direction",
@@ -76,8 +80,8 @@ export const InequalityMakeCircleOpen: Story = {
             }),
         }),
     },
-    play: async ({canvasElement, userEvent}) => {
-        const canvas = within(canvasElement);
+    play: async ({canvas, userEvent}) => {
+        // @ts-expect-error - error TS2339: Property 'getByRole' does not exist on type 'Canvas'
         // eslint-disable-next-line testing-library/prefer-screen-queries
         const toggleButton = canvas.getByRole("button", {
             name: "Make circle open",
@@ -85,3 +89,70 @@ export const InequalityMakeCircleOpen: Story = {
         await userEvent.click(toggleButton);
     },
 };
+
+// Helper function to create number-line question data
+function createNumberLineQuestion(config: {
+    content: string;
+    correctX: number;
+    range: [number, number];
+    initialX?: number;
+    isInequality?: boolean;
+    correctRel?: PerseusNumberLineWidgetOptions["correctRel"];
+    static?: boolean;
+}): PerseusRenderer {
+    return {
+        content: config.content,
+        images: {},
+        widgets: {
+            "number-line 1": {
+                type: "number-line",
+                alignment: "default",
+                static: config.static ?? false,
+                graded: true,
+                options: {
+                    static: config.static ?? false,
+                    labelRange: [null, null],
+                    initialX: config.initialX ?? null,
+                    tickStep: 1,
+                    labelStyle: "decimal",
+                    labelTicks: true,
+                    isInequality: config.isInequality ?? false,
+                    snapDivisions: 2,
+                    range: config.range,
+                    correctRel: "ge",
+                    numDivisions: null,
+                    divisionRange: [1, 10],
+                    correctX: config.correctX,
+                    isTickCtrl: false,
+                },
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
+            },
+        },
+    };
+}
+
+function NumberLineQuestionRenderer(props: {
+    item: PerseusItem;
+    rtl?: boolean;
+    isMobile?: boolean;
+}) {
+    const {item, rtl, isMobile} = props;
+
+    const apiOptions = {
+        ...ApiOptions.defaults,
+        isMobile: isMobile ?? false,
+    };
+
+    return (
+        <div dir={rtl ? "rtl" : "ltr"}>
+            <ServerItemRenderer
+                item={item}
+                apiOptions={apiOptions}
+                dependencies={testDependenciesV2}
+            />
+        </div>
+    );
+}
