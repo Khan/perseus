@@ -1,11 +1,11 @@
 import {components} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
+import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 
-import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
 import styles from "./radio-editor.module.css";
@@ -124,11 +124,12 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                 <HeadingXSmall tag="label" htmlFor={contentTextAreaId}>
                     Content
                 </HeadingXSmall>
-                <AutoResizingTextArea
+                <TextArea
                     id={contentTextAreaId}
                     value="None of the above"
                     disabled={true}
                     onChange={() => {}}
+                    autoResize={true}
                 />
             </>
         );
@@ -144,7 +145,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
             >
                 Content
             </HeadingXSmall>
-            <AutoResizingTextArea
+            <TextArea
                 id={contentTextAreaId}
                 value={proxiedContent}
                 placeholder="Type a choice here..."
@@ -152,6 +153,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                     handleContentChange(choiceIndex, value);
                 }}
                 onPaste={handlePaste}
+                autoResize={true}
             />
 
             {/* Add image button */}

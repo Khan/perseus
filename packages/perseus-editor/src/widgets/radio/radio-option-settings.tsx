@@ -1,9 +1,8 @@
+import {TextArea} from "@khanacademy/wonder-blocks-form";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
-
-import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
 
 import styles from "./radio-editor.module.css";
 import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image-editor";
@@ -114,13 +113,14 @@ export function RadioOptionSettings({
             >
                 Rationale
             </HeadingXSmall>
-            <AutoResizingTextArea
+            <TextArea
                 id={rationaleTextAreaId}
                 value={rationale ?? ""}
                 placeholder={`Why is this choice ${correct ? "correct" : "incorrect"}?`}
                 onChange={(value) => {
                     onRationaleChange(index, value);
                 }}
+                autoResize={true}
             />
 
             {/* Delete & reorder button */}

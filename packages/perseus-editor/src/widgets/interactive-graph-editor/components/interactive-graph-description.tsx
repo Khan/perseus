@@ -1,12 +1,11 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {TextField} from "@khanacademy/wonder-blocks-form";
+import {TextArea, TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {AutoResizingTextArea} from "../../../components/auto-resizing-text-area";
 import Heading from "../../../components/heading";
 
 import type {Props as EditorProps} from "../interactive-graph-editor";
@@ -59,7 +58,7 @@ export default function InteractiveGraphDescription(props: Props) {
                     <LabelLarge tag="label" htmlFor={descriptionTextAreaId}>
                         Description
                     </LabelLarge>
-                    <AutoResizingTextArea
+                    <TextArea
                         id={descriptionTextAreaId}
                         value={ariaDescriptionValue}
                         onChange={(newValue) =>
@@ -70,6 +69,7 @@ export default function InteractiveGraphDescription(props: Props) {
                                     newValue || undefined,
                             })
                         }
+                        autoResize={true}
                     />
                 </View>
             )}

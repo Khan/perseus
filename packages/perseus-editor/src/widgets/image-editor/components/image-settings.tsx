@@ -1,9 +1,9 @@
 import {components} from "@khanacademy/perseus";
 import {isFeatureOn} from "@khanacademy/perseus-core";
+import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import * as React from "react";
 
-import {AutoResizingTextArea} from "../../../components/auto-resizing-text-area";
 import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
 import DecorativeToggle from "./decorative-toggle";
@@ -107,10 +107,11 @@ export default function ImageSettings({
             <LabeledField
                 label="Title"
                 field={
-                    <AutoResizingTextArea
+                    <TextArea
                         value={title ?? ""}
                         onChange={(value) => onChange({title: value})}
                         disabled={decorative}
+                        autoResize={true}
                     />
                 }
                 styles={wbFieldStyles}
@@ -121,11 +122,12 @@ export default function ImageSettings({
                 label="Alt text"
                 description="Summarize the image using up to 150 characters."
                 field={
-                    <AutoResizingTextArea
+                    <TextArea
                         value={alt ?? ""}
                         onBlur={(e) => handleAltFieldBlur(e.target.value)}
                         onChange={handleAltFieldChange}
                         disabled={decorative}
+                        autoResize={true}
                     />
                 }
                 errorMessage={altFieldError}
@@ -137,12 +139,13 @@ export default function ImageSettings({
                 <LabeledField
                     label="Long description"
                     field={
-                        <AutoResizingTextArea
+                        <TextArea
                             value={longDescription ?? ""}
                             onChange={(value) =>
                                 onChange({longDescription: value})
                             }
                             disabled={decorative}
+                            autoResize={true}
                         />
                     }
                     styles={wbFieldStyles}
@@ -153,10 +156,11 @@ export default function ImageSettings({
             <LabeledField
                 label="Caption"
                 field={
-                    <AutoResizingTextArea
+                    <TextArea
                         value={caption ?? ""}
                         onChange={(value) => onChange({caption: value})}
                         disabled={decorative}
+                        autoResize={true}
                     />
                 }
                 styles={wbFieldStyles}
