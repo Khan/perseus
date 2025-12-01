@@ -1,4 +1,5 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -474,32 +475,37 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     ) => {
         const isOpen = _(["lt", "gt"]).contains(props.userInput.rel);
 
-        // In static mode the point's fill and stroke is blue to signify that
+        // In static mode the point's fill and stroke is gray to signify that
         // it can't be interacted with.
         let fill;
         if (isOpen) {
             fill = KhanColors._BACKGROUND;
         } else if (props.static) {
-            fill = KhanColors.BLUE;
+            fill = color.offBlack50;
         } else {
-            fill = KhanColors.GREEN;
+            fill = KhanColors.BLUE;
         }
         const normalStyle = {
             fill: fill,
-            stroke: props.static ? KhanColors.BLUE : KhanColors.GREEN,
+            stroke: props.static ? color.offBlack50 : KhanColors.BLUE,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
         const highlightStyle = {
-            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
+            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.BLUE,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
         const mobileDotStyle = props.isInequality
             ? {
-                  stroke: KhanColors.GREEN,
+                  stroke: KhanColors.BLUE,
                   "fill-opacity": isOpen ? 0 : 1,
               }
             : {};
+
+        const mobileDotStaticStyle = {
+            fill: isOpen ? KhanColors._BACKGROUND : color.offBlack50,
+            stroke: color.offBlack50,
+        };
 
         return (
             <MovablePoint
@@ -524,7 +530,9 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                     this.movePosition(coord[0]);
                 }}
                 isMobile={this.props.apiOptions.isMobile}
-                mobileStyleOverride={mobileDotStyle}
+                mobileStyleOverride={
+                    props.static ? mobileDotStaticStyle : mobileDotStyle
+                }
                 showTooltips={this.props.showTooltips}
                 xOnlyTooltip={true}
             />
@@ -564,9 +572,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             const end = this._getInequalityEndpoint(props);
             const style = {
                 arrows: "->",
-                stroke: this.props.apiOptions.isMobile
-                    ? KhanColors.GREEN
-                    : KhanColors.BLUE,
+                stroke: props.static ? color.offBlack50 : KhanColors.BLUE,
                 strokeWidth: 3.5,
             } as const;
 
