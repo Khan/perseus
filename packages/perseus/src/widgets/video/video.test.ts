@@ -72,7 +72,7 @@ describe("video widget", () => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "video",
-                widgetId: "video",
+                widgetId: "video 1",
             },
         });
     });

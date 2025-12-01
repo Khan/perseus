@@ -8,10 +8,11 @@ on:
             run_type:
                 description: "The type of publish to test"
                 required: true
-                default: "snapshot"
+                default: "release"
                 type: choice
                 options:
-                    - snapshot
+                    # [FEI-7341] DISABLED: PR snapshot publishing
+                    #- snapshot
                     - release
 
     pull_request:
@@ -138,161 +139,165 @@ jobs:
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true
 
-    publish_snapshot:
-        name: Publish npm snapshot
-        # We don't publish snapshots on Changeset "Version Packages" PRs
-        if: |
-            (github.event_name == 'workflow_dispatch' && inputs.run_type == 'snapshot') ||
-            (github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/'))
-        runs-on: ${{ matrix.os }}
-        permissions:
-            id-token: write # For trusted publishing to npm (includes provenance)
-            pull-requests: write # For creating/updating "snapshot created/updated" comment
-            issues: write # For PR comments
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [20.x]
-        steps:
-            # We need to checkout all history, so that the changeseat tool can diff it
-            - name: Checkout current commit
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: "0"
-
-            - name: Ensure main branch is available
-              run: |
-                  REF=$(git rev-parse HEAD)
-                  git checkout main
-                  git checkout $REF
-
-            # Helper to get the URL of the current run, if we need it.
-            - name: Get workflow run URL
-              id: get-run-url
-              run: echo "run_url=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
-
-            # We need to see if any releases are in progress.
-            # We do not want to try and publish anything if a publish is
-            # pending. We fail here, but we make sure to update the
-            # PR comment later. This has to come after the checkout.
-            - name: Check for release
-              id: check-release
-              env:
-                  GH_TOKEN: ${{ github.token }}
-              run: |
-                  # Releases are triggered by merging "Version Packages" PRs.
-                  # So we look for instances of the publish.yml workflow, with
-                  # a title containing "Version Packages", that are in progress.
-                  release_count=$(gh run list --workflow publish.yml --json status,displayTitle --jq '[.[] | select(.status == "in_progress" and ((.displayTitle | contains("Version Packages")) or (.displayTitle | contains("RELEASING:"))))] | length')
-                  echo "release_count=$release_count" >> $GITHUB_OUTPUT
-                  if [ "$release_count" -ne 0 ]; then
-                    echo "Error: There are $release_count releases in progress."
-                    exit 1
-                  else
-                    echo "No releases in progress."
-                  fi
-
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: ⬆️ Upgrade npm for OIDC support
-              shell: bash
-              run: |
-                  # npm trusted publishing requires npm CLI v11.5.1+
-                  # Node.js 22 ships with npm 10.x, so we need to upgrade
-                  npm install -g npm@latest
-                  echo "✅ npm upgraded to $(npm --version)"
-
-            - name: Publish Snapshot Release to npm
-              id: publish-snapshot
-              run: ./utils/publish-snapshot.sh # All config is via Github env vars
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  # Note: we no longer use the NPM_TOKEN secret because we've enabled
-                  # Trusted Publishing (https://docs.npmjs.com/trusted-publishers) on
-                  # the npmjs.com side:
-                  # https://www.npmjs.com/package/@khanacademy/mathjax-renderer/access
-
-            - name: Calculate short SHA for this commit
-              id: short-sha
-              # Why not GITHUB_SHA here? Because that is the last merge-commit
-              # for the PR (ie. the ephemeral commit that Github creates for
-              # each PR merging the base branch into the pull request HEAD) for
-              # Github Action runs). We want to reference the commit that was
-              # pushed, not this ephemeral commit.
-              run: echo "short_sha=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-8)" >> $GITHUB_OUTPUT
-
-            # Note: these two actions are locked to the latest version that were
-            # published when I created this yml file (just for security).
-            - name: Find existing comment
-              # Even if we're failing, we want to update the comments.
-              if: always()
-              uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
-              id: find-comment
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-author: "github-actions[bot]"
-                  body-includes: "npm Snapshot:"
-
-            - name: Create or update npm snapshot comment - success
-              if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # npm Snapshot: Published
-
-                      Good news!! We've packaged up the latest commit from this PR (${{
-                      steps.short-sha.outputs.short_sha }}) and published it to npm. You
-                      can install it using the tag `${{
-                      steps.publish-snapshot.outputs.npm_snapshot_tag }}`.
-
-                      Example:
-                      ```sh
-                      pnpm add @khanacademy/perseus@${{
-                      steps.publish-snapshot.outputs.npm_snapshot_tag }}
-                      ```
-
-                      If you are working in Khan Academy's frontend, you can run the below command.
-                      ```sh
-                      ./dev/tools/bump_perseus_version.ts -t PR${{ github.event.pull_request.number }}
-                      ```
-
-                      If you are working in Khan Academy's webapp, you can run the below command.
-                      ```sh
-                      ./dev/tools/bump_perseus_version.js -t PR${{ github.event.pull_request.number }}
-                      ```
-
-            - name: Create or update npm snapshot comment - failure, snapshot publish failed
-              if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # npm Snapshot: **NOT** Published
-
-                      Oh noes!! We couldn't find any changesets in this PR (${{
-                      steps.short-sha.outputs.short_sha }}). As a result, we did not
-                      publish an npm snapshot for you.
-
-            - name: Create or update npm snapshot comment - failure, concurrent with release
-              if: failure() && steps.check-release.outputs.release_count != '0'
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # npm Snapshot: **NOT** Published
-
-                      Oh noes!! We couldn't publish an npm snapshot for you because
-                      there is a release in progress. Please wait for the release to
-                      finish, then retry this workflow.
-
-                      [View the workflow run](${{ steps.get-run-url.outputs.run_url }})
+    # [FEI-7341]DISABLED: PR snapshot publishing
+    # The publish_snapshot job has been disabled. If you need to re-enable it in the future,
+    # you can find the snapshot publishing script at utils/publish-snapshot.sh
+    #
+    # publish_snapshot:
+    #     name: Publish npm snapshot
+    #     # We don't publish snapshots on Changeset "Version Packages" PRs
+    #     if: |
+    #         (github.event_name == 'workflow_dispatch' && inputs.run_type == 'snapshot') ||
+    #         (github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/'))
+    #     runs-on: ${{ matrix.os }}
+    #     permissions:
+    #         id-token: write # For trusted publishing to npm (includes provenance)
+    #         pull-requests: write # For creating/updating "snapshot created/updated" comment
+    #         issues: write # For PR comments
+    #     strategy:
+    #         matrix:
+    #             os: [ubuntu-latest]
+    #             node-version: [20.x]
+    #     steps:
+    #         # We need to checkout all history, so that the changeseat tool can diff it
+    #         - name: Checkout current commit
+    #           uses: actions/checkout@v4
+    #           with:
+    #               fetch-depth: "0"
+    #
+    #         - name: Ensure main branch is available
+    #           run: |
+    #               REF=$(git rev-parse HEAD)
+    #               git checkout main
+    #               git checkout $REF
+    #
+    #         # Helper to get the URL of the current run, if we need it.
+    #         - name: Get workflow run URL
+    #           id: get-run-url
+    #           run: echo "run_url=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+    #
+    #         # We need to see if any releases are in progress.
+    #         # We do not want to try and publish anything if a publish is
+    #         # pending. We fail here, but we make sure to update the
+    #         # PR comment later. This has to come after the checkout.
+    #         - name: Check for release
+    #           id: check-release
+    #           env:
+    #               GH_TOKEN: ${{ github.token }}
+    #           run: |
+    #               # Releases are triggered by merging "Version Packages" PRs.
+    #               # So we look for instances of the publish.yml workflow, with
+    #               # a title containing "Version Packages", that are in progress.
+    #               release_count=$(gh run list --workflow publish.yml --json status,displayTitle --jq '[.[] | select(.status == "in_progress" and ((.displayTitle | contains("Version Packages")) or (.displayTitle | contains("RELEASING:"))))] | length')
+    #               echo "release_count=$release_count" >> $GITHUB_OUTPUT
+    #               if [ "$release_count" -ne 0 ]; then
+    #                 echo "Error: There are $release_count releases in progress."
+    #                 exit 1
+    #               else
+    #                 echo "No releases in progress."
+    #               fi
+    #
+    #         - name: Install & cache node_modules
+    #           uses: ./.github/actions/shared-node-cache
+    #           with:
+    #               node-version: ${{ matrix.node-version }}
+    #
+    #         - name: ⬆️ Upgrade npm for OIDC support
+    #           shell: bash
+    #           run: |
+    #               # npm trusted publishing requires npm CLI v11.5.1+
+    #               # Node.js 22 ships with npm 10.x, so we need to upgrade
+    #               npm install -g npm@latest
+    #               echo "✅ npm upgraded to $(npm --version)"
+    #
+    #         - name: Publish Snapshot Release to npm
+    #           id: publish-snapshot
+    #           run: ./utils/publish-snapshot.sh # All config is via Github env vars
+    #           env:
+    #               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #               # Note: we no longer use the NPM_TOKEN secret because we've enabled
+    #               # Trusted Publishing (https://docs.npmjs.com/trusted-publishers) on
+    #               # the npmjs.com side:
+    #               # https://www.npmjs.com/package/@khanacademy/mathjax-renderer/access
+    #
+    #         - name: Calculate short SHA for this commit
+    #           id: short-sha
+    #           # Why not GITHUB_SHA here? Because that is the last merge-commit
+    #           # for the PR (ie. the ephemeral commit that Github creates for
+    #           # each PR merging the base branch into the pull request HEAD) for
+    #           # Github Action runs). We want to reference the commit that was
+    #           # pushed, not this ephemeral commit.
+    #           run: echo "short_sha=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-8)" >> $GITHUB_OUTPUT
+    #
+    #         # Note: these two actions are locked to the latest version that were
+    #         # published when I created this yml file (just for security).
+    #         - name: Find existing comment
+    #           # Even if we're failing, we want to update the comments.
+    #           if: always()
+    #           uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
+    #           id: find-comment
+    #           with:
+    #               issue-number: ${{ github.event.pull_request.number }}
+    #               comment-author: "github-actions[bot]"
+    #               body-includes: "npm Snapshot:"
+    #
+    #         - name: Create or update npm snapshot comment - success
+    #           if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
+    #           uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+    #           with:
+    #               issue-number: ${{ github.event.pull_request.number }}
+    #               comment-id: ${{ steps.find-comment.outputs.comment-id }}
+    #               edit-mode: replace
+    #               body: |
+    #                   # npm Snapshot: Published
+    #
+    #                   Good news!! We've packaged up the latest commit from this PR (${{
+    #                   steps.short-sha.outputs.short_sha }}) and published it to npm. You
+    #                   can install it using the tag `${{
+    #                   steps.publish-snapshot.outputs.npm_snapshot_tag }}`.
+    #
+    #                   Example:
+    #                   ```sh
+    #                   pnpm add @khanacademy/perseus@${{
+    #                   steps.publish-snapshot.outputs.npm_snapshot_tag }}
+    #                   ```
+    #
+    #                   If you are working in Khan Academy's frontend, you can run the below command.
+    #                   ```sh
+    #                   ./dev/tools/bump_perseus_version.ts -t PR${{ github.event.pull_request.number }}
+    #                   ```
+    #
+    #                   If you are working in Khan Academy's webapp, you can run the below command.
+    #                   ```sh
+    #                   ./dev/tools/bump_perseus_version.js -t PR${{ github.event.pull_request.number }}
+    #                   ```
+    #
+    #         - name: Create or update npm snapshot comment - failure, snapshot publish failed
+    #           if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
+    #           uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+    #           with:
+    #               issue-number: ${{ github.event.pull_request.number }}
+    #               comment-id: ${{ steps.find-comment.outputs.comment-id }}
+    #               edit-mode: replace
+    #               body: |
+    #                   # npm Snapshot: **NOT** Published
+    #
+    #                   Oh noes!! We couldn't find any changesets in this PR (${{
+    #                   steps.short-sha.outputs.short_sha }}). As a result, we did not
+    #                   publish an npm snapshot for you.
+    #
+    #         - name: Create or update npm snapshot comment - failure, concurrent with release
+    #           if: failure() && steps.check-release.outputs.release_count != '0'
+    #           uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+    #           with:
+    #               issue-number: ${{ github.event.pull_request.number }}
+    #               comment-id: ${{ steps.find-comment.outputs.comment-id }}
+    #               edit-mode: replace
+    #               body: |
+    #                   # npm Snapshot: **NOT** Published
+    #
+    #                   Oh noes!! We couldn't publish an npm snapshot for you because
+    #                   there is a release in progress. Please wait for the release to
+    #                   finish, then retry this workflow.
+    #
+    #                   [View the workflow run](${{ steps.get-run-url.outputs.run_url }})

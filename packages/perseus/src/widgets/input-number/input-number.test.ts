@@ -107,7 +107,7 @@ describe("input-number", function () {
                 payload: {
                     widgetSubType: "null",
                     widgetType: "input-number",
-                    widgetId: "input-number",
+                    widgetId: "input-number 1",
                 },
             });
         });

@@ -113,7 +113,7 @@ describe("Explanation", function () {
             payload: {
                 widgetSubType: "null",
                 widgetType: "explanation",
-                widgetId: "explanation",
+                widgetId: "explanation 1",
             },
         });
     });

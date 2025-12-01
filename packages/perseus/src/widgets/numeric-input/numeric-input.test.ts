@@ -121,7 +121,7 @@ describe("numeric-input widget", () => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "numeric-input",
-                widgetId: "numeric-input",
+                widgetId: "numeric-input 1",
             },
         });
     });

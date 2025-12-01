@@ -97,6 +97,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             trackInteraction,
             findWidgets,
             reviewMode,
+            widgetId,
         } = props;
 
         const {strings} = usePerseusI18n();
@@ -110,7 +111,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                         ? "multiple-select"
                         : "single-select",
                     widgetType: "radio",
-                    widgetId: "radio",
+                    widgetId: widgetId,
                 },
             });
         });

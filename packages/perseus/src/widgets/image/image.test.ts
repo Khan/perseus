@@ -144,7 +144,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "image",
-                widgetId: "image",
+                widgetId: "image 1",
             },
         });
     });

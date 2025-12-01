@@ -90,6 +90,7 @@ export type MafsGraphProps = {
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
     static: boolean | null | undefined;
+    widgetId: string;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -101,6 +102,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         readOnly,
         fullGraphAriaLabel,
         fullGraphAriaDescription,
+        widgetId,
     } = props;
     const {type} = state;
     const [width, height] = props.box;
@@ -143,7 +145,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
             payload: {
                 widgetSubType: type,
                 widgetType: "interactive-graph",
-                widgetId: "interactive-graph",
+                widgetId: widgetId,
             },
         });
     });

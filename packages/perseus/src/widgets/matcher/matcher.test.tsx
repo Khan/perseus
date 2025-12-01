@@ -96,7 +96,7 @@ describe("matcher widget", () => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "matcher",
-                widgetId: "matcher",
+                widgetId: "matcher 1",
             },
         });
     });

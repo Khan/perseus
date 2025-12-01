@@ -50,7 +50,7 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
             payload: {
                 widgetSubType: "null",
                 widgetType: "definition",
-                widgetId: "definition",
+                widgetId: this.props.widgetId,
             },
         });
     }

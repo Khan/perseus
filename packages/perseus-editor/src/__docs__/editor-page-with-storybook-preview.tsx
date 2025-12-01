@@ -1,6 +1,5 @@
 import {
     type PerseusDependenciesV2,
-    Renderer,
     type APIOptions,
     type DeviceType,
 } from "@khanacademy/perseus";
@@ -10,18 +9,10 @@ import {
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {mockStrings} from "../../../perseus/src/strings";
-import ContentPreview from "../content-preview";
 import EditorPage from "../editor-page";
-
-import PreviewPanel from "./preview-panel";
-import styles from "./preview-panel.module.css";
 
 type Props = {
     apiOptions?: APIOptions;
@@ -65,6 +56,13 @@ function EditorPageWithStorybookPreview(props: Props) {
     const apiOptions = props.apiOptions ?? {
         isMobile: false,
     };
+    const storybookBaseUrl = React.useMemo(
+        () => window.location.pathname.split("/").slice(0, -1).join("/"),
+        [],
+    );
+    const storybookPreviewUrl = React.useMemo(() => {
+        return `${storybookBaseUrl}/iframe.html?id=dev-support-preview--default&viewMode=story`;
+    }, [storybookBaseUrl]);
 
     return (
         <View>
@@ -80,7 +78,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                 answerArea={answerArea}
                 question={question}
                 hints={hints}
-                previewURL="about:blank"
+                previewURL={storybookPreviewUrl}
                 itemId="1"
                 onChange={(props) => {
                     onChangeAction(props);
@@ -102,34 +100,6 @@ function EditorPageWithStorybookPreview(props: Props) {
                     "Side by Side": "Left hand side\n=====\nRight hand side",
                 }}
             />
-
-            <PreviewPanel openButtonText="Open preview (storybook only)">
-                {/* Question preview */}
-                <ContentPreview
-                    question={question}
-                    previewDevice={previewDevice}
-                    apiOptions={apiOptions}
-                    linterContext={{
-                        contentType: "exercise",
-                        highlightLint: true,
-                        paths: [],
-                        stack: [],
-                    }}
-                />
-
-                {/* Hints preview */}
-                {hints?.map((hint, index) => (
-                    <View key={index} className={styles.innerPanel}>
-                        <Strut size={spacing.medium_16} />
-                        <LabelLarge>{`Hint ${index + 1}`}</LabelLarge>
-                        <Renderer
-                            strings={mockStrings}
-                            apiOptions={apiOptions}
-                            {...hint}
-                        />
-                    </View>
-                ))}
-            </PreviewPanel>
         </View>
     );
 }
