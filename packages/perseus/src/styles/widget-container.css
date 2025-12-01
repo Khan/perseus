@@ -27,19 +27,16 @@
     display: inline-block;
 }
 
-/* Desktop article context - float + spacing (scoped to perseus-group) */
+/* Desktop article context - wrap + spacing */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-group
     .perseus-widget-container.widget-wrap-left,
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-group
     .perseus-widget-container.widget-wrap-right {
     max-width: 50%;
     width: 100%;
 }
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-group
     .perseus-widget-container.widget-wrap-left {
     float: inline-start;
     padding-right: var(--wb-sizing-size_240);
@@ -47,39 +44,23 @@
 }
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-group
     .perseus-widget-container.widget-wrap-right {
     float: inline-end;
     padding-right: var(--wb-sizing-size_240);
     padding-left: var(--wb-sizing-size_240);
 }
 
-/* Contain floats within perseus-group using modern clearfix */
-.framework-perseus.perseus-article .perseus-group {
-    display: flow-root;
-}
-
-/* Allow paragraphs within perseus-group to wrap around floats */
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-group
-    .perseus-renderer
-    > .paragraph {
-    max-width: none; /* Remove max-width constraint */
-    margin-left: 0; /* Remove auto centering */
-    margin-right: 0; /* Remove auto centering */
-}
-
-/* Mobile context - block display, no float */
+/* Mobile context - inline-block display, no wrap-left or wrap-right since viewport is small */
 .framework-perseus.perseus-mobile .perseus-widget-container.widget-wrap-left,
 .framework-perseus.perseus-mobile .perseus-widget-container.widget-wrap-right {
     float: none;
-    display: block;
+    display: inline-block;
     max-width: 100%;
     width: 100%;
-    padding-top: var(--wb-sizing-size_320);
+    padding-top: var(--wb-sizing-size_160);
     padding-left: 0;
     padding-right: 0;
-    margin-bottom: var(--wb-sizing-size_320);
+    margin-bottom: var(--wb-sizing-size_160);
 }
 /******************* End for WidgetContainer's alignment CSS styling *******************/
 
