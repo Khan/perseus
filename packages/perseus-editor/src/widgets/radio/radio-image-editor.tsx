@@ -1,5 +1,6 @@
 import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
+import {TextArea} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -7,8 +8,6 @@ import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
 import * as React from "react";
-
-import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
 
 import styles from "./radio-editor.module.css";
 
@@ -125,7 +124,7 @@ export default function RadioImageEditor({
             >
                 Image URL
             </HeadingXSmall>
-            <AutoResizingTextArea
+            <TextArea
                 id={imageUrlTextAreaId}
                 value={imageUrl}
                 placeholder="cdn.kastatic.org/..."
@@ -133,6 +132,7 @@ export default function RadioImageEditor({
                     setImageUrl(value);
                 }}
                 style={{marginBlockEnd: sizing.size_080}}
+                autoResize={true}
             />
 
             {/* Image Alt Text textarea */}
@@ -143,13 +143,14 @@ export default function RadioImageEditor({
             >
                 Image Alt Text
             </HeadingXSmall>
-            <AutoResizingTextArea
+            <TextArea
                 id={imageAltTextTextAreaId}
                 value={imageAltText}
                 placeholder="Example: Graph of a linear function..."
                 onChange={(value) => {
                     setImageAltText(value);
                 }}
+                autoResize={true}
             />
 
             {/* Save and delete buttons */}
