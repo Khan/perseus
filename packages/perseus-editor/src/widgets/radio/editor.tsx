@@ -44,6 +44,14 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         radioLogic.defaultWidgetOptions;
 
     componentDidMount() {
+        // Recalculate numCorrect when multipleSelect and countChoices are enabled
+        // This ensures stale values are corrected on load
+        if (this.props.multipleSelect && this.props.countChoices) {
+            this.props.onChange({
+                numCorrect: deriveNumCorrect(this.props.choices),
+            });
+        }
+
         // Check if any choices need IDs and generate them immediately
         const needsIdUpdate = this.props.choices.some(
             (choice) => !choice.id || choice.id.trim() === "",
