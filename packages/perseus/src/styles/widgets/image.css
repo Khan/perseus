@@ -47,6 +47,13 @@
 .perseus-image-editor .graph-settings {
     margin-top: 5px;
 }
+/* This prevents the image from overflowing its container in editor previews */
+.perseus-image-preview-container .image-loader-img {
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 
 /******************* Perseus hint renderer styles *******************/
 /* Note: all alignment styling are defined in widget-container.css */
