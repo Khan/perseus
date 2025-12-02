@@ -6,9 +6,8 @@ import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-stor
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import VideoEditor from "../video-editor/video-editor";
 
+import {PROD_EDITOR_WIDTH} from "./utils";
 import type {Meta, StoryObj} from "@storybook/react-vite";
-
-const PROD_EDITOR_WIDTH = 330;
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
