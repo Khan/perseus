@@ -7,6 +7,7 @@ import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-wi
 import VideoEditor from "../video-editor/video-editor";
 
 import {PROD_EDITOR_WIDTH} from "./utils";
+
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
