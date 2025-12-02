@@ -51,14 +51,6 @@
     padding-right: var(--wb-sizing-size_320);
 }
 
-/* Desktop: Prevent text wrap from bleeding into next section */
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    .paragraph
-    > ol {
-    clear: both;
-}
-
 /* Mobile context - block display, no float */
 .framework-perseus.perseus-article.perseus-mobile
     .perseus-widget-container.widget-wrap-left,
