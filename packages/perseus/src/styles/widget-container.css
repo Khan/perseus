@@ -21,53 +21,48 @@
     display: block;
 }
 
-/* Base float alignment (applies to all contexts) */
-.perseus-widget-container.widget-float-left {
-    float: inline-start;
+/* Base float alignment classes (no float applied at base level) */
+.perseus-widget-container.widget-wrap-left,
+.perseus-widget-container.widget-wrap-right {
     display: inline-block;
 }
 
-.perseus-widget-container.widget-float-right {
-    float: inline-end;
-    display: inline-block;
-}
-
-/* Desktop article context - spacing and constraints */
+/* Desktop article context - spacing and constraints for wrap-left or wrap-right */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left,
+    .perseus-widget-container.widget-wrap-left,
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
+    .perseus-widget-container.widget-wrap-right {
     max-width: 50%;
-    padding-top: var(--wb-sizing-size_320);
+    padding-top: var(--wb-sizing-size_240);
     width: 100%;
 }
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left {
+    .perseus-widget-container.widget-wrap-left {
     float: inline-start;
     padding-right: var(--wb-sizing-size_320);
+    padding-left: var(--wb-sizing-size_320);
 }
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
+    .perseus-widget-container.widget-wrap-right {
     float: inline-end;
     padding-left: var(--wb-sizing-size_320);
-}
-
-/* Mobile context - spacing and constraints */
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left,
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
-    max-width: 50%;
-    padding-top: var(--wb-sizing-size_320);
-    width: 100%;
-}
-
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left {
     padding-right: var(--wb-sizing-size_320);
 }
 
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
-    padding-left: var(--wb-sizing-size_320);
+/* Mobile context - block display, no float */
+.framework-perseus.perseus-article.perseus-mobile
+    .perseus-widget-container.widget-wrap-left,
+.framework-perseus.perseus-article.perseus-mobile
+    .perseus-widget-container.widget-wrap-right {
+    float: none;
+    display: inline-block;
+    max-width: 100%;
+    width: 100%;
+    padding-top: var(--wb-sizing-size_320);
+    padding-left: 0;
+    padding-right: 0;
 }
 /******************* End for WidgetContainer's alignment CSS styling *******************/
 
@@ -85,12 +80,12 @@
 
 /* Specific for perseus-image-widget caption styling within floated widgets */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left
+    .perseus-widget-container.widget-wrap-left
     .perseus-image-caption
     .paragraph
     .paragraph,
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right
+    .perseus-widget-container.widget-wrap-right
     .perseus-image-caption
     .paragraph
     .paragraph {
@@ -98,12 +93,12 @@
 }
 
 .framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-left
+    .perseus-widget-container.widget-wrap-left
     .perseus-image-caption
     .paragraph
     .paragraph,
 .framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-right
+    .perseus-widget-container.widget-wrap-right
     .perseus-image-caption
     .paragraph
     .paragraph {
