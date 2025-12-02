@@ -1,4 +1,3 @@
-import {EditorJsonify} from "@khanacademy/perseus";
 import {
     videoLogic,
     type VideoDefaultWidgetOptions,
@@ -21,8 +20,11 @@ class VideoEditor extends React.Component<VideoEditorProps> {
     static defaultProps: VideoDefaultWidgetOptions =
         videoLogic.defaultWidgetOptions;
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
+    serialize: () => PerseusVideoWidgetOptions = () => {
+        return {
+            location: this.props.location,
+            static: this.props.static,
+        };
     };
 
     render(): React.ReactNode {
