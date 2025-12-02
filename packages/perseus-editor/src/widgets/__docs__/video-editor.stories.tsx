@@ -12,19 +12,17 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
-const meta: Meta = {
+const meta: Meta<typeof VideoEditor> = {
     title: "Widgets/Video/Editor Demo",
     component: VideoEditor,
     tags: ["!autodocs"],
-} satisfies Meta<typeof VideoEditor>;
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         onChange: action("onChange"),
-        apiOptions: Object.freeze({}),
-        static: false,
     },
 };
 
