@@ -21,6 +21,12 @@
     display: block;
 }
 
+/* Base float alignment classes (no float applied at base level) */
+.perseus-widget-container.widget-wrap-left,
+.perseus-widget-container.widget-wrap-right {
+    display: inline-block;
+}
+
 /* Desktop article context - spacing and constraints for wrap-left or wrap-right */
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-widget-container.widget-wrap-left,
@@ -33,31 +39,38 @@
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-widget-container.widget-wrap-left {
-    display: inline-block;
     float: inline-start;
-    padding-right: var(--wb-sizing-size_240);
-    padding-left: var(--wb-sizing-size_240);
+    padding-right: var(--wb-sizing-size_320);
+    padding-left: var(--wb-sizing-size_320);
 }
 
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-widget-container.widget-wrap-right {
-    display: inline-block;
     float: inline-end;
-    padding-left: var(--wb-sizing-size_240);
-    padding-right: var(--wb-sizing-size_240);
+    padding-left: var(--wb-sizing-size_320);
+    padding-right: var(--wb-sizing-size_320);
 }
 
-/* Mobile context - inline-block display, no wrap-left or wrap-right since viewport is small */
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-wrap-left,
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-wrap-right {
+/* Desktop: Prevent text wrap from bleeding into next section */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-renderer
+    .paragraph
+    > ol {
+    clear: both;
+}
+
+/* Mobile context - block display, no float */
+.framework-perseus.perseus-article.perseus-mobile
+    .perseus-widget-container.widget-wrap-left,
+.framework-perseus.perseus-article.perseus-mobile
+    .perseus-widget-container.widget-wrap-right {
     float: none;
     display: inline-block;
     max-width: 100%;
     width: 100%;
-    padding-top: 0;
+    padding-top: var(--wb-sizing-size_320);
     padding-left: 0;
     padding-right: 0;
-    margin-bottom: 0;
 }
 /******************* End for WidgetContainer's alignment CSS styling *******************/
 
