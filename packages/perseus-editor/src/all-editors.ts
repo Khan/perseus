@@ -32,7 +32,7 @@ import PythonProgramEditor from "./widgets/python-program-editor";
 import RadioEditor from "./widgets/radio/editor";
 import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
-import VideoEditor from "./widgets/video-editor";
+import VideoEditor from "./widgets/video-editor/video-editor";
 
 export default [
     CategorizerEditor,
