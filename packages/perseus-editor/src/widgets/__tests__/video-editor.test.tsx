@@ -44,7 +44,7 @@ describe("VideoEditor", () => {
         expect(onChangeMock).toHaveBeenCalledWith({location: "a"});
     });
 
-    it("should call onChange with the slug from the URL if a Khan Academy URL is provided", async () => {
+    it("should call onChange with the slug from the URL if a Khan Academy URL is provided (with prefix)", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(<VideoEditor onChange={onChangeMock} />);
@@ -56,6 +56,28 @@ describe("VideoEditor", () => {
         await userEvent.paste(
             // Real URL for a Khan Academy video lesson
             "https://www.khanacademy.org/college-careers-more/personal-finance/pf-paying-for-college/pf-financial-aid-process-tutorial/v/applying-for-financial-aid-when-facing-immigration-challenges",
+        );
+        slugInput.blur();
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            location:
+                "applying-for-financial-aid-when-facing-immigration-challenges",
+        });
+    });
+
+    it("should call onChange with the slug from the URL if a Khan Academy URL is provided (without prefix)", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(<VideoEditor onChange={onChangeMock} />);
+
+        // Act
+
+        const slugInput = screen.getByLabelText("KA Video Slug");
+        slugInput.focus();
+        await userEvent.paste(
+            // Real URL for a Khan Academy video lesson
+            "khanacademy.org/college-careers-more/personal-finance/pf-paying-for-college/pf-financial-aid-process-tutorial/v/applying-for-financial-aid-when-facing-immigration-challenges",
         );
         slugInput.blur();
 
