@@ -62,7 +62,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
     isWidget = true as const;
 
     state: State = {
-        expanded: false,
+        expanded: true,
     };
     _mounted: boolean = false;
 
