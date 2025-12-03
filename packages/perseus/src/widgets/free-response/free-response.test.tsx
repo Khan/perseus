@@ -37,7 +37,13 @@ describe("free-response widget", () => {
             generateTestPerseusRenderer({
                 content: "[[☃ free-response 1]]",
                 widgets: {
-                    "free-response 1": generateFreeResponseWidget(),
+                    "free-response 1": generateFreeResponseWidget({
+                        alignment: "block",
+                        options: generateFreeResponseOptions({
+                            placeholder: "test-placeholder",
+                            question: "test-question",
+                        }),
+                    }),
                 },
             }),
             apiOptions,
@@ -58,7 +64,13 @@ describe("free-response widget", () => {
             generateTestPerseusRenderer({
                 content: "[[☃ free-response 1]]",
                 widgets: {
-                    "free-response 1": generateFreeResponseWidget(),
+                    "free-response 1": generateFreeResponseWidget({
+                        alignment: "block",
+                        options: generateFreeResponseOptions({
+                            placeholder: "test-placeholder",
+                            question: "test-question",
+                        }),
+                    }),
                 },
             }),
             apiOptions,

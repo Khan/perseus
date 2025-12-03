@@ -36,11 +36,14 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph perseus-paragraph-centered"
+                        class="paragraph"
                         data-perseus-paragraph-index="0"
                       >
-                        
-
+                        <div
+                          class="paragraph"
+                        >
+                          test-question
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -55,7 +58,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                   aria-required="false"
                   class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_sdsn9f"
                   id=":r2:-labeled-field-field"
-                  placeholder="Please provide response here"
+                  placeholder="test-placeholder"
                 />
               </div>
               <div
@@ -119,11 +122,14 @@ exports[`free-response widget should snapshot: first render 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph perseus-paragraph-centered"
+                        class="paragraph"
                         data-perseus-paragraph-index="0"
                       >
-                        
-
+                        <div
+                          class="paragraph"
+                        >
+                          test-question
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -138,7 +144,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
                   aria-required="false"
                   class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_sdsn9f"
                   id=":r0:-labeled-field-field"
-                  placeholder="Please provide response here"
+                  placeholder="test-placeholder"
                 />
               </div>
               <div
