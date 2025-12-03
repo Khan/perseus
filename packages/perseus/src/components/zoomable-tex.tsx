@@ -44,6 +44,7 @@ const computeMathBounds = (
             ? textBounds.height
             : Math.max(parentBounds.height, textBounds.height);
 
+    const hiddenAncestor = parentNode.closest(`[aria-hidden="true"]`);
     // eslint-disable-next-line no-console
     console.log(`Parent: `, parentNode);
     // eslint-disable-next-line no-console
@@ -53,7 +54,9 @@ const computeMathBounds = (
     // eslint-disable-next-line no-console
     console.log(`   Bounds: `, textBounds);
     // eslint-disable-next-line no-console
-    console.log(`   Final Height: `, height);
+    console.log(`Hidden Ancestor: `, hiddenAncestor);
+    // eslint-disable-next-line no-console
+    console.log(`   Bounds: `, hiddenAncestor?.getBoundingClientRect());
     return {
         width: Math.max(parentBounds.width, textBounds.width),
         height: height,
