@@ -34,9 +34,29 @@ const computeMathBounds = (
     // sometimes it actually peeks outside of the
     // container in some cases. Just be conservative and use
     // the maximum value of the text and the parent. :(
+    // NOTE: In situations where the math is hidden from view (e.g. inside an
+    // explanation widget), the parent element may have a width of 0.
+    // In those cases, we need to adjust how we determine the final bounds.
+    // When the parent width is 0, it can cause the parent height to be quite
+    // tall, so we should ignore it.
+    const height =
+        parentBounds.width === 0
+            ? textBounds.height
+            : Math.max(parentBounds.height, textBounds.height);
+
+    // eslint-disable-next-line no-console
+    console.log(`Parent: `, parentNode);
+    // eslint-disable-next-line no-console
+    console.log(`   Bounds: `, parentBounds);
+    // eslint-disable-next-line no-console
+    console.log(`Element: `, textElement);
+    // eslint-disable-next-line no-console
+    console.log(`   Bounds: `, textBounds);
+    // eslint-disable-next-line no-console
+    console.log(`   Final Height: `, height);
     return {
         width: Math.max(parentBounds.width, textBounds.width),
-        height: Math.max(parentBounds.height, textBounds.height),
+        height: height,
     };
 };
 
