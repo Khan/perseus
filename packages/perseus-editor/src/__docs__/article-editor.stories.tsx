@@ -11,6 +11,8 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 import {usePreviewUrl} from "./use-preview-url";
 
+import type {PerseusArticle} from "@khanacademy/perseus-core";
+
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
@@ -19,7 +21,7 @@ export default {
 };
 
 export const Demo = (): React.ReactElement => {
-    const [article, setArticle] = useState(undefined);
+    const [article, setArticle] = useState<PerseusArticle>();
     const articleEditorRef = useRef();
     const storybookPreviewUrl = usePreviewUrl();
 
@@ -31,7 +33,7 @@ export const Demo = (): React.ReactElement => {
                 imageUploader={() => {}}
                 json={article}
                 onChange={(value) => {
-                    setArticle(value.json[0]);
+                    setArticle(value.json);
                 }}
                 previewURL={storybookPreviewUrl}
                 ref={articleEditorRef as any}

@@ -35,6 +35,7 @@ import type {
     ImageUploader,
     PerseusDependenciesV2,
 } from "@khanacademy/perseus";
+import type {PerseusArticle} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 
@@ -48,7 +49,7 @@ type JsonType = RendererProps | ReadonlyArray<RendererProps>;
 
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
-    json: JsonType;
+    json: PerseusArticle;
     mode: "diff" | "edit" | "json" | "preview";
     screen: "phone" | "tablet" | "desktop";
     sectionImageUploadGenerator: (

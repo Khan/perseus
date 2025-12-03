@@ -157,22 +157,28 @@ export function PreviewRenderer({data}: Props) {
     }
 
     if (data.type === "article-all") {
-        const iframe = window.frameElement as HTMLIFrameElement | null;
-        const isMobile = iframe?.dataset.mobile === "true";
-        return data.data.map((article, i) => (
-            <ArticleRenderer
-                key={i}
-                json={article.json}
-                apiOptions={{...article.apiOptions, isMobile}}
-                keypadElement={KeypadContext.keypadElement}
-                legacyPerseusLint={article.legacyPerseusLint}
-                linterContext={pushContextStack(
-                    article.linterContext,
-                    "article",
+        return (
+            <PreviewWithKeypad>
+                {({keypadElement, isMobile}) => (
+                    <>
+                        {data.data.map((article, i) => (
+                            <ArticleRenderer
+                                key={i}
+                                json={article.json}
+                                apiOptions={{...article.apiOptions, isMobile}}
+                                keypadElement={keypadElement}
+                                legacyPerseusLint={article.legacyPerseusLint}
+                                linterContext={pushContextStack(
+                                    article.linterContext,
+                                    "article",
+                                )}
+                                dependencies={storybookDependenciesV2}
+                            />
+                        ))}
+                    </>
                 )}
-                dependencies={storybookDependenciesV2}
-            />
-        ));
+            </PreviewWithKeypad>
+        );
     }
 
     return null;
