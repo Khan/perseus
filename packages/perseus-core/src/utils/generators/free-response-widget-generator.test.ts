@@ -16,9 +16,9 @@ describe("generateFreeResponseOptions", () => {
 
         // Assert
         expect(options.allowUnlimitedCharacters).toBe(false);
-        expect(options.characterLimit).toBe(1000);
-        expect(options.placeholder).toBe("");
-        expect(options.question).toBe("");
+        expect(options.characterLimit).toBe(500);
+        expect(options.placeholder).toBe("test-placeholder");
+        expect(options.question).toBe("test-question");
         expect(options.scoringCriteria).toEqual([]);
     });
 
@@ -61,9 +61,9 @@ describe("generateFreeResponseWidget", () => {
         expect(widget.alignment).toBe("default");
         expect(widget.options).toEqual({
             allowUnlimitedCharacters: false,
-            characterLimit: 1000,
-            placeholder: "",
-            question: "",
+            characterLimit: 500,
+            placeholder: "test-placeholder",
+            question: "test-question",
             scoringCriteria: [],
         });
     });

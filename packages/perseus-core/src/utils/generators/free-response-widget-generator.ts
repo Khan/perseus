@@ -8,9 +8,9 @@ export function generateFreeResponseOptions(
 ): PerseusFreeResponseWidgetOptions {
     const defaultFreeResponseOptions: PerseusFreeResponseWidgetOptions = {
         allowUnlimitedCharacters: false,
-        characterLimit: 1000,
-        placeholder: "",
-        question: "",
+        characterLimit: 500,
+        placeholder: "test-placeholder",
+        question: "test-question",
         scoringCriteria: [],
     };
 

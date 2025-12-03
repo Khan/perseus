@@ -1,4 +1,6 @@
 import {
+    generateFreeResponseOptions,
+    generateFreeResponseWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -34,20 +36,15 @@ describe("FreeResponse serialization", () => {
         const question = generateTestPerseusRenderer({
             content: "[[☃ free-response 1]]",
             widgets: {
-                "free-response 1": {
-                    type: "free-response",
-                    options: {
-                        allowUnlimitedCharacters: false,
-                        characterLimit: 500,
-                        placeholder: "test-placeholder",
-                        question: "test-question",
+                "free-response 1": generateFreeResponseWidget({
+                    options: generateFreeResponseOptions({
                         scoringCriteria: [
                             {
                                 text: "test-criterion",
                             },
                         ],
-                    },
-                },
+                    }),
+                }),
             },
         });
         const item = generateTestPerseusItem({question});
