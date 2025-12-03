@@ -8,6 +8,17 @@ import type {
 export function generateFreeResponseOptions(
     options?: Partial<PerseusFreeResponseWidgetOptions>,
 ): PerseusFreeResponseWidgetOptions {
+<<<<<<< HEAD
+=======
+    const defaultFreeResponseOptions: PerseusFreeResponseWidgetOptions = {
+        allowUnlimitedCharacters: false,
+        characterLimit: 500,
+        placeholder: "test-placeholder",
+        question: "test-question",
+        scoringCriteria: [],
+    };
+
+>>>>>>> 9620db9cab ([free-response-generator] update testdata to use generator)
     return {
         ...freeResponseLogic.defaultWidgetOptions,
         ...options,
