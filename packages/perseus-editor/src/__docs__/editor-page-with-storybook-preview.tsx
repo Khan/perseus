@@ -14,6 +14,8 @@ import {action} from "storybook/actions";
 
 import EditorPage from "../editor-page";
 
+import {usePreviewUrl} from "./use-preview-url";
+
 type Props = {
     apiOptions?: APIOptions;
     question?: PerseusRenderer;
@@ -56,13 +58,8 @@ function EditorPageWithStorybookPreview(props: Props) {
     const apiOptions = props.apiOptions ?? {
         isMobile: false,
     };
-    const storybookBaseUrl = React.useMemo(
-        () => window.location.pathname.split("/").slice(0, -1).join("/"),
-        [],
-    );
-    const storybookPreviewUrl = React.useMemo(() => {
-        return `${storybookBaseUrl}/iframe.html?id=dev-support-preview--default&viewMode=story`;
-    }, [storybookBaseUrl]);
+
+    const storybookPreviewUrl = usePreviewUrl();
 
     return (
         <View>
