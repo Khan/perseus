@@ -17,9 +17,13 @@ describe("generateFreeResponseOptions", () => {
         // Assert
         expect(options.allowUnlimitedCharacters).toBe(false);
         expect(options.characterLimit).toBe(500);
-        expect(options.placeholder).toBe("test-placeholder");
-        expect(options.question).toBe("test-question");
-        expect(options.scoringCriteria).toEqual([]);
+        expect(options.placeholder).toBe("Please provide response here");
+        expect(options.question).toBe("");
+        expect(options.scoringCriteria).toEqual([
+            {
+                text: "",
+            },
+        ]);
     });
 
     it("builds a free response options with all props", () => {
@@ -62,9 +66,13 @@ describe("generateFreeResponseWidget", () => {
         expect(widget.options).toEqual({
             allowUnlimitedCharacters: false,
             characterLimit: 500,
-            placeholder: "test-placeholder",
-            question: "test-question",
-            scoringCriteria: [],
+            placeholder: "Please provide response here",
+            question: "",
+            scoringCriteria: [
+                {
+                    text: "",
+                },
+            ],
         });
     });
 

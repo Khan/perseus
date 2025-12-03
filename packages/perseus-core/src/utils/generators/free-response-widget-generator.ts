@@ -1,3 +1,5 @@
+import freeResponseLogic from "../../widgets/free-response";
+
 import type {
     PerseusFreeResponseWidgetOptions,
     FreeResponseWidget,
@@ -6,16 +8,8 @@ import type {
 export function generateFreeResponseOptions(
     options?: Partial<PerseusFreeResponseWidgetOptions>,
 ): PerseusFreeResponseWidgetOptions {
-    const defaultFreeResponseOptions: PerseusFreeResponseWidgetOptions = {
-        allowUnlimitedCharacters: false,
-        characterLimit: 500,
-        placeholder: "test-placeholder",
-        question: "test-question",
-        scoringCriteria: [],
-    };
-
     return {
-        ...defaultFreeResponseOptions,
+        ...freeResponseLogic.defaultWidgetOptions,
         ...options,
     };
 }

@@ -114,7 +114,10 @@ describe("free-response widget", () => {
             content: "[[☃ free-response 1]]",
             widgets: {
                 "free-response 1": generateFreeResponseWidget({
-                    options: generateFreeResponseOptions({characterLimit: 10}),
+                    options: generateFreeResponseOptions({
+                        characterLimit: 10,
+                        question: "test-question",
+                    }),
                 }),
             },
         });
@@ -138,7 +141,11 @@ describe("free-response widget", () => {
             generateTestPerseusRenderer({
                 content: "[[☃ free-response 1]]",
                 widgets: {
-                    "free-response 1": generateFreeResponseWidget(),
+                    "free-response 1": generateFreeResponseWidget({
+                        options: generateFreeResponseOptions({
+                            question: "test-question",
+                        }),
+                    }),
                 },
             }),
             {},
@@ -157,7 +164,12 @@ describe("free-response widget", () => {
             generateTestPerseusRenderer({
                 content: "[[☃ free-response 1]]",
                 widgets: {
-                    "free-response 1": generateFreeResponseWidget(),
+                    "free-response 1": generateFreeResponseWidget({
+                        options: generateFreeResponseOptions({
+                            placeholder: "test-placeholder",
+                            question: "test-question",
+                        }),
+                    }),
                 },
             }),
             {},
@@ -175,7 +187,11 @@ describe("free-response widget", () => {
             generateTestPerseusRenderer({
                 content: "[[☃ free-response 1]]",
                 widgets: {
-                    "free-response 1": generateFreeResponseWidget(),
+                    "free-response 1": generateFreeResponseWidget({
+                        options: generateFreeResponseOptions({
+                            question: "test-question",
+                        }),
+                    }),
                 },
             }),
             {},
