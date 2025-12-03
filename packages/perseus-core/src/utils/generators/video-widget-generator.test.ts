@@ -1,29 +1,6 @@
-import {
-    generateVideoOptions,
-    generateVideoWidget,
-} from "./video-widget-generator";
+import {generateVideoWidget} from "./video-widget-generator";
 
-import type {VideoWidget, PerseusVideoWidgetOptions} from "../../data-schema";
-
-describe("generateVideoOptions", () => {
-    test("builds a default video options", () => {
-        // Arrange, Act
-        const options: PerseusVideoWidgetOptions = generateVideoOptions();
-
-        // Assert
-        expect(options.location).toBe("");
-    });
-
-    test("builds a video options with all props", () => {
-        // Arrange, Act
-        const options: PerseusVideoWidgetOptions = generateVideoOptions({
-            location: "the location",
-        });
-
-        // Assert
-        expect(options.location).toBe("the location");
-    });
-});
+import type {VideoWidget} from "../../data-schema";
 
 describe("generateVideoWidget", () => {
     test("builds a default video widget", () => {
@@ -54,20 +31,5 @@ describe("generateVideoWidget", () => {
         expect(widget.graded).toBe(false);
         expect(widget.alignment).toBe("block");
         expect(widget.options).toEqual({location: "the location"});
-    });
-
-    test("adds options when option generator is used", () => {
-        // Arrange, Act
-        const widget: VideoWidget = generateVideoWidget({
-            static: true,
-            alignment: "block",
-            // Use options generator
-            options: generateVideoOptions({location: "the location"}),
-        });
-
-        // Assert
-        expect(widget.static).toBe(true);
-        expect(widget.alignment).toBe("block");
-        expect(widget.options.location).toBe("the location");
     });
 });

@@ -1,4 +1,7 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateVideoWidget,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 /**
  * A comprehensive Perseus question demonstrating all major widget types.
@@ -513,17 +516,9 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 ],
             },
         },
-        "video 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "video",
-            options: {
-                static: false,
-                location: "sample-video-id",
-            },
-            alignment: "block",
-        },
+        "video 1": generateVideoWidget({
+            options: {location: "sample-video-id"},
+        }),
         "iframe 1": {
             graded: true,
             version: {major: 0, minor: 0},

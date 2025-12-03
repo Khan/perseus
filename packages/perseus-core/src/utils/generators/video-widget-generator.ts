@@ -1,17 +1,4 @@
-import type {PerseusVideoWidgetOptions, VideoWidget} from "../../data-schema";
-
-export function generateVideoOptions(
-    options?: Partial<PerseusVideoWidgetOptions>,
-): PerseusVideoWidgetOptions {
-    const defaultVideoOptions: PerseusVideoWidgetOptions = {
-        location: "",
-    };
-
-    return {
-        ...defaultVideoOptions,
-        ...options,
-    };
-}
+import type {VideoWidget} from "../../data-schema";
 
 export function generateVideoWidget(
     videoWidgetProperties?: Partial<Omit<VideoWidget, "type">>,
@@ -22,7 +9,8 @@ export function generateVideoWidget(
         version: {major: 0, minor: 0},
         static: false,
         alignment: "default",
-        options: generateVideoOptions({}), // default options
+        // video widget only has one option: location
+        options: {location: ""}, // default options
         ...videoWidgetProperties,
     };
 }
