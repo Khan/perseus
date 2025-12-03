@@ -35,16 +35,16 @@ const computeMathBounds = (
     // container in some cases. Just be conservative and use
     // the maximum value of the text and the parent. :(
     // NOTE: In situations where the math is hidden from view (e.g. inside an
-    // explanation widget), the parent element may have a width of 0.
+    // explanation widget), an ancestor element may have a width of 0.
     // In those cases, we need to adjust how we determine the final bounds.
-    // When the parent width is 0, it can cause the parent height to be quite
+    // When the ancestor width is 0, it can cause the parent height to be quite
     // tall, so we should ignore it.
+    const hiddenAncestor = parentNode.closest(`[aria-hidden="true"]`);
     const height =
-        parentBounds.width === 0
+        hiddenAncestor?.getBoundingClientRect().width === 0
             ? textBounds.height
             : Math.max(parentBounds.height, textBounds.height);
 
-    const hiddenAncestor = parentNode.closest(`[aria-hidden="true"]`);
     // eslint-disable-next-line no-console
     console.log(`Parent: `, parentNode);
     // eslint-disable-next-line no-console
