@@ -3,7 +3,7 @@ import {generateVideoWidget} from "./video-widget-generator";
 import type {VideoWidget} from "../../data-schema";
 
 describe("generateVideoWidget", () => {
-    test("builds a default video widget", () => {
+    it("builds a default video widget", () => {
         // Arrange, Act
         const widget: VideoWidget = generateVideoWidget();
 
@@ -16,7 +16,7 @@ describe("generateVideoWidget", () => {
         expect(widget.options).toEqual({location: ""});
     });
 
-    test("builds a video widget with all props", () => {
+    it("builds a video widget with all props", () => {
         // Arrange, Act
         const widget: VideoWidget = generateVideoWidget({
             graded: false,
