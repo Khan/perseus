@@ -13,6 +13,7 @@ describe("freeResponseWidget", () => {
             graded: false,
             options: generateFreeResponseOptions({
                 question: "What is your favorite color?",
+                placeholder: "test-placeholder",
                 scoringCriteria: [
                     {
                         text: "test-criterion",
