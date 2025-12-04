@@ -45,8 +45,6 @@ type RendererProps = {
     images?: any;
 };
 
-type JsonType = RendererProps | ReadonlyArray<RendererProps>;
-
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
     json: PerseusArticle;
@@ -74,7 +72,8 @@ type State = {
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
-        json: [{}],
+        // NOTE(Jeremy):
+        json: [{} as any],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
@@ -389,7 +388,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         );
     }
 
-    _handleJsonChange: (newJson: JsonType) => void = (newJson) => {
+    _handleJsonChange: (newJson: PerseusArticle) => void = (newJson) => {
         this.props.onChange({json: newJson});
     };
 
@@ -444,7 +443,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                       widgets: sections[i].widgets,
                   }
                 : {};
-        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'JsonType'.
+        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'PerseusArticle'.
         sections.splice(i + 1, 0, newSection);
         this.props.onChange({
             json: sections,
@@ -459,7 +458,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         });
     }
 
-    serialize(): JsonType {
+    serialize(): PerseusArticle {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
                 // eslint-disable-next-line react/no-string-refs
