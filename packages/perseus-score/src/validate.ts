@@ -1,9 +1,5 @@
-import {
-    applyDefaultsToWidgets,
-    getWidgetIdsFromContent,
-} from "@khanacademy/perseus-core";
-
-import {flattenScores, isWidgetScoreable, scoreIsEmpty} from "./score";
+import {flattenScores, getScoreableWidgets, scoreIsEmpty} from "./score";
+import isWidgetScoreable from "./util/is-widget-scoreable";
 import {getWidgetValidator} from "./widgets/widget-registry";
 
 import type {
@@ -29,23 +25,12 @@ export function validateUserInput(
     userInputMap: UserInputMap,
     locale: string,
 ): PerseusScore | null {
-    // There seems to be a chance that PerseusRenderer.widgets might include
-    // widget data for widgets that are not in PerseusRenderer.content,
-    // so this checks that the widgets are being used before scoring them
-    const usedWidgetIds = getWidgetIdsFromContent(perseusRenderData.content);
-    // TODO: do we still need this? Shouldn't this happen during parse/migrate?
-    const upgradedWidgets = applyDefaultsToWidgets(perseusRenderData.widgets);
-
-    const gradedWidgetIds = usedWidgetIds.filter((id) =>
-        isWidgetScoreable(upgradedWidgets[id]),
-    );
+    const {upgradedWidgets, scoreableWidgetIds} =
+        getScoreableWidgets(perseusRenderData);
 
     const validationErrors: Record<string, PerseusScore> = {};
-    gradedWidgetIds.forEach((id) => {
-        const widget = upgradedWidgets[id];
-        if (!widget) {
-            return;
-        }
+    scoreableWidgetIds.forEach((id) => {
+        const widget = upgradedWidgets[id]!;
 
         // TODO(benchristel): Without the explicit type annotation, the type of
         // userInput would be inferred as `any`. This is because the keys of

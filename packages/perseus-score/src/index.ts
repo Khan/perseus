@@ -35,7 +35,12 @@ export {
     inputNumberAnswerTypes,
 } from "./widgets/input-number/score-input-number";
 
-export {scorePerseusItem, scoreWidgetsFunctional, flattenScores} from "./score";
+export {
+    scorePerseusItem,
+    scoreWidgetsFunctional,
+    flattenScores,
+    getScoreableWidgets,
+} from "./score";
 export {validateUserInput, emptyWidgetsFunctional} from "./validate";
 export {default as hasEmptyDINERWidgets} from "./has-empty-diner-widgets";
 

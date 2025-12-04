@@ -5,50 +5,17 @@ import {
 } from "./util/test-helpers";
 import {emptyWidgetsFunctional, validateUserInput} from "./validate";
 
-import type {
-    DropdownWidget,
-    PerseusWidgetsMap,
-    UserInputMap,
-} from "@khanacademy/perseus-core";
+import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
 
 describe("validateUserInput", () => {
-    function generateDropdown(): DropdownWidget {
-        return {
-            type: "dropdown",
-            alignment: "default",
-            static: false,
-            graded: true,
-            options: {
-                static: false,
-                ariaLabel: "Test ARIA label",
-                visibleLabel: "Test visible label",
-                placeholder: "Answer me",
-                choices: [
-                    {
-                        content: "Incorrect",
-                        correct: false,
-                    },
-                    {
-                        content: "Correct",
-                        correct: true,
-                    },
-                ],
-            },
-            version: {
-                major: 0,
-                minor: 0,
-            },
-        };
-    }
-
     it("should return null if no widgets are invalid", () => {
         // Act
         const score = validateUserInput(
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
-                    "dropdown 1": generateDropdown(),
-                    "dropdown 2": generateDropdown(),
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
                 },
                 images: {},
             },
@@ -67,7 +34,7 @@ describe("validateUserInput", () => {
         // Arrange:
         const item = {
             content: "[[☃ dropdown 1]]",
-            widgets: {"dropdown 1": generateDropdown()},
+            widgets: {"dropdown 1": getTestDropdownWidget()},
             images: {},
         };
         const userInputMap = {};
@@ -80,14 +47,14 @@ describe("validateUserInput", () => {
         expect(score).toEqual({type: "invalid", message: null});
     });
 
-    it("should return empty if any validator returns empty", () => {
+    it("should return invalid if any widget is unanswered", () => {
         // Act
         const score = validateUserInput(
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
-                    "dropdown 1": generateDropdown(),
-                    "dropdown 2": generateDropdown(),
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
                 },
                 images: {},
             },
@@ -108,8 +75,8 @@ describe("validateUserInput", () => {
             {
                 content: "[[☃ dropdown 1]]",
                 widgets: {
-                    "dropdown 1": generateDropdown(),
-                    "dropdown 2": generateDropdown(),
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
                 },
                 images: {},
             },

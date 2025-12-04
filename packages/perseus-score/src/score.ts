@@ -16,8 +16,6 @@ import type {
     UserInput,
 } from "@khanacademy/perseus-core";
 
-export {default as isWidgetScoreable} from "./util/is-widget-scoreable";
-
 const noScore: PerseusScore = {
     type: "points",
     earned: 0,
@@ -128,6 +126,26 @@ export function flattenScores(widgetScoreMap: {
 }
 
 /**
+ * Returns the upgraded widgets and the IDs of widgets that should be scored.
+ * Filters out widgets not referenced in content and widgets that are static or ungraded.
+ */
+export function getScoreableWidgets(perseusRenderData: PerseusRenderer): {
+    upgradedWidgets: PerseusWidgetsMap;
+    scoreableWidgetIds: ReadonlyArray<string>;
+} {
+    // There seems to be a chance that PerseusRenderer.widgets might include
+    // widget data for widgets that are not in PerseusRenderer.content,
+    // so this checks that the widgets are being used before scoring them
+    const usedWidgetIds = getWidgetIdsFromContent(perseusRenderData.content);
+    // TODO: do we still need this? Shouldn't this happen during parse/migrate?
+    const upgradedWidgets = applyDefaultsToWidgets(perseusRenderData.widgets);
+    const scoreableWidgetIds = usedWidgetIds.filter((id) =>
+        isWidgetScoreable(upgradedWidgets[id]),
+    );
+    return {upgradedWidgets, scoreableWidgetIds};
+}
+
+/**
  * score a Perseus item
  *
  * TODO: this should probably just take the PerseusItem (vs the PerseusRenderer)
@@ -140,13 +158,11 @@ export function scorePerseusItem(
     userInputMap: UserInputMap,
     locale: string,
 ): PerseusScore {
-    // There seems to be a chance that PerseusRenderer.widgets might include
-    // widget data for widgets that are not in PerseusRenderer.content,
-    // so this checks that the widgets are being used before scoring them
-    const usedWidgetIds = getWidgetIdsFromContent(perseusRenderData.content);
+    const {upgradedWidgets, scoreableWidgetIds} =
+        getScoreableWidgets(perseusRenderData);
     const scores = scoreWidgetsFunctional(
-        perseusRenderData.widgets,
-        usedWidgetIds,
+        upgradedWidgets,
+        scoreableWidgetIds,
         userInputMap,
         locale,
     );
@@ -171,10 +187,7 @@ export function scoreWidgetsFunctional(
 
     const widgetScores: Record<string, PerseusScore> = {};
     gradedWidgetIds.forEach((id) => {
-        const widget = upgradedWidgets[id];
-        if (!widget) {
-            return;
-        }
+        const widget = upgradedWidgets[id]!;
 
         // TODO(benchristel): Without the explicit type annotation, the type of
         // userInput would be inferred as `any`. This is because the keys of
