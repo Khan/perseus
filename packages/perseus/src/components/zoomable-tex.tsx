@@ -23,11 +23,19 @@ const computeMathBounds = (
     parentBounds: {width: number; height: number},
 ) => {
     const textElement = parentNode.querySelector(".MathJax");
+    // Double check the heights of the children elements that make up this Math.
+    // If an ancestor element is hiding this content, it can have unexpected
+    // effects on the measurements.
+    const textElementHeight = Array.from(textElement?.children ?? []).reduce(
+        (maxHeight, child) =>
+            Math.max(maxHeight, (child as HTMLElement).offsetHeight),
+        // @ts-expect-error - TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
+        textElement?.offsetHeight,
+    );
     const textBounds = {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
-        width: textElement.offsetWidth,
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
-        height: textElement.offsetHeight,
+        // @ts-expect-error - TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
+        width: textElement?.offsetWidth,
+        height: textElementHeight,
     } as const;
 
     // HACK(benkomalo): when measuring math content, note that
