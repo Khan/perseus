@@ -1,4 +1,5 @@
 # pnpm configuration
+
 # We require a minimum release age of 3-days (specified in minutes) before a
 # package can be used in this project.
 # https://pnpm.io/settings#minimumreleaseage
