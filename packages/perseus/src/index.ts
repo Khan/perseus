@@ -96,8 +96,6 @@ export {
 } from "./util/sizing-utils";
 export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
-    getAnswersFromWidgets,
-    injectWidgets,
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
     isWidgetIdInContent,
