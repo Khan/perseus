@@ -63,6 +63,8 @@ describe("FreeResponse serialization", () => {
                     widgets: {
                         "free-response 1": generateFreeResponseWidget({
                             options: generateFreeResponseOptions({
+                                allowUnlimitedCharacters: false,
+                                characterLimit: 500,
                                 question: "test-question",
                                 placeholder: "test-placeholder",
                                 scoringCriteria: [
