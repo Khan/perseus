@@ -6,7 +6,6 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import type {
     CategorizerWidget,
-    ExpressionWidget,
     InteractiveGraphWidget,
     NumericInputWidget,
     PerseusRenderer,

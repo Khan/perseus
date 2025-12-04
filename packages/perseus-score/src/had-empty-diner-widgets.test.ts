@@ -1,4 +1,7 @@
 import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
     generateTestPerseusItem,
     type PerseusRenderer,
     type UserInputMap,
@@ -63,22 +66,17 @@ function generateBasicExpressionQuestion(): PerseusRenderer {
     return {
         content: "[[☃ expression 1]]",
         widgets: {
-            "expression 1": {
-                type: "expression",
-                options: {
+            "expression 1": generateExpressionWidget({
+                options: generateExpressionOptions({
                     answerForms: [
-                        {
+                        generateExpressionAnswerForm({
                             value: "42",
-                            form: false,
-                            simplify: false,
                             considered: "correct",
-                        },
+                        }),
                     ],
-                    buttonSets: [],
                     functions: [],
-                    times: false,
-                },
-            },
+                }),
+            }),
         },
         images: {},
     };
