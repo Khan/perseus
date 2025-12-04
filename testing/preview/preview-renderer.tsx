@@ -1,6 +1,6 @@
 /* eslint-disable import/no-relative-packages */
 import {View} from "@khanacademy/wonder-blocks-core";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -186,7 +186,7 @@ export function PreviewRenderer({data}: Props) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: spacing.xxxSmall_4,
+        padding: sizing.size_040,
         containerType: "inline-size",
         containerName: "perseus-root",
     },
