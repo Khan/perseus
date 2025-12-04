@@ -30,7 +30,7 @@ const computeMathBounds = (
         (maxHeight, child) =>
             Math.max(maxHeight, (child as HTMLElement).offsetHeight),
         // @ts-expect-error - TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
-        textElement?.offsetHeight,
+        textElement?.offsetHeight ?? 0,
     );
     const textBounds = {
         // @ts-expect-error - TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
