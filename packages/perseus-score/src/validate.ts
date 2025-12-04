@@ -1,15 +1,18 @@
 import {
     applyDefaultsToWidgets,
     getWidgetIdsFromContent,
-    type PerseusRenderer,
-    type PerseusScore,
-    type UserInput,
-    type UserInputMap,
-    type ValidationDataMap,
 } from "@khanacademy/perseus-core";
 
 import {flattenScores, isWidgetScoreable, scoreIsEmpty} from "./score";
 import {getWidgetValidator} from "./widgets/widget-registry";
+
+import type {
+    PerseusRenderer,
+    PerseusScore,
+    PerseusWidgetsMap,
+    UserInput,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
 
 /**
  * validate, meant for client-side validation using answerless Perseus data
@@ -69,7 +72,7 @@ export function validateUserInput(
  * function is that its a check to see if we can score the provided input.
  */
 export function emptyWidgetsFunctional(
-    widgets: ValidationDataMap,
+    widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object
     widgetIds: ReadonlyArray<string>,
@@ -78,8 +81,7 @@ export function emptyWidgetsFunctional(
 ): ReadonlyArray<string> {
     return widgetIds.filter((id) => {
         const widget = widgets[id];
-        if (!widget || widget.static === true) {
-            // Static widgets shouldn't count as empty
+        if (!isWidgetScoreable(widget)) {
             return false;
         }
 

@@ -44,6 +44,7 @@ import type {
     PerseusGraphCorrectType,
     MakeWidgetMap,
     PerseusFreeResponseWidgetScoringCriterion,
+    PerseusRenderer,
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
@@ -118,7 +119,7 @@ export type PerseusExpressionRubric = {
 export type PerseusExpressionUserInput = string;
 
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
-export type PerseusGroupValidationData = {widgets: ValidationDataMap};
+export type PerseusGroupValidationData = PerseusRenderer;
 export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
