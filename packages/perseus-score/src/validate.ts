@@ -8,7 +8,7 @@ import {
     type ValidationDataMap,
 } from "@khanacademy/perseus-core";
 
-import {flattenScores, scoreIsEmpty} from "./score";
+import {flattenScores, isWidgetScoreable, scoreIsEmpty} from "./score";
 import {getWidgetValidator} from "./widgets/widget-registry";
 
 /**
@@ -33,13 +33,9 @@ export function validateUserInput(
     // TODO: do we still need this? Shouldn't this happen during parse/migrate?
     const upgradedWidgets = applyDefaultsToWidgets(perseusRenderData.widgets);
 
-    const gradedWidgetIds = usedWidgetIds.filter((id) => {
-        const props = upgradedWidgets[id];
-        const widgetIsGraded: boolean = props?.graded == null || props.graded;
-        const widgetIsStatic = !!props?.static;
-        // Ungraded widgets or widgets set to static shouldn't be graded.
-        return widgetIsGraded && !widgetIsStatic;
-    });
+    const gradedWidgetIds = usedWidgetIds.filter((id) =>
+        isWidgetScoreable(upgradedWidgets[id]),
+    );
 
     const validationErrors: Record<string, PerseusScore> = {};
     gradedWidgetIds.forEach((id) => {

@@ -5,6 +5,7 @@ import {
     PerseusError,
 } from "@khanacademy/perseus-core";
 
+import isWidgetScoreable from "./util/is-widget-scoreable";
 import {getWidgetScorer, getWidgetValidator} from "./widgets/widget-registry";
 
 import type {
@@ -14,6 +15,8 @@ import type {
     UserInputMap,
     UserInput,
 } from "@khanacademy/perseus-core";
+
+export {default as isWidgetScoreable} from "./util/is-widget-scoreable";
 
 const noScore: PerseusScore = {
     type: "points",
@@ -162,13 +165,9 @@ export function scoreWidgetsFunctional(
     // TODO: do we still need this? Shouldn't this happen during parse/migrate?
     const upgradedWidgets = applyDefaultsToWidgets(widgets);
 
-    const gradedWidgetIds = widgetIds.filter((id) => {
-        const props = upgradedWidgets[id];
-        const widgetIsGraded: boolean = props?.graded == null || props.graded;
-        const widgetIsStatic = !!props?.static;
-        // Ungraded widgets or widgets set to static shouldn't be graded.
-        return widgetIsGraded && !widgetIsStatic;
-    });
+    const gradedWidgetIds = widgetIds.filter((id) =>
+        isWidgetScoreable(upgradedWidgets[id]),
+    );
 
     const widgetScores: Record<string, PerseusScore> = {};
     gradedWidgetIds.forEach((id) => {
