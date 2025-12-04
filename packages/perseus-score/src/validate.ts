@@ -1,5 +1,7 @@
-import {flattenScores, getScoreableWidgets, scoreIsEmpty} from "./score";
+import flattenScores from "./util/flatten-scores";
+import getScoreableWidgets from "./util/get-scoreable-widgets";
 import isWidgetScoreable from "./util/is-widget-scoreable";
+import scoreIsEmpty from "./util/score-is-empty";
 import {getWidgetValidator} from "./widgets/widget-registry";
 
 import type {
