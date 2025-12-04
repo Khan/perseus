@@ -127,6 +127,7 @@ export function flattenScores(widgetScoreMap: {
 /**
  * score a Perseus item
  *
+ * TODO: this should probably just take the PerseusItem (vs the PerseusRenderer)
  * @param perseusRenderData - the full answer data, includes the correct answer
  * @param userInputMap - the user's input for each widget, mapped by ID
  * @param locale - string locale for math parsing ("de" 1.000,00 vs "en" 1,000.00)
@@ -158,6 +159,7 @@ export function scoreWidgetsFunctional(
     userInputMap: UserInputMap,
     locale: string,
 ): {[widgetId: string]: PerseusScore} {
+    // TODO: do we still need this? Shouldn't this happen during parse/migrate?
     const upgradedWidgets = applyDefaultsToWidgets(widgets);
 
     const gradedWidgetIds = widgetIds.filter((id) => {

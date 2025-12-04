@@ -1,7 +1,71 @@
-import {scoreIsEmpty} from "./score";
+import {
+    applyDefaultsToWidgets,
+    getWidgetIdsFromContent,
+    type PerseusRenderer,
+    type PerseusScore,
+    type UserInput,
+    type UserInputMap,
+    type ValidationDataMap,
+} from "@khanacademy/perseus-core";
+
+import {flattenScores, scoreIsEmpty} from "./score";
 import {getWidgetValidator} from "./widgets/widget-registry";
 
-import type {UserInputMap, ValidationDataMap} from "@khanacademy/perseus-core";
+/**
+ * validate, meant for client-side validation using answerless Perseus data
+ *
+ * TODO: this should probably just take the PerseusItem (vs the PerseusRenderer)
+ * @param perseusRenderData - the answerless Perseus data
+ * @param userInputMap - the user's input for each widget, mapped by ID
+ * @param locale - string locale for math parsing ("de" 1.000,00 vs "en" 1,000.00)
+ *
+ * @returns an invalid "score" if there's invalid input, otherwise null
+ */
+export function validateUserInput(
+    perseusRenderData: PerseusRenderer,
+    userInputMap: UserInputMap,
+    locale: string,
+): PerseusScore | null {
+    // There seems to be a chance that PerseusRenderer.widgets might include
+    // widget data for widgets that are not in PerseusRenderer.content,
+    // so this checks that the widgets are being used before scoring them
+    const usedWidgetIds = getWidgetIdsFromContent(perseusRenderData.content);
+    // TODO: do we still need this? Shouldn't this happen during parse/migrate?
+    const upgradedWidgets = applyDefaultsToWidgets(perseusRenderData.widgets);
+
+    const gradedWidgetIds = usedWidgetIds.filter((id) => {
+        const props = upgradedWidgets[id];
+        const widgetIsGraded: boolean = props?.graded == null || props.graded;
+        const widgetIsStatic = !!props?.static;
+        // Ungraded widgets or widgets set to static shouldn't be graded.
+        return widgetIsGraded && !widgetIsStatic;
+    });
+
+    const validationErrors: Record<string, PerseusScore> = {};
+    gradedWidgetIds.forEach((id) => {
+        const widget = upgradedWidgets[id];
+        if (!widget) {
+            return;
+        }
+
+        // TODO(benchristel): Without the explicit type annotation, the type of
+        // userInput would be inferred as `any`. This is because the keys of
+        // userInputMap are strings with a specific format, but `id` is any old
+        // string. Find a way to make this more typesafe.
+        const userInput: UserInput | undefined = userInputMap[id];
+        const validator = getWidgetValidator(widget.type);
+
+        // See if any of the widgets have validation errors
+        const validationError = validator?.(userInput, widget.options, locale);
+        if (validationError != null) {
+            validationErrors[id] = validationError;
+        }
+    });
+
+    return Object.keys(validationErrors).length > 0
+        ? flattenScores(validationErrors)
+        : null;
+}
 
 /**
  * Checks the given user input to see if any answerable widgets have not been

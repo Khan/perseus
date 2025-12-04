@@ -432,6 +432,7 @@ describe("scorePerseusItem", () => {
         const score = scorePerseusItem(item, userInputMap, "en");
 
         // Assert:
+        expect(score).toHaveInvalidInput();
         expect(score).toEqual({type: "invalid", message: null});
     });
 
@@ -454,6 +455,7 @@ describe("scorePerseusItem", () => {
         );
 
         // Assert
+        expect(score).toHaveInvalidInput();
         expect(score).toEqual({type: "invalid", message: null});
     });
 
@@ -478,6 +480,7 @@ describe("scorePerseusItem", () => {
         );
 
         // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
         expect(score).toEqual({
             type: "points",
             total: 2,

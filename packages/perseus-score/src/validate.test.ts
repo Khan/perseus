@@ -3,9 +3,123 @@ import {
     getLegacyExpressionWidget,
     getTestDropdownWidget,
 } from "./util/test-helpers";
-import {emptyWidgetsFunctional} from "./validate";
+import {emptyWidgetsFunctional, validateUserInput} from "./validate";
 
-import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
+import type {
+    DropdownWidget,
+    PerseusWidgetsMap,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
+
+describe("validateUserInput", () => {
+    function generateDropdown(): DropdownWidget {
+        return {
+            type: "dropdown",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                static: false,
+                ariaLabel: "Test ARIA label",
+                visibleLabel: "Test visible label",
+                placeholder: "Answer me",
+                choices: [
+                    {
+                        content: "Incorrect",
+                        correct: false,
+                    },
+                    {
+                        content: "Correct",
+                        correct: true,
+                    },
+                ],
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        };
+    }
+
+    it("should return null if no widgets are invalid", () => {
+        // Act
+        const score = validateUserInput(
+            {
+                content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
+                widgets: {
+                    "dropdown 1": generateDropdown(),
+                    "dropdown 2": generateDropdown(),
+                },
+                images: {},
+            },
+            {
+                "dropdown 1": {value: 1},
+                "dropdown 2": {value: 1},
+            },
+            "en",
+        );
+
+        // Assert
+        expect(score).toBeNull();
+    });
+
+    it("returns a score of 'invalid' if some widgets are missing from the user input", () => {
+        // Arrange:
+        const item = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {"dropdown 1": generateDropdown()},
+            images: {},
+        };
+        const userInputMap = {};
+
+        // Act:
+        const score = validateUserInput(item, userInputMap, "en");
+
+        // Assert:
+        expect(score).toHaveInvalidInput();
+        expect(score).toEqual({type: "invalid", message: null});
+    });
+
+    it("should return empty if any validator returns empty", () => {
+        // Act
+        const score = validateUserInput(
+            {
+                content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
+                widgets: {
+                    "dropdown 1": generateDropdown(),
+                    "dropdown 2": generateDropdown(),
+                },
+                images: {},
+            },
+            {
+                "dropdown 1": {value: 0},
+                "dropdown 2": {value: 1},
+            },
+            "en",
+        );
+
+        // Assert
+        expect(score).toHaveInvalidInput();
+        expect(score).toEqual({type: "invalid", message: null});
+    });
+
+    it("should ignore widgets that aren't referenced in content", () => {
+        const score = validateUserInput(
+            {
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": generateDropdown(),
+                    "dropdown 2": generateDropdown(),
+                },
+                images: {},
+            },
+            {"dropdown 1": {value: 2}},
+            "en",
+        );
+
+        expect(score).toBeNull();
+    });
+});
 
 describe("emptyWidgetsFunctional", () => {
     it("returns an empty array if there are no widgets", () => {
