@@ -6,8 +6,8 @@
 import type {APIOptions, DeviceType} from "@khanacademy/perseus";
 import type {
     Hint,
+    PerseusArticle,
     PerseusItem,
-    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -53,10 +53,10 @@ export type HintPreviewData = {
  * Data for article section preview
  */
 export type ArticlePreviewData = {
-    content: string;
-    widgets: PerseusRenderer["widgets"];
-    images: PerseusRenderer["images"];
     apiOptions: APIOptions;
+    json: PerseusArticle;
+    linterContext: LinterContextProps;
+    legacyPerseusLint?: ReadonlyArray<string>;
 };
 
 /**
