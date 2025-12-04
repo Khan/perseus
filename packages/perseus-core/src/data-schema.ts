@@ -1700,6 +1700,7 @@ export type PerseusPhetSimulationWidgetOptions = {
 
 export type PerseusVideoWidgetOptions = {
     location: string;
+    // `static` is not used for the video widget.
     static?: boolean;
 };
 

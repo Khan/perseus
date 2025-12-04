@@ -1,3 +1,4 @@
+import {generateVideoWidget} from "../../utils/generators/video-widget-generator";
 import {anyFailure} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
 import {failure, success} from "../result";
@@ -746,13 +747,7 @@ describe("parseWidgetsMap", () => {
 
     it("accepts a video widget", () => {
         const widgetsMap: unknown = {
-            "video 1": {
-                type: "video",
-                version: {major: 0, minor: 0},
-                options: {
-                    location: "",
-                },
-            },
+            "video 1": generateVideoWidget(),
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);

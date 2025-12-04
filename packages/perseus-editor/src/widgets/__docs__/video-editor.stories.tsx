@@ -1,4 +1,7 @@
-import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusRenderer,
+    generateVideoWidget,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import {action} from "storybook/actions";
 
@@ -33,12 +36,7 @@ export const InitialStateWithinEditor = (): React.ReactElement => (
             question={generateTestPerseusRenderer({
                 content: "[[☃ video 1]]",
                 widgets: {
-                    "video 1": {
-                        type: "video",
-                        options: {
-                            location: "",
-                        },
-                    },
+                    "video 1": generateVideoWidget(),
                 },
             })}
         />
@@ -51,13 +49,12 @@ export const SlugWithinEditor = (): React.ReactElement => (
             question={generateTestPerseusRenderer({
                 content: "[[☃ video 1]]",
                 widgets: {
-                    "video 1": {
-                        type: "video",
+                    "video 1": generateVideoWidget({
                         options: {
                             location:
                                 "applying-for-financial-aid-when-facing-immigration-challenges",
                         },
-                    },
+                    }),
                 },
             })}
         />
@@ -70,13 +67,12 @@ export const URLWithinEditor = (): React.ReactElement => (
             question={generateTestPerseusRenderer({
                 content: "[[☃ video 1]]",
                 widgets: {
-                    "video 1": {
-                        type: "video",
+                    "video 1": generateVideoWidget({
                         options: {
                             location:
                                 "https://youtube.com/embed/5GaB5q_u6I0?rel=0",
                         },
-                    },
+                    }),
                 },
             })}
         />

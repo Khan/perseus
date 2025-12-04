@@ -206,10 +206,12 @@ export {
     getImageSizeModern,
 } from "./utils/util.graphie";
 
+// Generators
 export {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
+export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
