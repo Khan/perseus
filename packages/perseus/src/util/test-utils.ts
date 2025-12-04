@@ -100,24 +100,6 @@ export function generateTestCategorizerWidget(): CategorizerWidget {
 
 /**
  * Creates an object with the bare amount
- * of data to be a properly typed ExpressionWidget
- *
- * @returns {ExpressionWidget} skeleton ExpressionWidget for testing
- */
-export function generateTestExpressionWidget(): ExpressionWidget {
-    return {
-        type: "expression",
-        options: {
-            answerForms: [],
-            buttonSets: ["basic"],
-            functions: [],
-            times: false,
-        },
-    };
-}
-
-/**
- * Creates an object with the bare amount
  * of data to be a properly typed NumericInputWidget
  *
  * @returns {NumericInputWidget} skeleton NumericInputWidget for testing

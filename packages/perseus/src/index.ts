@@ -133,7 +133,6 @@ export {
     generateTestRadioWidget,
     generateTestInteractiveGraphWidget,
     generateTestCategorizerWidget,
-    generateTestExpressionWidget,
     generateTestNumericInputWidget,
 } from "./util/test-utils";
 export {

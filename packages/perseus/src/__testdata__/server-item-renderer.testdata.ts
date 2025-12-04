@@ -3,6 +3,8 @@ import {
     type PerseusItem,
     type NumericInputWidget,
     getDefaultAnswerArea,
+    generateExpressionOptions,
+    generateExpressionWidget,
 } from "@khanacademy/perseus-core";
 
 import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
@@ -213,15 +215,8 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
                 },
                 alignment: "default",
             },
-            "expression 1": {
-                type: "expression",
-                graded: true,
-                version: {
-                    major: 1,
-                    minor: 0,
-                },
-                static: false,
-                options: {
+            "expression 1": generateExpressionWidget({
+                options: generateExpressionOptions({
                     answerForms: [
                         {
                             considered: "correct",
@@ -237,11 +232,9 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
                         },
                     ],
                     times: true,
-                    buttonSets: ["basic"],
-                    functions: ["f", "g", "h"],
                     buttonsVisible: "always",
-                },
-            },
+                }),
+            }),
         },
     },
     hints: [
