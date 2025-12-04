@@ -125,6 +125,9 @@ export {
      * @deprecated - import this function from perseus-core instead
      */
     isFailure,
+    getAnswersFromWidgets,
+    injectWidgets,
+    getPerseusAIData,
 } from "@khanacademy/perseus-core";
 
 export {
