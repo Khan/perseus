@@ -1128,6 +1128,56 @@ describe("getAnswersFromWidgets", () => {
         expect(answer).toEqual(["choice 1", "42"]);
     });
 
+    it("should get the answers from a graded-group widget", () => {
+        const widget = {
+            type: "graded-group",
+            options: {
+                content: "Answer the questions in the following widgets",
+                images: {},
+                widgets: {
+                    "radio 1": {
+                        type: "radio",
+                        options: {
+                            choices: [
+                                {
+                                    id: "0-0-0-0-0",
+                                    content: "correct choice",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "incorrect choice",
+                                    correct: false,
+                                },
+                            ],
+                        },
+                    },
+                    "numeric-input 1": {
+                        type: "numeric-input",
+                        options: {
+                            answers: [
+                                {
+                                    status: "correct",
+                                    maxError: 0.01,
+                                    strict: false,
+                                    message: "",
+                                    simplify: "required",
+                                    value: 3.14,
+                                },
+                            ],
+                            size: "normal",
+                            coefficient: false,
+                            labelText: "",
+                            static: false,
+                        },
+                    },
+                },
+            },
+        } as const;
+        const answer = getAnswersFromWidgets({"graded-group 1": widget});
+        expect(answer).toEqual(["correct choice", "3.14"]);
+    });
+
     it("should get the answers from a plotter widget", () => {
         const widget: PlotterWidget = {
             type: "plotter",
