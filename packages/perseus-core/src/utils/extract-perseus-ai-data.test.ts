@@ -1133,6 +1133,7 @@ describe("getAnswersFromWidgets", () => {
             type: "graded-group",
             options: {
                 content: "Answer the questions in the following widgets",
+                title: "Question Group",
                 images: {},
                 widgets: {
                     "radio 1": {
@@ -1151,26 +1152,26 @@ describe("getAnswersFromWidgets", () => {
                                 },
                             ],
                         },
-                    },
+                    } satisfies RadioWidget,
                     "numeric-input 1": {
                         type: "numeric-input",
                         options: {
                             answers: [
                                 {
+                                    message: "rationale",
+                                    value: 42,
                                     status: "correct",
-                                    maxError: 0.01,
                                     strict: false,
-                                    message: "",
+                                    maxError: 0,
                                     simplify: "required",
-                                    value: 3.14,
                                 },
                             ],
+                            labelText: "Enter a number",
                             size: "normal",
                             coefficient: false,
-                            labelText: "",
                             static: false,
                         },
-                    },
+                    } satisfies NumericInputWidget,
                 },
             },
         } as const;
