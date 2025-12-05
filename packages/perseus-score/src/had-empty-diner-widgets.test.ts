@@ -1,5 +1,9 @@
 import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     type PerseusRenderer,
     type UserInputMap,
 } from "@khanacademy/perseus-core";
@@ -60,28 +64,22 @@ function generateBasicNumericInputQuestion(): PerseusRenderer {
 }
 
 function generateBasicExpressionQuestion(): PerseusRenderer {
-    return {
+    return generateTestPerseusRenderer({
         content: "[[☃ expression 1]]",
         widgets: {
-            "expression 1": {
-                type: "expression",
-                options: {
+            "expression 1": generateExpressionWidget({
+                options: generateExpressionOptions({
                     answerForms: [
-                        {
+                        generateExpressionAnswerForm({
                             value: "42",
-                            form: false,
-                            simplify: false,
                             considered: "correct",
-                        },
+                        }),
                     ],
-                    buttonSets: [],
                     functions: [],
-                    times: false,
-                },
-            },
+                }),
+            }),
         },
-        images: {},
-    };
+    });
 }
 
 function generateBasicRadioQuestion(): PerseusRenderer {

@@ -1,3 +1,8 @@
+import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
+} from "../../utils/generators/expression-widget-generator";
 import {parse} from "../parse";
 import {failure, success} from "../result";
 
@@ -5,63 +10,51 @@ import {parseExpressionWidget} from "./expression-widget";
 
 describe("parseExpressionWidget", () => {
     it("migrates v1 options to v2", () => {
-        const widget = {
-            type: "expression",
-            graded: true,
-            static: undefined,
-            alignment: undefined,
-            key: undefined,
-            options: {
-                times: false,
+        const widget = generateExpressionWidget({
+            options: generateExpressionOptions({
                 buttonsVisible: "never",
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
                 answerForms: [
-                    {
+                    generateExpressionAnswerForm({
                         considered: "correct",
                         form: true,
-                        key: "undefined",
-                        simplify: false,
                         value: "88x",
-                    },
+                        key: "undefined",
+                    }),
                 ],
-            },
+            }),
             version: {
                 major: 1,
                 minor: 0,
             },
-        };
+            alignment: undefined,
+            key: undefined,
+            static: undefined,
+        });
 
         expect(parse(widget, parseExpressionWidget)).toEqual(
-            success({
-                type: "expression",
-                graded: true,
-                static: undefined,
-                key: undefined,
-                alignment: undefined,
-                options: {
-                    times: false,
-                    ariaLabel: undefined,
-                    visibleLabel: undefined,
-                    buttonsVisible: "never",
-                    buttonSets: ["basic"],
-                    functions: ["f", "g", "h"],
-                    extraKeys: ["x"],
-                    answerForms: [
-                        {
-                            considered: "correct",
-                            form: true,
-                            key: "undefined",
-                            simplify: false,
-                            value: "88x",
-                        },
-                    ],
-                },
-                version: {
-                    major: 2,
-                    minor: 0,
-                },
-            }),
+            success(
+                generateExpressionWidget({
+                    static: undefined,
+                    alignment: undefined,
+                    key: undefined,
+                    options: generateExpressionOptions({
+                        buttonsVisible: "never",
+                        extraKeys: ["x"],
+                        answerForms: [
+                            generateExpressionAnswerForm({
+                                considered: "correct",
+                                form: true,
+                                value: "88x",
+                                key: "undefined",
+                            }),
+                        ],
+                    }),
+                    version: {
+                        major: 2,
+                        minor: 0,
+                    },
+                }),
+            ),
         );
     });
 
@@ -117,15 +110,12 @@ describe("parseExpressionWidget", () => {
     });
 
     it("rejects a widget with unrecognized version", () => {
-        const widget = {
-            type: "expression",
+        const widget = generateExpressionWidget({
             version: {
                 major: -1,
                 minor: 0,
             },
-            graded: true,
-            options: {},
-        };
+        });
 
         expect(parse(widget, parseExpressionWidget)).toEqual(
             failure(

@@ -1,4 +1,10 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
+    generateTestPerseusRenderer,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 export const singleSectionArticle: PerseusRenderer = {
     content:
@@ -59,33 +65,24 @@ export const passageArticle: PerseusRenderer = {
     },
 };
 
-export const articleSectionWithExpression: PerseusRenderer = {
-    content:
-        "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 1]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
-    images: {},
-    widgets: {
-        "expression 1": {
-            alignment: "default",
-            graded: true,
-            options: {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: true,
-                        simplify: false,
-                        value: "16+88i",
-                    },
-                ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            static: false,
-            type: "expression",
-            version: {major: 1, minor: 0},
+export const articleSectionWithExpression: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content:
+            "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 1]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
+        widgets: {
+            "expression 1": generateExpressionWidget({
+                options: generateExpressionOptions({
+                    answerForms: [
+                        generateExpressionAnswerForm({
+                            considered: "correct",
+                            form: true,
+                            value: "16+88i",
+                        }),
+                    ],
+                }),
+            }),
         },
-    },
-};
+    });
 
 export const multiSectionArticle: PerseusRenderer[] = [
     {
@@ -127,15 +124,12 @@ export const multiSectionArticle: PerseusRenderer[] = [
 ];
 
 export const multiSectionArticleWithExpression: PerseusRenderer[] = [
-    {
+    generateTestPerseusRenderer({
         content:
             "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 1]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
-        images: {},
         widgets: {
-            "expression 1": {
-                alignment: "default",
-                graded: true,
-                options: {
+            "expression 1": generateExpressionWidget({
+                options: generateExpressionOptions({
                     answerForms: [
                         {
                             considered: "correct",
@@ -144,25 +138,16 @@ export const multiSectionArticleWithExpression: PerseusRenderer[] = [
                             value: "16+88i",
                         },
                     ],
-                    buttonSets: ["basic"],
-                    functions: ["f", "g", "h"],
-                    times: false,
-                },
-                static: false,
-                type: "expression",
-                version: {major: 1, minor: 0},
-            },
+                }),
+            }),
         },
-    },
-    {
+    }),
+    generateTestPerseusRenderer({
         content:
             "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 2]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
-        images: {},
         widgets: {
-            "expression 2": {
-                alignment: "default",
-                graded: true,
-                options: {
+            "expression 2": generateExpressionWidget({
+                options: generateExpressionOptions({
                     answerForms: [
                         {
                             considered: "correct",
@@ -171,25 +156,16 @@ export const multiSectionArticleWithExpression: PerseusRenderer[] = [
                             value: "16+88i",
                         },
                     ],
-                    buttonSets: ["basic"],
-                    functions: ["f", "g", "h"],
-                    times: false,
-                },
-                static: false,
-                type: "expression",
-                version: {major: 1, minor: 0},
-            },
+                }),
+            }),
         },
-    },
-    {
+    }),
+    generateTestPerseusRenderer({
         content:
             "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 3]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
-        images: {},
         widgets: {
-            "expression 3": {
-                alignment: "default",
-                graded: true,
-                options: {
+            "expression 3": generateExpressionWidget({
+                options: generateExpressionOptions({
                     answerForms: [
                         {
                             considered: "correct",
@@ -198,14 +174,8 @@ export const multiSectionArticleWithExpression: PerseusRenderer[] = [
                             value: "16+88i",
                         },
                     ],
-                    buttonSets: ["basic"],
-                    functions: ["f", "g", "h"],
-                    times: false,
-                },
-                static: false,
-                type: "expression",
-                version: {major: 1, minor: 0},
-            },
+                }),
+            }),
         },
-    },
+    }),
 ];

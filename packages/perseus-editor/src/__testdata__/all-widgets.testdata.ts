@@ -1,4 +1,7 @@
 import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
     generateFreeResponseOptions,
     generateFreeResponseWidget,
     generateVideoWidget,
@@ -41,26 +44,18 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 size: "normal",
             },
         },
-        "expression 1": {
-            graded: true,
-            version: {major: 1, minor: 0},
-            static: false,
-            type: "expression",
-            options: {
+        "expression 1": generateExpressionWidget({
+            options: generateExpressionOptions({
                 answerForms: [
-                    {
+                    generateExpressionAnswerForm({
                         considered: "correct",
                         form: true,
-                        simplify: false,
                         value: "x^2 + 2x + 1",
                         key: "1",
-                    },
+                    }),
                 ],
-                functions: ["f", "g", "h"],
-                times: false,
-                buttonSets: ["basic"],
-            },
-        },
+            }),
+        }),
         "radio 1": {
             graded: true,
             version: {major: 1, minor: 0},

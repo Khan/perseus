@@ -1,4 +1,7 @@
 import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
     splitPerseusItem,
@@ -165,22 +168,20 @@ export const simpleGroupQuestion: PerseusRenderer = {
                 content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
-                    "expression 1": {
-                        type: "expression",
-                        options: {
+                    "expression 1": generateExpressionWidget({
+                        options: generateExpressionOptions({
                             answerForms: [
-                                {
+                                generateExpressionAnswerForm({
                                     considered: "correct",
                                     form: true,
                                     simplify: true,
                                     value: "1.0",
-                                },
+                                }),
                             ],
-                            buttonSets: ["basic"],
                             functions: [],
                             times: true,
-                        },
-                    },
+                        }),
+                    }),
                 },
             },
             type: "group",

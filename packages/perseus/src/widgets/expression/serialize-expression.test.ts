@@ -1,4 +1,7 @@
 import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -34,23 +37,20 @@ describe("Expression serialization", () => {
         const question = generateTestPerseusRenderer({
             content: "[[☃ expression 1]]",
             widgets: {
-                "expression 1": {
-                    type: "expression",
+                "expression 1": generateExpressionWidget({
                     version: {major: 2, minor: 0},
-                    options: {
+                    options: generateExpressionOptions({
                         answerForms: [
-                            {
+                            generateExpressionAnswerForm({
                                 considered: "correct",
                                 form: true,
-                                simplify: false,
                                 value: "42",
-                            },
+                            }),
                         ],
-                        buttonSets: [],
                         functions: [],
-                        times: false,
-                    },
-                },
+                        buttonSets: [],
+                    }),
+                }),
             },
         });
         const item = generateTestPerseusItem({question});

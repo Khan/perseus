@@ -1,4 +1,9 @@
-import {type PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateExpressionOptions,
+    generateExpressionAnswerForm,
+    generateExpressionWidget,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import {action} from "storybook/actions";
 
@@ -23,27 +28,18 @@ const question: PerseusRenderer = {
         "This is a cool expression question\n\n[[\u2603 expression 1]]\n\n",
     images: {},
     widgets: {
-        "expression 1": {
-            alignment: "default",
-            graded: true,
-            options: {
+        "expression 1": generateExpressionWidget({
+            options: generateExpressionOptions({
                 answerForms: [
-                    {
+                    generateExpressionAnswerForm({
                         considered: "correct",
                         form: true,
-                        key: "0",
-                        simplify: false,
                         value: "16+88i",
-                    },
+                        key: "0",
+                    }),
                 ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            static: false,
-            type: "expression",
-            version: {major: 1, minor: 0},
-        },
+            }),
+        }),
     },
 };
 

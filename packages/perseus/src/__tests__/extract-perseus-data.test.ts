@@ -1,4 +1,24 @@
 import {describe, it, expect} from "@jest/globals";
+import {
+    type RadioWidget,
+    type PerseusWidgetsMap,
+    type PerseusRenderer,
+    type MatcherWidget,
+    type MatrixWidget,
+    type NumberLineWidget,
+    type LabelImageWidget,
+    type DropdownWidget,
+    type GrapherWidget,
+    type SorterWidget,
+    type PlotterWidget,
+    type GroupWidget,
+    type NumericInputWidget,
+    type ExpressionWidget,
+    type CategorizerWidget,
+    generateExpressionWidget,
+    generateExpressionOptions,
+    generateExpressionAnswerForm,
+} from "@khanacademy/perseus-core";
 
 import {InputNumber, Radio} from "..";
 import {
@@ -17,7 +37,6 @@ import {
 } from "../util/extract-perseus-data";
 import {
     generateTestCategorizerWidget,
-    generateTestExpressionWidget,
     generateTestInteractiveGraphWidget,
     generateTestNumericInputWidget,
     generateTestRadioWidget,
@@ -28,24 +47,6 @@ const stub: jest.MockedFunction<any> = jest.fn();
 beforeEach(() => {
     stub.mockClear();
 });
-
-import type {
-    RadioWidget,
-    PerseusWidgetsMap,
-    PerseusRenderer,
-    MatcherWidget,
-    MatrixWidget,
-    NumberLineWidget,
-    LabelImageWidget,
-    DropdownWidget,
-    GrapherWidget,
-    SorterWidget,
-    PlotterWidget,
-    GroupWidget,
-    NumericInputWidget,
-    ExpressionWidget,
-    CategorizerWidget,
-} from "@khanacademy/perseus-core";
 
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {
@@ -135,30 +136,23 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answer from an expression widget", () => {
-            const widget: ExpressionWidget = {
-                type: "expression",
-                options: {
+            const widget: ExpressionWidget = generateExpressionWidget({
+                options: generateExpressionOptions({
                     answerForms: [
-                        {
+                        generateExpressionAnswerForm({
                             value: "27\\pi",
-                            form: false,
-                            simplify: false,
                             considered: "correct",
                             key: "0",
-                        },
-                        {
+                        }),
+                        generateExpressionAnswerForm({
                             value: "84.78",
-                            form: false,
-                            simplify: false,
                             considered: "correct",
                             key: "1",
-                        },
+                        }),
                     ],
                     buttonSets: ["basic", "prealgebra"],
-                    functions: ["f", "g", "h"],
-                    times: false,
-                },
-            };
+                }),
+            });
 
             const answer = getAnswersFromWidgets({"expression 1": widget});
             expect(answer).toMatchInlineSnapshot(`
@@ -765,23 +759,19 @@ describe("ExtractPerseusData", () => {
                                 images: {},
                                 title: "Problem 1A",
                                 widgets: {
-                                    "expression 1": {
-                                        type: "expression",
-                                        options: {
+                                    "expression 1": generateExpressionWidget({
+                                        options: generateExpressionOptions({
                                             answerForms: [
-                                                {
+                                                generateExpressionAnswerForm({
                                                     considered: "correct",
                                                     form: true,
                                                     key: "0",
-                                                    simplify: false,
                                                     value: "7^3",
-                                                },
+                                                }),
                                             ],
                                             buttonSets: [],
-                                            functions: ["f", "g", "h"],
-                                            times: false,
-                                        },
-                                    },
+                                        }),
+                                    }),
                                 },
                             },
                             {
@@ -790,23 +780,19 @@ describe("ExtractPerseusData", () => {
                                 images: {},
                                 title: "Problem 1B",
                                 widgets: {
-                                    "expression 1": {
-                                        type: "expression",
-                                        options: {
+                                    "expression 1": generateExpressionWidget({
+                                        options: generateExpressionOptions({
                                             answerForms: [
-                                                {
+                                                generateExpressionAnswerForm({
                                                     considered: "correct",
                                                     form: true,
                                                     key: "0",
-                                                    simplify: false,
                                                     value: "5^6",
-                                                },
+                                                }),
                                             ],
                                             buttonSets: [],
-                                            functions: ["f", "g", "h"],
-                                            times: false,
-                                        },
-                                    },
+                                        }),
+                                    }),
                                 },
                             },
                         ],
@@ -1051,23 +1037,18 @@ describe("ExtractPerseusData", () => {
                         size: "normal",
                     },
                 },
-                "expression 1": {
-                    type: "expression",
-                    options: {
+                "expression 1": generateExpressionWidget({
+                    options: generateExpressionOptions({
                         answerForms: [
-                            {
+                            generateExpressionAnswerForm({
                                 value: "27\\pi",
-                                form: false,
-                                simplify: false,
                                 considered: "correct",
                                 key: "0",
-                            },
+                            }),
                         ],
                         buttonSets: ["basic", "prealgebra"],
-                        functions: ["f", "g", "h"],
-                        times: false,
-                    },
-                },
+                    }),
+                }),
             };
             const content = injectWidgets(
                 "Enter your numeric-input [[☃ numeric-input 1]], Enter your input-number [[☃ input-number 1]], Enter your expression [[☃ expression 1]]",
@@ -1111,7 +1092,7 @@ describe("ExtractPerseusData", () => {
             ).toBe(true);
             expect(
                 isWrongAnswerSupported(["expression 5", "categorizer 6"], {
-                    "expression 5": generateTestExpressionWidget(),
+                    "expression 5": generateExpressionWidget(),
                     "categorizer 6": generateTestCategorizerWidget(),
                 }),
             ).toBe(true);

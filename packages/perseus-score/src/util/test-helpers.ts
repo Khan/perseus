@@ -1,4 +1,10 @@
-import type {DropdownWidget, ExpressionWidget} from "@khanacademy/perseus-core";
+import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
+    type DropdownWidget,
+    type ExpressionWidget,
+} from "@khanacademy/perseus-core";
 
 export function getTestDropdownWidget(): DropdownWidget {
     return {
@@ -21,23 +27,17 @@ export function getTestDropdownWidget(): DropdownWidget {
 }
 
 export function getExpressionWidget(): ExpressionWidget {
-    return {
-        type: "expression",
-        version: {major: 1, minor: 0},
-        options: {
-            times: false,
-            buttonSets: ["basic"],
-            functions: [],
+    return generateExpressionWidget({
+        options: generateExpressionOptions({
             answerForms: [
-                {
-                    form: false,
-                    simplify: false,
+                generateExpressionAnswerForm({
                     value: "2+2",
                     considered: "correct",
-                },
+                }),
             ],
-        },
-    };
+            functions: [],
+        }),
+    });
 }
 
 export function getLegacyExpressionWidget() {
