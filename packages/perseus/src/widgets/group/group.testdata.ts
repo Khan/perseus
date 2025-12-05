@@ -1,4 +1,6 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
@@ -161,17 +163,15 @@ export function getFullGroupTestItem(): PerseusItem {
     const groupRenderer = generateTestPerseusRenderer({
         content: "Group Renderer\n\n[[☃ dropdown 1]]",
         widgets: {
-            "dropdown 1": {
-                type: "dropdown",
-                options: {
+            "dropdown 1": generateDropdownWidget({
+                options: generateDropdownOptions({
                     choices: [
                         {content: "Incorrect", correct: false},
                         {content: "Correct", correct: true},
                     ],
                     placeholder: "Choose an answer",
-                    static: false,
-                },
-            },
+                }),
+            }),
         },
     });
 
