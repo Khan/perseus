@@ -1176,7 +1176,7 @@ describe("getAnswersFromWidgets", () => {
             },
         } as const;
         const answer = getAnswersFromWidgets({"graded-group 1": widget});
-        expect(answer).toEqual(["correct choice", "3.14"]);
+        expect(answer).toEqual(["correct choice", "42"]);
     });
 
     it("should get the answers from a plotter widget", () => {
