@@ -164,4 +164,61 @@ describe("Definition widget", () => {
             shouldHavePoints: false,
         });
     });
+
+    it("should close the popover when we Tab off the close button", async () => {
+        // Arrange
+        renderQuestion(question);
+
+        // Act - Open the popover
+        const definitionAnchor = screen.getByText("the Pequots");
+        await userEvent.click(definitionAnchor);
+
+        // Verify popover is open
+        const tooltip = screen.getByRole("dialog");
+        expect(tooltip).toBeVisible();
+
+        // Tab off the close button
+        await userEvent.tab();
+
+        // Assert - Popover should be closed
+        expect(screen.queryByRole("dialog")).toBeNull();
+    });
+
+    it("should close the popover when we Shift + Tab from the close button", async () => {
+        // Arrange
+        renderQuestion(question);
+
+        // Act - Open the popover
+        const definitionAnchor = screen.getByText("the Pequots");
+        await userEvent.click(definitionAnchor);
+
+        // Verify popover is open
+        const tooltip = screen.getByRole("dialog");
+        expect(tooltip).toBeVisible();
+
+        // Shift + Tab off the close button (tab backwards)
+        await userEvent.tab({shift: true});
+
+        // Assert - Popover should be closed
+        expect(screen.queryByRole("dialog")).toBeNull();
+    });
+
+    it("should close the popover when we press Escape", async () => {
+        // Arrange
+        renderQuestion(question);
+
+        // Act - Open the popover
+        const definitionAnchor = screen.getByText("the Pequots");
+        await userEvent.click(definitionAnchor);
+
+        // Verify popover is open
+        const tooltip = screen.getByRole("dialog");
+        expect(tooltip).toBeVisible();
+
+        // Press Escape
+        await userEvent.keyboard("{Escape}");
+
+        // Assert - Popover should be closed
+        expect(screen.queryByRole("dialog")).toBeNull();
+    });
 });

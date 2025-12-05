@@ -1,4 +1,5 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
@@ -64,18 +65,29 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
             <DefinitionConsumer>
                 {({activeDefinitionId, setActiveDefinitionId}) => (
                     <Popover
+                        dismissEnabled
                         content={
-                            <PopoverContentCore
-                                style={styles.tooltipBody}
-                                closeButtonVisible={true}
+                            <View
+                                onKeyDown={(e) => {
+                                    // Close popover when tabbing off the close button
+                                    // (the only tabbable element in the popover)
+                                    if (e.key === "Tab") {
+                                        setActiveDefinitionId(null);
+                                    }
+                                }}
                             >
-                                <Renderer
-                                    apiOptions={this.props.apiOptions}
-                                    content={this.props.definition}
-                                    widgets={this.props.widgets}
-                                    strings={this.context.strings}
-                                />
-                            </PopoverContentCore>
+                                <PopoverContentCore
+                                    style={styles.tooltipBody}
+                                    closeButtonVisible={true}
+                                >
+                                    <Renderer
+                                        apiOptions={this.props.apiOptions}
+                                        content={this.props.definition}
+                                        widgets={this.props.widgets}
+                                        strings={this.context.strings}
+                                    />
+                                </PopoverContentCore>
+                            </View>
                         }
                         opened={activeDefinitionId === this.props.widgetId}
                         onClose={() => setActiveDefinitionId(null)}
