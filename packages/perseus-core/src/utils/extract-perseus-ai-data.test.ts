@@ -124,21 +124,21 @@ describe("getPerseusAIData", () => {
                     widgets: {},
                 },
                 {
-                    content: "The answer is [[☃ input-number 1]].",
+                    content:
+                        "Here's a detailed explanation: [[☃ explanation 1]]",
                     images: {},
                     widgets: {
-                        "input-number 1": {
-                            type: "input-number",
+                        "explanation 1": {
+                            type: "explanation",
                             alignment: "default",
                             static: false,
                             graded: true,
                             options: {
-                                value: 4,
-                                simplify: "required",
-                                size: "normal",
-                                inexact: false,
-                                maxError: 0.1,
-                                answerType: "number",
+                                explanation: "Addition combines two numbers.",
+                                showPrompt: "Show explanation",
+                                hidePrompt: "Hide explanation",
+                                widgets: {},
+                                static: false,
                             },
                             version: {major: 0, minor: 0},
                         },
@@ -153,7 +153,7 @@ describe("getPerseusAIData", () => {
         // Assert
         expect(result.hints).toEqual([
             "Try adding the numbers together.",
-            "The answer is ?.",
+            "Here's a detailed explanation: Addition combines two numbers.",
         ]);
     });
 
