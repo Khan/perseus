@@ -6,11 +6,12 @@ import {useRef, useState} from "react";
 import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
-import ContentPreview from "../content-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
-import PreviewPanel from "./preview-panel";
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
+import {usePreviewUrl} from "./use-preview-url";
+
+import type {PerseusArticle} from "@khanacademy/perseus-core";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
@@ -20,8 +21,9 @@ export default {
 };
 
 export const Demo = (): React.ReactElement => {
-    const [article, setArticle] = useState(undefined);
+    const [article, setArticle] = useState<PerseusArticle>();
     const articleEditorRef = useRef();
+    const storybookPreviewUrl = usePreviewUrl();
 
     return (
         <View>
@@ -31,28 +33,33 @@ export const Demo = (): React.ReactElement => {
                 imageUploader={() => {}}
                 json={article}
                 onChange={(value) => {
-                    setArticle(value.json[0]);
+                    setArticle(value.json);
                 }}
-                previewURL="about:blank"
+                previewURL={storybookPreviewUrl}
                 ref={articleEditorRef as any}
             />
-            <PreviewPanel openButtonText="Open preview (storybook only)">
-                <ContentPreview
-                    question={article}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        isArticle: true,
-                        showAlignmentOptions: true,
-                    }}
-                    linterContext={{
-                        contentType: "article",
-                        highlightLint: true,
-                        paths: [],
-                        stack: [],
-                    }}
-                    previewDevice={"desktop"}
-                />
-            </PreviewPanel>
+        </View>
+    );
+};
+
+export const PreviewMode = (): React.ReactElement => {
+    const [article] = useState([comprehensiveQuestion, comprehensiveQuestion]);
+    const articleEditorRef = useRef<ArticleEditor | null>(null);
+    const storybookPreviewUrl = usePreviewUrl();
+
+    return (
+        <View>
+            <ArticleEditor
+                dependencies={testDependenciesV2}
+                apiOptions={{...ApiOptions.defaults, isArticle: true}}
+                json={article}
+                mode="preview"
+                onChange={() => {
+                    /* Preview doesn't support editing */
+                }}
+                previewURL={storybookPreviewUrl}
+                ref={articleEditorRef as any}
+            />
         </View>
     );
 };
@@ -63,6 +70,7 @@ export const WithEditingDisabled = (): React.ReactElement => {
         ...ApiOptions.defaults,
         editingDisabled: true,
     };
+    const storybookPreviewUrl = usePreviewUrl();
 
     return (
         <ArticleEditor
@@ -71,7 +79,7 @@ export const WithEditingDisabled = (): React.ReactElement => {
             imageUploader={() => {}}
             json={[comprehensiveQuestion]}
             onChange={() => {}}
-            previewURL="/perseus/frame"
+            previewURL={storybookPreviewUrl}
             ref={articleEditorRef as any}
         />
     );

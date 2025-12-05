@@ -1,4 +1,6 @@
 import {
+    generateFreeResponseOptions,
+    generateFreeResponseWidget,
     generateVideoWidget,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -294,19 +296,12 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 answerType: "rational",
             },
         },
-        "free-response 1": {
+        "free-response 1": generateFreeResponseWidget({
             graded: false,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "free-response",
-            options: {
-                placeholder: "Enter your response here",
+            options: generateFreeResponseOptions({
                 question: "What do you think?",
-                allowUnlimitedCharacters: false,
-                characterLimit: 500,
-                scoringCriteria: [],
-            },
-        },
+            }),
+        }),
         "orderer 1": {
             graded: true,
             version: {major: 0, minor: 0},
