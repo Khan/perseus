@@ -146,7 +146,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
         </div>
         <div
           aria-labelledby="Numbers-tab"
-          class="tabPanel_jro6t0-o_O-inlineStyles_1hoepsr"
+          class="tabPanel_ivfmus-o_O-inlineStyles_1hoepsr"
           id="Numbers-panel"
           role="tabpanel"
         >
@@ -1036,7 +1036,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           hidden=""
           id="Extras-panel"
           role="tabpanel"
-          tabindex="0"
         />
         <div
           aria-labelledby="Operators-tab"
@@ -1044,7 +1043,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           hidden=""
           id="Operators-panel"
           role="tabpanel"
-          tabindex="0"
         />
         <div
           aria-labelledby="Geometry-tab"
@@ -1052,7 +1050,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           hidden=""
           id="Geometry-panel"
           role="tabpanel"
-          tabindex="0"
         />
       </div>
     </div>
@@ -1206,7 +1203,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
         </div>
         <div
           aria-labelledby="Numbers-tab"
-          class="tabPanel_jro6t0-o_O-inlineStyles_1hoepsr"
+          class="tabPanel_ivfmus-o_O-inlineStyles_1hoepsr"
           id="Numbers-panel"
           role="tabpanel"
         >
@@ -1902,7 +1899,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           hidden=""
           id="Extras-panel"
           role="tabpanel"
-          tabindex="0"
         />
         <div
           aria-labelledby="Operators-tab"
@@ -1910,7 +1906,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           hidden=""
           id="Operators-panel"
           role="tabpanel"
-          tabindex="0"
         />
         <div
           aria-labelledby="Geometry-tab"
@@ -1918,7 +1913,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           hidden=""
           id="Geometry-panel"
           role="tabpanel"
-          tabindex="0"
         />
       </div>
     </div>
