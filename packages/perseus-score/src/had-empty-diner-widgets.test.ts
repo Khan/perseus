@@ -3,6 +3,7 @@ import {
     generateExpressionOptions,
     generateExpressionWidget,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     type PerseusRenderer,
     type UserInputMap,
 } from "@khanacademy/perseus-core";
@@ -63,7 +64,7 @@ function generateBasicNumericInputQuestion(): PerseusRenderer {
 }
 
 function generateBasicExpressionQuestion(): PerseusRenderer {
-    return {
+    return generateTestPerseusRenderer({
         content: "[[☃ expression 1]]",
         widgets: {
             "expression 1": generateExpressionWidget({
@@ -78,8 +79,7 @@ function generateBasicExpressionQuestion(): PerseusRenderer {
                 }),
             }),
         },
-        images: {},
-    };
+    });
 }
 
 function generateBasicRadioQuestion(): PerseusRenderer {
