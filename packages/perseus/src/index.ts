@@ -96,8 +96,6 @@ export {
 } from "./util/sizing-utils";
 export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
-    getAnswersFromWidgets,
-    injectWidgets,
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
     isWidgetIdInContent,
@@ -127,6 +125,9 @@ export {
      * @deprecated - import this function from perseus-core instead
      */
     isFailure,
+    getAnswersFromWidgets,
+    injectWidgets,
+    getPerseusAIData,
 } from "@khanacademy/perseus-core";
 
 export {
