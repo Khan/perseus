@@ -1,3 +1,5 @@
+import {getTestDropdownWidget} from "../../util/test-helpers";
+
 import validateGroup from "./validate-group";
 
 import type {PerseusGroupValidationData} from "@khanacademy/perseus-core";
@@ -7,14 +9,11 @@ describe("validateGroup", () => {
         // Arrange:
         const userInput = undefined;
         const validationData: PerseusGroupValidationData = {
+            content: "[[☃ dropdown 1]]",
             widgets: {
-                "categorizer 1": {
-                    type: "categorizer",
-                    options: {
-                        items: ["a"],
-                    },
-                },
+                "dropdown 1": getTestDropdownWidget(),
             },
+            images: {},
         };
 
         // Act:
