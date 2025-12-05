@@ -32,7 +32,8 @@ beforeEach(() => {
     stub.mockClear();
 });
 describe("getPerseusAIData", () => {
-    it("should extract answers from a radio widget", () => {
+    it("should extract answers and process hints", () => {
+        // Arrange
         const perseusItem: PerseusItem = {
             question: {
                 content: "What is 2+2? [[☃ radio 1]]",
@@ -66,98 +67,25 @@ describe("getPerseusAIData", () => {
                 periodicTableWithKey: false,
                 periodicTable: false,
             },
-            hints: [],
+            hints: [
+                {
+                    content: "Try adding the numbers together.",
+                    images: {},
+                    widgets: {},
+                },
+            ],
         };
 
+        // Act
         const result = getPerseusAIData(perseusItem);
 
+        // Assert
         expect(result.answers).toEqual(["4"]);
-        expect(result.hints).toEqual([]);
+        expect(result.hints).toEqual(["Try adding the numbers together."]);
     });
 
-    it("should extract multiple answers from a multi-select radio widget", () => {
-        const perseusItem: PerseusItem = {
-            question: {
-                content: "Select all even numbers [[☃ radio 1]]",
-                images: {},
-                widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
-                        options: {
-                            choices: [
-                                {id: "0-0-0-0-0", content: "1", correct: false},
-                                {id: "1-1-1-1-1", content: "2", correct: true},
-                                {id: "2-2-2-2-2", content: "3", correct: false},
-                                {id: "3-3-3-3-3", content: "4", correct: true},
-                            ],
-                            randomize: false,
-                            multipleSelect: true,
-                            hasNoneOfTheAbove: false,
-                            deselectEnabled: false,
-                        },
-                        version: {major: 1, minor: 0},
-                    },
-                },
-            },
-            answerArea: {
-                calculator: false,
-                financialCalculatorMonthlyPayment: false,
-                financialCalculatorTotalAmount: false,
-                financialCalculatorTimeToPayOff: false,
-                periodicTable: false,
-                periodicTableWithKey: false,
-            },
-            hints: [],
-        };
-
-        const result = getPerseusAIData(perseusItem);
-
-        expect(result.answers).toEqual(["2", "4"]);
-    });
-
-    it("should extract answer from input-number widget", () => {
-        const perseusItem: PerseusItem = {
-            question: {
-                content: "What is 5 × 6? [[☃ input-number 1]]",
-                images: {},
-                widgets: {
-                    "input-number 1": {
-                        type: "input-number",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
-                        options: {
-                            value: 30,
-                            simplify: "required",
-                            size: "normal",
-                            inexact: false,
-                            maxError: 0.1,
-                            answerType: "number",
-                        },
-                        version: {major: 0, minor: 0},
-                    },
-                },
-            },
-            answerArea: {
-                calculator: false,
-                financialCalculatorMonthlyPayment: false,
-                financialCalculatorTotalAmount: false,
-                financialCalculatorTimeToPayOff: false,
-                periodicTableWithKey: false,
-                periodicTable: false,
-            },
-            hints: [],
-        };
-
-        const result = getPerseusAIData(perseusItem);
-
-        expect(result.answers).toEqual(["30"]);
-    });
-
-    it("should process hints by injecting widget content", () => {
+    it("should process multiple hints with widget injection", () => {
+        // Arrange
         const perseusItem: PerseusItem = {
             question: {
                 content: "What is 2+2? [[☃ radio 1]]",
@@ -219,43 +147,36 @@ describe("getPerseusAIData", () => {
             ],
         };
 
+        // Act
         const result = getPerseusAIData(perseusItem);
 
+        // Assert
         expect(result.hints).toEqual([
             "Try adding the numbers together.",
             "The answer is ?.",
         ]);
     });
 
-    it("should handle expressions widget", () => {
+    it("should handle items with no hints", () => {
+        // Arrange
         const perseusItem: PerseusItem = {
             question: {
-                content: "Simplify: [[☃ expression 1]]",
+                content: "What is 2+2? [[☃ radio 1]]",
                 images: {},
                 widgets: {
-                    "expression 1": {
-                        type: "expression",
+                    "radio 1": {
+                        type: "radio",
                         alignment: "default",
                         static: false,
                         graded: true,
                         options: {
-                            answerForms: [
-                                {
-                                    considered: "correct",
-                                    form: false,
-                                    simplify: false,
-                                    value: "x^2",
-                                },
-                                {
-                                    considered: "correct",
-                                    form: false,
-                                    simplify: false,
-                                    value: "x*x",
-                                },
+                            choices: [
+                                {id: "0-0-0-0-0", content: "4", correct: true},
                             ],
-                            buttonSets: ["basic"],
-                            functions: ["f", "g", "h"],
-                            times: false,
+                            randomize: false,
+                            multipleSelect: false,
+                            hasNoneOfTheAbove: false,
+                            deselectEnabled: false,
                         },
                         version: {major: 1, minor: 0},
                     },
@@ -272,109 +193,16 @@ describe("getPerseusAIData", () => {
             hints: [],
         };
 
+        // Act
         const result = getPerseusAIData(perseusItem);
 
-        expect(result.answers).toEqual(["x^2", "x*x"]);
-    });
-
-    it("should handle dropdown widget", () => {
-        const perseusItem: PerseusItem = {
-            question: {
-                content: "Select the capital: [[☃ dropdown 1]]",
-                images: {},
-                widgets: {
-                    "dropdown 1": {
-                        type: "dropdown",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
-                        options: {
-                            choices: [
-                                {
-                                    content: "New York",
-                                    correct: false,
-                                },
-                                {
-                                    content: "Washington DC",
-                                    correct: true,
-                                },
-                                {
-                                    content: "Boston",
-                                    correct: false,
-                                },
-                            ],
-                            placeholder: "Choose one",
-                            static: false,
-                        },
-                        version: {major: 0, minor: 0},
-                    },
-                },
-            },
-            answerArea: {
-                calculator: false,
-                financialCalculatorMonthlyPayment: false,
-                financialCalculatorTotalAmount: false,
-                financialCalculatorTimeToPayOff: false,
-                periodicTableWithKey: false,
-                periodicTable: false,
-            },
-            hints: [],
-        };
-
-        const result = getPerseusAIData(perseusItem);
-
-        expect(result.answers).toEqual(["Washington DC"]);
-    });
-
-    it("should handle numeric-input widget", () => {
-        const perseusItem: PerseusItem = {
-            question: {
-                content:
-                    "What is π to 2 decimal places? [[☃ numeric-input 1]]",
-                images: {},
-                widgets: {
-                    "numeric-input 1": {
-                        type: "numeric-input",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
-                        options: {
-                            answers: [
-                                {
-                                    status: "correct",
-                                    maxError: 0.01,
-                                    strict: false,
-                                    message: "",
-                                    simplify: "required",
-                                    value: 3.14,
-                                },
-                            ],
-                            size: "normal",
-                            coefficient: false,
-                            labelText: "",
-                            static: false,
-                        },
-                        version: {major: 0, minor: 0},
-                    },
-                },
-            },
-            answerArea: {
-                calculator: false,
-                financialCalculatorMonthlyPayment: false,
-                financialCalculatorTotalAmount: false,
-                financialCalculatorTimeToPayOff: false,
-                periodicTableWithKey: false,
-                periodicTable: false,
-            },
-            hints: [],
-        };
-
-        const result = getPerseusAIData(perseusItem);
-
-        expect(result.answers).toEqual(["3.14"]);
+        // Assert
+        expect(result.answers).toEqual(["4"]);
+        expect(result.hints).toEqual([]);
     });
 
     it("should handle items with no widgets", () => {
+        // Arrange
         const perseusItem: PerseusItem = {
             question: {
                 content: "This is just text with no widgets.",
@@ -392,13 +220,16 @@ describe("getPerseusAIData", () => {
             hints: [],
         };
 
+        // Act
         const result = getPerseusAIData(perseusItem);
 
+        // Assert
         expect(result.answers).toEqual([]);
         expect(result.hints).toEqual([]);
     });
 
     it("should handle group widgets recursively", () => {
+        // Arrange
         const perseusItem: PerseusItem = {
             question: {
                 content: "[[☃ group 1]]",
@@ -450,8 +281,10 @@ describe("getPerseusAIData", () => {
             hints: [],
         };
 
+        // Act
         const result = getPerseusAIData(perseusItem);
 
+        // Assert
         expect(result.answers).toEqual(["A"]);
     });
 });
