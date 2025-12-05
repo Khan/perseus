@@ -1,4 +1,9 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    type PerseusArticle,
+} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -16,7 +21,6 @@ import {
 } from "./graded-group.testdata";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../types";
-import type {PerseusArticle} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const checkAnswer = async (
@@ -392,9 +396,8 @@ describe("graded-group", () => {
                                 title: "Test title",
                                 content: "[[☃ dropdown 1]]",
                                 widgets: {
-                                    "dropdown 1": {
-                                        type: "dropdown",
-                                        options: {
+                                    "dropdown 1": generateDropdownWidget({
+                                        options: generateDropdownOptions({
                                             choices: [
                                                 {
                                                     content: "Wrong answer",
@@ -407,8 +410,8 @@ describe("graded-group", () => {
                                             ],
                                             placeholder: "Choose an answer",
                                             static: false,
-                                        },
-                                    },
+                                        }),
+                                    }),
                                 },
                                 images: {},
                             },

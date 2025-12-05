@@ -208,6 +208,10 @@ export {
 
 // Generators
 export {
+    generateDropdownOptions,
+    generateDropdownWidget,
+} from "./utils/generators/dropdown-widget-generator";
+export {
     generateExpressionOptions,
     generateExpressionAnswerForm,
     generateExpressionWidget,

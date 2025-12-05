@@ -20,6 +20,8 @@ import {
     generateNumericInputWidget,
     generateNumericInputOptions,
     generateNumericInputAnswer,
+    generateDropdownWidget,
+    generateDropdownOptions,
 } from "@khanacademy/perseus-core";
 
 import {InputNumber, Radio} from "..";
@@ -293,24 +295,15 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answers from a dropdown widget", () => {
-            const widget: DropdownWidget = {
-                type: "dropdown",
-                options: {
+            const widget: DropdownWidget = generateDropdownWidget({
+                options: generateDropdownOptions({
                     placeholder: "Select an option",
-                    ariaLabel: "",
-                    static: false,
                     choices: [
-                        {
-                            content: "choice 1",
-                            correct: true,
-                        },
-                        {
-                            content: "choice 2",
-                            correct: false,
-                        },
+                        {content: "choice 1", correct: true},
+                        {content: "choice 2", correct: false},
                     ],
-                },
-            };
+                }),
+            });
             const answer = getAnswersFromWidgets({"dropdown 1": widget});
             expect(answer).toEqual(["choice 1"]);
         });
@@ -657,11 +650,9 @@ describe("ExtractPerseusData", () => {
 
         it("should inject dropdown widget into the content", () => {
             const widgets = {
-                "Dropdown 1": {
-                    type: "dropdown",
-                    options: {
+                "Dropdown 1": generateDropdownWidget({
+                    options: generateDropdownOptions({
                         placeholder: "Select an option",
-                        static: false,
                         choices: [
                             {
                                 content: "option 1",
@@ -676,8 +667,8 @@ describe("ExtractPerseusData", () => {
                                 correct: false,
                             },
                         ],
-                    },
-                },
+                    }),
+                }),
             } as const;
             const content = injectWidgets(
                 "Select one option from the dropdown [[☃ Dropdown 1]]",

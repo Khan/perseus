@@ -1,17 +1,16 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 export const question: PerseusRenderer = {
     content:
         "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
     images: {},
     widgets: {
-        "dropdown 1": {
-            type: "dropdown",
-            alignment: "default",
-            static: false,
-            graded: true,
-            options: {
-                static: false,
+        "dropdown 1": generateDropdownWidget({
+            options: generateDropdownOptions({
                 placeholder: "greater/less than or equal to",
                 choices: [
                     {
@@ -23,11 +22,7 @@ export const question: PerseusRenderer = {
                         correct: true,
                     },
                 ],
-            },
-            version: {
-                major: 0,
-                minor: 0,
-            },
-        },
+            }),
+        }),
     },
 };

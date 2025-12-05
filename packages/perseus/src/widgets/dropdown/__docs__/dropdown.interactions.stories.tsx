@@ -1,10 +1,15 @@
+import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateTestPerseusRenderer,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {storybookDependenciesV2} from "../../../../../../testing/test-dependencies";
 import ArticleRenderer from "../../../article-renderer";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
 
 /**
@@ -35,18 +40,12 @@ export default {
  * Block math is math that appears on its own line (followed by two newlines).
  */
 export const OpenedDropdownInArticleWithParagraphs = (): React.ReactNode => {
-    const question: PerseusRenderer = {
+    const question: PerseusRenderer = generateTestPerseusRenderer({
         content:
             "Which definition is correct? Select from the dropdown: [[☃ dropdown 1]]",
-        images: {},
         widgets: {
-            "dropdown 1": {
-                type: "dropdown",
-                alignment: "default",
-                static: false,
-                graded: true,
-                options: {
-                    static: false,
+            "dropdown 1": generateDropdownWidget({
+                options: generateDropdownOptions({
                     placeholder: "Choose a definition",
                     choices: [
                         {
@@ -65,14 +64,10 @@ export const OpenedDropdownInArticleWithParagraphs = (): React.ReactNode => {
                             correct: false,
                         },
                     ],
-                },
-                version: {
-                    major: 0,
-                    minor: 0,
-                },
-            },
+                }),
+            }),
         },
-    };
+    });
 
     return (
         <ArticleRenderer

@@ -1,3 +1,9 @@
+import {
+    type PerseusRenderer,
+    type PerseusDropdownUserInput,
+    generateDropdownWidget,
+    generateDropdownOptions,
+} from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -5,10 +11,6 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./dropdown-ai-utils";
 
-import type {
-    PerseusRenderer,
-    PerseusDropdownUserInput,
-} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question1: PerseusRenderer = {
@@ -16,13 +18,8 @@ const question1: PerseusRenderer = {
         "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
     images: {},
     widgets: {
-        "dropdown 1": {
-            type: "dropdown",
-            alignment: "default",
-            static: false,
-            graded: true,
-            options: {
-                static: false,
+        "dropdown 1": generateDropdownWidget({
+            options: generateDropdownOptions({
                 placeholder: "greater/less than or equal to",
                 choices: [
                     {
@@ -36,12 +33,8 @@ const question1: PerseusRenderer = {
                 ],
                 ariaLabel: "Test ARIA label",
                 visibleLabel: "Test visible label",
-            },
-            version: {
-                major: 0,
-                minor: 0,
-            },
-        },
+            }),
+        }),
     },
 };
 

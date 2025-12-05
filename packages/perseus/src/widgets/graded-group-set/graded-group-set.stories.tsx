@@ -1,3 +1,9 @@
+import {
+    generateDropdownWidget,
+    generateDropdownOptions,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
+
 import {ArticleRendererWithDebugUI} from "../../../../../testing/article-renderer-with-debug-ui";
 
 import {
@@ -5,7 +11,6 @@ import {
     groupSetRadioRationaleQuestion,
 } from "./graded-group-set.testdata";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
@@ -57,12 +62,8 @@ This tests if dropdown widgets trigger the mobile answer bar correctly.`,
                         title: "Dropdown Test",
                         content: "What color is the sky?\n\n[[☃ dropdown 1]]",
                         widgets: {
-                            "dropdown 1": {
-                                type: "dropdown",
-                                alignment: "default",
-                                static: false,
-                                graded: true,
-                                options: {
+                            "dropdown 1": generateDropdownWidget({
+                                options: generateDropdownOptions({
                                     placeholder: "Choose an answer",
                                     choices: [
                                         {
@@ -79,9 +80,8 @@ This tests if dropdown widgets trigger the mobile answer bar correctly.`,
                                         },
                                     ],
                                     static: false,
-                                },
-                                version: {major: 0, minor: 0},
-                            },
+                                }),
+                            }),
                         },
                         images: {},
                         hint: {

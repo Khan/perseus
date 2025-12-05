@@ -1,3 +1,8 @@
+import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+} from "@khanacademy/perseus-core";
+
 import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
 import type {
     DropdownWidget,
@@ -5,13 +10,8 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-export const dropdownWidget: DropdownWidget = {
-    type: "dropdown",
-    alignment: "default",
-    static: false,
-    graded: true,
-    options: {
-        static: false,
+export const dropdownWidget: DropdownWidget = generateDropdownWidget({
+    options: generateDropdownOptions({
         ariaLabel: "Test ARIA label",
         visibleLabel: "Test visible label",
         placeholder: "greater/less than or equal to",
@@ -25,12 +25,8 @@ export const dropdownWidget: DropdownWidget = {
                 correct: true,
             },
         ],
-    },
-    version: {
-        major: 0,
-        minor: 0,
-    },
-};
+    }),
+});
 
 export const imageWidget: ImageWidget = {
     alignment: "block",
