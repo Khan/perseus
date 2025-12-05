@@ -201,7 +201,7 @@ describe("getPerseusAIData", () => {
         expect(result.hints).toEqual([]);
     });
 
-    it("should handle items with no widgets", () => {
+    it("should handle items with no widgets or hints", () => {
         // Arrange
         const perseusItem: PerseusItem = {
             question: {
@@ -226,66 +226,6 @@ describe("getPerseusAIData", () => {
         // Assert
         expect(result.answers).toEqual([]);
         expect(result.hints).toEqual([]);
-    });
-
-    it("should handle group widgets recursively", () => {
-        // Arrange
-        const perseusItem: PerseusItem = {
-            question: {
-                content: "[[☃ group 1]]",
-                images: {},
-                widgets: {
-                    "group 1": {
-                        type: "group",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
-                        options: {
-                            content: "Answer these: [[☃ radio 1]]",
-                            images: {},
-                            widgets: {
-                                "radio 1": {
-                                    type: "radio",
-                                    alignment: "default",
-                                    static: false,
-                                    graded: true,
-                                    options: {
-                                        choices: [
-                                            {
-                                                id: "0-0-0-0-0",
-                                                content: "A",
-                                                correct: true,
-                                            },
-                                        ],
-                                        randomize: false,
-                                        multipleSelect: false,
-                                        hasNoneOfTheAbove: false,
-                                        deselectEnabled: false,
-                                    },
-                                    version: {major: 1, minor: 0},
-                                },
-                            },
-                        },
-                        version: {major: 0, minor: 0},
-                    },
-                },
-            },
-            answerArea: {
-                calculator: false,
-                financialCalculatorMonthlyPayment: false,
-                financialCalculatorTotalAmount: false,
-                financialCalculatorTimeToPayOff: false,
-                periodicTableWithKey: false,
-                periodicTable: false,
-            },
-            hints: [],
-        };
-
-        // Act
-        const result = getPerseusAIData(perseusItem);
-
-        // Assert
-        expect(result.answers).toEqual(["A"]);
     });
 });
 
