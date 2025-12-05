@@ -12,12 +12,14 @@ import {
     type SorterWidget,
     type PlotterWidget,
     type GroupWidget,
-    type NumericInputWidget,
     type ExpressionWidget,
     type CategorizerWidget,
     generateExpressionWidget,
     generateExpressionOptions,
     generateExpressionAnswerForm,
+    generateNumericInputWidget,
+    generateNumericInputOptions,
+    generateNumericInputAnswer,
 } from "@khanacademy/perseus-core";
 
 import {InputNumber, Radio} from "..";
@@ -38,7 +40,6 @@ import {
 import {
     generateTestCategorizerWidget,
     generateTestInteractiveGraphWidget,
-    generateTestNumericInputWidget,
     generateTestRadioWidget,
 } from "../util/test-utils";
 
@@ -164,25 +165,12 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answer from a numeric-input widget", () => {
-            const widget: NumericInputWidget = {
-                type: "numeric-input",
-                options: {
-                    answers: [
-                        {
-                            message: "rationale",
-                            value: 42,
-                            status: "correct",
-                            strict: false,
-                            maxError: 0,
-                            simplify: "required",
-                        },
-                    ],
+            const widget = generateNumericInputWidget({
+                options: generateNumericInputOptions({
+                    answers: [generateNumericInputAnswer({value: 42})],
                     labelText: "Enter a number",
-                    size: "normal",
-                    coefficient: false,
-                    static: false,
-                },
-            };
+                }),
+            });
             const answer = getAnswersFromWidgets({"numeric-input 1": widget});
             expect(answer).toEqual(["42"]);
         });
@@ -1010,25 +998,18 @@ describe("ExtractPerseusData", () => {
 
         it("should inject ? placeholder string for input widgets", () => {
             const widgets: PerseusWidgetsMap = {
-                "numeric-input 1": {
-                    type: "numeric-input",
-                    options: {
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
                         answers: [
-                            {
+                            generateNumericInputAnswer({
                                 message: "rationale",
                                 value: 42,
-                                status: "correct",
-                                strict: false,
                                 maxError: 0,
-                                simplify: "required",
-                            },
+                            }),
                         ],
                         labelText: "Enter a number",
-                        size: "normal",
-                        coefficient: false,
-                        static: false,
-                    },
-                },
+                    }),
+                }),
                 "input-number 1": {
                     type: "input-number",
                     options: {
@@ -1086,8 +1067,12 @@ describe("ExtractPerseusData", () => {
             ).toBe(true);
             expect(
                 isWrongAnswerSupported(["numeric-input 3", "numeric-input 4"], {
-                    "numeric-input 3": generateTestNumericInputWidget(),
-                    "numeric-input 4": generateTestNumericInputWidget(),
+                    "numeric-input 3": generateNumericInputWidget({
+                        options: generateNumericInputOptions({answers: []}),
+                    }),
+                    "numeric-input 4": generateNumericInputWidget({
+                        options: generateNumericInputOptions({answers: []}),
+                    }),
                 }),
             ).toBe(true);
             expect(
@@ -1125,7 +1110,9 @@ describe("ExtractPerseusData", () => {
             ).toBe(false);
             expect(
                 shouldHaveIndividualAnswer("numeric-input 3", {
-                    "numeric-input 3": generateTestNumericInputWidget(),
+                    "numeric-input 3": generateNumericInputWidget({
+                        options: generateNumericInputOptions({answers: []}),
+                    }),
                 }),
             ).toBe(false);
         });

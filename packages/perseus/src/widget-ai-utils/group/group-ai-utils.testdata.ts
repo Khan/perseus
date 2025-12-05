@@ -1,4 +1,9 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:
@@ -92,54 +97,18 @@ export const question1: PerseusRenderer = {
                         type: "image",
                         version: {major: 0, minor: 0},
                     },
-                    "numeric-input 1": {
-                        alignment: "default",
-                        graded: true,
-                        options: {
-                            answers: [
-                                {
-                                    maxError: null,
-                                    message: "",
-                                    simplify: "required",
-                                    status: "correct",
-                                    strict: false,
-                                    value: 230,
-                                },
-                            ],
-                            coefficient: false,
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            answers: [generateNumericInputAnswer({value: 230})],
                             labelText: "value rounded to the nearest ten",
-                            rightAlign: false,
-                            size: "normal",
-                            static: false,
-                        },
-                        static: false,
-                        type: "numeric-input",
-                        version: {major: 0, minor: 0},
-                    },
-                    "numeric-input 2": {
-                        alignment: "default",
-                        graded: true,
-                        options: {
-                            answers: [
-                                {
-                                    maxError: null,
-                                    message: "",
-                                    simplify: "required",
-                                    status: "correct",
-                                    strict: false,
-                                    value: 200,
-                                },
-                            ],
-                            coefficient: false,
+                        }),
+                    }),
+                    "numeric-input 2": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            answers: [generateNumericInputAnswer({value: 200})],
                             labelText: "value rounded to the nearest hundred",
-                            rightAlign: false,
-                            size: "normal",
-                            static: false,
-                        },
-                        static: false,
-                        type: "numeric-input",
-                        version: {major: 0, minor: 0},
-                    },
+                        }),
+                    }),
                 },
             },
             type: "group",

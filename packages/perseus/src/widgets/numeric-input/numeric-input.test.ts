@@ -1,5 +1,9 @@
 import {
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
@@ -142,31 +146,21 @@ describe("numeric-input widget", () => {
 
     it("Should render a visible tooltip when format options are given", async () => {
         // Arrange
-        const item: PerseusRenderer = {
+        const item = generateTestPerseusRenderer({
             content: "[[☃ numeric-input 1]] ",
-            images: {},
             widgets: {
-                "numeric-input 1": {
-                    type: "numeric-input",
-                    options: {
-                        coefficient: false,
-                        static: false,
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
                         answers: [
-                            {
-                                status: "correct",
-                                maxError: null,
-                                strict: false,
+                            generateNumericInputAnswer({
                                 value: 1252,
-                                simplify: "required",
-                                message: "",
                                 answerForms: ["proper", "improper", "mixed"],
-                            },
+                            }),
                         ],
-                        size: "normal",
-                    },
-                },
+                    }),
+                }),
             },
-        };
+        });
 
         // Act
         renderQuestion(item);
@@ -496,25 +490,16 @@ describe("interactive: full vs answerless", () => {
             content: "[[☃ numeric-input 1]] ",
             images: {},
             widgets: {
-                "numeric-input 1": {
-                    type: "numeric-input",
-                    options: {
-                        coefficient: false,
-                        static: false,
-                        size: "normal",
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
                         answers: [
-                            {
-                                status: "correct",
-                                maxError: null,
-                                strict: false,
+                            generateNumericInputAnswer({
                                 value: 42,
-                                simplify: "required",
-                                message: "",
                                 answerForms: ["proper", "improper", "mixed"],
-                            },
+                            }),
                         ],
-                    },
-                },
+                    }),
+                }),
             },
         };
 

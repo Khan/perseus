@@ -2,6 +2,9 @@ import {
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
     type PerseusRenderer,
@@ -37,30 +40,22 @@ function generateBasicDropdownQuestion(): PerseusRenderer {
 }
 
 function generateBasicNumericInputQuestion(): PerseusRenderer {
-    return {
+    return generateTestPerseusRenderer({
         content: "[[☃ numeric-input 1]]",
         widgets: {
-            "numeric-input 1": {
-                type: "numeric-input",
-                options: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({
                     answers: [
-                        {
+                        generateNumericInputAnswer({
                             value: 42,
                             message: "This is correct",
-                            status: "correct",
-                            strict: false,
                             simplify: "optional",
-                            maxError: null,
-                        },
+                        }),
                     ],
-                    size: "normal",
-                    coefficient: false,
-                    static: false,
-                },
-            },
+                }),
+            }),
         },
-        images: {},
-    };
+    });
 }
 
 function generateBasicExpressionQuestion(): PerseusRenderer {
