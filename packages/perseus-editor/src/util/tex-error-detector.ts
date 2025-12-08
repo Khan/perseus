@@ -7,7 +7,7 @@ import katex from "katex";
 // eslint-disable-next-line import/no-unassigned-import
 import "../katex-mhchem";
 
-export type TexError = {
+type TexError = {
     math: string;
     message: string;
 };

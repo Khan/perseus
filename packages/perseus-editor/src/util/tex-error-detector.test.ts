@@ -42,9 +42,9 @@ describe("detectTexErrors", () => {
         const errors = detectTexErrors(content);
 
         // Assert
-        expect(errors.length).toBeGreaterThan(0);
-        expect(errors[0].math).toContain("invalid");
-        expect(errors[0].message).toBeTruthy();
+        expect(errors.length).toBe(1);
+        expect(errors[0].math).toBe("\\invalid{syntax}");
+        expect(errors[0].message).toContain("Undefined control sequence");
     });
 
     it("detects multiple TeX errors", () => {
@@ -58,7 +58,7 @@ describe("detectTexErrors", () => {
         expect(errors.length).toBe(2);
     });
 
-    it("handles content with widgets correctly", () => {
+    it("returns no errors for valid math in content with widgets", () => {
         // Arrange
         const content =
             "Some text $x + y = z$ [[☃ numeric-input 1]] more math $a = b$";
