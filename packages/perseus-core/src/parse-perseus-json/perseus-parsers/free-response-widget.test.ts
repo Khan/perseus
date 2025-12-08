@@ -1,3 +1,7 @@
+import {
+    generateFreeResponseOptions,
+    generateFreeResponseWidget,
+} from "../../utils/generators/free-response-widget-generator";
 import {parse} from "../parse";
 import {failure, success} from "../result";
 
@@ -49,15 +53,12 @@ describe("freeResponseWidget", () => {
     });
 
     it("rejects a free-response widget with no question", () => {
-        const widget = {
-            type: "free-response",
-            version: {
-                major: 0,
-                minor: 0,
-            },
+        const widget = generateFreeResponseWidget({
             graded: false,
-            options: {},
-        };
+            options: generateFreeResponseOptions({
+                question: undefined,
+            }),
+        });
 
         expect(parse(widget, parseFreeResponseWidget)).toEqual(
             failure(

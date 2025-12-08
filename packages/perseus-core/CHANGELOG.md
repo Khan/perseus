@@ -1,5 +1,24 @@
 # @khanacademy/perseus-core
 
+## 20.3.0
+
+### Minor Changes
+
+-   [#3050](https://github.com/Khan/perseus/pull/3050) [`29cd960359`](https://github.com/Khan/perseus/commit/29cd960359660b5eacadf82f54e4a0d78ee6317f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Do not apply custom aligment float left or right to mobile it will be display block instead.
+
+### Patch Changes
+
+-   [#3085](https://github.com/Khan/perseus/pull/3085) [`a7bc025971`](https://github.com/Khan/perseus/commit/a7bc025971f3c5548fb5dac80f82afe0c262f102) Thanks [@nishasy](https://github.com/nishasy)! - [Video] Create video widget generator for testdata
+
+*   [#3087](https://github.com/Khan/perseus/pull/3087) [`889b0b3aff`](https://github.com/Khan/perseus/commit/889b0b3affff534ca5a6d9e067290fa7c4fb684b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   [#3069](https://github.com/Khan/perseus/pull/3069) [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade to pnpm@10.22.0
+
+-   Updated dependencies [[`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66)]:
+    -   @khanacademy/kas@2.1.6
+    -   @khanacademy/perseus-utils@2.1.4
+    -   @khanacademy/pure-markdown@2.2.4
+
 ## 20.2.1
 
 ### Patch Changes

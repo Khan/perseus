@@ -208,6 +208,10 @@ export {
 
 // Generators
 export {
+    generateFreeResponseOptions,
+    generateFreeResponseWidget,
+} from "./utils/generators/free-response-widget-generator";
+export {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";

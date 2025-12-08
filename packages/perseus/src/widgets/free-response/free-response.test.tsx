@@ -1,11 +1,14 @@
+import {
+    generateFreeResponseOptions,
+    generateFreeResponseWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
-import {getFreeResponseItemData} from "./free-response.testdata";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -31,7 +34,18 @@ describe("free-response widget", () => {
 
         // Act
         const {container} = renderQuestion(
-            getFreeResponseItemData(),
+            generateTestPerseusRenderer({
+                content: "[[☃ free-response 1]]",
+                widgets: {
+                    "free-response 1": generateFreeResponseWidget({
+                        alignment: "block",
+                        options: generateFreeResponseOptions({
+                            placeholder: "test-placeholder",
+                            question: "test-question",
+                        }),
+                    }),
+                },
+            }),
             apiOptions,
         );
 
@@ -47,7 +61,18 @@ describe("free-response widget", () => {
 
         // Act
         const {container} = renderQuestion(
-            getFreeResponseItemData(),
+            generateTestPerseusRenderer({
+                content: "[[☃ free-response 1]]",
+                widgets: {
+                    "free-response 1": generateFreeResponseWidget({
+                        alignment: "block",
+                        options: generateFreeResponseOptions({
+                            placeholder: "test-placeholder",
+                            question: "test-question",
+                        }),
+                    }),
+                },
+            }),
             apiOptions,
         );
 
@@ -57,7 +82,16 @@ describe("free-response widget", () => {
 
     it("should render the character limit when not allowing unlimited characters", () => {
         // Arrange
-        const data = getFreeResponseItemData({allowUnlimitedCharacters: false});
+        const data = generateTestPerseusRenderer({
+            content: "[[☃ free-response 1]]",
+            widgets: {
+                "free-response 1": generateFreeResponseWidget({
+                    options: generateFreeResponseOptions({
+                        allowUnlimitedCharacters: false,
+                    }),
+                }),
+            },
+        });
 
         // Act
         renderQuestion(data, {});
@@ -68,7 +102,16 @@ describe("free-response widget", () => {
 
     it("should not render the character limit when allowing unlimited characters", () => {
         // Arrange
-        const data = getFreeResponseItemData({allowUnlimitedCharacters: true});
+        const data = generateTestPerseusRenderer({
+            content: "[[☃ free-response 1]]",
+            widgets: {
+                "free-response 1": generateFreeResponseWidget({
+                    options: generateFreeResponseOptions({
+                        allowUnlimitedCharacters: true,
+                    }),
+                }),
+            },
+        });
 
         // Act
         renderQuestion(data, {});
@@ -79,7 +122,17 @@ describe("free-response widget", () => {
 
     it("should ignore newline characters when rendering the character limit", async () => {
         // Arrange
-        const data = getFreeResponseItemData({characterLimit: 10});
+        const data = generateTestPerseusRenderer({
+            content: "[[☃ free-response 1]]",
+            widgets: {
+                "free-response 1": generateFreeResponseWidget({
+                    options: generateFreeResponseOptions({
+                        characterLimit: 10,
+                        question: "test-question",
+                    }),
+                }),
+            },
+        });
 
         // Act
         renderQuestion(data, {});
@@ -96,7 +149,19 @@ describe("free-response widget", () => {
     it("should render the question text", () => {
         // Arrange
         // Act
-        renderQuestion(getFreeResponseItemData(), {});
+        renderQuestion(
+            generateTestPerseusRenderer({
+                content: "[[☃ free-response 1]]",
+                widgets: {
+                    "free-response 1": generateFreeResponseWidget({
+                        options: generateFreeResponseOptions({
+                            question: "test-question",
+                        }),
+                    }),
+                },
+            }),
+            {},
+        );
 
         // Assert
         expect(
@@ -107,7 +172,20 @@ describe("free-response widget", () => {
     it("should render the placeholder text", () => {
         // Arrange
         // Act
-        renderQuestion(getFreeResponseItemData(), {});
+        renderQuestion(
+            generateTestPerseusRenderer({
+                content: "[[☃ free-response 1]]",
+                widgets: {
+                    "free-response 1": generateFreeResponseWidget({
+                        options: generateFreeResponseOptions({
+                            placeholder: "test-placeholder",
+                            question: "test-question",
+                        }),
+                    }),
+                },
+            }),
+            {},
+        );
 
         // Assert
         expect(
@@ -117,7 +195,19 @@ describe("free-response widget", () => {
 
     it("should return the correct user input", async () => {
         // Arrange
-        const {renderer} = renderQuestion(getFreeResponseItemData());
+        const {renderer} = renderQuestion(
+            generateTestPerseusRenderer({
+                content: "[[☃ free-response 1]]",
+                widgets: {
+                    "free-response 1": generateFreeResponseWidget({
+                        options: generateFreeResponseOptions({
+                            question: "test-question",
+                        }),
+                    }),
+                },
+            }),
+            {},
+        );
         await userEvent.type(
             screen.getByLabelText("test-question"),
             "test-answer",
