@@ -355,7 +355,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <button
                 aria-controls=":r4:"
@@ -441,7 +441,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <button
                 aria-controls=":r7:"
@@ -527,7 +527,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <button
                 aria-controls=":r1:"
