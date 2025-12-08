@@ -27,6 +27,7 @@ import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import {WARNINGS} from "./messages";
+import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
 import type {
@@ -141,6 +142,13 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 ) ?? [];
 
             allLinterIssues.push(...sectionIssues);
+
+            // Detect TeX errors in this section
+            const texErrors = detectTexErrors(section.content ?? "");
+            const texIssues = texErrors.map((error, index) =>
+                WARNINGS.texError(error.math, error.message, index),
+            );
+            allLinterIssues.push(...texIssues);
         });
 
         this.setState({

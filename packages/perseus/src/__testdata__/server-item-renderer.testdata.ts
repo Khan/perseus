@@ -16,7 +16,7 @@ import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
 export const itemWithNumericInput: PerseusItem = generateTestPerseusItem({
     question: generateTestPerseusRenderer({
         content:
-            "Enter the number $$42$$ in the box: [[\u2603 numeric-input 1]]",
+            "Enter the number $$-42$$ in the box: [[\u2603 numeric-input 1]]",
         widgets: {
             "numeric-input 1": generateNumericInputWidget({
                 options: generateNumericInputOptions({

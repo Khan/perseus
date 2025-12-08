@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 20.4.0
+
+### Minor Changes
+
+-   [#3091](https://github.com/Khan/perseus/pull/3091) [`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Move the Khanmigo data functions to Perseus Core for Server Side Scoring initiative
+
+### Patch Changes
+
+-   [#3086](https://github.com/Khan/perseus/pull/3086) [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108) Thanks [@nishasy](https://github.com/nishasy)! - Create free response widget generator for testdata
+
 ## 20.3.0
 
 ### Minor Changes
