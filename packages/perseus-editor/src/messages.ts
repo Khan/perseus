@@ -40,8 +40,9 @@ export const WARNINGS = {
     }),
 
     texError: (math: string, errorMessage: string, index: number): Issue => ({
-        id: `tex-error-${index + 1}`,
-        description: "TeX rendering error in math expression",
+        id: `tex-debug-info-${index + 1}`,
+        description:
+            "If your math doesn't display correctly, these errors might help you troubleshoot. Message #content-kitchen for help.",
         help: "Learn more about TeX syntax",
         helpUrl: "https://khan.github.io/KaTeX/",
         impact: "medium",
