@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 72.4.0
+
+### Minor Changes
+
+-   [#3091](https://github.com/Khan/perseus/pull/3091) [`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Move the Khanmigo data functions to Perseus Core for Server Side Scoring initiative
+
+### Patch Changes
+
+-   [#3086](https://github.com/Khan/perseus/pull/3086) [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108) Thanks [@nishasy](https://github.com/nishasy)! - Create free response widget generator for testdata
+
+*   [#3098](https://github.com/Khan/perseus/pull/3098) [`7df7755d56`](https://github.com/Khan/perseus/commit/7df7755d56b7b72496e5a5a2cf62d047e1d88fc1) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Sync dependencies
+
+*   Updated dependencies [[`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266), [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108), [`7df7755d56`](https://github.com/Khan/perseus/commit/7df7755d56b7b72496e5a5a2cf62d047e1d88fc1)]:
+    -   @khanacademy/perseus-core@20.4.0
+    -   @khanacademy/math-input@26.2.23
+    -   @khanacademy/keypad-context@3.2.20
+    -   @khanacademy/kmath@2.2.20
+    -   @khanacademy/perseus-linter@4.6.2
+    -   @khanacademy/perseus-score@8.0.9
+
 ## 72.3.0
 
 ### Minor Changes
