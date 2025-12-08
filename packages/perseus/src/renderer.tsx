@@ -443,11 +443,17 @@ class Renderer
 
         if (widgetInfo) {
             const type = (widgetInfo && widgetInfo.type) || impliedType;
-            const shouldHighlight = _.contains(
-                // @ts-expect-error - TS2345 - Argument of type 'readonly any[] | undefined' is not assignable to parameter of type 'Collection<any>'.
-                this.props.highlightedWidgets,
-                id,
-            );
+
+            let shouldHighlight = false;
+            if (this.props.highlightEmptyWidgets && this.props.userInput) {
+                const emptyWidgetIds = emptyWidgetsFunctional(
+                    this.state.widgetInfo,
+                    this.widgetIds,
+                    this.props.userInput,
+                    this.context.locale,
+                );
+                shouldHighlight = emptyWidgetIds.includes(id);
+            }
 
             // By this point we should have no duplicates, which are
             // filtered out in this.render(), so we shouldn't have to
