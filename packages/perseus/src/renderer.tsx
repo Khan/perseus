@@ -297,9 +297,7 @@ class Renderer
             );
         }
 
-        if (this.props.userInput) {
-            this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
-        }
+        this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
