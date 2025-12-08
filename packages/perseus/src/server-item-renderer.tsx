@@ -129,14 +129,7 @@ export class ServerItemRenderer
         this.maybeCallOnRendered();
     }
 
-    componentDidUpdate(prevProps: Props, prevState: State) {
-        const answerableCallback = this.props.apiOptions.answerableCallback;
-        if (answerableCallback != null) {
-            const isAnswerable =
-                this.questionRenderer.emptyWidgets().length === 0;
-            answerableCallback(isAnswerable);
-        }
-
+    componentDidUpdate() {
         this.maybeCallOnRendered();
     }
 
@@ -271,15 +264,6 @@ export class ServerItemRenderer
         return questionAreaInputPaths;
     }
 
-    handleInteractWithWidget: (widgetId: string) => void = (widgetId) => {
-        // Call the interactionCallback, if it exists,
-        // with the current user input data
-        // (in the setState callback to avoid stale state)
-        this.props.apiOptions?.interactionCallback?.(
-            this.questionRenderer.getUserInputMap(),
-        );
-    };
-
     focus(): boolean | null | undefined {
         return this.questionRenderer.focus();
     }
@@ -376,9 +360,6 @@ export class ServerItemRenderer
                             <Renderer
                                 keypadElement={this.props.keypadElement}
                                 problemNum={this.props.problemNum}
-                                onInteractWithWidget={
-                                    this.handleInteractWithWidget
-                                }
                                 apiOptions={apiOptions}
                                 reviewMode={this.props.reviewMode}
                                 showSolutions={this.props.showSolutions}
@@ -407,7 +388,6 @@ export class ServerItemRenderer
                                         userInput,
                                         widgetsEmpty,
                                     );
-                                    this.handleInteractWithWidget(id);
                                 }}
                                 initializeUserInput={initializeUserInput}
                             />

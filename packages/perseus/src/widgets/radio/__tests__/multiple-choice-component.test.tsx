@@ -25,7 +25,6 @@ const baseChoiceValues = {
     correct: false,
     isNoneOfTheAbove: false,
     previouslyAnswered: false,
-    revealNoneOfTheAbove: false,
     disabled: false,
 };
 

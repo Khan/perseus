@@ -261,9 +261,6 @@ class Radio extends React.Component<Props> implements Widget {
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
-                    revealNoneOfTheAbove: !!(
-                        this.props.questionCompleted && selected
-                    ),
                     highlighted,
                     previouslyAnswered: previouslyAnswered,
                 };

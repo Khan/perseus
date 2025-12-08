@@ -125,7 +125,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     findExternalWidgets: any;
     images: PerseusRenderer["images"];
     keypadElement?: KeypadAPI | null;
-    onInteractWithWidget: (id: string) => void;
     onRender: (node?: any) => void;
     problemNum?: number;
     reviewMode?: boolean | null | undefined;
@@ -174,7 +173,6 @@ type DefaultProps = Required<
         | "findExternalWidgets"
         | "images"
         | "linterContext"
-        | "onInteractWithWidget"
         | "onRender"
         | "showSolutions"
         | "reviewMode"
@@ -255,7 +253,6 @@ class Renderer
         // if there are multiple images or TeX pieces within `content`.
         // It is a good idea to debounce any functions passed here.
         onRender: noopOnRender,
-        onInteractWithWidget: function () {},
         findExternalWidgets: () => [],
         alwaysUpdate: false,
         reviewMode: false,
@@ -298,6 +295,10 @@ class Renderer
                 this.props.content,
                 this.handletranslationLintErrors,
             );
+        }
+
+        if (this.props.userInput) {
+            this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
         }
     }
 
@@ -352,6 +353,13 @@ class Renderer
                 this.props.content,
                 this.handletranslationLintErrors,
             );
+        }
+
+        if (
+            this.props.userInput &&
+            !_.isEqual(this.props.userInput, prevProps.userInput)
+        ) {
+            this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
         }
     }
 
@@ -426,6 +434,13 @@ class Renderer
         );
     };
 
+    _isAnswerable(): boolean {
+        if (this.props.userInput) {
+            return this.emptyWidgets().length === 0;
+        }
+        return false;
+    }
+
     renderWidget: (
         impliedType: string,
         id: string,
@@ -446,13 +461,7 @@ class Renderer
 
             let shouldHighlight = false;
             if (this.props.highlightEmptyWidgets && this.props.userInput) {
-                const emptyWidgetIds = emptyWidgetsFunctional(
-                    this.state.widgetInfo,
-                    this.widgetIds,
-                    this.props.userInput,
-                    this.context.locale,
-                );
-                shouldHighlight = emptyWidgetIds.includes(id);
+                shouldHighlight = this.emptyWidgets().includes(id);
             }
 
             // By this point we should have no duplicates, which are
@@ -561,7 +570,7 @@ class Renderer
                     newUserInput,
                     widgetsEmpty,
                 );
-                this.props.onInteractWithWidget(widgetId);
+                this.props.apiOptions?.interactionCallback?.(updatedUserInput);
             },
             trackInteraction: interactionTracker.track,
         };
@@ -1440,35 +1449,6 @@ class Renderer
             this.props.userInput,
             this.context.locale,
         );
-    }
-
-    handleStateUpdate(id: string, cb: () => boolean, silent?: boolean) {
-        // Wait until all components have rendered. In React 16 setState
-        // callback fires immediately after this componentDidUpdate, and
-        // there is no guarantee that parent/siblings components have
-        // finished rendering.
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-        // eslint-disable-next-line no-restricted-syntax
-        setTimeout(() => {
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            const cbResult = cb && cb();
-            if (!silent) {
-                this.props.onInteractWithWidget(id);
-            }
-            if (cbResult !== false) {
-                // TODO(jack): For some reason, some widgets don't always
-                // end up in refs here, which is repro-able if you make an
-                // [[ orderer 1 ]] and copy-paste this, then change it to
-                // be an [[ orderer 2 ]]. The resulting Renderer ends up
-                // with an "orderer 2" ref but not an "orderer 1" ref.
-                // @_@??
-                // TODO(jack): Figure out why this is happening and fix it
-                // As far as I can tell, this is only an issue in the
-                // editor-page, so doing this shouldn't break clients
-                // hopefully
-                this._setCurrentFocus([id]);
-            }
-        }, 0);
     }
 
     /**
