@@ -165,7 +165,7 @@ describe("Definition widget", () => {
         });
     });
 
-    // TODO(eshmoel): unskip tests once @jandrade completes work to enable Tab off.
+    // TODO(eshmoel, AX-2216): unskip tests once @jandrade completes work to enable Tab off.
     it.skip("should close the popover when we Tab off the close button", async () => {
         // Arrange
         renderQuestion(question);
@@ -185,7 +185,7 @@ describe("Definition widget", () => {
         expect(screen.queryByRole("dialog")).toBeNull();
     });
 
-    // TODO(eshmoel): unskip tests once @jandrade completes work to enable Tab off.
+    // TODO(eshmoel, AX-2216): unskip tests once @jandrade completes work to enable Tab off.
     it.skip("should close the popover when we Shift + Tab from the close button", async () => {
         // Arrange
         renderQuestion(question);
