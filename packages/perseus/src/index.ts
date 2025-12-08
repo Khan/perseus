@@ -134,7 +134,6 @@ export {
     generateTestRadioWidget,
     generateTestInteractiveGraphWidget,
     generateTestCategorizerWidget,
-    generateTestNumericInputWidget,
 } from "./util/test-utils";
 export {
     getWidgetTypeByWidgetId,

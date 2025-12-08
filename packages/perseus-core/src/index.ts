@@ -220,6 +220,11 @@ export {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
+export {
+    generateNumericInputOptions,
+    generateNumericInputAnswer,
+    generateNumericInputWidget,
+} from "./utils/generators/numeric-input-widget-generator";
 export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 
 export {
