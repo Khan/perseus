@@ -1,3 +1,10 @@
+import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
+    type PerseusWidgetsMap,
+    type UserInputMap,
+} from "@khanacademy/perseus-core";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -8,7 +15,6 @@ import UserInputManager, {
 import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 
 import type {InitializeUserInputCallback} from "./user-input-manager";
-import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function generateNumberLineMap(): PerseusWidgetsMap {
@@ -50,23 +56,17 @@ function generateGroupedNumberLineMap(): PerseusWidgetsMap {
 
 function generateExpressionWidgetsMap(): PerseusWidgetsMap {
     return {
-        "expression 1": {
-            type: "expression",
-            options: {
+        "expression 1": generateExpressionWidget({
+            options: generateExpressionOptions({
                 answerForms: [
-                    {
+                    generateExpressionAnswerForm({
                         considered: "correct",
                         form: true,
-                        simplify: false,
                         value: "16+88i",
-                    },
+                    }),
                 ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            version: {major: 1, minor: 0},
-        },
+            }),
+        }),
     };
 }
 

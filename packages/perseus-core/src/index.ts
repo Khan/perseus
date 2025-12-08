@@ -208,6 +208,11 @@ export {
 
 // Generators
 export {
+    generateExpressionOptions,
+    generateExpressionAnswerForm,
+    generateExpressionWidget,
+} from "./utils/generators/expression-widget-generator";
+export {
     generateFreeResponseOptions,
     generateFreeResponseWidget,
 } from "./utils/generators/free-response-widget-generator";
