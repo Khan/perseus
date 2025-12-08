@@ -10,6 +10,7 @@ import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
 import {ItemEditorContext} from "./util/item-editor-context";
+import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
 import type {
@@ -92,6 +93,12 @@ class ItemEditor extends React.Component<Props, State> {
             stack: [],
         };
 
+        // Detect TeX errors
+        const texErrors = detectTexErrors(props.question?.content ?? "");
+        const texIssues = texErrors.map((error, index) =>
+            WARNINGS.texError(error.math, error.message, index),
+        );
+
         return {
             issues: [
                 ...(props.issues ?? []),
@@ -110,6 +117,7 @@ class ItemEditor extends React.Component<Props, State> {
                         );
                     },
                 ) ?? []),
+                ...texIssues,
             ],
         };
     }
