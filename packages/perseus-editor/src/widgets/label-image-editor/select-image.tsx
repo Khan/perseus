@@ -10,14 +10,14 @@ import * as React from "react";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 import {gray17} from "../../styles/global-colors";
 
-type Props = {
+export type SelectImageProps = {
     // Callback for when image URL is changed.
     onChange: (url: string) => void;
     // The selected image URL.
     url: string;
 };
 
-const SelectImage = ({onChange, url}: Props): React.ReactElement => (
+const SelectImage = ({onChange, url}: SelectImageProps): React.ReactElement => (
     <div>
         <div className={css(styles.title)}>Image</div>
 
