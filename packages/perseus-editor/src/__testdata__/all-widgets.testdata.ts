@@ -1,6 +1,8 @@
 import {
     generateDropdownOptions,
     generateDropdownWidget,
+    generateExplanationOptions,
+    generateExplanationWidget,
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
@@ -189,20 +191,14 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 static: false,
             },
         },
-        "explanation 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "explanation",
-            options: {
+        "explanation 1": generateExplanationWidget({
+            options: generateExplanationOptions({
                 showPrompt: "Show explanation",
                 hidePrompt: "Hide explanation",
                 explanation:
                     "This is a detailed explanation of the concept with step-by-step reasoning.",
-                static: false,
-                widgets: {},
-            },
-        },
+            }),
+        }),
         "image 1": {
             graded: true,
             version: {major: 0, minor: 0},

@@ -1,60 +1,42 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateExplanationOptions,
+    generateExplanationWidget,
+    generateTestPerseusRenderer,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
-export const question1: PerseusRenderer = {
+export const question1: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "Here's the explanation\n[[\u2603 explanation 1]]\nDid you get that?",
-    images: {},
     widgets: {
-        "explanation 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            // NOTE: The explanation widget doesn't consume this directly,
-            // instead, Perseus renders an overlay <div /> over top of the
-            // widget that intercepts interactions to it.
+        "explanation 1": generateExplanationWidget({
             static: false,
-            type: "explanation",
-            options: {
+            options: generateExplanationOptions({
                 hidePrompt: "Hide explanation!",
-                widgets: {},
                 explanation: "This is an explanation",
-                static: false,
                 showPrompt: "Explanation",
-            },
-            alignment: "default",
-        },
+            }),
+        }),
     },
-};
+});
 
-export const question2: PerseusRenderer = {
+// Example question with `static=true`
+export const question2: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "Here's the explanation\n[[\u2603 explanation 1]]\nDid you get that?",
-    images: {},
     widgets: {
-        "explanation 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            // Speculative generality... is this used in practice?
+        "explanation 1": generateExplanationWidget({
             static: true,
-            type: "explanation",
-            options: {
+            options: generateExplanationOptions({
                 hidePrompt: "Hide explanation!",
-                widgets: {},
                 explanation: "This is an explanation",
-                static: true,
                 showPrompt: "Explanation",
-            },
-            alignment: "default",
-        },
+            }),
+        }),
     },
-};
+});
 
-export const ipsumExample: PerseusRenderer = {
+export const ipsumExample: PerseusRenderer = generateTestPerseusRenderer({
     content: `Unidentified vessel travelling at sub warp speed, bearing 235.7.
                 Fluctuations in energy readings from it, Captain.
                 All transporters off.
@@ -67,19 +49,10 @@ export const ipsumExample: PerseusRenderer = {
                 Tractor beam released, sir. Force field maintaining our hull integrity.
                 Damage report? Sections 27, 28 and 29 on decks four, five and six destroyed.
             `,
-    images: {},
     widgets: {
-        "explanation 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            static: false,
-            type: "explanation",
-            options: {
+        "explanation 1": generateExplanationWidget({
+            options: generateExplanationOptions({
                 hidePrompt: "Hide",
-                widgets: {},
                 explanation: `It indicates a [synchronic distortion](#) in the areas emanating triolic waves.
                     The cerebellum, the cerebral cortex, the brain stem,
                         the entire nervous system has been depleted of electrochemical energy.
@@ -88,15 +61,14 @@ export const ipsumExample: PerseusRenderer = {
                     I haven't determined if our phaser energy can generate a stable field.
                     We could alter the photons with phase discriminators.
                 `,
-                static: false,
                 showPrompt: "Explanation",
-            },
-            alignment: "default",
-        },
+                widgets: {},
+            }),
+        }),
     },
-};
+});
 
-export const wideButton: PerseusRenderer = {
+export const wideButton: PerseusRenderer = generateTestPerseusRenderer({
     content: `Unidentified vessel travelling at sub warp speed, bearing 235.7.
                 Fluctuations in energy readings from it, Captain.
                 All transporters off.
@@ -109,19 +81,10 @@ export const wideButton: PerseusRenderer = {
                 Tractor beam released, sir. Force field maintaining our hull integrity.
                 Damage report? Sections 27, 28 and 29 on decks four, five and six destroyed.
             `,
-    images: {},
     widgets: {
-        "explanation 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            static: false,
-            type: "explanation",
-            options: {
+        "explanation 1": generateExplanationWidget({
+            options: generateExplanationOptions({
                 hidePrompt: "Hide details",
-                widgets: {},
                 explanation: `It indicates a [synchronic distortion](#) in the areas emanating triolic waves.
                     The cerebellum, the cerebral cortex, the brain stem,
                         the entire nervous system has been depleted of electrochemical energy.
@@ -130,11 +93,9 @@ export const wideButton: PerseusRenderer = {
                     I haven't determined if our phaser energy can generate a stable field.
                     We could alter the photons with phase discriminators.
                 `,
-                static: false,
                 showPrompt:
                     "These appear to be some kind of power-wave-guide conduits which allow them to work collectively as they perform ship functions.",
-            },
-            alignment: "default",
-        },
+            }),
+        }),
     },
-};
+});
