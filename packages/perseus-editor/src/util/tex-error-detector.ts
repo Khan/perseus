@@ -23,8 +23,7 @@ export function detectTexErrors(content: string): TexError[] {
     const errors: TexError[] = [];
 
     // Parse the entire content - PerseusMarkdown handles widget syntax correctly
-    // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-    const ast = PerseusMarkdown.parse(content);
+    const ast = PerseusMarkdown.parse(content, {});
 
     PerseusMarkdown.traverseContent(ast, (node) => {
         if (node.type === "math" || node.type === "blockMath") {
