@@ -1,5 +1,26 @@
 # @khanacademy/perseus-editor
 
+## 28.8.2
+
+### Patch Changes
+
+-   [#3083](https://github.com/Khan/perseus/pull/3083) [`9b4aa293ac`](https://github.com/Khan/perseus/commit/9b4aa293acbbb0839fd4be60b50afac12b841cfb) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve TypeScript (message) types used for previewing
+
+*   [#3086](https://github.com/Khan/perseus/pull/3086) [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108) Thanks [@nishasy](https://github.com/nishasy)! - Create free response widget generator for testdata
+
+-   [#3098](https://github.com/Khan/perseus/pull/3098) [`7df7755d56`](https://github.com/Khan/perseus/commit/7df7755d56b7b72496e5a5a2cf62d047e1d88fc1) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Sync dependencies
+
+*   [#3097](https://github.com/Khan/perseus/pull/3097) [`f0cceb96ff`](https://github.com/Khan/perseus/commit/f0cceb96fffa868709361dc94896df20c258c73a) Thanks [@Myranae](https://github.com/Myranae)! - Move TeX issues info to Issues panel
+
+*   Updated dependencies [[`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266), [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108), [`7df7755d56`](https://github.com/Khan/perseus/commit/7df7755d56b7b72496e5a5a2cf62d047e1d88fc1)]:
+    -   @khanacademy/perseus@72.4.0
+    -   @khanacademy/perseus-core@20.4.0
+    -   @khanacademy/math-input@26.2.23
+    -   @khanacademy/keypad-context@3.2.20
+    -   @khanacademy/kmath@2.2.20
+    -   @khanacademy/perseus-linter@4.6.2
+    -   @khanacademy/perseus-score@8.0.9
+
 ## 28.8.1
 
 ### Patch Changes
