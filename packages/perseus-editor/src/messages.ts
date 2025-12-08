@@ -38,4 +38,13 @@ export const WARNINGS = {
         impact: SEVERITY_MAP[severity ?? SEVERITY_GUIDELINE],
         message: message,
     }),
+
+    texError: (math: string, errorMessage: string, index: number): Issue => ({
+        id: `tex-error-${index + 1}`,
+        description: "TeX rendering error in math expression",
+        help: "Learn more about TeX syntax",
+        helpUrl: "https://khan.github.io/KaTeX/",
+        impact: "medium",
+        message: `Error in: ${math}\n\n${errorMessage}`,
+    }),
 };
