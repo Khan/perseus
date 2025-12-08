@@ -1,4 +1,5 @@
 import {describe, it, expect} from "@jest/globals";
+import {generateNumericInputWidget} from "@khanacademy/perseus-core";
 
 import {InputNumber, Radio} from "..";
 import {generateExpressionWidget} from "../../../perseus-core/src/utils/generators/expression-widget-generator";
@@ -17,7 +18,6 @@ import {
 import {
     generateTestCategorizerWidget,
     generateTestInteractiveGraphWidget,
-    generateTestNumericInputWidget,
     generateTestRadioWidget,
 } from "../util/test-utils";
 
@@ -38,8 +38,8 @@ describe("ExtractPerseusData", () => {
             ).toBe(true);
             expect(
                 isWrongAnswerSupported(["numeric-input 3", "numeric-input 4"], {
-                    "numeric-input 3": generateTestNumericInputWidget(),
-                    "numeric-input 4": generateTestNumericInputWidget(),
+                    "numeric-input 3": generateNumericInputWidget(),
+                    "numeric-input 4": generateNumericInputWidget(),
                 }),
             ).toBe(true);
             expect(
@@ -77,7 +77,7 @@ describe("ExtractPerseusData", () => {
             ).toBe(false);
             expect(
                 shouldHaveIndividualAnswer("numeric-input 3", {
-                    "numeric-input 3": generateTestNumericInputWidget(),
+                    "numeric-input 3": generateNumericInputWidget(),
                 }),
             ).toBe(false);
         });
