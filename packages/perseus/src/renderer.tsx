@@ -123,14 +123,13 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
     findExternalWidgets: any;
-    highlightedWidgets?: ReadonlyArray<any>;
     images: PerseusRenderer["images"];
     keypadElement?: KeypadAPI | null;
     onInteractWithWidget: (id: string) => void;
     onRender: (node?: any) => void;
     problemNum?: number;
-    questionCompleted?: boolean;
     reviewMode?: boolean | null | undefined;
+    highlightEmptyWidgets?: boolean;
     /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
@@ -173,12 +172,10 @@ type DefaultProps = Required<
         | "alwaysUpdate"
         | "content"
         | "findExternalWidgets"
-        | "highlightedWidgets"
         | "images"
         | "linterContext"
         | "onInteractWithWidget"
         | "onRender"
-        | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
         | "widgets"
@@ -253,8 +250,6 @@ class Renderer
         content: "",
         widgets: {},
         images: {},
-        highlightedWidgets: [],
-        questionCompleted: false,
         showSolutions: "none",
         // onRender may be called multiple times per render, for example
         // if there are multiple images or TeX pieces within `content`.
@@ -537,7 +532,6 @@ class Renderer
             problemNum: this.props.problemNum,
             apiOptions: this.getApiOptions(),
             keypadElement: this.props.keypadElement,
-            questionCompleted: this.props.questionCompleted,
             showSolutions: this.props.showSolutions,
             onFocus: _.partial(this._onWidgetFocus, widgetId),
             onBlur: _.partial(this._onWidgetBlur, widgetId),
