@@ -3,7 +3,9 @@ import * as React from "react";
 
 import SelectImage from "../select-image";
 
-type StoryArgs = Record<any, any>;
+import type {SelectImageProps} from "../select-image";
+
+type StoryArgs = Record<string, SelectImageProps>;
 
 type Story = {
     title: string;
@@ -20,7 +22,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Wrapper = (props) => (
+const Wrapper = (props: SelectImageProps) => (
     <div className={css(styles.wrapper)}>
         <SelectImage {...props} />
     </div>

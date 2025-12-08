@@ -26,7 +26,7 @@ type AnswerProps = {
     onRemove: () => void;
 };
 
-type AnswerChoicesProps = {
+export type AnswerChoicesProps = {
     // The list of possible answers in a specific order.
     choices: ReadonlyArray<string>;
     // Callback for when answers change.
