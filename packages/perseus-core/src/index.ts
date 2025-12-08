@@ -217,6 +217,12 @@ export {
 } from "./utils/generators/image-widget-generator";
 export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 
+export {
+    getAnswersFromWidgets,
+    injectWidgets,
+    getPerseusAIData,
+} from "./utils/extract-perseus-ai-data";
+
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
 registerCoreWidgets();
