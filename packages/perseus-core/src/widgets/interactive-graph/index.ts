@@ -16,6 +16,7 @@ export type InteractiveGraphDefaultWidgetOptions = Pick<
     | "step"
     | "backgroundImage"
     | "markings"
+    | "showAxisArrows"
     | "showTooltips"
     | "showProtractor"
     | "graph"
@@ -34,6 +35,12 @@ const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
         url: null,
     },
     markings: "graph",
+    showAxisArrows: {
+        xMin: true,
+        xMax: true,
+        yMin: true,
+        yMax: true,
+    },
     showTooltips: false,
     showProtractor: false,
     graph: {

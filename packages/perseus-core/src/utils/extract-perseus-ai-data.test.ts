@@ -14,6 +14,11 @@ import {
     generateExplanationWidget,
 } from "./generators/explanation-widget-generator";
 import {
+    generateIGPolygonGraph,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
+} from "./generators/interactive-graph-widget-generator";
+import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "./test-utils";
@@ -765,10 +770,9 @@ describe("injectWidgets", () => {
 
     it("should inject interactive-graph widget into the content", () => {
         const widgets: PerseusWidgetsMap = {
-            "interactive-graph 1": {
-                type: "interactive-graph",
-                options: {
-                    correct: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    correct: generateIGPolygonGraph({
                         coords: [
                             [7, -7],
                             [5, 4],
@@ -777,36 +781,17 @@ describe("injectWidgets", () => {
                         ],
                         numSides: "unlimited",
                         snapTo: "grid",
-                        type: "polygon",
-                    },
-                    graph: {
+                    }),
+                    graph: generateIGPolygonGraph({
                         numSides: "unlimited",
                         snapTo: "grid",
-                        type: "polygon",
-                    },
-                    gridStep: [1, 1],
-                    labels: ["x", "y"],
-                    markings: "graph",
+                    }),
                     range: [
                         [-10, 10],
                         [-10, 10],
                     ],
-                    rulerLabel: "",
-                    rulerTicks: 10,
-                    showProtractor: false,
-                    showRuler: false,
-                    showTooltips: false,
-                    snapStep: [0.5, 0.5],
-                    step: [1, 1],
-                    lockedFigures: [],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                },
-            },
+                }),
+            }),
         };
 
         const content = injectWidgets("[[☃ interactive-graph 1]]", widgets);

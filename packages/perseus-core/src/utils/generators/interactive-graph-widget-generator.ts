@@ -76,7 +76,7 @@ export function generateIGNoneGraph(): PerseusGraphTypeNone {
 }
 
 export function generateIGPointGraph(
-    options?: Partial<PerseusGraphTypePoint>,
+    options?: Partial<Omit<PerseusGraphTypePoint, "type">>,
 ): PerseusGraphTypePoint {
     return {
         type: "point",
@@ -85,7 +85,7 @@ export function generateIGPointGraph(
 }
 
 export function generateIGPolygonGraph(
-    options?: Partial<PerseusGraphTypePolygon>,
+    options?: Partial<Omit<PerseusGraphTypePolygon, "type">>,
 ): PerseusGraphTypePolygon {
     return {
         type: "polygon",
@@ -94,7 +94,7 @@ export function generateIGPolygonGraph(
 }
 
 export function generateIGQuadraticGraph(
-    options?: Partial<PerseusGraphTypeQuadratic>,
+    options?: Partial<Omit<PerseusGraphTypeQuadratic, "type">>,
 ): PerseusGraphTypeQuadratic {
     return {
         type: "quadratic",
@@ -103,7 +103,7 @@ export function generateIGQuadraticGraph(
 }
 
 export function generateIGRayGraph(
-    options?: Partial<PerseusGraphTypeRay>,
+    options?: Partial<Omit<PerseusGraphTypeRay, "type">>,
 ): PerseusGraphTypeRay {
     return {
         type: "ray",
@@ -112,7 +112,7 @@ export function generateIGRayGraph(
 }
 
 export function generateIGSegmentGraph(
-    options?: Partial<PerseusGraphTypeSegment>,
+    options?: Partial<Omit<PerseusGraphTypeSegment, "type">>,
 ): PerseusGraphTypeSegment {
     return {
         type: "segment",
@@ -121,7 +121,7 @@ export function generateIGSegmentGraph(
 }
 
 export function generateIGSinusoidGraph(
-    options?: Partial<PerseusGraphTypeSinusoid>,
+    options?: Partial<Omit<PerseusGraphTypeSinusoid, "type">>,
 ): PerseusGraphTypeSinusoid {
     return {
         type: "sinusoid",
@@ -129,35 +129,45 @@ export function generateIGSinusoidGraph(
     };
 }
 
-export function generateIGLockedPoint(options?: Partial<LockedPointType>) {
+export function generateIGLockedPoint(
+    options?: Partial<Omit<LockedPointType, "type">>,
+) {
     return {
         ...getDefaultFigureForType("point"),
         ...options,
     };
 }
 
-export function generateIGLockedLine(options?: Partial<LockedLineType>) {
+export function generateIGLockedLine(
+    options?: Partial<Omit<LockedLineType, "type">>,
+) {
     return {
         ...getDefaultFigureForType("line"),
         ...options,
     };
 }
 
-export function generateIGLockedVector(options?: Partial<LockedVectorType>) {
+export function generateIGLockedVector(
+    options?: Partial<Omit<LockedVectorType, "type">>,
+) {
     return {
         ...getDefaultFigureForType("vector"),
         ...options,
     };
 }
 
-export function generateIGLockedEllipse(options?: Partial<LockedEllipseType>) {
+export function generateIGLockedEllipse(
+    options?: Partial<Omit<LockedEllipseType, "type">>,
+) {
     return {
         ...getDefaultFigureForType("ellipse"),
         ...options,
     };
 }
 
-export function generateIGLockedPolygon(options?: Partial<LockedPolygonType>) {
+export function generateIGLockedPolygon(
+    options?: Partial<Omit<LockedPolygonType, "type">>,
+) {
     return {
         ...getDefaultFigureForType("polygon"),
         ...options,
@@ -165,7 +175,7 @@ export function generateIGLockedPolygon(options?: Partial<LockedPolygonType>) {
 }
 
 export function generateIGLockedFunction(
-    options?: Partial<LockedFunctionType>,
+    options?: Partial<Omit<LockedFunctionType, "type">>,
 ) {
     return {
         ...getDefaultFigureForType("function"),
@@ -173,7 +183,9 @@ export function generateIGLockedFunction(
     };
 }
 
-export function generateIGLockedLabel(options?: Partial<LockedLabelType>) {
+export function generateIGLockedLabel(
+    options?: Partial<Omit<LockedLabelType, "type">>,
+) {
     return {
         ...getDefaultFigureForType("label"),
         ...options,
