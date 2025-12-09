@@ -1,15 +1,3 @@
-# pnpm configuration
-
-# We require a minimum release age of 3-days (specified in minutes) before a
-# package can be used in this project.
-# https://pnpm.io/settings#minimumreleaseage
-minimumReleaseAge: 4320
-
-# We exclude our own packages from this minimum release age so that we can
-# upgrade to a new release immediately.
-minimumReleaseAgeExclude:
-- '@khanacademy/*'
-
 # NOTE: The `devDeps` and `peerDeps` catalogs in this file are
 # generated from khan/frontend's pnpm-workspace.yaml. To update them, run:
 #
@@ -41,6 +29,9 @@ minimumReleaseAgeExclude:
 #    devDependencies -> "@khanacademy/wonder-blocks-link": "catalog:devDeps",
 #    peerDependencies -> "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
 # 3. Run pnpm install in root
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+    - "@khanacademy/*"
 packages:
     - config/build
     - dev
@@ -65,11 +56,11 @@ catalogs:
         "@khanacademy/wonder-blocks-clickable": ^8.0.5
         "@khanacademy/wonder-blocks-core": ^12.4.2
         "@khanacademy/wonder-blocks-data": ^14.1.8
-        "@khanacademy/wonder-blocks-dropdown": ^10.5.6
+        "@khanacademy/wonder-blocks-dropdown": ^10.6.0
         "@khanacademy/wonder-blocks-form": ^7.4.6
         "@khanacademy/wonder-blocks-icon-button": ^11.0.1
         "@khanacademy/wonder-blocks-icon": ^5.3.5
-        "@khanacademy/wonder-blocks-labeled-field": ^4.0.11
+        "@khanacademy/wonder-blocks-labeled-field": ^4.0.12
         "@khanacademy/wonder-blocks-layout": ^3.1.42
         "@khanacademy/wonder-blocks-link": ^10.0.6
         "@khanacademy/wonder-blocks-modal": ^8.5.9
@@ -106,11 +97,11 @@ catalogs:
         "@khanacademy/wonder-blocks-clickable": 8.0.5
         "@khanacademy/wonder-blocks-core": 12.4.2
         "@khanacademy/wonder-blocks-data": 14.1.8
-        "@khanacademy/wonder-blocks-dropdown": 10.5.6
+        "@khanacademy/wonder-blocks-dropdown": 10.6.0
         "@khanacademy/wonder-blocks-form": 7.4.6
         "@khanacademy/wonder-blocks-icon-button": 11.0.1
         "@khanacademy/wonder-blocks-icon": 5.3.5
-        "@khanacademy/wonder-blocks-labeled-field": 4.0.11
+        "@khanacademy/wonder-blocks-labeled-field": 4.0.12
         "@khanacademy/wonder-blocks-layout": 3.1.42
         "@khanacademy/wonder-blocks-link": 10.0.6
         "@khanacademy/wonder-blocks-modal": 8.5.9
