@@ -7,6 +7,7 @@ import {
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generateRadioWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
     splitPerseusItem,
@@ -14,7 +15,7 @@ import {
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-export const question1: PerseusRenderer = {
+export const question1: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "![](https://ka-perseus-graphie.s3.amazonaws.com/3e6d0981127dea205c2becc0ead24702fbe862a1.png)\n\n=====\n\n[[☃ group 1]]\n\n[[☃ group 2]]",
     images: {
@@ -29,8 +30,7 @@ export const question1: PerseusRenderer = {
                     "**In one week, how many more hours are in the periods with a $35$ percent discount than in the periods with the regular price?**\n\n[[☃ radio 1]]",
                 images: {},
                 widgets: {
-                    "radio 1": {
-                        graded: true,
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
                                 {
@@ -61,13 +61,9 @@ export const question1: PerseusRenderer = {
                                     correct: true,
                                 },
                             ],
-                            multipleSelect: false,
-                            randomize: false,
                             numCorrect: 1,
                         },
-                        type: "radio",
-                        version: {major: 0, minor: 0},
-                    },
+                    }),
                 },
             },
             type: "group",
@@ -125,7 +121,7 @@ export const question1: PerseusRenderer = {
             version: {major: 0, minor: 0},
         },
     },
-};
+});
 
 export const simpleGroupQuestion: PerseusRenderer = {
     content: "[[☃ group 1]]",

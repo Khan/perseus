@@ -1,10 +1,12 @@
-import {radioQuestionBuilder} from "../radio-question-builder";
-
-import type {
-    PerseusRenderer,
-    RadioWidget,
-    PassageWidget,
+import {
+    type PerseusRenderer,
+    type PassageWidget,
+    generateRadioWidget,
+    generateTestPerseusRenderer,
+    generateRadioOptions,
 } from "@khanacademy/perseus-core";
+
+import {radioQuestionBuilder} from "../radio-question-builder";
 
 export const question: PerseusRenderer = radioQuestionBuilder()
     .withContent(
@@ -36,76 +38,64 @@ export const questionAndAnswer: [
     ReadonlyArray<number>,
 ] = [question, 2, [0, 1, 3]];
 
-// Can't use radioQuestionBuilder here because it also includes a passage widget.
-export const questionWithPassage: PerseusRenderer = {
-    content:
-        "Read the following passage:\n\n[[\u2603 passage 1]]\n\nWhich of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
-    images: {},
-    widgets: {
-        "radio 1": {
-            graded: true,
-            version: {
-                major: 1,
-                minor: 0,
-            },
-            static: false,
-            type: "radio",
-            options: {
-                choices: [
-                    {
-                        id: "0-0-0-0-0",
-                        content: "$-8$ and $8$",
-                        correct: false,
-                        rationale:
-                            "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
-                    },
-                    {
-                        id: "1-1-1-1-1",
-                        content: "$-8$",
-                        correct: false,
-                        rationale:
-                            "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
-                    },
-                    {
-                        id: "2-2-2-2-2",
-                        content: "$8$ {{passage-ref 1 1}}\n\n",
-                        correct: true,
-                        isNoneOfTheAbove: false,
-                        rationale: "$8$ is the positive square root of $64$.",
-                    },
-                    {
-                        id: "3-3-3-3-3",
-                        content: "No value of $x$ satisfies the equation.",
-                        correct: false,
-                        isNoneOfTheAbove: false,
-                        rationale: "$8$ satisfies the equation.",
-                    },
-                ],
-                countChoices: false,
-                hasNoneOfTheAbove: false,
-                multipleSelect: false,
-                randomize: false,
-                deselectEnabled: false,
-            },
-            alignment: "default",
-        } as RadioWidget,
-        "passage 1": {
-            alignment: "default",
-            graded: true,
-            options: {
-                footnotes: "",
-                passageText:
-                    "Here's a passage about the positive square root. It contains a {{reference to something}}.",
-                passageTitle: "",
-                showLineNumbers: true,
+export const questionWithPassage: PerseusRenderer = generateTestPerseusRenderer(
+    {
+        content:
+            "Read the following passage:\n\n[[\u2603 passage 1]]\n\nWhich of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: {
+                    choices: [
+                        {
+                            id: "0-0-0-0-0",
+                            content: "$-8$ and $8$",
+                            correct: false,
+                            rationale:
+                                "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                        },
+                        {
+                            id: "1-1-1-1-1",
+                            content: "$-8$",
+                            correct: false,
+                            rationale:
+                                "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                        },
+                        {
+                            id: "2-2-2-2-2",
+                            content: "$8$ {{passage-ref 1 1}}\n\n",
+                            correct: true,
+                            isNoneOfTheAbove: false,
+                            rationale:
+                                "$8$ is the positive square root of $64$.",
+                        },
+                        {
+                            id: "3-3-3-3-3",
+                            content: "No value of $x$ satisfies the equation.",
+                            correct: false,
+                            isNoneOfTheAbove: false,
+                            rationale: "$8$ satisfies the equation.",
+                        },
+                    ],
+                },
+            }),
+            "passage 1": {
+                alignment: "default",
+                graded: true,
+                options: {
+                    footnotes: "",
+                    passageText:
+                        "Here's a passage about the positive square root. It contains a {{reference to something}}.",
+                    passageTitle: "",
+                    showLineNumbers: true,
+                    static: false,
+                },
                 static: false,
-            },
-            static: false,
-            type: "passage",
-            version: {major: 0, minor: 0},
-        } as PassageWidget,
+                type: "passage",
+                version: {major: 0, minor: 0},
+            } as PassageWidget,
+        },
     },
-};
+);
 
 export const questionWithRationale: PerseusRenderer = radioQuestionBuilder()
     .withContent(
@@ -135,20 +125,12 @@ export const questionWithRationale: PerseusRenderer = radioQuestionBuilder()
     })
     .build();
 
-export const choicesWithImages: PerseusRenderer = {
+export const choicesWithImages: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]",
-    images: {},
     widgets: {
-        "radio 1": {
-            graded: true,
-            version: {
-                major: 1,
-                minor: 0,
-            },
-            static: false,
-            type: "radio",
-            options: {
+        "radio 1": generateRadioWidget({
+            options: generateRadioOptions({
                 choices: [
                     {
                         id: "4-4-4-4-4",
@@ -199,16 +181,10 @@ export const choicesWithImages: PerseusRenderer = {
                             "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
                     },
                 ],
-                countChoices: false,
-                hasNoneOfTheAbove: false,
-                multipleSelect: false,
-                randomize: false,
-                deselectEnabled: false,
-            },
-            alignment: "default",
-        } as RadioWidget,
+            }),
+        }),
     },
-};
+});
 
 export const SingleSelectOverflowImageContent: PerseusRenderer =
     radioQuestionBuilder()
@@ -228,58 +204,45 @@ export const SingleSelectOverflowImageContent: PerseusRenderer =
         .build();
 
 // Can't use radioQuestionBuilder here because it also includes a passage widget.
-export const SingleSelectOverflowContent: PerseusRenderer = {
-    content: "Which are the same as the number 75?[[\u2603 radio 1]]\n\n",
-    images: {},
-    widgets: {
-        "radio 1": {
-            graded: true,
-            version: {
-                major: 1,
-                minor: 0,
-            },
-            static: false,
-            type: "radio",
-            options: {
-                choices: [
-                    {
-                        id: "10-10-10-10-10",
-                        content:
-                            "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
-                        correct: true,
-                        rationale: "Add the following numbers to get 75.",
-                    },
-                    {
-                        id: "11-11-11-11-11",
-                        content: "$100-50$",
-                        correct: false,
-                        rationale: "Subtract the following numbers.",
-                    },
-                    {
-                        id: "12-12-12-12-12",
-                        content: "$200-125+10$",
-                        correct: false,
-                        isNoneOfTheAbove: false,
-                        rationale: "Calculate the following numbers.",
-                    },
-                    {
-                        id: "13-13-13-13-13",
-                        content: "$10+10+10+10$",
-                        correct: false,
-                        isNoneOfTheAbove: false,
-                        rationale: "Add the following numbers.",
-                    },
-                ],
-                countChoices: false,
-                hasNoneOfTheAbove: false,
-                multipleSelect: false,
-                randomize: false,
-                deselectEnabled: false,
-            },
-            alignment: "default",
-        } as RadioWidget,
-    },
-};
+export const SingleSelectOverflowContent: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "Which are the same as the number 75?[[\u2603 radio 1]]\n\n",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    choices: [
+                        {
+                            id: "10-10-10-10-10",
+                            content:
+                                "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                            correct: true,
+                            rationale: "Add the following numbers to get 75.",
+                        },
+                        {
+                            id: "11-11-11-11-11",
+                            content: "$100-50$",
+                            correct: false,
+                            rationale: "Subtract the following numbers.",
+                        },
+                        {
+                            id: "12-12-12-12-12",
+                            content: "$200-125+10$",
+                            correct: false,
+                            isNoneOfTheAbove: false,
+                            rationale: "Calculate the following numbers.",
+                        },
+                        {
+                            id: "13-13-13-13-13",
+                            content: "$10+10+10+10$",
+                            correct: false,
+                            isNoneOfTheAbove: false,
+                            rationale: "Add the following numbers.",
+                        },
+                    ],
+                }),
+            }),
+        },
+    });
 
 export const multiChoiceQuestion: PerseusRenderer = radioQuestionBuilder()
     .withContent(

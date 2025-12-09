@@ -2,6 +2,8 @@ import {
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generateRadioWidget,
+    generateTestPerseusRenderer,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
@@ -316,156 +318,132 @@ export const article1: PerseusRenderer = {
     },
 };
 
-export const groupSetRadioRationaleQuestion: PerseusRenderer = {
-    content:
-        "#Section 1: Adding tenths less than one\n\n[[☃ graded-group-set 1]]\n\n\nBeautiful, let's move on to problems with whole numbers and tenths.",
-    images: {},
-    widgets: {
-        "graded-group-set 1": {
-            type: "graded-group-set",
-            alignment: "default",
-            static: false,
-            graded: true,
-            options: {
-                gradedGroups: [
-                    {
-                        title: "Question 1",
-                        content:
-                            "Select the correct answer.\n\n[[\u2603 radio 1]]\n\n",
-                        images: {},
-                        widgets: {
-                            "radio 1": {
-                                graded: true,
-                                version: {
-                                    major: 1,
-                                    minor: 0,
-                                },
-                                static: false,
-                                type: "radio",
-                                options: {
-                                    choices: [
-                                        {
-                                            id: "0-0-0-0-0",
-                                            content: "Incorrect",
-                                            correct: false,
-                                            rationale:
-                                                "This is not the correct answer.",
-                                        },
-                                        {
-                                            id: "1-1-1-1-1",
-                                            content: "Incorrect",
-                                            correct: false,
-                                            rationale:
-                                                "This is not the correct answer.",
-                                        },
-                                        {
-                                            id: "2-2-2-2-2",
-                                            content: "Correct",
-                                            correct: true,
-                                            isNoneOfTheAbove: false,
-                                            rationale:
-                                                "This is the correct answer.",
-                                        },
-                                        {
-                                            id: "3-3-3-3-3",
-                                            content: "Incorrect",
-                                            correct: false,
-                                            isNoneOfTheAbove: false,
-                                            rationale:
-                                                "This is not the correct answer.",
-                                        },
-                                    ],
-                                    countChoices: false,
-                                    hasNoneOfTheAbove: false,
-                                    multipleSelect: false,
-                                    randomize: false,
-                                    deselectEnabled: false,
-                                },
-                                alignment: "default",
-                            },
-                        },
-                        hint: {
-                            content: "This is an example hint.",
+export const groupSetRadioRationaleQuestion: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content:
+            "#Section 1: Adding tenths less than one\n\n[[☃ graded-group-set 1]]\n\n\nBeautiful, let's move on to problems with whole numbers and tenths.",
+        widgets: {
+            "graded-group-set 1": {
+                type: "graded-group-set",
+                alignment: "default",
+                static: false,
+                graded: true,
+                options: {
+                    gradedGroups: [
+                        {
+                            title: "Question 1",
+                            content:
+                                "Select the correct answer.\n\n[[\u2603 radio 1]]\n\n",
                             images: {},
-                            widgets: {},
-                        },
-                        widgetEnabled: true,
-                        immutableWidgets: false,
-                    },
-                    {
-                        title: "Question 2",
-                        content:
-                            "What are some ways to say hello?\n\n[[\u2603 radio 1]]",
-                        images: {},
-                        widgets: {
-                            "radio 1": {
-                                graded: true,
-                                version: {
-                                    major: 1,
-                                    minor: 0,
-                                },
-                                static: false,
-                                type: "radio",
-                                options: {
-                                    choices: [
-                                        {
-                                            id: "0-0-0-0-0",
-                                            content: "Hola",
-                                            isNoneOfTheAbove: false,
-                                            correct: true,
-                                            rationale:
-                                                "The Spanish-speaking countries typically say Hola.",
-                                        },
-                                        {
-                                            id: "1-1-1-1-1",
-                                            content: "Hey",
-                                            isNoneOfTheAbove: false,
-                                            correct: true,
-                                            rationale:
-                                                "This is used to attract someone's attention.",
-                                        },
-                                        {
-                                            id: "2-2-2-2-2",
-                                            content: "Hi",
-                                            isNoneOfTheAbove: false,
-                                            correct: true,
-                                            rationale:
-                                                "This is used as friendly greeting.",
-                                        },
-                                        {
-                                            id: "3-3-3-3-3",
-                                            content: "Goodbye",
-                                            isNoneOfTheAbove: false,
-                                            correct: false,
-                                            rationale:
-                                                "Some people like to say Goodbye.",
-                                        },
-                                        {
-                                            id: "4-4-4-4-4",
-                                            content: "None of these",
-                                            isNoneOfTheAbove: true,
-                                            correct: false,
-                                        },
-                                    ],
-                                    hasNoneOfTheAbove: true,
-                                    multipleSelect: true,
-                                    randomize: false,
-                                    deselectEnabled: false,
-                                },
-                                alignment: "default",
+                            widgets: {
+                                "radio 1": generateRadioWidget({
+                                    options: {
+                                        choices: [
+                                            {
+                                                id: "0-0-0-0-0",
+                                                content: "Incorrect",
+                                                correct: false,
+                                                rationale:
+                                                    "This is not the correct answer.",
+                                            },
+                                            {
+                                                id: "1-1-1-1-1",
+                                                content: "Incorrect",
+                                                correct: false,
+                                                rationale:
+                                                    "This is not the correct answer.",
+                                            },
+                                            {
+                                                id: "2-2-2-2-2",
+                                                content: "Correct",
+                                                correct: true,
+                                                isNoneOfTheAbove: false,
+                                                rationale:
+                                                    "This is the correct answer.",
+                                            },
+                                            {
+                                                id: "3-3-3-3-3",
+                                                content: "Incorrect",
+                                                correct: false,
+                                                isNoneOfTheAbove: false,
+                                                rationale:
+                                                    "This is not the correct answer.",
+                                            },
+                                        ],
+                                    },
+                                }),
                             },
+                            hint: {
+                                content: "This is an example hint.",
+                                images: {},
+                                widgets: {},
+                            },
+                            widgetEnabled: true,
+                            immutableWidgets: false,
                         },
-                        hint: {
-                            content: "This is an example hint.",
+                        {
+                            title: "Question 2",
+                            content:
+                                "What are some ways to say hello?\n\n[[\u2603 radio 1]]",
                             images: {},
-                            widgets: {},
+                            widgets: {
+                                "radio 1": generateRadioWidget({
+                                    options: {
+                                        choices: [
+                                            {
+                                                id: "0-0-0-0-0",
+                                                content: "Hola",
+                                                isNoneOfTheAbove: false,
+                                                correct: true,
+                                                rationale:
+                                                    "The Spanish-speaking countries typically say Hola.",
+                                            },
+                                            {
+                                                id: "1-1-1-1-1",
+                                                content: "Hey",
+                                                isNoneOfTheAbove: false,
+                                                correct: true,
+                                                rationale:
+                                                    "This is used to attract someone's attention.",
+                                            },
+                                            {
+                                                id: "2-2-2-2-2",
+                                                content: "Hi",
+                                                isNoneOfTheAbove: false,
+                                                correct: true,
+                                                rationale:
+                                                    "This is used as friendly greeting.",
+                                            },
+                                            {
+                                                id: "3-3-3-3-3",
+                                                content: "Goodbye",
+                                                isNoneOfTheAbove: false,
+                                                correct: false,
+                                                rationale:
+                                                    "Some people like to say Goodbye.",
+                                            },
+                                            {
+                                                id: "4-4-4-4-4",
+                                                content: "None of these",
+                                                isNoneOfTheAbove: true,
+                                                correct: false,
+                                            },
+                                        ],
+                                        hasNoneOfTheAbove: true,
+                                        multipleSelect: true,
+                                    },
+                                }),
+                            },
+                            hint: {
+                                content: "This is an example hint.",
+                                images: {},
+                                widgets: {},
+                            },
+                            widgetEnabled: true,
+                            immutableWidgets: false,
                         },
-                        widgetEnabled: true,
-                        immutableWidgets: false,
-                    },
-                ],
+                    ],
+                },
             },
-            version: {major: 0, minor: 0},
         },
-    },
-};
+    });
