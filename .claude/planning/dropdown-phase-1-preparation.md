@@ -239,10 +239,11 @@ If unclear from code, create a minimal test in the browser console or temp file 
 ✅ Proceed with plan as-is - our forwardRef + useImperativeHandle approach will work
 
 **If withDependencies does NOT forward refs:**
-⚠️ **BLOCKER** - We have three options:
+⚠️ **BLOCKER** - We have four options:
 1. Modify withDependencies to forward refs (may affect other widgets)
-2. Apply withDependencies inside the component instead of wrapping it
-3. Use a different dependency injection pattern
+2. Wrap the export with an explicit forwardRef wrapper around withDependencies
+3. Apply withDependencies inside the component instead of wrapping it
+4. Use a different dependency injection pattern
 
 **Document Findings:**
 Record in "Notes & Observations" section:

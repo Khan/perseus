@@ -22,6 +22,7 @@ Before starting this phase, ensure:
 - [ ] Git branch is active (`dropdown-functional-conversion`)
 - [ ] Baseline tests pass
 - [ ] Current behavior documented
+- [ ] **withDependencies ref forwarding verified** (Phase 1 Task 1.7) - CRITICAL
 
 ---
 
@@ -185,22 +186,6 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
 - Context accessed with useContext
 - Props destructured with defaults
 - No TypeScript errors
-
----
-
-### Task 2.4a: Confirm withDependencies Ref Forwarding
-**Status:** [ ] Complete
-
-Ensure the `withDependencies` HOC preserves refs; otherwise the Widget ref (and `useImperativeHandle`) will be unreachable and focus will stay broken.
-
-**Verification Steps:**
-1. Inspect `withDependencies` implementation for `forwardRef` usage.
-2. If refs are not forwarded, wrap the export with an explicit `forwardRef` wrapper or adjust HOC usage.
-3. Document the outcome and any required code changes before proceeding to focus work.
-
-**Success Criteria:**
-- Confirmed ref forwarding behavior.
-- Plan updated if an adapter is needed to preserve refs.
 
 ---
 
