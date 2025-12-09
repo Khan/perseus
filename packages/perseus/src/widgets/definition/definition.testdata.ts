@@ -14,7 +14,6 @@ export const question: PerseusRenderer = generateTestPerseusRenderer({
                 definition:
                     "A Native American people in Connecticut; white settlers in New England, the Pequots, and their respective allies were at war from 1636-1638.",
                 togglePrompt: "the Pequots",
-                static: false,
             }),
         }),
         "definition 2": generateDefinitionWidget({
@@ -40,4 +39,4 @@ export const article = {
             }),
         }),
     },
-} as const;
+};

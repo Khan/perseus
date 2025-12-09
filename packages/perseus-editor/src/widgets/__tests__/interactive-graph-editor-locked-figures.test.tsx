@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -6,7 +7,6 @@ import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
-import {getDefaultFigureForType} from "../interactive-graph-editor/locked-figures/util";
 
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";

@@ -1,10 +1,10 @@
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedLabelSettings from "./locked-label-settings";
-import {getDefaultFigureForType} from "./util";
 
 import type {Props} from "./locked-label-settings";
 import type {UserEvent} from "@testing-library/user-event";
