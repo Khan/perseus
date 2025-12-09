@@ -1,7 +1,7 @@
 import {getDefaultFigureForType} from "./get-default-figure-for-type";
 
 describe("getDefaultFigureForType", () => {
-    test("should return a point with default values", () => {
+    it("should return a point with default values", () => {
         const figure = getDefaultFigureForType("point");
         expect(figure).toEqual({
             type: "point",
@@ -12,7 +12,7 @@ describe("getDefaultFigureForType", () => {
         });
     });
 
-    test("should return a line with default values", () => {
+    it("should return a line with default values", () => {
         const figure = getDefaultFigureForType("line");
         expect(figure).toEqual({
             type: "line",
@@ -42,7 +42,7 @@ describe("getDefaultFigureForType", () => {
         });
     });
 
-    test("should return a vector with default values", () => {
+    it("should return a vector with default values", () => {
         const figure = getDefaultFigureForType("vector");
         expect(figure).toEqual({
             type: "vector",
@@ -56,7 +56,7 @@ describe("getDefaultFigureForType", () => {
         });
     });
 
-    test("should return an ellipse with default values", () => {
+    it("should return an ellipse with default values", () => {
         const figure = getDefaultFigureForType("ellipse");
         expect(figure).toEqual({
             type: "ellipse",
@@ -71,7 +71,7 @@ describe("getDefaultFigureForType", () => {
         });
     });
 
-    test("should return a polygon with default values", () => {
+    it("should return a polygon with default values", () => {
         const figure = getDefaultFigureForType("polygon");
         expect(figure).toEqual({
             type: "polygon",
@@ -89,7 +89,7 @@ describe("getDefaultFigureForType", () => {
         });
     });
 
-    test("should return a 'function' with default values", () => {
+    it("should return a 'function' with default values", () => {
         const figure = getDefaultFigureForType("function");
         expect(figure).toEqual({
             type: "function",
@@ -103,7 +103,7 @@ describe("getDefaultFigureForType", () => {
         });
     });
 
-    test("should return a 'label' with default values", () => {
+    it("should return a 'label' with default values", () => {
         const figure = getDefaultFigureForType("label");
         expect(figure).toEqual({
             type: "label",
