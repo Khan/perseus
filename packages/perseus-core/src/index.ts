@@ -208,6 +208,10 @@ export {
 
 // Generators
 export {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
+} from "./utils/generators/definition-widget-generator";
+export {
     generateDropdownOptions,
     generateDropdownWidget,
 } from "./utils/generators/dropdown-widget-generator";

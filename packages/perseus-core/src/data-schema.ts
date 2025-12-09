@@ -306,7 +306,9 @@ export type WidgetOptions<Type extends string, Options> = {
     // Whether a widget is scored.  Usually true except for IFrame widgets (deprecated)
     // Default: true
     graded?: boolean;
-    // The HTML alignment of the widget.  "default" or "block"
+    // The HTML alignment of the widget. "default" or "block"
+    // If the alignment is "default", it gets the default alignment from the widget logic,
+    // which can be various other alignments (e.g. "inline-block", "inline", etc).
     alignment?: string;
     // Options specific to the type field of the widget.  See Perseus*WidgetOptions for more details
     options: Options;

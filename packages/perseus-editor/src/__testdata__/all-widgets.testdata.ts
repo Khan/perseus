@@ -1,4 +1,6 @@
 import {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
     generateDropdownOptions,
     generateDropdownWidget,
     generateExplanationOptions,
@@ -179,18 +181,13 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 ],
             },
         },
-        "definition 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "definition",
-            options: {
+        "definition 1": generateDefinitionWidget({
+            options: generateDefinitionOptions({
                 definition:
                     "A mathematical expression that represents a relationship between variables.",
                 togglePrompt: "function",
-                static: false,
-            },
-        },
+            }),
+        }),
         "explanation 1": generateExplanationWidget({
             options: generateExplanationOptions({
                 showPrompt: "Show explanation",

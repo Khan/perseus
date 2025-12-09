@@ -6,6 +6,10 @@ import {
     injectWidgets,
 } from "./extract-perseus-ai-data";
 import {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
+} from "./generators/definition-widget-generator";
+import {
     generateExplanationOptions,
     generateExplanationWidget,
 } from "./generators/explanation-widget-generator";
@@ -459,14 +463,12 @@ describe("injectWidgets", () => {
 
     it("should inject definition widget into the content", () => {
         const widgets = {
-            "Definition 1": {
-                type: "definition",
-                options: {
+            "Definition 1": generateDefinitionWidget({
+                options: generateDefinitionOptions({
                     togglePrompt: "word",
                     definition: "",
-                    static: false,
-                },
-            },
+                }),
+            }),
         } as const;
         const content = injectWidgets(
             "Content with a definition: [[☃ Definition 1]]",
