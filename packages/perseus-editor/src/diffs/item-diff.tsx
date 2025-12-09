@@ -4,31 +4,21 @@
  */
 
 import {Dependencies, type PerseusDependenciesV2} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import RendererDiff from "./renderer-diff";
 import WidgetDiff from "./widget-diff";
 
-const itemProps = PropTypes.shape({
-    question: PropTypes.shape({}).isRequired,
-    answerArea: PropTypes.shape({}).isRequired,
-    hints: PropTypes.arrayOf(PropTypes.any).isRequired,
-});
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 interface Props {
-    after: any;
-    before: any;
+    after: PerseusItem;
+    before: PerseusItem;
     dependencies: PerseusDependenciesV2;
 }
 
 class ItemDiff extends React.Component<Props> {
-    static propTypes = {
-        after: itemProps.isRequired,
-        before: itemProps.isRequired,
-    };
-
     render(): React.ReactNode {
         const {before, after} = this.props;
 
