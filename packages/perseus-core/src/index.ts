@@ -208,6 +208,15 @@ export {
 
 // Generators
 export {
+    generateDropdownOptions,
+    generateDropdownWidget,
+} from "./utils/generators/dropdown-widget-generator";
+export {
+    generateExpressionOptions,
+    generateExpressionAnswerForm,
+    generateExpressionWidget,
+} from "./utils/generators/expression-widget-generator";
+export {
     generateFreeResponseOptions,
     generateFreeResponseWidget,
 } from "./utils/generators/free-response-widget-generator";
@@ -215,6 +224,11 @@ export {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
+export {
+    generateNumericInputOptions,
+    generateNumericInputAnswer,
+    generateNumericInputWidget,
+} from "./utils/generators/numeric-input-widget-generator";
 export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 
 export {

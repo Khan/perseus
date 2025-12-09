@@ -1,3 +1,10 @@
+import {
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    generateTestPerseusRenderer,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -5,44 +12,19 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {
-    NumericInputWidget,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-const question: PerseusRenderer = {
+const question: PerseusRenderer = generateTestPerseusRenderer({
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
-    images: {},
     widgets: {
-        "numeric-input 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            static: false,
-            type: "numeric-input",
-            options: {
-                coefficient: false,
-                static: false,
-                answers: [
-                    {
-                        status: "correct",
-                        maxError: null,
-                        strict: false,
-                        value: 1252,
-                        simplify: "required",
-                        message: "",
-                    },
-                ],
+        "numeric-input 1": generateNumericInputWidget({
+            options: generateNumericInputOptions({
+                answers: [generateNumericInputAnswer({value: 1252})],
                 labelText: "Input your answer here",
-                size: "normal",
-            },
-            alignment: "default",
-        } as NumericInputWidget,
+            }),
+        }),
     },
-};
+});
 
 describe("numeric input widget", () => {
     let userEvent: UserEvent;

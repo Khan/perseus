@@ -16,7 +16,7 @@ import {gray17, gray85, gray98} from "../../styles/global-colors";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = PerseusLabelImageWidgetOptions["markers"][number] & {
+export type MarkerProps = PerseusLabelImageWidgetOptions["markers"][number] & {
     // The list of possible answer choices.
     choices: PerseusLabelImageWidgetOptions["choices"];
     // Callback for when any of the marker props are changed.
@@ -33,10 +33,10 @@ type State = {
     showDropdown: boolean;
 };
 
-export default class Marker extends React.Component<Props, State> {
+export default class Marker extends React.Component<MarkerProps, State> {
     _marker: HTMLElement | null | undefined;
 
-    constructor(props: Props) {
+    constructor(props: MarkerProps) {
         super(props);
 
         this.state = {
@@ -48,7 +48,7 @@ export default class Marker extends React.Component<Props, State> {
         document.addEventListener("click", this.handleClick, true);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    UNSAFE_componentWillReceiveProps(nextProps: MarkerProps) {
         const {answers} = this.props;
 
         // Exclude those answers that are no longer present in choices.
@@ -60,7 +60,7 @@ export default class Marker extends React.Component<Props, State> {
             // Update marker on the next frame when these props take affect.
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
             // eslint-disable-next-line no-restricted-syntax
-            setTimeout(() => this.updateMarker({answers: filteredAnswers}));
+            setTimeout(() => this.updateAnswers(filteredAnswers));
         }
     }
 
@@ -72,16 +72,25 @@ export default class Marker extends React.Component<Props, State> {
         this.setState({showDropdown: true});
     }
 
-    updateMarker(props: any) {
-        const {answers, label, onChange, x, y} = this.props;
+    updateAnswers(answers: string[]) {
+        const {label, onChange, x, y} = this.props;
 
         onChange({
             answers,
             label,
             x,
             y,
-            // Overwrite with updated prop(s).
-            ...props,
+        });
+    }
+
+    updateLabel(label: string) {
+        const {answers, onChange, x, y} = this.props;
+
+        onChange({
+            answers,
+            label,
+            x,
+            y,
         });
     }
 
@@ -92,7 +101,11 @@ export default class Marker extends React.Component<Props, State> {
             this.setState({showDropdown: !showDropdown});
         } else if (showDropdown) {
             // Close dropdown if click event was registered anywhere outside it.
-            if (this._marker && !this._marker.contains(e.target as any)) {
+            if (
+                this._marker &&
+                e.target instanceof Node &&
+                !this._marker.contains(e.target)
+            ) {
                 // Ensure other listeners are not triggered on click event that
                 // closes the dropdown. A specific case this addresses is when
                 // user clicks on question image to close dropdown, a new marker
@@ -107,7 +120,7 @@ export default class Marker extends React.Component<Props, State> {
     handleLabelChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (
         e,
     ) => {
-        this.updateMarker({label: e.target.value});
+        this.updateLabel(e.target.value);
     };
 
     handleSelectAnswer: (toggleAnswer: string) => void = (
@@ -121,7 +134,7 @@ export default class Marker extends React.Component<Props, State> {
             answers = [...answers, toggleAnswer];
         }
 
-        this.updateMarker({answers});
+        this.updateAnswers(answers);
     };
 
     render(): React.ReactNode {

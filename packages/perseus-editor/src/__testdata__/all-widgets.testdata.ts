@@ -1,6 +1,14 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
     generateFreeResponseOptions,
     generateFreeResponseWidget,
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
     generateVideoWidget,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -19,48 +27,29 @@ export const comprehensiveQuestion: PerseusRenderer = {
         },
     },
     widgets: {
-        "numeric-input 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "numeric-input",
-            options: {
-                coefficient: false,
-                static: false,
+        "numeric-input 1": generateNumericInputWidget({
+            options: generateNumericInputOptions({
                 answers: [
-                    {
-                        status: "correct",
-                        maxError: null,
-                        strict: false,
+                    generateNumericInputAnswer({
                         value: 4,
-                        simplify: "required",
                         message: "Correct! 2x + 5 = 13, so x = 4.",
-                    },
+                    }),
                 ],
                 labelText: "Enter your answer:",
-                size: "normal",
-            },
-        },
-        "expression 1": {
-            graded: true,
-            version: {major: 1, minor: 0},
-            static: false,
-            type: "expression",
-            options: {
+            }),
+        }),
+        "expression 1": generateExpressionWidget({
+            options: generateExpressionOptions({
                 answerForms: [
-                    {
+                    generateExpressionAnswerForm({
                         considered: "correct",
                         form: true,
-                        simplify: false,
                         value: "x^2 + 2x + 1",
                         key: "1",
-                    },
+                    }),
                 ],
-                functions: ["f", "g", "h"],
-                times: false,
-                buttonSets: ["basic"],
-            },
-        },
+            }),
+        }),
         "radio 1": {
             graded: true,
             version: {major: 1, minor: 0},
@@ -86,21 +75,16 @@ export const comprehensiveQuestion: PerseusRenderer = {
             },
         },
 
-        "dropdown 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "dropdown",
-            options: {
-                static: false,
+        "dropdown 1": generateDropdownWidget({
+            options: generateDropdownOptions({
                 placeholder: "choose one",
                 choices: [
                     {content: "greater", correct: true},
                     {content: "less", correct: false},
                     {content: "equal", correct: false},
                 ],
-            },
-        },
+            }),
+        }),
         "categorizer 1": {
             graded: true,
             version: {major: 0, minor: 0},
@@ -404,28 +388,16 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 content: "Simple question: [[\u2603 numeric-input 2]]",
                 images: {},
                 widgets: {
-                    "numeric-input 2": {
-                        graded: true,
-                        version: {major: 0, minor: 0},
-                        static: false,
-                        type: "numeric-input",
-                        options: {
+                    "numeric-input 2": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
                             answers: [
-                                {
+                                generateNumericInputAnswer({
                                     value: 5,
-                                    status: "correct",
-                                    message: "",
-                                    simplify: "required",
-                                    strict: false,
-                                    maxError: null,
-                                },
+                                }),
                             ],
-                            coefficient: false,
-                            labelText: "",
                             size: "normal",
-                            static: false,
-                        },
-                    },
+                        }),
+                    }),
                 },
             },
         },
@@ -439,28 +411,15 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 content: "Answer this: [[\u2603 numeric-input 3]]",
                 images: {},
                 widgets: {
-                    "numeric-input 3": {
-                        graded: true,
-                        version: {major: 0, minor: 0},
-                        static: false,
-                        type: "numeric-input",
-                        options: {
+                    "numeric-input 3": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
                             answers: [
-                                {
+                                generateNumericInputAnswer({
                                     value: 10,
-                                    status: "correct",
-                                    message: "",
-                                    simplify: "required",
-                                    strict: false,
-                                    maxError: null,
-                                },
+                                }),
                             ],
-                            coefficient: false,
-                            labelText: "",
-                            size: "normal",
-                            static: false,
-                        },
-                    },
+                        }),
+                    }),
                 },
                 hint: {
                     content: "This is a hint.",
@@ -481,28 +440,15 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         content: "Solve: [[\u2603 numeric-input 4]]",
                         images: {},
                         widgets: {
-                            "numeric-input 4": {
-                                graded: true,
-                                version: {major: 0, minor: 0},
-                                static: false,
-                                type: "numeric-input",
-                                options: {
+                            "numeric-input 4": generateNumericInputWidget({
+                                options: generateNumericInputOptions({
                                     answers: [
-                                        {
+                                        generateNumericInputAnswer({
                                             value: 15,
-                                            status: "correct",
-                                            message: "",
-                                            simplify: "required",
-                                            strict: false,
-                                            maxError: null,
-                                        },
+                                        }),
                                     ],
-                                    coefficient: false,
-                                    labelText: "",
-                                    size: "normal",
-                                    static: false,
-                                },
-                            },
+                                }),
+                            }),
                         },
                         hasHint: false,
                         widgetEnabled: true,
