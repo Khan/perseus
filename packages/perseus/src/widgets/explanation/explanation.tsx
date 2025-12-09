@@ -73,7 +73,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
             payload: {
                 widgetSubType: "null",
                 widgetType: "explanation",
-                widgetId: "explanation",
+                widgetId: this.props.widgetId,
             },
         });
     }

@@ -78,6 +78,18 @@ const Indicator = (props: IndicatorProps) => {
               The rationale is not added to the aria-labelledby because it could
                   be overwhelming, depending upon what the user is used to.
      */
+    /* Notes on wrapping content in a <span>:
+          The icon is conditionally rendered. The only other button content is text.
+          When using the Chrome browser "Translate" feature, Chrome replaces text
+             with translated text inside a <font> element.
+          When React goes to re-render the button, it expects to find the text
+             node, but finds an element instead.
+          This will result in an "insertBefore" error and will crash the widget.
+          Wrapping the text in a <span> element works because now React expects
+             an element instead of just a text node.
+          It's a hack, but since a lot of learners use the "Translate" feature,
+             it's something that we should address.
+     */
     return (
         <button
             aria-describedby={content.describedBy}
@@ -92,7 +104,7 @@ const Indicator = (props: IndicatorProps) => {
             onClick={handleClick}
         >
             {icon}
-            {content.visible}
+            <span>{content.visible}</span>
         </button>
     );
 };

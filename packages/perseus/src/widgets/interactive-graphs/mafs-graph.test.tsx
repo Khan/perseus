@@ -155,7 +155,7 @@ describe("MafsGraph", () => {
             payload: {
                 widgetSubType: "segment",
                 widgetType: "interactive-graph",
-                widgetId: "interactive-graph",
+                widgetId: "test-widget-id",
             },
         });
     });

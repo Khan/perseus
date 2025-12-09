@@ -1,4 +1,9 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateFreeResponseOptions,
+    generateFreeResponseWidget,
+    generateVideoWidget,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 /**
  * A comprehensive Perseus question demonstrating all major widget types.
@@ -291,19 +296,12 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 answerType: "rational",
             },
         },
-        "free-response 1": {
+        "free-response 1": generateFreeResponseWidget({
             graded: false,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "free-response",
-            options: {
-                placeholder: "Enter your response here",
+            options: generateFreeResponseOptions({
                 question: "What do you think?",
-                allowUnlimitedCharacters: false,
-                characterLimit: 500,
-                scoringCriteria: [],
-            },
-        },
+            }),
+        }),
         "orderer 1": {
             graded: true,
             version: {major: 0, minor: 0},
@@ -513,17 +511,9 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 ],
             },
         },
-        "video 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "video",
-            options: {
-                static: false,
-                location: "sample-video-id",
-            },
-            alignment: "block",
-        },
+        "video 1": generateVideoWidget({
+            options: {location: "sample-video-id"},
+        }),
         "iframe 1": {
             graded: true,
             version: {major: 0, minor: 0},

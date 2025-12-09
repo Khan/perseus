@@ -45,6 +45,7 @@ export type StatefulMafsGraphProps = {
     readOnly: boolean;
     static: InteractiveGraphProps["static"];
     showAxisArrows: InteractiveGraphProps["showAxisArrows"];
+    widgetId: string;
 };
 
 export type StatefulMafsGraphType = {

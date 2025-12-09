@@ -144,7 +144,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "image",
-                widgetId: "image",
+                widgetId: "image 1",
             },
         });
     });
@@ -865,61 +865,63 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
     });
 
-    it("should render image with float-left alignment", () => {
-        // Arrange
-        const imageQuestion = generateTestPerseusRenderer({
-            content: "[[☃ image 1]]",
-            widgets: {
-                "image 1": generateImageWidget({
-                    alignment: "float-left",
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "widget alt",
-                        title: "widget title",
-                        caption: "widget caption",
+    describe("custom alignment", () => {
+        it("should render image with wrap-left alignment", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        alignment: "wrap-left",
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            alt: "widget alt",
+                            title: "widget title",
+                            caption: "widget caption",
+                        }),
                     }),
-                }),
-            },
+                },
+            });
+
+            // Act, Assert
+            const {container} = renderQuestion(imageQuestion, apiOptions);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            const figure = screen.getByRole("figure");
+            expect(figure).toBeVisible();
+            expect(container).toMatchSnapshot("widget-wrap-left");
         });
 
-        // Act, Assert
-        const {container} = renderQuestion(imageQuestion, apiOptions);
-        act(() => {
-            jest.runAllTimers();
-        });
-
-        // Assert
-        const figure = screen.getByRole("figure");
-        expect(figure).toBeVisible();
-        expect(container).toMatchSnapshot("widget-float-left");
-    });
-
-    it("should render image with float-right alignment", () => {
-        // Arrange
-        const imageQuestion = generateTestPerseusRenderer({
-            content: "[[☃ image 1]]",
-            widgets: {
-                "image 1": generateImageWidget({
-                    alignment: "float-right",
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "widget alt",
-                        title: "widget title",
-                        caption: "widget caption",
+        it("should render image with wrap-right alignment", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        alignment: "wrap-right",
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            alt: "widget alt",
+                            title: "widget title",
+                            caption: "widget caption",
+                        }),
                     }),
-                }),
-            },
-        });
+                },
+            });
 
-        // Act, Assert
-        const {container} = renderQuestion(imageQuestion, apiOptions);
-        act(() => {
-            jest.runAllTimers();
-        });
+            // Act, Assert
+            const {container} = renderQuestion(imageQuestion, apiOptions);
+            act(() => {
+                jest.runAllTimers();
+            });
 
-        // Assert
-        const figure = screen.getByRole("figure");
-        expect(figure).toBeVisible();
-        expect(container).toMatchSnapshot("widget-float-right");
+            // Assert
+            const figure = screen.getByRole("figure");
+            expect(figure).toBeVisible();
+            expect(container).toMatchSnapshot("widget-wrap-right");
+        });
     });
 });

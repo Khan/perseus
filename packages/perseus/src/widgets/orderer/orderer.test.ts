@@ -1,14 +1,17 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question2} from "./orderer.testdata";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 
 const ordererOptions: PerseusOrdererWidgetOptions = {
@@ -58,6 +61,27 @@ describe("orderer widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
+    });
+
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(question2, undefined, undefined, undefined, depsV2);
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "orderer",
+                widgetId: "orderer 1",
+            },
+        });
     });
 
     test("the answerless test data doesn't contain answers", () => {

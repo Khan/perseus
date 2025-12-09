@@ -8,7 +8,7 @@ import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
-import PassageWidget from "../../passage";
+import {Passage} from "../../passage";
 
 import {
     questionAndAnswer,
@@ -378,10 +378,11 @@ describe("Radio Widget", () => {
             // We mock this one function on Passage as its where all the magic DOM
             // measurement happens. This ensures our assertions in this test don't
             // have to assert NaN and make sense.
-            jest.spyOn(
-                PassageWidget.widget.prototype,
-                "getReference",
-            ).mockReturnValue({content: "", startLine: 1, endLine: 2});
+            jest.spyOn(Passage.prototype, "getReference").mockReturnValue({
+                content: "",
+                startLine: 1,
+                endLine: 2,
+            });
 
             // Act
             renderQuestion(question, apiOptions);

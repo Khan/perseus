@@ -205,7 +205,7 @@ describe("number-line widget", () => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "number-line",
-                widgetId: "number-line",
+                widgetId: "number-line 1",
             },
         });
     });

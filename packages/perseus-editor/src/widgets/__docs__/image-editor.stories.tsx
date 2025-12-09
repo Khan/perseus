@@ -13,9 +13,9 @@ import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-stor
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageEditor from "../image-editor/image-editor";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import {PROD_EDITOR_WIDTH} from "./utils";
 
-const PROD_EDITOR_WIDTH = 330;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const withinEditorPageDecorator = (_, {args}) => {
     return (

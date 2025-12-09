@@ -1,28 +1,26 @@
+import {
+    generateTestPerseusRenderer,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
+
+import {generateVideoWidget} from "../../../../perseus-core/src/utils/generators/video-widget-generator";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./video-ai-utils";
 
 import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
-export const question: PerseusRenderer = {
+export const question: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "Watch the Biogeography: Where Life Lives video to find the answer.\n\n[[\u2603 video 1]]\n\n",
-    images: {},
     widgets: {
-        "video 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "video",
+        "video 1": generateVideoWidget({
             options: {
-                static: false,
                 location: "biogeography-where-life-lives",
             },
-            alignment: "block",
-        },
+        }),
     },
-};
+});
 
 describe("Video AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {

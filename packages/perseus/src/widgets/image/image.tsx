@@ -29,6 +29,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         range,
         title,
         trackInteraction,
+        widgetId,
     } = props;
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
@@ -47,7 +48,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             payload: {
                 widgetSubType: "null",
                 widgetType: "image",
-                widgetId: "image",
+                widgetId: widgetId,
             },
         });
     });

@@ -4,7 +4,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-import PassageExport from "../passage";
+import {Passage} from "../passage";
 
 import {question1} from "./passage-ref.testdata";
 
@@ -15,10 +15,7 @@ const mockReference = (
         content: string;
     },
 ) => {
-    jest.spyOn(
-        PassageExport.widget.prototype,
-        "getReference",
-    ).mockImplementation(() => {
+    jest.spyOn(Passage.prototype, "getReference").mockImplementation(() => {
         return mock;
     });
 };

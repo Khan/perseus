@@ -1,7 +1,6 @@
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
-    preprocessTex,
     Log,
     PerseusMarkdown,
     Util,
@@ -14,20 +13,12 @@ import {
     PerseusError,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
-import katex from "katex";
-// ./katex-mhchem is imported for side effects. It adds the mhchem extension
-// to KaTeX, which is needed to render chemistry expressions. This prevents
-// spurious KaTeX errors from displaying in the editor for every chemistry
-// expression.
-// eslint-disable-next-line import/no-unassigned-import
-import "./katex-mhchem";
 import * as React from "react";
 import _ from "underscore";
 
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
-import TexErrorView from "./tex-error-view";
 
 // eslint-disable-next-line import/no-deprecated
 import type {
@@ -884,10 +875,6 @@ class Editor extends React.Component<Props, State> {
         let templatesDropDown;
         let widgetsAndTemplates;
         let wordCountDisplay;
-        const katexErrorList: Array<{
-            math: string;
-            message: never;
-        }> = [];
 
         if (this.props.showWordCount) {
             const numChars = PerseusMarkdown.characterCount(this.props.content);
@@ -919,26 +906,6 @@ class Editor extends React.Component<Props, State> {
                 if (i % 2 === 0) {
                     // Normal text
                     underlayPieces.push(pieces[i]);
-
-                    // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-                    const ast = PerseusMarkdown.parse(pieces[i]);
-
-                    PerseusMarkdown.traverseContent(ast, (node) => {
-                        if (node.type === "math" || node.type === "blockMath") {
-                            const content = preprocessTex(node.content);
-                            try {
-                                katex.renderToString(content, {
-                                    colorIsTextColor: true,
-                                });
-                            } catch (e: any) {
-                                katexErrorList.push({
-                                    math: content,
-                                    // @ts-expect-error - TS2322 - Type 'any' is not assignable to type 'never'.
-                                    message: e.message,
-                                });
-                            }
-                        }
-                    });
                 } else {
                     // Widget reference
                     const match = Util.rWidgetParts.exec(pieces[i]);
@@ -1101,9 +1068,6 @@ class Editor extends React.Component<Props, State> {
                 }
             >
                 {textareaWrapper}
-                {katexErrorList.length > 0 && (
-                    <TexErrorView errorList={katexErrorList} />
-                )}
                 {this.props.warnNoPrompt && noPrompt && (
                     <div style={warningStyle}>
                         Graded Groups should contain a prompt

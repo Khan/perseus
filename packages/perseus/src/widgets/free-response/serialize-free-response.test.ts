@@ -1,4 +1,6 @@
 import {
+    generateFreeResponseOptions,
+    generateFreeResponseWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -10,7 +12,6 @@ import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
-import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 /**
@@ -30,30 +31,6 @@ import type {UserEvent} from "@testing-library/user-event";
  * This API needs to be removed and these tests need to be removed with it.
  */
 describe("FreeResponse serialization", () => {
-    function generateBasicFreeResponse(): PerseusItem {
-        const question = generateTestPerseusRenderer({
-            content: "[[☃ free-response 1]]",
-            widgets: {
-                "free-response 1": {
-                    type: "free-response",
-                    options: {
-                        allowUnlimitedCharacters: false,
-                        characterLimit: 500,
-                        placeholder: "test-placeholder",
-                        question: "test-question",
-                        scoringCriteria: [
-                            {
-                                text: "test-criterion",
-                            },
-                        ],
-                    },
-                },
-            },
-        });
-        const item = generateTestPerseusItem({question});
-        return item;
-    }
-
     beforeAll(() => {
         registerAllWidgetsForTesting();
     });
@@ -79,7 +56,28 @@ describe("FreeResponse serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicFreeResponse());
+        const {renderer} = renderQuestion(
+            generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "[[☃ free-response 1]]",
+                    widgets: {
+                        "free-response 1": generateFreeResponseWidget({
+                            options: generateFreeResponseOptions({
+                                allowUnlimitedCharacters: false,
+                                characterLimit: 500,
+                                question: "test-question",
+                                placeholder: "test-placeholder",
+                                scoringCriteria: [
+                                    {
+                                        text: "test-criterion",
+                                    },
+                                ],
+                            }),
+                        }),
+                    },
+                }),
+            }),
+        );
 
         await userEvent.type(
             screen.getByLabelText("test-question"),
