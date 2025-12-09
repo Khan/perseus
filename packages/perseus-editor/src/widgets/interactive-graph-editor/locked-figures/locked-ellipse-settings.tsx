@@ -1,6 +1,9 @@
 import {angles} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
-import {lockedFigureFillStyles} from "@khanacademy/perseus-core";
+import {
+    getDefaultFigureForType,
+    lockedFigureFillStyles,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -29,7 +32,6 @@ import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
-    getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
 

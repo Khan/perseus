@@ -140,6 +140,7 @@ export {
 } from "./widgets/apply-defaults";
 
 export {default as getDefaultAnswerArea} from "./utils/get-default-answer-area";
+export {getDefaultFigureForType} from "./utils/get-default-figure-for-type";
 export {
     default as splitPerseusItem,
     splitPerseusItemJSON,
