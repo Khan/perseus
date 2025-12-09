@@ -1,14 +1,13 @@
-/* eslint-disable react/no-unsafe */
 import {components} from "@khanacademy/perseus";
 import classNames from "classnames";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import jsdiff from "jsdiff";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import splitDiff from "./split-diff";
 import stringArrayDiff from "./string-array-diff";
+
+import type {Entry} from "./split-diff";
 
 const {SvgImage} = components;
 
@@ -17,11 +16,16 @@ const AFTER = "after";
 
 const IMAGE_REGEX = /http.*?\.png|web\+graphie[^)]*/g;
 
-const imagesInString = function (str: any) {
-    return str.match(IMAGE_REGEX) || [];
+type ContentDiff = {
+    before: React.JSX.Element[];
+    after: React.JSX.Element[];
 };
 
-const classFor = function (entry: any, ifAdded: string, ifRemoved: string) {
+const imagesInString = function (str: string | undefined) {
+    return str?.match(IMAGE_REGEX) || [];
+};
+
+const classFor = function (entry: Entry, ifAdded: string, ifRemoved: string) {
     if (entry.added) {
         return ifAdded;
     }
@@ -31,11 +35,16 @@ const classFor = function (entry: any, ifAdded: string, ifRemoved: string) {
     return "";
 };
 
-class ImageDiffSide extends React.Component<any> {
-    static propTypes = {
-        images: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    };
+type Image = {
+    value: string;
+    status: "unchanged" | "added" | "removed";
+};
 
+type ImageDiffSideProps = {
+    images: Image[];
+};
+
+class ImageDiffSide extends React.Component<ImageDiffSideProps> {
     render(): React.ReactNode {
         return (
             <div>
@@ -49,11 +58,11 @@ class ImageDiffSide extends React.Component<any> {
                     return (
                         <div key={index}>
                             <div className={className}>
-                                {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                                 <SvgImage
                                     src={entry.value}
                                     title={entry.value}
                                     allowZoom={false}
+                                    alt={"entry.value"}
                                 />
                             </div>
                         </div>
@@ -64,23 +73,27 @@ class ImageDiffSide extends React.Component<any> {
     }
 }
 
-class TextDiff extends React.Component<any, any> {
-    static propTypes = {
-        after: PropTypes.string,
-        before: PropTypes.string,
-        title: PropTypes.string.isRequired,
-    };
+type TextDiffProps = {
+    title: string;
+    after?: string;
+    before?: string;
+};
 
-    static defaultProps: any = {
+type TextDiffState = {
+    collapsed: boolean;
+};
+
+class TextDiff extends React.Component<TextDiffProps, TextDiffState> {
+    static defaultProps: Partial<TextDiffProps> = {
         after: "",
         before: "",
     };
 
-    state: any = {
+    state: TextDiffState = {
         collapsed: this.props.before === this.props.after,
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps: any) {
+    UNSAFE_componentWillReceiveProps(nextProps: TextDiffProps) {
         this.setState({
             collapsed: nextProps.before === nextProps.after,
         });
@@ -91,18 +104,24 @@ class TextDiff extends React.Component<any, any> {
     };
 
     render(): React.ReactNode {
-        const diffed = jsdiff.diffWords(this.props.before, this.props.after);
+        // Fun note: I'm adding our own custom object here because jsdiff
+        // is an old js library (11 years with no changes as of this comment)
+        // with no typing.
+        const diffed: Entry[] = jsdiff.diffWords(
+            this.props.before,
+            this.props.after,
+        );
 
-        const lines = splitDiff(diffed);
+        const lines: Entry[][] = splitDiff(diffed);
 
         const beforeImages = imagesInString(this.props.before);
         const afterImages = imagesInString(this.props.after);
         const images = stringArrayDiff(beforeImages, afterImages);
 
         const renderedLines = _.map(lines, (line) => {
-            const contents: Record<string, any> = {};
+            const contents: ContentDiff = {before: [], after: []};
 
-            contents.before = _(line).map(function (entry, i) {
+            contents.before = _(line).map(function (entry: Entry, i: number) {
                 return (
                     <span
                         key={i}
@@ -117,7 +136,7 @@ class TextDiff extends React.Component<any, any> {
                 );
             });
 
-            contents.after = _(line).map(function (entry, i) {
+            contents.after = _(line).map(function (entry: Entry, i: number) {
                 return (
                     <span
                         key={i}
@@ -170,6 +189,7 @@ class TextDiff extends React.Component<any, any> {
                 </div>
                 {_.map([BEFORE, AFTER], (side, index) => {
                     return (
+                        // Leaving this eslint ignore for now, since this is an internal tool.
                         // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error
                         <div
                             className={className + " " + side}
