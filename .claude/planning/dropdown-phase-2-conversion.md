@@ -77,16 +77,16 @@ import {
     forwardRef,
     useImperativeHandle,
 } from "react";
-import ReactDOM from "react-dom"; // Keep for now - will remove in Phase 3
+import ReactDOM from "react-dom"; // Keep only if focus still uses findDOMNode
 // ... other imports remain the same
 ```
 
 **Changes:**
 1. Add hooks: `useContext`, `useEffect`, `useRef`
 2. Add ref helpers: `forwardRef`, `useImperativeHandle`
-3. **Keep `ReactDOM` import** - We'll maintain the existing (broken) focus behavior until Phase 3 fixes it properly
+3. **Keep `ReactDOM` import only if still used** - If you keep the findDOMNode-based focus in this phase, the import stays. If you switch to a ref-based placeholder focus, drop the import to avoid lint errors.
 
-**IMPORTANT:** Don't remove ReactDOM yet! Task 2.7 will keep the existing focus implementation to avoid functionality regression. ReactDOM will be removed in Phase 3 when we implement the proper ref-based focus.
+**IMPORTANT:** Avoid unused imports. If Task 2.7 switches to a placeholder ref-based focus, remove ReactDOM here; otherwise keep it until Phase 3 replaces the focus path.
 
 **File Location:** `packages/perseus/src/widgets/dropdown/dropdown.tsx:1-21`
 
@@ -185,6 +185,22 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
 - Context accessed with useContext
 - Props destructured with defaults
 - No TypeScript errors
+
+---
+
+### Task 2.4a: Confirm withDependencies Ref Forwarding
+**Status:** [ ] Complete
+
+Ensure the `withDependencies` HOC preserves refs; otherwise the Widget ref (and `useImperativeHandle`) will be unreachable and focus will stay broken.
+
+**Verification Steps:**
+1. Inspect `withDependencies` implementation for `forwardRef` usage.
+2. If refs are not forwarded, wrap the export with an explicit `forwardRef` wrapper or adjust HOC usage.
+3. Document the outcome and any required code changes before proceeding to focus work.
+
+**Success Criteria:**
+- Confirmed ref forwarding behavior.
+- Plan updated if an adapter is needed to preserve refs.
 
 ---
 
@@ -336,6 +352,10 @@ useImperativeHandle(ref, () => ({
         // root element is a <div> and that cannot be focused without a
         // tabIndex. This will be fixed in Phase 3.
         // For now, maintain existing (broken) behavior to avoid regression
+        // Choose one:
+        // 1) Keep findDOMNode parity (leave ReactDOM import):
+        // const node = ReactDOM.findDOMNode(rootRef.current);
+        // 2) Or use the rootRef directly and drop ReactDOM:
         const node = rootRef.current;
         if (node instanceof HTMLElement) {
             node.focus();
@@ -762,7 +782,7 @@ Before moving to Phase 3, verify:
 - static defaultProps
 - componentDidMount lifecycle
 - this references
-- ReactDOM.findDOMNode (temporarily)
+- ReactDOM.findDOMNode (scheduled for Phase 3 when focus is fixed)
 
 ---
 

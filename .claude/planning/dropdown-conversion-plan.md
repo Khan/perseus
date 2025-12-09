@@ -3,7 +3,7 @@
 
 **Target File:** `packages/perseus/src/widgets/dropdown/dropdown.tsx`
 **Start Date:** 2025-12-08
-**Status:** Planning Complete
+**Status:** Planning complete; implementation work not started
 
 ---
 
@@ -31,6 +31,8 @@ This plan outlines the conversion of the Dropdown widget from a React class comp
 ### Phase 1: Preparation
 **Status:** [ ] Not Started | [ ] In Progress | [ ] Complete
 **Detailed Plan:** `.claude/planning/dropdown-phase-1-preparation.md`
+
+*Note: Phases are not started yet; checkboxes intentionally remain blank until work begins.*
 
 - [ ] Review exploration findings and current implementation
 - [ ] Set up git branch for work

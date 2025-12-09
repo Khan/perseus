@@ -66,8 +66,8 @@ Investigate how Wonder Blocks SingleSelect handles refs and focus.
 **Research Questions:**
 1. Does SingleSelect accept a ref prop?
 2. Does it forward refs to its underlying focusable element?
-3. Does it expose a `focus()` method?
-4. What type should the ref be? (`HTMLSelectElement`, `HTMLDivElement`, custom?)
+3. Does it expose a `focus()` method or a custom handle?
+4. What type should the ref be? (`HTMLSelectElement`, `HTMLDivElement`, button, or custom handle?)
 
 **Research Methods:**
 ```bash
@@ -85,15 +85,15 @@ grep -r "SingleSelect" packages/perseus/src --include="*.tsx" -A 5 | \
 **Alternative:** Look at Wonder Blocks Storybook or GitHub repository
 
 **Document Findings:**
-- SingleSelect ref type: [Type]
+- SingleSelect ref type: [Type; update downstream tasks to match]
 - Ref forwarding: [Yes/No]
-- Focus method available: [Yes/No]
+- Focus method available: [Yes/No; describe signature if custom]
 - Example usage: [Code snippet if found]
 
 **Success Criteria:**
-- Understand SingleSelect ref API
-- Know how to focus it programmatically
-- Have example code or pattern to follow
+- Understand SingleSelect ref API and concrete ref type
+- Know how to focus it programmatically (native focusable or custom handle)
+- Have example code or pattern to follow; update the planned ref type in later tasks if needed
 
 ---
 
@@ -105,12 +105,14 @@ Add a ref that will be attached to the SingleSelect component.
 **Add after useContext (early in component):**
 ```typescript
 // Ref to the SingleSelect component for focus management
+// Replace HTMLSelectElement with the concrete type discovered in Task 3.1
 const selectRef = useRef<HTMLSelectElement>(null);
 ```
 
 **Note:** The type `HTMLSelectElement` is likely, but verify from Task 3.1. It might be:
 - `HTMLSelectElement` (if SingleSelect renders a <select>)
 - `HTMLDivElement` (if it's a custom dropdown)
+- `HTMLButtonElement` (if the trigger is a button)
 - A custom type from Wonder Blocks
 
 **File Location:** Near top of component, after context declaration
