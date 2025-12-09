@@ -1,7 +1,7 @@
 # Phase 1: Preparation
 ## Dropdown Widget Conversion - Preparation Phase
 
-**Phase Status:** [ ] Not Started | [ ] In Progress | [ ] Complete
+**Phase Status:** [X] Complete
 **Estimated Complexity:** Low
 **Dependencies:** None
 
@@ -36,28 +36,24 @@ Review the comprehensive exploration report to understand:
 
 ---
 
-### Task 1.2: Set Up Git Branch
+### Task 1.2: Verify Git Branch
 **Status:** [ ] Complete
 
-Create a clean git branch for this work.
+Verify we're on the correct git branch for this work.
 
 **Commands:**
 ```bash
-# Ensure you're on main and it's up to date
-git checkout main
-git pull origin main
-
-# Create feature branch
-git checkout -b dropdown-functional-conversion
-
-# Verify branch
+# Verify current branch
 git branch --show-current
+
+# Check working directory status
+git status
 ```
 
 **Success Criteria:**
-- New branch created: `dropdown-functional-conversion`
-- Working directory is clean
-- No uncommitted changes from other work
+- On branch: `tb/LEMS-378/dropdown-conversion`
+- Working directory status verified
+- Ready to begin work
 
 ---
 
@@ -317,9 +313,36 @@ Before moving to Phase 2, verify:
 
 **Add notes here as you work through this phase:**
 
--
--
--
+- **2025-12-09**: Git branch confirmed as `tb/LEMS-378/dropdown-conversion`
+- **2025-12-09**: Baseline behavior document created at `.claude/planning/dropdown-baseline-behavior.md`
+- **2025-12-09**: Test baseline run shows 2 snapshot failures (CSS class hash changes in Wonder Blocks):
+  - `menuWrapper_j210b4` → `menuWrapper_wvrnr4`
+  - These are non-functional failures (just hashed class names)
+  - Tests: 10 passed, 2 failed (snapshots), 12 total
+  - Test suites: 1 passed (serialize-dropdown), 1 failed (dropdown), 2 total
+  - **Action taken:** Updated snapshots with `pnpm test -u`, all tests now pass
+- **2025-12-09**: Wonder Blocks documentation reviewed:
+  - SingleSelect is a functional component, no explicit ref forwarding visible in types
+  - Id component uses render prop pattern, works with functional components
+  - View component supports event handlers and is straightforward
+- **2025-12-09**: Similar conversions checked:
+  - Found `numeric-input` widget using `forwardRef` + `useImperativeHandle`
+  - Pattern: Hybrid approach with class wrapper + functional component for rendering
+  - **Our approach:** Full functional conversion (not hybrid like numeric-input)
+- **2025-12-09**: ✅ **CRITICAL FINDING** - withDependencies DOES forward refs:
+  - File: `packages/perseus/src/components/with-dependencies.tsx`
+  - Uses `React.forwardRef` internally (line 18)
+  - Passes `ref={ref}` to wrapped component (line 28)
+  - Return type: `React.ForwardRefExoticComponent<...RefAttributes<any>>`
+  - **Conclusion:** Our `forwardRef` + `useImperativeHandle` plan will work! ✅
+- **2025-12-09**: Storybook verification (manual testing):
+  - ✅ Dropdown renders with correct styling
+  - ✅ Opens/closes properly, options selectable
+  - ✅ Math content renders correctly in options
+  - ✅ Visible label displays properly
+  - ✅ Keyboard navigation works (tab, arrow keys, enter, escape)
+  - ✅ ARIA label present: "Select an answer"
+  - **All stories working as expected**
 
 ---
 
@@ -340,6 +363,6 @@ If all tasks are complete and no blockers exist, you're ready to proceed to:
 
 ---
 
-**Phase Started:** [Date]
-**Phase Completed:** [Date]
-**Time Spent:** [Duration]
+**Phase Started:** 2025-12-09
+**Phase Completed:** 2025-12-09
+**Time Spent:** ~1 hour
