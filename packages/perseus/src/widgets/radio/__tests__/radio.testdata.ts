@@ -6,31 +6,44 @@ import {
     generateRadioOptions,
 } from "@khanacademy/perseus-core";
 
-import {radioQuestionBuilder} from "../radio-question-builder";
-
-export const question: PerseusRenderer = radioQuestionBuilder()
-    .withContent(
+export const question: PerseusRenderer = generateTestPerseusRenderer({
+    content:
         "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
-    )
-    .addChoice("$-8$ and $8$", {
-        correct: false,
-        rationale:
-            "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
-    })
-    .addChoice("$-8$", {
-        correct: false,
-        rationale:
-            "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
-    })
-    .addChoice("$8$", {
-        correct: true,
-        rationale: "$8$ is the positive square root of $64$.",
-    })
-    .addChoice("No value of $x$ satisfies the equation.", {
-        correct: false,
-        rationale: "$8$ satisfies the equation.",
-    })
-    .build();
+    widgets: {
+        "radio 1": generateRadioWidget({
+            options: generateRadioOptions({
+                choices: [
+                    {
+                        content: "$-8$ and $8$",
+                        correct: false,
+                        rationale:
+                            "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                        id: "radio-choice-test-id-0",
+                    },
+                    {
+                        content: "$-8$",
+                        correct: false,
+                        rationale:
+                            "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                        id: "radio-choice-test-id-1",
+                    },
+                    {
+                        content: "$8$",
+                        correct: true,
+                        rationale: "$8$ is the positive square root of $64$.",
+                        id: "radio-choice-test-id-2",
+                    },
+                    {
+                        content: "No value of $x$ satisfies the equation.",
+                        correct: false,
+                        rationale: "$8$ satisfies the equation.",
+                        id: "radio-choice-test-id-3",
+                    },
+                ],
+            }),
+        }),
+    },
+});
 
 export const questionAndAnswer: [
     PerseusRenderer,
@@ -97,33 +110,49 @@ export const questionWithPassage: PerseusRenderer = generateTestPerseusRenderer(
     },
 );
 
-export const questionWithRationale: PerseusRenderer = radioQuestionBuilder()
-    .withContent(
-        "What ship was Jean-Luc Picard's first command?\n\n[[\u2603 radio 1]]\n\n",
-    )
-    .addChoice("USS Voyager (NCC-74656)", {
-        correct: false,
-        rationale: "Commanded by Captain Kathryn Janeway.",
-    })
-    .addChoice("USS Enterprise (NCC-1701)", {
-        correct: false,
-        rationale:
-            "\nThis rationale has a blank line at the start, which should **NOT** affect the rendered rationale. More text: " +
-            "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. " +
-            "The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. " +
-            "Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.'" +
-            '\n\n**Top tip!** This is the ship he commands in the series, but it is not his first command. Watch *"The Battle"* (Season 1, Episode 9) for more. And, as always, beware of Ferengi!',
-    })
-    .addChoice("USS Enterprise (NX-01)", {
-        correct: false,
-        rationale: "Commanded by Captain Jonathan Archer.",
-    })
-    .addChoice("USS Stargazer (NCC-2893)", {
-        correct: true,
-        rationale:
-            "**This is the correct choice.** In one of the battles with the Ferengi, he killed the son of DaiMon Bok, who later sought revenge on Picard.",
-    })
-    .build();
+export const questionWithRationale: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content:
+            "What ship was Jean-Luc Picard's first command?\n\n[[\u2603 radio 1]]\n\n",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    choices: [
+                        {
+                            content: "USS Voyager (NCC-74656)",
+                            correct: false,
+                            rationale: "Commanded by Captain Kathryn Janeway.",
+                            id: "radio-choice-test-id-0",
+                        },
+                        {
+                            content: "USS Enterprise (NCC-1701)",
+                            correct: false,
+                            rationale:
+                                "\nThis rationale has a blank line at the start, which should **NOT** affect the rendered rationale. More text: " +
+                                "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. " +
+                                "The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. " +
+                                "Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.'" +
+                                '\n\n**Top tip!** This is the ship he commands in the series, but it is not his first command. Watch *"The Battle"* (Season 1, Episode 9) for more. And, as always, beware of Ferengi!',
+                            id: "radio-choice-test-id-1",
+                        },
+                        {
+                            content: "USS Enterprise (NX-01)",
+                            correct: false,
+                            rationale: "Commanded by Captain Jonathan Archer.",
+                            id: "radio-choice-test-id-2",
+                        },
+                        {
+                            content: "USS Stargazer (NCC-2893)",
+                            correct: true,
+                            rationale:
+                                "**This is the correct choice.** In one of the battles with the Ferengi, he killed the son of DaiMon Bok, who later sought revenge on Picard.",
+                            id: "radio-choice-test-id-3",
+                        },
+                    ],
+                }),
+            }),
+        },
+    });
 
 export const choicesWithImages: PerseusRenderer = generateTestPerseusRenderer({
     content:
@@ -187,23 +216,39 @@ export const choicesWithImages: PerseusRenderer = generateTestPerseusRenderer({
 });
 
 export const SingleSelectOverflowImageContent: PerseusRenderer =
-    radioQuestionBuilder()
-        .withContent("Select 9 ponies.[[\u2603 radio 1]]\n\n")
-        .addChoice(
-            "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
-            {correct: true, rationale: "Count the ponies in the image."},
-        )
-        .addChoice(
-            "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
-            {correct: false, rationale: "Count the ponies in the image."},
-        )
-        .addChoice(
-            "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
-            {correct: false, rationale: "Count the ponies in the image."},
-        )
-        .build();
+    generateTestPerseusRenderer({
+        content: "Select 9 ponies.[[\u2603 radio 1]]\n\n",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    choices: [
+                        {
+                            content:
+                                "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
+                            correct: true,
+                            rationale: "Count the ponies in the image.",
+                            id: "radio-choice-test-id-0",
+                        },
+                        {
+                            content:
+                                "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
+                            correct: false,
+                            rationale: "Count the ponies in the image.",
+                            id: "radio-choice-test-id-1",
+                        },
+                        {
+                            content:
+                                "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
+                            correct: false,
+                            rationale: "Count the ponies in the image.",
+                            id: "radio-choice-test-id-2",
+                        },
+                    ],
+                }),
+            }),
+        },
+    });
 
-// Can't use radioQuestionBuilder here because it also includes a passage widget.
 export const SingleSelectOverflowContent: PerseusRenderer =
     generateTestPerseusRenderer({
         content: "Which are the same as the number 75?[[\u2603 radio 1]]\n\n",
@@ -244,71 +289,140 @@ export const SingleSelectOverflowContent: PerseusRenderer =
         },
     });
 
-export const multiChoiceQuestion: PerseusRenderer = radioQuestionBuilder()
-    .withContent(
-        "**Select all input values for which $g(x)=2$.**\n\n[[\u2603 radio 1]]\n\n ![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/4613e0d9c906b3053fb5523eed83d4f779fdf6bb)",
-    )
-    .addChoice("$x=-6$", {correct: false})
-    .addChoice("$x=4$", {correct: false})
-    .addChoice("$x=7$", {correct: false, isNoneOfTheAbove: false})
-    .addChoice("There is no such input value.", {
-        correct: true,
-        isNoneOfTheAbove: true,
-    })
-    .withHasNoneOfTheAbove(true)
-    .withMultipleSelect(true)
-    .withRandomize(false)
-    .build();
+export const multiChoiceQuestion: PerseusRenderer = generateTestPerseusRenderer(
+    {
+        content:
+            "**Select all input values for which $g(x)=2$.**\n\n[[\u2603 radio 1]]\n\n ![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/4613e0d9c906b3053fb5523eed83d4f779fdf6bb)",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    hasNoneOfTheAbove: true,
+                    multipleSelect: true,
+                    randomize: false,
+                    choices: [
+                        {
+                            content: "$x=-6$",
+                            correct: false,
+                            id: "radio-choice-test-id-0",
+                        },
+                        {
+                            content: "$x=4$",
+                            correct: false,
+                            id: "radio-choice-test-id-1",
+                        },
+                        {
+                            content: "$x=7$",
+                            correct: false,
+                            isNoneOfTheAbove: false,
+                            id: "radio-choice-test-id-2",
+                        },
+                        {
+                            content: "There is no such input value.",
+                            correct: true,
+                            isNoneOfTheAbove: true,
+                            id: "radio-choice-test-id-3",
+                        },
+                    ],
+                }),
+            }),
+        },
+    },
+);
 
-export const multiChoiceQuestionSimple: PerseusRenderer = radioQuestionBuilder()
-    .withContent("What are some ways to say hello?\n\n[[\u2603 radio 1]]")
-    .addChoice("Hola", {
-        correct: true,
-        rationale: "The Spanish-speaking countries typically say Hola.",
-    })
-    .addChoice("Hey", {
-        correct: true,
-        rationale: "This is used to attract someone's attention.",
-    })
-    .addChoice("Hi", {
-        correct: true,
-        rationale: "This is used as friendly greeting.",
-    })
-    .addChoice("Goodbye", {
-        correct: false,
-        rationale: "Some people like to say Goodbye.",
-    })
-    .addChoice("None of these", {correct: false, isNoneOfTheAbove: true})
-    .withHasNoneOfTheAbove(true)
-    .withMultipleSelect(true)
-    .build();
+export const multiChoiceQuestionSimple: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "What are some ways to say hello?\n\n[[\u2603 radio 1]]",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    hasNoneOfTheAbove: true,
+                    multipleSelect: true,
+                    choices: [
+                        {
+                            content: "Hola",
+                            correct: true,
+                            rationale:
+                                "The Spanish-speaking countries typically say Hola.",
+                            id: "radio-choice-test-id-0",
+                        },
+                        {
+                            content: "Hey",
+                            correct: true,
+                            rationale:
+                                "This is used to attract someone's attention.",
+                            id: "radio-choice-test-id-1",
+                        },
+                        {
+                            content: "Hi",
+                            correct: true,
+                            rationale: "This is used as friendly greeting.",
+                            id: "radio-choice-test-id-2",
+                        },
+                        {
+                            content: "Goodbye",
+                            correct: false,
+                            rationale: "Some people like to say Goodbye.",
+                            id: "radio-choice-test-id-3",
+                        },
+                        {
+                            content: "None of these",
+                            correct: false,
+                            isNoneOfTheAbove: true,
+                            id: "radio-choice-test-id-4",
+                        },
+                    ],
+                }),
+            }),
+        },
+    });
 
 export const multiChoiceQuestionSimpleOverflowContent: PerseusRenderer =
-    radioQuestionBuilder()
-        .withContent(
-            "Which are the same as the number 75?\n\n[[\u2603 radio 1]]",
-        )
-        .addChoice("$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$", {
-            correct: true,
-            rationale: "Add the following numbers to get 75.",
-        })
-        .addChoice("$5+4+1+9+1+2+2+2+2+2+3+3+3+1+4+4+2+5+5+10+3+2$", {
-            correct: true,
-            rationale: "Add the following numbers to get 75.",
-        })
-        .addChoice("$10+10+10+10+10+10+10+5$", {
-            correct: true,
-            rationale: "Add the following numbers to get 75.",
-        })
-        .addChoice("$10+10+10+10+10+10+10+3+2$", {
-            correct: false,
-            rationale: "Add the following numbers to get 75.",
-        })
-        .addChoice("None of these", {correct: false, isNoneOfTheAbove: true})
-        .withHasNoneOfTheAbove(true)
-        .withMultipleSelect(true)
-        .withRandomize(false)
-        .build();
+    generateTestPerseusRenderer({
+        content: "Which are the same as the number 75?\n\n[[\u2603 radio 1]]",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    hasNoneOfTheAbove: true,
+                    multipleSelect: true,
+                    randomize: false,
+                    choices: [
+                        {
+                            content:
+                                "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                            correct: true,
+                            rationale: "Add the following numbers to get 75.",
+                            id: "radio-choice-test-id-0",
+                        },
+                        {
+                            content:
+                                "$5+4+1+9+1+2+2+2+2+2+3+3+3+1+4+4+2+5+5+10+3+2$",
+                            correct: true,
+                            rationale: "Add the following numbers to get 75.",
+                            id: "radio-choice-test-id-1",
+                        },
+                        {
+                            content: "$10+10+10+10+10+10+10+5$",
+                            correct: true,
+                            rationale: "Add the following numbers to get 75.",
+                            id: "radio-choice-test-id-2",
+                        },
+                        {
+                            content: "$10+10+10+10+10+10+10+3+2$",
+                            correct: false,
+                            rationale: "Add the following numbers to get 75.",
+                            id: "radio-choice-test-id-3",
+                        },
+                        {
+                            content: "None of these",
+                            correct: false,
+                            isNoneOfTheAbove: true,
+                            id: "radio-choice-test-id-4",
+                        },
+                    ],
+                }),
+            }),
+        },
+    });
 
 export const multiChoiceQuestionAndAnswer: [
     PerseusRenderer,
@@ -325,37 +439,110 @@ export const multiChoiceQuestionAndAnswer: [
     ],
 ];
 
-export const shuffledQuestion: PerseusRenderer = radioQuestionBuilder()
-    .withContent("[[\u2603 radio 1]]")
-    .addChoice("Incorrect Choice 1", {correct: false})
-    .addChoice("Incorrect Choice 2", {correct: false})
-    .addChoice("Correct Choice", {correct: true})
-    .addChoice("Incorrect Choice 3", {correct: false})
-    .withRandomize(true)
-    .build();
+export const shuffledQuestion: PerseusRenderer = generateTestPerseusRenderer({
+    content: "[[\u2603 radio 1]]",
+    widgets: {
+        "radio 1": generateRadioWidget({
+            options: generateRadioOptions({
+                randomize: true,
+                choices: [
+                    {
+                        content: "Incorrect Choice 1",
+                        correct: false,
+                        id: "radio-choice-test-id-0",
+                    },
+                    {
+                        content: "Incorrect Choice 2",
+                        correct: false,
+                        id: "radio-choice-test-id-1",
+                    },
+                    {
+                        content: "Correct Choice",
+                        correct: true,
+                        id: "radio-choice-test-id-2",
+                    },
+                    {
+                        content: "Incorrect Choice 3",
+                        correct: false,
+                        id: "radio-choice-test-id-3",
+                    },
+                ],
+            }),
+        }),
+    },
+});
 
-export const shuffledNoneQuestion: PerseusRenderer = radioQuestionBuilder()
-    .withContent("[[\u2603 radio 1]]")
-    .addChoice("Incorrect Choice 1", {correct: false})
-    .addChoice("Incorrect Choice 2", {correct: false})
-    .addChoice("Incorrect Choice 3", {correct: false})
-    .addChoice("Incorrect Choice 4", {correct: false})
-    .addChoice("None of the above", {correct: true, isNoneOfTheAbove: true})
-    .withHasNoneOfTheAbove(true)
-    .withRandomize(true)
-    .build();
+export const shuffledNoneQuestion: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "[[\u2603 radio 1]]",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    hasNoneOfTheAbove: true,
+                    randomize: true,
+                    choices: [
+                        {
+                            content: "Incorrect Choice 1",
+                            correct: false,
+                            id: "radio-choice-test-id-0",
+                        },
+                        {
+                            content: "Incorrect Choice 2",
+                            correct: false,
+                            id: "radio-choice-test-id-1",
+                        },
+                        {
+                            content: "Incorrect Choice 3",
+                            correct: false,
+                            id: "radio-choice-test-id-2",
+                        },
+                        {
+                            content: "Incorrect Choice 4",
+                            correct: false,
+                            id: "radio-choice-test-id-3",
+                        },
+                        {
+                            content: "None of the above",
+                            correct: true,
+                            isNoneOfTheAbove: true,
+                            id: "radio-choice-test-id-4",
+                        },
+                    ],
+                }),
+            }),
+        },
+    });
 
 export const questionWithUndefinedCorrect: PerseusRenderer =
-    radioQuestionBuilder()
-        .withContent(
+    generateTestPerseusRenderer({
+        content:
             "**Select the correct choice. This tests the LEMS-2909 bug fix.**\n\n[[\u2603 radio 1]]",
-        )
-        .addChoice("Choice A", {correct: undefined})
-        .addChoice("Choice B", {correct: true})
-        .addChoice("Choice C", {correct: undefined})
-        .withMultipleSelect(true)
-        .withRandomize(true)
-        .build();
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    multipleSelect: true,
+                    randomize: true,
+                    choices: [
+                        {
+                            content: "Choice A",
+                            correct: undefined,
+                            id: "radio-choice-test-id-0",
+                        },
+                        {
+                            content: "Choice B",
+                            correct: true,
+                            id: "radio-choice-test-id-1",
+                        },
+                        {
+                            content: "Choice C",
+                            correct: undefined,
+                            id: "radio-choice-test-id-2",
+                        },
+                    ],
+                }),
+            }),
+        },
+    });
 
 export const overflowContentInGradedGroupSet: PerseusRenderer = {
     content:
@@ -395,23 +582,34 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
 };
 
 export const choicesWithGraphie: PerseusRenderer = {
-    ...radioQuestionBuilder()
-        .withContent(
+    ...generateTestPerseusRenderer({
+        content:
             "The double number line shows that it takes $4$ hours for Karin to fold $28$ paper cranes.\n\n" +
-                "![A double number line with 5 equally spaced tick marks. The line labeled Hours, reads from left to right: 0, three unlabeled tick marks, 4. " +
-                "The line labeled Cranes, reads from left to right: 0, three unlabeled tick marks, 28.]" +
-                "(web+graphie://ka-perseus-graphie.s3.amazonaws.com/669d6011774f3c0f6809553d210b4f51b7e3e4fe)\n\n" +
-                "**Select the double number line that shows the other values of hours and cranes.**\n\n[[☃ radio 1]]",
-        )
-        .addChoice(
-            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 40, 80, 120, 160.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e4bdfd23b56729130cbd113a03c5792bb8790247)",
-            {correct: true},
-        )
-        .addChoice(
-            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 80, 100, 120, 140.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/ef0bd0163c21f51752bda0a4102dc29818c75463)",
-            {correct: false},
-        )
-        .build(),
+            "![A double number line with 5 equally spaced tick marks. The line labeled Hours, reads from left to right: 0, three unlabeled tick marks, 4. " +
+            "The line labeled Cranes, reads from left to right: 0, three unlabeled tick marks, 28.]" +
+            "(web+graphie://ka-perseus-graphie.s3.amazonaws.com/669d6011774f3c0f6809553d210b4f51b7e3e4fe)\n\n" +
+            "**Select the double number line that shows the other values of hours and cranes.**\n\n[[☃ radio 1]]",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    choices: [
+                        {
+                            content:
+                                "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 40, 80, 120, 160.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e4bdfd23b56729130cbd113a03c5792bb8790247)",
+                            correct: true,
+                            id: "radio-choice-test-id-0",
+                        },
+                        {
+                            content:
+                                "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 80, 100, 120, 140.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/ef0bd0163c21f51752bda0a4102dc29818c75463)",
+                            correct: false,
+                            id: "radio-choice-test-id-1",
+                        },
+                    ],
+                }),
+            }),
+        },
+    }),
     images: {
         "web+graphie://ka-perseus-graphie.s3.amazonaws.com/def25e9c056a6f782f5a8492ae55ee85670f0ab7":
             {
@@ -429,22 +627,41 @@ export const choicesWithGraphie: PerseusRenderer = {
 export const choicesWithMathFont = (options?: {
     multipleSelect: boolean;
 }): PerseusRenderer => {
-    return radioQuestionBuilder()
-        .withContent(
+    return generateTestPerseusRenderer({
+        content:
             "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
-        )
-        .addChoice("Both $-8$ and $8$ satisfy the equation $\\sqrt{64}=x$", {
-            correct: false,
-        })
-        .addChoice("Only $-8$ satisfies the equation $\\sqrt{64}=x$", {
-            correct: false,
-        })
-        .addChoice("Only $8$ satisfies the equation $\\sqrt{64}=x$", {
-            correct: false,
-        })
-        .addChoice("No value of $x$ satisfies the equation $\\sqrt{64}=x$", {
-            correct: false,
-        })
-        .withMultipleSelect(options?.multipleSelect ?? false)
-        .build();
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    multipleSelect: options?.multipleSelect ?? false,
+                    choices: [
+                        {
+                            content:
+                                "Both $-8$ and $8$ satisfy the equation $\\sqrt{64}=x$",
+                            correct: false,
+                            id: "radio-choice-test-id-0",
+                        },
+                        {
+                            content:
+                                "Only $-8$ satisfies the equation $\\sqrt{64}=x$",
+                            correct: false,
+                            id: "radio-choice-test-id-1",
+                        },
+                        {
+                            content:
+                                "Only $8$ satisfies the equation $\\sqrt{64}=x$",
+                            correct: false,
+                            id: "radio-choice-test-id-2",
+                        },
+                        {
+                            content:
+                                "No value of $x$ satisfies the equation $\\sqrt{64}=x$",
+                            correct: false,
+                            id: "radio-choice-test-id-3",
+                        },
+                    ],
+                }),
+            }),
+        },
+    });
 };

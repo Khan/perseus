@@ -1,3 +1,8 @@
+import {
+    generateTestPerseusRenderer,
+    generateRadioWidget,
+    generateRadioOptions,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
@@ -5,7 +10,6 @@ import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
-import {radioQuestionBuilder} from "../radio-question-builder";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -174,19 +178,61 @@ export default meta;
 type Story = StoryObj<typeof RadioDemo>;
 
 // Create the question data for each story
-const singleSelectQuestion = radioQuestionBuilder()
-    .addChoice("Option A", {correct: true})
-    .addChoice("Option B", {correct: false})
-    .addChoice("Option C", {correct: false})
-    .build();
+const singleSelectQuestion = generateTestPerseusRenderer({
+    content: "[[☃ radio 1]]",
+    widgets: {
+        "radio 1": generateRadioWidget({
+            options: generateRadioOptions({
+                choices: [
+                    {
+                        content: "Option A",
+                        correct: true,
+                        id: "radio-choice-test-id-0",
+                    },
+                    {
+                        content: "Option B",
+                        correct: false,
+                        id: "radio-choice-test-id-1",
+                    },
+                    {
+                        content: "Option C",
+                        correct: false,
+                        id: "radio-choice-test-id-2",
+                    },
+                ],
+            }),
+        }),
+    },
+});
 
-const multipleSelectQuestion = radioQuestionBuilder()
-    .addChoice("Option A", {correct: true})
-    .addChoice("Option B", {correct: true})
-    .addChoice("Option C", {correct: false})
-    .withMultipleSelect(true)
-    .withCountChoices(true)
-    .build();
+const multipleSelectQuestion = generateTestPerseusRenderer({
+    content: "[[☃ radio 1]]",
+    widgets: {
+        "radio 1": generateRadioWidget({
+            options: generateRadioOptions({
+                multipleSelect: true,
+                countChoices: true,
+                choices: [
+                    {
+                        content: "Option A",
+                        correct: true,
+                        id: "radio-choice-test-id-0",
+                    },
+                    {
+                        content: "Option B",
+                        correct: true,
+                        id: "radio-choice-test-id-1",
+                    },
+                    {
+                        content: "Option C",
+                        correct: false,
+                        id: "radio-choice-test-id-2",
+                    },
+                ],
+            }),
+        }),
+    },
+});
 
 export const DefaultSingleSelect: Story = {
     args: {
