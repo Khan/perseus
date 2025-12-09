@@ -1,29 +1,28 @@
+import {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
+
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./definition-ai-utils";
 
-const question = {
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
+
+const question: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "Read the excerpt and answer the question below. \n\nThe Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",
     images: {},
     widgets: {
-        "definition 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            static: false,
-            type: "definition",
-            options: {
+        "definition 1": generateDefinitionWidget({
+            options: generateDefinitionOptions({
                 definition: "Definition text",
                 togglePrompt: "the Pequots",
-                static: false,
-            },
-            alignment: "default",
-        },
+            }),
+        }),
     },
-} as const;
+});
 
 describe("Definition AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
