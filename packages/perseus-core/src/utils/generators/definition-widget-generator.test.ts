@@ -57,33 +57,11 @@ describe("generateDefinitionWidget", () => {
         });
 
         // Assert
-        expect(widget.static).toBe(true);
+        expect(widget.type).toBe("definition");
         expect(widget.graded).toBe(false);
-        expect(widget.alignment).toBe("block");
-        expect(widget.options).toEqual({
-            togglePrompt: "test-toggle-prompt",
-            definition: "test-definition",
-        });
-    });
-
-    it("adds options when option builder is used", () => {
-        // Arrange, Act
-        const widget = generateDefinitionWidget({
-            static: true,
-            alignment: "block",
-            graded: false,
-            version: {major: 1, minor: 0},
-            options: generateDefinitionOptions({
-                togglePrompt: "test-toggle-prompt",
-                definition: "test-definition",
-            }),
-        });
-
-        // Assert
-        expect(widget.static).toBe(true);
-        expect(widget.graded).toBe(false);
-        expect(widget.alignment).toBe("block");
         expect(widget.version).toEqual({major: 1, minor: 0});
+        expect(widget.static).toBe(true);
+        expect(widget.alignment).toBe("block");
         expect(widget.options).toEqual({
             togglePrompt: "test-toggle-prompt",
             definition: "test-definition",
