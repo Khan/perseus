@@ -18,7 +18,7 @@ const basicRadioWidget: PerseusWidget = {
 };
 
 describe("generateExplanationOptions", () => {
-    it("builds a default explanation options", () => {
+    it("builds a default explanation options object", () => {
         // Arrange, Act
         const options: PerseusExplanationWidgetOptions =
             generateExplanationOptions();
@@ -32,7 +32,7 @@ describe("generateExplanationOptions", () => {
         expect(options.widgets).toEqual({});
     });
 
-    it("builds an explanation options with all props", () => {
+    it("builds an explanation options objectwith all props", () => {
         // Arrange, Act
         const options: PerseusExplanationWidgetOptions =
             generateExplanationOptions({
