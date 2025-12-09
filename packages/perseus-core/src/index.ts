@@ -212,6 +212,10 @@ export {
     generateDropdownWidget,
 } from "./utils/generators/dropdown-widget-generator";
 export {
+    generateExplanationOptions,
+    generateExplanationWidget,
+} from "./utils/generators/explanation-widget-generator";
+export {
     generateExpressionOptions,
     generateExpressionAnswerForm,
     generateExpressionWidget,
