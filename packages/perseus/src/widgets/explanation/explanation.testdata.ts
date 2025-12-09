@@ -62,7 +62,6 @@ export const ipsumExample: PerseusRenderer = generateTestPerseusRenderer({
                     We could alter the photons with phase discriminators.
                 `,
                 showPrompt: "Explanation",
-                widgets: {},
             }),
         }),
     },
