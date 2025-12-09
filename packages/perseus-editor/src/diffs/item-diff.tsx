@@ -36,6 +36,7 @@ class ItemDiff extends React.Component<Props> {
 
         // Make a new diff focused on Answer Area.
         const extras = (
+            // @ts-expect-error - answerArea is a PerseusAnswerArea and needs to be fixed.
             <WidgetDiff
                 before={before.answerArea}
                 after={after.answerArea}
