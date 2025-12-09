@@ -1,3 +1,15 @@
+# pnpm configuration
+
+# We require a minimum release age of 3-days (specified in minutes) before a
+# package can be used in this project.
+# https://pnpm.io/settings#minimumreleaseage
+minimumReleaseAge: 4320
+
+# We exclude our own packages from this minimum release age so that we can
+# upgrade to a new release immediately.
+minimumReleaseAgeExclude:
+- '@khanacademy/*'
+
 # NOTE: The `devDeps` and `peerDeps` catalogs in this file are
 # generated from khan/frontend's pnpm-workspace.yaml. To update them, run:
 #
@@ -29,9 +41,6 @@
 #    devDependencies -> "@khanacademy/wonder-blocks-link": "catalog:devDeps",
 #    peerDependencies -> "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
 # 3. Run pnpm install in root
-minimumReleaseAge: 4320
-minimumReleaseAgeExclude:
-    - "@khanacademy/*"
 packages:
     - config/build
     - dev
