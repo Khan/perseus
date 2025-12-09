@@ -8,6 +8,7 @@ import splitDiff from "./split-diff";
 import stringArrayDiff from "./string-array-diff";
 
 import type {Entry} from "./split-diff";
+import type {ImageDiffResult} from "./string-array-diff";
 
 const {SvgImage} = components;
 
@@ -116,7 +117,10 @@ class TextDiff extends React.Component<TextDiffProps, TextDiffState> {
 
         const beforeImages = imagesInString(this.props.before);
         const afterImages = imagesInString(this.props.after);
-        const images = stringArrayDiff(beforeImages, afterImages);
+        const images: ImageDiffResult = stringArrayDiff(
+            beforeImages,
+            afterImages,
+        );
 
         const renderedLines = _.map(lines, (line) => {
             const contents: ContentDiff = {before: [], after: []};
