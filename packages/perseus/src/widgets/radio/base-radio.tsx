@@ -36,6 +36,8 @@ export type ChoiceType = {
     isNoneOfTheAbove: boolean;
     highlighted: boolean;
     previouslyAnswered: boolean;
+    // TODO(LEMS-3783): remove uses of `revealNoneOfTheAbove`
+    revealNoneOfTheAbove: boolean;
     disabled: boolean;
 };
 
@@ -262,6 +264,10 @@ const BaseRadio = function ({
 
                     if (choice.isNoneOfTheAbove) {
                         Element = ChoiceNoneAbove;
+                        _.extend(elementProps, {
+                            // TODO(LEMS-3783): remove uses of `revealNoneOfTheAbove`
+                            showContent: choice.revealNoneOfTheAbove,
+                        });
                     }
 
                     const nextChoice = choices[i + 1];

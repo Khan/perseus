@@ -543,6 +543,8 @@ type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;
     keypadElement?: any;
+    // TODO(LEMS-3783): remove uses of `questionCompleted`
+    questionCompleted?: boolean;
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;

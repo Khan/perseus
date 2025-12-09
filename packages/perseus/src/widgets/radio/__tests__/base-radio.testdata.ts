@@ -14,6 +14,8 @@ export function generateChoice(options: Partial<ChoiceType>): ChoiceType {
         isNoneOfTheAbove: false,
         highlighted: false,
         previouslyAnswered: false,
+        // TODO(LEMS-3783): remove uses of `revealNoneOfTheAbove`
+        revealNoneOfTheAbove: false,
         disabled: false,
     } as const;
 

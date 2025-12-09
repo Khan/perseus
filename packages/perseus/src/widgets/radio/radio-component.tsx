@@ -261,6 +261,10 @@ class Radio extends React.Component<Props> implements Widget {
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
+                    // TODO(LEMS-3783): remove uses of `questionCompleted` and `revealNoneOfTheAbove`
+                    revealNoneOfTheAbove: !!(
+                        this.props.questionCompleted && selected
+                    ),
                     highlighted,
                     previouslyAnswered: previouslyAnswered,
                 };
