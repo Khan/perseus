@@ -34,6 +34,7 @@ class ItemDiff extends React.Component<Props> {
             />
         );
 
+        // Make a new diff focused on Answer Area.
         const extras = (
             <WidgetDiff
                 before={before.answerArea}

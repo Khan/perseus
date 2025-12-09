@@ -6,6 +6,8 @@ import _ from "underscore";
 
 import performDiff from "./widget-diff-performer";
 
+import type {ImageWidget, PerseusWidget} from "@khanacademy/perseus-core";
+
 const {SvgImage} = components;
 
 const indentationFromDepth = function (depth: any) {
@@ -17,16 +19,16 @@ const AFTER = "after";
 
 const UNCHANGED = "unchanged";
 
-class DiffSide extends React.Component<any> {
-    static propTypes = {
-        className: PropTypes.string.isRequired,
-        depth: PropTypes.number.isRequired,
-        propKey: PropTypes.string.isRequired,
-        showKey: PropTypes.bool.isRequired,
-        side: PropTypes.oneOf([BEFORE, AFTER]).isRequired,
-        value: PropTypes.string,
-    };
+type DiffSideProps = {
+    className: string;
+    depth: number;
+    propKey: string;
+    showKey: boolean;
+    side: "before" | "after";
+    value: string;
+};
 
+class DiffSide extends React.Component<DiffSideProps> {
     render(): React.ReactNode {
         const className = classNames(this.props.className, {
             "diff-row": true,
@@ -52,12 +54,12 @@ class DiffSide extends React.Component<any> {
     }
 }
 
-class CollapsedRow extends React.Component<any> {
-    static propTypes = {
-        depth: PropTypes.number,
-        onClick: PropTypes.func.isRequired,
-    };
+type CollapsedRowProps = {
+    depth: number;
+    onClick: () => void;
+};
 
+class CollapsedRow extends React.Component<CollapsedRowProps> {
     static defaultProps = {
         depth: 0,
     };
@@ -90,25 +92,31 @@ class CollapsedRow extends React.Component<any> {
     }
 }
 
-// Component representing a single property that may be nested.
-class DiffEntry extends React.Component<any, any> {
-    static propTypes = {
-        depth: PropTypes.number,
-        entry: PropTypes.shape({
-            after: PropTypes.string,
-            before: PropTypes.string,
-            children: PropTypes.arrayOf(PropTypes.any),
-            key: PropTypes.string,
-        }),
-        expanded: PropTypes.bool,
-    };
+type Entry = {
+    after: string;
+    before: string;
+    children: Entry[];
+    key: string;
+    status: "unchanged" | "added" | "removed" | "changed";
+};
 
+type DiffEntryProps = {
+    depth: number;
+    entry: Entry;
+    expanded?: boolean;
+};
+
+type DiffEntryState = {
+    expanded: boolean;
+};
+// Component representing a single property that may be nested.
+class DiffEntry extends React.Component<DiffEntryProps, DiffEntryState> {
     static defaultProps = {
         depth: 0,
     };
 
     state = {
-        expanded: this.props.expanded,
+        expanded: this.props.expanded ?? false,
     };
 
     expand = () => {
@@ -196,8 +204,13 @@ class DiffEntry extends React.Component<any, any> {
     }
 }
 
+type ImageWidgetDiffProps = {
+    after: ImageWidget;
+    before: ImageWidget;
+};
+
 // For image widgets, show the actual image
-class ImageWidgetDiff extends React.Component<any> {
+class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
     static propTypes = {
         after: PropTypes.shape({
             options: PropTypes.objectOf(PropTypes.any),
@@ -209,14 +222,12 @@ class ImageWidgetDiff extends React.Component<any> {
 
     render(): React.ReactNode {
         const {before, after} = this.props;
-        const beforeSrc =
-            before.options && before.options.backgroundImage
-                ? before.options.backgroundImage.url
-                : "";
-        const afterSrc =
-            after.options && after.options.backgroundImage
-                ? after.options.backgroundImage.url
-                : "";
+        const beforeSrc = before.options?.backgroundImage?.url
+            ? before.options.backgroundImage.url
+            : "";
+        const afterSrc = after.options?.backgroundImage?.url
+            ? after.options.backgroundImage.url
+            : "";
         return (
             <div>
                 <div className="diff-row before">
@@ -260,18 +271,14 @@ class ImageWidgetDiff extends React.Component<any> {
     }
 }
 
-class WidgetDiff extends React.Component<any> {
-    static propTypes = {
-        after: PropTypes.shape({
-            options: PropTypes.objectOf(PropTypes.any),
-        }),
-        before: PropTypes.shape({
-            options: PropTypes.objectOf(PropTypes.any),
-        }),
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string,
-    };
+type WidgetDiffProps = {
+    after: PerseusWidget;
+    before: PerseusWidget;
+    title: string;
+    type?: PerseusWidget["type"];
+};
 
+class WidgetDiff extends React.Component<WidgetDiffProps> {
     static defaultProps: any = {
         after: {},
         before: {},
@@ -287,7 +294,10 @@ class WidgetDiff extends React.Component<any> {
                 <div className="diff-header">{title}</div>
                 <div className="diff-body ui-helper-clearfix">
                     {type === "image" && (
-                        <ImageWidgetDiff before={before} after={after} />
+                        <ImageWidgetDiff
+                            before={before as ImageWidget}
+                            after={after as ImageWidget}
+                        />
                     )}
                     <DiffEntry entry={diff} />
                 </div>

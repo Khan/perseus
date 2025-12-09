@@ -10,31 +10,42 @@ import _ from "underscore";
 import TextDiff from "./text-diff";
 import WidgetDiff from "./widget-diff";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, PerseusWidget} from "@khanacademy/perseus-core";
 
 // In diffs, only show the widgetInfo props that can change
-const filterWidgetInfo = function (widgetInfo, showAlignmentOptions: boolean) {
-    const {alignment, graded, options, type} = widgetInfo || {};
+const filterWidgetInfo = function (
+    widgetInfo: PerseusWidget | null | undefined,
+    showAlignmentOptions: boolean,
+) {
+    if (!widgetInfo) {
+        return {};
+    }
 
-    const filteredWidgetInfo = {options} as const;
+    const {alignment, graded, options, type} = widgetInfo;
+
+    const filteredWidgetInfo = {
+        type,
+        options,
+        alignment,
+        graded,
+        static: widgetInfo.static ?? undefined,
+    };
 
     // Show alignment options iff multiple valid ones exist for this widget
     if (
         showAlignmentOptions &&
         CoreWidgetRegistry.getSupportedAlignments(type).length > 1
     ) {
-        // @ts-expect-error - TS2339 - Property 'alignment' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.alignment = alignment;
     }
 
+    // @ts-expect-error - transformer is a deprecated widget type that may exist in legacy data
     if (type === "transformer") {
-        // @ts-expect-error - TS2339 - Property 'graded' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.graded = graded;
     }
 
     if (Widgets.supportsStaticMode(type)) {
-        // @ts-expect-error - TS2339 - Property 'static' does not exist on type '{ readonly options: any; }'.
-        filteredWidgetInfo.static = widgetInfo?.static ?? undefined;
+        filteredWidgetInfo.static = widgetInfo.static ?? undefined;
     }
 
     return filteredWidgetInfo;
@@ -84,8 +95,8 @@ class RendererDiff extends React.Component<Props> {
         const {after, before, showAlignmentOptions, showSeparator, title} =
             this.props;
 
-        let textDiff;
-        let widgetsDiff;
+        let textDiff: React.JSX.Element | undefined;
+        let widgetsDiff: React.JSX.Element[] = [];
 
         if (before.content || after.content) {
             textDiff = (
@@ -97,26 +108,29 @@ class RendererDiff extends React.Component<Props> {
             );
         }
 
-        const beforeWidgets = Object.keys(before.widgets ?? {}).filter(
-            (widget) => before.content.includes(widget),
-        );
-        const afterWidgets = Object.keys(after.widgets ?? {}).filter((widget) =>
-            after.content.includes(widget),
+        const beforeWidgets: string[] = Object.keys(
+            before.widgets ?? {},
+        ).filter((widget) => before.content.includes(widget));
+        const afterWidgets: string[] = Object.keys(after.widgets ?? {}).filter(
+            (widget) => after.content.includes(widget),
         );
 
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (beforeWidgets.length || afterWidgets.length) {
+        if (beforeWidgets.length > 0 || afterWidgets.length > 0) {
             const widgets = _.union(beforeWidgets, afterWidgets);
             widgetsDiff = widgets.map((widget) => (
                 <WidgetDiff
-                    before={filterWidgetInfo(
-                        before.widgets?.[widget],
-                        showAlignmentOptions,
-                    )}
-                    after={filterWidgetInfo(
-                        after.widgets?.[widget],
-                        showAlignmentOptions,
-                    )}
+                    before={
+                        filterWidgetInfo(
+                            before.widgets?.[widget],
+                            showAlignmentOptions,
+                        ) as PerseusWidget
+                    }
+                    after={
+                        filterWidgetInfo(
+                            after.widgets?.[widget],
+                            showAlignmentOptions,
+                        ) as PerseusWidget
+                    }
                     title={widget}
                     type={
                         (before.widgets?.[widget] ?? {}).type ||
