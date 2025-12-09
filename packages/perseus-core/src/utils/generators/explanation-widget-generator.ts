@@ -19,7 +19,8 @@ export function generateExplanationWidget(
 ): ExplanationWidget {
     return {
         type: "explanation",
-        graded: true,
+        // Explanations are not graded
+        graded: false,
         version: {major: 0, minor: 0},
         // NOTE: The explanation widget doesn't consume this directly,
         // instead, Perseus renders an overlay <div /> over top of the
