@@ -14,6 +14,7 @@ import {
 
 const DEFAULT_COLOR = "grayH";
 
+// Need to overload the function to avoid type errors.
 export function getDefaultFigureForType(type: "point"): LockedPointType;
 export function getDefaultFigureForType(type: "line"): LockedLineType;
 export function getDefaultFigureForType(type: "vector"): LockedVectorType;
