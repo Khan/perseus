@@ -24,6 +24,22 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
 } from "../../data-schema";
 
+export function generateInteractiveGraphWidget(
+    interactiveGraphWidgetProperties?: Partial<
+        Omit<InteractiveGraphWidget, "type">
+    >,
+): InteractiveGraphWidget {
+    return {
+        type: "interactive-graph",
+        graded: true,
+        version: {major: 0, minor: 0},
+        static: false,
+        alignment: "default",
+        options: generateInteractiveGraphOptions(), // default options
+        ...interactiveGraphWidgetProperties,
+    };
+}
+
 export function generateInteractiveGraphOptions(
     options?: Partial<PerseusInteractiveGraphWidgetOptions>,
 ): PerseusInteractiveGraphWidgetOptions {
@@ -189,21 +205,5 @@ export function generateIGLockedLabel(
     return {
         ...getDefaultFigureForType("label"),
         ...options,
-    };
-}
-
-export function generateInteractiveGraphWidget(
-    interactiveGraphWidgetProperties?: Partial<
-        Omit<InteractiveGraphWidget, "type">
-    >,
-): InteractiveGraphWidget {
-    return {
-        type: "interactive-graph",
-        graded: true,
-        version: {major: 0, minor: 0},
-        static: false,
-        alignment: "default",
-        options: generateInteractiveGraphOptions(), // default options
-        ...interactiveGraphWidgetProperties,
     };
 }

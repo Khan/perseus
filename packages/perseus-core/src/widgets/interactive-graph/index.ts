@@ -12,6 +12,7 @@ export type InteractiveGraphDefaultWidgetOptions = Pick<
     PerseusInteractiveGraphWidgetOptions,
     | "labels"
     | "labelLocation"
+    | "lockedFigures"
     | "range"
     | "step"
     | "backgroundImage"
@@ -26,6 +27,7 @@ export type InteractiveGraphDefaultWidgetOptions = Pick<
 const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
     labels: ["$x$", "$y$"],
     labelLocation: "onAxis",
+    lockedFigures: [],
     range: [
         [-10, 10],
         [-10, 10],
