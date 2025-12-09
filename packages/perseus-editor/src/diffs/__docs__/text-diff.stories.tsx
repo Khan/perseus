@@ -4,9 +4,11 @@ import TextDiff from "../text-diff";
 
 import Wrapper from "./perseus-diff-wrapper";
 
+import type {TextDiffProps} from "../text-diff";
+
 import "../../styles/perseus-editor.css";
 
-type StoryArgs = Record<any, any>;
+type StoryArgs = Record<string, TextDiffProps>;
 
 type Story = {
     title: string;
