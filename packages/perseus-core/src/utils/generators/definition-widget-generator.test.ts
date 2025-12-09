@@ -19,6 +19,8 @@ describe("generateDefinitionOptions", () => {
             togglePrompt: "test-toggle-prompt",
             definition: "test-definition",
         });
+
+        // Assert
         expect(options.togglePrompt).toBe("test-toggle-prompt");
         expect(options.definition).toBe("test-definition");
     });
