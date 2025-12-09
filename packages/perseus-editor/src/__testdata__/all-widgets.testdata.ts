@@ -1,4 +1,6 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
@@ -73,21 +75,16 @@ export const comprehensiveQuestion: PerseusRenderer = {
             },
         },
 
-        "dropdown 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "dropdown",
-            options: {
-                static: false,
+        "dropdown 1": generateDropdownWidget({
+            options: generateDropdownOptions({
                 placeholder: "choose one",
                 choices: [
                     {content: "greater", correct: true},
                     {content: "less", correct: false},
                     {content: "equal", correct: false},
                 ],
-            },
-        },
+            }),
+        }),
         "categorizer 1": {
             graded: true,
             version: {major: 0, minor: 0},

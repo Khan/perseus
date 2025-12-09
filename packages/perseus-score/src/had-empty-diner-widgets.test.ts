@@ -1,4 +1,6 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
@@ -14,12 +16,11 @@ import {
 import hasEmptyDINERWidgets from "./has-empty-diner-widgets";
 
 function generateBasicDropdownQuestion(): PerseusRenderer {
-    return {
+    return generateTestPerseusRenderer({
         content: "[[☃ dropdown 1]]",
         widgets: {
-            "dropdown 1": {
-                type: "dropdown",
-                options: {
+            "dropdown 1": generateDropdownWidget({
+                options: generateDropdownOptions({
                     choices: [
                         {
                             content: "Correct",
@@ -31,12 +32,11 @@ function generateBasicDropdownQuestion(): PerseusRenderer {
                         },
                     ],
                     placeholder: "Pick one",
-                    static: false,
-                },
-            },
+                }),
+            }),
         },
         images: {},
-    };
+    });
 }
 
 function generateBasicNumericInputQuestion(): PerseusRenderer {

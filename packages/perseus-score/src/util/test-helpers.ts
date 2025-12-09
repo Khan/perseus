@@ -1,4 +1,6 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
@@ -7,9 +9,8 @@ import {
 } from "@khanacademy/perseus-core";
 
 export function getTestDropdownWidget(): DropdownWidget {
-    return {
-        type: "dropdown",
-        options: {
+    return generateDropdownWidget({
+        options: generateDropdownOptions({
             choices: [
                 {
                     content: "Test choice 1",
@@ -21,9 +22,8 @@ export function getTestDropdownWidget(): DropdownWidget {
                 },
             ],
             placeholder: "Test placeholder",
-            static: false,
-        },
-    };
+        }),
+    });
 }
 
 export function getExpressionWidget(): ExpressionWidget {
