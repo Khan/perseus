@@ -1,11 +1,11 @@
 import {ApiOptions} from "@khanacademy/perseus";
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {screen, render} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedFiguresSection from "./locked-figures-section";
-import {getDefaultFigureForType} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 

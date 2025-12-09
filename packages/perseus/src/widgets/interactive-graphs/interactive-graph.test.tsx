@@ -3,6 +3,7 @@ import {
     generateTestPerseusItem,
     lockedFigureColors,
     splitPerseusItem,
+    getDefaultFigureForType,
 } from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {waitFor} from "@testing-library/react";
@@ -12,7 +13,6 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {getDefaultFigureForType} from "../../../../perseus-editor/src/widgets/interactive-graph-editor/locked-figures/util";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {scorePerseusItemTesting} from "../../util/test-utils";

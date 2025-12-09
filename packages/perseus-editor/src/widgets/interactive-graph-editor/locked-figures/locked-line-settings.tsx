@@ -5,6 +5,7 @@
  * Used in the interactive graph editor's locked figures section.
  */
 import {vector as kvector} from "@khanacademy/kmath";
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -30,7 +31,6 @@ import LockedPointSettings from "./locked-point-settings";
 import {
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
-    getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
 
