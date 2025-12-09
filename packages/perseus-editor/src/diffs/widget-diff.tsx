@@ -1,6 +1,5 @@
 import {components} from "@khanacademy/perseus";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -10,7 +9,7 @@ import type {ImageWidget, PerseusWidget} from "@khanacademy/perseus-core";
 
 const {SvgImage} = components;
 
-const indentationFromDepth = function (depth: any) {
+const indentationFromDepth = function (depth: number) {
     return (depth - 1) * 20;
 };
 
@@ -211,15 +210,6 @@ type ImageWidgetDiffProps = {
 
 // For image widgets, show the actual image
 class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
-    static propTypes = {
-        after: PropTypes.shape({
-            options: PropTypes.objectOf(PropTypes.any),
-        }).isRequired,
-        before: PropTypes.shape({
-            options: PropTypes.objectOf(PropTypes.any),
-        }).isRequired,
-    };
-
     render(): React.ReactNode {
         const {before, after} = this.props;
         const beforeSrc = before.options?.backgroundImage?.url
@@ -239,11 +229,11 @@ class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
                                 "image-removed": beforeSrc !== afterSrc,
                             })}
                         >
-                            {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                             <SvgImage
                                 src={beforeSrc}
                                 title={beforeSrc}
                                 allowZoom={false}
+                                alt=""
                             />
                         </div>
                     )}
@@ -257,11 +247,11 @@ class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
                                 "image-added": beforeSrc !== afterSrc,
                             })}
                         >
-                            {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                             <SvgImage
                                 src={afterSrc}
                                 title={afterSrc}
                                 allowZoom={false}
+                                alt=""
                             />
                         </div>
                     )}
@@ -275,16 +265,10 @@ type WidgetDiffProps = {
     after: PerseusWidget;
     before: PerseusWidget;
     title: string;
-    type?: PerseusWidget["type"];
+    type: PerseusWidget["type"];
 };
 
 class WidgetDiff extends React.Component<WidgetDiffProps> {
-    static defaultProps: any = {
-        after: {},
-        before: {},
-        type: "",
-    };
-
     render(): React.ReactNode {
         const {after, before, title, type} = this.props;
         const diff = performDiff(before, after);
