@@ -4,7 +4,7 @@ import {
 } from "./definition-widget-generator";
 
 describe("generateDefinitionOptions", () => {
-    it("builds a default definition options", () => {
+    it("builds a default definition options object", () => {
         // Arrange, Act
         const options = generateDefinitionOptions();
 
@@ -13,7 +13,7 @@ describe("generateDefinitionOptions", () => {
         expect(options.definition).toBe("");
     });
 
-    it("builds a definition options with all props", () => {
+    it("builds a definition options object with all props", () => {
         // Arrange, Act
         const options = generateDefinitionOptions({
             togglePrompt: "test-toggle-prompt",
