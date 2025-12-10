@@ -4,6 +4,7 @@ import {
     generateRadioWidget,
     generateRadioOptions,
     generateRadioChoice,
+    generateSimpleRadioItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -47,51 +48,30 @@ export default {
 
 export const SingleSelect: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2"),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
 };
 
 export const SingleSelectWithNoneOfTheAbove: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            hasNoneOfTheAbove: true,
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2"),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("None of the above", {
-                                    isNoneOfTheAbove: true,
-                                }),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
 };
@@ -103,6 +83,7 @@ export const SingleSelectStatic: Story = {
                 content: "[[☃ radio 1]]",
                 widgets: {
                     "radio 1": generateRadioWidget({
+                        // Static widget
                         static: true,
                         options: generateRadioOptions({
                             choices: [
@@ -123,26 +104,17 @@ export const SingleSelectStatic: Story = {
 
 export const SingleSelectShowSolutions: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            choices: [
-                                generateRadioChoice("Choice 1"),
-                                // Leaving the correct choice in the second position to test that
-                                //     the first choice still has a top border.
-                                generateRadioChoice("Choice 2", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1"),
+                // Leaving the correct choice in the second position to test that
+                //     the first choice still has a top border.
+                generateRadioChoice("Choice 2", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
         showSolutions: "all",
     },
@@ -150,24 +122,15 @@ export const SingleSelectShowSolutions: Story = {
 
 export const SingleSelectRTL: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2"),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
         rtl: true,
     },
@@ -228,56 +191,38 @@ export const SingleSelectWithImagesAndScroll: Story = {
 
 export const SingleSelectWithLongMathjax: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            choices: [
-                                generateRadioChoice(
-                                    "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
-                                    {correct: true},
-                                ),
-                                generateRadioChoice("$100-50$"),
-                                generateRadioChoice("$200-125+10$"),
-                                generateRadioChoice("$10+10+10+10$"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice(
+                    "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                    {correct: true},
+                ),
+                generateRadioChoice("$100-50$"),
+                generateRadioChoice("$200-125+10$"),
+                generateRadioChoice("$10+10+10+10$"),
+            ],
         }),
     },
 };
 
 export const SingleSelectWithLongText: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            choices: [
-                                generateRadioChoice(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    {correct: true},
-                                ),
-                                generateRadioChoice(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                ),
-                                generateRadioChoice(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                ),
-                                generateRadioChoice(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                ),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                    {correct: true},
+                ),
+                generateRadioChoice(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                ),
+                generateRadioChoice(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                ),
+                generateRadioChoice(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                ),
+            ],
         }),
     },
 };
@@ -294,54 +239,36 @@ export const SingleSelectWithGraphie = {
 
 export const MultiSelect: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            multipleSelect: true,
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2"),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
 };
 
 export const MultiSelectCountChoices: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            multipleSelect: true,
-                            countChoices: true,
-                            numCorrect: 2,
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            countChoices: true,
+            numCorrect: 2,
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
 };
@@ -353,6 +280,7 @@ export const MultiSelectStatic: Story = {
                 content: "[[☃ radio 1]]",
                 widgets: {
                     "radio 1": generateRadioWidget({
+                        // Static widget
                         static: true,
                         options: generateRadioOptions({
                             multipleSelect: true,
@@ -376,30 +304,21 @@ export const MultiSelectStatic: Story = {
 
 export const MultiSelectShowSolutions: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            multipleSelect: true,
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                // Tests that borders between separate correct answers are hidden properly
-                                generateRadioChoice("Choice 2"),
-                                generateRadioChoice("Choice 3", {
-                                    correct: true,
-                                }),
-                                // Leaving the last choice as not correct to test that there is still a bottom border
-                                // (i.e. the removal of the border only affects the top of the choice, not the whole choice.)
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                // Tests that borders between separate correct answers are hidden properly
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3", {
+                    correct: true,
+                }),
+                // Leaving the last choice as not correct to test that there is still a bottom border
+                // (i.e. the removal of the border only affects the top of the choice, not the whole choice.)
+                generateRadioChoice("Choice 4"),
+            ],
         }),
         showSolutions: "all",
     },
@@ -407,27 +326,18 @@ export const MultiSelectShowSolutions: Story = {
 
 export const MultiSelectRTL: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            multipleSelect: true,
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
         rtl: true,
     },
@@ -435,28 +345,19 @@ export const MultiSelectRTL: Story = {
 
 export const MultiSelectWithLongMathjax: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            multipleSelect: true,
-                            choices: [
-                                generateRadioChoice(
-                                    "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
-                                    {correct: true},
-                                ),
-                                generateRadioChoice("$100-50$", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("$200-125+10$"),
-                                generateRadioChoice("$10+10+10+10$"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice(
+                    "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                    {correct: true},
+                ),
+                generateRadioChoice("$100-50$", {
+                    correct: true,
+                }),
+                generateRadioChoice("$200-125+10$"),
+                generateRadioChoice("$10+10+10+10$"),
+            ],
         }),
     },
 };
@@ -493,33 +394,24 @@ export const MultiSelectWithImagesAndScroll: Story = {
 
 export const MultiSelectWithLongText: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            multipleSelect: true,
-                            choices: [
-                                generateRadioChoice(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    {correct: true},
-                                ),
-                                generateRadioChoice(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    {correct: true},
-                                ),
-                                generateRadioChoice(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                ),
-                                generateRadioChoice(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                ),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                    {correct: true},
+                ),
+                generateRadioChoice(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                    {correct: true},
+                ),
+                generateRadioChoice(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                ),
+                generateRadioChoice(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                ),
+            ],
         }),
     },
 };

@@ -5,6 +5,7 @@ import {
     generateTestPerseusRenderer,
     generateRadioOptions,
     generateRadioChoice,
+    generateSimpleRadioQuestion,
 } from "@khanacademy/perseus-core";
 
 export const question: PerseusRenderer = generateTestPerseusRenderer({
@@ -362,46 +363,32 @@ export const multiChoiceQuestionAndAnswer: [
     ],
 ];
 
-export const shuffledQuestion: PerseusRenderer = generateTestPerseusRenderer({
-    content: "[[\u2603 radio 1]]",
-    widgets: {
-        "radio 1": generateRadioWidget({
-            options: generateRadioOptions({
-                randomize: true,
-                choices: [
-                    generateRadioChoice("Incorrect Choice 1"),
-                    generateRadioChoice("Incorrect Choice 2"),
-                    generateRadioChoice("Correct Choice", {
-                        correct: true,
-                    }),
-                    generateRadioChoice("Incorrect Choice 3"),
-                ],
-            }),
+export const shuffledQuestion: PerseusRenderer = generateSimpleRadioQuestion({
+    randomize: true,
+    choices: [
+        generateRadioChoice("Incorrect Choice 1"),
+        generateRadioChoice("Incorrect Choice 2"),
+        generateRadioChoice("Correct Choice", {
+            correct: true,
         }),
-    },
+        generateRadioChoice("Incorrect Choice 3"),
+    ],
 });
 
 export const shuffledNoneQuestion: PerseusRenderer =
-    generateTestPerseusRenderer({
-        content: "[[\u2603 radio 1]]",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions({
-                    hasNoneOfTheAbove: true,
-                    randomize: true,
-                    choices: [
-                        generateRadioChoice("Incorrect Choice 1"),
-                        generateRadioChoice("Incorrect Choice 2"),
-                        generateRadioChoice("Incorrect Choice 3"),
-                        generateRadioChoice("Incorrect Choice 4"),
-                        generateRadioChoice("None of the above", {
-                            correct: true,
-                            isNoneOfTheAbove: true,
-                        }),
-                    ],
-                }),
+    generateSimpleRadioQuestion({
+        hasNoneOfTheAbove: true,
+        randomize: true,
+        choices: [
+            generateRadioChoice("Incorrect Choice 1"),
+            generateRadioChoice("Incorrect Choice 2"),
+            generateRadioChoice("Incorrect Choice 3"),
+            generateRadioChoice("Incorrect Choice 4"),
+            generateRadioChoice("None of the above", {
+                correct: true,
+                isNoneOfTheAbove: true,
             }),
-        },
+        ],
     });
 
 export const questionWithUndefinedCorrect: PerseusRenderer =

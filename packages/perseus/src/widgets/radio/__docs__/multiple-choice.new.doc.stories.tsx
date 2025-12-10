@@ -1,8 +1,6 @@
 import {
-    generateTestPerseusRenderer,
-    generateRadioWidget,
-    generateRadioOptions,
     generateRadioChoice,
+    generateSimpleRadioQuestion,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -179,36 +177,22 @@ export default meta;
 type Story = StoryObj<typeof RadioDemo>;
 
 // Create the question data for each story
-const singleSelectQuestion = generateTestPerseusRenderer({
-    content: "[[☃ radio 1]]",
-    widgets: {
-        "radio 1": generateRadioWidget({
-            options: generateRadioOptions({
-                choices: [
-                    generateRadioChoice("Option A", {correct: true}),
-                    generateRadioChoice("Option B", {correct: false}),
-                    generateRadioChoice("Option C", {correct: false}),
-                ],
-            }),
-        }),
-    },
+const singleSelectQuestion = generateSimpleRadioQuestion({
+    choices: [
+        generateRadioChoice("Option A", {correct: true}),
+        generateRadioChoice("Option B", {correct: false}),
+        generateRadioChoice("Option C", {correct: false}),
+    ],
 });
 
-const multipleSelectQuestion = generateTestPerseusRenderer({
-    content: "[[☃ radio 1]]",
-    widgets: {
-        "radio 1": generateRadioWidget({
-            options: generateRadioOptions({
-                multipleSelect: true,
-                countChoices: true,
-                choices: [
-                    generateRadioChoice("Option A", {correct: true}),
-                    generateRadioChoice("Option B", {correct: true}),
-                    generateRadioChoice("Option C", {correct: false}),
-                ],
-            }),
-        }),
-    },
+const multipleSelectQuestion = generateSimpleRadioQuestion({
+    multipleSelect: true,
+    countChoices: true,
+    choices: [
+        generateRadioChoice("Option A", {correct: true}),
+        generateRadioChoice("Option B", {correct: true}),
+        generateRadioChoice("Option C", {correct: false}),
+    ],
 });
 
 export const DefaultSingleSelect: Story = {

@@ -4,6 +4,7 @@ import {
     generateRadioWidget,
     generateRadioOptions,
     generateRadioChoice,
+    generateSimpleRadioItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -196,24 +197,15 @@ ChoiceTextColorInArticle.play = async ({canvas}) => {
 
 export const FocusSingleSelect = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2"),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
     play: async ({canvas}) => {
@@ -227,25 +219,15 @@ export const FocusSingleSelect = {
 
 export const FocusMultiSelect = {
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: generateRadioOptions({
-                            multipleSelect: true,
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2"),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
     play: async ({canvas}) => {
