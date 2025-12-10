@@ -1,4 +1,5 @@
 import {
+    generateRadioWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
     splitPerseusItem,
@@ -530,12 +531,7 @@ describe("server item renderer", () => {
             const question = generateTestPerseusRenderer({
                 content: "[[☃ radio 1]]",
                 widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        version: {
-                            major: 3,
-                            minor: 0,
-                        },
+                    "radio 1": generateRadioWidget({
                         options: {
                             multipleSelect: true,
                             numCorrect: 2,
@@ -566,7 +562,7 @@ describe("server item renderer", () => {
                                 },
                             ],
                         },
-                    },
+                    }),
                 },
             });
 

@@ -1,5 +1,8 @@
 import {describe, it, expect} from "@jest/globals";
-import {generateNumericInputWidget} from "@khanacademy/perseus-core";
+import {
+    generateNumericInputWidget,
+    generateRadioWidget,
+} from "@khanacademy/perseus-core";
 
 import {InputNumber, Radio} from "..";
 import {generateExpressionWidget} from "../../../perseus-core/src/utils/generators/expression-widget-generator";
@@ -18,7 +21,6 @@ import {
 import {
     generateTestCategorizerWidget,
     generateTestInteractiveGraphWidget,
-    generateTestRadioWidget,
 } from "../util/test-utils";
 
 const stub: jest.MockedFunction<any> = jest.fn();
@@ -32,7 +34,7 @@ describe("ExtractPerseusData", () => {
         it("returns true if all the widgets are wrong answers supported widgets", () => {
             expect(
                 isWrongAnswerSupported(["radio 1", "interactive-graph 2"], {
-                    "radio 1": generateTestRadioWidget(),
+                    "radio 1": generateRadioWidget(),
                     "interactive-graph 2": generateTestInteractiveGraphWidget(),
                 }),
             ).toBe(true);
@@ -51,7 +53,7 @@ describe("ExtractPerseusData", () => {
             expect(isWrongAnswerSupported([], {})).toBe(false);
             expect(
                 isWrongAnswerSupported(["radio 1", "unknown 3"], {
-                    "radio 1": generateTestRadioWidget(),
+                    "radio 1": generateRadioWidget(),
                 }),
             ).toBe(false);
         });
@@ -72,7 +74,7 @@ describe("ExtractPerseusData", () => {
             expect(shouldHaveIndividualAnswer("", {})).toBe(false);
             expect(
                 shouldHaveIndividualAnswer("radio 1", {
-                    "radio 1": generateTestRadioWidget(),
+                    "radio 1": generateRadioWidget(),
                 }),
             ).toBe(false);
             expect(

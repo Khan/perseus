@@ -7,6 +7,8 @@ import {
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generateRadioOptions,
+    generateRadioWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
     type PerseusRenderer,
@@ -78,12 +80,11 @@ function generateBasicExpressionQuestion(): PerseusRenderer {
 }
 
 function generateBasicRadioQuestion(): PerseusRenderer {
-    return {
+    return generateTestPerseusRenderer({
         content: "[[☃ radio 1]]",
         widgets: {
-            "radio 1": {
-                type: "radio",
-                options: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
                     choices: [
                         {
                             id: "0-0-0-0-0",
@@ -96,11 +97,10 @@ function generateBasicRadioQuestion(): PerseusRenderer {
                             correct: false,
                         },
                     ],
-                },
-            },
+                }),
+            }),
         },
-        images: {},
-    };
+    });
 }
 
 describe(`hasEmptyDINERWidgets`, () => {

@@ -13,6 +13,8 @@ import {
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generateRadioOptions,
+    generateRadioWidget,
     generateVideoWidget,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -54,12 +56,8 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 ],
             }),
         }),
-        "radio 1": {
-            graded: true,
-            version: {major: 1, minor: 0},
-            static: false,
-            type: "radio",
-            options: {
+        "radio 1": generateRadioWidget({
+            options: generateRadioOptions({
                 choices: [
                     {
                         id: "choice-1",
@@ -74,10 +72,9 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         rationale: "This is incorrect.",
                     },
                 ],
-                multipleSelect: false,
                 randomize: true,
-            },
-        },
+            }),
+        }),
 
         "dropdown 1": generateDropdownWidget({
             options: generateDropdownOptions({
