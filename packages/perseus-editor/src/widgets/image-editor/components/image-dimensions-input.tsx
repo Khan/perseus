@@ -34,10 +34,19 @@ export default function ImageDimensionsInput({
             return;
         }
 
+        // Prevent unnecessary updates if values haven't changed
+        const newWidthNumber = Number(newWidth);
+        if (
+            newWidthNumber === backgroundImage.width &&
+            newHeight === backgroundImage.height
+        ) {
+            return;
+        }
+
         onChange({
             backgroundImage: {
                 ...backgroundImage,
-                width: Number(newWidth),
+                width: newWidthNumber,
                 height: newHeight,
             },
         });
@@ -54,10 +63,19 @@ export default function ImageDimensionsInput({
             return;
         }
 
+        // Prevent unnecessary updates if values haven't changed
+        const newHeightNumber = Number(newHeight);
+        if (
+            newWidth === backgroundImage.width &&
+            newHeightNumber === backgroundImage.height
+        ) {
+            return;
+        }
+
         onChange({
             backgroundImage: {
                 ...backgroundImage,
-                height: Number(newHeight),
+                height: newHeightNumber,
                 width: newWidth,
             },
         });

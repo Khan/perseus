@@ -148,6 +148,16 @@ class LabelImageEditor extends React.Component<Props> {
 
         if (url) {
             Util.getImageSize(url, (width, height) => {
+                // Prevent unnecessary updates if values haven't changed
+                // This helps prevent infinite loops
+                if (
+                    this.props.imageUrl === url &&
+                    this.props.imageWidth === width &&
+                    this.props.imageHeight === height
+                ) {
+                    return;
+                }
+
                 this.props.onChange({
                     /**
                      * Sending `imageUrl` up again

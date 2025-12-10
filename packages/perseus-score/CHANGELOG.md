@@ -1,5 +1,27 @@
 # @khanacademy/perseus-score
 
+## 8.0.10
+
+### Patch Changes
+
+-   [#3096](https://github.com/Khan/perseus/pull/3096) [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3) Thanks [@nishasy](https://github.com/nishasy)! - [Dropdown] Create dropdown widget generator for testdata
+
+*   [#3092](https://github.com/Khan/perseus/pull/3092) [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c) Thanks [@nishasy](https://github.com/nishasy)! - [Expression] Creat expression widget generator for testdata
+
+-   [#3093](https://github.com/Khan/perseus/pull/3093) [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32) Thanks [@nishasy](https://github.com/nishasy)! - [Numeric Input] Create numeric input widget generator for testdata
+
+-   Updated dependencies [[`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea), [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753), [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b), [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3), [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c), [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32)]:
+    -   @khanacademy/perseus-core@20.4.1
+    -   @khanacademy/kmath@2.2.21
+
+## 8.0.9
+
+### Patch Changes
+
+-   Updated dependencies [[`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266), [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108)]:
+    -   @khanacademy/perseus-core@20.4.0
+    -   @khanacademy/kmath@2.2.20
+
 ## 8.0.8
 
 ### Patch Changes

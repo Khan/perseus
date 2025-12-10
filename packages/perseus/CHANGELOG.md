@@ -1,5 +1,61 @@
 # @khanacademy/perseus
 
+## 72.5.0
+
+### Minor Changes
+
+-   [#3094](https://github.com/Khan/perseus/pull/3094) [`b5ea7e8be7`](https://github.com/Khan/perseus/commit/b5ea7e8be75c1db686413b4f28c8fa117093a786) Thanks [@ealonas](https://github.com/ealonas)! - Enable dismissal of the definition widget's tooltip popover by hitting the escape key to improve accessibility.
+
+### Patch Changes
+
+-   [#3102](https://github.com/Khan/perseus/pull/3102) [`ca6488f385`](https://github.com/Khan/perseus/commit/ca6488f385f53f14d5387d73b685456b53845c67) Thanks [@nishasy](https://github.com/nishasy)! - Update snapshots
+
+*   [#3111](https://github.com/Khan/perseus/pull/3111) [`bee54d9d72`](https://github.com/Khan/perseus/commit/bee54d9d72c2e3f03e3f1c68a703cc3068045817) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit 88fc96cdedca57bc7fc247e88a2886f1c3b8568b
+
+-   [#3105](https://github.com/Khan/perseus/pull/3105) [`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea) Thanks [@nishasy](https://github.com/nishasy)! - [Definition] Create definition widget generator for testdata
+
+*   [#3104](https://github.com/Khan/perseus/pull/3104) [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753) Thanks [@nishasy](https://github.com/nishasy)! - [Explanation] Create explanation widget generator for testdata
+
+-   [#3109](https://github.com/Khan/perseus/pull/3109) [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Move getFigureForType into perseus-core
+
+*   [#3110](https://github.com/Khan/perseus/pull/3110) [`bdf5819aa8`](https://github.com/Khan/perseus/commit/bdf5819aa878c3dd7f8aabffa81e76ce7c8d41d4) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix minified react #185 error related to image widget change
+
+-   [#3096](https://github.com/Khan/perseus/pull/3096) [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3) Thanks [@nishasy](https://github.com/nishasy)! - [Dropdown] Create dropdown widget generator for testdata
+
+*   [#3092](https://github.com/Khan/perseus/pull/3092) [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c) Thanks [@nishasy](https://github.com/nishasy)! - [Expression] Creat expression widget generator for testdata
+
+-   [#3093](https://github.com/Khan/perseus/pull/3093) [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32) Thanks [@nishasy](https://github.com/nishasy)! - [Numeric Input] Create numeric input widget generator for testdata
+
+*   [#3103](https://github.com/Khan/perseus/pull/3103) [`51e1ccdc45`](https://github.com/Khan/perseus/commit/51e1ccdc450735ca048fc4c036a853c270213cce) Thanks [@nishasy](https://github.com/nishasy)! - Update snapshots
+
+*   Updated dependencies [[`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea), [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753), [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b), [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3), [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c), [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32)]:
+    -   @khanacademy/perseus-core@20.4.1
+    -   @khanacademy/perseus-score@8.0.10
+    -   @khanacademy/keypad-context@3.2.21
+    -   @khanacademy/kmath@2.2.21
+    -   @khanacademy/math-input@26.2.24
+    -   @khanacademy/perseus-linter@4.6.3
+
+## 72.4.0
+
+### Minor Changes
+
+-   [#3091](https://github.com/Khan/perseus/pull/3091) [`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Move the Khanmigo data functions to Perseus Core for Server Side Scoring initiative
+
+### Patch Changes
+
+-   [#3086](https://github.com/Khan/perseus/pull/3086) [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108) Thanks [@nishasy](https://github.com/nishasy)! - Create free response widget generator for testdata
+
+*   [#3098](https://github.com/Khan/perseus/pull/3098) [`7df7755d56`](https://github.com/Khan/perseus/commit/7df7755d56b7b72496e5a5a2cf62d047e1d88fc1) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Sync dependencies
+
+*   Updated dependencies [[`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266), [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108), [`7df7755d56`](https://github.com/Khan/perseus/commit/7df7755d56b7b72496e5a5a2cf62d047e1d88fc1)]:
+    -   @khanacademy/perseus-core@20.4.0
+    -   @khanacademy/math-input@26.2.23
+    -   @khanacademy/keypad-context@3.2.20
+    -   @khanacademy/kmath@2.2.20
+    -   @khanacademy/perseus-linter@4.6.2
+    -   @khanacademy/perseus-score@8.0.9
+
 ## 72.3.0
 
 ### Minor Changes

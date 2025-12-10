@@ -1,4 +1,9 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 export const article1: PerseusRenderer = {
     content:
@@ -16,29 +21,15 @@ export const article1: PerseusRenderer = {
                         title: "Problem 1a",
                         content: "$0.5 + 0.4 =$   [[☃ numeric-input 1]]",
                         widgets: {
-                            "numeric-input 1": {
-                                type: "numeric-input",
-                                alignment: "default",
-                                static: false,
-                                graded: true,
-                                options: {
-                                    static: false,
+                            "numeric-input 1": generateNumericInputWidget({
+                                options: generateNumericInputOptions({
                                     answers: [
-                                        {
+                                        generateNumericInputAnswer({
                                             value: 0.9,
-                                            status: "correct",
-                                            message: "",
-                                            simplify: "required",
-                                            strict: false,
-                                            maxError: null,
-                                        },
+                                        }),
                                     ],
-                                    size: "normal",
-                                    coefficient: false,
-                                    labelText: "",
-                                },
-                                version: {major: 0, minor: 0},
-                            },
+                                }),
+                            }),
                         },
                         images: {},
                         hasHint: true,
@@ -128,29 +119,13 @@ export const article1: PerseusRenderer = {
                         title: "Problem 1b",
                         content: "$0.6 + 0.4 =$   [[☃ numeric-input 1]]",
                         widgets: {
-                            "numeric-input 1": {
-                                type: "numeric-input",
-                                alignment: "default",
-                                static: false,
-                                graded: true,
-                                options: {
-                                    static: false,
+                            "numeric-input 1": generateNumericInputWidget({
+                                options: generateNumericInputOptions({
                                     answers: [
-                                        {
-                                            value: 1,
-                                            status: "correct",
-                                            message: "",
-                                            simplify: "required",
-                                            strict: false,
-                                            maxError: null,
-                                        },
+                                        generateNumericInputAnswer({value: 1}),
                                     ],
-                                    size: "normal",
-                                    coefficient: false,
-                                    labelText: "",
-                                },
-                                version: {major: 0, minor: 0},
-                            },
+                                }),
+                            }),
                         },
                         images: {},
                         hasHint: true,
@@ -240,29 +215,15 @@ export const article1: PerseusRenderer = {
                         title: "Problem 1c",
                         content: "$0.8 + 0.4 =$   [[☃ numeric-input 1]]",
                         widgets: {
-                            "numeric-input 1": {
-                                type: "numeric-input",
-                                alignment: "default",
-                                static: false,
-                                graded: true,
-                                options: {
-                                    static: false,
+                            "numeric-input 1": generateNumericInputWidget({
+                                options: generateNumericInputOptions({
                                     answers: [
-                                        {
+                                        generateNumericInputAnswer({
                                             value: 1.2,
-                                            status: "correct",
-                                            message: "",
-                                            simplify: "required",
-                                            strict: false,
-                                            maxError: null,
-                                        },
+                                        }),
                                     ],
-                                    size: "normal",
-                                    coefficient: false,
-                                    labelText: "",
-                                },
-                                version: {major: 0, minor: 0},
-                            },
+                                }),
+                            }),
                         },
                         images: {},
                         hasHint: true,

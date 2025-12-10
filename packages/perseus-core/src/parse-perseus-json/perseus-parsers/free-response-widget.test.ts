@@ -9,25 +9,18 @@ import {parseFreeResponseWidget} from "./free-response-widget";
 
 describe("freeResponseWidget", () => {
     it("accepts a free-response widget with valid data", () => {
-        const widget = {
-            type: "free-response",
-            version: {
-                major: 0,
-                minor: 0,
-            },
+        const widget = generateFreeResponseWidget({
             graded: false,
-            options: {
-                allowUnlimitedCharacters: false,
-                characterLimit: 500,
-                placeholder: "test-placeholder",
+            options: generateFreeResponseOptions({
                 question: "What is your favorite color?",
+                placeholder: "test-placeholder",
                 scoringCriteria: [
                     {
                         text: "test-criterion",
                     },
                 ],
-            },
-        };
+            }),
+        });
 
         expect(parse(widget, parseFreeResponseWidget)).toEqual(
             success({
@@ -37,6 +30,8 @@ describe("freeResponseWidget", () => {
                     minor: 0,
                 },
                 graded: false,
+                static: false,
+                alignment: "default",
                 options: {
                     allowUnlimitedCharacters: false,
                     characterLimit: 500,

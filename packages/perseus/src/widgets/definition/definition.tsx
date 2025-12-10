@@ -64,6 +64,7 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
             <DefinitionConsumer>
                 {({activeDefinitionId, setActiveDefinitionId}) => (
                     <Popover
+                        dismissEnabled
                         content={
                             <PopoverContentCore
                                 style={styles.tooltipBody}

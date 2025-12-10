@@ -140,6 +140,7 @@ export {
 } from "./widgets/apply-defaults";
 
 export {default as getDefaultAnswerArea} from "./utils/get-default-answer-area";
+export {getDefaultFigureForType} from "./utils/get-default-figure-for-type";
 export {
     default as splitPerseusItem,
     splitPerseusItemJSON,
@@ -208,6 +209,23 @@ export {
 
 // Generators
 export {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
+} from "./utils/generators/definition-widget-generator";
+export {
+    generateDropdownOptions,
+    generateDropdownWidget,
+} from "./utils/generators/dropdown-widget-generator";
+export {
+    generateExplanationOptions,
+    generateExplanationWidget,
+} from "./utils/generators/explanation-widget-generator";
+export {
+    generateExpressionOptions,
+    generateExpressionAnswerForm,
+    generateExpressionWidget,
+} from "./utils/generators/expression-widget-generator";
+export {
     generateFreeResponseOptions,
     generateFreeResponseWidget,
 } from "./utils/generators/free-response-widget-generator";
@@ -215,7 +233,18 @@ export {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
+export {
+    generateNumericInputOptions,
+    generateNumericInputAnswer,
+    generateNumericInputWidget,
+} from "./utils/generators/numeric-input-widget-generator";
 export {generateVideoWidget} from "./utils/generators/video-widget-generator";
+
+export {
+    getAnswersFromWidgets,
+    injectWidgets,
+    getPerseusAIData,
+} from "./utils/extract-perseus-ai-data";
 
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 

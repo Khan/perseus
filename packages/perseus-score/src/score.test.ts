@@ -1,4 +1,6 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
     type DropdownWidget,
     type PerseusWidgetsMap,
     type UserInputMap,
@@ -274,14 +276,9 @@ describe("scoreWidgetsFunctional", () => {
     });
 });
 
-function generateDropdown(): DropdownWidget {
-    return {
-        type: "dropdown",
-        alignment: "default",
-        static: false,
-        graded: true,
-        options: {
-            static: false,
+function generateBasicDropdown(): DropdownWidget {
+    return generateDropdownWidget({
+        options: generateDropdownOptions({
             ariaLabel: "Test ARIA label",
             visibleLabel: "Test visible label",
             placeholder: "Answer me",
@@ -295,12 +292,8 @@ function generateDropdown(): DropdownWidget {
                     correct: true,
                 },
             ],
-        },
-        version: {
-            major: 0,
-            minor: 0,
-        },
-    };
+        }),
+    });
 }
 
 describe("scorePerseusItem", () => {
@@ -308,7 +301,7 @@ describe("scorePerseusItem", () => {
         // Arrange:
         const item = {
             content: "[[☃ dropdown 1]]",
-            widgets: {"dropdown 1": generateDropdown()},
+            widgets: {"dropdown 1": generateBasicDropdown()},
             images: {},
         };
         const userInputMap = {};
@@ -327,8 +320,8 @@ describe("scorePerseusItem", () => {
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
-                    "dropdown 1": generateDropdown(),
-                    "dropdown 2": generateDropdown(),
+                    "dropdown 1": generateBasicDropdown(),
+                    "dropdown 2": generateBasicDropdown(),
                 },
                 images: {},
             },
@@ -352,8 +345,8 @@ describe("scorePerseusItem", () => {
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
-                    "dropdown 1": generateDropdown(),
-                    "dropdown 2": generateDropdown(),
+                    "dropdown 1": generateBasicDropdown(),
+                    "dropdown 2": generateBasicDropdown(),
                 },
                 images: {},
             },
@@ -378,7 +371,7 @@ describe("scorePerseusItem", () => {
         const json = {
             content: "[[☃ dropdown 1]]",
             widgets: {
-                "dropdown 1": generateDropdown(),
+                "dropdown 1": generateBasicDropdown(),
             },
             images: {},
         };
@@ -395,8 +388,8 @@ describe("scorePerseusItem", () => {
             {
                 content: "[[☃ dropdown 1]]",
                 widgets: {
-                    "dropdown 1": generateDropdown(),
-                    "dropdown 2": generateDropdown(),
+                    "dropdown 1": generateBasicDropdown(),
+                    "dropdown 2": generateBasicDropdown(),
                 },
                 images: {},
             },

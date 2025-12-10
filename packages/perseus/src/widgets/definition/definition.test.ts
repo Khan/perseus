@@ -1,3 +1,8 @@
+import {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -10,30 +15,22 @@ import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import type {PerseusDependenciesV2} from "../../types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-const question = {
+const question: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "Read the excerpt and answer the question below. \n\nThe Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",
     images: {},
     widgets: {
-        "definition 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            static: false,
-            type: "definition",
-            options: {
+        "definition 1": generateDefinitionWidget({
+            options: generateDefinitionOptions({
                 definition: "Definition text",
                 togglePrompt: "the Pequots",
-                static: false,
-            },
-            alignment: "default",
-        },
+            }),
+        }),
     },
-} as const;
+});
 
 describe("Definition widget", () => {
     let userEvent: UserEvent;
@@ -163,5 +160,91 @@ describe("Definition widget", () => {
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: false,
         });
+    });
+
+    // TODO(eshmoel, AX-2216): unskip tests once @jandrade completes work to enable Tab off.
+    it.skip("should close the popover when we Tab off the close button", async () => {
+        // Arrange
+        renderQuestion(question);
+
+        // Act - Open the popover
+        const definitionAnchor = screen.getByText("the Pequots");
+        await userEvent.click(definitionAnchor);
+
+        // Verify popover is open
+        const tooltip = screen.getByRole("dialog");
+        expect(tooltip).toBeVisible();
+
+        // Tab off the close button
+        await userEvent.tab();
+
+        // Assert - Popover should be closed
+        expect(screen.queryByRole("dialog")).toBeNull();
+    });
+
+    // TODO(eshmoel, AX-2216): unskip tests once @jandrade completes work to enable Tab off.
+    it.skip("should close the popover when we Shift + Tab from the close button", async () => {
+        // Arrange
+        renderQuestion(question);
+
+        // Act - Open the popover
+        const definitionAnchor = screen.getByText("the Pequots");
+        await userEvent.click(definitionAnchor);
+
+        // Verify popover is open
+        const tooltip = screen.getByRole("dialog");
+        expect(tooltip).toBeVisible();
+
+        // Shift + Tab off the close button (tab backwards)
+        await userEvent.tab({shift: true});
+
+        // Assert - Popover should be closed
+        expect(screen.queryByRole("dialog")).toBeNull();
+    });
+
+    it("should close the popover when we press Escape", async () => {
+        // Arrange
+        renderQuestion(question);
+
+        // Act - Open the popover
+        const definitionAnchor = screen.getByText("the Pequots");
+        await userEvent.click(definitionAnchor);
+
+        // Verify popover is open
+        const tooltip = screen.getByRole("dialog");
+        expect(tooltip).toBeVisible();
+
+        // Press Escape
+        await userEvent.keyboard("{Escape}");
+
+        // Assert - Popover should be closed
+        expect(screen.queryByRole("dialog")).toBeNull();
+    });
+
+    it("should not close the popover when pressing other keys", async () => {
+        // Arrange
+        renderQuestion(question);
+
+        // Act - Open the popover
+        const definitionAnchor = screen.getByText("the Pequots");
+        await userEvent.click(definitionAnchor);
+
+        // Verify popover is open
+        const tooltip = screen.getByRole("dialog");
+        expect(tooltip).toBeVisible();
+
+        // Press various keys that should NOT close the popover
+        await userEvent.keyboard("{ArrowDown}");
+        expect(screen.getByRole("dialog")).toBeVisible();
+
+        await userEvent.keyboard("{ArrowUp}");
+        expect(screen.getByRole("dialog")).toBeVisible();
+
+        // Test a regular character key
+        await userEvent.keyboard("a");
+        expect(screen.getByRole("dialog")).toBeVisible();
+
+        // Assert - Popover should still be visible after all key presses
+        expect(screen.getByRole("dialog")).toBeVisible();
     });
 });

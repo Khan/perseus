@@ -4,7 +4,9 @@ import {action} from "storybook/actions";
 
 import Marker from "../marker";
 
-type StoryArgs = Record<any, any>;
+import type {MarkerProps} from "../marker";
+
+type StoryArgs = Record<string, MarkerProps>;
 
 type Story = {
     title: string;
@@ -27,14 +29,14 @@ const styles = StyleSheet.create({
     },
 });
 
-const Wrapper = (props) => (
+const Wrapper = (props: MarkerProps) => (
     <div className={css(styles.wrapper)}>
         <Marker {...props} />
     </div>
 );
 
 export const Empty = (args: StoryArgs): React.ReactElement => {
-    const props = {
+    const props: MarkerProps = {
         answers: [],
         choices: [],
         label: "",
@@ -46,12 +48,12 @@ export const Empty = (args: StoryArgs): React.ReactElement => {
         },
         x: 50,
         y: 50,
-    } as const;
+    };
     return <Wrapper {...props} />;
 };
 
 export const WithAnswers = (args: StoryArgs): React.ReactElement => {
-    const props = {
+    const props: MarkerProps = {
         answers: ["BMW", "Ferrari"],
         choices: [
             "Lamborghini",
@@ -70,6 +72,6 @@ export const WithAnswers = (args: StoryArgs): React.ReactElement => {
         },
         x: 50,
         y: 50,
-    } as const;
+    };
     return <Wrapper {...props} />;
 };

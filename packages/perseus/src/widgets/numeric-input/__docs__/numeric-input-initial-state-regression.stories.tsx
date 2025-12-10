@@ -1,10 +1,14 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateNumericInputWidget,
+    generateNumericInputOptions,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
-import {numericInputQuestionBuilder} from "../numeric-input-question-builder";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {StoryObj} from "@storybook/react-vite";
@@ -33,7 +37,17 @@ export default {
 export const SizeSmall: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: numericInputQuestionBuilder().withSize("small").build(),
+            question: generateTestPerseusRenderer({
+                content:
+                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
+                widgets: {
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            size: "small",
+                        }),
+                    }),
+                },
+            }),
         }),
     },
 };
@@ -41,7 +55,17 @@ export const SizeSmall: Story = {
 export const SizeNormal: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: numericInputQuestionBuilder().withSize("normal").build(),
+            question: generateTestPerseusRenderer({
+                content:
+                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
+                widgets: {
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            size: "normal",
+                        }),
+                    }),
+                },
+            }),
         }),
     },
 };
