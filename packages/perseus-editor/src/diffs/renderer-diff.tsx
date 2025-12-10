@@ -14,22 +14,12 @@ import type {PerseusRenderer, PerseusWidget} from "@khanacademy/perseus-core";
 
 // In diffs, only show the widgetInfo props that can change
 const filterWidgetInfo = function (
-    widgetInfo: PerseusWidget | null | undefined,
+    widgetInfo: PerseusWidget,
     showAlignmentOptions: boolean,
 ) {
-    if (!widgetInfo) {
-        return {};
-    }
+    const {alignment, options, type} = widgetInfo;
 
-    const {alignment, graded, options, type} = widgetInfo;
-
-    const filteredWidgetInfo = {
-        type,
-        options,
-        alignment,
-        graded,
-        static: widgetInfo.static ?? undefined,
-    };
+    const filteredWidgetInfo: Partial<PerseusWidget> = {options};
 
     // Show alignment options iff multiple valid ones exist for this widget
     if (
@@ -37,11 +27,6 @@ const filterWidgetInfo = function (
         CoreWidgetRegistry.getSupportedAlignments(type).length > 1
     ) {
         filteredWidgetInfo.alignment = alignment;
-    }
-
-    // @ts-expect-error - transformer is a deprecated widget type that may exist in legacy data
-    if (type === "transformer") {
-        filteredWidgetInfo.graded = graded;
     }
 
     if (Widgets.supportsStaticMode(type)) {
