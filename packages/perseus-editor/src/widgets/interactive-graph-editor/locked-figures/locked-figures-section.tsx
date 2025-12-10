@@ -3,6 +3,7 @@
  * the user to add and remove locked figures from the graph. It includes
  * the dropdown for adding figures as well as the settings for each figure.
  */
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -15,7 +16,6 @@ import Heading from "../../../components/heading";
 
 import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
-import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../interactive-graph-editor";

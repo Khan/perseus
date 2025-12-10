@@ -1,5 +1,21 @@
 # @khanacademy/perseus-core
 
+## 20.4.1
+
+### Patch Changes
+
+-   [#3105](https://github.com/Khan/perseus/pull/3105) [`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea) Thanks [@nishasy](https://github.com/nishasy)! - [Definition] Create definition widget generator for testdata
+
+*   [#3104](https://github.com/Khan/perseus/pull/3104) [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753) Thanks [@nishasy](https://github.com/nishasy)! - [Explanation] Create explanation widget generator for testdata
+
+-   [#3109](https://github.com/Khan/perseus/pull/3109) [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Move getFigureForType into perseus-core
+
+*   [#3096](https://github.com/Khan/perseus/pull/3096) [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3) Thanks [@nishasy](https://github.com/nishasy)! - [Dropdown] Create dropdown widget generator for testdata
+
+-   [#3092](https://github.com/Khan/perseus/pull/3092) [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c) Thanks [@nishasy](https://github.com/nishasy)! - [Expression] Creat expression widget generator for testdata
+
+*   [#3093](https://github.com/Khan/perseus/pull/3093) [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32) Thanks [@nishasy](https://github.com/nishasy)! - [Numeric Input] Create numeric input widget generator for testdata
+
 ## 20.4.0
 
 ### Minor Changes
