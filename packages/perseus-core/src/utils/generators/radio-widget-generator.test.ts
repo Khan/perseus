@@ -1,4 +1,5 @@
 import {
+    generateRadioChoices,
     generateRadioOptions,
     generateRadioWidget,
 } from "./radio-widget-generator";
@@ -133,5 +134,105 @@ describe("generateRadioWidget", () => {
             countChoices: true,
             deselectEnabled: true,
         });
+    });
+});
+
+describe("generateRadioChoices", () => {
+    it("builds a choices array when a number is provided", () => {
+        // Arrange, Act
+        const choices = generateRadioChoices(3);
+
+        // Assert
+        expect(choices).toEqual([
+            {content: "Choice 1", correct: false, id: "radio-choice-0"},
+            {content: "Choice 2", correct: false, id: "radio-choice-1"},
+            {content: "Choice 3", correct: false, id: "radio-choice-2"},
+        ]);
+    });
+
+    it("builds a choices array when 0 is provided", () => {
+        // Arrange, Act
+        const choices = generateRadioChoices(3);
+
+        // Assert
+        expect(choices).toEqual([
+            {content: "Choice 1", correct: false, id: "radio-choice-0"},
+            {content: "Choice 2", correct: false, id: "radio-choice-1"},
+            {content: "Choice 3", correct: false, id: "radio-choice-2"},
+        ]);
+    });
+
+    it("builds empty choices array", () => {
+        // Arrange, Act
+        const choices = generateRadioChoices([]);
+
+        // Assert
+        expect(choices).toEqual([]);
+    });
+
+    it("builds multiple choices with empty choices", () => {
+        // Arrange, Act
+        const choices = generateRadioChoices([{}, {}, {}]);
+
+        // Assert
+        expect(choices).toEqual([
+            {content: "Choice 1", correct: false, id: "radio-choice-0"},
+            {content: "Choice 2", correct: false, id: "radio-choice-1"},
+            {content: "Choice 3", correct: false, id: "radio-choice-2"},
+        ]);
+    });
+
+    it("builds multiple choices with partial props", () => {
+        // Arrange, Act
+        const choices = generateRadioChoices([
+            {content: "a"},
+            {content: "b"},
+            {correct: true},
+        ]);
+
+        // Assert
+        expect(choices).toEqual([
+            {content: "a", correct: false, id: "radio-choice-0"},
+            {content: "b", correct: false, id: "radio-choice-1"},
+            {content: "Choice 3", correct: true, id: "radio-choice-2"},
+        ]);
+    });
+
+    it("builds multiple choices with full props", () => {
+        // Arrange, Act
+        const choices = generateRadioChoices([
+            {content: "a", id: "a", rationale: "test-rationale", correct: true},
+            {
+                content: "b",
+                id: "b",
+                rationale: "test-rationale",
+                correct: false,
+            },
+            {
+                content: "c",
+                id: "c",
+                rationale: "test-rationale",
+                correct: false,
+                isNoneOfTheAbove: true,
+            },
+        ]);
+
+        // Assert
+        expect(choices).toEqual([
+            {content: "a", id: "a", rationale: "test-rationale", correct: true},
+            {
+                content: "b",
+                id: "b",
+                rationale: "test-rationale",
+                correct: false,
+            },
+            {
+                content: "c",
+                id: "c",
+                rationale: "test-rationale",
+                correct: false,
+                isNoneOfTheAbove: true,
+            },
+        ]);
     });
 });

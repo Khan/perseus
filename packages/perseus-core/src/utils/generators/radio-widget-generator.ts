@@ -1,6 +1,10 @@
 import radioWidgetLogic from "../../widgets/radio";
 
-import type {PerseusRadioWidgetOptions, RadioWidget} from "../../data-schema";
+import type {
+    PerseusRadioChoice,
+    PerseusRadioWidgetOptions,
+    RadioWidget,
+} from "../../data-schema";
 
 export function generateRadioOptions(
     options?: Partial<PerseusRadioWidgetOptions>,
@@ -23,4 +27,23 @@ export function generateRadioWidget(
         options: generateRadioOptions(), // default options
         ...radioWidgetProperties,
     };
+}
+
+export function generateRadioChoices(
+    choices: Partial<PerseusRadioChoice>[] | number,
+): PerseusRadioChoice[] {
+    if (typeof choices === "number") {
+        return Array.from({length: choices}, (_, index) => ({
+            content: `Choice ${index + 1}`,
+            id: `radio-choice-${index}`,
+            correct: false,
+        }));
+    }
+
+    return choices.map((choice, index) => ({
+        content: `Choice ${index + 1}`,
+        id: `radio-choice-${index}`,
+        correct: false,
+        ...choice,
+    }));
 }
