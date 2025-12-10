@@ -1035,7 +1035,7 @@ describe("Multiple Choice Widget", () => {
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
-                shuffledQuestion,
+                shuffledNoneQuestion,
                 renderer.getUserInputMap(),
             );
 

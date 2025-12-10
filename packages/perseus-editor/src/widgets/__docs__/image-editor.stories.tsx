@@ -5,6 +5,7 @@ import {
     generateTestPerseusRenderer,
     generateRadioWidget,
     generateRadioOptions,
+    generateRadioChoice,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -128,10 +129,9 @@ export const WithMarkdownImageLinterWarning: Story = {
                             "radio 1": generateRadioWidget({
                                 options: generateRadioOptions({
                                     choices: [
-                                        {
-                                            content: `![Earth and moon](${earthMoonImage.url})`,
-                                            id: "radio-choice-test-id-0",
-                                        },
+                                        generateRadioChoice(
+                                            `![Earth and moon](${earthMoonImage.url})`,
+                                        ),
                                     ],
                                 }),
                             }),

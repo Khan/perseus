@@ -59,11 +59,16 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         // saved background image size for zooming.
         Util.getImageSizeModern(backgroundImage.url!).then((naturalSize) => {
             const [naturalWidth, naturalHeight] = naturalSize;
-            if (naturalWidth > (backgroundImage.width || 0)) {
+            // Only update if the new size is different AND larger
+            // This prevents infinite loops when backgroundImage object reference changes
+            if (
+                naturalWidth > (backgroundImage.width || 0) &&
+                (naturalWidth !== zoomWidth || naturalHeight !== zoomHeight)
+            ) {
                 setZoomSize([naturalWidth, naturalHeight]);
             }
         });
-    }, [backgroundImage.url, backgroundImage.width]);
+    }, [backgroundImage.url, backgroundImage.width, zoomWidth, zoomHeight]);
 
     if (!backgroundImage.url) {
         return null;

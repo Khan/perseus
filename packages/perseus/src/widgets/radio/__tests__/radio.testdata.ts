@@ -4,6 +4,8 @@ import {
     generateRadioWidget,
     generateTestPerseusRenderer,
     generateRadioOptions,
+    generateRadioChoice,
+    generateSimpleRadioQuestion,
 } from "@khanacademy/perseus-core";
 
 export const question: PerseusRenderer = generateTestPerseusRenderer({
@@ -13,32 +15,25 @@ export const question: PerseusRenderer = generateTestPerseusRenderer({
         "radio 1": generateRadioWidget({
             options: generateRadioOptions({
                 choices: [
-                    {
-                        content: "$-8$ and $8$",
-                        correct: false,
+                    generateRadioChoice("$-8$ and $8$", {
                         rationale:
                             "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
-                        id: "radio-choice-test-id-0",
-                    },
-                    {
-                        content: "$-8$",
-                        correct: false,
+                    }),
+                    generateRadioChoice("$-8$", {
                         rationale:
                             "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
-                        id: "radio-choice-test-id-1",
-                    },
-                    {
-                        content: "$8$",
+                    }),
+                    generateRadioChoice("$8$", {
                         correct: true,
                         rationale: "$8$ is the positive square root of $64$.",
-                        id: "radio-choice-test-id-2",
-                    },
-                    {
-                        content: "No value of $x$ satisfies the equation.",
-                        correct: false,
-                        rationale: "$8$ satisfies the equation.",
-                        id: "radio-choice-test-id-3",
-                    },
+                    }),
+                    generateRadioChoice(
+                        "No value of $x$ satisfies the equation.",
+                        {
+                            correct: false,
+                            rationale: "$8$ satisfies the equation.",
+                        },
+                    ),
                 ],
             }),
         }),
@@ -59,35 +54,25 @@ export const questionWithPassage: PerseusRenderer = generateTestPerseusRenderer(
             "radio 1": generateRadioWidget({
                 options: {
                     choices: [
-                        {
-                            id: "0-0-0-0-0",
-                            content: "$-8$ and $8$",
-                            correct: false,
+                        generateRadioChoice("$-8$ and $8$", {
                             rationale:
                                 "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
-                        },
-                        {
-                            id: "1-1-1-1-1",
-                            content: "$-8$",
-                            correct: false,
+                        }),
+                        generateRadioChoice("$-8$", {
                             rationale:
                                 "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
-                        },
-                        {
-                            id: "2-2-2-2-2",
-                            content: "$8$ {{passage-ref 1 1}}\n\n",
+                        }),
+                        generateRadioChoice("$8$", {
                             correct: true,
-                            isNoneOfTheAbove: false,
                             rationale:
                                 "$8$ is the positive square root of $64$.",
-                        },
-                        {
-                            id: "3-3-3-3-3",
-                            content: "No value of $x$ satisfies the equation.",
-                            correct: false,
-                            isNoneOfTheAbove: false,
-                            rationale: "$8$ satisfies the equation.",
-                        },
+                        }),
+                        generateRadioChoice(
+                            "No value of $x$ satisfies the equation.",
+                            {
+                                rationale: "$8$ satisfies the equation.",
+                            },
+                        ),
                     ],
                 },
             }),
@@ -118,36 +103,25 @@ export const questionWithRationale: PerseusRenderer =
             "radio 1": generateRadioWidget({
                 options: generateRadioOptions({
                     choices: [
-                        {
-                            content: "USS Voyager (NCC-74656)",
-                            correct: false,
+                        generateRadioChoice("USS Voyager (NCC-74656)", {
                             rationale: "Commanded by Captain Kathryn Janeway.",
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content: "USS Enterprise (NCC-1701)",
-                            correct: false,
+                        }),
+                        generateRadioChoice("USS Enterprise (NCC-1701)", {
                             rationale:
                                 "\nThis rationale has a blank line at the start, which should **NOT** affect the rendered rationale. More text: " +
                                 "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. " +
                                 "The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. " +
                                 "Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.'" +
                                 '\n\n**Top tip!** This is the ship he commands in the series, but it is not his first command. Watch *"The Battle"* (Season 1, Episode 9) for more. And, as always, beware of Ferengi!',
-                            id: "radio-choice-test-id-1",
-                        },
-                        {
-                            content: "USS Enterprise (NX-01)",
-                            correct: false,
+                        }),
+                        generateRadioChoice("USS Enterprise (NX-01)", {
                             rationale: "Commanded by Captain Jonathan Archer.",
-                            id: "radio-choice-test-id-2",
-                        },
-                        {
-                            content: "USS Stargazer (NCC-2893)",
+                        }),
+                        generateRadioChoice("USS Stargazer (NCC-2893)", {
                             correct: true,
                             rationale:
                                 "**This is the correct choice.** In one of the battles with the Ferengi, he killed the son of DaiMon Bok, who later sought revenge on Picard.",
-                            id: "radio-choice-test-id-3",
-                        },
+                        }),
                     ],
                 }),
             }),
@@ -161,54 +135,48 @@ export const choicesWithImages: PerseusRenderer = generateTestPerseusRenderer({
         "radio 1": generateRadioWidget({
             options: generateRadioOptions({
                 choices: [
-                    {
-                        id: "4-4-4-4-4",
-                        content:
-                            "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
-                        correct: false,
-                        rationale:
-                            "The markdown only has single lines between each item, so they should be treated as one complete line.",
-                    },
-                    {
-                        id: "5-5-5-5-5",
-                        content:
-                            "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                        correct: false,
-                        rationale:
-                            "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
-                    },
-                    {
-                        id: "6-6-6-6-6",
-                        content:
-                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                        correct: false,
-                        rationale:
-                            "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
-                    },
-                    {
-                        id: "7-7-7-7-7",
-                        content:
-                            "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                        correct: false,
-                        rationale:
-                            "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
-                    },
-                    {
-                        id: "8-8-8-8-8",
-                        content:
-                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                        correct: false,
-                        rationale:
-                            "The markdown only has an image (no text), so nothing should be adjusted.",
-                    },
-                    {
-                        id: "9-9-9-9-9",
-                        content:
-                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                        correct: false,
-                        rationale:
-                            "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
-                    },
+                    generateRadioChoice(
+                        "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
+                        {
+                            rationale:
+                                "The markdown only has single lines between each item, so they should be treated as one complete line.",
+                        },
+                    ),
+                    generateRadioChoice(
+                        "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                        {
+                            rationale:
+                                "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
+                        },
+                    ),
+                    generateRadioChoice(
+                        "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
+                        {
+                            rationale:
+                                "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
+                        },
+                    ),
+                    generateRadioChoice(
+                        "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
+                        {
+                            rationale:
+                                "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
+                        },
+                    ),
+                    generateRadioChoice(
+                        "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                        {
+                            rationale:
+                                "The markdown only has an image (no text), so nothing should be adjusted.",
+                        },
+                    ),
+                    generateRadioChoice(
+                        "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                        {
+                            rationale:
+                                "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
+                        },
+                    ),
                 ],
             }),
         }),
@@ -222,27 +190,25 @@ export const SingleSelectOverflowImageContent: PerseusRenderer =
             "radio 1": generateRadioWidget({
                 options: generateRadioOptions({
                     choices: [
-                        {
-                            content:
-                                "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
-                            correct: true,
-                            rationale: "Count the ponies in the image.",
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content:
-                                "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
-                            correct: false,
-                            rationale: "Count the ponies in the image.",
-                            id: "radio-choice-test-id-1",
-                        },
-                        {
-                            content:
-                                "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
-                            correct: false,
-                            rationale: "Count the ponies in the image.",
-                            id: "radio-choice-test-id-2",
-                        },
+                        generateRadioChoice(
+                            "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
+                            {
+                                correct: true,
+                                rationale: "Count the ponies in the image.",
+                            },
+                        ),
+                        generateRadioChoice(
+                            "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
+                            {
+                                rationale: "Count the ponies in the image.",
+                            },
+                        ),
+                        generateRadioChoice(
+                            "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
+                            {
+                                rationale: "Count the ponies in the image.",
+                            },
+                        ),
                     ],
                 }),
             }),
@@ -256,33 +222,23 @@ export const SingleSelectOverflowContent: PerseusRenderer =
             "radio 1": generateRadioWidget({
                 options: generateRadioOptions({
                     choices: [
-                        {
-                            id: "10-10-10-10-10",
-                            content:
-                                "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
-                            correct: true,
-                            rationale: "Add the following numbers to get 75.",
-                        },
-                        {
-                            id: "11-11-11-11-11",
-                            content: "$100-50$",
-                            correct: false,
+                        generateRadioChoice(
+                            "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                            {
+                                correct: true,
+                                rationale:
+                                    "Add the following numbers to get 75.",
+                            },
+                        ),
+                        generateRadioChoice("$100-50$", {
                             rationale: "Subtract the following numbers.",
-                        },
-                        {
-                            id: "12-12-12-12-12",
-                            content: "$200-125+10$",
-                            correct: false,
-                            isNoneOfTheAbove: false,
+                        }),
+                        generateRadioChoice("$200-125+10$", {
                             rationale: "Calculate the following numbers.",
-                        },
-                        {
-                            id: "13-13-13-13-13",
-                            content: "$10+10+10+10$",
-                            correct: false,
-                            isNoneOfTheAbove: false,
+                        }),
+                        generateRadioChoice("$10+10+10+10$", {
                             rationale: "Add the following numbers.",
-                        },
+                        }),
                     ],
                 }),
             }),
@@ -300,28 +256,13 @@ export const multiChoiceQuestion: PerseusRenderer = generateTestPerseusRenderer(
                     multipleSelect: true,
                     randomize: false,
                     choices: [
-                        {
-                            content: "$x=-6$",
-                            correct: false,
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content: "$x=4$",
-                            correct: false,
-                            id: "radio-choice-test-id-1",
-                        },
-                        {
-                            content: "$x=7$",
-                            correct: false,
-                            isNoneOfTheAbove: false,
-                            id: "radio-choice-test-id-2",
-                        },
-                        {
-                            content: "There is no such input value.",
+                        generateRadioChoice("$x=-6$"),
+                        generateRadioChoice("$x=4$"),
+                        generateRadioChoice("$x=7$"),
+                        generateRadioChoice("There is no such input value.", {
                             correct: true,
                             isNoneOfTheAbove: true,
-                            id: "radio-choice-test-id-3",
-                        },
+                        }),
                     ],
                 }),
             }),
@@ -338,38 +279,27 @@ export const multiChoiceQuestionSimple: PerseusRenderer =
                     hasNoneOfTheAbove: true,
                     multipleSelect: true,
                     choices: [
-                        {
-                            content: "Hola",
+                        generateRadioChoice("Hola", {
                             correct: true,
                             rationale:
                                 "The Spanish-speaking countries typically say Hola.",
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content: "Hey",
+                        }),
+                        generateRadioChoice("Hey", {
                             correct: true,
                             rationale:
                                 "This is used to attract someone's attention.",
-                            id: "radio-choice-test-id-1",
-                        },
-                        {
-                            content: "Hi",
+                        }),
+                        generateRadioChoice("Hi", {
                             correct: true,
                             rationale: "This is used as friendly greeting.",
-                            id: "radio-choice-test-id-2",
-                        },
-                        {
-                            content: "Goodbye",
-                            correct: false,
+                        }),
+                        generateRadioChoice("Goodbye", {
                             rationale: "Some people like to say Goodbye.",
-                            id: "radio-choice-test-id-3",
-                        },
-                        {
-                            content: "None of these",
+                        }),
+                        generateRadioChoice("None of these", {
                             correct: false,
                             isNoneOfTheAbove: true,
-                            id: "radio-choice-test-id-4",
-                        },
+                        }),
                     ],
                 }),
             }),
@@ -386,38 +316,32 @@ export const multiChoiceQuestionSimpleOverflowContent: PerseusRenderer =
                     multipleSelect: true,
                     randomize: false,
                     choices: [
-                        {
-                            content:
-                                "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                        generateRadioChoice(
+                            "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                            {
+                                correct: true,
+                                rationale:
+                                    "Add the following numbers to get 75.",
+                            },
+                        ),
+                        generateRadioChoice(
+                            "$5+4+1+9+1+2+2+2+2+2+3+3+3+1+4+4+2+5+5+10+3+2$",
+                            {
+                                correct: true,
+                                rationale:
+                                    "Add the following numbers to get 75.",
+                            },
+                        ),
+                        generateRadioChoice("$10+10+10+10+10+10+10+5$", {
                             correct: true,
                             rationale: "Add the following numbers to get 75.",
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content:
-                                "$5+4+1+9+1+2+2+2+2+2+3+3+3+1+4+4+2+5+5+10+3+2$",
-                            correct: true,
+                        }),
+                        generateRadioChoice("$10+10+10+10+10+10+10+3+2$", {
                             rationale: "Add the following numbers to get 75.",
-                            id: "radio-choice-test-id-1",
-                        },
-                        {
-                            content: "$10+10+10+10+10+10+10+5$",
-                            correct: true,
-                            rationale: "Add the following numbers to get 75.",
-                            id: "radio-choice-test-id-2",
-                        },
-                        {
-                            content: "$10+10+10+10+10+10+10+3+2$",
-                            correct: false,
-                            rationale: "Add the following numbers to get 75.",
-                            id: "radio-choice-test-id-3",
-                        },
-                        {
-                            content: "None of these",
-                            correct: false,
+                        }),
+                        generateRadioChoice("None of these", {
                             isNoneOfTheAbove: true,
-                            id: "radio-choice-test-id-4",
-                        },
+                        }),
                     ],
                 }),
             }),
@@ -439,78 +363,32 @@ export const multiChoiceQuestionAndAnswer: [
     ],
 ];
 
-export const shuffledQuestion: PerseusRenderer = generateTestPerseusRenderer({
-    content: "[[\u2603 radio 1]]",
-    widgets: {
-        "radio 1": generateRadioWidget({
-            options: generateRadioOptions({
-                randomize: true,
-                choices: [
-                    {
-                        content: "Incorrect Choice 1",
-                        correct: false,
-                        id: "radio-choice-test-id-0",
-                    },
-                    {
-                        content: "Incorrect Choice 2",
-                        correct: false,
-                        id: "radio-choice-test-id-1",
-                    },
-                    {
-                        content: "Correct Choice",
-                        correct: true,
-                        id: "radio-choice-test-id-2",
-                    },
-                    {
-                        content: "Incorrect Choice 3",
-                        correct: false,
-                        id: "radio-choice-test-id-3",
-                    },
-                ],
-            }),
+export const shuffledQuestion: PerseusRenderer = generateSimpleRadioQuestion({
+    randomize: true,
+    choices: [
+        generateRadioChoice("Incorrect Choice 1"),
+        generateRadioChoice("Incorrect Choice 2"),
+        generateRadioChoice("Correct Choice", {
+            correct: true,
         }),
-    },
+        generateRadioChoice("Incorrect Choice 3"),
+    ],
 });
 
 export const shuffledNoneQuestion: PerseusRenderer =
-    generateTestPerseusRenderer({
-        content: "[[\u2603 radio 1]]",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions({
-                    hasNoneOfTheAbove: true,
-                    randomize: true,
-                    choices: [
-                        {
-                            content: "Incorrect Choice 1",
-                            correct: false,
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content: "Incorrect Choice 2",
-                            correct: false,
-                            id: "radio-choice-test-id-1",
-                        },
-                        {
-                            content: "Incorrect Choice 3",
-                            correct: false,
-                            id: "radio-choice-test-id-2",
-                        },
-                        {
-                            content: "Incorrect Choice 4",
-                            correct: false,
-                            id: "radio-choice-test-id-3",
-                        },
-                        {
-                            content: "None of the above",
-                            correct: true,
-                            isNoneOfTheAbove: true,
-                            id: "radio-choice-test-id-4",
-                        },
-                    ],
-                }),
+    generateSimpleRadioQuestion({
+        hasNoneOfTheAbove: true,
+        randomize: true,
+        choices: [
+            generateRadioChoice("Incorrect Choice 1"),
+            generateRadioChoice("Incorrect Choice 2"),
+            generateRadioChoice("Incorrect Choice 3"),
+            generateRadioChoice("Incorrect Choice 4"),
+            generateRadioChoice("None of the above", {
+                correct: true,
+                isNoneOfTheAbove: true,
             }),
-        },
+        ],
     });
 
 export const questionWithUndefinedCorrect: PerseusRenderer =
@@ -523,21 +401,15 @@ export const questionWithUndefinedCorrect: PerseusRenderer =
                     multipleSelect: true,
                     randomize: true,
                     choices: [
-                        {
-                            content: "Choice A",
+                        generateRadioChoice("Choice A", {
                             correct: undefined,
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content: "Choice B",
+                        }),
+                        generateRadioChoice("Choice B", {
                             correct: true,
-                            id: "radio-choice-test-id-1",
-                        },
-                        {
-                            content: "Choice C",
+                        }),
+                        generateRadioChoice("Choice C", {
                             correct: undefined,
-                            id: "radio-choice-test-id-2",
-                        },
+                        }),
                     ],
                 }),
             }),
@@ -593,18 +465,13 @@ export const choicesWithGraphie: PerseusRenderer = {
             "radio 1": generateRadioWidget({
                 options: generateRadioOptions({
                     choices: [
-                        {
-                            content:
-                                "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 40, 80, 120, 160.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e4bdfd23b56729130cbd113a03c5792bb8790247)",
-                            correct: true,
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content:
-                                "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 80, 100, 120, 140.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/ef0bd0163c21f51752bda0a4102dc29818c75463)",
-                            correct: false,
-                            id: "radio-choice-test-id-1",
-                        },
+                        generateRadioChoice(
+                            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 40, 80, 120, 160.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e4bdfd23b56729130cbd113a03c5792bb8790247)",
+                            {correct: true},
+                        ),
+                        generateRadioChoice(
+                            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 80, 100, 120, 140.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/ef0bd0163c21f51752bda0a4102dc29818c75463)",
+                        ),
                     ],
                 }),
             }),
@@ -635,30 +502,18 @@ export const choicesWithMathFont = (options?: {
                 options: generateRadioOptions({
                     multipleSelect: options?.multipleSelect ?? false,
                     choices: [
-                        {
-                            content:
-                                "Both $-8$ and $8$ satisfy the equation $\\sqrt{64}=x$",
-                            correct: false,
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content:
-                                "Only $-8$ satisfies the equation $\\sqrt{64}=x$",
-                            correct: false,
-                            id: "radio-choice-test-id-1",
-                        },
-                        {
-                            content:
-                                "Only $8$ satisfies the equation $\\sqrt{64}=x$",
-                            correct: false,
-                            id: "radio-choice-test-id-2",
-                        },
-                        {
-                            content:
-                                "No value of $x$ satisfies the equation $\\sqrt{64}=x$",
-                            correct: false,
-                            id: "radio-choice-test-id-3",
-                        },
+                        generateRadioChoice(
+                            "Both $-8$ and $8$ satisfy the equation $\\sqrt{64}=x$",
+                        ),
+                        generateRadioChoice(
+                            "Only $-8$ satisfies the equation $\\sqrt{64}=x$",
+                        ),
+                        generateRadioChoice(
+                            "Only $8$ satisfies the equation $\\sqrt{64}=x$",
+                        ),
+                        generateRadioChoice(
+                            "No value of $x$ satisfies the equation $\\sqrt{64}=x$",
+                        ),
                     ],
                 }),
             }),
