@@ -138,7 +138,7 @@ describe("Dropdown widget", () => {
         });
     });
 
-    it("should be return true when focus() called", async () => {
+    it("should return true when focus() called and focus the dropdown button", async () => {
         // Arrange
         const {renderer} = renderQuestion(basicDropdown);
 
@@ -147,10 +147,8 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(focused).toBe(true);
-        // TODO(LP-10797): we don't check that the document.activeElement is
-        // actually set because the dropdown widget focuses a <div> (it's root
-        // element), which is not actually focusable because it doesn't have a
-        // tabindex.
+        expect(document.activeElement).toBeInstanceOf(HTMLButtonElement);
+        expect(document.activeElement).toHaveAttribute("role", "combobox");
     });
 
     it("has an ARIA label", async () => {

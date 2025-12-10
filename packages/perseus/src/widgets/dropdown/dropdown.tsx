@@ -79,21 +79,21 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
         handleUserInput({value: selected});
     };
 
-    // Create a ref to the component root for focus() method
-    // This will be replaced with proper ref forwarding in Phase 3
+    // Ref to the View wrapper for focus and event handling
     const rootRef = useRef<HTMLDivElement>(null);
 
     // Expose Widget interface methods via ref
     useImperativeHandle(ref, () => ({
         focus: (): boolean => {
-            // TODO(LP-10797): This focus() call doesn't do anything because our
-            // root element is a <div> and that cannot be focused without a
-            // tabIndex. This will be fixed in Phase 3.
-            // For now, maintain existing (broken) behavior to avoid regression
-            const node = rootRef.current;
-            if (node instanceof HTMLElement) {
-                node.focus();
-                return true; // Return true like the original, even though focus doesn't work
+            if (!rootRef.current) {
+                return false;
+            }
+
+            // SingleSelect doesn't forward refs, so we find the button it renders
+            const button = rootRef.current.querySelector("button");
+            if (button) {
+                button.focus();
+                return true;
             }
             return false;
         },

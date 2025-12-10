@@ -59,15 +59,15 @@ This plan outlines the conversion of the Dropdown widget from a React class comp
 ---
 
 ### Phase 3: Focus Management Improvement
-**Status:** [ ] Not Started | [ ] In Progress | [ ] Complete
+**Status:** [X] Complete
 **Detailed Plan:** `.claude/planning/dropdown-phase-3-focus-management.md`
 
-- [ ] Remove deprecated `ReactDOM.findDOMNode()` usage
-- [ ] Implement `forwardRef` for component
-- [ ] Use `useImperativeHandle` for Widget interface methods
-- [ ] Create proper ref forwarding to SingleSelect component
-- [ ] Test focus behavior with keyboard navigation
-- [ ] Update focus tests to verify improvement
+- [X] Remove deprecated `ReactDOM.findDOMNode()` usage
+- [X] Implement `forwardRef` for component
+- [X] Use `useImperativeHandle` for Widget interface methods
+- [X] Create proper ref forwarding to SingleSelect component (via querySelector)
+- [X] Test focus behavior with keyboard navigation
+- [X] Update focus tests to verify improvement
 
 ---
 
@@ -199,6 +199,36 @@ const Dropdown = forwardRef<WidgetRef, Props>((props, ref) => {
 - **Test Results:** All 12 tests passing, no lint errors
 - **Notes:** Focus still broken (as expected), will be fixed in Phase 3
 - **Next Session:** Phase 3 (Focus Management Improvement)
+
+---
+
+### Session 4 - 2025-12-10
+- **Work Done:** Completed Phase 3 (Focus Management Improvement)
+- **Implementation Journey:**
+  - **Attempt 1 (Failed):** Tried direct ref to SingleSelect with `useRef<HTMLElement>`
+    - TypeScript error: SingleSelect doesn't accept ref prop
+    - Confirmed SingleSelect doesn't forward refs
+  - **Attempt 2 (Success):** querySelector approach on rootRef
+    - Used `rootRef.current.querySelector("button")` to find dropdown button
+    - Called `button.focus()` when button found
+    - Reliable since SingleSelect always renders a single button trigger
+- **Changes:**
+  - Updated focus() method to use querySelector pattern
+  - Removed TODO(LP-10797) comment
+  - Updated rootRef comment to reflect dual purpose (focus + events)
+  - Enhanced focus test to verify actual DOM focus (not just return value)
+  - Test now checks `document.activeElement` is HTMLButtonElement with role="combobox"
+- **Test Results:**
+  - All 12 dropdown tests passing
+  - Wider widget test suite: 823 tests passed, no regressions
+  - Snapshots updated (2)
+  - Manual Storybook testing confirmed focus works with keyboard
+- **Findings:**
+  - Wonder Blocks SingleSelect doesn't expose refs (by design)
+  - querySelector is a common pattern when child components don't forward refs
+  - Other widgets (NumericInputComponent, InputWithExamples) use Focusable interface
+  - Decided to keep WidgetHandle type (returns boolean) for minimal refactoring
+- **Next Session:** Phase 4 (Testing & Validation) and Phase 5 (Final Review & Cleanup)
 
 ---
 

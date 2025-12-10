@@ -484,7 +484,8 @@ Changes:
 - Expose Widget interface methods via useImperativeHandle
 - Fix broken focus() implementation (resolves LP-10797)
   - Remove deprecated ReactDOM.findDOMNode usage
-  - Forward ref to SingleSelect component for proper focus management
+  - Use querySelector to find and focus the dropdown button element
+  - SingleSelect doesn't forward refs, so we query for the button it renders
 - Remove ReactDOM import (no longer needed)
 
 Testing:
@@ -591,7 +592,8 @@ Changes:
 - Expose Widget interface methods via useImperativeHandle
 - Fix broken focus() implementation (resolves LP-10797)
   - Remove deprecated ReactDOM.findDOMNode usage
-  - Forward ref to SingleSelect component for proper focus management
+  - Use querySelector to find and focus the dropdown button element
+  - SingleSelect doesn't forward refs, so we query for the button it renders
 - Remove ReactDOM import (no longer needed)
 
 Testing:
