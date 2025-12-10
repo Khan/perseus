@@ -4,11 +4,11 @@ import jsdiff from "jsdiff";
 import * as React from "react";
 import _ from "underscore";
 
-import splitDiff from "./split-diff";
-import stringArrayDiff from "./string-array-diff";
+import splitDiff from "./shared/split-diff";
+import stringArrayDiff from "./shared/string-array-diff";
 
-import type {Entry} from "./split-diff";
-import type {ImageDiffResult} from "./string-array-diff";
+import type {Entry} from "./shared/split-diff";
+import type {ImageDiffResult} from "./shared/string-array-diff";
 
 const {SvgImage} = components;
 

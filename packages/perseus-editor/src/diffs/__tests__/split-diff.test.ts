@@ -1,4 +1,4 @@
-import splitDiff from "../split-diff";
+import splitDiff from "../shared/split-diff";
 
 describe("split diff", function () {
     it("splits an empty diff", function () {

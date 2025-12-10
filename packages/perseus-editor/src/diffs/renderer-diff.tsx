@@ -51,21 +51,11 @@ const filterWidgetInfo = function (
     return filteredWidgetInfo;
 };
 
-// TODO(michaelpolyak): This type is very similar to `PerseusRenderer` type
-// found in `perseus-all-package/perseus-type.js`, consider just using it.
-type RendererProps = {
-    content: string;
-    // NOTE: images and widgets may not be set for some items hints,
-    // specifically in old revisions, which may only be loaded for diffing.
-    widgets: PerseusRenderer["widgets"] | null | undefined;
-    images: PerseusRenderer["images"] | null | undefined;
-};
-
 type Props = {
     // The "after" props of the renderer. Will be displayed on the right.
-    after: RendererProps;
+    after: PerseusRenderer;
     // The "before" props of the renderer. Will be displayed on the left.
-    before: RendererProps;
+    before: PerseusRenderer;
     // If true, show widget alignment options in the diff.
     showAlignmentOptions: boolean;
     // If true, render a horizontal rule after this diff.

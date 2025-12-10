@@ -7,8 +7,8 @@ import {Dependencies, type PerseusDependenciesV2} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
+import {AnswerAreaDiff} from "./answer-area-diff";
 import RendererDiff from "./renderer-diff";
-import WidgetDiff from "./widget-diff";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
@@ -34,15 +34,18 @@ class ItemDiff extends React.Component<Props> {
             />
         );
 
-        // Make a new diff focused on Answer Area.
-        const extras = (
-            // @ts-expect-error - answerArea is a PerseusAnswerArea and needs to be fixed.
-            <WidgetDiff
-                before={before.answerArea}
-                after={after.answerArea}
-                title="Question extras"
-            />
-        );
+        let extras: React.ReactNode;
+        // There might be a better way to do this, but for now I think it's fine to not
+        // show the diff if the answer area is not set in both.
+        if (before.answerArea && after.answerArea) {
+            extras = (
+                <AnswerAreaDiff
+                    before={before.answerArea}
+                    after={after.answerArea}
+                    title="Question extras"
+                />
+            );
+        }
 
         const hints = _.times(hintCount, function (n) {
             return (
@@ -66,8 +69,7 @@ class ItemDiff extends React.Component<Props> {
                 <div className="framework-perseus">
                     {question}
                     {extras}
-                    {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-                    {hints && <div className="diff-separator" />}
+                    {hints.length > 0 && <div className="diff-separator" />}
                     {hints}
                 </div>
             </Dependencies.DependenciesContext.Provider>

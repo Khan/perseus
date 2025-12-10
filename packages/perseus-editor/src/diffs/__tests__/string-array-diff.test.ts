@@ -1,4 +1,4 @@
-import stringArrayDiff from "../string-array-diff";
+import stringArrayDiff from "../shared/string-array-diff";
 
 describe("string array diff", function () {
     it("diffs an empty diff", function () {
