@@ -111,7 +111,13 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
 
             const previouslyFocused = document.activeElement;
             button.focus();
-            return document.activeElement === button && previouslyFocused !== button;
+            // Return true only when focus actually moved onto the combobox; if it was
+            // already focused (e.g., caller invoked focus twice) report false to avoid
+            // signaling a state change that didn't happen.
+            return (
+                document.activeElement === button &&
+                previouslyFocused !== button
+            );
         },
         getPromptJSON: (): DropdownPromptJSON => {
             return _getPromptJSON(props);

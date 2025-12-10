@@ -1,8 +1,6 @@
 import {
     generateTestPerseusItem,
     splitPerseusItem,
-} from "@khanacademy/perseus-core";
-import {
     generateDropdownOptions,
     generateDropdownWidget,
     generateTestPerseusRenderer,
@@ -152,8 +150,8 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(focused).toBe(true);
-        expect(document.activeElement).toBeInstanceOf(HTMLButtonElement);
-        expect(document.activeElement).toHaveAttribute("role", "combobox");
+        const button = screen.getByRole("combobox");
+        expect(button).toHaveFocus();
     });
 
     it("has an ARIA label", async () => {
@@ -167,14 +165,14 @@ describe("Dropdown widget", () => {
     it("should not claim to focus when the dropdown is read-only", async () => {
         // Arrange
         const {renderer} = renderQuestion(basicDropdown, {readOnly: true});
-        const previouslyFocused = document.activeElement;
 
         // Act
         const focused = renderer.focus();
 
         // Assert
         expect(focused).toBeFalsy();
-        expect(document.activeElement).toBe(previouslyFocused);
+        const button = screen.getByRole("combobox");
+        expect(button).not.toHaveFocus();
     });
 
     it("should not claim to focus when the dropdown is static", async () => {
@@ -195,14 +193,28 @@ describe("Dropdown widget", () => {
             },
         });
         const {renderer} = renderQuestion(staticDropdown);
-        const previouslyFocused = document.activeElement;
 
         // Act
         const focused = renderer.focus();
 
         // Assert
         expect(focused).toBeFalsy();
-        expect(document.activeElement).toBe(previouslyFocused);
+        const button = screen.getByRole("combobox");
+        expect(button).not.toHaveFocus();
+    });
+
+    it("should not claim to focus when the dropdown button has aria-disabled", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(basicDropdown);
+        const button = screen.getByRole("combobox");
+        button.setAttribute("aria-disabled", "true");
+
+        // Act
+        const focused = renderer.focus();
+
+        // Assert
+        expect(focused).toBeFalsy();
+        expect(button).not.toHaveFocus();
     });
 
     describe("interactive: full vs answerless", () => {
