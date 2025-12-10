@@ -1,8 +1,13 @@
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
-import * as React from "react";
-import ReactDOM from "react-dom";
+import React, {
+    forwardRef,
+    useContext,
+    useEffect,
+    useImperativeHandle,
+    useRef,
+} from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
@@ -12,7 +17,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dr
 
 import type {
     PerseusDependenciesV2,
-    Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
@@ -29,143 +33,155 @@ type Props = WidgetProps<
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    choices: Props["choices"];
-    placeholder: Props["placeholder"];
-    apiOptions: Props["apiOptions"];
-    userInput: Props["userInput"];
+// Widget interface methods exposed via ref
+type WidgetHandle = {
+    focus: () => boolean;
+    getPromptJSON: () => DropdownPromptJSON;
+    getSerializedState: () => any;
 };
 
-class Dropdown extends React.Component<Props> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
+    // Get context with hook instead of static contextType
+    const context = useContext(PerseusI18nContext);
 
-    static defaultProps: DefaultProps = {
-        choices: [],
-        placeholder: "",
-        apiOptions: ApiOptions.defaults,
-        userInput: {value: 0},
-    };
+    // Destructure props with defaults
+    const {
+        choices = [],
+        placeholder = "",
+        apiOptions = ApiOptions.defaults,
+        userInput = {value: 0},
+        dependencies,
+        visibleLabel,
+        ariaLabel,
+        widgetId,
+        trackInteraction,
+        handleUserInput,
+    } = props;
 
-    componentDidMount(): void {
-        this.props.dependencies.analytics.onAnalyticsEvent({
+    // Fire analytics event on mount
+    // We intentionally use an empty dependency array here because this analytics
+    // event should only fire once when the component mounts, not when props change.
+    useEffect(() => {
+        dependencies.analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
                 widgetType: "dropdown",
-                widgetId: this.props.widgetId,
+                widgetId: widgetId,
             },
         });
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Empty dependency array = run once on mount
 
-    focus: () => boolean = () => {
-        // TODO(LP-10797): This focus() call doesn't do anything because our
-        // root element is a <div> and that cannot be focused without a
-        // tabIndex.
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this).focus();
-        return true;
+    // Handler for dropdown value changes
+    const handleChange = (selected: number): void => {
+        trackInteraction();
+        handleUserInput({value: selected});
     };
 
-    _handleChangeEvent: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
-        this._handleChange(parseInt(e.target.value));
-    };
+    // Create a ref to the component root for focus() method
+    // This will be replaced with proper ref forwarding in Phase 3
+    const rootRef = useRef<HTMLDivElement>(null);
 
-    _handleChange: (arg1: number) => void = (selected) => {
-        this.props.trackInteraction();
-        this.props.handleUserInput({value: selected});
-    };
+    // Expose Widget interface methods via ref
+    useImperativeHandle(ref, () => ({
+        focus: (): boolean => {
+            // TODO(LP-10797): This focus() call doesn't do anything because our
+            // root element is a <div> and that cannot be focused without a
+            // tabIndex. This will be fixed in Phase 3.
+            // For now, maintain existing (broken) behavior to avoid regression
+            const node = rootRef.current;
+            if (node instanceof HTMLElement) {
+                node.focus();
+                return true; // Return true like the original, even though focus doesn't work
+            }
+            return false;
+        },
+        getPromptJSON: (): DropdownPromptJSON => {
+            return _getPromptJSON(props);
+        },
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState: (): any => {
+            const {userInput, choices, ...rest} = props;
+            return {
+                ...rest,
+                choices: choices.map((choice) => choice.content),
+                selected: userInput.value,
+            };
+        },
+    }));
 
-    getPromptJSON(): DropdownPromptJSON {
-        return _getPromptJSON(this.props);
-    }
-
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    getSerializedState(): any {
-        const {userInput, choices, ...rest} = this.props;
-        return {
-            ...rest,
-            choices: choices.map((choice) => choice.content),
-            selected: userInput.value,
-        };
-    }
-
-    render(): React.ReactNode {
-        const children = [
+    // Build dropdown options
+    const children = [
+        <OptionItem
+            key="placeholder"
+            value="0"
+            disabled
+            label={<Renderer content={placeholder} strings={context.strings} />}
+            labelAsText={placeholder}
+        />,
+        ...choices.map((choice, i) => (
             <OptionItem
-                key="placeholder"
-                value="0"
-                disabled
+                key={String(i + 1)}
+                value={String(i + 1)}
                 label={
                     <Renderer
-                        content={this.props.placeholder}
-                        strings={this.context.strings}
+                        content={choice.content}
+                        strings={context.strings}
                     />
                 }
-                labelAsText={this.props.placeholder}
-            />,
-            ...this.props.choices.map((choice, i) => (
-                <OptionItem
-                    key={String(i + 1)}
-                    value={String(i + 1)}
-                    label={
-                        <Renderer
-                            content={choice.content}
-                            strings={this.context.strings}
-                        />
-                    }
-                    labelAsText={choice.content}
-                />
-            )),
-        ];
+                labelAsText={choice.content}
+            />
+        )),
+    ];
 
-        return (
-            <Id>
-                {(dropdownId) => (
-                    <View
-                        // NOTE(jared): These are required to prevent weird behavior
-                        // When there's a dropdown in a zoomable table.
-                        onClick={(e) => {
-                            e.stopPropagation();
-                        }}
-                        onTouchStart={(e) => {
-                            e.stopPropagation();
-                        }}
+    // Render dropdown UI
+    return (
+        <Id>
+            {(dropdownId) => (
+                <View
+                    ref={rootRef}
+                    // NOTE(jared): These are required to prevent weird behavior
+                    // When there's a dropdown in a zoomable table.
+                    onClick={(e) => {
+                        e.stopPropagation();
+                    }}
+                    onTouchStart={(e) => {
+                        e.stopPropagation();
+                    }}
+                >
+                    {visibleLabel && (
+                        <LabelLarge tag="label" htmlFor={dropdownId}>
+                            {visibleLabel}
+                        </LabelLarge>
+                    )}
+                    <SingleSelect
+                        id={dropdownId}
+                        placeholder=""
+                        className="perseus-dropdown"
+                        onChange={(value) => handleChange(parseInt(value))}
+                        selectedValue={String(userInput.value)}
+                        disabled={apiOptions.readOnly}
+                        aria-label={
+                            ariaLabel ||
+                            visibleLabel ||
+                            context.strings.selectAnAnswer
+                        }
+                        showOpenerLabelAsText={false}
                     >
-                        {this.props.visibleLabel && (
-                            <LabelLarge tag="label" htmlFor={dropdownId}>
-                                {this.props.visibleLabel}
-                            </LabelLarge>
-                        )}
-                        <SingleSelect
-                            id={dropdownId}
-                            placeholder=""
-                            className="perseus-dropdown"
-                            onChange={(value) =>
-                                this._handleChange(parseInt(value))
-                            }
-                            selectedValue={String(this.props.userInput.value)}
-                            disabled={this.props.apiOptions.readOnly}
-                            aria-label={
-                                this.props.ariaLabel ||
-                                this.props.visibleLabel ||
-                                this.context.strings.selectAnAnswer
-                            }
-                            showOpenerLabelAsText={false}
-                        >
-                            {children}
-                        </SingleSelect>
-                    </View>
-                )}
-            </Id>
-        );
-    }
-}
+                        {children}
+                    </SingleSelect>
+                </View>
+            )}
+        </Id>
+    );
+});
+
+// Set display name for debugging
+Dropdown.displayName = "Dropdown";
 
 /**
  * @deprecated and likely a very broken API
