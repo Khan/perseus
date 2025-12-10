@@ -1,13 +1,12 @@
 /* eslint-disable max-lines */
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {KeypadContext} from "@khanacademy/keypad-context";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {View} from "../../fake-react-native-web/index";
 import {MathInputI18nContext} from "../i18n-context";
 
 import CursorHandle from "./cursor-handle";
@@ -62,21 +61,16 @@ class MathInput extends React.Component<Props, State> {
     didTouchOutside: boolean | null | undefined;
     didScroll: boolean | null | undefined;
     mathField: any;
-    // @ts-expect-error - TS2564 - Property 'recordTouchStartOutside' has no initializer and is not definitely assigned in the constructor.
-    recordTouchStartOutside: (arg1: any) => void;
-    // @ts-expect-error - TS2564 - Property 'blurOnTouchEndOutside' has no initializer and is not definitely assigned in the constructor.
-    blurOnTouchEndOutside: (arg1: any) => void;
-    // @ts-expect-error - TS2564 - Property 'blurOnClickOutside' has no initializer and is not definitely assigned in the constructor.
-    blurOnClickOutside: (arg1: any) => void;
+    recordTouchStartOutside!: (arg1: any) => void;
+    blurOnTouchEndOutside!: (arg1: any) => void;
+    blurOnClickOutside!: (arg1: any) => void;
     dragListener: any;
     inputRef: HTMLDivElement | null | undefined;
     _isMounted: boolean | null | undefined;
     _mathContainer: any;
-    // @ts-expect-error - TS2564 - Property '_container' has no initializer and is not definitely assigned in the constructor.
-    _container: HTMLDivElement;
+    _container!: HTMLDivElement;
     _root: any;
-    // @ts-expect-error - TS2564 - Property '_containerBounds' has no initializer and is not definitely assigned in the constructor.
-    _containerBounds: ClientRect;
+    _containerBounds!: ClientRect;
 
     static defaultProps: DefaultProps = {
         style: {},
@@ -446,14 +440,13 @@ class MathInput extends React.Component<Props, State> {
         while (y >= containerBounds.top && y <= containerBounds.bottom) {
             y += dy;
 
-            const points = [
+            const points: [number, number][] = [
                 [x - dx, y],
                 [x, y],
                 [x + dx, y],
             ];
 
             const elements = points
-                // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
                 .map((point) => document.elementFromPoint(...point))
                 // We exclude the root container itself and any nodes marked
                 // as non-leaf which are fractions, parens, and roots.  The
@@ -475,14 +468,14 @@ class MathInput extends React.Component<Props, State> {
                             element.classList.contains("mq-hasCursor")),
                 );
 
-            let hitNode = null;
+            let hitNode: Element | null = null;
 
             // Contains only DOMNodes without child elements.  These should
             // contain some amount of text though.
-            const leafElements: ReadonlyArray<null | HTMLElement> = [];
+            const leafElements: Array<Element | null> = [];
 
             // Contains only DOMNodes with child elements.
-            const nonLeafElements: ReadonlyArray<null | HTMLElement> = [];
+            const nonLeafElements: Array<Element | null> = [];
 
             let max = 0;
             const counts: {
@@ -491,17 +484,14 @@ class MathInput extends React.Component<Props, State> {
             const elementsById: Record<string, any> = {};
 
             for (const element of elements) {
-                // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                const id = element.getAttribute("mathquill-command-id");
+                const id = element?.getAttribute("mathquill-command-id");
                 if (id != null) {
-                    // @ts-expect-error - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
                     leafElements.push(element);
 
                     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     counts[id] = (counts[id] || 0) + 1;
                     elementsById[id] = element;
                 } else {
-                    // @ts-expect-error - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
                     nonLeafElements.push(element);
                 }
             }
@@ -530,7 +520,6 @@ class MathInput extends React.Component<Props, State> {
             // hit count in the situation should not have serious effects on
             // the overall accuracy of the algorithm.
             if (hitNode == null && nonLeafElements.length > 0) {
-                // @ts-expect-error - TS2322 - Type 'HTMLElement | null' is not assignable to type 'null'.
                 hitNode = nonLeafElements[0];
             }
 
@@ -623,7 +612,7 @@ class MathInput extends React.Component<Props, State> {
     };
 
     handleTouchStart = (
-        e: React.TouchEvent<HTMLDivElement>,
+        e: React.TouchEvent<Element>,
         keypadActive: KeypadContextType["keypadActive"],
         setKeypadActive: KeypadContextType["setKeypadActive"],
     ): void => {
@@ -667,7 +656,7 @@ class MathInput extends React.Component<Props, State> {
     // when using ChromeOS third-party browsers that use mobile user agents,
     // but don't actually simulate touch events.
     handleClick = (
-        e: React.MouseEvent<HTMLDivElement>,
+        e: React.MouseEvent,
         keypadActive: KeypadContextType["keypadActive"],
         setKeypadActive: KeypadContextType["setKeypadActive"],
     ): void => {
@@ -705,7 +694,7 @@ class MathInput extends React.Component<Props, State> {
         this.inputRef?.focus();
     };
 
-    handleTouchMove: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
+    handleTouchMove: (arg1: React.TouchEvent<Element>) => void = (e) => {
         e.stopPropagation();
 
         // Update the handle-less cursor's location on move, if there's any
@@ -720,7 +709,7 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    handleTouchEnd: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
+    handleTouchEnd: (arg1: React.TouchEvent<Element>) => void = (e) => {
         e.stopPropagation();
 
         // And on touch-end, reveal the cursor, unless the input is empty. Note
@@ -981,7 +970,7 @@ class MathInput extends React.Component<Props, State> {
                 {({keypadActive, setKeypadActive}) => (
                     <View
                         style={styles.input}
-                        onTouchStart={(e: React.TouchEvent<HTMLDivElement>) => {
+                        onTouchStart={(e) => {
                             this.handleTouchStart(
                                 e,
                                 keypadActive,
@@ -990,22 +979,19 @@ class MathInput extends React.Component<Props, State> {
                         }}
                         onTouchMove={this.handleTouchMove}
                         onTouchEnd={this.handleTouchEnd}
-                        // TODO(LEMS-2656): remove TS suppression
-                        // @ts-expect-error: Type '(e: React.MouseEvent<HTMLDivElement>) => void' is not assignable to type '(arg1: SyntheticEvent<HTMLDivElement, Event>) => void'.
-                        onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                        onClick={(e) => {
                             this.handleClick(e, keypadActive, setKeypadActive);
                         }}
                         role={"textbox"}
-                        ariaLabel={ariaLabel}
+                        aria-label={ariaLabel}
                     >
                         {/* NOTE(charlie): This is used purely to namespace the styles in
                 overrides.css. */}
                         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
                         <div
                             className="keypad-input"
-                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
                             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO(LEMS-2871): Address a11y error
-                            tabIndex={"0"}
+                            tabIndex={0}
                             ref={(node) => {
                                 this.inputRef = node;
                             }}
