@@ -2,6 +2,7 @@ import {
     generateRadioChoices,
     generateRadioOptions,
     generateRadioWidget,
+    generateSingleRadioQuestion,
 } from "./radio-widget-generator";
 
 describe("generateRadioOptions", () => {
@@ -234,5 +235,89 @@ describe("generateRadioChoices", () => {
                 isNoneOfTheAbove: true,
             },
         ]);
+    });
+});
+
+describe("generateSingleRadioQuestion", () => {
+    it("builds a single radio question with default options", () => {
+        // Arrange, Act
+        const question = generateSingleRadioQuestion();
+
+        // Assert
+        expect(question).toEqual({
+            content: "[[☃ radio 1]]",
+            images: {},
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    options: {
+                        choices: [
+                            {content: "", id: "radio-choice-0"},
+                            {content: "", id: "radio-choice-1"},
+                            {content: "", id: "radio-choice-2"},
+                            {content: "", id: "radio-choice-3"},
+                        ],
+                        randomize: false,
+                        hasNoneOfTheAbove: false,
+                        multipleSelect: false,
+                        countChoices: false,
+                        deselectEnabled: false,
+                    },
+                    version: {major: 0, minor: 0},
+                    graded: true,
+                    static: false,
+                    alignment: "default",
+                },
+            },
+        });
+    });
+
+    it("builds a single radio question with custom options", () => {
+        // Arrange, Act
+        const question = generateSingleRadioQuestion({
+            rendererOptions: {content: "Hello world [[☃ radio 1]]"},
+            radioWidgetOptions: {
+                choices: generateRadioChoices(3),
+            },
+        });
+
+        // Assert
+        expect(question).toEqual({
+            content: "Hello world [[☃ radio 1]]",
+            images: {},
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    options: {
+                        choices: [
+                            {
+                                content: "Choice 1",
+                                correct: false,
+                                id: "radio-choice-0",
+                            },
+                            {
+                                content: "Choice 2",
+                                correct: false,
+                                id: "radio-choice-1",
+                            },
+                            {
+                                content: "Choice 3",
+                                correct: false,
+                                id: "radio-choice-2",
+                            },
+                        ],
+                        randomize: false,
+                        hasNoneOfTheAbove: false,
+                        multipleSelect: false,
+                        countChoices: false,
+                        deselectEnabled: false,
+                    },
+                    version: {major: 0, minor: 0},
+                    graded: true,
+                    static: false,
+                    alignment: "default",
+                },
+            },
+        });
     });
 });
