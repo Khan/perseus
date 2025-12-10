@@ -1,28 +1,30 @@
-@import "./util.css";
-@import "./styles.css";
-@import "./perseus-renderer-part-1.css";
-@import "widgets/categorizer.css";
-@import "widgets/dropdown.css";
-@import "widgets/expression.css";
-@import "widgets/free-response.css";
-@import "widgets/grapher.css";
-@import "widgets/graded-group.css";
-@import "widgets/group.css";
-@import "widgets/image.css";
-@import "widgets/interactive-graph.css";
-@import "widgets/label-image.css";
-@import "widgets/matcher.css";
-@import "widgets/matrix.css";
-@import "widgets/measurer.css";
-@import "widgets/numeric.css";
-@import "widgets/orderer.css";
-@import "widgets/passage.css";
-@import "widgets/plotter.css";
-@import "widgets/radio.css";
-@import "widgets/sortable.css";
-@import "widgets/table.css";
-@import "widget-container.css";
-@import "./perseus-renderer-part-2.css";
+@layer perseus-legacy;
+
+@import "./util.css" layer(perseus-legacy);
+@import "./styles.css" layer(perseus-legacy);
+@import "./perseus-renderer-part-1.css" layer(perseus-legacy);
+@import "widgets/categorizer.css" layer(perseus-legacy);
+@import "widgets/dropdown.css" layer(perseus-legacy);
+@import "widgets/expression.css" layer(perseus-legacy);
+@import "widgets/free-response.css" layer(perseus-legacy);
+@import "widgets/grapher.css" layer(perseus-legacy);
+@import "widgets/graded-group.css" layer(perseus-legacy);
+@import "widgets/group.css" layer(perseus-legacy);
+@import "widgets/image.css" layer(perseus-legacy);
+@import "widgets/interactive-graph.css" layer(perseus-legacy);
+@import "widgets/label-image.css" layer(perseus-legacy);
+@import "widgets/matcher.css" layer(perseus-legacy);
+@import "widgets/matrix.css" layer(perseus-legacy);
+@import "widgets/measurer.css" layer(perseus-legacy);
+@import "widgets/numeric.css" layer(perseus-legacy);
+@import "widgets/orderer.css" layer(perseus-legacy);
+@import "widgets/passage.css" layer(perseus-legacy);
+@import "widgets/plotter.css" layer(perseus-legacy);
+@import "widgets/radio.css" layer(perseus-legacy);
+@import "widgets/sortable.css" layer(perseus-legacy);
+@import "widgets/table.css" layer(perseus-legacy);
+@import "widget-container.css" layer(perseus-legacy);
+@import "./perseus-renderer-part-2.css" layer(perseus-legacy);
 /*
   This file replicates the definition order of our styling when it was in LESS format.
   The styling in the original perseus-renderer.less had import statements interspersed among style definitions
