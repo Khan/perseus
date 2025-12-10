@@ -65,11 +65,11 @@ catalogs:
         "@khanacademy/wonder-blocks-clickable": ^8.0.5
         "@khanacademy/wonder-blocks-core": ^12.4.2
         "@khanacademy/wonder-blocks-data": ^14.1.8
-        "@khanacademy/wonder-blocks-dropdown": ^10.5.6
+        "@khanacademy/wonder-blocks-dropdown": ^10.6.0
         "@khanacademy/wonder-blocks-form": ^7.4.6
         "@khanacademy/wonder-blocks-icon-button": ^11.0.1
         "@khanacademy/wonder-blocks-icon": ^5.3.5
-        "@khanacademy/wonder-blocks-labeled-field": ^4.0.11
+        "@khanacademy/wonder-blocks-labeled-field": ^4.0.12
         "@khanacademy/wonder-blocks-layout": ^3.1.42
         "@khanacademy/wonder-blocks-link": ^10.0.6
         "@khanacademy/wonder-blocks-modal": ^8.5.9
@@ -106,11 +106,11 @@ catalogs:
         "@khanacademy/wonder-blocks-clickable": 8.0.5
         "@khanacademy/wonder-blocks-core": 12.4.2
         "@khanacademy/wonder-blocks-data": 14.1.8
-        "@khanacademy/wonder-blocks-dropdown": 10.5.6
+        "@khanacademy/wonder-blocks-dropdown": 10.6.0
         "@khanacademy/wonder-blocks-form": 7.4.6
         "@khanacademy/wonder-blocks-icon-button": 11.0.1
         "@khanacademy/wonder-blocks-icon": 5.3.5
-        "@khanacademy/wonder-blocks-labeled-field": 4.0.11
+        "@khanacademy/wonder-blocks-labeled-field": 4.0.12
         "@khanacademy/wonder-blocks-layout": 3.1.42
         "@khanacademy/wonder-blocks-link": 10.0.6
         "@khanacademy/wonder-blocks-modal": 8.5.9

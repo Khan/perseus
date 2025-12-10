@@ -1,4 +1,8 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {
+    generateRadioWidget,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {scoreRadio} from "@khanacademy/perseus-score";
 import {screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -23,7 +27,6 @@ import {
 } from "./radio.testdata";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 // Create API options with the new-radio-widget flag enabled
@@ -355,8 +358,7 @@ describe("Multiple Choice Widget", () => {
                             static: false,
                         },
                     },
-                    "radio 1": {
-                        type: "radio",
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
                                 {
@@ -380,7 +382,7 @@ describe("Multiple Choice Widget", () => {
                                 },
                             ],
                         },
-                    },
+                    }),
                 },
             };
 

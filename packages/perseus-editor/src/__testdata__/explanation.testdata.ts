@@ -1,29 +1,20 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateExplanationOptions,
+    generateExplanationWidget,
+    generateTestPerseusRenderer,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
-export const question: PerseusRenderer = {
+export const question: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "Here's the explanation\n[[\u2603 explanation 1]]\nDid you get that?",
-    images: {},
     widgets: {
-        "explanation 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            // NOTE: The explanation widget doesn't consume this directly,
-            // instead, Perseus renders an overlay <div /> over top of the
-            // widget that intercepts interactions to it.
-            static: false,
-            type: "explanation",
-            options: {
+        "explanation 1": generateExplanationWidget({
+            options: generateExplanationOptions({
                 hidePrompt: "Hide explanation!",
-                widgets: {},
                 explanation: "This is an explanation",
-                static: false,
                 showPrompt: "Explanation",
-            },
-            alignment: "default",
-        },
+            }),
+        }),
     },
-};
+});

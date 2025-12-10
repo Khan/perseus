@@ -1,4 +1,13 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    generateRadioWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
     splitPerseusItem,
@@ -6,7 +15,7 @@ import {
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-export const question1: PerseusRenderer = {
+export const question1: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "![](https://ka-perseus-graphie.s3.amazonaws.com/3e6d0981127dea205c2becc0ead24702fbe862a1.png)\n\n=====\n\n[[☃ group 1]]\n\n[[☃ group 2]]",
     images: {
@@ -21,8 +30,7 @@ export const question1: PerseusRenderer = {
                     "**In one week, how many more hours are in the periods with a $35$ percent discount than in the periods with the regular price?**\n\n[[☃ radio 1]]",
                 images: {},
                 widgets: {
-                    "radio 1": {
-                        graded: true,
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
                                 {
@@ -53,13 +61,9 @@ export const question1: PerseusRenderer = {
                                     correct: true,
                                 },
                             ],
-                            multipleSelect: false,
-                            randomize: false,
                             numCorrect: 1,
                         },
-                        type: "radio",
-                        version: {major: 0, minor: 0},
-                    },
+                    }),
                 },
             },
             type: "group",
@@ -99,61 +103,25 @@ export const question1: PerseusRenderer = {
                         type: "image",
                         version: {major: 0, minor: 0},
                     },
-                    "numeric-input 1": {
-                        alignment: "default",
-                        graded: true,
-                        options: {
-                            answers: [
-                                {
-                                    maxError: null,
-                                    message: "",
-                                    simplify: "required",
-                                    status: "correct",
-                                    strict: false,
-                                    value: 230,
-                                },
-                            ],
-                            coefficient: false,
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            answers: [generateNumericInputAnswer({value: 230})],
                             labelText: "value rounded to the nearest ten",
-                            rightAlign: false,
-                            size: "normal",
-                            static: false,
-                        },
-                        static: false,
-                        type: "numeric-input",
-                        version: {major: 0, minor: 0},
-                    },
-                    "numeric-input 2": {
-                        alignment: "default",
-                        graded: true,
-                        options: {
-                            answers: [
-                                {
-                                    maxError: null,
-                                    message: "",
-                                    simplify: "required",
-                                    status: "correct",
-                                    strict: false,
-                                    value: 200,
-                                },
-                            ],
-                            coefficient: false,
+                        }),
+                    }),
+                    "numeric-input 2": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            answers: [generateNumericInputAnswer({value: 200})],
                             labelText: "value rounded to the nearest hundred",
-                            rightAlign: false,
-                            size: "normal",
-                            static: false,
-                        },
-                        static: false,
-                        type: "numeric-input",
-                        version: {major: 0, minor: 0},
-                    },
+                        }),
+                    }),
                 },
             },
             type: "group",
             version: {major: 0, minor: 0},
         },
     },
-};
+});
 
 export const simpleGroupQuestion: PerseusRenderer = {
     content: "[[☃ group 1]]",
@@ -165,22 +133,20 @@ export const simpleGroupQuestion: PerseusRenderer = {
                 content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
-                    "expression 1": {
-                        type: "expression",
-                        options: {
+                    "expression 1": generateExpressionWidget({
+                        options: generateExpressionOptions({
                             answerForms: [
-                                {
+                                generateExpressionAnswerForm({
                                     considered: "correct",
                                     form: true,
                                     simplify: true,
                                     value: "1.0",
-                                },
+                                }),
                             ],
-                            buttonSets: ["basic"],
                             functions: [],
                             times: true,
-                        },
-                    },
+                        }),
+                    }),
                 },
             },
             type: "group",
@@ -193,17 +159,15 @@ export function getFullGroupTestItem(): PerseusItem {
     const groupRenderer = generateTestPerseusRenderer({
         content: "Group Renderer\n\n[[☃ dropdown 1]]",
         widgets: {
-            "dropdown 1": {
-                type: "dropdown",
-                options: {
+            "dropdown 1": generateDropdownWidget({
+                options: generateDropdownOptions({
                     choices: [
                         {content: "Incorrect", correct: false},
                         {content: "Correct", correct: true},
                     ],
                     placeholder: "Choose an answer",
-                    static: false,
-                },
-            },
+                }),
+            }),
         },
     });
 

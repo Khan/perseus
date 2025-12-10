@@ -33,6 +33,11 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
         string | null
     >(null);
 
+    // Sync local state with incoming props to prevent stale state
+    React.useEffect(() => {
+        setUrlFieldValue(backgroundImage.url || "");
+    }, [backgroundImage.url]);
+
     function setUrl(url: string, width: number, height: number) {
         const image = {...backgroundImage};
 

@@ -1,8 +1,10 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateRadioWidget,
+    generateTestPerseusItem,
+} from "@khanacademy/perseus-core";
 
 import {
     generateTestCategorizerWidget,
-    generateTestRadioWidget,
     generateTestInteractiveGraphWidget,
 } from "./util/test-utils";
 import {
@@ -20,7 +22,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -65,7 +67,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -95,7 +97,7 @@ describe("widget-type-utils", () => {
             const widgetId = "dont-look-for-type-in-id";
             const content = `[[☃ ${widgetId}]]`;
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -111,7 +113,7 @@ describe("widget-type-utils", () => {
             const widgetId = "dont-look-for-type-in-id";
             const content = "hello world";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -128,7 +130,7 @@ describe("widget-type-utils", () => {
             const itemData = generateTestPerseusItem();
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
             itemData.question.widgets = widgetMap;
 
@@ -145,7 +147,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -161,7 +163,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -176,7 +178,7 @@ describe("widget-type-utils", () => {
             const widgetId1 = "dont-look-for-type-in-id";
             const widgetId2 = "this-is-another-widget-id";
             const widgetMap = {
-                [widgetId1]: generateTestRadioWidget(),
+                [widgetId1]: generateRadioWidget(),
                 [widgetId2]: generateTestCategorizerWidget(),
             };
 
@@ -196,7 +198,7 @@ describe("widget-type-utils", () => {
             const rightWidgetId = "dont-look-for-type-in-id";
             const wrongWidgetId = "this-is-another-widget-id";
             const widgetMap = {
-                [rightWidgetId]: generateTestRadioWidget(),
+                [rightWidgetId]: generateRadioWidget(),
                 [wrongWidgetId]: generateTestCategorizerWidget(),
             };
 

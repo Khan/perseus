@@ -1,3 +1,11 @@
+import {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
+
 import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
 import type {
     DropdownWidget,
@@ -5,13 +13,8 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-export const dropdownWidget: DropdownWidget = {
-    type: "dropdown",
-    alignment: "default",
-    static: false,
-    graded: true,
-    options: {
-        static: false,
+export const dropdownWidget: DropdownWidget = generateDropdownWidget({
+    options: generateDropdownOptions({
         ariaLabel: "Test ARIA label",
         visibleLabel: "Test visible label",
         placeholder: "greater/less than or equal to",
@@ -25,12 +28,8 @@ export const dropdownWidget: DropdownWidget = {
                 correct: true,
             },
         ],
-    },
-    version: {
-        major: 0,
-        minor: 0,
-    },
-};
+    }),
+});
 
 export const imageWidget: ImageWidget = {
     alignment: "block",
@@ -81,49 +80,30 @@ export const question2: PerseusRenderer = {
     widgets: {"mock-widget 1": mockWidget},
 };
 
-export const definitionItem: PerseusRenderer = {
+export const definitionItem: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "Mock widgets ==> [[\u2603 definition 1]] [[\u2603 definition 2]] [[\u2603 definition 3]]",
-    images: {},
     widgets: {
-        "definition 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "definition",
-            options: {
+        "definition 1": generateDefinitionWidget({
+            options: generateDefinitionOptions({
                 togglePrompt: "word",
                 definition: "",
-                static: false,
-            },
-            alignment: "default",
-        },
-        "definition 2": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "definition",
-            options: {
+            }),
+        }),
+        "definition 2": generateDefinitionWidget({
+            options: generateDefinitionOptions({
                 togglePrompt: "word",
                 definition: "",
-                static: false,
-            },
-            alignment: "default",
-        },
-        "definition 3": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "definition",
-            options: {
+            }),
+        }),
+        "definition 3": generateDefinitionWidget({
+            options: generateDefinitionOptions({
                 togglePrompt: "word",
                 definition: "",
-                static: false,
-            },
-            alignment: "default",
-        },
+            }),
+        }),
     },
-} as PerseusRenderer;
+});
 
 export const mockedRandomItem: PerseusRenderer = {
     content: "Mock widgets ==> [[\u2603 radio 1]] [[\u2603 radio 2]]",

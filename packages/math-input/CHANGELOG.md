@@ -1,5 +1,23 @@
 # @khanacademy/math-input
 
+## 26.3.0
+
+### Minor Changes
+
+-   [#2952](https://github.com/Khan/perseus/pull/2952) [`545f7eab9a`](https://github.com/Khan/perseus/commit/545f7eab9a1b4da722709705561d46763155bfa8) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update Keypad to use WonderBlocks Tabs component
+
+*   [#3055](https://github.com/Khan/perseus/pull/3055) [`10675c9fdb`](https://github.com/Khan/perseus/commit/10675c9fdb314304fbd3bef00fc367a1b8891022) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Use WB View instead of fake-react-native-web View
+
+-   [#3059](https://github.com/Khan/perseus/pull/3059) [`bbf2199102`](https://github.com/Khan/perseus/commit/bbf2199102cbc54444216765083e25f11948fd54) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix Keypad uneven keys column width
+
+## 26.2.24
+
+### Patch Changes
+
+-   Updated dependencies [[`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea), [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753), [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b), [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3), [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c), [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32)]:
+    -   @khanacademy/perseus-core@20.4.1
+    -   @khanacademy/keypad-context@3.2.21
+
 ## 26.2.23
 
 ### Patch Changes

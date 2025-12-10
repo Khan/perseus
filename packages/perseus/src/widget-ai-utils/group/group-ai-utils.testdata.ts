@@ -1,6 +1,13 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    generateRadioWidget,
+    generateTestPerseusRenderer,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
-export const question1: PerseusRenderer = {
+export const question1: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "![](https://ka-perseus-graphie.s3.amazonaws.com/3e6d0981127dea205c2becc0ead24702fbe862a1.png)\n\n=====\n\n[[☃ group 1]]\n\n[[☃ group 2]]",
     images: {
@@ -15,8 +22,7 @@ export const question1: PerseusRenderer = {
                     "**In one week, how many more hours are in the periods with a $35$ percent discount than in the periods with the regular price?**\n\n[[☃ radio 1]]",
                 images: {},
                 widgets: {
-                    "radio 1": {
-                        graded: true,
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
                                 {
@@ -47,12 +53,8 @@ export const question1: PerseusRenderer = {
                                     correct: true,
                                 },
                             ],
-                            multipleSelect: false,
-                            randomize: false,
                         },
-                        type: "radio",
-                        version: {major: 0, minor: 0},
-                    },
+                    }),
                 },
             },
             type: "group",
@@ -92,61 +94,24 @@ export const question1: PerseusRenderer = {
                         type: "image",
                         version: {major: 0, minor: 0},
                     },
-                    "numeric-input 1": {
-                        alignment: "default",
-                        graded: true,
-                        options: {
-                            answers: [
-                                {
-                                    maxError: null,
-                                    message: "",
-                                    simplify: "required",
-                                    status: "correct",
-                                    strict: false,
-                                    value: 230,
-                                },
-                            ],
-                            coefficient: false,
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            answers: [generateNumericInputAnswer({value: 230})],
                             labelText: "value rounded to the nearest ten",
-                            rightAlign: false,
-                            size: "normal",
-                            static: false,
-                        },
-                        static: false,
-                        type: "numeric-input",
-                        version: {major: 0, minor: 0},
-                    },
-                    "numeric-input 2": {
-                        alignment: "default",
-                        graded: true,
-                        options: {
-                            answers: [
-                                {
-                                    maxError: null,
-                                    message: "",
-                                    simplify: "required",
-                                    status: "correct",
-                                    strict: false,
-                                    value: 200,
-                                },
-                            ],
-                            coefficient: false,
+                        }),
+                    }),
+                    "numeric-input 2": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            answers: [generateNumericInputAnswer({value: 200})],
                             labelText: "value rounded to the nearest hundred",
-                            rightAlign: false,
-                            size: "normal",
-                            static: false,
-                        },
-                        static: false,
-                        type: "numeric-input",
-                        version: {major: 0, minor: 0},
-                    },
+                        }),
+                    }),
                 },
             },
             type: "group",
             version: {major: 0, minor: 0},
         },
-        "radio 1": {
-            graded: true,
+        "radio 1": generateRadioWidget({
             options: {
                 choices: [
                     {
@@ -175,11 +140,7 @@ export const question1: PerseusRenderer = {
                         correct: true,
                     },
                 ],
-                multipleSelect: false,
-                randomize: false,
             },
-            type: "radio",
-            version: {major: 0, minor: 0},
-        },
+        }),
     },
-};
+});

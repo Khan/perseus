@@ -5,6 +5,18 @@ import {
     getPerseusAIData,
     injectWidgets,
 } from "./extract-perseus-ai-data";
+import {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
+} from "./generators/definition-widget-generator";
+import {
+    generateExplanationOptions,
+    generateExplanationWidget,
+} from "./generators/explanation-widget-generator";
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "./test-utils";
 
 import type {
     PerseusItem,
@@ -86,10 +98,9 @@ describe("getPerseusAIData", () => {
 
     it("should process multiple hints with widget injection", () => {
         // Arrange
-        const perseusItem: PerseusItem = {
-            question: {
+        const perseusItem: PerseusItem = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
                 content: "What is 2+2? [[☃ radio 1]]",
-                images: {},
                 widgets: {
                     "radio 1": {
                         type: "radio",
@@ -108,7 +119,7 @@ describe("getPerseusAIData", () => {
                         version: {major: 1, minor: 0},
                     },
                 },
-            },
+            }),
             answerArea: {
                 calculator: false,
                 financialCalculatorMonthlyPayment: false,
@@ -128,24 +139,17 @@ describe("getPerseusAIData", () => {
                         "Here's a detailed explanation: [[☃ explanation 1]]",
                     images: {},
                     widgets: {
-                        "explanation 1": {
-                            type: "explanation",
-                            alignment: "default",
-                            static: false,
-                            graded: true,
-                            options: {
+                        "explanation 1": generateExplanationWidget({
+                            options: generateExplanationOptions({
                                 explanation: "Addition combines two numbers.",
                                 showPrompt: "Show explanation",
                                 hidePrompt: "Hide explanation",
-                                widgets: {},
-                                static: false,
-                            },
-                            version: {major: 0, minor: 0},
-                        },
+                            }),
+                        }),
                     },
                 },
             ],
-        };
+        });
 
         // Act
         const result = getPerseusAIData(perseusItem);
@@ -459,14 +463,12 @@ describe("injectWidgets", () => {
 
     it("should inject definition widget into the content", () => {
         const widgets = {
-            "Definition 1": {
-                type: "definition",
-                options: {
+            "Definition 1": generateDefinitionWidget({
+                options: generateDefinitionOptions({
                     togglePrompt: "word",
                     definition: "",
-                    static: false,
-                },
-            },
+                }),
+            }),
         } as const;
         const content = injectWidgets(
             "Content with a definition: [[☃ Definition 1]]",
@@ -477,16 +479,13 @@ describe("injectWidgets", () => {
 
     it("should inject explaination widget into the content", () => {
         const widgets = {
-            "Explaination 1": {
-                type: "explanation",
-                options: {
+            "Explaination 1": generateExplanationWidget({
+                options: generateExplanationOptions({
                     explanation: "explaination content",
                     showPrompt: "a",
                     hidePrompt: "a",
-                    widgets: {},
-                    static: false,
-                },
-            },
+                }),
+            }),
         } as const;
         const content = injectWidgets(
             "Content with a explaination\n[[☃ Explaination 1]]",

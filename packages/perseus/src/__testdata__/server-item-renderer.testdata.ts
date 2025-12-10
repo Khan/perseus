@@ -1,52 +1,38 @@
 import {
     type LabelImageWidget,
     type PerseusItem,
-    type NumericInputWidget,
     getDefaultAnswerArea,
+    generateExpressionOptions,
+    generateExpressionWidget,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+    generateNumericInputWidget,
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateRadioWidget,
 } from "@khanacademy/perseus-core";
 
 import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
 
-export const itemWithNumericInput: PerseusItem = {
-    question: {
+export const itemWithNumericInput: PerseusItem = generateTestPerseusItem({
+    question: generateTestPerseusRenderer({
         content:
             "Enter the number $$-42$$ in the box: [[\u2603 numeric-input 1]]",
-        images: {},
         widgets: {
-            "numeric-input 1": {
-                graded: true,
-                version: {
-                    major: 0,
-                    minor: 0,
-                },
-                static: false,
-                type: "numeric-input",
-                options: {
-                    coefficient: false,
-                    static: false,
-                    answers: [
-                        {
-                            status: "correct",
-                            maxError: null,
-                            strict: false,
-                            value: -42,
-                            simplify: "required",
-                            message: "",
-                        },
-                    ],
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({
+                    answers: [generateNumericInputAnswer({value: -42})],
                     labelText: "What's the answer?",
-                    size: "normal",
-                },
-            } satisfies NumericInputWidget,
+                }),
+            }),
         },
-    },
+    }),
     hints: [
         {content: "Hint #1", images: {}, widgets: {}},
         {content: "Hint #2", images: {}, widgets: {}},
         {content: "Hint #3", images: {}, widgets: {}},
     ],
-    answerArea: null,
-};
+});
 
 export const itemWithMockWidget: PerseusItem = {
     question: {
@@ -71,71 +57,32 @@ export const itemWithMockWidget: PerseusItem = {
 };
 
 // Used for storybook
-export const itemWithMultipleNumericInputs: PerseusItem = {
-    question: {
-        content:
-            "Enter the number $$1$$ in box one: [[\u2603 numeric-input 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 2]]",
-        images: {},
-        widgets: {
-            "numeric-input 1": {
-                graded: true,
-                version: {
-                    major: 0,
-                    minor: 0,
-                },
-                static: false,
-                type: "numeric-input",
-                options: {
-                    coefficient: false,
-                    static: false,
-                    answers: [
-                        {
-                            status: "correct",
-                            maxError: null,
-                            strict: false,
-                            value: 1,
-                            simplify: "required",
-                            message: "",
-                        },
-                    ],
-                    labelText: "What's the answer?",
-                    size: "normal",
-                },
-            } as NumericInputWidget,
-            "numeric-input 2": {
-                graded: true,
-                version: {
-                    major: 0,
-                    minor: 0,
-                },
-                static: false,
-                type: "numeric-input",
-                options: {
-                    coefficient: false,
-                    static: false,
-                    answers: [
-                        {
-                            status: "correct",
-                            maxError: null,
-                            strict: false,
-                            value: 2,
-                            simplify: "required",
-                            message: "",
-                        },
-                    ],
-                    labelText: "What's the answer?",
-                    size: "normal",
-                },
-            } as NumericInputWidget,
-        },
-    },
-    hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
-    ],
-    answerArea: null,
-};
+export const itemWithMultipleNumericInputs: PerseusItem =
+    generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content:
+                "Enter the number $$1$$ in box one: [[\u2603 numeric-input 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 2]]",
+            widgets: {
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
+                        answers: [generateNumericInputAnswer({value: 1})],
+                        labelText: "What's the answer?",
+                    }),
+                }),
+                "numeric-input 2": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
+                        answers: [generateNumericInputAnswer({value: 2})],
+                        labelText: "What's the answer?",
+                    }),
+                }),
+            },
+        }),
+        hints: [
+            {content: "Hint #1", images: {}, widgets: {}},
+            {content: "Hint #2", images: {}, widgets: {}},
+            {content: "Hint #3", images: {}, widgets: {}},
+        ],
+    });
 
 export const itemWithTwoMockWidgets: PerseusItem = {
     question: {
@@ -167,90 +114,72 @@ export const itemWithTwoMockWidgets: PerseusItem = {
     answerArea: null,
 };
 
-export const itemWithRadioAndExpressionWidgets: PerseusItem = {
-    question: {
-        content:
-            "Here's a radio widget: [[\u2603 radio 1]] \n\n Here's an expression widget: [[\u2603 expression 1]]",
-        images: {},
-        widgets: {
-            "radio 1": {
-                graded: true,
-                version: {major: 3, minor: 0},
-                static: false,
-                type: "radio",
-                options: {
-                    countChoices: false,
-                    deselectEnabled: false,
-                    hasNoneOfTheAbove: false,
-                    multipleSelect: false,
-                    randomize: true,
-                    choices: [
-                        {
-                            id: "0-0-0-0-0",
-                            content: "Content 1",
-                            correct: true,
-                            rationale: "rationale 1",
-                        },
-                        {
-                            id: "1-1-1-1-1",
-                            content: "Content 2",
-                            correct: false,
-                            rationale: "rationale 2",
-                        },
-                        {
-                            id: "2-2-2-2-2",
-                            content: "Content 3",
-                            correct: false,
-                            rationale: "rationale 3",
-                        },
-                        {
-                            id: "3-3-3-3-3",
-                            content: "Content 4",
-                            correct: false,
-                            rationale: "rationale 4",
-                        },
-                    ],
-                },
-                alignment: "default",
+export const itemWithRadioAndExpressionWidgets: PerseusItem =
+    generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content:
+                "Here's a radio widget: [[\u2603 radio 1]] \n\n Here's an expression widget: [[\u2603 expression 1]]",
+            widgets: {
+                "radio 1": generateRadioWidget({
+                    options: {
+                        randomize: true,
+                        choices: [
+                            {
+                                id: "0-0-0-0-0",
+                                content: "Content 1",
+                                correct: true,
+                                rationale: "rationale 1",
+                            },
+                            {
+                                id: "1-1-1-1-1",
+                                content: "Content 2",
+                                correct: false,
+                                rationale: "rationale 2",
+                            },
+                            {
+                                id: "2-2-2-2-2",
+                                content: "Content 3",
+                                correct: false,
+                                rationale: "rationale 3",
+                            },
+                            {
+                                id: "3-3-3-3-3",
+                                content: "Content 4",
+                                correct: false,
+                                rationale: "rationale 4",
+                            },
+                        ],
+                    },
+                    alignment: "default",
+                }),
+                "expression 1": generateExpressionWidget({
+                    options: generateExpressionOptions({
+                        answerForms: [
+                            {
+                                considered: "correct",
+                                form: true,
+                                simplify: false,
+                                value: "x^2",
+                            },
+                            {
+                                considered: "wrong",
+                                form: true,
+                                simplify: false,
+                                value: "x^3",
+                            },
+                        ],
+                        times: true,
+                        buttonsVisible: "always",
+                    }),
+                }),
             },
-            "expression 1": {
-                type: "expression",
-                graded: true,
-                version: {
-                    major: 1,
-                    minor: 0,
-                },
-                static: false,
-                options: {
-                    answerForms: [
-                        {
-                            considered: "correct",
-                            form: true,
-                            simplify: false,
-                            value: "x^2",
-                        },
-                        {
-                            considered: "wrong",
-                            form: true,
-                            simplify: false,
-                            value: "x^3",
-                        },
-                    ],
-                    times: true,
-                    buttonSets: ["basic"],
-                    functions: ["f", "g", "h"],
-                    buttonsVisible: "always",
-                },
-            },
-        },
-    },
-    hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
-    ],
-    answerArea: null,
-};
+        }),
+        hints: [
+            {content: "Hint #1", images: {}, widgets: {}},
+            {content: "Hint #2", images: {}, widgets: {}},
+            {content: "Hint #3", images: {}, widgets: {}},
+        ],
+    });
 
 export const labelImageItem: PerseusItem = {
     answerArea: getDefaultAnswerArea(),

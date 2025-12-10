@@ -1,3 +1,11 @@
+import {
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
+    generateRadioWidget,
+    type PerseusWidgetsMap,
+    type UserInputMap,
+} from "@khanacademy/perseus-core";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -8,7 +16,6 @@ import UserInputManager, {
 import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 
 import type {InitializeUserInputCallback} from "./user-input-manager";
-import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function generateNumberLineMap(): PerseusWidgetsMap {
@@ -50,23 +57,17 @@ function generateGroupedNumberLineMap(): PerseusWidgetsMap {
 
 function generateExpressionWidgetsMap(): PerseusWidgetsMap {
     return {
-        "expression 1": {
-            type: "expression",
-            options: {
+        "expression 1": generateExpressionWidget({
+            options: generateExpressionOptions({
                 answerForms: [
-                    {
+                    generateExpressionAnswerForm({
                         considered: "correct",
                         form: true,
-                        simplify: false,
                         value: "16+88i",
-                    },
+                    }),
                 ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            version: {major: 1, minor: 0},
-        },
+            }),
+        }),
     };
 }
 
@@ -272,8 +273,7 @@ describe("UserInputManager", () => {
     it("initializes static user input", async () => {
         const renderSpy = jest.fn();
         const widgets: PerseusWidgetsMap = {
-            "radio 1": {
-                type: "radio",
+            "radio 1": generateRadioWidget({
                 static: true,
                 options: {
                     choices: [
@@ -289,7 +289,7 @@ describe("UserInputManager", () => {
                         },
                     ],
                 },
-            },
+            }),
         };
 
         render(
@@ -309,8 +309,7 @@ describe("UserInputManager", () => {
         const renderSpy = jest.fn();
 
         const widgets: PerseusWidgetsMap = {
-            "radio 1": {
-                type: "radio",
+            "radio 1": generateRadioWidget({
                 static: false,
                 options: {
                     choices: [
@@ -326,7 +325,7 @@ describe("UserInputManager", () => {
                         },
                     ],
                 },
-            },
+            }),
         };
 
         const initialUserInput: UserInputMap = {
@@ -354,8 +353,7 @@ describe("UserInputManager", () => {
 
     it("allows initial user input to be changed", async () => {
         const widgets: PerseusWidgetsMap = {
-            "radio 1": {
-                type: "radio",
+            "radio 1": generateRadioWidget({
                 static: false,
                 options: {
                     choices: [
@@ -371,7 +369,7 @@ describe("UserInputManager", () => {
                         },
                     ],
                 },
-            },
+            }),
         };
 
         const initialUserInput: UserInputMap = {

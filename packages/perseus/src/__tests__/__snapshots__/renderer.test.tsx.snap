@@ -359,13 +359,12 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
             >
               <button
                 aria-controls=":r4:"
-                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1tzuxn"
                 id=":r3:"
                 role="combobox"
                 type="button"
@@ -445,13 +444,12 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
             >
               <button
                 aria-controls=":r7:"
-                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1tzuxn"
                 id=":r6:"
                 role="combobox"
                 type="button"
@@ -531,13 +529,12 @@ exports[`renderer snapshots initial render: initial render 1`] = `
             >
               <button
                 aria-controls=":r1:"
-                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1tzuxn"
                 id=":r0:"
                 role="combobox"
                 type="button"
