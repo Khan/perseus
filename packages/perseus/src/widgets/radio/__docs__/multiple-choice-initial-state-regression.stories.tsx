@@ -3,6 +3,7 @@ import {
     generateTestPerseusRenderer,
     generateRadioWidget,
     generateRadioOptions,
+    generateRadioChoice,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -53,23 +54,12 @@ export const SingleSelect: Story = {
                     "radio 1": generateRadioWidget({
                         options: generateRadioOptions({
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "choice-1",
-                                },
-                                {
-                                    content: "Choice 2",
-                                    id: "choice-2",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "choice-3",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "choice-4",
-                                },
+                                }),
+                                generateRadioChoice("Choice 2"),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -89,19 +79,14 @@ export const SingleSelectWithNoneOfTheAbove: Story = {
                         options: generateRadioOptions({
                             hasNoneOfTheAbove: true,
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "choice-1",
-                                },
-
-                                {content: "Choice 2", id: "choice-2"},
-                                {content: "Choice 3", id: "choice-3"},
-                                {
-                                    content: "None of the above",
+                                }),
+                                generateRadioChoice("Choice 2"),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("None of the above", {
                                     isNoneOfTheAbove: true,
-                                    id: "choice-4",
-                                },
+                                }),
                             ],
                         }),
                     }),
@@ -121,14 +106,12 @@ export const SingleSelectStatic: Story = {
                         static: true,
                         options: generateRadioOptions({
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "choice-1",
-                                },
-                                {content: "Choice 2", id: "choice-2"},
-                                {content: "Choice 3", id: "choice-3"},
-                                {content: "Choice 4", id: "choice-4"},
+                                }),
+                                generateRadioChoice("Choice 2"),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -147,25 +130,14 @@ export const SingleSelectShowSolutions: Story = {
                     "radio 1": generateRadioWidget({
                         options: generateRadioOptions({
                             choices: [
-                                {
-                                    content: "Choice 1",
-                                    id: "radio-choice-test-id-0",
-                                },
+                                generateRadioChoice("Choice 1"),
                                 // Leaving the correct choice in the second position to test that
                                 //     the first choice still has a top border.
-                                {
-                                    content: "Choice 2",
+                                generateRadioChoice("Choice 2", {
                                     correct: true,
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                }),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -185,23 +157,12 @@ export const SingleSelectRTL: Story = {
                     "radio 1": generateRadioWidget({
                         options: generateRadioOptions({
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content: "Choice 2",
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                }),
+                                generateRadioChoice("Choice 2"),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -246,22 +207,16 @@ export const SingleSelectWithImagesAndScroll: Story = {
                     "radio 1": generateRadioWidget({
                         options: generateRadioOptions({
                             choices: [
-                                {
-                                    content:
-                                        "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
-                                    correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content:
-                                        "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content:
-                                        "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
-                                    id: "radio-choice-test-id-2",
-                                },
+                                generateRadioChoice(
+                                    "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice(
+                                    "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
+                                ),
+                                generateRadioChoice(
+                                    "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
+                                ),
                             ],
                         }),
                     }),
@@ -280,24 +235,13 @@ export const SingleSelectWithLongMathjax: Story = {
                     "radio 1": generateRadioWidget({
                         options: generateRadioOptions({
                             choices: [
-                                {
-                                    content:
-                                        "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
-                                    correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content: "$100-50$",
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "$200-125+10$",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "$10+10+10+10$",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                generateRadioChoice(
+                                    "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice("$100-50$"),
+                                generateRadioChoice("$200-125+10$"),
+                                generateRadioChoice("$10+10+10+10$"),
                             ],
                         }),
                     }),
@@ -316,27 +260,19 @@ export const SingleSelectWithLongText: Story = {
                     "radio 1": generateRadioWidget({
                         options: generateRadioOptions({
                             choices: [
-                                {
-                                    content:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                generateRadioChoice(
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice(
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                                ),
+                                generateRadioChoice(
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                                ),
+                                generateRadioChoice(
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                                ),
                             ],
                         }),
                     }),
@@ -366,23 +302,12 @@ export const MultiSelect: Story = {
                         options: generateRadioOptions({
                             multipleSelect: true,
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content: "Choice 2",
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                }),
+                                generateRadioChoice("Choice 2"),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -404,24 +329,14 @@ export const MultiSelectCountChoices: Story = {
                             countChoices: true,
                             numCorrect: 2,
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content: "Choice 2",
+                                }),
+                                generateRadioChoice("Choice 2", {
                                     correct: true,
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                }),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -442,24 +357,14 @@ export const MultiSelectStatic: Story = {
                         options: generateRadioOptions({
                             multipleSelect: true,
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content: "Choice 2",
+                                }),
+                                generateRadioChoice("Choice 2", {
                                     correct: true,
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                }),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -479,27 +384,17 @@ export const MultiSelectShowSolutions: Story = {
                         options: generateRadioOptions({
                             multipleSelect: true,
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
+                                }),
                                 // Tests that borders between separate correct answers are hidden properly
-                                {
-                                    content: "Choice 2",
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "Choice 3",
+                                generateRadioChoice("Choice 2"),
+                                generateRadioChoice("Choice 3", {
                                     correct: true,
-                                    id: "radio-choice-test-id-2",
-                                },
+                                }),
                                 // Leaving the last choice as not correct to test that there is still a bottom border
                                 // (i.e. the removal of the border only affects the top of the choice, not the whole choice.)
-                                {
-                                    content: "Choice 4",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -520,24 +415,14 @@ export const MultiSelectRTL: Story = {
                         options: generateRadioOptions({
                             multipleSelect: true,
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content: "Choice 2",
+                                }),
+                                generateRadioChoice("Choice 2", {
                                     correct: true,
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                }),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -558,25 +443,15 @@ export const MultiSelectWithLongMathjax: Story = {
                         options: generateRadioOptions({
                             multipleSelect: true,
                             choices: [
-                                {
-                                    content:
-                                        "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                                generateRadioChoice(
+                                    "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice("$100-50$", {
                                     correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content: "$100-50$",
-                                    correct: true,
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "$200-125+10$",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "$10+10+10+10$",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                }),
+                                generateRadioChoice("$200-125+10$"),
+                                generateRadioChoice("$10+10+10+10$"),
                             ],
                         }),
                     }),
@@ -596,23 +471,17 @@ export const MultiSelectWithImagesAndScroll: Story = {
                         options: generateRadioOptions({
                             multipleSelect: true,
                             choices: [
-                                {
-                                    content:
-                                        "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
-                                    correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content:
-                                        "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
-                                    correct: true,
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content:
-                                        "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
-                                    id: "radio-choice-test-id-2",
-                                },
+                                generateRadioChoice(
+                                    "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice(
+                                    "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice(
+                                    "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
+                                ),
                             ],
                         }),
                     }),
@@ -632,28 +501,20 @@ export const MultiSelectWithLongText: Story = {
                         options: generateRadioOptions({
                             multipleSelect: true,
                             choices: [
-                                {
-                                    content:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    correct: true,
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                generateRadioChoice(
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice(
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice(
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                                ),
+                                generateRadioChoice(
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
+                                ),
                             ],
                         }),
                     }),

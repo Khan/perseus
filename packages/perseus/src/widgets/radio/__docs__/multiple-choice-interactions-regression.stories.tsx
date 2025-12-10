@@ -3,6 +3,7 @@ import {
     generateTestPerseusRenderer,
     generateRadioWidget,
     generateRadioOptions,
+    generateRadioChoice,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -166,23 +167,10 @@ export const ChoiceTextColorInArticle = (): React.ReactNode => {
             "radio 1": generateRadioWidget({
                 options: generateRadioOptions({
                     choices: [
-                        {
-                            content: "Antimatter containment",
-                            id: "radio-choice-test-id-0",
-                        },
-                        {
-                            content: "Warp drive",
-                            correct: true,
-                            id: "radio-choice-test-id-1",
-                        },
-                        {
-                            content: "Force fields",
-                            id: "radio-choice-test-id-2",
-                        },
-                        {
-                            content: "Reflector dish",
-                            id: "radio-choice-test-id-3",
-                        },
+                        generateRadioChoice("Antimatter containment"),
+                        generateRadioChoice("Warp drive", {correct: true}),
+                        generateRadioChoice("Force fields"),
+                        generateRadioChoice("Reflector dish"),
                     ],
                 }),
             }),
@@ -215,23 +203,12 @@ export const FocusSingleSelect = {
                     "radio 1": generateRadioWidget({
                         options: generateRadioOptions({
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content: "Choice 2",
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                }),
+                                generateRadioChoice("Choice 2"),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),
@@ -258,23 +235,12 @@ export const FocusMultiSelect = {
                         options: generateRadioOptions({
                             multipleSelect: true,
                             choices: [
-                                {
-                                    content: "Choice 1",
+                                generateRadioChoice("Choice 1", {
                                     correct: true,
-                                    id: "radio-choice-test-id-0",
-                                },
-                                {
-                                    content: "Choice 2",
-                                    id: "radio-choice-test-id-1",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "radio-choice-test-id-2",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "radio-choice-test-id-3",
-                                },
+                                }),
+                                generateRadioChoice("Choice 2"),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
                             ],
                         }),
                     }),

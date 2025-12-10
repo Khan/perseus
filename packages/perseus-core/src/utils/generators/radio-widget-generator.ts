@@ -1,10 +1,8 @@
 import radioWidgetLogic from "../../widgets/radio";
-import {generateTestPerseusRenderer} from "../test-utils";
 
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
-    PerseusRenderer,
     RadioWidget,
 } from "../../data-schema";
 
@@ -31,36 +29,14 @@ export function generateRadioWidget(
     };
 }
 
-export function generateRadioChoices(
-    choices: Partial<PerseusRadioChoice>[] | number,
-): PerseusRadioChoice[] {
-    if (typeof choices === "number") {
-        return Array.from({length: choices}, (_, index) => ({
-            content: `Choice ${index + 1}`,
-            id: `radio-choice-${index}`,
-            correct: false,
-        }));
-    }
-
-    return choices.map((choice, index) => ({
-        content: `Choice ${index + 1}`,
-        id: `radio-choice-${index}`,
+export function generateRadioChoice(
+    text: string,
+    options?: Partial<PerseusRadioChoice>,
+): PerseusRadioChoice {
+    return {
+        content: text,
+        id: `radio-choice-${text}`,
         correct: false,
-        ...choice,
-    }));
-}
-
-export function generateSingleRadioQuestion(options?: {
-    rendererOptions?: Partial<Omit<PerseusRenderer, "widgets">>;
-    radioWidgetOptions?: Partial<PerseusRadioWidgetOptions>;
-}): PerseusRenderer {
-    return generateTestPerseusRenderer({
-        content: "[[☃ radio 1]]",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions(options?.radioWidgetOptions),
-            }),
-        },
-        ...options?.rendererOptions,
-    });
+        ...options,
+    };
 }

@@ -2,6 +2,7 @@ import {
     generateTestPerseusRenderer,
     generateRadioWidget,
     generateRadioOptions,
+    generateRadioChoice,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -184,21 +185,9 @@ const singleSelectQuestion = generateTestPerseusRenderer({
         "radio 1": generateRadioWidget({
             options: generateRadioOptions({
                 choices: [
-                    {
-                        content: "Option A",
-                        correct: true,
-                        id: "radio-choice-test-id-0",
-                    },
-                    {
-                        content: "Option B",
-                        correct: false,
-                        id: "radio-choice-test-id-1",
-                    },
-                    {
-                        content: "Option C",
-                        correct: false,
-                        id: "radio-choice-test-id-2",
-                    },
+                    generateRadioChoice("Option A", {correct: true}),
+                    generateRadioChoice("Option B", {correct: false}),
+                    generateRadioChoice("Option C", {correct: false}),
                 ],
             }),
         }),
@@ -213,21 +202,9 @@ const multipleSelectQuestion = generateTestPerseusRenderer({
                 multipleSelect: true,
                 countChoices: true,
                 choices: [
-                    {
-                        content: "Option A",
-                        correct: true,
-                        id: "radio-choice-test-id-0",
-                    },
-                    {
-                        content: "Option B",
-                        correct: true,
-                        id: "radio-choice-test-id-1",
-                    },
-                    {
-                        content: "Option C",
-                        correct: false,
-                        id: "radio-choice-test-id-2",
-                    },
+                    generateRadioChoice("Option A", {correct: true}),
+                    generateRadioChoice("Option B", {correct: true}),
+                    generateRadioChoice("Option C", {correct: false}),
                 ],
             }),
         }),
