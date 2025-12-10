@@ -1,0 +1,21 @@
+.keypad-inner-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background-color: var(--wb-semanticColor-core-background-disabled-strong);
+    direction: ltr;
+}
+
+.keypad-grid {
+    display: grid !important;
+    grid-template-rows: repeat(4, 1fr);
+    flex: 1;
+}
+
+.expression-grid {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.fractions-grid {
+    grid-template-columns: repeat(5, 1fr);
+}

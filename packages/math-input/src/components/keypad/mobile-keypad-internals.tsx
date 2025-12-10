@@ -7,7 +7,7 @@ import {View} from "../../fake-react-native-web/index";
 import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
 
 import Keypad from "./keypad";
-import {expandedViewThreshold} from "./utils";
+import {expandedViewThreshold} from "./utils/get-cursor-context-config";
 
 import type {Cursor, KeyHandler, KeypadAPI} from "../../types";
 import type {
