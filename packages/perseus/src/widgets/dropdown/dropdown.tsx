@@ -50,6 +50,7 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
         placeholder = "",
         apiOptions = ApiOptions.defaults,
         userInput = {value: 0},
+        static: isStatic = false,
         dependencies,
         visibleLabel,
         ariaLabel,
@@ -85,17 +86,32 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
     // Expose Widget interface methods via ref
     useImperativeHandle(ref, () => ({
         focus: (): boolean => {
+            // Don't attempt to focus when interactions are disabled
+            if (apiOptions.readOnly || isStatic) {
+                return false;
+            }
+
             if (!rootRef.current) {
                 return false;
             }
 
-            // SingleSelect doesn't forward refs, so we find the button it renders
-            const button = rootRef.current.querySelector("button");
-            if (button) {
-                button.focus();
-                return true;
+            // SingleSelect doesn't forward refs, so we find the combobox button it renders
+            const button = rootRef.current.querySelector("[role='combobox']");
+            if (!(button instanceof HTMLElement)) {
+                return false;
             }
-            return false;
+
+            // Skip focusing if the button is disabled (either native or via aria-disabled)
+            if (
+                (button instanceof HTMLButtonElement && button.disabled) ||
+                button.getAttribute("aria-disabled") === "true"
+            ) {
+                return false;
+            }
+
+            const previouslyFocused = document.activeElement;
+            button.focus();
+            return document.activeElement === button && previouslyFocused !== button;
         },
         getPromptJSON: (): DropdownPromptJSON => {
             return _getPromptJSON(props);
@@ -164,7 +180,7 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
                         className="perseus-dropdown"
                         onChange={(value) => handleChange(parseInt(value))}
                         selectedValue={String(userInput.value)}
-                        disabled={apiOptions.readOnly}
+                        disabled={apiOptions.readOnly || isStatic}
                         aria-label={
                             ariaLabel ||
                             visibleLabel ||

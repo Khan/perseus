@@ -87,14 +87,30 @@ export const RTL: Story = {
     },
 };
 
-function DropdownQuestionRenderer(props: {item: PerseusItem; rtl?: boolean}) {
-    const {item, rtl} = props;
+export const StaticBasicDropdown: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: basicDropdown,
+        }),
+        readOnly: true,
+    },
+};
+
+function DropdownQuestionRenderer(props: {
+    item: PerseusItem;
+    rtl?: boolean;
+    readOnly?: boolean;
+}) {
+    const {item, rtl, readOnly} = props;
 
     return (
         <div dir={rtl ? "rtl" : "ltr"}>
             <ServerItemRenderer
                 item={item}
-                apiOptions={ApiOptions.defaults}
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    readOnly: readOnly ?? false,
+                }}
                 dependencies={testDependenciesV2}
             />
         </div>

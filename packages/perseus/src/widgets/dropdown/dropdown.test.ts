@@ -2,6 +2,11 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
+import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -157,6 +162,47 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(screen.getByLabelText("Select an answer")).toBeInTheDocument();
+    });
+
+    it("should not claim to focus when the dropdown is read-only", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(basicDropdown, {readOnly: true});
+        const previouslyFocused = document.activeElement;
+
+        // Act
+        const focused = renderer.focus();
+
+        // Assert
+        expect(focused).toBeFalsy();
+        expect(document.activeElement).toBe(previouslyFocused);
+    });
+
+    it("should not claim to focus when the dropdown is static", async () => {
+        // Arrange
+        const staticDropdown = generateTestPerseusRenderer({
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdownWidget({
+                    static: true,
+                    options: generateDropdownOptions({
+                        placeholder: "Choose an answer",
+                        choices: [
+                            {content: "True", correct: true},
+                            {content: "False", correct: false},
+                        ],
+                    }),
+                }),
+            },
+        });
+        const {renderer} = renderQuestion(staticDropdown);
+        const previouslyFocused = document.activeElement;
+
+        // Act
+        const focused = renderer.focus();
+
+        // Assert
+        expect(focused).toBeFalsy();
+        expect(document.activeElement).toBe(previouslyFocused);
     });
 
     describe("interactive: full vs answerless", () => {
