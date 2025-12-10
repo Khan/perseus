@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 26.3.0
+
+### Minor Changes
+
+-   [#2952](https://github.com/Khan/perseus/pull/2952) [`545f7eab9a`](https://github.com/Khan/perseus/commit/545f7eab9a1b4da722709705561d46763155bfa8) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update Keypad to use WonderBlocks Tabs component
+
+*   [#3055](https://github.com/Khan/perseus/pull/3055) [`10675c9fdb`](https://github.com/Khan/perseus/commit/10675c9fdb314304fbd3bef00fc367a1b8891022) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Use WB View instead of fake-react-native-web View
+
+-   [#3059](https://github.com/Khan/perseus/pull/3059) [`bbf2199102`](https://github.com/Khan/perseus/commit/bbf2199102cbc54444216765083e25f11948fd54) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix Keypad uneven keys column width
+
 ## 26.2.24
 
 ### Patch Changes
