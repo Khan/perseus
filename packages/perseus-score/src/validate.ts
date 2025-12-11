@@ -15,7 +15,6 @@ import type {
 /**
  * validate, meant for client-side validation using answerless Perseus data
  *
- * TODO: this should probably just take the PerseusItem (vs the PerseusRenderer)
  * @param perseusRenderData - the answerless Perseus data
  * @param userInputMap - the user's input for each widget, mapped by ID
  * @param locale - string locale for math parsing ("de" 1.000,00 vs "en" 1,000.00)
