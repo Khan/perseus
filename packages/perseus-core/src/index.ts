@@ -233,6 +233,7 @@ export {
     generateGradedGroupOptions,
     generateGradedGroupWidget,
 } from "./utils/generators/graded-group-widget-generator";
+export {generateGradedGroupSetWidget} from "./utils/generators/graded-group-set-widget-generator";
 export {
     generateGroupOptions,
     generateGroupWidget,
