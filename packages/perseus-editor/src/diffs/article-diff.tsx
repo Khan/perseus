@@ -11,11 +11,11 @@ import RendererDiff from "./renderer-diff";
 
 import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
 
-type ArticleDiffProps = {
+interface ArticleDiffProps {
     after: PerseusArticle;
     before: PerseusArticle;
     dependencies: PerseusDependenciesV2;
-};
+}
 
 type ArticleDiffState = {
     // Externally we allow both arrays and single PerseusRenderer objects.
