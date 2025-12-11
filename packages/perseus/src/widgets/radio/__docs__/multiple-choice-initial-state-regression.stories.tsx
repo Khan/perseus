@@ -64,13 +64,16 @@ export const SingleSelect: Story = {
 export const SingleSelectWithNoneOfTheAbove: Story = {
     args: {
         item: generateSimpleRadioItem({
+            hasNoneOfTheAbove: true,
             choices: [
                 generateRadioChoice("Choice 1", {
                     correct: true,
                 }),
                 generateRadioChoice("Choice 2"),
                 generateRadioChoice("Choice 3"),
-                generateRadioChoice("Choice 4"),
+                generateRadioChoice("None of the above", {
+                    isNoneOfTheAbove: true,
+                }),
             ],
         }),
     },

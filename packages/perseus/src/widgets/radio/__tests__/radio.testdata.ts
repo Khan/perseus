@@ -62,7 +62,7 @@ export const questionWithPassage: PerseusRenderer = generateTestPerseusRenderer(
                             rationale:
                                 "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
                         }),
-                        generateRadioChoice("$8$", {
+                        generateRadioChoice("$8$ {{passage-ref 1 1}}\n\n", {
                             correct: true,
                             rationale:
                                 "$8$ is the positive square root of $64$.",
@@ -368,9 +368,7 @@ export const shuffledQuestion: PerseusRenderer = generateSimpleRadioQuestion({
     choices: [
         generateRadioChoice("Incorrect Choice 1"),
         generateRadioChoice("Incorrect Choice 2"),
-        generateRadioChoice("Correct Choice", {
-            correct: true,
-        }),
+        generateRadioChoice("Correct Choice", {correct: true}),
         generateRadioChoice("Incorrect Choice 3"),
     ],
 });
@@ -404,9 +402,7 @@ export const questionWithUndefinedCorrect: PerseusRenderer =
                         generateRadioChoice("Choice A", {
                             correct: undefined,
                         }),
-                        generateRadioChoice("Choice B", {
-                            correct: true,
-                        }),
+                        generateRadioChoice("Choice B", {correct: true}),
                         generateRadioChoice("Choice C", {
                             correct: undefined,
                         }),
