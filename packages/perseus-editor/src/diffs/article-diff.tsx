@@ -9,15 +9,17 @@ import _ from "underscore";
 
 import RendererDiff from "./renderer-diff";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
 
 type ArticleDiffProps = {
-    after: PerseusRenderer[];
-    before: PerseusRenderer[];
+    after: PerseusArticle;
+    before: PerseusArticle;
     dependencies: PerseusDependenciesV2;
 };
 
 type ArticleDiffState = {
+    // Externally we allow both arrays and single PerseusRenderer objects.
+    // Internally we convert to arrays.
     before: PerseusRenderer[];
     after: PerseusRenderer[];
 };
@@ -28,8 +30,8 @@ class ArticleDiff extends React.Component<ArticleDiffProps, ArticleDiffState> {
     ) => {
         const {before, after} = props;
         return {
-            before: before,
-            after: after,
+            before: Array.isArray(before) ? before : [before],
+            after: Array.isArray(after) ? after : [after],
         };
     };
 
