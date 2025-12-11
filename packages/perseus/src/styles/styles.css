@@ -58,7 +58,7 @@
     position: relative;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-.perseus-block-math:before {
+    .perseus-block-math:before {
     bottom: 0;
     content: "";
     position: absolute;
@@ -67,7 +67,7 @@
     width: 30px;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-.perseus-block-math-inner {
+    .perseus-block-math-inner {
     overflow-x: auto;
     padding-bottom: 8px;
     padding-right: 20px;
