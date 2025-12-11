@@ -1,26 +1,19 @@
-:global(.framework-perseus) {
-    /* OVERRIDES
-       These styles should be removed when either layering control within Perseus is available,
-       or when the high-level styles are refactored and these become unnecessary.
-     */
-    /*.choice :global(.paragraph) {*/
-    /*    font-size: inherit;*/
-    /*    font-weight: inherit;*/
-    /*    line-height: inherit;*/
-    /*}*/
-
-    &:global(.perseus-article) {
-        .choice:not(.is-correct):has(> button[aria-pressed="true"])
-            :global(.paragraph) {
-            color: var(--wb-semanticColor-core-foreground-instructive-default);
-        }
-    }
-}
+/* OVERRIDES - Start
+   These styles should be removed when the high-level styles are refactored and these become unnecessary.
+ */
 .choice :global(.paragraph) {
     font-size: inherit;
     font-weight: inherit;
     line-height: inherit;
 }
+
+:global(.perseus-article) {
+    .choice:not(.is-correct):has(> button[aria-pressed="true"])
+    :global(.paragraph) {
+        color: var(--wb-semanticColor-core-foreground-instructive-default);
+    }
+}
+/* OVERRIDES - End */
 
 .choice {
     --perseus-multiple-choice-divider-color: var(
