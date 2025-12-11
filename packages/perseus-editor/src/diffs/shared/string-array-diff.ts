@@ -19,7 +19,7 @@ export type ImageDiffResult = {
     after: ImageDiff[];
 };
 
-const statusFor = function (chunk: ImageEntry): ImageStatus {
+function statusFor(chunk: ImageEntry): ImageStatus {
     if (chunk.added) {
         return "added";
     }
@@ -27,17 +27,18 @@ const statusFor = function (chunk: ImageEntry): ImageStatus {
         return "removed";
     }
     return "unchanged";
-};
+}
 
 // Turn a chunk (which contains an array of values and a status)
 // into an array of values, each with the same status
-const splitUpChunk: (chunk: ImageEntry) => ImageDiff[] = (chunk: ImageEntry) =>
-    _.map(chunk.value, (value) => {
+function splitUpChunk(chunk: ImageEntry): ImageDiff[] {
+    return _.map(chunk.value, (value) => {
         return {
             value: value,
             status: statusFor(chunk),
         };
     });
+}
 
 // Apply `fn` to every element in `lst` and then concatenate all the results
 // http://clojuredocs.org/clojure_core/clojure.core/mapcat

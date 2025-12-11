@@ -1,4 +1,4 @@
-import diff from "../shared/widget-diff-performer";
+import diff from "../widget-diff-performer";
 
 describe("widget-diff-performer", function () {
     it("diffs a same single value", function () {
