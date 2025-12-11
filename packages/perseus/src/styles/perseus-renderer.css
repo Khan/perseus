@@ -20,6 +20,7 @@
 @import "widgets/numeric.css" layer(perseus-legacy);
 @import "widgets/orderer.css" layer(perseus-legacy);
 @import "widgets/passage.css" layer(perseus-legacy);
+@import "widgets/passage-editor.css"; /* Editor-only styles that need to be elevated above the perseus-legacy layer */
 @import "widgets/plotter.css" layer(perseus-legacy);
 @import "widgets/radio.css" layer(perseus-legacy);
 @import "widgets/sortable.css" layer(perseus-legacy);

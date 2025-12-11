@@ -172,14 +172,6 @@
 .perseus-widget-passage-container .line-numbers .line-marker {
     visibility: visible;
 }
-.perseus-widget-passage-editor .perseus-single-editor {
-    font-family: Times, "Times New Roman", serif;
-    margin-left: -11px;
-}
-.perseus-widget-passage-editor .perseus-textarea-pair textarea {
-    font-size: 13px;
-    line-height: 17px;
-}
 body.sat-section .perseus-widget-passage {
     margin-top: 0;
 }
