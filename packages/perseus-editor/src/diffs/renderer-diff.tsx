@@ -44,7 +44,6 @@ type Props = {
     // The "before" props of the renderer. Will be displayed on the left.
     before: PerseusRenderer;
     // If true, show widget alignment options in the diff.
-    // TODO(cat): Do we still need this or want to keep it?
     showAlignmentOptions: boolean;
     // If true, render a horizontal rule after this diff.
     showSeparator: boolean;
