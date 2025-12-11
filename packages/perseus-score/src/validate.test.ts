@@ -80,7 +80,13 @@ describe("validateUserInput", () => {
                 },
                 images: {},
             },
-            {"dropdown 1": {value: 2}},
+            {
+                // valid input
+                "dropdown 1": {value: 2},
+                // "empty" input on a widget not in content
+                // this would return "invalid" if it were in content
+                "dropdown 2": {value: 0},
+            },
             "en",
         );
 

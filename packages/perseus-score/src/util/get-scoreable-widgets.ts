@@ -20,9 +20,11 @@ export default function getScoreableWidgets(
     upgradedWidgets: PerseusWidgetsMap;
     scoreableWidgetIds: ReadonlyArray<string>;
 } {
-    // There seems to be a chance that PerseusRenderer.widgets might include
-    // widget data for widgets that are not in PerseusRenderer.content,
-    // so this checks that the widgets are being used before scoring them
+    // Because of how the editor saves data that get's published, there
+    // may be widget configurations in `widgets` that aren't actually
+    // used (they don't show up in the `content` string. For this reason
+    // we extract the actual widgets in use from the `content` string and
+    // only score/validate those.
     const usedWidgetIds = getWidgetIdsFromContent(perseusRenderData.content);
     // TODO: do we still need this? Shouldn't this happen during parse/migrate?
     const upgradedWidgets = applyDefaultsToWidgets(perseusRenderData.widgets);
