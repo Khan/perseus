@@ -16,6 +16,7 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
 import type {
+    FocusPath,
     PerseusDependenciesV2,
     WidgetExports,
     WidgetProps,
@@ -37,6 +38,7 @@ type Props = WidgetProps<
 type WidgetHandle = {
     focus: () => boolean;
     getPromptJSON: () => DropdownPromptJSON;
+    getDOMNodeForPath: (path: FocusPath) => Element | null;
     getSerializedState: () => any;
 };
 
@@ -121,6 +123,14 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
         },
         getPromptJSON: (): DropdownPromptJSON => {
             return _getPromptJSON(props);
+        },
+        getDOMNodeForPath: (path: FocusPath): Element | null => {
+            // Dropdown is a simple widget with no internal focus paths
+            // Return the root element for empty paths
+            if (path.length === 0) {
+                return rootRef.current;
+            }
+            return null;
         },
         /**
          * @deprecated and likely very broken API

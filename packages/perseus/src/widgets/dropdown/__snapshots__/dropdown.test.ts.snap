@@ -20,17 +20,16 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
             class="default_xu2jcg"
           >
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
+              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
             >
               <button
                 aria-controls=":r4:"
-                aria-disabled="false"
                 aria-expanded="true"
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Select an answer"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1tzuxn"
                 id=":r3:"
                 role="combobox"
                 type="button"
@@ -100,17 +99,16 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
             class="default_xu2jcg"
           >
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
+              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
             >
               <button
                 aria-controls=":r1:"
-                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Select an answer"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1tzuxn"
                 id=":r0:"
                 role="combobox"
                 type="button"

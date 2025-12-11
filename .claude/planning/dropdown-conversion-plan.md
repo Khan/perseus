@@ -3,7 +3,7 @@
 
 **Target File:** `packages/perseus/src/widgets/dropdown/dropdown.tsx`
 **Start Date:** 2025-12-08
-**Current Status:** Phases 1-4 Complete; Phase 5 (Final Cleanup) remaining before commit
+**Current Status:** ✅ All Phases Complete - Ready for commit/PR
 
 ---
 
@@ -87,17 +87,17 @@ This plan outlines the conversion of the Dropdown widget from a React class comp
 ---
 
 ### Phase 5: Final Review & Cleanup
-**Status:** [ ] Not Started
+**Status:** [X] Complete
 **Detailed Plan:** `.claude/planning/dropdown-phase-5-cleanup.md`
 
-- [ ] Run linting (`pnpm lint --fix`)
-- [ ] Run prettier (`pnpm prettier . --write`)
-- [ ] Run type checking (`pnpm tsc`)
-- [ ] Review for any console.log or debugging code
-- [ ] Update any related documentation if needed
-- [ ] Final test suite run
-- [ ] Review diff for unintended changes
-- [ ] Create commit with descriptive message
+- [X] Run linting (`pnpm lint --fix`)
+- [X] Run prettier (`pnpm prettier . --write`)
+- [X] Run type checking (`pnpm tsc`)
+- [X] Review for any console.log or debugging code
+- [X] Update any related documentation if needed
+- [X] Final test suite run
+- [X] Review diff for unintended changes
+- [X] Create commit with descriptive message (User will handle)
 
 ---
 
@@ -145,7 +145,7 @@ class Dropdown extends React.Component<Props> implements Widget {
 const Dropdown = forwardRef<WidgetRef, Props>((props, ref) => {
     const context = useContext(PerseusI18nContext);
     useEffect(() => { /* analytics */ }, []);
-    useImperativeHandle(ref, () => ({ focus, getPromptJSON }));
+    useImperativeHandle(ref, () => ({ focus, getPromptJSON, getDOMNodeForPath }));
     // render JSX
 });
 ```
@@ -157,9 +157,10 @@ const Dropdown = forwardRef<WidgetRef, Props>((props, ref) => {
 - `PerseusI18nContext` - For i18n strings
 - `withDependencies` HOC - For analytics dependency injection
 
-### Known Issues Being Fixed
-1. **LP-10797**: Focus doesn't work - using deprecated findDOMNode on non-focusable div
-2. **LEMS-3185**: Deprecated serialization API (keeping as-is, marked deprecated)
+### Issues Fixed
+1. **LP-10797**: ✅ Fixed focus implementation - replaced deprecated findDOMNode with querySelector approach to find combobox button
+2. **Renderer compatibility**: ✅ Added getDOMNodeForPath method for functional component compatibility with renderer
+3. **LEMS-3185**: Deprecated serialization API (kept as-is, marked deprecated)
 
 ---
 
@@ -232,6 +233,23 @@ const Dropdown = forwardRef<WidgetRef, Props>((props, ref) => {
 
 ---
 
+### Session 5 - 2025-12-11
+- **Work Done:** Completed Phase 5 (Final Review & Cleanup)
+- **Changes:**
+  - Added `getDOMNodeForPath` method to Widget interface to fix renderer test
+  - Updated snapshots for Wonder Blocks CSS class hash changes (from main merge)
+  - Ran full code quality checks (ESLint, Prettier, TypeScript, tests)
+  - Comprehensive code review - no issues found
+- **Files Modified:**
+  - `packages/perseus/src/widgets/dropdown/dropdown.tsx` - Added getDOMNodeForPath implementation
+  - `packages/perseus/src/widgets/dropdown/__snapshots__/dropdown.test.ts.snap` - Updated snapshots
+- **Tests:** All 454 test suites passing (6164 tests)
+- **Issue Resolved:** Renderer test was failing because `ReactDOM.findDOMNode()` doesn't work with functional components using `useImperativeHandle`. Fixed by adding `getDOMNodeForPath` method that returns `rootRef.current` for empty paths.
+- **Status:** ✅ Phase 5 Complete - Ready for commit/PR
+- **Next Steps:** User will handle committing and PR creation
+
+---
+
 ## Notes & Decisions
 
 ### Design Decisions
@@ -271,5 +289,5 @@ const Dropdown = forwardRef<WidgetRef, Props>((props, ref) => {
 
 ---
 
-**Last Updated:** 2025-12-10
-**Document Version:** 1.1
+**Last Updated:** 2025-12-11
+**Document Version:** 1.2
