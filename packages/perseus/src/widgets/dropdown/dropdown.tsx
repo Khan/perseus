@@ -127,7 +127,7 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
         getDOMNodeForPath: (path: FocusPath): Element | null => {
             // Dropdown is a simple widget with no internal focus paths
             // Return the root element for empty paths
-            if (path.length === 0) {
+            if (path?.length === 0) {
                 return rootRef.current;
             }
             return null;
