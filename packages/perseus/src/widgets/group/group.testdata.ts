@@ -4,9 +4,14 @@ import {
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
+    generateGroupOptions,
+    generateGroupWidget,
+    generateImageOptions,
+    generateImageWidget,
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generateRadioChoice,
     generateRadioWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
@@ -23,55 +28,34 @@ export const question1: PerseusRenderer = generateTestPerseusRenderer({
             {height: 480, width: 428},
     },
     widgets: {
-        "group 1": {
+        "group 1": generateGroupWidget({
             graded: true,
-            options: {
+            options: generateGroupOptions({
                 content:
                     "**In one week, how many more hours are in the periods with a $35$ percent discount than in the periods with the regular price?**\n\n[[☃ radio 1]]",
-                images: {},
                 widgets: {
                     "radio 1": generateRadioWidget({
                         options: {
                             choices: [
-                                {
-                                    id: "0-0-0-0-0",
-                                    content: "$45$",
-                                    correct: false,
-                                },
-                                {
-                                    id: "1-1-1-1-1",
-                                    content: "$42$",
-                                    correct: false,
-                                },
-                                {
-                                    id: "2-2-2-2-2",
-                                    content: "$30$",
-                                    correct: false,
+                                generateRadioChoice("$45$"),
+                                generateRadioChoice("$42$"),
+                                generateRadioChoice("$30$", {
                                     rationale:
                                         "Here's some rationale, this isn't the correct answer!",
-                                },
-                                {
-                                    id: "3-3-3-3-3",
-                                    content: "$18$",
-                                    correct: false,
-                                },
-                                {
-                                    id: "4-4-4-4-4",
-                                    content: "$15$",
+                                }),
+                                generateRadioChoice("$18$"),
+                                generateRadioChoice("$15$", {
                                     correct: true,
-                                },
+                                }),
                             ],
                             numCorrect: 1,
                         },
                     }),
                 },
-            },
-            type: "group",
-            version: {major: 0, minor: 0},
-        },
-        "group 2": {
-            graded: true,
-            options: {
+            }),
+        }),
+        "group 2": generateGroupWidget({
+            options: generateGroupOptions({
                 content:
                     "**What is $\\redD{\\text{A}}$ rounded to the nearest ten?**   \n\n[[☃ numeric-input 1]]\n\n**What is $\\redD{\\text{A}}$ rounded to the nearest hundred?**   \n\n[[☃ numeric-input 2]]\n\n[[☃ image 1]]\n\n",
                 images: {
@@ -79,30 +63,17 @@ export const question1: PerseusRenderer = generateTestPerseusRenderer({
                         {height: 80, width: 380},
                 },
                 widgets: {
-                    "image 1": {
+                    "image 1": generateImageWidget({
                         alignment: "block",
-                        graded: true,
-                        options: {
+                        options: generateImageOptions({
                             alt: "A number line labeled 200 to 300 with tick marks at every 5 units. The tick marks at 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, and 300 are labeled. A red circle labeled A is between 220 tick mark and 230 tick mark.",
                             backgroundImage: {
                                 height: 80,
                                 url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
                                 width: 380,
                             },
-                            box: [380, 80],
-                            caption: "",
-                            labels: [],
-                            range: [
-                                [0, 10],
-                                [0, 10],
-                            ],
-                            static: false,
-                            title: "",
-                        },
-                        static: false,
-                        type: "image",
-                        version: {major: 0, minor: 0},
-                    },
+                        }),
+                    }),
                     "numeric-input 1": generateNumericInputWidget({
                         options: generateNumericInputOptions({
                             answers: [generateNumericInputAnswer({value: 230})],
@@ -116,44 +87,39 @@ export const question1: PerseusRenderer = generateTestPerseusRenderer({
                         }),
                     }),
                 },
-            },
-            type: "group",
-            version: {major: 0, minor: 0},
-        },
+            }),
+        }),
     },
 });
 
-export const simpleGroupQuestion: PerseusRenderer = {
-    content: "[[☃ group 1]]",
-    images: {},
-    widgets: {
-        "group 1": {
-            graded: true,
-            options: {
-                content: "[[☃ expression 1]]",
-                images: {},
-                widgets: {
-                    "expression 1": generateExpressionWidget({
-                        options: generateExpressionOptions({
-                            answerForms: [
-                                generateExpressionAnswerForm({
-                                    considered: "correct",
-                                    form: true,
-                                    simplify: true,
-                                    value: "1.0",
-                                }),
-                            ],
-                            functions: [],
-                            times: true,
+export const simpleGroupQuestion: PerseusRenderer = generateTestPerseusRenderer(
+    {
+        content: "[[☃ group 1]]",
+        widgets: {
+            "group 1": generateGroupWidget({
+                options: generateGroupOptions({
+                    content: "[[☃ expression 1]]",
+                    widgets: {
+                        "expression 1": generateExpressionWidget({
+                            options: generateExpressionOptions({
+                                answerForms: [
+                                    generateExpressionAnswerForm({
+                                        considered: "correct",
+                                        form: true,
+                                        simplify: true,
+                                        value: "1.0",
+                                    }),
+                                ],
+                                functions: [],
+                                times: true,
+                            }),
                         }),
-                    }),
-                },
-            },
-            type: "group",
-            version: {major: 0, minor: 0},
+                    },
+                }),
+            }),
         },
     },
-};
+);
 
 export function getFullGroupTestItem(): PerseusItem {
     const groupRenderer = generateTestPerseusRenderer({
@@ -174,10 +140,9 @@ export function getFullGroupTestItem(): PerseusItem {
     const itemRenderer = generateTestPerseusRenderer({
         content: "Item Renderer\n\n[[☃ group 1]]",
         widgets: {
-            "group 1": {
-                type: "group",
+            "group 1": generateGroupWidget({
                 options: groupRenderer,
-            },
+            }),
         },
     });
 
