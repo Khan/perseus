@@ -37,15 +37,17 @@ export const question1: PerseusRenderer = generateTestPerseusRenderer({
                     "radio 1": generateRadioWidget({
                         options: {
                             choices: [
-                                generateRadioChoice("$45$"),
-                                generateRadioChoice("$42$"),
+                                generateRadioChoice("$45$", {id: "0-0-0-0-0"}),
+                                generateRadioChoice("$42$", {id: "1-1-1-1-1"}),
                                 generateRadioChoice("$30$", {
                                     rationale:
                                         "Here's some rationale, this isn't the correct answer!",
+                                    id: "2-2-2-2-2",
                                 }),
-                                generateRadioChoice("$18$"),
+                                generateRadioChoice("$18$", {id: "3-3-3-3-3"}),
                                 generateRadioChoice("$15$", {
                                     correct: true,
+                                    id: "4-4-4-4-4",
                                 }),
                             ],
                             numCorrect: 1,
@@ -55,6 +57,7 @@ export const question1: PerseusRenderer = generateTestPerseusRenderer({
             }),
         }),
         "group 2": generateGroupWidget({
+            graded: true,
             options: generateGroupOptions({
                 content:
                     "**What is $\\redD{\\text{A}}$ rounded to the nearest ten?**   \n\n[[☃ numeric-input 1]]\n\n**What is $\\redD{\\text{A}}$ rounded to the nearest hundred?**   \n\n[[☃ numeric-input 2]]\n\n[[☃ image 1]]\n\n",
@@ -72,6 +75,15 @@ export const question1: PerseusRenderer = generateTestPerseusRenderer({
                                 url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
                                 width: 380,
                             },
+                            box: [380, 80],
+                            caption: "",
+                            labels: [],
+                            range: [
+                                [0, 10],
+                                [0, 10],
+                            ],
+                            static: false,
+                            title: "",
                         }),
                     }),
                     "numeric-input 1": generateNumericInputWidget({
@@ -141,6 +153,7 @@ export function getFullGroupTestItem(): PerseusItem {
         content: "Item Renderer\n\n[[☃ group 1]]",
         widgets: {
             "group 1": generateGroupWidget({
+                graded: true,
                 options: groupRenderer,
             }),
         },

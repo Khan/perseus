@@ -51,7 +51,7 @@ describe("generateGroupWidget", () => {
 
         // Assert
         expect(widget.type).toBe("group");
-        expect(widget.graded).toBe(false);
+        expect(widget.graded).toBe(true);
         expect(widget.static).toBe(false);
         expect(widget.version).toEqual({major: 0, minor: 0});
         expect(widget.alignment).toBe("default");

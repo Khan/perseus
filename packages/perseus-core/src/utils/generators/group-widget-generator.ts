@@ -16,7 +16,7 @@ export function generateGroupWidget(
 ): GroupWidget {
     return {
         type: "group",
-        graded: false,
+        graded: true,
         version: {major: 0, minor: 0},
         static: false,
         alignment: "default",
