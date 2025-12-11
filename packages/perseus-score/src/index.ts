@@ -35,8 +35,9 @@ export {
     inputNumberAnswerTypes,
 } from "./widgets/input-number/score-input-number";
 
-export {scorePerseusItem, scoreWidgetsFunctional, flattenScores} from "./score";
-export {emptyWidgetsFunctional} from "./validate";
+export {scorePerseusItem, scoreWidgetsFunctional} from "./score";
+export {default as flattenScores} from "./util/flatten-scores";
+export {validateUserInput, emptyWidgetsFunctional} from "./validate";
 export {default as hasEmptyDINERWidgets} from "./has-empty-diner-widgets";
 
 export type {
