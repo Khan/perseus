@@ -193,12 +193,17 @@ class TextDiff extends React.Component<TextDiffProps, TextDiffState> {
                 </div>
                 {_.map([BEFORE, AFTER], (side, index) => {
                     return (
-                        // Leaving this eslint ignore for now, since this is an internal tool.
-                        // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error
                         <div
+                            role="button"
+                            tabIndex={0}
                             className={className + " " + side}
                             key={index}
                             onClick={this.handleExpand}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    this.handleExpand();
+                                }
+                            }}
                         >
                             {this.state.collapsed && (
                                 <span>

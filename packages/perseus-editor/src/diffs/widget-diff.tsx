@@ -25,6 +25,9 @@ class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
         const afterSrc = after.options?.backgroundImage?.url
             ? after.options.backgroundImage.url
             : "";
+
+        const beforeAlt = before.options?.alt ? before.options.alt : "";
+        const afterAlt = after.options?.alt ? after.options.alt : "";
         return (
             <div>
                 <div className="diff-row before">
@@ -40,7 +43,7 @@ class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
                                 src={beforeSrc}
                                 title={beforeSrc}
                                 allowZoom={false}
-                                alt=""
+                                alt={beforeAlt}
                             />
                         </div>
                     )}
@@ -58,7 +61,7 @@ class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
                                 src={afterSrc}
                                 title={afterSrc}
                                 allowZoom={false}
-                                alt=""
+                                alt={afterAlt}
                             />
                         </div>
                     )}

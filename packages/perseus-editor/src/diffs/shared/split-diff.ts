@@ -20,7 +20,9 @@ const splitDiff = function (diffEntries: Entry[]): Entry[][] {
                 lines.push(currentLine);
                 currentLine = [];
             }
-            const newEntry = _.extend({} as Entry, entry, {value: value});
+            const newEntry: Entry = _.extend({}, entry, {
+                value: value,
+            });
             currentLine.push(newEntry);
         });
     });
