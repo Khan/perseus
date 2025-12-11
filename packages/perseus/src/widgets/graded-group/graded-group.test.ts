@@ -2,6 +2,7 @@ import {describe, beforeEach, it} from "@jest/globals";
 import {
     generateDropdownOptions,
     generateDropdownWidget,
+    generateGradedGroupWidget,
     type PerseusArticle,
 } from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
@@ -390,8 +391,7 @@ describe("graded-group", () => {
                 {
                     content: "[[☃ graded-group 1]]",
                     widgets: {
-                        "graded-group 1": {
-                            type: "graded-group",
+                        "graded-group 1": generateGradedGroupWidget({
                             options: {
                                 title: "Test title",
                                 content: "[[☃ dropdown 1]]",
@@ -415,7 +415,7 @@ describe("graded-group", () => {
                                 },
                                 images: {},
                             },
-                        },
+                        }),
                     },
                     images: {},
                 },

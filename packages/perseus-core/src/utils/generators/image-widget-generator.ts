@@ -18,7 +18,7 @@ export function generateImageWidget(
 ): ImageWidget {
     return {
         type: "image",
-        graded: true,
+        graded: false,
         version: {major: 0, minor: 0},
         static: false,
         alignment: "default",

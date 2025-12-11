@@ -1,3 +1,9 @@
+import {
+    generateGradedGroupOptions,
+    generateGradedGroupWidget,
+    generateTestPerseusRenderer,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -9,23 +15,16 @@ import {getPromptJSON} from "./graded-group-ai-utils";
 
 import type {CategorizerPromptJSON} from "../categorizer/categorizer-ai-utils";
 import type {ImagePromptJSON} from "../image/image-ai-utils";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-const question: PerseusRenderer = {
+const question: PerseusRenderer = generateTestPerseusRenderer({
     content: "---\n\n##Check your understanding!\n\n[[☃ graded-group 1]]\n\n",
-    images: {},
     widgets: {
-        "graded-group 1": {
-            type: "graded-group",
-            alignment: "default",
-            static: false,
-            graded: true,
-            options: {
+        "graded-group 1": generateGradedGroupWidget({
+            options: generateGradedGroupOptions({
                 title: "Metabolic strategies of bacteria",
                 content:
                     "1. **Which of the following statements about metabolic strategies of bacteria are true?**\n\n [[☃ categorizer 1]]",
-                images: {},
                 widgets: {
                     "categorizer 1": {
                         type: "categorizer",
@@ -73,11 +72,10 @@ const question: PerseusRenderer = {
                         },
                     },
                 },
-            },
-            version: {major: 0, minor: 0},
-        },
+            }),
+        }),
     },
-};
+});
 
 describe("GradedGroup AI utils", () => {
     let userEvent: UserEvent;

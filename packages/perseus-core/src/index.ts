@@ -230,6 +230,10 @@ export {
     generateFreeResponseWidget,
 } from "./utils/generators/free-response-widget-generator";
 export {
+    generateGradedGroupOptions,
+    generateGradedGroupWidget,
+} from "./utils/generators/graded-group-widget-generator";
+export {
     generateGroupOptions,
     generateGroupWidget,
 } from "./utils/generators/group-widget-generator";
