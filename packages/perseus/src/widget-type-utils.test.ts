@@ -1,12 +1,10 @@
 import {
+    generateInteractiveGraphWidget,
     generateRadioWidget,
     generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 
-import {
-    generateTestCategorizerWidget,
-    generateTestInteractiveGraphWidget,
-} from "./util/test-utils";
+import {generateTestCategorizerWidget} from "./util/test-utils";
 import {
     getWidgetTypeByWidgetId,
     contentHasWidgetType,
@@ -50,7 +48,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestInteractiveGraphWidget(),
+                [widgetId]: generateInteractiveGraphWidget(),
             };
 
             // Act
@@ -60,7 +58,7 @@ describe("widget-type-utils", () => {
             );
 
             // Assert
-            expect(widgetSubType).toBe("angle");
+            expect(widgetSubType).toBe("linear");
         });
 
         it("returns null when widget does not have a subtype", () => {

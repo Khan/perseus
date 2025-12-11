@@ -1,5 +1,9 @@
 /* eslint-disable react/prop-types */
 import {ApiOptions} from "@khanacademy/perseus";
+import {
+    generateInteractiveGraphWidget,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {action} from "storybook/actions";
@@ -8,8 +12,6 @@ import {Editor} from "..";
 import SplitView from "../../../../testing/split-view";
 import {question1} from "../__testdata__/numeric-input.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
@@ -45,46 +47,7 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
     );
     const [images, setImages] = React.useState<PerseusRenderer["images"]>({});
     const [widgets, setWidgets] = React.useState<PerseusRenderer["widgets"]>({
-        "interactive-graph 1": {
-            options: {
-                labels: ["x", "y"],
-                lockedFigures: [],
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-                showAxisArrows: {
-                    xMin: true,
-                    xMax: true,
-                    yMin: true,
-                    yMax: true,
-                },
-                gridStep: [1, 1],
-                snapStep: [1, 1],
-                step: [1, 1],
-                backgroundImage: {
-                    url: null,
-                },
-                markings: "graph",
-                showProtractor: false,
-                showTooltips: false,
-                graph: {
-                    type: "linear",
-                    coords: [
-                        [1, 1],
-                        [5, 5],
-                    ],
-                },
-                correct: {
-                    type: "linear",
-                },
-            },
-            type: "interactive-graph",
-            version: {
-                major: 0,
-                minor: 0,
-            },
-        },
+        "interactive-graph 1": generateInteractiveGraphWidget(),
     });
 
     return (

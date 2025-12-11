@@ -234,6 +234,28 @@ export {
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
 export {
+    generateInteractiveGraphOptions,
+    generateIGAngleGraph,
+    generateIGCircleGraph,
+    generateIGLinearGraph,
+    generateIGLinearSystemGraph,
+    generateIGNoneGraph,
+    generateIGPointGraph,
+    generateIGPolygonGraph,
+    generateIGQuadraticGraph,
+    generateIGRayGraph,
+    generateIGSegmentGraph,
+    generateIGSinusoidGraph,
+    generateIGLockedPoint,
+    generateIGLockedLine,
+    generateIGLockedVector,
+    generateIGLockedEllipse,
+    generateIGLockedPolygon,
+    generateIGLockedFunction,
+    generateIGLockedLabel,
+    generateInteractiveGraphWidget,
+} from "./utils/generators/interactive-graph-widget-generator";
+export {
     generateNumericInputOptions,
     generateNumericInputAnswer,
     generateNumericInputWidget,

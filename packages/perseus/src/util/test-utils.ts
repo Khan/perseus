@@ -6,7 +6,6 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import type {
     CategorizerWidget,
-    InteractiveGraphWidget,
     PerseusRenderer,
     PerseusWidgetTypes,
     PerseusScore,
@@ -22,43 +21,6 @@ export function scorePerseusItemTesting(
     userInputMap: UserInputMap,
 ): PerseusScore {
     return scorePerseusItem(perseusRenderData, userInputMap, "en");
-}
-
-/**
- * Creates an object with the bare amount
- * of data to be a properly typed InteractiveGraphWidget
- *
- * @returns {InteractiveGraphWidget} skeleton InteractiveGraphWidget for testing
- */
-export function generateTestInteractiveGraphWidget(): InteractiveGraphWidget {
-    return {
-        type: "interactive-graph",
-        options: {
-            step: [1, 1],
-            gridStep: [1, 1],
-            snapStep: [1, 1],
-            markings: "graph",
-            labels: ["x", "y"],
-            lockedFigures: [],
-            showProtractor: false,
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            graph: {
-                type: "angle",
-            },
-            correct: {
-                type: "angle",
-            },
-            showAxisArrows: {
-                xMin: true,
-                xMax: true,
-                yMin: true,
-                yMax: true,
-            },
-        },
-    };
 }
 
 /**
