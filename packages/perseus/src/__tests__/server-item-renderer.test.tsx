@@ -1,7 +1,6 @@
 import {
-    generateRadioWidget,
-    generateTestPerseusItem,
-    generateTestPerseusRenderer,
+    generateRadioChoice,
+    generateSimpleRadioItem,
     splitPerseusItem,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
@@ -528,45 +527,26 @@ describe("server item renderer", () => {
 
     describe("answerless to answerful", () => {
         function getItemWithMultipleChoice(): PerseusItem {
-            const question = generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        options: {
-                            multipleSelect: true,
-                            numCorrect: 2,
-                            choices: [
-                                {
-                                    rationale: "Rationale 1",
-                                    content: "Wrong 1",
-                                    correct: false,
-                                    id: "10-10-10-10-10",
-                                },
-                                {
-                                    rationale: "Rationale 2",
-                                    content: "Right 1",
-                                    correct: true,
-                                    id: "11-11-11-11-11",
-                                },
-                                {
-                                    rationale: "Rationale 3",
-                                    content: "Wrong 2",
-                                    correct: false,
-                                    id: "12-12-12-12-12",
-                                },
-                                {
-                                    rationale: "Rationale 4",
-                                    content: "Right 2",
-                                    correct: true,
-                                    id: "13-13-13-13-13",
-                                },
-                            ],
-                        },
+            return generateSimpleRadioItem({
+                multipleSelect: true,
+                numCorrect: 2,
+                choices: [
+                    generateRadioChoice("Wrong 1", {
+                        rationale: "Rationale 1",
                     }),
-                },
+                    generateRadioChoice("Right 1", {
+                        correct: true,
+                        rationale: "Rationale 2",
+                    }),
+                    generateRadioChoice("Wrong 2", {
+                        rationale: "Rationale 3",
+                    }),
+                    generateRadioChoice("Right 2", {
+                        correct: true,
+                        rationale: "Rationale 4",
+                    }),
+                ],
             });
-
-            return generateTestPerseusItem({question});
         }
 
         it("can transition between answerless and answerful data correctly", async () => {
