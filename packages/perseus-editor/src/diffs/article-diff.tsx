@@ -4,51 +4,38 @@
  */
 
 import {Dependencies, type PerseusDependenciesV2} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import RendererDiff from "./renderer-diff";
 
-const rendererProps = PropTypes.shape({
-    content: PropTypes.string,
-    images: PropTypes.objectOf(PropTypes.any),
-    widgets: PropTypes.objectOf(PropTypes.any),
-});
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
-interface Props {
-    after: any;
-    before: any;
+type ArticleDiffProps = {
+    after: PerseusRenderer[];
+    before: PerseusRenderer[];
     dependencies: PerseusDependenciesV2;
-}
+};
 
-type State = any;
+type ArticleDiffState = {
+    before: PerseusRenderer[];
+    after: PerseusRenderer[];
+};
 
-class ArticleDiff extends React.Component<Props, State> {
-    static propTypes = {
-        // TODO(alex): Check whether we still have any Perseus articles whose
-        // top-level json is an object, not an array. If not, simplify here.
-        after: PropTypes.oneOfType([
-            rendererProps,
-            PropTypes.arrayOf(rendererProps),
-        ]).isRequired,
-        before: PropTypes.oneOfType([
-            rendererProps,
-            PropTypes.arrayOf(rendererProps),
-        ]).isRequired,
-    };
-
-    static _stateFromProps: (arg1: Props) => State = (props) => {
+class ArticleDiff extends React.Component<ArticleDiffProps, ArticleDiffState> {
+    static _stateFromProps: (arg1: ArticleDiffProps) => ArticleDiffState = (
+        props,
+    ) => {
         const {before, after} = props;
         return {
-            before: Array.isArray(before) ? before : [before],
-            after: Array.isArray(after) ? after : [after],
+            before: before,
+            after: after,
         };
     };
 
-    state: State = ArticleDiff._stateFromProps(this.props);
+    state: ArticleDiffState = ArticleDiff._stateFromProps(this.props);
 
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    UNSAFE_componentWillReceiveProps(nextProps: ArticleDiffProps) {
         this.setState(ArticleDiff._stateFromProps(nextProps));
     }
 
