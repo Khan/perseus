@@ -32,7 +32,7 @@ describe("generateExplanationOptions", () => {
         expect(options.widgets).toEqual({});
     });
 
-    it("builds an explanation options objectwith all props", () => {
+    it("builds an explanation options object with all props", () => {
         // Arrange, Act
         const options: PerseusExplanationWidgetOptions =
             generateExplanationOptions({

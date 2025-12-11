@@ -7,6 +7,7 @@ import {
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generateSimpleRadioQuestion,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
     type PerseusRenderer,
@@ -78,29 +79,20 @@ function generateBasicExpressionQuestion(): PerseusRenderer {
 }
 
 function generateBasicRadioQuestion(): PerseusRenderer {
-    return {
-        content: "[[☃ radio 1]]",
-        widgets: {
-            "radio 1": {
-                type: "radio",
-                options: {
-                    choices: [
-                        {
-                            id: "0-0-0-0-0",
-                            content: "Correct",
-                            correct: true,
-                        },
-                        {
-                            id: "1-1-1-1-1",
-                            content: "Incorrect",
-                            correct: false,
-                        },
-                    ],
-                },
+    return generateSimpleRadioQuestion({
+        choices: [
+            {
+                id: "0-0-0-0-0",
+                content: "Correct",
+                correct: true,
             },
-        },
-        images: {},
-    };
+            {
+                id: "1-1-1-1-1",
+                content: "Incorrect",
+                correct: false,
+            },
+        ],
+    });
 }
 
 describe(`hasEmptyDINERWidgets`, () => {

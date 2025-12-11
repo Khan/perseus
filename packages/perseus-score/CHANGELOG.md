@@ -1,5 +1,21 @@
 # @khanacademy/perseus-score
 
+## 8.1.0
+
+### Minor Changes
+
+-   [#3089](https://github.com/Khan/perseus/pull/3089) [`c674007016`](https://github.com/Khan/perseus/commit/c6740070169dedaac85056d6b972ad1f2145bc3c) Thanks [@handeyeco](https://github.com/handeyeco)! - Add new validateUserInput function to perseus-score
+
+### Patch Changes
+
+-   [#3107](https://github.com/Khan/perseus/pull/3107) [`75eb53092c`](https://github.com/Khan/perseus/commit/75eb53092c04c85224ab6d586888a4ed0bf8300f) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Delete radioQuestionBuilder and use radioWidgetGenerator in testdata instead
+
+*   [#3106](https://github.com/Khan/perseus/pull/3106) [`5efb2b5f25`](https://github.com/Khan/perseus/commit/5efb2b5f259994be85af04967371638a4a91bda6) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Create a radio widget generator for testdata
+
+*   Updated dependencies [[`c674007016`](https://github.com/Khan/perseus/commit/c6740070169dedaac85056d6b972ad1f2145bc3c), [`75eb53092c`](https://github.com/Khan/perseus/commit/75eb53092c04c85224ab6d586888a4ed0bf8300f), [`5efb2b5f25`](https://github.com/Khan/perseus/commit/5efb2b5f259994be85af04967371638a4a91bda6)]:
+    -   @khanacademy/perseus-core@21.0.0
+    -   @khanacademy/kmath@2.2.22
+
 ## 8.0.10
 
 ### Patch Changes

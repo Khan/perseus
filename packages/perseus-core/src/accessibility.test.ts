@@ -8,6 +8,10 @@ import {
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
 import {
+    generateRadioOptions,
+    generateRadioWidget,
+} from "./utils/generators/radio-widget-generator";
+import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "./utils/test-utils";
@@ -91,9 +95,8 @@ describe("isItemAccessible", () => {
                                 explanation: "Test explanation",
                             }),
                         }),
-                        "radio 1": {
-                            type: "radio",
-                            options: {
+                        "radio 1": generateRadioWidget({
+                            options: generateRadioOptions({
                                 choices: [
                                     {
                                         id: "0-0-0-0-0",
@@ -106,8 +109,8 @@ describe("isItemAccessible", () => {
                                         correct: false,
                                     },
                                 ],
-                            },
-                        },
+                            }),
+                        }),
                     },
                     images: {},
                 }),

@@ -131,7 +131,6 @@ export {
 } from "@khanacademy/perseus-core";
 
 export {
-    generateTestRadioWidget,
     generateTestInteractiveGraphWidget,
     generateTestCategorizerWidget,
 } from "./util/test-utils";

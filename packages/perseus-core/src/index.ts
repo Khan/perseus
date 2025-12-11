@@ -238,6 +238,13 @@ export {
     generateNumericInputAnswer,
     generateNumericInputWidget,
 } from "./utils/generators/numeric-input-widget-generator";
+export {
+    generateRadioOptions,
+    generateRadioWidget,
+    generateRadioChoice,
+    generateSimpleRadioQuestion,
+    generateSimpleRadioItem,
+} from "./utils/generators/radio-widget-generator";
 export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 
 export {

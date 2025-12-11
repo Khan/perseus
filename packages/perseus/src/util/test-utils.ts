@@ -9,7 +9,6 @@ import type {
     InteractiveGraphWidget,
     PerseusRenderer,
     PerseusWidgetTypes,
-    RadioWidget,
     PerseusScore,
     UserInputMap,
     PerseusItem,
@@ -23,21 +22,6 @@ export function scorePerseusItemTesting(
     userInputMap: UserInputMap,
 ): PerseusScore {
     return scorePerseusItem(perseusRenderData, userInputMap, "en");
-}
-
-/**
- * Creates an object with the bare amount
- * of data to be a properly typed RadioWidget
- *
- * @returns {RadioWidget} skeleton RadioWidget for testing
- */
-export function generateTestRadioWidget(): RadioWidget {
-    return {
-        type: "radio",
-        options: {
-            choices: [],
-        },
-    };
 }
 
 /**
