@@ -565,7 +565,7 @@ Stage changes and create the commit.
 ```bash
 # Verify you're on the correct branch
 git branch --show-current
-# Should output: dropdown-functional-conversion
+# Should output: tb/LEMS-378/dropdown-conversion
 
 # Check status
 git status
@@ -644,7 +644,7 @@ If ready, prepare for pull request.
 #### 1. Push Branch
 ```bash
 # Push to remote
-git push -u origin dropdown-functional-conversion
+git push -u origin tb/LEMS-378/dropdown-conversion
 ```
 
 #### 2. Create PR with gh CLI

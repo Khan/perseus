@@ -3,7 +3,7 @@
 
 **Target File:** `packages/perseus/src/widgets/dropdown/dropdown.tsx`
 **Start Date:** 2025-12-08
-**Status:** Planning complete; implementation work not started
+**Current Status:** Phases 1-4 Complete; Phase 5 (Final Cleanup) remaining before commit
 
 ---
 
@@ -72,22 +72,22 @@ This plan outlines the conversion of the Dropdown widget from a React class comp
 ---
 
 ### Phase 4: Testing & Validation
-**Status:** [ ] Not Started | [ ] In Progress | [ ] Complete
+**Status:** [X] Complete
 **Detailed Plan:** `.claude/planning/dropdown-phase-4-testing.md`
 
-- [ ] Run full test suite (`pnpm test`)
-- [ ] Test in Storybook interactive mode
-- [ ] Verify visual regression stories render correctly
-- [ ] Test accessibility with keyboard navigation
-- [ ] Test mobile interaction patterns
-- [ ] Verify analytics events still fire
-- [ ] Check ARIA labels and screen reader compatibility
-- [ ] Test with math rendering in choices
+- [X] Run full test suite (`pnpm test`)
+- [X] Test in Storybook interactive mode
+- [X] Verify visual regression stories render correctly
+- [X] Test accessibility with keyboard navigation
+- [X] Test mobile interaction patterns (console emulator)
+- [X] Verify analytics events still fire (confirmed in console)
+- [X] Check ARIA labels and screen reader compatibility (VoiceOver tested)
+- [X] Test with math rendering in choices (verified in Storybook)
 
 ---
 
 ### Phase 5: Final Review & Cleanup
-**Status:** [ ] Not Started | [ ] In Progress | [ ] Complete
+**Status:** [ ] Not Started
 **Detailed Plan:** `.claude/planning/dropdown-phase-5-cleanup.md`
 
 - [ ] Run linting (`pnpm lint --fix`)
