@@ -2,13 +2,41 @@
  * A side by side diff view for Perseus renderers.
  */
 
+import {Widgets} from "@khanacademy/perseus";
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import TextDiff from "./text-diff";
 import WidgetDiff from "./widget-diff";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, PerseusWidget} from "@khanacademy/perseus-core";
+
+// In diffs, only show the widgetInfo props that can change
+const filterWidgetInfo = function (
+    widgetInfo: PerseusWidget,
+    showAlignmentOptions: boolean,
+) {
+    const {alignment, options, type} = widgetInfo;
+
+    const filteredWidgetInfo = {options} as const;
+
+    // Show alignment options iff multiple valid ones exist for this widget
+    if (
+        showAlignmentOptions &&
+        CoreWidgetRegistry.getSupportedAlignments(type).length > 1
+    ) {
+        // @ts-expect-error - TS2339 - Property 'alignment' does not exist on type '{ readonly options: any; }'.
+        filteredWidgetInfo.alignment = alignment;
+    }
+
+    if (Widgets.supportsStaticMode(type)) {
+        // @ts-expect-error - TS2339 - Property 'static' does not exist on type '{ readonly options: any; }'.
+        filteredWidgetInfo.static = widgetInfo?.static ?? undefined;
+    }
+
+    return filteredWidgetInfo;
+};
 
 type Props = {
     // The "after" props of the renderer. Will be displayed on the right.
@@ -43,7 +71,8 @@ class RendererDiff extends React.Component<Props> {
 
     render(): React.ReactNode {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const {after, before, showSeparator, title} = this.props;
+        const {after, before, showAlignmentOptions, showSeparator, title} =
+            this.props;
 
         let textDiff: React.JSX.Element | undefined;
         let widgetsDiff: React.JSX.Element[] = [];
@@ -69,8 +98,18 @@ class RendererDiff extends React.Component<Props> {
             const widgets = _.union(beforeWidgets, afterWidgets);
             widgetsDiff = widgets.map((widget) => (
                 <WidgetDiff
-                    before={before.widgets?.[widget]}
-                    after={after.widgets?.[widget]}
+                    before={
+                        filterWidgetInfo(
+                            before.widgets?.[widget],
+                            showAlignmentOptions,
+                        ) as PerseusWidget
+                    }
+                    after={
+                        filterWidgetInfo(
+                            after.widgets?.[widget],
+                            showAlignmentOptions,
+                        ) as PerseusWidget
+                    }
                     title={widget}
                     type={
                         (before.widgets?.[widget] ?? {}).type ||
