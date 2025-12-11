@@ -220,10 +220,9 @@ export const FocusSingleSelect = {
 export const FocusMultiSelect = {
     args: {
         item: generateSimpleRadioItem({
+            multipleSelect: true,
             choices: [
-                generateRadioChoice("Choice 1", {
-                    correct: true,
-                }),
+                generateRadioChoice("Choice 1", {correct: true}),
                 generateRadioChoice("Choice 2"),
                 generateRadioChoice("Choice 3"),
                 generateRadioChoice("Choice 4"),
