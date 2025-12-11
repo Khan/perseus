@@ -241,6 +241,9 @@ export {
 export {
     generateRadioOptions,
     generateRadioWidget,
+    generateRadioChoice,
+    generateSimpleRadioQuestion,
+    generateSimpleRadioItem,
 } from "./utils/generators/radio-widget-generator";
 export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 

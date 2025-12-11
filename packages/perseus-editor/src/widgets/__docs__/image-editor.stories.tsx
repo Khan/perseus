@@ -3,12 +3,14 @@ import {
     generateImageOptions,
     generateImageWidget,
     generateTestPerseusRenderer,
+    generateRadioWidget,
+    generateRadioOptions,
+    generateRadioChoice,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
 import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
-import {radioQuestionBuilder} from "../../../../perseus/src/widgets/radio/radio-question-builder";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageEditor from "../image-editor/image-editor";
@@ -124,11 +126,15 @@ export const WithMarkdownImageLinterWarning: Story = {
                                     alt: "Earth and moon",
                                 }),
                             }),
-                            "radio 1": radioQuestionBuilder()
-                                .addChoice(
-                                    `![Earth and moon](${earthMoonImage.url})`,
-                                )
-                                .build().widgets["radio 1"],
+                            "radio 1": generateRadioWidget({
+                                options: generateRadioOptions({
+                                    choices: [
+                                        generateRadioChoice(
+                                            `![Earth and moon](${earthMoonImage.url})`,
+                                        ),
+                                    ],
+                                }),
+                            }),
                         },
                     })}
                 />

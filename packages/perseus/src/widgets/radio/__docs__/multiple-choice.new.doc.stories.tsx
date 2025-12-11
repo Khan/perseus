@@ -1,3 +1,7 @@
+import {
+    generateRadioChoice,
+    generateSimpleRadioQuestion,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
@@ -5,7 +9,6 @@ import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
-import {radioQuestionBuilder} from "../radio-question-builder";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -174,19 +177,23 @@ export default meta;
 type Story = StoryObj<typeof RadioDemo>;
 
 // Create the question data for each story
-const singleSelectQuestion = radioQuestionBuilder()
-    .addChoice("Option A", {correct: true})
-    .addChoice("Option B", {correct: false})
-    .addChoice("Option C", {correct: false})
-    .build();
+const singleSelectQuestion = generateSimpleRadioQuestion({
+    choices: [
+        generateRadioChoice("Option A", {correct: true}),
+        generateRadioChoice("Option B", {correct: false}),
+        generateRadioChoice("Option C", {correct: false}),
+    ],
+});
 
-const multipleSelectQuestion = radioQuestionBuilder()
-    .addChoice("Option A", {correct: true})
-    .addChoice("Option B", {correct: true})
-    .addChoice("Option C", {correct: false})
-    .withMultipleSelect(true)
-    .withCountChoices(true)
-    .build();
+const multipleSelectQuestion = generateSimpleRadioQuestion({
+    multipleSelect: true,
+    countChoices: true,
+    choices: [
+        generateRadioChoice("Option A", {correct: true}),
+        generateRadioChoice("Option B", {correct: true}),
+        generateRadioChoice("Option C", {correct: false}),
+    ],
+});
 
 export const DefaultSingleSelect: Story = {
     args: {
