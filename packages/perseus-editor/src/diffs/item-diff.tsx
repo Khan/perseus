@@ -36,7 +36,7 @@ class ItemDiff extends React.Component<Props> {
 
         let extras: React.ReactNode;
         // There might be a better way to do this, but for now I think it's fine to not
-        // show the diff if the answer area is not set in both.
+        // show the diff if the answer area is set in both before and after.
         if (before.answerArea && after.answerArea) {
             extras = (
                 <AnswerAreaDiff
