@@ -1,18 +1,4 @@
-import gradedGroupSetWidgetLogic from "../../widgets/graded-group-set";
-
-import type {
-    GradedGroupSetWidget,
-    PerseusGradedGroupSetWidgetOptions,
-} from "../../data-schema";
-
-export function generateGradedGroupSetOptions(
-    options?: Partial<PerseusGradedGroupSetWidgetOptions>,
-): PerseusGradedGroupSetWidgetOptions {
-    return {
-        ...gradedGroupSetWidgetLogic.defaultWidgetOptions,
-        ...options,
-    };
-}
+import type {GradedGroupSetWidget} from "../../data-schema";
 
 export function generateGradedGroupSetWidget(
     gradedGroupSetWidgetProperties?: Partial<
@@ -25,7 +11,7 @@ export function generateGradedGroupSetWidget(
         version: {major: 0, minor: 0},
         static: false,
         alignment: "default",
-        options: generateGradedGroupSetOptions(),
+        options: {gradedGroups: []},
         ...gradedGroupSetWidgetProperties,
     };
 }

@@ -1,40 +1,7 @@
-import {
-    generateGradedGroupSetOptions,
-    generateGradedGroupSetWidget,
-} from "./graded-group-set-widget-generator";
+import {generateGradedGroupSetWidget} from "./graded-group-set-widget-generator";
 import {generateGradedGroupOptions} from "./graded-group-widget-generator";
 
-import type {
-    GradedGroupSetWidget,
-    PerseusGradedGroupSetWidgetOptions,
-} from "../../data-schema";
-
-describe("generateGradedGroupSetOptions", () => {
-    it("builds a default graded group set options object", () => {
-        // Arrange, Act
-        const options: PerseusGradedGroupSetWidgetOptions =
-            generateGradedGroupSetOptions();
-
-        // Assert
-        expect(options).toEqual({
-            gradedGroups: [],
-        });
-    });
-
-    it("builds a graded group set options object with all props", () => {
-        // Arrange, Act
-        const gradedGroupOptions = generateGradedGroupOptions();
-        const options: PerseusGradedGroupSetWidgetOptions =
-            generateGradedGroupSetOptions({
-                gradedGroups: [gradedGroupOptions],
-            });
-
-        // Assert
-        expect(options).toEqual({
-            gradedGroups: [gradedGroupOptions],
-        });
-    });
-});
+import type {GradedGroupSetWidget} from "../../data-schema";
 
 describe("generateGradedGroupSetWidget", () => {
     it("builds a default graded group set widget", () => {
