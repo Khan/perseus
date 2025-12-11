@@ -2,39 +2,13 @@
  * A side by side diff view for Perseus renderers.
  */
 
-import {Widgets} from "@khanacademy/perseus";
-import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import TextDiff from "./text-diff";
 import WidgetDiff from "./widget-diff";
 
-import type {PerseusRenderer, PerseusWidget} from "@khanacademy/perseus-core";
-
-// In diffs, only show the widgetInfo props that can change
-const filterWidgetInfo = function (
-    widgetInfo: PerseusWidget,
-    showAlignmentOptions: boolean,
-) {
-    const {alignment, options, type} = widgetInfo;
-
-    const filteredWidgetInfo: Partial<PerseusWidget> = {options};
-
-    // Show alignment options iff multiple valid ones exist for this widget
-    if (
-        showAlignmentOptions &&
-        CoreWidgetRegistry.getSupportedAlignments(type).length > 1
-    ) {
-        filteredWidgetInfo.alignment = alignment;
-    }
-
-    if (Widgets.supportsStaticMode(type)) {
-        filteredWidgetInfo.static = widgetInfo.static ?? undefined;
-    }
-
-    return filteredWidgetInfo;
-};
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 type Props = {
     // The "after" props of the renderer. Will be displayed on the right.
@@ -42,6 +16,7 @@ type Props = {
     // The "before" props of the renderer. Will be displayed on the left.
     before: PerseusRenderer;
     // If true, show widget alignment options in the diff.
+    // TODO(cat): Do we still need this or want to keep it?
     showAlignmentOptions: boolean;
     // If true, render a horizontal rule after this diff.
     showSeparator: boolean;
@@ -67,8 +42,8 @@ class RendererDiff extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const {after, before, showAlignmentOptions, showSeparator, title} =
-            this.props;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const {after, before, showSeparator, title} = this.props;
 
         let textDiff: React.JSX.Element | undefined;
         let widgetsDiff: React.JSX.Element[] = [];
@@ -94,18 +69,8 @@ class RendererDiff extends React.Component<Props> {
             const widgets = _.union(beforeWidgets, afterWidgets);
             widgetsDiff = widgets.map((widget) => (
                 <WidgetDiff
-                    before={
-                        filterWidgetInfo(
-                            before.widgets?.[widget],
-                            showAlignmentOptions,
-                        ) as PerseusWidget
-                    }
-                    after={
-                        filterWidgetInfo(
-                            after.widgets?.[widget],
-                            showAlignmentOptions,
-                        ) as PerseusWidget
-                    }
+                    before={before.widgets?.[widget]}
+                    after={after.widgets?.[widget]}
                     title={widget}
                     type={
                         (before.widgets?.[widget] ?? {}).type ||
