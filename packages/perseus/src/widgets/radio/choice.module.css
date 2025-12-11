@@ -9,7 +9,7 @@
 
 :global(.perseus-article) {
     .choice:not(.is-correct):has(> button[aria-pressed="true"])
-    :global(.paragraph) {
+        :global(.paragraph) {
         color: var(--wb-semanticColor-core-foreground-instructive-default);
     }
 }
