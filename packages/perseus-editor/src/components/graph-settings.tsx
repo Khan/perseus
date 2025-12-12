@@ -12,7 +12,6 @@ import {
 } from "@khanacademy/perseus";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import type {Coords, MarkingsType} from "@khanacademy/perseus-core";
@@ -103,6 +102,10 @@ class GraphSettings extends React.Component<Props, State> {
     };
 
     _isMounted = false;
+
+    bgUrlRef = React.createRef<HTMLInputElement>();
+    labelsXRef = React.createRef<HTMLInputElement>();
+    labelsYRef = React.createRef<HTMLInputElement>();
 
     constructor(props) {
         super(props);
@@ -197,8 +200,7 @@ class GraphSettings extends React.Component<Props, State> {
             );
         };
 
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
+        const url = this.bgUrlRef.current?.value;
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
@@ -481,8 +483,7 @@ class GraphSettings extends React.Component<Props, State> {
                                     id="labels-x"
                                     type="text"
                                     className="graph-settings-axis-label"
-                                    // eslint-disable-next-line react/no-string-refs
-                                    ref="labels-0"
+                                    ref={this.labelsXRef}
                                     onChange={(e) => this.changeLabel(0, e)}
                                     value={this.state.labelsTextbox[0] || ""}
                                 />
@@ -493,8 +494,7 @@ class GraphSettings extends React.Component<Props, State> {
                                     id="labels-y"
                                     type="text"
                                     className="graph-settings-axis-label"
-                                    // eslint-disable-next-line react/no-string-refs
-                                    ref="labels-1"
+                                    ref={this.labelsYRef}
                                     onChange={(e) => this.changeLabel(1, e)}
                                     value={this.state.labelsTextbox[1] || ""}
                                 />
@@ -588,8 +588,7 @@ class GraphSettings extends React.Component<Props, State> {
                                 id="bg-url"
                                 type="text"
                                 className="graph-settings-background-url"
-                                // eslint-disable-next-line react/no-string-refs
-                                ref="bg-url"
+                                ref={this.bgUrlRef}
                                 value={this.state.backgroundImage.url || ""}
                                 onChange={(e) => {
                                     const image = _.clone(
