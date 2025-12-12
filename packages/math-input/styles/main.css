@@ -1,4 +1,7 @@
-@import "mathquill/build/mathquill.css";
+@layer libraries, perseus-legacy;
+
+@import "mathquill/build/mathquill.css" layer(libraries);
+
 .keypad-input {
     outline: none !important;
 }
