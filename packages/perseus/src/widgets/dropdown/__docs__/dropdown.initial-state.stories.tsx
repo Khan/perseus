@@ -116,21 +116,14 @@ export const StaticBasicDropdown: Story = {
     },
 };
 
-function DropdownQuestionRenderer(props: {
-    item: PerseusItem;
-    rtl?: boolean;
-    readOnly?: boolean;
-}) {
-    const {item, rtl, readOnly} = props;
+function DropdownQuestionRenderer(props: {item: PerseusItem; rtl?: boolean}) {
+    const {item, rtl} = props;
 
     return (
         <div dir={rtl ? "rtl" : "ltr"}>
             <ServerItemRenderer
                 item={item}
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                    readOnly: readOnly ?? false,
-                }}
+                apiOptions={ApiOptions.defaults}
                 dependencies={testDependenciesV2}
             />
         </div>
