@@ -83,7 +83,7 @@ class WidgetDiff extends React.Component<WidgetDiffProps> {
         const {after, before, title, type} = this.props;
         const diff = performDiff(before, after);
         return (
-            <div>
+            <>
                 <div className="diff-header">{title}</div>
                 <div className="diff-header">{title}</div>
                 <div className="diff-body ui-helper-clearfix">
@@ -95,7 +95,7 @@ class WidgetDiff extends React.Component<WidgetDiffProps> {
                     )}
                     <DiffEntry entry={diff} />
                 </div>
-            </div>
+            </>
         );
     }
 }

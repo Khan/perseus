@@ -17,13 +17,13 @@ export class AnswerAreaDiff extends React.Component<AnswerAreaDiffProps> {
         const {after, before, title} = this.props;
         const diff = performDiff(before, after);
         return (
-            <div>
+            <>
                 <div className="diff-header">{title}</div>
                 <div className="diff-header">{title}</div>
                 <div className="diff-body ui-helper-clearfix">
                     <DiffEntry entry={diff} />
                 </div>
-            </div>
+            </>
         );
     }
 }

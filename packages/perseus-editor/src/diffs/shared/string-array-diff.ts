@@ -42,12 +42,12 @@ function splitUpChunk(chunk: ImageEntry): ImageDiff[] {
 
 // Apply `fn` to every element in `lst` and then concatenate all the results
 // http://clojuredocs.org/clojure_core/clojure.core/mapcat
-const mapcat = function (
+function mapcat(
     lst: ImageEntry[],
     fn: (chunk: ImageEntry) => ImageDiff[],
-) {
+): ImageDiff[] {
     return _.flatten(_.map(lst, fn), true /* only flatten one level */);
-};
+}
 
 // > ArrayDiff.diff([1,2,3], [2,3,4]);
 // = [{ "value": [1],
@@ -75,7 +75,9 @@ ArrayDiff.equals = _.isEqual;
 //    { "value":2, "status":"unchanged"},
 //    { "value":3, "status":"unchanged"},
 //    { "value":4, "status":"added"}]
-const flattenChunks = (chunks: ImageEntry[]) => mapcat(chunks, splitUpChunk);
+function flattenChunks(chunks: ImageEntry[]): ImageDiff[] {
+    return mapcat(chunks, splitUpChunk);
+}
 
 // Take two arrays and create a diff for them. The result is two arrays of
 // objects, one for the things that should be included in a 'before', and one

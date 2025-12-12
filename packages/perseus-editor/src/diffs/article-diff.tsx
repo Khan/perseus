@@ -11,7 +11,7 @@ import RendererDiff from "./renderer-diff";
 
 import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
 
-interface ArticleDiffProps {
+interface Props {
     after: PerseusArticle;
     before: PerseusArticle;
     dependencies: PerseusDependenciesV2;
@@ -24,10 +24,8 @@ type ArticleDiffState = {
     after: PerseusRenderer[];
 };
 
-class ArticleDiff extends React.Component<ArticleDiffProps, ArticleDiffState> {
-    static _stateFromProps: (arg1: ArticleDiffProps) => ArticleDiffState = (
-        props,
-    ) => {
+class ArticleDiff extends React.Component<Props, ArticleDiffState> {
+    static _stateFromProps: (arg1: Props) => ArticleDiffState = (props) => {
         const {before, after} = props;
         return {
             before: Array.isArray(before) ? before : [before],
@@ -37,7 +35,7 @@ class ArticleDiff extends React.Component<ArticleDiffProps, ArticleDiffState> {
 
     state: ArticleDiffState = ArticleDiff._stateFromProps(this.props);
 
-    UNSAFE_componentWillReceiveProps(nextProps: ArticleDiffProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState(ArticleDiff._stateFromProps(nextProps));
     }
 
