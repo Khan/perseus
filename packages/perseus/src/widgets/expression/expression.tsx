@@ -89,6 +89,9 @@ export class Expression extends React.Component<Props> implements Widget {
     _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
 
+    keypadInputRef = React.createRef<KeypadInput>();
+    mathInputRef = React.createRef<MathInput>();
+
     static defaultProps: DefaultProps = {
         times: false,
         functions: [],
@@ -119,10 +122,12 @@ export class Expression extends React.Component<Props> implements Widget {
         // HACK: imperatively add an ID onto the Mathquill input
         // (which in mobile is a span; desktop a textarea)
         // in order to associate a visual label with it
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (this.refs.input) {
-            const isMobile = this.props.apiOptions.customKeypad;
-            const container = ReactDOM.findDOMNode(this.refs.input);
+        const isMobile = this.props.apiOptions.customKeypad;
+        const inputComponent = isMobile
+            ? this.keypadInputRef.current
+            : this.mathInputRef.current;
+        if (inputComponent) {
+            const container = ReactDOM.findDOMNode(inputComponent);
             const selector = isMobile ? ".mq-textarea > span" : "textarea";
             const inputElement = (container as Element).querySelector(selector);
             inputElement?.setAttribute("id", this._textareaId);
@@ -166,9 +171,11 @@ export class Expression extends React.Component<Props> implements Widget {
 
     focus: () => boolean = () => {
         if (this.props.apiOptions.customKeypad) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs.input.focus();
+            // KeypadInput's focus() requires a setKeypadActive parameter,
+            // but we don't have access to it here, so we just don't call focus
+            // TODO: Investigate if this is needed
+        } else {
+            this.mathInputRef.current?.focus();
         }
         return true;
     };
@@ -176,28 +183,21 @@ export class Expression extends React.Component<Props> implements Widget {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
     focusInputPath(inputPath: InputPath) {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+        this.mathInputRef.current?.focus();
     }
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
-    blurInputPath(inputPath: InputPath) {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        if (typeof this.refs.input?.blur === "function") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-            this.refs.input?.blur();
+    blurInputPath() {
+        if (this.props.apiOptions.customKeypad) {
+            this.keypadInputRef.current?.blur();
+        } else {
+            this.mathInputRef.current?.blur();
         }
     }
 
     // HACK(joel)
     insert(keyPressed: KeypadKey) {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
-        this.refs.input.insert(keyPressed);
+        // Only the Perseus MathInput has the insert method
+        this.mathInputRef.current?.insert(keyPressed);
     }
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<any>> = () => {
@@ -240,8 +240,7 @@ export class Expression extends React.Component<Props> implements Widget {
                         </LabelSmall>
                     )}
                     <KeypadInput
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="input"
+                        ref={this.keypadInputRef}
                         ariaLabel={
                             this.props.ariaLabel ||
                             this.context.strings.mathInputBox
@@ -278,8 +277,7 @@ export class Expression extends React.Component<Props> implements Widget {
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
                 <div className="perseus-widget-expression">
                     <MathInput
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="input"
+                        ref={this.mathInputRef}
                         value={this.props.userInput}
                         onChange={this.changeAndTrack}
                         convertDotToTimes={this.props.times}
