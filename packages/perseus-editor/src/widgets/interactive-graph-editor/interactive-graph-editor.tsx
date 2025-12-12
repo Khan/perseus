@@ -167,6 +167,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
         lockedFigures: [],
     };
 
+    graphRef = React.createRef<typeof InteractiveGraph.prototype>();
+
     changeStartCoords = (coords) => {
         if (!this.props.graph?.type) {
             return;
@@ -202,13 +204,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "fullGraphAriaDescription",
         );
 
-        // eslint-disable-next-line react/no-string-refs
-        const graph = this.refs.graph;
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        const graph = this.graphRef.current;
         if (graph) {
-            // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            const correct = graph && graph.getUserInput();
+            const correct = graph.getUserInput();
             _.extend(json, {
                 graph: {
                     type: correct.type,
@@ -292,7 +290,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
             // TODO(aria): send these down all at once
             const graphProps = {
-                ref: "graph",
                 box: this.props.box,
                 range: this.props.range,
                 showAxisArrows: this.props.showAxisArrows,
@@ -338,6 +335,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // bother passing.
                 // @ts-expect-error - TS2769 - No overload matches this call.
                 <InteractiveGraph
+                    ref={this.graphRef}
                     {...graphProps}
                     containerSizeClass={sizeClass}
                     apiOptions={{
