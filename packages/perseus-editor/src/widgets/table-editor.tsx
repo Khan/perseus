@@ -29,12 +29,6 @@ class TableEditor extends React.Component<Props> {
     static defaultProps: TableDefaultWidgetOptions =
         tableLogic.defaultWidgetOptions;
 
-    numberOfColumns = React.createRef<components.NumberInput>();
-
-    focus: () => void = () => {
-        this.numberOfColumns.current?.focus();
-    };
-
     onSizeInput: (arg1: number, arg2: number) => void = (
         numRawRows,
         numRawColumns,
@@ -117,7 +111,6 @@ class TableEditor extends React.Component<Props> {
                     <label>
                         Number of columns:{" "}
                         <NumberInput
-                            ref={this.numberOfColumns}
                             value={this.props.columns}
                             onChange={(val) => {
                                 if (val) {
@@ -132,8 +125,6 @@ class TableEditor extends React.Component<Props> {
                     <label>
                         Number of rows:{" "}
                         <NumberInput
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="numberOfRows"
                             value={this.props.rows}
                             onChange={(val) => {
                                 if (val) {
