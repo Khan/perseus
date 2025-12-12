@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 28.8.7
+
+### Patch Changes
+
+-   [#3065](https://github.com/Khan/perseus/pull/3065) [`7e393c6e48`](https://github.com/Khan/perseus/commit/7e393c6e48c0fa2f7e6a7c04b32ffa1aec84a62e) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - fix: adds review mode to content preview to show correct styling for radio
+
 ## 28.8.6
 
 ### Patch Changes
