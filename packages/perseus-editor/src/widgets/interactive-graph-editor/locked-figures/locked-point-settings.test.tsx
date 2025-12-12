@@ -1,3 +1,4 @@
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -5,7 +6,6 @@ import * as React from "react";
 
 import LockedPointSettings from "./locked-point-settings";
 import {
-    getDefaultFigureForType,
     mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
 } from "./util";
@@ -489,6 +489,35 @@ describe("LockedPointSettings", () => {
         expect(onChangeProps).toHaveBeenCalledWith({
             ariaLabel:
                 "Point spoken A, spoken B at spoken $0$ comma spoken $0$. Appearance solid gray.",
+        });
+    });
+
+    test("aria label does not include fill when filled is false", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+
+        // Act
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                ariaLabel={undefined}
+                onChangeProps={onChangeProps}
+                filled={false}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const autoGenButton = screen.getByRole("button", {
+            name: "Auto-generate",
+        });
+        await userEvent.click(autoGenButton);
+
+        // Assert
+        // generateSpokenMathDetails is mocked to return the input string
+        // with "Spoken math details for " prepended.
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel:
+                "Point at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
         });
     });
 });

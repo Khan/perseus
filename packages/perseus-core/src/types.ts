@@ -54,8 +54,10 @@ export type Alignment =
     | "block"
     | "inline-block"
     | "inline"
-    | "float-left"
-    | "float-right"
+    // wrap alignments will be set to inline-block floated left or right this will
+    // allow text to wrap around the widget and not have large space on either side
+    | "wrap-left"
+    | "wrap-right"
     | "full-width";
 
 export type RecursiveReadonly<T> = {

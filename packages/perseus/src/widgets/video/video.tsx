@@ -48,6 +48,16 @@ class Video extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "video",
+                widgetId: this.props.widgetId,
+            },
+        });
+    }
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();

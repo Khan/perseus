@@ -3,9 +3,10 @@ import * as React from "react";
 
 import QuestionMarkers from "../question-markers";
 
+import type {QuestionMarkersProps} from "../question-markers";
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-type StoryArgs = Record<any, any>;
+type StoryArgs = Record<string, QuestionMarkersProps>;
 
 type Story = {
     title: string;
@@ -22,14 +23,14 @@ const styles = StyleSheet.create({
     },
 });
 
-const Wrapper = (props) => (
+const Wrapper = (props: QuestionMarkersProps) => (
     <div className={css(styles.wrapper)}>
         <QuestionMarkers {...props} />
     </div>
 );
 
 class WithState extends React.Component<
-    Record<any, any>,
+    StoryArgs,
     {
         markers: PerseusLabelImageWidgetOptions["markers"];
     }
@@ -64,6 +65,7 @@ class WithState extends React.Component<
                     imageHeight={1024}
                     markers={markers}
                     onChange={(markers) => this.setState({markers})}
+                    editingDisabled={false}
                 />
             </div>
         );
@@ -71,19 +73,20 @@ class WithState extends React.Component<
 }
 
 export const Empty = (args: StoryArgs): React.ReactElement => {
-    const props = {
+    const props: QuestionMarkersProps = {
         choices: [],
         imageUrl: "",
         imageWidth: 0,
         imageHeight: 0,
         markers: [],
         onChange: () => {},
-    } as const;
+        editingDisabled: false,
+    };
     return <Wrapper {...props} />;
 };
 
 export const Filled = (args: StoryArgs): React.ReactElement => {
-    const props = {
+    const props: QuestionMarkersProps = {
         choices: [],
         imageUrl:
             "https://ka-perseus-images.s3.amazonaws.com/2ee5fc32e35c5178373b39fd304b325b2994c913.png",
@@ -98,7 +101,8 @@ export const Filled = (args: StoryArgs): React.ReactElement => {
             },
         ],
         onChange: () => {},
-    } as const;
+        editingDisabled: false,
+    };
     return <Wrapper {...props} />;
 };
 

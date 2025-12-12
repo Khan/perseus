@@ -13,7 +13,7 @@ import Marker from "./marker";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = {
+export type QuestionMarkersProps = {
     // The list of possible answers in a specific order.
     choices: string[];
     // The question image properties.
@@ -24,9 +24,12 @@ type Props = {
     markers: PerseusLabelImageWidgetOptions["markers"];
     // Callback for when any of markers change.
     onChange: (markers: PerseusLabelImageWidgetOptions["markers"]) => void;
+    // Whether the editor is disabled. Can be set via API options
+    // to make the editor read-only when needed.
+    editingDisabled: boolean;
 };
 
-export default class QuestionMarkers extends React.Component<Props> {
+export default class QuestionMarkers extends React.Component<QuestionMarkersProps> {
     _markers: Array<Marker | null | undefined> = [];
 
     openDropdownForMarkerIndices(indices: ReadonlyArray<number>) {
@@ -42,6 +45,11 @@ export default class QuestionMarkers extends React.Component<Props> {
         e: React.MouseEvent,
     ) => {
         e.preventDefault();
+
+        // If the editor is disabled, do not allow the user to add markers.
+        if (this.props.editingDisabled) {
+            return;
+        }
 
         const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
 

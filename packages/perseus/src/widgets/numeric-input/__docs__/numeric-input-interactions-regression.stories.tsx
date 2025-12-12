@@ -1,10 +1,15 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateNumericInputWidget,
+    generateNumericInputOptions,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+    generateNumericInputAnswer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
-import {numericInputQuestionBuilder} from "../numeric-input-question-builder";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
@@ -30,7 +35,17 @@ export default {
 export const Focus = {
     args: {
         item: generateTestPerseusItem({
-            question: numericInputQuestionBuilder().withSize("normal").build(),
+            question: generateTestPerseusRenderer({
+                content:
+                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
+                widgets: {
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            size: "normal",
+                        }),
+                    }),
+                },
+            }),
         }),
     },
     play: async ({canvas}) => {
@@ -43,10 +58,22 @@ export const Focus = {
 export const With1Tooltip = {
     args: {
         item: generateTestPerseusItem({
-            question: numericInputQuestionBuilder()
-                .withSize("normal")
-                .withAnswer({answerForms: ["integer"]})
-                .build(),
+            question: generateTestPerseusRenderer({
+                content:
+                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
+                widgets: {
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            size: "normal",
+                            answers: [
+                                generateNumericInputAnswer({
+                                    answerForms: ["integer"],
+                                }),
+                            ],
+                        }),
+                    }),
+                },
+            }),
         }),
     },
     play: async ({canvas}) => {
@@ -59,10 +86,22 @@ export const With1Tooltip = {
 export const WithMultipleTooltips = {
     args: {
         item: generateTestPerseusItem({
-            question: numericInputQuestionBuilder()
-                .withSize("normal")
-                .withAnswer({answerForms: ["integer", "decimal"]})
-                .build(),
+            question: generateTestPerseusRenderer({
+                content:
+                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
+                widgets: {
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            size: "normal",
+                            answers: [
+                                generateNumericInputAnswer({
+                                    answerForms: ["integer", "decimal"],
+                                }),
+                            ],
+                        }),
+                    }),
+                },
+            }),
         }),
     },
     play: async ({canvas}) => {

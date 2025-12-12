@@ -115,7 +115,8 @@ class WidgetContainer extends React.Component<Props, State> {
             alignment = CoreWidgetRegistry.getDefaultAlignment(type);
         }
 
-        className += " widget-" + alignment;
+        // This will set the WidgetContainer's alignment
+        className += CoreWidgetRegistry.getAlignmentClassName(type, alignment);
 
         const apiOptions = this.props.widgetProps.apiOptions;
 
@@ -175,6 +176,9 @@ class WidgetContainer extends React.Component<Props, State> {
                                         widgetType: type,
                                         widgetId: this.props.id,
                                         message: error.message,
+                                        stack:
+                                            error.stack ??
+                                            "No stack trace available",
                                         userAgent: userAgent,
                                     },
                                 });

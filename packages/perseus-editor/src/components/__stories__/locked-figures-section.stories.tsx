@@ -1,10 +1,11 @@
+import {ApiOptions} from "@khanacademy/perseus";
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import LockedFiguresSection from "../../widgets/interactive-graph-editor/locked-figures/locked-figures-section";
-import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -34,6 +35,7 @@ export const Controlled: StoryComponentType = {
             <LockedFiguresSection
                 figures={figures}
                 onChange={handlePropsUpdate}
+                apiOptions={ApiOptions.defaults}
             />
         );
     },
@@ -55,6 +57,7 @@ export const WithProdWidth: StoryComponentType = {
                 <LockedFiguresSection
                     figures={figures}
                     onChange={handlePropsUpdate}
+                    apiOptions={ApiOptions.defaults}
                 />
             </View>
         );

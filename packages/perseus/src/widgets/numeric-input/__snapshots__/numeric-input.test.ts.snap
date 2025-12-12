@@ -30,7 +30,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
           <div>
             <div
               aria-label="Math input box Tap with one or two fingers to open keyboard"
-              class="initial_4qg14c-o_O-input_1n1c032"
+              class="default_xu2jcg-o_O-input_1n1c032"
               role="textbox"
             >
               <div
@@ -199,7 +199,7 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-:rf:"
+            aria-describedby="aria-for-:ri:"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
@@ -208,13 +208,13 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
             autocorrect="off"
             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inputWithExamples_123b4qd"
             data-testid="input-with-examples"
-            id=":rf:"
+            id=":ri:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-:rf:"
+            id="aria-for-:ri:"
             style="display: none;"
           >
             Your answer should be 
@@ -258,7 +258,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-:ri:"
+            aria-describedby="aria-for-:rl:"
             aria-disabled="false"
             aria-invalid="false"
             aria-label="What's the answer?"
@@ -268,13 +268,13 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
             autocorrect="off"
             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inputWithExamples_123b4qd"
             data-testid="input-with-examples"
-            id=":ri:"
+            id=":rl:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-:ri:"
+            id="aria-for-:rl:"
             style="display: none;"
           >
             Your answer should be 
@@ -316,7 +316,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-:r9:"
+            aria-describedby="aria-for-:rc:"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
@@ -325,13 +325,13 @@ exports[`numeric-input widget Should render tooltip when format option is given:
             autocorrect="off"
             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inputWithExamples_123b4qd"
             data-testid="input-with-examples"
-            id=":r9:"
+            id=":rc:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-:r9:"
+            id="aria-for-:rc:"
             style="display: none;"
           >
             Your answer should be 

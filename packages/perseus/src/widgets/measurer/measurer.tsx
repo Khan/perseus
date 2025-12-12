@@ -171,7 +171,12 @@ class Measurer extends React.Component<Props> implements Widget {
                         }}
                     >
                         {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
-                        <SvgImage src={image.url} />
+                        <SvgImage
+                            src={image.url}
+                            // Don't allow zooming on an image that's being
+                            // used as a measurer background.
+                            allowZoom={false}
+                        />
                     </div>
                 )}
                 {/* eslint-disable-next-line react/no-string-refs */}

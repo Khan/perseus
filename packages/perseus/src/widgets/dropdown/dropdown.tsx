@@ -5,11 +5,17 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import {withDependencies} from "../../components/with-dependencies";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {
     PerseusDropdownUserInput,
@@ -19,7 +25,9 @@ import type {
 type Props = WidgetProps<
     PerseusDropdownWidgetOptions,
     PerseusDropdownUserInput
->;
+> & {
+    dependencies: PerseusDependenciesV2;
+};
 
 type DefaultProps = {
     choices: Props["choices"];
@@ -38,6 +46,17 @@ class Dropdown extends React.Component<Props> implements Widget {
         apiOptions: ApiOptions.defaults,
         userInput: {value: 0},
     };
+
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "dropdown",
+                widgetId: this.props.widgetId,
+            },
+        });
+    }
 
     focus: () => boolean = () => {
         // TODO(LP-10797): This focus() call doesn't do anything because our
@@ -170,11 +189,13 @@ function getCorrectUserInput(
     return {value: options.choices.findIndex((c) => c.correct) + 1};
 }
 
+const WrappedDropdown = withDependencies(Dropdown);
+
 export default {
     name: "dropdown",
     displayName: "Drop down",
-    widget: Dropdown,
+    widget: WrappedDropdown,
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Dropdown>;
+} satisfies WidgetExports<typeof WrappedDropdown>;

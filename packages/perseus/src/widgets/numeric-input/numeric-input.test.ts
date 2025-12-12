@@ -1,12 +1,19 @@
 import {
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
@@ -99,6 +106,30 @@ describe("numeric-input widget", () => {
         expect(container).toMatchSnapshot("after interaction");
     });
 
+    it("should send analytics event when widget is rendered", async () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.spyOn(
+            testDependenciesV2.analytics,
+            "onAnalyticsEvent",
+        );
+
+        // Act
+        renderQuestion(question);
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "numeric-input",
+                widgetId: "numeric-input 1",
+            },
+        });
+    });
+
     it("Should render tooltip when format option is given", async () => {
         // Arrange
         const questionWithFormatOptions = JSON.parse(JSON.stringify(question1));
@@ -115,31 +146,21 @@ describe("numeric-input widget", () => {
 
     it("Should render a visible tooltip when format options are given", async () => {
         // Arrange
-        const item: PerseusRenderer = {
+        const item = generateTestPerseusRenderer({
             content: "[[☃ numeric-input 1]] ",
-            images: {},
             widgets: {
-                "numeric-input 1": {
-                    type: "numeric-input",
-                    options: {
-                        coefficient: false,
-                        static: false,
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
                         answers: [
-                            {
-                                status: "correct",
-                                maxError: null,
-                                strict: false,
+                            generateNumericInputAnswer({
                                 value: 1252,
-                                simplify: "required",
-                                message: "",
                                 answerForms: ["proper", "improper", "mixed"],
-                            },
+                            }),
                         ],
-                        size: "normal",
-                    },
-                },
+                    }),
+                }),
             },
-        };
+        });
 
         // Act
         renderQuestion(item);
@@ -469,25 +490,16 @@ describe("interactive: full vs answerless", () => {
             content: "[[☃ numeric-input 1]] ",
             images: {},
             widgets: {
-                "numeric-input 1": {
-                    type: "numeric-input",
-                    options: {
-                        coefficient: false,
-                        static: false,
-                        size: "normal",
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
                         answers: [
-                            {
-                                status: "correct",
-                                maxError: null,
-                                strict: false,
+                            generateNumericInputAnswer({
                                 value: 42,
-                                simplify: "required",
-                                message: "",
                                 answerForms: ["proper", "improper", "mixed"],
-                            },
+                            }),
                         ],
-                    },
-                },
+                    }),
+                }),
             },
         };
 

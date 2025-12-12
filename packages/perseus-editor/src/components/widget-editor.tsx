@@ -1,13 +1,15 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {Widgets, excludeDenylistKeys, iconTrash} from "@khanacademy/perseus";
+import {Widgets, excludeDenylistKeys} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
+    isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import {useId} from "react";
 
@@ -142,10 +144,17 @@ class WidgetEditor extends React.Component<
 
     render(): React.ReactNode {
         const widgetInfo = this.state.widgetInfo;
+        const isEditingDisabled =
+            this.props.apiOptions.editingDisabled ?? false;
 
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
-        if (this.props.apiOptions.showAlignmentOptions) {
+        const imageUpgradeFF = isFeatureOn(this.props, "image-widget-upgrade");
+
+        if (widgetInfo.type === "image" && !imageUpgradeFF) {
+            // TODO(LEMS-3520): Feature flag cleanup
+            supportedAlignments = ["block", "full-width"];
+        } else if (this.props.apiOptions.showAlignmentOptions) {
             supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
                 widgetInfo.type,
             );
@@ -185,6 +194,7 @@ class WidgetEditor extends React.Component<
                         <LabeledSwitch
                             label="Static"
                             checked={!!widgetInfo.static}
+                            disabled={isEditingDisabled}
                             onChange={this._setStatic}
                         />
                     )}
@@ -192,6 +202,7 @@ class WidgetEditor extends React.Component<
                         <select
                             className="alignment"
                             value={widgetInfo.alignment}
+                            disabled={isEditingDisabled}
                             onChange={this._handleAlignmentChange}
                         >
                             {supportedAlignments.map((alignment) => (
@@ -200,7 +211,8 @@ class WidgetEditor extends React.Component<
                         </select>
                     )}
                     <SectionControlButton
-                        icon={iconTrash}
+                        icon={trashIcon}
+                        disabled={isEditingDisabled}
                         onClick={() => {
                             this.props.onRemove();
                         }}
@@ -232,14 +244,15 @@ function LabeledSwitch(props: {
     label: string;
     checked: boolean;
     onChange: (value: boolean) => unknown;
+    disabled: boolean;
 }) {
-    const {label, ...switchProps} = props;
+    const {label, disabled, ...switchProps} = props;
     const id = useId();
     return (
         <>
             <label htmlFor={id}>{label}</label>
             <Strut size={spacing.xxSmall_6} />
-            <Switch id={id} {...switchProps} />
+            <Switch id={id} {...switchProps} disabled={disabled} />
         </>
     );
 }

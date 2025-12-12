@@ -1,4 +1,9 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {
+    generateRadioWidget,
+    type PerseusRenderer,
+    type RadioWidget,
+} from "@khanacademy/perseus-core";
 import {scoreRadio} from "@khanacademy/perseus-score";
 import {act, screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -8,7 +13,7 @@ import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
-import PassageWidget from "../../passage";
+import {Passage} from "../../passage";
 
 import {
     questionAndAnswer,
@@ -19,7 +24,6 @@ import {
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -345,8 +349,7 @@ describe("Radio Widget", () => {
                             static: false,
                         },
                     },
-                    "radio 1": {
-                        type: "radio",
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
                                 {
@@ -370,7 +373,7 @@ describe("Radio Widget", () => {
                                 },
                             ],
                         },
-                    },
+                    }),
                 },
             };
 
@@ -378,10 +381,11 @@ describe("Radio Widget", () => {
             // We mock this one function on Passage as its where all the magic DOM
             // measurement happens. This ensures our assertions in this test don't
             // have to assert NaN and make sense.
-            jest.spyOn(
-                PassageWidget.widget.prototype,
-                "getReference",
-            ).mockReturnValue({content: "", startLine: 1, endLine: 2});
+            jest.spyOn(Passage.prototype, "getReference").mockReturnValue({
+                content: "",
+                startLine: 1,
+                endLine: 2,
+            });
 
             // Act
             renderQuestion(question, apiOptions);

@@ -9733,8 +9733,8 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.ts re
           },
           "labelLocation": "onAxis",
           "labels": [
-            "x",
-            "y",
+            "$x$",
+            "$y$",
           ],
           "lockedFigures": [],
           "markings": "none",

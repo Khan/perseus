@@ -3,7 +3,7 @@
     "description": "Linter engine for Perseus",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "4.4.1",
+    "version": "4.6.4",
     "publishConfig": {
         "access": "public"
     },
@@ -25,16 +25,17 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
+        "@khanacademy/kas": "workspace:*",
+        "@khanacademy/kmath": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
         "@khanacademy/pure-markdown": "workspace:*",
-        "perseus-build-settings": "workspace:*",
-        "prop-types": "catalog:devDeps"
+        "perseus-build-settings": "workspace:*"
     },
-    "peerDependencies": {
-        "prop-types": "catalog:peerDeps"
-    },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "e3b0c44298fc1c14"
+    }
 }

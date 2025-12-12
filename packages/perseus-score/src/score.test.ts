@@ -1,126 +1,13 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
     type DropdownWidget,
     type PerseusWidgetsMap,
     type UserInputMap,
 } from "@khanacademy/perseus-core";
 
-import {flattenScores, scorePerseusItem, scoreWidgetsFunctional} from "./score";
+import {scorePerseusItem, scoreWidgetsFunctional} from "./score";
 import {getExpressionWidget, getTestDropdownWidget} from "./util/test-helpers";
-
-describe("flattenScores", () => {
-    it("defaults to an empty score", () => {
-        const result = flattenScores({});
-
-        expect(result).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
-        expect(result).toEqual({
-            type: "points",
-            total: 0,
-            earned: 0,
-            message: null,
-        });
-    });
-
-    it("defaults to single score if there is only one", () => {
-        const result = flattenScores({
-            "radio 1": {
-                type: "points",
-                total: 1,
-                earned: 1,
-                message: null,
-            },
-        });
-
-        expect(result).toHaveBeenAnsweredCorrectly();
-        expect(result).toEqual({
-            type: "points",
-            total: 1,
-            earned: 1,
-            message: null,
-        });
-    });
-
-    it("returns an invalid score if any are invalid", () => {
-        const result = flattenScores({
-            "radio 1": {
-                type: "points",
-                total: 1,
-                earned: 1,
-                message: null,
-            },
-            "radio 2": {
-                type: "invalid",
-                message: null,
-            },
-        });
-
-        expect(result).toHaveInvalidInput();
-        expect(result).toEqual({
-            type: "invalid",
-            message: null,
-        });
-    });
-
-    it("tallies scores if multiple widgets have points", () => {
-        const result = flattenScores({
-            "radio 1": {
-                type: "points",
-                total: 1,
-                earned: 1,
-                message: null,
-            },
-            "radio 2": {
-                type: "points",
-                total: 1,
-                earned: 1,
-                message: null,
-            },
-            "radio 3": {
-                type: "points",
-                total: 1,
-                earned: 1,
-                message: null,
-            },
-        });
-
-        expect(result).toHaveBeenAnsweredCorrectly();
-        expect(result).toEqual({
-            type: "points",
-            total: 3,
-            earned: 3,
-            message: null,
-        });
-    });
-
-    it("doesn't count incorrect widgets", () => {
-        const result = flattenScores({
-            "radio 1": {
-                type: "points",
-                total: 1,
-                earned: 1,
-                message: null,
-            },
-            "radio 2": {
-                type: "points",
-                total: 1,
-                earned: 1,
-                message: null,
-            },
-            "radio 3": {
-                type: "points",
-                total: 1,
-                earned: 0,
-                message: null,
-            },
-        });
-
-        expect(result).toEqual({
-            type: "points",
-            total: 3,
-            earned: 2,
-            message: null,
-        });
-    });
-});
 
 describe("scoreWidgetsFunctional", () => {
     it("returns an empty object when there's no widgets", () => {
@@ -389,14 +276,9 @@ describe("scoreWidgetsFunctional", () => {
     });
 });
 
-function generateDropdown(): DropdownWidget {
-    return {
-        type: "dropdown",
-        alignment: "default",
-        static: false,
-        graded: true,
-        options: {
-            static: false,
+function generateBasicDropdown(): DropdownWidget {
+    return generateDropdownWidget({
+        options: generateDropdownOptions({
             ariaLabel: "Test ARIA label",
             visibleLabel: "Test visible label",
             placeholder: "Answer me",
@@ -410,12 +292,8 @@ function generateDropdown(): DropdownWidget {
                     correct: true,
                 },
             ],
-        },
-        version: {
-            major: 0,
-            minor: 0,
-        },
-    };
+        }),
+    });
 }
 
 describe("scorePerseusItem", () => {
@@ -423,7 +301,7 @@ describe("scorePerseusItem", () => {
         // Arrange:
         const item = {
             content: "[[☃ dropdown 1]]",
-            widgets: {"dropdown 1": generateDropdown()},
+            widgets: {"dropdown 1": generateBasicDropdown()},
             images: {},
         };
         const userInputMap = {};
@@ -432,6 +310,7 @@ describe("scorePerseusItem", () => {
         const score = scorePerseusItem(item, userInputMap, "en");
 
         // Assert:
+        expect(score).toHaveInvalidInput();
         expect(score).toEqual({type: "invalid", message: null});
     });
 
@@ -441,8 +320,8 @@ describe("scorePerseusItem", () => {
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
-                    "dropdown 1": generateDropdown(),
-                    "dropdown 2": generateDropdown(),
+                    "dropdown 1": generateBasicDropdown(),
+                    "dropdown 2": generateBasicDropdown(),
                 },
                 images: {},
             },
@@ -454,6 +333,7 @@ describe("scorePerseusItem", () => {
         );
 
         // Assert
+        expect(score).toHaveInvalidInput();
         expect(score).toEqual({type: "invalid", message: null});
     });
 
@@ -465,8 +345,8 @@ describe("scorePerseusItem", () => {
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
-                    "dropdown 1": generateDropdown(),
-                    "dropdown 2": generateDropdown(),
+                    "dropdown 1": generateBasicDropdown(),
+                    "dropdown 2": generateBasicDropdown(),
                 },
                 images: {},
             },
@@ -478,6 +358,7 @@ describe("scorePerseusItem", () => {
         );
 
         // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
         expect(score).toEqual({
             type: "points",
             total: 2,
@@ -490,7 +371,7 @@ describe("scorePerseusItem", () => {
         const json = {
             content: "[[☃ dropdown 1]]",
             widgets: {
-                "dropdown 1": generateDropdown(),
+                "dropdown 1": generateBasicDropdown(),
             },
             images: {},
         };
@@ -507,12 +388,18 @@ describe("scorePerseusItem", () => {
             {
                 content: "[[☃ dropdown 1]]",
                 widgets: {
-                    "dropdown 1": generateDropdown(),
-                    "dropdown 2": generateDropdown(),
+                    "dropdown 1": generateBasicDropdown(),
+                    "dropdown 2": generateBasicDropdown(),
                 },
                 images: {},
             },
-            {"dropdown 1": {value: 2}},
+            {
+                // valid input
+                "dropdown 1": {value: 2},
+                // "empty" input on a widget not in content
+                // this would return "incorrect" if it were in content
+                "dropdown 2": {value: 1},
+            },
             "en",
         );
 

@@ -2,6 +2,9 @@ import {it, describe, beforeEach} from "@jest/globals";
 import {
     splitPerseusItem,
     generateTestPerseusItem,
+    generateExpressionWidget,
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
@@ -458,6 +461,30 @@ describe("Expression Widget", function () {
             );
         });
 
+        it("should send analytics event when widget is rendered", () => {
+            // Arrange
+            const onAnalyticsEventSpy = jest.spyOn(
+                testDependenciesV2.analytics,
+                "onAnalyticsEvent",
+            );
+
+            // Act
+            renderQuestion(expressionItem2.question);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: "null",
+                    widgetType: "expression",
+                    widgetId: "expression 1",
+                },
+            });
+        });
+
         it("supports mobile rendering", async () => {
             // arrange and act
             renderQuestion(expressionItem2.question, {
@@ -533,24 +560,21 @@ describe("Expression Widget", function () {
                 content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
-                    "expression 1": {
-                        type: "expression",
+                    "expression 1": generateExpressionWidget({
                         version: {major: 2, minor: 0},
-                        options: {
+                        options: generateExpressionOptions({
                             answerForms: [
-                                {
+                                generateExpressionAnswerForm({
                                     considered: "correct",
                                     form: true,
-                                    simplify: false,
                                     value: "1i",
-                                },
+                                }),
                             ],
                             buttonSets: [],
-                            times: false,
                             functions: [],
                             extraKeys: ["i"],
-                        },
-                    },
+                        }),
+                    }),
                 },
             };
 

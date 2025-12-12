@@ -1,0 +1,296 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WidgetDiff renders a widget in the diff view 1`] = `
+<div>
+  <div
+    class="diff-header"
+  >
+    Radio
+  </div>
+  <div
+    class="diff-header"
+  >
+    Radio
+  </div>
+  <div
+    class="diff-body ui-helper-clearfix"
+  >
+    <div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              options: 
+              <span
+                class="inner-value dark "
+              />
+            </div>
+          </div>
+          <div
+            class="diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              options: 
+              <span
+                class="inner-value dark "
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            style="clear: both;"
+          >
+            <div
+              class="diff-row before"
+            >
+              <div
+                style="padding-left: 20px;"
+              >
+                choices: 
+                <span
+                  class="inner-value dark "
+                />
+              </div>
+            </div>
+            <div
+              class="diff-row after"
+            >
+              <div
+                style="padding-left: 20px;"
+              >
+                choices: 
+                <span
+                  class="inner-value dark "
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="diff-row before"
+              >
+                <div
+                  style="padding-left: 40px;"
+                >
+                  0: 
+                  <span
+                    class="inner-value dark "
+                  />
+                </div>
+              </div>
+              <div
+                class="diff-row after"
+              >
+                <div
+                  style="padding-left: 40px;"
+                >
+                  0: 
+                  <span
+                    class="inner-value dark "
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="diff-row collapsed before"
+              >
+                <div
+                  style="padding-left: 60px;"
+                >
+                  <span>
+                     [ show unmodified ] 
+                  </span>
+                </div>
+              </div>
+              <div
+                class="diff-row collapsed after"
+              >
+                <div
+                  style="padding-left: 60px;"
+                >
+                  <span>
+                     [ show unmodified ] 
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="diff-row before"
+              >
+                <div
+                  style="padding-left: 40px;"
+                >
+                  1: 
+                  <span
+                    class="inner-value dark "
+                  />
+                </div>
+              </div>
+              <div
+                class="diff-row after"
+              >
+                <div
+                  style="padding-left: 40px;"
+                >
+                  1: 
+                  <span
+                    class="inner-value dark "
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="diff-row before"
+                >
+                  <div
+                    style="padding-left: 60px;"
+                  >
+                    id: 
+                    <span
+                      class="inner-value dark "
+                    >
+                      "1-1-1-1-1"
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="diff-row after"
+                >
+                  <div
+                    style="padding-left: 60px;"
+                  >
+                    id: 
+                    <span
+                      class="inner-value dark "
+                    >
+                      "1-1-1-1-1"
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="removed diff-row before"
+                >
+                  <div
+                    style="padding-left: 60px;"
+                  >
+                    content: 
+                    <span
+                      class="inner-value dark removed"
+                    >
+                      "$42$"
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="added diff-row after"
+                >
+                  <div
+                    style="padding-left: 60px;"
+                  >
+                    content: 
+                    <span
+                      class="inner-value dark added"
+                    >
+                      "$15$"
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="removed diff-row before"
+                >
+                  <div
+                    style="padding-left: 60px;"
+                  >
+                    correct: 
+                    <span
+                      class="inner-value dark removed"
+                    >
+                      false
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="added diff-row after"
+                >
+                  <div
+                    style="padding-left: 60px;"
+                  >
+                    correct: 
+                    <span
+                      class="inner-value dark added"
+                    >
+                      true
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="clear: both;"
+      >
+        <div
+          class="diff-row collapsed before"
+        >
+          <div
+            style="padding-left: 0px;"
+          >
+            <span>
+               [ show unmodified ] 
+            </span>
+          </div>
+        </div>
+        <div
+          class="diff-row collapsed after"
+        >
+          <div
+            style="padding-left: 0px;"
+          >
+            <span>
+               [ show unmodified ] 
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

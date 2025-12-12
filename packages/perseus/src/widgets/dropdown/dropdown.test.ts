@@ -6,7 +6,10 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
@@ -14,6 +17,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {basicDropdown} from "./dropdown.testdata";
 
+import type {PerseusDependenciesV2} from "../../types";
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -110,6 +114,28 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(score).toHaveInvalidInput();
+    });
+
+    it("should send analytics event when widget is rendered", async () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(basicDropdown, undefined, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "dropdown",
+                widgetId: "dropdown 1",
+            },
+        });
     });
 
     it("should be return true when focus() called", async () => {

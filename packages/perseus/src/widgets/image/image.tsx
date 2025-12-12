@@ -1,9 +1,11 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import AssetContext from "../../asset-context";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
+import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
@@ -27,9 +29,11 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         range,
         title,
         trackInteraction,
+        widgetId,
     } = props;
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
+    const {analytics} = useDependencies();
 
     const [zoomSize, setZoomSize] = React.useState<Size>([
         backgroundImage.width || 0,
@@ -38,17 +42,47 @@ export const ImageComponent = (props: ImageWidgetProps) => {
 
     const [zoomWidth, zoomHeight] = zoomSize;
 
+    // Use ref to track if we should ignore async results
+    const ignoreResultsRef = React.useRef(false);
+
+    useOnMountEffect(() => {
+        analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "image",
+                widgetId: widgetId,
+            },
+        });
+    });
+
     React.useEffect(() => {
+        // Reset the flag for this effect run
+        ignoreResultsRef.current = false;
+
         // Wait to figure out what the original size of the image is.
         // Use whichever is larger between the original image size and the
         // saved background image size for zooming.
         Util.getImageSizeModern(backgroundImage.url!).then((naturalSize) => {
+            // Ignore results if effect has been cleaned up
+            // This prevents updates after component unmounts or dependencies change
+            if (ignoreResultsRef.current) {
+                return;
+            }
+
             const [naturalWidth, naturalHeight] = naturalSize;
+            // Only update if the new size is larger
+            // This prevents unnecessary updates and infinite loops
             if (naturalWidth > (backgroundImage.width || 0)) {
                 setZoomSize([naturalWidth, naturalHeight]);
             }
         });
-    }, [backgroundImage]);
+
+        return () => {
+            // Mark results as stale when dependencies change or component unmounts
+            ignoreResultsRef.current = true;
+        };
+    }, [backgroundImage.url, backgroundImage.width]);
 
     if (!backgroundImage.url) {
         return null;
@@ -74,7 +108,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     zoomToFullSizeOnMobile={apiOptions.isMobile}
                     constrainHeight={apiOptions.isMobile}
                     allowFullBleed={apiOptions.isMobile}
-                    renderSpacer={false}
+                    allowZoom={!decorative}
                     alt={decorative || caption === alt ? "" : alt}
                     setAssetStatus={setAssetStatus}
                 />

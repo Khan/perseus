@@ -180,6 +180,7 @@ export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
                 [-10, 10],
             ],
         },
+        widgetId: "test-widget-id",
     };
 }
 // Calculate the difference between the min and max values of a range

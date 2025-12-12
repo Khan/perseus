@@ -90,6 +90,7 @@ export type MafsGraphProps = {
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
     static: boolean | null | undefined;
+    widgetId: string;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -101,6 +102,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         readOnly,
         fullGraphAriaLabel,
         fullGraphAriaDescription,
+        widgetId,
     } = props;
     const {type} = state;
     const [width, height] = props.box;
@@ -142,8 +144,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: type,
-                widgetType: "INTERACTIVE_GRAPH",
-                widgetId: "interactive-graph",
+                widgetType: "interactive-graph",
+                widgetId: widgetId,
             },
         });
     });

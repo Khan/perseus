@@ -11,12 +11,14 @@ import QuestionMarkers from "./question-markers";
 import SelectImage from "./select-image";
 
 import type {PreferredPopoverDirection} from "./behavior";
+import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusLabelImageWidgetOptions,
     LabelImageDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 type Props = {
+    apiOptions: APIOptions;
     // List of answer choices to label question image with.
     choices: string[];
     // The question image properties.
@@ -76,6 +78,8 @@ class LabelImageEditor extends React.Component<Props> {
         }
     }
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings: () => ReadonlyArray<any | string> = () => {
         const {choices, imageAlt, imageUrl, markers} = this.props;
 
@@ -144,6 +148,16 @@ class LabelImageEditor extends React.Component<Props> {
 
         if (url) {
             Util.getImageSize(url, (width, height) => {
+                // Prevent unnecessary updates if values haven't changed
+                // This helps prevent infinite loops
+                if (
+                    this.props.imageUrl === url &&
+                    this.props.imageWidth === width &&
+                    this.props.imageHeight === height
+                ) {
+                    return;
+                }
+
                 this.props.onChange({
                     /**
                      * Sending `imageUrl` up again
@@ -193,6 +207,8 @@ class LabelImageEditor extends React.Component<Props> {
             preferredPopoverDirection,
         } = this.props;
 
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+
         const imageSelected = imageUrl && imageWidth > 0 && imageHeight > 0;
 
         return (
@@ -214,6 +230,7 @@ class LabelImageEditor extends React.Component<Props> {
                 <div className={css(styles.largeSpacer)} />
 
                 <QuestionMarkers
+                    editingDisabled={editingDisabled}
                     choices={choices}
                     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     imageUrl={imageSelected ? imageUrl : ""}
@@ -228,6 +245,7 @@ class LabelImageEditor extends React.Component<Props> {
 
                 <AnswerChoices
                     choices={choices}
+                    editingDisabled={editingDisabled}
                     onChange={this.handleChoicesChange}
                 />
 

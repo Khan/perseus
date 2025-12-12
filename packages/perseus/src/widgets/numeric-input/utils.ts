@@ -8,7 +8,7 @@ import type {
  * The full list of available strings for the numeric input widget,
  * based on whether the Content Creator has specified that the answer must be simplified.
  */
-export const NumericExampleStrings: {
+const NumericExampleStrings: {
     [key: string]: (
         form: PerseusNumericInputAnswerForm,
         strings: PerseusStrings,

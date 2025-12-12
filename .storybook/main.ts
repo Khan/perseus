@@ -65,6 +65,11 @@ const config: StorybookConfig = {
     // TODO(ivy): Simplify code below once improvements are done
     // stories: ["../src/**/*.stories.@(ts|tsx|mdx)"]
     stories: [
+        // This is a special story that can render arbitrary Perseus
+        // content. It is hosted by the preview iframe in stories for
+        // the editors.
+        "../testing/preview.stories.tsx",
+
         // This will be used for the main documentation pages
         "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
 
@@ -105,6 +110,7 @@ const config: StorybookConfig = {
         body {
             font-size: 1.4rem;
             padding: 1.6rem 1.6rem 1.6rem 4.8rem !important;
+            line-height: 1.4;
         }
         </style>
     `,

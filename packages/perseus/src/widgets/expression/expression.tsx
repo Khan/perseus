@@ -103,6 +103,15 @@ export class Expression extends React.Component<Props> implements Widget {
     displayName = "Expression";
 
     componentDidMount: () => void = () => {
+        this.props.analytics?.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "expression",
+                widgetId: this.props.widgetId,
+            },
+        });
+
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;

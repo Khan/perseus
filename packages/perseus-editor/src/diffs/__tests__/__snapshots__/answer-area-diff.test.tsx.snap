@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
+<div>
+  <div
+    class="diff-header"
+  >
+    Answer Area
+  </div>
+  <div
+    class="diff-header"
+  >
+    Answer Area
+  </div>
+  <div
+    class="diff-body ui-helper-clearfix"
+  >
+    <div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              calculator: 
+              <span
+                class="inner-value dark removed"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="added diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              calculator: 
+              <span
+                class="inner-value dark added"
+              >
+                true
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              financialCalculatorTotalAmount: 
+              <span
+                class="inner-value dark removed"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="added diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              financialCalculatorTotalAmount: 
+              <span
+                class="inner-value dark added"
+              >
+                true
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              periodicTable: 
+              <span
+                class="inner-value dark removed"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="added diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              periodicTable: 
+              <span
+                class="inner-value dark added"
+              >
+                true
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              periodicTableWithKey: 
+              <span
+                class="inner-value dark removed"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="added diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              periodicTableWithKey: 
+              <span
+                class="inner-value dark added"
+              >
+                true
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="clear: both;"
+      >
+        <div
+          class="diff-row collapsed before"
+        >
+          <div
+            style="padding-left: 0px;"
+          >
+            <span>
+               [ show unmodified ] 
+            </span>
+          </div>
+        </div>
+        <div
+          class="diff-row collapsed after"
+        >
+          <div
+            style="padding-left: 0px;"
+          >
+            <span>
+               [ show unmodified ] 
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

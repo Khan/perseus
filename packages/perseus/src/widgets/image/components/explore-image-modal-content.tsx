@@ -53,6 +53,8 @@ export default function ExploreImageModalContent({
                     {({setAssetStatus}) => (
                         <SvgImage
                             src={backgroundImage.url!}
+                            // Don't allow opening a modal within a modal.
+                            allowZoom={false}
                             alt={caption === alt ? "" : alt}
                             width={width}
                             height={modalImageHeight}
@@ -99,7 +101,7 @@ export default function ExploreImageModalContent({
     );
 }
 
-// TODO: Use CSS modules after Wonder Blocks styles
+// TODO(LEMS-3686): Use CSS modules after Wonder Blocks styles
 // are moved to a different layer.
 const wbStyles = {
     descriptionHeading: {

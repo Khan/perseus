@@ -69,6 +69,7 @@ export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as LoadingContext} from "./loading-context";
+export {default as MathRenderingContext} from "./math-rendering-context";
 export {default as PerseusMarkdown} from "./perseus-markdown";
 export {isItemRenderableByVersion} from "./renderability";
 export {interactiveSizes} from "./styles/constants";
@@ -95,8 +96,6 @@ export {
 } from "./util/sizing-utils";
 export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
-    getAnswersFromWidgets,
-    injectWidgets,
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
     isWidgetIdInContent,
@@ -126,14 +125,14 @@ export {
      * @deprecated - import this function from perseus-core instead
      */
     isFailure,
+    getAnswersFromWidgets,
+    injectWidgets,
+    getPerseusAIData,
 } from "@khanacademy/perseus-core";
 
 export {
-    generateTestRadioWidget,
     generateTestInteractiveGraphWidget,
     generateTestCategorizerWidget,
-    generateTestExpressionWidget,
-    generateTestNumericInputWidget,
 } from "./util/test-utils";
 export {
     getWidgetTypeByWidgetId,
@@ -159,8 +158,6 @@ export {
     default as UserInputManager,
     deriveUserInputFromSerializedState,
 } from "./user-input-manager";
-
-export {makeSafeUrl} from "./widgets/phet-simulation";
 
 // These exports are to support shared functionality between Perseus and Graphie2000
 export {parseDataFromJSONP} from "./util/graphie-utils";

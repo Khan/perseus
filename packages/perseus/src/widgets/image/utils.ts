@@ -10,8 +10,31 @@ export const frescoImage = {
     height: 955,
 };
 
-export const monasteryImage = {
-    url: "https://cdn.kastatic.org/ka-perseus-images/b2213be6c39a28d7e8ff40836a8a5fb068678fa4.jpg",
-    width: 448,
-    height: 500,
+export const portraitImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/45f60d824fb772181a1361352c9df64f9cca3e5a.jpg",
+    width: 1398,
+    height: 1851,
 };
+export const portraitImageTitle = "The Arnolfini Portrait";
+export const portraitImageAlt = "Jan van Eyck, The Arnolfini Portrait";
+export const portraitImageCaption =
+    "Jan van Eyck, *The Arnolfini Portrait*, 1434, oil on oak panel, 82.2 x 60 cm (National Gallery, London; photo: [Steven Zucker](https://flic.kr/p/2qEGNDi), CC BY-NC-SA 4.0)";
+export const portraitImageLongDescription =
+    "Jan van Eyck, The Arnolfini Portrait, 1434, oil on oak panel, 82.2 x 60 cm (National Gallery, London; photo: Steven Zucker, CC BY-NC-SA 4.0)";
+
+export const scienceImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/4f38f705977774bcac3b5bed9f81b56710abc8b0.png",
+    width: 300,
+    height: 223,
+};
+export const scienceImageCaption =
+    "*A diagram of prophase. During this stage of mitosis, chromosomes condense, the nuclear envelope breaks apart, and the mitotic spindle begins to form. Created with [Biorender.com](BioRender.com).*";
+export const scienceImageAlt = "A diagram shows a single, circular cell.";
+
+export const graphieImage = {
+    url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138",
+    width: 420,
+    height: 345,
+};
+export const graphieImageAlt =
+    "An array of isosceles triangles. A triangle has height A. Two smaller triangle, one with height B and one with height C, have approximately the same combined height as A.";

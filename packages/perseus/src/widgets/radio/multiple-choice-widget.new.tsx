@@ -1,8 +1,11 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import {useDependencies} from "../../dependencies";
+import MathRenderingContext from "../../math-rendering-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
@@ -42,7 +45,7 @@ export interface ChoiceType {
     disabled: boolean;
 }
 
-export type RadioProps = {
+type RadioProps = {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;
@@ -94,9 +97,24 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             trackInteraction,
             findWidgets,
             reviewMode,
+            widgetId,
         } = props;
 
         const {strings} = usePerseusI18n();
+        const {analytics} = useDependencies();
+
+        useOnMountEffect(() => {
+            analytics.onAnalyticsEvent({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: multipleSelect
+                        ? "multiple-select"
+                        : "single-select",
+                    widgetType: "radio",
+                    widgetId: widgetId,
+                },
+            });
+        });
 
         // Perseus Widget API methods
         // TODO(LEMS-2994): When we remove the old Radio files, we may need to move some
@@ -148,15 +166,22 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             };
 
             return (
-                <Renderer
-                    key="choiceContentRenderer"
-                    content={parsedContent}
-                    widgets={extractedWidgets}
-                    findExternalWidgets={findWidgets}
-                    alwaysUpdate={true}
-                    linterContext={linterContext}
-                    strings={strings}
-                />
+                // Using MathRenderingContext.Provider to ensure that any math
+                // within the choice content is readable by screen readers (via aria-label).
+                // See comments in math-rendering-context.tsx for more details.
+                <MathRenderingContext.Provider
+                    value={{shouldAddAriaLabels: true}}
+                >
+                    <Renderer
+                        key="choiceContentRenderer"
+                        content={parsedContent}
+                        widgets={extractedWidgets}
+                        findExternalWidgets={findWidgets}
+                        alwaysUpdate={true}
+                        linterContext={linterContext}
+                        strings={strings}
+                    />
+                </MathRenderingContext.Provider>
             );
         };
 
@@ -323,6 +348,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                 isStatic,
                 showSolutions,
                 choiceStates,
+                reviewMode,
             });
 
             // Build the choice props from the updated choice states

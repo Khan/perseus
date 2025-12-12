@@ -1,7 +1,7 @@
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import LockedFunctionSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-function-settings";
-import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

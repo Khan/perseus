@@ -207,6 +207,8 @@ module.exports = {
         "object-curly-spacing": "off",
         semi: "off",
 
+        "no-alert": "error",
+
         /**
          * jest
          */

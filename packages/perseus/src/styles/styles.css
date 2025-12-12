@@ -11,41 +11,6 @@
     overflow: auto;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container:not(.perseus-widget__definition) {
-    font-size: 14px;
-    line-height: 19.6px;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
-    max-width: 50%;
-    padding-top: 32px;
-    width: 100%;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left
-    .perseus-image-caption
-    .paragraph
-    .paragraph,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right
-    .perseus-image-caption
-    .paragraph
-    .paragraph {
-    margin-bottom: 0;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-left {
-    float: left;
-    padding-right: 32px;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-float-right {
-    float: right;
-    padding-left: 32px;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .paragraph {
     color: #21242c;
@@ -82,7 +47,7 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio) {
+    ul:not([data-widget="radio"]) {
     color: #21242c;
     font-size: 20px;
     line-height: 30px;
@@ -233,7 +198,7 @@
     > .paragraph
     .perseus-formats-tooltip
     .paragraph
-    ul:not(.perseus-widget-radio) {
+    ul:not([data-widget="radio"]) {
     font-size: 15px;
     line-height: 1.5;
     margin: 0;
@@ -289,22 +254,6 @@
 }
 .framework-perseus.perseus-mobile
     .perseus-article
-    .perseus-widget-container.widget-float-left {
-    float: left;
-    padding-right: 1em;
-    max-width: 50%;
-    width: 100%;
-}
-.framework-perseus.perseus-mobile
-    .perseus-article
-    .perseus-widget-container.widget-float-right {
-    float: right;
-    padding-left: 1em;
-    max-width: 50%;
-    width: 100%;
-}
-.framework-perseus.perseus-mobile
-    .perseus-article
     .perseus-renderer
     > .paragraph {
     margin-left: auto;
@@ -334,7 +283,8 @@
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph:not(:first-child) {
-    margin-top: 32px;
+    margin-top: var(--wb-sizing-size_240);
+    margin-bottom: var(--wb-sizing-size_240);
 }
 .framework-perseus.perseus-mobile .perseus-renderer > .paragraph > .paragraph {
     margin: 0;
@@ -345,14 +295,14 @@
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio, .indicatorContainer) {
+    ul:not([data-widget="radio"], .indicatorContainer) {
     margin: 0 0 0 1em;
     padding: 0;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio, .indicatorContainer)
+    ul:not([data-widget="radio"], .indicatorContainer)
     > li {
     padding-left: 10px;
     margin-bottom: 24px;
@@ -369,18 +319,18 @@
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio)
+    ul:not([data-widget="radio"])
     ol,
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
     ol
-    ul:not(.perseus-widget-radio),
+    ul:not([data-widget="radio"]),
 .framework-perseus.perseus-mobile
     .perseus-renderer
     > .paragraph
-    ul:not(.perseus-widget-radio)
-    ul:not(.perseus-widget-radio) {
+    ul:not([data-widget="radio"])
+    ul:not([data-widget="radio"]) {
     padding-top: 24px;
 }
 .framework-perseus.perseus-mobile .perseus-block-math {
@@ -440,7 +390,7 @@
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .paragraph
-        ul:not(.perseus-widget-radio) {
+        ul:not([data-widget="radio"]) {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
@@ -604,7 +554,7 @@
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .paragraph
-        ul:not(.perseus-widget-radio) {
+        ul:not([data-widget="radio"]) {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
@@ -768,7 +718,7 @@
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .paragraph
-        ul:not(.perseus-widget-radio) {
+        ul:not([data-widget="radio"]) {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
@@ -879,36 +829,6 @@
         border-left: 5px solid #d8d8d8;
     }
 }
-.framework-perseus.perseus-mobile .perseus-widget-container {
-    font-size: 14px;
-    line-height: 19.6px;
-}
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left,
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
-    max-width: 50%;
-    padding-top: 32px;
-    width: 100%;
-}
-.framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-left
-    .perseus-image-caption
-    .paragraph
-    .paragraph,
-.framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-float-right
-    .perseus-image-caption
-    .paragraph
-    .paragraph {
-    margin-bottom: 0;
-}
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-left {
-    float: left;
-    padding-right: 32px;
-}
-.framework-perseus.perseus-mobile .perseus-widget-container.widget-float-right {
-    float: right;
-    padding-left: 32px;
-}
 .framework-perseus.perseus-mobile .MathJax .math {
     color: inherit;
 }
@@ -953,64 +873,8 @@
     > .paragraph
     .perseus-formats-tooltip
     .paragraph
-    ul:not(.perseus-widget-radio) {
+    ul:not([data-widget="radio"]) {
     font-size: 15px;
     line-height: 1.5;
     margin: 0;
-}
-/* Derived from the MIT-licensed zoom.js:
-   https://github.com/fat/zoom.js/blob/fd4f3e43153da7596da0bade198e99f98b47791e/
-*/
-:root {
-    --perseus-zoom-overlay-z-index: 9000;
-}
-.zoomable {
-    cursor: pointer;
-    cursor: -webkit-zoom-in;
-    cursor: -moz-zoom-in;
-}
-.zoom-img {
-    background-color: white;
-    position: absolute;
-    z-index: calc(var(--perseus-zoom-overlay-z-index) + 1);
-}
-img.zoom-img {
-    cursor: pointer;
-    cursor: -webkit-zoom-out;
-    cursor: -moz-zoom-out;
-}
-.zoom-transition {
-    transition: transform 300ms ease;
-}
-.zoom-overlay {
-    z-index: var(--perseus-zoom-overlay-z-index);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: scroll;
-}
-.zoom-overlay-open,
-.zoom-overlay-transitioning {
-    cursor: default;
-}
-.zoom-overlay-open {
-    height: 100%;
-    max-height: 100%;
-    overflow: hidden;
-}
-.zoom-backdrop {
-    z-index: calc(var(--perseus-zoom-overlay-z-index) - 1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: white;
-    opacity: 0;
-    transition: opacity 300ms;
-}
-.zoom-overlay-open > .zoom-backdrop {
-    opacity: 0.9;
 }

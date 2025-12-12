@@ -44,6 +44,14 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         radioLogic.defaultWidgetOptions;
 
     componentDidMount() {
+        // Recalculate numCorrect when multipleSelect and countChoices are enabled
+        // This ensures stale values are corrected on load
+        if (this.props.multipleSelect && this.props.countChoices) {
+            this.props.onChange({
+                numCorrect: deriveNumCorrect(this.props.choices),
+            });
+        }
+
         // Check if any choices need IDs and generate them immediately
         const needsIdUpdate = this.props.choices.some(
             (choice) => !choice.id || choice.id.trim() === "",
@@ -247,6 +255,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         return true;
     };
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings: () => ReadonlyArray<string> = () => {
         if (!_.some(_.pluck(this.props.choices, "correct"))) {
             return ["No choice is marked as correct."];
@@ -277,6 +287,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);
+        const isEditingDisabled = this.props.apiOptions.editingDisabled;
+
         return (
             <div>
                 <Link
@@ -289,6 +301,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     <LabeledSwitch
                         label="Randomize order"
                         checked={this.props.randomize}
+                        disabled={isEditingDisabled}
                         onChange={(value) => {
                             this.props.onChange({randomize: value});
                         }}
@@ -297,6 +310,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     <LabeledSwitch
                         label="Multiple selections"
                         checked={this.props.multipleSelect}
+                        disabled={isEditingDisabled}
                         onChange={(value) => {
                             this.onMultipleSelectChange({
                                 multipleSelect: value,
@@ -309,6 +323,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                             <LabeledSwitch
                                 label="Specify number correct"
                                 checked={this.props.countChoices}
+                                disabled={isEditingDisabled}
                                 onChange={(value) => {
                                     this.onCountChoicesChange({
                                         countChoices: value,

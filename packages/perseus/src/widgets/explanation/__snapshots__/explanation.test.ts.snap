@@ -25,7 +25,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             type="button"
           >
             <span
-              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_egvfd8"
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_1mrq7sv"
             >
               Hide explanation!
             </span>
@@ -34,7 +34,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_1ge1p6k"
+                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1hkg79p"
               />
             </div>
           </button>
@@ -97,7 +97,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
             type="button"
           >
             <span
-              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_egvfd8"
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_1mrq7sv"
             >
               Explanation
             </span>
@@ -106,7 +106,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_b7oxmz"
+                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1dxyeu2"
               />
             </div>
           </button>

@@ -1,4 +1,11 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+    generateRadioWidget,
+    generateRadioOptions,
+    generateRadioChoice,
+    generateSimpleRadioItem,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
@@ -10,7 +17,6 @@ import {
     choicesWithMathFont,
     questionWithPassage,
 } from "../__tests__/radio.testdata";
-import {radioQuestionBuilder} from "../radio-question-builder";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -153,17 +159,24 @@ export const ChoiceTextColorInMultipleSelect = {
 };
 
 export const ChoiceTextColorInArticle = (): React.ReactNode => {
-    const question = radioQuestionBuilder()
-        .withContent(
+    const question = generateTestPerseusRenderer({
+        content:
             "Exceeding reaction chamber thermal limit. We have begun power-supply calibration. Force fields have been established on all turbo lifts and crawlways. Computer, run a level-two diagnostic on warp-drive systems. Antimatter containment positive. Warp drive within normal parameters. I read an ion trail characteristic of a freighter escape pod. The bomb had a molecular-decay detonator. Detecting some unusual fluctuations in subspace frequencies.\n\n" +
-                "We're acquainted with the wormhole phenomenon, but this... Is a remarkable piece of bio-electronic engineering by which I see much of the EM spectrum ranging from heat and infrared through radio waves, et cetera, and forgive me if I've said and listened to this a thousand times. This planet's interior heat provides an abundance of geothermal energy. We need to neutralize the homing signal.\n\n" +
-                "A level-two diagnostic was ordered for what system?\n\n[[☃ radio 1]]",
-        )
-        .addChoice("Antimatter containment")
-        .addChoice("Warp drive", {correct: true})
-        .addChoice("Force fields")
-        .addChoice("Reflector dish")
-        .build();
+            "We're acquainted with the wormhole phenomenon, but this... Is a remarkable piece of bio-electronic engineering by which I see much of the EM spectrum ranging from heat and infrared through radio waves, et cetera, and forgive me if I've said and listened to this a thousand times. This planet's interior heat provides an abundance of geothermal energy. We need to neutralize the homing signal.\n\n" +
+            "A level-two diagnostic was ordered for what system?\n\n[[☃ radio 1]]",
+        widgets: {
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
+                    choices: [
+                        generateRadioChoice("Antimatter containment"),
+                        generateRadioChoice("Warp drive", {correct: true}),
+                        generateRadioChoice("Force fields"),
+                        generateRadioChoice("Reflector dish"),
+                    ],
+                }),
+            }),
+        },
+    });
     const apiOptions = {flags: getFeatureFlags({"new-radio-widget": true})};
     return (
         <ArticleRenderer
@@ -184,13 +197,15 @@ ChoiceTextColorInArticle.play = async ({canvas}) => {
 
 export const FocusSingleSelect = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2")
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .build(),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
     play: async ({canvas}) => {
@@ -204,14 +219,14 @@ export const FocusSingleSelect = {
 
 export const FocusMultiSelect = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2")
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .withMultipleSelect(true)
-                .build(),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice("Choice 1", {correct: true}),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
     play: async ({canvas}) => {

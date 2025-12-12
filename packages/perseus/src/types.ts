@@ -143,8 +143,6 @@ export type ImageUploader = (
 
 export type Path = ReadonlyArray<string>;
 
-type StubTagEditorType = any; // from "./components/stub-tag-editor";
-
 type TrackInteractionArgs = {
     // The widget type that this interaction originates from
     type: string;
@@ -169,8 +167,6 @@ export type GenerateUrlArgs = {
     context: GenerateUrlContext;
 };
 
-export type GenerateUrlFn = (args: GenerateUrlArgs) => string;
-
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -184,27 +180,20 @@ export type APIOptions = Readonly<{
         keypadHeight?: number,
         focusedElement?: HTMLElement,
     ) => unknown;
-    /**
-     * @deprecated - metadata is no longer used by the Group widget
-     */
-    GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
     showAlignmentOptions?: boolean;
     /**
      * A boolean that indicates whether the associated problem has been
      * answered correctly and should no longer be interactive.
      */
     readOnly?: boolean;
+    /**
+     * A boolean that indicates whether the editor interface should be
+     * disabled, preventing content creators from making changes.
+     */
+    editingDisabled?: boolean;
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
     interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
-    /**
-     * A function that takes in the relative problem number (starts at
-     * 0 and is incremented for each group widget), and the ID of the
-     * group widget, then returns a react component that will be added
-     * immediately above the renderer in the group widget. If the
-     * function returns null, no annotation will be added.
-     */
-    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
     /**
      * If imagePlaceholder is set, Perseus will render the placeholder instead
      * of the image node.
@@ -433,10 +422,10 @@ export type APIOptionsWithDefaults = Readonly<
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
         editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
-        groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         isMobileApp: NonNullable<APIOptions["isMobileApp"]>;
+        editingDisabled: NonNullable<APIOptions["editingDisabled"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
         setDrawingAreaAvailable: NonNullable<
@@ -540,10 +529,7 @@ export type WidgetProps<
 /**
  * The props passed to every widget, regardless of its `type`.
  */
-export type UniversalWidgetProps<
-    TUserInput = Empty,
-    TrackingExtraArgs = Empty,
-> = {
+type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the

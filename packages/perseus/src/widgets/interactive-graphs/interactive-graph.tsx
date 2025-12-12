@@ -265,7 +265,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     mafsRef = React.createRef<StatefulMafsGraphType>();
 
     static defaultProps: DefaultProps = {
-        labels: ["x", "y"],
+        labels: ["$x$", "$y$"],
         labelLocation: "onAxis",
         range: [
             [-10, 10],
@@ -346,6 +346,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 box={box}
                 showTooltips={!!this.props.showTooltips}
                 readOnly={this.props.apiOptions?.readOnly}
+                widgetId={this.props.widgetId}
             />
         );
     }

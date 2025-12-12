@@ -1,34 +1,29 @@
+import {
+    generateRadioChoice,
+    generateRadioOptions,
+    generateRadioWidget,
+    generateSimpleRadioItem,
+} from "./generators/radio-widget-generator";
 import {itemHasRationales} from "./item-has-rationales";
 import {generateTestPerseusItem} from "./test-utils";
 
 describe("itemHasRationales", () => {
     it("returns true when item has radio widget with rationales", () => {
         // Arrange
-        const item = generateTestPerseusItem({
-            question: {
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        options: {
-                            choices: [
-                                {
-                                    id: "radio-choice-0",
-                                    content: "Choice 1",
-                                    correct: false,
-                                },
-                                {
-                                    id: "radio-choice-1",
-                                    content: "Choice 2",
-                                    correct: false,
-                                    rationale: "This is some rationale",
-                                },
-                            ],
-                        },
-                    },
+        const item = generateSimpleRadioItem({
+            choices: [
+                {
+                    id: "radio-choice-0",
+                    content: "Choice 1",
+                    correct: false,
                 },
-                images: {},
-            },
+                {
+                    id: "radio-choice-1",
+                    content: "Choice 2",
+                    correct: false,
+                    rationale: "This is some rationale",
+                },
+            ],
         });
 
         // Act
@@ -87,9 +82,8 @@ describe("itemHasRationales", () => {
                         type: "graded-group",
                         options: {
                             widgets: {
-                                "radio 1": {
-                                    type: "radio",
-                                    options: {
+                                "radio 1": generateRadioWidget({
+                                    options: generateRadioOptions({
                                         choices: [
                                             {
                                                 id: "radio-choice-0",
@@ -99,8 +93,8 @@ describe("itemHasRationales", () => {
                                                     "This is some rationale",
                                             },
                                         ],
-                                    },
-                                },
+                                    }),
+                                }),
                             },
                             title: "Test group",
                             content: "Test content",
@@ -129,9 +123,8 @@ describe("itemHasRationales", () => {
                         type: "group",
                         options: {
                             widgets: {
-                                "radio 1": {
-                                    type: "radio",
-                                    options: {
+                                "radio 1": generateRadioWidget({
+                                    options: generateRadioOptions({
                                         choices: [
                                             {
                                                 id: "radio-choice-0",
@@ -141,8 +134,8 @@ describe("itemHasRationales", () => {
                                                     "This is some rationale",
                                             },
                                         ],
-                                    },
-                                },
+                                    }),
+                                }),
                             },
                             content: "Test content",
                             images: {},
@@ -162,30 +155,13 @@ describe("itemHasRationales", () => {
 
     it("returns false when item has no widgets with rationales", () => {
         // Arrange
-        const item = generateTestPerseusItem({
-            question: {
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        options: {
-                            choices: [
-                                {
-                                    content: "Choice 1",
-                                    correct: false,
-                                    id: "radio-choice-0",
-                                },
-                                {
-                                    content: "Choice 2",
-                                    correct: true,
-                                    id: "radio-choice-1",
-                                },
-                            ],
-                        },
-                    },
-                },
-                images: {},
-            },
+        const item = generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1"),
+                generateRadioChoice("Choice 2", {
+                    correct: true,
+                }),
+            ],
         });
 
         // Act

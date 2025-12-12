@@ -123,7 +123,7 @@
         "style-loader": "^3.3.3",
         "swc_mut_cjs_exports": "^8.0.1",
         "tiny-invariant": "catalog:devDeps",
-        "typescript": "5.7.2",
+        "typescript": "5.9.3",
         "typescript-coverage-report": "^0.7.0",
         "typescript-plugin-css-modules": "^5.1.0",
         "vite": "catalog:devDeps",
@@ -141,10 +141,10 @@
         "watch": "pnpm build --watch",
         "clean": "./utils/clean.sh",
         "coverage": "./utils/test-with-coverage.sh",
-        "dev": "pnpm --filter ./dev dev",
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
         "lint:timing": "cross-env TIMING=1 pnpm lint",
         "publish:ci": "utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && pnpm build && pnpm build:types && changeset publish",
+        "update-catalog-hashes": "utils/update-catalog-hashes-cli.ts",
         "sloc": "sloc packages --exclude node_modules",
         "test": "jest",
         "storybook": "storybook dev -p 6006",
@@ -160,12 +160,12 @@
     "nyc": {
         "report-dir": "coverage/cypress/"
     },
-    "packageManager": "pnpm@10.8.0",
+    "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c",
     "pnpm": {
         "onlyBuiltDependencies": [
-            "cypress",
-            "esbuild",
-            "@swc/core"
+            "cypress@13.6.5",
+            "esbuild@0.24.0",
+            "@swc/core@1.11.13"
         ],
         "patchedDependencies": {
             "postcss-url": "patches/postcss-url.patch"

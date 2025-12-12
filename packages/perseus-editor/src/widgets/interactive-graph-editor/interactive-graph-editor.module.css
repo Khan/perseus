@@ -1,4 +1,5 @@
 /* We have to use !important until wonder blocks is in the shared layer. */
+/* TODO(LEMS-3686): Remove the !important once we don't need it anymore. */
 .single-select-short {
     /* Non-standard spacing, but it's the smallest we can go
     without running into styling issues with the dropdown. */

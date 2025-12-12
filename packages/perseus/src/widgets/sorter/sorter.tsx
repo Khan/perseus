@@ -3,10 +3,16 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
 import Sortable from "../../components/sortable";
+import {withDependencies} from "../../components/with-dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 import type {
     PerseusSorterWidgetOptions,
@@ -14,7 +20,9 @@ import type {
     SorterPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
+type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput> & {
+    dependencies: PerseusDependenciesV2;
+};
 
 type DefaultProps = {
     correct: Props["correct"];
@@ -37,6 +45,14 @@ class Sorter extends React.Component<Props> implements Widget {
 
     componentDidMount() {
         this._isMounted = true;
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "sorter",
+                widgetId: this.props.widgetId,
+            },
+        });
     }
 
     componentWillUnmount() {
@@ -140,11 +156,13 @@ function getUserInputFromSerializedState(
     };
 }
 
+const WrappedSorter = withDependencies(Sorter);
+
 export default {
     name: "sorter",
     displayName: "Sorter",
-    widget: Sorter,
+    widget: WrappedSorter,
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Sorter>;
+} satisfies WidgetExports<typeof WrappedSorter>;

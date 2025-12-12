@@ -12,7 +12,7 @@ import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
 
-import type {Issue} from "./issues-panel";
+import type {Issue} from "./components/issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -227,6 +227,7 @@ class EditorPage extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         let className = "framework-perseus";
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         const touch =
             this.props.previewDevice === "phone" ||
@@ -255,6 +256,10 @@ class EditorPage extends React.Component<Props, State> {
                                     <input
                                         type="checkbox"
                                         checked={this.props.jsonMode}
+                                        disabled={
+                                            this.props.apiOptions
+                                                ?.editingDisabled
+                                        }
                                         onChange={this.toggleJsonMode}
                                     />
                                 </label>{" "}
@@ -283,13 +288,13 @@ class EditorPage extends React.Component<Props, State> {
                             />
                         )}
                     </div>
-
                     {this.props.developerMode && this.props.jsonMode && (
                         <div>
                             <JsonEditor
                                 multiLine={true}
                                 value={this.state.json}
                                 onChange={this.changeJSON}
+                                editingDisabled={editingDisabled}
                             />
                         </div>
                     )}

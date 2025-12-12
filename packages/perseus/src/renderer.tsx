@@ -1124,6 +1124,7 @@ class Renderer
                     <AssetContext.Consumer>
                         {({setAssetStatus}) => (
                             <SvgImage
+                                allowZoom={true}
                                 setAssetStatus={setAssetStatus}
                                 // @ts-expect-error - TS2322 - Type 'string | null | undefined' is not assignable to type 'string | undefined'.
                                 src={PerseusMarkdown.sanitizeUrl(node.target)}

@@ -41,7 +41,7 @@ describe("Multiple choice indicator", () => {
                 />,
             );
             expect(iconMock).toHaveBeenCalledTimes(0);
-            expect(screen.getByRole("button").innerHTML).toBe("A");
+            expect(screen.getByRole("button").innerHTML).toBe("<span>A</span>");
         });
 
         it(`renders WITHOUT any icons when indicator is checked and review mode is NOT valid`, async () => {
@@ -56,7 +56,7 @@ describe("Multiple choice indicator", () => {
                 />,
             );
             expect(iconMock).toHaveBeenCalledTimes(0);
-            expect(screen.getByRole("button").innerHTML).toBe("A");
+            expect(screen.getByRole("button").innerHTML).toBe("<span>A</span>");
         });
 
         it.each(["correct", "wrong"] as const)(
@@ -73,7 +73,9 @@ describe("Multiple choice indicator", () => {
                     />,
                 );
                 expect(iconMock).toHaveBeenCalledTimes(0);
-                expect(screen.getByRole("button").innerHTML).toBe("A");
+                expect(screen.getByRole("button").innerHTML).toBe(
+                    "<span>A</span>",
+                );
             },
         );
 
