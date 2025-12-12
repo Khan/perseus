@@ -524,8 +524,6 @@ class SvgImage extends React.Component<Props, State> {
             // documented where it came from.
             graphie = (
                 <Graphie
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="graphie"
                     box={box}
                     scale={[40 * this.props.scale, 40 * this.props.scale]}
                     range={this.state.range}
