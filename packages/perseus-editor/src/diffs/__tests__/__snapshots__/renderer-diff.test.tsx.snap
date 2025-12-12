@@ -1,0 +1,398 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RendererDiff renders an image widget in the diff view 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="diff-header"
+      >
+        Image
+      </div>
+      <div
+        class="diff-header"
+      >
+        Image
+      </div>
+      <div
+        class="diff-body ui-helper-clearfix"
+      >
+        <div
+          class="diff-row before"
+        />
+        <div
+          class="diff-row after"
+        />
+      </div>
+      <div
+        class="diff-row collapsed before"
+        role="button"
+        tabindex="0"
+      >
+        <span>
+          <span
+            class="expand-button"
+          >
+             
+            [ show unmodified ]
+             
+          </span>
+        </span>
+      </div>
+      <div
+        class="diff-row collapsed after"
+        role="button"
+        tabindex="0"
+      >
+        <span>
+          <span
+            class="expand-button"
+          >
+             
+            [ show unmodified ]
+             
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      class="diff-header"
+    >
+      image 1
+    </div>
+    <div
+      class="diff-header"
+    >
+      image 1
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div>
+        <div
+          class="diff-row before"
+        >
+          <div
+            class="image image-removed"
+          >
+            <span
+              style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+            >
+              <div
+                class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+              >
+                <svg
+                  height="48"
+                  viewBox="0 0 48 48"
+                  width="48"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                    d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                    fill-rule="nonzero"
+                  />
+                </svg>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div
+          class="diff-row after"
+        >
+          <div
+            class="image image-added"
+          >
+            <span
+              style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+            >
+              <div
+                class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+              >
+                <svg
+                  height="48"
+                  viewBox="0 0 48 48"
+                  width="48"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                    d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                    fill-rule="nonzero"
+                  />
+                </svg>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div
+            style="clear: both;"
+          >
+            <div
+              class="diff-row before"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                options: 
+                <span
+                  class="inner-value dark "
+                />
+              </div>
+            </div>
+            <div
+              class="diff-row after"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                options: 
+                <span
+                  class="inner-value dark "
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  backgroundImage: 
+                  <span
+                    class="inner-value dark "
+                  />
+                </div>
+              </div>
+              <div
+                class="diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  backgroundImage: 
+                  <span
+                    class="inner-value dark "
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="removed diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    url: 
+                    <span
+                      class="inner-value dark removed"
+                    >
+                      "https://example.com/original-image.jpg"
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="added diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    url: 
+                    <span
+                      class="inner-value dark added"
+                    >
+                      "https://example.com/updated-image.jpg"
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="removed diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    width: 
+                    <span
+                      class="inner-value dark removed"
+                    >
+                      400
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="added diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    width: 
+                    <span
+                      class="inner-value dark added"
+                    >
+                      500
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="removed diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    height: 
+                    <span
+                      class="inner-value dark removed"
+                    >
+                      300
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="added diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    height: 
+                    <span
+                      class="inner-value dark added"
+                    >
+                      400
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  title: 
+                  <span
+                    class="inner-value dark removed"
+                  >
+                    "Original Image"
+                  </span>
+                </div>
+              </div>
+              <div
+                class="added diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  title: 
+                  <span
+                    class="inner-value dark added"
+                  >
+                    "Updated Image"
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  caption: 
+                  <span
+                    class="inner-value dark removed"
+                  >
+                    "This is the original image"
+                  </span>
+                </div>
+              </div>
+              <div
+                class="added diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  caption: 
+                  <span
+                    class="inner-value dark added"
+                  >
+                    "This is the updated image"
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  alt: 
+                  <span
+                    class="inner-value dark removed"
+                  >
+                    "Original image description"
+                  </span>
+                </div>
+              </div>
+              <div
+                class="added diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  alt: 
+                  <span
+                    class="inner-value dark added"
+                  >
+                    "Updated image description"
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
