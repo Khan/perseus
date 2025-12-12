@@ -6,9 +6,7 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import type {
     CategorizerWidget,
-    ExpressionWidget,
     InteractiveGraphWidget,
-    NumericInputWidget,
     PerseusRenderer,
     PerseusWidgetTypes,
     RadioWidget,
@@ -94,43 +92,6 @@ export function generateTestCategorizerWidget(): CategorizerWidget {
             randomizeItems: false,
             static: false,
             values: [],
-        },
-    };
-}
-
-/**
- * Creates an object with the bare amount
- * of data to be a properly typed ExpressionWidget
- *
- * @returns {ExpressionWidget} skeleton ExpressionWidget for testing
- */
-export function generateTestExpressionWidget(): ExpressionWidget {
-    return {
-        type: "expression",
-        options: {
-            answerForms: [],
-            buttonSets: ["basic"],
-            functions: [],
-            times: false,
-        },
-    };
-}
-
-/**
- * Creates an object with the bare amount
- * of data to be a properly typed NumericInputWidget
- *
- * @returns {NumericInputWidget} skeleton NumericInputWidget for testing
- */
-export function generateTestNumericInputWidget(): NumericInputWidget {
-    return {
-        type: "numeric-input",
-        options: {
-            answers: [],
-            labelText: "",
-            size: "normal",
-            coefficient: false,
-            static: false,
         },
     };
 }
