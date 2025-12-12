@@ -1,6 +1,8 @@
 import isWidgetScoreable from "./is-widget-scoreable";
 import {getTestDropdownWidget} from "./test-helpers";
 
+import type {PhetSimulationWidget} from "@khanacademy/perseus-core";
+
 describe("isWidgetScoreable", () => {
     it("returns false for undefined widget", () => {
         expect(isWidgetScoreable(undefined)).toBe(false);
@@ -58,6 +60,22 @@ describe("isWidgetScoreable", () => {
             graded: false,
             static: false,
         };
+        expect(isWidgetScoreable(widget)).toBe(false);
+    });
+
+    it("returns false when widget has no scorer", () => {
+        const widget = {
+            ...getTestDropdownWidget(),
+            type: "phet-simulation",
+            // While it shouldn't be possible to get graded as true for a phet-simulation widget,
+            // we should still handle it gracefully.
+            graded: true,
+            static: false,
+            options: {
+                url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
+                description: "Projectile Data Lab",
+            },
+        } satisfies PhetSimulationWidget;
         expect(isWidgetScoreable(widget)).toBe(false);
     });
 });

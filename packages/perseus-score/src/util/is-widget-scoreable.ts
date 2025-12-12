@@ -1,3 +1,5 @@
+import {getWidgetScorer} from "../widgets/widget-registry";
+
 import type {PerseusWidget} from "@khanacademy/perseus-core";
 
 /**
@@ -12,5 +14,6 @@ export default function isWidgetScoreable(
     }
     const widgetIsGraded = widget.graded == null || widget.graded;
     const widgetIsStatic = !!widget.static;
-    return widgetIsGraded && !widgetIsStatic;
+    const widgetHasScorer = getWidgetScorer(widget.type) !== null;
+    return widgetIsGraded && !widgetIsStatic && widgetHasScorer;
 }
