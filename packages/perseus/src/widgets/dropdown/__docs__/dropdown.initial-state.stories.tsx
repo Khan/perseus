@@ -87,6 +87,35 @@ export const RTL: Story = {
     },
 };
 
+export const StaticBasicDropdown: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content:
+                    "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
+                widgets: {
+                    "dropdown 1": generateDropdownWidget({
+                        static: true,
+                        options: generateDropdownOptions({
+                            placeholder: "greater/less than or equal to",
+                            choices: [
+                                {
+                                    content: "greater than or equal to",
+                                    correct: false,
+                                },
+                                {
+                                    content: "less than or equal to",
+                                    correct: true,
+                                },
+                            ],
+                        }),
+                    }),
+                },
+            }),
+        }),
+    },
+};
+
 function DropdownQuestionRenderer(props: {item: PerseusItem; rtl?: boolean}) {
     const {item, rtl} = props;
 

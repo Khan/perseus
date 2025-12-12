@@ -14,3 +14,4 @@ storybook-static
 
 # Local development files
 CLAUDE.local.md
+.claude/settings.local.json
