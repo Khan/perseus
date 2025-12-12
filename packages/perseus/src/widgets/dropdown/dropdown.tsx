@@ -43,10 +43,8 @@ type WidgetHandle = {
 };
 
 const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
-    // Get context with hook instead of static contextType
     const context = useContext(PerseusI18nContext);
 
-    // Destructure props with defaults
     const {
         choices = [],
         placeholder = "",
@@ -74,7 +72,7 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
             },
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // Empty dependency array = run once on mount
+    }, []);
 
     // Handler for dropdown value changes
     const handleChange = (selected: number): void => {
@@ -146,7 +144,6 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
         },
     }));
 
-    // Build dropdown options
     const children = [
         <OptionItem
             key="placeholder"
@@ -170,7 +167,6 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
         )),
     ];
 
-    // Render dropdown UI
     return (
         <Id>
             {(dropdownId) => (
