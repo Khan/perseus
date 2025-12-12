@@ -2,7 +2,6 @@ import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "./components/i18n-context";
@@ -49,6 +48,9 @@ class HintsRenderer extends React.Component<Props, State> {
         linterContext: PerseusLinter.linterContextDefault,
     };
 
+    // Store refs to HintRenderer components
+    hintRendererRefs: Map<number, HintRenderer | null> = new Map();
+
     // The isFinalHelpPage property determines if the user has requested help
     // after answering an exercise question incorrectly, which differs from
     // the case when the user is requesting successive hints. In the case
@@ -89,8 +91,10 @@ class HintsRenderer extends React.Component<Props, State> {
             nextHintsVisible >= 0
         ) {
             const pos = nextHintsVisible - 1;
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus(); // eslint-disable-line react/no-string-refs
+            const hintRenderer = this.hintRendererRefs.get(pos);
+            if (hintRenderer) {
+                hintRenderer.focus();
+            }
         }
     }
 
@@ -136,9 +140,8 @@ class HintsRenderer extends React.Component<Props, State> {
      */
     getSerializedState: () => any = () => {
         return _.times(this._hintsVisible(), (i) => {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
-            return this.refs["hintRenderer" + i].getSerializedState();
+            const hintRenderer = this.hintRendererRefs.get(i);
+            return hintRenderer?.getSerializedState();
         });
     };
 
@@ -162,7 +165,13 @@ class HintsRenderer extends React.Component<Props, State> {
                     hint={hint}
                     pos={i}
                     totalHints={this.props.hints.length}
-                    ref={"hintRenderer" + i}
+                    ref={(ref) => {
+                        if (ref) {
+                            this.hintRendererRefs.set(i, ref);
+                        } else {
+                            this.hintRendererRefs.delete(i);
+                        }
+                    }}
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findExternalWidgets}
