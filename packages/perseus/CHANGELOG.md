@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 72.6.2
+
+### Patch Changes
+
+-   [#3123](https://github.com/Khan/perseus/pull/3123) [`5f57176abc`](https://github.com/Khan/perseus/commit/5f57176abc170f469bb86b4224dc59bac833c883) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix infinite loop in image widget by removing circular dependency
+
 ## 72.6.1
 
 ### Patch Changes

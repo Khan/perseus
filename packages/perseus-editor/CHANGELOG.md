@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 28.8.6
+
+### Patch Changes
+
+-   [#3108](https://github.com/Khan/perseus/pull/3108) [`a66f71ed73`](https://github.com/Khan/perseus/commit/a66f71ed73ba65dd2702c20de0ef9b3eaa10e7ae) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding types to our Perseus Editor diff experience.
+
+-   Updated dependencies [[`5f57176abc`](https://github.com/Khan/perseus/commit/5f57176abc170f469bb86b4224dc59bac833c883)]:
+    -   @khanacademy/perseus@72.6.2
+
 ## 28.8.5
 
 ### Patch Changes
