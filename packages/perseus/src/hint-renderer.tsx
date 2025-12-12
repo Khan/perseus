@@ -33,10 +33,15 @@ class HintRenderer extends React.Component<Props> {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     rendererRef = React.createRef<Renderer>();
+    containerRef = React.createRef<HTMLDivElement>();
 
     static defaultProps: DefaultProps = {
         linterContext: PerseusLinter.linterContextDefault,
     };
+
+    focus() {
+        this.containerRef.current?.focus();
+    }
 
     // TODO(LEMS-3185): remove serializedState
     /**
@@ -82,7 +87,11 @@ class HintRenderer extends React.Component<Props> {
         return (
             <DependenciesContext.Provider value={this.props.dependencies}>
                 {/* @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'. */}
-                <div className={classNames} tabIndex="-1">
+                <div
+                    ref={this.containerRef}
+                    className={classNames}
+                    tabIndex="-1"
+                >
                     {!apiOptions.isMobile && (
                         <span className="perseus-sr-only">
                             {this.context.strings.hintPos({pos: pos + 1})}
