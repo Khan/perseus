@@ -86,11 +86,10 @@ class HintRenderer extends React.Component<Props> {
 
         return (
             <DependenciesContext.Provider value={this.props.dependencies}>
-                {/* @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'. */}
                 <div
                     ref={this.containerRef}
                     className={classNames}
-                    tabIndex="-1"
+                    tabIndex={-1}
                 >
                     {!apiOptions.isMobile && (
                         <span className="perseus-sr-only">
