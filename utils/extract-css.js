@@ -4,6 +4,8 @@ const path = require("path");
 
 const {parse} = require("@babel/parser");
 
+const {objectifyCSS} = require("./extract-aphrodite");
+
 /**
  * Extracts style information from JS and Aphrodite objects and writes them to a
  *      CSS Modules (*.module.css) file.
@@ -24,6 +26,9 @@ const fileNameParts = path.basename(filePath).split(".");
 const archiveFile = process.argv.includes("--archive");
 const archivedFileName = `${fileNameParts[0]}.OLD.${fileNameParts[1]}`;
 const archivedFilePath = path.join(fileDirectory, archivedFileName);
+const keepAphrodite = process.argv.includes("--keep-aphrodite");
+const aphroditeFileName = `${fileNameParts[0]}.styles.js`;
+const aphroditeFilePath = path.join(fileDirectory, aphroditeFileName);
 const cssFileName = `${fileNameParts[0]}.module.css`;
 const cssFilePath = path.join(fileDirectory, cssFileName);
 const indentation = "    ";
@@ -615,6 +620,20 @@ exec(`git add ${cssFilePath}`, (error, stdout, stderr) => {
     }
 });
 
+if (keepAphrodite) {
+    const objectifiedCSS = objectifyCSS(
+        cssStringified,
+        aphroditeDeclaration.id.name,
+    );
+    fs.writeFileSync(aphroditeFilePath, objectifiedCSS);
+    exec(`git add ${aphroditeFilePath}`, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error: ${error}`);
+            return;
+        }
+    });
+}
+
 /*********************
  * Replace Aphrodite *
  *********************/
@@ -641,10 +660,15 @@ const aphroditeImport = parsedCode.program.body.filter(
     (node) =>
         node.type === "ImportDeclaration" && node.source.value === "aphrodite",
 )[0];
-if (aphroditeImport) {
+if (aphroditeImport && !keepAphrodite) {
     updatedCode = `${cleanedCode.substring(0, aphroditeImport.start - 1)}
 import ${aphroditeDeclaration.id.name} from "./${cssFileName}";
 ${cleanedCode.substring(aphroditeImport.end).trim()}
+`;
+} else if (aphroditeImport && keepAphrodite) {
+    updatedCode = `${cleanedCode.substring(0, aphroditeImport.start - 1)}
+import ${aphroditeDeclaration.id.name} from "./${aphroditeFileName}";
+${cleanedCode.substring(aphroditeImport.start).trim()}
 `;
 } else {
     const lastImport = parsedCode.program.body.filter(
