@@ -27,7 +27,7 @@ interface State {
 class TextListEditor extends React.Component<Props, State> {
     static defaultProps = {
         options: [],
-        layout: "horizontal" as const,
+        layout: "horizontal",
     };
 
     state: State = {
