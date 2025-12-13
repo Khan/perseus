@@ -132,23 +132,21 @@ class TextListEditor extends React.Component<Props, State> {
         const className = [
             "perseus-text-list-editor",
             "perseus-clearfix",
-            "layout-" + (this.props.layout || "horizontal"),
+            "layout-" + this.props.layout,
         ].join(" ");
 
-        const inputs = this.state.items?.map((item: string, i: number) => {
-            return (
-                <li key={i}>
-                    <input
-                        ref={this.getInputRef(i)}
-                        type="text"
-                        value={item}
-                        onChange={(e) => this.onChange(i, e)}
-                        onKeyDown={(e) => this.onKeyDown(i, e)}
-                        style={{width: getTextWidth(item)}}
-                    />
-                </li>
-            );
-        });
+        const inputs = this.state.items?.map((item: string, i: number) => (
+            <li key={i}>
+                <input
+                    ref={this.getInputRef(i)}
+                    type="text"
+                    value={item}
+                    onChange={(e) => this.onChange(i, e)}
+                    onKeyDown={(e) => this.onKeyDown(i, e)}
+                    style={{width: getTextWidth(item)}}
+                />
+            </li>
+        ));
 
         return <ul className={className}>{inputs}</ul>;
     }
