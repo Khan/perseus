@@ -1,9 +1,5 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @typescript-eslint/no-invalid-this, react/forbid-prop-types, react/no-unsafe */
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 const textWidthCache: Record<string, any> = {};
@@ -18,26 +14,43 @@ function getTextWidth(text: any) {
     return textWidthCache[text];
 }
 
-class TextListEditor extends React.Component<any, any> {
-    static propTypes = {
-        options: PropTypes.array,
-        layout: PropTypes.oneOf(["horizontal", "vertical"]),
-        onChange: PropTypes.func.isRequired,
-    };
+interface Props {
+    options: ReadonlyArray<string | number>;
+    layout: "horizontal" | "vertical";
+    onChange: (items: string[], cb?: any) => void;
+}
 
-    static defaultProps: any = {
+interface State {
+    items: string[];
+}
+
+class TextListEditor extends React.Component<Props, State> {
+    static defaultProps = {
         options: [],
-        layout: "horizontal",
+        layout: "horizontal" as const,
     };
 
-    state: any = {
-        items: this.props.options.concat(""),
+    state: State = {
+        // Turn everything into a string, and add an empty string to the end
+        // for the new empty input.
+        items: [...this.props.options.map(String), ""],
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps: any) {
+    inputRefs: Map<number, React.RefObject<HTMLInputElement>> = new Map();
+
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState({
-            items: nextProps.options.concat(""),
+            items: [...nextProps.options.map(String), ""],
         });
+    }
+
+    getInputRef(index: number): React.RefObject<HTMLInputElement> {
+        let ref = this.inputRefs.get(index);
+        if (!ref) {
+            ref = React.createRef<HTMLInputElement>();
+            this.inputRefs.set(index, ref);
+        }
+        return ref;
     }
 
     onChange: (
@@ -74,18 +87,11 @@ class TextListEditor extends React.Component<any, any> {
             ) {
                 // ...except for the last one, iff it is the only empty
                 // input at the end.
-                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); // eslint-disable-line react/no-string-refs
+                this.getInputRef(focusIndex).current?.focus();
             } else {
                 items.splice(index, 1);
-                this.setState({items: items}, function () {
-                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                    ReactDOM.findDOMNode(
-                        // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.refs["input_" + focusIndex],
-                        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                    ).focus();
+                this.setState({items: items}, () => {
+                    this.getInputRef(focusIndex).current?.focus();
                 });
             }
 
@@ -112,18 +118,11 @@ class TextListEditor extends React.Component<any, any> {
 
             if (index === items.length - 2) {
                 // ...unless the empty input is just below.
-                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); // eslint-disable-line react/no-string-refs
+                this.getInputRef(focusIndex).current?.focus();
             } else {
                 items.splice(focusIndex, 0, "");
-                this.setState({items: items}, function () {
-                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                    ReactDOM.findDOMNode(
-                        // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.refs["input_" + focusIndex],
-                        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                    ).focus();
+                this.setState({items: items}, () => {
+                    this.getInputRef(focusIndex).current?.focus();
                 });
             }
         }
@@ -133,31 +132,23 @@ class TextListEditor extends React.Component<any, any> {
         const className = [
             "perseus-text-list-editor",
             "perseus-clearfix",
-            "layout-" + this.props.layout,
+            "layout-" + (this.props.layout || "horizontal"),
         ].join(" ");
 
-        const inputs = _.map(
-            this.state.items,
-            function (item, i) {
-                return (
-                    <li key={i}>
-                        <input
-                            ref={"input_" + i}
-                            type="text"
-                            value={item}
-                            // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            onChange={this.onChange.bind(this, i)}
-                            // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            onKeyDown={this.onKeyDown.bind(this, i)}
-                            style={{width: getTextWidth(item)}}
-                        />
-                    </li>
-                );
-            },
-            this,
-        );
+        const inputs = this.state.items?.map((item: string, i: number) => {
+            return (
+                <li key={i}>
+                    <input
+                        ref={this.getInputRef(i)}
+                        type="text"
+                        value={item}
+                        onChange={(e) => this.onChange(i, e)}
+                        onKeyDown={(e) => this.onKeyDown(i, e)}
+                        style={{width: getTextWidth(item)}}
+                    />
+                </li>
+            );
+        });
 
         return <ul className={className}>{inputs}</ul>;
     }
