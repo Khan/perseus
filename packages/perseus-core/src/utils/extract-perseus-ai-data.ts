@@ -221,7 +221,7 @@ export function getAnswersFromWidgets(
                             (m) =>
                                 `{label: "${m.label}", position: {${m.x},${
                                     m.y
-                                }}, answer: "${m.answers.join(", ")}"}`,
+                                }}, answer: "${m.answers?.join(", ")}"}`,
                         ),
                     );
                 }
