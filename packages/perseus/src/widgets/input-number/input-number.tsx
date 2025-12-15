@@ -13,6 +13,7 @@ import InputWithExamples from "../numeric-input/input-with-examples";
 
 import type {PerseusStrings} from "../../strings";
 import type {
+    Focusable,
     Path,
     PerseusDependenciesV2,
     Widget,
@@ -85,6 +86,8 @@ type DefaultProps = Pick<
 class InputNumber extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
+    keypadInputRef = React.createRef<SimpleKeypadInput>();
+    inputWithExamplesRef = React.createRef<Focusable>();
 
     static defaultProps: DefaultProps = {
         size: "normal",
@@ -125,29 +128,27 @@ class InputNumber extends React.Component<Props> implements Widget {
     };
 
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+        if (this.props.apiOptions.customKeypad && this.keypadInputRef.current) {
+            this.keypadInputRef.current.focus();
+        } else if (this.inputWithExamplesRef.current) {
+            this.inputWithExamplesRef.current.focus();
+        }
         return true;
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
-    focusInputPath: (arg1: Path) => void = (inputPath) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+    focusInputPath: () => void = () => {
+        if (this.props.apiOptions.customKeypad && this.keypadInputRef.current) {
+            this.keypadInputRef.current.focus();
+        } else if (this.inputWithExamplesRef.current) {
+            this.inputWithExamplesRef.current.focus();
+        }
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
-    blurInputPath: (arg1: Path) => void = (inputPath) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        if (typeof this.refs.input?.blur === "function") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-            this.refs.input?.blur();
+    blurInputPath: () => void = () => {
+        if (this.props.apiOptions.customKeypad && this.keypadInputRef.current) {
+            this.keypadInputRef.current.blur();
+        } else if (this.inputWithExamplesRef.current) {
+            this.inputWithExamplesRef.current.blur();
         }
     };
 
@@ -195,8 +196,7 @@ class InputNumber extends React.Component<Props> implements Widget {
             // TODO(charlie): Support "Review Mode".
             const input = (
                 <SimpleKeypadInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
+                    ref={this.keypadInputRef}
                     value={this.props.userInput.currentValue}
                     keypadElement={this.props.keypadElement}
                     onChange={this.handleChange}
@@ -227,8 +227,7 @@ class InputNumber extends React.Component<Props> implements Widget {
 
         return (
             <InputWithExamples
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
+                ref={this.inputWithExamplesRef}
                 value={this.props.userInput.currentValue}
                 onChange={this.handleChange}
                 style={inputStyles}
