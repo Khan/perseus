@@ -49,7 +49,7 @@ export const WidgetAdded: Story = {
             widgets: {},
         }),
         after: generateTestPerseusRenderer({
-            content: "🥱 Hello world! [[☃ radio 1]]",
+            content: "😴 Goodby world! [[☃ radio 1]]",
             widgets: {
                 "radio 1": generateRadioWidget(),
             },
@@ -67,7 +67,7 @@ export const WidgetRemoved: Story = {
             },
         }),
         after: generateTestPerseusRenderer({
-            content: "🥱 Hello world!",
+            content: "😴 Goodbye world!",
             widgets: {},
         }),
     },
