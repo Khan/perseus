@@ -16,6 +16,7 @@ export type PerseusStrings = {
     hintPos: ({pos}: {pos: number}) => string;
     errorRendering: ({error}: {error: string}) => string;
     APPROXIMATED_PI_ERROR: string;
+    EMPTY_RESPONSE_ERROR: string;
     EXTRA_SYMBOLS_ERROR: string;
     NEEDS_TO_BE_SIMPLFIED_ERROR: string;
     MISSING_PERCENT_ERROR: string;
@@ -540,6 +541,8 @@ export const strings = {
         "answer as a multiple of pi, like " +
         "12 pi or " +
         "2/3 pi",
+    EMPTY_RESPONSE_ERROR:
+        "There are still more parts of this question to answer.",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
@@ -1156,6 +1159,8 @@ export const mockStrings: PerseusStrings = {
         "answer as a multiple of pi, like " +
         "<code>12\\ \\text{pi}</code> or " +
         "<code>2/3\\ \\text{pi}</code>",
+    EMPTY_RESPONSE_ERROR:
+        "There are still more parts of this question to answer.",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
@@ -1484,20 +1489,21 @@ type ErrorStringMap = {
  * that we can use to get the translated error message
  */
 const errorToString: ErrorStringMap = {
-    MISSING_PERCENT_ERROR: "MISSING_PERCENT_ERROR",
-    NEEDS_TO_BE_SIMPLIFIED_ERROR: "NEEDS_TO_BE_SIMPLFIED_ERROR",
     APPROXIMATED_PI_ERROR: "APPROXIMATED_PI_ERROR",
+    CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
+    EMPTY_RESPONSE_ERROR: "EMPTY_RESPONSE_ERROR",
     EXTRA_SYMBOLS_ERROR: "EXTRA_SYMBOLS_ERROR",
-    WRONG_CASE_ERROR: "WRONG_CASE_ERROR",
-    WRONG_LETTER_ERROR: "WRONG_LETTER_ERROR",
-    MULTIPLICATION_SIGN_ERROR: "MULTIPLICATION_SIGN_ERROR",
+    FILL_ALL_CELLS_ERROR: "fillAllCells",
     INVALID_CHOICE_SELECTION: "INVALID_CHOICE_SELECTION",
     INVALID_SELECTION_ERROR: "invalidSelection",
-    CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
+    MISSING_PERCENT_ERROR: "MISSING_PERCENT_ERROR",
+    MULTIPLICATION_SIGN_ERROR: "MULTIPLICATION_SIGN_ERROR",
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: "NEEDS_TO_BE_SIMPLFIED_ERROR",
     NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
-    FILL_ALL_CELLS_ERROR: "fillAllCells",
     USER_INPUT_EMPTY: "USER_INPUT_EMPTY",
     USER_INPUT_TOO_LONG: "USER_INPUT_TOO_LONG",
+    WRONG_CASE_ERROR: "WRONG_CASE_ERROR",
+    WRONG_LETTER_ERROR: "WRONG_LETTER_ERROR",
 };
 
 export function mapErrorToString(
@@ -1512,3 +1518,6 @@ export function mapErrorToString(
 
     return translatedStrings[errorToString[err]] || err;
 }
+
+// EMPTY_RESPONSE_ERROR
+// There are still more parts of this question to answer.
