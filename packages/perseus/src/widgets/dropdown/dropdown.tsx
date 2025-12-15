@@ -1,7 +1,13 @@
-import {Id, View} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
-import React, {forwardRef, useEffect, useImperativeHandle, useRef} from "react";
+import React, {
+    forwardRef,
+    useEffect,
+    useId,
+    useImperativeHandle,
+    useRef,
+} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
@@ -38,6 +44,7 @@ type WidgetHandle = {
 
 const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
     const {strings} = usePerseusI18n();
+    const dropdownId = useId();
 
     const {
         choices = [],
@@ -157,41 +164,37 @@ const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
     ];
 
     return (
-        <Id>
-            {(dropdownId) => (
-                <View
-                    ref={rootRef}
-                    // NOTE(jared): These are required to prevent weird behavior
-                    // When there's a dropdown in a zoomable table.
-                    onClick={(e) => {
-                        e.stopPropagation();
-                    }}
-                    onTouchStart={(e) => {
-                        e.stopPropagation();
-                    }}
-                >
-                    {visibleLabel && (
-                        <LabelLarge tag="label" htmlFor={dropdownId}>
-                            {visibleLabel}
-                        </LabelLarge>
-                    )}
-                    <SingleSelect
-                        id={dropdownId}
-                        placeholder=""
-                        className="perseus-dropdown"
-                        onChange={(value) => handleChange(parseInt(value))}
-                        selectedValue={String(userInput.value)}
-                        disabled={apiOptions.readOnly || isStatic}
-                        aria-label={
-                            ariaLabel || visibleLabel || strings.selectAnAnswer
-                        }
-                        showOpenerLabelAsText={false}
-                    >
-                        {children}
-                    </SingleSelect>
-                </View>
+        <View
+            ref={rootRef}
+            // NOTE(jared): These are required to prevent weird behavior
+            // When there's a dropdown in a zoomable table.
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
+            onTouchStart={(e) => {
+                e.stopPropagation();
+            }}
+        >
+            {visibleLabel && (
+                <LabelLarge tag="label" htmlFor={dropdownId}>
+                    {visibleLabel}
+                </LabelLarge>
             )}
-        </Id>
+            <SingleSelect
+                id={dropdownId}
+                placeholder=""
+                className="perseus-dropdown"
+                onChange={(value) => handleChange(parseInt(value))}
+                selectedValue={String(userInput.value)}
+                disabled={apiOptions.readOnly || isStatic}
+                aria-label={
+                    ariaLabel || visibleLabel || strings.selectAnAnswer
+                }
+                showOpenerLabelAsText={false}
+            >
+                {children}
+            </SingleSelect>
+        </View>
     );
 });
 
