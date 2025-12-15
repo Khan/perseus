@@ -1,15 +1,9 @@
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
-import React, {
-    forwardRef,
-    useContext,
-    useEffect,
-    useImperativeHandle,
-    useRef,
-} from "react";
+import React, {forwardRef, useEffect, useImperativeHandle, useRef} from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
@@ -42,8 +36,8 @@ type WidgetHandle = {
     getSerializedState: () => any;
 };
 
-const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
-    const context = useContext(PerseusI18nContext);
+const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
+    const {strings} = usePerseusI18n();
 
     const {
         choices = [],
@@ -149,19 +143,14 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
             key="placeholder"
             value="0"
             disabled
-            label={<Renderer content={placeholder} strings={context.strings} />}
+            label={<Renderer content={placeholder} strings={strings} />}
             labelAsText={placeholder}
         />,
         ...choices.map((choice, i) => (
             <OptionItem
                 key={String(i + 1)}
                 value={String(i + 1)}
-                label={
-                    <Renderer
-                        content={choice.content}
-                        strings={context.strings}
-                    />
-                }
+                label={<Renderer content={choice.content} strings={strings} />}
                 labelAsText={choice.content}
             />
         )),
@@ -194,9 +183,7 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
                         selectedValue={String(userInput.value)}
                         disabled={apiOptions.readOnly || isStatic}
                         aria-label={
-                            ariaLabel ||
-                            visibleLabel ||
-                            context.strings.selectAnAnswer
+                            ariaLabel || visibleLabel || strings.selectAnAnswer
                         }
                         showOpenerLabelAsText={false}
                     >
@@ -207,9 +194,6 @@ const Dropdown = forwardRef<WidgetHandle, Props>((props, ref) => {
         </Id>
     );
 });
-
-// Set display name for debugging
-Dropdown.displayName = "Dropdown";
 
 /**
  * @deprecated and likely a very broken API
