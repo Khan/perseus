@@ -1,5 +1,4 @@
 import Util from "../../../util";
-import PassageRef from "../../passage-ref/passage-ref";
 
 import type {ChoiceState} from "../../../types";
 import type {RadioChoiceWithMetadata} from "../multiple-choice-widget.new";
@@ -95,7 +94,7 @@ export const parseNestedWidgets = (
                     referenceNumber: parseInt(refNum),
                     summaryText: summaryText,
                 },
-                version: PassageRef.version,
+                version: {major: 0, minor: 0},
             };
 
             return "[[" + Util.snowman + " " + widgetId + "]]";

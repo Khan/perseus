@@ -5,7 +5,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
-import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
 
@@ -99,7 +98,7 @@ class Radio extends React.Component<Props> implements Widget {
                         referenceNumber: parseInt(refNum),
                         summaryText: summaryText,
                     },
-                    version: PassageRef.version,
+                    version: {major: 0, minor: 0},
                 };
 
                 return "[[" + Util.snowman + " " + widgetId + "]]";

@@ -8,7 +8,6 @@ import {
 import * as Dependencies from "../dependencies";
 import WidgetContainer from "../widget-container";
 import {registerWidget} from "../widgets";
-import PassageWidget from "../widgets/passage";
 
 import type {PerseusDependenciesV2, WidgetExports} from "../types";
 
@@ -59,30 +58,25 @@ describe("widget-container", () => {
             testDependencies,
         );
 
-        registerWidget("passage", PassageWidget);
+        registerWidget("mock-widget", MockWidget);
 
         // Act
         render(
             <WidgetContainer
-                type="passage"
-                id="passage 1"
+                type="mock-widget"
+                id="mock-widget 1"
                 shouldHighlight={false}
                 widgetProps={{
-                    passageTitle: "Greeting",
-                    passageText: "Hello world!",
-                    footnotes: null,
-                    showLineNumbers: true,
-
+                    text: "Hello world!",
+                    fail: false,
                     findWidgets: () => [],
-
                     apiOptions: {isMobile: false},
                 }}
             />,
         );
 
         // Assert
-        expect(await screen.findByText("Greeting")).toBeInTheDocument();
-        expect(await screen.findByText("Hello world")).toBeInTheDocument();
+        expect(await screen.findByText("Hello world!")).toBeInTheDocument();
     });
 
     it("should send analytics even when widget rendering errors", () => {
