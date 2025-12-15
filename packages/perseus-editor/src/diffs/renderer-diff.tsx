@@ -14,9 +14,13 @@ import type {PerseusRenderer, PerseusWidget} from "@khanacademy/perseus-core";
 
 // In diffs, only show the widgetInfo props that can change
 const filterWidgetInfo = function (
-    widgetInfo: PerseusWidget,
+    widgetInfo: PerseusWidget | undefined,
     showAlignmentOptions: boolean,
 ) {
+    if (widgetInfo == null) {
+        return undefined;
+    }
+
     const {alignment, options, type} = widgetInfo;
 
     const filteredWidgetInfo = {options} as const;
