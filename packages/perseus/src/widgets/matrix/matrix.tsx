@@ -109,12 +109,15 @@ type State = {
     enterTheMatrix: number;
 };
 
+type MatrixInput = SimpleKeypadInput | TextInput;
+
 class Matrix extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     // @ts-expect-error - TS2564 - Property 'cursorPosition' has no initializer and is not definitely assigned in the constructor.
     cursorPosition: [number, number];
+    inputRefs: Map<string, MatrixInput | null>;
 
     static defaultProps: DefaultProps = {
         matrixBoardSize: [3, 3],
@@ -126,6 +129,11 @@ class Matrix extends React.Component<Props, State> implements Widget {
             answers: [[]],
         },
     };
+
+    constructor(props: Props) {
+        super(props);
+        this.inputRefs = new Map();
+    }
 
     state: State = {
         cursorPosition: [0, 0],
@@ -143,6 +151,16 @@ class Matrix extends React.Component<Props, State> implements Widget {
         });
         // Used in the `onBlur` and `onFocus` handlers
         this.cursorPosition = [0, 0];
+    }
+
+    setInputRef(path: FocusPath, ref: MatrixInput | null): void {
+        const refKey = getRefForPath(path);
+        this.inputRefs.set(refKey, ref);
+    }
+
+    getInputRef(path: FocusPath): MatrixInput | null {
+        const refKey = getRefForPath(path);
+        return this.inputRefs.get(refKey) ?? null;
     }
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
@@ -174,10 +192,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
     };
 
     focusInputPath: (arg1: any) => void = (path) => {
-        const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs[inputID].focus();
+        const input = this.getInputRef(path);
+        input?.focus();
     };
 
     blurInputPath: (arg1: any) => void = (path) => {
@@ -185,16 +201,16 @@ class Matrix extends React.Component<Props, State> implements Widget {
             path = getDefaultPath();
         }
 
-        const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs[inputID].blur();
+        const input = this.getInputRef(path);
+        input?.blur();
     };
 
     getDOMNodeForPath(path: FocusPath) {
-        const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
-        return ReactDOM.findDOMNode(this.refs[inputID]);
+        const input = this.getInputRef(path);
+        if (input) {
+            return ReactDOM.findDOMNode(input);
+        }
+        return null;
     }
 
     handleKeyDown: (arg1: any, arg2: any, arg3: any) => void = (
@@ -206,14 +222,20 @@ class Matrix extends React.Component<Props, State> implements Widget {
         const maxCol = this.props.matrixBoardSize[1];
         let enterTheMatrix = null;
 
-        // eslint-disable-next-line react/no-string-refs
-        const curInput = this.refs[getRefForPath(getInputPath(row, col))];
-        // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
-        const curValueString = curInput.getStringValue();
-        // @ts-expect-error - TS2339 - Property 'getSelectionStart' does not exist on type 'ReactInstance'.
-        const cursorStartPosition = curInput.getSelectionStart();
-        // @ts-expect-error - TS2339 - Property 'getSelectionEnd' does not exist on type 'ReactInstance'.
-        const cursorEndPosition = curInput.getSelectionEnd();
+        const curInput = this.getInputRef(getInputPath(row, col));
+        if (!curInput) {
+            return;
+        }
+
+        // SimpleKeypadInput doesn't have selection methods, so we need to check
+        const curValueString =
+            "getStringValue" in curInput ? curInput.getStringValue() ?? "" : "";
+        const cursorStartPosition =
+            "getSelectionStart" in curInput
+                ? curInput.getSelectionStart() ?? 0
+                : 0;
+        const cursorEndPosition =
+            "getSelectionEnd" in curInput ? curInput.getSelectionEnd() ?? 0 : 0;
 
         let nextPath = null;
         if (e.key === "ArrowUp" && row > 0) {
@@ -248,23 +270,26 @@ class Matrix extends React.Component<Props, State> implements Widget {
             e.preventDefault();
 
             // Focus the input and move the cursor to the end of it.
-            // eslint-disable-next-line react/no-string-refs
-            const input = this.refs[getRefForPath(nextPath)];
+            const input = this.getInputRef(nextPath);
 
-            // Multiply by 2 to ensure the cursor always ends up at the end;
-            // Opera sometimes sees a carriage return as 2 characters.
-            // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
-            const inputValString = input.getStringValue();
-            const valueLength = inputValString.length * 2;
+            if (input) {
+                input.focus();
 
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            input.focus();
-            if (e.key === "ArrowRight") {
-                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
-                input.setSelectionRange(0, 0);
-            } else {
-                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
-                input.setSelectionRange(valueLength, valueLength);
+                // SimpleKeypadInput doesn't have selection methods
+                if ("getStringValue" in input) {
+                    // Multiply by 2 to ensure the cursor always ends up at the end;
+                    // Opera sometimes sees a carriage return as 2 characters.
+                    const inputValString = input.getStringValue() ?? "";
+                    const valueLength = inputValString.length * 2;
+
+                    if ("setSelectionRange" in input) {
+                        if (e.key === "ArrowRight") {
+                            input.setSelectionRange(0, 0);
+                        } else {
+                            input.setSelectionRange(valueLength, valueLength);
+                        }
+                    }
+                }
             }
         }
 
@@ -379,13 +404,14 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                     const outside =
                                         row > highlightedRow ||
                                         col > highlightedCol;
+                                    const inputPath = getInputPath(row, col);
                                     const inputProps = {
                                         className: outside
                                             ? "outside"
                                             : "inside",
-                                        ref: getRefForPath(
-                                            getInputPath(row, col),
-                                        ),
+                                        ref: (ref: MatrixInput | null) => {
+                                            this.setInputRef(inputPath, ref);
+                                        },
                                         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                         value: rowVals ? rowVals[col] : null,
                                         style: {
@@ -434,7 +460,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                                 cb,
                                             );
                                         },
-                                    } as const;
+                                    };
 
                                     let MatrixInput;
                                     if (this.props.apiOptions.customKeypad) {
