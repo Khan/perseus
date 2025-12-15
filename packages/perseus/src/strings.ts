@@ -1518,6 +1518,3 @@ export function mapErrorToString(
 
     return translatedStrings[errorToString[err]] || err;
 }
-
-// EMPTY_RESPONSE_ERROR
-// There are still more parts of this question to answer.
