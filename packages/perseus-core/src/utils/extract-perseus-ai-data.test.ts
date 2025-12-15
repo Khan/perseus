@@ -1,5 +1,7 @@
 import {describe, it, expect} from "@jest/globals";
 
+import {registerCoreWidgets} from "../widgets/core-widget-registry";
+
 import {
     getAnswersFromWidgets,
     getPerseusAIData,
@@ -13,6 +15,7 @@ import {
     generateExplanationOptions,
     generateExplanationWidget,
 } from "./generators/explanation-widget-generator";
+import splitPerseusItem from "./split-perseus-item";
 import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
@@ -1423,6 +1426,69 @@ describe("getAnswersFromWidgets", () => {
         const answer = getAnswersFromWidgets({"matcher 1": widget});
         expect(answer).toEqual([
             "| Left | Right |\n| --- | --- |\n| 1 | 1 |\n| 2 | 2 |\n| 3 | 3 |\n| 4 | 4 |",
+        ]);
+    });
+
+    it("regression LEMS-3800: LabelImage throwing", () => {
+        registerCoreWidgets();
+        const answerfulItem = generateTestPerseusItem({
+            question: {
+                content: "[[☃ label-image 1]]",
+                images: {
+                    "web+graphie://ka-perseus-graphie.s3.amazonaws.com/1e28332fd2321975639ab50c9ce442e568c18421":
+                        {
+                            width: 341,
+                            height: 310,
+                        },
+                },
+                widgets: {
+                    "label-image 1": {
+                        type: "label-image",
+                        alignment: "default",
+                        static: false,
+                        graded: true,
+                        options: {
+                            static: false,
+                            choices: ["Trucks", "Vans", "Cars", "SUVs"],
+                            imageAlt: "",
+                            imageUrl:
+                                "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
+                            imageWidth: 415,
+                            imageHeight: 314,
+                            markers: [
+                                {
+                                    answers: ["SUVs"],
+                                    label: "The fourth unlabeled bar line.",
+                                    x: 25,
+                                    y: 17.7,
+                                },
+                            ],
+                            multipleAnswers: false,
+                            hideChoicesFromInstructions: true,
+                        },
+                        version: {
+                            major: 0,
+                            minor: 0,
+                        },
+                    },
+                },
+            },
+        });
+
+        const answerfulResult = getAnswersFromWidgets(
+            answerfulItem.question.widgets,
+        );
+        expect(answerfulResult).toEqual([
+            '{label: "The fourth unlabeled bar line.", position: {25,17.7}, answer: "SUVs"}',
+        ]);
+
+        const answerlessItem = splitPerseusItem(answerfulItem);
+        const answerlessResult = getAnswersFromWidgets(
+            answerlessItem.question.widgets,
+        );
+        // Really this isn't right...getAnswersFromWidgets should never be called with answerless PerseusItems
+        expect(answerlessResult).toEqual([
+            '{label: "The fourth unlabeled bar line.", position: {25,17.7}, answer: "undefined"}',
         ]);
     });
 });
