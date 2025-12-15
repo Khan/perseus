@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 72.6.3
+
+### Patch Changes
+
+-   [#3129](https://github.com/Khan/perseus/pull/3129) [`86eaa4374d`](https://github.com/Khan/perseus/commit/86eaa4374d62c4ba6da36f892e6abcec7190dab5) Thanks [@handeyeco](https://github.com/handeyeco)! - Sync deps
+
+-   Updated dependencies [[`86eaa4374d`](https://github.com/Khan/perseus/commit/86eaa4374d62c4ba6da36f892e6abcec7190dab5)]:
+    -   @khanacademy/math-input@26.3.2
+
 ## 72.6.2
 
 ### Patch Changes

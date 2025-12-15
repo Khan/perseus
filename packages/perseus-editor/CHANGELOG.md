@@ -1,5 +1,17 @@
 # @khanacademy/perseus-editor
 
+## 28.8.7
+
+### Patch Changes
+
+-   [#3065](https://github.com/Khan/perseus/pull/3065) [`7e393c6e48`](https://github.com/Khan/perseus/commit/7e393c6e48c0fa2f7e6a7c04b32ffa1aec84a62e) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - fix: adds review mode to content preview to show correct styling for radio
+
+*   [#3130](https://github.com/Khan/perseus/pull/3130) [`8bfa622386`](https://github.com/Khan/perseus/commit/8bfa6223864d00718dc01fd53f39762942102f5d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bugfix: Fix editor crash when adding/removing a widget
+
+*   Updated dependencies [[`86eaa4374d`](https://github.com/Khan/perseus/commit/86eaa4374d62c4ba6da36f892e6abcec7190dab5)]:
+    -   @khanacademy/math-input@26.3.2
+    -   @khanacademy/perseus@72.6.3
+
 ## 28.8.6
 
 ### Patch Changes
