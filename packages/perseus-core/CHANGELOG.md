@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 21.0.1
+
+### Patch Changes
+
+-   [#3128](https://github.com/Khan/perseus/pull/3128) [`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3) Thanks [@handeyeco](https://github.com/handeyeco)! - Add EMPTY_RESPONSE_ERROR handling
+
 ## 21.0.0
 
 ### Major Changes

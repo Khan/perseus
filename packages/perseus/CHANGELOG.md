@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 72.6.4
+
+### Patch Changes
+
+-   [#3128](https://github.com/Khan/perseus/pull/3128) [`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3) Thanks [@handeyeco](https://github.com/handeyeco)! - Add EMPTY_RESPONSE_ERROR handling
+
+-   Updated dependencies [[`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3)]:
+    -   @khanacademy/perseus-core@21.0.1
+    -   @khanacademy/keypad-context@3.2.23
+    -   @khanacademy/kmath@2.2.23
+    -   @khanacademy/math-input@26.3.3
+    -   @khanacademy/perseus-linter@4.6.5
+    -   @khanacademy/perseus-score@8.1.1
+
 ## 72.6.3
 
 ### Patch Changes
