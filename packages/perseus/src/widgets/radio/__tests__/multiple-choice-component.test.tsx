@@ -25,6 +25,7 @@ const baseChoiceValues = {
     correct: false,
     isNoneOfTheAbove: false,
     previouslyAnswered: false,
+    // TODO(LEMS-3783): remove uses of `revealNoneOfTheAbove`
     revealNoneOfTheAbove: false,
     disabled: false,
 };

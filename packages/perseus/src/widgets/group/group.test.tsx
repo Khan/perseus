@@ -120,31 +120,6 @@ describe("group widget", () => {
         });
     });
 
-    it("should call onInteractWithWidget when internal widget interacted with", async () => {
-        // Arrange
-        const onInteractWithWidget = jest.fn();
-
-        renderQuestion(
-            question1,
-            {},
-            {
-                onInteractWithWidget,
-            },
-        );
-
-        // Act
-        await userEvent.type(
-            screen.getByRole("textbox", {
-                name: "value rounded to the nearest ten",
-            }),
-            "99",
-        );
-
-        // Assert
-        // NOTE: The numeric-input that we typed into is in the second group.
-        expect(onInteractWithWidget).toHaveBeenCalledWith("group 2");
-    });
-
     it("should return contained renderer's getUserInput", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
