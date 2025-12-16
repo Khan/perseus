@@ -36,7 +36,8 @@
      */
     margin-block-end: var(--perseus-multiple-choice-divider-space) !important;
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
-    outline: var(--wb-border-width-medium) solid var(--perseus-multiple-choice-correctness-outline-color, transparent);
+    outline: var(--wb-border-width-medium) solid
+        var(--perseus-multiple-choice-correctness-outline-color, transparent);
     outline-offset: calc(var(--wb-border-width-medium) * -1);
     padding: var(--perseus-multiple-choice-spacing);
     position: relative; /* Needed to enable the dividers (:before and :after pseudo-elements) to position correctly */
@@ -140,7 +141,9 @@
 
 .is-correct {
     --perseus-multiple-choice-divider-width: 0;
-    --perseus-multiple-choice-correctness-outline-color: var(--wb-semanticColor-core-border-success-default);
+    --perseus-multiple-choice-correctness-outline-color: var(
+        --wb-semanticColor-core-border-success-default
+    );
     color: var(--wb-semanticColor-core-foreground-success-strong);
 }
 
