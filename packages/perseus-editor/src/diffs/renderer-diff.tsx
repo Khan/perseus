@@ -14,8 +14,8 @@ import type {PerseusRenderer, PerseusWidget} from "@khanacademy/perseus-core";
 
 // In diffs, only show the widgetInfo props that can change
 const filterWidgetInfo = function (
+    widgetInfo: PerseusWidget | undefined,
     showAlignmentOptions: boolean,
-    widgetInfo?: PerseusWidget,
 ) {
     if (widgetInfo == null) {
         return undefined;
@@ -102,15 +102,15 @@ class RendererDiff extends React.Component<Props> {
                 <WidgetDiff
                     before={
                         filterWidgetInfo(
-                            showAlignmentOptions,
                             before?.widgets?.[widget],
+                            showAlignmentOptions,
                         ) as PerseusWidget
                     }
                     after={
                         filterWidgetInfo(
-                            showAlignmentOptions,
                             after?.widgets?.[widget],
-                        ) as PerseusWidget
+                            showAlignmentOptions,
+                        ) as PerseusWidget,
                     }
                     title={widget}
                     type={
