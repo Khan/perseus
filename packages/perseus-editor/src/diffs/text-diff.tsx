@@ -22,7 +22,7 @@ type ContentDiff = {
     after: React.JSX.Element[];
 };
 
-const imagesInString = function (str?: string) {
+const imagesInString = function (str: string | undefined) {
     return str?.match(IMAGE_REGEX) || [];
 };
 
@@ -76,8 +76,8 @@ class ImageDiffSide extends React.Component<ImageDiffSideProps> {
 
 export type TextDiffProps = {
     title: string;
-    after?: string;
-    before?: string;
+    after: string | undefined;
+    before: string | undefined;
 };
 
 type TextDiffState = {

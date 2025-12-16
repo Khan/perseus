@@ -44,9 +44,9 @@ const filterWidgetInfo = function (
 
 type Props = {
     // The "after" props of the renderer. Will be displayed on the right.
-    after?: PerseusRenderer;
+    after: PerseusRenderer | undefined;
     // The "before" props of the renderer. Will be displayed on the left.
-    before?: PerseusRenderer;
+    before: PerseusRenderer | undefined;
     // If true, show widget alignment options in the diff.
     showAlignmentOptions: boolean;
     // If true, render a horizontal rule after this diff.

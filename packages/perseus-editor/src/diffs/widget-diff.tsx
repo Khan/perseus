@@ -11,8 +11,8 @@ import type {ImageWidget, PerseusWidget} from "@khanacademy/perseus-core";
 const {SvgImage} = components;
 
 type ImageWidgetDiffProps = {
-    after?: ImageWidget;
-    before?: ImageWidget;
+    after: ImageWidget | undefined;
+    before: ImageWidget | undefined;
 };
 
 // For image widgets, show the actual image
@@ -74,18 +74,18 @@ class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
 }
 
 type WidgetDiffProps = {
-    after?: PerseusWidget;
-    before?: PerseusWidget;
+    after: PerseusWidget | undefined;
+    before: PerseusWidget | undefined;
     title: string;
-    type?: PerseusWidget["type"];
+    type: PerseusWidget["type"] | undefined;
 };
 
 class WidgetDiff extends React.Component<WidgetDiffProps> {
     render(): React.ReactNode {
         const {after, before, title, type} = this.props;
 
-        // If before or after is undefined, performDiff will return an empty object.
-        const diff = performDiff(before ?? {}, after ?? {});
+        // If before or after is undefined, pass an empty object to performDiff.
+        const diff = performDiff(before ? before : {}, after ? after : {});
         return (
             <>
                 <div className="diff-header">{title}</div>
