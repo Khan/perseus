@@ -34,6 +34,8 @@ class Molecule extends React.Component<Props, MoleculeState> {
 
     state: MoleculeState = {parsedSmiles: null, error: null};
 
+    canvasRef = React.createRef<HTMLCanvasElement>();
+
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
     UNSAFE_componentWillMount() {
         this.stateFromSmiles(this.props.smiles);
@@ -96,12 +98,17 @@ class Molecule extends React.Component<Props, MoleculeState> {
             return;
         }
         const items = layout(this.state.parsedSmiles, this.props.rotationAngle);
-        // eslint-disable-next-line react/no-string-refs
-        const canvas = this.refs.canvas;
+        const canvas = this.canvasRef.current;
+        if (!canvas) {
+            return;
+        }
         const translation = this.setCanvasBounds(canvas, items);
-        // @ts-expect-error - TS2339 - Property 'getContext' does not exist on type 'ReactInstance'.
         const ctx = canvas.getContext("2d");
-        // @ts-expect-error - TS2339 - Property 'width' does not exist on type 'ReactInstance'. | TS2339 - Property 'height' does not exist on type 'ReactInstance'.
+
+        if (!ctx) {
+            return;
+        }
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.save();
         ctx.translate(translation[0], translation[1]);
@@ -116,8 +123,7 @@ class Molecule extends React.Component<Props, MoleculeState> {
             <canvas
                 className="molecule-canvas"
                 id={this.props.widgetId + "-molecule"}
-                // eslint-disable-next-line react/no-string-refs
-                ref="canvas"
+                ref={this.canvasRef}
             >
                 {this.context.strings.molecularDrawing({
                     content: this.props.smiles || "",
