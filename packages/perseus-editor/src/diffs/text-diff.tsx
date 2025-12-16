@@ -22,7 +22,7 @@ type ContentDiff = {
     after: React.JSX.Element[];
 };
 
-const imagesInString = function (str: string | undefined) {
+const imagesInString = function (str?: string) {
     return str?.match(IMAGE_REGEX) || [];
 };
 

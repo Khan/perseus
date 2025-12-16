@@ -11,23 +11,25 @@ import type {ImageWidget, PerseusWidget} from "@khanacademy/perseus-core";
 const {SvgImage} = components;
 
 type ImageWidgetDiffProps = {
-    after: ImageWidget | undefined;
-    before: ImageWidget | undefined;
+    after?: ImageWidget;
+    before?: ImageWidget;
 };
 
 // For image widgets, show the actual image
 class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
     render(): React.ReactNode {
         const {before, after} = this.props;
-        const beforeSrc = before?.options?.backgroundImage?.url
+        const beforeSrc: string = before?.options?.backgroundImage?.url
             ? before?.options.backgroundImage.url
             : "";
-        const afterSrc = after?.options?.backgroundImage?.url
+        const afterSrc: string = after?.options?.backgroundImage?.url
             ? after?.options.backgroundImage.url
             : "";
 
-        const beforeAlt = before?.options?.alt ? before?.options.alt : "";
-        const afterAlt = after?.options?.alt ? after?.options.alt : "";
+        const beforeAlt: string = before?.options?.alt
+            ? before?.options.alt
+            : "";
+        const afterAlt: string = after?.options?.alt ? after?.options.alt : "";
         return (
             <div>
                 <div className="diff-row before">
@@ -72,16 +74,18 @@ class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
 }
 
 type WidgetDiffProps = {
-    after: PerseusWidget;
-    before: PerseusWidget;
+    after?: PerseusWidget;
+    before?: PerseusWidget;
     title: string;
-    type: PerseusWidget["type"];
+    type?: PerseusWidget["type"];
 };
 
 class WidgetDiff extends React.Component<WidgetDiffProps> {
     render(): React.ReactNode {
         const {after, before, title, type} = this.props;
-        const diff = performDiff(before, after);
+
+        // If before or after is undefined, performDiff will return an empty object.
+        const diff = performDiff(before ?? {}, after ?? {});
         return (
             <>
                 <div className="diff-header">{title}</div>
@@ -89,8 +93,8 @@ class WidgetDiff extends React.Component<WidgetDiffProps> {
                 <div className="diff-body ui-helper-clearfix">
                     {type === "image" && (
                         <ImageWidgetDiff
-                            before={before as ImageWidget}
-                            after={after as ImageWidget}
+                            before={before as ImageWidget | undefined}
+                            after={after as ImageWidget | undefined}
                         />
                     )}
                     <DiffEntry entry={diff} />

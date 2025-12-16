@@ -7,15 +7,17 @@ import performDiff from "./shared/widget-diff-performer";
 import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
 
 type AnswerAreaDiffProps = {
-    after: PerseusAnswerArea;
-    before: PerseusAnswerArea;
+    after?: PerseusAnswerArea;
+    before?: PerseusAnswerArea;
     title: string;
 };
 
 export class AnswerAreaDiff extends React.Component<AnswerAreaDiffProps> {
     render(): React.ReactNode {
         const {after, before, title} = this.props;
-        const diff = performDiff(before, after);
+
+        // If before or after is undefined, performDiff will return an empty object.
+        const diff = performDiff(before ?? {}, after ?? {});
         return (
             <>
                 <div className="diff-header">{title}</div>
