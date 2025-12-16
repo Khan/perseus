@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 21.0.2
+
+### Patch Changes
+
+-   [#3136](https://github.com/Khan/perseus/pull/3136) [`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Ensuring LabelImages are marked as inaccessible if any marker is missing a label.
+
 ## 21.0.1
 
 ### Patch Changes
