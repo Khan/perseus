@@ -110,7 +110,7 @@ class RendererDiff extends React.Component<Props> {
                         filterWidgetInfo(
                             after?.widgets?.[widget],
                             showAlignmentOptions,
-                        ) as PerseusWidget,
+                        ) as PerseusWidget
                     }
                     title={widget}
                     type={
