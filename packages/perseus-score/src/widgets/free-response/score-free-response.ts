@@ -1,5 +1,3 @@
-import scoreNoop from "../../util/score-noop";
-
 import type {
     PerseusFreeResponseUserInput,
     PerseusFreeResponseRubric,
@@ -17,7 +15,12 @@ function scoreFreeResponse(
     //     input is free text input, we can't easily do scoring inside the
     //     widget, so we'll need to have a way to do it by some other method.
     //     For now, we'll just always give full credit.
-    return scoreNoop();
+    return {
+        type: "points",
+        earned: 0,
+        total: 0,
+        message: null,
+    };
 }
 
 export default scoreFreeResponse;
