@@ -4,7 +4,6 @@ import {
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import SvgImage from "../../components/svg-image";
@@ -64,6 +63,7 @@ class Measurer extends React.Component<Props> implements Widget {
     state = {};
     ruler;
     protractor;
+    graphieDiv = React.createRef<HTMLDivElement>();
 
     componentDidMount() {
         this.setupGraphie();
@@ -92,12 +92,12 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 
     setupGraphie() {
-        // eslint-disable-next-line react/no-string-refs
-        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
+        const graphieDiv = this.graphieDiv.current;
+        if (!graphieDiv) {
+            return;
+        }
         $(graphieDiv).empty();
-        // @ts-expect-error - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
-        const graphie = (this.graphie = GraphUtils.createGraphie(graphieDiv));
+        const graphie = GraphUtils.createGraphie(graphieDiv);
 
         const scale: Coord = [40, 40];
         const range: [Interval, Interval] = [
@@ -179,8 +179,7 @@ class Measurer extends React.Component<Props> implements Widget {
                         />
                     </div>
                 )}
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div className="graphie" ref="graphieDiv" />
+                <div className="graphie" ref={this.graphieDiv} />
             </div>
         );
     }
