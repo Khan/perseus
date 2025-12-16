@@ -1,6 +1,9 @@
 import {
     generateTestPerseusItem,
     splitPerseusItem,
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
@@ -138,7 +141,7 @@ describe("Dropdown widget", () => {
         });
     });
 
-    it("should be return true when focus() called", async () => {
+    it("should return true when focus() called and focus the dropdown button", async () => {
         // Arrange
         const {renderer} = renderQuestion(basicDropdown);
 
@@ -147,10 +150,8 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(focused).toBe(true);
-        // TODO(LP-10797): we don't check that the document.activeElement is
-        // actually set because the dropdown widget focuses a <div> (it's root
-        // element), which is not actually focusable because it doesn't have a
-        // tabindex.
+        const button = screen.getByRole("combobox");
+        expect(button).toHaveFocus();
     });
 
     it("has an ARIA label", async () => {
@@ -159,6 +160,61 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(screen.getByLabelText("Select an answer")).toBeInTheDocument();
+    });
+
+    it("should not claim to focus when the dropdown is read-only", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(basicDropdown, {readOnly: true});
+
+        // Act
+        const focused = renderer.focus();
+
+        // Assert
+        expect(focused).toBeFalsy();
+        const button = screen.getByRole("combobox");
+        expect(button).not.toHaveFocus();
+    });
+
+    it("should not claim to focus when the dropdown is static", async () => {
+        // Arrange
+        const staticDropdown = generateTestPerseusRenderer({
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdownWidget({
+                    static: true,
+                    options: generateDropdownOptions({
+                        placeholder: "Choose an answer",
+                        choices: [
+                            {content: "True", correct: true},
+                            {content: "False", correct: false},
+                        ],
+                    }),
+                }),
+            },
+        });
+        const {renderer} = renderQuestion(staticDropdown);
+
+        // Act
+        const focused = renderer.focus();
+
+        // Assert
+        expect(focused).toBeFalsy();
+        const button = screen.getByRole("combobox");
+        expect(button).not.toHaveFocus();
+    });
+
+    it("should not claim to focus when the dropdown button has aria-disabled", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(basicDropdown);
+        const button = screen.getByRole("combobox");
+        button.setAttribute("aria-disabled", "true");
+
+        // Act
+        const focused = renderer.focus();
+
+        // Assert
+        expect(focused).toBeFalsy();
+        expect(button).not.toHaveFocus();
     });
 
     describe("interactive: full vs answerless", () => {

@@ -11,23 +11,23 @@ import type {ImageWidget, PerseusWidget} from "@khanacademy/perseus-core";
 const {SvgImage} = components;
 
 type ImageWidgetDiffProps = {
-    after: ImageWidget;
-    before: ImageWidget;
+    after: ImageWidget | undefined;
+    before: ImageWidget | undefined;
 };
 
 // For image widgets, show the actual image
 class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {
     render(): React.ReactNode {
         const {before, after} = this.props;
-        const beforeSrc = before.options?.backgroundImage?.url
-            ? before.options.backgroundImage.url
+        const beforeSrc = before?.options?.backgroundImage?.url
+            ? before?.options.backgroundImage.url
             : "";
-        const afterSrc = after.options?.backgroundImage?.url
-            ? after.options.backgroundImage.url
+        const afterSrc = after?.options?.backgroundImage?.url
+            ? after?.options.backgroundImage.url
             : "";
 
-        const beforeAlt = before.options?.alt ? before.options.alt : "";
-        const afterAlt = after.options?.alt ? after.options.alt : "";
+        const beforeAlt = before?.options?.alt ? before?.options.alt : "";
+        const afterAlt = after?.options?.alt ? after?.options.alt : "";
         return (
             <div>
                 <div className="diff-row before">

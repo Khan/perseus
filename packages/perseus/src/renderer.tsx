@@ -1325,6 +1325,15 @@ class Renderer
                 return widget.getDOMNodeForPath(interWidgetPath);
             }
             if (interWidgetPath.length === 0) {
+                const container = this._widgetContainers.get(
+                    makeContainerId(widgetId),
+                );
+                if (container) {
+                    // Use the container ref so function components that expose an
+                    // imperative handle (and thus aren't valid ReactDOM targets)
+                    // still produce a DOM node.
+                    return ReactDOM.findDOMNode(container);
+                }
                 // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
                 return ReactDOM.findDOMNode(widget);
             }

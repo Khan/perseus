@@ -1,5 +1,53 @@
 # @khanacademy/perseus-editor
 
+## 28.8.10
+
+### Patch Changes
+
+-   Updated dependencies [[`50b7c8b5ea`](https://github.com/Khan/perseus/commit/50b7c8b5ea3b7f4bf0c3f3de20ff3312b7c477b6)]:
+    -   @khanacademy/perseus-score@8.2.0
+    -   @khanacademy/perseus@72.6.6
+
+## 28.8.9
+
+### Patch Changes
+
+-   [#3141](https://github.com/Khan/perseus/pull/3141) [`d2ee45a2d1`](https://github.com/Khan/perseus/commit/d2ee45a2d104710d419e5501b218a62408d24277) Thanks [@handeyeco](https://github.com/handeyeco)! - Add more safety checks in ImageWidgetDiff
+
+-   Updated dependencies [[`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705)]:
+    -   @khanacademy/perseus-core@21.0.2
+    -   @khanacademy/keypad-context@3.2.24
+    -   @khanacademy/kmath@2.2.24
+    -   @khanacademy/math-input@26.3.4
+    -   @khanacademy/perseus@72.6.5
+    -   @khanacademy/perseus-linter@4.6.6
+    -   @khanacademy/perseus-score@8.1.2
+
+## 28.8.8
+
+### Patch Changes
+
+-   Updated dependencies [[`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3)]:
+    -   @khanacademy/perseus@72.6.4
+    -   @khanacademy/perseus-core@21.0.1
+    -   @khanacademy/keypad-context@3.2.23
+    -   @khanacademy/kmath@2.2.23
+    -   @khanacademy/math-input@26.3.3
+    -   @khanacademy/perseus-linter@4.6.5
+    -   @khanacademy/perseus-score@8.1.1
+
+## 28.8.7
+
+### Patch Changes
+
+-   [#3065](https://github.com/Khan/perseus/pull/3065) [`7e393c6e48`](https://github.com/Khan/perseus/commit/7e393c6e48c0fa2f7e6a7c04b32ffa1aec84a62e) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - fix: adds review mode to content preview to show correct styling for radio
+
+*   [#3130](https://github.com/Khan/perseus/pull/3130) [`8bfa622386`](https://github.com/Khan/perseus/commit/8bfa6223864d00718dc01fd53f39762942102f5d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bugfix: Fix editor crash when adding/removing a widget
+
+*   Updated dependencies [[`86eaa4374d`](https://github.com/Khan/perseus/commit/86eaa4374d62c4ba6da36f892e6abcec7190dab5)]:
+    -   @khanacademy/math-input@26.3.2
+    -   @khanacademy/perseus@72.6.3
+
 ## 28.8.6
 
 ### Patch Changes
