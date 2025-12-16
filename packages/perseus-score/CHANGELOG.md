@@ -1,5 +1,11 @@
 # @khanacademy/perseus-score
 
+## 8.2.0
+
+### Minor Changes
+
+-   [#3064](https://github.com/Khan/perseus/pull/3064) [`50b7c8b5ea`](https://github.com/Khan/perseus/commit/50b7c8b5ea3b7f4bf0c3f3de20ff3312b7c477b6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing scoreNoop in favour of the new isScorable feature.
+
 ## 8.1.2
 
 ### Patch Changes
