@@ -63,4 +63,52 @@ describe("TextDiff", () => {
         // Assert
         expect(container).toMatchSnapshot();
     });
+
+    it("renders with missing 'before' props", () => {
+        // Arrange
+        const afterItem: string = "Hello, world!";
+
+        // Act
+        const {container} = render(
+            <TextDiff
+                title="Missing before"
+                before={undefined}
+                after={afterItem}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot();
+    });
+
+    it("renders with missing 'after' props", () => {
+        // Arrange
+        const beforeItem: string = "Hello, world!";
+
+        // Act
+        const {container} = render(
+            <TextDiff
+                title="Missing after"
+                before={beforeItem}
+                after={undefined}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot();
+    });
+
+    it("renders with both 'before' and 'after' undefined", () => {
+        // Act
+        const {container} = render(
+            <TextDiff
+                title="Both undefined"
+                before={undefined}
+                after={undefined}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot();
+    });
 });

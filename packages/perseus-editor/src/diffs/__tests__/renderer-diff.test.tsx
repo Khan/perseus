@@ -73,6 +73,20 @@ describe("RendererDiff", () => {
         expect(container).toMatchSnapshot();
     });
 
+    it("renders with both 'before' and 'after' undefined", () => {
+        // Act
+        const {container} = render(
+            <RendererDiff
+                title="Both undefined"
+                before={undefined}
+                after={undefined}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot();
+    });
+
     it("renders an image widget in the diff view", () => {
         // Arrange
 
