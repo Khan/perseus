@@ -63,7 +63,7 @@ describe("RendererDiff", () => {
         // Act
         const {container} = render(
             <RendererDiff
-                title="Missing before"
+                title="Missing after"
                 before={beforeItem}
                 after={undefined}
             />,
