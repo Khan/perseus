@@ -21,80 +21,130 @@ import {
     generateInteractiveGraphWidget,
 } from "./interactive-graph-widget-generator";
 
-it("builds an interactive graph widget with all props", () => {
-    // Arrange, Act
-    const widget = generateInteractiveGraphWidget({
-        graded: false,
-        version: {major: 1, minor: 0},
-        static: true,
-        alignment: "block",
-        options: {
-            correct: {type: "none"},
-            graph: {type: "none"},
-            labelLocation: "alongEdge",
-            labels: ["$a$", "$b$"],
-            markings: "grid",
-            range: [
-                [-100, 100],
-                [-100, 100],
-            ],
-            showAxisArrows: {
-                xMin: false,
-                xMax: false,
-                yMin: false,
-                yMax: false,
-            },
-            showProtractor: true,
-            showTooltips: true,
-            step: [2, 2],
-            lockedFigures: [
-                {
-                    type: "point",
-                    coord: [0, 0],
-                    color: "blue",
-                    filled: true,
-                    labels: [],
+describe("generateInteractiveGraphWidget", () => {
+    it("builds a default interactive graph widget", () => {
+        // Arrange, Act
+        const widget = generateInteractiveGraphWidget();
+
+        // Assert
+        expect(widget).toEqual({
+            type: "interactive-graph",
+            graded: true,
+            version: {major: 0, minor: 0},
+            static: false,
+            alignment: "default",
+            options: {
+                correct: {type: "linear", coords: null},
+                graph: {type: "linear"},
+                labelLocation: "onAxis",
+                labels: ["$x$", "$y$"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                showAxisArrows: {
+                    xMin: true,
+                    xMax: true,
+                    yMin: true,
+                    yMax: true,
                 },
-            ],
-        },
+                showProtractor: false,
+                showTooltips: false,
+                step: [1, 1],
+                lockedFigures: [],
+                backgroundImage: {
+                    url: null,
+                },
+            },
+        });
     });
 
-    // Assert
-    expect(widget).toEqual({
-        type: "interactive-graph",
-        graded: false,
-        version: {major: 1, minor: 0},
-        static: true,
-        alignment: "block",
-        options: {
-            correct: {type: "none"},
-            graph: {type: "none"},
-            labelLocation: "alongEdge",
-            labels: ["$a$", "$b$"],
-            markings: "grid",
-            range: [
-                [-100, 100],
-                [-100, 100],
-            ],
-            showAxisArrows: {
-                xMin: false,
-                xMax: false,
-                yMin: false,
-                yMax: false,
-            },
-            showProtractor: true,
-            showTooltips: true,
-            step: [2, 2],
-            lockedFigures: [
-                {
-                    type: "point",
-                    coord: [0, 0],
-                    color: "blue",
-                    filled: true,
-                    labels: [],
+    it("builds an interactive graph widget with all props", () => {
+        // Arrange, Act
+        const widget = generateInteractiveGraphWidget({
+            graded: false,
+            version: {major: 1, minor: 0},
+            static: true,
+            alignment: "block",
+            options: {
+                correct: {type: "none"},
+                graph: {type: "none"},
+                labelLocation: "alongEdge",
+                labels: ["$a$", "$b$"],
+                markings: "grid",
+                range: [
+                    [-100, 100],
+                    [-100, 100],
+                ],
+                showAxisArrows: {
+                    xMin: false,
+                    xMax: false,
+                    yMin: false,
+                    yMax: false,
                 },
-            ],
-        },
+                showProtractor: true,
+                showTooltips: true,
+                step: [2, 2],
+                lockedFigures: [
+                    {
+                        type: "point",
+                        coord: [0, 0],
+                        color: "blue",
+                        filled: true,
+                        labels: [],
+                    },
+                ],
+                backgroundImage: {
+                    url: "example-image-url",
+                    width: 100,
+                    height: 100,
+                },
+            },
+        });
+
+        // Assert
+        expect(widget).toEqual({
+            type: "interactive-graph",
+            graded: false,
+            version: {major: 1, minor: 0},
+            static: true,
+            alignment: "block",
+            options: {
+                correct: {type: "none"},
+                graph: {type: "none"},
+                labelLocation: "alongEdge",
+                labels: ["$a$", "$b$"],
+                markings: "grid",
+                range: [
+                    [-100, 100],
+                    [-100, 100],
+                ],
+                showAxisArrows: {
+                    xMin: false,
+                    xMax: false,
+                    yMin: false,
+                    yMax: false,
+                },
+                showProtractor: true,
+                showTooltips: true,
+                step: [2, 2],
+                lockedFigures: [
+                    {
+                        type: "point",
+                        coord: [0, 0],
+                        color: "blue",
+                        filled: true,
+                        labels: [],
+                    },
+                ],
+                backgroundImage: {
+                    url: "example-image-url",
+                    width: 100,
+                    height: 100,
+                },
+            },
+        });
     });
 });
 
@@ -798,32 +848,48 @@ describe("generateIGLockedLine", () => {
                     type: "point",
                     coord: [1, 1],
                     color: "blue",
-                    filled: true,
-                    labels: [],
+                    filled: false,
+                    labels: [
+                        {
+                            type: "label",
+                            coord: [1, 1],
+                            text: "Point A",
+                            color: "blue",
+                            size: "medium",
+                        },
+                    ],
                 },
                 {
                     type: "point",
                     coord: [2, 2],
                     color: "blue",
-                    filled: true,
-                    labels: [],
+                    filled: false,
+                    labels: [
+                        {
+                            type: "label",
+                            coord: [2, 2],
+                            text: "Point B",
+                            color: "green",
+                            size: "large",
+                        },
+                    ],
                 },
             ],
             color: "blue",
-            lineStyle: "solid",
+            lineStyle: "dashed",
             showPoint1: true,
             showPoint2: true,
-            weight: "medium",
+            weight: "thin",
             labels: [
                 {
                     type: "label",
                     coord: [2, 2],
                     color: "blue",
                     size: "medium",
-                    text: "A",
+                    text: "Line AB",
                 },
             ],
-            ariaLabel: "Line A",
+            ariaLabel: "Line AB",
         });
 
         // Assert
@@ -835,32 +901,48 @@ describe("generateIGLockedLine", () => {
                     type: "point",
                     coord: [1, 1],
                     color: "blue",
-                    filled: true,
-                    labels: [],
+                    filled: false,
+                    labels: [
+                        {
+                            type: "label",
+                            coord: [1, 1],
+                            text: "Point A",
+                            color: "blue",
+                            size: "medium",
+                        },
+                    ],
                 },
                 {
                     type: "point",
                     coord: [2, 2],
                     color: "blue",
-                    filled: true,
-                    labels: [],
+                    filled: false,
+                    labels: [
+                        {
+                            type: "label",
+                            coord: [2, 2],
+                            text: "Point B",
+                            color: "green",
+                            size: "large",
+                        },
+                    ],
                 },
             ],
             color: "blue",
-            lineStyle: "solid",
+            lineStyle: "dashed",
             showPoint1: true,
             showPoint2: true,
-            weight: "medium",
+            weight: "thin",
             labels: [
                 {
                     type: "label",
                     coord: [2, 2],
                     color: "blue",
                     size: "medium",
-                    text: "A",
+                    text: "Line AB",
                 },
             ],
-            ariaLabel: "Line A",
+            ariaLabel: "Line AB",
         });
     });
 });

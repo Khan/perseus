@@ -29,7 +29,6 @@ export const question1: PerseusRenderer = generateTestPerseusRenderer({
     },
     widgets: {
         "group 1": generateGroupWidget({
-            graded: true,
             options: generateGroupOptions({
                 content:
                     "**In one week, how many more hours are in the periods with a $35$ percent discount than in the periods with the regular price?**\n\n[[☃ radio 1]]",
@@ -57,7 +56,6 @@ export const question1: PerseusRenderer = generateTestPerseusRenderer({
             }),
         }),
         "group 2": generateGroupWidget({
-            graded: true,
             options: generateGroupOptions({
                 content:
                     "**What is $\\redD{\\text{A}}$ rounded to the nearest ten?**   \n\n[[☃ numeric-input 1]]\n\n**What is $\\redD{\\text{A}}$ rounded to the nearest hundred?**   \n\n[[☃ numeric-input 2]]\n\n[[☃ image 1]]\n\n",
@@ -153,7 +151,6 @@ export function getFullGroupTestItem(): PerseusItem {
         content: "Item Renderer\n\n[[☃ group 1]]",
         widgets: {
             "group 1": generateGroupWidget({
-                graded: true,
                 options: groupRenderer,
             }),
         },

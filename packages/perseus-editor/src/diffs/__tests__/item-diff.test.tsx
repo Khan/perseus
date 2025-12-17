@@ -87,8 +87,8 @@ describe("ItemDiff", () => {
         // Act
         render(
             <ItemDiff
-                before={beforeItem as any}
-                after={afterItem as any}
+                before={beforeItem}
+                after={afterItem}
                 dependencies={testDependenciesV2}
             />,
         );

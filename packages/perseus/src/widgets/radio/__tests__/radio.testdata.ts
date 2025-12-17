@@ -31,7 +31,6 @@ export const question: PerseusRenderer = generateTestPerseusRenderer({
                     generateRadioChoice(
                         "No value of $x$ satisfies the equation.",
                         {
-                            correct: false,
                             rationale: "$8$ satisfies the equation.",
                         },
                     ),
@@ -298,7 +297,6 @@ export const multiChoiceQuestionSimple: PerseusRenderer =
                             rationale: "Some people like to say Goodbye.",
                         }),
                         generateRadioChoice("None of these", {
-                            correct: false,
                             isNoneOfTheAbove: true,
                         }),
                     ],
