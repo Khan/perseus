@@ -404,12 +404,12 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
       <div
         class="diff-header"
       >
-        Missing before
+        Missing after
       </div>
       <div
         class="diff-header"
       >
-        Missing before
+        Missing after
       </div>
       <div
         class="diff-body ui-helper-clearfix"
