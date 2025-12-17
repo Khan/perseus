@@ -147,7 +147,7 @@ export function generateIGSinusoidGraph(
 
 export function generateIGLockedPoint(
     options?: Partial<Omit<LockedPointType, "type">>,
-) {
+): LockedPointType {
     return {
         ...getDefaultFigureForType("point"),
         ...options,
@@ -156,7 +156,7 @@ export function generateIGLockedPoint(
 
 export function generateIGLockedLine(
     options?: Partial<Omit<LockedLineType, "type">>,
-) {
+): LockedLineType {
     return {
         ...getDefaultFigureForType("line"),
         ...options,
@@ -165,7 +165,7 @@ export function generateIGLockedLine(
 
 export function generateIGLockedVector(
     options?: Partial<Omit<LockedVectorType, "type">>,
-) {
+): LockedVectorType {
     return {
         ...getDefaultFigureForType("vector"),
         ...options,
@@ -174,7 +174,7 @@ export function generateIGLockedVector(
 
 export function generateIGLockedEllipse(
     options?: Partial<Omit<LockedEllipseType, "type">>,
-) {
+): LockedEllipseType {
     return {
         ...getDefaultFigureForType("ellipse"),
         ...options,
@@ -183,7 +183,7 @@ export function generateIGLockedEllipse(
 
 export function generateIGLockedPolygon(
     options?: Partial<Omit<LockedPolygonType, "type">>,
-) {
+): LockedPolygonType {
     return {
         ...getDefaultFigureForType("polygon"),
         ...options,
@@ -192,7 +192,7 @@ export function generateIGLockedPolygon(
 
 export function generateIGLockedFunction(
     options?: Partial<Omit<LockedFunctionType, "type">>,
-) {
+): LockedFunctionType {
     return {
         ...getDefaultFigureForType("function"),
         ...options,
@@ -201,7 +201,7 @@ export function generateIGLockedFunction(
 
 export function generateIGLockedLabel(
     options?: Partial<Omit<LockedLabelType, "type">>,
-) {
+): LockedLabelType {
     return {
         ...getDefaultFigureForType("label"),
         ...options,
