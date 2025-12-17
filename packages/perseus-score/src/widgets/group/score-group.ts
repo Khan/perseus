@@ -1,4 +1,5 @@
-import {flattenScores, scoreWidgetsFunctional} from "../../score";
+import {scoreWidgetsFunctional} from "../../score";
+import flattenScores from "../../util/flatten-scores";
 
 import type {
     PerseusGroupRubric,

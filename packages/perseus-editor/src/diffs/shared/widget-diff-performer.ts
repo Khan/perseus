@@ -1,3 +1,6 @@
+// For this file it might not make sense to add typing because it's a
+// recursive series of functions to show the difference between two
+// PerseusWidget objects.
 import _ from "underscore";
 
 const UNCHANGED = "unchanged";
