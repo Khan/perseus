@@ -5,6 +5,7 @@ import {
     generateRadioOptions,
     generateRadioChoice,
     generateSimpleRadioQuestion,
+    generateGradedGroupSetWidget,
 } from "@khanacademy/perseus-core";
 
 export const question: PerseusRenderer = generateTestPerseusRenderer({
@@ -365,11 +366,7 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
         "#Testing scrollbar color when background color exists\n\n[[☃ graded-group-set 1]]\n\n\nFade color should match the background.",
     images: {},
     widgets: {
-        "graded-group-set 1": {
-            type: "graded-group-set",
-            alignment: "default",
-            static: false,
-            graded: true,
+        "graded-group-set 1": generateGradedGroupSetWidget({
             options: {
                 gradedGroups: [
                     {
@@ -392,8 +389,7 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
                     },
                 ],
             },
-            version: {major: 0, minor: 0},
-        },
+        }),
     },
 };
 
