@@ -1,11 +1,18 @@
 import {
+    generateGroupOptions,
+    generateGroupWidget,
+} from "./generators/group-widget-generator";
+import {
     generateRadioChoice,
     generateRadioOptions,
     generateRadioWidget,
     generateSimpleRadioItem,
 } from "./generators/radio-widget-generator";
 import {itemHasRationales} from "./item-has-rationales";
-import {generateTestPerseusItem} from "./test-utils";
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "./test-utils";
 
 describe("itemHasRationales", () => {
     it("returns true when item has radio widget with rationales", () => {
@@ -116,34 +123,28 @@ describe("itemHasRationales", () => {
     it("returns true when item has group widget with rationales", () => {
         // Arrange
         const item = generateTestPerseusItem({
-            question: {
+            question: generateTestPerseusRenderer({
                 content: "[[☃ group 1]]",
                 widgets: {
-                    "group 1": {
-                        type: "group",
-                        options: {
+                    "group 1": generateGroupWidget({
+                        options: generateGroupOptions({
                             widgets: {
                                 "radio 1": generateRadioWidget({
                                     options: generateRadioOptions({
                                         choices: [
-                                            {
-                                                id: "radio-choice-0",
-                                                content: "Choice 1",
-                                                correct: false,
+                                            generateRadioChoice("Choice 1", {
                                                 rationale:
                                                     "This is some rationale",
-                                            },
+                                            }),
                                         ],
                                     }),
                                 }),
                             },
                             content: "Test content",
-                            images: {},
-                        },
-                    },
+                        }),
+                    }),
                 },
-                images: {},
-            },
+            }),
         });
 
         // Act

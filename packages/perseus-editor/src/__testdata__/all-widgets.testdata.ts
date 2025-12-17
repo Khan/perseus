@@ -10,6 +10,8 @@ import {
     generateExpressionWidget,
     generateFreeResponseOptions,
     generateFreeResponseWidget,
+    generateGroupOptions,
+    generateGroupWidget,
     generateIGLinearGraph,
     generateIGLockedPoint,
     generateInteractiveGraphOptions,
@@ -348,14 +350,9 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 },
             },
         },
-        "group 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "group",
-            options: {
+        "group 1": generateGroupWidget({
+            options: generateGroupOptions({
                 content: "Simple question: [[\u2603 numeric-input 2]]",
-                images: {},
                 widgets: {
                     "numeric-input 2": generateNumericInputWidget({
                         options: generateNumericInputOptions({
@@ -368,8 +365,8 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         }),
                     }),
                 },
-            },
-        },
+            }),
+        }),
         "graded-group 1": {
             graded: true,
             version: {major: 0, minor: 0},

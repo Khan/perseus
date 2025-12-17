@@ -2,6 +2,8 @@ import {
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
+    generateGroupOptions,
+    generateGroupWidget,
     generateRadioWidget,
     type PerseusWidgetsMap,
     type UserInputMap,
@@ -44,14 +46,12 @@ function generateNumberLineMap(): PerseusWidgetsMap {
 
 function generateGroupedNumberLineMap(): PerseusWidgetsMap {
     return {
-        "group 1": {
-            type: "group",
-            options: {
+        "group 1": generateGroupWidget({
+            options: generateGroupOptions({
                 content: "[[☃ number-line 1]]",
                 widgets: generateNumberLineMap(),
-                images: {},
-            },
-        },
+            }),
+        }),
     };
 }
 
