@@ -1,4 +1,8 @@
 import {
+    generateGradedGroupOptions,
+    generateGradedGroupWidget,
+} from "./generators/graded-group-widget-generator";
+import {
     generateGroupOptions,
     generateGroupWidget,
 } from "./generators/group-widget-generator";
@@ -85,29 +89,24 @@ describe("itemHasRationales", () => {
             question: {
                 content: "[[☃ graded-group 1]]",
                 widgets: {
-                    "graded-group 1": {
-                        type: "graded-group",
-                        options: {
+                    "graded-group 1": generateGradedGroupWidget({
+                        options: generateGradedGroupOptions({
                             widgets: {
                                 "radio 1": generateRadioWidget({
                                     options: generateRadioOptions({
                                         choices: [
-                                            {
-                                                id: "radio-choice-0",
-                                                content: "Choice 1",
-                                                correct: false,
+                                            generateRadioChoice("Choice 1", {
                                                 rationale:
                                                     "This is some rationale",
-                                            },
+                                            }),
                                         ],
                                     }),
                                 }),
                             },
                             title: "Test group",
                             content: "Test content",
-                            images: {},
-                        },
-                    },
+                        }),
+                    }),
                 },
                 images: {},
             },
