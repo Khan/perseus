@@ -15,4 +15,10 @@ describe("mapErrorToString", () => {
         // Assert
         expect(rv).toBe("pretend this is a different language");
     });
+
+    it("handles EMPTY_RESPONSE_ERROR", () => {
+        expect(mapErrorToString("EMPTY_RESPONSE_ERROR", mockStrings)).toBe(
+            "There are still more parts of this question to answer.",
+        );
+    });
 });

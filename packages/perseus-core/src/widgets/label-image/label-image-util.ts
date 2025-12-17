@@ -1,6 +1,7 @@
 import type {
     PerseusLabelImageMarker,
     PerseusLabelImageWidgetOptions,
+    PerseusWidgetOptions,
 } from "../../data-schema";
 
 /**
@@ -38,4 +39,25 @@ function getLabelImageMarkerPublicData(
 ): LabelImageMarkerPublicData {
     const {answers: _, ...publicData} = marker;
     return publicData;
+}
+
+export function isLabelImageAccessible(options: PerseusWidgetOptions): boolean {
+    const labelImageOptions = options as PerseusLabelImageWidgetOptions;
+
+    // Label Images are inaccessible if the image url is not empty and the image alt is empty.
+    if (
+        labelImageOptions.imageUrl !== "" &&
+        labelImageOptions.imageAlt === ""
+    ) {
+        return false;
+    }
+
+    // Label Images are inaccessible if there is a marker with an empty label.
+    for (const marker of labelImageOptions.markers) {
+        if (marker.label === "") {
+            return false;
+        }
+    }
+
+    return true;
 }
