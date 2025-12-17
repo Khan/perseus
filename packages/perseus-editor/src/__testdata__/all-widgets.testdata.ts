@@ -11,6 +11,7 @@ import {
     generateFreeResponseOptions,
     generateFreeResponseWidget,
     generateGradedGroupOptions,
+    generateGradedGroupSetWidget,
     generateGradedGroupWidget,
     generateGroupOptions,
     generateGroupWidget,
@@ -383,17 +384,12 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 }),
             }),
         }),
-        "graded-group-set 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "graded-group-set",
+        "graded-group-set 1": generateGradedGroupSetWidget({
             options: {
                 gradedGroups: [
-                    {
+                    generateGradedGroupOptions({
                         title: "Problem 1",
                         content: "Solve: [[\u2603 numeric-input 4]]",
-                        images: {},
                         widgets: {
                             "numeric-input 4": generateNumericInputWidget({
                                 options: generateNumericInputOptions({
@@ -408,10 +404,10 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         hasHint: false,
                         widgetEnabled: true,
                         immutableWidgets: false,
-                    },
+                    }),
                 ],
             },
-        },
+        }),
         "video 1": generateVideoWidget({
             options: {location: "sample-video-id"},
         }),
