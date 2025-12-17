@@ -1,0 +1,313 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemDiff renders a diff view 1`] = `
+<div>
+  <div
+    class="framework-perseus"
+  >
+    <div>
+      <div>
+        <div
+          class="diff-header"
+        >
+          Question
+        </div>
+        <div
+          class="diff-header"
+        >
+          Question
+        </div>
+        <div
+          class="diff-body ui-helper-clearfix"
+        >
+          <div
+            class="diff-row before"
+          >
+            <div
+              class="diff-line removed"
+            >
+              <span
+                class=""
+              >
+                What is $2 + 
+              </span>
+              <span
+                class="not-present"
+              >
+                3
+              </span>
+              <span
+                class="removed dark"
+              >
+                2
+              </span>
+              <span
+                class=""
+              >
+                $?
+              </span>
+            </div>
+            <div />
+          </div>
+          <div
+            class="diff-row after"
+          >
+            <div
+              class="diff-line added"
+            >
+              <span
+                class=""
+              >
+                What is $2 + 
+              </span>
+              <span
+                class="added dark"
+              >
+                3
+              </span>
+              <span
+                class="not-present"
+              >
+                2
+              </span>
+              <span
+                class=""
+              >
+                $?
+              </span>
+            </div>
+            <div />
+          </div>
+        </div>
+        <div
+          class="diff-row before"
+          role="button"
+          tabindex="0"
+        />
+        <div
+          class="diff-row after"
+          role="button"
+          tabindex="0"
+        />
+      </div>
+      <div
+        class="diff-separator"
+      />
+    </div>
+    <div
+      class="diff-header"
+    >
+      Question extras
+    </div>
+    <div
+      class="diff-header"
+    >
+      Question extras
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div>
+        <div>
+          <div
+            style="clear: both;"
+          >
+            <div
+              class="removed diff-row before"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                calculator: 
+                <span
+                  class="inner-value dark removed"
+                >
+                  false
+                </span>
+              </div>
+            </div>
+            <div
+              class="added diff-row after"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                calculator: 
+                <span
+                  class="inner-value dark added"
+                >
+                  true
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="diff-row collapsed before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span>
+                 [ show unmodified ] 
+              </span>
+            </div>
+          </div>
+          <div
+            class="diff-row collapsed after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span>
+                 [ show unmodified ] 
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="diff-separator"
+    />
+    <div>
+      <div>
+        <div
+          class="diff-header"
+        >
+          Hint 1
+        </div>
+        <div
+          class="diff-header"
+        >
+          Hint 1
+        </div>
+        <div
+          class="diff-body ui-helper-clearfix"
+        >
+          <div
+            class="diff-row before"
+          >
+            <div
+              class="diff-line removed"
+            >
+              <span
+                class=""
+              >
+                Think about addition
+              </span>
+              <span
+                class="not-present"
+              >
+                 carefully
+              </span>
+              <span
+                class=""
+              >
+                .
+              </span>
+            </div>
+            <div />
+          </div>
+          <div
+            class="diff-row after"
+          >
+            <div
+              class="diff-line added"
+            >
+              <span
+                class=""
+              >
+                Think about addition
+              </span>
+              <span
+                class="added dark"
+              >
+                 carefully
+              </span>
+              <span
+                class=""
+              >
+                .
+              </span>
+            </div>
+            <div />
+          </div>
+        </div>
+        <div
+          class="diff-row before"
+          role="button"
+          tabindex="0"
+        />
+        <div
+          class="diff-row after"
+          role="button"
+          tabindex="0"
+        />
+      </div>
+      <div
+        class="diff-separator"
+      />
+    </div>
+    <div>
+      <div>
+        <div
+          class="diff-header"
+        >
+          Hint 2
+        </div>
+        <div
+          class="diff-header"
+        >
+          Hint 2
+        </div>
+        <div
+          class="diff-body ui-helper-clearfix"
+        >
+          <div
+            class="diff-row before"
+          >
+            <div
+              class="diff-line"
+            >
+              <span
+                class="not-present"
+              >
+                The answer is 5.
+              </span>
+            </div>
+            <div />
+          </div>
+          <div
+            class="diff-row after"
+          >
+            <div
+              class="diff-line"
+            >
+              <span
+                class="added dark"
+              >
+                The answer is 5.
+              </span>
+            </div>
+            <div />
+          </div>
+        </div>
+        <div
+          class="diff-row before"
+          role="button"
+          tabindex="0"
+        />
+        <div
+          class="diff-row after"
+          role="button"
+          tabindex="0"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

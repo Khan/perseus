@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ArticleDiff renders an image widget in the diff view 1`] = `
+exports[`ArticleDiff renders an article in the diff view 1`] = `
 <div>
   <div
     class="framework-perseus"

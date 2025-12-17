@@ -37,6 +37,56 @@ describe("ItemDiff", () => {
         unmockImageLoading();
     });
 
+    it("renders a diff view", () => {
+        // Arrange
+        const beforeItem: PerseusItem = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content: "What is $2 + 2$?",
+                widgets: {},
+            }),
+            answerArea: getDefaultAnswerArea(),
+            hints: [
+                generateTestPerseusRenderer({
+                    content: "Think about addition.",
+                    widgets: {},
+                }),
+            ],
+        });
+
+        const afterItem: PerseusItem = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content: "What is $2 + 3$?",
+                widgets: {},
+            }),
+            answerArea: {
+                ...getDefaultAnswerArea(),
+                calculator: true,
+            },
+            hints: [
+                generateTestPerseusRenderer({
+                    content: "Think about addition carefully.",
+                    widgets: {},
+                }),
+                generateTestPerseusRenderer({
+                    content: "The answer is 5.",
+                    widgets: {},
+                }),
+            ],
+        });
+
+        // Act
+        const {container} = render(
+            <ItemDiff
+                before={beforeItem}
+                after={afterItem}
+                dependencies={testDependenciesV2}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot();
+    });
+
     it("renders an image widget in the diff view", () => {
         // Arrange
 

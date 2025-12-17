@@ -341,3 +341,178 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
   </div>
 </div>
 `;
+
+exports[`TextDiff renders with both 'before' and 'after' undefined 1`] = `
+<div>
+  <div>
+    <div
+      class="diff-header"
+    >
+      Both undefined
+    </div>
+    <div
+      class="diff-header"
+    >
+      Both undefined
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div
+        class="diff-row before"
+      />
+      <div
+        class="diff-row after"
+      />
+    </div>
+    <div
+      class="diff-row collapsed before"
+      role="button"
+      tabindex="0"
+    >
+      <span>
+        <span
+          class="expand-button"
+        >
+           
+          [ show unmodified ]
+           
+        </span>
+      </span>
+    </div>
+    <div
+      class="diff-row collapsed after"
+      role="button"
+      tabindex="0"
+    >
+      <span>
+        <span
+          class="expand-button"
+        >
+           
+          [ show unmodified ]
+           
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TextDiff renders with missing 'after' props 1`] = `
+<div>
+  <div>
+    <div
+      class="diff-header"
+    >
+      Missing after
+    </div>
+    <div
+      class="diff-header"
+    >
+      Missing after
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div
+        class="diff-row before"
+      >
+        <div
+          class="diff-line"
+        >
+          <span
+            class="removed dark"
+          >
+            Hello, world!
+          </span>
+        </div>
+        <div />
+      </div>
+      <div
+        class="diff-row after"
+      >
+        <div
+          class="diff-line"
+        >
+          <span
+            class="not-present"
+          >
+            Hello, world!
+          </span>
+        </div>
+        <div />
+      </div>
+    </div>
+    <div
+      class="diff-row before"
+      role="button"
+      tabindex="0"
+    />
+    <div
+      class="diff-row after"
+      role="button"
+      tabindex="0"
+    />
+  </div>
+</div>
+`;
+
+exports[`TextDiff renders with missing 'before' props 1`] = `
+<div>
+  <div>
+    <div
+      class="diff-header"
+    >
+      Missing before
+    </div>
+    <div
+      class="diff-header"
+    >
+      Missing before
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div
+        class="diff-row before"
+      >
+        <div
+          class="diff-line"
+        >
+          <span
+            class="not-present"
+          >
+            Hello, world!
+          </span>
+        </div>
+        <div />
+      </div>
+      <div
+        class="diff-row after"
+      >
+        <div
+          class="diff-line"
+        >
+          <span
+            class="added dark"
+          >
+            Hello, world!
+          </span>
+        </div>
+        <div />
+      </div>
+    </div>
+    <div
+      class="diff-row before"
+      role="button"
+      tabindex="0"
+    />
+    <div
+      class="diff-row after"
+      role="button"
+      tabindex="0"
+    />
+  </div>
+</div>
+`;

@@ -31,9 +31,8 @@ describe("ArticleDiff", () => {
         jest.restoreAllMocks();
     });
 
-    it("renders an image widget in the diff view", () => {
+    it("renders an article in the diff view", () => {
         // Arrange
-
         const beforeItem: PerseusArticle = [
             generateTestPerseusRenderer({
                 content:
