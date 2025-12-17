@@ -4,12 +4,12 @@ import {
 } from "./group-widget-generator";
 import {generateRadioWidget} from "./radio-widget-generator";
 
-import type {GroupWidget, PerseusGroupWidgetOptions} from "../../data-schema";
+import type {GroupWidget} from "../../data-schema";
 
 describe("generateGroupOptions", () => {
     it("builds a default group options object", () => {
         // Arrange, Act
-        const options: PerseusGroupWidgetOptions = generateGroupOptions();
+        const options = generateGroupOptions();
 
         // Assert
         expect(options.content).toBe("");
@@ -19,7 +19,7 @@ describe("generateGroupOptions", () => {
 
     it("builds a group options object with all props", () => {
         // Arrange, Act
-        const options: PerseusGroupWidgetOptions = generateGroupOptions({
+        const options = generateGroupOptions({
             content: "some content: [[☃ radio 1]]",
             widgets: {"radio 1": generateRadioWidget()},
             images: {
@@ -65,7 +65,7 @@ describe("generateGroupWidget", () => {
     it("builds a group widget with all props", () => {
         // Arrange, Act
         const widget: GroupWidget = generateGroupWidget({
-            graded: true,
+            graded: false,
             version: {major: 1, minor: 0},
             static: true,
             alignment: "block",
@@ -82,7 +82,7 @@ describe("generateGroupWidget", () => {
         });
 
         // Assert
-        expect(widget.graded).toBe(true);
+        expect(widget.graded).toBe(false);
         expect(widget.version).toEqual({major: 1, minor: 0});
         expect(widget.static).toBe(true);
         expect(widget.alignment).toBe("block");

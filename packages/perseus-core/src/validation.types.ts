@@ -44,6 +44,7 @@ import type {
     PerseusGraphCorrectType,
     MakeWidgetMap,
     PerseusFreeResponseWidgetScoringCriterion,
+    PerseusRenderer,
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
@@ -118,7 +119,7 @@ export type PerseusExpressionRubric = {
 export type PerseusExpressionUserInput = string;
 
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
-export type PerseusGroupValidationData = {widgets: ValidationDataMap};
+export type PerseusGroupValidationData = PerseusRenderer;
 export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
@@ -377,25 +378,6 @@ export interface ValidationDataTypes {
     group: PerseusGroupValidationData;
     plotter: PerseusPlotterValidationData;
 }
-
-/**
- * A map of validation data, keyed by `widgetId`. This data is used to check if
- * a question is answerable. This data represents the minimal intersection of
- * data that's available in the client (widget options) and server (scoring
- * data) and is represented by a group of types known as "validation data".
- *
- * NOTE: The value in this map is intentionally a subset of WidgetOptions<T>.
- * By using the same shape (minus any unneeded data), we are able to pass a
- * `PerseusWidgetsMap` or ` into any function that accepts a
- * `ValidationDataMap` without any mutation of data.
- */
-export type ValidationDataMap = {
-    [Property in keyof ValidationDataTypes as `${Property} ${number}`]: {
-        type: Property;
-        static?: boolean;
-        options: ValidationDataTypes[Property];
-    };
-};
 
 /**
  * A union type of all the different widget validation data types that exist.
