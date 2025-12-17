@@ -130,10 +130,7 @@ export {
     getPerseusAIData,
 } from "@khanacademy/perseus-core";
 
-export {
-    generateTestInteractiveGraphWidget,
-    generateTestCategorizerWidget,
-} from "./util/test-utils";
+export {generateTestCategorizerWidget} from "./util/test-utils";
 export {
     getWidgetTypeByWidgetId,
     getWidgetSubTypeByWidgetId,
