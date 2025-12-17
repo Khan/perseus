@@ -10,6 +10,10 @@ import {
     generateExpressionWidget,
     generateFreeResponseOptions,
     generateFreeResponseWidget,
+    generateIGLinearGraph,
+    generateIGLockedPoint,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
@@ -99,53 +103,28 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 static: false,
             },
         },
-        "interactive-graph 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "interactive-graph",
-            options: {
-                labels: ["x", "y"],
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-                step: [1, 1],
-                gridStep: [1, 1],
-                snapStep: [1, 1],
-                graph: {
-                    type: "linear",
+        "interactive-graph 1": generateInteractiveGraphWidget({
+            options: generateInteractiveGraphOptions({
+                graph: generateIGLinearGraph({
                     coords: [
                         [0, 1],
                         [1, 3],
                     ],
-                },
-                correct: {
-                    type: "linear",
+                }),
+                correct: generateIGLinearGraph({
                     coords: [
                         [0, 1],
                         [1, 3],
                     ],
-                },
-                markings: "graph",
-                showAxisArrows: {
-                    xMin: true,
-                    xMax: true,
-                    yMin: true,
-                    yMax: true,
-                },
-                showProtractor: false,
+                }),
                 lockedFigures: [
-                    {
-                        type: "point",
+                    generateIGLockedPoint({
                         coord: [5, 5],
                         color: "blue",
-                        filled: true,
-                        labels: [],
-                    },
+                    }),
                 ],
-            },
-        },
+            }),
+        }),
         "number-line 1": {
             graded: true,
             version: {major: 0, minor: 0},
