@@ -49,7 +49,8 @@ class HintRenderer extends React.Component<Props> {
 
     render(): React.ReactNode {
         if (this.props.placeholder) {
-            // this can't be null because other components
+            // TODO(LEMS-3806): there's probably a better way to do this,
+            // but this can't be null because other components
             // reference the ref on HintRenderer
             return <span />;
         }

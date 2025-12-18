@@ -142,6 +142,9 @@ describe("HintsRenderer", () => {
             rerender = renderReturn.rerender;
         }).not.toThrow();
 
+        // increase `hintsVisible`, this was originally throwing because
+        // placeholders weren't being rendered and parents components were
+        // trying to focus the elements with refs
         expect(() => {
             rerender(
                 <DependenciesContext.Provider value={testDependenciesV2}>
