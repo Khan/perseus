@@ -90,6 +90,12 @@
     z-index: -1; /* Ensures that the content is below the indicator and scroll fade */
 }
 
+@media (prefers-reduced-motion: no-preference) {
+    .content {
+        transition: all 0.125s;
+    }
+}
+
 .instructions {
     display: block;
     color: var(--wb-semanticColor-core-foreground-instructive-strong);
