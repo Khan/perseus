@@ -139,14 +139,6 @@ export const SingleSelectRTL: Story = {
     },
 };
 
-export const SingleSelectWithPassageRef: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: question,
-        }),
-    },
-};
-
 export const SingleSelectWithRationale = {
     args: {
         item: generateTestPerseusItem({
