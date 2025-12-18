@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Tabs} from "@khanacademy/wonder-blocks-tabs";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import xBold from "@phosphor-icons/core/bold/x-bold.svg";
 import * as React from "react";
 import {useEffect} from "react";
@@ -38,6 +38,25 @@ export interface KeypadProps {
         >,
     ) => void;
 }
+
+// Inline styles needed because CSS modules don't have enough specificity
+// to override Wonder Blocks View default styles
+const keypadOuterContainerStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+} as const;
+
+// Border and layout styles for expanded view (iPad landscape)
+// These are duplicated from keypad.module.css (.expanded-wrapper) but must be
+// inline styles because WonderBlocks View's default styles override CSS module classes
+const expandedWrapperStyle = {
+    borderWidth: border.width.thin,
+    borderStyle: "solid",
+    borderColor: semanticColor.core.border.neutral.subtle,
+    maxWidth: 500,
+    borderRadius: border.radius.radius_040,
+} as const;
 
 const tabsStyles = {
     tab: {
@@ -108,10 +127,17 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
     const availableTabs = getAvailableTabs({...props, extraKeys}, selectedPage);
 
     return (
-        <View className={expandedView ? styles.keypadOuterContainer : ""}>
+        <View
+            className={expandedView ? styles.keypadOuterContainer : ""}
+            style={expandedView ? keypadOuterContainerStyle : undefined}
+        >
             <View
                 className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
-                style={{position: "relative"}}
+                style={
+                    expandedView
+                        ? {...expandedWrapperStyle, position: "relative"}
+                        : {position: "relative"}
+                }
             >
                 {showDismiss && (
                     <View
