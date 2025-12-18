@@ -16,7 +16,6 @@ import {
     choicesWithGraphie,
     choicesWithImages,
     overflowContentInGradedGroupSet,
-    question,
     questionWithRationale,
 } from "../__tests__/radio.testdata";
 
