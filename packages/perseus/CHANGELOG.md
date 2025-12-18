@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 72.6.7
+
+### Patch Changes
+
+-   [#3119](https://github.com/Khan/perseus/pull/3119) [`ad36c9195e`](https://github.com/Khan/perseus/commit/ad36c9195e68031b37e529c3cd1fe81e5c159cfd) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group] Create a graded group generator for testdata
+
+*   [#3112](https://github.com/Khan/perseus/pull/3112) [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Create an interactive graph generator for testdata
+
+-   [#3117](https://github.com/Khan/perseus/pull/3117) [`12ec59f0fe`](https://github.com/Khan/perseus/commit/12ec59f0fea0055ad1310d1b407994256f0c3897) Thanks [@nishasy](https://github.com/nishasy)! - [Group] Create a group generator for testdata
+
+*   [#3112](https://github.com/Khan/perseus/pull/3112) [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Delete radioQuestionBuilder and use radioWidgetGenerator in testdata instead
+
+-   [#3120](https://github.com/Khan/perseus/pull/3120) [`e8247e65b4`](https://github.com/Khan/perseus/commit/e8247e65b482b24f18f85c6a5ee5fce3afadc383) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group Set] Create a graded group set generator for testdata
+
+-   Updated dependencies [[`ad36c9195e`](https://github.com/Khan/perseus/commit/ad36c9195e68031b37e529c3cd1fe81e5c159cfd), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`12ec59f0fe`](https://github.com/Khan/perseus/commit/12ec59f0fea0055ad1310d1b407994256f0c3897), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`e8247e65b4`](https://github.com/Khan/perseus/commit/e8247e65b482b24f18f85c6a5ee5fce3afadc383), [`ef79632da5`](https://github.com/Khan/perseus/commit/ef79632da5e595672320e1cd1abeb9661362b7c5)]:
+    -   @khanacademy/perseus-core@21.1.0
+    -   @khanacademy/perseus-score@8.2.1
+    -   @khanacademy/keypad-context@3.2.25
+    -   @khanacademy/kmath@2.2.25
+    -   @khanacademy/math-input@26.3.5
+    -   @khanacademy/perseus-linter@4.6.7
+
 ## 72.6.6
 
 ### Patch Changes
