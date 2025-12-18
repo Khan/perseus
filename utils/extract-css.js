@@ -27,8 +27,6 @@ const archiveFile = process.argv.includes("--archive");
 const archivedFileName = `${fileNameParts[0]}.OLD.${fileNameParts[1]}`;
 const archivedFilePath = path.join(fileDirectory, archivedFileName);
 const keepAphrodite = process.argv.includes("--keep-aphrodite");
-const aphroditeFileName = `${fileNameParts[0]}.styles.js`;
-const aphroditeFilePath = path.join(fileDirectory, aphroditeFileName);
 const cssFileName = `${fileNameParts[0]}.module.css`;
 const cssFilePath = path.join(fileDirectory, cssFileName);
 const indentation = "    ";
@@ -61,6 +59,7 @@ const mediaQueries = {
  *****************/
 const codeBlocksToDelete = [];
 const importedModules = {};
+const conditionalStyles = {};
 
 /********************
  * Helper Functions *
@@ -273,6 +272,9 @@ const getCssPropertyInfo = (property) => {
     let cssPropertyName = camelToKabob(cssProperty);
     let nestedRuleSet = null;
     let propertyValue = property.value.value;
+    if (cssProperty === "borderWidth") {
+        console.log("Border width found:", property);
+    }
     switch (property.value.type) {
         case "Identifier":
             propertyValue = `${pxToRem(literalVariables[property.value.name])}rem`;
@@ -308,6 +310,17 @@ const getCssPropertyInfo = (property) => {
             }
             propertyValue = "";
             break;
+        // case "ConditionalExpression":
+        //     const alternateValue = property.value.alternate.value;
+        //     propertyValue = alternateValue;
+        //     const testName = property.value.test.name;
+        //     const consequentValue = property.value.consequent.value;
+        //     const conditionalClasses = conditionalStyles[testName] ?? {};
+        //     const consequentStyling = conditionalClasses[className] ?? {};
+        //     consequentStyling[cssPropertyName] = consequentValue;
+        //     conditionalClasses[className] = consequentStyling;
+        //     conditionalStyles[testName] = conditionalClasses;
+        //     break;
         case "UnaryExpression":
             propertyValue = `${property.value.operator}${pxToRem(literalVariables[property.value.argument.name])}rem`;
             break;
@@ -620,19 +633,9 @@ exec(`git add ${cssFilePath}`, (error, stdout, stderr) => {
     }
 });
 
-if (keepAphrodite) {
-    const objectifiedCSS = objectifyCSS(
-        cssStringified,
-        aphroditeDeclaration.id.name,
-    );
-    fs.writeFileSync(aphroditeFilePath, objectifiedCSS);
-    exec(`git add ${aphroditeFilePath}`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error: ${error}`);
-            return;
-        }
-    });
-}
+const aphroditeFileName = keepAphrodite
+    ? objectifyCSS(cssFilePath, aphroditeDeclaration.id.name)
+    : "";
 
 /*********************
  * Replace Aphrodite *
@@ -682,4 +685,4 @@ ${cleanedCode.substring(lastImport[lastImport.length - 1].end).trim()}`;
     }
 }
 
-fs.writeFileSync(filePath, updatedCode);
+// fs.writeFileSync(filePath, updatedCode);

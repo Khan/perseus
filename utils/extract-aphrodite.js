@@ -1,13 +1,33 @@
-const objectifyCSS = (cssRules, objectName) => {
-    const objectified = JSON.stringify(parseCssToObjects(cssRules))
-        .split(`","`)
-        .join(`",\n    "`)
-        .split(`{`)
-        .join(`{\n    `)
-        .split(`}`)
-        .join(`\n}`);
-    return `export const ${objectName} = ${objectified};
-`;
+const {exec} = require("child_process");
+const fs = require("fs");
+const path = require("path");
+
+const objectifyCSS = (cssPathname, objectName) => {
+    const cssRules = fs.readFileSync(cssPathname, "utf-8");
+    const objectified = JSON.stringify(parseCssToObjects(cssRules));
+
+    const fileDirectory = path.dirname(cssPathname);
+    const fileNameParts = path.basename(cssPathname).split(".");
+    const aphroditeFileName = `${fileNameParts[0]}.styles.js`;
+    const aphroditeFilePath = path.join(fileDirectory, aphroditeFileName);
+    fs.writeFileSync(
+        aphroditeFilePath,
+        `export const ${objectName} = ${objectified};`,
+    );
+    exec(`prettier --write ${aphroditeFilePath}`, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error: ${error}`);
+            return;
+        }
+    });
+    exec(`git add ${aphroditeFilePath}`, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error: ${error}`);
+            return;
+        }
+    });
+
+    return aphroditeFileName;
 };
 
 // Lightweight, ad hoc CSS parser for cssStringified -> JS objects
