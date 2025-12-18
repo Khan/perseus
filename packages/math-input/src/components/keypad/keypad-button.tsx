@@ -38,7 +38,9 @@ export const KeypadButton = ({
         e: React.KeyboardEvent<Element>,
         nextCoord: readonly [number, number],
     ): HTMLElement | null {
+        // The maximum number of columns is 6.
         const nextX = ((nextCoord[0] % 6) + 6) % 6;
+        // The maximum number of rows is 4.
         const nextY = ((nextCoord[1] % 4) + 4) % 4;
 
         const nextButton = document.getElementById(
@@ -72,6 +74,8 @@ export const KeypadButton = ({
         return null;
     }
 
+    // NOTE: Using IDs instead of refs so that the buttons can be found
+    // across multiple key sets (e.g. numbers-page and shared-keys).
     function handleKeyDown(e: React.KeyboardEvent<Element>) {
         let nextButton: HTMLElement | null = null;
 
