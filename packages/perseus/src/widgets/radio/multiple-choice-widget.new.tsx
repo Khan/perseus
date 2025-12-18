@@ -10,7 +10,7 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import MultipleChoiceComponent from "./multiple-choice-component.new";
-import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
+import {getChoiceStates} from "./utils/general-utils";
 
 import type {
     WidgetProps,
@@ -138,17 +138,13 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
         );
 
         /**
-         * Renders content that may contain nested widgets (currently only passage-refs).
-         * Parses the content, extracts any widgets, and returns a Renderer component
-         * configured with the appropriate context.
+         * Renders content for radio choice labels.
+         * Returns a Renderer component configured with the appropriate context.
          *
          * @param content - The content to render (defaults to empty string)
          * @returns A React element with the rendered content
          */
         const renderContent = (content = ""): React.ReactNode => {
-            const {parsedContent, extractedWidgets} =
-                parseNestedWidgets(content);
-
             // This has been called out as a hack in the past.
             // We pass in a key here so that we avoid a semi-spurious
             // react warning when the ChoiceNoneAbove renders a
@@ -156,8 +152,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             // state, but since all we're doing is outputting
             // "None of the above", that is okay. Widgets inside this Renderer
             // are not discoverable through the parent Renderer's `findWidgets` function.
-            // alwaysUpdate={true} so that passage-refs findWidgets
-            // get called when the outer passage updates the renderer
             const linterContext: LinterContextProps = {
                 contentType: "radio",
                 highlightLint: false,
@@ -174,8 +168,8 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                 >
                     <Renderer
                         key="choiceContentRenderer"
-                        content={parsedContent}
-                        widgets={extractedWidgets}
+                        content={content}
+                        widgets={{}}
                         findExternalWidgets={findWidgets}
                         alwaysUpdate={true}
                         linterContext={linterContext}

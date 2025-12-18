@@ -25,8 +25,6 @@ import {parseMoleculeRendererWidget} from "./molecule-renderer-widget";
 import {parseNumberLineWidget} from "./number-line-widget";
 import {parseNumericInputWidget} from "./numeric-input-widget";
 import {parseOrdererWidget} from "./orderer-widget";
-import {parsePassageRefWidget} from "./passage-ref-widget";
-import {parsePassageWidget} from "./passage-widget";
 import {parsePhetSimulationWidget} from "./phet-simulation-widget";
 import {parsePlotterWidget} from "./plotter-widget";
 import {parsePythonProgramWidget} from "./python-program-widget";
@@ -156,15 +154,6 @@ const parseWidgetsMapEntry: (
             );
         case "orderer":
             return parseAndAssign(`orderer ${n}`, parseOrdererWidget);
-        case "passage":
-            return parseAndAssign(`passage ${n}`, parsePassageWidget);
-        case "passage-ref":
-            return parseAndAssign(`passage-ref ${n}`, parsePassageRefWidget);
-        case "passage-ref-target":
-            // NOTE(benchristel): as of 2024-11-12, passage-ref-target is only
-            // used in test content. See:
-            // https://www.khanacademy.org/devadmin/content/search?query=widget:passage-ref-target
-            return parseAndAssign(`passage-ref-target ${n}`, any);
         case "phet-simulation":
             return parseAndAssign(
                 `phet-simulation ${n}`,
@@ -195,6 +184,18 @@ const parseWidgetsMapEntry: (
             return parseAndAssign(`simulator ${n}`, parseDeprecatedWidget);
         case "transformer":
             return parseAndAssign(`transformer ${n}`, parseDeprecatedWidget);
+        case "passage":
+            return parseAndAssign(`passage ${n}`, parseDeprecatedWidget as any);
+        case "passage-ref":
+            return parseAndAssign(
+                `passage-ref ${n}`,
+                parseDeprecatedWidget as any,
+            );
+        case "passage-ref-target":
+            return parseAndAssign(
+                `passage-ref-target ${n}`,
+                parseDeprecatedWidget as any,
+            );
 
         default:
             return parseAndAssign(
