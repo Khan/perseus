@@ -9,11 +9,11 @@
 }
 
 .expanded-wrapper {
-    border-width: 1px 1px 0 1px;
-    border-color: var(--wb-semanticColor-core-border-neutral-default);
+    border-width: var(--wb-border-width-thin);
+    border-color: var(--wb-semanticColor-core-border-neutral-subtle);
     /* see expandedViewThreshold */
     max-width: 500px;
-    border-radius: 3px 3px 0 0;
+    border-radius: var(--wb-border-radius-radius_040);
 }
 
 .keypad-inner-container {

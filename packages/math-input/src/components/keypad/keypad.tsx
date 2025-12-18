@@ -47,6 +47,17 @@ const keypadOuterContainerStyle = {
     justifyContent: "center",
 } as const;
 
+// Border and layout styles for expanded view (iPad landscape)
+// These are duplicated from keypad.module.css (.expanded-wrapper) but must be
+// inline styles because WonderBlocks View's default styles override CSS module classes
+const expandedWrapperStyle = {
+    borderWidth: "1px 1px 0 1px",
+    borderStyle: "solid",
+    borderColor: semanticColor.core.border.neutral.subtle,
+    maxWidth: 500,
+    borderRadius: "3px 3px 0 0",
+} as const;
+
 const tabsStyles = {
     tab: {
         marginBlockStart: sizing.size_080,
@@ -122,7 +133,11 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
         >
             <View
                 className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
-                style={{position: "relative"}}
+                style={
+                    expandedView
+                        ? {...expandedWrapperStyle, position: "relative"}
+                        : {position: "relative"}
+                }
             >
                 {showDismiss && (
                     <View

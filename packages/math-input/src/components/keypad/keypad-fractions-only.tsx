@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import xBold from "@phosphor-icons/core/bold/x-bold.svg";
 import * as React from "react";
 
@@ -28,6 +28,17 @@ const keypadOuterContainerStyle = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+} as const;
+
+// Border and layout styles for expanded view (iPad landscape)
+// These are duplicated from keypad.module.css (.expanded-wrapper) but must be
+// inline styles because WonderBlocks View's default styles override CSS module classes
+const expandedWrapperStyle = {
+    borderWidth: border.width.thin,
+    borderStyle: "solid",
+    borderColor: semanticColor.core.border.neutral.subtle,
+    maxWidth: 500,
+    borderRadius: border.radius.radius_040,
 } as const;
 
 const keypadInnerContainerStyle = {
@@ -60,6 +71,7 @@ export function KeypadFractionsOnly(props: KeypadFractionsOnlyProps) {
         >
             <View
                 className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
+                style={expandedView ? expandedWrapperStyle : undefined}
             >
                 {/* Header bar with dismiss button - mimics Tabs header */}
                 {showDismiss && (
