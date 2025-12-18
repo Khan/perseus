@@ -406,6 +406,16 @@ describe("Expression Widget", function () {
             // Assert
             expect(input).toHaveFocus();
         });
+
+        it("uses the default aria label when none is provided", () => {
+            // Arrange, Act
+            renderQuestion(expressionItem2.question);
+
+            // Assert
+            const input = screen.getByRole("textbox");
+            expect(input).toBeVisible();
+            expect(input).toHaveAccessibleName(/Math input box/);
+        });
     });
 
     describe("focus state", () => {
