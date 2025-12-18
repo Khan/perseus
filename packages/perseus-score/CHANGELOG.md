@@ -1,5 +1,77 @@
 # @khanacademy/perseus-score
 
+## 8.2.0
+
+### Minor Changes
+
+-   [#3064](https://github.com/Khan/perseus/pull/3064) [`50b7c8b5ea`](https://github.com/Khan/perseus/commit/50b7c8b5ea3b7f4bf0c3f3de20ff3312b7c477b6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing scoreNoop in favour of the new isScorable feature.
+
+## 8.1.2
+
+### Patch Changes
+
+-   Updated dependencies [[`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705)]:
+    -   @khanacademy/perseus-core@21.0.2
+    -   @khanacademy/kmath@2.2.24
+
+## 8.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3)]:
+    -   @khanacademy/perseus-core@21.0.1
+    -   @khanacademy/kmath@2.2.23
+
+## 8.1.0
+
+### Minor Changes
+
+-   [#3089](https://github.com/Khan/perseus/pull/3089) [`c674007016`](https://github.com/Khan/perseus/commit/c6740070169dedaac85056d6b972ad1f2145bc3c) Thanks [@handeyeco](https://github.com/handeyeco)! - Add new validateUserInput function to perseus-score
+
+### Patch Changes
+
+-   [#3107](https://github.com/Khan/perseus/pull/3107) [`75eb53092c`](https://github.com/Khan/perseus/commit/75eb53092c04c85224ab6d586888a4ed0bf8300f) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Delete radioQuestionBuilder and use radioWidgetGenerator in testdata instead
+
+*   [#3106](https://github.com/Khan/perseus/pull/3106) [`5efb2b5f25`](https://github.com/Khan/perseus/commit/5efb2b5f259994be85af04967371638a4a91bda6) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Create a radio widget generator for testdata
+
+*   Updated dependencies [[`c674007016`](https://github.com/Khan/perseus/commit/c6740070169dedaac85056d6b972ad1f2145bc3c), [`75eb53092c`](https://github.com/Khan/perseus/commit/75eb53092c04c85224ab6d586888a4ed0bf8300f), [`5efb2b5f25`](https://github.com/Khan/perseus/commit/5efb2b5f259994be85af04967371638a4a91bda6)]:
+    -   @khanacademy/perseus-core@21.0.0
+    -   @khanacademy/kmath@2.2.22
+
+## 8.0.10
+
+### Patch Changes
+
+-   [#3096](https://github.com/Khan/perseus/pull/3096) [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3) Thanks [@nishasy](https://github.com/nishasy)! - [Dropdown] Create dropdown widget generator for testdata
+
+*   [#3092](https://github.com/Khan/perseus/pull/3092) [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c) Thanks [@nishasy](https://github.com/nishasy)! - [Expression] Creat expression widget generator for testdata
+
+-   [#3093](https://github.com/Khan/perseus/pull/3093) [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32) Thanks [@nishasy](https://github.com/nishasy)! - [Numeric Input] Create numeric input widget generator for testdata
+
+-   Updated dependencies [[`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea), [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753), [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b), [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3), [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c), [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32)]:
+    -   @khanacademy/perseus-core@20.4.1
+    -   @khanacademy/kmath@2.2.21
+
+## 8.0.9
+
+### Patch Changes
+
+-   Updated dependencies [[`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266), [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108)]:
+    -   @khanacademy/perseus-core@20.4.0
+    -   @khanacademy/kmath@2.2.20
+
+## 8.0.8
+
+### Patch Changes
+
+-   [#3069](https://github.com/Khan/perseus/pull/3069) [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade to pnpm@10.22.0
+
+-   Updated dependencies [[`a7bc025971`](https://github.com/Khan/perseus/commit/a7bc025971f3c5548fb5dac80f82afe0c262f102), [`29cd960359`](https://github.com/Khan/perseus/commit/29cd960359660b5eacadf82f54e4a0d78ee6317f), [`889b0b3aff`](https://github.com/Khan/perseus/commit/889b0b3affff534ca5a6d9e067290fa7c4fb684b), [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66)]:
+    -   @khanacademy/perseus-core@20.3.0
+    -   @khanacademy/kas@2.1.6
+    -   @khanacademy/kmath@2.2.19
+    -   @khanacademy/perseus-utils@2.1.4
+
 ## 8.0.7
 
 ### Patch Changes

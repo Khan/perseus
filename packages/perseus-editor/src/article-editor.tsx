@@ -27,6 +27,7 @@ import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import {WARNINGS} from "./messages";
+import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
 import type {
@@ -35,6 +36,7 @@ import type {
     ImageUploader,
     PerseusDependenciesV2,
 } from "@khanacademy/perseus";
+import type {PerseusArticle} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 
@@ -44,11 +46,9 @@ type RendererProps = {
     images?: any;
 };
 
-type JsonType = RendererProps | ReadonlyArray<RendererProps>;
-
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
-    json: JsonType;
+    json: PerseusArticle;
     mode: "diff" | "edit" | "json" | "preview";
     screen: "phone" | "tablet" | "desktop";
     sectionImageUploadGenerator: (
@@ -73,7 +73,8 @@ type State = {
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
-        json: [{}],
+        // NOTE(Jeremy):
+        json: [{} as any],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
@@ -141,6 +142,13 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 ) ?? [];
 
             allLinterIssues.push(...sectionIssues);
+
+            // Detect TeX errors in this section
+            const texErrors = detectTexErrors(section.content ?? "");
+            const texIssues = texErrors.map((error, index) =>
+                WARNINGS.texError(error.math, error.message, index),
+            );
+            allLinterIssues.push(...texIssues);
         });
 
         this.setState({
@@ -388,7 +396,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         );
     }
 
-    _handleJsonChange: (newJson: JsonType) => void = (newJson) => {
+    _handleJsonChange: (newJson: PerseusArticle) => void = (newJson) => {
         this.props.onChange({json: newJson});
     };
 
@@ -443,7 +451,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                       widgets: sections[i].widgets,
                   }
                 : {};
-        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'JsonType'.
+        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'PerseusArticle'.
         sections.splice(i + 1, 0, newSection);
         this.props.onChange({
             json: sections,
@@ -458,7 +466,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         });
     }
 
-    serialize(): JsonType {
+    serialize(): PerseusArticle {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
                 // eslint-disable-next-line react/no-string-refs

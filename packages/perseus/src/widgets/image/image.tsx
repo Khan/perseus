@@ -42,6 +42,9 @@ export const ImageComponent = (props: ImageWidgetProps) => {
 
     const [zoomWidth, zoomHeight] = zoomSize;
 
+    // Use ref to track if we should ignore async results
+    const ignoreResultsRef = React.useRef(false);
+
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
@@ -54,15 +57,31 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     });
 
     React.useEffect(() => {
+        // Reset the flag for this effect run
+        ignoreResultsRef.current = false;
+
         // Wait to figure out what the original size of the image is.
         // Use whichever is larger between the original image size and the
         // saved background image size for zooming.
         Util.getImageSizeModern(backgroundImage.url!).then((naturalSize) => {
+            // Ignore results if effect has been cleaned up
+            // This prevents updates after component unmounts or dependencies change
+            if (ignoreResultsRef.current) {
+                return;
+            }
+
             const [naturalWidth, naturalHeight] = naturalSize;
+            // Only update if the new size is larger
+            // This prevents unnecessary updates and infinite loops
             if (naturalWidth > (backgroundImage.width || 0)) {
                 setZoomSize([naturalWidth, naturalHeight]);
             }
         });
+
+        return () => {
+            // Mark results as stale when dependencies change or component unmounts
+            ignoreResultsRef.current = true;
+        };
     }, [backgroundImage.url, backgroundImage.width]);
 
     if (!backgroundImage.url) {

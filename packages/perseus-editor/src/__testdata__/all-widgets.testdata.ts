@@ -1,4 +1,35 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateExplanationOptions,
+    generateExplanationWidget,
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
+    generateFreeResponseOptions,
+    generateFreeResponseWidget,
+    generateGradedGroupOptions,
+    generateGradedGroupSetWidget,
+    generateGradedGroupWidget,
+    generateGroupOptions,
+    generateGroupWidget,
+    generateIGLinearGraph,
+    generateIGLockedPoint,
+    generateImageWidget,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    generateRadioChoice,
+    generateRadioOptions,
+    generateRadioWidget,
+    generateTestPerseusRenderer,
+    generateVideoWidget,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 /**
  * A comprehensive Perseus question demonstrating all major widget types.
@@ -14,88 +45,54 @@ export const comprehensiveQuestion: PerseusRenderer = {
         },
     },
     widgets: {
-        "numeric-input 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "numeric-input",
-            options: {
-                coefficient: false,
-                static: false,
+        "numeric-input 1": generateNumericInputWidget({
+            options: generateNumericInputOptions({
                 answers: [
-                    {
-                        status: "correct",
-                        maxError: null,
-                        strict: false,
+                    generateNumericInputAnswer({
                         value: 4,
-                        simplify: "required",
                         message: "Correct! 2x + 5 = 13, so x = 4.",
-                    },
+                    }),
                 ],
                 labelText: "Enter your answer:",
-                size: "normal",
-            },
-        },
-        "expression 1": {
-            graded: true,
-            version: {major: 1, minor: 0},
-            static: false,
-            type: "expression",
-            options: {
+            }),
+        }),
+        "expression 1": generateExpressionWidget({
+            options: generateExpressionOptions({
                 answerForms: [
-                    {
+                    generateExpressionAnswerForm({
                         considered: "correct",
                         form: true,
-                        simplify: false,
                         value: "x^2 + 2x + 1",
                         key: "1",
-                    },
+                    }),
                 ],
-                functions: ["f", "g", "h"],
-                times: false,
-                buttonSets: ["basic"],
-            },
-        },
-        "radio 1": {
-            graded: true,
-            version: {major: 1, minor: 0},
-            static: false,
-            type: "radio",
-            options: {
+            }),
+        }),
+        "radio 1": generateRadioWidget({
+            options: generateRadioOptions({
                 choices: [
-                    {
-                        id: "choice-1",
-                        content: "Option A",
+                    generateRadioChoice("Option A", {
                         correct: true,
                         rationale: "This is the correct answer.",
-                    },
-                    {
-                        id: "choice-2",
-                        content: "Option B",
-                        correct: false,
+                    }),
+                    generateRadioChoice("Option B", {
                         rationale: "This is incorrect.",
-                    },
+                    }),
                 ],
-                multipleSelect: false,
                 randomize: true,
-            },
-        },
+            }),
+        }),
 
-        "dropdown 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "dropdown",
-            options: {
-                static: false,
+        "dropdown 1": generateDropdownWidget({
+            options: generateDropdownOptions({
                 placeholder: "choose one",
                 choices: [
                     {content: "greater", correct: true},
                     {content: "less", correct: false},
                     {content: "equal", correct: false},
                 ],
-            },
-        },
+            }),
+        }),
         "categorizer 1": {
             graded: true,
             version: {major: 0, minor: 0},
@@ -109,53 +106,28 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 static: false,
             },
         },
-        "interactive-graph 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "interactive-graph",
-            options: {
-                labels: ["x", "y"],
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-                step: [1, 1],
-                gridStep: [1, 1],
-                snapStep: [1, 1],
-                graph: {
-                    type: "linear",
+        "interactive-graph 1": generateInteractiveGraphWidget({
+            options: generateInteractiveGraphOptions({
+                graph: generateIGLinearGraph({
                     coords: [
                         [0, 1],
                         [1, 3],
                     ],
-                },
-                correct: {
-                    type: "linear",
+                }),
+                correct: generateIGLinearGraph({
                     coords: [
                         [0, 1],
                         [1, 3],
                     ],
-                },
-                markings: "graph",
-                showAxisArrows: {
-                    xMin: true,
-                    xMax: true,
-                    yMin: true,
-                    yMax: true,
-                },
-                showProtractor: false,
+                }),
                 lockedFigures: [
-                    {
-                        type: "point",
+                    generateIGLockedPoint({
                         coord: [5, 5],
                         color: "blue",
-                        filled: true,
-                        labels: [],
-                    },
+                    }),
                 ],
-            },
-        },
+            }),
+        }),
         "number-line 1": {
             graded: true,
             version: {major: 0, minor: 0},
@@ -188,37 +160,22 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 ],
             },
         },
-        "definition 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "definition",
-            options: {
+        "definition 1": generateDefinitionWidget({
+            options: generateDefinitionOptions({
                 definition:
                     "A mathematical expression that represents a relationship between variables.",
                 togglePrompt: "function",
-                static: false,
-            },
-        },
-        "explanation 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "explanation",
-            options: {
+            }),
+        }),
+        "explanation 1": generateExplanationWidget({
+            options: generateExplanationOptions({
                 showPrompt: "Show explanation",
                 hidePrompt: "Hide explanation",
                 explanation:
                     "This is a detailed explanation of the concept with step-by-step reasoning.",
-                static: false,
-                widgets: {},
-            },
-        },
-        "image 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "image",
+            }),
+        }),
+        "image 1": generateImageWidget({
             options: {
                 backgroundImage: {
                     url: "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png",
@@ -233,7 +190,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                     },
                 ],
             },
-        },
+        }),
         "table 1": {
             graded: true,
             version: {major: 0, minor: 0},
@@ -291,19 +248,12 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 answerType: "rational",
             },
         },
-        "free-response 1": {
+        "free-response 1": generateFreeResponseWidget({
             graded: false,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "free-response",
-            options: {
-                placeholder: "Enter your response here",
+            options: generateFreeResponseOptions({
                 question: "What do you think?",
-                allowUnlimitedCharacters: false,
-                characterLimit: 500,
-                scoringCriteria: [],
-            },
-        },
+            }),
+        }),
         "orderer 1": {
             graded: true,
             version: {major: 0, minor: 0},
@@ -397,133 +347,70 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 },
             },
         },
-        "group 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "group",
-            options: {
+        "group 1": generateGroupWidget({
+            options: generateGroupOptions({
                 content: "Simple question: [[\u2603 numeric-input 2]]",
-                images: {},
                 widgets: {
-                    "numeric-input 2": {
-                        graded: true,
-                        version: {major: 0, minor: 0},
-                        static: false,
-                        type: "numeric-input",
-                        options: {
+                    "numeric-input 2": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
                             answers: [
-                                {
+                                generateNumericInputAnswer({
                                     value: 5,
-                                    status: "correct",
-                                    message: "",
-                                    simplify: "required",
-                                    strict: false,
-                                    maxError: null,
-                                },
+                                }),
                             ],
-                            coefficient: false,
-                            labelText: "",
                             size: "normal",
-                            static: false,
-                        },
-                    },
+                        }),
+                    }),
                 },
-            },
-        },
-        "graded-group 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "graded-group",
-            options: {
+            }),
+        }),
+        "graded-group 1": generateGradedGroupWidget({
+            options: generateGradedGroupOptions({
                 title: "Question Group",
                 content: "Answer this: [[\u2603 numeric-input 3]]",
-                images: {},
                 widgets: {
-                    "numeric-input 3": {
-                        graded: true,
-                        version: {major: 0, minor: 0},
-                        static: false,
-                        type: "numeric-input",
-                        options: {
+                    "numeric-input 3": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
                             answers: [
-                                {
+                                generateNumericInputAnswer({
                                     value: 10,
-                                    status: "correct",
-                                    message: "",
-                                    simplify: "required",
-                                    strict: false,
-                                    maxError: null,
-                                },
+                                }),
                             ],
-                            coefficient: false,
-                            labelText: "",
-                            size: "normal",
-                            static: false,
-                        },
-                    },
+                        }),
+                    }),
                 },
-                hint: {
+                hint: generateTestPerseusRenderer({
                     content: "This is a hint.",
-                    images: {},
-                    widgets: {},
-                },
-            },
-        },
-        "graded-group-set 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "graded-group-set",
+                }),
+            }),
+        }),
+        "graded-group-set 1": generateGradedGroupSetWidget({
             options: {
                 gradedGroups: [
-                    {
+                    generateGradedGroupOptions({
                         title: "Problem 1",
                         content: "Solve: [[\u2603 numeric-input 4]]",
-                        images: {},
                         widgets: {
-                            "numeric-input 4": {
-                                graded: true,
-                                version: {major: 0, minor: 0},
-                                static: false,
-                                type: "numeric-input",
-                                options: {
+                            "numeric-input 4": generateNumericInputWidget({
+                                options: generateNumericInputOptions({
                                     answers: [
-                                        {
+                                        generateNumericInputAnswer({
                                             value: 15,
-                                            status: "correct",
-                                            message: "",
-                                            simplify: "required",
-                                            strict: false,
-                                            maxError: null,
-                                        },
+                                        }),
                                     ],
-                                    coefficient: false,
-                                    labelText: "",
-                                    size: "normal",
-                                    static: false,
-                                },
-                            },
+                                }),
+                            }),
                         },
                         hasHint: false,
                         widgetEnabled: true,
                         immutableWidgets: false,
-                    },
+                    }),
                 ],
             },
-        },
-        "video 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "video",
-            options: {
-                static: false,
-                location: "sample-video-id",
-            },
-            alignment: "block",
-        },
+        }),
+        "video 1": generateVideoWidget({
+            options: {location: "sample-video-id"},
+        }),
         "iframe 1": {
             graded: true,
             version: {major: 0, minor: 0},

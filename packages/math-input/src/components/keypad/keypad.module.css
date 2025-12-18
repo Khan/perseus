@@ -1,0 +1,35 @@
+.keypad-outer-container {
+    display: flex;
+    align-items: center;
+}
+
+.wrapper {
+    background-color: var(--wb-semanticColor-core-background-base-default);
+}
+
+.expanded-wrapper {
+    border-width: 1px 1px 0 1px;
+    border-color: var(--wb-semanticColor-core-border-neutral-default);
+    /* see expandedViewThreshold */
+    max-width: 500px;
+    border-radius: 3px 3px 0 0;
+}
+
+.keypad-inner-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background-color: var(--wb-semanticColor-core-background-disabled-strong);
+    /* Even in RTL languages, math is LTR, So we force this component to always render LTR. */
+    direction: ltr;
+}
+
+.keypad-grid {
+    display: grid !important;
+    grid-template-rows: repeat(4, 1fr);
+    flex: 1;
+}
+
+.fractions-grid {
+    grid-template-columns: repeat(5, 1fr);
+}

@@ -1,5 +1,57 @@
 # @khanacademy/perseus-linter
 
+## 4.6.6
+
+### Patch Changes
+
+-   Updated dependencies [[`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705)]:
+    -   @khanacademy/perseus-core@21.0.2
+    -   @khanacademy/kmath@2.2.24
+
+## 4.6.5
+
+### Patch Changes
+
+-   Updated dependencies [[`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3)]:
+    -   @khanacademy/perseus-core@21.0.1
+    -   @khanacademy/kmath@2.2.23
+
+## 4.6.4
+
+### Patch Changes
+
+-   Updated dependencies [[`c674007016`](https://github.com/Khan/perseus/commit/c6740070169dedaac85056d6b972ad1f2145bc3c), [`75eb53092c`](https://github.com/Khan/perseus/commit/75eb53092c04c85224ab6d586888a4ed0bf8300f), [`5efb2b5f25`](https://github.com/Khan/perseus/commit/5efb2b5f259994be85af04967371638a4a91bda6)]:
+    -   @khanacademy/perseus-core@21.0.0
+    -   @khanacademy/kmath@2.2.22
+
+## 4.6.3
+
+### Patch Changes
+
+-   Updated dependencies [[`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea), [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753), [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b), [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3), [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c), [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32)]:
+    -   @khanacademy/perseus-core@20.4.1
+    -   @khanacademy/kmath@2.2.21
+
+## 4.6.2
+
+### Patch Changes
+
+-   Updated dependencies [[`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266), [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108)]:
+    -   @khanacademy/perseus-core@20.4.0
+    -   @khanacademy/kmath@2.2.20
+
+## 4.6.1
+
+### Patch Changes
+
+-   [#3069](https://github.com/Khan/perseus/pull/3069) [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade to pnpm@10.22.0
+
+-   Updated dependencies [[`a7bc025971`](https://github.com/Khan/perseus/commit/a7bc025971f3c5548fb5dac80f82afe0c262f102), [`29cd960359`](https://github.com/Khan/perseus/commit/29cd960359660b5eacadf82f54e4a0d78ee6317f), [`889b0b3aff`](https://github.com/Khan/perseus/commit/889b0b3affff534ca5a6d9e067290fa7c4fb684b), [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66)]:
+    -   @khanacademy/perseus-core@20.3.0
+    -   @khanacademy/kas@2.1.6
+    -   @khanacademy/kmath@2.2.19
+    -   @khanacademy/perseus-utils@2.1.4
+
 ## 4.6.0
 
 ### Minor Changes

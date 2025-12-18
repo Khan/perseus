@@ -1,4 +1,9 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {
+    generateRadioWidget,
+    type PerseusRenderer,
+    type RadioWidget,
+} from "@khanacademy/perseus-core";
 import {scoreRadio} from "@khanacademy/perseus-score";
 import {act, screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -19,7 +24,6 @@ import {
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -345,8 +349,7 @@ describe("Radio Widget", () => {
                             static: false,
                         },
                     },
-                    "radio 1": {
-                        type: "radio",
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
                                 {
@@ -370,7 +373,7 @@ describe("Radio Widget", () => {
                                 },
                             ],
                         },
-                    },
+                    }),
                 },
             };
 

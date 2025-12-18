@@ -1,5 +1,15 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+    generateExpressionWidget,
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    generateSimpleRadioQuestion,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     type PerseusRenderer,
     type UserInputMap,
 } from "@khanacademy/perseus-core";
@@ -7,12 +17,11 @@ import {
 import hasEmptyDINERWidgets from "./has-empty-diner-widgets";
 
 function generateBasicDropdownQuestion(): PerseusRenderer {
-    return {
+    return generateTestPerseusRenderer({
         content: "[[☃ dropdown 1]]",
         widgets: {
-            "dropdown 1": {
-                type: "dropdown",
-                options: {
+            "dropdown 1": generateDropdownWidget({
+                options: generateDropdownOptions({
                     choices: [
                         {
                             content: "Correct",
@@ -24,90 +33,66 @@ function generateBasicDropdownQuestion(): PerseusRenderer {
                         },
                     ],
                     placeholder: "Pick one",
-                    static: false,
-                },
-            },
+                }),
+            }),
         },
         images: {},
-    };
+    });
 }
 
 function generateBasicNumericInputQuestion(): PerseusRenderer {
-    return {
+    return generateTestPerseusRenderer({
         content: "[[☃ numeric-input 1]]",
         widgets: {
-            "numeric-input 1": {
-                type: "numeric-input",
-                options: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({
                     answers: [
-                        {
+                        generateNumericInputAnswer({
                             value: 42,
                             message: "This is correct",
-                            status: "correct",
-                            strict: false,
                             simplify: "optional",
-                            maxError: null,
-                        },
+                        }),
                     ],
-                    size: "normal",
-                    coefficient: false,
-                    static: false,
-                },
-            },
+                }),
+            }),
         },
-        images: {},
-    };
+    });
 }
 
 function generateBasicExpressionQuestion(): PerseusRenderer {
-    return {
+    return generateTestPerseusRenderer({
         content: "[[☃ expression 1]]",
         widgets: {
-            "expression 1": {
-                type: "expression",
-                options: {
+            "expression 1": generateExpressionWidget({
+                options: generateExpressionOptions({
                     answerForms: [
-                        {
+                        generateExpressionAnswerForm({
                             value: "42",
-                            form: false,
-                            simplify: false,
                             considered: "correct",
-                        },
+                        }),
                     ],
-                    buttonSets: [],
                     functions: [],
-                    times: false,
-                },
-            },
+                }),
+            }),
         },
-        images: {},
-    };
+    });
 }
 
 function generateBasicRadioQuestion(): PerseusRenderer {
-    return {
-        content: "[[☃ radio 1]]",
-        widgets: {
-            "radio 1": {
-                type: "radio",
-                options: {
-                    choices: [
-                        {
-                            id: "0-0-0-0-0",
-                            content: "Correct",
-                            correct: true,
-                        },
-                        {
-                            id: "1-1-1-1-1",
-                            content: "Incorrect",
-                            correct: false,
-                        },
-                    ],
-                },
+    return generateSimpleRadioQuestion({
+        choices: [
+            {
+                id: "0-0-0-0-0",
+                content: "Correct",
+                correct: true,
             },
-        },
-        images: {},
-    };
+            {
+                id: "1-1-1-1-1",
+                content: "Incorrect",
+                correct: false,
+            },
+        ],
+    });
 }
 
 describe(`hasEmptyDINERWidgets`, () => {

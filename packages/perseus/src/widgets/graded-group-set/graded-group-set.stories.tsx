@@ -1,3 +1,12 @@
+import {
+    generateDropdownWidget,
+    generateDropdownOptions,
+    type PerseusRenderer,
+    generateTestPerseusRenderer,
+    generateGradedGroupSetWidget,
+    generateGradedGroupOptions,
+} from "@khanacademy/perseus-core";
+
 import {ArticleRendererWithDebugUI} from "../../../../../testing/article-renderer-with-debug-ui";
 
 import {
@@ -5,7 +14,6 @@ import {
     groupSetRadioRationaleQuestion,
 } from "./graded-group-set.testdata";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
@@ -38,31 +46,22 @@ export const GroupSetRadioQuestion: Story = {
     },
 };
 
-const dropdownTest: PerseusRenderer = {
+const dropdownTest: PerseusRenderer = generateTestPerseusRenderer({
     content: `Test article with dropdown widget to check mobile answer bar behavior.
 
 [[☃ graded-group-set 1]]
 
 This tests if dropdown widgets trigger the mobile answer bar correctly.`,
-    images: {},
     widgets: {
-        "graded-group-set 1": {
-            type: "graded-group-set",
-            alignment: "default",
-            static: false,
-            graded: true,
+        "graded-group-set 1": generateGradedGroupSetWidget({
             options: {
                 gradedGroups: [
-                    {
+                    generateGradedGroupOptions({
                         title: "Dropdown Test",
                         content: "What color is the sky?\n\n[[☃ dropdown 1]]",
                         widgets: {
-                            "dropdown 1": {
-                                type: "dropdown",
-                                alignment: "default",
-                                static: false,
-                                graded: true,
-                                options: {
+                            "dropdown 1": generateDropdownWidget({
+                                options: generateDropdownOptions({
                                     placeholder: "Choose an answer",
                                     choices: [
                                         {
@@ -79,26 +78,21 @@ This tests if dropdown widgets trigger the mobile answer bar correctly.`,
                                         },
                                     ],
                                     static: false,
-                                },
-                                version: {major: 0, minor: 0},
-                            },
+                                }),
+                            }),
                         },
-                        images: {},
-                        hint: {
+                        hint: generateTestPerseusRenderer({
                             content:
                                 "Think about what you see when you look up on a clear day!",
-                            widgets: {},
-                            images: {},
-                        },
+                        }),
                         widgetEnabled: true,
                         immutableWidgets: false,
-                    },
+                    }),
                 ],
             },
-            version: {major: 0, minor: 0},
-        },
+        }),
     },
-};
+});
 
 export const DropdownTest: Story = {
     args: {

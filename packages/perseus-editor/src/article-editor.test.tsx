@@ -67,6 +67,8 @@ describe("ArticleEditor", () => {
                     {
                         content:
                             "![test image](https://www.example.com/image.png)",
+                        images: {},
+                        widgets: {},
                     },
                 ]}
             />,

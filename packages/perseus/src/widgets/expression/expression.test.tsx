@@ -2,6 +2,9 @@ import {it, describe, beforeEach} from "@jest/globals";
 import {
     splitPerseusItem,
     generateTestPerseusItem,
+    generateExpressionWidget,
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
@@ -557,24 +560,21 @@ describe("Expression Widget", function () {
                 content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
-                    "expression 1": {
-                        type: "expression",
+                    "expression 1": generateExpressionWidget({
                         version: {major: 2, minor: 0},
-                        options: {
+                        options: generateExpressionOptions({
                             answerForms: [
-                                {
+                                generateExpressionAnswerForm({
                                     considered: "correct",
                                     form: true,
-                                    simplify: false,
                                     value: "1i",
-                                },
+                                }),
                             ],
                             buttonSets: [],
-                            times: false,
                             functions: [],
                             extraKeys: ["i"],
-                        },
-                    },
+                        }),
+                    }),
                 },
             };
 

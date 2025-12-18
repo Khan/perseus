@@ -3,9 +3,96 @@ import {
     getLegacyExpressionWidget,
     getTestDropdownWidget,
 } from "./util/test-helpers";
-import {emptyWidgetsFunctional} from "./validate";
+import {emptyWidgetsFunctional, validateUserInput} from "./validate";
 
 import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
+
+describe("validateUserInput", () => {
+    it("should return null if no widgets are invalid", () => {
+        // Act
+        const score = validateUserInput(
+            {
+                content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
+                widgets: {
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
+                },
+                images: {},
+            },
+            {
+                "dropdown 1": {value: 1},
+                "dropdown 2": {value: 1},
+            },
+            "en",
+        );
+
+        // Assert
+        expect(score).toBeNull();
+    });
+
+    it("returns a score of 'invalid' if some widgets are missing from the user input", () => {
+        // Arrange:
+        const item = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {"dropdown 1": getTestDropdownWidget()},
+            images: {},
+        };
+        const userInputMap = {};
+
+        // Act:
+        const score = validateUserInput(item, userInputMap, "en");
+
+        // Assert:
+        expect(score).toHaveInvalidInput();
+        expect(score).toEqual({type: "invalid", message: null});
+    });
+
+    it("should return invalid if any widget is unanswered", () => {
+        // Act
+        const score = validateUserInput(
+            {
+                content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
+                widgets: {
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
+                },
+                images: {},
+            },
+            {
+                "dropdown 1": {value: 0},
+                "dropdown 2": {value: 1},
+            },
+            "en",
+        );
+
+        // Assert
+        expect(score).toHaveInvalidInput();
+        expect(score).toEqual({type: "invalid", message: null});
+    });
+
+    it("should ignore widgets that aren't referenced in content", () => {
+        const score = validateUserInput(
+            {
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": getTestDropdownWidget(),
+                    "dropdown 2": getTestDropdownWidget(),
+                },
+                images: {},
+            },
+            {
+                // valid input
+                "dropdown 1": {value: 2},
+                // "empty" input on a widget not in content
+                // this would return "invalid" if it were in content
+                "dropdown 2": {value: 0},
+            },
+            "en",
+        );
+
+        expect(score).toBeNull();
+    });
+});
 
 describe("emptyWidgetsFunctional", () => {
     it("returns an empty array if there are no widgets", () => {

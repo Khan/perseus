@@ -4,7 +4,9 @@ import {action} from "storybook/actions";
 
 import AnswerChoices from "../answer-choices";
 
-type StoryArgs = Record<any, any>;
+import type {AnswerChoicesProps} from "../answer-choices";
+
+type StoryArgs = Record<string, AnswerChoicesProps>;
 
 type Story = {
     title: string;
@@ -21,7 +23,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Wrapper = (props: any) => {
+const Wrapper = (props: AnswerChoicesProps) => {
     return (
         <div className={css(styles.wrapper)}>
             <AnswerChoices
@@ -36,7 +38,7 @@ const Wrapper = (props: any) => {
 };
 
 class WithState extends React.Component<
-    Record<any, any>,
+    Record<string, AnswerChoicesProps>,
     {
         choices: ReadonlyArray<string>;
     }
@@ -52,13 +54,18 @@ class WithState extends React.Component<
             <Wrapper
                 choices={choices}
                 onChange={(choices) => this.setState({choices})}
+                editingDisabled={false}
             />
         );
     }
 }
 
 export const EmptyNonInteractive = (args: StoryArgs): React.ReactElement => {
-    const props = {choices: [], onChange: (...args) => {}} as const;
+    const props = {
+        choices: [],
+        onChange: (...args) => {},
+        editingDisabled: false,
+    } as const;
     return <Wrapper {...props} />;
 };
 
@@ -73,6 +80,7 @@ export const FilledNonInteractive = (args: StoryArgs): React.ReactElement => {
             "Ferrari",
         ],
         onChange: (...args) => {},
+        editingDisabled: false,
     } as const;
     return <Wrapper {...props} />;
 };

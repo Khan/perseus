@@ -1,5 +1,74 @@
 # @khanacademy/perseus-core
 
+## 21.0.2
+
+### Patch Changes
+
+-   [#3136](https://github.com/Khan/perseus/pull/3136) [`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Ensuring LabelImages are marked as inaccessible if any marker is missing a label.
+
+## 21.0.1
+
+### Patch Changes
+
+-   [#3128](https://github.com/Khan/perseus/pull/3128) [`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3) Thanks [@handeyeco](https://github.com/handeyeco)! - Add EMPTY_RESPONSE_ERROR handling
+
+## 21.0.0
+
+### Major Changes
+
+-   [#3089](https://github.com/Khan/perseus/pull/3089) [`c674007016`](https://github.com/Khan/perseus/commit/c6740070169dedaac85056d6b972ad1f2145bc3c) Thanks [@handeyeco](https://github.com/handeyeco)! - Add new validateUserInput function to perseus-score
+
+### Patch Changes
+
+-   [#3107](https://github.com/Khan/perseus/pull/3107) [`75eb53092c`](https://github.com/Khan/perseus/commit/75eb53092c04c85224ab6d586888a4ed0bf8300f) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Delete radioQuestionBuilder and use radioWidgetGenerator in testdata instead
+
+*   [#3106](https://github.com/Khan/perseus/pull/3106) [`5efb2b5f25`](https://github.com/Khan/perseus/commit/5efb2b5f259994be85af04967371638a4a91bda6) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Create a radio widget generator for testdata
+
+## 20.4.1
+
+### Patch Changes
+
+-   [#3105](https://github.com/Khan/perseus/pull/3105) [`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea) Thanks [@nishasy](https://github.com/nishasy)! - [Definition] Create definition widget generator for testdata
+
+*   [#3104](https://github.com/Khan/perseus/pull/3104) [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753) Thanks [@nishasy](https://github.com/nishasy)! - [Explanation] Create explanation widget generator for testdata
+
+-   [#3109](https://github.com/Khan/perseus/pull/3109) [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Move getFigureForType into perseus-core
+
+*   [#3096](https://github.com/Khan/perseus/pull/3096) [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3) Thanks [@nishasy](https://github.com/nishasy)! - [Dropdown] Create dropdown widget generator for testdata
+
+-   [#3092](https://github.com/Khan/perseus/pull/3092) [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c) Thanks [@nishasy](https://github.com/nishasy)! - [Expression] Creat expression widget generator for testdata
+
+*   [#3093](https://github.com/Khan/perseus/pull/3093) [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32) Thanks [@nishasy](https://github.com/nishasy)! - [Numeric Input] Create numeric input widget generator for testdata
+
+## 20.4.0
+
+### Minor Changes
+
+-   [#3091](https://github.com/Khan/perseus/pull/3091) [`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Move the Khanmigo data functions to Perseus Core for Server Side Scoring initiative
+
+### Patch Changes
+
+-   [#3086](https://github.com/Khan/perseus/pull/3086) [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108) Thanks [@nishasy](https://github.com/nishasy)! - Create free response widget generator for testdata
+
+## 20.3.0
+
+### Minor Changes
+
+-   [#3050](https://github.com/Khan/perseus/pull/3050) [`29cd960359`](https://github.com/Khan/perseus/commit/29cd960359660b5eacadf82f54e4a0d78ee6317f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Do not apply custom aligment float left or right to mobile it will be display block instead.
+
+### Patch Changes
+
+-   [#3085](https://github.com/Khan/perseus/pull/3085) [`a7bc025971`](https://github.com/Khan/perseus/commit/a7bc025971f3c5548fb5dac80f82afe0c262f102) Thanks [@nishasy](https://github.com/nishasy)! - [Video] Create video widget generator for testdata
+
+*   [#3087](https://github.com/Khan/perseus/pull/3087) [`889b0b3aff`](https://github.com/Khan/perseus/commit/889b0b3affff534ca5a6d9e067290fa7c4fb684b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   [#3069](https://github.com/Khan/perseus/pull/3069) [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade to pnpm@10.22.0
+
+-   Updated dependencies [[`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66)]:
+    -   @khanacademy/kas@2.1.6
+    -   @khanacademy/perseus-utils@2.1.4
+    -   @khanacademy/pure-markdown@2.2.4
+
 ## 20.2.1
 
 ### Patch Changes
