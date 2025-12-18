@@ -269,6 +269,7 @@ export type Hint = PerseusRenderer & {
      * is displayed. This allows for hints that build upon each other.
      */
     replace?: boolean;
+    placeholder?: boolean;
 };
 
 export type PerseusImageDetail = {

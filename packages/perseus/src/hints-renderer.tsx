@@ -150,6 +150,10 @@ class HintsRenderer extends React.Component<Props, State> {
         > = [];
         const isFinalHelpPage = this.state.isFinalHelpPage;
         this.props.hints.slice(0, hintsVisible).forEach((hint, i) => {
+            if (hint.placeholder) {
+                return;
+            }
+
             const lastHint =
                 i === this.props.hints.length - 1 && !/\*\*/.test(hint.content);
             const lastRendered = i === hintsVisible - 1;

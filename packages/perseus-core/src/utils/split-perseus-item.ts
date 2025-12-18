@@ -19,7 +19,12 @@ export default function splitPerseusItem(original: PerseusItem): PerseusItem {
         question: splitPerseusRenderer(item.question),
         // the final hint often exposes the answer
         // so we consider that part of the answer data
-        hints: [],
+        hints: original.hints.map(() => ({
+            content: "",
+            widgets: {},
+            images: {},
+            placeholder: true,
+        })),
     };
 }
 

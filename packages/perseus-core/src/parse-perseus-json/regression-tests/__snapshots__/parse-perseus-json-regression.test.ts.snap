@@ -1223,7 +1223,20 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.ts return
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "question": {
     "content": "**Compare the two values using the number line below.**  
 
@@ -1330,7 +1343,14 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-version.ts returns th
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "question": {
     "content": "**Under the Articles of Confederation[[☃ dropdown 1]] chose the president of the United States.** ",
     "images": {},
@@ -1472,7 +1492,26 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -2159,7 +2198,50 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts ret
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -2532,7 +2614,38 @@ exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.ts
     "periodicTable": true,
     "periodicTableWithKey": true,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -2879,7 +2992,26 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts return
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -3144,7 +3276,32 @@ exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.ts returns t
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "question": {
     "content": "**Graph $6x-5y=30$ .**
 
@@ -3717,7 +3874,20 @@ exports[`parseAndMigratePerseusItem given hint-missing-images.ts returns the sam
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -3832,7 +4002,26 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -3988,7 +4177,14 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -4178,7 +4374,14 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -4488,7 +4691,38 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -4732,7 +4966,32 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -6409,7 +6668,26 @@ exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -9123,7 +9401,32 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.ts ret
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -9445,7 +9748,14 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -9705,7 +10015,26 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.ts re
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "question": {
     "content": "**Arrange the vertices of the movable triangle to construct the image of $\\triangle GAR$ after a translation by $\\langle3,7\\rangle$.**
 
@@ -9938,7 +10267,26 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -10810,7 +11158,20 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns 
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -11247,7 +11608,50 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the 
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "question": {
     "content": "$\\textbf A = \\left[\\begin{array}{rrr}2 & 0 & 1 \\\\ 0 & 1 & 1 \\\\ 1 & 1 & 1\\end{array}\\right]$
 
@@ -11676,7 +12080,26 @@ exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.ts r
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -11844,7 +12267,26 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "question": {
     "content": "crwdns3125767:0crwdne3125767:0",
     "images": {},
@@ -12262,7 +12704,32 @@ exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.ts r
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -12630,7 +13097,26 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -12830,7 +13316,26 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -13081,7 +13586,20 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -13257,7 +13775,20 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -13737,7 +14268,50 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -14236,7 +14810,56 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -14632,7 +15255,32 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -15011,7 +15659,74 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "question": {
     "content": "Michael is $12$ years older than Brandon. Seventeen years ago, Michael was $4$ times as old as Brandon. 
 
@@ -15847,7 +16562,38 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-images.ts retur
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -16000,7 +16746,20 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -16150,7 +16909,14 @@ exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.ts returns
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "question": {
     "content": "Here is a doric, ionic and corinthian capital. Put these  in the chronological order of their development. [[☃ orderer 1]]
 
@@ -16964,7 +17730,26 @@ exports[`parseAndMigratePerseusItem given passage-ref-missing-summaryText.ts ret
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -17298,7 +18083,20 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -17521,7 +18319,26 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "itemDataVersion": {
     "major": 0,
     "minor": 1,
@@ -19559,7 +20376,32 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
     "periodicTable": false,
     "periodicTableWithKey": false,
   },
-  "hints": [],
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
   "question": {
     "content": "**Pick the expression that matches this description:**\\n\\nA polynomial of the $3^{\\text{th}}$ degree with a leading coefficient of $5$ and a constant term of $-2$
 
