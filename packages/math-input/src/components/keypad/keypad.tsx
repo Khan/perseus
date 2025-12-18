@@ -39,6 +39,14 @@ export interface KeypadProps {
     ) => void;
 }
 
+// Inline styles needed because CSS modules don't have enough specificity
+// to override Wonder Blocks View default styles
+const keypadOuterContainerStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+} as const;
+
 const tabsStyles = {
     tab: {
         marginBlockStart: sizing.size_080,
@@ -108,7 +116,10 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
     const availableTabs = getAvailableTabs({...props, extraKeys}, selectedPage);
 
     return (
-        <View className={expandedView ? styles.keypadOuterContainer : ""}>
+        <View
+            className={expandedView ? styles.keypadOuterContainer : ""}
+            style={expandedView ? keypadOuterContainerStyle : undefined}
+        >
             <View
                 className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
                 style={{position: "relative"}}
