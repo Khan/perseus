@@ -1,3 +1,4 @@
+import {KeypadContext} from "@khanacademy/keypad-context";
 import {KeypadInput} from "@khanacademy/math-input";
 import {expressionLogic} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -86,6 +87,23 @@ const defaultButtonSets: LegacyButtonSets = [
 const defaultOnFocus = () => {};
 const defaultOnBlur = () => {};
 
+const KeypadInputWithInterface = React.forwardRef<any, any>((props, ref) => {
+    const keypadInputRef = React.useRef<KeypadInput>(null);
+    React.useImperativeHandle(ref, () => ({
+        focus: (cb) => keypadInputRef.current?.focus(cb),
+        blur: () => keypadInputRef.current?.blur(),
+        insert: (val) => {
+            // The `KeypadInput` component from `@khanacademy/math-input`
+            // does not have an `insert` method, so we have to call the
+            // `mathField` directly.
+            keypadInputRef.current?.mathField.write(val);
+        },
+    }));
+
+    return <KeypadInput ref={keypadInputRef} {...props} />;
+});
+KeypadInputWithInterface.displayName = "KeypadInputWithInterface";
+
 // The new, MathQuill input expression widget
 export const Expression = forwardRef<Widget, Props>(
     function Expression(props, ref) {
@@ -111,6 +129,7 @@ export const Expression = forwardRef<Widget, Props>(
 
         // Hooks
         const {strings} = usePerseusI18n();
+        const {setKeypadActive} = React.useContext(KeypadContext);
         const textareaId = useId();
         const inputRef = useRef<any>(null); // KeypadInput/MathInput don't export ref types
         const rootRef = useRef<HTMLDivElement>(null);
@@ -195,7 +214,7 @@ export const Expression = forwardRef<Widget, Props>(
                 focus: (): boolean => {
                     // Try direct focus first
                     if (inputRef.current?.focus) {
-                        inputRef.current.focus();
+                        inputRef.current.focus(setKeypadActive);
                         return true;
                     }
 
@@ -220,7 +239,7 @@ export const Expression = forwardRef<Widget, Props>(
                 },
 
                 focusInputPath: (path: FocusPath) => {
-                    inputRef.current?.focus?.();
+                    inputRef.current?.focus?.(setKeypadActive);
                 },
 
                 blurInputPath: (path: FocusPath) => {
@@ -275,7 +294,7 @@ export const Expression = forwardRef<Widget, Props>(
                             {visibleLabel}
                         </LabelSmall>
                     )}
-                    <KeypadInput
+                    <KeypadInputWithInterface
                         ref={inputRef}
                         ariaLabel={ariaLabel || strings.mathInputBox}
                         value={userInput}
