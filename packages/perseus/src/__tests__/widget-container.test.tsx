@@ -8,7 +8,7 @@ import {
 import * as Dependencies from "../dependencies";
 import WidgetContainer from "../widget-container";
 import {registerWidget} from "../widgets";
-import PassageWidget from "../widgets/passage";
+import Explanation from "../widgets/explanation";
 
 import type {PerseusDependenciesV2, WidgetExports} from "../types";
 
@@ -53,36 +53,39 @@ describe("widget-container", () => {
         );
     });
 
-    it("should render the requested widget", async () => {
+    it("should render the requested widget", () => {
         // Arrange
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
 
-        registerWidget("passage", PassageWidget);
+        registerWidget("explanation", Explanation);
 
         // Act
         render(
-            <WidgetContainer
-                type="passage"
-                id="passage 1"
-                shouldHighlight={false}
-                widgetProps={{
-                    passageTitle: "Greeting",
-                    passageText: "Hello world!",
-                    footnotes: null,
-                    showLineNumbers: true,
+            <Dependencies.DependenciesContext.Provider
+                value={testDependenciesV2}
+            >
+                <WidgetContainer
+                    type="explanation"
+                    id="explanation 1"
+                    shouldHighlight={false}
+                    widgetProps={{
+                        showPrompt: "Explanation",
+                        hidePrompt: "Hide explanation",
+                        explanation: "This is an explanation",
+                        widgets: {},
 
-                    findWidgets: () => [],
+                        findWidgets: () => [],
 
-                    apiOptions: {isMobile: false},
-                }}
-            />,
+                        apiOptions: {isMobile: false},
+                    }}
+                />
+            </Dependencies.DependenciesContext.Provider>,
         );
 
-        // Assert
-        expect(await screen.findByText("Greeting")).toBeInTheDocument();
-        expect(await screen.findByText("Hello world")).toBeInTheDocument();
+        // Assert - widget renders button
+        expect(screen.getByText("Explanation")).toBeInTheDocument();
     });
 
     it("should send analytics even when widget rendering errors", () => {
