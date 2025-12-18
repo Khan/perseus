@@ -277,7 +277,13 @@ export const Expression = forwardRef<Widget, Props>(
                     };
                 },
             }),
-            [props, userInput, apiOptions, getKeypadConfiguration],
+            [
+                props,
+                userInput,
+                apiOptions,
+                setKeypadActive,
+                getKeypadConfiguration,
+            ],
         );
 
         // Render
