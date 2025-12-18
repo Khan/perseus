@@ -5,6 +5,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ButtonAsset from "./button-assets";
+import {useKeypadIdContext} from "./keypad-id-context";
 
 import type {KeyConfig, ClickKeyCallback} from "../../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
@@ -29,7 +30,39 @@ export const KeypadButton = ({
     secondary,
     action,
 }: KeypadButtonProps): React.ReactElement => {
+    const keypadId = useKeypadIdContext();
     const tintColor = secondary ? "#F6F6F7" : action ? "#DBDCDD" : undefined;
+
+    function handleKeyDown(e: React.KeyboardEvent<Element>) {
+        let nextCoordX = coord[0];
+        let nextCoordY = coord[1];
+
+        switch (e.key) {
+            case "ArrowLeft":
+                e.preventDefault();
+                nextCoordX = coord[0] - 1;
+                break;
+            case "ArrowRight":
+                e.preventDefault();
+                nextCoordX = coord[0] + 1;
+                break;
+            case "ArrowUp":
+                e.preventDefault();
+                nextCoordY = coord[1] - 1;
+                break;
+            case "ArrowDown":
+                e.preventDefault();
+                nextCoordY = coord[1] + 1;
+                break;
+        }
+
+        const nextButton = document.getElementById(
+            `keypad-${keypadId}-button-${nextCoordX}-${nextCoordY}`,
+        );
+        if (nextButton) {
+            nextButton.focus();
+        }
+    }
 
     return (
         <View
@@ -43,6 +76,7 @@ export const KeypadButton = ({
             testId={keyConfig.id}
         >
             <Clickable
+                id={`keypad-${keypadId}-button-${coord[0]}-${coord[1]}`}
                 onClick={(e) => onClickKey(keyConfig.id, e)}
                 onMouseDown={(e) =>
                     // Prevent the default behavior of forcing the focus to the
@@ -52,6 +86,7 @@ export const KeypadButton = ({
                     // (The focus shift happens on mouse down, not on click.)
                     e.preventDefault()
                 }
+                onKeyDown={handleKeyDown}
                 style={styles.clickable}
                 aria-label={keyConfig.ariaLabel}
             >

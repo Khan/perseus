@@ -7,6 +7,7 @@ import * as React from "react";
 import {useEffect} from "react";
 
 import {KeypadFractionsOnly} from "./keypad-fractions-only";
+import {KeypadIdContext} from "./keypad-id-context";
 import styles from "./keypad.module.css";
 import {getAvailableTabs} from "./utils/get-available-tabs";
 
@@ -67,6 +68,10 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
         showDismiss,
         onClickKey,
     } = props;
+
+    // Generate a unique ID for the keypad.
+    const keypadId = React.useId();
+
     // If we're using the Fractions keypad, we want to default select that page
     // Otherwise, we want to default to the Numbers page
     const defaultSelectedPage = fractionsOnly ? "Fractions" : "Numbers";
@@ -108,44 +113,46 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
     const availableTabs = getAvailableTabs({...props, extraKeys}, selectedPage);
 
     return (
-        <View className={expandedView ? styles.keypadOuterContainer : ""}>
-            <View
-                className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
-                style={{position: "relative"}}
-            >
-                {showDismiss && (
-                    <View
-                        style={{
-                            position: "absolute",
-                            top: sizing.size_120,
-                            right: sizing.size_080,
-                            zIndex: 10,
-                        }}
-                    >
-                        <IconButton
-                            icon={xBold}
-                            kind="tertiary"
-                            aria-label="Dismiss"
-                            onClick={() => onClickKey("DISMISS")}
-                            size="xsmall"
-                            tabIndex={0}
+        <KeypadIdContext.Provider value={keypadId}>
+            <View className={expandedView ? styles.keypadOuterContainer : ""}>
+                <View
+                    className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
+                    style={{position: "relative"}}
+                >
+                    {showDismiss && (
+                        <View
                             style={{
-                                color: semanticColor.core.foreground.neutral
-                                    .default,
+                                position: "absolute",
+                                top: sizing.size_120,
+                                right: sizing.size_080,
+                                zIndex: 10,
                             }}
-                        />
-                    </View>
-                )}
-                <Tabs
-                    aria-label="Keypad"
-                    tabs={availableTabs}
-                    selectedTabId={selectedPage}
-                    onTabSelected={(newSelectedPage: string) => {
-                        setSelectedPage(newSelectedPage as KeypadPageType);
-                    }}
-                    styles={tabsStyles}
-                />
+                        >
+                            <IconButton
+                                icon={xBold}
+                                kind="tertiary"
+                                aria-label="Dismiss"
+                                onClick={() => onClickKey("DISMISS")}
+                                size="xsmall"
+                                tabIndex={0}
+                                style={{
+                                    color: semanticColor.core.foreground.neutral
+                                        .default,
+                                }}
+                            />
+                        </View>
+                    )}
+                    <Tabs
+                        aria-label="Keypad"
+                        tabs={availableTabs}
+                        selectedTabId={selectedPage}
+                        onTabSelected={(newSelectedPage: string) => {
+                            setSelectedPage(newSelectedPage as KeypadPageType);
+                        }}
+                        styles={tabsStyles}
+                    />
+                </View>
             </View>
-        </View>
+        </KeypadIdContext.Provider>
     );
 }
