@@ -90,7 +90,7 @@ class HintsRenderer extends React.Component<Props, State> {
         ) {
             const pos = nextHintsVisible - 1;
             // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus(); // eslint-disable-line react/no-string-refs
+            ReactDOM.findDOMNode(this.refs["hintRenderer" + pos])?.focus?.(); // eslint-disable-line react/no-string-refs
         }
     }
 
