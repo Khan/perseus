@@ -33,33 +33,68 @@ export const KeypadButton = ({
     const keypadId = useKeypadIdContext();
     const tintColor = secondary ? "#F6F6F7" : action ? "#DBDCDD" : undefined;
 
+    // Recursive function to get next button
+    function _getNextButton(
+        e: React.KeyboardEvent<Element>,
+        nextCoord: readonly [number, number],
+    ): HTMLElement | null {
+        const nextX = ((nextCoord[0] % 6) + 6) % 6;
+        const nextY = ((nextCoord[1] % 4) + 4) % 4;
+
+        const nextButton = document.getElementById(
+            `keypad-${keypadId}-button-${nextX}-${nextY}`,
+        );
+
+        if (e.key === "ArrowLeft") {
+            if (nextButton == null) {
+                return _getNextButton(e, [nextX - 1, nextY]);
+            }
+            return nextButton;
+        }
+        if (e.key === "ArrowRight") {
+            if (nextButton == null) {
+                return _getNextButton(e, [nextX + 1, nextY]);
+            }
+            return nextButton;
+        }
+        if (e.key === "ArrowUp") {
+            if (nextButton == null) {
+                return _getNextButton(e, [nextX, nextY - 1]);
+            }
+            return nextButton;
+        }
+        if (e.key === "ArrowDown") {
+            if (nextButton == null) {
+                return _getNextButton(e, [nextX, nextY + 1]);
+            }
+            return nextButton;
+        }
+        return null;
+    }
+
     function handleKeyDown(e: React.KeyboardEvent<Element>) {
-        let nextCoordX = coord[0];
-        let nextCoordY = coord[1];
+        let nextButton: HTMLElement | null = null;
 
         switch (e.key) {
             case "ArrowLeft":
                 e.preventDefault();
-                nextCoordX = coord[0] - 1;
+                nextButton = _getNextButton(e, [coord[0] - 1, coord[1]]);
                 break;
             case "ArrowRight":
                 e.preventDefault();
-                nextCoordX = coord[0] + 1;
+                nextButton = _getNextButton(e, [coord[0] + 1, coord[1]]);
                 break;
             case "ArrowUp":
                 e.preventDefault();
-                nextCoordY = coord[1] - 1;
+                nextButton = _getNextButton(e, [coord[0], coord[1] - 1]);
                 break;
             case "ArrowDown":
                 e.preventDefault();
-                nextCoordY = coord[1] + 1;
+                nextButton = _getNextButton(e, [coord[0], coord[1] + 1]);
                 break;
         }
 
-        const nextButton = document.getElementById(
-            `keypad-${keypadId}-button-${nextCoordX}-${nextCoordY}`,
-        );
-        if (nextButton) {
+        if (nextButton != null) {
             nextButton.focus();
         }
     }
