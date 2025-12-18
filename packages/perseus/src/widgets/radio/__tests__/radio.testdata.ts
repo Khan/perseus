@@ -6,6 +6,7 @@ import {
     generateRadioOptions,
     generateRadioChoice,
     generateSimpleRadioQuestion,
+    generateGradedGroupSetWidget,
 } from "@khanacademy/perseus-core";
 
 export const question: PerseusRenderer = generateTestPerseusRenderer({
@@ -30,7 +31,6 @@ export const question: PerseusRenderer = generateTestPerseusRenderer({
                     generateRadioChoice(
                         "No value of $x$ satisfies the equation.",
                         {
-                            correct: false,
                             rationale: "$8$ satisfies the equation.",
                         },
                     ),
@@ -297,7 +297,6 @@ export const multiChoiceQuestionSimple: PerseusRenderer =
                             rationale: "Some people like to say Goodbye.",
                         }),
                         generateRadioChoice("None of these", {
-                            correct: false,
                             isNoneOfTheAbove: true,
                         }),
                     ],
@@ -417,11 +416,7 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
         "#Testing scrollbar color when background color exists\n\n[[☃ graded-group-set 1]]\n\n\nFade color should match the background.",
     images: {},
     widgets: {
-        "graded-group-set 1": {
-            type: "graded-group-set",
-            alignment: "default",
-            static: false,
-            graded: true,
+        "graded-group-set 1": generateGradedGroupSetWidget({
             options: {
                 gradedGroups: [
                     {
@@ -444,8 +439,7 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
                     },
                 ],
             },
-            version: {major: 0, minor: 0},
-        },
+        }),
     },
 };
 

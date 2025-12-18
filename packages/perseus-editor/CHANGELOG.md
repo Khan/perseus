@@ -1,5 +1,28 @@
 # @khanacademy/perseus-editor
 
+## 28.8.10
+
+### Patch Changes
+
+-   Updated dependencies [[`50b7c8b5ea`](https://github.com/Khan/perseus/commit/50b7c8b5ea3b7f4bf0c3f3de20ff3312b7c477b6)]:
+    -   @khanacademy/perseus-score@8.2.0
+    -   @khanacademy/perseus@72.6.6
+
+## 28.8.9
+
+### Patch Changes
+
+-   [#3141](https://github.com/Khan/perseus/pull/3141) [`d2ee45a2d1`](https://github.com/Khan/perseus/commit/d2ee45a2d104710d419e5501b218a62408d24277) Thanks [@handeyeco](https://github.com/handeyeco)! - Add more safety checks in ImageWidgetDiff
+
+-   Updated dependencies [[`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705)]:
+    -   @khanacademy/perseus-core@21.0.2
+    -   @khanacademy/keypad-context@3.2.24
+    -   @khanacademy/kmath@2.2.24
+    -   @khanacademy/math-input@26.3.4
+    -   @khanacademy/perseus@72.6.5
+    -   @khanacademy/perseus-linter@4.6.6
+    -   @khanacademy/perseus-score@8.1.2
+
 ## 28.8.8
 
 ### Patch Changes
