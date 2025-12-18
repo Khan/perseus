@@ -150,6 +150,7 @@ class HintsRenderer extends React.Component<Props, State> {
         > = [];
         const isFinalHelpPage = this.state.isFinalHelpPage;
         this.props.hints.slice(0, hintsVisible).forEach((hint, i) => {
+            // TODO(LEMS-3806): there's probably a better way to do this
             if (hint.placeholder) {
                 return;
             }
