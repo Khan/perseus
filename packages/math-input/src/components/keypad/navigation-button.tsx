@@ -10,10 +10,12 @@ import type {KeyConfig, ClickKeyCallback} from "../../types";
 import type {KeypadKey} from "@khanacademy/perseus-core";
 
 type KeypadButtonProps = {
+    id: string;
     // 0 indexed [x, y] position in keypad CSS grid
     coord: readonly [number, number];
     keyConfig: KeyConfig;
     onClickKey: ClickKeyCallback;
+    onKeyDown: (e: React.KeyboardEvent<Element>) => void;
 };
 
 function getStyles(key: KeypadKey) {
@@ -32,9 +34,11 @@ function getStyles(key: KeypadKey) {
 }
 
 export default function NavigationButton({
+    id,
     coord,
     keyConfig,
     onClickKey,
+    onKeyDown,
 }: KeypadButtonProps) {
     const key = keyConfig.id;
     const directionalStyles = getStyles(key);
@@ -47,7 +51,9 @@ export default function NavigationButton({
             }}
         >
             <Clickable
+                id={id}
                 onClick={(e) => onClickKey(keyConfig.id, e)}
+                onKeyDown={onKeyDown}
                 style={styles.clickable}
                 aria-label={keyConfig.ariaLabel}
             >
