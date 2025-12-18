@@ -13,10 +13,7 @@ import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-it
 import {storybookDependenciesV2} from "../../../../../../testing/test-dependencies";
 import ArticleRenderer from "../../../article-renderer";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
-import {
-    choicesWithMathFont,
-    questionWithPassage,
-} from "../__tests__/radio.testdata";
+import {choicesWithMathFont, question} from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -54,7 +51,7 @@ export default {
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: question,
         }),
     } satisfies StoryArgs,
     argTypes: {
