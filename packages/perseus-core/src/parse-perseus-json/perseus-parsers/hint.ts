@@ -12,6 +12,7 @@ import {parseWidgetsMap} from "./widgets-map";
 
 export const parseHint = object({
     replace: defaulted(optional(boolean), () => undefined),
+    placeholder: defaulted(optional(boolean), () => undefined),
     content: string,
     widgets: defaulted(parseWidgetsMap, () => ({})),
     images: parseImages,
