@@ -4,7 +4,6 @@ import {ArticleRendererWithDebugUI} from "../../../../testing/article-renderer-w
 import {
     singleSectionArticle,
     multiSectionArticle,
-    passageArticle,
     articleSectionWithExpression,
     multiSectionArticleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
@@ -33,12 +32,6 @@ export const ASingleSectionArticle: Story = {
 export const BMultiSectionArticle: Story = {
     args: {
         json: multiSectionArticle,
-    },
-};
-
-export const PassageArticle: Story = {
-    args: {
-        json: passageArticle,
     },
 };
 

@@ -15,7 +15,7 @@ import ArticleRenderer from "../../../article-renderer";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
     choicesWithMathFont,
-    questionWithPassage,
+    questionWithRationale,
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -54,7 +54,7 @@ export default {
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: questionWithRationale,
         }),
     } satisfies StoryArgs,
     argTypes: {

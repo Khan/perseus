@@ -25,34 +25,6 @@ describe("splitPerseusRenderer", () => {
         expect(rv).toEqual(question);
     });
 
-    it("doesn't need to strip unscorable widgets", () => {
-        // Arrange
-        const question: PerseusRenderer = {
-            content: "[[☃ passage 1]]",
-            // calling the upgrader here so I don't
-            // bog down the test with default properties
-            widgets: applyDefaultsToWidgets({
-                "passage 1": {
-                    type: "passage",
-                    options: {
-                        footnotes: "",
-                        passageText: "Hello world",
-                        passageTitle: "",
-                        showLineNumbers: true,
-                        static: false,
-                    },
-                },
-            }),
-            images: {},
-        };
-
-        // Act
-        const rv = splitPerseusRenderer(question);
-
-        // Assert
-        expect(rv).toEqual(question);
-    });
-
     it("strips Radio widgets", () => {
         // Arrange
         const question: PerseusRenderer = {

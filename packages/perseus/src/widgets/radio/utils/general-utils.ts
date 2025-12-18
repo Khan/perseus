@@ -1,6 +1,3 @@
-import Util from "../../../util";
-import PassageRef from "../../passage-ref/passage-ref";
-
 import type {ChoiceState} from "../../../types";
 import type {RadioChoiceWithMetadata} from "../multiple-choice-widget.new";
 import type {ShowSolutions} from "@khanacademy/perseus-core";
@@ -65,42 +62,4 @@ export const getChoiceStates = ({
     // The widget is in its pristine state with no user interaction yet
     // — In this state, we return the default, unselected choice states.
     return choices.map(() => ({...defaultState}));
-};
-
-/**
- * Parse the nested widgets in the content of a Radio widget.
- * Currently this only supports passage-ref widgets, but can
- * be extended to support other nested widgets in the future.
- *
- * @param content - The content of the Radio widget.
- * @returns The parsed content and the extracted widgets.
- */
-export const parseNestedWidgets = (
-    content: string,
-): {parsedContent: string; extractedWidgets: Record<string, any>} => {
-    let nextPassageRefId = 1;
-    const extractedWidgets: Record<string, any> = {};
-
-    const parsedContent = content.replace(
-        /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
-        (_, passageNum: string, refNum: string, summaryText: string) => {
-            const widgetId = "passage-ref " + nextPassageRefId;
-            nextPassageRefId++;
-
-            extractedWidgets[widgetId] = {
-                type: "passage-ref",
-                graded: false,
-                options: {
-                    passageNumber: parseInt(passageNum),
-                    referenceNumber: parseInt(refNum),
-                    summaryText: summaryText,
-                },
-                version: PassageRef.version,
-            };
-
-            return "[[" + Util.snowman + " " + widgetId + "]]";
-        },
-    );
-
-    return {parsedContent, extractedWidgets};
 };

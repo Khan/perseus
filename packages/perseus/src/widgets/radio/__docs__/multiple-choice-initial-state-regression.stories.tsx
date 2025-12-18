@@ -16,7 +16,6 @@ import {
     choicesWithGraphie,
     choicesWithImages,
     overflowContentInGradedGroupSet,
-    questionWithPassage,
     questionWithRationale,
 } from "../__tests__/radio.testdata";
 
@@ -142,7 +141,7 @@ export const SingleSelectRTL: Story = {
 export const SingleSelectWithPassageRef: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: questionWithRationale,
         }),
     },
 };
