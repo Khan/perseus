@@ -597,7 +597,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("accepts a passage widget", () => {
+    it("converts a passage widget to the deprecated-standin widget", () => {
         const widgetsMap: unknown = {
             "passage 1": {
                 type: "passage",
@@ -612,12 +612,26 @@ describe("parseWidgetsMap", () => {
             },
         };
 
+        const expected: PerseusWidgetsMap = {
+            "passage 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                options: {
+                    footnotes: "",
+                    passageText: "",
+                    passageTitle: "",
+                    showLineNumbers: false,
+                    static: false,
+                },
+            },
+        };
+
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(widgetsMap));
+        expect(result).toEqual(success(expected));
     });
 
-    it("accepts a passage-ref widget", () => {
+    it("converts a passage-ref widget to the deprecated-standin widget", () => {
         const widgetsMap: unknown = {
             "passage-ref 1": {
                 type: "passage-ref",
@@ -630,9 +644,43 @@ describe("parseWidgetsMap", () => {
             },
         };
 
+        const expected: PerseusWidgetsMap = {
+            "passage-ref 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                options: {
+                    passageNumber: 0,
+                    referenceNumber: 0,
+                    summaryText: "",
+                },
+            },
+        };
+
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(widgetsMap));
+        expect(result).toEqual(success(expected));
+    });
+
+    it("converts a passage-ref-target widget to the deprecated-standin widget", () => {
+        const widgetsMap: unknown = {
+            "passage-ref-target 1": {
+                type: "passage-ref-target",
+                version: {major: 0, minor: 0},
+                options: {},
+            },
+        };
+
+        const expected: PerseusWidgetsMap = {
+            "passage-ref-target 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                options: {},
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(expected));
     });
 
     it("accepts a phet-simulation widget", () => {

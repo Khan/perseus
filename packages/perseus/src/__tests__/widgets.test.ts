@@ -19,10 +19,6 @@ describe("Widget API support", () => {
                         major: 1,
                         minor: 0,
                     },
-                    "passage-ref": {
-                        major: 0,
-                        minor: 1,
-                    },
                     radio: {
                         major: 3,
                         minor: 0,

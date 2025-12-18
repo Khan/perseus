@@ -612,8 +612,6 @@ class Renderer
      * If you need to do logic with more than the components, it is possible
      * to do such logic inside the filter, rather than on the result array.
      *
-     * See the passage-ref widget for an example.
-     *
      * "Remember: abilities are not inherently good or evil, it's how you use
      * them." ~ Kyle Katarn
      * Please use this one with caution.

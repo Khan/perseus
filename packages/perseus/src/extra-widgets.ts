@@ -24,9 +24,6 @@ import Measurer from "./widgets/measurer";
 import Molecule from "./widgets/molecule";
 import NumberLine from "./widgets/number-line";
 import Orderer from "./widgets/orderer";
-import Passage from "./widgets/passage";
-import PassageRef from "./widgets/passage-ref";
-import PassageRefTarget from "./widgets/passage-ref-target";
 import PhetSimulation from "./widgets/phet-simulation";
 import Plotter from "./widgets/plotter";
 import PythonProgram from "./widgets/python-program";
@@ -59,9 +56,6 @@ export default [
     Molecule,
     NumberLine,
     Orderer,
-    Passage,
-    PassageRef,
-    PassageRefTarget,
     PhetSimulation,
     Plotter,
     PythonProgram,

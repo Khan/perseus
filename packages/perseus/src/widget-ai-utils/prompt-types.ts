@@ -16,8 +16,6 @@ import type {MockWidgetPromptJSON} from "./mock-widget/prompt-utils";
 import type {NumberLinePromptJSON} from "./number-line/number-line-ai-utils";
 import type {NumericInputPromptJSON} from "./numeric-input/prompt-utils";
 import type {OrdererPromptJSON} from "./orderer/orderer-ai-utils";
-import type {PassagePromptJSON} from "./passage/passage-ai-utils";
-import type {PassageRefPromptJSON} from "./passage-ref/passage-ref-ai-utils";
 import type {RadioPromptJSON} from "./radio/radio-ai-utils";
 import type {SorterPromptJSON} from "./sorter/sorter-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "./unsupported-widget";
@@ -52,8 +50,6 @@ export type WidgetPromptJSON =
     | NumberLinePromptJSON
     | NumericInputPromptJSON
     | OrdererPromptJSON
-    | PassagePromptJSON
-    | PassageRefPromptJSON
     | RadioPromptJSON
     | SorterPromptJSON
     | UnsupportedWidgetPromptJSON;

@@ -6,10 +6,10 @@ import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
-    questionWithPassage,
     choicesWithImages,
     multiChoiceQuestionSimple,
     multiChoiceQuestion,
+    questionWithRationale,
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -47,7 +47,7 @@ export default {
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: questionWithRationale,
         }),
     } satisfies StoryArgs,
     argTypes: {
@@ -91,7 +91,7 @@ const buildApiOptions = (args: StoryArgs): APIOptions => ({});
 export const SingleSelect = {
     args: {
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: questionWithRationale,
         }),
     },
 };
@@ -129,7 +129,7 @@ export const MultiSelect = {
 export const AnswerlessSingleSelect = {
     args: {
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: questionWithRationale,
         }),
         startAnswerless: true,
     },

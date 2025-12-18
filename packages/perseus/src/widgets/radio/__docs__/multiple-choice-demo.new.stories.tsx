@@ -5,7 +5,6 @@ import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
-    questionWithPassage,
     choicesWithGraphie,
     choicesWithImages,
     multiChoiceQuestionSimple,
@@ -14,6 +13,7 @@ import {
     SingleSelectOverflowContent,
     SingleSelectOverflowImageContent,
     overflowContentInGradedGroupSet,
+    questionWithRationale,
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -59,7 +59,7 @@ export default {
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: questionWithRationale,
         }),
     } satisfies StoryArgs,
     argTypes: {
@@ -108,7 +108,7 @@ const buildApiOptions = (args: StoryArgs): APIOptions => ({
 export const SingleSelect = {
     args: {
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: questionWithRationale,
         }),
     },
 };
@@ -194,7 +194,7 @@ export const GradedGroup = {
 export const AnswerlessSingleSelect = {
     args: {
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: questionWithRationale,
         }),
         startAnswerless: true,
     },
