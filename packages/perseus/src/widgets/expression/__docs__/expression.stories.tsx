@@ -1,6 +1,8 @@
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {ApiOptions} from "../../../perseus-api";
 import expressionExport from "../expression";
 import {
     expressionItem2,
@@ -32,20 +34,36 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 /** This story shows how the expression widget looks when the keypad is
  * configured with _every_ option it supports.  */
 // TODO: use a Renderer wrapper rather than rendering this directly
-export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
+export const DesktopKitchenSink = (): React.ReactElement => {
+    const noop = () => {};
+    const handleUserInput = (
+        _newValue: string,
+        cb?: () => void,
+        _silent?: boolean,
+    ) => {
+        cb?.();
+    };
+
     return (
         <div style={{padding: "2rem"}}>
             <expressionExport.widget
                 alignment={null}
-                visibleLabel=""
-                ariaLabel=""
+                apiOptions={ApiOptions.defaults}
+                buttonSets={["basic", "trig", "prealgebra", "logarithms"]}
+                functions={["f", "g", "h"]}
+                times={true}
+                visibleLabel="Expression Kitchen Sink"
+                ariaLabel="Expression Kitchen Sink"
                 containerSizeClass="small"
-                findWidgets={(callback) => []}
+                findWidgets={() => []}
                 problemNum={1}
                 static={false}
-                handleUserInput={() => {}}
+                linterContext={linterContextDefault}
+                handleUserInput={handleUserInput}
                 userInput=""
-                trackInteraction={() => {}}
+                onBlur={noop}
+                onFocus={noop}
+                trackInteraction={noop}
                 widgetId="expression"
                 widgetIndex={0}
                 extraKeys={["x", "y", "z"]}
