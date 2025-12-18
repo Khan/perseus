@@ -87,6 +87,19 @@ const defaultButtonSets: LegacyButtonSets = [
 const defaultOnFocus = () => {};
 const defaultOnBlur = () => {};
 
+/**
+ * Wrapper component for KeypadInput that adds the Widget interface methods.
+ *
+ * KeypadInput from @khanacademy/math-input is a class component that doesn't
+ * export its ref type or provide an `insert` method. This wrapper:
+ * - Provides a consistent interface with focus(), blur(), and insert() methods
+ * - Uses mathField.pressKey() for insert to match KeypadInput's internal behavior
+ * - Ensures proper key translation (FRAC → fraction, trig functions, etc.)
+ * - Allows the Expression widget to treat mobile and desktop inputs uniformly
+ *
+ * This is a temporary workaround until KeypadInput is converted to a
+ * functional component with proper TypeScript types.
+ */
 const KeypadInputWithInterface = React.forwardRef<any, any>((props, ref) => {
     const keypadInputRef = React.useRef<KeypadInput>(null);
     React.useImperativeHandle(ref, () => ({
@@ -94,9 +107,11 @@ const KeypadInputWithInterface = React.forwardRef<any, any>((props, ref) => {
         blur: () => keypadInputRef.current?.blur(),
         insert: (val) => {
             // The `KeypadInput` component from `@khanacademy/math-input`
-            // does not have an `insert` method, so we have to call the
-            // `mathField` directly.
-            keypadInputRef.current?.mathField.write(val);
+            // does not have an `insert` method, so we call `pressKey` on
+            // the mathField directly. This matches KeypadInput's internal
+            // key handling (see math-input.tsx line 360) and ensures proper
+            // key translation (e.g., FRAC → fraction command, trig functions).
+            keypadInputRef.current?.mathField?.pressKey?.(val);
         },
     }));
 
@@ -112,7 +127,6 @@ export const Expression = forwardRef<Widget, Props>(
             apiOptions = ApiOptions.defaults,
             buttonSets = defaultButtonSets,
             times = false,
-            // functions: __functions = [],
             onFocus = defaultOnFocus,
             onBlur = defaultOnBlur,
             userInput = "",
@@ -124,7 +138,6 @@ export const Expression = forwardRef<Widget, Props>(
             handleUserInput,
             trackInteraction,
             widgetId,
-            // linterContext = linterContextDefault,
         } = props;
 
         // Hooks
@@ -215,7 +228,8 @@ export const Expression = forwardRef<Widget, Props>(
                     // Try direct focus first
                     if (inputRef.current?.focus) {
                         inputRef.current.focus(setKeypadActive);
-                        return true;
+                        // Verify focus succeeded by checking the active element
+                        return document.activeElement?.id === textareaId;
                     }
 
                     // Fallback: querySelector approach
@@ -233,9 +247,15 @@ export const Expression = forwardRef<Widget, Props>(
                         return false;
                     }
 
+                    // Track what was previously focused to verify we actually changed focus
+                    const previouslyFocused = document.activeElement;
                     element.focus();
 
-                    return true;
+                    // Verify focus succeeded: element is now focused AND it wasn't already focused
+                    return (
+                        document.activeElement === element &&
+                        previouslyFocused !== element
+                    );
                 },
 
                 focusInputPath: (path: FocusPath) => {
@@ -283,6 +303,7 @@ export const Expression = forwardRef<Widget, Props>(
                 apiOptions,
                 setKeypadActive,
                 getKeypadConfiguration,
+                textareaId,
             ],
         );
 
