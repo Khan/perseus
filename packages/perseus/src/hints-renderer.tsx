@@ -96,14 +96,25 @@ class HintsRenderer extends React.Component<Props, State> {
                 return;
             }
 
-            // eslint-disable-next-line react/no-string-refs
-            const domNode = ReactDOM.findDOMNode(
-                this.refs["hintRenderer" + pos],
-            ) as HTMLElement | null;
+            try {
+                // eslint-disable-next-line react/no-string-refs
+                const ref = this.refs["hintRenderer" + pos];
 
-            // Only focus if we have a valid DOM node that supports focus
-            if (domNode && typeof domNode.focus === "function") {
-                domNode.focus();
+                // Ensure the ref exists before trying to find its DOM node
+                if (ref == null) {
+                    return;
+                }
+
+                const domNode = ReactDOM.findDOMNode(ref) as HTMLElement | null;
+
+                // Only focus if we have a valid DOM node that supports focus
+                if (domNode && typeof domNode.focus === "function") {
+                    domNode.focus();
+                }
+            } catch (e) {
+                // Silently fail if we can't focus the hint (e.g., ref not ready,
+                // DOM node doesn't exist, etc.)
+                // This can happen with placeholder hints or timing issues
             }
         }
     }
