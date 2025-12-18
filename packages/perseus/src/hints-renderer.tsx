@@ -90,7 +90,7 @@ class HintsRenderer extends React.Component<Props, State> {
         ) {
             const pos = nextHintsVisible - 1;
             // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(this.refs["hintRenderer" + pos])?.focus?.(); // eslint-disable-line react/no-string-refs
+            ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus(); // eslint-disable-line react/no-string-refs
         }
     }
 
@@ -150,11 +150,6 @@ class HintsRenderer extends React.Component<Props, State> {
         > = [];
         const isFinalHelpPage = this.state.isFinalHelpPage;
         this.props.hints.slice(0, hintsVisible).forEach((hint, i) => {
-            // TODO(LEMS-3806): there's probably a better way to do this
-            if (hint.placeholder) {
-                return;
-            }
-
             const lastHint =
                 i === this.props.hints.length - 1 && !/\*\*/.test(hint.content);
             const lastRendered = i === hintsVisible - 1;
@@ -167,6 +162,7 @@ class HintsRenderer extends React.Component<Props, State> {
                     hint={hint}
                     pos={i}
                     totalHints={this.props.hints.length}
+                    placeholder={hint.placeholder}
                     ref={"hintRenderer" + i}
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}

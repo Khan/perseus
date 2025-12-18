@@ -20,6 +20,7 @@ type Props = SharedRendererProps & {
     pos: number;
     totalHints?: number;
     findExternalWidgets?: any;
+    placeholder?: boolean;
     dependencies: PerseusDependenciesV2;
 };
 
@@ -47,6 +48,12 @@ class HintRenderer extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        if (this.props.placeholder) {
+            // this can't be null because other components
+            // reference the ref on HintRenderer
+            return <span />;
+        }
+
         const {
             apiOptions,
             className,

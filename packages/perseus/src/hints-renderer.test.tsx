@@ -102,4 +102,63 @@ describe("HintsRenderer", () => {
             screen.getByText("This is another normal hint"),
         ).toBeInTheDocument();
     });
+
+    it("doesn't throw when focusing", () => {
+        // Arrange
+        const hints: ReadonlyArray<Hint> = [
+            {
+                content: "",
+                images: {},
+                widgets: {},
+                placeholder: true,
+            },
+            {
+                content: "",
+                images: {},
+                widgets: {},
+                placeholder: true,
+            },
+        ];
+
+        // Act
+        let rerender;
+        expect(() => {
+            const renderReturn = render(
+                <DependenciesContext.Provider value={testDependenciesV2}>
+                    <PerseusI18nContextProvider
+                        strings={mockStrings}
+                        locale="en"
+                    >
+                        <HintsRenderer
+                            hints={hints}
+                            hintsVisible={0}
+                            dependencies={testDependenciesV2}
+                            apiOptions={ApiOptions.defaults}
+                            strings={mockStrings}
+                        />
+                    </PerseusI18nContextProvider>
+                </DependenciesContext.Provider>,
+            );
+            rerender = renderReturn.rerender;
+        }).not.toThrow();
+
+        expect(() => {
+            rerender(
+                <DependenciesContext.Provider value={testDependenciesV2}>
+                    <PerseusI18nContextProvider
+                        strings={mockStrings}
+                        locale="en"
+                    >
+                        <HintsRenderer
+                            hints={hints}
+                            hintsVisible={2}
+                            dependencies={testDependenciesV2}
+                            apiOptions={ApiOptions.defaults}
+                            strings={mockStrings}
+                        />
+                    </PerseusI18nContextProvider>
+                </DependenciesContext.Provider>,
+            );
+        }).not.toThrow();
+    });
 });
