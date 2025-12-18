@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Tabs} from "@khanacademy/wonder-blocks-tabs";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import xBold from "@phosphor-icons/core/bold/x-bold.svg";
 import * as React from "react";
 import {useEffect} from "react";
@@ -51,11 +51,11 @@ const keypadOuterContainerStyle = {
 // These are duplicated from keypad.module.css (.expanded-wrapper) but must be
 // inline styles because WonderBlocks View's default styles override CSS module classes
 const expandedWrapperStyle = {
-    borderWidth: "1px 1px 0 1px",
+    borderWidth: border.width.thin,
     borderStyle: "solid",
     borderColor: semanticColor.core.border.neutral.subtle,
     maxWidth: 500,
-    borderRadius: "3px 3px 0 0",
+    borderRadius: border.radius.radius_040,
 } as const;
 
 const tabsStyles = {
