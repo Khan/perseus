@@ -462,6 +462,21 @@ describe("Expression Widget", function () {
             const expressionInput = screen.getByRole("textbox");
             expect(expressionInput).toHaveFocus();
         });
+
+        it("returns true from focus() even before an input id is present", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            const expression = renderer.findWidgets("expression 1")[0];
+            const expressionInput = screen.getByRole("textbox");
+            expressionInput.removeAttribute("id");
+
+            // Act
+            const focused = expression.focus();
+
+            // Assert
+            expect(focused).toBe(true);
+            expect(expressionInput).toHaveFocus();
+        });
     });
 
     describe("rendering", () => {
@@ -536,6 +551,29 @@ describe("Expression Widget", function () {
             // Assert
             // Score.total doesn't exist if the input is invalid
             // In this case we know that it'll be valid so we can assert directly
+            // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
+            expect(score.total).toBe(1);
+        });
+
+        it("supports insert immediately after mount without prior focus", () => {
+            // arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // act
+            expect(() =>
+                act(() => {
+                    expression.insert("x+1");
+                }),
+            ).not.toThrow();
+            act(() => jest.runOnlyPendingTimers());
+
+            // Assert
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                "en",
+            );
             // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
             expect(score.total).toBe(1);
         });
