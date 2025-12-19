@@ -35,7 +35,10 @@ type Props = WidgetProps<
 };
 
 // Widget interface methods exposed via ref
-type WidgetHandle = Pick<Widget, "focus" | "getPromptJSON" | "getSerializedState">;
+type WidgetHandle = Pick<
+    Widget,
+    "focus" | "getPromptJSON" | "getSerializedState"
+>;
 
 const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
     const {strings} = usePerseusI18n();
