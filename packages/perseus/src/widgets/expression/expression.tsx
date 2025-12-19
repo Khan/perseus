@@ -87,6 +87,12 @@ const defaultButtonSets: LegacyButtonSets = [
 const defaultOnFocus = () => {};
 const defaultOnBlur = () => {};
 
+type KeypadInputProps = React.ComponentProps<typeof KeypadInput>;
+interface KeypadInputWithInterfaceMethods {
+    focus: (cb?: (keypadActive: boolean) => void) => void;
+    blur: () => void;
+    insert: (val: any) => void;
+}
 /**
  * Wrapper component for KeypadInput that adds the Widget interface methods.
  *
@@ -100,10 +106,15 @@ const defaultOnBlur = () => {};
  * This is a temporary workaround until KeypadInput is converted to a
  * functional component with proper TypeScript types.
  */
-const KeypadInputWithInterface = React.forwardRef<any, any>((props, ref) => {
+const KeypadInputWithInterface = React.forwardRef<
+    KeypadInputWithInterfaceMethods,
+    KeypadInputProps
+>((props, ref) => {
     const keypadInputRef = React.useRef<KeypadInput>(null);
+    const noopKeypadActivation = (_keypadActive: boolean) => {};
     React.useImperativeHandle(ref, () => ({
-        focus: (cb) => keypadInputRef.current?.focus(cb),
+        focus: (cb) =>
+            keypadInputRef.current?.focus(cb ?? noopKeypadActivation),
         blur: () => keypadInputRef.current?.blur(),
         insert: (val) => {
             // The `KeypadInput` component from `@khanacademy/math-input`
@@ -145,11 +156,15 @@ export const Expression = forwardRef<Widget, Props>(
 
         // Hooks
         const {strings} = usePerseusI18n();
+        // KeypadContext provides setKeypadActive which is passed to focus() to notify
+        // the mobile keypad system when an input becomes active. This is only used on
+        // mobile (when apiOptions.customKeypad is true) but is safe to call on desktop.
         const {setKeypadActive} = React.useContext(KeypadContext);
         const textareaId = useId();
         const inputRef = useRef<any>(null); // KeypadInput/MathInput don't export ref types
         const rootRef = useRef<HTMLDivElement>(null);
-        const isMountedRef = useRef(true);
+        // Track mount status to prevent state updates after unmount (matches class component behavior)
+        const isMountedRef = useRef(false);
 
         // Lifecycle: mount and unmount
         useEffect(() => {
@@ -181,7 +196,11 @@ export const Expression = forwardRef<Widget, Props>(
                 isMountedRef.current = false;
             };
         }, []); // eslint-disable-line react-hooks/exhaustive-deps
-        // Empty deps - mount only (analytics should fire once)
+        // Empty deps intentional - this effect runs once on mount to:
+        // 1. Fire analytics event (should only fire once, not on every prop change)
+        // 2. Set up the input element ID for label association
+        // apiOptions.customKeypad is used to determine the selector, but it never changes
+        // after initial mount (switching between mobile/desktop requires a full remount)
 
         // Event handlers
         const handleFocus = () => {
@@ -196,13 +215,9 @@ export const Expression = forwardRef<Widget, Props>(
             onBlur([]);
         };
 
-        const handleChange = (newVal: string, cb: () => void) => {
-            const normalized = normalizeTex(newVal);
-            handleUserInput(normalized, cb);
-        };
-
         const changeAndTrack = (value: string, cb: () => void) => {
-            handleChange(value, cb);
+            const normalized = normalizeTex(value);
+            handleUserInput(normalized, cb);
             trackInteraction();
         };
 
@@ -350,6 +365,7 @@ export const Expression = forwardRef<Widget, Props>(
                         onChange={changeAndTrack}
                         onFocus={mobileHandleFocus}
                         onBlur={handleBlur}
+                        style={{}}
                     />
                 </View>
             );

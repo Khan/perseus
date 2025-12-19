@@ -477,6 +477,22 @@ describe("Expression Widget", function () {
             expect(focused).toBe(true);
             expect(expressionInput).toHaveFocus();
         });
+
+        it("does not call focus callback after unmount", () => {
+            const {renderer, unmount} = renderQuestion(
+                expressionItem2.question,
+                {
+                    customKeypad: true,
+                },
+            );
+            const expression = renderer.findWidgets("expression 1")[0];
+            unmount();
+
+            // Should not throw or cause errors
+            expect(() => {
+                expression.focus();
+            }).not.toThrow();
+        });
     });
 
     describe("rendering", () => {
