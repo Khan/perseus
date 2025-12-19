@@ -111,7 +111,10 @@ const KeypadInputWithInterface = React.forwardRef<any, any>((props, ref) => {
             // the mathField directly. This matches KeypadInput's internal
             // key handling (see math-input.tsx line 360) and ensures proper
             // key translation (e.g., FRAC → fraction command, trig functions).
-            keypadInputRef.current?.mathField?.pressKey?.(val);
+            const mathField = keypadInputRef.current?.mathField;
+            if (mathField && typeof mathField.pressKey === "function") {
+                mathField.pressKey(val);
+            }
         },
     }));
 
@@ -235,6 +238,23 @@ export const Expression = forwardRef<Widget, Props>(
         useImperativeHandle(
             ref,
             () => ({
+                /**
+                 * Focus the input element.
+                 *
+                 * This method handles focus for both mobile (KeypadInput) and desktop
+                 * (MathInput) variants. It uses a multi-step approach with fallbacks:
+                 * 1. Attempt to focus via the input component's focus() method
+                 * 2. Query for the expected focus target element
+                 * 3. Fall back to previously identified target or active element
+                 *
+                 * Edge case: If called immediately after mount, the input component's
+                 * internal textarea may not be fully initialized yet. The fallback logic
+                 * handles this by attempting to focus whatever element is available.
+                 * The ID set in useEffect is only for accessibility (label association)
+                 * and doesn't affect focus targeting.
+                 *
+                 * @returns true if focus was successfully moved to the input element
+                 */
                 focus: (): boolean => {
                     const targetBefore = getFocusTarget();
 
