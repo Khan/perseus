@@ -3,4 +3,4 @@
 "@khanacademy/perseus-core": minor
 ---
 
-Add optional `placeholder` boolean to Hint type and modify HintsRenderer to ignore hints with that flag.
+Modify HintsRenderer to ignore hints with new `placeholder` flag.
