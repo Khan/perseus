@@ -15,8 +15,6 @@ import {mockStrings} from "./strings";
 
 import type {Hint} from "@khanacademy/perseus-core";
 
-import "@testing-library/jest-dom";
-
 describe("HintsRenderer", () => {
     beforeEach(() => {
         setDependencies(testDependencies);

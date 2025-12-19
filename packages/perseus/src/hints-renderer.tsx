@@ -187,7 +187,6 @@ class HintsRenderer extends React.Component<Props, State> {
                     hint={hint}
                     pos={i}
                     totalHints={this.props.hints.length}
-                    placeholder={hint.placeholder}
                     ref={"hintRenderer" + i}
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}
