@@ -407,7 +407,7 @@ describe("Expression Widget", function () {
             expect(input).toHaveFocus();
         });
 
-        it("uses the default aria label when none is provided", () => {
+        it("provides a default ARIA label for accessibility when none is specified", () => {
             // Arrange, Act
             renderQuestion(expressionItem2.question);
 
@@ -463,7 +463,7 @@ describe("Expression Widget", function () {
             expect(expressionInput).toHaveFocus();
         });
 
-        it("returns true from focus() even before an input id is present", () => {
+        it("returns true from focus() and succeeds even if called before the DOM ID is assigned", () => {
             // Arrange
             const {renderer} = renderQuestion(expressionItem2.question);
             const expression = renderer.findWidgets("expression 1")[0];
@@ -478,7 +478,7 @@ describe("Expression Widget", function () {
             expect(expressionInput).toHaveFocus();
         });
 
-        it("does not call focus callback after unmount", () => {
+        it("prevents focus callback errors and memory leaks after the component is unmounted", () => {
             const {renderer, unmount} = renderQuestion(
                 expressionItem2.question,
                 {
@@ -571,7 +571,7 @@ describe("Expression Widget", function () {
             expect(score.total).toBe(1);
         });
 
-        it("supports insert immediately after mount without prior focus", () => {
+        it("programmatically inserts content immediately after mount without prior focus", () => {
             // arrange
             const {renderer} = renderQuestion(expressionItem2.question);
             const expression = renderer.findWidgets("expression 1")[0];
@@ -595,7 +595,7 @@ describe("Expression Widget", function () {
         });
     });
 
-    describe("KeypadInputWithInterface wrapper", () => {
+    describe("KeypadInputWithInterface wrapper robustness", () => {
         beforeEach(() => {
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
