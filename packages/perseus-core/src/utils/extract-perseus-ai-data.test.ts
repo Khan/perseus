@@ -477,22 +477,22 @@ describe("injectWidgets", () => {
         expect(content).toEqual("Content with a definition: word");
     });
 
-    it("should inject explaination widget into the content", () => {
+    it("should inject explanation widget into the content", () => {
         const widgets = {
-            "Explaination 1": generateExplanationWidget({
+            "explanation 1": generateExplanationWidget({
                 options: generateExplanationOptions({
-                    explanation: "explaination content",
+                    explanation: "explanation content",
                     showPrompt: "a",
                     hidePrompt: "a",
                 }),
             }),
         } as const;
         const content = injectWidgets(
-            "Content with a explaination\n[[☃ Explaination 1]]",
+            "Content with a explanation\n[[☃ explanation 1]]",
             widgets,
         );
         expect(content).toEqual(
-            "Content with a explaination\nexplaination content",
+            "Content with a explanation\nexplanation content",
         );
     });
 
