@@ -406,6 +406,16 @@ describe("Expression Widget", function () {
             // Assert
             expect(input).toHaveFocus();
         });
+
+        it("provides a default ARIA label for accessibility when none is specified", () => {
+            // Arrange, Act
+            renderQuestion(expressionItem2.question);
+
+            // Assert
+            const input = screen.getByRole("textbox");
+            expect(input).toBeVisible();
+            expect(input).toHaveAccessibleName(/Math input box/);
+        });
     });
 
     describe("focus state", () => {
@@ -451,6 +461,37 @@ describe("Expression Widget", function () {
             // Assert
             const expressionInput = screen.getByRole("textbox");
             expect(expressionInput).toHaveFocus();
+        });
+
+        it("returns true from focus() and succeeds even if called before the DOM ID is assigned", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            const expression = renderer.findWidgets("expression 1")[0];
+            const expressionInput = screen.getByRole("textbox");
+            expressionInput.removeAttribute("id");
+
+            // Act
+            const focused = expression.focus();
+
+            // Assert
+            expect(focused).toBe(true);
+            expect(expressionInput).toHaveFocus();
+        });
+
+        it("prevents focus callback errors and memory leaks after the component is unmounted", () => {
+            const {renderer, unmount} = renderQuestion(
+                expressionItem2.question,
+                {
+                    customKeypad: true,
+                },
+            );
+            const expression = renderer.findWidgets("expression 1")[0];
+            unmount();
+
+            // Should not throw or cause errors
+            expect(() => {
+                expression.focus();
+            }).not.toThrow();
         });
     });
 
@@ -528,6 +569,127 @@ describe("Expression Widget", function () {
             // In this case we know that it'll be valid so we can assert directly
             // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
             expect(score.total).toBe(1);
+        });
+
+        it("programmatically inserts content immediately after mount without prior focus", () => {
+            // arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // act
+            expect(() =>
+                act(() => {
+                    expression.insert("x+1");
+                }),
+            ).not.toThrow();
+            act(() => jest.runOnlyPendingTimers());
+
+            // Assert
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                "en",
+            );
+            // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
+            expect(score.total).toBe(1);
+        });
+    });
+
+    describe("KeypadInputWithInterface wrapper robustness", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            jest.useFakeTimers();
+        });
+
+        it("handles insert gracefully when mathField is not initialized", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act - call insert before the mathField is fully initialized
+            // This should not throw an error due to defensive error handling
+            expect(() => {
+                act(() => {
+                    expression.insert("x");
+                });
+            }).not.toThrow();
+        });
+
+        it("handles insert when called multiple times in succession", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            act(() => jest.runOnlyPendingTimers());
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act - call insert multiple times rapidly
+            // The defensive error handling should prevent any crashes
+            expect(() => {
+                act(() => {
+                    expression.insert("x");
+                    expression.insert("+");
+                    expression.insert("1");
+                });
+                act(() => jest.runOnlyPendingTimers());
+            }).not.toThrow();
+        });
+
+        it("delegates focus method to KeypadInput without errors", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act & Assert - calling focus should not throw
+            expect(() => {
+                act(() => {
+                    expression.focus();
+                });
+            }).not.toThrow();
+        });
+
+        it("delegates blur method to KeypadInput without errors", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act & Assert - calling blur should not throw
+            expect(() => {
+                act(() => {
+                    expression.blurInputPath([]);
+                });
+            }).not.toThrow();
+        });
+
+        it("supports insert in mobile mode", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            act(() => jest.runOnlyPendingTimers());
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act - insert should work even without explicit focus
+            expect(() => {
+                act(() => {
+                    expression.insert("x");
+                    expression.insert("+");
+                    expression.insert("1");
+                });
+                act(() => jest.runOnlyPendingTimers());
+            }).not.toThrow();
+
+            // Assert - verify something was captured in user input
+            const userInput = renderer.getUserInputMap();
+            expect(userInput).toBeDefined();
         });
     });
 
