@@ -113,8 +113,7 @@ const KeypadInputWithInterface = React.forwardRef<
     const keypadInputRef = React.useRef<KeypadInput>(null);
     const noopKeypadActivation = (_keypadActive: boolean) => {};
     React.useImperativeHandle(ref, () => ({
-        focus: (cb) =>
-            keypadInputRef.current?.focus(cb ?? noopKeypadActivation),
+        focus: (cb = noopKeypadActivation) => keypadInputRef.current?.focus(cb),
         blur: () => keypadInputRef.current?.blur(),
         insert: (val) => {
             // The `KeypadInput` component from `@khanacademy/math-input`
@@ -122,10 +121,7 @@ const KeypadInputWithInterface = React.forwardRef<
             // the mathField directly. This matches KeypadInput's internal
             // key handling (see math-input.tsx line 360) and ensures proper
             // key translation (e.g., FRAC → fraction command, trig functions).
-            const mathField = keypadInputRef.current?.mathField;
-            if (mathField && typeof mathField.pressKey === "function") {
-                mathField.pressKey(val);
-            }
+            keypadInputRef.current?.mathField?.pressKey?.(val);
         },
     }));
 
