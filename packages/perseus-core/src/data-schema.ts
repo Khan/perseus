@@ -278,6 +278,7 @@ export type Hint = PerseusRenderer & {
      * TODO(LEMS-3806): there's probably a better way to do this
      */
     placeholder?: boolean;
+    testNewThing?: string;
 };
 
 export type PerseusImageDetail = {
