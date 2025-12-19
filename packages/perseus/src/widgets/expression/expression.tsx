@@ -220,42 +220,44 @@ export const Expression = forwardRef<Widget, Props>(
             };
         }, [extraKeys, times]);
 
+        const getFocusTarget = useCallback((): HTMLElement | null => {
+            if (!rootRef.current) {
+                return null;
+            }
+
+            const isMobile = apiOptions.customKeypad;
+            const selector = isMobile ? ".mq-textarea > span" : "textarea";
+            const element = rootRef.current.querySelector(selector);
+            return element instanceof HTMLElement ? element : null;
+        }, [apiOptions.customKeypad]);
+
         // Implement Widget interface
         useImperativeHandle(
             ref,
             () => ({
                 focus: (): boolean => {
-                    // Try direct focus first
-                    if (inputRef.current?.focus) {
-                        inputRef.current.focus(setKeypadActive);
-                        // Verify focus succeeded by checking the active element
-                        return document.activeElement?.id === textareaId;
-                    }
+                    const targetBefore = getFocusTarget();
 
-                    // Fallback: querySelector approach
-                    if (!rootRef.current) {
+                    // Try direct focus first; this may be a custom KeypadInput or MathInput.
+                    inputRef.current?.focus?.(setKeypadActive);
+
+                    // Prefer the element we expect to focus; fall back to whatever is active.
+                    const targetAfter =
+                        getFocusTarget() ??
+                        targetBefore ??
+                        (document.activeElement instanceof HTMLElement
+                            ? document.activeElement
+                            : null);
+
+                    if (!targetAfter) {
                         return false;
                     }
 
-                    const isMobile = apiOptions.customKeypad;
-                    const selector = isMobile
-                        ? ".mq-textarea > span"
-                        : "textarea";
-                    const element = rootRef.current.querySelector(selector);
-
-                    if (!(element instanceof HTMLElement)) {
-                        return false;
+                    if (document.activeElement !== targetAfter) {
+                        targetAfter.focus();
                     }
 
-                    // Track what was previously focused to verify we actually changed focus
-                    const previouslyFocused = document.activeElement;
-                    element.focus();
-
-                    // Verify focus succeeded: element is now focused AND it wasn't already focused
-                    return (
-                        document.activeElement === element &&
-                        previouslyFocused !== element
-                    );
+                    return document.activeElement === targetAfter;
                 },
 
                 focusInputPath: (path: FocusPath) => {
@@ -300,10 +302,9 @@ export const Expression = forwardRef<Widget, Props>(
             [
                 props,
                 userInput,
-                apiOptions,
                 setKeypadActive,
                 getKeypadConfiguration,
-                textareaId,
+                getFocusTarget,
             ],
         );
 
