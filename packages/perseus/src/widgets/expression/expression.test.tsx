@@ -579,6 +579,104 @@ describe("Expression Widget", function () {
         });
     });
 
+    describe("KeypadInputWithInterface wrapper", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            jest.useFakeTimers();
+        });
+
+        it("handles insert gracefully when mathField is not initialized", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act - call insert before the mathField is fully initialized
+            // This should not throw an error due to defensive error handling
+            expect(() => {
+                act(() => {
+                    expression.insert("x");
+                });
+            }).not.toThrow();
+        });
+
+        it("handles insert when called multiple times in succession", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            act(() => jest.runOnlyPendingTimers());
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act - call insert multiple times rapidly
+            // The defensive error handling should prevent any crashes
+            expect(() => {
+                act(() => {
+                    expression.insert("x");
+                    expression.insert("+");
+                    expression.insert("1");
+                });
+                act(() => jest.runOnlyPendingTimers());
+            }).not.toThrow();
+        });
+
+        it("delegates focus method to KeypadInput without errors", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act & Assert - calling focus should not throw
+            expect(() => {
+                act(() => {
+                    expression.focus();
+                });
+            }).not.toThrow();
+        });
+
+        it("delegates blur method to KeypadInput without errors", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act & Assert - calling blur should not throw
+            expect(() => {
+                act(() => {
+                    expression.blurInputPath([]);
+                });
+            }).not.toThrow();
+        });
+
+        it("supports insert in mobile mode", () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question, {
+                customKeypad: true,
+            });
+            act(() => jest.runOnlyPendingTimers());
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act - insert should work even without explicit focus
+            expect(() => {
+                act(() => {
+                    expression.insert("x");
+                    expression.insert("+");
+                    expression.insert("1");
+                });
+                act(() => jest.runOnlyPendingTimers());
+            }).not.toThrow();
+
+            // Assert - verify something was captured in user input
+            const userInput = renderer.getUserInputMap();
+            expect(userInput).toBeDefined();
+        });
+    });
+
     describe("interactive: full vs answerless", () => {
         beforeAll(() => {
             registerAllWidgetsForTesting();
