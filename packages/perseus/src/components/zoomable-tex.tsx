@@ -23,20 +23,39 @@ const computeMathBounds = (
     parentBounds: {width: number; height: number},
 ) => {
     const textElement = parentNode.querySelector(".MathJax");
+    // Double check the heights of the children elements that make up this Math.
+    // If an ancestor element is hiding this content, it can have unexpected
+    // effects on the measurements.
+    const textElementHeight = Array.from(textElement?.children ?? []).reduce(
+        (maxHeight, child) =>
+            Math.max(maxHeight, (child as HTMLElement).offsetHeight),
+        // @ts-expect-error - TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
+        textElement?.offsetHeight ?? 0,
+    );
     const textBounds = {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
-        width: textElement.offsetWidth,
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
-        height: textElement.offsetHeight,
+        // @ts-expect-error - TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
+        width: textElement?.offsetWidth,
+        height: textElementHeight,
     } as const;
 
     // HACK(benkomalo): when measuring math content, note that
     // sometimes it actually peeks outside of the
     // container in some cases. Just be conservative and use
     // the maximum value of the text and the parent. :(
+
+    // NOTE: In situations where the math is hidden from view (e.g. inside an
+    // explanation widget), an ancestor element may have a width of 0.
+    // In those cases, we need to adjust how we determine the final bounds.
+    // When the ancestor width is 0, it can cause the parent height to be quite
+    // tall, so we should ignore it.
+    const hiddenAncestor = parentNode.closest(`[aria-hidden="true"]`);
+    const height =
+        hiddenAncestor?.getBoundingClientRect().width === 0
+            ? textBounds.height
+            : Math.max(parentBounds.height, textBounds.height);
     return {
         width: Math.max(parentBounds.width, textBounds.width),
-        height: Math.max(parentBounds.height, textBounds.height),
+        height: height,
     };
 };
 
