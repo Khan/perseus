@@ -13,7 +13,13 @@ export default {
     title: "Math Input/Full Keypad",
     parameters: {
         backgrounds: {
-            values: [{name: "light background", value: "white", default: true}],
+            options: {
+                light_background: {
+                    name: "light background",
+                    value: "white",
+                    default: true,
+                },
+            },
         },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
         docs: {
