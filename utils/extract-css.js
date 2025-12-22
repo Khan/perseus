@@ -59,7 +59,6 @@ const mediaQueries = {
  *****************/
 const codeBlocksToDelete = [];
 const importedModules = {};
-const conditionalStyles = {};
 
 /********************
  * Helper Functions *
@@ -78,11 +77,20 @@ const pxToRem = (px) => {
     return parseFloat(px) / 10;
 };
 
-const replacePxWithRem = (cssString) => {
-    return cssString.replace(/(\d+)px/g, (match, p1) => {
-        const remValue = pxToRem(parseFloat(p1));
-        return `${remValue}rem`;
-    });
+const replacePxWithRem = (property, value) => {
+    const convertToRem =
+        property !== "zIndex" &&
+        property !== "opacity" &&
+        property !== "lineHeight" &&
+        !property.includes("border") &&
+        property !== 0;
+    if (convertToRem) {
+        return value.replace(/(\d+)px/g, (match, p1) => {
+            const remValue = pxToRem(parseFloat(p1));
+            return `${remValue}rem`;
+        });
+    }
+    return value;
 };
 
 const validFileExtensions = ["js", "jsx", "ts", "tsx"];
@@ -272,12 +280,12 @@ const getCssPropertyInfo = (property) => {
     let cssPropertyName = camelToKabob(cssProperty);
     let nestedRuleSet = null;
     let propertyValue = property.value.value;
-    if (cssProperty === "borderWidth") {
-        console.log("Border width found:", property);
+    if (cssProperty === "textAlign") {
+        console.log("Property in question: ", property);
     }
     switch (property.value.type) {
         case "Identifier":
-            propertyValue = `${pxToRem(literalVariables[property.value.name])}rem`;
+            propertyValue = literalVariables[property.value.name];
             break;
         case "BinaryExpression":
             propertyValue = getBinaryExpressionValue(property.value);
@@ -297,7 +305,7 @@ const getCssPropertyInfo = (property) => {
             ) {
                 propertyValue = expressionValue;
             } else {
-                propertyValue = `${pxToRem(expressionValue)}rem`;
+                propertyValue = `${expressionValue}px`;
             }
             break;
         case "ObjectExpression":
@@ -310,29 +318,24 @@ const getCssPropertyInfo = (property) => {
             }
             propertyValue = "";
             break;
-        // case "ConditionalExpression":
-        //     const alternateValue = property.value.alternate.value;
-        //     propertyValue = alternateValue;
-        //     const testName = property.value.test.name;
-        //     const consequentValue = property.value.consequent.value;
-        //     const conditionalClasses = conditionalStyles[testName] ?? {};
-        //     const consequentStyling = conditionalClasses[className] ?? {};
-        //     consequentStyling[cssPropertyName] = consequentValue;
-        //     conditionalClasses[className] = consequentStyling;
-        //     conditionalStyles[testName] = conditionalClasses;
-        //     break;
+        case "ConditionalExpression":
+            const {conditionalValue, conditionalRuleSet} =
+                getConditionalExpressionValue(cssPropertyName, property.value);
+            propertyValue = conditionalValue;
+            nestedRuleSet = conditionalRuleSet;
+            break;
         case "UnaryExpression":
-            propertyValue = `${property.value.operator}${pxToRem(literalVariables[property.value.argument.name])}rem`;
+            propertyValue = `${property.value.operator}${[property.value.argument.name]}px`;
             break;
         case "NumericLiteral":
-            const convertToRem =
+            const appendPx =
                 cssProperty !== "zIndex" &&
                 cssProperty !== "opacity" &&
                 cssProperty !== "lineHeight" &&
                 propertyValue !== 0;
-            if (convertToRem) {
-                propertyValue = `${pxToRem(propertyValue)}rem`;
-            }
+            propertyValue = appendPx
+                ? `${propertyValue}px`
+                : `${propertyValue}`;
             break;
         case "TemplateLiteral":
             const literalParts = property.value.expressions
@@ -355,7 +358,7 @@ const getCssPropertyInfo = (property) => {
             break;
     }
 
-    propertyValue = replacePxWithRem(`${propertyValue}`);
+    propertyValue = replacePxWithRem(cssPropertyName, `${propertyValue}`);
     propertyValue = convertToWbColor(cssPropertyName, propertyValue);
 
     return {
@@ -418,6 +421,58 @@ const getBinaryExpressionValue = (expressionNode) => {
     }
 };
 
+const getConditionalExpressionValue = (propertyName, expressionNode) => {
+    // Convert conditional values into its own class that can be applied as needed.
+    if (expressionNode.test.type === "Identifier") {
+        const alternateValue = expressionNode.alternate.value;
+        const testName = camelToKabob(expressionNode.test.name);
+        // Conditional value used in a separate class
+        let consequentValue = replacePxWithRem(
+            propertyName,
+            `${expressionNode.consequent.value}`,
+        );
+        consequentValue = convertToWbColor(propertyName, consequentValue);
+        const nestedRuleSet = [
+            {
+                property: `.${testName}`,
+                value: "",
+                line: null,
+                leadingComments: [],
+                trailingComments: [],
+                nestedRuleSet: [
+                    {
+                        property: propertyName,
+                        value: consequentValue,
+                        line: null,
+                        leadingComments: [],
+                        trailingComments: [],
+                        nestedRuleSet: null,
+                    },
+                ],
+            },
+        ];
+        return {
+            conditionalValue: alternateValue,
+            conditionalRuleSet: nestedRuleSet,
+        };
+    } else if (expressionNode.test.type === "MemberExpression") {
+        console.log("Property node: ", expressionNode.test.property);
+        const alternateValue = expressionNode.alternate.value;
+        const testName = camelToKabob(expressionNode.test.property.name);
+        // Conditional value used in a separate class
+        let consequentValue = replacePxWithRem(
+            propertyName,
+            `${expressionNode.consequent.value}`,
+        );
+        consequentValue = convertToWbColor(propertyName, consequentValue);
+
+    }
+    return {
+        conditionalValue: `/* Unable to handle conditional expression: ${expressionNode.test.type} ? ${expressionNode.consequent.type} : ${expressionNode.alternate.type}  */`,
+        conditionalRuleSet: null,
+    };
+};
+
 const getMemberExpressionValue = (objectName, variableName) => {
     const errorMessage = `/* ${objectName}.${variableName} is not defined */`;
     const importedValues = getImportedValues(objectName);
@@ -464,13 +519,50 @@ const stringifyCssProperty = (cssProperty, indentationCount = 1) => {
 };
 
 const stringifyCssRuleset = (selector, ruleset, indentationCount = 0) => {
+    // Conditional rulesets contain a class name in the nested ruleset.
+    const conditionalRulesets = ruleset.filter(
+        (property) =>
+            Array.isArray(property.nestedRuleSet) &&
+            property.nestedRuleSet.some((ruleset) =>
+                ruleset.property.startsWith("."),
+            ),
+    );
+    // The base property/value is in the top-level ruleset.
+    const conditionalInitialStates = conditionalRulesets.map((property) => {
+        return {...property, nestedRuleSet: null};
+    });
     let stringifiedRuleset = ruleset
+        .concat(conditionalInitialStates)
         .filter((property) => property.nestedRuleSet === null)
+        .sort((propertyA, propertyB) =>
+            propertyA.property < propertyB.property ? -1 : 1,
+        )
         .map((property) => stringifyCssProperty(property, indentationCount + 1))
         .join("");
-    const nestedRulesets = ruleset.filter(
-        (property) => property.nestedRuleSet !== null,
-    );
+    // The alternate values for the same properties are in the nested rulesets.
+    const conditionalAlternateStates = conditionalRulesets
+        .flatMap((property) => property.nestedRuleSet)
+        .reduce((rulesSets, property) => {
+            const matchedRuleSet = rulesSets.find(
+                (ruleset) => ruleset.property === property.property,
+            );
+            if (!matchedRuleSet) {
+                rulesSets.push(property);
+            } else {
+                matchedRuleSet.nestedRuleSet =
+                    matchedRuleSet.nestedRuleSet.concat(property.nestedRuleSet);
+            }
+            return rulesSets;
+        }, []);
+    const nestedRulesets = ruleset
+        .filter(
+            (property) =>
+                Array.isArray(property.nestedRuleSet) &&
+                !property.nestedRuleSet.some((ruleset) =>
+                    ruleset.property.startsWith("."),
+                ),
+        )
+        .concat(conditionalAlternateStates);
     if (stringifiedRuleset.length !== 0) {
         const rulesetSelector = `${indentation.repeat(indentationCount)}${selector} {${"\n"}`;
         const rulesetEnd = `${indentation.repeat(indentationCount)}}${"\n"}`;
