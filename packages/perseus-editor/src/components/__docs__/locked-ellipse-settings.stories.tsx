@@ -6,7 +6,7 @@ import LockedEllipseSettings from "../../widgets/interactive-graph-editor/locked
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 export default {
-    title: "PerseusEditor/Components/Locked Ellipse Settings",
+    title: "Editors/Components/Locked Ellipse Settings",
     component: LockedEllipseSettings,
 } as Meta<typeof LockedEllipseSettings>;
 

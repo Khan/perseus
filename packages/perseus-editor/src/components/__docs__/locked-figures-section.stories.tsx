@@ -10,7 +10,7 @@ import LockedFiguresSection from "../../widgets/interactive-graph-editor/locked-
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 export default {
-    title: "PerseusEditor/Components/Locked Figures Section",
+    title: "Editors/Components/Locked Figures Section",
     component: LockedFiguresSection,
 } as Meta<typeof LockedFiguresSection>;
 
