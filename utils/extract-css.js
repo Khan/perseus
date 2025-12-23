@@ -73,15 +73,23 @@ const camelToKabob = (camel) => {
     return camel.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
 };
 
+const propertyRejectsPx = (propertyName) => {
+    return (
+        propertyName === "zIndex" ||
+        propertyName === "z-index" ||
+        propertyName === "opacity" ||
+        propertyName === "lineHeight" ||
+        propertyName === "line-height"
+    );
+};
+
 const pxToRem = (px) => {
     return parseFloat(px) / 10;
 };
 
 const replacePxWithRem = (property, value) => {
     const convertToRem =
-        property !== "zIndex" &&
-        property !== "opacity" &&
-        property !== "lineHeight" &&
+        !propertyRejectsPx(property) &&
         !property.includes("border") &&
         property !== 0;
     if (convertToRem) {
@@ -280,8 +288,10 @@ const getCssPropertyInfo = (property) => {
     let cssPropertyName = camelToKabob(cssProperty);
     let nestedRuleSet = null;
     let propertyValue = property.value.value;
-    if (cssProperty === "textAlign") {
+    if (cssProperty === "width") {
         console.log("Property in question: ", property);
+        console.log("Left: ", property.value.test.left);
+        console.log("Right: ", property.value.test.right);
     }
     switch (property.value.type) {
         case "Identifier":
@@ -296,12 +306,9 @@ const getCssPropertyInfo = (property) => {
                 property.value.property.name,
             );
             if (
-                isNaN(
-                    expressionValue ||
-                        cssProperty === "zIndex" ||
-                        cssProperty === "opacity" ||
-                        propertyValue === 0,
-                )
+                isNaN(expressionValue) ||
+                propertyRejectsPx(cssProperty) ||
+                propertyValue === 0
             ) {
                 propertyValue = expressionValue;
             } else {
@@ -328,14 +335,10 @@ const getCssPropertyInfo = (property) => {
             propertyValue = `${property.value.operator}${[property.value.argument.name]}px`;
             break;
         case "NumericLiteral":
-            const appendPx =
-                cssProperty !== "zIndex" &&
-                cssProperty !== "opacity" &&
-                cssProperty !== "lineHeight" &&
-                propertyValue !== 0;
-            propertyValue = appendPx
-                ? `${propertyValue}px`
-                : `${propertyValue}`;
+            propertyValue =
+                propertyRejectsPx(cssProperty) || propertyValue === 0
+                    ? `${propertyValue}`
+                    : `${propertyValue}px`;
             break;
         case "TemplateLiteral":
             const literalParts = property.value.expressions
@@ -422,16 +425,42 @@ const getBinaryExpressionValue = (expressionNode) => {
 };
 
 const getConditionalExpressionValue = (propertyName, expressionNode) => {
-    // Convert conditional values into its own class that can be applied as needed.
+    // Convert conditional values into their own class that can be applied as needed.
+
+    let nodeValue = expressionNode.alternate.value;
+    const alternateValue =
+        propertyRejectsPx(propertyName) ||
+        nodeValue === 0 ||
+        `${nodeValue}`.includes("px") ||
+        isNaN(nodeValue)
+            ? `${nodeValue}`
+            : `${nodeValue}px`;
+
+    // Conditional value used in a separate class
+    nodeValue = expressionNode.consequent.value;
+    let consequentValue =
+        propertyRejectsPx(propertyName) ||
+        nodeValue === 0 ||
+        `${nodeValue}`.includes("px") ||
+        isNaN(nodeValue)
+            ? `${nodeValue}`
+            : `${nodeValue}px`;
+    consequentValue = replacePxWithRem(propertyName, `${consequentValue}`);
+    consequentValue = convertToWbColor(propertyName, consequentValue);
+    let testName = "";
     if (expressionNode.test.type === "Identifier") {
-        const alternateValue = expressionNode.alternate.value;
-        const testName = camelToKabob(expressionNode.test.name);
-        // Conditional value used in a separate class
-        let consequentValue = replacePxWithRem(
-            propertyName,
-            `${expressionNode.consequent.value}`,
-        );
-        consequentValue = convertToWbColor(propertyName, consequentValue);
+        testName = camelToKabob(expressionNode.test.name);
+    } else if (expressionNode.test.type === "MemberExpression") {
+        testName = camelToKabob(expressionNode.test.property.name);
+    } else if (expressionNode.test.type === "BinaryExpression") {
+        const identifierName = expressionNode.test.left.type.includes(
+            "Expression",
+        )
+            ? `${expressionNode.test.left.property.name}-${expressionNode.test.right.value}`
+            : `${expressionNode.test.right.property.name}-${expressionNode.test.left.value}`;
+        testName = camelToKabob(identifierName);
+    }
+    if (testName !== "") {
         const nestedRuleSet = [
             {
                 property: `.${testName}`,
@@ -455,17 +484,6 @@ const getConditionalExpressionValue = (propertyName, expressionNode) => {
             conditionalValue: alternateValue,
             conditionalRuleSet: nestedRuleSet,
         };
-    } else if (expressionNode.test.type === "MemberExpression") {
-        console.log("Property node: ", expressionNode.test.property);
-        const alternateValue = expressionNode.alternate.value;
-        const testName = camelToKabob(expressionNode.test.property.name);
-        // Conditional value used in a separate class
-        let consequentValue = replacePxWithRem(
-            propertyName,
-            `${expressionNode.consequent.value}`,
-        );
-        consequentValue = convertToWbColor(propertyName, consequentValue);
-
     }
     return {
         conditionalValue: `/* Unable to handle conditional expression: ${expressionNode.test.type} ? ${expressionNode.consequent.type} : ${expressionNode.alternate.type}  */`,

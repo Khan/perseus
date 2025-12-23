@@ -221,11 +221,9 @@ function parseDeclarations(block) {
 function normalizeSelector(selector, mq) {
     let normalized = toCamelCase(selector.trim());
 
-    // Flatten pseudo‑classes/elements by turning `:` into `_`
-    // Example: `.class:hover` -> `.class_hover`
-    // Works for chained pseudos: `.class:hover:focus` -> `.class_hover_focus`
     normalized = normalized.replace(/:/g, "_");
-    normalized = normalized.replace(/\./g, "");
+    normalized = normalized.split(".").at(-1); // Keep only the last class if multiple
+    // normalized = normalized.replace(/\./g, "");
 
     if (mq) {
         const mqSuffix = normalizeMediaQuery(mq);
