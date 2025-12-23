@@ -847,15 +847,15 @@ const aphroditeImport = parsedCode.program.body.filter(
     (node) =>
         node.type === "ImportDeclaration" && node.source.value === "aphrodite",
 )[0];
-if (aphroditeImport && !keepAphrodite) {
+if (aphroditeImport) {
+    const cssImport = `import ${aphroditeDeclaration.id.name} from "./${cssFileName}";`;
+    const legacyImport = keepAphrodite
+        ? `import ${aphroditeDeclaration.id.name}Legacy from "./${aphroditeFileName}";`
+        : "";
     updatedCode = `${cleanedCode.substring(0, aphroditeImport.start - 1)}
-import ${aphroditeDeclaration.id.name} from "./${cssFileName}";
+${cssImport}
+${legacyImport}
 ${cleanedCode.substring(aphroditeImport.end).trim()}
-`;
-} else if (aphroditeImport && keepAphrodite) {
-    updatedCode = `${cleanedCode.substring(0, aphroditeImport.start - 1)}
-import ${aphroditeDeclaration.id.name} from "./${aphroditeFileName}";
-${cleanedCode.substring(aphroditeImport.start).trim()}
 `;
 } else {
     const lastImport = parsedCode.program.body.filter(

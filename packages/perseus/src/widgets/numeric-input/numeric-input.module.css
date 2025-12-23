@@ -1,0 +1,31 @@
+/* Styles for the InputWithExamples */
+.input-with-examples {
+    border-radius: 0.3rem;
+    border-width: var(--wb-border-width-thin);
+        /*
+          Even in RTL languages, math is LTR.
+          So we force this component to always render LTR
+        */
+    direction: ltr;
+    display: inline-block;
+    font-family: Symbola, "Times New Roman", serif;
+    font-size: 1.8rem;
+    height: 3.2rem;
+    line-height: 1.8rem;
+    padding: 0.4rem 0.5rem;
+    text-align: left;
+    width: 8rem;
+}
+
+.input-with-examples.is-focused {
+    border-width: var(--wb-border-width-medium);
+    padding: 0.4rem;
+}
+
+.input-with-examples.right-align {
+    text-align: right;
+}
+
+.input-with-examples.size-small {
+    width: 4rem;
+}

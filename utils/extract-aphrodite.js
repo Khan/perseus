@@ -11,11 +11,13 @@ const objectifyCSS = (cssPathname, objectName) => {
 
     const fileDirectory = path.dirname(cssPathname);
     const fileNameParts = path.basename(cssPathname).split(".");
-    const aphroditeFileName = `${fileNameParts[0]}.styles.js`;
+    const aphroditeFileName = `${fileNameParts[0]}_legacy-styles.js`;
     const aphroditeFilePath = path.join(fileDirectory, aphroditeFileName);
     fs.writeFileSync(
         aphroditeFilePath,
-        `export const ${objectName} = ${objectified};`,
+        `const ${objectName} = ${objectified};
+
+export default ${objectName};`,
     );
     (async () => {
         try {
