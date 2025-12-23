@@ -1,149 +1,91 @@
 export default {
     box: {
         control: {
-            type: "array",
+            type: "object" as const,
         },
     },
 
     labels: {
         control: {
-            type: "array",
-        },
-        type: {
-            name: "ReadonlyArray<string>",
-            required: false,
+            type: "object" as const,
         },
     },
 
     range: {
         control: {
-            type: "array",
-        },
-        type: {
-            name: "[Range, Range]",
-            required: false,
+            type: "object" as const,
         },
     },
 
     step: {
         control: {
-            type: "array",
-        },
-        type: {
-            name: "[number, number]",
-            required: false,
+            type: "object" as const,
         },
     },
 
     gridStep: {
         control: {
-            type: "array",
-        },
-        type: {
-            name: "[number, number]",
-            required: true,
+            type: "object" as const,
         },
     },
 
     snapStep: {
         control: {
-            type: "array",
-        },
-        type: {
-            name: "[number, number]",
-            required: true,
+            type: "object" as const,
         },
     },
 
     valid: {
         control: {
-            type: "text",
-        },
-        type: {
-            name: "string",
-            required: false,
+            type: "text" as const,
         },
     },
 
     backgroundImage: {
         control: {
-            type: "object",
-        },
-        type: {
-            name: "PerseusImageBackground",
-            required: false,
+            type: "object" as const,
         },
     },
 
     markings: {
         control: {
-            type: "select",
+            type: "select" as const,
         },
-        table: {
-            type: {
-                summary: '"graph" | "grid" | "none"',
-            },
-        },
-        type: {
-            name: "enum",
-            value: ["graph", "grid", "none"],
-            required: false,
-        },
+        options: ["axes", "graph", "grid", "none"],
     },
 
     showProtractor: {
         control: {
-            type: "boolean",
-        },
-        type: {
-            name: "boolean",
-            required: false,
+            type: "boolean" as const,
         },
     },
 
     showRuler: {
         control: {
-            type: "boolean",
-        },
-        type: {
-            name: "boolean",
-            required: false,
+            type: "boolean" as const,
         },
     },
 
     showTooltips: {
         control: {
-            type: "boolean",
-        },
-        type: {
-            name: "boolean",
-            required: false,
+            type: "boolean" as const,
         },
     },
 
     rulerLabel: {
         control: {
-            type: "select",
+            type: "select" as const,
         },
-        table: {
-            type: {
-                summary: '"mm", "cm", "m", "km", "in", "ft", "yd", "mi"',
-            },
-        },
-        type: {
-            name: "enum",
-            value: ["mm", "cm", "m", "km", "in", "ft", "yd", "mi"],
-            required: false,
-        },
+        options: ["", "mm", "cm", "m", "km", "in", "ft", "yd", "mi"],
     },
 
     rulerTicks: {
         control: {
-            type: "number",
+            type: "number" as const,
         },
-        type: {
-            name: "number",
-            required: false,
-        },
+    },
+
+    onChange: {
+        control: false as const,
     },
 };
