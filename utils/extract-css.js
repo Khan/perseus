@@ -1,10 +1,13 @@
 const {exec} = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const {promisify} = require("util");
 
 const {parse} = require("@babel/parser");
 
 const {objectifyCSS} = require("./extract-aphrodite");
+
+const execAsync = promisify(exec);
 
 /**
  * Extracts style information from JS and Aphrodite objects and writes them to a
@@ -36,6 +39,19 @@ const wbColorValues = {
     "#5f6167": "--wb-semanticColor-core-foreground-neutral-default",
     "#b8b9bb": "--wb-semanticColor-core-foreground-disabled-default",
     "#ffffff": "--wb-semanticColor-core-foreground-knockout-default",
+};
+const wbBorderWidths = {
+    "1px": "--wb-border-width-thin",
+    "2px": "--wb-border-width-medium",
+    "4px": "--wb-border-width-thick",
+};
+const wbBorderRadii = {
+    "1px": "--wb-border-radius-radius_010",
+    "4px": "--wb-border-radius-radius_040",
+    "8px": "--wb-border-radius-radius_080",
+    "12px": "--wb-border-radius-radius_120",
+    "24px": "--wb-border-radius-radius_240",
+    "50%": "--wb-border-radius-full",
 };
 const mediaQueries = {
     // from packages/perseus/src/styles/media-queries.ts
@@ -73,13 +89,13 @@ const camelToKabob = (camel) => {
     return camel.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
 };
 
-const propertyRejectsPx = (propertyName) => {
+const propertyRejectsPx = (propertyName, testForLineHeight = true) => {
     return (
         propertyName === "zIndex" ||
         propertyName === "z-index" ||
         propertyName === "opacity" ||
-        propertyName === "lineHeight" ||
-        propertyName === "line-height"
+        (testForLineHeight && propertyName === "lineHeight") ||
+        (testForLineHeight && propertyName === "line-height")
     );
 };
 
@@ -88,12 +104,11 @@ const pxToRem = (px) => {
 };
 
 const replacePxWithRem = (property, value) => {
+    const tokenizedValue = convertToWbMeasurement(property, value);
     const convertToRem =
-        !propertyRejectsPx(property) &&
-        !property.includes("border") &&
-        property !== 0;
+        !propertyRejectsPx(property, false) && tokenizedValue !== 0;
     if (convertToRem) {
-        return value.replace(/(\d+)px/g, (match, p1) => {
+        return tokenizedValue.replace(/(\d+)px/g, (match, p1) => {
             const remValue = pxToRem(parseFloat(p1));
             return `${remValue}rem`;
         });
@@ -264,6 +279,22 @@ const convertToWbColor = (cssProperty, propertyValue) => {
     return propertyValue;
 };
 
+const convertToWbMeasurement = (cssProperty, propertyValue) => {
+    if (cssProperty === "borderWidth" || cssProperty === "border-width") {
+        if (Object.keys(wbBorderWidths).includes(propertyValue)) {
+            return `var(${wbBorderWidths[propertyValue]})`;
+        }
+    } else if (
+        cssProperty === "borderRadius" ||
+        cssProperty === "border-radius"
+    ) {
+        if (Object.keys(wbBorderRadii).includes(propertyValue)) {
+            return `var(${wbBorderRadii[propertyValue]})`;
+        }
+    }
+    return propertyValue;
+};
+
 const cssPropertyIsOnLine = (allProperties, lineToCheck) => {
     return allProperties.some(
         (property) => property.key.loc.start.line === lineToCheck,
@@ -288,11 +319,6 @@ const getCssPropertyInfo = (property) => {
     let cssPropertyName = camelToKabob(cssProperty);
     let nestedRuleSet = null;
     let propertyValue = property.value.value;
-    if (cssProperty === "width") {
-        console.log("Property in question: ", property);
-        console.log("Left: ", property.value.test.left);
-        console.log("Right: ", property.value.test.right);
-    }
     switch (property.value.type) {
         case "Identifier":
             propertyValue = literalVariables[property.value.name];
@@ -330,6 +356,14 @@ const getCssPropertyInfo = (property) => {
                 getConditionalExpressionValue(cssPropertyName, property.value);
             propertyValue = conditionalValue;
             nestedRuleSet = conditionalRuleSet;
+            codeBlocksToDelete.forEach((codeBlock) => {
+                if (
+                    codeBlock.node.start <= property.start &&
+                    codeBlock.node.end >= property.start
+                ) {
+                    codeBlock.hasConditionalStyling = true;
+                }
+            });
             break;
         case "UnaryExpression":
             propertyValue = `${property.value.operator}${[property.value.argument.name]}px`;
@@ -508,7 +542,11 @@ const isStylesheetNode = (node) => {
         node.init?.callee?.property?.name === "create";
     if (isStyleSheet && aphroditeDeclaration === null) {
         aphroditeDeclaration = node;
-        codeBlocksToDelete.push(node);
+        codeBlocksToDelete.push({
+            hasConditionalStyling: false,
+            isCommentNode: false,
+            node,
+        });
     }
     return isStyleSheet;
 };
@@ -660,7 +698,11 @@ parsedCode.program.body
                 properties: property.value.properties,
             };
         });
-        codeBlocksToDelete.push(node.declaration);
+        codeBlocksToDelete.push({
+            hasConditionalStyling: false,
+            isCommentNode: false,
+            node: node.declaration,
+        });
     });
 
 // Objects within React class 'render' method that are passed to 'style' property
@@ -688,7 +730,11 @@ parsedCode.program.body
             comments: node.comments,
             properties: node.declaration.init.properties,
         };
-        codeBlocksToDelete.push(node.declaration);
+        codeBlocksToDelete.push({
+            hasConditionalStyling: false,
+            isCommentNode: false,
+            node: node.declaration,
+        });
     });
 
 // Objects passed to 'style' property (outside of React class 'render')
@@ -718,7 +764,11 @@ parsedCode.program.body
                 };
             });
         }
-        codeBlocksToDelete.push(node.declaration);
+        codeBlocksToDelete.push({
+            hasConditionalStyling: false,
+            isCommentNode: false,
+            node: node.declaration,
+        });
     });
 
 // Rebuild the CSS rules with regular CSS syntax (remove quotes, add semicolons, etc.).
@@ -736,12 +786,13 @@ const cssStringified = Object.keys(cssRules)
 
 // Write the CSS to its own file.
 fs.writeFileSync(cssFilePath, cssStringified);
-exec(`git add ${cssFilePath}`, (error, stdout, stderr) => {
-    if (error) {
-        console.error(`Error: ${error}`);
-        return;
+(async () => {
+    try {
+        await execAsync(`git add ${cssFilePath}`);
+    } catch (error) {
+        console.error(error);
     }
-});
+})();
 
 const aphroditeFileName = keepAphrodite
     ? objectifyCSS(cssFilePath, aphroditeDeclaration.id.name)
@@ -753,19 +804,42 @@ const aphroditeFileName = keepAphrodite
 // Include any leading comments
 Object.keys(cssRules).forEach((className) => {
     cssRules[className].comments?.forEach((comment) => {
-        codeBlocksToDelete.push(comment);
+        codeBlocksToDelete.push({
+            hasConditionalStyling: false,
+            isCommentNode: true,
+            node: comment,
+        });
     });
 });
 
 const cleanedCode = codeBlocksToDelete
-    .sort((a, b) => b.start - a.start)
+    .filter((block, index) => {
+        return !codeBlocksToDelete
+            .slice(0, index)
+            .some(
+                (subsetBlock) =>
+                    subsetBlock.node.start <= block.node.start &&
+                    subsetBlock.node.end >= block.node.end,
+            );
+    })
+    .sort((a, b) => b.node.start - a.node.start)
     .reduce((revisedCode, nodeToRemove) => {
-        const precedingCode = revisedCode.substring(0, nodeToRemove.start);
+        const precedingCode = revisedCode.substring(0, nodeToRemove.node.start);
         const precedingBreakIndex = precedingCode.lastIndexOf("\n"); // Helps to keep existing line indents
         const remainingCode = revisedCode
-            .substring(nodeToRemove.end + 1)
+            .substring(nodeToRemove.node.end + 1)
             .replace(/^\n+/, ""); // remove leading lines
-        return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${remainingCode}`;
+        if (nodeToRemove.hasConditionalStyling) {
+            const codeToCommentOut = revisedCode.substring(
+                precedingBreakIndex,
+                nodeToRemove.node.end + 1,
+            );
+            const conditionalComment = `/* NOTE: The following styling contains conditional values.
+         Be sure to adjust assignment of 'className' or 'style' properties as needed.\n`;
+            return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${conditionalComment}${codeToCommentOut}${"\n*/\n"}${remainingCode}`;
+        } else {
+            return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${remainingCode}`;
+        }
     }, code);
 
 let updatedCode = cleanedCode;
@@ -795,4 +869,4 @@ ${cleanedCode.substring(lastImport[lastImport.length - 1].end).trim()}`;
     }
 }
 
-// fs.writeFileSync(filePath, updatedCode);
+fs.writeFileSync(filePath, updatedCode);

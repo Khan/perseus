@@ -1,6 +1,9 @@
 const {exec} = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const {promisify} = require("util");
+
+const execAsync = promisify(exec);
 
 const objectifyCSS = (cssPathname, objectName) => {
     const cssRules = fs.readFileSync(cssPathname, "utf-8");
@@ -14,18 +17,14 @@ const objectifyCSS = (cssPathname, objectName) => {
         aphroditeFilePath,
         `export const ${objectName} = ${objectified};`,
     );
-    exec(`prettier --write ${aphroditeFilePath}`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error: ${error}`);
-            return;
+    (async () => {
+        try {
+            await execAsync(`prettier --write ${aphroditeFilePath}`);
+            await execAsync(`git add ${aphroditeFilePath}`);
+        } catch (error) {
+            console.log(error);
         }
-    });
-    exec(`git add ${aphroditeFilePath}`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error: ${error}`);
-            return;
-        }
-    });
+    })();
 
     return aphroditeFileName;
 };
@@ -223,7 +222,6 @@ function normalizeSelector(selector, mq) {
 
     normalized = normalized.replace(/:/g, "_");
     normalized = normalized.split(".").at(-1); // Keep only the last class if multiple
-    // normalized = normalized.replace(/\./g, "");
 
     if (mq) {
         const mqSuffix = normalizeMediaQuery(mq);
@@ -262,9 +260,5 @@ function normalizeMediaQuery(mq) {
 
     return query ? `_mq_${query}` : "_mq";
 }
-
-// Example usage (in this file):
-// const cssObjects = parseCssToObjects(cssStringified);
-// console.log(cssObjects);
 
 exports.objectifyCSS = objectifyCSS;
