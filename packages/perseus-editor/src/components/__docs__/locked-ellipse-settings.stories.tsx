@@ -3,16 +3,14 @@ import * as React from "react";
 
 import LockedEllipseSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-ellipse-settings";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryFn, StoryObj} from "@storybook/react-vite";
 
-export default {
+const meta: Meta<typeof LockedEllipseSettings> = {
     title: "Editors/Components/Locked Ellipse Settings",
     component: LockedEllipseSettings,
-} as Meta<typeof LockedEllipseSettings>;
-
-export const Default = (args): React.ReactElement => {
-    return <LockedEllipseSettings {...args} />;
 };
+
+export default meta;
 
 const defaultProps = {
     ...getDefaultFigureForType("ellipse"),
@@ -21,29 +19,25 @@ const defaultProps = {
     onRemove: () => {},
 };
 
-type StoryComponentType = StoryObj<typeof LockedEllipseSettings>;
+type Story = StoryFn<typeof LockedEllipseSettings>;
 
-// Set the default values in the control panel.
-Default.args = defaultProps;
+export const Default: StoryObj<typeof LockedEllipseSettings> = {
+    args: defaultProps,
+};
 
-export const Controlled: StoryComponentType = {
-    render: function Render() {
-        const [props, setProps] = React.useState(defaultProps);
+export const Controlled: Story = () => {
+    const [props, setProps] = React.useState(defaultProps);
 
-        const handlePropsUpdate = (newProps) => {
-            setProps({
-                ...props,
-                ...newProps,
-            });
-        };
+    const handlePropsUpdate = (newProps) => {
+        setProps({
+            ...props,
+            ...newProps,
+        });
+    };
 
-        return (
-            <LockedEllipseSettings
-                {...props}
-                onChangeProps={handlePropsUpdate}
-            />
-        );
-    },
+    return (
+        <LockedEllipseSettings {...props} onChangeProps={handlePropsUpdate} />
+    );
 };
 
 Controlled.parameters = {
@@ -54,25 +48,23 @@ Controlled.parameters = {
 };
 
 // Fully expanded view of the locked ellipse settings to allow snapshot testing.
-export const Expanded: StoryComponentType = {
-    render: function Render() {
-        const [expanded, setExpanded] = React.useState(true);
-        const [props, setProps] = React.useState(defaultProps);
+export const Expanded: Story = () => {
+    const [expanded, setExpanded] = React.useState(true);
+    const [props, setProps] = React.useState(defaultProps);
 
-        const handlePropsUpdate = (newProps) => {
-            setProps({
-                ...props,
-                ...newProps,
-            });
-        };
+    const handlePropsUpdate = (newProps) => {
+        setProps({
+            ...props,
+            ...newProps,
+        });
+    };
 
-        return (
-            <LockedEllipseSettings
-                {...props}
-                expanded={expanded}
-                onToggle={setExpanded}
-                onChangeProps={handlePropsUpdate}
-            />
-        );
-    },
+    return (
+        <LockedEllipseSettings
+            {...props}
+            expanded={expanded}
+            onToggle={setExpanded}
+            onChangeProps={handlePropsUpdate}
+        />
+    );
 };

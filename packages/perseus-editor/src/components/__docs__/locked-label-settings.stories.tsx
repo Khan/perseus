@@ -3,16 +3,14 @@ import * as React from "react";
 
 import LockedLabelSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-label-settings";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryFn, StoryObj} from "@storybook/react-vite";
 
-export default {
+const meta: Meta<typeof LockedLabelSettings> = {
     title: "Editors/Components/Locked Label Settings",
     component: LockedLabelSettings,
-} as Meta<typeof LockedLabelSettings>;
-
-export const Default = (args): React.ReactElement => {
-    return <LockedLabelSettings {...args} />;
 };
+
+export default meta;
 
 const defaultProps = {
     ...getDefaultFigureForType("label"),
@@ -21,28 +19,30 @@ const defaultProps = {
     onRemove: () => {},
 };
 
-type StoryComponentType = StoryObj<typeof LockedLabelSettings>;
+type Story = StoryFn<typeof LockedLabelSettings>;
 
-// Set the default values in the control panel.
-Default.args = defaultProps;
+export const Default: StoryObj<typeof LockedLabelSettings> = {
+    args: defaultProps,
+};
 
-export const Expanded: StoryComponentType = {
-    render: function Render() {
-        const [props, setProps] = React.useState(defaultProps);
+// Fully expanded view of the locked label settings to allow snapshot testing.
+export const Expanded: Story = () => {
+    const [expanded, setExpanded] = React.useState(true);
+    const [props, setProps] = React.useState(defaultProps);
 
-        const handlePropsUpdate = (newProps) => {
-            setProps({
-                ...props,
-                ...newProps,
-            });
-        };
+    const handlePropsUpdate = (newProps) => {
+        setProps({
+            ...props,
+            ...newProps,
+        });
+    };
 
-        return (
-            <LockedLabelSettings
-                {...props}
-                expanded={true}
-                onChangeProps={handlePropsUpdate}
-            />
-        );
-    },
+    return (
+        <LockedLabelSettings
+            {...props}
+            expanded={expanded}
+            onToggle={setExpanded}
+            onChangeProps={handlePropsUpdate}
+        />
+    );
 };

@@ -3,16 +3,14 @@ import * as React from "react";
 
 import LockedFunctionSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-function-settings";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryFn, StoryObj} from "@storybook/react-vite";
 
-export default {
+const meta: Meta<typeof LockedFunctionSettings> = {
     title: "Editors/Components/Locked Function Settings",
     component: LockedFunctionSettings,
-} as Meta<typeof LockedFunctionSettings>;
-
-export const Default = (args): React.ReactElement => {
-    return <LockedFunctionSettings {...args} />;
 };
+
+export default meta;
 
 const defaultProps = {
     ...getDefaultFigureForType("function"),
@@ -21,28 +19,30 @@ const defaultProps = {
     onRemove: () => {},
 };
 
-type StoryComponentType = StoryObj<typeof LockedFunctionSettings>;
+type Story = StoryFn<typeof LockedFunctionSettings>;
 
-// Set the default values in the control panel.
-Default.args = defaultProps;
+export const Default: StoryObj<typeof LockedFunctionSettings> = {
+    args: defaultProps,
+};
 
-export const Expanded: StoryComponentType = {
-    render: function Render() {
-        const [props, setProps] = React.useState(defaultProps);
+// Fully expanded view of the locked function settings to allow snapshot testing.
+export const Expanded: Story = () => {
+    const [expanded, setExpanded] = React.useState(true);
+    const [props, setProps] = React.useState(defaultProps);
 
-        const handlePropsUpdate = (newProps) => {
-            setProps({
-                ...props,
-                ...newProps,
-            });
-        };
+    const handlePropsUpdate = (newProps) => {
+        setProps({
+            ...props,
+            ...newProps,
+        });
+    };
 
-        return (
-            <LockedFunctionSettings
-                {...props}
-                expanded={true}
-                onChangeProps={handlePropsUpdate}
-            />
-        );
-    },
+    return (
+        <LockedFunctionSettings
+            {...props}
+            expanded={expanded}
+            onToggle={setExpanded}
+            onChangeProps={handlePropsUpdate}
+        />
+    );
 };

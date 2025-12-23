@@ -4,64 +4,60 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {useState} from "react";
 
 import LockedFiguresSection from "../../widgets/interactive-graph-editor/locked-figures/locked-figures-section";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryFn, StoryObj} from "@storybook/react-vite";
 
-export default {
+const meta: Meta<typeof LockedFiguresSection> = {
     title: "Editors/Components/Locked Figures Section",
     component: LockedFiguresSection,
-} as Meta<typeof LockedFiguresSection>;
-
-export const Default = (args): React.ReactElement => {
-    return <LockedFiguresSection {...args} />;
 };
 
-type StoryComponentType = StoryObj<typeof LockedFiguresSection>;
+export default meta;
 
-// Set the default values in the control panel.
-Default.args = {};
+export const Default: StoryObj<typeof LockedFiguresSection> = {
+    args: {},
+};
 
-export const Controlled: StoryComponentType = {
-    render: function Render() {
-        const [figures, setFigures] = React.useState([]);
+type Story = StoryFn<typeof LockedFiguresSection>;
 
-        const handlePropsUpdate = (newProps) => {
-            setFigures(newProps.lockedFigures);
-        };
+export const Controlled: Story = () => {
+    const [figures, setFigures] = useState([]);
 
-        return (
+    const handlePropsUpdate = (newProps) => {
+        setFigures(newProps.lockedFigures);
+    };
+
+    return (
+        <LockedFiguresSection
+            figures={figures}
+            onChange={handlePropsUpdate}
+            apiOptions={ApiOptions.defaults}
+        />
+    );
+};
+
+export const WithProdWidth: Story = () => {
+    const [figures, setFigures] = useState([
+        getDefaultFigureForType("point"),
+        getDefaultFigureForType("line"),
+    ]);
+
+    const handlePropsUpdate = (newProps) => {
+        setFigures(newProps.lockedFigures);
+    };
+
+    return (
+        <View style={styles.prodSizeContainer}>
             <LockedFiguresSection
                 figures={figures}
                 onChange={handlePropsUpdate}
                 apiOptions={ApiOptions.defaults}
             />
-        );
-    },
-};
-
-export const WithProdWidth: StoryComponentType = {
-    render: function Render() {
-        const [figures, setFigures] = React.useState([
-            getDefaultFigureForType("point"),
-            getDefaultFigureForType("line"),
-        ]);
-
-        const handlePropsUpdate = (newProps) => {
-            setFigures(newProps.lockedFigures);
-        };
-
-        return (
-            <View style={styles.prodSizeContainer}>
-                <LockedFiguresSection
-                    figures={figures}
-                    onChange={handlePropsUpdate}
-                    apiOptions={ApiOptions.defaults}
-                />
-            </View>
-        );
-    },
+        </View>
+    );
 };
 
 const contentSize = 310;
