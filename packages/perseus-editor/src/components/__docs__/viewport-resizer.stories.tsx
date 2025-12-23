@@ -12,6 +12,7 @@ const meta: Meta<typeof ViewportResizer> = {
 };
 
 export default meta;
+
 type Story = StoryFn<typeof ViewportResizer>;
 
 export const Controlled: Story = () => {
