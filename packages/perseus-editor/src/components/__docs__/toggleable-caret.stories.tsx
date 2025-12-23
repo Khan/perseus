@@ -3,7 +3,7 @@ import * as React from "react";
 
 import ToggleableCaret from "../toggleable-caret";
 
-import type {StoryObj, Meta} from "@storybook/react-vite";
+import type {StoryObj, Meta, StoryFn} from "@storybook/react-vite";
 
 type Story = StoryObj<typeof ToggleableCaret>;
 
@@ -12,7 +12,7 @@ export default {
     component: ToggleableCaret,
 } satisfies Meta;
 
-export function Transitions() {
+export const Transitions: StoryFn<typeof ToggleableCaret> = () => {
     const [expanded, setExpanded] = React.useState(false);
     const toggler = React.useCallback(() => {
         setExpanded(!expanded);
@@ -20,7 +20,7 @@ export function Transitions() {
     useInterval(toggler, 500, {schedulePolicy: SchedulePolicy.Immediately});
 
     return <ToggleableCaret isExpanded={expanded} />;
-}
+};
 
 export const Expanded: Story = {
     args: {isExpanded: true},

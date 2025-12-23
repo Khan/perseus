@@ -3,16 +3,14 @@ import * as React from "react";
 
 import LockedVectorSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-vector-settings";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryFn, StoryObj} from "@storybook/react-vite";
 
-export default {
+const meta: Meta<typeof LockedVectorSettings> = {
     title: "Editors/Components/Locked Vector Settings",
     component: LockedVectorSettings,
-} as Meta<typeof LockedVectorSettings>;
-
-export const Default = (args): React.ReactElement => {
-    return <LockedVectorSettings {...args} />;
 };
+
+export default meta;
 
 const defaultProps = {
     ...getDefaultFigureForType("vector"),
@@ -21,30 +19,32 @@ const defaultProps = {
     onRemove: () => {},
 };
 
-type StoryComponentType = StoryObj<typeof LockedVectorSettings>;
+type Story = StoryFn<typeof LockedVectorSettings>;
 
-// Set the default values in the control panel.
-Default.args = defaultProps;
+export const Default: StoryObj<typeof LockedVectorSettings> = {
+    args: defaultProps,
+};
 
-export const Expanded: StoryComponentType = {
-    render: function Render() {
-        const [props, setProps] = React.useState(defaultProps);
+// Fully expanded view of the locked vector settings to allow snapshot testing.
+export const Expanded: Story = () => {
+    const [expanded, setExpanded] = React.useState(true);
+    const [props, setProps] = React.useState(defaultProps);
 
-        const handlePropsUpdate = (newProps) => {
-            setProps({
-                ...props,
-                ...newProps,
-            });
-        };
+    const handlePropsUpdate = (newProps) => {
+        setProps({
+            ...props,
+            ...newProps,
+        });
+    };
 
-        return (
-            <LockedVectorSettings
-                {...props}
-                expanded={true}
-                onChangeProps={handlePropsUpdate}
-            />
-        );
-    },
+    return (
+        <LockedVectorSettings
+            {...props}
+            expanded={expanded}
+            onToggle={setExpanded}
+            onChangeProps={handlePropsUpdate}
+        />
+    );
 };
 
 /**
@@ -52,27 +52,25 @@ export const Expanded: StoryComponentType = {
  * as that would give it a length of 0. An error message is displayed
  * in this case.
  */
-export const WithInvalidPoints: StoryComponentType = {
-    render: function Render() {
-        const [props, setProps] = React.useState(defaultProps);
+export const WithInvalidPoints: Story = () => {
+    const [props, setProps] = React.useState(defaultProps);
 
-        const handlePropsUpdate = (newProps) => {
-            setProps({
-                ...props,
-                ...newProps,
-            });
-        };
+    const handlePropsUpdate = (newProps) => {
+        setProps({
+            ...props,
+            ...newProps,
+        });
+    };
 
-        return (
-            <LockedVectorSettings
-                {...props}
-                points={[
-                    [0, 0],
-                    [0, 0],
-                ]}
-                expanded={true}
-                onChangeProps={handlePropsUpdate}
-            />
-        );
-    },
+    return (
+        <LockedVectorSettings
+            {...props}
+            points={[
+                [0, 0],
+                [0, 0],
+            ]}
+            expanded={true}
+            onChangeProps={handlePropsUpdate}
+        />
+    );
 };
