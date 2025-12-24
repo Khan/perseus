@@ -13,12 +13,11 @@ const objectifyCSS = (cssPathname, objectName) => {
     const fileNameParts = path.basename(cssPathname).split(".");
     const aphroditeFileName = `${fileNameParts[0]}_legacy-styles.js`;
     const aphroditeFilePath = path.join(fileDirectory, aphroditeFileName);
-    fs.writeFileSync(
-        aphroditeFilePath,
-        `const ${objectName} = ${objectified};
+    const fileContent = `// TODO (LEMS-3815): Remove this file
+const ${objectName} = ${objectified};
 
-export default ${objectName};`,
-    );
+export default ${objectName};`;
+    fs.writeFileSync(aphroditeFilePath, fileContent);
     (async () => {
         try {
             await execAsync(`prettier --write ${aphroditeFilePath}`);

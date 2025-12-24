@@ -836,7 +836,11 @@ const cleanedCode = codeBlocksToDelete
             );
             const conditionalComment = `/* NOTE: The following styling contains conditional values.
          Be sure to adjust assignment of 'className' or 'style' properties as needed.\n`;
-            return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${conditionalComment}${codeToCommentOut}${"\n*/\n"}${remainingCode}`;
+            const legacyComment = keepAphrodite
+                ? `         Also, add the following note where legacy styles are used:
+             TODO (LEMS-3815): Legacy styling - Remove this code\n`
+                : "";
+            return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${conditionalComment}${legacyComment}${codeToCommentOut}${"\n*/\n"}${remainingCode}`;
         } else {
             return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${remainingCode}`;
         }

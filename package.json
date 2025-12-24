@@ -155,7 +155,8 @@
         "format": "prettier --write .",
         "typecheck": "tsc",
         "knip": "knip --config knip.config.ts",
-        "extract-css": "node ./utils/extract-css.js"
+        "extract-css": "node ./utils/extract-css.js",
+        "sync-legacy-styles": "node ./utils/sync-legacy-styles.js"
     },
     "nyc": {
         "report-dir": "coverage/cypress/"
