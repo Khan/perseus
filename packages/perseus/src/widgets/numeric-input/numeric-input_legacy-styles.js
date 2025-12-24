@@ -1,3 +1,4 @@
+// TODO (LEMS-3815): Remove this file
 const styles = {
     inputWithExamples: {
         borderRadius: "0.3rem",

@@ -1,13 +1,8 @@
 const {exec} = require("child_process");
 const fs = require("fs");
 const path = require("path");
-const {promisify} = require("util");
 
 const {parse} = require("@babel/parser");
-
-const {objectifyCSS} = require("./extract-aphrodite");
-
-const execAsync = promisify(exec);
 
 /**
  * Extracts style information from JS and Aphrodite objects and writes them to a
@@ -29,7 +24,6 @@ const fileNameParts = path.basename(filePath).split(".");
 const archiveFile = process.argv.includes("--archive");
 const archivedFileName = `${fileNameParts[0]}.OLD.${fileNameParts[1]}`;
 const archivedFilePath = path.join(fileDirectory, archivedFileName);
-const keepAphrodite = process.argv.includes("--keep-aphrodite");
 const cssFileName = `${fileNameParts[0]}.module.css`;
 const cssFilePath = path.join(fileDirectory, cssFileName);
 const indentation = "    ";
@@ -39,19 +33,6 @@ const wbColorValues = {
     "#5f6167": "--wb-semanticColor-core-foreground-neutral-default",
     "#b8b9bb": "--wb-semanticColor-core-foreground-disabled-default",
     "#ffffff": "--wb-semanticColor-core-foreground-knockout-default",
-};
-const wbBorderWidths = {
-    "1px": "--wb-border-width-thin",
-    "2px": "--wb-border-width-medium",
-    "4px": "--wb-border-width-thick",
-};
-const wbBorderRadii = {
-    "1px": "--wb-border-radius-radius_010",
-    "4px": "--wb-border-radius-radius_040",
-    "8px": "--wb-border-radius-radius_080",
-    "12px": "--wb-border-radius-radius_120",
-    "24px": "--wb-border-radius-radius_240",
-    "50%": "--wb-border-radius-full",
 };
 const mediaQueries = {
     // from packages/perseus/src/styles/media-queries.ts
@@ -89,31 +70,15 @@ const camelToKabob = (camel) => {
     return camel.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
 };
 
-const propertyRejectsPx = (propertyName, testForLineHeight = true) => {
-    return (
-        propertyName === "zIndex" ||
-        propertyName === "z-index" ||
-        propertyName === "opacity" ||
-        (testForLineHeight && propertyName === "lineHeight") ||
-        (testForLineHeight && propertyName === "line-height")
-    );
-};
-
 const pxToRem = (px) => {
     return parseFloat(px) / 10;
 };
 
-const replacePxWithRem = (property, value) => {
-    const tokenizedValue = convertToWbMeasurement(property, value);
-    const convertToRem =
-        !propertyRejectsPx(property, false) && tokenizedValue !== 0;
-    if (convertToRem) {
-        return tokenizedValue.replace(/(\d+)px/g, (match, p1) => {
-            const remValue = pxToRem(parseFloat(p1));
-            return `${remValue}rem`;
-        });
-    }
-    return value;
+const replacePxWithRem = (cssString) => {
+    return cssString.replace(/(\d+)px/g, (match, p1) => {
+        const remValue = pxToRem(parseFloat(p1));
+        return `${remValue}rem`;
+    });
 };
 
 const validFileExtensions = ["js", "jsx", "ts", "tsx"];
@@ -279,22 +244,6 @@ const convertToWbColor = (cssProperty, propertyValue) => {
     return propertyValue;
 };
 
-const convertToWbMeasurement = (cssProperty, propertyValue) => {
-    if (cssProperty === "borderWidth" || cssProperty === "border-width") {
-        if (Object.keys(wbBorderWidths).includes(propertyValue)) {
-            return `var(${wbBorderWidths[propertyValue]})`;
-        }
-    } else if (
-        cssProperty === "borderRadius" ||
-        cssProperty === "border-radius"
-    ) {
-        if (Object.keys(wbBorderRadii).includes(propertyValue)) {
-            return `var(${wbBorderRadii[propertyValue]})`;
-        }
-    }
-    return propertyValue;
-};
-
 const cssPropertyIsOnLine = (allProperties, lineToCheck) => {
     return allProperties.some(
         (property) => property.key.loc.start.line === lineToCheck,
@@ -321,7 +270,7 @@ const getCssPropertyInfo = (property) => {
     let propertyValue = property.value.value;
     switch (property.value.type) {
         case "Identifier":
-            propertyValue = literalVariables[property.value.name];
+            propertyValue = `${pxToRem(literalVariables[property.value.name])}rem`;
             break;
         case "BinaryExpression":
             propertyValue = getBinaryExpressionValue(property.value);
@@ -332,13 +281,16 @@ const getCssPropertyInfo = (property) => {
                 property.value.property.name,
             );
             if (
-                isNaN(expressionValue) ||
-                propertyRejectsPx(cssProperty) ||
-                propertyValue === 0
+                isNaN(
+                    expressionValue ||
+                        cssProperty === "zIndex" ||
+                        cssProperty === "opacity" ||
+                        propertyValue === 0,
+                )
             ) {
                 propertyValue = expressionValue;
             } else {
-                propertyValue = `${expressionValue}px`;
+                propertyValue = `${pxToRem(expressionValue)}rem`;
             }
             break;
         case "ObjectExpression":
@@ -351,28 +303,18 @@ const getCssPropertyInfo = (property) => {
             }
             propertyValue = "";
             break;
-        case "ConditionalExpression":
-            const {conditionalValue, conditionalRuleSet} =
-                getConditionalExpressionValue(cssPropertyName, property.value);
-            propertyValue = conditionalValue;
-            nestedRuleSet = conditionalRuleSet;
-            codeBlocksToDelete.forEach((codeBlock) => {
-                if (
-                    codeBlock.node.start <= property.start &&
-                    codeBlock.node.end >= property.start
-                ) {
-                    codeBlock.hasConditionalStyling = true;
-                }
-            });
-            break;
         case "UnaryExpression":
-            propertyValue = `${property.value.operator}${[property.value.argument.name]}px`;
+            propertyValue = `${property.value.operator}${pxToRem(literalVariables[property.value.argument.name])}rem`;
             break;
         case "NumericLiteral":
-            propertyValue =
-                propertyRejectsPx(cssProperty) || propertyValue === 0
-                    ? `${propertyValue}`
-                    : `${propertyValue}px`;
+            const convertToRem =
+                cssProperty !== "zIndex" &&
+                cssProperty !== "opacity" &&
+                cssProperty !== "lineHeight" &&
+                propertyValue !== 0;
+            if (convertToRem) {
+                propertyValue = `${pxToRem(propertyValue)}rem`;
+            }
             break;
         case "TemplateLiteral":
             const literalParts = property.value.expressions
@@ -395,7 +337,7 @@ const getCssPropertyInfo = (property) => {
             break;
     }
 
-    propertyValue = replacePxWithRem(cssPropertyName, `${propertyValue}`);
+    propertyValue = replacePxWithRem(`${propertyValue}`);
     propertyValue = convertToWbColor(cssPropertyName, propertyValue);
 
     return {
@@ -458,73 +400,6 @@ const getBinaryExpressionValue = (expressionNode) => {
     }
 };
 
-const getConditionalExpressionValue = (propertyName, expressionNode) => {
-    // Convert conditional values into their own class that can be applied as needed.
-
-    let nodeValue = expressionNode.alternate.value;
-    const alternateValue =
-        propertyRejectsPx(propertyName) ||
-        nodeValue === 0 ||
-        `${nodeValue}`.includes("px") ||
-        isNaN(nodeValue)
-            ? `${nodeValue}`
-            : `${nodeValue}px`;
-
-    // Conditional value used in a separate class
-    nodeValue = expressionNode.consequent.value;
-    let consequentValue =
-        propertyRejectsPx(propertyName) ||
-        nodeValue === 0 ||
-        `${nodeValue}`.includes("px") ||
-        isNaN(nodeValue)
-            ? `${nodeValue}`
-            : `${nodeValue}px`;
-    consequentValue = replacePxWithRem(propertyName, `${consequentValue}`);
-    consequentValue = convertToWbColor(propertyName, consequentValue);
-    let testName = "";
-    if (expressionNode.test.type === "Identifier") {
-        testName = camelToKabob(expressionNode.test.name);
-    } else if (expressionNode.test.type === "MemberExpression") {
-        testName = camelToKabob(expressionNode.test.property.name);
-    } else if (expressionNode.test.type === "BinaryExpression") {
-        const identifierName = expressionNode.test.left.type.includes(
-            "Expression",
-        )
-            ? `${expressionNode.test.left.property.name}-${expressionNode.test.right.value}`
-            : `${expressionNode.test.right.property.name}-${expressionNode.test.left.value}`;
-        testName = camelToKabob(identifierName);
-    }
-    if (testName !== "") {
-        const nestedRuleSet = [
-            {
-                property: `.${testName}`,
-                value: "",
-                line: null,
-                leadingComments: [],
-                trailingComments: [],
-                nestedRuleSet: [
-                    {
-                        property: propertyName,
-                        value: consequentValue,
-                        line: null,
-                        leadingComments: [],
-                        trailingComments: [],
-                        nestedRuleSet: null,
-                    },
-                ],
-            },
-        ];
-        return {
-            conditionalValue: alternateValue,
-            conditionalRuleSet: nestedRuleSet,
-        };
-    }
-    return {
-        conditionalValue: `/* Unable to handle conditional expression: ${expressionNode.test.type} ? ${expressionNode.consequent.type} : ${expressionNode.alternate.type}  */`,
-        conditionalRuleSet: null,
-    };
-};
-
 const getMemberExpressionValue = (objectName, variableName) => {
     const errorMessage = `/* ${objectName}.${variableName} is not defined */`;
     const importedValues = getImportedValues(objectName);
@@ -542,11 +417,7 @@ const isStylesheetNode = (node) => {
         node.init?.callee?.property?.name === "create";
     if (isStyleSheet && aphroditeDeclaration === null) {
         aphroditeDeclaration = node;
-        codeBlocksToDelete.push({
-            hasConditionalStyling: false,
-            isCommentNode: false,
-            node,
-        });
+        codeBlocksToDelete.push(node);
     }
     return isStyleSheet;
 };
@@ -575,50 +446,13 @@ const stringifyCssProperty = (cssProperty, indentationCount = 1) => {
 };
 
 const stringifyCssRuleset = (selector, ruleset, indentationCount = 0) => {
-    // Conditional rulesets contain a class name in the nested ruleset.
-    const conditionalRulesets = ruleset.filter(
-        (property) =>
-            Array.isArray(property.nestedRuleSet) &&
-            property.nestedRuleSet.some((ruleset) =>
-                ruleset.property.startsWith("."),
-            ),
-    );
-    // The base property/value is in the top-level ruleset.
-    const conditionalInitialStates = conditionalRulesets.map((property) => {
-        return {...property, nestedRuleSet: null};
-    });
     let stringifiedRuleset = ruleset
-        .concat(conditionalInitialStates)
         .filter((property) => property.nestedRuleSet === null)
-        .sort((propertyA, propertyB) =>
-            propertyA.property < propertyB.property ? -1 : 1,
-        )
         .map((property) => stringifyCssProperty(property, indentationCount + 1))
         .join("");
-    // The alternate values for the same properties are in the nested rulesets.
-    const conditionalAlternateStates = conditionalRulesets
-        .flatMap((property) => property.nestedRuleSet)
-        .reduce((rulesSets, property) => {
-            const matchedRuleSet = rulesSets.find(
-                (ruleset) => ruleset.property === property.property,
-            );
-            if (!matchedRuleSet) {
-                rulesSets.push(property);
-            } else {
-                matchedRuleSet.nestedRuleSet =
-                    matchedRuleSet.nestedRuleSet.concat(property.nestedRuleSet);
-            }
-            return rulesSets;
-        }, []);
-    const nestedRulesets = ruleset
-        .filter(
-            (property) =>
-                Array.isArray(property.nestedRuleSet) &&
-                !property.nestedRuleSet.some((ruleset) =>
-                    ruleset.property.startsWith("."),
-                ),
-        )
-        .concat(conditionalAlternateStates);
+    const nestedRulesets = ruleset.filter(
+        (property) => property.nestedRuleSet !== null,
+    );
     if (stringifiedRuleset.length !== 0) {
         const rulesetSelector = `${indentation.repeat(indentationCount)}${selector} {${"\n"}`;
         const rulesetEnd = `${indentation.repeat(indentationCount)}}${"\n"}`;
@@ -664,47 +498,6 @@ parsedCode.program.body
         };
     });
 
-// Objects within function components that use StyleSheet.create
-parsedCode.program.body
-    .filter((node) => node.type === "ExportNamedDeclaration")
-    .flatMap((node) => node.declaration.declarations)
-    .filter(
-        (declaration) =>
-            declaration.init?.type === "CallExpression" ||
-            declaration.init?.type === "ArrowFunctionExpression" ||
-            declaration.init?.type === "FunctionExpression",
-    )
-    .flatMap((declaration) => {
-        return declaration.init?.type === "CallExpression"
-            ? declaration.init.arguments.flatMap(
-                  (argument) => argument.body.body,
-              )
-            : declaration.init.body.body;
-    })
-    .filter(isVariableDeclaration)
-    .flatMap((node) => {
-        return node.declarations.map((declaration) => {
-            return {
-                declaration,
-                comments: node.leadingComments ?? [],
-            };
-        });
-    })
-    .filter((node) => isStylesheetNode(node.declaration))
-    .forEach((node) => {
-        node.declaration.init.arguments[0].properties.forEach((property) => {
-            cssRules[getClassName(property)] = {
-                comments: node.comments,
-                properties: property.value.properties,
-            };
-        });
-        codeBlocksToDelete.push({
-            hasConditionalStyling: false,
-            isCommentNode: false,
-            node: node.declaration,
-        });
-    });
-
 // Objects within React class 'render' method that are passed to 'style' property
 parsedCode.program.body
     .filter((node) => node.type === "ClassDeclaration")
@@ -730,11 +523,7 @@ parsedCode.program.body
             comments: node.comments,
             properties: node.declaration.init.properties,
         };
-        codeBlocksToDelete.push({
-            hasConditionalStyling: false,
-            isCommentNode: false,
-            node: node.declaration,
-        });
+        codeBlocksToDelete.push(node.declaration);
     });
 
 // Objects passed to 'style' property (outside of React class 'render')
@@ -764,11 +553,7 @@ parsedCode.program.body
                 };
             });
         }
-        codeBlocksToDelete.push({
-            hasConditionalStyling: false,
-            isCommentNode: false,
-            node: node.declaration,
-        });
+        codeBlocksToDelete.push(node.declaration);
     });
 
 // Rebuild the CSS rules with regular CSS syntax (remove quotes, add semicolons, etc.).
@@ -786,17 +571,12 @@ const cssStringified = Object.keys(cssRules)
 
 // Write the CSS to its own file.
 fs.writeFileSync(cssFilePath, cssStringified);
-(async () => {
-    try {
-        await execAsync(`git add ${cssFilePath}`);
-    } catch (error) {
-        console.error(error);
+exec(`git add ${cssFilePath}`, (error, stdout, stderr) => {
+    if (error) {
+        console.error(`Error: ${error}`);
+        return;
     }
-})();
-
-const aphroditeFileName = keepAphrodite
-    ? objectifyCSS(cssFilePath, aphroditeDeclaration.id.name)
-    : "";
+});
 
 /*********************
  * Replace Aphrodite *
@@ -804,42 +584,19 @@ const aphroditeFileName = keepAphrodite
 // Include any leading comments
 Object.keys(cssRules).forEach((className) => {
     cssRules[className].comments?.forEach((comment) => {
-        codeBlocksToDelete.push({
-            hasConditionalStyling: false,
-            isCommentNode: true,
-            node: comment,
-        });
+        codeBlocksToDelete.push(comment);
     });
 });
 
 const cleanedCode = codeBlocksToDelete
-    .filter((block, index) => {
-        return !codeBlocksToDelete
-            .slice(0, index)
-            .some(
-                (subsetBlock) =>
-                    subsetBlock.node.start <= block.node.start &&
-                    subsetBlock.node.end >= block.node.end,
-            );
-    })
-    .sort((a, b) => b.node.start - a.node.start)
+    .sort((a, b) => b.start - a.start)
     .reduce((revisedCode, nodeToRemove) => {
-        const precedingCode = revisedCode.substring(0, nodeToRemove.node.start);
+        const precedingCode = revisedCode.substring(0, nodeToRemove.start);
         const precedingBreakIndex = precedingCode.lastIndexOf("\n"); // Helps to keep existing line indents
         const remainingCode = revisedCode
-            .substring(nodeToRemove.node.end + 1)
+            .substring(nodeToRemove.end + 1)
             .replace(/^\n+/, ""); // remove leading lines
-        if (nodeToRemove.hasConditionalStyling) {
-            const codeToCommentOut = revisedCode.substring(
-                precedingBreakIndex,
-                nodeToRemove.node.end + 1,
-            );
-            const conditionalComment = `/* NOTE: The following styling contains conditional values.
-         Be sure to adjust assignment of 'className' or 'style' properties as needed.\n`;
-            return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${conditionalComment}${codeToCommentOut}${"\n*/\n"}${remainingCode}`;
-        } else {
-            return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${remainingCode}`;
-        }
+        return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${remainingCode}`;
     }, code);
 
 let updatedCode = cleanedCode;
@@ -848,13 +605,8 @@ const aphroditeImport = parsedCode.program.body.filter(
         node.type === "ImportDeclaration" && node.source.value === "aphrodite",
 )[0];
 if (aphroditeImport) {
-    const cssImport = `import ${aphroditeDeclaration.id.name} from "./${cssFileName}";`;
-    const legacyImport = keepAphrodite
-        ? `import ${aphroditeDeclaration.id.name}Legacy from "./${aphroditeFileName}";`
-        : "";
     updatedCode = `${cleanedCode.substring(0, aphroditeImport.start - 1)}
-${cssImport}
-${legacyImport}
+import ${aphroditeDeclaration.id.name} from "./${cssFileName}";
 ${cleanedCode.substring(aphroditeImport.end).trim()}
 `;
 } else {
