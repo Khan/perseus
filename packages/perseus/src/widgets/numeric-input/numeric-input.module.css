@@ -2,10 +2,10 @@
 .input-with-examples {
     border-radius: 0.3rem;
     border-width: var(--wb-border-width-thin);
-        /*
-          Even in RTL languages, math is LTR.
-          So we force this component to always render LTR
-        */
+    /*
+      Even in RTL languages, math is LTR.
+      So we force this component to always render LTR
+    */
     direction: ltr;
     display: inline-block;
     font-family: Symbola, "Times New Roman", serif;
