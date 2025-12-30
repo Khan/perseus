@@ -39,6 +39,13 @@ type State = {
     expanded: boolean;
 };
 
+function mediaQueryIsMatched(mediaQuery: string): boolean {
+    if (typeof window.matchMedia !== "function") {
+        return false;
+    }
+    return window.matchMedia(mediaQuery).matches;
+}
+
 class Explanation extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -94,9 +101,10 @@ class Explanation extends React.Component<Props, State> implements Widget {
             this.state.expanded
                 ? stylesLegacy.contentExpanded
                 : stylesLegacy.contentCollapsed,
-            this.state.expanded
-                ? stylesLegacy.transitionExpanded
-                : stylesLegacy.transitionCollapsed,
+            mediaQueryIsMatched("(prefers-reduced-motion: no-preference)") &&
+                (this.state.expanded
+                    ? stylesLegacy.transitionExpanded
+                    : stylesLegacy.transitionCollapsed),
         ];
 
         const contentClasses = [
