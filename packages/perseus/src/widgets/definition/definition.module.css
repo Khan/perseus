@@ -3,9 +3,9 @@
     border-bottom: none;
 }
 
-.definition:hover,
-.definition:focus,
-.definition:active {
+:hover > .definition,
+:focus > .definition,
+:active  > .definition {
     /* Note(TB): Probably don't need borderBottom styling as Clickable handles that.
        If removed, also remove the Focused story. */
     border-bottom: 2px solid
