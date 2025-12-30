@@ -89,6 +89,12 @@ const camelToKabob = (camel) => {
     return camel.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
 };
 
+const getWbTokenValue = (tokenName) => {
+    const tokenParts = tokenName.split(".");
+    const tokenValue = `--wb-${tokenParts.join("-")}`;
+    return `var(${tokenValue})`;
+};
+
 const propertyRejectsPx = (propertyName, testForLineHeight = true) => {
     return (
         propertyName === "zIndex" ||
@@ -99,14 +105,21 @@ const propertyRejectsPx = (propertyName, testForLineHeight = true) => {
     );
 };
 
+const propertyKeepsPx = (propertyName) => {
+    return propertyName.includes("border");
+};
+
 const pxToRem = (px) => {
     return parseFloat(px) / 10;
 };
 
 const replacePxWithRem = (property, value) => {
     const tokenizedValue = convertToWbMeasurement(property, value);
-    const convertToRem =
-        !propertyRejectsPx(property, false) && tokenizedValue !== 0;
+    const convertToRem = !(
+        propertyRejectsPx(property, false) ||
+        propertyKeepsPx(property) ||
+        tokenizedValue === 0
+    );
     if (convertToRem) {
         return tokenizedValue.replace(/(\d+)px/g, (match, p1) => {
             const remValue = pxToRem(parseFloat(p1));
@@ -322,13 +335,22 @@ const getCssPropertyInfo = (property) => {
     switch (property.value.type) {
         case "Identifier":
             propertyValue = literalVariables[property.value.name];
+            if (
+                !(
+                    isNaN(propertyValue) ||
+                    propertyRejectsPx(cssProperty) ||
+                    propertyValue === 0
+                )
+            ) {
+                propertyValue = `${propertyValue}px`;
+            }
             break;
         case "BinaryExpression":
             propertyValue = getBinaryExpressionValue(property.value);
             break;
         case "MemberExpression":
             const expressionValue = getMemberExpressionValue(
-                property.value.object.name,
+                property.value.object,
                 property.value.property.name,
             );
             if (
@@ -366,7 +388,7 @@ const getCssPropertyInfo = (property) => {
             });
             break;
         case "UnaryExpression":
-            propertyValue = `${property.value.operator}${[property.value.argument.name]}px`;
+            propertyValue = `${property.value.operator}${literalVariables[property.value.argument.name]}px`;
             break;
         case "NumericLiteral":
             propertyValue =
@@ -386,7 +408,7 @@ const getCssPropertyInfo = (property) => {
                         return `${builtString}${literalVariables[part.name]}`;
                     case "MemberExpression":
                         const referencedValue = getMemberExpressionValue(
-                            part.object.name,
+                            part.object,
                             part.property.name,
                         );
                         return `${builtString}${referencedValue}`;
@@ -442,6 +464,7 @@ const getImportedValues = (sourceName) => {
                 } else {
                     importedModules[sourceName] = variablesFromCode[sourceName];
                 }
+                importedModules[sourceName].importPath = filePath;
             });
     }
     return importedModules[sourceName];
@@ -525,15 +548,29 @@ const getConditionalExpressionValue = (propertyName, expressionNode) => {
     };
 };
 
-const getMemberExpressionValue = (objectName, variableName) => {
-    const errorMessage = `/* ${objectName}.${variableName} is not defined */`;
-    const importedValues = getImportedValues(objectName);
+const getMemberExpressionValue = (node, variableName) => {
+    const variableNameParts = [...getMemberNameParts(node), variableName];
+    const fullVariableName = variableNameParts.join(".");
+    const errorMessage = `/* ${fullVariableName} is not defined */`;
+    const importedValues = getImportedValues(variableNameParts[0]);
     if (importedValues === undefined) {
         return errorMessage;
+    } else if (importedValues.importPath?.includes("wonder-blocks-tokens")) {
+        const tokenValue = getWbTokenValue(fullVariableName);
+        return tokenValue !== undefined ? tokenValue : errorMessage;
     } else {
         const importedValue = importedValues[variableName];
         return importedValue !== undefined ? importedValue : errorMessage;
     }
+};
+
+const getMemberNameParts = (node) => {
+    if (typeof node.name === "string") {
+        return [node.name];
+    }
+    const nameParts = getMemberNameParts(node.object);
+    nameParts.push(node.property.name);
+    return nameParts;
 };
 
 const isStylesheetNode = (node) => {
