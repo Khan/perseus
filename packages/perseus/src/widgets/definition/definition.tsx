@@ -1,6 +1,5 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -8,6 +7,10 @@ import {withDependencies} from "../../components/with-dependencies";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
+
+import styles from "./definition.module.css";
+// TODO (LEMS-3815): Legacy styling - Remove this code
+import stylesLegacy from "./definition_legacy-styles";
 
 import type {
     PerseusDependenciesV2,
@@ -67,7 +70,8 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
                         dismissEnabled
                         content={
                             <PopoverContentCore
-                                style={styles.tooltipBody}
+                                style={stylesLegacy.tooltipBody}
+                                // className={styles.tooltipBody} - uncomment when 'className' is supported
                                 closeButtonVisible={true}
                             >
                                 <Renderer
@@ -89,18 +93,7 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
                             }}
                         >
                             {({hovered, focused, pressed}) => (
-                                <span
-                                    style={{
-                                        color: semanticColor.core.foreground
-                                            .instructive.default,
-                                        // Note(TB): Probably don't need borderBottom styling as Clickable handles that.
-                                        // If removed, also remove the Focused story.
-                                        borderBottom:
-                                            hovered || focused || pressed
-                                                ? `2px solid ${semanticColor.core.border.instructive.default}`
-                                                : "none",
-                                    }}
-                                >
+                                <span className={styles.definition}>
                                     {this.props.togglePrompt}
                                 </span>
                             )}
@@ -111,15 +104,6 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
         );
     }
 }
-
-const styles = {
-    tooltipBody: {
-        color: semanticColor.core.foreground.neutral.strong,
-        fontSize: font.body.size.medium,
-        fontWeight: font.weight.medium,
-        lineHeight: font.body.lineHeight.medium,
-    },
-} as const;
 
 const WrappedDefinition = withDependencies(Definition);
 
