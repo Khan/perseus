@@ -30,10 +30,10 @@
     border-left-width: 5px;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-        /*
-          Note: we still use arrow height as the vertical margin, even on
-          desktop when there is no arrow, but it's good enough.
-        */
+    /*
+      Note: we still use arrow height as the vertical margin, even on
+      desktop when there is no arrow, but it's good enough.
+    */
     margin-bottom: 1.4rem;
     margin-left: -2.3rem;
     margin-top: 1.4rem;
@@ -50,20 +50,29 @@
 .label-style {
     font-size: var(--wb-font-heading-size-medium);
     line-height: inherit;
-        /*
-          The following property adjusts the large space between the button text and the caret icon.
-          Since we are unable to adjust the styling of the icon (where the extra space exists),
-          we are adjusting it on the text label by using a negative margin.
-        */
+    /*
+      The following property adjusts the large space between the button text and the caret icon.
+      Since we are unable to adjust the styling of the icon (where the extra space exists),
+      we are adjusting it on the text label by using a negative margin.
+    */
     margin-right: -0.6rem;
     text-align: left;
     white-space: normal;
 }
 
 .transition-collapsed {
-    transition: all 0.25s step-end, grid-template-rows 0.25s, margin-top 0.25s, margin-bottom 0.25s, padding-bottom 0.25s;
+    transition:
+        all 0.25s step-end,
+        grid-template-rows 0.25s,
+        margin-top 0.25s,
+        margin-bottom 0.25s,
+        padding-bottom 0.25s;
 }
 
 .transition-expanded {
-    transition: grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s;
+    transition:
+        grid-template-rows 0.5s,
+        margin-top 0.5s,
+        margin-bottom 0.5s,
+        padding-bottom 0.5s;
 }
