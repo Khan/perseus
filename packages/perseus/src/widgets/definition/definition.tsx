@@ -92,7 +92,7 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
                                 setActiveDefinitionId(this.props.widgetId);
                             }}
                         >
-                            {({hovered, focused, pressed}) => (
+                            {() => (
                                 <span className={styles.definition}>
                                     {this.props.togglePrompt}
                                 </span>
