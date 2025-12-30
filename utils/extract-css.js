@@ -832,7 +832,7 @@ fs.writeFileSync(cssFilePath, cssStringified);
 })();
 
 const aphroditeFileName = keepAphrodite
-    ? objectifyCSS(cssFilePath, aphroditeDeclaration.id.name)
+    ? objectifyCSS(cssFilePath, aphroditeDeclaration?.id?.name ?? "styles")
     : "";
 
 /*********************
@@ -888,14 +888,15 @@ const aphroditeImport = parsedCode.program.body.filter(
     (node) =>
         node.type === "ImportDeclaration" && node.source.value === "aphrodite",
 )[0];
+const importName = aphroditeDeclaration?.id?.name ?? "styles";
+const cssImport = `import ${importName} from "./${cssFileName}";`;
+const legacyImport = keepAphrodite
+    ? `import ${importName}Legacy from "./${aphroditeFileName}";`
+    : "";
+const importStatement = `${cssImport}${keepAphrodite ? `\n${legacyImport}` : ""}`;
 if (aphroditeImport) {
-    const cssImport = `import ${aphroditeDeclaration.id.name} from "./${cssFileName}";`;
-    const legacyImport = keepAphrodite
-        ? `import ${aphroditeDeclaration.id.name}Legacy from "./${aphroditeFileName}";`
-        : "";
     updatedCode = `${cleanedCode.substring(0, aphroditeImport.start - 1)}
-${cssImport}
-${legacyImport}
+${importStatement}
 ${cleanedCode.substring(aphroditeImport.end).trim()}
 `;
 } else {
@@ -904,7 +905,7 @@ ${cleanedCode.substring(aphroditeImport.end).trim()}
     );
     if (lastImport.length > 0) {
         updatedCode = `${cleanedCode.substring(0, lastImport[lastImport.length - 1].end)}
-import styles from "./${cssFileName}";
+${importStatement}
 
 ${cleanedCode.substring(lastImport[lastImport.length - 1].end).trim()}`;
     }
