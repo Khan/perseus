@@ -63,18 +63,18 @@
 @media (prefers-reduced-motion: no-preference) {
     .transition-collapsed {
         transition:
-                all 0.25s step-end,
-                grid-template-rows 0.25s,
-                margin-top 0.25s,
-                margin-bottom 0.25s,
-                padding-bottom 0.25s;
+            all 0.25s step-end,
+            grid-template-rows 0.25s,
+            margin-top 0.25s,
+            margin-bottom 0.25s,
+            padding-bottom 0.25s;
     }
 
     .transition-expanded {
         transition:
-                grid-template-rows 0.5s,
-                margin-top 0.5s,
-                margin-bottom 0.5s,
-                padding-bottom 0.5s;
+            grid-template-rows 0.5s,
+            margin-top 0.5s,
+            margin-bottom 0.5s,
+            padding-bottom 0.5s;
     }
 }
