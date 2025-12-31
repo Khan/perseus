@@ -836,6 +836,9 @@ importers:
       '@khanacademy/perseus-utils':
         specifier: workspace:*
         version: link:../perseus-utils
+      axe-core:
+        specifier: ^4.11.0
+        version: 4.11.0
       katex:
         specifier: 0.11.1
         version: 0.11.1
@@ -3833,6 +3836,10 @@ packages:
 
   axe-core@4.10.2:
     resolution: {integrity: sha512-RE3mdQ7P3FRSe7eqCWoeQ/Z9QXrtniSjp1wUjt5nRC3WIpz5rSCve6o3fsZ2aCpJtrZjSZgjwXAoTO5k4tEI0w==}
+    engines: {node: '>=4'}
+
+  axe-core@4.11.0:
+    resolution: {integrity: sha512-ilYanEU8vxxBexpJd8cWM4ElSQq4QctCLKih0TSfjIfCQTeyH/6zVrmIJfLPrKTKJRbiG+cfnZbQIjAlJmF1jQ==}
     engines: {node: '>=4'}
 
   axobject-query@4.1.0:
@@ -12824,6 +12831,8 @@ snapshots:
   aws4@1.11.0: {}
 
   axe-core@4.10.2: {}
+
+  axe-core@4.11.0: {}
 
   axobject-query@4.1.0: {}
 

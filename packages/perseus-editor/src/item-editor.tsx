@@ -9,6 +9,7 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
+import {runAxeCoreOnUpdate} from "./util/a11y-checker";
 import {ItemEditorContext} from "./util/item-editor-context";
 import {detectTexErrors} from "./util/tex-error-detector";
 
@@ -50,6 +51,7 @@ type Props = {
 
 type State = {
     issues: Issue[];
+    axeCoreIssues: Issue[];
 };
 
 class ItemEditor extends React.Component<Props, State> {
@@ -64,6 +66,7 @@ class ItemEditor extends React.Component<Props, State> {
     };
     static prevContent: string | undefined;
     static prevWidgets: PerseusWidgetsMap | undefined;
+    a11yCheckerTimeoutId: any;
 
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
@@ -71,37 +74,49 @@ class ItemEditor extends React.Component<Props, State> {
 
     state = {
         issues: [],
+        axeCoreIssues: [],
     };
 
-    static getDerivedStateFromProps(props: Props): Partial<State> | null {
+    componentDidUpdate(prevProps: Props) {
         // Short-circuit if nothing changed
         if (
-            props.question?.content === ItemEditor.prevContent &&
-            props.question?.widgets === ItemEditor.prevWidgets
+            this.props.question?.content === prevProps.question?.content &&
+            this.props.question?.widgets === prevProps.question?.widgets
         ) {
-            return null;
+            return;
         }
 
-        // Update cached values
-        ItemEditor.prevContent = props.question?.content;
-        ItemEditor.prevWidgets = props.question?.widgets;
-
-        const parsed = PerseusMarkdown.parse(props.question?.content ?? "", {});
+        const parsed = PerseusMarkdown.parse(
+            this.props.question?.content ?? "",
+            {},
+        );
         const linterContext = {
-            content: props.question?.content,
-            widgets: props.question?.widgets,
+            content: this.props.question?.content,
+            widgets: this.props.question?.widgets,
             stack: [],
         };
 
         // Detect TeX errors
-        const texErrors = detectTexErrors(props.question?.content ?? "");
+        const texErrors = detectTexErrors(this.props.question?.content ?? "");
         const texIssues = texErrors.map((error, index) =>
             WARNINGS.texError(error.math, error.message, index),
         );
 
-        return {
-            issues: [
-                ...(props.issues ?? []),
+        // Uncomment the following when A11y check is changed to continuous
+        /*
+        this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
+            this.a11yCheckerTimeoutId,
+            (issues) => {
+                this.setState({
+                    axeCoreIssues: issues,
+                });
+            },
+        );
+         */
+
+        const gatherIssues = () => {
+            return [
+                ...(this.props.issues ?? []),
                 ...(PerseusLinter.runLinter(parsed, linterContext, false)?.map(
                     (linterWarning) => {
                         if (linterWarning.rule === "inaccessible-widget") {
@@ -118,8 +133,12 @@ class ItemEditor extends React.Component<Props, State> {
                     },
                 ) ?? []),
                 ...texIssues,
-            ],
+            ];
         };
+
+        this.setState({
+            issues: gatherIssues(),
+        });
     }
 
     // Notify the parent that the question or answer area has been updated.
@@ -164,6 +183,19 @@ class ItemEditor extends React.Component<Props, State> {
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const allIssues = this.state.issues.concat(this.state.axeCoreIssues);
+
+        // Remove the following function when A11y check is changed to continuous
+        const runAxeCore = () => {
+            this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
+                this.a11yCheckerTimeoutId,
+                (issues) => {
+                    this.setState({
+                        axeCoreIssues: issues,
+                    });
+                },
+            );
+        };
 
         return (
             <ItemEditorContext.Provider
@@ -177,7 +209,8 @@ class ItemEditor extends React.Component<Props, State> {
                         <div className="perseus-editor-left-cell">
                             <IssuesPanel
                                 apiOptions={this.props.apiOptions}
-                                issues={this.state.issues}
+                                issues={allIssues}
+                                a11yCheckCallback={runAxeCore}
                             />
                             <div className="pod-title">Question</div>
                             <fieldset disabled={editingDisabled}>
