@@ -76,5 +76,3 @@ const styles = StyleSheet.create({
         overflow: "auto",
     },
 });
-
-export default SelectableItemRenderer;
