@@ -16,8 +16,10 @@ export type {Issue} from "./components/issues-panel";
 export {
     extractSelectableRegions,
     createItemVariation,
+    applyTextSubstitutions,
     type SelectableRegion,
     type VariableSubstitution,
+    type TextSubstitution,
 } from "@khanacademy/perseus-core";
 
 import "./styles/perseus-editor.css";

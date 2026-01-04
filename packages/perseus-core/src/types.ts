@@ -87,10 +87,26 @@ export type SelectableRegion = {
 
 /**
  * A substitution to apply when creating an item variation.
+ * This replaces the entire region's content.
  */
 export type VariableSubstitution = {
     /** The opaque token from SelectableRegion */
     token: string;
     /** The new value to substitute */
+    newValue: string;
+};
+
+/**
+ * A text substitution with character offsets for substring replacement.
+ * This allows replacing specific text within a region rather than the entire region.
+ */
+export type TextSubstitution = {
+    /** The opaque token from SelectableRegion identifying which region */
+    token: string;
+    /** Character offset where the replacement starts (0-based) */
+    startIndex: number;
+    /** Character offset where the replacement ends (exclusive) */
+    endIndex: number;
+    /** The new text to insert */
     newValue: string;
 };

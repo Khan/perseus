@@ -11,11 +11,12 @@
 import deepClone from "./deep-clone";
 
 import type {PerseusItem} from "../data-schema";
-import type {VariableSubstitution} from "../types";
+import type {TextSubstitution, VariableSubstitution} from "../types";
 
 /**
  * Create a variation of a Perseus item with substitutions applied.
  * Tokens are opaque - only this function knows how to interpret them.
+ * This replaces entire field values.
  */
 export function createItemVariation(
     item: PerseusItem,
@@ -28,6 +29,334 @@ export function createItemVariation(
     }
 
     return newItem;
+}
+
+/**
+ * Apply text substitutions with character offsets to a Perseus item.
+ * This allows replacing specific substrings within fields rather than
+ * replacing the entire field value.
+ *
+ * Substitutions are applied in reverse order by position to avoid
+ * index shifting issues when multiple substitutions target the same field.
+ *
+ * @param item - The Perseus item to modify
+ * @param substitutions - Array of text substitutions with character offsets
+ * @returns A new item with substitutions applied
+ */
+export function applyTextSubstitutions(
+    item: PerseusItem,
+    substitutions: TextSubstitution[],
+): PerseusItem {
+    const newItem = deepClone(item);
+
+    // Group substitutions by token
+    const byToken = new Map<string, TextSubstitution[]>();
+    for (const sub of substitutions) {
+        const existing = byToken.get(sub.token) ?? [];
+        existing.push(sub);
+        byToken.set(sub.token, existing);
+    }
+
+    // Apply substitutions for each token
+    for (const [token, tokenSubs] of byToken) {
+        // Get current text value for this token
+        const currentText = getTextValueForToken(newItem, token);
+        if (currentText == null) {
+            continue;
+        }
+
+        // Sort substitutions by startIndex descending (apply from end to start)
+        const sortedSubs = [...tokenSubs].sort(
+            (a, b) => b.startIndex - a.startIndex,
+        );
+
+        // Apply each substitution
+        let text = currentText;
+        for (const sub of sortedSubs) {
+            text =
+                text.slice(0, sub.startIndex) +
+                sub.newValue +
+                text.slice(sub.endIndex);
+        }
+
+        // Set the modified text back
+        setTextValueForToken(newItem, token, text);
+    }
+
+    return newItem;
+}
+
+/**
+ * Get the text value for a given token from a Perseus item.
+ */
+function getTextValueForToken(item: PerseusItem, token: string): string | null {
+    const parts = token.split(".");
+
+    if (parts[0] === "question" && parts[1] === "content") {
+        return item.question.content ?? null;
+    }
+
+    if (parts[0] === "hint") {
+        const hintIndex = parseInt(parts[1], 10);
+        if (item.hints?.[hintIndex] != null && parts[2] === "content") {
+            return item.hints[hintIndex].content ?? null;
+        }
+        return null;
+    }
+
+    if (parts[0] === "widget") {
+        return getWidgetTextValue(item, parts.slice(1));
+    }
+
+    return null;
+}
+
+/**
+ * Set the text value for a given token in a Perseus item.
+ */
+function setTextValueForToken(
+    item: PerseusItem,
+    token: string,
+    value: string,
+): void {
+    const parts = token.split(".");
+
+    if (parts[0] === "question" && parts[1] === "content") {
+        item.question.content = value;
+        return;
+    }
+
+    if (parts[0] === "hint") {
+        const hintIndex = parseInt(parts[1], 10);
+        if (item.hints?.[hintIndex] != null && parts[2] === "content") {
+            item.hints[hintIndex].content = value;
+        }
+        return;
+    }
+
+    if (parts[0] === "widget") {
+        setWidgetTextValue(item, parts.slice(1), value);
+    }
+}
+
+/**
+ * Get text value from a widget by path parts.
+ */
+function getWidgetTextValue(item: PerseusItem, parts: string[]): string | null {
+    const widgetId = parts[0];
+    const widget = item.question.widgets?.[widgetId];
+
+    if (widget == null || widget.options == null) {
+        return null;
+    }
+
+    const pathParts = parts.slice(1);
+    const options = widget.options as Record<string, unknown>;
+
+    switch (widget.type) {
+        case "radio":
+            if (pathParts[0] === "choices" && pathParts[2] === "content") {
+                const index = parseInt(pathParts[1], 10);
+                const choices = options.choices as
+                    | Array<{content: string}>
+                    | undefined;
+                return choices?.[index]?.content ?? null;
+            }
+            break;
+        case "numeric-input":
+            if (pathParts[0] === "labelText") {
+                return (options.labelText as string) ?? null;
+            }
+            break;
+        case "expression":
+            if (pathParts[0] === "answerForms" && pathParts[2] === "value") {
+                const index = parseInt(pathParts[1], 10);
+                const answerForms = options.answerForms as
+                    | Array<{value: string}>
+                    | undefined;
+                return answerForms?.[index]?.value ?? null;
+            }
+            if (pathParts[0] === "visibleLabel") {
+                return (options.visibleLabel as string) ?? null;
+            }
+            if (pathParts[0] === "ariaLabel") {
+                return (options.ariaLabel as string) ?? null;
+            }
+            break;
+        case "interactive-graph":
+            return getInteractiveGraphTextValue(options, pathParts);
+    }
+
+    return null;
+}
+
+/**
+ * Set text value in a widget by path parts.
+ */
+function setWidgetTextValue(
+    item: PerseusItem,
+    parts: string[],
+    value: string,
+): void {
+    const widgetId = parts[0];
+    const widget = item.question.widgets?.[widgetId];
+
+    if (widget == null || widget.options == null) {
+        return;
+    }
+
+    const pathParts = parts.slice(1);
+    const options = widget.options as Record<string, unknown>;
+
+    switch (widget.type) {
+        case "radio":
+            if (pathParts[0] === "choices" && pathParts[2] === "content") {
+                const index = parseInt(pathParts[1], 10);
+                const choices = options.choices as
+                    | Array<{content: string}>
+                    | undefined;
+                if (choices?.[index] != null) {
+                    choices[index].content = value;
+                }
+            }
+            break;
+        case "numeric-input":
+            if (pathParts[0] === "labelText") {
+                options.labelText = value;
+            }
+            break;
+        case "expression":
+            if (pathParts[0] === "answerForms" && pathParts[2] === "value") {
+                const index = parseInt(pathParts[1], 10);
+                const answerForms = options.answerForms as
+                    | Array<{value: string}>
+                    | undefined;
+                if (answerForms?.[index] != null) {
+                    answerForms[index].value = value;
+                }
+            } else if (pathParts[0] === "visibleLabel") {
+                options.visibleLabel = value;
+            } else if (pathParts[0] === "ariaLabel") {
+                options.ariaLabel = value;
+            }
+            break;
+        case "interactive-graph":
+            setInteractiveGraphTextValue(options, pathParts, value);
+            break;
+    }
+}
+
+/**
+ * Get text value from interactive graph widget.
+ */
+function getInteractiveGraphTextValue(
+    options: Record<string, unknown>,
+    parts: string[],
+): string | null {
+    if (parts[0] === "labels") {
+        const index = parseInt(parts[1], 10);
+        const labels = options.labels as string[] | undefined;
+        return labels?.[index] ?? null;
+    }
+    if (parts[0] === "fullGraphAriaLabel") {
+        return (options.fullGraphAriaLabel as string) ?? null;
+    }
+    if (parts[0] === "fullGraphAriaDescription") {
+        return (options.fullGraphAriaDescription as string) ?? null;
+    }
+    if (parts[0] === "lockedFigures") {
+        return getLockedFigureTextValue(options, parts.slice(1));
+    }
+    return null;
+}
+
+/**
+ * Set text value in interactive graph widget.
+ */
+function setInteractiveGraphTextValue(
+    options: Record<string, unknown>,
+    parts: string[],
+    value: string,
+): void {
+    if (parts[0] === "labels") {
+        const index = parseInt(parts[1], 10);
+        const labels = options.labels as string[] | undefined;
+        if (labels != null) {
+            labels[index] = value;
+        }
+    } else if (parts[0] === "fullGraphAriaLabel") {
+        options.fullGraphAriaLabel = value;
+    } else if (parts[0] === "fullGraphAriaDescription") {
+        options.fullGraphAriaDescription = value;
+    } else if (parts[0] === "lockedFigures") {
+        setLockedFigureTextValue(options, parts.slice(1), value);
+    }
+}
+
+/**
+ * Get text value from a locked figure.
+ */
+function getLockedFigureTextValue(
+    options: Record<string, unknown>,
+    parts: string[],
+): string | null {
+    const figureIndex = parseInt(parts[0], 10);
+    const lockedFigures = options.lockedFigures as
+        | Array<Record<string, unknown>>
+        | undefined;
+
+    if (lockedFigures?.[figureIndex] == null) {
+        return null;
+    }
+
+    const figure = lockedFigures[figureIndex];
+
+    if (parts[1] === "ariaLabel") {
+        return (figure.ariaLabel as string) ?? null;
+    }
+    if (parts[1] === "text") {
+        return (figure.text as string) ?? null;
+    }
+    if (parts[1] === "labels") {
+        const labelIndex = parseInt(parts[2], 10);
+        const labels = figure.labels as Array<{text: string}> | undefined;
+        if (labels?.[labelIndex] != null && parts[3] === "text") {
+            return labels[labelIndex].text ?? null;
+        }
+    }
+    return null;
+}
+
+/**
+ * Set text value in a locked figure.
+ */
+function setLockedFigureTextValue(
+    options: Record<string, unknown>,
+    parts: string[],
+    value: string,
+): void {
+    const figureIndex = parseInt(parts[0], 10);
+    const lockedFigures = options.lockedFigures as
+        | Array<Record<string, unknown>>
+        | undefined;
+
+    if (lockedFigures?.[figureIndex] == null) {
+        return;
+    }
+
+    const figure = lockedFigures[figureIndex];
+
+    if (parts[1] === "ariaLabel") {
+        figure.ariaLabel = value;
+    } else if (parts[1] === "text") {
+        figure.text = value;
+    } else if (parts[1] === "labels") {
+        const labelIndex = parseInt(parts[2], 10);
+        const labels = figure.labels as Array<{text: string}> | undefined;
+        if (labels?.[labelIndex] != null && parts[3] === "text") {
+            labels[labelIndex].text = value;
+        }
+    }
 }
 
 /**

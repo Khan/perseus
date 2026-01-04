@@ -9,6 +9,7 @@ export type {
     RecursiveReadonly,
     SelectableRegion,
     VariableSubstitution,
+    TextSubstitution,
 } from "./types";
 export type {
     KeypadKey,
@@ -287,7 +288,10 @@ export {
 } from "./utils/extract-perseus-ai-data";
 
 export {extractSelectableRegions} from "./utils/selectable-content";
-export {createItemVariation} from "./utils/item-variation";
+export {
+    createItemVariation,
+    applyTextSubstitutions,
+} from "./utils/item-variation";
 
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
