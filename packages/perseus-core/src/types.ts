@@ -63,3 +63,34 @@ export type Alignment =
 export type RecursiveReadonly<T> = {
     readonly [K in keyof T]: RecursiveReadonly<T[K]>;
 };
+
+// ============================================================================
+// Variable Selection Types (for Scale Item feature)
+// ============================================================================
+
+/**
+ * Represents a region of content that can be selected as a variable.
+ * The token is opaque to consumers - only Perseus understands its format.
+ */
+export type SelectableRegion = {
+    /** Opaque identifier for this selectable region */
+    token: string;
+    /** The text content that can be selected */
+    text: string;
+    /** Human-readable label (e.g., "Question", "Choice A", "Hint 1") */
+    label: string;
+    /** Category for grouping in UI */
+    category: "question" | "widget" | "hint" | "answer";
+    /** Widget type if from a widget (for display purposes only) */
+    widgetType?: string;
+};
+
+/**
+ * A substitution to apply when creating an item variation.
+ */
+export type VariableSubstitution = {
+    /** The opaque token from SelectableRegion */
+    token: string;
+    /** The new value to substitute */
+    newValue: string;
+};

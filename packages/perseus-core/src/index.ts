@@ -7,6 +7,8 @@ export type {
     Relationship,
     Alignment,
     RecursiveReadonly,
+    SelectableRegion,
+    VariableSubstitution,
 } from "./types";
 export type {
     KeypadKey,
@@ -283,6 +285,9 @@ export {
     injectWidgets,
     getPerseusAIData,
 } from "./utils/extract-perseus-ai-data";
+
+export {extractSelectableRegions} from "./utils/selectable-content";
+export {createItemVariation} from "./utils/item-variation";
 
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
