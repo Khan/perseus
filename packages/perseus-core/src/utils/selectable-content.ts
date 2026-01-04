@@ -23,7 +23,9 @@ import type {SelectableRegion} from "../types";
  * Extract all selectable regions from a Perseus item.
  * Consumers receive opaque tokens - they don't need to understand the paths.
  */
-export function extractSelectableRegions(item: PerseusItem): SelectableRegion[] {
+export function extractSelectableRegions(
+    item: PerseusItem,
+): SelectableRegion[] {
     const regions: SelectableRegion[] = [];
 
     // 1. Main question content
@@ -66,7 +68,7 @@ function extractWidgetRegions(
     widgetId: string,
     widget: PerseusWidget,
 ): SelectableRegion[] {
-    if (!widget.options) {
+    if (widget.options == null) {
         return [];
     }
 
@@ -103,7 +105,7 @@ function extractRadioRegions(
     widgetId: string,
     options: PerseusRadioWidgetOptions,
 ): SelectableRegion[] {
-    if (!options.choices) {
+    if (options.choices == null) {
         return [];
     }
 
@@ -149,7 +151,7 @@ function extractExpressionRegions(
     const regions: SelectableRegion[] = [];
 
     // Answer forms contain the expression values
-    if (options.answerForms) {
+    if (options.answerForms != null) {
         options.answerForms.forEach((form, index) => {
             if (form.value && form.considered === "correct") {
                 regions.push({
@@ -235,7 +237,7 @@ function extractInteractiveGraphRegions(
     }
 
     // Locked figures
-    if (options.lockedFigures) {
+    if (options.lockedFigures != null) {
         options.lockedFigures.forEach((figure, figureIndex) => {
             const figureRegions = extractLockedFigureRegions(
                 widgetId,
@@ -276,9 +278,12 @@ function extractLockedFigureRegions(
     }
 
     // Labels attached to the figure
-    if ("labels" in figure && figure.labels) {
+    if ("labels" in figure && figure.labels != null) {
         figure.labels.forEach(
-            (label: {text: string; coord: [number, number]}, labelIndex: number) => {
+            (
+                label: {text: string; coord: [number, number]},
+                labelIndex: number,
+            ) => {
                 if (label.text) {
                     regions.push({
                         token: `${baseToken}.labels.${labelIndex}.text`,
@@ -327,7 +332,7 @@ function extractCorrectAnswerRegions(
     const regions: SelectableRegion[] = [];
     const correct = options.correct;
 
-    if (!correct || correct.type === "none") {
+    if (correct == null || correct.type === "none") {
         return regions;
     }
 
@@ -360,17 +365,22 @@ function extractCorrectAnswerRegions(
 
     if (correct.type === "segment" && "coords" in correct && correct.coords) {
         correct.coords.forEach(
-            (segment: [[number, number], [number, number]], segIndex: number) => {
-                segment.forEach((coord: [number, number], pointIndex: number) => {
-                    const coordStr = `(${coord[0]}, ${coord[1]})`;
-                    regions.push({
-                        token: `widget.${widgetId}.correct.coords.${segIndex}.${pointIndex}`,
-                        text: coordStr,
-                        label: `Segment ${segIndex + 1} Point ${pointIndex + 1}`,
-                        category: "answer",
-                        widgetType: "interactive-graph",
-                    });
-                });
+            (
+                segment: [[number, number], [number, number]],
+                segIndex: number,
+            ) => {
+                segment.forEach(
+                    (coord: [number, number], pointIndex: number) => {
+                        const coordStr = `(${coord[0]}, ${coord[1]})`;
+                        regions.push({
+                            token: `widget.${widgetId}.correct.coords.${segIndex}.${pointIndex}`,
+                            text: coordStr,
+                            label: `Segment ${segIndex + 1} Point ${pointIndex + 1}`,
+                            category: "answer",
+                            widgetType: "interactive-graph",
+                        });
+                    },
+                );
             },
         );
     }
@@ -411,4 +421,3 @@ function extractCorrectAnswerRegions(
 
     return regions;
 }
-

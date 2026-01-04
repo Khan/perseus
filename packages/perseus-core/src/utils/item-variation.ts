@@ -73,7 +73,11 @@ function applyHintSubstitution(
     // parts[0] = hint index, parts[1] = "content"
     const hintIndex = parseInt(parts[0], 10);
 
-    if (item.hints && item.hints[hintIndex] && parts[1] === "content") {
+    if (
+        item.hints != null &&
+        item.hints[hintIndex] != null &&
+        parts[1] === "content"
+    ) {
         item.hints[hintIndex].content = newValue;
     }
 }
@@ -90,7 +94,7 @@ function applyWidgetSubstitution(
     const widgetId = parts[0];
     const widget = item.question.widgets?.[widgetId];
 
-    if (!widget || !widget.options) {
+    if (widget == null || widget.options == null) {
         return;
     }
 
@@ -107,7 +111,11 @@ function applyWidgetSubstitution(
             applyExpressionSubstitution(widget.options, pathParts, newValue);
             break;
         case "interactive-graph":
-            applyInteractiveGraphSubstitution(widget.options, pathParts, newValue);
+            applyInteractiveGraphSubstitution(
+                widget.options,
+                pathParts,
+                newValue,
+            );
             break;
     }
 }
@@ -123,8 +131,8 @@ function applyRadioSubstitution(
     // parts: ["choices", index, "content"]
     if (parts[0] === "choices" && parts[2] === "content") {
         const index = parseInt(parts[1], 10);
-        const choices = options.choices as Array<{content: string}>;
-        if (choices && choices[index]) {
+        const choices = options.choices as Array<{content: string}> | undefined;
+        if (choices != null && choices[index] != null) {
             choices[index].content = newValue;
         }
     }
@@ -153,8 +161,10 @@ function applyExpressionSubstitution(
 ): void {
     if (parts[0] === "answerForms" && parts[2] === "value") {
         const index = parseInt(parts[1], 10);
-        const answerForms = options.answerForms as Array<{value: string}>;
-        if (answerForms && answerForms[index]) {
+        const answerForms = options.answerForms as
+            | Array<{value: string}>
+            | undefined;
+        if (answerForms != null && answerForms[index] != null) {
             answerForms[index].value = newValue;
         }
     } else if (parts[0] === "visibleLabel") {
@@ -174,8 +184,8 @@ function applyInteractiveGraphSubstitution(
 ): void {
     if (parts[0] === "labels") {
         const index = parseInt(parts[1], 10);
-        const labels = options.labels as string[];
-        if (labels) {
+        const labels = options.labels as string[] | undefined;
+        if (labels != null) {
             labels[index] = newValue;
         }
     } else if (parts[0] === "fullGraphAriaLabel") {
@@ -199,9 +209,11 @@ function applyLockedFigureSubstitution(
 ): void {
     // parts: [figureIndex, "ariaLabel" | "labels" | "coord" | "text", ...]
     const figureIndex = parseInt(parts[0], 10);
-    const lockedFigures = options.lockedFigures as Array<Record<string, unknown>>;
+    const lockedFigures = options.lockedFigures as
+        | Array<Record<string, unknown>>
+        | undefined;
 
-    if (!lockedFigures || !lockedFigures[figureIndex]) {
+    if (lockedFigures == null || lockedFigures[figureIndex] == null) {
         return;
     }
 
@@ -213,14 +225,18 @@ function applyLockedFigureSubstitution(
         figure.text = newValue;
     } else if (parts[1] === "labels") {
         const labelIndex = parseInt(parts[2], 10);
-        const labels = figure.labels as Array<{text: string}>;
-        if (labels && labels[labelIndex] && parts[3] === "text") {
+        const labels = figure.labels as Array<{text: string}> | undefined;
+        if (
+            labels != null &&
+            labels[labelIndex] != null &&
+            parts[3] === "text"
+        ) {
             labels[labelIndex].text = newValue;
         }
     } else if (parts[1] === "coord") {
         // Parse coordinate string like "(1, 2)" to [1, 2]
         const coords = parseCoordinate(newValue);
-        if (coords) {
+        if (coords != null) {
             figure.coord = coords;
         }
     }
@@ -234,14 +250,14 @@ function applyCorrectAnswerSubstitution(
     parts: string[],
     newValue: string,
 ): void {
-    const correct = options.correct as Record<string, unknown>;
-    if (!correct) {
+    const correct = options.correct as Record<string, unknown> | undefined;
+    if (correct == null) {
         return;
     }
 
     if (parts[0] === "coords") {
-        const coords = correct.coords as Array<unknown>;
-        if (!coords) {
+        const coords = correct.coords as Array<unknown> | undefined;
+        if (coords == null) {
             return;
         }
 
@@ -250,24 +266,24 @@ function applyCorrectAnswerSubstitution(
             // Simple coordinate: correct.coords.0
             const index = parseInt(parts[1], 10);
             const newCoord = parseCoordinate(newValue);
-            if (newCoord) {
+            if (newCoord != null) {
                 coords[index] = newCoord;
             }
         } else if (parts.length === 3) {
             // Nested coordinate: correct.coords.0.1 (segment)
             const segIndex = parseInt(parts[1], 10);
             const pointIndex = parseInt(parts[2], 10);
-            const segment = coords[segIndex] as Array<unknown>;
-            if (segment) {
+            const segment = coords[segIndex] as Array<unknown> | undefined;
+            if (segment != null) {
                 const newCoord = parseCoordinate(newValue);
-                if (newCoord) {
+                if (newCoord != null) {
                     segment[pointIndex] = newCoord;
                 }
             }
         }
     } else if (parts[0] === "center") {
         const newCoord = parseCoordinate(newValue);
-        if (newCoord) {
+        if (newCoord != null) {
             correct.center = newCoord;
         }
     } else if (parts[0] === "radius") {
@@ -296,4 +312,3 @@ function parseCoordinate(value: string): [number, number] | null {
 
     return [x, y];
 }
-
