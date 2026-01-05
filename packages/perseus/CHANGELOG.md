@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 72.7.0
+
+### Minor Changes
+
+-   [#3150](https://github.com/Khan/perseus/pull/3150) [`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72) Thanks [@handeyeco](https://github.com/handeyeco)! - Modify HintsRenderer to ignore hints with new `placeholder` flag.
+
+### Patch Changes
+
+-   Updated dependencies [[`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72)]:
+    -   @khanacademy/perseus-core@21.2.0
+    -   @khanacademy/keypad-context@3.2.26
+    -   @khanacademy/kmath@2.2.26
+    -   @khanacademy/math-input@26.3.6
+    -   @khanacademy/perseus-linter@4.6.8
+    -   @khanacademy/perseus-score@8.2.2
+
 ## 72.6.7
 
 ### Patch Changes
