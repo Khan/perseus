@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 21.2.0
+
+### Minor Changes
+
+-   [#3150](https://github.com/Khan/perseus/pull/3150) [`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72) Thanks [@handeyeco](https://github.com/handeyeco)! - Modify HintsRenderer to ignore hints with new `placeholder` flag.
+
 ## 21.1.0
 
 ### Minor Changes
