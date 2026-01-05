@@ -130,3 +130,25 @@ export const expressionItem4Static: PerseusItem = createExpressionItemJson(
         }),
     }),
 );
+
+export const expressionItemKitchenSink: PerseusItem = createExpressionItemJson(
+    generateExpressionWidget({
+        options: generateExpressionOptions({
+            answerForms: [
+                generateExpressionAnswerForm({
+                    considered: "correct",
+                    form: false,
+                    simplify: false,
+                    value: "8675309",
+                }),
+            ],
+            buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
+            functions: ["f", "g", "h"],
+            times: true,
+            visibleLabel: "Expression Kitchen Sink",
+            ariaLabel: "Expression Kitchen Sink",
+            buttonsVisible: "always",
+            extraKeys: ["x", "y", "z"],
+        }),
+    }),
+);
