@@ -16,7 +16,8 @@ export default function splitPerseusItem(original: PerseusItem): PerseusItem {
 
     return {
         ...item,
-        question: splitPerseusRenderer(item.question) /**
+        question: splitPerseusRenderer(item.question),
+        /**
          * We can't include the hints because they often contain the answer.
          *
          * However the UI needs to know how many hints there are before we have
@@ -25,7 +26,7 @@ export default function splitPerseusItem(original: PerseusItem): PerseusItem {
          * not real hints.
          *
          * TODO(LEMS-3806): there's probably a better way to do this
-         */,
+         */
         hints: original.hints.map(() => ({
             content: "",
             widgets: {},
