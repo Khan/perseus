@@ -1,10 +1,10 @@
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
-    expressionItem2,
-    expressionItem3,
-    expressionItem4,
-    expressionItem4Static,
     expressionItemKitchenSink,
+    expressionItemMixedAnswerStates,
+    expressionItemMultipleEquivalentAnswers,
+    expressionItemWithFraction,
+    expressionItemWithFractionStatic,
 } from "../expression.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -35,29 +35,26 @@ export const DesktopKitchenSink: Story = {
     },
 };
 
-export const ExpressionItem2: Story = {
+export const MultipleEquivalentAnswers: Story = {
     args: {
-        item: expressionItem2,
+        item: expressionItemMultipleEquivalentAnswers,
     },
 };
 
-export const ExpressionItem3: Story = {
+export const MixedAnswerStates: Story = {
     args: {
-        item: expressionItem3,
+        item: expressionItemMixedAnswerStates,
     },
 };
 
-/**
- * This story allows us to specifically test division in the expression widget.
- */
-export const ExpressionItem4: Story = {
+export const FractionInput: Story = {
     args: {
-        item: expressionItem4,
+        item: expressionItemWithFraction,
     },
 };
 
 export const StaticExpression: Story = {
     args: {
-        item: expressionItem4Static,
+        item: expressionItemWithFractionStatic,
     },
 };

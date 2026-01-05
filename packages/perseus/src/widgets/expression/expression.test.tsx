@@ -21,8 +21,8 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import ExpressionWidgetExport from "./expression";
 import {
-    expressionItem2,
-    expressionItem3,
+    expressionItemMixedAnswerStates,
+    expressionItemMultipleEquivalentAnswers,
     expressionItemWithAnswer,
     expressionItemWithLabels,
 } from "./expression.testdata";
@@ -143,25 +143,45 @@ describe("Expression Widget", function () {
 
     describe("grading", function () {
         it("should not grade a thing that doesn't parse", async () => {
-            await assertInvalid(userEvent, expressionItem2, "+++");
+            await assertInvalid(
+                userEvent,
+                expressionItemMultipleEquivalentAnswers,
+                "+++",
+            );
         });
 
         it("should not grade  ampersands that do not parse", async () => {
-            await assertInvalid(userEvent, expressionItem2, "x&&&&&^1");
+            await assertInvalid(
+                userEvent,
+                expressionItemMultipleEquivalentAnswers,
+                "x&&&&&^1",
+            );
         });
 
         it("should not grade a thing that is empty", async () => {
-            await assertInvalid(userEvent, expressionItem2, "");
+            await assertInvalid(
+                userEvent,
+                expressionItemMultipleEquivalentAnswers,
+                "",
+            );
         });
 
         it("should grade a portugese sen", async () => {
-            await assertValid(userEvent, expressionItem2, "sen(x)");
+            await assertValid(
+                userEvent,
+                expressionItemMultipleEquivalentAnswers,
+                "sen(x)",
+            );
         });
     });
 
     describe("fallthrough", function () {
         it("should grade answers which don't match anything as wrong", async function () {
-            await assertIncorrect(userEvent, expressionItem2, "500");
+            await assertIncorrect(
+                userEvent,
+                expressionItemMultipleEquivalentAnswers,
+                "500",
+            );
         });
     });
 
@@ -170,7 +190,11 @@ describe("Expression Widget", function () {
             "should not grade answers that are correct except for the " +
                 "variable case",
             async function (input) {
-                await assertInvalid(userEvent, expressionItem2, input);
+                await assertInvalid(
+                    userEvent,
+                    expressionItemMultipleEquivalentAnswers,
+                    input,
+                );
             },
         );
 
@@ -180,14 +204,22 @@ describe("Expression Widget", function () {
             "should not grade answers that have the wrong variable case, " +
                 "even if the answer has got other errors",
             async function () {
-                await assertInvalid(userEvent, expressionItem2, "123+X");
+                await assertInvalid(
+                    userEvent,
+                    expressionItemMultipleEquivalentAnswers,
+                    "123+X",
+                );
             },
         );
 
         it.each(["123-y", "123-Y"])(
             "should not not grade answers that use the wrong variable",
             async function (input) {
-                await assertInvalid(userEvent, expressionItem2, input);
+                await assertInvalid(
+                    userEvent,
+                    expressionItemMultipleEquivalentAnswers,
+                    input,
+                );
             },
         );
     });
@@ -196,7 +228,11 @@ describe("Expression Widget", function () {
         it.each(["x-123", "123-x"])(
             "should recognize either of two possibilities",
             async (input) => {
-                await assertCorrect(userEvent, expressionItem2, input);
+                await assertCorrect(
+                    userEvent,
+                    expressionItemMultipleEquivalentAnswers,
+                    input,
+                );
             },
         );
 
@@ -213,22 +249,38 @@ describe("Expression Widget", function () {
          */
 
         it("should match from top to bottom", async function () {
-            await assertInvalid(userEvent, expressionItem3, "x+1");
+            await assertInvalid(
+                userEvent,
+                expressionItemMixedAnswerStates,
+                "x+1",
+            );
         });
 
         it("should match from top to bottom (2)", async function () {
-            await assertIncorrect(userEvent, expressionItem3, "y+1");
+            await assertIncorrect(
+                userEvent,
+                expressionItemMixedAnswerStates,
+                "y+1",
+            );
         });
 
         it("should match from top to bottom (3)", async function () {
-            await assertCorrect(userEvent, expressionItem3, "z+1");
+            await assertCorrect(
+                userEvent,
+                expressionItemMixedAnswerStates,
+                "z+1",
+            );
         });
 
         it.each([["X+1"], ["Y+1"], ["Z+1"]])(
             "should give casing or variable name error only relative to the " +
                 "correct answer",
             async (input) => {
-                await assertInvalid(userEvent, expressionItem3, input);
+                await assertInvalid(
+                    userEvent,
+                    expressionItemMixedAnswerStates,
+                    input,
+                );
             },
         );
     });
@@ -409,7 +461,7 @@ describe("Expression Widget", function () {
 
         it("provides a default ARIA label for accessibility when none is specified", () => {
             // Arrange, Act
-            renderQuestion(expressionItem2.question);
+            renderQuestion(expressionItemMultipleEquivalentAnswers.question);
 
             // Assert
             const input = screen.getByRole("textbox");
@@ -427,7 +479,7 @@ describe("Expression Widget", function () {
 
         it("supports directly focusing", () => {
             //  Arrange
-            renderQuestion(expressionItem2.question);
+            renderQuestion(expressionItemMultipleEquivalentAnswers.question);
 
             // Act
             const expressionInput = screen.getByRole("textbox");
@@ -439,7 +491,7 @@ describe("Expression Widget", function () {
 
         it("supports directly blurring", () => {
             //  Arrange
-            renderQuestion(expressionItem2.question);
+            renderQuestion(expressionItemMultipleEquivalentAnswers.question);
 
             // Act
             const expressionInput = screen.getByRole("textbox");
@@ -452,7 +504,9 @@ describe("Expression Widget", function () {
 
         it("can be focused via a function", () => {
             // arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
+            const {renderer} = renderQuestion(
+                expressionItemMultipleEquivalentAnswers.question,
+            );
             const expression = renderer.findWidgets("expression 1")[0];
 
             // act
@@ -465,7 +519,9 @@ describe("Expression Widget", function () {
 
         it("returns true from focus() and succeeds even if called before the DOM ID is assigned", () => {
             // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
+            const {renderer} = renderQuestion(
+                expressionItemMultipleEquivalentAnswers.question,
+            );
             const expression = renderer.findWidgets("expression 1")[0];
             const expressionInput = screen.getByRole("textbox");
             expressionInput.removeAttribute("id");
@@ -480,7 +536,7 @@ describe("Expression Widget", function () {
 
         it("prevents focus callback errors and memory leaks after the component is unmounted", () => {
             const {renderer, unmount} = renderQuestion(
-                expressionItem2.question,
+                expressionItemMultipleEquivalentAnswers.question,
                 {
                     customKeypad: true,
                 },
@@ -510,7 +566,7 @@ describe("Expression Widget", function () {
             );
 
             // Act
-            renderQuestion(expressionItem2.question);
+            renderQuestion(expressionItemMultipleEquivalentAnswers.question);
             act(() => {
                 jest.runAllTimers();
             });
@@ -528,7 +584,7 @@ describe("Expression Widget", function () {
 
         it("supports mobile rendering", async () => {
             // arrange and act
-            renderQuestion(expressionItem2.question, {
+            renderQuestion(expressionItemMultipleEquivalentAnswers.question, {
                 // Setting this triggers mobile rendering
                 // it would be nice if this was more clear in the code
                 customKeypad: true,
@@ -550,7 +606,9 @@ describe("Expression Widget", function () {
 
         it("has a developer facility for inserting", async () => {
             // arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
+            const {renderer} = renderQuestion(
+                expressionItemMultipleEquivalentAnswers.question,
+            );
             act(() => jest.runOnlyPendingTimers());
 
             const expression = renderer.findWidgets("expression 1")[0];
@@ -559,7 +617,7 @@ describe("Expression Widget", function () {
 
             // act
             const score = scorePerseusItem(
-                expressionItem2.question,
+                expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
                 "en",
             );
@@ -573,7 +631,9 @@ describe("Expression Widget", function () {
 
         it("programmatically inserts content immediately after mount without prior focus", () => {
             // arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
+            const {renderer} = renderQuestion(
+                expressionItemMultipleEquivalentAnswers.question,
+            );
             const expression = renderer.findWidgets("expression 1")[0];
 
             // act
@@ -586,7 +646,7 @@ describe("Expression Widget", function () {
 
             // Assert
             const score = scorePerseusItem(
-                expressionItem2.question,
+                expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
                 "en",
             );
@@ -605,9 +665,12 @@ describe("Expression Widget", function () {
 
         it("handles insert gracefully when mathField is not initialized", () => {
             // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question, {
-                customKeypad: true,
-            });
+            const {renderer} = renderQuestion(
+                expressionItemMultipleEquivalentAnswers.question,
+                {
+                    customKeypad: true,
+                },
+            );
             const expression = renderer.findWidgets("expression 1")[0];
 
             // Act - call insert before the mathField is fully initialized
@@ -621,9 +684,12 @@ describe("Expression Widget", function () {
 
         it("handles insert when called multiple times in succession", () => {
             // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question, {
-                customKeypad: true,
-            });
+            const {renderer} = renderQuestion(
+                expressionItemMultipleEquivalentAnswers.question,
+                {
+                    customKeypad: true,
+                },
+            );
             act(() => jest.runOnlyPendingTimers());
             const expression = renderer.findWidgets("expression 1")[0];
 
@@ -641,9 +707,12 @@ describe("Expression Widget", function () {
 
         it("delegates focus method to KeypadInput without errors", () => {
             // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question, {
-                customKeypad: true,
-            });
+            const {renderer} = renderQuestion(
+                expressionItemMultipleEquivalentAnswers.question,
+                {
+                    customKeypad: true,
+                },
+            );
             const expression = renderer.findWidgets("expression 1")[0];
 
             // Act & Assert - calling focus should not throw
@@ -656,9 +725,12 @@ describe("Expression Widget", function () {
 
         it("delegates blur method to KeypadInput without errors", () => {
             // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question, {
-                customKeypad: true,
-            });
+            const {renderer} = renderQuestion(
+                expressionItemMultipleEquivalentAnswers.question,
+                {
+                    customKeypad: true,
+                },
+            );
             const expression = renderer.findWidgets("expression 1")[0];
 
             // Act & Assert - calling blur should not throw
@@ -671,9 +743,12 @@ describe("Expression Widget", function () {
 
         it("supports insert in mobile mode", () => {
             // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question, {
-                customKeypad: true,
-            });
+            const {renderer} = renderQuestion(
+                expressionItemMultipleEquivalentAnswers.question,
+                {
+                    customKeypad: true,
+                },
+            );
             act(() => jest.runOnlyPendingTimers());
             const expression = renderer.findWidgets("expression 1")[0];
 
