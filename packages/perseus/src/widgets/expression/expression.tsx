@@ -72,7 +72,6 @@ type Props = ExternalProps & {
     onBlur: NonNullable<ExternalProps["onBlur"]>;
     onFocus: NonNullable<ExternalProps["onFocus"]>;
     times: NonNullable<ExternalProps["times"]>;
-    // Note: visibleLabel and ariaLabel are optional, inherited from ExternalProps
 };
 
 // Default values for object/array props (defined outside to avoid recreating on each render)
