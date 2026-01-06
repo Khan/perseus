@@ -9,8 +9,8 @@ const assistanceNeededMessage =
     "Developer assistance needed - Please send this exercise and warning info to the LEMS team for review.";
 
 // Using src^="/perseus/frame" differentiates it from the Preview tab iframe
-const previewIframeSelector =
-    'iframe[data-name="content-preview"][src^="/perseus/frame"]';
+const previewIframeSelector = 'iframe[src^="/perseus/frame"]';
+// 'iframe[data-name="content-preview"][src^="/perseus/frame"]';
 const axeCoreEditorOptions = {
     include: {
         fromFrames: [previewIframeSelector, "#page-container"],
