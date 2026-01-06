@@ -142,7 +142,6 @@ export const Expression = forwardRef<Widget, Props>(
             widgetId,
         } = props;
 
-        // Hooks
         const {strings} = usePerseusI18n();
         // KeypadContext provides setKeypadActive which is passed to focus() to notify
         // the mobile keypad system when an input becomes active. This is only used on
