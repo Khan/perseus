@@ -62,9 +62,7 @@ type ExternalProps = WidgetProps<
 >;
 
 type Props = ExternalProps & {
-    // From useDependencies hook
     analytics: ReturnType<typeof useDependencies>["analytics"];
-    // Required non-null props
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     buttonSets: NonNullable<ExternalProps["buttonSets"]>;
     functions: NonNullable<ExternalProps["functions"]>;
@@ -108,7 +106,7 @@ interface KeypadInputWithInterfaceMethods {
 const KeypadInputWithInterface = React.forwardRef<
     KeypadInputWithInterfaceMethods,
     KeypadInputProps
->((props, ref) => {
+>(function KeypadInputWithInterface(props, ref) {
     const keypadInputRef = React.useRef<KeypadInput>(null);
     const noopKeypadActivation = (_keypadActive: boolean) => {};
     React.useImperativeHandle(ref, () => ({
@@ -126,12 +124,9 @@ const KeypadInputWithInterface = React.forwardRef<
 
     return <KeypadInput ref={keypadInputRef} {...props} />;
 });
-KeypadInputWithInterface.displayName = "KeypadInputWithInterface";
 
-// The new, MathQuill input expression widget
 export const Expression = forwardRef<Widget, Props>(
     function Expression(props, ref) {
-        // Destructure props with inline defaults
         const {
             apiOptions = ApiOptions.defaults,
             buttonSets = defaultButtonSets,
@@ -161,9 +156,7 @@ export const Expression = forwardRef<Widget, Props>(
         // Track mount status to prevent state updates after unmount (matches class component behavior)
         const isMountedRef = useRef(false);
 
-        // Lifecycle: mount and unmount
         useEffect(() => {
-            // Fire analytics event
             analytics?.onAnalyticsEvent({
                 type: "perseus:widget:rendered:ti",
                 payload: {
@@ -197,7 +190,6 @@ export const Expression = forwardRef<Widget, Props>(
         // apiOptions.customKeypad is used to determine the selector, but it never changes
         // after initial mount (switching between mobile/desktop requires a full remount)
 
-        // Event handlers
         const handleFocus = () => {
             analytics?.onAnalyticsEvent({
                 type: "perseus:expression-focused",
@@ -224,7 +216,6 @@ export const Expression = forwardRef<Widget, Props>(
             });
         };
 
-        // Helper function for keypad configuration
         const getKeypadConfiguration = useCallback((): KeypadConfiguration => {
             return {
                 keypadType: "EXPRESSION",
@@ -263,7 +254,7 @@ export const Expression = forwardRef<Widget, Props>(
                  * The ID set in useEffect is only for accessibility (label association)
                  * and doesn't affect focus targeting.
                  *
-                 * @returns true if focus was successfully moved to the input element
+                 * @returns true if focus is on the input element after the operation
                  */
                 focus: (): boolean => {
                     const targetBefore = getFocusTarget();
@@ -338,7 +329,6 @@ export const Expression = forwardRef<Widget, Props>(
             ],
         );
 
-        // Render
         const keypadConfiguration = getKeypadConfiguration();
 
         if (apiOptions.customKeypad) {
@@ -408,13 +398,11 @@ const styles = StyleSheet.create({
 });
 
 const ExpressionWithDependencies = forwardRef<Widget, ExternalProps>(
-    (props, ref) => {
+    function ExpressionWithDependencies(props, ref) {
         const deps = useDependencies();
         return <Expression ref={ref} analytics={deps.analytics} {...props} />;
     },
 );
-
-ExpressionWithDependencies.displayName = "ExpressionWithDependencies";
 
 /**
  * @deprecated and likely a very broken API

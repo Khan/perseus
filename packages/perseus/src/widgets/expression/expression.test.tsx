@@ -656,13 +656,6 @@ describe("Expression Widget", function () {
     });
 
     describe("KeypadInputWithInterface wrapper robustness", () => {
-        beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-            jest.useFakeTimers();
-        });
-
         it("handles insert gracefully when mathField is not initialized", () => {
             // Arrange
             const {renderer} = renderQuestion(
