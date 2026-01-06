@@ -320,6 +320,7 @@ class Renderer
         // QUESTION(jeremy): Shouldn't we look at `nextProps` here? Otherwise
         // we're always looking "one render behind".
         if (this.props.alwaysUpdate) {
+            // TODO(ivy): passage-ref is already deprecated see LEMS-3124, check if this is still needed
             // TOTAL hacks so that findWidgets doesn't break
             // when one widget updates without the other.
             // See passage-refs inside radios, which was why

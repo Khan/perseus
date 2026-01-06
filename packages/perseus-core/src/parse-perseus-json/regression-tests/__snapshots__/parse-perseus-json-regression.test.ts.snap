@@ -180,15 +180,15 @@ But improvements in productive efficiency take time to discover and implement, a
     "widgets": {},
   },
   {
-    "content": "## The PPF and Comparative Advantage
+    "content": "## The PPF and Comparative Advantage 
 
-While every society must choose how much of each good it should produce, it does not need to produce every single good it consumes. Often how much of a good a country decides to produce depends on how expensive it is to produce it versus buying it from a different country. As we saw earlier, the curvature of a country’s PPF gives us information about the tradeoff between devoting resources to producing one good versus another. In particular, its slope gives the opportunity cost of producing one more unit of the good in the x-axis in terms of the other good (in the y-axis). Countries tend to have different opportunity costs of producing a specific good, either because of different climates, geography, technology or skills.
+While every society must choose how much of each good it should produce, it does not need to produce every single good it consumes. Often how much of a good a country decides to produce depends on how expensive it is to produce it versus buying it from a different country. As we saw earlier, the curvature of a country’s PPF gives us information about the tradeoff between devoting resources to producing one good versus another. In particular, its slope gives the opportunity cost of producing one more unit of the good in the x-axis in terms of the other good (in the y-axis). Countries tend to have different opportunity costs of producing a specific good, either because of different climates, geography, technology or skills. 
 
 Suppose two countries, the US and Brazil, need to decide how much they will produce of two crops: sugar cane and wheat. Due to its climatic conditions, Brazil can produce a lot of sugar cane per acre but not much wheat. Conversely, the U.S. can produce a lot of wheat per acre, but not much sugar cane.  Clearly, Brazil has a lower opportunity cost of producing sugar cane (in terms of wheat) than the U.S. The reverse is also true; the U.S. has a lower opportunity cost of producing wheat than Brazil. This can be illustrated by the PPFs of the two countries in the following graphs.
-
+ 
 [[☃ image 0]]
 
-When a country can produce a good at a lower opportunity cost than another country, we say that this country has a **comparative advantage** in that good. In our example, Brazil has a comparative advantage in sugar cane and the U.S. has a comparative advantage in wheat. One can easily see this with a simple observation of the extreme production points in the PPFs of the two countries. If Brazil devoted all of its resources to producing wheat, it would be producing at point A. However, if it had devoted all of its resources to producing sugar cane instead, it would be producing a much larger amount, at point B. By moving from point A to point B Brazil would give up a relatively small quantity in wheat production to obtain a large production in sugar cane.  The opposite is true for the U.S. If the U.S. moved from point A to B and produced only sugar cane, this would result in a large opportunity cost in terms of foregone wheat production.
+When a country can produce a good at a lower opportunity cost than another country, we say that this country has a **comparative advantage** in that good. In our example, Brazil has a comparative advantage in sugar cane and the U.S. has a comparative advantage in wheat. One can easily see this with a simple observation of the extreme production points in the PPFs of the two countries. If Brazil devoted all of its resources to producing wheat, it would be producing at point A. However, if it had devoted all of its resources to producing sugar cane instead, it would be producing a much larger amount, at point B. By moving from point A to point B Brazil would give up a relatively small quantity in wheat production to obtain a large production in sugar cane.  The opposite is true for the U.S. If the U.S. moved from point A to B and produced only sugar cane, this would result in a large opportunity cost in terms of foregone wheat production. 
 
 The slope of the PPF gives the opportunity cost of producing an additional unit of wheat. While the slope is not constant throughout the PPFs, it is quite apparent that the PPF in Brazil is much steeper than in the U.S., and therefore the opportunity cost of wheat is generally higher in Brazil. Countries’ differences in comparative advantage determine which goods they will choose to produce and trade. When countries engage in trade, they specialize in the production of the goods that they have a comparative advantage in, and trade part of that production for goods they do not have a comparative advantage in. With trade, goods are produced where the opportunity cost is lowest, so total production increases, benefiting both trading parties. ",
     "images": {},
@@ -360,7 +360,7 @@ Both the budget constraint and the PPF show the constraint that each operates un
 ## Review Questions
 
 What is comparative advantage?
-
+  
 What does a production possibilities frontier illustrate?
 
 Why is a production possibilities frontier typically drawn as a curve, rather than a straight line?
@@ -385,11 +385,11 @@ It is clear that productive inefficiency is a waste since resources are being us
   {
     "content": "## Glossary
 
-**allocative efficiency**: when the mix of goods being produced represents the mix that society most desires.
+**allocative efficiency**: when the mix of goods being produced represents the mix that society most desires.  
 
-**comparative advantage**: when a country can produce a good at a lower cost in terms of other goods; or, when a country has a lower opportunity cost of production
+**comparative advantage**: when a country can produce a good at a lower cost in terms of other goods; or, when a country has a lower opportunity cost of production  
 
-**law of diminishing returns**: as additional increments of resources are added to producing a good or service, the marginal benefit from those additional increments will decline
+**law of diminishing returns**: as additional increments of resources are added to producing a good or service, the marginal benefit from those additional increments will decline  
 
 **production possibilities frontier (PPF)**: a diagram that shows the productively efficient combinations of two products that an economy can produce given the resources it has available.
 
@@ -1021,7 +1021,7 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
     "minor": 1,
   },
   "question": {
-    "content": "An object is released from rest near the surface of the Earth and allowed to fall freely.
+    "content": "An object is released from rest near the surface of the Earth and allowed to fall freely. 
 
 **How does the speed and acceleration of the object change immediately after release?**
 
@@ -1096,7 +1096,7 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
     "minor": 1,
   },
   "question": {
-    "content": "An object is released from rest near the surface of the Earth and allowed to fall freely.
+    "content": "An object is released from rest near the surface of the Earth and allowed to fall freely. 
 
 **How does the speed and acceleration of the object change immediately after release?**
 
@@ -1174,9 +1174,9 @@ This is true whether the number is positive, negative, or $0$.",
     },
   ],
   "question": {
-    "content": "**Compare the two values using the number line below.**
+    "content": "**Compare the two values using the number line below.**  
 
-$\\qquad(x-x)$ [[☃ dropdown 1]] $0$
+$\\qquad(x-x)$ [[☃ dropdown 1]] $0$  
 
 ![](https://ka-perseus-graphie.s3.amazonaws.com/50cd6aeb1b50fe0f12c2fb5697eea1b00a4bc7b6.png)",
     "images": {
@@ -1238,9 +1238,9 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.ts return
     },
   ],
   "question": {
-    "content": "**Compare the two values using the number line below.**
+    "content": "**Compare the two values using the number line below.**  
 
-$\\qquad(x-x)$ [[☃ dropdown 1]] $0$
+$\\qquad(x-x)$ [[☃ dropdown 1]] $0$  
 
 ![](https://ka-perseus-graphie.s3.amazonaws.com/50cd6aeb1b50fe0f12c2fb5697eea1b00a4bc7b6.png)",
     "images": {
@@ -1442,9 +1442,9 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
   "question": {
     "content": "The quantities $a$ and $b$ are proportional.
 
-$a$ | $b$ |
+$a$ | $b$ | 
 :-: | :-: |
-$8$ | $2$
+$8$ | $2$ 
 $16$ | $4$
 $32$ | $8$
 
@@ -1519,9 +1519,9 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
   "question": {
     "content": "The quantities $a$ and $b$ are proportional.
 
-$a$ | $b$ |
+$a$ | $b$ | 
 :-: | :-: |
-$8$ | $2$
+$8$ | $2$ 
 $16$ | $4$
 $32$ | $8$
 
@@ -1577,7 +1577,7 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts 
     "minor": 1,
   },
   "question": {
-    "content": "Jake is younger than Sophie.  Sophie is $14$ years old.
+    "content": "Jake is younger than Sophie.  Sophie is $14$ years old.  
 
 **Write an inequality that compares Jake's age in years, $j$, to Sophie's age.**
 
@@ -1642,7 +1642,7 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts 
     "minor": 1,
   },
   "question": {
-    "content": "Jake is younger than Sophie.  Sophie is $14$ years old.
+    "content": "Jake is younger than Sophie.  Sophie is $14$ years old.  
 
 **Write an inequality that compares Jake's age in years, $j$, to Sophie's age.**
 
@@ -1949,7 +1949,7 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts ret
       "widgets": {},
     },
     {
-      "content": "Since the bisected side is $6$ and it's being cut in half, we have:
+      "content": "Since the bisected side is $6$ and it's being cut in half, we have: 
 
 $2 \\purple{b} = 6$
 
@@ -2017,7 +2017,7 @@ $\\begin{align}\\sin (\\blue{\\theta})&=\\dfrac{3}{6}\\\\ &= \\frac{1}{2}\\end{a
     "minor": 1,
   },
   "question": {
-    "content": "The following drawing contains an equilateral triangle whose side is $6$ units.
+    "content": "The following drawing contains an equilateral triangle whose side is $6$ units.  
 $a$ is perpendicular to one of the sides of the triangle.
 
 **Find the values of the following expressions. Don't round. Angle measures should be given in *radians*.**
@@ -2247,7 +2247,7 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts ret
     "minor": 1,
   },
   "question": {
-    "content": "The following drawing contains an equilateral triangle whose side is $6$ units.
+    "content": "The following drawing contains an equilateral triangle whose side is $6$ units.  
 $a$ is perpendicular to one of the sides of the triangle.
 
 **Find the values of the following expressions. Don't round. Angle measures should be given in *radians*.**
@@ -2422,7 +2422,7 @@ The molar mass of tungsten is $183.84\\text{ g/mol}$.
     },
     {
       "content": "Using this value, let’s convert grams of tungsten to moles of tungsten. We start with our known, and set up conversion factors so the units cancel:
-
+ 
 $0.0176\\bcancel{\\text{ g }\\ce{W}}\\times \\dfrac{1\\text{ mol }\\ce{W}}{183.84\\bcancel{\\text{ g }\\ce{W}}}$
 
 This gives us our first “step” in the chain of conversion factors. Now we need to convert moles of tungsten to the number of atoms of tungsten.
@@ -2435,7 +2435,7 @@ This gives us our first “step” in the chain of conversion factors. Now we ne
       "content": "We can make this conversion using Avogadro’s number, which tells us how many things are in one mole of that thing. Avogadro’s number is \${6.022\\times 10^{23}}.$ So one mole of tungsten contains \${6.022\\times 10^{23}}$ atoms of tungsten.
 
 Using this value, let’s convert moles of tungsten to the number of atoms of tungsten. We add it to the chain as another conversion factor, making sure to arrange it so the units cancel:
-
+ 
 $0.0176\\bcancel{\\text{ g }\\ce{W}}\\times \\dfrac{1\\bcancel{\\text{ mol }\\ce{W}}}{183.84\\bcancel{\\text{ g }\\ce{W}}}\\times \\dfrac{6.022\\times 10^{23}\\text{ atoms }\\ce{W}}{1\\bcancel{\\text{ mol }\\ce{W}}}=5.7652\\times 10^{19}\\text{ atoms }\\ce{W}$
 
 Rounding the answer correctly to three significant figures gives us $5.77\\times 10^{19}$ atoms.
@@ -2456,13 +2456,13 @@ Rounding the answer correctly to three significant figures gives us $5.77\\times
     "minor": 1,
   },
   "question": {
-    "content": "Incandescent light bulbs produce light by heating a metal filament until it glows. The most common filament is tungsten, a grayish metal with atomic number $74$.
+    "content": "Incandescent light bulbs produce light by heating a metal filament until it glows. The most common filament is tungsten, a grayish metal with atomic number $74$. 
 
 [[☃ image 1]]
 
-A certain tungsten filament has a mass of $0.0176\\text{ g}$.
+A certain tungsten filament has a mass of $0.0176\\text{ g}$. 
 
-**How many tungsten atoms make up the filament?**
+**How many tungsten atoms make up the filament?**  
 *Express your answer in scientific notation with two decimal places.*
 
 [[☃ explanation 2]]
@@ -2651,13 +2651,13 @@ exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.ts
     "minor": 1,
   },
   "question": {
-    "content": "Incandescent light bulbs produce light by heating a metal filament until it glows. The most common filament is tungsten, a grayish metal with atomic number $74$.
+    "content": "Incandescent light bulbs produce light by heating a metal filament until it glows. The most common filament is tungsten, a grayish metal with atomic number $74$. 
 
 [[☃ image 1]]
 
-A certain tungsten filament has a mass of $0.0176\\text{ g}$.
+A certain tungsten filament has a mass of $0.0176\\text{ g}$. 
 
-**How many tungsten atoms make up the filament?**
+**How many tungsten atoms make up the filament?**  
 *Express your answer in scientific notation with two decimal places.*
 
 [[☃ explanation 2]]
@@ -2789,11 +2789,11 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts return
   },
   "hints": [
     {
-      "content": "###The Strategy
+      "content": "###The Strategy 
 
 When multiplying matrices, we should find each entry of the resulting product matrix separately.
 
-To find entry $(i,j)$ of the resulting product matrix, we calculate the vector *dot product* of row $i$ of the first matrix and column $j$ of the second matrix. [[☃ explanation 1]]
+To find entry $(i,j)$ of the resulting product matrix, we calculate the vector *dot product* of row $i$ of the first matrix and column $j$ of the second matrix. [[☃ explanation 1]] 
 
 ",
       "images": {},
@@ -2827,7 +2827,7 @@ For example, for $\\vec{v}=(a,b)$ and $\\vec{u}=(c,d)$, we have $\\vec{v}\\cdot\
       },
     },
     {
-      "content": "###Finding $\\text {H}_{1,1}$
+      "content": "###Finding $\\text {H}_{1,1}$ 
 
 $\\text{H}_{1,1}$ is the dot product of the first row of $\\text{B}$ and the first column of $\\text{D}$.
 
@@ -2921,7 +2921,7 @@ The other entries of $\\text{H}$ can be found similarly.
       },
     },
     {
-      "content": "###Summary
+      "content": "###Summary 
 
 After calculating all the remaining entries of $\\text{H}$, we get the following answer.
 
@@ -2936,7 +2936,7 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
     "minor": 1,
   },
   "question": {
-    "content": "$\\text B = \\left[\\begin{array}{rr}1 & 4 \\\\ 1 & 3\\end{array}\\right]$ and $\\text D = \\left[\\begin{array}{rr}4 & 3 \\\\ 0 & -1\\end{array}\\right]$.
+    "content": "$\\text B = \\left[\\begin{array}{rr}1 & 4 \\\\ 1 & 3\\end{array}\\right]$ and $\\text D = \\left[\\begin{array}{rr}4 & 3 \\\\ 0 & -1\\end{array}\\right]$. 
 
 ** Let $\\text {H = BD}$. Find $\\text H$. **
 
@@ -3017,7 +3017,7 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts return
     "minor": 1,
   },
   "question": {
-    "content": "$\\text B = \\left[\\begin{array}{rr}1 & 4 \\\\ 1 & 3\\end{array}\\right]$ and $\\text D = \\left[\\begin{array}{rr}4 & 3 \\\\ 0 & -1\\end{array}\\right]$.
+    "content": "$\\text B = \\left[\\begin{array}{rr}1 & 4 \\\\ 1 & 3\\end{array}\\right]$ and $\\text D = \\left[\\begin{array}{rr}4 & 3 \\\\ 0 & -1\\end{array}\\right]$. 
 
 ** Let $\\text {H = BD}$. Find $\\text H$. **
 
@@ -4831,7 +4831,7 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
   },
   "hints": [
     {
-      "content": "Subtract $ \\red{3|x - 5|} $ from both sides:
+      "content": "Subtract $ \\red{3|x - 5|} $ from both sides: 
 
  $\\qquad\\begin{eqnarray} 3|x - 5|& - 3 &=& 4|x - 5| + 7 \\\\ \\\\
  \\red{- 3|x - 5|}& && \\red{- 3|x - 5|} \\\\ \\\\
@@ -4840,7 +4840,7 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
       "widgets": {},
     },
     {
-      "content": "Subtract $7$ from both sides:
+      "content": "Subtract $7$ from both sides: 
 
  $\\qquad\\begin{eqnarray} -3 &=& 1|x - 5| &+ 7 \\\\ \\\\
  \\red{- 7} && &\\red{- 7} \\\\ \\\\
@@ -4867,8 +4867,8 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
   },
   "question": {
     "content": "** Which of the following is a solution to the equation below?**
-
- $ \\qquad 3|x - 5| - 3 = 4|x - 5| + 7 $
+  
+ $ \\qquad 3|x - 5| - 3 = 4|x - 5| + 7 $ 
 
 [[☃ radio 1]]",
     "images": {},
@@ -4998,8 +4998,8 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
   },
   "question": {
     "content": "** Which of the following is a solution to the equation below?**
-
- $ \\qquad 3|x - 5| - 3 = 4|x - 5| + 7 $
+  
+ $ \\qquad 3|x - 5| - 3 = 4|x - 5| + 7 $ 
 
 [[☃ radio 1]]",
     "images": {},
@@ -6521,11 +6521,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with
   },
   "hints": [
     {
-      "content": "We can plot the points using the equation to find $d$ for each value of  $w$.
+      "content": "We can plot the points using the equation to find $d$ for each value of  $w$. 
 
-If $w=\\blue 6$,
+If $w=\\blue 6$, 
 
-$\\qquad d=\\blue 6+5\\\\~~~~~~~~~~=\\red{11}.$
+$\\qquad d=\\blue 6+5\\\\~~~~~~~~~~=\\red{11}.$  
 
 So we place one point at $(\\blue 6,\\red{11})$.",
       "images": {},
@@ -9171,9 +9171,9 @@ As we can see the direction of the vertical component is downwards $(\\downarrow
     {
       "content": "Taking the vertical component of $B_E$,
 
-$\\begin{align}
+$\\begin{align} 
 \\purpleD{B_V} &= B_E \\sin I \\\\\\\\
-&= B_E \\sin 45\\degree
+&= B_E \\sin 45\\degree 
  \\end{align}$
 
 [[☃ explanation 1]]",
@@ -9190,7 +9190,7 @@ $\\begin{align}
 
 Now, taking sine of the angle $I$,
 
-$\\begin{align}
+$\\begin{align} 
 \\sin I &= \\dfrac{\\text{Perpendicular}}{\\text{Hypotenuse}} \\\\\\\\
 &= \\dfrac{\\purpleD{B_V}}{B_E}\\\\\\\\
 \\Rightarrow \\purpleD{B_V}&=B_E \\sin I \\end{align}$",
@@ -9313,7 +9313,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
   "question": {
     "content": "The magnetic field of the Earth is $B_E$ at a location where the magnetic dip is $I=+45\\degree$.
 
-**Which of these best describes the vertical component of the magnetic field vector at this location?**
+**Which of these best describes the vertical component of the magnetic field vector at this location?**  
 *Note: $\\uparrow$ and $\\downarrow$ indicate upward and downward direction respectively.*
 
 [[☃ radio 1]]",
@@ -9434,7 +9434,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.ts ret
   "question": {
     "content": "The magnetic field of the Earth is $B_E$ at a location where the magnetic dip is $I=+45\\degree$.
 
-**Which of these best describes the vertical component of the magnetic field vector at this location?**
+**Which of these best describes the vertical component of the magnetic field vector at this location?**  
 *Note: $\\uparrow$ and $\\downarrow$ indicate upward and downward direction respectively.*
 
 [[☃ radio 1]]",
@@ -9920,8 +9920,8 @@ $R$ $(1,-3)$ is transformed into $R'$ $(4,4)$.
     },
     {
       "content": "We can transform the other vertices by adding $\\red{3}$ to the $x$-coordinate and adding $\\purple{7}$ to the $y$-coordinate.
-
-$G$ $(-3,-3)$ is transformed into $G'$ $(0,4)$.
+ 
+$G$ $(-3,-3)$ is transformed into $G'$ $(0,4)$.  
 $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
       "images": {},
       "widgets": {},
@@ -10128,7 +10128,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
     {
       "content": "We know two sides are parallel to the $x$-axis, so those two sides must extend $5$ units horizontally from the two vertices we just drew. Since the rhombus is in the first quadrant, we extend the lines to the *right*.
 
-Plotting the remaining vertices at $(8,7)$ and $(5,3)$ gives the rhombus sides of length $5$ units, two of which are parallel to the $x$-axis.
+Plotting the remaining vertices at $(8,7)$ and $(5,3)$ gives the rhombus sides of length $5$ units, two of which are parallel to the $x$-axis.  
 
 ![](https://ka-perseus-graphie.s3.amazonaws.com/c0be5c686e6d43155376ac6f4c5037ffd44e16de.png)",
       "images": {
@@ -10140,8 +10140,8 @@ Plotting the remaining vertices at $(8,7)$ and $(5,3)$ gives the rhombus sides o
       "widgets": {},
     },
     {
-      "content": "
-We end up with a rhombus that looks like this:
+      "content": " 
+We end up with a rhombus that looks like this:  
 
 ![](https://ka-perseus-graphie.s3.amazonaws.com/2d6395b8d7d4ad3b0772e0ac5420106ea7e114f2.png)",
       "images": {
@@ -10158,7 +10158,7 @@ We end up with a rhombus that looks like this:
     "minor": 1,
   },
   "question": {
-    "content": "**Click on the graph to draw a rhombus with an acute angle at $(0, 3)$, another vertex at $(3,7)$, side length of $5$ units, and two sides parallel to the $x$-axis.**
+    "content": "**Click on the graph to draw a rhombus with an acute angle at $(0, 3)$, another vertex at $(3,7)$, side length of $5$ units, and two sides parallel to the $x$-axis.**  
 
 Draw the rhombus in the first quadrant.
 
@@ -10292,7 +10292,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
     "minor": 1,
   },
   "question": {
-    "content": "**Click on the graph to draw a rhombus with an acute angle at $(0, 3)$, another vertex at $(3,7)$, side length of $5$ units, and two sides parallel to the $x$-axis.**
+    "content": "**Click on the graph to draw a rhombus with an acute angle at $(0, 3)$, another vertex at $(3,7)$, side length of $5$ units, and two sides parallel to the $x$-axis.**  
 
 Draw the rhombus in the first quadrant.
 
@@ -10395,7 +10395,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 
 [[☃ interactive-graph 1]]
 
-**How far along will Ally be in the race when she reaches her family?**
+**How far along will Ally be in the race when she reaches her family?**  
 [[☃ radio 1]]",
     "images": {},
     "widgets": {
@@ -10548,7 +10548,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 
 [[☃ interactive-graph 1]]
 
-**How far along will Ally be in the race when she reaches her family?**
+**How far along will Ally be in the race when she reaches her family?**  
 [[☃ radio 1]]",
     "images": {},
     "widgets": {
@@ -10705,7 +10705,7 @@ ___
 
 11. I thought of all the hours my brother Malik had spent practicing with me. I couldn’t disappoint him. “No, I’m here to try out. Er…that is…for football, I mean. For quarterback.” Smooth. So smooth.
 
-12. Raj laughed, Marcus grinned, and Coach’s mouth twisted like I'd just force-fed him a lemon
+12. Raj laughed, Marcus grinned, and Coach’s mouth twisted like I'd just force-fed him a lemon 
 
 13. “Well, you see,” he started, “It’s just that girls aren’t allowed on the football team. Too dangerous, you know.”
 
@@ -10727,13 +10727,13 @@ ___
 
 22. His face contorted with rage, then confusion, and finally resignation as he pointed towards the center line. “You wanna be quarterback? Show me you can get past these three–” he pointed to Marcus, Raj, and Hiro, “and get the ball to the end zone.” He tossed me a ball.
 
-23. I gulped. I’d expected we’d start slow, maybe with some sprints.
+23. I gulped. I’d expected we’d start slow, maybe with some sprints. 
 
-24. *You’ve got this,* I coached myself as I walked toward the center line. *You’re ready. Even Malik said so.*
+24. *You’ve got this,* I coached myself as I walked toward the center line. *You’re ready. Even Malik said so.* 
 
 25. When I arrived at the center line and saw the three boys between me and the end zone, a sense of calm settled over me. Strategy flooded my mind as I thought of everything I’d observed from the bushes. Marcus, on the right, was big but slow. Raj, in the center, had a tendency to cover the left side of his area. Hiro, on the left, was the biggest threat–he was fast and clever, and, as he smirked at me, I knew immediately what my best play would be.
 
-26. As Coach blew his whistle, I raced hard towards the left, ignoring the obvious opening on the right side of the field. No one who knew him ever tried to get past Hiro, so that’s exactly what I would do. I barely saw Hiro’s smirk change into a look of surprise as I approached him, sliding under his outstretched arms. I leapt into the end zone with a whoop of delight.
+26. As Coach blew his whistle, I raced hard towards the left, ignoring the obvious opening on the right side of the field. No one who knew him ever tried to get past Hiro, so that’s exactly what I would do. I barely saw Hiro’s smirk change into a look of surprise as I approached him, sliding under his outstretched arms. I leapt into the end zone with a whoop of delight. 
 
 27. Coach looked reluctantly impressed when I trotted back to him. “Well, that wasn’t half-bad. I think we might give you a shot after all.”
 
@@ -10874,7 +10874,7 @@ ___
 
 11. I thought of all the hours my brother Malik had spent practicing with me. I couldn’t disappoint him. “No, I’m here to try out. Er…that is…for football, I mean. For quarterback.” Smooth. So smooth.
 
-12. Raj laughed, Marcus grinned, and Coach’s mouth twisted like I'd just force-fed him a lemon
+12. Raj laughed, Marcus grinned, and Coach’s mouth twisted like I'd just force-fed him a lemon 
 
 13. “Well, you see,” he started, “It’s just that girls aren’t allowed on the football team. Too dangerous, you know.”
 
@@ -10896,13 +10896,13 @@ ___
 
 22. His face contorted with rage, then confusion, and finally resignation as he pointed towards the center line. “You wanna be quarterback? Show me you can get past these three–” he pointed to Marcus, Raj, and Hiro, “and get the ball to the end zone.” He tossed me a ball.
 
-23. I gulped. I’d expected we’d start slow, maybe with some sprints.
+23. I gulped. I’d expected we’d start slow, maybe with some sprints. 
 
-24. *You’ve got this,* I coached myself as I walked toward the center line. *You’re ready. Even Malik said so.*
+24. *You’ve got this,* I coached myself as I walked toward the center line. *You’re ready. Even Malik said so.* 
 
 25. When I arrived at the center line and saw the three boys between me and the end zone, a sense of calm settled over me. Strategy flooded my mind as I thought of everything I’d observed from the bushes. Marcus, on the right, was big but slow. Raj, in the center, had a tendency to cover the left side of his area. Hiro, on the left, was the biggest threat–he was fast and clever, and, as he smirked at me, I knew immediately what my best play would be.
 
-26. As Coach blew his whistle, I raced hard towards the left, ignoring the obvious opening on the right side of the field. No one who knew him ever tried to get past Hiro, so that’s exactly what I would do. I barely saw Hiro’s smirk change into a look of surprise as I approached him, sliding under his outstretched arms. I leapt into the end zone with a whoop of delight.
+26. As Coach blew his whistle, I raced hard towards the left, ignoring the obvious opening on the right side of the field. No one who knew him ever tried to get past Hiro, so that’s exactly what I would do. I barely saw Hiro’s smirk change into a look of surprise as I approached him, sliding under his outstretched arms. I leapt into the end zone with a whoop of delight. 
 
 27. Coach looked reluctantly impressed when I trotted back to him. “Well, that wasn’t half-bad. I think we might give you a shot after all.”
 
@@ -11520,7 +11520,7 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the 
       "widgets": {},
     },
     {
-      "content": "Next, multiply the elements of the matrix of minors by the following pattern:
+      "content": "Next, multiply the elements of the matrix of minors by the following pattern: 
 
  $\\left[\\begin{array}{rrr}+ & - & + \\\\ - & + & - \\\\ + & - & +\\end{array}\\right]$ This gives us what is called the matrix of cofactors:
 
@@ -11866,7 +11866,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
       "content": "$\\begin{align}
 &\\phantom{=}\\left[\\begin{array}{c}
 \\tealE{0} & \\redE{2} & \\purpleE{1} & \\goldE{-3}
-\\\\\\\\
+\\\\\\\\ 
 \\tealE{-1} & \\redE{2} & \\purpleE{-3} & \\goldE{0}
 \\\\\\\\
 \\tealE{2} & \\redE{-2} & \\purpleE{0} &\\goldE{1}
@@ -11885,7 +11885,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
 \\\\\\\\
 &=-5\\cdot \\left[\\begin{array}{c}
 \\tealE{0}
-\\\\\\\\
+\\\\\\\\ 
 \\tealE{-1}
 \\\\\\\\
 \\tealE{2}
@@ -11893,7 +11893,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
 \\tealE{1}
 \\end{array}\\right]+1\\cdot\\left[\\begin{array}{c}
 \\redE{2}
-\\\\\\\\
+\\\\\\\\ 
 \\redE{2}
 \\\\\\\\
 \\redE{-2}
@@ -11901,7 +11901,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
 \\redE{1}
 \\end{array}\\right]+3\\cdot \\left[\\begin{array}{c}
 \\purpleE{1}
-\\\\\\\\
+\\\\\\\\ 
 \\purpleE{-3}
 \\\\\\\\
 \\purpleE{0}
@@ -11909,7 +11909,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
 \\purpleE{-1}
 \\end{array}\\right]+(-2)\\cdot\\left[\\begin{array}{c}
 \\goldE{-3}
-\\\\\\\\
+\\\\\\\\ 
 \\goldE{0}
 \\\\\\\\
 \\goldE{1}
@@ -11919,7 +11919,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
 \\\\\\\\
 &=\\left[\\begin{array}{c}
 0
-\\\\\\\\
+\\\\\\\\ 
 5
 \\\\\\\\
 -10
@@ -11927,7 +11927,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
 -5
 \\end{array}\\right]+\\left[\\begin{array}{c}
 2
-\\\\\\\\
+\\\\\\\\ 
 2
 \\\\\\\\
 -2
@@ -11935,7 +11935,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
 1
 \\end{array}\\right]+\\left[\\begin{array}{c}
 3
-\\\\\\\\
+\\\\\\\\ 
 -9
 \\\\\\\\
 0
@@ -11943,7 +11943,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
 -3
 \\end{array}\\right]+\\left[\\begin{array}{c}
 6
-\\\\\\\\
+\\\\\\\\ 
 0
 \\\\\\\\
 -2
@@ -11968,7 +11968,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
     {
       "content": "This is the image we obtain when we perform the transformation $\\left[\\begin{array}{c}
 0 & 2 & 1 & -3
-\\\\\\\\
+\\\\\\\\ 
 -1 & 2 & -3 & 0
 \\\\\\\\
 2 & -2 & 0 &1
@@ -12007,7 +12007,7 @@ $\\left[\\begin{array}{c}
 
 $\\left[\\begin{array}{c}
 0 & 2 & 1 & -3
-\\\\\\\\
+\\\\\\\\ 
 -1 & 2 & -3 & 0
 \\\\\\\\
 2 & -2 & 0 &1
@@ -12109,7 +12109,7 @@ exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.ts r
 
 $\\left[\\begin{array}{c}
 0 & 2 & 1 & -3
-\\\\\\\\
+\\\\\\\\ 
 -1 & 2 & -3 & 0
 \\\\\\\\
 2 & -2 & 0 &1
@@ -12519,7 +12519,7 @@ Janie must do $8.75$ or more chores to have enough money to purchase the CD.",
       "widgets": {},
     },
     {
-      "content": "To graph the inequality $c\\geq 8.75$, we first draw a circle at $8.75$.  This circle divides the number line into two sections: one that contains solutions to the inequality and one that does not.
+      "content": "To graph the inequality $c\\geq 8.75$, we first draw a circle at $8.75$.  This circle divides the number line into two sections: one that contains solutions to the inequality and one that does not.  
 
 The solution  includes the point $c=8.75$, so we *fill in* the circle at $8.75$.
 
@@ -12985,7 +12985,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
       "widgets": {},
     },
     {
-      "content": "The following inequality is correct:
+      "content": "The following inequality is correct: 
 
 *   $\\blue{-10}\\,\\,\\,<\\,\\,\\,\\green1$",
       "images": {
@@ -14034,20 +14034,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
             "minor": 0,
           },
         },
-        "passage 1": {
-          "graded": true,
-          "options": {
-            "footnotes": "",
-            "passageText": "",
-            "passageTitle": "",
-            "showLineNumbers": true,
-          },
-          "type": "deprecated-standin",
-          "version": {
-            "major": 0,
-            "minor": 0,
-          },
-        },
       },
     },
     {
@@ -14166,7 +14152,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
 
 Heart rate is described as the number of heart beats per minute.  The normal human heart rate ranges from 60-100 beats per minute (bpm). Lance Armstrong (pictured above) had a resting heart rate of 32 beats per minute. While racing, his heart rate would increase to 1.6 beats per second. How many more bpm was his heart rate while racing than while resting?
 
-[[☃ numeric-input 1]] bpm
+[[☃ numeric-input 1]] bpm 
 ",
     "images": {
       "https://ka-perseus-images.s3.amazonaws.com/810a87bbf09a2c41bbe02b1611cd91b047f69412.png": {
@@ -14321,7 +14307,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
 
 Heart rate is described as the number of heart beats per minute.  The normal human heart rate ranges from 60-100 beats per minute (bpm). Lance Armstrong (pictured above) had a resting heart rate of 32 beats per minute. While racing, his heart rate would increase to 1.6 beats per second. How many more bpm was his heart rate while racing than while resting?
 
-[[☃ numeric-input 1]] bpm
+[[☃ numeric-input 1]] bpm 
 ",
     "images": {
       "https://ka-perseus-images.s3.amazonaws.com/810a87bbf09a2c41bbe02b1611cd91b047f69412.png": {
@@ -15138,12 +15124,12 @@ Stella landed $1.68$ kilometers from the skydiving center.",
   },
   "question": {
     "content": "Stella's friends got her a skydiving lesson for her birthday. Her helicopter took off from the skydiving center, ascending in an angle of $37^\\circ$, and traveled a distance of $2.1$ kilometers before she fell in a straight line perpendicular to the ground.
-
-**How far from the skydiving center did Stella land?**
+ 
+**How far from the skydiving center did Stella land?** 
 *Round your final answer to the nearest hundredth.*
 
 [[☃ numeric-input 1]] kilometers
-
+ 
 
 
 [[☃ image 1]]
@@ -15286,12 +15272,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
   },
   "question": {
     "content": "Stella's friends got her a skydiving lesson for her birthday. Her helicopter took off from the skydiving center, ascending in an angle of $37^\\circ$, and traveled a distance of $2.1$ kilometers before she fell in a straight line perpendicular to the ground.
-
-**How far from the skydiving center did Stella land?**
+ 
+**How far from the skydiving center did Stella land?** 
 *Round your final answer to the nearest hundredth.*
 
 [[☃ numeric-input 1]] kilometers
-
+ 
 
 
 [[☃ image 1]]
@@ -15404,7 +15390,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
     "minor": 1,
   },
   "question": {
-    "content": "**What is $\\text{sec}(\\angle A)?$**
+    "content": "**What is $\\text{sec}(\\angle A)?$**  
 *Reduce fractional answers to lowest terms.*
 
 [[☃ numeric-input 1]]
@@ -15466,7 +15452,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
     "minor": 1,
   },
   "question": {
-    "content": "**What is $\\text{sec}(\\angle A)?$**
+    "content": "**What is $\\text{sec}(\\angle A)?$**  
 *Reduce fractional answers to lowest terms.*
 
 [[☃ numeric-input 1]]
@@ -15581,9 +15567,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
       "widgets": {},
     },
     {
-      "content": "Solving our first equation for $b$, we get: $\\blue{b = m - 12}$. Substituting this into our second equation, we get the equation:
+      "content": "Solving our first equation for $b$, we get: $\\blue{b = m - 12}$. Substituting this into our second equation, we get the equation: 
 
-  $\\red{m - 17 = 4(} \\blue{(m - 12)}\\red{ - 17)}$
+  $\\red{m - 17 = 4(} \\blue{(m - 12)}\\red{ - 17)}$ 
 
  which combines the information about $m$ from both of our original equations.",
       "images": {},
@@ -15610,7 +15596,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
     },
   ],
   "question": {
-    "content": "Michael is $12$ years older than Brandon. Seventeen years ago, Michael was $4$ times as old as Brandon.
+    "content": "Michael is $12$ years older than Brandon. Seventeen years ago, Michael was $4$ times as old as Brandon. 
 
  **How old is Michael now?**
 
@@ -15727,7 +15713,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
     },
   ],
   "question": {
-    "content": "Michael is $12$ years older than Brandon. Seventeen years ago, Michael was $4$ times as old as Brandon.
+    "content": "Michael is $12$ years older than Brandon. Seventeen years ago, Michael was $4$ times as old as Brandon. 
 
  **How old is Michael now?**
 
@@ -16672,7 +16658,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
     "minor": 1,
   },
   "question": {
-    "content": "What is the definition of the natural background rate of extinction?
+    "content": "What is the definition of the natural background rate of extinction? 
 
 ![](https://ka-perseus-images.s3.amazonaws.com/1f68a48ffbc7b137e99fbcbb11e9747ae799fe01.jpg)
 
@@ -16764,7 +16750,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
     "minor": 1,
   },
   "question": {
-    "content": "What is the definition of the natural background rate of extinction?
+    "content": "What is the definition of the natural background rate of extinction? 
 
 ![](https://ka-perseus-images.s3.amazonaws.com/1f68a48ffbc7b137e99fbcbb11e9747ae799fe01.jpg)
 
@@ -17371,10 +17357,10 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
   "hints": [
     {
       "content": "Barn | Antal mål
-- | :-:
-Calista | $\\blue2$
-William |$\\red3$
-Michaela | $\\green5$
+- | :-: 
+Calista | $\\blue2$ 
+William |$\\red3$ 
+Michaela | $\\green5$ 
 James | $\\gray2$
 
 $$
@@ -17394,7 +17380,7 @@ $\\green5 - \\red3= \\purple{2}$",
     "minor": 1,
   },
   "question": {
-    "content": "En familj spelar basket.  Pictogrammet visar hur många mål varje barn gjorde.
+    "content": "En familj spelar basket.  Pictogrammet visar hur många mål varje barn gjorde.  
 
 **Michaela gjorde [[☃ input-number 1]] fler mål än William.**
 
@@ -17499,7 +17485,7 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
     "minor": 1,
   },
   "question": {
-    "content": "En familj spelar basket.  Pictogrammet visar hur många mål varje barn gjorde.
+    "content": "En familj spelar basket.  Pictogrammet visar hur många mål varje barn gjorde.  
 
 **Michaela gjorde [[☃ input-number 1]] fler mål än William.**
 
@@ -17887,7 +17873,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.t
               "correct": false,
               "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
-              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. The text never compares the treatment of prisoners to the treatment of people who weren't in prison.
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. The text never compares the treatment of prisoners to the treatment of people who weren't in prison. 
 ",
             },
           ],
@@ -19083,7 +19069,7 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts return
     "minor": 1,
   },
   "question": {
-    "content": "$\\begin{align}
+    "content": "$\\begin{align} 
 A &= \\{x: x \\text{ is a rectangle in the plane P} \\} \\\\\\\\
 B &= \\{x: x \\text{ is a square in the plane P} \\}
 \\end{align}$
@@ -19149,7 +19135,7 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts return
     "minor": 1,
   },
   "question": {
-    "content": "$\\begin{align}
+    "content": "$\\begin{align} 
 A &= \\{x: x \\text{ is a rectangle in the plane P} \\} \\\\\\\\
 B &= \\{x: x \\text{ is a square in the plane P} \\}
 \\end{align}$
@@ -19371,7 +19357,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
         "options": {
           "choices": [
             {
-              "content": "“Research shows that exercise makes people healthier and happier.”
+              "content": "“Research shows that exercise makes people healthier and happier.” 
 ",
               "correct": false,
               "id": "radio-choice-0",
@@ -19388,7 +19374,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 ",
             },
             {
-              "content": "“The Center for Disease Control recommends that kids get 60 minutes of active play a day, yet, for many of us, schools give us 20 minutes or less of recess!”
+              "content": "“The Center for Disease Control recommends that kids get 60 minutes of active play a day, yet, for many of us, schools give us 20 minutes or less of recess!” 
 ",
               "correct": false,
               "id": "radio-choice-2",
@@ -19598,7 +19584,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
         "options": {
           "choices": [
             {
-              "content": "“Research shows that exercise makes people healthier and happier.”
+              "content": "“Research shows that exercise makes people healthier and happier.” 
 ",
               "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
@@ -19609,7 +19595,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
               "isNoneOfTheAbove": false,
             },
             {
-              "content": "“The Center for Disease Control recommends that kids get 60 minutes of active play a day, yet, for many of us, schools give us 20 minutes or less of recess!”
+              "content": "“The Center for Disease Control recommends that kids get 60 minutes of active play a day, yet, for many of us, schools give us 20 minutes or less of recess!” 
 ",
               "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
@@ -19881,7 +19867,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the
 
 ___
 
-1. Ever wondered why you sit in rows of desks, stand in silent lines, or follow dozens of other rules during the school day? American public schools are often accused of teaching *conformity.* But what is conformity? It’s when people think and act the same. And, in fact, teaching conformity was a huge part of why American public schools were created!
+1. Ever wondered why you sit in rows of desks, stand in silent lines, or follow dozens of other rules during the school day? American public schools are often accused of teaching *conformity.* But what is conformity? It’s when people think and act the same. And, in fact, teaching conformity was a huge part of why American public schools were created! 
 
 ###The Prussian Model of Education comes to the United States
 
@@ -19889,7 +19875,7 @@ ___
 
 3. Prussia, it turns out. No, not Russia: Prussia, which today is Germany. After France defeated Prussia in 1807, Prussian leaders blamed the loss on their soldiers. They thought the soldiers were doing too much independent thinking and not enough following orders. So, to eliminate this independence, they imposed required schooling. They designed schools to teach values like duty, obedience, and love of their country, as well as math and reading. The government used taxes to pay for all Prussian children to go to school through 8th grade.
 
-4. 	In the United States, schools did exist prior to the 1800s, but they often cost money and were open mostly only to White boys. Then in 1843, Horace Mann, often called the Father of American Education, traveled to Prussia to study their schools. He was very impressed by Prussian schools. So, he began fighting for the United States to align its schools with Prussia’s.
+4. 	In the United States, schools did exist prior to the 1800s, but they often cost money and were open mostly only to White boys. Then in 1843, Horace Mann, often called the Father of American Education, traveled to Prussia to study their schools. He was very impressed by Prussian schools. So, he began fighting for the United States to align its schools with Prussia’s. 
 
 5.	Mann called his free, required schools “common schools.” He wanted them to focus on both academics and values, like the Prussian schools. The arrival of large populations of immigrants from Southern and Eastern Europe further shaped the idea that schools should teach values. Common schools were viewed as a way to make immigrants “more American.” Schools would teach immigrants English, democratic values like voting, and how to be productive workers. Common schools became one way to make sure that all people conformed to morals that American leaders valued.
 
@@ -19897,8 +19883,8 @@ ___
 
 6. 	Today, many American public schools still expect students to learn the same skills, at the same time, in the same ways. They also often teach certain kinds of values, like being quiet and following directions. But studies show that this focus on conformity can cause particular problems for certain students, such as those with disabilities or those who don’t speak English as their first language.
 
-7. 	Take, for example, students with Attention Deficit Hyperactivity Disorder, or ADHD. People with ADHD can have incredible talents: many of them have high levels of energy, creativity, and hyperfocus. Hyperfocus is when a person can tune out distractions and focus on one task for a long time. These talents can help people with ADHD do amazing things. Walt Disney, Leonardo Da Vinci, and Albert Einstein are all believed to have had ADHD. The creativity, energy, and hyperfocus they brought to their passions helped them achieve their extraordinary levels of success
-
+7. 	Take, for example, students with Attention Deficit Hyperactivity Disorder, or ADHD. People with ADHD can have incredible talents: many of them have high levels of energy, creativity, and hyperfocus. Hyperfocus is when a person can tune out distractions and focus on one task for a long time. These talents can help people with ADHD do amazing things. Walt Disney, Leonardo Da Vinci, and Albert Einstein are all believed to have had ADHD. The creativity, energy, and hyperfocus they brought to their passions helped them achieve their extraordinary levels of success 
+	
 8. Yet, despite these talents, students with ADHD often struggle in school. They may have trouble conforming to school rules. Sitting for long periods of time can be hard for all students, but particularly for students with ADHD. Students with ADHD may also find it hard to have to learn the same material at the same speed as everyone else. Researchers have shown that students with ADHD learn best in schools that focus on movement, choice, and creativity. In schools like these, students with ADHD can often be very successful. However, because of standardized tests, required lessons, and rules that teachers have to follow, it can be hard for schools to create these kinds of experiences for students.
 
 
@@ -20015,7 +20001,7 @@ ___
               "correct": false,
               "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
-              "rationale": "This statement isn’t likely true. The text doesn’t mention people fighting to impose new rules.
+              "rationale": "This statement isn’t likely true. The text doesn’t mention people fighting to impose new rules. 
 ",
             },
           ],
@@ -20065,7 +20051,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the
 
 ___
 
-1. Ever wondered why you sit in rows of desks, stand in silent lines, or follow dozens of other rules during the school day? American public schools are often accused of teaching *conformity.* But what is conformity? It’s when people think and act the same. And, in fact, teaching conformity was a huge part of why American public schools were created!
+1. Ever wondered why you sit in rows of desks, stand in silent lines, or follow dozens of other rules during the school day? American public schools are often accused of teaching *conformity.* But what is conformity? It’s when people think and act the same. And, in fact, teaching conformity was a huge part of why American public schools were created! 
 
 ###The Prussian Model of Education comes to the United States
 
@@ -20073,7 +20059,7 @@ ___
 
 3. Prussia, it turns out. No, not Russia: Prussia, which today is Germany. After France defeated Prussia in 1807, Prussian leaders blamed the loss on their soldiers. They thought the soldiers were doing too much independent thinking and not enough following orders. So, to eliminate this independence, they imposed required schooling. They designed schools to teach values like duty, obedience, and love of their country, as well as math and reading. The government used taxes to pay for all Prussian children to go to school through 8th grade.
 
-4. 	In the United States, schools did exist prior to the 1800s, but they often cost money and were open mostly only to White boys. Then in 1843, Horace Mann, often called the Father of American Education, traveled to Prussia to study their schools. He was very impressed by Prussian schools. So, he began fighting for the United States to align its schools with Prussia’s.
+4. 	In the United States, schools did exist prior to the 1800s, but they often cost money and were open mostly only to White boys. Then in 1843, Horace Mann, often called the Father of American Education, traveled to Prussia to study their schools. He was very impressed by Prussian schools. So, he began fighting for the United States to align its schools with Prussia’s. 
 
 5.	Mann called his free, required schools “common schools.” He wanted them to focus on both academics and values, like the Prussian schools. The arrival of large populations of immigrants from Southern and Eastern Europe further shaped the idea that schools should teach values. Common schools were viewed as a way to make immigrants “more American.” Schools would teach immigrants English, democratic values like voting, and how to be productive workers. Common schools became one way to make sure that all people conformed to morals that American leaders valued.
 
@@ -20081,8 +20067,8 @@ ___
 
 6. 	Today, many American public schools still expect students to learn the same skills, at the same time, in the same ways. They also often teach certain kinds of values, like being quiet and following directions. But studies show that this focus on conformity can cause particular problems for certain students, such as those with disabilities or those who don’t speak English as their first language.
 
-7. 	Take, for example, students with Attention Deficit Hyperactivity Disorder, or ADHD. People with ADHD can have incredible talents: many of them have high levels of energy, creativity, and hyperfocus. Hyperfocus is when a person can tune out distractions and focus on one task for a long time. These talents can help people with ADHD do amazing things. Walt Disney, Leonardo Da Vinci, and Albert Einstein are all believed to have had ADHD. The creativity, energy, and hyperfocus they brought to their passions helped them achieve their extraordinary levels of success
-
+7. 	Take, for example, students with Attention Deficit Hyperactivity Disorder, or ADHD. People with ADHD can have incredible talents: many of them have high levels of energy, creativity, and hyperfocus. Hyperfocus is when a person can tune out distractions and focus on one task for a long time. These talents can help people with ADHD do amazing things. Walt Disney, Leonardo Da Vinci, and Albert Einstein are all believed to have had ADHD. The creativity, energy, and hyperfocus they brought to their passions helped them achieve their extraordinary levels of success 
+	
 8. Yet, despite these talents, students with ADHD often struggle in school. They may have trouble conforming to school rules. Sitting for long periods of time can be hard for all students, but particularly for students with ADHD. Students with ADHD may also find it hard to have to learn the same material at the same speed as everyone else. Researchers have shown that students with ADHD learn best in schools that focus on movement, choice, and creativity. In schools like these, students with ADHD can often be very successful. However, because of standardized tests, required lessons, and rules that teachers have to follow, it can be hard for schools to create these kinds of experiences for students.
 
 
