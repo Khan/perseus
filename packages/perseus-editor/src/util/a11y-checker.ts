@@ -8,19 +8,15 @@ import type axe from "axe-core";
 const assistanceNeededMessage =
     "Developer assistance needed - Please send this exercise and warning info to the LEMS team for review.";
 
+// Using src^="/perseus/frame" differentiates it from the Preview tab iframe
+const previewIframeSelector =
+    'iframe[data-name="content-preview"][src^="/perseus/frame"]';
 const axeCoreEditorOptions = {
     include: {
-        fromFrames: [
-            // Using src^="/perseus/frame" differentiates it from the Preview tab iframe
-            'iframe[data-name="content-preview"][src^="/perseus/frame"]',
-            "#page-container",
-        ],
+        fromFrames: [previewIframeSelector, "#page-container"],
     },
     exclude: {
-        fromFrames: [
-            'iframe[data-name="content-preview"]',
-            '[target="lint-help-window"]',
-        ],
+        fromFrames: [previewIframeSelector, '[target="lint-help-window"]'],
     },
 };
 const axeCoreStorybookOptions = {
@@ -124,7 +120,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
     const isInStorybook = !!document.getElementById("storybook-root");
     if (!isInStorybook) {
         let frameHasLoaded = false;
-        const frame = document.querySelector('iframe[src^="/perseus/frame"]');
+        const frame = document.querySelector(previewIframeSelector);
         if (frame) {
             const frameDocument =
                 // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'.
@@ -139,6 +135,8 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
     const options = isInStorybook
         ? axeCoreStorybookOptions
         : axeCoreEditorOptions;
+    // eslint-disable-next-line no-console
+    console.log("Axe Core options: ", options);
     axeCore.configure({reporter: "v2"});
     // @ts-expect-error TS2769: No overload matches this call.
     axeCore.run(options).then(
