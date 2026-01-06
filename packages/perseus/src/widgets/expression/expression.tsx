@@ -72,15 +72,13 @@ type Props = ExternalProps & {
     times: NonNullable<ExternalProps["times"]>;
 };
 
-// Default values for object/array props (defined outside to avoid recreating on each render)
+// Defined outside to preserve the references across renders
 const defaultButtonSets: LegacyButtonSets = [
     "basic",
     "trig",
     "prealgebra",
     "logarithms",
 ];
-
-// Empty functions for default props (defined outside to maintain referential equality)
 const defaultOnFocus = () => {};
 const defaultOnBlur = () => {};
 
