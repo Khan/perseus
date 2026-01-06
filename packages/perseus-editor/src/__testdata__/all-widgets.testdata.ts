@@ -54,6 +54,8 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         key: "1",
                     }),
                 ],
+                buttonSets: ["basic"],
+                buttonsVisible: "always",
             }),
         }),
         "radio 1": generateRadioWidget({
