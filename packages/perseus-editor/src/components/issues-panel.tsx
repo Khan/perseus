@@ -8,6 +8,7 @@ import * as React from "react";
 import {useState} from "react";
 
 import IssueDetails from "./issue-details";
+import LabeledSwitch from "./labeled-switch";
 import ToggleableCaret from "./toggleable-caret";
 
 import type {APIOptions} from "@khanacademy/perseus";
@@ -28,11 +29,18 @@ type IssuesPanelProps = {
     // "image-widget-upgrade" feature flag is has been fully rolled out.
     apiOptions?: APIOptions;
     issues?: Issue[];
-    a11yCheckCallback?: () => void;
+    a11yCheck?: {
+        callback: () => void;
+        isChecked: boolean;
+    };
 };
 
 const IssuesPanel = (props: IssuesPanelProps) => {
-    const {apiOptions, issues = [], a11yCheckCallback = () => {}} = props;
+    const {apiOptions, issues = []} = props;
+    const a11yCheck = props.a11yCheck || {
+        callback: () => {},
+        isChecked: false,
+    };
     const [showPanel, setShowPanel] = useState(false);
 
     const hasWarnings = issues.length > 0;
@@ -93,7 +101,14 @@ const IssuesPanel = (props: IssuesPanelProps) => {
                             />
                         ))}
                         {issues.length === 0 && <div>No issues found</div>}
-                        <button onClick={a11yCheckCallback}>A11y Check</button>
+                        <LabeledSwitch
+                            label="Include axe-core scan"
+                            checked={a11yCheck.isChecked}
+                            onChange={() => {
+                                a11yCheck.callback();
+                            }}
+                            style={{marginBlockStart: "1rem"}}
+                        />
                     </div>
                 </div>
             )}

@@ -2,7 +2,7 @@ import * as axeCore from "axe-core";
 
 import issuesList from "./a11y-issues-list";
 
-import type {Issue, IssueType} from "../components/issues-panel";
+import type {Issue} from "../components/issues-panel";
 import type axe from "axe-core";
 
 const assistanceNeededMessage =
@@ -10,18 +10,28 @@ const assistanceNeededMessage =
 
 const axeCoreEditorOptions = {
     include: {
-        fromFrames: ['iframe[src^="/perseus/frame"]', "#page-container"],
+        fromFrames: ['iframe[data-name="content-preview"]', "#page-container"],
     },
     exclude: {
         fromFrames: [
-            'iframe[src^="/perseus/frame"]',
+            'iframe[data-name="content-preview"]',
             '[target="lint-help-window"]',
         ],
     },
 };
 const axeCoreStorybookOptions = {
-    include: ["#preview-panel"],
-    exclude: ['[target="lint-help-window"]'],
+    include: {
+        fromFrames: [
+            'iframe[data-name="content-preview"]',
+            "#storybook-root > .framework-perseus",
+        ],
+    },
+    exclude: {
+        fromFrames: [
+            'iframe[data-name="content-preview"]',
+            '[target="lint-help-window"]',
+        ],
+    },
 };
 
 const convertAxeImpactToIssueImpact = (
@@ -81,7 +91,7 @@ const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
 
 const mapResultsToIssues = (
     results: axe.Result[],
-    type: IssueType,
+    type: "Warning" | "Alert",
 ): Issue[] => {
     return results.map((result) => {
         const isUserFixable =
@@ -148,7 +158,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
         },
         (error) => {
             // eslint-disable-next-line no-console
-            console.log(`      Error: `, error);
+            console.log(`*** Error: `, error);
         },
     );
 };

@@ -139,6 +139,7 @@ class IframeContentRenderer extends React.Component<Props> {
         const frame = document.createElement("iframe");
         frame.style.width = "100%";
         frame.style.height = "100%";
+        frame.dataset.name = "content-preview";
         frame.src = this.props.url;
         // Add axe-core library to the iFrame
         frame.onload = () => {

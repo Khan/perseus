@@ -52,6 +52,7 @@ type Props = {
 type State = {
     issues: Issue[];
     axeCoreIssues: Issue[];
+    showAxeCoreIssues: boolean;
 };
 
 class ItemEditor extends React.Component<Props, State> {
@@ -75,6 +76,7 @@ class ItemEditor extends React.Component<Props, State> {
     state = {
         issues: [],
         axeCoreIssues: [],
+        showAxeCoreIssues: false,
     };
 
     componentDidUpdate(prevProps: Props) {
@@ -102,8 +104,6 @@ class ItemEditor extends React.Component<Props, State> {
             WARNINGS.texError(error.math, error.message, index),
         );
 
-        // Uncomment the following when A11y check is changed to continuous
-        /*
         this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
             this.a11yCheckerTimeoutId,
             (issues) => {
@@ -112,7 +112,6 @@ class ItemEditor extends React.Component<Props, State> {
                 });
             },
         );
-         */
 
         const gatherIssues = () => {
             return [
@@ -183,18 +182,16 @@ class ItemEditor extends React.Component<Props, State> {
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
-        const allIssues = this.state.issues.concat(this.state.axeCoreIssues);
-
-        // Remove the following function when A11y check is changed to continuous
-        const runAxeCore = () => {
-            this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
-                this.a11yCheckerTimeoutId,
-                (issues) => {
-                    this.setState({
-                        axeCoreIssues: issues,
-                    });
-                },
-            );
+        const allIssues = this.state.issues.concat(
+            this.state.showAxeCoreIssues ? this.state.axeCoreIssues : [],
+        );
+        const a11yCheck = {
+            callback: () => {
+                this.setState({
+                    showAxeCoreIssues: !this.state.showAxeCoreIssues,
+                });
+            },
+            isChecked: this.state.showAxeCoreIssues,
         };
 
         return (
@@ -210,7 +207,7 @@ class ItemEditor extends React.Component<Props, State> {
                             <IssuesPanel
                                 apiOptions={this.props.apiOptions}
                                 issues={allIssues}
-                                a11yCheckCallback={runAxeCore}
+                                a11yCheck={a11yCheck}
                             />
                             <div className="pod-title">Question</div>
                             <fieldset disabled={editingDisabled}>
