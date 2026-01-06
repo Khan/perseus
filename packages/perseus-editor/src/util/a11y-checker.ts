@@ -10,7 +10,11 @@ const assistanceNeededMessage =
 
 const axeCoreEditorOptions = {
     include: {
-        fromFrames: ['iframe[data-name="content-preview"]', "#page-container"],
+        fromFrames: [
+            // Using src^="/perseus/frame" differentiates it from the Preview tab iframe
+            'iframe[data-name="content-preview"][src^="/perseus/frame"]',
+            "#page-container",
+        ],
     },
     exclude: {
         fromFrames: [
@@ -53,13 +57,16 @@ const convertAxeImpactToIssueImpact = (
 
 const getIssueMessage = (nodes: axe.NodeResult[]): string => {
     return nodes
-        .map((node) => {
+        .flatMap((node) => {
             return node.all
                 .concat(node.any, node.none)
-                .map((result) => result.message)
-                .join(" ");
+                .map((result) => result.message);
         })
-        .join(" ");
+        .filter(
+            (message, index, allMessages) =>
+                allMessages.indexOf(message) === index,
+        )
+        .join(". ");
 };
 
 const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
