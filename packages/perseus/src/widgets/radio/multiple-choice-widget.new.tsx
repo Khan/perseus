@@ -169,7 +169,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                     <Renderer
                         key="choiceContentRenderer"
                         content={content}
-                        widgets={{}}
                         findExternalWidgets={findWidgets}
                         alwaysUpdate={true}
                         linterContext={linterContext}

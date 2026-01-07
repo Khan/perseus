@@ -185,16 +185,13 @@ const parseWidgetsMapEntry: (
         case "transformer":
             return parseAndAssign(`transformer ${n}`, parseDeprecatedWidget);
         case "passage":
-            return parseAndAssign(`passage ${n}`, parseDeprecatedWidget as any);
+            return parseAndAssign(`passage ${n}`, parseDeprecatedWidget);
         case "passage-ref":
-            return parseAndAssign(
-                `passage-ref ${n}`,
-                parseDeprecatedWidget as any,
-            );
+            return parseAndAssign(`passage-ref ${n}`, parseDeprecatedWidget);
         case "passage-ref-target":
             return parseAndAssign(
                 `passage-ref-target ${n}`,
-                parseDeprecatedWidget as any,
+                parseDeprecatedWidget,
             );
 
         default:
