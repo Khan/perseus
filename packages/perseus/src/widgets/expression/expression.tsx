@@ -62,7 +62,6 @@ type ExternalProps = WidgetProps<
 >;
 
 type Props = ExternalProps & {
-    analytics: ReturnType<typeof useDependencies>["analytics"];
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     buttonSets: NonNullable<ExternalProps["buttonSets"]>;
     functions: NonNullable<ExternalProps["functions"]>;
@@ -134,7 +133,6 @@ export const Expression = forwardRef<Widget, Props>(
             userInput = "",
             visibleLabel,
             ariaLabel,
-            analytics,
             keypadElement,
             extraKeys,
             handleUserInput,
@@ -143,6 +141,7 @@ export const Expression = forwardRef<Widget, Props>(
         } = props;
 
         const {strings} = usePerseusI18n();
+        const {analytics} = useDependencies();
         // KeypadContext provides setKeypadActive which is passed to focus() to notify
         // the mobile keypad system when an input becomes active. This is only used on
         // mobile (when apiOptions.customKeypad is true) but is safe to call on desktop.
@@ -394,13 +393,6 @@ const styles = StyleSheet.create({
     },
 });
 
-const ExpressionWithDependencies = forwardRef<Widget, ExternalProps>(
-    function ExpressionWithDependencies(props, ref) {
-        const deps = useDependencies();
-        return <Expression ref={ref} analytics={deps.analytics} {...props} />;
-    },
-);
-
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState
@@ -443,7 +435,7 @@ function getCorrectUserInput(
 export default {
     name: "expression",
     displayName: "Expression / Equation",
-    widget: ExpressionWithDependencies,
+    widget: Expression,
     version: expressionLogic.version,
 
     // For use by the editor
@@ -453,4 +445,4 @@ export default {
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof ExpressionWithDependencies>;
+} satisfies WidgetExports<typeof Expression>;
