@@ -109,6 +109,7 @@ const IssuesPanel = (props: IssuesPanelProps) => {
                             }}
                             style={{marginBlockStart: "1rem"}}
                         />
+                        <input id={"axe-core-context"} type={"text"} />
                     </div>
                 </div>
             )}

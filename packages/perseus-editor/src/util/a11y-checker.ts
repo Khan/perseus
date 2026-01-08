@@ -132,13 +132,20 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
             return;
         }
     }
-    const options = isInStorybook
-        ? axeCoreStorybookOptions
-        : axeCoreEditorOptions;
+    const userInput = document.getElementById(
+        "axe-core-context",
+    ) as HTMLInputElement | null;
+    const userSuppliedOptions = userInput?.value;
+    const options = userSuppliedOptions
+        ? JSON.parse(userSuppliedOptions)
+        : isInStorybook
+          ? axeCoreStorybookOptions
+          : axeCoreEditorOptions;
     // eslint-disable-next-line no-console
     console.log("Axe Core options: ", options);
+    // eslint-disable-next-line no-console
+    console.log("Axe Core options (stringified): ", JSON.stringify(options));
     axeCore.configure({reporter: "v2"});
-    // @ts-expect-error TS2769: No overload matches this call.
     axeCore.run(options).then(
         (results) => {
             // eslint-disable-next-line no-console
