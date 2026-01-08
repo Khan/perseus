@@ -95,8 +95,6 @@ class MeasurerEditor extends React.Component<Props> {
                     <input
                         type="text"
                         className="perseus-widget-measurer-url"
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="image-url"
                         defaultValue={image.url}
                         onChange={this._changeUrl}
                     />

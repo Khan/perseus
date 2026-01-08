@@ -4,7 +4,6 @@ import {number as knumber} from "@khanacademy/kmath";
 import {components, PlotterWidget, Util} from "@khanacademy/perseus";
 import {plotterLogic, plotterPlotTypes} from "@khanacademy/perseus-core";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
@@ -90,6 +89,8 @@ class PlotterEditor extends React.Component<Props, State> {
         tickStep: null,
     };
 
+    maxYRef = React.createRef<HTMLInputElement>();
+
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
     UNSAFE_componentWillMount() {
         this.fetchPic(this.props.picUrl);
@@ -157,13 +158,6 @@ class PlotterEditor extends React.Component<Props, State> {
         } else {
             this.props.onChange({type: type});
         }
-
-        if (categories) {
-            // eslint-disable-next-line react/no-string-refs
-            const node = ReactDOM.findDOMNode(this.refs.categories);
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-            node.value = categories.join(", ");
-        }
     };
 
     changeLabel: (arg1: number, arg2: any) => void = (i, e) => {
@@ -214,8 +208,9 @@ class PlotterEditor extends React.Component<Props, State> {
             starting: _.map(this.props.starting, scale),
         });
 
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs.maxY).value = maxY; // eslint-disable-line react/no-string-refs
+        if (this.maxYRef.current) {
+            this.maxYRef.current.value = String(maxY);
+        }
     };
 
     changeMax: (arg1: any) => void = (e) => {
@@ -254,12 +249,6 @@ class PlotterEditor extends React.Component<Props, State> {
         categories = _.map(categories, formatNumber);
 
         this.changeCategories(categories);
-
-        // eslint-disable-next-line react/no-string-refs
-        const node = ReactDOM.findDOMNode(this.refs.categories);
-
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        node.value = categories.join(", ");
     };
 
     serialize: () => any = () => {
@@ -421,8 +410,6 @@ class PlotterEditor extends React.Component<Props, State> {
                     <label>
                         Categories:{" "}
                         <TextListEditor
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="categories"
                             layout="horizontal"
                             options={this.props.categories}
                             onChange={this.changeCategories}
@@ -444,8 +431,7 @@ class PlotterEditor extends React.Component<Props, State> {
                         Max y:{" "}
                         <input
                             type="text"
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="maxY"
+                            ref={this.maxYRef}
                             onChange={this.changeMax}
                             defaultValue={this.props.maxY}
                         />
