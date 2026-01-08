@@ -5,6 +5,14 @@ const {promisify} = require("util");
 
 const execAsync = promisify(exec);
 
+/* This function converts CSS information into a JS object that can be used with Aphrodite.
+ * This tool enables us to maintain a single source of truth for the styling
+ *     that is applied in a widget.
+ * Whenever CSS is updated, this tool ensures that the corresponding Aphrodite
+ *     styles are also updated.
+ * NOTE: This tool is temporary and can be removed once all widgets have been
+ *     migrated, and Wonder Blocks fully supports CSS modules.
+ */
 const objectifyCSS = (cssPathname, objectName) => {
     const cssRules = fs.readFileSync(cssPathname, "utf-8");
     const objectified = JSON.stringify(parseCssToObjects(cssRules));

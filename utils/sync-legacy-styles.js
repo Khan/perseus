@@ -35,6 +35,14 @@ const filesToSync = fs
         return {cssPathName, variableName};
     });
 
+/**
+ * Synchronizes any changes in *.module.css files with their *_legacy-styles.js counterpart.
+ * @example
+ *      pnpm sync-legacy-styles
+ * @return Rewrites all *_legacy-styles.js files using the contents of their
+ *      associated *.module.css files.
+ */
+
 filesToSync.forEach((file) => {
     objectifyCSS(file.cssPathName, file.variableName);
 });

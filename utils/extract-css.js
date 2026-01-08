@@ -13,11 +13,20 @@ const execAsync = promisify(exec);
  * Extracts style information from JS and Aphrodite objects and writes them to a
  *      CSS Modules (*.module.css) file.
  * @example
- *      node utils/extract-css.js <name-of-tsx-file>
+ *      pnpm extract-css <name-of-tsx-file> --keep-aphrodite --archive
  * @param {string} name-of-tsx-file Pathname of file to convert (from project root)
+ * @param keep-aphrodite Optional flag to keep an Aphrodite version of the CSS
+ * @param archive Optional flag to archive the original file as name-of-tsx-file.OLD.tsx
  * @return Writes a new file (name-of-tsx-file.module.css) with converted style information.
+ *         Conditionally writes an Aphrodite-compatible file (name-of-tsx-file_legacy-styles.js).
+ *         Conditionally archives the original file.
  *         Removes style information from the original TSX file.
  */
+
+// NOTE: This tool is NOT all-encompassing. It only works on known coding patterns.
+//       If an unhandled pattern is found, a comment is inserted in the CSS file
+//           indicating the problematic code section for manual review.
+//       New coding patterns can be added as needed.
 
 /*************
  * Constants *
