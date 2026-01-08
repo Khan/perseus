@@ -230,9 +230,40 @@ export {
     generateFreeResponseWidget,
 } from "./utils/generators/free-response-widget-generator";
 export {
+    generateGradedGroupOptions,
+    generateGradedGroupWidget,
+} from "./utils/generators/graded-group-widget-generator";
+export {generateGradedGroupSetWidget} from "./utils/generators/graded-group-set-widget-generator";
+export {
+    generateGroupOptions,
+    generateGroupWidget,
+} from "./utils/generators/group-widget-generator";
+export {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
+export {
+    generateInteractiveGraphOptions,
+    generateIGAngleGraph,
+    generateIGCircleGraph,
+    generateIGLinearGraph,
+    generateIGLinearSystemGraph,
+    generateIGNoneGraph,
+    generateIGPointGraph,
+    generateIGPolygonGraph,
+    generateIGQuadraticGraph,
+    generateIGRayGraph,
+    generateIGSegmentGraph,
+    generateIGSinusoidGraph,
+    generateIGLockedPoint,
+    generateIGLockedLine,
+    generateIGLockedVector,
+    generateIGLockedEllipse,
+    generateIGLockedPolygon,
+    generateIGLockedFunction,
+    generateIGLockedLabel,
+    generateInteractiveGraphWidget,
+} from "./utils/generators/interactive-graph-widget-generator";
 export {
     generateNumericInputOptions,
     generateNumericInputAnswer,
