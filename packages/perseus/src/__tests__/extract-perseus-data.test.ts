@@ -2,6 +2,7 @@ import {describe, it, expect} from "@jest/globals";
 import {
     generateNumericInputWidget,
     generateRadioWidget,
+    generateInteractiveGraphWidget,
 } from "@khanacademy/perseus-core";
 
 import {InputNumber, Radio} from "..";
@@ -18,10 +19,7 @@ import {
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
-import {
-    generateTestCategorizerWidget,
-    generateTestInteractiveGraphWidget,
-} from "../util/test-utils";
+import {generateTestCategorizerWidget} from "../util/test-utils";
 
 const stub: jest.MockedFunction<any> = jest.fn();
 
@@ -35,7 +33,7 @@ describe("ExtractPerseusData", () => {
             expect(
                 isWrongAnswerSupported(["radio 1", "interactive-graph 2"], {
                     "radio 1": generateRadioWidget(),
-                    "interactive-graph 2": generateTestInteractiveGraphWidget(),
+                    "interactive-graph 2": generateInteractiveGraphWidget(),
                 }),
             ).toBe(true);
             expect(
@@ -63,7 +61,7 @@ describe("ExtractPerseusData", () => {
         it("returns true if the widget should have individual answer", () => {
             expect(
                 shouldHaveIndividualAnswer("interactive-graph 1", {
-                    "interactive-graph 1": generateTestInteractiveGraphWidget(),
+                    "interactive-graph 1": generateInteractiveGraphWidget(),
                 }),
             ).toBe(true);
             expect(

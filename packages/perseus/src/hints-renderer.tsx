@@ -89,8 +89,33 @@ class HintsRenderer extends React.Component<Props, State> {
             nextHintsVisible >= 0
         ) {
             const pos = nextHintsVisible - 1;
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus(); // eslint-disable-line react/no-string-refs
+            const hint = this.props.hints[pos];
+
+            // Skip focusing placeholder hints - they don't render focusable content
+            if (hint?.placeholder) {
+                return;
+            }
+
+            try {
+                // eslint-disable-next-line react/no-string-refs
+                const ref = this.refs["hintRenderer" + pos];
+
+                // Ensure the ref exists before trying to find its DOM node
+                if (ref == null) {
+                    return;
+                }
+
+                const domNode = ReactDOM.findDOMNode(ref) as HTMLElement | null;
+
+                // Only focus if we have a valid DOM node that supports focus
+                if (domNode && typeof domNode.focus === "function") {
+                    domNode.focus();
+                }
+            } catch (e) {
+                // Silently fail if we can't focus the hint (e.g., ref not ready,
+                // DOM node doesn't exist, etc.)
+                // This can happen with placeholder hints or timing issues
+            }
         }
     }
 

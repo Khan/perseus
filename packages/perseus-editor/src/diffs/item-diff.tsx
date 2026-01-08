@@ -34,18 +34,13 @@ class ItemDiff extends React.Component<Props> {
             />
         );
 
-        let extras: React.ReactNode;
-        // There might be a better way to do this, but for now I think it's fine to not
-        // show the diff if the answer area is set in both before and after.
-        if (before.answerArea && after.answerArea) {
-            extras = (
-                <AnswerAreaDiff
-                    before={before.answerArea}
-                    after={after.answerArea}
-                    title="Question extras"
-                />
-            );
-        }
+        const extras = (
+            <AnswerAreaDiff
+                before={before.answerArea ? before.answerArea : undefined}
+                after={after.answerArea ? after.answerArea : undefined}
+                title="Question extras"
+            />
+        );
 
         const hints = _.times(hintCount, function (n) {
             return (
