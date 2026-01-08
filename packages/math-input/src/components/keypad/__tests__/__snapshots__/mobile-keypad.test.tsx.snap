@@ -20,6 +20,25 @@ exports[`mobile keypad should render keypad when active 1`] = `
         class="default_xu2jcg wrapper "
       >
         <div
+          class="default_xu2jcg-o_O-inlineStyles_1fwxya8"
+        >
+          <div
+            class="default_xu2jcg-o_O-inlineStyles_ls0e43"
+          >
+            <button
+              aria-disabled="false"
+              aria-label="Dismiss"
+              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_2bjgxj-o_O-inlineStyles_bhsjbl"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_3w3gb8"
+              />
+            </button>
+          </div>
+        </div>
+        <div
           class="default_xu2jcg-o_O-inlineStyles_1hoepsr"
         >
           <div
