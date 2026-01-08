@@ -7,7 +7,7 @@ import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
-import {getPreviewUrl} from "./use-preview-url";
+import {usePreviewUrl} from "./use-preview-url";
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
@@ -27,21 +27,22 @@ export default {
         chromatic: {disableSnapshot: false},
     },
     play: async ({canvasElement}) => {
-        const previewContainer = await canvasElement.querySelector(
+        const previewContainer = canvasElement.querySelector(
             ".editor-preview iframe",
         );
 
         await expect(previewContainer).toBeInTheDocument();
 
-        await new Promise((resolve) => {
-            previewContainer.onload = resolve;
+        await new Promise<void>((resolve) => {
+            const resolveOnLoad = () => {
+                previewContainer.removeEventListener("load", resolveOnLoad);
+                resolve();
+            };
+
+            previewContainer.addEventListener("load", resolveOnLoad);
         });
 
-        const iframeDocument =
-            previewContainer.contentDocument ||
-            previewContainer.contentWindow.document;
-
-        // 4. Use within and findBy* queries to assert content is loaded
+        const iframeDocument = previewContainer.contentDocument;
         const iframeContents = within(iframeDocument.body);
         await expect(
             await iframeContents.findByText("Show explanation"),
@@ -62,7 +63,7 @@ export const WithEditingDisabled = (): React.ReactElement => {
             imageUploader={() => {}}
             json={[comprehensiveQuestion]}
             onChange={() => {}}
-            previewURL={getPreviewUrl()}
+            previewURL={usePreviewUrl()}
         />
     );
 };
