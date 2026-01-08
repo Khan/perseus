@@ -1,5 +1,17 @@
 # @khanacademy/perseus-linter
 
+## 4.6.9
+
+### Patch Changes
+
+-   [#3155](https://github.com/Khan/perseus/pull/3155) [`9574a1edc1`](https://github.com/Khan/perseus/commit/9574a1edc1b1d8b4e0eca803f236990932697502) Thanks [@nishasy](https://github.com/nishasy)! - Warn content editors to add the correct keypad for expression widgets with exponents
+
+*   [#3168](https://github.com/Khan/perseus/pull/3168) [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix infinite loop in SvgImage component when loading graphie images. This fixes the "Maximum update depth exceeded" error (React error # 185) that was occurring when rendering graphie images (web+graphie:// URLs) in production.
+
+*   Updated dependencies [[`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e), [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641)]:
+    -   @khanacademy/perseus-core@21.2.1
+    -   @khanacademy/kmath@2.2.27
+
 ## 4.6.8
 
 ### Patch Changes
