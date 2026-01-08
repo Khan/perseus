@@ -1,6 +1,10 @@
 import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 import {registerCoreWidgets} from "../widgets/core-widget-registry";
 
+import {
+    generateExplanationOptions,
+    generateExplanationWidget,
+} from "./generators/explanation-widget-generator";
 import splitPerseusItem, {splitPerseusItemJSON} from "./split-perseus-item";
 import {generateTestPerseusItem} from "./test-utils";
 
@@ -49,21 +53,16 @@ describe("splitPerseusItem", () => {
     it("doesn't need to strip unscorable widgets", () => {
         // Arrange
         const question: PerseusRenderer = {
-            content: "[[☃ passage 1]]",
-            // calling the upgrader here so I don't
-            // bog down the test with default properties
-            widgets: applyDefaultsToWidgets({
-                "passage 1": {
-                    type: "passage",
-                    options: {
-                        footnotes: "",
-                        passageText: "Hello world",
-                        passageTitle: "",
-                        showLineNumbers: true,
-                        static: false,
-                    },
-                },
-            }),
+            content: "[[☃ explanation 1]]",
+            widgets: {
+                "explanation 1": generateExplanationWidget({
+                    options: generateExplanationOptions({
+                        explanation: "Addition combines two numbers.",
+                        showPrompt: "Show explanation",
+                        hidePrompt: "Hide explanation",
+                    }),
+                }),
+            },
             images: {},
         };
 

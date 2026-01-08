@@ -6,7 +6,7 @@ import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
-    questionWithPassage,
+    question,
     choicesWithImages,
     multiChoiceQuestionSimple,
     multiChoiceQuestion,
@@ -47,7 +47,7 @@ export default {
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: question,
         }),
     } satisfies StoryArgs,
     argTypes: {
@@ -91,7 +91,7 @@ const buildApiOptions = (args: StoryArgs): APIOptions => ({});
 export const SingleSelect = {
     args: {
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: question,
         }),
     },
 };
@@ -129,7 +129,7 @@ export const MultiSelect = {
 export const AnswerlessSingleSelect = {
     args: {
         item: generateTestPerseusItem({
-            question: questionWithPassage,
+            question: question,
         }),
         startAnswerless: true,
     },
