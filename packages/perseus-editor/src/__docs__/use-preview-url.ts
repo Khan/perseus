@@ -11,3 +11,13 @@ export const usePreviewUrl = () => {
 
     return storybookPreviewUrl;
 };
+
+export const getPreviewUrl = () => {
+    const storybookBaseUrl = window.location.pathname
+        .split("/")
+        .slice(0, -1)
+        .join("/");
+    const storybookPreviewUrl = `${storybookBaseUrl}/iframe.html?id=dev-support-preview--default&viewMode=story`;
+
+    return storybookPreviewUrl;
+};
