@@ -1,5 +1,13 @@
 # @khanacademy/perseus-core
 
+## 21.2.1
+
+### Patch Changes
+
+-   [#3152](https://github.com/Khan/perseus/pull/3152) [`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update tests referencing the passage widget in preparation for deprecating passage related widgets
+
+*   [#3168](https://github.com/Khan/perseus/pull/3168) [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix infinite loop in SvgImage component when loading graphie images. This fixes the "Maximum update depth exceeded" error (React error # 185) that was occurring when rendering graphie images (web+graphie:// URLs) in production.
+
 ## 21.2.0
 
 ### Minor Changes
