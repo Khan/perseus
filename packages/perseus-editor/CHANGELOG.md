@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 28.8.13
+
+### Patch Changes
+
+-   [#3169](https://github.com/Khan/perseus/pull/3169) [`d1621cb0e9`](https://github.com/Khan/perseus/commit/d1621cb0e9a80f689d75921cd3c80a78ea75dca4) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Fix flakey regression test for Article Editor
+
+-   Updated dependencies [[`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e), [`8bbf110810`](https://github.com/Khan/perseus/commit/8bbf110810468e7b3c5e72f7543d3cd662892b63), [`9574a1edc1`](https://github.com/Khan/perseus/commit/9574a1edc1b1d8b4e0eca803f236990932697502), [`8f740f9116`](https://github.com/Khan/perseus/commit/8f740f9116e6f62d74daeda5be57a4e2578c3999), [`74fda24aac`](https://github.com/Khan/perseus/commit/74fda24aac1256c1a502ee3c250c3710e91c101e), [`bcdd6c49ec`](https://github.com/Khan/perseus/commit/bcdd6c49ec003fe307b2e635909f7be1402460cf), [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641), [`340d813130`](https://github.com/Khan/perseus/commit/340d813130684590eb5d7fe7ab65022f548b2069)]:
+    -   @khanacademy/perseus@72.8.0
+    -   @khanacademy/perseus-core@21.2.1
+    -   @khanacademy/perseus-linter@4.6.9
+    -   @khanacademy/math-input@26.3.7
+    -   @khanacademy/keypad-context@3.2.27
+    -   @khanacademy/kmath@2.2.27
+    -   @khanacademy/perseus-score@8.2.3
+
 ## 28.8.12
 
 ### Patch Changes

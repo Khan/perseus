@@ -1,5 +1,31 @@
 # @khanacademy/perseus
 
+## 72.8.0
+
+### Minor Changes
+
+-   [#3118](https://github.com/Khan/perseus/pull/3118) [`bcdd6c49ec`](https://github.com/Khan/perseus/commit/bcdd6c49ec003fe307b2e635909f7be1402460cf) Thanks [@Myranae](https://github.com/Myranae)! - Convert the dropdown widget to a functional component
+
+### Patch Changes
+
+-   [#3152](https://github.com/Khan/perseus/pull/3152) [`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update tests referencing the passage widget in preparation for deprecating passage related widgets
+
+*   [#3029](https://github.com/Khan/perseus/pull/3029) [`8bbf110810`](https://github.com/Khan/perseus/commit/8bbf110810468e7b3c5e72f7543d3cd662892b63) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - fix - add roles to ul and li items to make sure they are visible to screen readers
+
+-   [#3144](https://github.com/Khan/perseus/pull/3144) [`74fda24aac`](https://github.com/Khan/perseus/commit/74fda24aac1256c1a502ee3c250c3710e91c101e) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Add transition for correctness styling changes
+
+*   [#3168](https://github.com/Khan/perseus/pull/3168) [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix infinite loop in SvgImage component when loading graphie images. This fixes the "Maximum update depth exceeded" error (React error # 185) that was occurring when rendering graphie images (web+graphie:// URLs) in production.
+
+-   [#3148](https://github.com/Khan/perseus/pull/3148) [`340d813130`](https://github.com/Khan/perseus/commit/340d813130684590eb5d7fe7ab65022f548b2069) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove usage of questionWithPassage and replaced it with question in Radio/Multiple Choice story in preparation for deprecating passage related widgets
+
+-   Updated dependencies [[`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e), [`9574a1edc1`](https://github.com/Khan/perseus/commit/9574a1edc1b1d8b4e0eca803f236990932697502), [`8f740f9116`](https://github.com/Khan/perseus/commit/8f740f9116e6f62d74daeda5be57a4e2578c3999), [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641)]:
+    -   @khanacademy/perseus-core@21.2.1
+    -   @khanacademy/perseus-linter@4.6.9
+    -   @khanacademy/math-input@26.3.7
+    -   @khanacademy/keypad-context@3.2.27
+    -   @khanacademy/kmath@2.2.27
+    -   @khanacademy/perseus-score@8.2.3
+
 ## 72.7.0
 
 ### Minor Changes
