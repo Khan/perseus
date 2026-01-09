@@ -34,7 +34,9 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
             id=":r0:-anchor"
             type="button"
           >
-            <span>
+            <span
+              class="definition"
+            >
               the Pequots
             </span>
           </button>
@@ -80,7 +82,9 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
             id=":r2:-anchor"
             type="button"
           >
-            <span>
+            <span
+              class="definition"
+            >
               the Pequots
             </span>
           </button>
