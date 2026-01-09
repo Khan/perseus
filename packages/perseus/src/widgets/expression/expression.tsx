@@ -62,12 +62,8 @@ type ExternalProps = WidgetProps<
 >;
 
 type Props = ExternalProps & {
-    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     buttonSets: NonNullable<ExternalProps["buttonSets"]>;
     functions: NonNullable<ExternalProps["functions"]>;
-    linterContext: NonNullable<ExternalProps["linterContext"]>;
-    onBlur: NonNullable<ExternalProps["onBlur"]>;
-    onFocus: NonNullable<ExternalProps["onFocus"]>;
     times: NonNullable<ExternalProps["times"]>;
 };
 
@@ -122,267 +118,252 @@ const KeypadInputWithInterface = React.forwardRef<
     return <KeypadInput ref={keypadInputRef} {...props} />;
 });
 
-export const Expression = forwardRef<Widget, Props>(
-    function Expression(props, ref) {
-        const {
-            apiOptions = ApiOptions.defaults,
-            buttonSets = defaultButtonSets,
-            times = false,
-            onFocus = defaultOnFocus,
-            onBlur = defaultOnBlur,
-            userInput = "",
-            visibleLabel,
-            ariaLabel,
-            keypadElement,
-            extraKeys,
-            handleUserInput,
-            trackInteraction,
-            widgetId,
-        } = props;
+export const Expression = forwardRef<Widget, Props>(function Expression(
+    {
+        apiOptions = ApiOptions.defaults,
+        buttonSets = defaultButtonSets,
+        times = false,
+        onFocus = defaultOnFocus,
+        onBlur = defaultOnBlur,
+        userInput = "",
+        visibleLabel,
+        ariaLabel,
+        keypadElement,
+        extraKeys,
+        handleUserInput,
+        trackInteraction,
+        widgetId,
+        answerForms,
+        ...rest
+    },
+    ref,
+) {
+    const {strings} = usePerseusI18n();
+    const {analytics} = useDependencies();
+    // KeypadContext provides setKeypadActive which is passed to focus() to notify
+    // the mobile keypad system when an input becomes active. This is only used on
+    // mobile (when apiOptions.customKeypad is true) but is safe to call on desktop.
+    const {setKeypadActive} = React.useContext(KeypadContext);
+    const textareaId = useId();
+    const inputRef = useRef<any>(null); // KeypadInput/MathInput don't export ref types
+    const rootRef = useRef<HTMLDivElement>(null);
 
-        const {strings} = usePerseusI18n();
-        const {analytics} = useDependencies();
-        // KeypadContext provides setKeypadActive which is passed to focus() to notify
-        // the mobile keypad system when an input becomes active. This is only used on
-        // mobile (when apiOptions.customKeypad is true) but is safe to call on desktop.
-        const {setKeypadActive} = React.useContext(KeypadContext);
-        const textareaId = useId();
-        const inputRef = useRef<any>(null); // KeypadInput/MathInput don't export ref types
-        const rootRef = useRef<HTMLDivElement>(null);
-        // Track mount status to prevent state updates after unmount (matches class component behavior)
-        const isMountedRef = useRef(false);
+    useEffect(() => {
+        analytics?.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "expression",
+                widgetId,
+            },
+        });
 
-        useEffect(() => {
-            analytics?.onAnalyticsEvent({
-                type: "perseus:widget:rendered:ti",
-                payload: {
-                    widgetSubType: "null",
-                    widgetType: "expression",
-                    widgetId: widgetId,
-                },
-            });
-
-            isMountedRef.current = true;
-
-            // Imperatively add ID to the input element
-            // This is needed for accessibility (associating label with input)
-            if (rootRef.current) {
-                const isMobile = apiOptions.customKeypad;
-                const selector = isMobile ? ".mq-textarea > span" : "textarea";
-                const inputElement = rootRef.current.querySelector(selector);
-
-                if (inputElement instanceof HTMLElement) {
-                    inputElement.setAttribute("id", textareaId);
-                }
-            }
-
-            return () => {
-                isMountedRef.current = false;
-            };
-        }, []); // eslint-disable-line react-hooks/exhaustive-deps
-        // Empty deps intentional - this effect runs once on mount to:
-        // 1. Fire analytics event (should only fire once, not on every prop change)
-        // 2. Set up the input element ID for label association
-        // apiOptions.customKeypad is used to determine the selector, but it never changes
-        // after initial mount (switching between mobile/desktop requires a full remount)
-
-        const handleFocus = () => {
-            analytics?.onAnalyticsEvent({
-                type: "perseus:expression-focused",
-                payload: null,
-            });
-            onFocus([]);
-        };
-
-        const handleBlur = () => {
-            onBlur([]);
-        };
-
-        const changeAndTrack = (value: string, cb: () => void) => {
-            const normalized = normalizeTex(value);
-            handleUserInput(normalized, cb);
-            trackInteraction();
-        };
-
-        const mobileHandleFocus = () => {
-            keypadElement?.configure(getKeypadConfiguration(), () => {
-                if (isMountedRef.current) {
-                    handleFocus();
-                }
-            });
-        };
-
-        const getKeypadConfiguration = useCallback((): KeypadConfiguration => {
-            return {
-                keypadType: "EXPRESSION",
-                extraKeys: extraKeys,
-                times: times,
-            };
-        }, [extraKeys, times]);
-
-        const getFocusTarget = useCallback((): HTMLElement | null => {
-            if (!rootRef.current) {
-                return null;
-            }
-
+        // Imperatively add ID to the input element
+        // This is needed for accessibility (associating label with input)
+        if (rootRef.current) {
             const isMobile = apiOptions.customKeypad;
             const selector = isMobile ? ".mq-textarea > span" : "textarea";
-            const element = rootRef.current.querySelector(selector);
-            return element instanceof HTMLElement ? element : null;
-        }, [apiOptions.customKeypad]);
+            const inputElement = rootRef.current.querySelector(selector);
 
-        // Implement Widget interface
-        useImperativeHandle(
-            ref,
-            () => ({
-                /**
-                 * Focus the input element.
-                 *
-                 * This method handles focus for both mobile (KeypadInput) and desktop
-                 * (MathInput) variants. It uses a multi-step approach with fallbacks:
-                 * 1. Attempt to focus via the input component's focus() method
-                 * 2. Query for the expected focus target element
-                 * 3. Fall back to previously identified target or active element
-                 *
-                 * Edge case: If called immediately after mount, the input component's
-                 * internal textarea may not be fully initialized yet. The fallback logic
-                 * handles this by attempting to focus whatever element is available.
-                 * The ID set in useEffect is only for accessibility (label association)
-                 * and doesn't affect focus targeting.
-                 *
-                 * @returns true if focus is on the input element after the operation
-                 */
-                focus: (): boolean => {
-                    const targetBefore = getFocusTarget();
+            if (inputElement instanceof HTMLElement) {
+                inputElement.setAttribute("id", textareaId);
+            }
+        }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-                    // Try direct focus first; this may be a custom KeypadInput or MathInput.
-                    inputRef.current?.focus?.(setKeypadActive);
+    const handleFocus = () => {
+        analytics?.onAnalyticsEvent({
+            type: "perseus:expression-focused",
+            payload: null,
+        });
+        onFocus([]);
+    };
 
-                    // Prefer the element we expect to focus; fall back to whatever is active.
-                    const targetAfter =
-                        getFocusTarget() ??
-                        targetBefore ??
-                        (document.activeElement instanceof HTMLElement
-                            ? document.activeElement
-                            : null);
+    const handleBlur = () => {
+        onBlur([]);
+    };
 
-                    if (!targetAfter) {
-                        return false;
-                    }
+    const changeAndTrack = (value: string, cb: () => void) => {
+        const normalized = normalizeTex(value);
+        handleUserInput(normalized, cb);
+        trackInteraction();
+    };
 
-                    if (document.activeElement !== targetAfter) {
-                        targetAfter.focus();
-                    }
+    const mobileHandleFocus = () => {
+        keypadElement?.configure(getKeypadConfiguration(), () => {
+            if (rootRef.current) {
+                handleFocus();
+            }
+        });
+    };
 
-                    return document.activeElement === targetAfter;
-                },
+    const getKeypadConfiguration = useCallback((): KeypadConfiguration => {
+        return {
+            keypadType: "EXPRESSION",
+            extraKeys: extraKeys,
+            times: times,
+        };
+    }, [extraKeys, times]);
 
-                focusInputPath: (path: FocusPath) => {
-                    inputRef.current?.focus?.(setKeypadActive);
-                },
-
-                blurInputPath: (path: FocusPath) => {
-                    if (typeof inputRef.current?.blur === "function") {
-                        inputRef.current?.blur();
-                    }
-                },
-
-                insert: (keyPressed: KeypadKey) => {
-                    inputRef.current?.insert?.(keyPressed);
-                },
-
-                getInputPaths: () => [[]],
-
-                getUserInput: (): PerseusExpressionUserInput => {
-                    return normalizeTex(userInput);
-                },
-
-                getKeypadConfiguration,
-
-                getPromptJSON: (): ExpressionPromptJSON => {
-                    return _getPromptJSON(props, normalizeTex(userInput));
-                },
-
-                /**
-                 * @deprecated and likely very broken API
-                 * [LEMS-3185] do not trust serializedState
-                 */
-                getSerializedState: () => {
-                    const {userInput: _, answerForms: __, ...rest} = props;
-                    return {
-                        ...rest,
-                        value: userInput,
-                        keypadConfiguration: getKeypadConfiguration(),
-                    };
-                },
-            }),
-            [
-                props,
-                userInput,
-                setKeypadActive,
-                getKeypadConfiguration,
-                getFocusTarget,
-            ],
-        );
-
-        const keypadConfiguration = getKeypadConfiguration();
-
-        if (apiOptions.customKeypad) {
-            return (
-                <View
-                    ref={rootRef}
-                    className={css(styles.mobileLabelInputWrapper)}
-                >
-                    {!!visibleLabel && (
-                        <LabelSmall htmlFor={textareaId} tag="label">
-                            {visibleLabel}
-                        </LabelSmall>
-                    )}
-                    <KeypadInputWithInterface
-                        ref={inputRef}
-                        ariaLabel={ariaLabel || strings.mathInputBox}
-                        value={userInput}
-                        keypadElement={keypadElement}
-                        onChange={changeAndTrack}
-                        onFocus={mobileHandleFocus}
-                        onBlur={handleBlur}
-                        style={{}}
-                    />
-                </View>
-            );
+    const getFocusTarget = useCallback((): HTMLElement | null => {
+        if (!rootRef.current) {
+            return null;
         }
 
+        const isMobile = apiOptions.customKeypad;
+        const selector = isMobile ? ".mq-textarea > span" : "textarea";
+        const element = rootRef.current.querySelector(selector);
+        return element instanceof HTMLElement ? element : null;
+    }, [apiOptions.customKeypad]);
+
+    // Implement Widget interface
+    useImperativeHandle(
+        ref,
+        () => ({
+            /**
+             * Focus the input element.
+             *
+             * This method handles focus for both mobile (KeypadInput) and desktop
+             * (MathInput) variants. It uses a multi-step approach with fallbacks:
+             * 1. Attempt to focus via the input component's focus() method
+             * 2. Query for the expected focus target element
+             * 3. Fall back to previously identified target or active element
+             *
+             * Edge case: If called immediately after mount, the input component's
+             * internal textarea may not be fully initialized yet. The fallback logic
+             * handles this by attempting to focus whatever element is available.
+             * The ID set in useEffect is only for accessibility (label association)
+             * and doesn't affect focus targeting.
+             *
+             * @returns true if focus is on the input element after the operation
+             */
+            focus: (): boolean => {
+                const targetBefore = getFocusTarget();
+
+                // Try direct focus first; this may be a custom KeypadInput or MathInput.
+                inputRef.current?.focus?.(setKeypadActive);
+
+                // Prefer the element we expect to focus; fall back to whatever is active.
+                const targetAfter =
+                    getFocusTarget() ??
+                    targetBefore ??
+                    (document.activeElement instanceof HTMLElement
+                        ? document.activeElement
+                        : null);
+
+                if (!targetAfter) {
+                    return false;
+                }
+
+                if (document.activeElement !== targetAfter) {
+                    targetAfter.focus();
+                }
+
+                return document.activeElement === targetAfter;
+            },
+
+            focusInputPath: (path: FocusPath) => {
+                inputRef.current?.focus?.(setKeypadActive);
+            },
+
+            blurInputPath: (path: FocusPath) => {
+                if (typeof inputRef.current?.blur === "function") {
+                    inputRef.current?.blur();
+                }
+            },
+
+            insert: (keyPressed: KeypadKey) => {
+                inputRef.current?.insert?.(keyPressed);
+            },
+
+            getInputPaths: () => [[]],
+
+            getUserInput: (): PerseusExpressionUserInput => {
+                return normalizeTex(userInput);
+            },
+
+            getKeypadConfiguration,
+
+            getPromptJSON: (): ExpressionPromptJSON => {
+                return _getPromptJSON(visibleLabel, normalizeTex(userInput));
+            },
+
+            /**
+             * @deprecated and likely very broken API
+             * [LEMS-3185] do not trust serializedState
+             */
+            getSerializedState: () => {
+                return {
+                    ...rest,
+                    value: userInput,
+                    keypadConfiguration: getKeypadConfiguration(),
+                    times,
+                    buttonSets,
+                };
+            },
+        }),
+        [
+            userInput,
+            setKeypadActive,
+            getKeypadConfiguration,
+            getFocusTarget,
+            rest,
+            visibleLabel,
+            buttonSets,
+            times,
+        ],
+    );
+
+    const keypadConfiguration = getKeypadConfiguration();
+
+    if (apiOptions.customKeypad) {
         return (
-            <View
-                ref={rootRef}
-                className={css(styles.desktopLabelInputWrapper)}
-            >
+            <View ref={rootRef} style={styles.mobileLabelInputWrapper}>
                 {!!visibleLabel && (
                     <LabelSmall htmlFor={textareaId} tag="label">
                         {visibleLabel}
                     </LabelSmall>
                 )}
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
-                <div className="perseus-widget-expression">
-                    <MathInput
-                        ref={inputRef}
-                        value={userInput}
-                        onChange={changeAndTrack}
-                        convertDotToTimes={times}
-                        buttonSets={buttonSets}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        ariaLabel={ariaLabel || strings.mathInputBox}
-                        extraKeys={keypadConfiguration.extraKeys}
-                        onAnalyticsEvent={
-                            analytics?.onAnalyticsEvent ?? (async () => {})
-                        }
-                    />
-                </div>
+                <KeypadInputWithInterface
+                    ref={inputRef}
+                    ariaLabel={ariaLabel || strings.mathInputBox}
+                    value={userInput}
+                    keypadElement={keypadElement}
+                    onChange={changeAndTrack}
+                    onFocus={mobileHandleFocus}
+                    onBlur={handleBlur}
+                />
             </View>
         );
-    },
-);
+    }
+
+    return (
+        <View ref={rootRef} className={css(styles.desktopLabelInputWrapper)}>
+            {!!visibleLabel && (
+                <LabelSmall htmlFor={textareaId} tag="label">
+                    {visibleLabel}
+                </LabelSmall>
+            )}
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
+            <div className="perseus-widget-expression">
+                <MathInput
+                    ref={inputRef}
+                    value={userInput}
+                    onChange={changeAndTrack}
+                    convertDotToTimes={times}
+                    buttonSets={buttonSets}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    ariaLabel={ariaLabel || strings.mathInputBox}
+                    extraKeys={keypadConfiguration.extraKeys}
+                    onAnalyticsEvent={
+                        analytics?.onAnalyticsEvent ?? (async () => {})
+                    }
+                />
+            </div>
+        </View>
+    );
+});
 
 const styles = StyleSheet.create({
     mobileLabelInputWrapper: {
