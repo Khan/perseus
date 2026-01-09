@@ -10,12 +10,23 @@ import {
     generateExpressionWidget,
     generateFreeResponseOptions,
     generateFreeResponseWidget,
+    generateGradedGroupOptions,
+    generateGradedGroupSetWidget,
+    generateGradedGroupWidget,
+    generateGroupOptions,
+    generateGroupWidget,
+    generateIGLinearGraph,
+    generateIGLockedPoint,
+    generateImageWidget,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generateRadioChoice,
     generateRadioOptions,
     generateRadioWidget,
-    generateVideoWidget,
+    generateTestPerseusRenderer,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
@@ -25,7 +36,7 @@ import {
  * the full range of Perseus widgets.
  */
 export const comprehensiveQuestion: PerseusRenderer = {
-    content: `[[\u2603 categorizer 1]] [[\u2603 cs-program 1]] [[\u2603 definition 1]] [[\u2603 dropdown 1]] [[\u2603 expression 1]] [[\u2603 explanation 1]] [[\u2603 free-response 1]] [[\u2603 graded-group 1]] [[\u2603 graded-group-set 1]] [[\u2603 grapher 1]] [[\u2603 group 1]] [[\u2603 iframe 1]] [[\u2603 image 1]] [[\u2603 input-number 1]] [[\u2603 interaction 1]] [[\u2603 interactive-graph 1]] [[\u2603 label-image 1]] [[\u2603 matcher 1]] [[\u2603 matrix 1]] [[\u2603 measurer 1]] [[\u2603 number-line 1]] [[\u2603 numeric-input 1]] [[\u2603 orderer 1]] [[\u2603 passage 1]] [[\u2603 passage-ref 1]] [[\u2603 phet-simulation 1]] [[\u2603 plotter 1]] [[\u2603 python-program 1]] [[\u2603 radio 1]] [[\u2603 sorter 1]] [[\u2603 table 1]] [[\u2603 video 1]]`,
+    content: `[[\u2603 categorizer 1]] [[\u2603 definition 1]] [[\u2603 dropdown 1]] [[\u2603 expression 1]] [[\u2603 explanation 1]] [[\u2603 free-response 1]] [[\u2603 graded-group 1]] [[\u2603 graded-group-set 1]] [[\u2603 grapher 1]] [[\u2603 group 1]] [[\u2603 image 1]] [[\u2603 input-number 1]] [[\u2603 interaction 1]] [[\u2603 interactive-graph 1]] [[\u2603 label-image 1]] [[\u2603 matcher 1]] [[\u2603 matrix 1]] [[\u2603 measurer 1]] [[\u2603 number-line 1]] [[\u2603 numeric-input 1]] [[\u2603 orderer 1]] [[\u2603 passage 1]] [[\u2603 passage-ref 1]] [[\u2603 plotter 1]] [[\u2603 radio 1]] [[\u2603 sorter 1]] [[\u2603 table 1]]`,
     images: {
         "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png": {
             width: 300,
@@ -59,18 +70,13 @@ export const comprehensiveQuestion: PerseusRenderer = {
         "radio 1": generateRadioWidget({
             options: generateRadioOptions({
                 choices: [
-                    {
-                        id: "choice-1",
-                        content: "Option A",
+                    generateRadioChoice("Option A", {
                         correct: true,
                         rationale: "This is the correct answer.",
-                    },
-                    {
-                        id: "choice-2",
-                        content: "Option B",
-                        correct: false,
+                    }),
+                    generateRadioChoice("Option B", {
                         rationale: "This is incorrect.",
-                    },
+                    }),
                 ],
                 randomize: true,
             }),
@@ -99,53 +105,28 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 static: false,
             },
         },
-        "interactive-graph 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "interactive-graph",
-            options: {
-                labels: ["x", "y"],
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-                step: [1, 1],
-                gridStep: [1, 1],
-                snapStep: [1, 1],
-                graph: {
-                    type: "linear",
+        "interactive-graph 1": generateInteractiveGraphWidget({
+            options: generateInteractiveGraphOptions({
+                graph: generateIGLinearGraph({
                     coords: [
                         [0, 1],
                         [1, 3],
                     ],
-                },
-                correct: {
-                    type: "linear",
+                }),
+                correct: generateIGLinearGraph({
                     coords: [
                         [0, 1],
                         [1, 3],
                     ],
-                },
-                markings: "graph",
-                showAxisArrows: {
-                    xMin: true,
-                    xMax: true,
-                    yMin: true,
-                    yMax: true,
-                },
-                showProtractor: false,
+                }),
                 lockedFigures: [
-                    {
-                        type: "point",
+                    generateIGLockedPoint({
                         coord: [5, 5],
                         color: "blue",
-                        filled: true,
-                        labels: [],
-                    },
+                    }),
                 ],
-            },
-        },
+            }),
+        }),
         "number-line 1": {
             graded: true,
             version: {major: 0, minor: 0},
@@ -193,11 +174,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                     "This is a detailed explanation of the concept with step-by-step reasoning.",
             }),
         }),
-        "image 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "image",
+        "image 1": generateImageWidget({
             options: {
                 backgroundImage: {
                     url: "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png",
@@ -212,7 +189,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                     },
                 ],
             },
-        },
+        }),
         "table 1": {
             graded: true,
             version: {major: 0, minor: 0},
@@ -369,14 +346,9 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 },
             },
         },
-        "group 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "group",
-            options: {
+        "group 1": generateGroupWidget({
+            options: generateGroupOptions({
                 content: "Simple question: [[\u2603 numeric-input 2]]",
-                images: {},
                 widgets: {
                     "numeric-input 2": generateNumericInputWidget({
                         options: generateNumericInputOptions({
@@ -389,17 +361,12 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         }),
                     }),
                 },
-            },
-        },
-        "graded-group 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "graded-group",
-            options: {
+            }),
+        }),
+        "graded-group 1": generateGradedGroupWidget({
+            options: generateGradedGroupOptions({
                 title: "Question Group",
                 content: "Answer this: [[\u2603 numeric-input 3]]",
-                images: {},
                 widgets: {
                     "numeric-input 3": generateNumericInputWidget({
                         options: generateNumericInputOptions({
@@ -411,24 +378,17 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         }),
                     }),
                 },
-                hint: {
+                hint: generateTestPerseusRenderer({
                     content: "This is a hint.",
-                    images: {},
-                    widgets: {},
-                },
-            },
-        },
-        "graded-group-set 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "graded-group-set",
+                }),
+            }),
+        }),
+        "graded-group-set 1": generateGradedGroupSetWidget({
             options: {
                 gradedGroups: [
-                    {
+                    generateGradedGroupOptions({
                         title: "Problem 1",
                         content: "Solve: [[\u2603 numeric-input 4]]",
-                        images: {},
                         widgets: {
                             "numeric-input 4": generateNumericInputWidget({
                                 options: generateNumericInputOptions({
@@ -443,27 +403,10 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         hasHint: false,
                         widgetEnabled: true,
                         immutableWidgets: false,
-                    },
+                    }),
                 ],
             },
-        },
-        "video 1": generateVideoWidget({
-            options: {location: "sample-video-id"},
         }),
-        "iframe 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "iframe",
-            options: {
-                url: "sample-iframe",
-                settings: [],
-                width: "400",
-                height: "400",
-                allowFullScreen: true,
-                static: false,
-            },
-        },
         "passage 1": {
             graded: true,
             version: {major: 0, minor: 0},
@@ -487,42 +430,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 passageNumber: 1,
                 referenceNumber: 1,
                 summaryText: "",
-            },
-        },
-        "cs-program 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "cs-program",
-            options: {
-                programID: "sample-program-id",
-                height: 400,
-                settings: [],
-                static: false,
-                showButtons: false,
-                showEditor: false,
-            },
-            alignment: "block",
-        },
-        "python-program 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "python-program",
-            options: {
-                programID: "sample-python-id",
-                height: 400,
-            },
-            alignment: "block",
-        },
-        "phet-simulation 1": {
-            graded: false,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "phet-simulation",
-            options: {
-                url: "https://phet.colorado.edu/sims/html/example/latest/example_all.html",
-                description: "Sample PhET Simulation",
             },
         },
         "interaction 1": {

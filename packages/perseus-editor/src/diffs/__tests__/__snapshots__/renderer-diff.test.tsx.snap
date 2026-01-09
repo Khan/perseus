@@ -396,3 +396,1379 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
   </div>
 </div>
 `;
+
+exports[`RendererDiff renders with both 'before' and 'after' undefined 1`] = `
+<div>
+  <div />
+</div>
+`;
+
+exports[`RendererDiff renders with missing 'after' props 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="diff-header"
+      >
+        Missing after
+      </div>
+      <div
+        class="diff-header"
+      >
+        Missing after
+      </div>
+      <div
+        class="diff-body ui-helper-clearfix"
+      >
+        <div
+          class="diff-row before"
+        >
+          <div
+            class="diff-line"
+          >
+            <span
+              class="removed dark"
+            >
+              [[☃ radio 1]]
+            </span>
+          </div>
+          <div />
+        </div>
+        <div
+          class="diff-row after"
+        >
+          <div
+            class="diff-line"
+          >
+            <span
+              class="not-present"
+            >
+              [[☃ radio 1]]
+            </span>
+          </div>
+          <div />
+        </div>
+      </div>
+      <div
+        class="diff-row before"
+        role="button"
+        tabindex="0"
+      />
+      <div
+        class="diff-row after"
+        role="button"
+        tabindex="0"
+      />
+    </div>
+    <div
+      class="diff-header"
+    >
+      radio 1
+    </div>
+    <div
+      class="diff-header"
+    >
+      radio 1
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div>
+        <div>
+          <div
+            style="clear: both;"
+          >
+            <div
+              class="removed dark diff-row before"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                options: 
+                <span
+                  class="inner-value dark removed dark"
+                />
+              </div>
+            </div>
+            <div
+              class="blank-space diff-row after"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                <span
+                  class="inner-value dark blank-space"
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed dark diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  choices: 
+                  <span
+                    class="inner-value dark removed dark"
+                  />
+                </div>
+              </div>
+              <div
+                class="blank-space diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="removed dark diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    0: 
+                    <span
+                      class="inner-value dark removed dark"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="blank-space diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    <span
+                      class="inner-value dark blank-space"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="removed dark diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      content: 
+                      <span
+                        class="inner-value dark removed dark"
+                      >
+                        ""
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="blank-space diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="removed dark diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      id: 
+                      <span
+                        class="inner-value dark removed dark"
+                      >
+                        "radio-choice-0"
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="blank-space diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="removed dark diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    1: 
+                    <span
+                      class="inner-value dark removed dark"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="blank-space diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    <span
+                      class="inner-value dark blank-space"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="removed dark diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      content: 
+                      <span
+                        class="inner-value dark removed dark"
+                      >
+                        ""
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="blank-space diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="removed dark diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      id: 
+                      <span
+                        class="inner-value dark removed dark"
+                      >
+                        "radio-choice-1"
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="blank-space diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="removed dark diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    2: 
+                    <span
+                      class="inner-value dark removed dark"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="blank-space diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    <span
+                      class="inner-value dark blank-space"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="removed dark diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      content: 
+                      <span
+                        class="inner-value dark removed dark"
+                      >
+                        ""
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="blank-space diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="removed dark diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      id: 
+                      <span
+                        class="inner-value dark removed dark"
+                      >
+                        "radio-choice-2"
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="blank-space diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="removed dark diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    3: 
+                    <span
+                      class="inner-value dark removed dark"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="blank-space diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    <span
+                      class="inner-value dark blank-space"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="removed dark diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      content: 
+                      <span
+                        class="inner-value dark removed dark"
+                      >
+                        ""
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="blank-space diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="removed dark diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      id: 
+                      <span
+                        class="inner-value dark removed dark"
+                      >
+                        "radio-choice-3"
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="blank-space diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed dark diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  randomize: 
+                  <span
+                    class="inner-value dark removed dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+              <div
+                class="blank-space diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed dark diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  hasNoneOfTheAbove: 
+                  <span
+                    class="inner-value dark removed dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+              <div
+                class="blank-space diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed dark diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  multipleSelect: 
+                  <span
+                    class="inner-value dark removed dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+              <div
+                class="blank-space diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed dark diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  countChoices: 
+                  <span
+                    class="inner-value dark removed dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+              <div
+                class="blank-space diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed dark diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  deselectEnabled: 
+                  <span
+                    class="inner-value dark removed dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+              <div
+                class="blank-space diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            style="clear: both;"
+          >
+            <div
+              class="removed dark diff-row before"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                static: 
+                <span
+                  class="inner-value dark removed dark"
+                >
+                  false
+                </span>
+              </div>
+            </div>
+            <div
+              class="blank-space diff-row after"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                <span
+                  class="inner-value dark blank-space"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`RendererDiff renders with missing 'before' props 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="diff-header"
+      >
+        Missing before
+      </div>
+      <div
+        class="diff-header"
+      >
+        Missing before
+      </div>
+      <div
+        class="diff-body ui-helper-clearfix"
+      >
+        <div
+          class="diff-row before"
+        >
+          <div
+            class="diff-line"
+          >
+            <span
+              class="not-present"
+            >
+              [[☃ radio 1]]
+            </span>
+          </div>
+          <div />
+        </div>
+        <div
+          class="diff-row after"
+        >
+          <div
+            class="diff-line"
+          >
+            <span
+              class="added dark"
+            >
+              [[☃ radio 1]]
+            </span>
+          </div>
+          <div />
+        </div>
+      </div>
+      <div
+        class="diff-row before"
+        role="button"
+        tabindex="0"
+      />
+      <div
+        class="diff-row after"
+        role="button"
+        tabindex="0"
+      />
+    </div>
+    <div
+      class="diff-header"
+    >
+      radio 1
+    </div>
+    <div
+      class="diff-header"
+    >
+      radio 1
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div>
+        <div>
+          <div
+            style="clear: both;"
+          >
+            <div
+              class="blank-space diff-row before"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                <span
+                  class="inner-value dark blank-space"
+                />
+              </div>
+            </div>
+            <div
+              class="added dark diff-row after"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                options: 
+                <span
+                  class="inner-value dark added dark"
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="blank-space diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+              <div
+                class="added dark diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  choices: 
+                  <span
+                    class="inner-value dark added dark"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="blank-space diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    <span
+                      class="inner-value dark blank-space"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="added dark diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    0: 
+                    <span
+                      class="inner-value dark added dark"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="blank-space diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="added dark diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      content: 
+                      <span
+                        class="inner-value dark added dark"
+                      >
+                        ""
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="blank-space diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="added dark diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      id: 
+                      <span
+                        class="inner-value dark added dark"
+                      >
+                        "radio-choice-0"
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="blank-space diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    <span
+                      class="inner-value dark blank-space"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="added dark diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    1: 
+                    <span
+                      class="inner-value dark added dark"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="blank-space diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="added dark diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      content: 
+                      <span
+                        class="inner-value dark added dark"
+                      >
+                        ""
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="blank-space diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="added dark diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      id: 
+                      <span
+                        class="inner-value dark added dark"
+                      >
+                        "radio-choice-1"
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="blank-space diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    <span
+                      class="inner-value dark blank-space"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="added dark diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    2: 
+                    <span
+                      class="inner-value dark added dark"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="blank-space diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="added dark diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      content: 
+                      <span
+                        class="inner-value dark added dark"
+                      >
+                        ""
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="blank-space diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="added dark diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      id: 
+                      <span
+                        class="inner-value dark added dark"
+                      >
+                        "radio-choice-2"
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="clear: both;"
+              >
+                <div
+                  class="blank-space diff-row before"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    <span
+                      class="inner-value dark blank-space"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="added dark diff-row after"
+                >
+                  <div
+                    style="padding-left: 40px;"
+                  >
+                    3: 
+                    <span
+                      class="inner-value dark added dark"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="blank-space diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="added dark diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      content: 
+                      <span
+                        class="inner-value dark added dark"
+                      >
+                        ""
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="clear: both;"
+                >
+                  <div
+                    class="blank-space diff-row before"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      <span
+                        class="inner-value dark blank-space"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="added dark diff-row after"
+                  >
+                    <div
+                      style="padding-left: 60px;"
+                    >
+                      id: 
+                      <span
+                        class="inner-value dark added dark"
+                      >
+                        "radio-choice-3"
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="blank-space diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+              <div
+                class="added dark diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  randomize: 
+                  <span
+                    class="inner-value dark added dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="blank-space diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+              <div
+                class="added dark diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  hasNoneOfTheAbove: 
+                  <span
+                    class="inner-value dark added dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="blank-space diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+              <div
+                class="added dark diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  multipleSelect: 
+                  <span
+                    class="inner-value dark added dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="blank-space diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+              <div
+                class="added dark diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  countChoices: 
+                  <span
+                    class="inner-value dark added dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="blank-space diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  <span
+                    class="inner-value dark blank-space"
+                  />
+                </div>
+              </div>
+              <div
+                class="added dark diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  deselectEnabled: 
+                  <span
+                    class="inner-value dark added dark"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            style="clear: both;"
+          >
+            <div
+              class="blank-space diff-row before"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                <span
+                  class="inner-value dark blank-space"
+                />
+              </div>
+            </div>
+            <div
+              class="added dark diff-row after"
+            >
+              <div
+                style="padding-left: 0px;"
+              >
+                static: 
+                <span
+                  class="inner-value dark added dark"
+                >
+                  false
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

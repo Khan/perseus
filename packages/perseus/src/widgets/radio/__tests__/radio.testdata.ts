@@ -1,11 +1,11 @@
 import {
     type PerseusRenderer,
-    type PassageWidget,
     generateRadioWidget,
     generateTestPerseusRenderer,
     generateRadioOptions,
     generateRadioChoice,
     generateSimpleRadioQuestion,
+    generateGradedGroupSetWidget,
 } from "@khanacademy/perseus-core";
 
 export const question: PerseusRenderer = generateTestPerseusRenderer({
@@ -30,7 +30,6 @@ export const question: PerseusRenderer = generateTestPerseusRenderer({
                     generateRadioChoice(
                         "No value of $x$ satisfies the equation.",
                         {
-                            correct: false,
                             rationale: "$8$ satisfies the equation.",
                         },
                     ),
@@ -45,55 +44,6 @@ export const questionAndAnswer: [
     number,
     ReadonlyArray<number>,
 ] = [question, 2, [0, 1, 3]];
-
-export const questionWithPassage: PerseusRenderer = generateTestPerseusRenderer(
-    {
-        content:
-            "Read the following passage:\n\n[[\u2603 passage 1]]\n\nWhich of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: {
-                    choices: [
-                        generateRadioChoice("$-8$ and $8$", {
-                            rationale:
-                                "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
-                        }),
-                        generateRadioChoice("$-8$", {
-                            rationale:
-                                "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
-                        }),
-                        generateRadioChoice("$8$ {{passage-ref 1 1}}\n\n", {
-                            correct: true,
-                            rationale:
-                                "$8$ is the positive square root of $64$.",
-                        }),
-                        generateRadioChoice(
-                            "No value of $x$ satisfies the equation.",
-                            {
-                                rationale: "$8$ satisfies the equation.",
-                            },
-                        ),
-                    ],
-                },
-            }),
-            "passage 1": {
-                alignment: "default",
-                graded: true,
-                options: {
-                    footnotes: "",
-                    passageText:
-                        "Here's a passage about the positive square root. It contains a {{reference to something}}.",
-                    passageTitle: "",
-                    showLineNumbers: true,
-                    static: false,
-                },
-                static: false,
-                type: "passage",
-                version: {major: 0, minor: 0},
-            } as PassageWidget,
-        },
-    },
-);
 
 export const questionWithRationale: PerseusRenderer =
     generateTestPerseusRenderer({
@@ -297,7 +247,6 @@ export const multiChoiceQuestionSimple: PerseusRenderer =
                             rationale: "Some people like to say Goodbye.",
                         }),
                         generateRadioChoice("None of these", {
-                            correct: false,
                             isNoneOfTheAbove: true,
                         }),
                     ],
@@ -417,11 +366,7 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
         "#Testing scrollbar color when background color exists\n\n[[☃ graded-group-set 1]]\n\n\nFade color should match the background.",
     images: {},
     widgets: {
-        "graded-group-set 1": {
-            type: "graded-group-set",
-            alignment: "default",
-            static: false,
-            graded: true,
+        "graded-group-set 1": generateGradedGroupSetWidget({
             options: {
                 gradedGroups: [
                     {
@@ -444,8 +389,7 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
                     },
                 ],
             },
-            version: {major: 0, minor: 0},
-        },
+        }),
     },
 };
 

@@ -1,5 +1,111 @@
 # @khanacademy/perseus
 
+## 72.8.0
+
+### Minor Changes
+
+-   [#3118](https://github.com/Khan/perseus/pull/3118) [`bcdd6c49ec`](https://github.com/Khan/perseus/commit/bcdd6c49ec003fe307b2e635909f7be1402460cf) Thanks [@Myranae](https://github.com/Myranae)! - Convert the dropdown widget to a functional component
+
+### Patch Changes
+
+-   [#3152](https://github.com/Khan/perseus/pull/3152) [`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update tests referencing the passage widget in preparation for deprecating passage related widgets
+
+*   [#3029](https://github.com/Khan/perseus/pull/3029) [`8bbf110810`](https://github.com/Khan/perseus/commit/8bbf110810468e7b3c5e72f7543d3cd662892b63) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - fix - add roles to ul and li items to make sure they are visible to screen readers
+
+-   [#3144](https://github.com/Khan/perseus/pull/3144) [`74fda24aac`](https://github.com/Khan/perseus/commit/74fda24aac1256c1a502ee3c250c3710e91c101e) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Add transition for correctness styling changes
+
+*   [#3168](https://github.com/Khan/perseus/pull/3168) [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix infinite loop in SvgImage component when loading graphie images. This fixes the "Maximum update depth exceeded" error (React error # 185) that was occurring when rendering graphie images (web+graphie:// URLs) in production.
+
+-   [#3148](https://github.com/Khan/perseus/pull/3148) [`340d813130`](https://github.com/Khan/perseus/commit/340d813130684590eb5d7fe7ab65022f548b2069) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove usage of questionWithPassage and replaced it with question in Radio/Multiple Choice story in preparation for deprecating passage related widgets
+
+-   Updated dependencies [[`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e), [`9574a1edc1`](https://github.com/Khan/perseus/commit/9574a1edc1b1d8b4e0eca803f236990932697502), [`8f740f9116`](https://github.com/Khan/perseus/commit/8f740f9116e6f62d74daeda5be57a4e2578c3999), [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641)]:
+    -   @khanacademy/perseus-core@21.2.1
+    -   @khanacademy/perseus-linter@4.6.9
+    -   @khanacademy/math-input@26.3.7
+    -   @khanacademy/keypad-context@3.2.27
+    -   @khanacademy/kmath@2.2.27
+    -   @khanacademy/perseus-score@8.2.3
+
+## 72.7.0
+
+### Minor Changes
+
+-   [#3150](https://github.com/Khan/perseus/pull/3150) [`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72) Thanks [@handeyeco](https://github.com/handeyeco)! - Modify HintsRenderer to ignore hints with new `placeholder` flag.
+
+### Patch Changes
+
+-   Updated dependencies [[`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72)]:
+    -   @khanacademy/perseus-core@21.2.0
+    -   @khanacademy/keypad-context@3.2.26
+    -   @khanacademy/kmath@2.2.26
+    -   @khanacademy/math-input@26.3.6
+    -   @khanacademy/perseus-linter@4.6.8
+    -   @khanacademy/perseus-score@8.2.2
+
+## 72.6.7
+
+### Patch Changes
+
+-   [#3119](https://github.com/Khan/perseus/pull/3119) [`ad36c9195e`](https://github.com/Khan/perseus/commit/ad36c9195e68031b37e529c3cd1fe81e5c159cfd) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group] Create a graded group generator for testdata
+
+*   [#3112](https://github.com/Khan/perseus/pull/3112) [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Create an interactive graph generator for testdata
+
+-   [#3117](https://github.com/Khan/perseus/pull/3117) [`12ec59f0fe`](https://github.com/Khan/perseus/commit/12ec59f0fea0055ad1310d1b407994256f0c3897) Thanks [@nishasy](https://github.com/nishasy)! - [Group] Create a group generator for testdata
+
+*   [#3112](https://github.com/Khan/perseus/pull/3112) [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Delete radioQuestionBuilder and use radioWidgetGenerator in testdata instead
+
+-   [#3120](https://github.com/Khan/perseus/pull/3120) [`e8247e65b4`](https://github.com/Khan/perseus/commit/e8247e65b482b24f18f85c6a5ee5fce3afadc383) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group Set] Create a graded group set generator for testdata
+
+-   Updated dependencies [[`ad36c9195e`](https://github.com/Khan/perseus/commit/ad36c9195e68031b37e529c3cd1fe81e5c159cfd), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`12ec59f0fe`](https://github.com/Khan/perseus/commit/12ec59f0fea0055ad1310d1b407994256f0c3897), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`e8247e65b4`](https://github.com/Khan/perseus/commit/e8247e65b482b24f18f85c6a5ee5fce3afadc383), [`ef79632da5`](https://github.com/Khan/perseus/commit/ef79632da5e595672320e1cd1abeb9661362b7c5)]:
+    -   @khanacademy/perseus-core@21.1.0
+    -   @khanacademy/perseus-score@8.2.1
+    -   @khanacademy/keypad-context@3.2.25
+    -   @khanacademy/kmath@2.2.25
+    -   @khanacademy/math-input@26.3.5
+    -   @khanacademy/perseus-linter@4.6.7
+
+## 72.6.6
+
+### Patch Changes
+
+-   Updated dependencies [[`50b7c8b5ea`](https://github.com/Khan/perseus/commit/50b7c8b5ea3b7f4bf0c3f3de20ff3312b7c477b6)]:
+    -   @khanacademy/perseus-score@8.2.0
+
+## 72.6.5
+
+### Patch Changes
+
+-   Updated dependencies [[`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705)]:
+    -   @khanacademy/perseus-core@21.0.2
+    -   @khanacademy/keypad-context@3.2.24
+    -   @khanacademy/kmath@2.2.24
+    -   @khanacademy/math-input@26.3.4
+    -   @khanacademy/perseus-linter@4.6.6
+    -   @khanacademy/perseus-score@8.1.2
+
+## 72.6.4
+
+### Patch Changes
+
+-   [#3128](https://github.com/Khan/perseus/pull/3128) [`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3) Thanks [@handeyeco](https://github.com/handeyeco)! - Add EMPTY_RESPONSE_ERROR handling
+
+-   Updated dependencies [[`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3)]:
+    -   @khanacademy/perseus-core@21.0.1
+    -   @khanacademy/keypad-context@3.2.23
+    -   @khanacademy/kmath@2.2.23
+    -   @khanacademy/math-input@26.3.3
+    -   @khanacademy/perseus-linter@4.6.5
+    -   @khanacademy/perseus-score@8.1.1
+
+## 72.6.3
+
+### Patch Changes
+
+-   [#3129](https://github.com/Khan/perseus/pull/3129) [`86eaa4374d`](https://github.com/Khan/perseus/commit/86eaa4374d62c4ba6da36f892e6abcec7190dab5) Thanks [@handeyeco](https://github.com/handeyeco)! - Sync deps
+
+-   Updated dependencies [[`86eaa4374d`](https://github.com/Khan/perseus/commit/86eaa4374d62c4ba6da36f892e6abcec7190dab5)]:
+    -   @khanacademy/math-input@26.3.2
+
 ## 72.6.2
 
 ### Patch Changes

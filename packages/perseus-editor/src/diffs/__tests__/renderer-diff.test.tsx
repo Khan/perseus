@@ -1,6 +1,7 @@
 import {
     generateImageOptions,
     generateImageWidget,
+    generateRadioWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {render} from "@testing-library/react";
@@ -26,6 +27,64 @@ describe("RendererDiff", () => {
     afterEach(() => {
         jest.restoreAllMocks();
         unmockImageLoading();
+    });
+
+    it("renders with missing 'before' props", () => {
+        // Arrange
+        const afterItem: PerseusRenderer = generateTestPerseusRenderer({
+            content: "[[☃ radio 1]]",
+            widgets: {
+                "radio 1": generateRadioWidget(),
+            },
+        });
+
+        // Act
+        const {container} = render(
+            <RendererDiff
+                title="Missing before"
+                before={undefined}
+                after={afterItem}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot();
+    });
+
+    it("renders with missing 'after' props", () => {
+        // Arrange
+        const beforeItem: PerseusRenderer = generateTestPerseusRenderer({
+            content: "[[☃ radio 1]]",
+            widgets: {
+                "radio 1": generateRadioWidget(),
+            },
+        });
+
+        // Act
+        const {container} = render(
+            <RendererDiff
+                title="Missing after"
+                before={beforeItem}
+                after={undefined}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot();
+    });
+
+    it("renders with both 'before' and 'after' undefined", () => {
+        // Act
+        const {container} = render(
+            <RendererDiff
+                title="Both undefined"
+                before={undefined}
+                after={undefined}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot();
     });
 
     it("renders an image widget in the diff view", () => {
