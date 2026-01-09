@@ -10,15 +10,18 @@ const assistanceNeededMessage =
 
 const previewIframeSelector =
     '.perseus-question-container iframe[data-name="content-preview"]';
-// 'iframe[data-name="content-preview"][src^="/perseus/frame"]';
 const axeCoreEditorOptions = {
-    include: {
-        fromFrames: [previewIframeSelector, "#page-container"],
-    },
-    exclude: {
-        fromFrames: [previewIframeSelector, '[target="lint-help-window"]'],
-    },
+    include: "#page-container",
+    exclude: '[target="lint-help-window"]',
 };
+// const axeCoreEditorOptions = {
+//     include: {
+//         fromFrames: [previewIframeSelector, "#page-container"],
+//     },
+//     exclude: {
+//         fromFrames: [previewIframeSelector, '[target="lint-help-window"]'],
+//     },
+// };
 const axeCoreStorybookOptions = {
     include: {
         fromFrames: [
@@ -145,8 +148,15 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
     console.log("Axe Core options: ", options);
     // eslint-disable-next-line no-console
     console.log("Axe Core options (stringified): ", JSON.stringify(options));
-    axeCore.configure({reporter: "v2"});
-    axeCore.run(options).then(
+    const previewWindow = document.querySelector(
+        previewIframeSelector,
+    ) as HTMLIFrameElement | null;
+    const axeCoreProper = isInStorybook
+        ? axeCore
+        : // @ts-expect-error TS2339: Property axe does not exist on type Window.
+          previewWindow?.contentWindow?.axe;
+    axeCoreProper.configure({reporter: "v2"});
+    axeCoreProper.run(options).then(
         (results) => {
             // eslint-disable-next-line no-console
             console.log(`Accessibility Results: `, results);
