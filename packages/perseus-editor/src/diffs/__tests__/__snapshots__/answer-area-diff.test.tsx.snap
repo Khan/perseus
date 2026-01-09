@@ -182,3 +182,437 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
   </div>
 </div>
 `;
+
+exports[`AnswerAreaDiff renders with both 'before' and 'after' undefined 1`] = `
+<div>
+  <div
+    class="diff-header"
+  >
+    Answer Area
+  </div>
+  <div
+    class="diff-header"
+  >
+    Answer Area
+  </div>
+  <div
+    class="diff-body ui-helper-clearfix"
+  >
+    <div />
+  </div>
+</div>
+`;
+
+exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
+<div>
+  <div
+    class="diff-header"
+  >
+    Answer Area
+  </div>
+  <div
+    class="diff-header"
+  >
+    Answer Area
+  </div>
+  <div
+    class="diff-body ui-helper-clearfix"
+  >
+    <div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed dark diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              calculator: 
+              <span
+                class="inner-value dark removed dark"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="blank-space diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed dark diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              financialCalculatorMonthlyPayment: 
+              <span
+                class="inner-value dark removed dark"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="blank-space diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed dark diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              financialCalculatorTotalAmount: 
+              <span
+                class="inner-value dark removed dark"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="blank-space diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed dark diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              financialCalculatorTimeToPayOff: 
+              <span
+                class="inner-value dark removed dark"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="blank-space diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed dark diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              periodicTable: 
+              <span
+                class="inner-value dark removed dark"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="blank-space diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed dark diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              periodicTableWithKey: 
+              <span
+                class="inner-value dark removed dark"
+              >
+                false
+              </span>
+            </div>
+          </div>
+          <div
+            class="blank-space diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
+<div>
+  <div
+    class="diff-header"
+  >
+    Answer Area
+  </div>
+  <div
+    class="diff-header"
+  >
+    Answer Area
+  </div>
+  <div
+    class="diff-body ui-helper-clearfix"
+  >
+    <div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="blank-space diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+          <div
+            class="added dark diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              calculator: 
+              <span
+                class="inner-value dark added dark"
+              >
+                true
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="blank-space diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+          <div
+            class="added dark diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              financialCalculatorMonthlyPayment: 
+              <span
+                class="inner-value dark added dark"
+              >
+                false
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="blank-space diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+          <div
+            class="added dark diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              financialCalculatorTotalAmount: 
+              <span
+                class="inner-value dark added dark"
+              >
+                true
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="blank-space diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+          <div
+            class="added dark diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              financialCalculatorTimeToPayOff: 
+              <span
+                class="inner-value dark added dark"
+              >
+                false
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="blank-space diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+          <div
+            class="added dark diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              periodicTable: 
+              <span
+                class="inner-value dark added dark"
+              >
+                true
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="blank-space diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+          <div
+            class="added dark diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              periodicTableWithKey: 
+              <span
+                class="inner-value dark added dark"
+              >
+                true
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

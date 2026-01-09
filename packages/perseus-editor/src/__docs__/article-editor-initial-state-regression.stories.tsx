@@ -1,11 +1,13 @@
 import {ApiOptions} from "@khanacademy/perseus";
+import {expect, within} from "@storybook/test";
 import * as React from "react";
-import {useRef} from "react";
 
 import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+
+import {usePreviewUrl} from "./use-preview-url";
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
@@ -14,7 +16,7 @@ registerAllWidgetsAndEditorsForTesting();
 export default {
     title: "Editors/ArticleEditor/Visual Regression Tests",
     component: ArticleEditor,
-    tags: ["!dev"],
+    tags: ["!autodocs"],
     parameters: {
         docs: {
             description: {
@@ -22,12 +24,33 @@ export default {
                     "Visual regression tests for the article editor in initial state.",
             },
         },
-        chromatic: {disableSnapshot: false, delay: 500},
+        chromatic: {disableSnapshot: false},
+    },
+    play: async ({canvasElement}) => {
+        const previewContainer = canvasElement.querySelector(
+            ".editor-preview iframe",
+        );
+
+        await expect(previewContainer).toBeInTheDocument();
+
+        await new Promise<void>((resolve) => {
+            const resolveOnLoad = () => {
+                previewContainer.removeEventListener("load", resolveOnLoad);
+                resolve();
+            };
+
+            previewContainer.addEventListener("load", resolveOnLoad);
+        });
+
+        const iframeDocument = previewContainer.contentDocument;
+        const iframeContents = within(iframeDocument.body);
+        await expect(
+            await iframeContents.findByText("Show explanation"),
+        ).toBeVisible();
     },
 };
 
 export const WithEditingDisabled = (): React.ReactElement => {
-    const articleEditorRef = useRef();
     const disabledApiOptions = {
         ...ApiOptions.defaults,
         editingDisabled: true,
@@ -40,8 +63,7 @@ export const WithEditingDisabled = (): React.ReactElement => {
             imageUploader={() => {}}
             json={[comprehensiveQuestion]}
             onChange={() => {}}
-            previewURL="/perseus/frame"
-            ref={articleEditorRef as any}
+            previewURL={usePreviewUrl()}
         />
     );
 };

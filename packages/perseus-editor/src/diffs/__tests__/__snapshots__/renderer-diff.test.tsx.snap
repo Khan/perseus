@@ -397,6 +397,12 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
 </div>
 `;
 
+exports[`RendererDiff renders with both 'before' and 'after' undefined 1`] = `
+<div>
+  <div />
+</div>
+`;
+
 exports[`RendererDiff renders with missing 'after' props 1`] = `
 <div>
   <div>
@@ -404,12 +410,12 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
       <div
         class="diff-header"
       >
-        Missing before
+        Missing after
       </div>
       <div
         class="diff-header"
       >
-        Missing before
+        Missing after
       </div>
       <div
         class="diff-body ui-helper-clearfix"

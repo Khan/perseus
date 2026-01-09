@@ -1,5 +1,31 @@
 # @khanacademy/math-input
 
+## 26.3.7
+
+### Patch Changes
+
+-   [#3153](https://github.com/Khan/perseus/pull/3153) [`8f740f9116`](https://github.com/Khan/perseus/commit/8f740f9116e6f62d74daeda5be57a4e2578c3999) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix mobile keypad position for iPad screens
+
+-   Updated dependencies [[`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e), [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641)]:
+    -   @khanacademy/perseus-core@21.2.1
+    -   @khanacademy/keypad-context@3.2.27
+
+## 26.3.6
+
+### Patch Changes
+
+-   Updated dependencies [[`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72)]:
+    -   @khanacademy/perseus-core@21.2.0
+    -   @khanacademy/keypad-context@3.2.26
+
+## 26.3.5
+
+### Patch Changes
+
+-   Updated dependencies [[`ad36c9195e`](https://github.com/Khan/perseus/commit/ad36c9195e68031b37e529c3cd1fe81e5c159cfd), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`12ec59f0fe`](https://github.com/Khan/perseus/commit/12ec59f0fea0055ad1310d1b407994256f0c3897), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`e8247e65b4`](https://github.com/Khan/perseus/commit/e8247e65b482b24f18f85c6a5ee5fce3afadc383), [`ef79632da5`](https://github.com/Khan/perseus/commit/ef79632da5e595672320e1cd1abeb9661362b7c5)]:
+    -   @khanacademy/perseus-core@21.1.0
+    -   @khanacademy/keypad-context@3.2.25
+
 ## 26.3.4
 
 ### Patch Changes

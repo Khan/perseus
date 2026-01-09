@@ -12,10 +12,12 @@ export type InteractiveGraphDefaultWidgetOptions = Pick<
     PerseusInteractiveGraphWidgetOptions,
     | "labels"
     | "labelLocation"
+    | "lockedFigures"
     | "range"
     | "step"
     | "backgroundImage"
     | "markings"
+    | "showAxisArrows"
     | "showTooltips"
     | "showProtractor"
     | "graph"
@@ -25,6 +27,7 @@ export type InteractiveGraphDefaultWidgetOptions = Pick<
 const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
     labels: ["$x$", "$y$"],
     labelLocation: "onAxis",
+    lockedFigures: [],
     range: [
         [-10, 10],
         [-10, 10],
@@ -34,6 +37,12 @@ const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
         url: null,
     },
     markings: "graph",
+    showAxisArrows: {
+        xMin: true,
+        xMax: true,
+        yMin: true,
+        yMax: true,
+    },
     showTooltips: false,
     showProtractor: false,
     graph: {
