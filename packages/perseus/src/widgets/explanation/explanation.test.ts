@@ -42,13 +42,13 @@ describe("Explanation", function () {
         );
 
         const expectedClass = isExpanded
-            ? "contentExpanded"
-            : "contentCollapsed";
+            ? "content-expanded"
+            : "content-collapsed";
         expect(contentContainer.className).toContain(expectedClass);
 
         const excludedClass = isExpanded
-            ? "contentCollapsed"
-            : "contentExpanded";
+            ? "content-collapsed"
+            : "content-expanded";
         expect(contentContainer.className).not.toContain(excludedClass);
     };
 
@@ -207,7 +207,7 @@ describe("Explanation", function () {
 
         // Assert - transition when revealing
         expect(screen.getByTestId("content-container").className).toContain(
-            "transitionExpanded",
+            "transition-expanded",
         );
 
         // Act - collapse
@@ -217,10 +217,11 @@ describe("Explanation", function () {
 
         // Assert - transition when concealing
         expect(screen.getByTestId("content-container").className).toContain(
-            "transitionCollapsed",
+            "transition-collapsed",
         );
     });
 
+    // TODO (LEMS-3815): Remove test when legacy styles are removed
     it("does NOT use transitions when matchMedia is not available", async () => {
         const fakeWindow = Object.create(window);
         fakeWindow.matchMedia = undefined;
@@ -238,6 +239,7 @@ describe("Explanation", function () {
         );
     });
 
+    // TODO (LEMS-3815): Remove test when legacy styles are removed
     it("does NOT use transitions when the user prefers reduced motion", async () => {
         // Arrange
         jest.spyOn(window, "matchMedia").mockImplementation(
