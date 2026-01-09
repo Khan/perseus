@@ -77,7 +77,12 @@ const defaultButtonSets: LegacyButtonSets = [
 const defaultOnFocus = () => {};
 const defaultOnBlur = () => {};
 
-type KeypadInputProps = React.ComponentProps<typeof KeypadInput>;
+type KeypadInputProps = Omit<
+    React.ComponentProps<typeof KeypadInput>,
+    "style"
+> & {
+    style?: any;
+};
 interface KeypadInputWithInterfaceMethods {
     focus: (cb?: (keypadActive: boolean) => void) => void;
     blur: () => void;
@@ -338,13 +343,12 @@ export const Expression = forwardRef<Widget, Props>(function Expression(
     }
 
     return (
-        <View ref={rootRef} className={css(styles.desktopLabelInputWrapper)}>
+        <View ref={rootRef} style={styles.desktopLabelInputWrapper}>
             {!!visibleLabel && (
                 <LabelSmall htmlFor={textareaId} tag="label">
                     {visibleLabel}
                 </LabelSmall>
             )}
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
             <div className="perseus-widget-expression">
                 <MathInput
                     ref={inputRef}

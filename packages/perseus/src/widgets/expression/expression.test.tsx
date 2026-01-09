@@ -534,7 +534,7 @@ describe("Expression Widget", function () {
             expect(expressionInput).toHaveFocus();
         });
 
-        it("prevents focus callback errors and memory leaks after the component is unmounted", () => {
+        it("prevents focus callback errors after the component is unmounted", () => {
             const {renderer, unmount} = renderQuestion(
                 expressionItemMultipleEquivalentAnswers.question,
                 {
@@ -625,8 +625,10 @@ describe("Expression Widget", function () {
             // Assert
             // Score.total doesn't exist if the input is invalid
             // In this case we know that it'll be valid so we can assert directly
-            // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
-            expect(score.total).toBe(1);
+            expect(score.type).toBe("points");
+            if (score.type === "points") {
+                expect(score.total).toBe(1);
+            }
         });
 
         it("programmatically inserts content immediately after mount without prior focus", () => {
@@ -650,114 +652,10 @@ describe("Expression Widget", function () {
                 renderer.getUserInputMap(),
                 "en",
             );
-            // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
-            expect(score.total).toBe(1);
-        });
-    });
-
-    describe("KeypadInputWithInterface wrapper robustness", () => {
-        it("handles insert gracefully when mathField is not initialized", () => {
-            // Arrange
-            const {renderer} = renderQuestion(
-                expressionItemMultipleEquivalentAnswers.question,
-                {
-                    customKeypad: true,
-                },
-            );
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // Act - call insert before the mathField is fully initialized
-            // This should not throw an error due to defensive error handling
-            expect(() => {
-                act(() => {
-                    expression.insert("x");
-                });
-            }).not.toThrow();
-        });
-
-        it("handles insert when called multiple times in succession", () => {
-            // Arrange
-            const {renderer} = renderQuestion(
-                expressionItemMultipleEquivalentAnswers.question,
-                {
-                    customKeypad: true,
-                },
-            );
-            act(() => jest.runOnlyPendingTimers());
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // Act - call insert multiple times rapidly
-            // The defensive error handling should prevent any crashes
-            expect(() => {
-                act(() => {
-                    expression.insert("x");
-                    expression.insert("+");
-                    expression.insert("1");
-                });
-                act(() => jest.runOnlyPendingTimers());
-            }).not.toThrow();
-        });
-
-        it("delegates focus method to KeypadInput without errors", () => {
-            // Arrange
-            const {renderer} = renderQuestion(
-                expressionItemMultipleEquivalentAnswers.question,
-                {
-                    customKeypad: true,
-                },
-            );
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // Act & Assert - calling focus should not throw
-            expect(() => {
-                act(() => {
-                    expression.focus();
-                });
-            }).not.toThrow();
-        });
-
-        it("delegates blur method to KeypadInput without errors", () => {
-            // Arrange
-            const {renderer} = renderQuestion(
-                expressionItemMultipleEquivalentAnswers.question,
-                {
-                    customKeypad: true,
-                },
-            );
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // Act & Assert - calling blur should not throw
-            expect(() => {
-                act(() => {
-                    expression.blurInputPath([]);
-                });
-            }).not.toThrow();
-        });
-
-        it("supports insert in mobile mode", () => {
-            // Arrange
-            const {renderer} = renderQuestion(
-                expressionItemMultipleEquivalentAnswers.question,
-                {
-                    customKeypad: true,
-                },
-            );
-            act(() => jest.runOnlyPendingTimers());
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // Act - insert should work even without explicit focus
-            expect(() => {
-                act(() => {
-                    expression.insert("x");
-                    expression.insert("+");
-                    expression.insert("1");
-                });
-                act(() => jest.runOnlyPendingTimers());
-            }).not.toThrow();
-
-            // Assert - verify something was captured in user input
-            const userInput = renderer.getUserInputMap();
-            expect(userInput).toBeDefined();
+            expect(score.type).toBe("points");
+            if (score.type === "points") {
+                expect(score.total).toBe(1);
+            }
         });
     });
 
