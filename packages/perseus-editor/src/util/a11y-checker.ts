@@ -68,7 +68,10 @@ const getIssueMessage = (nodes: axe.NodeResult[]): string => {
         .join(". ");
 };
 
-const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
+const getIssueElements = (
+    nodes: axe.NodeResult[],
+    iFrameElement: HTMLIFrameElement | null,
+): Element[] => {
     const nodeToCheck = nodes.length > 0 ? [nodes[0]] : [];
     // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'Element[]'.
     return nodeToCheck.flatMap((node) => {
@@ -84,6 +87,10 @@ const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
                     elements[elements.length - 1].contentDocument.querySelector(
                         target,
                     );
+            } else if (iFrameElement) {
+                element =
+                    iFrameElement.contentDocument?.querySelector(target) ||
+                    null;
             } else {
                 element = document.querySelector(target);
             }
@@ -98,6 +105,7 @@ const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
 const mapResultsToIssues = (
     results: axe.Result[],
     type: "Warning" | "Alert",
+    iFrameElement: HTMLIFrameElement | null,
 ): Issue[] => {
     return results.map((result) => {
         const isUserFixable =
@@ -109,7 +117,7 @@ const mapResultsToIssues = (
         return {
             id: result.id,
             description: description,
-            elements: getIssueElements(result.nodes),
+            elements: getIssueElements(result.nodes, iFrameElement),
             helpUrl: result.helpUrl,
             help: result.help,
             impact: convertAxeImpactToIssueImpact(result.impact),
@@ -135,19 +143,11 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
             return;
         }
     }
-    const userInput = document.getElementById(
-        "axe-core-context",
-    ) as HTMLInputElement | null;
-    const userSuppliedOptions = userInput?.value;
-    const options = userSuppliedOptions
-        ? JSON.parse(userSuppliedOptions)
-        : isInStorybook
-          ? axeCoreStorybookOptions
-          : axeCoreEditorOptions;
+    const options = isInStorybook
+        ? axeCoreStorybookOptions
+        : axeCoreEditorOptions;
     // eslint-disable-next-line no-console
     console.log("Axe Core options: ", options);
-    // eslint-disable-next-line no-console
-    console.log("Axe Core options (stringified): ", JSON.stringify(options));
     const previewWindow = document.querySelector(
         previewIframeSelector,
     ) as HTMLIFrameElement | null;
@@ -160,10 +160,15 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
         (results) => {
             // eslint-disable-next-line no-console
             console.log(`Accessibility Results: `, results);
-            const violations = mapResultsToIssues(results.violations, "Alert");
+            const violations = mapResultsToIssues(
+                results.violations,
+                "Alert",
+                isInStorybook ? null : previewWindow,
+            );
             const incompletes = mapResultsToIssues(
                 results.incomplete,
                 "Warning",
+                isInStorybook ? null : previewWindow,
             );
             const issues = violations.concat(incompletes);
             // eslint-disable-next-line no-console
