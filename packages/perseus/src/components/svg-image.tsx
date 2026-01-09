@@ -144,6 +144,7 @@ class SvgImage extends React.Component<Props, State> {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     _isMounted: boolean;
+    _isLoadingGraphie: boolean;
 
     static defaultProps: DefaultProps = {
         constrainHeight: false,
@@ -160,6 +161,7 @@ class SvgImage extends React.Component<Props, State> {
         props.setAssetStatus(props.src, false);
 
         this._isMounted = false;
+        this._isLoadingGraphie = false;
 
         this.state = {
             imageLoaded: false,
@@ -184,6 +186,8 @@ class SvgImage extends React.Component<Props, State> {
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         if (this.props.src !== nextProps.src) {
+            // Reset loading state when src changes
+            this._isLoadingGraphie = false;
             this.setState({
                 imageLoaded: false,
                 dataLoaded: false,
@@ -207,7 +211,13 @@ class SvgImage extends React.Component<Props, State> {
         const wasLoaded = this.isLoadedInState(prevState);
         const isLoaded = this.isLoadedInState(this.state);
 
-        if (Util.isLabeledSVG(this.props.src) && !isLoaded) {
+        // Only call loadResources if we're not already loading,
+        // This prevents infinite loops when async loading triggers re-renders
+        if (
+            Util.isLabeledSVG(this.props.src) &&
+            !isLoaded &&
+            !this._isLoadingGraphie
+        ) {
             this.loadResources();
         }
 
@@ -228,7 +238,13 @@ class SvgImage extends React.Component<Props, State> {
     }
 
     loadResources() {
+        // Mark that we're loading to prevent duplicate calls
+        this._isLoadingGraphie = true;
+
         loadGraphie(this.props.src, (data, localized) => {
+            // Reset the loading flag when complete
+            this._isLoadingGraphie = false;
+
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (this._isMounted && data.labels && data.range) {
                 const labelsRendered: LabelsRenderedMap = {};
