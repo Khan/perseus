@@ -3,10 +3,10 @@
 exports[`keypad should snapshot expanded: first render 1`] = `
 <div>
   <div
-    class="default_xu2jcg keypad-outer-container"
+    class="default_xu2jcg-o_O-inlineStyles_u02imw keypad-outer-container"
   >
     <div
-      class="default_xu2jcg-o_O-inlineStyles_e296pg wrapper expanded-wrapper"
+      class="default_xu2jcg-o_O-inlineStyles_qf1nnu wrapper expanded-wrapper"
     >
       <div
         class="tabs_tb5n2j"

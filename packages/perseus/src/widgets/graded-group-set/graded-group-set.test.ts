@@ -1,3 +1,4 @@
+import {type PerseusRenderer} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -14,7 +15,6 @@ import {
 } from "./graded-group-set.testdata";
 
 import type {PerseusDependenciesV2} from "../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("graded group set widget", () => {

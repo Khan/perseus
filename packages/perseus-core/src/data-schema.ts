@@ -269,6 +269,15 @@ export type Hint = PerseusRenderer & {
      * is displayed. This allows for hints that build upon each other.
      */
     replace?: boolean;
+    /**
+     * The UI needs to know how many hints there are before we have
+     * answerful PerseusItems. In a crunch, we decided to replace existing hints
+     * with empty hints and add a placeholder flag to signal that they're
+     * not real hints.
+     *
+     * TODO(LEMS-3806): there's probably a better way to do this
+     */
+    placeholder?: boolean;
 };
 
 export type PerseusImageDetail = {
