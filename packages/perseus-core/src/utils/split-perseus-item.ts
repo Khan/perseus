@@ -17,9 +17,22 @@ export default function splitPerseusItem(original: PerseusItem): PerseusItem {
     return {
         ...item,
         question: splitPerseusRenderer(item.question),
-        // the final hint often exposes the answer
-        // so we consider that part of the answer data
-        hints: [],
+        /**
+         * We can't include the hints because they often contain the answer.
+         *
+         * However the UI needs to know how many hints there are before we have
+         * answerful PerseusItems. In a crunch, we decided to replace existing hints
+         * with empty hints and add a placeholder flag to signal that they're
+         * not real hints.
+         *
+         * TODO(LEMS-3806): there's probably a better way to do this
+         */
+        hints: original.hints.map(() => ({
+            content: "",
+            widgets: {},
+            images: {},
+            placeholder: true,
+        })),
     };
 }
 

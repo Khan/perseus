@@ -21,11 +21,11 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
-            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-small_tjsyec-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-small_tjsyec-o_O-inlineStyles_1neckqf"
             type="button"
           >
             <span
-              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_1mrq7sv"
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_19pdhar"
             >
               Hide explanation!
             </span>
@@ -40,12 +40,12 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
           </button>
           <div
             aria-hidden="false"
-            class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentExpanded_1ojyq0m"
+            class="default_xu2jcg-o_O-inlineStyles_x0sbw3 content content-expanded transition-expanded"
             data-testid="content-container"
             id=":r1:"
           >
             <div
-              class="default_xu2jcg-o_O-contentWrapper_y9ev9r"
+              class="default_xu2jcg-o_O-inlineStyles_y9ev9r content-wrapper"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -93,11 +93,11 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
-            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-small_tjsyec-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-small_tjsyec-o_O-inlineStyles_1neckqf"
             type="button"
           >
             <span
-              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_1mrq7sv"
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_19pdhar"
             >
               Explanation
             </span>
@@ -112,12 +112,12 @@ exports[`Explanation should snapshot: initial render 1`] = `
           </button>
           <div
             aria-hidden="true"
-            class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentCollapsed_j2403j"
+            class="default_xu2jcg-o_O-inlineStyles_1xg5zgw content content-collapsed transition-collapsed"
             data-testid="content-container"
             id=":r0:"
           >
             <div
-              class="default_xu2jcg-o_O-contentWrapper_y9ev9r"
+              class="default_xu2jcg-o_O-inlineStyles_y9ev9r content-wrapper"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"

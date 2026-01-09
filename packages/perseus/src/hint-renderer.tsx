@@ -11,10 +11,11 @@ import mediaQueries from "./styles/media-queries";
 import UserInputManager from "./user-input-manager";
 
 import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
+import type {Hint} from "@khanacademy/perseus-core";
 
 type Props = SharedRendererProps & {
     className?: string;
-    hint: any;
+    hint: Hint;
     lastHint?: boolean;
     lastRendered?: boolean;
     pos: number;
@@ -47,6 +48,13 @@ class HintRenderer extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        if (this.props.hint.placeholder) {
+            // TODO(LEMS-3806): there's probably a better way to do this,
+            // but this can't be null because other components
+            // reference the ref on HintRenderer
+            return <span />;
+        }
+
         const {
             apiOptions,
             className,

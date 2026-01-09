@@ -557,7 +557,7 @@ describe("splitPerseusItem", () => {
         );
     });
 
-    it("removes hints", () => {
+    it("replaces hints with placeholders", () => {
         const hint: PerseusRenderer = {
             content: "This hint gives away an answer",
             widgets: {},
@@ -569,8 +569,15 @@ describe("splitPerseusItem", () => {
 
         const rv = splitPerseusItem(item);
 
+        expect(item.hints.length).toBe(1);
         expect(item.hints[0]).toEqual(hint);
-        expect(rv.hints).toEqual([]);
+        expect(rv.hints.length).toBe(1);
+        expect(rv.hints[0]).toEqual({
+            content: "",
+            widgets: {},
+            images: {},
+            placeholder: true,
+        });
     });
 });
 
@@ -640,7 +647,14 @@ describe("splitPerseusItemJSON", () => {
         const rv = splitPerseusItemJSON(item);
 
         // Assert
-        expect(JSON.parse(rv).hints).toEqual([]);
+        expect(JSON.parse(rv).hints).toEqual([
+            {
+                content: "",
+                widgets: {},
+                images: {},
+                placeholder: true,
+            },
+        ]);
     });
 
     it("throws given an invalid PerseusItem", () => {
