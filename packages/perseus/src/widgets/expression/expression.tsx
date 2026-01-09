@@ -3,7 +3,7 @@ import {KeypadInput} from "@khanacademy/math-input";
 import {expressionLogic} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
-import {css, StyleSheet} from "aphrodite";
+import {StyleSheet} from "aphrodite";
 import {
     forwardRef,
     useCallback,
