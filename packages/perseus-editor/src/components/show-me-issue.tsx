@@ -18,26 +18,24 @@ const ShowMe = ({elements}: {elements?: Element[]}) => {
     if (!elements || elements.length === 0) {
         return null;
     }
-    const issueBoundary = elements?.reduce(
-        (boundary: BoundaryRect, element: Element, index: number) => {
-            const elementBoundary = element.getBoundingClientRect();
-            boundary.top += elementBoundary.top;
-            boundary.left += elementBoundary.left;
-            if (index === elements.length - 1) {
-                boundary.height = elementBoundary.height;
-                boundary.width = elementBoundary.width;
-            }
-            return boundary;
-        },
-        {top: 0, left: 0, height: 0, width: 0},
-    );
+    const getIssueBoundary = (element: Element): BoundaryRect => {
+        const iframeBoundary =
+            element.ownerDocument.defaultView?.frameElement?.getBoundingClientRect();
+        const elementBoundary = element.getBoundingClientRect();
+        return {
+            top: elementBoundary.top + (iframeBoundary?.top || 0),
+            left: elementBoundary.left + (iframeBoundary?.left || 0),
+            height: elementBoundary.height,
+            width: elementBoundary.width,
+        };
+    };
     const showMeStyle = {
         marginTop: "1em",
         fontWeight: "bold",
         display: "flex",
         alignItems: "center",
     };
-    const showMeOutlineStyle: CSSProperties =
+    const getOutlineStyle = (issueBoundary: BoundaryRect): CSSProperties =>
         showMe && issueBoundary.width !== 0
             ? {
                   display: "block",
@@ -51,11 +49,17 @@ const ShowMe = ({elements}: {elements?: Element[]}) => {
               }
             : {display: "none"};
 
+    const elementOutlines = elements?.map((element, index) => {
+        const issueBoundary = getIssueBoundary(element);
+        const outlineStyle = getOutlineStyle(issueBoundary);
+        return <div key={index} style={outlineStyle} />;
+    });
+
     const showMeToggle = (
         <LabelSmall style={showMeStyle}>
             <span style={{marginInlineEnd: "1em"}}>Show Me</span>
             <Switch checked={showMe} onChange={setShowMe} />
-            <div style={showMeOutlineStyle} />
+            {elementOutlines}
         </LabelSmall>
     );
     const showMeUnavailable = (
@@ -66,7 +70,9 @@ const ShowMe = ({elements}: {elements?: Element[]}) => {
     );
 
     // eslint-disable-next-line
-    return issueBoundary ? showMeToggle : showMeUnavailable;
+    return Array.isArray(elementOutlines) && elementOutlines.length > 0
+        ? showMeToggle
+        : showMeUnavailable;
 };
 
 export default ShowMe;

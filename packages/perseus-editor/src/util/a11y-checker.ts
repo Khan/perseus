@@ -14,6 +14,10 @@ const axeCoreEditorOptions = {
     include: "#page-container",
     exclude: '[target="lint-help-window"]',
 };
+
+// NOTE: The following is the correct way to scan within iframes. However,
+//           this isn't working within the exercise editor (works fine in Storybook).
+//       Keeping this here for reference in case the issue ever gets figured out.
 // const axeCoreEditorOptions = {
 //     include: {
 //         fromFrames: [previewIframeSelector, "#page-container"],
@@ -72,17 +76,17 @@ const getIssueElements = (
     nodes: axe.NodeResult[],
     iFrameElement: HTMLIFrameElement | null,
 ): Element[] => {
-    const nodeToCheck = nodes.length > 0 ? [nodes[0]] : [];
+    // const nodeToCheck = nodes.length > 0 ? [nodes[0]] : [];
     // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'Element[]'.
-    return nodeToCheck.flatMap((node) => {
+    return nodes.flatMap((node) => {
         // @ts-expect-error TS2769: No overload matches this call.
         return node.target.reduce((elements: Element[], target: string) => {
-            let element: Element | null;
+            let element: Element | null = null;
             if (
                 elements.length > 0 &&
                 elements[elements.length - 1].tagName.toLowerCase() === "iframe"
             ) {
-                element =
+                elements[elements.length - 1] =
                     // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'
                     elements[elements.length - 1].contentDocument.querySelector(
                         target,
