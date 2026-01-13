@@ -25,10 +25,7 @@ export type WidgetLogic<
     supportedAlignments?: ReadonlyArray<Alignment>;
     defaultAlignment?: Alignment;
     accessible?: boolean | ((options: TWidgetOptions) => boolean);
-    traverseChildWidgets?: (
-        props: TWidgetOptions,
-        traverseRenderer: any,
-    ) => TWidgetOptions;
+    traverseChildWidgets?: (props: any, traverseRenderer: any) => any;
 
     /**
      * A function that provides a public version of the widget options that can

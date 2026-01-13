@@ -14,10 +14,7 @@ const defaultWidgetOptions: GradedGroupDefaultWidgetOptions = {
     hint: null,
 };
 
-const traverseChildWidgets = function (
-    props: PerseusGradedGroupWidgetOptions,
-    traverseRenderer: any,
-): PerseusGradedGroupWidgetOptions {
+const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
     return {...props, ...traverseRenderer(props)};
 };
 

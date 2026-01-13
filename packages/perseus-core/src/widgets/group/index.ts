@@ -15,10 +15,7 @@ const defaultWidgetOptions: GroupDefaultWidgetOptions = {
     images: {},
 };
 
-const traverseChildWidgets = function (
-    props: PerseusGroupWidgetOptions,
-    traverseRenderer: any,
-): PerseusGroupWidgetOptions {
+const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
     return {...props, ...traverseRenderer(props)};
 };
 
