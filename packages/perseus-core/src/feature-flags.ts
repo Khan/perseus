@@ -25,8 +25,8 @@ export function isFeatureOn(
     flag: string,
 ): boolean {
     if (
-        flag === "image-widget-upgrade-alignment" ||
-        flag === "new-radio-widget"
+        flag === "image-widget-upgrade" ||
+        flag === "image-widget-upgrade-alignment"
     ) {
         // Always on, just for this ZND
         return true;
