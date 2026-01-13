@@ -1,7 +1,6 @@
-import getTablePublicWidgetOptions, {
-    type TablePublicWidgetOptions,
-} from "./table-util";
+import getTablePublicWidgetOptions from "./table-util";
 
+import type {TablePublicWidgetOptions} from "./table-util";
 import type {PerseusTableWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 

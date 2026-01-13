@@ -1,8 +1,8 @@
 import getLabelImagePublicWidgetOptions, {
     isLabelImageAccessible,
-    type LabelImagePublicWidgetOptions,
 } from "./label-image-util";
 
+import type {LabelImagePublicWidgetOptions} from "./label-image-util";
 import type {PerseusLabelImageWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 

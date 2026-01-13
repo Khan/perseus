@@ -1,7 +1,6 @@
-import getGroupPublicWidgetOptions, {
-    type GroupPublicWidgetOptions,
-} from "./group-util";
+import getGroupPublicWidgetOptions from "./group-util";
 
+import type {GroupPublicWidgetOptions} from "./group-util";
 import type {PerseusGroupWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 

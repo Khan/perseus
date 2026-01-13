@@ -1,7 +1,6 @@
-import getDropdownPublicWidgetOptions, {
-    type DropdownPublicWidgetOptions,
-} from "./dropdown-util";
+import getDropdownPublicWidgetOptions from "./dropdown-util";
 
+import type {DropdownPublicWidgetOptions} from "./dropdown-util";
 import type {PerseusDropdownWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 

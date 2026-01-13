@@ -1,9 +1,8 @@
 import {isLabeledSVG} from "../../utils/util.graphie";
 
-import getInteractiveGraphPublicWidgetOptions, {
-    type InteractiveGraphPublicWidgetOptions,
-} from "./interactive-graph-util";
+import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
 
+import type {InteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 

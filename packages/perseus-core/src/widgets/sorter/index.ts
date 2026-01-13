@@ -1,7 +1,6 @@
-import getSorterPublicWidgetOptions, {
-    type SorterPublicWidgetOptions,
-} from "./sorter-util";
+import getSorterPublicWidgetOptions from "./sorter-util";
 
+import type {SorterPublicWidgetOptions} from "./sorter-util";
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
