@@ -24,5 +24,13 @@ export function isFeatureOn(
     props: {apiOptions?: {flags?: Record<string, boolean>}},
     flag: string,
 ): boolean {
+    if (
+        flag === "image-widget-upgrade-alignment" ||
+        flag === "new-radio-widget"
+    ) {
+        // Always on, just for this ZND
+        return true;
+    }
+
     return props.apiOptions?.flags?.[flag] ?? false;
 }
