@@ -1,7 +1,4 @@
-import type {
-    PerseusImageWidgetOptions,
-    PerseusWidgetOptions,
-} from "../../data-schema";
+import type {PerseusImageWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
 export type ImageDefaultWidgetOptions = Pick<
