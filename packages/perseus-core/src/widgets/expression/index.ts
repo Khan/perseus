@@ -1,4 +1,6 @@
-import getExpressionPublicWidgetOptions from "./expression-util";
+import getExpressionPublicWidgetOptions, {
+    type ExpressionPublicWidgetOptions,
+} from "./expression-util";
 
 import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
@@ -17,7 +19,10 @@ const defaultWidgetOptions: ExpressionDefaultWidgetOptions = {
     functions: ["f", "g", "h"],
 };
 
-const expressionWidgetLogic: WidgetLogic = {
+const expressionWidgetLogic: WidgetLogic<
+    PerseusExpressionWidgetOptions,
+    ExpressionPublicWidgetOptions
+> = {
     name: "expression",
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,

@@ -10,11 +10,12 @@ const defaultWidgetOptions: PassageRefTargetDefaultWidgetOptions = {
     content: "",
 };
 
-const passageRefTargetWidgetLogic: WidgetLogic = {
-    name: "passage-ref-target",
-    defaultWidgetOptions,
-    defaultAlignment: "inline",
-    accessible: false,
-};
+const passageRefTargetWidgetLogic: WidgetLogic<PerseusPassageRefTargetWidgetOptions> =
+    {
+        name: "passage-ref-target",
+        defaultWidgetOptions,
+        defaultAlignment: "inline",
+        accessible: false,
+    };
 
 export default passageRefTargetWidgetLogic;

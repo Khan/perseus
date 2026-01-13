@@ -26,7 +26,7 @@ const defaultWidgetOptions: ImageDefaultWidgetOptions = {
     caption: "",
 };
 
-const imageWidgetLogic: WidgetLogic = {
+const imageWidgetLogic: WidgetLogic<PerseusImageWidgetOptions> = {
     name: "image",
     defaultWidgetOptions,
     // The float alignments will be set to inline-block floated left or right.
@@ -36,16 +36,15 @@ const imageWidgetLogic: WidgetLogic = {
     defaultAlignment: "block",
     // This widget's accessibility depends on its widget option: if the image
     // has a background but no alt text, it is not accessible
-    accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
-        const imageOptions = widgetOptions as PerseusImageWidgetOptions;
-        const bgImage = imageOptions.backgroundImage;
+    accessible: (widgetOptions: PerseusImageWidgetOptions): boolean => {
+        const bgImage = widgetOptions.backgroundImage;
 
         // Accessible if:
         // - has background image and alt text (non-empty)
         // - has background image and decorative is true
         const hasBackgroundImage = bgImage.url != null;
-        const hasAltText = !!imageOptions.alt;
-        const isDecorative = imageOptions.decorative === true;
+        const hasAltText = !!widgetOptions.alt;
+        const isDecorative = widgetOptions.decorative === true;
 
         return hasBackgroundImage && (hasAltText || isDecorative);
     },

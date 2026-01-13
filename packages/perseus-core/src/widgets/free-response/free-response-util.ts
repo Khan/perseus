@@ -4,7 +4,7 @@ import type {PerseusFreeResponseWidgetOptions} from "../../data-schema";
  * For details on the individual options, see the
  * {@link PerseusFreeResponseWidgetOptions} type
  */
-type FreeResponsePublicWidgetOptions = {
+export type FreeResponsePublicWidgetOptions = {
     allowUnlimitedCharacters: PerseusFreeResponseWidgetOptions["allowUnlimitedCharacters"];
     characterLimit: PerseusFreeResponseWidgetOptions["characterLimit"];
     placeholder: PerseusFreeResponseWidgetOptions["placeholder"];

@@ -1,4 +1,6 @@
-import getRadioPublicWidgetOptions from "./radio-util";
+import getRadioPublicWidgetOptions, {
+    type RadioPublicWidgetOptions,
+} from "./radio-util";
 
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
@@ -29,7 +31,10 @@ const defaultWidgetOptions: RadioDefaultWidgetOptions = {
     deselectEnabled: false,
 };
 
-const radioWidgetLogic: WidgetLogic = {
+const radioWidgetLogic: WidgetLogic<
+    PerseusRadioWidgetOptions,
+    RadioPublicWidgetOptions
+> = {
     name: "radio",
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,

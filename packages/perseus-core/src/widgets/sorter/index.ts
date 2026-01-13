@@ -1,4 +1,6 @@
-import getSorterPublicWidgetOptions from "./sorter-util";
+import getSorterPublicWidgetOptions, {
+    type SorterPublicWidgetOptions,
+} from "./sorter-util";
 
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
@@ -14,7 +16,10 @@ const defaultWidgetOptions: SorterDefaultWidgetOptions = {
     padding: true,
 };
 
-const sorterWidgetLogic: WidgetLogic = {
+const sorterWidgetLogic: WidgetLogic<
+    PerseusSorterWidgetOptions,
+    SorterPublicWidgetOptions
+> = {
     name: "sorter",
     defaultWidgetOptions,
     getPublicWidgetOptions: getSorterPublicWidgetOptions,

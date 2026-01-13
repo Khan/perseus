@@ -11,7 +11,9 @@ const defaultWidgetOptions: PhetSimulationDefaultWidgetOptions = {
     description: "",
 };
 
-const phetSimulationWidgetLogic: WidgetLogic = {
+const phetSimulationWidgetLogic: WidgetLogic<
+    PerseusPhetSimulationWidgetOptions
+> = {
     name: "phet-simulation",
     defaultWidgetOptions,
     accessible: true,

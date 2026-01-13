@@ -13,7 +13,7 @@ const defaultWidgetOptions: PassageDefaultWidgetOptions = {
     showLineNumbers: true,
 };
 
-const passageWidgetLogic: WidgetLogic = {
+const passageWidgetLogic: WidgetLogic<PerseusPassageWidgetOptions> = {
     name: "passage",
     defaultWidgetOptions,
     accessible: false,

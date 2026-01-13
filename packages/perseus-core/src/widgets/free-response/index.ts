@@ -1,4 +1,6 @@
-import getFreeResponsePublicWidgetOptions from "./free-response-util";
+import getFreeResponsePublicWidgetOptions, {
+    type FreeResponsePublicWidgetOptions,
+} from "./free-response-util";
 
 import type {PerseusFreeResponseWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
@@ -26,7 +28,10 @@ const defaultWidgetOptions: FreeResponseDefaultWidgetOptions = {
     ],
 };
 
-const freeResponseWidgetLogic: WidgetLogic = {
+const freeResponseWidgetLogic: WidgetLogic<
+    PerseusFreeResponseWidgetOptions,
+    FreeResponsePublicWidgetOptions
+> = {
     name: "free-response",
     defaultWidgetOptions,
     getPublicWidgetOptions: getFreeResponsePublicWidgetOptions,

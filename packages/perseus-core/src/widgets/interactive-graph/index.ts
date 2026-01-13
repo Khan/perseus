@@ -1,11 +1,10 @@
 import {isLabeledSVG} from "../../utils/util.graphie";
 
-import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
+import getInteractiveGraphPublicWidgetOptions, {
+    type InteractiveGraphPublicWidgetOptions,
+} from "./interactive-graph-util";
 
-import type {
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusWidgetOptions,
-} from "../../data-schema";
+import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
 export type InteractiveGraphDefaultWidgetOptions = Pick<
@@ -54,7 +53,10 @@ const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
     },
 };
 
-const interactiveGraphWidgetLogic: WidgetLogic = {
+const interactiveGraphWidgetLogic: WidgetLogic<
+    PerseusInteractiveGraphWidgetOptions,
+    InteractiveGraphPublicWidgetOptions
+> = {
     name: "interactive-graph",
     defaultWidgetOptions,
     getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
@@ -62,21 +64,20 @@ const interactiveGraphWidgetLogic: WidgetLogic = {
     // Interactive Graphs are accessible as long as:
     // 1. They do not contain a protractor
     // 2. They do not contain a graphie background image
-    accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
-        const interactiveGraphOptions =
-            widgetOptions as PerseusInteractiveGraphWidgetOptions;
-
+    accessible: (
+        widgetOptions: PerseusInteractiveGraphWidgetOptions,
+    ): boolean => {
         // Return false (inaccessible) if the interactive graph contains
         // a protractor.
-        if (interactiveGraphOptions.showProtractor) {
+        if (widgetOptions.showProtractor) {
             return false;
         }
 
         // Return false (inaccessible) if the interactive graph contains
         // a graphie background image.
         if (
-            interactiveGraphOptions.backgroundImage?.url &&
-            isLabeledSVG(interactiveGraphOptions.backgroundImage?.url)
+            widgetOptions.backgroundImage?.url &&
+            isLabeledSVG(widgetOptions.backgroundImage?.url)
         ) {
             return false;
         }

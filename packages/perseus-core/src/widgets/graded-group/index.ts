@@ -14,11 +14,14 @@ const defaultWidgetOptions: GradedGroupDefaultWidgetOptions = {
     hint: null,
 };
 
-const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
+const traverseChildWidgets = function (
+    props: PerseusGradedGroupWidgetOptions,
+    traverseRenderer: any,
+): PerseusGradedGroupWidgetOptions {
     return {...props, ...traverseRenderer(props)};
 };
 
-const gradedGroupWidgetLogic: WidgetLogic = {
+const gradedGroupWidgetLogic: WidgetLogic<PerseusGradedGroupWidgetOptions> = {
     name: "graded-group",
     defaultWidgetOptions,
     accessible: true,

@@ -1,4 +1,6 @@
-import getMatrixPublicWidgetOptions from "./matrix-util";
+import getMatrixPublicWidgetOptions, {
+    type MatrixPublicWidgetOptions,
+} from "./matrix-util";
 
 import type {PerseusMatrixWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
@@ -16,7 +18,10 @@ const defaultWidgetOptions: MatrixDefaultWidgetOptions = {
     cursorPosition: [0, 0],
 };
 
-const matrixWidgetLogic: WidgetLogic = {
+const matrixWidgetLogic: WidgetLogic<
+    PerseusMatrixWidgetOptions,
+    MatrixPublicWidgetOptions
+> = {
     name: "matrix",
     defaultWidgetOptions,
     getPublicWidgetOptions: getMatrixPublicWidgetOptions,

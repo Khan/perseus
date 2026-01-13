@@ -43,9 +43,9 @@ import type {
 import type {PerseusWidgetOptions, PerseusWidget} from "../data-schema";
 import type {Alignment} from "../types";
 
-const widgets = new Registry<WidgetLogic>("Core widget registry");
+const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
 
-export function registerWidget(type: string, logic: WidgetLogic) {
+export function registerWidget(type: string, logic: WidgetLogic<any, any>) {
     widgets.set(type, logic);
 }
 
@@ -59,11 +59,9 @@ export function getCurrentVersion(type: string) {
     return widgetLogic?.version || {major: 0, minor: 0};
 }
 
-// TODO(LEMS-2870): getPublicWidgetOptionsFunction/PublicWidgetOptionsFunction
-// need better types
 export const getPublicWidgetOptionsFunction = (
     type: string,
-): PublicWidgetOptionsFunction => {
+): PublicWidgetOptionsFunction<any, any> => {
     return widgets.get(type)?.getPublicWidgetOptions ?? ((i: any) => i);
 };
 

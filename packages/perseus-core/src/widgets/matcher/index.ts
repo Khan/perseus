@@ -1,4 +1,6 @@
-import getMatcherPublicWidgetOptions from "./matcher-util";
+import getMatcherPublicWidgetOptions, {
+    type MatcherPublicWidgetOptions,
+} from "./matcher-util";
 
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
@@ -16,7 +18,10 @@ const defaultWidgetOptions: MatcherDefaultWidgetOptions = {
     padding: true,
 };
 
-const matcherWidgetLogic: WidgetLogic = {
+const matcherWidgetLogic: WidgetLogic<
+    PerseusMatcherWidgetOptions,
+    MatcherPublicWidgetOptions
+> = {
     name: "matcher",
     defaultWidgetOptions,
     getPublicWidgetOptions: getMatcherPublicWidgetOptions,

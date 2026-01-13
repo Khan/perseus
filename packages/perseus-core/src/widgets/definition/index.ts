@@ -11,7 +11,7 @@ const defaultWidgetOptions: DefinitionDefaultWidgetOptions = {
     definition: "",
 };
 
-const definitionWidgetLogic: WidgetLogic = {
+const definitionWidgetLogic: WidgetLogic<PerseusDefinitionWidgetOptions> = {
     name: "definition",
     defaultWidgetOptions,
     defaultAlignment: "inline",
