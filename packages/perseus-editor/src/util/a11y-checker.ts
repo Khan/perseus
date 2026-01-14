@@ -76,45 +76,27 @@ const getIssueElements = (
     nodes: axe.NodeResult[],
     iFrameElement: HTMLIFrameElement | null,
 ): Element[] => {
-    // eslint-disable-next-line no-console
-    console.log(`** iFrame: `, iFrameElement);
-    // eslint-disable-next-line no-console
-    console.log(`** Result nodes: `, nodes);
     // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'Element[]'.
     return nodes.flatMap((node) => {
-        // eslint-disable-next-line no-console
-        console.log(`*** Node target: `, node.target);
         // @ts-expect-error TS2769: No overload matches this call.
         return node.target.reduce((elements: Element[], target: string) => {
-            // eslint-disable-next-line no-console
-            console.log(`**** Target: `, target);
             let element: Element | null = null;
             if (
                 elements.length > 0 &&
                 elements[elements.length - 1].tagName.toLowerCase() === "iframe"
             ) {
-                // eslint-disable-next-line no-console
-                console.log(`***** Node target contains an iFrame *****`);
-                // eslint-disable-next-line no-console
-                console.log(`***** Replacing iFrame element with actual element *****`);
                 elements[elements.length - 1] =
                     // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'
                     elements[elements.length - 1].contentDocument.querySelector(
                         target,
                     );
             } else if (iFrameElement) {
-                // eslint-disable-next-line no-console
-                console.log(`***** Editor iFrame provided - using it for reference *****`);
                 element =
                     iFrameElement.contentDocument?.querySelector(target) ||
                     null;
             } else {
-                // eslint-disable-next-line no-console
-                console.log(`***** No iFrame detected *****`);
                 element = document.querySelector(target);
             }
-            // eslint-disable-next-line no-console
-            console.log(`***** Element: `, element);
             if (element) {
                 elements.push(element);
             }
@@ -129,8 +111,6 @@ const mapResultsToIssues = (
     iFrameElement: HTMLIFrameElement | null,
 ): Issue[] => {
     return results.map((result) => {
-        // eslint-disable-next-line no-console
-        console.log(`* Result: `, result);
         const isUserFixable =
             type === "Alert" &&
             issuesList["axe-core"]["user-fixable"].some(
@@ -147,8 +127,6 @@ const mapResultsToIssues = (
             message: getIssueMessage(result.nodes),
             type: type,
         };
-        // eslint-disable-next-line no-console
-        console.log(`* Result Info: `, issueInfo);
         return issueInfo;
     });
 };
