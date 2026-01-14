@@ -139,10 +139,7 @@ const Label: any = GraphieClasses.createSimpleClass((graphie, props) => {
             props.style,
         );
 
-        getDependencies().graphieMovablesJiptLabels.addLabel(
-            elem[0],
-            props.tex,
-        );
+        getDependencies().graphieMovablesJiptLabels.addLabel(elem, props.tex);
     } else {
         elem = graphie.label(
             coord,

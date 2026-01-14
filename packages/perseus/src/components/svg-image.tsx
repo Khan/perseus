@@ -307,7 +307,7 @@ class SvgImage extends React.Component<Props, State> {
                 );
 
                 getDependencies().svgImageJiptLabels.addLabel(
-                    elem[0],
+                    elem,
                     labelData.typesetAsMath,
                 );
             } else if (labelData.coordinates) {

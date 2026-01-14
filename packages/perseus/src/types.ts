@@ -304,8 +304,7 @@ type JIPT = {
 };
 
 export type JiptLabelStore = {
-    // label is the DOM element (not jQuery object) from graphie.label()[0]
-    addLabel: (label: HTMLElement, useMath: boolean) => void;
+    addLabel: (label?: any, useMath?: any) => void;
 };
 
 export interface JiptRenderer {
