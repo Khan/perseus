@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 22.0.0
+
+### Major Changes
+
+-   [#3174](https://github.com/Khan/perseus/pull/3174) [`800c03e92e`](https://github.com/Khan/perseus/commit/800c03e92e141d3c78486ce477946700ff9ac669) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove isRealJSONParse and some deprecated exports
+
+### Patch Changes
+
+-   [#3172](https://github.com/Khan/perseus/pull/3172) [`47ea66e85a`](https://github.com/Khan/perseus/commit/47ea66e85a5dc4fbe66eea2b125b73008cf14faf) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Add feature flag for image aligment
+
 ## 21.2.1
 
 ### Patch Changes
