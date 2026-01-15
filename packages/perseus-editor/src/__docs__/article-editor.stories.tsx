@@ -1,4 +1,8 @@
 import {ApiOptions} from "@khanacademy/perseus";
+import {
+    PerseusFeatureFlags,
+    type PerseusArticle,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useRef, useState} from "react";
@@ -10,8 +14,6 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 import {usePreviewUrl} from "./use-preview-url";
-
-import type {PerseusArticle} from "@khanacademy/perseus-core";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
@@ -30,6 +32,41 @@ export const Demo = (): React.ReactElement => {
             <ArticleEditor
                 dependencies={testDependenciesV2}
                 apiOptions={{...ApiOptions.defaults, isArticle: true}}
+                imageUploader={() => {}}
+                json={article}
+                onChange={(value) => {
+                    setArticle(value.json);
+                }}
+                previewURL={storybookPreviewUrl}
+                ref={articleEditorRef as any}
+            />
+        </View>
+    );
+};
+
+/**
+ * Article editor with all feature flags on.
+ */
+export const WithAllFlags = (): React.ReactElement => {
+    const [article, setArticle] = useState<PerseusArticle>();
+    const articleEditorRef = useRef();
+    const storybookPreviewUrl = usePreviewUrl();
+
+    const allFlags: Record<string, boolean> = {};
+    for (const flag of PerseusFeatureFlags) {
+        allFlags[flag] = true;
+    }
+
+    return (
+        <View>
+            <ArticleEditor
+                dependencies={testDependenciesV2}
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    isArticle: true,
+                    // Turn on all feature flags
+                    flags: allFlags,
+                }}
                 imageUploader={() => {}}
                 json={article}
                 onChange={(value) => {

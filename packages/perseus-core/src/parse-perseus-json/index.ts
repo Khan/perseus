@@ -1,5 +1,3 @@
-import {isRealJSONParse} from "../utils/is-real-json-parse";
-
 import {parse} from "./parse";
 import {parsePerseusArticle as migrateAndTypecheckPerseusArticle} from "./perseus-parsers/perseus-article";
 import {parsePerseusItem as migrateAndTypecheckPerseusItem} from "./perseus-parsers/perseus-item";
@@ -9,24 +7,6 @@ import {failure, isFailure} from "./result";
 import type {Result} from "./result";
 import type {PerseusItem, PerseusArticle} from "../data-schema";
 import type {UserInputMap} from "../validation.types";
-
-/**
- * Helper to parse PerseusItem JSON
- * Why not just use JSON.parse? We want:
- * - To make sure types are correct
- * - To give us a central place to validate/transform output if needed
- * @deprecated - use parseAndMigratePerseusItem instead
- * @param {string} json - the stringified PerseusItem JSON
- * @returns {PerseusItem} the parsed PerseusItem object
- */
-export function parsePerseusItem(json: string): PerseusItem {
-    // Try to block a cheating vector which relies on monkey-patching
-    // JSON.parse
-    if (isRealJSONParse(JSON.parse)) {
-        return JSON.parse(json);
-    }
-    throw new Error("Something went wrong.");
-}
 
 export type ParseFailureDetail = {
     /**
@@ -54,7 +34,6 @@ export type ParseFailureDetail = {
 export function parseAndMigratePerseusItem(
     data: unknown,
 ): Result<PerseusItem, ParseFailureDetail> {
-    throwErrorIfCheatingDetected();
     const object: unknown = typeof data === "string" ? JSON.parse(data) : data;
     const result = parse(object, migrateAndTypecheckPerseusItem);
     if (isFailure(result)) {
@@ -76,7 +55,6 @@ export function parseAndMigratePerseusItem(
 export function parseAndMigratePerseusArticle(
     data: unknown,
 ): Result<PerseusArticle, ParseFailureDetail> {
-    throwErrorIfCheatingDetected();
     const object: unknown = typeof data === "string" ? JSON.parse(data) : data;
     const result = parse(object, migrateAndTypecheckPerseusArticle);
     if (isFailure(result)) {
@@ -104,14 +82,4 @@ export function parseAndMigrateUserInputMap(
         return failure({message: result.detail, invalidObject: object});
     }
     return result;
-}
-
-/**
- * Tries to block a cheating vector that relies on monkey-patching JSON.parse.
- */
-// TODO(LEMS-2331): delete this function once server-side scoring is done.
-function throwErrorIfCheatingDetected() {
-    if (!isRealJSONParse(JSON.parse)) {
-        throw new Error("Something went wrong.");
-    }
 }

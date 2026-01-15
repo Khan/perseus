@@ -41,7 +41,6 @@ export {itemHasHints} from "./utils/item-has-hints";
 export {makeSafeUrl} from "./utils/make-safe-url";
 
 export {
-    parsePerseusItem,
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
     parseAndMigrateUserInputMap,
