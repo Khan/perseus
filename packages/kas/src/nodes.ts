@@ -52,6 +52,7 @@ const isInfinite = function (object) {
 // not that inclusivity means much, probabilistically, on floats
 const randomFloat = function (min: number, max: number) {
     var extent = max - min;
+    // eslint-disable-next-line no-restricted-properties
     return Math.random() * extent + min;
 };
 

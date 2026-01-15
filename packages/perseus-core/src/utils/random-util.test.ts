@@ -109,12 +109,14 @@ describe("randomIntInRange", () => {
 
     it("always generates 0 when min and max are both 0", () => {
         expect(
+            // eslint-disable-next-line no-restricted-properties
             arrayOfLength(3).map(() => randomIntInRange(0, 0, Math.random)),
         ).toEqual([0, 0, 0]);
     });
 
     it("always generates N when min and max are both N", () => {
         expect(
+            // eslint-disable-next-line no-restricted-properties
             arrayOfLength(3).map(() => randomIntInRange(42, 42, Math.random)),
         ).toEqual([42, 42, 42]);
     });
