@@ -41,6 +41,7 @@ export interface ChoiceType {
     correct: boolean;
     isNoneOfTheAbove: boolean;
     previouslyAnswered: boolean;
+    // TODO(LEMS-3783): remove uses of `revealNoneOfTheAbove`
     revealNoneOfTheAbove: boolean;
     disabled: boolean;
 }
@@ -90,6 +91,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             countChoices = false,
             showSolutions = "none",
             choiceStates,
+            // TODO(LEMS-3783): remove uses of `questionCompleted`
             questionCompleted,
             static: isStatic,
             apiOptions,
@@ -324,6 +326,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
+                    // TODO(LEMS-3783): remove uses of `questionCompleted` and `revealNoneOfTheAbove`
                     revealNoneOfTheAbove: !!(questionCompleted && selected),
                     previouslyAnswered,
                 };

@@ -543,11 +543,7 @@ type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;
     keypadElement?: any;
-    /**
-     * questionCompleted is used to signal that a learner has attempted
-     * the exercise. This is used when widgets want to show things like
-     * rationale or partial correctness.
-     */
+    // TODO(LEMS-3783): remove uses of `questionCompleted`
     questionCompleted?: boolean;
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
