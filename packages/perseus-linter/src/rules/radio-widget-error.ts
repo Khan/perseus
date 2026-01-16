@@ -23,10 +23,10 @@ export default Rule.makeRule({
         }
 
         const choices = widget.options.choices;
-        
+
         // Error if no choice is marked as correct
         if (!choices.some((choice) => choice.correct)) {
-            return ("No choice is marked as correct.");
+            return "No choice is marked as correct.";
         }
 
         // Error if NOTA and another choice are both marked as correct
@@ -36,9 +36,7 @@ export default Rule.makeRule({
         );
 
         if (hasNotaCorrect && correctChoices.length > 1) {
-            return (
-                "Cannot mark both None of the Above and another choice as correct."
-            );
+            return "Cannot mark both None of the Above and another choice as correct.";
         }
 
         return;
