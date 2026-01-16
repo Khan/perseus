@@ -39,7 +39,6 @@ describe("radio-widget-error", () => {
     });
 
     describe("Cannot mark both None of the Above and another choice as correct.", () => {
-        // Error for radio widget with no correct choices
         expectWarning(radioWidgetErrorRule, "[[☃ radio 1]]", {
             widgets: {
                 "radio 1": {
@@ -57,7 +56,6 @@ describe("radio-widget-error", () => {
             },
         });
 
-        // Pass for radio widget with correct choices
         expectPass(radioWidgetErrorRule, "[[☃ radio 1]]", {
             widgets: {
                 "radio 1": {
@@ -75,7 +73,6 @@ describe("radio-widget-error", () => {
             },
         });
 
-        // Pass for radio widget with NOTA as correct choice
         expectPass(radioWidgetErrorRule, "[[☃ radio 1]]", {
             widgets: {
                 "radio 1": {
