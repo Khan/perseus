@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-updates radio codeowners
+removes radio codeowners
