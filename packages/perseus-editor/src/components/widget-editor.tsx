@@ -154,13 +154,16 @@ class WidgetEditor extends React.Component<
             "image-widget-upgrade-alignment",
         );
 
-        if (widgetInfo.type === "image" && !imageUpgradeAlignmentFF) {
+        if (this.props.apiOptions.showAlignmentOptions) {
             // TODO(LEMS-3520): Feature flag cleanup
-            supportedAlignments = ["block", "full-width"];
-        } else if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
-                widgetInfo.type,
-            );
+            // Remove if statement once the image alignment upgrade FF is released
+            if (widgetInfo.type === "image" && !imageUpgradeAlignmentFF) {
+                supportedAlignments = ["block", "full-width"];
+            } else {
+                supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
+                    widgetInfo.type,
+                );
+            }
         } else {
             // NOTE(kevinb): "default" is not one in `validAlignments` in widgets.js.
             supportedAlignments = ["default"];
