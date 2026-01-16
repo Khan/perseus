@@ -48,8 +48,8 @@ function scoreInteractiveGraph(
     const hasValue = Boolean(
         // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
         userInput.coords ||
-            // @ts-expect-error - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
-            (userInput.center && userInput.radius),
+        // @ts-expect-error - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
+        (userInput.center && userInput.radius),
     );
 
     if (userInput.type === rubric.correct.type && hasValue) {

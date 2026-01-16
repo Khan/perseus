@@ -3,8 +3,7 @@
 // If you need to add more regression tests, add a new file to this directory.
 export default {
     question: {
-        content:
-            "Varieties of locked figures\n\n[[☃ interactive-graph 1]]\n\n",
+        content: "Varieties of locked figures\n\n[[☃ interactive-graph 1]]\n\n",
         widgets: {
             "interactive-graph 1": {
                 options: {

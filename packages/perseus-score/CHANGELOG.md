@@ -1,5 +1,29 @@
 # @khanacademy/perseus-score
 
+## 8.2.4
+
+### Patch Changes
+
+-   Updated dependencies [[`47ea66e85a`](https://github.com/Khan/perseus/commit/47ea66e85a5dc4fbe66eea2b125b73008cf14faf), [`800c03e92e`](https://github.com/Khan/perseus/commit/800c03e92e141d3c78486ce477946700ff9ac669)]:
+    -   @khanacademy/perseus-core@22.0.0
+    -   @khanacademy/kmath@2.2.28
+
+## 8.2.3
+
+### Patch Changes
+
+-   Updated dependencies [[`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e), [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641)]:
+    -   @khanacademy/perseus-core@21.2.1
+    -   @khanacademy/kmath@2.2.27
+
+## 8.2.2
+
+### Patch Changes
+
+-   Updated dependencies [[`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72)]:
+    -   @khanacademy/perseus-core@21.2.0
+    -   @khanacademy/kmath@2.2.26
+
 ## 8.2.1
 
 ### Patch Changes

@@ -149,9 +149,12 @@ class WidgetEditor extends React.Component<
 
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
-        const imageUpgradeFF = isFeatureOn(this.props, "image-widget-upgrade");
+        const imageUpgradeAlignmentFF = isFeatureOn(
+            this.props,
+            "image-widget-upgrade-alignment",
+        );
 
-        if (widgetInfo.type === "image" && !imageUpgradeFF) {
+        if (widgetInfo.type === "image" && !imageUpgradeAlignmentFF) {
             // TODO(LEMS-3520): Feature flag cleanup
             supportedAlignments = ["block", "full-width"];
         } else if (this.props.apiOptions.showAlignmentOptions) {

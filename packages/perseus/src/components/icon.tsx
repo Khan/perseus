@@ -34,8 +34,8 @@ type Props = {
     focusable?: boolean;
     // The SVG icon
     icon: // If you pass in a string then it's assumed to be just an SVG
-    // path with a default size of 10 pixels wide and tall.
-    IconType | string;
+        // path with a default size of 10 pixels wide and tall.
+        IconType | string;
     // To be used for custom styling of the component. If using with
     // Aphrodite you'll want to pre-compute the class string by calling
     // css(). Additionally you need to remember that many of the SVG

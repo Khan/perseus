@@ -123,14 +123,12 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
     findExternalWidgets: any;
-    highlightedWidgets?: ReadonlyArray<any>;
     images: PerseusRenderer["images"];
     keypadElement?: KeypadAPI | null;
-    onInteractWithWidget: (id: string) => void;
     onRender: (node?: any) => void;
     problemNum?: number;
-    questionCompleted?: boolean;
     reviewMode?: boolean | null | undefined;
+    highlightEmptyWidgets?: boolean;
     /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
@@ -173,12 +171,9 @@ type DefaultProps = Required<
         | "alwaysUpdate"
         | "content"
         | "findExternalWidgets"
-        | "highlightedWidgets"
         | "images"
         | "linterContext"
-        | "onInteractWithWidget"
         | "onRender"
-        | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
         | "widgets"
@@ -253,14 +248,11 @@ class Renderer
         content: "",
         widgets: {},
         images: {},
-        highlightedWidgets: [],
-        questionCompleted: false,
         showSolutions: "none",
         // onRender may be called multiple times per render, for example
         // if there are multiple images or TeX pieces within `content`.
         // It is a good idea to debounce any functions passed here.
         onRender: noopOnRender,
-        onInteractWithWidget: function () {},
         findExternalWidgets: () => [],
         alwaysUpdate: false,
         reviewMode: false,
@@ -304,6 +296,8 @@ class Renderer
                 this.handletranslationLintErrors,
             );
         }
+
+        this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -357,6 +351,13 @@ class Renderer
                 this.props.content,
                 this.handletranslationLintErrors,
             );
+        }
+
+        if (
+            this.props.userInput &&
+            !_.isEqual(this.props.userInput, prevProps.userInput)
+        ) {
+            this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
         }
     }
 
@@ -431,6 +432,13 @@ class Renderer
         );
     };
 
+    _isAnswerable(): boolean {
+        if (this.props.userInput) {
+            return this.emptyWidgets().length === 0;
+        }
+        return false;
+    }
+
     renderWidget: (
         impliedType: string,
         id: string,
@@ -448,11 +456,11 @@ class Renderer
 
         if (widgetInfo) {
             const type = (widgetInfo && widgetInfo.type) || impliedType;
-            const shouldHighlight = _.contains(
-                // @ts-expect-error - TS2345 - Argument of type 'readonly any[] | undefined' is not assignable to parameter of type 'Collection<any>'.
-                this.props.highlightedWidgets,
-                id,
-            );
+
+            let shouldHighlight = false;
+            if (this.props.highlightEmptyWidgets && this.props.userInput) {
+                shouldHighlight = this.emptyWidgets().includes(id);
+            }
 
             // By this point we should have no duplicates, which are
             // filtered out in this.render(), so we shouldn't have to
@@ -537,7 +545,6 @@ class Renderer
             problemNum: this.props.problemNum,
             apiOptions: this.getApiOptions(),
             keypadElement: this.props.keypadElement,
-            questionCompleted: this.props.questionCompleted,
             showSolutions: this.props.showSolutions,
             onFocus: _.partial(this._onWidgetFocus, widgetId),
             onBlur: _.partial(this._onWidgetBlur, widgetId),
@@ -561,7 +568,7 @@ class Renderer
                     newUserInput,
                     widgetsEmpty,
                 );
-                this.props.onInteractWithWidget(widgetId);
+                this.props.apiOptions?.interactionCallback?.(updatedUserInput);
             },
             trackInteraction: interactionTracker.track,
         };
@@ -1325,6 +1332,15 @@ class Renderer
                 return widget.getDOMNodeForPath(interWidgetPath);
             }
             if (interWidgetPath.length === 0) {
+                const container = this._widgetContainers.get(
+                    makeContainerId(widgetId),
+                );
+                if (container) {
+                    // Use the container ref so function components that expose an
+                    // imperative handle (and thus aren't valid ReactDOM targets)
+                    // still produce a DOM node.
+                    return ReactDOM.findDOMNode(container);
+                }
                 // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
                 return ReactDOM.findDOMNode(widget);
             }
@@ -1440,35 +1456,6 @@ class Renderer
             this.props.userInput,
             this.context.locale,
         );
-    }
-
-    handleStateUpdate(id: string, cb: () => boolean, silent?: boolean) {
-        // Wait until all components have rendered. In React 16 setState
-        // callback fires immediately after this componentDidUpdate, and
-        // there is no guarantee that parent/siblings components have
-        // finished rendering.
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-        // eslint-disable-next-line no-restricted-syntax
-        setTimeout(() => {
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            const cbResult = cb && cb();
-            if (!silent) {
-                this.props.onInteractWithWidget(id);
-            }
-            if (cbResult !== false) {
-                // TODO(jack): For some reason, some widgets don't always
-                // end up in refs here, which is repro-able if you make an
-                // [[ orderer 1 ]] and copy-paste this, then change it to
-                // be an [[ orderer 2 ]]. The resulting Renderer ends up
-                // with an "orderer 2" ref but not an "orderer 1" ref.
-                // @_@??
-                // TODO(jack): Figure out why this is happening and fix it
-                // As far as I can tell, this is only an issue in the
-                // editor-page, so doing this shouldn't break clients
-                // hopefully
-                this._setCurrentFocus([id]);
-            }
-        }, 0);
     }
 
     /**

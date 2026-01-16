@@ -25,7 +25,6 @@ const denylist = [
     "problemNum",
     "apiOptions",
     "widgetIsOpen",
-    "questionCompleted",
     "findWidgets",
     // added by src/editor.jsx, for widgets removing themselves
     // this is soooo not the right place for this, but alas.

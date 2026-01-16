@@ -8,42 +8,42 @@ The Explanation widget is designed with accessibility in mind, providing a way t
 
 ## Keyboard Navigation
 
--   Users can navigate to the explanation button using the `Tab` key.
--   The explanation content can be toggled with `Enter` or `Space`.
--   When expanded, the explanation content becomes part of the normal tab order.
--   The widget handles focus management appropriately when toggling content visibility.
+- Users can navigate to the explanation button using the `Tab` key.
+- The explanation content can be toggled with `Enter` or `Space`.
+- When expanded, the explanation content becomes part of the normal tab order.
+- The widget handles focus management appropriately when toggling content visibility.
 
 ## Screen Reader Support
 
--   The button uses appropriate ARIA attributes to communicate its state to screen readers:
-    -   `aria-expanded` indicates whether the explanation is expanded or collapsed
-    -   `aria-controls` associates the button with the explanation content it controls
--   The explanation content container has:
-    -   A unique `id` that matches the button's `aria-controls`
-    -   `aria-hidden` that updates appropriately based on visibility
+- The button uses appropriate ARIA attributes to communicate its state to screen readers:
+    - `aria-expanded` indicates whether the explanation is expanded or collapsed
+    - `aria-controls` associates the button with the explanation content it controls
+- The explanation content container has:
+    - A unique `id` that matches the button's `aria-controls`
+    - `aria-hidden` that updates appropriately based on visibility
 
 ## Animations and Motion
 
--   Transitions between expanded and collapsed states respect the user's motion preferences:
-    -   Animations only play when `prefers-reduced-motion: no-preference` is enabled
-    -   When reduced motion is preferred, state changes happen immediately without animation
+- Transitions between expanded and collapsed states respect the user's motion preferences:
+    - Animations only play when `prefers-reduced-motion: no-preference` is enabled
+    - When reduced motion is preferred, state changes happen immediately without animation
 
 ## Visual Indicators
 
--   The button includes a caret icon (up or down) that visually indicates the current state
--   The expanded explanation content is visually distinguished with a left border
--   Text labels clearly communicate the action ("Explain"/"Hide explanation")
+- The button includes a caret icon (up or down) that visually indicates the current state
+- The expanded explanation content is visually distinguished with a left border
+- Text labels clearly communicate the action ("Explain"/"Hide explanation")
 
 ## Best Practices
 
--   Always provide clear, descriptive text for the explanation prompt
--   Ensure explanation content is properly structured with appropriate heading levels
--   Consider the reading order when placing explanations within educational content
--   Avoid using only color to convey the expanded/collapsed state
+- Always provide clear, descriptive text for the explanation prompt
+- Ensure explanation content is properly structured with appropriate heading levels
+- Consider the reading order when placing explanations within educational content
+- Avoid using only color to convey the expanded/collapsed state
 
 ## Additional Notes
 
--   The explanation content can contain rich media and interactive elements through the Perseus Renderer
--   If custom widgets are included within explanations, ensure they follow accessibility guidelines
--   When using this widget within instructional content, ensure the explanation provides valuable context without hiding essential information
--   If you encounter any accessibility issues, please report them to the team.
+- The explanation content can contain rich media and interactive elements through the Perseus Renderer
+- If custom widgets are included within explanations, ensure they follow accessibility guidelines
+- When using this widget within instructional content, ensure the explanation provides valuable context without hiding essential information
+- If you encounter any accessibility issues, please report them to the team.

@@ -8,16 +8,15 @@ import SharedKeys from "./shared-keys";
 import type {KeypadProps} from "./keypad";
 import type {KeypadPageType} from "../../types";
 
-export interface RenderKeyPadPanelProps
-    extends Pick<
-        KeypadProps,
-        | "fractionsOnly"
-        | "onClickKey"
-        | "cursorContext"
-        | "convertDotToTimes"
-        | "divisionKey"
-        | "expandedView"
-    > {
+export interface RenderKeyPadPanelProps extends Pick<
+    KeypadProps,
+    | "fractionsOnly"
+    | "onClickKey"
+    | "cursorContext"
+    | "convertDotToTimes"
+    | "divisionKey"
+    | "expandedView"
+> {
     selectedPage: KeypadPageType;
     children: React.ReactNode;
 }

@@ -1,5 +1,3 @@
-import {jest} from "@jest/globals";
-
 import {assertFailure, assertSuccess, success} from "./result";
 
 import {
@@ -76,13 +74,6 @@ describe("parseAndMigratePerseusItem", () => {
         expect(() => parseAndMigratePerseusItem("")).toThrowError(
             new SyntaxError("Unexpected end of JSON input"),
         );
-    });
-
-    it("throws an error if JSON.parse is monkey-patched", () => {
-        // This is an attempt to make cheating more difficult.
-        const validItem = `{"question": ""}`;
-        jest.spyOn(JSON, "parse").mockReturnValue({question: ""});
-        expect(() => parseAndMigratePerseusItem(validItem)).toThrowError();
     });
 });
 
@@ -170,15 +161,6 @@ describe("parseAndMigratePerseusArticle", () => {
         expect(() => parseAndMigratePerseusArticle("")).toThrowError(
             new SyntaxError("Unexpected end of JSON input"),
         );
-    });
-
-    it("throws an error if JSON.parse is monkey-patched", () => {
-        // This is an attempt to make cheating more difficult.
-        const validArticle = `{"content": "", "widgets": {}}`;
-        jest.spyOn(JSON, "parse").mockReturnValue({content: "", widgets: {}});
-        expect(() =>
-            parseAndMigratePerseusArticle(validArticle),
-        ).toThrowError();
     });
 });
 

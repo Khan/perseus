@@ -151,7 +151,8 @@
 
 .MafsView .movable-point:hover .movable-point-focus-outline {
     r: calc(
-        var(--movable-point-hover-expansion) + var(--movable-point-halo-radius) +
+        var(--movable-point-hover-expansion) +
+            var(--movable-point-halo-radius) +
             var(--movable-point-focus-ring-offset)
     );
 }

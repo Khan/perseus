@@ -49,6 +49,21 @@ export interface MultipleChoiceComponentProps {
  *           button semantics for both versions of the widget,
  *           and implement additional ARIA attributes where needed.
  *
+ * NOTE: Redundant ARIA roles for <ul> element
+ *      Different screen readers handle <fieldset> and <legend> elements inconsistently,
+ *          causing unpredictable announcement behavior:
+ *              - NVDA + Chrome: Announces the legend when entering the fieldset,
+ *                  providing context for the choices
+ *              - VoiceOver + Safari: Often fails to announce the legend when users
+ *                  navigate directly to form controls, especially with certain
+ *                  navigation methods (arrow keys) or on mobile
+ *      This inconsistency means some users hear the critical instructions
+ *          ("Choose 1 answer", "Choose 3 answers", etc.) while others miss them
+ *          entirely, depending on their assistive technology and navigation method.
+ *          Redundant roles were added to address this issue.`role="list"` attribute
+ *          preserves list semantics, as some screen readers may remove the implicit
+ *          list role when `list-style: none` is applied via CSS.
+ *
  * Created as part of the Radio Revitalization Project (LEMS-2933).
  */
 const MultipleChoiceComponent = ({
@@ -118,10 +133,12 @@ const MultipleChoiceComponent = ({
                     {instructions}
                 </legend>
                 <ScrollableView id={scrollId} overflowX="auto">
+                    {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
                     <ul
                         data-widget="radio"
                         aria-labelledby={legendId}
                         className={choiceListClasses}
+                        role="list"
                     >
                         <ChoiceListItems
                             choices={choices}

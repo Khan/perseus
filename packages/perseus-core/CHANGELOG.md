@@ -1,5 +1,29 @@
 # @khanacademy/perseus-core
 
+## 22.0.0
+
+### Major Changes
+
+-   [#3174](https://github.com/Khan/perseus/pull/3174) [`800c03e92e`](https://github.com/Khan/perseus/commit/800c03e92e141d3c78486ce477946700ff9ac669) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove isRealJSONParse and some deprecated exports
+
+### Patch Changes
+
+-   [#3172](https://github.com/Khan/perseus/pull/3172) [`47ea66e85a`](https://github.com/Khan/perseus/commit/47ea66e85a5dc4fbe66eea2b125b73008cf14faf) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Add feature flag for image aligment
+
+## 21.2.1
+
+### Patch Changes
+
+-   [#3152](https://github.com/Khan/perseus/pull/3152) [`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update tests referencing the passage widget in preparation for deprecating passage related widgets
+
+*   [#3168](https://github.com/Khan/perseus/pull/3168) [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix infinite loop in SvgImage component when loading graphie images. This fixes the "Maximum update depth exceeded" error (React error # 185) that was occurring when rendering graphie images (web+graphie:// URLs) in production.
+
+## 21.2.0
+
+### Minor Changes
+
+-   [#3150](https://github.com/Khan/perseus/pull/3150) [`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72) Thanks [@handeyeco](https://github.com/handeyeco)! - Modify HintsRenderer to ignore hints with new `placeholder` flag.
+
 ## 21.1.0
 
 ### Minor Changes

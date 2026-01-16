@@ -27,6 +27,7 @@
     --perseus-multiple-choice-divider-space: var(
         --wb-border-width-medium
     ); /* Space between the choices, which is also used to position the divider */
+    border-radius: var(--wb-border-radius-radius_080);
     font-size: var(--wb-font-heading-size-medium);
     font-weight: var(--wb-font-weight-semi);
     line-height: var(--wb-font-heading-lineHeight-medium);
@@ -35,6 +36,9 @@
      */
     margin-block-end: var(--perseus-multiple-choice-divider-space) !important;
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
+    outline: var(--wb-border-width-medium) solid
+        var(--perseus-multiple-choice-correctness-outline-color, transparent);
+    outline-offset: calc(var(--wb-border-width-medium) * -1);
     padding: var(--perseus-multiple-choice-spacing);
     position: relative; /* Needed to enable the dividers (:before and :after pseudo-elements) to position correctly */
     width: 100%;
@@ -46,6 +50,12 @@
 
 .choice:not(.is-correct):has(> button[aria-pressed="true"]) {
     color: var(--wb-semanticColor-core-foreground-instructive-default);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .choice {
+        transition: all 0.125s;
+    }
 }
 
 /*****************
@@ -75,9 +85,11 @@
                         (
                                 var(--perseus-multiple-choice-divider-space) -
                                     var(--wb-border-width-thin)
-                            ) / 2
+                            ) /
+                            2
                     )
-            ) * -1
+            ) *
+            -1
     );
 }
 
@@ -89,9 +101,11 @@
                         (
                                 var(--wb-border-width-thin) -
                                     var(--perseus-multiple-choice-divider-space)
-                            ) / 2
+                            ) /
+                            2
                     )
-            ) * -1
+            ) *
+            -1
     );
 }
 
@@ -131,11 +145,10 @@
 
 .is-correct {
     --perseus-multiple-choice-divider-width: 0;
-    border-radius: var(--wb-border-radius-radius_080);
+    --perseus-multiple-choice-correctness-outline-color: var(
+        --wb-semanticColor-core-border-success-default
+    );
     color: var(--wb-semanticColor-core-foreground-success-strong);
-    outline: var(--wb-border-width-medium) solid
-        var(--wb-semanticColor-core-border-success-default);
-    outline-offset: calc(var(--wb-border-width-medium) * -1);
 }
 
 .is-wrong {

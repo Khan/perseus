@@ -1,6 +1,10 @@
 import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 import {registerCoreWidgets} from "../widgets/core-widget-registry";
 
+import {
+    generateExplanationOptions,
+    generateExplanationWidget,
+} from "./generators/explanation-widget-generator";
 import splitPerseusRenderer from "./split-perseus-renderer";
 
 import type {PerseusRenderer, RadioWidget} from "../data-schema";
@@ -28,21 +32,16 @@ describe("splitPerseusRenderer", () => {
     it("doesn't need to strip unscorable widgets", () => {
         // Arrange
         const question: PerseusRenderer = {
-            content: "[[☃ passage 1]]",
-            // calling the upgrader here so I don't
-            // bog down the test with default properties
-            widgets: applyDefaultsToWidgets({
-                "passage 1": {
-                    type: "passage",
-                    options: {
-                        footnotes: "",
-                        passageText: "Hello world",
-                        passageTitle: "",
-                        showLineNumbers: true,
-                        static: false,
-                    },
-                },
-            }),
+            content: "[[☃ explanation 1]]",
+            widgets: {
+                "explanation 1": generateExplanationWidget({
+                    options: generateExplanationOptions({
+                        explanation: "Addition combines two numbers.",
+                        showPrompt: "Show explanation",
+                        hidePrompt: "Hide explanation",
+                    }),
+                }),
+            },
             images: {},
         };
 
@@ -398,69 +397,5 @@ describe("splitPerseusRenderer", () => {
             expect(rv.widgets[id].options.choices[0].correct).toBeUndefined();
             expect(rv.widgets[id].options.choices[1].correct).toBeUndefined();
         });
-    });
-
-    // No longer a relevant test, waiting for https://github.com/Khan/perseus/pull/2419  to land before removing
-    it.skip("upgrades widgets before splitting", () => {
-        // Arrange
-        const v0RadioOptions = {
-            choices: [
-                {content: "Choice 1", correct: false},
-                {content: "Choice 2", correct: true},
-            ],
-        };
-
-        const question: PerseusRenderer = {
-            content: "[[☃ radio 1]]",
-            images: {},
-            widgets: {
-                "radio 1": {
-                    type: "radio",
-                    version: {major: 0, minor: 0},
-                    options: v0RadioOptions as any,
-                },
-            },
-        };
-
-        const expected = {
-            content: "[[☃ radio 1]]",
-            images: {},
-            widgets: {
-                "radio 1": {
-                    type: "radio",
-                    version: {
-                        major: 3,
-                        minor: 0,
-                    },
-                    options: {
-                        choices: [
-                            {
-                                content: "Choice 1",
-                            },
-                            {
-                                content: "Choice 2",
-                            },
-                        ],
-                        randomize: false,
-                        hasNoneOfTheAbove: false,
-                        multipleSelect: false,
-                        countChoices: false,
-                        deselectEnabled: false,
-                    },
-                    alignment: "default",
-                    graded: true,
-                    static: false,
-                },
-            },
-        };
-
-        // Act
-        const rv = splitPerseusRenderer(question);
-
-        // Assert
-        expect(rv).toEqual(expected);
-        // hasNoneOfTheAbove is important because v0 doesn't have it
-        // and it get added to options during the upgrade
-        expect(rv.widgets["radio 1"].options.hasNoneOfTheAbove).toBe(false);
     });
 });
