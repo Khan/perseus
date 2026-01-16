@@ -169,7 +169,7 @@ export const getAllWidgetTypes = (): ReadonlyArray<string> => {
  */
 
 /**
- * Returns true iff the widget supports static mode.
+ * Returns true if the widget supports static mode.
  * A widget implicitly supports static mode if it exports a
  * getCorrectUserInput function.
  */
