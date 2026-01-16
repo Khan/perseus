@@ -300,14 +300,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 imageAlt: "Sample diagram",
                 imageWidth: 300,
                 imageHeight: 200,
-                markers: [
-                    {
-                        answers: ["Label 1"],
-                        label: "Point 1",
-                        x: 50,
-                        y: 50,
-                    },
-                ],
+                markers: [],
                 multipleAnswers: false,
                 hideChoicesFromInstructions: false,
             },
