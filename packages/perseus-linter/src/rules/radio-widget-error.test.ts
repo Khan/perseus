@@ -74,5 +74,23 @@ describe("radio-widget-error", () => {
                 },
             },
         });
+
+        // Pass for radio widget with NOTA as correct choice
+        expectPass(radioWidgetErrorRule, "[[☃ radio 1]]", {
+            widgets: {
+                "radio 1": {
+                    options: {
+                        choices: [
+                            {content: "Correct", correct: false},
+                            {
+                                content: "None Of the Above",
+                                isNoneOfTheAbove: true,
+                                correct: true,
+                            },
+                        ],
+                    },
+                },
+            },
+        });
     });
 });
