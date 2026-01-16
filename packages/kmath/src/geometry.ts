@@ -112,7 +112,7 @@ export function polygonSidesIntersect(vertices: Coord[]): boolean {
 }
 
 export function vector(a, b) {
-    return _.map(_.zip(a, b), function (pair) {
+    return _.map(_.zip(a, b), function (pair: [any, any]) {
         return pair[0] - pair[1];
     });
 }
@@ -176,7 +176,6 @@ export function angleMeasures(
         const q = vector(triplet[2], triplet[1]);
         // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'Coord'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
         const raw = Math.acos(dotProduct(p, q) / (magnitude(p) * magnitude(q)));
-        // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         return sign(ccw(...triplet)) > 0 ? raw : -raw;
     });
 
