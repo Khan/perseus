@@ -7,11 +7,15 @@ import * as React from "react";
 import _ from "underscore";
 
 import RadioNew from "./multiple-choice-widget.new";
-import RadioOld from "./radio-component";
 import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
-import type {RadioProps} from "./radio-component";
-import type {ChoiceState, WidgetProps} from "../../types";
+import type {RadioProps, RadioWidgetHandle} from "./multiple-choice-widget.new";
+import type {
+    ChangeHandler,
+    ChoiceState,
+    Widget,
+    WidgetProps,
+} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 // TODO: this should be using PerseusRadioWidgetOptions instead of RadioProps
@@ -43,9 +47,8 @@ function initChoiceStates(choices: Props["choices"]) {
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-class Radio extends RadioOld {
-    ffIsOn = false;
-    radioRef = React.createRef<RadioOld>();
+class Radio extends React.Component<Props> implements Widget {
+    radioRef = React.createRef<RadioWidgetHandle>();
 
     state: State = {
         choiceStates: [],
@@ -53,7 +56,6 @@ class Radio extends RadioOld {
 
     constructor(props: Props) {
         super(props);
-        this.ffIsOn = props.apiOptions.flags?.["new-radio-widget"] ?? false;
 
         this.state = {
             choiceStates: initChoiceStates(props.choices),
@@ -88,7 +90,12 @@ class Radio extends RadioOld {
     }
 
     getPromptJSON(): RadioPromptJSON {
-        return this.radioRef.current!.getPromptJSON();
+        if (!this.radioRef.current) {
+            throw new Error(
+                "Radio widget is not mounted; getPromptJSON is unavailable.",
+            );
+        }
+        return this.radioRef.current.getPromptJSON();
     }
 
     _handleChange(arg: {choiceStates?: ChoiceState[]}) {
@@ -148,7 +155,12 @@ class Radio extends RadioOld {
         }
     }
 
-    _mergePropsAndState(): Props {
+    // TODO: https://khanacademy.atlassian.net/browse/LEMS-3542
+    // remove onChange from Radio
+    _mergePropsAndState(): Props & {
+        onChange: ChangeHandler;
+        numCorrect: number;
+    } {
         /**
          * Inside the Radio component(s) we use ChoiceState
          * which includes both UI state and UserInput state.
@@ -171,6 +183,8 @@ class Radio extends RadioOld {
             ...choiceTransform(
                 this.props.choices,
                 this.props.randomize,
+                // TODO: Fix the following issue when working on LEMS-3849
+                // @ts-expect-error - TS2571: Object is of type unknown
                 this.context.strings,
                 randomSeed,
             ),
@@ -178,6 +192,7 @@ class Radio extends RadioOld {
 
         return {
             ...this.props,
+            numCorrect: this.props.numCorrect ?? 0,
             choices,
             choiceStates: this.state.choiceStates?.map((choiceState, index) => {
                 const choice = choices[index];
@@ -194,26 +209,9 @@ class Radio extends RadioOld {
         };
     }
 
-    // This is a legacy method that we need to support for the old radio widget.
-    // It is not present in the new radio widget.
-    focus(choiceIndex?: number | null): boolean {
-        if (this.radioRef.current?.focus) {
-            return this.radioRef.current.focus(choiceIndex);
-        }
-        return false;
-    }
-
     render(): React.ReactNode {
         const props = this._mergePropsAndState();
-
-        // Only return the new radio widget if the feature flag is on.
-        // Otherwise, return the old radio widget and pass the ref to
-        // it for handling legacy focus methods.
-        return this.ffIsOn ? (
-            <RadioNew ref={this.radioRef} {...props} />
-        ) : (
-            <RadioOld ref={this.radioRef} {...props} />
-        );
+        return <RadioNew ref={this.radioRef} {...props} />;
     }
 }
 
