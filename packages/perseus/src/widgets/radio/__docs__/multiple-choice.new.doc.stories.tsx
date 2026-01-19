@@ -28,10 +28,10 @@ const meta = {
                 component: `
 The Radio widget is the cornerstone widget in Khan Academy's content library. Created in April 2013, it is Perseus' second oldest widget and by far the most frequently used widget across our content library.
 
-This versatile component handles all multiple-choice questions, supporting both single-select (radio buttons) and multiple-select (checkboxes) formats. It supports rich content within choices: mathematical expressions via MathJax, Markdown formatting, images, and passage references (PassageRef).
+This versatile component handles all multiple-choice questions, supporting both single-select (radio buttons) and multiple-select (checkboxes) formats. It supports rich content within choices: mathematical expressions via MathJax, Markdown formatting, and images.
 ## Key Features
 
-- **Rich Content**: Seamlessly displays math equations, formatted text, images, and passage references
+- **Rich Content**: Seamlessly displays math equations, formatted text, and images
 - **Flexible Selection**: Supports both single-answer and multiple-answer questions
 - **Randomization**: Optionally shuffles choices to prevent pattern recognition
 - **Pedagogical Tools**: Allows the inclusion of a rationale for each choice to help learners understand why an answer is correct or incorrect
