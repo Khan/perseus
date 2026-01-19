@@ -24,6 +24,7 @@ import Tex from "./tex";
 import type {MouseHandler} from "./interactive";
 import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
+import type {GraphieLabelElement} from "../types";
 
 const {processMath} = Tex;
 
@@ -68,26 +69,26 @@ type LabelPosition =
     | "below left";
 
 interface LabelMethod {
-    (point: Coord, text: string, position: LabelPosition): any;
+    (point: Coord, text: string, position: LabelPosition): GraphieLabelElement;
     (
         point: Coord,
         text: string,
         position: LabelPosition,
         renderTex: boolean,
-    ): any;
+    ): GraphieLabelElement;
     (
         point: Coord,
         text: string,
         position: LabelPosition,
         style: StyleParams,
-    ): any;
+    ): GraphieLabelElement;
     (
         point: Coord,
         text: string,
         position: LabelPosition,
         renderTex: boolean,
         style: StyleParams,
-    ): any;
+    ): GraphieLabelElement;
 }
 
 export class Graphie {
@@ -978,11 +979,15 @@ export class Graphie {
             | "below left",
         arg4?: boolean | StyleParams,
         arg5?: StyleParams,
-    ): any => {
+    ): GraphieLabelElement => {
         const style = typeof arg4 === "object" ? arg4 : arg5;
         const latex = typeof arg4 === "boolean" ? arg4 : true;
         return this.withStyle(style, () => {
-            const $span = $("<span>").addClass("graphie-label");
+            // We cast to GraphieLabelElement because we're augmenting the jQuery
+            // element with custom methods (setPosition, processMath, processText)
+            const $span = $("<span>").addClass(
+                "graphie-label",
+            ) as unknown as GraphieLabelElement;
 
             const pad = this.currentStyle["label-distance"];
 
@@ -995,7 +1000,6 @@ export class Graphie {
                 .data("labelDirection", direction)
                 .appendTo(this.el);
 
-            // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
             $span.setPosition = (point) => {
                 const scaledPoint = this.scalePoint(point);
                 $span.css({
@@ -1004,12 +1008,10 @@ export class Graphie {
                 });
             };
 
-            // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
             $span.setPosition(point);
 
             const span = $span[0];
 
-            // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
             $span.processMath = function (math, force) {
                 processMath(span, math, force, function () {
                     const width = span.scrollWidth;
@@ -1018,7 +1020,6 @@ export class Graphie {
                 });
             };
 
-            // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
             $span.processText = function (text: string) {
                 $span.html(text);
                 const width = span.scrollWidth;
@@ -1027,10 +1028,8 @@ export class Graphie {
             };
 
             if (latex) {
-                // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
                 $span.processMath(text, /* force */ false);
             } else {
-                // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
                 $span.processText(text);
             }
 
