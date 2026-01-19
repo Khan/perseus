@@ -987,7 +987,7 @@ export class Graphie {
             // element with custom methods (setPosition, processMath, processText)
             const $span = $("<span>").addClass(
                 "graphie-label",
-            ) as unknown as GraphieLabelElement;
+            ) as GraphieLabelElement;
 
             const pad = this.currentStyle["label-distance"];
 
