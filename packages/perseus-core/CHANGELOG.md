@@ -1,5 +1,19 @@
 # @khanacademy/perseus-core
 
+## 22.1.0
+
+### Minor Changes
+
+-   [#3147](https://github.com/Khan/perseus/pull/3147) [`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Deprecate passage-related widgets (passage, passage-ref, passage-ref-target)
+
+### Patch Changes
+
+-   [#3179](https://github.com/Khan/perseus/pull/3179) [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed) Thanks [@handeyeco](https://github.com/handeyeco)! - Lint against Math.random
+
+-   Updated dependencies [[`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed)]:
+    -   @khanacademy/kas@2.1.7
+    -   @khanacademy/pure-markdown@2.2.5
+
 ## 22.0.0
 
 ### Major Changes

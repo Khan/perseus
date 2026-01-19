@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 2.1.7
+
+### Patch Changes
+
+-   [#3179](https://github.com/Khan/perseus/pull/3179) [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed) Thanks [@handeyeco](https://github.com/handeyeco)! - Lint against Math.random
+
 ## 2.1.6
 
 ### Patch Changes

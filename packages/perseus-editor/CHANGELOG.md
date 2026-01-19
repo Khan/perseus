@@ -1,5 +1,27 @@
 # @khanacademy/perseus-editor
 
+## 28.9.0
+
+### Minor Changes
+
+-   [#3147](https://github.com/Khan/perseus/pull/3147) [`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Deprecate passage-related widgets (passage, passage-ref, passage-ref-target)
+
+### Patch Changes
+
+-   [#3179](https://github.com/Khan/perseus/pull/3179) [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed) Thanks [@handeyeco](https://github.com/handeyeco)! - Lint against Math.random
+
+*   [#3185](https://github.com/Khan/perseus/pull/3185) [`cbef3cb967`](https://github.com/Khan/perseus/commit/cbef3cb967b64c31d8bb9d306f1fb32144e52d56) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix custom image alignment dropdown display, only show it for article editor
+
+*   Updated dependencies [[`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032), [`f27e7a5137`](https://github.com/Khan/perseus/commit/f27e7a51372bec9b2a43391a05350aaa896317bc), [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed)]:
+    -   @khanacademy/perseus@73.1.0
+    -   @khanacademy/perseus-core@22.1.0
+    -   @khanacademy/kas@2.1.7
+    -   @khanacademy/keypad-context@3.2.29
+    -   @khanacademy/kmath@2.2.29
+    -   @khanacademy/math-input@26.3.9
+    -   @khanacademy/perseus-linter@4.6.11
+    -   @khanacademy/perseus-score@8.2.5
+
 ## 28.8.14
 
 ### Patch Changes
