@@ -135,7 +135,7 @@ type CacheEntry = {
 //   },
 //   ...
 // }
-const labelDataCache: Record<
+let labelDataCache: Record<
     string,
     | {
           loaded: false;
@@ -149,6 +149,14 @@ const labelDataCache: Record<
           dataCallbacks: Array<any>;
       }
 > = {};
+
+/**
+ * Reset the label data cache. This is primarily used for testing
+ * to ensure a clean state between test cases.
+ */
+export function resetLabelDataCache(): void {
+    labelDataCache = {};
+}
 
 export function loadGraphie(
     url: string,

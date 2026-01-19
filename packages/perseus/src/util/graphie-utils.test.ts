@@ -6,12 +6,18 @@ import {
     parseDataFromJSONP,
     getLocalizedDataUrl,
     loadGraphie,
+    resetLabelDataCache,
 } from "./graphie-utils";
 import {typicalCase, edgeCases} from "./graphie-utils.testdata";
 
 describe("graphie utils", () => {
     const errorCallback = jest.fn((error) => {
         // Do nothing
+    });
+
+    beforeEach(() => {
+        // Reset the label data cache to ensure a clean state between tests
+        resetLabelDataCache();
     });
 
     it("should parse the modern graphie json format", () => {
