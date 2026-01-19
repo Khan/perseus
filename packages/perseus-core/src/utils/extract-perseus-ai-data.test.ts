@@ -482,36 +482,6 @@ describe("injectWidgets", () => {
         );
     });
 
-    it("should inject passage widget into the content", () => {
-        const widgets = {
-            "passage 1": {
-                type: "passage",
-                options: {
-                    footnotes: "",
-                    passageText:
-                        "Sociologists study folktales.\nSometimes not.",
-                    passageTitle: "Intro to Sociologists",
-                    showLineNumbers: true,
-                    static: false,
-                },
-            },
-        } as const;
-        const content = injectWidgets(
-            "Here's a passage\n\n[[☃ passage 1]]\n\n",
-            widgets,
-        );
-        expect(content).toMatchInlineSnapshot(`
-                "Here's a passage
-
-                # Intro to Sociologists
-
-                Sociologists study folktales.
-                Sometimes not.
-
-                "
-            `);
-    });
-
     it("should inject dropdown widget into the content", () => {
         const widgets = {
             "Dropdown 1": {

@@ -61,12 +61,6 @@ describe("parseWidgetIdComponents", () => {
             expect(parseWidgetIdComponents(["definition", "1"], ctx())).toEqual(
                 success(["definition", 1]),
             );
-            expect(parseWidgetIdComponents(["passage", "1"], ctx())).toEqual(
-                success(["passage", 1]),
-            );
-            expect(
-                parseWidgetIdComponents(["passage-ref", "1"], ctx()),
-            ).toEqual(success(["passage-ref", 1]));
             expect(
                 parseWidgetIdComponents(["label-image", "1"], ctx()),
             ).toEqual(success(["label-image", 1]));
