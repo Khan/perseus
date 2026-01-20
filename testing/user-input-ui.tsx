@@ -4,18 +4,13 @@ import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
-import type {KEScore} from "@khanacademy/perseus-core";
+import type {UserInputMap} from "@khanacademy/perseus-core";
 
 type Props = {
-    // FIXME: pass just the user input instead.
-    score: KEScore | null | undefined;
+    userInput: UserInputMap
 };
 
-export default function UserInputUI({score}: Props) {
-    if (score == null) {
-        return null;
-    }
-
+export default function UserInputUI({userInput}: Props) {
     return (
         <View
             style={{
@@ -28,7 +23,7 @@ export default function UserInputUI({score}: Props) {
             <ReactJson
                 quotesOnKeys={false}
                 enableClipboard={false}
-                src={score.guess}
+                src={userInput}
             />
         </View>
     );

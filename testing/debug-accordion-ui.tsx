@@ -141,13 +141,13 @@ export const DebugAccordionUI = ({
     const getAccordionSections = () => {
         // Create the score section if we have a score
         const scoreSection =
-            score != null
+            deprecatedKeScore != null && score != null
                 ? [
                       <AccordionSection
                           header={<ScoreHeader score={score} />}
                           key="score"
                       >
-                          <UserInputUI score={deprecatedKeScore} />
+                          <UserInputUI userInput={deprecatedKeScore.guess} />
                       </AccordionSection>,
                   ]
                 : [];
