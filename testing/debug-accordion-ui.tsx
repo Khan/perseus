@@ -13,7 +13,7 @@ import UserInputUI from "./user-input-ui";
 import type {KEScore, PerseusItem} from "@khanacademy/perseus-core";
 
 type DebugAccordionUIProps = {
-    state: KEScore | null | undefined;
+    score: KEScore | null | undefined;
     perseusItem: PerseusItem;
     updateJson: (json: string) => boolean;
 };
@@ -127,7 +127,7 @@ const JsonEditor = ({
  * A component that renders the debug accordion UI for Perseus items
  */
 export const DebugAccordionUI = ({
-    state,
+    score,
     perseusItem,
     updateJson,
 }: DebugAccordionUIProps): React.ReactElement => {
@@ -138,13 +138,13 @@ export const DebugAccordionUI = ({
     const getAccordionSections = () => {
         // Create the score section if we have a score
         const scoreSection =
-            state != null
+            score != null
                 ? [
                       <AccordionSection
-                          header={<ScoreHeader score={state} />}
+                          header={<ScoreHeader score={score} />}
                           key="score"
                       >
-                          <UserInputUI score={state} />
+                          <UserInputUI score={score} />
                       </AccordionSection>,
                   ]
                 : [];
