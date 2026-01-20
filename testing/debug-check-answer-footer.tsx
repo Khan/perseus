@@ -19,8 +19,6 @@ import type {KEScore, PerseusScore, ShowSolutions} from "@khanacademy/perseus-co
 import {isCorrect} from "../packages/perseus/src/util/scoring";
 
 type DebugCheckAnswerFooterProps = {
-    // FIXME: use PerseusScore.
-    deprecatedKeScore: KEScore | null | undefined;
     score: PerseusScore | undefined;
     showSolutions: ShowSolutions;
     popover: {
