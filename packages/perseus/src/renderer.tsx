@@ -71,7 +71,6 @@ import type {
     PerseusScore,
     UserInputMap,
     UserInput,
-    UserInputArray,
     PerseusItem,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -1455,25 +1454,6 @@ class Renderer
             this.props.userInput,
             this.context.locale,
         );
-    }
-
-    /**
-     * Returns an array of the widget `.getUserInput()` results
-     *
-     * TODO: can we remove this?
-     * @deprecated use getUserInputMap
-     */
-    getUserInput(): UserInputArray {
-        const userInput = this.props.userInput;
-        if (!userInput) {
-            throw new Error(
-                `getUserInput called without providing userInput to Renderer`,
-            );
-        }
-
-        return this.widgetIds.map((id: string) => {
-            return userInput[id];
-        });
     }
 
     /**
