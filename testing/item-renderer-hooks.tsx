@@ -109,7 +109,7 @@ export const useItemRenderer = (
         const keScore = keScoreFromPerseusScore(
             score,
             maxCompatGuess,
-            renderer.getSerializedState().question,
+            {},
         );
 
         if (!keScore.empty) {

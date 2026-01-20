@@ -29,14 +29,6 @@ export default function KEScoreUI({score}: Props) {
                 enableClipboard={false}
                 src={score.guess}
             />
-            <HeadingSmall style={{marginTop: sizing.size_100}}>
-                State
-            </HeadingSmall>
-            <ReactJson
-                quotesOnKeys={false}
-                enableClipboard={false}
-                src={score.state}
-            />
         </View>
     );
 }
