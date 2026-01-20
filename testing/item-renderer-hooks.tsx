@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
 
-import {PerseusScore, splitPerseusItem} from "@khanacademy/perseus-core";
+import {PerseusScore, splitPerseusItem, UserInputMap} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
@@ -16,6 +16,7 @@ import type {
     ShowSolutions,
     UserInput,
 } from "@khanacademy/perseus-core";
+import invariant from "tiny-invariant";
 
 /**
  * Custom hook to manage the Server Item Renderer With Debug UI state
@@ -87,11 +88,15 @@ export const useItemRenderer = (
         [apiOptions, state.isMobile, state.showPopover, state.showSolutions],
     );
 
-    const getScore = React.useCallback((): [KEScore, PerseusScore] | undefined => {
+    const getUserInput = React.useCallback((): UserInputMap => {
         const renderer = ref.current;
-        if (!renderer) {
-            return undefined;
-        }
+        invariant(renderer, "useItemRenderer: renderer is not defined! Did you remember to set the ref?")
+        return renderer.getUserInput();
+    }, [])
+
+    const getScore = React.useCallback((): [KEScore, PerseusScore] => {
+        const renderer = ref.current;
+        invariant(renderer, "useItemRenderer: renderer is not defined! Did you remember to set the ref?")
 
         const userInput = renderer.getUserInput();
         const score = scorePerseusItem(
@@ -152,7 +157,12 @@ export const useItemRenderer = (
         dispatch({type: "SET_ANSWERLESS", payload: false});
         const score = getScore();
         if (score) {
-            dispatch({type: "SET_SCORE", deprecatedKeScore: score[0], score: score[1]});
+            dispatch({
+                type: "SET_SCORE",
+                deprecatedKeScore: score[0],
+                score: score[1],
+                userInput: getUserInput(),
+            });
         }
     }, [getScore]);
 
