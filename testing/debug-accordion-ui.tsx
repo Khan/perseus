@@ -10,11 +10,13 @@ import * as React from "react";
 import styles from "./debug-accordion-ui.module.css";
 import UserInputUI from "./user-input-ui";
 
-import type {KEScore, PerseusItem, PerseusScore} from "@khanacademy/perseus-core";
+import type {KEScore, PerseusItem, PerseusScore, UserInputMap} from "@khanacademy/perseus-core";
 import {isCorrect} from "../packages/perseus/src/util/scoring";
 
 type DebugAccordionUIProps = {
     score: PerseusScore | undefined;
+    userInput: UserInputMap | undefined;
+    // FIXME: delete
     deprecatedKeScore: KEScore | null | undefined;
     perseusItem: PerseusItem;
     updateJson: (json: string) => boolean;
@@ -130,7 +132,7 @@ const JsonEditor = ({
  */
 export const DebugAccordionUI = ({
     score,
-    deprecatedKeScore,
+    userInput,
     perseusItem,
     updateJson,
 }: DebugAccordionUIProps): React.ReactElement => {
@@ -141,13 +143,13 @@ export const DebugAccordionUI = ({
     const getAccordionSections = () => {
         // Create the score section if we have a score
         const scoreSection =
-            deprecatedKeScore != null && score != null
+            userInput != null && score != null
                 ? [
                       <AccordionSection
                           header={<ScoreHeader score={score} />}
                           key="score"
                       >
-                          <UserInputUI userInput={deprecatedKeScore.guess} />
+                          <UserInputUI userInput={userInput} />
                       </AccordionSection>,
                   ]
                 : [];
