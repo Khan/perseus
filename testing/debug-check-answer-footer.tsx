@@ -15,11 +15,13 @@ import * as React from "react";
 
 import {mapErrorToString, mockStrings} from "../packages/perseus/src/strings";
 
-import type {KEScore, ShowSolutions} from "@khanacademy/perseus-core";
+import type {KEScore, PerseusScore, ShowSolutions} from "@khanacademy/perseus-core";
+import {isCorrect} from "../packages/perseus/src/util/scoring";
 
 type DebugCheckAnswerFooterProps = {
     // FIXME: use PerseusScore.
     deprecatedKeScore: KEScore | null | undefined;
+    score: PerseusScore | undefined;
     showSolutions: ShowSolutions;
     popover: {
         isOpen: boolean;
@@ -36,7 +38,7 @@ type DebugCheckAnswerFooterProps = {
  * A component that renders the debug check answer footer for Perseus items
  */
 export const DebugCheckAnswerFooter = ({
-    deprecatedKeScore,
+    score,
     showSolutions,
     popover,
     actions,
@@ -44,13 +46,13 @@ export const DebugCheckAnswerFooter = ({
     /**
      * Creates the popover content based on the scoring state
      */
-    const getPopoverContent = (score: KEScore | null | undefined) => {
+    const getPopoverContent = (score: PerseusScore | undefined) => {
         if (!score) {
             return null;
         }
 
         // Correct answer
-        if (score.correct) {
+        if (isCorrect(score)) {
             return (
                 <>
                     <PhosphorIcon
@@ -68,7 +70,7 @@ export const DebugCheckAnswerFooter = ({
         }
 
         // Incorrect answer
-        if (score.correct === false && !score.empty) {
+        if (score.type === "points") {
             return (
                 <View>
                     <LabelLarge style={styles.incorrectLabel}>
@@ -98,7 +100,7 @@ export const DebugCheckAnswerFooter = ({
     };
 
     // Determine if buttons should be disabled
-    const isCheckDisabled = Boolean(deprecatedKeScore?.correct) || showSolutions === "all";
+    const isCheckDisabled = (score != null && isCorrect(score)) || showSolutions === "all";
 
     return (
         <View
@@ -134,7 +136,7 @@ export const DebugCheckAnswerFooter = ({
                             style={styles.popoverContent}
                             closeButtonVisible
                         >
-                            {getPopoverContent(deprecatedKeScore)}
+                            {getPopoverContent(score)}
                         </PopoverContentCore>
                     }
                 >
