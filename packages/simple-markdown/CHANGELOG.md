@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 2.2.0
+
+### Minor Changes
+
+-   [#3147](https://github.com/Khan/perseus/pull/3147) [`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Deprecate passage-related widgets (passage, passage-ref, passage-ref-target)
+
 ## 2.1.4
 
 ### Patch Changes

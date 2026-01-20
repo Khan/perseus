@@ -6,12 +6,18 @@ import {
     parseDataFromJSONP,
     getLocalizedDataUrl,
     loadGraphie,
+    resetLabelDataCache,
 } from "./graphie-utils";
 import {typicalCase, edgeCases} from "./graphie-utils.testdata";
 
 describe("graphie utils", () => {
     const errorCallback = jest.fn((error) => {
         // Do nothing
+    });
+
+    beforeEach(() => {
+        // Reset the label data cache to ensure a clean state between tests
+        resetLabelDataCache();
     });
 
     it("should parse the modern graphie json format", () => {
@@ -66,21 +72,31 @@ describe("graphie utils", () => {
         // Arrange
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            kaLocale: "the-locale-youre-looking-for-does-not-exist",
+            kaLocale: "es",
         });
 
+        const nonLocalizedUrl =
+            "https://ka-perseus-graphie.s3.amazonaws.com/ccefe63aa1bd05f1d11123f72790a49378d2e42b-data.json";
+
         global.fetch = jest.fn((url) => {
+            // Localized URL fails
             if (url === typicalCase.expectedLocalizedUrl) {
-                return Promise.resolve({
-                    text: () => Promise.resolve(typicalCase.jsonpString),
-                    ok: true,
-                });
-            } else {
                 return Promise.resolve({
                     text: () => Promise.resolve(""),
                     ok: false,
                 });
             }
+            // Non-localized URL succeeds
+            if (url === nonLocalizedUrl) {
+                return Promise.resolve({
+                    text: () => Promise.resolve(typicalCase.jsonpString),
+                    ok: true,
+                });
+            }
+            return Promise.resolve({
+                text: () => Promise.resolve(""),
+                ok: false,
+            });
         }) as jest.Mock;
 
         // Mock the error logger to confirm no errors are thrown
@@ -92,12 +108,46 @@ describe("graphie utils", () => {
 
         // Act
         await loadGraphie(typicalCase.url, (data, localized) => {
-            // Assert
+            // Assert - should get English data with localized=false
             expect(data).toEqual({labels: [], range: null});
             expect(localized).toEqual(false);
         });
 
         // Assert
         expect(Log.error).not.toHaveBeenCalled();
+    });
+
+    it("should return localized=true when localized data is successfully loaded (JIPT scenario)", async () => {
+        // Arrange - simulate JIPT mode where we load en-pt localized data
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            kaLocale: "es",
+            JIPT: {useJIPT: true},
+        });
+
+        // The en-pt localized URL (JIPT pseudo-locale)
+        const jiptLocalizedUrl =
+            "https://ka-perseus-graphie.s3.amazonaws.com/en-pt/ccefe63aa1bd05f1d11123f72790a49378d2e42b-data.json";
+
+        global.fetch = jest.fn((url) => {
+            // JIPT localized URL succeeds
+            if (url === jiptLocalizedUrl) {
+                return Promise.resolve({
+                    text: () => Promise.resolve(typicalCase.jsonpString),
+                    ok: true,
+                });
+            }
+            return Promise.resolve({
+                text: () => Promise.resolve(""),
+                ok: false,
+            });
+        }) as jest.Mock;
+
+        // Act
+        await loadGraphie(typicalCase.url, (data, localized) => {
+            // Assert - should get localized data with localized=true
+            expect(data).toEqual({labels: [], range: null});
+            expect(localized).toEqual(true);
+        });
     });
 });

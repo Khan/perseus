@@ -314,6 +314,7 @@ class Renderer
         // QUESTION(jeremy): Shouldn't we look at `nextProps` here? Otherwise
         // we're always looking "one render behind".
         if (this.props.alwaysUpdate) {
+            // TODO(ivy): passage-ref is already deprecated see LEMS-3124, check if this is still needed
             // TOTAL hacks so that findWidgets doesn't break
             // when one widget updates without the other.
             // See passage-refs inside radios, which was why
@@ -618,8 +619,6 @@ class Renderer
      *
      * If you need to do logic with more than the components, it is possible
      * to do such logic inside the filter, rather than on the result array.
-     *
-     * See the passage-ref widget for an example.
      *
      * "Remember: abilities are not inherently good or evil, it's how you use
      * them." ~ Kyle Katarn
