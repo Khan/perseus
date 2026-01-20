@@ -19,7 +19,7 @@ import type {KEScore, ShowSolutions} from "@khanacademy/perseus-core";
 
 type DebugCheckAnswerFooterProps = {
     // FIXME: use PerseusScore.
-    state: KEScore | null | undefined;
+    deprecatedKeScore: KEScore | null | undefined;
     showSolutions: ShowSolutions;
     popover: {
         isOpen: boolean;
@@ -36,8 +36,7 @@ type DebugCheckAnswerFooterProps = {
  * A component that renders the debug check answer footer for Perseus items
  */
 export const DebugCheckAnswerFooter = ({
-    // FIXME: rename to `score`.
-    state,
+    deprecatedKeScore,
     showSolutions,
     popover,
     actions,
@@ -45,13 +44,13 @@ export const DebugCheckAnswerFooter = ({
     /**
      * Creates the popover content based on the scoring state
      */
-    const getPopoverContent = (state: KEScore | null | undefined) => {
-        if (!state) {
+    const getPopoverContent = (score: KEScore | null | undefined) => {
+        if (!score) {
             return null;
         }
 
         // Correct answer
-        if (state.correct) {
+        if (score.correct) {
             return (
                 <>
                     <PhosphorIcon
@@ -69,7 +68,7 @@ export const DebugCheckAnswerFooter = ({
         }
 
         // Incorrect answer
-        if (state.correct === false && !state.empty) {
+        if (score.correct === false && !score.empty) {
             return (
                 <View>
                     <LabelLarge style={styles.incorrectLabel}>
@@ -81,13 +80,13 @@ export const DebugCheckAnswerFooter = ({
         }
 
         // Error or "almost there" message
-        const title = state?.suppressAlmostThere
+        const title = score?.suppressAlmostThere
             ? mockStrings.tryAgain
             : mockStrings.keepTrying;
 
         // Use mapErrorToString to correctly map error codes to their text representations
-        const errorMessage = state.message
-            ? mapErrorToString(state.message, mockStrings)
+        const errorMessage = score.message
+            ? mapErrorToString(score.message, mockStrings)
             : mockStrings.ERROR_MESSAGE;
 
         return (
@@ -99,7 +98,7 @@ export const DebugCheckAnswerFooter = ({
     };
 
     // Determine if buttons should be disabled
-    const isCheckDisabled = Boolean(state?.correct) || showSolutions === "all";
+    const isCheckDisabled = Boolean(deprecatedKeScore?.correct) || showSolutions === "all";
 
     return (
         <View
@@ -135,7 +134,7 @@ export const DebugCheckAnswerFooter = ({
                             style={styles.popoverContent}
                             closeButtonVisible
                         >
-                            {getPopoverContent(state)}
+                            {getPopoverContent(deprecatedKeScore)}
                         </PopoverContentCore>
                     }
                 >

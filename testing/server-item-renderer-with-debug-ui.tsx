@@ -115,7 +115,7 @@ export const ServerItemRendererWithDebugUI = ({
 
             {/* Footer with action buttons - back outside wrapper */}
             <DebugCheckAnswerFooter
-                state={state.deprecatedKEScore}
+                deprecatedKeScore={state.deprecatedKEScore}
                 showSolutions={state.showSolutions || "none"}
                 popover={{
                     isOpen: state.showPopover,
