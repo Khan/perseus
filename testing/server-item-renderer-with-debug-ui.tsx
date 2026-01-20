@@ -95,7 +95,7 @@ export const ServerItemRendererWithDebugUI = ({
                                     showSolutions={state.showSolutions}
                                     hintsVisible={state.hintsVisible}
                                     reviewMode={
-                                        (state.score && state.score?.correct) ||
+                                        (state.deprecatedKEScore && state.deprecatedKEScore?.correct) ||
                                         false
                                     }
                                 />
@@ -105,7 +105,7 @@ export const ServerItemRendererWithDebugUI = ({
 
                     {/* Debug accordion UI */}
                     <DebugAccordionUI
-                        score={state.score}
+                        score={state.deprecatedKEScore}
                         perseusItem={state.perseusItem}
                         updateJson={updateJson}
                     />
@@ -114,7 +114,7 @@ export const ServerItemRendererWithDebugUI = ({
 
             {/* Footer with action buttons - back outside wrapper */}
             <DebugCheckAnswerFooter
-                state={state.score}
+                state={state.deprecatedKEScore}
                 showSolutions={state.showSolutions || "none"}
                 popover={{
                     isOpen: state.showPopover,

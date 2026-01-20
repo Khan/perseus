@@ -12,7 +12,7 @@ export type ItemRendererState = {
     originalItem: PerseusItem;
     answerless: boolean;
     startAnswerless: boolean;
-    score: KEScore | null | undefined;
+    deprecatedKEScore: KEScore | null | undefined;
     showPopover: boolean;
     showSolutions: ShowSolutions | undefined;
     hintsVisible: number;
@@ -48,7 +48,7 @@ export const createInitialState = (
     originalItem: item,
     answerless: startAnswerless,
     startAnswerless,
-    score: null,
+    deprecatedKEScore: null,
     showPopover: false,
     showSolutions,
     hintsVisible: 0,
@@ -72,7 +72,7 @@ export const itemRendererReducer = (
             return {...state, perseusItem: action.payload};
 
         case "SET_SCORE":
-            return {...state, score: action.payload};
+            return {...state, deprecatedKEScore: action.payload};
 
         case "TOGGLE_POPOVER":
             return {...state, showPopover: action.payload};

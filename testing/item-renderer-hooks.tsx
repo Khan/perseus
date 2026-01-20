@@ -57,19 +57,19 @@ export const useItemRenderer = (
 
     // Show the popover when the score changes
     useEffect(() => {
-        if (!state.score) {
+        if (!state.deprecatedKEScore) {
             return;
         }
 
         // If the answer is not empty or there's a message, show the popover
-        if (!state.score.empty || state.score.message !== null) {
+        if (!state.deprecatedKEScore.empty || state.deprecatedKEScore.message !== null) {
             // This is a hack to ensure the popover is shown after the score is set
             // so that it gets the correct position.
             setTimeout(() => {
                 dispatch({type: "TOGGLE_POPOVER", payload: true});
             }, 100);
         }
-    }, [state.score]);
+    }, [state.deprecatedKEScore]);
 
     // Create API options
     const options = React.useMemo(
