@@ -105,7 +105,8 @@ export const ServerItemRendererWithDebugUI = ({
 
                     {/* Debug accordion UI */}
                     <DebugAccordionUI
-                        score={state.deprecatedKEScore}
+                        score={state.score}
+                        deprecatedKeScore={state.deprecatedKEScore}
                         perseusItem={state.perseusItem}
                         updateJson={updateJson}
                     />

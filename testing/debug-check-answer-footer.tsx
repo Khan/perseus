@@ -18,6 +18,7 @@ import {mapErrorToString, mockStrings} from "../packages/perseus/src/strings";
 import type {KEScore, ShowSolutions} from "@khanacademy/perseus-core";
 
 type DebugCheckAnswerFooterProps = {
+    // FIXME: use PerseusScore.
     state: KEScore | null | undefined;
     showSolutions: ShowSolutions;
     popover: {
@@ -35,6 +36,7 @@ type DebugCheckAnswerFooterProps = {
  * A component that renders the debug check answer footer for Perseus items
  */
 export const DebugCheckAnswerFooter = ({
+    // FIXME: rename to `score`.
     state,
     showSolutions,
     popover,

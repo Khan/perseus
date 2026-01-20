@@ -10,10 +10,12 @@ import * as React from "react";
 import styles from "./debug-accordion-ui.module.css";
 import UserInputUI from "./user-input-ui";
 
-import type {KEScore, PerseusItem} from "@khanacademy/perseus-core";
+import type {KEScore, PerseusItem, PerseusScore} from "@khanacademy/perseus-core";
+import {isCorrect} from "../packages/perseus/src/util/scoring";
 
 type DebugAccordionUIProps = {
-    score: KEScore | null | undefined;
+    score: PerseusScore | undefined;
+    deprecatedKeScore: KEScore | null | undefined;
     perseusItem: PerseusItem;
     updateJson: (json: string) => boolean;
 };
@@ -21,7 +23,7 @@ type DebugAccordionUIProps = {
 /**
  * ScoreHeader displays the score state with colored indicators
  */
-const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
+const ScoreHeader = ({score}: {score: PerseusScore}): React.ReactElement => {
     // Create the status badge component for the score
     const StatusBadge = ({
         label,
@@ -54,13 +56,13 @@ const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
             Score
             <StatusBadge
                 label="Empty"
-                value={score?.empty}
-                success={!score?.empty}
+                value={score.type === "invalid"}
+                success={score.type !== "invalid"}
             />
             <StatusBadge
                 label="Correct"
-                value={score?.correct}
-                success={score?.correct}
+                value={isCorrect(score)}
+                success={isCorrect(score)}
             />
         </div>
     );
@@ -128,6 +130,7 @@ const JsonEditor = ({
  */
 export const DebugAccordionUI = ({
     score,
+    deprecatedKeScore,
     perseusItem,
     updateJson,
 }: DebugAccordionUIProps): React.ReactElement => {
@@ -144,7 +147,7 @@ export const DebugAccordionUI = ({
                           header={<ScoreHeader score={score} />}
                           key="score"
                       >
-                          <UserInputUI score={score} />
+                          <UserInputUI score={deprecatedKeScore} />
                       </AccordionSection>,
                   ]
                 : [];
