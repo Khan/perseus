@@ -100,20 +100,9 @@ export const useItemRenderer = (
             "en",
         );
 
-        const widgetIds = renderer.getWidgetIds();
-        const userInputArray = widgetIds.map((id) => userInput[id]);
-
-        // Continue to include an empty guess for the now defunct answer area.
-        const maxCompatGuess: [UserInput[], []] = [userInputArray, []];
-
-        const keScore = keScoreFromPerseusScore(
-            score,
-            maxCompatGuess,
-            {},
-        );
-
-        if (!keScore.empty) {
-            // Show solutions for selected answers when the score is not empty
+        if (score.type === "points") {
+            // Show solutions for selected answers when the user answered the
+            // question
             dispatch({type: "SET_SHOW_SOLUTIONS", payload: "selected"});
         }
 
