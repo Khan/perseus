@@ -1,21 +1,16 @@
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
 
+import type {PerseusItem, ShowSolutions, UserInput,} from "@khanacademy/perseus-core";
 import {PerseusScore, splitPerseusItem, UserInputMap} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
-import {itemRendererReducer, createInitialState} from "./item-renderer-reducer";
+import {createInitialState, itemRendererReducer} from "./item-renderer-reducer";
 
 import type {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
 import type {APIOptions} from "../packages/perseus/src/types";
-import type {
-    PerseusItem,
-    KEScore,
-    ShowSolutions,
-    UserInput,
-} from "@khanacademy/perseus-core";
 import invariant from "tiny-invariant";
 
 /**
@@ -94,7 +89,7 @@ export const useItemRenderer = (
         return renderer.getUserInput();
     }, [])
 
-    const getScore = React.useCallback((): [KEScore, PerseusScore] => {
+    const getScore = React.useCallback((): PerseusScore => {
         const renderer = ref.current;
         invariant(renderer, "useItemRenderer: renderer is not defined! Did you remember to set the ref?")
 
@@ -122,7 +117,7 @@ export const useItemRenderer = (
             dispatch({type: "SET_SHOW_SOLUTIONS", payload: "selected"});
         }
 
-        return [keScore, score];
+        return score;
     }, [state.perseusItem]);
 
     const updateJson = React.useCallback((json: string): boolean => {
@@ -155,14 +150,11 @@ export const useItemRenderer = (
 
     const handleCheck = React.useCallback(() => {
         dispatch({type: "SET_ANSWERLESS", payload: false});
-        const score = getScore();
-        if (score) {
-            dispatch({
-                type: "SET_SCORE",
-                score: score[1],
-                userInput: getUserInput(),
-            });
-        }
+        dispatch({
+            type: "SET_SCORE",
+            score: getScore(),
+            userInput: getUserInput(),
+        });
     }, [getScore]);
 
     const setShowPopover = React.useCallback((show: boolean) => {
