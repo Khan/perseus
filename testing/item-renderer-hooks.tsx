@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
 
-import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {PerseusScore, splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
@@ -87,7 +87,7 @@ export const useItemRenderer = (
         [apiOptions, state.isMobile, state.showPopover, state.showSolutions],
     );
 
-    const getScore = React.useCallback((): KEScore | undefined => {
+    const getScore = React.useCallback((): [KEScore, PerseusScore] | undefined => {
         const renderer = ref.current;
         if (!renderer) {
             return undefined;
@@ -117,7 +117,7 @@ export const useItemRenderer = (
             dispatch({type: "SET_SHOW_SOLUTIONS", payload: "selected"});
         }
 
-        return keScore;
+        return [keScore, score];
     }, [state.perseusItem]);
 
     const updateJson = React.useCallback((json: string): boolean => {
@@ -152,7 +152,7 @@ export const useItemRenderer = (
         dispatch({type: "SET_ANSWERLESS", payload: false});
         const score = getScore();
         if (score) {
-            dispatch({type: "SET_SCORE", payload: score});
+            dispatch({type: "SET_SCORE", payload: score[0]});
         }
     }, [getScore]);
 
