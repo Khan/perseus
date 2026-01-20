@@ -16,8 +16,6 @@ import {isCorrect} from "../packages/perseus/src/util/scoring";
 type DebugAccordionUIProps = {
     score: PerseusScore | undefined;
     userInput: UserInputMap | undefined;
-    // FIXME: delete
-    deprecatedKeScore: KEScore | null | undefined;
     perseusItem: PerseusItem;
     updateJson: (json: string) => boolean;
 };
