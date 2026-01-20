@@ -161,6 +161,7 @@ export type {
     EditorMode,
     FocusPath,
     GenerateUrlArgs,
+    GraphieLabelElement,
     ImageDict,
     ImageUploader,
     JiptLabelStore,
