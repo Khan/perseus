@@ -152,7 +152,7 @@ export const useItemRenderer = (
         dispatch({type: "SET_ANSWERLESS", payload: false});
         const score = getScore();
         if (score) {
-            dispatch({type: "SET_SCORE", payload: score[0]});
+            dispatch({type: "SET_SCORE", deprecatedKeScore: score[0], score: score[1]});
         }
     }, [getScore]);
 

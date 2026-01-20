@@ -1,7 +1,7 @@
 import type {
     PerseusItem,
     KEScore,
-    ShowSolutions,
+    ShowSolutions, PerseusScore,
 } from "@khanacademy/perseus-core";
 
 // Define state type
@@ -25,7 +25,7 @@ export type ItemRendererAction =
     | {type: "TOGGLE_MOBILE"; payload: boolean}
     | {type: "TOGGLE_RTL"; payload: boolean}
     | {type: "UPDATE_ITEM"; payload: PerseusItem}
-    | {type: "SET_SCORE"; payload: KEScore | null | undefined}
+    | {type: "SET_SCORE"; deprecatedKeScore: KEScore | null | undefined, score: PerseusScore}
     | {type: "TOGGLE_POPOVER"; payload: boolean}
     | {type: "SET_SHOW_SOLUTIONS"; payload: ShowSolutions | undefined}
     | {type: "SET_HINTS_VISIBLE"; payload: number}
@@ -72,7 +72,7 @@ export const itemRendererReducer = (
             return {...state, perseusItem: action.payload};
 
         case "SET_SCORE":
-            return {...state, deprecatedKEScore: action.payload};
+            return {...state, deprecatedKEScore: action.deprecatedKeScore};
 
         case "TOGGLE_POPOVER":
             return {...state, showPopover: action.payload};
