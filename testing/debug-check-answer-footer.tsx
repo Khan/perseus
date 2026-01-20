@@ -79,22 +79,22 @@ export const DebugCheckAnswerFooter = ({
             );
         }
 
-        // Error or "almost there" message
-        const title = score?.suppressAlmostThere
-            ? mockStrings.tryAgain
-            : mockStrings.keepTrying;
+        // Invalid answer
+        {
+            const title = mockStrings.keepTrying;
 
-        // Use mapErrorToString to correctly map error codes to their text representations
-        const errorMessage = score.message
-            ? mapErrorToString(score.message, mockStrings)
-            : mockStrings.ERROR_MESSAGE;
+            // Use mapErrorToString to correctly map error codes to their text representations
+            const errorMessage = score.message
+                ? mapErrorToString(score.message, mockStrings)
+                : mockStrings.ERROR_MESSAGE;
 
-        return (
-            <View>
-                <LabelLarge style={styles.errorLabel}>{title}</LabelLarge>
-                <Body>{errorMessage}</Body>
-            </View>
-        );
+            return (
+                <View>
+                    <LabelLarge style={styles.errorLabel}>{title}</LabelLarge>
+                    <Body>{errorMessage}</Body>
+                </View>
+            );
+        }
     };
 
     // Determine if buttons should be disabled
