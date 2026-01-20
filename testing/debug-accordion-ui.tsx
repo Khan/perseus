@@ -8,7 +8,7 @@ import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import styles from "./debug-accordion-ui.module.css";
-import KEScoreUI from "./ke-score-ui";
+import UserInputUI from "./user-input-ui";
 
 import type {KEScore, PerseusItem} from "@khanacademy/perseus-core";
 
@@ -144,7 +144,7 @@ export const DebugAccordionUI = ({
                           header={<ScoreHeader score={state} />}
                           key="score"
                       >
-                          <KEScoreUI score={state} />
+                          <UserInputUI score={state} />
                       </AccordionSection>,
                   ]
                 : [];

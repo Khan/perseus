@@ -7,10 +7,11 @@ import ReactJson from "react-json-view";
 import type {KEScore} from "@khanacademy/perseus-core";
 
 type Props = {
+    // FIXME: pass just the user input instead.
     score: KEScore | null | undefined;
 };
 
-export default function KEScoreUI({score}: Props) {
+export default function UserInputUI({score}: Props) {
     if (score == null) {
         return null;
     }
@@ -22,7 +23,7 @@ export default function KEScoreUI({score}: Props) {
             }}
         >
             <HeadingSmall style={{marginTop: sizing.size_100}}>
-                Guess
+                User Input
             </HeadingSmall>
             <ReactJson
                 quotesOnKeys={false}
