@@ -10,7 +10,7 @@ import * as React from "react";
 import styles from "./debug-accordion-ui.module.css";
 import UserInputUI from "./user-input-ui";
 
-import type {KEScore, PerseusItem, PerseusScore, UserInputMap} from "@khanacademy/perseus-core";
+import type {PerseusItem, PerseusScore, UserInputMap} from "@khanacademy/perseus-core";
 import {isCorrect} from "../packages/perseus/src/util/scoring";
 
 type DebugAccordionUIProps = {

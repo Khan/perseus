@@ -14,6 +14,7 @@ import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 import type {APIOptions} from "../packages/perseus/src/types";
 import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import {isCorrect} from "../packages/perseus/src/util/scoring";
 
 type Props = {
     title?: string;
@@ -95,8 +96,7 @@ export const ServerItemRendererWithDebugUI = ({
                                     showSolutions={state.showSolutions}
                                     hintsVisible={state.hintsVisible}
                                     reviewMode={
-                                        (state.deprecatedKEScore && state.deprecatedKEScore?.correct) ||
-                                        false
+                                        state.score != null && isCorrect(state.score)
                                     }
                                 />
                             )}
