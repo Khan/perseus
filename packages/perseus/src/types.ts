@@ -24,6 +24,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
+import type $ from "jquery";
 import type * as React from "react";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
@@ -303,8 +304,19 @@ type JIPT = {
     useJIPT: boolean;
 };
 
+/**
+ * A label element returned by graphie.label().
+ * This is a JQuery element with custom methods attached for positioning
+ * and rendering text/math content.
+ */
+export type GraphieLabelElement = ReturnType<typeof $<HTMLElement>> & {
+    setPosition: (point: [number, number]) => void;
+    processMath: (math: string, force: boolean) => void;
+    processText: (text: string) => void;
+};
+
 export type JiptLabelStore = {
-    addLabel: (label?: any, useMath?: any) => void;
+    addLabel: (label?: GraphieLabelElement, useMath?: boolean) => void;
 };
 
 export interface JiptRenderer {

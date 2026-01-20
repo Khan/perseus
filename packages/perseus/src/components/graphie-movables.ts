@@ -124,7 +124,7 @@ const Label: any = GraphieClasses.createSimpleClass((graphie, props) => {
     if (props.unscaled) {
         coord = graphie.unscalePoint(coord);
     }
-    let elem = null;
+    let elem;
     // If the label is rendered for a locale other than "en", push the label
     // element to an array. This array is used to lookup the label element
     // and processed with jipt('just in place translation', crowdin specific
