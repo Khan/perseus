@@ -26,7 +26,7 @@ export type ItemRendererAction =
     | {type: "TOGGLE_MOBILE"; payload: boolean}
     | {type: "TOGGLE_RTL"; payload: boolean}
     | {type: "UPDATE_ITEM"; payload: PerseusItem}
-    | {type: "SET_SCORE"; deprecatedKeScore: KEScore, score: PerseusScore, userInput: UserInputMap}
+    | {type: "SET_SCORE"; score: PerseusScore, userInput: UserInputMap}
     | {type: "TOGGLE_POPOVER"; payload: boolean}
     | {type: "SET_SHOW_SOLUTIONS"; payload: ShowSolutions | undefined}
     | {type: "SET_HINTS_VISIBLE"; payload: number}

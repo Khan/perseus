@@ -159,7 +159,6 @@ export const useItemRenderer = (
         if (score) {
             dispatch({
                 type: "SET_SCORE",
-                deprecatedKeScore: score[0],
                 score: score[1],
                 userInput: getUserInput(),
             });
