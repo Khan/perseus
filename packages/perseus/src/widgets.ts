@@ -56,6 +56,9 @@ export const replaceDeprecatedWidgets = () => {
     replaceWidget("sequence", "deprecated-standin");
     replaceWidget("simulator", "deprecated-standin");
     replaceWidget("unit-input", "deprecated-standin");
+    replaceWidget("passage", "deprecated-standin");
+    replaceWidget("passage-ref", "deprecated-standin");
+    replaceWidget("passage-ref-target", "deprecated-standin");
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
@@ -98,6 +101,9 @@ export const replaceDeprecatedEditors = () => {
     replaceEditor("sequence", "deprecated-standin");
     replaceEditor("simulator", "deprecated-standin");
     replaceEditor("unit-input", "deprecated-standin");
+    replaceEditor("passage", "deprecated-standin");
+    replaceEditor("passage-ref", "deprecated-standin");
+    replaceEditor("passage-ref-target", "deprecated-standin");
 };
 
 export const getWidget = (

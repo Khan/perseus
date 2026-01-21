@@ -78,23 +78,6 @@ export type PerseusStrings = {
     circleFilled: string;
     numDivisions: string;
     divisions: ({divRangeString}: {divRangeString: string}) => string;
-    lineRange: ({lineRange}: {lineRange: string}) => string;
-    lineNumber: ({lineNumber}: {lineNumber: string}) => string;
-    symbolPassage: ({
-        questionSymbol,
-        questionNumber,
-    }: {
-        questionSymbol: string;
-        questionNumber: string;
-    }) => string;
-    symbolQuestion: ({sentenceSymbol}: {sentenceSymbol: string}) => string;
-    lineLabel: string;
-    beginningPassage: string;
-    beginningFootnotes: string;
-    endPassage: string;
-    questionMarker: ({number}: {number: string}) => string;
-    circleMarker: ({number}: {number: string}) => string;
-    sentenceMarker: ({number}: {number: string}) => string;
     dragHandles: string;
     tapAddPoints: string;
     false: string;
@@ -625,22 +608,6 @@ export const strings = {
     numDivisions: "Number of divisions:",
     divisions:
         "Please make sure the number of divisions is in the range %(divRangeString)s.",
-    lineRange: "lines %(lineRange)s",
-    lineNumber: "line %(lineNumber)s",
-    symbolPassage:
-        "The symbol %(questionSymbol)s indicates that question %(questionNumber)s references this portion of the passage.",
-    symbolQuestion:
-        " The symbol %(sentenceSymbol)s indicates that the following sentence is referenced in a question.",
-    lineLabel: {
-        context: "a label next to a reading passage to denote the line number",
-        message: "Line",
-    },
-    beginningPassage: "Beginning of reading passage.",
-    beginningFootnotes: "Beginning of reading passage footnotes.",
-    endPassage: "End of reading passage.",
-    questionMarker: "[Marker for question %(number)s]",
-    circleMarker: "[Circle marker %(number)s]",
-    sentenceMarker: "[Sentence %(number)s]",
     dragHandles: "Drag handles to make graph",
     tapAddPoints: "Tap to add points",
     false: "False",
@@ -1237,19 +1204,6 @@ export const mockStrings: PerseusStrings = {
     numDivisions: "Number of divisions:",
     divisions: ({divRangeString}) =>
         `Please make sure the number of divisions is in the range ${divRangeString}.`,
-    lineRange: ({lineRange}: {lineRange: string}) => `lines ${lineRange}`,
-    lineNumber: ({lineNumber}: {lineNumber: string}) => `line ${lineNumber}`,
-    symbolPassage: ({questionSymbol, questionNumber}) =>
-        `The symbol ${questionSymbol} indicates that question ${questionNumber} references this portion of the passage.`,
-    symbolQuestion: ({sentenceSymbol}) =>
-        ` The symbol ${sentenceSymbol} indicates that the following sentence is referenced in a question.`,
-    lineLabel: "Line",
-    beginningPassage: "Beginning of reading passage.",
-    beginningFootnotes: "Beginning of reading passage footnotes.",
-    endPassage: "End of reading passage.",
-    questionMarker: ({number}) => `[Marker for question ${number}]`,
-    circleMarker: ({number}) => `[Circle marker ${number}]`,
-    sentenceMarker: ({number}) => `[Sentence ${number}]`,
     dragHandles: "Drag handles to make graph",
     tapAddPoints: "Tap to add points",
     false: "False",

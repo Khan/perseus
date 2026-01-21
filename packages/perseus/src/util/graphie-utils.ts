@@ -135,7 +135,7 @@ type CacheEntry = {
 //   },
 //   ...
 // }
-const labelDataCache: Record<
+let labelDataCache: Record<
     string,
     | {
           loaded: false;
@@ -149,6 +149,14 @@ const labelDataCache: Record<
           dataCallbacks: Array<any>;
       }
 > = {};
+
+/**
+ * Reset the label data cache. This is primarily used for testing
+ * to ensure a clean state between test cases.
+ */
+export function resetLabelDataCache(): void {
+    labelDataCache = {};
+}
 
 export function loadGraphie(
     url: string,
@@ -230,12 +238,13 @@ export function loadGraphie(
         };
 
         if (shouldUseLocalizedData()) {
-            cacheData.localized = false;
-            // If there is isn't any localized data, use the error callback to try to
-            // load the non-localized data. If that fails too, then we will throw an error.
-            retrieveData(getLocalizedDataUrl(url), () =>
-                retrieveData(Util.getDataUrl(url), dataLoadErrorHandler),
-            );
+            // Try to load localized data first. If that fails, fall back to
+            // non-localized data and update the localized flag accordingly.
+            retrieveData(getLocalizedDataUrl(url), () => {
+                // Mark as non-localized since we're falling back to English data
+                cacheData.localized = false;
+                retrieveData(Util.getDataUrl(url), dataLoadErrorHandler);
+            });
         } else {
             retrieveData(Util.getDataUrl(url), dataLoadErrorHandler);
         }
