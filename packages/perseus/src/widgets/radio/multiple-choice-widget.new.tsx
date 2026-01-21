@@ -15,7 +15,6 @@ import {getChoiceStates} from "./utils/general-utils";
 import type {
     WidgetProps,
     ChoiceState,
-    Widget,
     ChangeHandler,
 } from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
