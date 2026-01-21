@@ -100,11 +100,11 @@ export const useItemRenderer = (
             "en",
         );
 
+        const widgetIds = renderer.getWidgetIds();
+        const userInputArray = widgetIds.map((id) => userInput[id]);
+
         // Continue to include an empty guess for the now defunct answer area.
-        const maxCompatGuess: [UserInput[], []] = [
-            renderer.getUserInputLegacy(),
-            [],
-        ];
+        const maxCompatGuess: [UserInput[], []] = [userInputArray, []];
 
         const keScore = keScoreFromPerseusScore(
             score,
