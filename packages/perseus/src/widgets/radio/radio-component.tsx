@@ -241,14 +241,16 @@ class Radio extends React.Component<Props> implements Widget {
                         ? strings.noneOfTheAbove
                         : choice.content;
 
+                // Guard against undefined choiceStates when choices array length exceeds choiceStates length
+                // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
                 const {
-                    selected,
-                    rationaleShown,
-                    correctnessShown,
-                    readOnly,
-                    highlighted,
-                    previouslyAnswered,
-                } = choiceStates[i];
+                    selected = false,
+                    rationaleShown = false,
+                    correctnessShown = false,
+                    readOnly = false,
+                    highlighted = false,
+                    previouslyAnswered = false,
+                } = choiceStates[i] ?? {};
 
                 return {
                     id: choice.id,
