@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {KeypadContext} from "../packages/keypad-context/src/keypad-context";
 import {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
+import {isCorrect} from "../packages/perseus/src/util/scoring";
 
 import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
@@ -14,7 +15,6 @@ import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 import type {APIOptions} from "../packages/perseus/src/types";
 import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import {isCorrect} from "../packages/perseus/src/util/scoring";
 
 type Props = {
     title?: string;
@@ -96,7 +96,8 @@ export const ServerItemRendererWithDebugUI = ({
                                     showSolutions={state.showSolutions}
                                     hintsVisible={state.hintsVisible}
                                     reviewMode={
-                                        state.score != null && isCorrect(state.score)
+                                        state.score != null &&
+                                        isCorrect(state.score)
                                     }
                                 />
                             )}

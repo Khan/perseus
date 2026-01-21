@@ -14,9 +14,9 @@ import checkCircle from "@phosphor-icons/core/regular/check-circle.svg";
 import * as React from "react";
 
 import {mapErrorToString, mockStrings} from "../packages/perseus/src/strings";
-
-import type {KEScore, PerseusScore, ShowSolutions} from "@khanacademy/perseus-core";
 import {isCorrect} from "../packages/perseus/src/util/scoring";
+
+import type {PerseusScore, ShowSolutions} from "@khanacademy/perseus-core";
 
 type DebugCheckAnswerFooterProps = {
     score: PerseusScore | undefined;
@@ -98,7 +98,8 @@ export const DebugCheckAnswerFooter = ({
     };
 
     // Determine if buttons should be disabled
-    const isCheckDisabled = (score != null && isCorrect(score)) || showSolutions === "all";
+    const isCheckDisabled =
+        (score != null && isCorrect(score)) || showSolutions === "all";
 
     return (
         <View

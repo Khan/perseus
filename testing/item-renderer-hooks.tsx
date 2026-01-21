@@ -1,17 +1,20 @@
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
+import invariant from "tiny-invariant";
 
-import type {PerseusItem, ShowSolutions, UserInput,} from "@khanacademy/perseus-core";
-import {PerseusScore, splitPerseusItem, UserInputMap} from "@khanacademy/perseus-core";
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-
-import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
 import {createInitialState, itemRendererReducer} from "./item-renderer-reducer";
 
 import type {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
 import type {APIOptions} from "../packages/perseus/src/types";
-import invariant from "tiny-invariant";
+import type {
+    PerseusItem,
+    ShowSolutions,
+    PerseusScore,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
 
 /**
  * Custom hook to manage the Server Item Renderer With Debug UI state
@@ -85,13 +88,19 @@ export const useItemRenderer = (
 
     const getUserInput = React.useCallback((): UserInputMap => {
         const renderer = ref.current;
-        invariant(renderer, "useItemRenderer: renderer is not defined! Did you remember to set the ref?")
+        invariant(
+            renderer,
+            "useItemRenderer: renderer is not defined! Did you remember to set the ref?",
+        );
         return renderer.getUserInput();
-    }, [])
+    }, []);
 
     const getScore = React.useCallback((): PerseusScore => {
         const renderer = ref.current;
-        invariant(renderer, "useItemRenderer: renderer is not defined! Did you remember to set the ref?")
+        invariant(
+            renderer,
+            "useItemRenderer: renderer is not defined! Did you remember to set the ref?",
+        );
 
         const userInput = renderer.getUserInput();
         const score = scorePerseusItem(
@@ -144,7 +153,7 @@ export const useItemRenderer = (
             score: getScore(),
             userInput: getUserInput(),
         });
-    }, [getScore]);
+    }, [getScore, getUserInput]);
 
     const setShowPopover = React.useCallback((show: boolean) => {
         dispatch({type: "TOGGLE_POPOVER", payload: show});
