@@ -29,7 +29,7 @@ export default Rule.makeRule({
             return "No choice is marked as correct.";
         }
 
-        // Error if NOTA and another choice are both marked as correct
+        // Error if NOTA (none of the above) and another choice are both marked as correct
         const correctChoices = choices.filter((choice) => choice.correct);
         const hasNotaCorrect = correctChoices.some(
             (choice) => choice.isNoneOfTheAbove,
