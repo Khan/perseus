@@ -126,16 +126,16 @@ describe("group widget", () => {
         await userEvent.type(screen.getAllByRole("textbox")[0], "99");
 
         // Act
-        const userInput = renderer.getUserInput();
+        const userInput = renderer.getUserInputMap();
 
         // Assert
-        expect(userInput).toEqual([
-            {
+        expect(userInput).toEqual({
+            "group 1": {
                 "radio 1": {
                     selectedChoiceIds: [],
                 },
             },
-            {
+            "group 2": {
                 "numeric-input 1": {
                     currentValue: "99",
                 },
@@ -143,7 +143,7 @@ describe("group widget", () => {
                     currentValue: "",
                 },
             },
-        ]);
+        });
     });
 
     it("should return contained renderer's getSerializedState", async () => {
@@ -305,33 +305,30 @@ describe("group widget", () => {
 
         const guess = renderer.getUserInputMap();
         const score = scorePerseusItem(question1, guess, "en");
-        const guessAndScore = [renderer.getUserInput(), score];
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
-        expect(guessAndScore).toEqual([
-            [
-                {
-                    "radio 1": {
-                        selectedChoiceIds: ["4-4-4-4-4"],
-                    },
+        expect(score).toEqual({
+            earned: 3,
+            message: null,
+            total: 3,
+            type: "points",
+        });
+        expect(guess).toEqual({
+            "group 1": {
+                "radio 1": {
+                    selectedChoiceIds: ["4-4-4-4-4"],
                 },
-                {
-                    "numeric-input 1": {
-                        currentValue: "230",
-                    },
-                    "numeric-input 2": {
-                        currentValue: "200",
-                    },
-                },
-            ],
-            {
-                earned: 3,
-                message: null,
-                total: 3,
-                type: "points",
             },
-        ]);
+            "group 2": {
+                "numeric-input 1": {
+                    currentValue: "230",
+                },
+                "numeric-input 2": {
+                    currentValue: "200",
+                },
+            },
+        });
     });
 
     it("should return input paths from contained Renderer", () => {

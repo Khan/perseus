@@ -1227,14 +1227,13 @@ describe("renderer", () => {
             }
 
             // Act
-            const input = renderer.getUserInput();
+            const input = renderer.getUserInputMap();
 
             // Assert
-            expect(input).toStrictEqual([
-                {currentValue: "0"},
-                {currentValue: "1"},
-                undefined, // image widget doesn't implement getUserinput
-            ]);
+            expect(input).toEqual({
+                "mock-widget 1": {currentValue: "0"},
+                "mock-widget 2": {currentValue: "1"},
+            });
         });
 
         it("should return all widget IDs that were rendererd", () => {

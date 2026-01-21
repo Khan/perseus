@@ -1,10 +1,6 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
-import type {
-    KEScore,
-    PerseusScore,
-    UserInputArray,
-} from "@khanacademy/perseus-core";
+import type {KEScore, PerseusScore, UserInput} from "@khanacademy/perseus-core";
 
 export function isCorrect(score: PerseusScore): boolean {
     return score.type === "points" && score.earned >= score.total;
@@ -13,7 +9,7 @@ export function isCorrect(score: PerseusScore): boolean {
 export function keScoreFromPerseusScore(
     score: PerseusScore,
     // It's weird, but this is what we're passing it
-    guess: UserInputArray | [UserInputArray, []],
+    guess: UserInput[] | [UserInput[], []],
     state: any,
 ): KEScore {
     if (score.type === "points") {

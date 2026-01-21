@@ -37,7 +37,7 @@ import type {
     ShowSolutions,
     KeypadContextRendererInterface,
     RendererInterface,
-    UserInputArray,
+    UserInput,
     UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -289,8 +289,10 @@ export class ServerItemRenderer
      * compatibility with old Perseus Chrome logging
      * @deprecated use getUserInput
      */
-    getUserInputLegacy(): UserInputArray {
-        return this.questionRenderer.getUserInput();
+    getUserInputLegacy(): UserInput[] {
+        const userInputMap = this.questionRenderer.getUserInputMap();
+        const widgetIds = this.questionRenderer.getWidgetIds();
+        return widgetIds.map((id) => userInputMap[id]);
     }
 
     /**
