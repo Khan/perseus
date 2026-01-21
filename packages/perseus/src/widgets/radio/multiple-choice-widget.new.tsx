@@ -1,12 +1,16 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import {useDependencies} from "../../dependencies";
+import MathRenderingContext from "../../math-rendering-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import MultipleChoiceComponent from "./multiple-choice-component.new";
-import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
+import {getChoiceStates} from "./utils/general-utils";
 
 import type {
     WidgetProps,
@@ -37,11 +41,12 @@ export interface ChoiceType {
     correct: boolean;
     isNoneOfTheAbove: boolean;
     previouslyAnswered: boolean;
+    // TODO(LEMS-3783): remove uses of `revealNoneOfTheAbove`
     revealNoneOfTheAbove: boolean;
     disabled: boolean;
 }
 
-export type RadioProps = {
+type RadioProps = {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;
@@ -86,7 +91,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             countChoices = false,
             showSolutions = "none",
             choiceStates,
-            reviewModeRubric,
+            // TODO(LEMS-3783): remove uses of `questionCompleted`
             questionCompleted,
             static: isStatic,
             apiOptions,
@@ -94,9 +99,24 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             trackInteraction,
             findWidgets,
             reviewMode,
+            widgetId,
         } = props;
 
         const {strings} = usePerseusI18n();
+        const {analytics} = useDependencies();
+
+        useOnMountEffect(() => {
+            analytics.onAnalyticsEvent({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: multipleSelect
+                        ? "multiple-select"
+                        : "single-select",
+                    widgetType: "radio",
+                    widgetId: widgetId,
+                },
+            });
+        });
 
         // Perseus Widget API methods
         // TODO(LEMS-2994): When we remove the old Radio files, we may need to move some
@@ -120,17 +140,13 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
         );
 
         /**
-         * Renders content that may contain nested widgets (currently only passage-refs).
-         * Parses the content, extracts any widgets, and returns a Renderer component
-         * configured with the appropriate context.
+         * Renders content for radio choice labels.
+         * Returns a Renderer component configured with the appropriate context.
          *
          * @param content - The content to render (defaults to empty string)
          * @returns A React element with the rendered content
          */
         const renderContent = (content = ""): React.ReactNode => {
-            const {parsedContent, extractedWidgets} =
-                parseNestedWidgets(content);
-
             // This has been called out as a hack in the past.
             // We pass in a key here so that we avoid a semi-spurious
             // react warning when the ChoiceNoneAbove renders a
@@ -138,8 +154,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             // state, but since all we're doing is outputting
             // "None of the above", that is okay. Widgets inside this Renderer
             // are not discoverable through the parent Renderer's `findWidgets` function.
-            // alwaysUpdate={true} so that passage-refs findWidgets
-            // get called when the outer passage updates the renderer
             const linterContext: LinterContextProps = {
                 contentType: "radio",
                 highlightLint: false,
@@ -148,15 +162,21 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             };
 
             return (
-                <Renderer
-                    key="choiceContentRenderer"
-                    content={parsedContent}
-                    widgets={extractedWidgets}
-                    findExternalWidgets={findWidgets}
-                    alwaysUpdate={true}
-                    linterContext={linterContext}
-                    strings={strings}
-                />
+                // Using MathRenderingContext.Provider to ensure that any math
+                // within the choice content is readable by screen readers (via aria-label).
+                // See comments in math-rendering-context.tsx for more details.
+                <MathRenderingContext.Provider
+                    value={{shouldAddAriaLabels: true}}
+                >
+                    <Renderer
+                        key="choiceContentRenderer"
+                        content={content}
+                        findExternalWidgets={findWidgets}
+                        alwaysUpdate={true}
+                        linterContext={linterContext}
+                        strings={strings}
+                    />
+                </MathRenderingContext.Provider>
             );
         };
 
@@ -211,7 +231,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             // new objects with all fields set to the default values. Otherwise, we
             // should clone the old `choiceStates` objects, in preparation to
             // mutate them.
-            const newChoiceStates = choiceStates
+            const newChoiceStates: ChoiceState[] = choiceStates
                 ? choiceStates.map((state) => ({...state}))
                 : choices.map(() => ({
                       selected: false,
@@ -231,6 +251,29 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
 
             onChange({choiceStates: newChoiceStates});
             trackInteraction();
+            announceChoiceChange(newChoiceStates);
+        };
+
+        const announceChoiceChange = (
+            newCheckedState: ReadonlyArray<ChoiceState>,
+        ) => {
+            let screenReaderMessage = "";
+            const newCheckedCount = newCheckedState.reduce(
+                (count, choice) => count + (choice.selected ? 1 : 0),
+                0,
+            );
+
+            if (!props.multipleSelect) {
+                // Single-select choice only announces when it is de-selected
+                screenReaderMessage =
+                    newCheckedCount === 0 ? strings.notSelected : "";
+            } else {
+                // Multi-select choices have their count announced
+                screenReaderMessage = strings.choicesSelected({
+                    num: newCheckedCount,
+                });
+            }
+            announceMessage({message: screenReaderMessage});
         };
 
         /**
@@ -265,23 +308,18 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                     previouslyAnswered,
                 } = choiceStates[i];
 
-                // Get the reviewChoice from the rubric, if it exists.
-                const reviewChoice = reviewModeRubric?.choices[i];
-
                 return {
                     id: choice.id,
                     content: renderContent(content),
                     checked: selected,
-                    correct:
-                        choice.correct === undefined
-                            ? !!reviewChoice && !!reviewChoice.correct
-                            : choice.correct,
+                    correct: !!choice.correct,
                     disabled: readOnly,
                     hasRationale: !!choice.rationale,
                     rationale: renderContent(choice.rationale),
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
+                    // TODO(LEMS-3783): remove uses of `questionCompleted` and `revealNoneOfTheAbove`
                     revealNoneOfTheAbove: !!(questionCompleted && selected),
                     previouslyAnswered,
                 };
@@ -306,6 +344,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                 isStatic,
                 showSolutions,
                 choiceStates,
+                reviewMode,
             });
 
             // Build the choice props from the updated choice states

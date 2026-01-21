@@ -28,34 +28,25 @@ export default Rule.makeRule({
             return;
         }
 
-        // Make sure there is alt text
+        // Decorative images don't need alt text validation
+        if (widget.options.decorative) {
+            return;
+        }
+
         const alt = widget.options.alt;
+
+        // Non-decorative images must have alt text
         if (!alt) {
             return `Images should have alt text:
 for accessibility, all images should have a text description.
 Add a description in the "Alt Text" box of the image widget.`;
         }
 
-        // Make sure the alt text it is not trivial
+        // Alt text must be descriptive (at least 8 characters)
         if (alt.trim().length < 8) {
             return `Images should have alt text:
 for accessibility, all images should have descriptive alt text.
 This image's alt text is only ${alt.trim().length} characters long.`;
-        }
-
-        // Make sure the alt text is not too long to be navigable
-        if (alt.trim().length > 150) {
-            return `Images should have alt text:
-for accessibility, image alt text should not exceed 150 characters.
-This image's alt text is ${alt.trim().length} characters long.
-Please pair your alt with a long description below if you need significantly
-more text to sufficiently describe the image.`;
-        }
-
-        // Make sure there is no math in the caption
-        if (widget.options.caption && widget.options.caption.match(/[^\\]\$/)) {
-            return `No math in image captions:
-Don't include math expressions in image captions.`;
         }
     },
 }) as Rule;

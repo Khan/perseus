@@ -92,4 +92,28 @@ const KhanColors = {
     DYNAMIC: color.blue,
 } as const;
 
+/**
+ * Traverses the DOM ancestry of the given element until it finds an element with a
+ * non-transparent background color, returning that color. If no such element is found,
+ * returns the default background color.
+ *
+ * @param elementToInspect the HTMLElement to start inspecting.
+ * @returns a string representing the background color, or a CSS variable for the default background color.
+ */
+export const getBackgroundColor = (elementToInspect: HTMLElement): string => {
+    const backgroundColor =
+        window.getComputedStyle(elementToInspect).backgroundColor;
+    if (
+        backgroundColor !== "rgba(0, 0, 0, 0)" &&
+        backgroundColor !== "transparent"
+    ) {
+        return backgroundColor;
+    }
+    const parentElement = elementToInspect.parentElement;
+    if (parentElement?.tagName.toLowerCase() === "html" || !parentElement) {
+        return "var(--wb-semanticColor-core-background-base-default)";
+    }
+    return getBackgroundColor(parentElement);
+};
+
 export default KhanColors;

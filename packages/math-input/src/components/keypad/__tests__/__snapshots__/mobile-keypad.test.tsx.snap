@@ -3,7 +3,7 @@
 exports[`mobile keypad should not render the keypad when not active 1`] = `
 <div>
   <div
-    class="initial_4qg14c-o_O-keypadContainer_1jsjomm"
+    class="default_xu2jcg-o_O-keypadContainer_1jsjomm"
   />
 </div>
 `;
@@ -11,60 +11,39 @@ exports[`mobile keypad should not render the keypad when not active 1`] = `
 exports[`mobile keypad should render keypad when active 1`] = `
 <div>
   <div
-    class="initial_4qg14c-o_O-keypadContainer_1jsjomm"
+    class="default_xu2jcg-o_O-keypadContainer_1jsjomm"
   >
     <div
       class="default_xu2jcg inlineStyles_6alflt"
     >
       <div
-        class="default_xu2jcg-o_O-wrapper_144oaus"
+        class="default_xu2jcg wrapper "
       >
         <div
-          class="default_xu2jcg-o_O-tabbar_zvl22d"
+          class="default_xu2jcg-o_O-inlineStyles_1fwxya8"
         >
           <div
-            class="default_xu2jcg"
+            class="default_xu2jcg-o_O-inlineStyles_ls0e43"
           >
             <button
               aria-disabled="false"
               aria-label="Dismiss"
-              aria-selected="false"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
-              role="button"
+              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_2bjgxj-o_O-inlineStyles_bhsjbl"
               tabindex="0"
               type="button"
             >
-              <div
-                class="default_xu2jcg-o_O-base_1pupywz"
-              >
-                <div
-                  class="default_xu2jcg-o_O-innerBox_qdbgl3"
-                >
-                  <svg
-                    fill="none"
-                    height="44"
-                    viewBox="0 0 44 44"
-                    width="44"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M28.7071 15.2929C28.3166 14.9024 27.6834 14.9024 27.2929 15.2929L22 20.5858L16.7071 15.2929C16.3166 14.9024 15.6834 14.9024 15.2929 15.2929C14.9024 15.6834 14.9024 16.3166 15.2929 16.7071L20.5858 22L15.2929 27.2929C14.9024 27.6834 14.9024 28.3166 15.2929 28.7071C15.6834 29.0976 16.3166 29.0976 16.7071 28.7071L22 23.4142L27.2929 28.7071C27.6834 29.0976 28.3166 29.0976 28.7071 28.7071C29.0976 28.3166 29.0976 27.6834 28.7071 27.2929L23.4142 22L28.7071 16.7071C29.0976 16.3166 29.0976 15.6834 28.7071 15.2929Z"
-                      fill="rgba(33,36,44,0.64)"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
+              <span
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_3w3gb8"
+              />
             </button>
           </div>
         </div>
         <div
-          class="default_xu2jcg-o_O-keypadInnerContainer_huowys"
+          class="default_xu2jcg-o_O-inlineStyles_1hoepsr"
         >
           <div
             aria-label="Keypad"
-            class="default_xu2jcg-o_O-keypadGrid_ztxlrb-o_O-fractionsGrid_1aelnry"
+            class="default_xu2jcg keypad-grid fractions-grid"
           >
             <div
               class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"
@@ -567,7 +546,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_wps3dh"
+                    class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"

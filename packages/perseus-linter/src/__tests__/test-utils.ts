@@ -47,13 +47,30 @@ export function testRule(
     return warnings.length === 0 ? null : warnings;
 }
 
-export function expectWarning(rule, strings: string | Array<string>, context?) {
+export function expectWarning(
+    rule,
+    strings: string | Array<string>,
+    context?,
+    options?: {
+        message?: string;
+        severity?: number;
+    },
+) {
     if (typeof strings === "string") {
         strings = [strings];
     }
 
     it.each(strings)(`Rule ${rule.name} warns with: %s`, (string) => {
-        expect(testRule(rule, string, context)).not.toBeNull();
+        const result = testRule(rule, string, context);
+        expect(result).not.toBeNull();
+
+        if (options?.message) {
+            expect(result?.[0]?.message).toBe(options.message);
+        }
+
+        if (options?.severity) {
+            expect(result?.[0]?.severity).toBe(options.severity);
+        }
     });
 }
 

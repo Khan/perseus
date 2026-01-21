@@ -1,7 +1,10 @@
 import {screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {
     getAnswerfulItem,
@@ -12,7 +15,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1, tickCtrl} from "./number-line.testdata";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -182,6 +185,28 @@ describe("number-line widget", () => {
 
             // Assert
             expect(container).toMatchSnapshot("show decimal ticks");
+        });
+    });
+
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "number-line",
+                widgetId: "number-line 1",
+            },
         });
     });
 

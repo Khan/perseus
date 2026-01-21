@@ -1,15 +1,18 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {type PerseusRenderer} from "@khanacademy/perseus-core";
 import {scoreRadio} from "@khanacademy/perseus-score";
-import {screen, fireEvent, waitFor} from "@testing-library/react";
+import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {clone} from "../../../../../../testing/object-utils";
-import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
-import PassageWidget from "../../passage";
 
 import {
     questionAndAnswer,
@@ -19,8 +22,7 @@ import {
     questionWithUndefinedCorrect,
 } from "./radio.testdata";
 
-import type {APIOptions} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {APIOptions, PerseusDependenciesV2} from "../../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 // Create API options with the new-radio-widget flag enabled
@@ -337,74 +339,6 @@ describe("Multiple Choice Widget", () => {
             expect(items[1]).toHaveTextContent(answers[1]);
         });
 
-        it("should transform inline passage-refs to references to passage widgets", async () => {
-            const question: PerseusRenderer = {
-                content: "[[\u2603 passage 1]]\n\n[[☃ radio 1]]",
-                images: {},
-                widgets: {
-                    "passage 1": {
-                        type: "passage",
-                        options: {
-                            footnotes: "",
-                            passageText: "{{First ref}} and {{Second ref}}",
-                            passageTitle: "",
-                            showLineNumbers: true,
-                            static: false,
-                        },
-                    },
-                    "radio 1": {
-                        type: "radio",
-                        options: {
-                            choices: [
-                                {
-                                    id: "0-0-0-0-0",
-                                    correct: true,
-                                    // Passage refs reference a passage widget in
-                                    // the main content. The first value is the
-                                    // passage widget (eg. "passage 1", "passage
-                                    // 2") and the second value is the ref within
-                                    // that passage widget. Note that both are
-                                    // 1-based!
-                                    content: `{{passage-ref 1 1 "the 1st ref in the 1st passage"}}`,
-                                },
-                                {
-                                    id: "1-1-1-1-1",
-                                    content: `Answer 2`,
-                                },
-                                {
-                                    id: "2-2-2-2-2",
-                                    content: `Answer 3`,
-                                },
-                            ],
-                        },
-                    },
-                },
-            };
-
-            // Arrange
-            // We mock this one function on Passage as its where all the magic DOM
-            // measurement happens. This ensures our assertions in this test don't
-            // have to assert NaN and make sense.
-            jest.spyOn(
-                PassageWidget.widget.prototype,
-                "getReference",
-            ).mockReturnValue({content: "", startLine: 1, endLine: 2});
-
-            // Act
-            renderQuestion(question, apiOptions);
-
-            // Assert
-            // By using a `passage-ref` in a choice, we should now have the
-            // reference on the radio we used it on.
-            // NOTE: We get by listitem role here because the 'radio' role
-            // element does not contain the HTML that provides the label
-            // for it.
-            await waitFor(() => {
-                const passageRefRadio = screen.getAllByRole("listitem")[0];
-                expect(passageRefRadio).toHaveTextContent("lines 1–2");
-            });
-        });
-
         it("should render all rationales when showSolutions is 'all'", async () => {
             // Arrange
             renderQuestion(question, apiOptions, {
@@ -466,6 +400,36 @@ describe("Multiple Choice Widget", () => {
 
             // Assert
             expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
+        });
+
+        it("should send analytics event when widget is rendered", async () => {
+            // Arrange
+            const onAnalyticsEventSpy = jest.fn();
+            const depsV2: PerseusDependenciesV2 = {
+                ...testDependenciesV2,
+                analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+            };
+
+            // Act
+            // Analytics event only exists on the new radio widget.
+            // Please remove once fully released.
+            renderQuestion(
+                question,
+                {flags: getFeatureFlags({"new-radio-widget": true})},
+                undefined,
+                undefined,
+                depsV2,
+            );
+
+            // Assert
+            expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: "single-select",
+                    widgetType: "radio",
+                    widgetId: "radio 1",
+                },
+            });
         });
 
         it("should display all rationales when static is true", async () => {
@@ -761,6 +725,36 @@ describe("Multiple Choice Widget", () => {
             expect(score).toHaveInvalidInput();
         });
 
+        it("should send analytics event when widget is rendered", async () => {
+            // Arrange
+            const onAnalyticsEventSpy = jest.fn();
+            const depsV2: PerseusDependenciesV2 = {
+                ...testDependenciesV2,
+                analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+            };
+
+            // Act
+            // Analytics event only exists on the new radio widget.
+            // Please remove once fully released.
+            renderQuestion(
+                question,
+                {flags: getFeatureFlags({"new-radio-widget": true})},
+                undefined,
+                undefined,
+                depsV2,
+            );
+
+            // Assert
+            expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: "multiple-select",
+                    widgetType: "radio",
+                    widgetId: "radio 1",
+                },
+            });
+        });
+
         it("should be invalid when incorrect number of choices selected", async () => {
             // Arrange
             const radio1Widget = question.widgets["radio 1"];
@@ -969,7 +963,7 @@ describe("Multiple Choice Widget", () => {
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
-                shuffledQuestion,
+                shuffledNoneQuestion,
                 renderer.getUserInputMap(),
             );
 

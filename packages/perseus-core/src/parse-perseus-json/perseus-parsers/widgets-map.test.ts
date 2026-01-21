@@ -1,3 +1,8 @@
+import {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
+} from "../../utils/generators/definition-widget-generator";
+import {generateVideoWidget} from "../../utils/generators/video-widget-generator";
 import {anyFailure} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
 import {failure, success} from "../result";
@@ -137,16 +142,14 @@ describe("parseWidgetsMap", () => {
     });
 
     it("accepts a definition widget", () => {
-        const widgetsMap: unknown = {
-            "definition 1": {
-                type: "definition",
-                version: {major: 0, minor: 0},
-                options: {
+        const widgetsMap: PerseusWidgetsMap = {
+            "definition 1": generateDefinitionWidget({
+                options: generateDefinitionOptions({
                     togglePrompt: "",
                     definition: "",
                     static: false,
-                },
-            },
+                }),
+            }),
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);
@@ -594,7 +597,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("accepts a passage widget", () => {
+    it("converts a passage widget to the deprecated-standin widget", () => {
         const widgetsMap: unknown = {
             "passage 1": {
                 type: "passage",
@@ -609,12 +612,26 @@ describe("parseWidgetsMap", () => {
             },
         };
 
+        const expected: PerseusWidgetsMap = {
+            "passage 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                options: {
+                    footnotes: "",
+                    passageText: "",
+                    passageTitle: "",
+                    showLineNumbers: false,
+                    static: false,
+                },
+            },
+        };
+
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(widgetsMap));
+        expect(result).toEqual(success(expected));
     });
 
-    it("accepts a passage-ref widget", () => {
+    it("converts a passage-ref widget to the deprecated-standin widget", () => {
         const widgetsMap: unknown = {
             "passage-ref 1": {
                 type: "passage-ref",
@@ -627,9 +644,43 @@ describe("parseWidgetsMap", () => {
             },
         };
 
+        const expected: PerseusWidgetsMap = {
+            "passage-ref 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                options: {
+                    passageNumber: 0,
+                    referenceNumber: 0,
+                    summaryText: "",
+                },
+            },
+        };
+
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(widgetsMap));
+        expect(result).toEqual(success(expected));
+    });
+
+    it("converts a passage-ref-target widget to the deprecated-standin widget", () => {
+        const widgetsMap: unknown = {
+            "passage-ref-target 1": {
+                type: "passage-ref-target",
+                version: {major: 0, minor: 0},
+                options: {},
+            },
+        };
+
+        const expected: PerseusWidgetsMap = {
+            "passage-ref-target 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                options: {},
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(expected));
     });
 
     it("accepts a phet-simulation widget", () => {
@@ -746,13 +797,7 @@ describe("parseWidgetsMap", () => {
 
     it("accepts a video widget", () => {
         const widgetsMap: unknown = {
-            "video 1": {
-                type: "video",
-                version: {major: 0, minor: 0},
-                options: {
-                    location: "",
-                },
-            },
+            "video 1": generateVideoWidget(),
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);

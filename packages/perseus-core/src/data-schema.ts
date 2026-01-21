@@ -160,9 +160,6 @@ export interface PerseusWidgetTypes {
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
     orderer: OrdererWidget;
-    "passage-ref-target": RefTargetWidget;
-    "passage-ref": PassageRefWidget;
-    passage: PassageWidget;
     "phet-simulation": PhetSimulationWidget;
     "python-program": PythonProgramWidget;
     plotter: PlotterWidget;
@@ -172,6 +169,9 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
+    "passage-ref-target": DeprecatedStandinWidget;
+    "passage-ref": DeprecatedStandinWidget;
+    passage: DeprecatedStandinWidget;
     "lights-puzzle": DeprecatedStandinWidget;
     sequence: DeprecatedStandinWidget;
     simulator: DeprecatedStandinWidget;
@@ -269,6 +269,15 @@ export type Hint = PerseusRenderer & {
      * is displayed. This allows for hints that build upon each other.
      */
     replace?: boolean;
+    /**
+     * The UI needs to know how many hints there are before we have
+     * answerful PerseusItems. In a crunch, we decided to replace existing hints
+     * with empty hints and add a placeholder flag to signal that they're
+     * not real hints.
+     *
+     * TODO(LEMS-3806): there's probably a better way to do this
+     */
+    placeholder?: boolean;
 };
 
 export type PerseusImageDetail = {
@@ -306,7 +315,9 @@ export type WidgetOptions<Type extends string, Options> = {
     // Whether a widget is scored.  Usually true except for IFrame widgets (deprecated)
     // Default: true
     graded?: boolean;
-    // The HTML alignment of the widget.  "default" or "block"
+    // The HTML alignment of the widget. "default" or "block"
+    // If the alignment is "default", it gets the default alignment from the widget logic,
+    // which can be various other alignments (e.g. "inline-block", "inline", etc).
     alignment?: string;
     // Options specific to the type field of the widget.  See Perseus*WidgetOptions for more details
     options: Options;
@@ -361,10 +372,6 @@ export type NumericInputWidget = WidgetOptions<'numeric-input', PerseusNumericIn
 // prettier-ignore
 export type OrdererWidget = WidgetOptions<'orderer', PerseusOrdererWidgetOptions>;
 // prettier-ignore
-export type PassageRefWidget = WidgetOptions<'passage-ref', PerseusPassageRefWidgetOptions>;
-// prettier-ignore
-export type PassageWidget = WidgetOptions<'passage', PerseusPassageWidgetOptions>;
-// prettier-ignore
 export type PhetSimulationWidget = WidgetOptions<'phet-simulation', PerseusPhetSimulationWidgetOptions>;
 // prettier-ignore
 export type PlotterWidget = WidgetOptions<'plotter', PerseusPlotterWidgetOptions>;
@@ -380,8 +387,6 @@ export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
 // prettier-ignore
 export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
-// prettier-ignore
-export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
@@ -664,6 +669,8 @@ export type PerseusImageWidgetOptions = {
     alt?: string;
     // Translatable Markdown; Text to be shown as the long description of an image
     longDescription?: string;
+    // When true, standalone image will be rendered with alt="" and without any alt text, caption, title, or long description.
+    decorative?: boolean;
     // The image details for the image to be displayed
     backgroundImage: PerseusImageBackground;
     // Always false.  Not used for this widget
@@ -1270,28 +1277,6 @@ export type PerseusOrdererWidgetOptions = {
     layout: "horizontal" | "vertical";
 };
 
-export type PerseusPassageWidgetOptions = {
-    // Translatable Text; To add footnotes, add ^ characters where they belong in the passage. Then, add ^ in the footnotes area to reference the footnotes in the passage.
-    footnotes: string;
-    // Translatable Text; The text of the passage
-    passageText: string;
-    // translatableText - An optional title that will appear directly above the passage in the same font style. (e.g. Passage 1)
-    passageTitle: string;
-    // Should we show line numbers along with the passage?
-    showLineNumbers: boolean;
-    // Always false.  Not used for this widget
-    static: boolean;
-};
-
-export type PerseusPassageRefWidgetOptions = {
-    // The passage number
-    passageNumber: number;
-    // The reference number
-    referenceNumber: number;
-    // Short summary of the referenced section. This will be included in parentheses and quotes automatically.
-    summaryText?: string;
-};
-
 export const plotterPlotTypes = [
     "bar",
     "line",
@@ -1698,6 +1683,7 @@ export type PerseusPhetSimulationWidgetOptions = {
 
 export type PerseusVideoWidgetOptions = {
     location: string;
+    // `static` is not used for the video widget.
     static?: boolean;
 };
 
@@ -1726,10 +1712,6 @@ export type PerseusMoleculeRendererWidgetOptions = {
     smiles?: string;
 };
 
-export type PerseusPassageRefTargetWidgetOptions = {
-    content: string;
-};
-
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
@@ -1753,9 +1735,6 @@ export type PerseusWidgetOptions =
     | PerseusNumberLineWidgetOptions
     | PerseusNumericInputWidgetOptions
     | PerseusOrdererWidgetOptions
-    | PerseusPassageRefTargetWidgetOptions
-    | PerseusPassageRefWidgetOptions
-    | PerseusPassageWidgetOptions
     | PerseusPhetSimulationWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions

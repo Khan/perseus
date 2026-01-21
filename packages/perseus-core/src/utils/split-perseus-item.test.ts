@@ -1,6 +1,10 @@
 import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 import {registerCoreWidgets} from "../widgets/core-widget-registry";
 
+import {
+    generateExplanationOptions,
+    generateExplanationWidget,
+} from "./generators/explanation-widget-generator";
 import splitPerseusItem, {splitPerseusItemJSON} from "./split-perseus-item";
 import {generateTestPerseusItem} from "./test-utils";
 
@@ -49,21 +53,16 @@ describe("splitPerseusItem", () => {
     it("doesn't need to strip unscorable widgets", () => {
         // Arrange
         const question: PerseusRenderer = {
-            content: "[[☃ passage 1]]",
-            // calling the upgrader here so I don't
-            // bog down the test with default properties
-            widgets: applyDefaultsToWidgets({
-                "passage 1": {
-                    type: "passage",
-                    options: {
-                        footnotes: "",
-                        passageText: "Hello world",
-                        passageTitle: "",
-                        showLineNumbers: true,
-                        static: false,
-                    },
-                },
-            }),
+            content: "[[☃ explanation 1]]",
+            widgets: {
+                "explanation 1": generateExplanationWidget({
+                    options: generateExplanationOptions({
+                        explanation: "Addition combines two numbers.",
+                        showPrompt: "Show explanation",
+                        hidePrompt: "Hide explanation",
+                    }),
+                }),
+            },
             images: {},
         };
 
@@ -558,7 +557,7 @@ describe("splitPerseusItem", () => {
         );
     });
 
-    it("removes hints", () => {
+    it("replaces hints with placeholders", () => {
         const hint: PerseusRenderer = {
             content: "This hint gives away an answer",
             widgets: {},
@@ -570,8 +569,15 @@ describe("splitPerseusItem", () => {
 
         const rv = splitPerseusItem(item);
 
+        expect(item.hints.length).toBe(1);
         expect(item.hints[0]).toEqual(hint);
-        expect(rv.hints).toEqual([]);
+        expect(rv.hints.length).toBe(1);
+        expect(rv.hints[0]).toEqual({
+            content: "",
+            widgets: {},
+            images: {},
+            placeholder: true,
+        });
     });
 });
 
@@ -641,7 +647,14 @@ describe("splitPerseusItemJSON", () => {
         const rv = splitPerseusItemJSON(item);
 
         // Assert
-        expect(JSON.parse(rv).hints).toEqual([]);
+        expect(JSON.parse(rv).hints).toEqual([
+            {
+                content: "",
+                widgets: {},
+                images: {},
+                placeholder: true,
+            },
+        ]);
     });
 
     it("throws given an invalid PerseusItem", () => {

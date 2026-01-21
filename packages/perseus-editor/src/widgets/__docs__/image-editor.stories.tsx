@@ -3,17 +3,21 @@ import {
     generateImageOptions,
     generateImageWidget,
     generateTestPerseusRenderer,
+    generateRadioWidget,
+    generateRadioOptions,
+    generateRadioChoice,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
+import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageEditor from "../image-editor/image-editor";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import {PROD_EDITOR_WIDTH} from "./utils";
 
-const PROD_EDITOR_WIDTH = 330;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const withinEditorPageDecorator = (_, {args}) => {
     return (
@@ -46,7 +50,6 @@ registerAllWidgetsAndEditorsForTesting();
 const meta: Meta = {
     title: "Widgets/Image/Editor Demo",
     component: ImageEditor,
-    tags: ["!dev"],
     argTypes: {
         labels: {
             control: false,
@@ -90,13 +93,52 @@ export const Populated: Story = {
     name: "Populated (Within Editor Page)",
     decorators: [withinEditorPageDecorator],
     args: {
-        backgroundImage: {
-            url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
-            width: 400,
-            height: 225,
-        },
+        backgroundImage: earthMoonImage,
         alt: "The moon showing behind the Earth in space.",
         caption: "Captured via XYZ Telescope",
         title: "The Moon",
+    },
+};
+
+/**
+ * Only the markdown image in the main content should be flagged with a linter
+ * warning. The Image widget and Radio widget containing a markdown image
+ * should not be flagged.
+ */
+export const WithMarkdownImageLinterWarning: Story = {
+    render: function Render() {
+        return (
+            <div style={{width: PROD_EDITOR_WIDTH}}>
+                <EditorPageWithStorybookPreview
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: getFeatureFlags({
+                            "image-widget-upgrade": true,
+                        }),
+                    }}
+                    question={generateTestPerseusRenderer({
+                        // Render Widget, Markdown, Radio
+                        content: `Widget\n[[☃ image 1]]\n\nMarkdown\n![Earth and moon](${earthMoonImage.url})\n\nRadio\n[[☃ radio 1]]`,
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and moon",
+                                }),
+                            }),
+                            "radio 1": generateRadioWidget({
+                                options: generateRadioOptions({
+                                    choices: [
+                                        generateRadioChoice(
+                                            `![Earth and moon](${earthMoonImage.url})`,
+                                        ),
+                                    ],
+                                }),
+                            }),
+                        },
+                    })}
+                />
+            </div>
+        );
     },
 };

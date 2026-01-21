@@ -1,3 +1,4 @@
+import {makeSafeUrl} from "@khanacademy/perseus-core";
 import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -5,11 +6,12 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {makeSafeUrl} from "./phet-simulation";
 import {nonPhetUrl, question1} from "./phet-simulation.testdata";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
+
+const phetOrigin = "https://phet.colorado.edu";
 
 describe("phet-simulation widget", () => {
     let userEvent: UserEvent;
@@ -123,7 +125,7 @@ describe("phet-simulation widget", () => {
         const locale = "fr";
 
         // Act
-        const url: URL | null = makeSafeUrl(baseUrl, locale);
+        const url: URL | null = makeSafeUrl(baseUrl, locale, phetOrigin);
 
         // Assert
         expect(url?.toString()).toBe(
@@ -137,7 +139,7 @@ describe("phet-simulation widget", () => {
         const locale = "en";
 
         // Act
-        const url: URL | null = makeSafeUrl(baseUrl, locale);
+        const url: URL | null = makeSafeUrl(baseUrl, locale, phetOrigin);
 
         // Assert
         expect(url).toBe(null);

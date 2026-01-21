@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import type {ErrorCodes} from "@khanacademy/perseus-score";
+import type {ErrorCodes} from "@khanacademy/perseus-core";
 
 /**
  * The translated strings that are used to render Perseus.
@@ -16,6 +16,7 @@ export type PerseusStrings = {
     hintPos: ({pos}: {pos: number}) => string;
     errorRendering: ({error}: {error: string}) => string;
     APPROXIMATED_PI_ERROR: string;
+    EMPTY_RESPONSE_ERROR: string;
     EXTRA_SYMBOLS_ERROR: string;
     NEEDS_TO_BE_SIMPLFIED_ERROR: string;
     MISSING_PERCENT_ERROR: string;
@@ -23,6 +24,7 @@ export type PerseusStrings = {
     WRONG_CASE_ERROR: string;
     WRONG_LETTER_ERROR: string;
     invalidSelection: string;
+    INVALID_CHOICE_SELECTION: string;
     ERROR_TITLE: string;
     ERROR_MESSAGE: string;
     USER_INPUT_EMPTY: string;
@@ -76,23 +78,6 @@ export type PerseusStrings = {
     circleFilled: string;
     numDivisions: string;
     divisions: ({divRangeString}: {divRangeString: string}) => string;
-    lineRange: ({lineRange}: {lineRange: string}) => string;
-    lineNumber: ({lineNumber}: {lineNumber: string}) => string;
-    symbolPassage: ({
-        questionSymbol,
-        questionNumber,
-    }: {
-        questionSymbol: string;
-        questionNumber: string;
-    }) => string;
-    symbolQuestion: ({sentenceSymbol}: {sentenceSymbol: string}) => string;
-    lineLabel: string;
-    beginningPassage: string;
-    beginningFootnotes: string;
-    endPassage: string;
-    questionMarker: ({number}: {number: string}) => string;
-    circleMarker: ({number}: {number: string}) => string;
-    sentenceMarker: ({number}: {number: string}) => string;
     dragHandles: string;
     tapAddPoints: string;
     false: string;
@@ -111,6 +96,8 @@ export type PerseusStrings = {
     choiceIncorrect: ({letter}: {letter: string}) => string;
     choiceChecked: ({letter}: {letter: string}) => string;
     choice: ({letter}: {letter: string}) => string;
+    notSelected: string;
+    choicesSelected: ({num}: {num: number}) => string;
     bringBack: string;
     openMenuForChoice: ({letter}: {letter: string}) => string;
     letters: string;
@@ -508,6 +495,8 @@ export type PerseusStrings = {
     imageExploreButton: string;
     imageAlternativeTitle: string;
     imageDescriptionLabel: string;
+    imageZoomAriaLabel: string;
+    imageResetZoomAriaLabel: string;
 };
 
 /**
@@ -535,6 +524,8 @@ export const strings = {
         "answer as a multiple of pi, like " +
         "12 pi or " +
         "2/3 pi",
+    EMPTY_RESPONSE_ERROR:
+        "There are still more parts of this question to answer.",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
@@ -555,6 +546,7 @@ export const strings = {
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
     invalidSelection: "Make sure you select something for every row.",
+    INVALID_CHOICE_SELECTION: "Invalid choice selection",
     ERROR_TITLE: "Oops!",
     ERROR_MESSAGE: "Sorry, I don't understand that!",
     hints: "Hints",
@@ -616,22 +608,6 @@ export const strings = {
     numDivisions: "Number of divisions:",
     divisions:
         "Please make sure the number of divisions is in the range %(divRangeString)s.",
-    lineRange: "lines %(lineRange)s",
-    lineNumber: "line %(lineNumber)s",
-    symbolPassage:
-        "The symbol %(questionSymbol)s indicates that question %(questionNumber)s references this portion of the passage.",
-    symbolQuestion:
-        " The symbol %(sentenceSymbol)s indicates that the following sentence is referenced in a question.",
-    lineLabel: {
-        context: "a label next to a reading passage to denote the line number",
-        message: "Line",
-    },
-    beginningPassage: "Beginning of reading passage.",
-    beginningFootnotes: "Beginning of reading passage footnotes.",
-    endPassage: "End of reading passage.",
-    questionMarker: "[Marker for question %(number)s]",
-    circleMarker: "[Circle marker %(number)s]",
-    sentenceMarker: "[Sentence %(number)s]",
     dragHandles: "Drag handles to make graph",
     tapAddPoints: "Tap to add points",
     false: "False",
@@ -651,6 +627,14 @@ export const strings = {
     choiceIncorrect: "(Choice %(letter)s, Incorrect)",
     choiceChecked: "(Choice %(letter)s, Checked)",
     choice: "(Choice %(letter)s)",
+    notSelected: {
+        context: "Screen reader announcement for a choice that is not selected",
+        message: "not selected",
+    },
+    choicesSelected: {
+        one: "%(num)s choice selected",
+        other: "%(num)s choices selected",
+    },
     bringBack: "Bring back",
     openMenuForChoice: "Open menu for Choice %(letter)s",
     letters: {
@@ -1112,6 +1096,8 @@ export const strings = {
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
+    imageZoomAriaLabel: "Zoom image.",
+    imageResetZoomAriaLabel: "Reset zoom.",
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -1140,6 +1126,8 @@ export const mockStrings: PerseusStrings = {
         "answer as a multiple of pi, like " +
         "<code>12\\ \\text{pi}</code> or " +
         "<code>2/3\\ \\text{pi}</code>",
+    EMPTY_RESPONSE_ERROR:
+        "There are still more parts of this question to answer.",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
@@ -1160,6 +1148,7 @@ export const mockStrings: PerseusStrings = {
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
     invalidSelection: "Make sure you select something for every row.",
+    INVALID_CHOICE_SELECTION: "Invalid choice selection",
     ERROR_TITLE: "Oops!",
     ERROR_MESSAGE: "Sorry, I don't understand that!",
     hints: "Hints",
@@ -1215,19 +1204,6 @@ export const mockStrings: PerseusStrings = {
     numDivisions: "Number of divisions:",
     divisions: ({divRangeString}) =>
         `Please make sure the number of divisions is in the range ${divRangeString}.`,
-    lineRange: ({lineRange}: {lineRange: string}) => `lines ${lineRange}`,
-    lineNumber: ({lineNumber}: {lineNumber: string}) => `line ${lineNumber}`,
-    symbolPassage: ({questionSymbol, questionNumber}) =>
-        `The symbol ${questionSymbol} indicates that question ${questionNumber} references this portion of the passage.`,
-    symbolQuestion: ({sentenceSymbol}) =>
-        ` The symbol ${sentenceSymbol} indicates that the following sentence is referenced in a question.`,
-    lineLabel: "Line",
-    beginningPassage: "Beginning of reading passage.",
-    beginningFootnotes: "Beginning of reading passage footnotes.",
-    endPassage: "End of reading passage.",
-    questionMarker: ({number}) => `[Marker for question ${number}]`,
-    circleMarker: ({number}) => `[Circle marker ${number}]`,
-    sentenceMarker: ({number}) => `[Sentence ${number}]`,
     dragHandles: "Drag handles to make graph",
     tapAddPoints: "Tap to add points",
     false: "False",
@@ -1248,6 +1224,9 @@ export const mockStrings: PerseusStrings = {
     choiceIncorrect: ({letter}) => `(Choice ${letter}, Incorrect)`,
     choiceChecked: ({letter}) => `(Choice ${letter}, Checked)`,
     choice: ({letter}) => `(Choice ${letter})`,
+    notSelected: "not selected",
+    choicesSelected: ({num}) =>
+        num === 1 ? `${num} choice selected` : `${num} choices selected`,
     bringBack: "Bring back",
     openMenuForChoice: ({letter}) => `Open menu for Choice ${letter}`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
@@ -1450,6 +1429,8 @@ export const mockStrings: PerseusStrings = {
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
+    imageZoomAriaLabel: "Zoom image.",
+    imageResetZoomAriaLabel: "Reset zoom.",
 };
 
 // This type helps us make sure all error codes are mapped to strings
@@ -1462,19 +1443,21 @@ type ErrorStringMap = {
  * that we can use to get the translated error message
  */
 const errorToString: ErrorStringMap = {
-    MISSING_PERCENT_ERROR: "MISSING_PERCENT_ERROR",
-    NEEDS_TO_BE_SIMPLIFIED_ERROR: "NEEDS_TO_BE_SIMPLFIED_ERROR",
     APPROXIMATED_PI_ERROR: "APPROXIMATED_PI_ERROR",
-    EXTRA_SYMBOLS_ERROR: "EXTRA_SYMBOLS_ERROR",
-    WRONG_CASE_ERROR: "WRONG_CASE_ERROR",
-    WRONG_LETTER_ERROR: "WRONG_LETTER_ERROR",
-    MULTIPLICATION_SIGN_ERROR: "MULTIPLICATION_SIGN_ERROR",
-    INVALID_SELECTION_ERROR: "invalidSelection",
     CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
-    NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
+    EMPTY_RESPONSE_ERROR: "EMPTY_RESPONSE_ERROR",
+    EXTRA_SYMBOLS_ERROR: "EXTRA_SYMBOLS_ERROR",
     FILL_ALL_CELLS_ERROR: "fillAllCells",
+    INVALID_CHOICE_SELECTION: "INVALID_CHOICE_SELECTION",
+    INVALID_SELECTION_ERROR: "invalidSelection",
+    MISSING_PERCENT_ERROR: "MISSING_PERCENT_ERROR",
+    MULTIPLICATION_SIGN_ERROR: "MULTIPLICATION_SIGN_ERROR",
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: "NEEDS_TO_BE_SIMPLFIED_ERROR",
+    NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
     USER_INPUT_EMPTY: "USER_INPUT_EMPTY",
     USER_INPUT_TOO_LONG: "USER_INPUT_TOO_LONG",
+    WRONG_CASE_ERROR: "WRONG_CASE_ERROR",
+    WRONG_LETTER_ERROR: "WRONG_LETTER_ERROR",
 };
 
 export function mapErrorToString(

@@ -9,6 +9,7 @@ import * as React from "react";
 import ButtonGroup from "../../components/button-group";
 import Graphie from "../../components/graphie";
 import SvgImage from "../../components/svg-image";
+import {withDependencies} from "../../components/with-dependencies";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import {interactiveSizes} from "../../styles/constants";
@@ -30,7 +31,12 @@ import {
 } from "./util";
 
 import type {Coord, Line} from "../../interactive2/types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 import type {
@@ -298,6 +304,9 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                 // @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
                 <SvgImage
                     src={imageDescription.url}
+                    // Don't allow zooming on an image that's being
+                    // used as a graph background.
+                    allowZoom={false}
                     width={imageDescription.width}
                     height={imageDescription.height}
                     scale={scale}
@@ -338,12 +347,25 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type Props = WidgetProps<PerseusGrapherWidgetOptions, PerseusGrapherUserInput>;
-
+type Props = WidgetProps<
+    PerseusGrapherWidgetOptions,
+    PerseusGrapherUserInput
+> & {dependencies: PerseusDependenciesV2};
 /* Widget and editor. */
 class Grapher extends React.Component<Props> implements Widget {
     horizHairline: any;
     vertHairline: any;
+
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetType: "grapher",
+                widgetSubType: "null",
+                widgetId: this.props.widgetId,
+            },
+        });
+    }
 
     handlePlotChanges: (arg1: any) => any = (newPlot) => {
         const plot = {...this.props.userInput, ...newPlot};
@@ -628,14 +650,16 @@ function getCorrectUserInput(
 0 as any as WidgetProps<
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput
-> satisfies PropsFor<typeof Grapher>;
+> satisfies PropsFor<typeof WrappedGrapher>;
+
+const WrappedGrapher = withDependencies(Grapher);
 
 export default {
     name: "grapher",
     displayName: "Grapher",
     hidden: true,
-    widget: Grapher,
+    widget: WrappedGrapher,
     getUserInputFromSerializedState,
     getStartUserInput,
     getCorrectUserInput,
-} satisfies WidgetExports<typeof Grapher>;
+} satisfies WidgetExports<typeof WrappedGrapher>;

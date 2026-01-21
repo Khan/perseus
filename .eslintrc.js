@@ -207,6 +207,8 @@ module.exports = {
         "object-curly-spacing": "off",
         semi: "off",
 
+        "no-alert": "error",
+
         /**
          * jest
          */
@@ -293,6 +295,15 @@ module.exports = {
                 selector: "TSQualifiedName[left.name='React'][right.name='FC']",
                 message:
                     "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
+            },
+        ],
+        "no-restricted-properties": [
+            "error",
+            {
+                object: "Math",
+                property: "random",
+                message:
+                    "Use seeded randomness. See: https://khanacademy.atlassian.net/browse/LEMS-3397",
             },
         ],
 

@@ -9,9 +9,9 @@ import {
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import RadioEditor from "../radio/editor";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import {PROD_EDITOR_WIDTH} from "./utils";
 
-const PROD_EDITOR_WIDTH = 330;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();

@@ -42,6 +42,8 @@ class FreeResponseEditor extends React.Component<Props> {
         };
     };
 
+    // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
+    // the new linter rules for save warnings.
     getSaveWarnings: () => Array<string> = () => {
         const warnings: Array<string> = [];
         if (!this.props.question) {

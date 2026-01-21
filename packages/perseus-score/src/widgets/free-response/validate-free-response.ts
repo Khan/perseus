@@ -1,9 +1,8 @@
-import ErrorCodes from "../../error-codes";
-
-import type {
-    PerseusFreeResponseUserInput,
-    PerseusFreeResponseWidgetOptions,
-    ValidationResult,
+import {
+    ErrorCodes,
+    type PerseusFreeResponseUserInput,
+    type PerseusFreeResponseWidgetOptions,
+    type ValidationResult,
 } from "@khanacademy/perseus-core";
 
 /**

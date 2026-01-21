@@ -5,7 +5,10 @@ import {
 import {act} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
@@ -14,7 +17,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {question1} from "./matcher.testdata";
 
 import type {Matcher} from "./matcher";
-import type {APIOptions} from "../../types";
+import type {APIOptions, PerseusDependenciesV2} from "../../types";
 
 describe("matcher widget", () => {
     beforeEach(() => {
@@ -73,6 +76,29 @@ describe("matcher widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
+    });
+
+    it("should send analytics event when widget is rendered", async () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+        await wait();
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "matcher",
+                widgetId: "matcher 1",
+            },
+        });
     });
 
     it("can reorder options", async () => {

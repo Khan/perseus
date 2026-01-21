@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Marker component rendering renders an empty marker 1`] = `
+<div>
+  <div
+    class="marker_zifd0r-o_O-markerSelected_12bejzq"
+    style="left: 50%; top: 50%;"
+    title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+  >
+    <div>
+      <div
+        class="dropdownBody_4jdi2m-o_O-dropdownPositionWithArrow_ao8k1z"
+      >
+        <button
+          class="notAButton_15oq5w2"
+          role="menuitemradio"
+          value=""
+        >
+          <span
+            class="option_1b91svp"
+          >
+            Delete marker
+          </span>
+        </button>
+        <hr
+          class="dividerHorizontal_1035dhn"
+        />
+        <div
+          class="optionGroup_y3ig8b"
+        />
+        <div
+          class="labelContainer_cyxkvw"
+        >
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              placeholder="ARIA label (for screen readers)"
+              value="Marker 1"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Marker component rendering renders with answers and choices 1`] = `
+<div>
+  <div
+    class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_12bejzq"
+    style="left: 50%; top: 50%;"
+    title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+  >
+    <div>
+      <div
+        class="dropdownBody_4jdi2m-o_O-dropdownPositionWithArrow_ao8k1z"
+      >
+        <button
+          class="notAButton_15oq5w2"
+          role="menuitemradio"
+          value=""
+        >
+          <span
+            class="option_1b91svp"
+          >
+            Delete marker
+          </span>
+        </button>
+        <hr
+          class="dividerHorizontal_1035dhn"
+        />
+        <div
+          class="optionGroup_y3ig8b"
+        >
+          <button
+            aria-checked="false"
+            class="notAButton_15oq5w2"
+            role="menuitemradio"
+            value="Choice 1"
+          >
+            <span
+              class="option_1b91svp"
+            >
+              Choice 1
+            </span>
+          </button>
+          <button
+            aria-checked="false"
+            class="notAButton_15oq5w2"
+            role="menuitemradio"
+            value="Choice 2"
+          >
+            <span
+              class="option_1b91svp"
+            >
+              Choice 2
+            </span>
+          </button>
+        </div>
+        <div
+          class="labelContainer_cyxkvw"
+        >
+          <form
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
+            style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+          >
+            <input
+              class="inputBase_w7cswd"
+              placeholder="ARIA label (for screen readers)"
+              value="Marker 1"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

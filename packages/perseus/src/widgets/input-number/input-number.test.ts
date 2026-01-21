@@ -6,7 +6,10 @@ import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {
     getAnswerfulItem,
@@ -18,6 +21,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";
 
+import type {PerseusDependenciesV2} from "../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -83,6 +87,29 @@ describe("input-number", function () {
 
             // Assert
             expect(score).toHaveInvalidInput();
+        });
+
+        it("should send analytics event on render", async () => {
+            // Arrange
+
+            const onAnalyticsEventSpy = jest.fn();
+            const depsV2: PerseusDependenciesV2 = {
+                ...testDependenciesV2,
+                analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+            };
+
+            // Act
+            renderQuestion(question, undefined, undefined, undefined, depsV2);
+
+            // Assert
+            expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetSubType: "null",
+                    widgetType: "input-number",
+                    widgetId: "input-number 1",
+                },
+            });
         });
     });
 

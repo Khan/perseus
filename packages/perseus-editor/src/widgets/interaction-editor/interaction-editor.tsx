@@ -123,6 +123,7 @@ class InteractionEditor extends React.Component<Props, State> {
             key:
                 elementType +
                 "-" +
+                // eslint-disable-next-line no-restricted-properties
                 ((Math.random() * 0xffffff) << 0).toString(16),
             options:
                 elementType === "point"

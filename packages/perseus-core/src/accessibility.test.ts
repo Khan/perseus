@@ -1,4 +1,25 @@
 import {isItemAccessible} from "./accessibility";
+import {
+    generateExplanationOptions,
+    generateExplanationWidget,
+} from "./utils/generators/explanation-widget-generator";
+import {
+    generateImageOptions,
+    generateImageWidget,
+} from "./utils/generators/image-widget-generator";
+import {
+    generateIGPointGraph,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
+} from "./utils/generators/interactive-graph-widget-generator";
+import {
+    generateRadioOptions,
+    generateRadioWidget,
+} from "./utils/generators/radio-widget-generator";
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "./utils/test-utils";
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
 import type {PerseusItem} from "./data-schema";
@@ -10,48 +31,28 @@ describe("isItemAccessible", () => {
 
     describe("widgets", () => {
         it("should return false if the item contains any inaccessible widgets", () => {
-            const itemData: PerseusItem = {
-                question: {
+            const itemData: PerseusItem = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
                     content:
                         "Match the following items: [[☃ matcher 1]]\n\nHere's an explanation: [[☃ explanation 1]]\n\nAnd a graph: [[☃ interactive-graph 1]]",
                     widgets: {
-                        "explanation 1": {
-                            type: "explanation",
-                            options: {
+                        "explanation 1": generateExplanationWidget({
+                            options: generateExplanationOptions({
                                 showPrompt: "Show",
                                 hidePrompt: "Hide",
                                 explanation: "Test explanation",
-                                widgets: {},
-                                static: false,
-                            },
-                        },
-                        "interactive-graph 1": {
-                            type: "interactive-graph",
-                            options: {
-                                graph: {
-                                    type: "point",
+                            }),
+                        }),
+                        "interactive-graph 1": generateInteractiveGraphWidget({
+                            options: generateInteractiveGraphOptions({
+                                graph: generateIGPointGraph({
                                     numPoints: 1,
-                                },
-                                range: [
-                                    [-10, 10],
-                                    [-10, 10],
-                                ],
-                                showAxisArrows: {
-                                    xMin: true,
-                                    xMax: true,
-                                    yMin: true,
-                                    yMax: true,
-                                },
-                                step: [1, 1],
-                                markings: "graph",
-                                showProtractor: false,
-                                correct: {
-                                    type: "point",
+                                }),
+                                correct: generateIGPointGraph({
                                     coords: [[0, 0]],
-                                },
-                                lockedFigures: [],
-                            },
-                        },
+                                }),
+                            }),
+                        }),
                         "matcher 1": {
                             type: "matcher",
                             options: {
@@ -63,34 +64,27 @@ describe("isItemAccessible", () => {
                             },
                         },
                     },
-                    images: {},
-                },
-                hints: [],
-                answerArea: null,
-            };
+                }),
+            });
 
             expect(isItemAccessible(itemData)).toBe(false);
         });
 
         it("should return true if all widgets are accessible", () => {
-            const itemData: PerseusItem = {
-                question: {
+            const itemData: PerseusItem = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
                     content:
                         "Here's an explanation: [[☃ explanation 1]]\n\nChoose an option: [[☃ radio 1]]",
                     widgets: {
-                        "explanation 1": {
-                            type: "explanation",
-                            options: {
+                        "explanation 1": generateExplanationWidget({
+                            options: generateExplanationOptions({
                                 showPrompt: "Show",
                                 hidePrompt: "Hide",
                                 explanation: "Test explanation",
-                                widgets: {},
-                                static: false,
-                            },
-                        },
-                        "radio 1": {
-                            type: "radio",
-                            options: {
+                            }),
+                        }),
+                        "radio 1": generateRadioWidget({
+                            options: generateRadioOptions({
                                 choices: [
                                     {
                                         id: "0-0-0-0-0",
@@ -103,25 +97,22 @@ describe("isItemAccessible", () => {
                                         correct: false,
                                     },
                                 ],
-                            },
-                        },
+                            }),
+                        }),
                     },
                     images: {},
-                },
-                hints: [],
-                answerArea: null,
-            };
+                }),
+            });
 
             expect(isItemAccessible(itemData)).toBe(true);
         });
 
         it("should mark item as inaccessible if widget options are inaccessible", () => {
-            const itemData: PerseusItem = {
-                question: {
+            const itemData: PerseusItem = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
                     content: "Here's an image: [[☃ image 1]]",
                     widgets: {
-                        "image 1": {
-                            type: "image",
+                        "image 1": generateImageWidget({
                             options: {
                                 backgroundImage: {
                                     url: "https://example.com/image.png",
@@ -131,25 +122,21 @@ describe("isItemAccessible", () => {
                                 // No alt text makes this image inaccessible
                                 alt: "",
                             },
-                        },
+                        }),
                     },
-                    images: {},
-                },
-                hints: [],
-                answerArea: null,
-            };
+                }),
+            });
 
             expect(isItemAccessible(itemData)).toBe(false);
         });
 
         it("should mark item as accessible if widget options are accessible", () => {
-            const itemData: PerseusItem = {
-                question: {
+            const itemData: PerseusItem = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
                     content: "Here's an image: [[☃ image 1]]",
                     widgets: {
-                        "image 1": {
-                            type: "image",
-                            options: {
+                        "image 1": generateImageWidget({
+                            options: generateImageOptions({
                                 backgroundImage: {
                                     url: "https://example.com/image.png",
                                     width: 400,
@@ -157,14 +144,12 @@ describe("isItemAccessible", () => {
                                 },
                                 // Alt text makes this image accessible
                                 alt: "A descriptive alt text for the image",
-                            },
-                        },
+                            }),
+                        }),
                     },
                     images: {},
-                },
-                hints: [],
-                answerArea: null,
-            };
+                }),
+            });
 
             expect(isItemAccessible(itemData)).toBe(true);
         });
@@ -198,48 +183,28 @@ describe("isItemAccessible", () => {
         });
 
         it("should ignore widgets that are not used in the markdown content", () => {
-            const itemData: PerseusItem = {
-                question: {
+            const itemData: PerseusItem = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
                     content:
                         "Here's an explanation: [[☃ explanation 1]]\n\nAnd a graph: [[☃ interactive-graph 1]]\\But matcher 1 config is unused!!",
                     widgets: {
-                        "explanation 1": {
-                            type: "explanation",
-                            options: {
+                        "explanation 1": generateExplanationWidget({
+                            options: generateExplanationOptions({
                                 showPrompt: "Show",
                                 hidePrompt: "Hide",
                                 explanation: "Test explanation",
-                                widgets: {},
-                                static: false,
-                            },
-                        },
-                        "interactive-graph 1": {
-                            type: "interactive-graph",
-                            options: {
-                                graph: {
-                                    type: "point",
+                            }),
+                        }),
+                        "interactive-graph 1": generateInteractiveGraphWidget({
+                            options: generateInteractiveGraphOptions({
+                                graph: generateIGPointGraph({
                                     numPoints: 1,
-                                },
-                                range: [
-                                    [-10, 10],
-                                    [-10, 10],
-                                ],
-                                showAxisArrows: {
-                                    xMin: true,
-                                    xMax: true,
-                                    yMin: true,
-                                    yMax: true,
-                                },
-                                step: [1, 1],
-                                markings: "graph",
-                                showProtractor: false,
-                                correct: {
-                                    type: "point",
+                                }),
+                                correct: generateIGPointGraph({
                                     coords: [[0, 0]],
-                                },
-                                lockedFigures: [],
-                            },
-                        },
+                                }),
+                            }),
+                        }),
                         "matcher 1": {
                             type: "matcher",
                             options: {
@@ -251,11 +216,8 @@ describe("isItemAccessible", () => {
                             },
                         },
                     },
-                    images: {},
-                },
-                hints: [],
-                answerArea: null,
-            };
+                }),
+            });
 
             expect(isItemAccessible(itemData)).toBe(true);
         });

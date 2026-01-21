@@ -45,11 +45,6 @@ verify_env() {
         exit 1
     fi
 
-    if [ -z ${NPM_TOKEN+NPM_TOKEN_UNSET} ]; then
-        echo "Required 'NPM_TOKEN' environment variable is unset. Exiting!"
-        exit 1
-    fi
-
     if [[
         "$GITHUB_EVENT_NAME" != "workflow_dispatch" \
         && "$GITHUB_EVENT_NAME" != "pull_request"
@@ -94,19 +89,6 @@ pre_publish_check() {
     fi
 }
 
-create_npmrc() {
-    # Inspiration: https://github.com/changesets/action/blob/8c3f5f5637a95a2327e78d5dabcf357978aedcbb/src/index.ts#L59..L85
-    echo "Checking for valid .npmrc"
-    if [[ -f "$HOME/.npmrc" ]]; then
-        if grep --silent "registry.npmjs.org" "$HOME/.npmrc"; then
-            return
-        fi
-    fi
-
-    # Append or create the file!
-    printf "\n//registry.npmjs.org/:_authToken=%s\n" "$NPM_TOKEN" >> "$HOME/.npmrc"
-}
-
 ######
 ## Now we start the actual workflow of the script
 ##
@@ -116,7 +98,6 @@ create_npmrc() {
 verify_env
 check_for_changes
 pre_publish_check
-create_npmrc
 
 pnpm build
 pnpm build:types
@@ -135,7 +116,12 @@ pnpm changeset version --snapshot "$PR_NUMBER"
 # tag that always exists).
 # You can see this for yourself by running:
 # `pnpm info react --json | jq '.data["dist-tags"]'
-pnpm changeset publish --no-git-tag --tag "${PR_NUMBER}"
+#
+# Note: We set this so that (p)npm publish will include the
+# provenance information in the package.json file and surface
+# it in the npm registry.
+# See: https://docs.npmjs.com/generating-provenance-statements
+env NPM_CONFIG_PROVENANCE=true pnpm changeset publish --no-git-tag --tag "${PR_NUMBER}"
 
 # Now we export the npm tag name so that later Github Action steps have access
 # to this value in the form of:

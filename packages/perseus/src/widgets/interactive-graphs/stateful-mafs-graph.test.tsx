@@ -37,6 +37,7 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
         correct: {type: "segment"},
         static: false,
         lockedFigures: [],
+        widgetId: "test-widget-id",
     };
 }
 

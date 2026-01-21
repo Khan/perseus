@@ -24,6 +24,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
+import type $ from "jquery";
 import type * as React from "react";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
@@ -143,8 +144,6 @@ export type ImageUploader = (
 
 export type Path = ReadonlyArray<string>;
 
-type StubTagEditorType = any; // from "./components/stub-tag-editor";
-
 type TrackInteractionArgs = {
     // The widget type that this interaction originates from
     type: string;
@@ -159,6 +158,16 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
+type GenerateUrlContext =
+    | "image_loader:image_url"
+    | "python_program:program_url"
+    | "video:video_url";
+
+export type GenerateUrlArgs = {
+    url: string;
+    context: GenerateUrlContext;
+};
+
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -172,27 +181,20 @@ export type APIOptions = Readonly<{
         keypadHeight?: number,
         focusedElement?: HTMLElement,
     ) => unknown;
-    /**
-     * @deprecated - metadata is no longer used by the Group widget
-     */
-    GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
     showAlignmentOptions?: boolean;
     /**
      * A boolean that indicates whether the associated problem has been
      * answered correctly and should no longer be interactive.
      */
     readOnly?: boolean;
+    /**
+     * A boolean that indicates whether the editor interface should be
+     * disabled, preventing content creators from making changes.
+     */
+    editingDisabled?: boolean;
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
     interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
-    /**
-     * A function that takes in the relative problem number (starts at
-     * 0 and is incremented for each group widget), and the ID of the
-     * group widget, then returns a react component that will be added
-     * immediately above the renderer in the group widget. If the
-     * function returns null, no annotation will be added.
-     */
-    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
     /**
      * If imagePlaceholder is set, Perseus will render the placeholder instead
      * of the image node.
@@ -302,8 +304,19 @@ type JIPT = {
     useJIPT: boolean;
 };
 
+/**
+ * A label element returned by graphie.label().
+ * This is a JQuery element with custom methods attached for positioning
+ * and rendering text/math content.
+ */
+export type GraphieLabelElement = ReturnType<typeof $<HTMLElement>> & {
+    setPosition: (point: [number, number]) => void;
+    processMath: (math: string, force: boolean) => void;
+    processText: (text: string) => void;
+};
+
 export type JiptLabelStore = {
-    addLabel: (label?: any, useMath?: any) => void;
+    addLabel: (label?: GraphieLabelElement, useMath?: boolean) => void;
 };
 
 export interface JiptRenderer {
@@ -366,6 +379,9 @@ export type PerseusDependencies = {
     TeX: React.ComponentType<TeXProps>;
 
     //misc
+    /**
+     * @deprecated Use `PerseusDependenciesV2.generateUrl` instead.
+     */
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
 
@@ -386,6 +402,14 @@ export type PerseusDependencies = {
  */
 export interface PerseusDependenciesV2 {
     analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
+
+    /**
+     * A function that takes a URL or partial url and may modify it to return
+     * the full URL. This may be used to request a resource from a different
+     * app to where the widget is rendered, like when embedding a video
+     * cross-domain.
+     */
+    generateUrl: (args: GenerateUrlArgs) => string;
 
     // video widget
     // This is used as a hook to fetch data about a video which is used to
@@ -410,10 +434,10 @@ export type APIOptionsWithDefaults = Readonly<
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
         editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
-        groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         isMobileApp: NonNullable<APIOptions["isMobileApp"]>;
+        editingDisabled: NonNullable<APIOptions["editingDisabled"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
         setDrawingAreaAvailable: NonNullable<
@@ -509,22 +533,15 @@ export type FilterCriterion =
 export type WidgetProps<
     TWidgetOptions,
     TUserInput = Empty,
-    Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = TWidgetOptions &
-    UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
+> = TWidgetOptions & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
 
 /**
  * The props passed to every widget, regardless of its `type`.
  */
-export type UniversalWidgetProps<
-    ReviewModeRubric = Empty,
-    TUserInput = Empty,
-    TrackingExtraArgs = Empty,
-> = {
-    reviewModeRubric?: ReviewModeRubric | null | undefined;
+type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the
@@ -538,11 +555,7 @@ export type UniversalWidgetProps<
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;
     keypadElement?: any;
-    /**
-     * questionCompleted is used to signal that a learner has attempted
-     * the exercise. This is used when widgets want to show things like
-     * rationale or partial correctness.
-     */
+    // TODO(LEMS-3783): remove uses of `questionCompleted`
     questionCompleted?: boolean;
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
@@ -555,7 +568,6 @@ export type UniversalWidgetProps<
         silent?: boolean,
     ) => void;
     userInput: TUserInput;
-    isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;
     containerSizeClass: SizeClass;

@@ -1,8 +1,17 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateGradedGroupWidget,
+    type PerseusArticle,
+} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import {renderArticle} from "../../__tests__/article-renderer.test";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -12,8 +21,7 @@ import {
     groupedRadioRationaleQuestion,
 } from "./graded-group.testdata";
 
-import type {APIOptions} from "../../types";
-import type {PerseusArticle} from "@khanacademy/perseus-core";
+import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const checkAnswer = async (
@@ -54,6 +62,28 @@ describe("graded-group", () => {
         expect(container).toMatchSnapshot(
             `initial render (mobile: ${isMobile.toString()})`,
         );
+    });
+
+    it("should send analytics event when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "graded-group",
+                widgetId: "graded-group 1",
+            },
+        });
     });
 
     describe("on desktop", () => {
@@ -361,15 +391,13 @@ describe("graded-group", () => {
                 {
                     content: "[[☃ graded-group 1]]",
                     widgets: {
-                        "graded-group 1": {
-                            type: "graded-group",
+                        "graded-group 1": generateGradedGroupWidget({
                             options: {
                                 title: "Test title",
                                 content: "[[☃ dropdown 1]]",
                                 widgets: {
-                                    "dropdown 1": {
-                                        type: "dropdown",
-                                        options: {
+                                    "dropdown 1": generateDropdownWidget({
+                                        options: generateDropdownOptions({
                                             choices: [
                                                 {
                                                     content: "Wrong answer",
@@ -382,12 +410,12 @@ describe("graded-group", () => {
                                             ],
                                             placeholder: "Choose an answer",
                                             static: false,
-                                        },
-                                    },
+                                        }),
+                                    }),
                                 },
                                 images: {},
                             },
-                        },
+                        }),
                     },
                     images: {},
                 },

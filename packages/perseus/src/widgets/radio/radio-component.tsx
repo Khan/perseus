@@ -5,7 +5,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
-import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
 
@@ -39,11 +38,7 @@ export type RadioProps = PerseusRadioWidgetOptions & {
     onChange: ChangeHandler;
 };
 
-export type Props = WidgetProps<
-    RadioProps,
-    PerseusRadioUserInput,
-    PerseusRadioRubric
->;
+type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 
 type DefaultProps = Required<
     Pick<
@@ -84,6 +79,7 @@ class Radio extends React.Component<Props> implements Widget {
         let nextPassageRefId = 1;
         const widgets: Record<string, any> = {};
 
+        // passage-ref is already deprecated see LEMS-3124
         const modContent = content.replace(
             /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
             (
@@ -103,7 +99,7 @@ class Radio extends React.Component<Props> implements Widget {
                         referenceNumber: parseInt(refNum),
                         summaryText: summaryText,
                     },
-                    version: PassageRef.version,
+                    version: {major: 0, minor: 0},
                 };
 
                 return "[[" + Util.snowman + " " + widgetId + "]]";
@@ -254,29 +250,18 @@ class Radio extends React.Component<Props> implements Widget {
                     previouslyAnswered,
                 } = choiceStates[i];
 
-                const reviewChoice = this.props.reviewModeRubric?.choices[i];
-
                 return {
                     id: choice.id,
                     content: this._renderRenderer(content),
                     checked: selected,
-                    // Current versions of the radio widget always pass in the
-                    // "correct" value through the choices. Old serialized state
-                    // for radio widgets doesn't have this though, so we have to
-                    // pull the correctness out of the review mode scoring data.
-                    // TODO(emily): Come up with a more comprehensive way to solve
-                    // this sort of "serialized state breaks when internal
-                    // structure changes" problem.
-                    correct:
-                        choice.correct === undefined
-                            ? !!reviewChoice && !!reviewChoice.correct
-                            : choice.correct,
+                    correct: !!choice.correct,
                     disabled: readOnly,
                     hasRationale: !!choice.rationale,
                     rationale: this._renderRenderer(choice.rationale),
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
+                    // TODO(LEMS-3783): remove uses of `questionCompleted` and `revealNoneOfTheAbove`
                     revealNoneOfTheAbove: !!(
                         this.props.questionCompleted && selected
                     ),
@@ -294,11 +279,9 @@ class Radio extends React.Component<Props> implements Widget {
                 numCorrect={this.props.numCorrect}
                 choices={choicesProp}
                 onChange={this.updateChoices}
-                reviewModeRubric={this.props.reviewModeRubric}
                 reviewMode={this.props.reviewMode}
                 deselectEnabled={this.props.deselectEnabled}
                 apiOptions={this.props.apiOptions}
-                isLastUsedWidget={this.props.isLastUsedWidget}
                 registerFocusFunction={(i) => this.registerFocusFunction(i)}
             />
         );

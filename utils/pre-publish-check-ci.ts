@@ -12,6 +12,7 @@ import {
     checkSource,
     checkPublishConfig,
 } from "./internal/pre-publish-utils";
+import {verifyCatalogHashes} from "./internal/verify-catalog-hashes";
 
 // eslint-disable-next-line promise/catch-or-return
 fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
@@ -30,6 +31,20 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
             ) {
                 allPassed = false;
             }
+        }
+
+        // Verify catalog hashes are up-to-date
+        console.log("\n🔍 Verifying catalog hashes...");
+        const catalogHashResult = verifyCatalogHashes();
+        if (!catalogHashResult.success) {
+            console.error("\n❌ Catalog hash verification failed:\n");
+            for (const error of catalogHashResult.errors) {
+                console.error(`  - ${error}`);
+            }
+            console.error("\nTo fix, run: pnpm update-catalog-hashes\n");
+            allPassed = false;
+        } else {
+            console.log("✅ All catalog hashes are up-to-date");
         }
 
         // Exit only after we've processed all the packages.

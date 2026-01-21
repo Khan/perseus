@@ -4,25 +4,41 @@
  * multiple (Renderer) sections concatenated together.
  */
 
-import {components, ApiOptions, iconTrash} from "@khanacademy/perseus";
+import {
+    components,
+    ApiOptions,
+    Dependencies,
+    PerseusMarkdown,
+} from "@khanacademy/perseus";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
+import Button from "@khanacademy/wonder-blocks-button";
+import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
+import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.svg";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
+import IssuesPanel from "./components/issues-panel";
 import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
-import {
-    iconCircleArrowDown,
-    iconCircleArrowUp,
-    iconPlus,
-} from "./styles/icon-paths";
+import {WARNINGS} from "./messages";
+import {detectTexErrors} from "./util/tex-error-detector";
 
-import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
+import type {Issue} from "./components/issues-panel";
+import type {
+    APIOptions,
+    Changeable,
+    ImageUploader,
+    PerseusDependenciesV2,
+} from "@khanacademy/perseus";
+import type {PerseusArticle} from "@khanacademy/perseus-core";
 
-const {HUD, InlineIcon} = components;
+const {HUD} = components;
 
 type RendererProps = {
     content?: string;
@@ -30,10 +46,9 @@ type RendererProps = {
     images?: any;
 };
 
-type JsonType = RendererProps | ReadonlyArray<RendererProps>;
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
-    json: JsonType;
+    json: PerseusArticle;
     mode: "diff" | "edit" | "json" | "preview";
     screen: "phone" | "tablet" | "desktop";
     sectionImageUploadGenerator: (
@@ -43,18 +58,23 @@ type DefaultProps = {
 };
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
+    dependencies: PerseusDependenciesV2;
     imageUploader?: ImageUploader;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
+    issues?: Issue[];
 } & Changeable.ChangeableProps;
 
 type State = {
     highlightLint: boolean;
+    issues: Issue[];
 };
+
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
-        json: [{}],
+        // NOTE(Jeremy):
+        json: [{} as any],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
@@ -63,14 +83,77 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     state: State = {
         highlightLint: true,
+        issues: [],
     };
 
     componentDidMount() {
+        this._updateIssues();
         this._updatePreviewFrames();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps: Props) {
+        // Only update issues if json or issues prop changed
+        if (
+            prevProps.json !== this.props.json ||
+            prevProps.issues !== this.props.issues
+        ) {
+            this._updateIssues();
+        }
+
         this._updatePreviewFrames();
+    }
+
+    /**
+     * Updates the issues state with the linter issues for the current sections.
+     * Helper function to be used with componentDidMount and componentDidUpdate.
+     */
+    _updateIssues() {
+        // Get sections array
+        const sections: ReadonlyArray<RendererProps> =
+            this.props.json instanceof Array
+                ? this.props.json
+                : [this.props.json];
+
+        // Run linter on all sections and collect issues
+        const allLinterIssues: Issue[] = [];
+        sections.forEach((section) => {
+            const parsed = PerseusMarkdown.parse(section.content ?? "", {});
+            const linterContext = {
+                content: section.content,
+                widgets: section.widgets,
+                stack: [],
+            };
+
+            const sectionIssues =
+                PerseusLinter.runLinter(parsed, linterContext, false)?.map(
+                    (linterWarning) => {
+                        if (linterWarning.rule === "inaccessible-widget") {
+                            return WARNINGS.inaccessibleWidget(
+                                linterWarning.metadata?.widgetType ?? "unknown",
+                                linterWarning.metadata?.widgetId ?? "unknown",
+                            );
+                        }
+                        return WARNINGS.genericLinterWarning(
+                            linterWarning.rule,
+                            linterWarning.message,
+                            linterWarning.severity,
+                        );
+                    },
+                ) ?? [];
+
+            allLinterIssues.push(...sectionIssues);
+
+            // Detect TeX errors in this section
+            const texErrors = detectTexErrors(section.content ?? "");
+            const texIssues = texErrors.map((error, index) =>
+                WARNINGS.texError(error.math, error.message, index),
+            );
+            allLinterIssues.push(...texIssues);
+        });
+
+        this.setState({
+            issues: [...(this.props.issues ?? []), ...allLinterIssues],
+        });
     }
 
     _updatePreviewFrames() {
@@ -122,9 +205,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _sections(): ReadonlyArray<RendererProps> {
-        return Array.isArray(this.props.json)
-            ? this.props.json
-            : [this.props.json];
+        const json = this.props.json;
+        return json instanceof Array ? json : [json];
     }
 
     _renderEditor(): React.ReactElement<React.ComponentProps<"div">> {
@@ -140,111 +222,132 @@ export default class ArticleEditor extends React.Component<Props, State> {
         } as const;
 
         const sections = this._sections();
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         return (
             <div className="perseus-editor-table">
                 {sections.map((section, i) => {
                     return [
                         <div className="perseus-editor-row" key={i}>
-                            <div className="perseus-editor-left-cell">
-                                <div className="pod-title">
-                                    Section {i + 1}
-                                    <div
-                                        style={{
-                                            display: "inline-block",
-                                            float: "right",
-                                        }}
-                                    >
-                                        {sectionImageUploadGenerator(i)}
-                                        <SectionControlButton
-                                            icon={iconPlus}
-                                            onClick={() => {
-                                                this._handleAddSectionAfter(i);
+                            <fieldset disabled={editingDisabled}>
+                                <div className="perseus-editor-left-cell">
+                                    <IssuesPanel
+                                        apiOptions={this.props.apiOptions}
+                                        issues={this.state.issues}
+                                    />
+                                    <div className="pod-title">
+                                        Section {i + 1}
+                                        <div
+                                            style={{
+                                                display: "inline-block",
+                                                float: "right",
                                             }}
-                                            title="Add a new section after this one"
-                                        />
-                                        {i + 1 < sections.length && (
+                                        >
+                                            {sectionImageUploadGenerator(i)}
                                             <SectionControlButton
-                                                icon={iconCircleArrowDown}
+                                                icon={plusIcon}
+                                                disabled={editingDisabled}
                                                 onClick={() => {
-                                                    this._handleMoveSectionLater(
+                                                    this._handleAddSectionAfter(
                                                         i,
                                                     );
                                                 }}
-                                                title="Move this section down"
+                                                title="Add a new section after this one"
                                             />
-                                        )}
-                                        {i > 0 && (
+                                            {i + 1 < sections.length && (
+                                                <SectionControlButton
+                                                    icon={arrowCircleDownIcon}
+                                                    disabled={editingDisabled}
+                                                    onClick={() => {
+                                                        this._handleMoveSectionLater(
+                                                            i,
+                                                        );
+                                                    }}
+                                                    title="Move this section down"
+                                                />
+                                            )}
+                                            {i > 0 && (
+                                                <SectionControlButton
+                                                    icon={arrowCircleUpIcon}
+                                                    disabled={editingDisabled}
+                                                    onClick={() => {
+                                                        this._handleMoveSectionEarlier(
+                                                            i,
+                                                        );
+                                                    }}
+                                                    title="Move this section up"
+                                                />
+                                            )}
                                             <SectionControlButton
-                                                icon={iconCircleArrowUp}
+                                                icon={trashIcon}
+                                                disabled={editingDisabled}
                                                 onClick={() => {
-                                                    this._handleMoveSectionEarlier(
-                                                        i,
-                                                    );
+                                                    const msg =
+                                                        "Are you sure you " +
+                                                        "want to delete section " +
+                                                        (i + 1) +
+                                                        "?";
+                                                    /* eslint-disable no-alert */
+                                                    if (confirm(msg)) {
+                                                        this._handleRemoveSection(
+                                                            i,
+                                                        );
+                                                    }
+                                                    /* eslint-enable no-alert */
                                                 }}
-                                                title="Move this section up"
+                                                title="Delete this section"
                                             />
-                                        )}
-                                        <SectionControlButton
-                                            icon={iconTrash}
-                                            onClick={() => {
-                                                const msg =
-                                                    "Are you sure you " +
-                                                    "want to delete section " +
-                                                    (i + 1) +
-                                                    "?";
-                                                /* eslint-disable no-alert */
-                                                if (confirm(msg)) {
-                                                    this._handleRemoveSection(
-                                                        i,
-                                                    );
-                                                }
-                                                /* eslint-enable no-alert */
-                                            }}
-                                            title="Delete this section"
-                                        />
+                                        </div>
                                     </div>
+                                    <Editor
+                                        {...section}
+                                        apiOptions={apiOptions}
+                                        imageUploader={imageUploader}
+                                        onChange={(newProps) =>
+                                            this._handleEditorChange(
+                                                i,
+                                                newProps,
+                                            )
+                                        }
+                                        placeholder="Type your section text here..."
+                                        ref={"editor" + i}
+                                    />
                                 </div>
-                                <Editor
-                                    {...section}
-                                    apiOptions={apiOptions}
-                                    imageUploader={imageUploader}
-                                    onChange={(newProps) =>
-                                        this._handleEditorChange(i, newProps)
-                                    }
-                                    placeholder="Type your section text here..."
-                                    ref={"editor" + i}
-                                />
-                            </div>
 
-                            <div className="editor-preview">
-                                {this._renderIframePreview(i, true)}
-                            </div>
+                                <div className="editor-preview">
+                                    {this._renderIframePreview(i, true)}
+                                </div>
+                            </fieldset>
                         </div>,
                     ];
                 })}
-                {this._renderAddSection()}
+
+                {this._renderAddSection(editingDisabled)}
                 {this._renderLinterHUD()}
             </div>
         );
         /* eslint-enable max-len */
     }
 
-    _renderAddSection(): React.ReactElement<React.ComponentProps<"div">> {
+    _renderAddSection(
+        editingDisabled: boolean,
+    ): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div className="perseus-editor-row">
                 <div className="perseus-editor-left-cell">
-                    <a
-                        href="#"
-                        className="simple-button orange"
+                    <Button
+                        startIcon={plusIcon}
+                        disabled={editingDisabled}
+                        kind="tertiary"
+                        aria-label="Add a section"
                         onClick={() => {
                             this._handleAddSectionAfter(
                                 this._sections().length - 1,
                             );
                         }}
                     >
-                        <InlineIcon {...iconPlus} /> Add a section
-                    </a>
+                        Add a section
+                    </Button>
                 </div>
             </div>
         );
@@ -293,7 +396,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         );
     }
 
-    _handleJsonChange: (newJson: JsonType) => void = (newJson) => {
+    _handleJsonChange: (newJson: PerseusArticle) => void = (newJson) => {
         this.props.onChange({json: newJson});
     };
 
@@ -348,7 +451,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                       widgets: sections[i].widgets,
                   }
                 : {};
-        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'JsonType'.
+        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'PerseusArticle'.
         sections.splice(i + 1, 0, newSection);
         this.props.onChange({
             json: sections,
@@ -363,7 +466,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         });
     }
 
-    serialize(): JsonType {
+    serialize(): PerseusArticle {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
                 // eslint-disable-next-line react/no-string-refs
@@ -404,28 +507,34 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
-            <div className="framework-perseus perseus-article-editor">
-                {this.props.mode === "edit" && this._renderEditor()}
+            <Dependencies.DependenciesContext.Provider
+                value={this.props.dependencies}
+            >
+                <div className="framework-perseus perseus-article-editor">
+                    {this.props.mode === "edit" && this._renderEditor()}
 
-                {this.props.mode === "preview" && this._renderPreviewMode()}
+                    {this.props.mode === "preview" && this._renderPreviewMode()}
 
-                {this.props.mode === "json" && (
-                    <div className="json-editor">
-                        <div className="json-editor-warning">
-                            <span>
-                                Warning: Editing in this mode can lead to broken
-                                articles!
-                            </span>
+                    {this.props.mode === "json" && (
+                        <div className="json-editor">
+                            <div className="json-editor-warning">
+                                <span>
+                                    Warning: Editing in this mode can lead to
+                                    broken articles!
+                                </span>
+                            </div>
+                            <JsonEditor
+                                multiLine={true}
+                                onChange={this._handleJsonChange}
+                                value={this.props.json}
+                                editingDisabled={editingDisabled}
+                            />
                         </div>
-                        <JsonEditor
-                            multiLine={true}
-                            onChange={this._handleJsonChange}
-                            value={this.props.json}
-                        />
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            </Dependencies.DependenciesContext.Provider>
         );
     }
 }

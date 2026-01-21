@@ -3,7 +3,12 @@ import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {mockImageLoading} from "../../../../testing/image-loader-utils";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
+import {DependenciesContext} from "../../../perseus/src/dependencies";
 import Editor from "../editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
@@ -12,22 +17,26 @@ import type {UserEvent} from "@testing-library/user-event";
 
 const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
     return (
-        <Editor
-            apiOptions={ApiOptions.defaults}
-            onChange={() => {}}
-            content="[[☃ image 1]]"
-            widgets={{
-                "image 1": {
-                    type: "image",
-                    options: {
-                        backgroundImage: {
-                            url: "http://placekitten.com/200/300",
+        <DependenciesContext.Provider value={testDependenciesV2}>
+            <Editor
+                apiOptions={ApiOptions.defaults}
+                onChange={() => {}}
+                content="[[☃ image 1]]"
+                widgets={{
+                    "image 1": {
+                        type: "image",
+                        options: {
+                            backgroundImage: {
+                                url: "http://placekitten.com/200/300",
+                                width: 200,
+                                height: 300,
+                            },
                         },
                     },
-                },
-            }}
-            {...props}
-        />
+                }}
+                {...props}
+            />
+        </DependenciesContext.Provider>
     );
 };
 
@@ -81,18 +90,9 @@ describe("Editor", () => {
 
     test("clicking on the widget editor should open it", async () => {
         // Arrange
-        const images: Array<Record<any, any>> = [];
-        const originalImage = window.Image;
         // The editor preview uses SvgImage, which uses ImageLoader.
         // We need to mock the image loading in ImageLoader for it to render.
-        // Mock HTML Image so we can trigger onLoad callbacks and see full
-        // image rendering.
-        // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
-        window.Image = jest.fn(() => {
-            const img: Record<string, any> = {};
-            images.push(img);
-            return img;
-        });
+        const unmockImageLoading = mockImageLoading();
 
         render(<Harnessed />);
 
@@ -100,24 +100,17 @@ describe("Editor", () => {
         const widgetDisclosure = screen.getByText("image 1");
         await userEvent.click(widgetDisclosure);
 
-        // Trigger the image load
-        images.forEach((img) => {
-            if (img?.onload) {
-                act(() => img.onload());
-            }
-        });
-
         // Assert
         const previewImage = screen.getByAltText(/Preview:/);
         await waitFor(() =>
             expect(previewImage).toHaveAttribute(
                 "src",
-                "mockStaticUrl(http://placekitten.com/200/300)",
+                "http://placekitten.com/200/300",
             ),
         );
 
         // Cleanup
-        window.Image = originalImage;
+        unmockImageLoading();
     });
 
     it("should update values", async () => {
@@ -215,9 +208,16 @@ describe("Editor", () => {
         await userEvent.selectOptions(select, "Radio / Multiple choice");
 
         expect(cbData?.widgets?.["radio 1"]?.version).toEqual({
-            major: 2,
+            major: 3,
             minor: 0,
         });
+    });
+
+    it("should apply perseus-editor-disabled class when editingDisabled", () => {
+        render(<Harnessed apiOptions={{editingDisabled: true}} />);
+        expect(screen.queryByTestId("perseus-single-editor")).toHaveClass(
+            "perseus-editor-disabled",
+        );
     });
 
     test("default templates work", async () => {

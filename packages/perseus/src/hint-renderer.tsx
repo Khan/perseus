@@ -4,21 +4,24 @@ import classnames from "classnames";
 import * as React from "react";
 
 import {PerseusI18nContext} from "./components/i18n-context";
+import {DependenciesContext} from "./dependencies";
 import Renderer from "./renderer";
 import {baseUnitPx, hintBorderWidth, kaGreen, gray97} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
 import UserInputManager from "./user-input-manager";
 
-import type {SharedRendererProps} from "./types";
+import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
+import type {Hint} from "@khanacademy/perseus-core";
 
 type Props = SharedRendererProps & {
     className?: string;
-    hint: any;
+    hint: Hint;
     lastHint?: boolean;
     lastRendered?: boolean;
     pos: number;
     totalHints?: number;
     findExternalWidgets?: any;
+    dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = {
@@ -45,6 +48,13 @@ class HintRenderer extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        if (this.props.hint.placeholder) {
+            // TODO(LEMS-3806): there's probably a better way to do this,
+            // but this can't be null because other components
+            // reference the ref on HintRenderer
+            return <span />;
+        }
+
         const {
             apiOptions,
             className,
@@ -78,46 +88,56 @@ class HintRenderer extends React.Component<Props> {
         } as const;
 
         return (
-            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-            <div className={classNames} tabIndex="-1">
-                {!apiOptions.isMobile && (
-                    <span className="perseus-sr-only">
-                        {this.context.strings.hintPos({pos: pos + 1})}
-                    </span>
-                )}
-                {!apiOptions.isMobile && totalHints != null && pos != null && (
-                    <span
-                        className="perseus-hint-label"
-                        style={{
-                            display: "block",
-                            color: apiOptions.hintProgressColor,
-                        }}
-                    >
-                        {`${pos + 1} / ${totalHints}`}
-                    </span>
-                )}
-
-                <UserInputManager widgets={hint.widgets} problemNum={0}>
-                    {({userInput, handleUserInput, initializeUserInput}) => (
-                        <Renderer
-                            ref={this.rendererRef}
-                            userInput={userInput}
-                            handleUserInput={handleUserInput}
-                            initializeUserInput={initializeUserInput}
-                            widgets={hint.widgets}
-                            content={hint.content || ""}
-                            images={hint.images}
-                            apiOptions={rendererApiOptions}
-                            findExternalWidgets={this.props.findExternalWidgets}
-                            linterContext={PerseusLinter.pushContextStack(
-                                this.props.linterContext,
-                                "hint",
-                            )}
-                            strings={this.context.strings}
-                        />
+            <DependenciesContext.Provider value={this.props.dependencies}>
+                {/* @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'. */}
+                <div className={classNames} tabIndex="-1">
+                    {!apiOptions.isMobile && (
+                        <span className="perseus-sr-only">
+                            {this.context.strings.hintPos({pos: pos + 1})}
+                        </span>
                     )}
-                </UserInputManager>
-            </div>
+                    {!apiOptions.isMobile &&
+                        totalHints != null &&
+                        pos != null && (
+                            <span
+                                className="perseus-hint-label"
+                                style={{
+                                    display: "block",
+                                    color: apiOptions.hintProgressColor,
+                                }}
+                            >
+                                {`${pos + 1} / ${totalHints}`}
+                            </span>
+                        )}
+
+                    <UserInputManager widgets={hint.widgets} problemNum={0}>
+                        {({
+                            userInput,
+                            handleUserInput,
+                            initializeUserInput,
+                        }) => (
+                            <Renderer
+                                ref={this.rendererRef}
+                                userInput={userInput}
+                                handleUserInput={handleUserInput}
+                                initializeUserInput={initializeUserInput}
+                                widgets={hint.widgets}
+                                content={hint.content || ""}
+                                images={hint.images}
+                                apiOptions={rendererApiOptions}
+                                findExternalWidgets={
+                                    this.props.findExternalWidgets
+                                }
+                                linterContext={PerseusLinter.pushContextStack(
+                                    this.props.linterContext,
+                                    "hint",
+                                )}
+                                strings={this.context.strings}
+                            />
+                        )}
+                    </UserInputManager>
+                </div>
+            </DependenciesContext.Provider>
         );
     }
 }

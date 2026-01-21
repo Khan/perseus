@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "69.3.0",
+    "version": "73.1.0",
     "publishConfig": {
         "access": "public"
     },
@@ -56,6 +56,7 @@
         "uuid": "^10.0.0"
     },
     "devDependencies": {
+        "@khanacademy/wonder-blocks-announcer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-button": "catalog:devDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:devDeps",
@@ -73,6 +74,7 @@
         "@khanacademy/wonder-blocks-popover": "catalog:devDeps",
         "@khanacademy/wonder-blocks-progress-spinner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-timing": "catalog:devDeps",
         "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
         "@khanacademy/wonder-blocks-tooltip": "catalog:devDeps",
         "@khanacademy/wonder-blocks-typography": "catalog:devDeps",
@@ -81,7 +83,6 @@
         "@popperjs/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
-        "csstype": "^3.1.3",
         "intersection-observer": "^0.12.0",
         "jquery": "catalog:devDeps",
         "lodash.debounce": "^4.0.8",
@@ -94,6 +95,7 @@
         "underscore": "catalog:devDeps"
     },
     "peerDependencies": {
+        "@khanacademy/wonder-blocks-announcer": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-button": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:peerDeps",
@@ -111,6 +113,7 @@
         "@khanacademy/wonder-blocks-popover": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-progress-spinner": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:peerDeps",
+        "@khanacademy/wonder-blocks-timing": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-tokens": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-tooltip": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-typography": "catalog:peerDeps",
@@ -128,5 +131,8 @@
         "react-popper": "^2.2.5",
         "underscore": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "86251d04b53c7d14"
+    }
 }

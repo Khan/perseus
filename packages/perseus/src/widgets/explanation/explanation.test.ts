@@ -1,12 +1,16 @@
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./explanation.testdata";
 
+import type {PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("Explanation", function () {
@@ -38,13 +42,13 @@ describe("Explanation", function () {
         );
 
         const expectedClass = isExpanded
-            ? "contentExpanded"
-            : "contentCollapsed";
+            ? "content-expanded"
+            : "content-collapsed";
         expect(contentContainer.className).toContain(expectedClass);
 
         const excludedClass = isExpanded
-            ? "contentCollapsed"
-            : "contentExpanded";
+            ? "content-collapsed"
+            : "content-expanded";
         expect(contentContainer.className).not.toContain(excludedClass);
     };
 
@@ -90,6 +94,28 @@ describe("Explanation", function () {
         // The only real difference between expanded and not expanded is the
         //     classes and aria that are applied.
         expect(container).toMatchSnapshot("expanded");
+    });
+
+    it("should send analytics when widget is rendered", () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Arrange and Act
+        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "explanation",
+                widgetId: "explanation 1",
+            },
+        });
     });
 
     it("can be expanded and collapsed with a mouse click", async function () {
@@ -181,7 +207,7 @@ describe("Explanation", function () {
 
         // Assert - transition when revealing
         expect(screen.getByTestId("content-container").className).toContain(
-            "transitionExpanded",
+            "transition-expanded",
         );
 
         // Act - collapse
@@ -191,10 +217,11 @@ describe("Explanation", function () {
 
         // Assert - transition when concealing
         expect(screen.getByTestId("content-container").className).toContain(
-            "transitionCollapsed",
+            "transition-collapsed",
         );
     });
 
+    // TODO (LEMS-3815): Remove test when legacy styles are removed
     it("does NOT use transitions when matchMedia is not available", async () => {
         const fakeWindow = Object.create(window);
         fakeWindow.matchMedia = undefined;
@@ -212,6 +239,7 @@ describe("Explanation", function () {
         );
     });
 
+    // TODO (LEMS-3815): Remove test when legacy styles are removed
     it("does NOT use transitions when the user prefers reduced motion", async () => {
         // Arrange
         jest.spyOn(window, "matchMedia").mockImplementation(

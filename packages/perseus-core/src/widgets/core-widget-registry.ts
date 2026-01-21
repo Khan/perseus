@@ -25,9 +25,6 @@ import measurerWidgetLogic from "./measurer";
 import numberLineWidgetLogic from "./number-line";
 import numericInputWidgetLogic from "./numeric-input";
 import ordererWidgetLogic from "./orderer";
-import passageWidgetLogic from "./passage";
-import passageRefWidgetLogic from "./passage-ref";
-import passageRefTargetWidgetLogic from "./passage-ref-target";
 import phetSimulationWidgetLogic from "./phet-simulation";
 import plotterWidgetLogic from "./plotter";
 import pythonProgramWidgetLogic from "./python-program";
@@ -153,6 +150,36 @@ export const getDefaultAlignment = (type: string): Alignment => {
 };
 
 /**
+ * Returns the CSS class name corresponding to the specified widget alignment.
+ * Uses explicit mapping to make it easy to locate related CSS style definitions.
+ */
+export const getAlignmentClassName = (
+    type: string,
+    alignment: Alignment,
+): string => {
+    switch (alignment) {
+        case "block":
+            return " widget-block";
+        case "inline-block":
+            return " widget-inline-block";
+        case "inline":
+            return " widget-inline";
+        case "wrap-left":
+            return " widget-wrap-left";
+        case "wrap-right":
+            return " widget-wrap-right";
+        case "full-width":
+            return " widget-full-width";
+        case "default":
+            // This is for widgets that don't have supportedAlignments
+            // It doesn't have any impact on styling it is used for error handling
+            return getDefaultAlignment(type);
+        default:
+            return "";
+    }
+};
+
+/**
  * We use a function here rather than registering widgets
  * at the top-level of the file to avoid circular dependencies.
  * Logic that needs core widget functionality
@@ -184,9 +211,6 @@ export function registerCoreWidgets() {
         numberLineWidgetLogic,
         numericInputWidgetLogic,
         ordererWidgetLogic,
-        passageWidgetLogic,
-        passageRefWidgetLogic,
-        passageRefTargetWidgetLogic,
         phetSimulationWidgetLogic,
         plotterWidgetLogic,
         pythonProgramWidgetLogic,

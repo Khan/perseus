@@ -25,7 +25,6 @@ const denylist = [
     "problemNum",
     "apiOptions",
     "widgetIsOpen",
-    "questionCompleted",
     "findWidgets",
     // added by src/editor.jsx, for widgets removing themselves
     // this is soooo not the right place for this, but alas.
@@ -38,12 +37,10 @@ const denylist = [
     "trackInteraction",
     "keypadElement",
     "linterContext",
-    "isLastUsedWidget",
     "handleUserInput",
     "analytics",
     "showSolutions",
     "reviewMode",
-    "reviewModeRubric",
     "widgetIndex",
 ];
 
@@ -60,5 +57,3 @@ export function excludeDenylistKeys(obj: Record<any, any>) {
     }
     return rv;
 }
-
-export default denylist;

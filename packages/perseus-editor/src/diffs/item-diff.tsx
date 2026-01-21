@@ -3,27 +3,22 @@
  * in the standard layout.
  */
 
-import PropTypes from "prop-types";
+import {Dependencies, type PerseusDependenciesV2} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
+import {AnswerAreaDiff} from "./answer-area-diff";
 import RendererDiff from "./renderer-diff";
-import WidgetDiff from "./widget-diff";
 
-const itemProps = PropTypes.shape({
-    question: PropTypes.shape({}).isRequired,
-    answerArea: PropTypes.shape({}).isRequired,
-    hints: PropTypes.arrayOf(PropTypes.any).isRequired,
-});
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
-type Props = any;
+interface Props {
+    after: PerseusItem;
+    before: PerseusItem;
+    dependencies: PerseusDependenciesV2;
+}
 
 class ItemDiff extends React.Component<Props> {
-    static propTypes = {
-        after: itemProps.isRequired,
-        before: itemProps.isRequired,
-    };
-
     render(): React.ReactNode {
         const {before, after} = this.props;
 
@@ -40,9 +35,9 @@ class ItemDiff extends React.Component<Props> {
         );
 
         const extras = (
-            <WidgetDiff
-                before={before.answerArea}
-                after={after.answerArea}
+            <AnswerAreaDiff
+                before={before.answerArea ? before.answerArea : undefined}
+                after={after.answerArea ? after.answerArea : undefined}
                 title="Question extras"
             />
         );
@@ -63,13 +58,16 @@ class ItemDiff extends React.Component<Props> {
         });
 
         return (
-            <div className="framework-perseus">
-                {question}
-                {extras}
-                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-                {hints && <div className="diff-separator" />}
-                {hints}
-            </div>
+            <Dependencies.DependenciesContext.Provider
+                value={this.props.dependencies}
+            >
+                <div className="framework-perseus">
+                    {question}
+                    {extras}
+                    {hints.length > 0 && <div className="diff-separator" />}
+                    {hints}
+                </div>
+            </Dependencies.DependenciesContext.Provider>
         );
     }
 }

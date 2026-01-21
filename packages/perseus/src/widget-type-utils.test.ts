@@ -1,10 +1,10 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-
 import {
-    generateTestCategorizerWidget,
-    generateTestRadioWidget,
-    generateTestInteractiveGraphWidget,
-} from "./util/test-utils";
+    generateInteractiveGraphWidget,
+    generateRadioWidget,
+    generateTestPerseusItem,
+} from "@khanacademy/perseus-core";
+
+import {generateTestCategorizerWidget} from "./util/test-utils";
 import {
     getWidgetTypeByWidgetId,
     contentHasWidgetType,
@@ -20,7 +20,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -48,7 +48,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestInteractiveGraphWidget(),
+                [widgetId]: generateInteractiveGraphWidget(),
             };
 
             // Act
@@ -58,14 +58,14 @@ describe("widget-type-utils", () => {
             );
 
             // Assert
-            expect(widgetSubType).toBe("angle");
+            expect(widgetSubType).toBe("linear");
         });
 
         it("returns null when widget does not have a subtype", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -95,7 +95,7 @@ describe("widget-type-utils", () => {
             const widgetId = "dont-look-for-type-in-id";
             const content = `[[☃ ${widgetId}]]`;
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -111,7 +111,7 @@ describe("widget-type-utils", () => {
             const widgetId = "dont-look-for-type-in-id";
             const content = "hello world";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -128,7 +128,7 @@ describe("widget-type-utils", () => {
             const itemData = generateTestPerseusItem();
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
             itemData.question.widgets = widgetMap;
 
@@ -145,7 +145,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -161,7 +161,7 @@ describe("widget-type-utils", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
+                [widgetId]: generateRadioWidget(),
             };
 
             // Act
@@ -176,7 +176,7 @@ describe("widget-type-utils", () => {
             const widgetId1 = "dont-look-for-type-in-id";
             const widgetId2 = "this-is-another-widget-id";
             const widgetMap = {
-                [widgetId1]: generateTestRadioWidget(),
+                [widgetId1]: generateRadioWidget(),
                 [widgetId2]: generateTestCategorizerWidget(),
             };
 
@@ -196,7 +196,7 @@ describe("widget-type-utils", () => {
             const rightWidgetId = "dont-look-for-type-in-id";
             const wrongWidgetId = "this-is-another-widget-id";
             const widgetMap = {
-                [rightWidgetId]: generateTestRadioWidget(),
+                [rightWidgetId]: generateRadioWidget(),
                 [wrongWidgetId]: generateTestCategorizerWidget(),
             };
 

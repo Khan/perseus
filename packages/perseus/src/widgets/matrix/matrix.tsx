@@ -9,12 +9,19 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import TextInput from "../../components/text-input";
+import {withDependencies} from "../../components/with-dependencies";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    FocusPath,
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 import type {
     MatrixPublicWidgetOptions,
@@ -81,9 +88,11 @@ const getRefForPath = function (path: FocusPath) {
 0 as any as WidgetProps<
     PerseusMatrixWidgetOptions,
     PerseusMatrixUserInput
-> satisfies PropsFor<typeof Matrix>;
+> satisfies PropsFor<typeof WrappedMatrix>;
 
-type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput>;
+type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput> & {
+    dependencies: PerseusDependenciesV2;
+};
 
 type DefaultProps = {
     matrixBoardSize: Props["matrixBoardSize"];
@@ -124,6 +133,14 @@ class Matrix extends React.Component<Props, State> implements Widget {
     };
 
     componentDidMount() {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetType: "matrix",
+                widgetSubType: "null",
+                widgetId: this.props.widgetId,
+            },
+        });
         // Used in the `onBlur` and `onFocus` handlers
         this.cursorPosition = [0, 0];
     }
@@ -377,7 +394,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                             margin: INPUT_MARGIN,
                                         },
                                         disabled:
-                                            this.props.apiOptions.readOnly,
+                                            this.props.apiOptions.readOnly ||
+                                            this.props.apiOptions
+                                                .editingDisabled,
                                         onFocus: () => {
                                             // We store this locally so that we can use
                                             // the new information in the `onBlur`
@@ -511,13 +530,15 @@ function getUserInputFromSerializedState(
     return {answers: serializedState.answers};
 }
 
+const WrappedMatrix = withDependencies(Matrix);
+
 export default {
     name: "matrix",
     displayName: "Matrix",
     hidden: true,
-    widget: Matrix,
+    widget: WrappedMatrix,
     isLintable: true,
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Matrix>;
+} satisfies WidgetExports<typeof WrappedMatrix>;

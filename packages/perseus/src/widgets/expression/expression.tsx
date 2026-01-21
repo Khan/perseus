@@ -1,31 +1,35 @@
+import {KeypadContext} from "@khanacademy/keypad-context";
 import {KeypadInput} from "@khanacademy/math-input";
 import {expressionLogic} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
-import {css, StyleSheet} from "aphrodite";
+import {StyleSheet} from "aphrodite";
+import {
+    forwardRef,
+    useCallback,
+    useEffect,
+    useId,
+    useImperativeHandle,
+    useRef,
+} from "react";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
 import {useDependencies} from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
-import type {DependenciesContext} from "../../dependencies";
-import type {WidgetProps, Widget, WidgetExports} from "../../types";
+import type {Widget, WidgetExports, WidgetProps, FocusPath} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
-    PerseusExpressionWidgetOptions,
     KeypadConfiguration,
     KeypadKey,
+    LegacyButtonSets,
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
+    PerseusExpressionWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-type InputPath = ReadonlyArray<string>;
 
 // Map of international operator names to their English equivalents
 const englishOperators = {
@@ -57,241 +61,313 @@ type ExternalProps = WidgetProps<
     PerseusExpressionUserInput
 >;
 
-type Props = ExternalProps &
-    Partial<React.ContextType<typeof DependenciesContext>> & {
-        apiOptions: NonNullable<ExternalProps["apiOptions"]>;
-        buttonSets: NonNullable<ExternalProps["buttonSets"]>;
-        functions: NonNullable<ExternalProps["functions"]>;
-        linterContext: NonNullable<ExternalProps["linterContext"]>;
-        onBlur: NonNullable<ExternalProps["onBlur"]>;
-        onFocus: NonNullable<ExternalProps["onFocus"]>;
-        times: NonNullable<ExternalProps["times"]>;
-        visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
-        ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
-    };
-
-type DefaultProps = {
-    apiOptions: Props["apiOptions"];
-    buttonSets: Props["buttonSets"];
-    functions: Props["functions"];
-    linterContext: Props["linterContext"];
-    onBlur: Props["onBlur"];
-    onFocus: Props["onFocus"];
-    times: Props["times"];
-    userInput: Props["userInput"];
+type Props = ExternalProps & {
+    buttonSets: NonNullable<ExternalProps["buttonSets"]>;
+    functions: NonNullable<ExternalProps["functions"]>;
+    times: NonNullable<ExternalProps["times"]>;
 };
 
-// The new, MathQuill input expression widget
-export class Expression extends React.Component<Props> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+// Defined outside to preserve the references across renders
+const defaultButtonSets: LegacyButtonSets = [
+    "basic",
+    "trig",
+    "prealgebra",
+    "logarithms",
+];
+const defaultOnFocus = () => {};
+const defaultOnBlur = () => {};
 
-    _textareaId = `expression_textarea_${Date.now()}`;
-    _isMounted = false;
+type KeypadInputProps = Omit<
+    React.ComponentProps<typeof KeypadInput>,
+    "style"
+> & {
+    style?: any;
+};
+interface KeypadInputWithInterfaceMethods {
+    focus: (cb?: (keypadActive: boolean) => void) => void;
+    blur: () => void;
+    insert: (val: any) => void;
+}
+/**
+ * Wrapper component for KeypadInput that adds the Widget interface methods.
+ *
+ * KeypadInput from @khanacademy/math-input is a class component that doesn't
+ * export its ref type or provide an `insert` method. This wrapper:
+ * - Provides a consistent interface with focus(), blur(), and insert() methods
+ * - Uses mathField.pressKey() for insert to match KeypadInput's internal behavior
+ * - Ensures proper key translation (FRAC → fraction, trig functions, etc.)
+ * - Allows the Expression widget to treat mobile and desktop inputs uniformly
+ *
+ * This is a temporary workaround until KeypadInput is converted to a
+ * functional component with proper TypeScript types.
+ */
+const KeypadInputWithInterface = React.forwardRef<
+    KeypadInputWithInterfaceMethods,
+    KeypadInputProps
+>(function KeypadInputWithInterface(props, ref) {
+    const keypadInputRef = React.useRef<KeypadInput>(null);
+    const noopKeypadActivation = (_keypadActive: boolean) => {};
+    React.useImperativeHandle(ref, () => ({
+        focus: (cb = noopKeypadActivation) => keypadInputRef.current?.focus(cb),
+        blur: () => keypadInputRef.current?.blur(),
+        insert: (val) => {
+            // The `KeypadInput` component from `@khanacademy/math-input`
+            // does not have an `insert` method, so we call `pressKey` on
+            // the mathField directly. This matches KeypadInput's internal
+            // key handling (see math-input.tsx line 360) and ensures proper
+            // key translation (e.g., FRAC → fraction command, trig functions).
+            keypadInputRef.current?.mathField?.pressKey?.(val);
+        },
+    }));
 
-    static defaultProps: DefaultProps = {
-        times: false,
-        functions: [],
-        buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
-        onFocus: () => {},
-        onBlur: () => {},
-        apiOptions: ApiOptions.defaults,
-        linterContext: linterContextDefault,
-        userInput: "",
-    };
+    return <KeypadInput ref={keypadInputRef} {...props} />;
+});
 
-    displayName = "Expression";
+export const Expression = forwardRef<Widget, Props>(function Expression(
+    {
+        apiOptions = ApiOptions.defaults,
+        buttonSets = defaultButtonSets,
+        times = false,
+        onFocus = defaultOnFocus,
+        onBlur = defaultOnBlur,
+        userInput = "",
+        visibleLabel,
+        ariaLabel,
+        keypadElement,
+        extraKeys,
+        handleUserInput,
+        trackInteraction,
+        widgetId,
+        answerForms,
+        ...rest
+    },
+    ref,
+) {
+    const {strings} = usePerseusI18n();
+    const {analytics} = useDependencies();
+    // KeypadContext provides setKeypadActive which is passed to focus() to notify
+    // the mobile keypad system when an input becomes active. This is only used on
+    // mobile (when apiOptions.customKeypad is true) but is safe to call on desktop.
+    const {setKeypadActive} = React.useContext(KeypadContext);
+    const textareaId = useId();
+    const inputRef = useRef<any>(null); // KeypadInput/MathInput don't export ref types
+    const rootRef = useRef<HTMLDivElement>(null);
 
-    componentDidMount: () => void = () => {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
-        // this.isMounted() but is still considered an anti-pattern.
-        this._isMounted = true;
+    useEffect(() => {
+        analytics?.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "expression",
+                widgetId,
+            },
+        });
 
-        // HACK: imperatively add an ID onto the Mathquill input
-        // (which in mobile is a span; desktop a textarea)
-        // in order to associate a visual label with it
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (this.refs.input) {
-            const isMobile = this.props.apiOptions.customKeypad;
-            const container = ReactDOM.findDOMNode(this.refs.input);
+        // Imperatively add ID to the input element
+        // This is needed for accessibility (associating label with input)
+        if (rootRef.current) {
+            const isMobile = apiOptions.customKeypad;
             const selector = isMobile ? ".mq-textarea > span" : "textarea";
-            const inputElement = (container as Element).querySelector(selector);
-            inputElement?.setAttribute("id", this._textareaId);
+            const inputElement = rootRef.current.querySelector(selector);
+
+            if (inputElement instanceof HTMLElement) {
+                inputElement.setAttribute("id", textareaId);
+            }
         }
-    };
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    componentWillUnmount: () => void = () => {
-        this._isMounted = false;
-    };
-
-    getUserInput(): PerseusExpressionUserInput {
-        return normalizeTex(this.props.userInput);
-    }
-
-    getPromptJSON(): ExpressionPromptJSON {
-        return _getPromptJSON(this.props, normalizeTex(this.props.userInput));
-    }
-
-    changeAndTrack: (userInput: string, cb: () => void) => void = (
-        userInput: string,
-        cb: () => void,
-    ) => {
-        this.props.handleUserInput(normalizeTex(userInput), cb);
-        this.props.trackInteraction();
-    };
-
-    _handleFocus: () => void = () => {
-        this.props.analytics?.onAnalyticsEvent({
+    const handleFocus = () => {
+        analytics?.onAnalyticsEvent({
             type: "perseus:expression-focused",
             payload: null,
         });
-
-        /* c8 ignore next */
-        this.props.onFocus([]);
+        onFocus([]);
     };
 
-    _handleBlur: () => void = () => {
-        /* c8 ignore next */
-        this.props.onBlur([]);
+    const handleBlur = () => {
+        onBlur([]);
     };
 
-    focus: () => boolean = () => {
-        if (this.props.apiOptions.customKeypad) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs.input.focus();
-        }
-        return true;
+    const changeAndTrack = (value: string, cb: () => void) => {
+        const normalized = normalizeTex(value);
+        handleUserInput(normalized, cb);
+        trackInteraction();
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
-    focusInputPath(inputPath: InputPath) {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
-    }
-
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
-    blurInputPath(inputPath: InputPath) {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        if (typeof this.refs.input?.blur === "function") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-            this.refs.input?.blur();
-        }
-    }
-
-    // HACK(joel)
-    insert(keyPressed: KeypadKey) {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
-        this.refs.input.insert(keyPressed);
-    }
-
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<any>> = () => {
-        // The widget itself is an input, so we return a single empty list to
-        // indicate this.
-        /* c8 ignore next */
-        return [[]];
+    const mobileHandleFocus = () => {
+        keypadElement?.configure(getKeypadConfiguration(), () => {
+            if (rootRef.current) {
+                handleFocus();
+            }
+        });
     };
 
-    getKeypadConfiguration(): KeypadConfiguration {
+    const getKeypadConfiguration = useCallback((): KeypadConfiguration => {
         return {
             keypadType: "EXPRESSION",
-            extraKeys: this.props.extraKeys,
-            times: this.props.times,
+            extraKeys: extraKeys,
+            times: times,
         };
-    }
+    }, [extraKeys, times]);
 
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    getSerializedState() {
-        const {userInput: _, answerForms: __, ...rest} = this.props;
-        return {
-            ...rest,
-            value: this.props.userInput,
-            keypadConfiguration: this.getKeypadConfiguration(),
-        };
-    }
-
-    render() {
-        const keypadConfiguration = this.getKeypadConfiguration();
-
-        if (this.props.apiOptions.customKeypad) {
-            return (
-                <View className={css(styles.mobileLabelInputWrapper)}>
-                    {!!this.props.visibleLabel && (
-                        <LabelSmall htmlFor={this._textareaId} tag="label">
-                            {this.props.visibleLabel}
-                        </LabelSmall>
-                    )}
-                    <KeypadInput
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="input"
-                        ariaLabel={
-                            this.props.ariaLabel ||
-                            this.context.strings.mathInputBox
-                        }
-                        value={this.props.userInput}
-                        keypadElement={this.props.keypadElement}
-                        onChange={this.changeAndTrack}
-                        onFocus={() => {
-                            // this.props.keypadElement should always be set
-                            // when apiOptions.customKeypad is set, but how
-                            // to convince TypeScript of this?
-                            this.props.keypadElement?.configure(
-                                keypadConfiguration,
-                                () => {
-                                    if (this._isMounted) {
-                                        this._handleFocus();
-                                    }
-                                },
-                            );
-                        }}
-                        onBlur={this._handleBlur}
-                    />
-                </View>
-            );
+    const getFocusTarget = useCallback((): HTMLElement | null => {
+        if (!rootRef.current) {
+            return null;
         }
 
+        const isMobile = apiOptions.customKeypad;
+        const selector = isMobile ? ".mq-textarea > span" : "textarea";
+        const element = rootRef.current.querySelector(selector);
+        return element instanceof HTMLElement ? element : null;
+    }, [apiOptions.customKeypad]);
+
+    // Implement Widget interface
+    useImperativeHandle(
+        ref,
+        () => ({
+            /**
+             * Focus the input element.
+             *
+             * This method handles focus for both mobile (KeypadInput) and desktop
+             * (MathInput) variants. It uses a multi-step approach with fallbacks:
+             * 1. Attempt to focus via the input component's focus() method
+             * 2. Query for the expected focus target element
+             * 3. Fall back to previously identified target or active element
+             *
+             * Edge case: If called immediately after mount, the input component's
+             * internal textarea may not be fully initialized yet. The fallback logic
+             * handles this by attempting to focus whatever element is available.
+             * The ID set in useEffect is only for accessibility (label association)
+             * and doesn't affect focus targeting.
+             *
+             * @returns true if focus is on the input element after the operation
+             */
+            focus: (): boolean => {
+                const targetBefore = getFocusTarget();
+
+                // Try direct focus first; this may be a custom KeypadInput or MathInput.
+                inputRef.current?.focus?.(setKeypadActive);
+
+                // Prefer the element we expect to focus; fall back to whatever is active.
+                const targetAfter =
+                    getFocusTarget() ??
+                    targetBefore ??
+                    (document.activeElement instanceof HTMLElement
+                        ? document.activeElement
+                        : null);
+
+                if (!targetAfter) {
+                    return false;
+                }
+
+                if (document.activeElement !== targetAfter) {
+                    targetAfter.focus();
+                }
+
+                return document.activeElement === targetAfter;
+            },
+
+            focusInputPath: (path: FocusPath) => {
+                inputRef.current?.focus?.(setKeypadActive);
+            },
+
+            blurInputPath: (path: FocusPath) => {
+                if (typeof inputRef.current?.blur === "function") {
+                    inputRef.current?.blur();
+                }
+            },
+
+            insert: (keyPressed: KeypadKey) => {
+                inputRef.current?.insert?.(keyPressed);
+            },
+
+            getInputPaths: () => [[]],
+
+            getUserInput: (): PerseusExpressionUserInput => {
+                return normalizeTex(userInput);
+            },
+
+            getKeypadConfiguration,
+
+            getPromptJSON: (): ExpressionPromptJSON => {
+                return _getPromptJSON(visibleLabel, normalizeTex(userInput));
+            },
+
+            /**
+             * @deprecated and likely very broken API
+             * [LEMS-3185] do not trust serializedState
+             */
+            getSerializedState: () => {
+                return {
+                    ...rest,
+                    value: userInput,
+                    keypadConfiguration: getKeypadConfiguration(),
+                    times,
+                    buttonSets,
+                };
+            },
+        }),
+        [
+            userInput,
+            setKeypadActive,
+            getKeypadConfiguration,
+            getFocusTarget,
+            rest,
+            visibleLabel,
+            buttonSets,
+            times,
+        ],
+    );
+
+    const keypadConfiguration = getKeypadConfiguration();
+
+    if (apiOptions.customKeypad) {
         return (
-            <View className={css(styles.desktopLabelInputWrapper)}>
-                {!!this.props.visibleLabel && (
-                    <LabelSmall htmlFor={this._textareaId} tag="label">
-                        {this.props.visibleLabel}
+            <View ref={rootRef} style={styles.mobileLabelInputWrapper}>
+                {!!visibleLabel && (
+                    <LabelSmall htmlFor={textareaId} tag="label">
+                        {visibleLabel}
                     </LabelSmall>
                 )}
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
-                <div className="perseus-widget-expression">
-                    <MathInput
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="input"
-                        value={this.props.userInput}
-                        onChange={this.changeAndTrack}
-                        convertDotToTimes={this.props.times}
-                        buttonSets={this.props.buttonSets}
-                        onFocus={this._handleFocus}
-                        onBlur={this._handleBlur}
-                        ariaLabel={
-                            this.props.ariaLabel ||
-                            this.context.strings.mathInputBox
-                        }
-                        extraKeys={keypadConfiguration.extraKeys}
-                        onAnalyticsEvent={
-                            this.props.analytics?.onAnalyticsEvent ??
-                            (async () => {})
-                        }
-                    />
-                </div>
+                <KeypadInputWithInterface
+                    ref={inputRef}
+                    ariaLabel={ariaLabel || strings.mathInputBox}
+                    value={userInput}
+                    keypadElement={keypadElement}
+                    onChange={changeAndTrack}
+                    onFocus={mobileHandleFocus}
+                    onBlur={handleBlur}
+                />
             </View>
         );
     }
-}
+
+    return (
+        <View ref={rootRef} style={styles.desktopLabelInputWrapper}>
+            {!!visibleLabel && (
+                <LabelSmall htmlFor={textareaId} tag="label">
+                    {visibleLabel}
+                </LabelSmall>
+            )}
+            <div className="perseus-widget-expression">
+                <MathInput
+                    ref={inputRef}
+                    value={userInput}
+                    onChange={changeAndTrack}
+                    convertDotToTimes={times}
+                    buttonSets={buttonSets}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    ariaLabel={ariaLabel || strings.mathInputBox}
+                    extraKeys={keypadConfiguration.extraKeys}
+                    onAnalyticsEvent={
+                        analytics?.onAnalyticsEvent ?? (async () => {})
+                    }
+                />
+            </div>
+        </View>
+    );
+});
 
 const styles = StyleSheet.create({
     mobileLabelInputWrapper: {
@@ -300,14 +376,6 @@ const styles = StyleSheet.create({
     desktopLabelInputWrapper: {
         margin: "5px 5px 0",
     },
-});
-
-const ExpressionWithDependencies = React.forwardRef<
-    Expression,
-    Omit<PropsFor<typeof Expression>, keyof ReturnType<typeof useDependencies>>
->((props, ref) => {
-    const deps = useDependencies();
-    return <Expression ref={ref} analytics={deps.analytics} {...props} />;
 });
 
 /**
@@ -338,10 +406,21 @@ function getOneCorrectAnswerFromRubric(
     return correctAnswers[0].value;
 }
 
+function getCorrectUserInput(
+    options: PerseusExpressionWidgetOptions,
+): PerseusExpressionUserInput {
+    for (const form of options.answerForms) {
+        if (form.considered === "correct") {
+            return form.value;
+        }
+    }
+    return "";
+}
+
 export default {
     name: "expression",
     displayName: "Expression / Equation",
-    widget: ExpressionWithDependencies,
+    widget: Expression,
     version: expressionLogic.version,
 
     // For use by the editor
@@ -349,5 +428,6 @@ export default {
 
     getOneCorrectAnswerFromRubric,
     getStartUserInput,
+    getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof ExpressionWithDependencies>;
+} satisfies WidgetExports<typeof Expression>;

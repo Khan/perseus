@@ -1,6 +1,5 @@
 export {default as KhanAnswerTypes} from "./util/answer-types";
 export type {Score} from "./util/answer-types";
-export {default as ErrorCodes} from "./error-codes";
 export {default as scoreCategorizer} from "./widgets/categorizer/score-categorizer";
 export {default as validateCategorizer} from "./widgets/categorizer/validate-categorizer";
 export {default as scoreCSProgram} from "./widgets/cs-program/score-cs-program";
@@ -36,9 +35,11 @@ export {
     inputNumberAnswerTypes,
 } from "./widgets/input-number/score-input-number";
 
-export {scorePerseusItem, scoreWidgetsFunctional, flattenScores} from "./score";
-export {emptyWidgetsFunctional} from "./validate";
+export {scorePerseusItem, scoreWidgetsFunctional} from "./score";
+export {default as flattenScores} from "./util/flatten-scores";
+export {validateUserInput, emptyWidgetsFunctional} from "./validate";
 export {default as hasEmptyDINERWidgets} from "./has-empty-diner-widgets";
+export {default as isWidgetScoreable} from "./util/is-widget-scoreable";
 
 export type {
     PerseusMockWidgetRubric,

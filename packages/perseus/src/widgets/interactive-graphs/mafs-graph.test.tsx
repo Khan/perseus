@@ -154,8 +154,8 @@ describe("MafsGraph", () => {
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "segment",
-                widgetType: "INTERACTIVE_GRAPH",
-                widgetId: "interactive-graph",
+                widgetType: "interactive-graph",
+                widgetId: "test-widget-id",
             },
         });
     });

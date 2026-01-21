@@ -24,7 +24,7 @@ type WidgetName =
     | "interaction"
     | "interactive-graph"
     | "label-image"
-    | "lights-puzzle"
+    | "lights-puzzle" // Deprecated
     | "matcher"
     | "matrix"
     | "measurer"
@@ -32,16 +32,16 @@ type WidgetName =
     | "number-line"
     | "numeric-input"
     | "orderer"
-    | "passage"
-    | "passage-ref"
-    | "passage-ref-target"
+    | "passage" // Deprecated
+    | "passage-ref" // Deprecated
+    | "passage-ref-target" // Deprecated
     | "phet-simulation"
     | "plotter"
     | "python-program"
     | "reaction-diagram"
     | "radio"
-    | "sequence"
-    | "simulator"
+    | "sequence" // Deprecated
+    | "simulator" // Deprecated
     | "sorter"
     | "table"
     | "video";

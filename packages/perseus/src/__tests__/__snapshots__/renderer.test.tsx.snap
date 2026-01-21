@@ -355,17 +355,16 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
+              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
             >
               <button
                 aria-controls=":r4:"
-                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1tzuxn"
                 id=":r3:"
                 role="combobox"
                 type="button"
@@ -390,7 +389,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_18b4l55-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_18b4l55-o_O-inlineStyles_ih2lny"
                 />
               </button>
             </div>
@@ -441,17 +440,16 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
+              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
             >
               <button
                 aria-controls=":r7:"
-                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1tzuxn"
                 id=":r6:"
                 role="combobox"
                 type="button"
@@ -476,7 +474,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_18b4l55-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_18b4l55-o_O-inlineStyles_ih2lny"
                 />
               </button>
             </div>
@@ -527,17 +525,16 @@ exports[`renderer snapshots initial render: initial render 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
+              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
             >
               <button
                 aria-controls=":r1:"
-                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1tzuxn"
                 id=":r0:"
                 role="combobox"
                 type="button"
@@ -562,7 +559,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_18b4l55-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_18b4l55-o_O-inlineStyles_ih2lny"
                 />
               </button>
             </div>
@@ -614,7 +611,7 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
               >
                 <span
                   aria-label="info"
-                  class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_i5hedm"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_iads8r"
                   data-testid="banner-kind-icon"
                   role="img"
                 />

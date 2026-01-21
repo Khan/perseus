@@ -3,7 +3,7 @@
     "description": "Perseus keypad context",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "3.2.8",
+    "version": "3.2.29",
     "publishConfig": {
         "access": "public"
     },
@@ -25,8 +25,7 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "workspace:*",
-        "@khanacademy/perseus-utils": "workspace:*"
+        "@khanacademy/perseus-core": "workspace:*"
     },
     "devDependencies": {
         "perseus-build-settings": "workspace:*",
@@ -35,5 +34,8 @@
     "peerDependencies": {
         "react": "catalog:peerDeps"
     },
-    "keywords": []
+    "keywords": [],
+    "khan": {
+        "catalogHash": "27e03f4ce1585aa4"
+    }
 }

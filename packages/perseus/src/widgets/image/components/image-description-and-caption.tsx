@@ -29,18 +29,24 @@ export interface ImageDescriptionAndCaptionProps {
     range: [Interval, Interval];
     linterContext: LinterContextProps;
     apiOptions: APIOptions;
+    /**
+     * zoomSize represents the larger of the image’s natural size (calculated on load)
+     * and the saved backgroundImage size (specified when the content is written). This
+     * ensures that zooming is enabled only if the image is sufficiently large.
+     * image (calculated on load) and the saved backgroundImage size (specified
+     * when the content is written). This larger image size is used to
+     * determine if the image is large enough to allow zooming.
+     */
+    zoomSize: Size;
 }
 
 export const ImageDescriptionAndCaption = (
     props: ImageDescriptionAndCaptionProps,
 ) => {
-    const {
-        caption,
-        longDescription,
-        backgroundImage,
-        apiOptions,
-        linterContext,
-    } = props;
+    const {caption, longDescription, apiOptions, linterContext, zoomSize} =
+        props;
+
+    const [zoomWidth, _] = zoomSize;
 
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
@@ -49,7 +55,7 @@ export const ImageDescriptionAndCaption = (
         <div className={styles.descriptionAndCaptionContainer}>
             {/* Description */}
             {imageUpgradeFF && longDescription && (
-                <ModalLauncher modal={ExploreImageModal(props)}>
+                <ModalLauncher modal={<ExploreImageModal {...props} />}>
                     {({openModal}) => (
                         <ExploreImageButton
                             hasCaption={!!caption}
@@ -64,7 +70,7 @@ export const ImageDescriptionAndCaption = (
                 <figcaption
                     className="perseus-image-caption"
                     style={{
-                        maxWidth: backgroundImage.width,
+                        maxWidth: zoomWidth,
                     }}
                 >
                     {/* The Renderer component is used here so that the caption

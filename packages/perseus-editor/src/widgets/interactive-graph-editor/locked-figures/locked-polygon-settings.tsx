@@ -1,4 +1,5 @@
 import {
+    getDefaultFigureForType,
     lockedFigureFillStyles,
     type Coord,
     type LockedFigureFillType,
@@ -36,7 +37,6 @@ import PolygonSwatch from "./polygon-swatch";
 import {
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
-    getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
 

@@ -12,6 +12,8 @@ import fs from "node:fs";
 import semver from "semver";
 import yaml from "yaml";
 
+import {updateCatalogHashes} from "./internal/update-catalog-hashes";
+
 function printHelp() {
     console.log("--- Package Dependency Sync ---");
 
@@ -140,6 +142,13 @@ function main(argv: string[]) {
         #    devDependencies -> "@khanacademy/wonder-blocks-link": "catalog:devDeps",
         #    peerDependencies -> "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
         # 3. Run pnpm install in root
+        #
+        # pnpm configuration:
+        # - minimumReleaseAge: We require a minimum release age of 3-days
+        #   (specified in minutes) before a package can be used in this project.
+        #   https://pnpm.io/settings#minimumreleaseage
+        # - minimumReleaseAgeExclude: We exclude our own packages from this minimum
+        #   release age so that we can upgrade to a new release immediately.
     `);
 
     fs.writeFileSync(
@@ -152,6 +161,10 @@ function main(argv: string[]) {
 
     process.stderr.write("> pnpm install\n");
     spawnSync("pnpm", ["install"], {stdio: "inherit"});
+
+    // Update catalog hashes after syncing dependencies
+    console.log("\n> Updating catalog hashes...");
+    updateCatalogHashes(false, false);
 }
 
 main(process.argv);

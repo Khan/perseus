@@ -3,36 +3,29 @@
  * A side by side diff view for Perseus articles.
  */
 
-import PropTypes from "prop-types";
+import {Dependencies, type PerseusDependenciesV2} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
 import RendererDiff from "./renderer-diff";
 
-const rendererProps = PropTypes.shape({
-    content: PropTypes.string,
-    images: PropTypes.objectOf(PropTypes.any),
-    widgets: PropTypes.objectOf(PropTypes.any),
-});
+import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
 
-type Props = any;
-type State = any;
+interface Props {
+    after: PerseusArticle;
+    before: PerseusArticle;
+    dependencies: PerseusDependenciesV2;
+}
 
-class ArticleDiff extends React.Component<Props, State> {
-    static propTypes = {
-        // TODO(alex): Check whether we still have any Perseus articles whose
-        // top-level json is an object, not an array. If not, simplify here.
-        after: PropTypes.oneOfType([
-            rendererProps,
-            PropTypes.arrayOf(rendererProps),
-        ]).isRequired,
-        before: PropTypes.oneOfType([
-            rendererProps,
-            PropTypes.arrayOf(rendererProps),
-        ]).isRequired,
-    };
+type ArticleDiffState = {
+    // Externally we allow both arrays and single PerseusRenderer objects.
+    // Internally we convert to arrays.
+    before: PerseusRenderer[];
+    after: PerseusRenderer[];
+};
 
-    static _stateFromProps: (arg1: Props) => State = (props) => {
+class ArticleDiff extends React.Component<Props, ArticleDiffState> {
+    static _stateFromProps: (arg1: Props) => ArticleDiffState = (props) => {
         const {before, after} = props;
         return {
             before: Array.isArray(before) ? before : [before],
@@ -40,7 +33,7 @@ class ArticleDiff extends React.Component<Props, State> {
         };
     };
 
-    state: State = ArticleDiff._stateFromProps(this.props);
+    state: ArticleDiffState = ArticleDiff._stateFromProps(this.props);
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState(ArticleDiff._stateFromProps(nextProps));
@@ -62,7 +55,13 @@ class ArticleDiff extends React.Component<Props, State> {
             />
         ));
 
-        return <div className="framework-perseus">{sections}</div>;
+        return (
+            <Dependencies.DependenciesContext.Provider
+                value={this.props.dependencies}
+            >
+                <div className="framework-perseus">{sections}</div>
+            </Dependencies.DependenciesContext.Provider>
+        );
     }
 }
 

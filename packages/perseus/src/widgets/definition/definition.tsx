@@ -1,22 +1,32 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import {withDependencies} from "../../components/with-dependencies";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import styles from "./definition.module.css";
+// TODO (LEMS-3815): Legacy styling - Remove this code
+import stylesLegacy from "./definition_legacy-styles";
+
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 import type {
-    PerseusRenderer,
     PerseusDefinitionWidgetOptions,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 type DefinitionProps = WidgetProps<PerseusDefinitionWidgetOptions> & {
     widgets: PerseusRenderer["widgets"];
+    dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = {
@@ -37,6 +47,17 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
     // doesn't implement any Widget methods
     isWidget = true as const;
 
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "definition",
+                widgetId: this.props.widgetId,
+            },
+        });
+    }
+
     getPromptJSON(): DefinitionPromptJSON {
         return _getPromptJSON(this.props);
     }
@@ -46,9 +67,11 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
             <DefinitionConsumer>
                 {({activeDefinitionId, setActiveDefinitionId}) => (
                     <Popover
+                        dismissEnabled
                         content={
                             <PopoverContentCore
-                                style={styles.tooltipBody}
+                                style={stylesLegacy.tooltipBody}
+                                // className={styles.tooltipBody} - uncomment when 'className' is supported
                                 closeButtonVisible={true}
                             >
                                 <Renderer
@@ -69,16 +92,8 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
                                 setActiveDefinitionId(this.props.widgetId);
                             }}
                         >
-                            {({hovered, focused, pressed}) => (
-                                <span
-                                    style={{
-                                        color: color.blue,
-                                        borderBottom:
-                                            hovered || focused || pressed
-                                                ? `2px solid ${color.blue}`
-                                                : "none",
-                                    }}
-                                >
+                            {() => (
+                                <span className={styles.definition}>
                                     {this.props.togglePrompt}
                                 </span>
                             )}
@@ -90,17 +105,10 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
     }
 }
 
-const styles = {
-    tooltipBody: {
-        color: color.offBlack,
-        fontSize: 20,
-        fontWeight: 500,
-        lineHeight: "30px",
-    },
-} as const;
+const WrappedDefinition = withDependencies(Definition);
 
 export default {
     name: "definition",
     displayName: "Definition",
-    widget: Definition,
-} satisfies WidgetExports<typeof Definition>;
+    widget: WrappedDefinition,
+} satisfies WidgetExports<typeof WrappedDefinition>;

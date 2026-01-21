@@ -69,10 +69,12 @@ export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as LoadingContext} from "./loading-context";
+export {default as MathRenderingContext} from "./math-rendering-context";
 export {default as PerseusMarkdown} from "./perseus-markdown";
 export {isItemRenderableByVersion} from "./renderability";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
+export {DependenciesContext} from "./dependencies";
 
 // Context for managing i18n
 export {
@@ -94,8 +96,6 @@ export {
 } from "./util/sizing-utils";
 export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
-    getAnswersFromWidgets,
-    injectWidgets,
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
     isWidgetIdInContent,
@@ -104,36 +104,8 @@ export {
     getAnswerFromUserInput,
     getImagesWithoutAltData,
 } from "./util/extract-perseus-data";
-export {
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    parsePerseusItem,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    parseAndMigratePerseusItem,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    parseAndMigratePerseusArticle,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    isSuccess,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    isFailure,
-} from "@khanacademy/perseus-core";
 
-export {
-    generateTestRadioWidget,
-    generateTestInteractiveGraphWidget,
-    generateTestCategorizerWidget,
-    generateTestExpressionWidget,
-    generateTestNumericInputWidget,
-} from "./util/test-utils";
+export {generateTestCategorizerWidget} from "./util/test-utils";
 export {
     getWidgetTypeByWidgetId,
     getWidgetSubTypeByWidgetId,
@@ -158,8 +130,6 @@ export {
     default as UserInputManager,
     deriveUserInputFromSerializedState,
 } from "./user-input-manager";
-
-export {makeSafeUrl} from "./widgets/phet-simulation";
 
 // These exports are to support shared functionality between Perseus and Graphie2000
 export {parseDataFromJSONP} from "./util/graphie-utils";
@@ -190,6 +160,8 @@ export type {
     DomInsertCheckFn,
     EditorMode,
     FocusPath,
+    GenerateUrlArgs,
+    GraphieLabelElement,
     ImageDict,
     ImageUploader,
     JiptLabelStore,
@@ -202,20 +174,6 @@ export type {
     SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
-export type {
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    Result,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    Success,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    Failure,
-} from "@khanacademy/perseus-core";
 export type {Coord} from "./interactive2/types";
 export type {
     RendererPromptJSON,

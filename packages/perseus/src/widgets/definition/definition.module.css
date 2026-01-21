@@ -1,0 +1,20 @@
+.definition {
+    color: var(--wb-semanticColor-core-foreground-instructive-default);
+    border-bottom: none;
+}
+
+:hover > .definition,
+:focus > .definition,
+:active > .definition {
+    /* Note(TB): Probably don't need borderBottom styling as Clickable handles that.
+       If removed, also remove the Focused story. */
+    border-bottom: 2px solid
+        var(--wb-semanticColor-core-border-instructive-default);
+}
+
+.tooltip-body {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-medium);
+    line-height: var(--wb-font-body-lineHeight-medium);
+}

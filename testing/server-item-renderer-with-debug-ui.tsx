@@ -87,7 +87,6 @@ export const ServerItemRendererWithDebugUI = ({
                                     key={state.key}
                                     ref={ref}
                                     problemNum={0}
-                                    score={state.score}
                                     apiOptions={options}
                                     item={state.perseusItem}
                                     dependencies={storybookDependenciesV2}

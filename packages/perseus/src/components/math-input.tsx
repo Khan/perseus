@@ -1,18 +1,17 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
-    DesktopKeypad,
-    getKeyTranslator,
-    createMathField,
-    mathQuillInstance,
     CursorContext,
-    getCursorContext,
     convertDotToTimesByLocale,
+    createMathField,
+    DesktopKeypad,
+    getCursorContext,
+    getKeyTranslator,
     MathInputI18nContext,
+    mathQuillInstance,
 } from "@khanacademy/math-input";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
@@ -118,6 +117,23 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         // Ideally, we would be able to pass an initial value directly into
         // the constructor
         this.mathField()?.latex(this.props.value);
+    }
+
+    componentDidUpdate(prevProps: Readonly<InnerProps>): void {
+        if (prevProps.value !== this.props.value) {
+            // Don't do anything if the user is currently focused on this input
+            if (this.state.focused) {
+                return;
+            }
+            const field = this.mathField();
+            if (!field) {
+                return;
+            }
+            const current = field.latex();
+            if (this.props.value !== current) {
+                field.latex(this.props.value);
+            }
+        }
     }
 
     openKeypad() {
@@ -263,6 +279,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     blur: () => void = () => this.setState({focused: false});
 
     handleKeypadPress: (key: KeypadKey, e: any) => void = (key, e) => {
+        // Handle dismiss key to close the keypad
+        if (key === "DISMISS") {
+            this.closeKeypad();
+            return;
+        }
+
         const {locale} = this.context;
         const translator = getKeyTranslator(locale, this.context.strings)[key];
         const mathField = this.mathField();
@@ -284,10 +306,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         //   are also "click" events, differentiated by "detail".
         if (e?.type === "click") {
             this.focus();
-        }
-
-        if (key === "DISMISS") {
-            this.closeKeypad();
         }
     };
 
@@ -348,6 +366,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         rootBoundary="document"
                         aria-label={this.context.strings.mathInputTitle}
                         aria-describedby={`popover-content-${popoverContentUniqueId}`}
+                        onClose={() => this.closeKeypad()}
                         content={() => (
                             <>
                                 <HeadingMedium
@@ -453,13 +472,15 @@ const MathInputIcon = ({hovered, focused, active}) => {
     let fillColor: string | undefined;
     switch (true) {
         case focused || active:
-            fillColor = color.white;
+            fillColor =
+                semanticColor.action.primary.progressive.default.foreground;
             break;
         case hovered:
-            fillColor = color.blue;
+            fillColor =
+                semanticColor.action.primary.progressive.hover.background;
             break;
         default:
-            fillColor = color.offBlack;
+            fillColor = semanticColor.core.foreground.neutral.strong;
             break;
     }
     const dynamicClass =
@@ -517,7 +538,7 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
 
 const inputFocused = {
     borderWidth: 2,
-    borderColor: color.blue,
+    borderColor: semanticColor.core.border.instructive.default,
     margin: -1,
 };
 
@@ -526,7 +547,7 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         height: "100%",
-        padding: spacing.xxxSmall_4,
+        padding: sizing.size_040,
         borderRadius: 1,
     },
     iconInactive: {
@@ -534,7 +555,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.offBlack8,
     },
     iconActive: {
-        border: `2px solid ${color.white}`,
+        border: `2px solid ${semanticColor.core.border.knockout.default}`,
         backgroundColor: color.offBlack64,
     },
     outerWrapper: {
@@ -543,13 +564,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: color.offBlack50,
         borderRadius: 3,
-        background: color.white,
+        background: semanticColor.core.background.base.default,
         ":hover": inputFocused,
     },
     wrapperFocused: inputFocused,
     popoverContent: {
         padding: 0,
-        paddingBottom: spacing.xxSmall_6,
+        paddingBottom: sizing.size_060,
         maxWidth: "initial",
     },
 });

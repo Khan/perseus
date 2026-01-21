@@ -95,6 +95,10 @@ class TableEditor extends React.Component<Props> {
             onChange: this.props.onChange,
             userInput: this.props.answers,
             handleUserInput: (userInput) => {
+                // Disable table input changes when editing is disabled
+                if (this.props.apiOptions?.editingDisabled) {
+                    return;
+                }
                 // In the editing experience,
                 // user input is actually editing answers
                 this.props.onChange({answers: userInput});

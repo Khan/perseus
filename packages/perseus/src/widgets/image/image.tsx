@@ -1,15 +1,19 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import AssetContext from "../../asset-context";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
+import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
+import Util from "../../util";
 
 import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
 import styles from "./image-widget.module.css";
 
 import type {ImageWidgetProps} from "./image.class";
+import type {Size} from "@khanacademy/perseus-core";
 
 export const ImageComponent = (props: ImageWidgetProps) => {
     const {
@@ -19,23 +23,125 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         box,
         caption,
         longDescription,
+        decorative,
         linterContext,
         labels,
         range,
         title,
         trackInteraction,
+        widgetId,
     } = props;
     const context = React.useContext(PerseusI18nContext);
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
+    const {analytics} = useDependencies();
+
+    const [zoomSize, setZoomSize] = React.useState<Size>([
+        backgroundImage.width || 0,
+        backgroundImage.height || 0,
+    ]);
+
+    const [zoomWidth, zoomHeight] = zoomSize;
+
+    // Use ref to track if we should ignore async results
+    const ignoreResultsRef = React.useRef(false);
+
+    useOnMountEffect(() => {
+        analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "image",
+                widgetId: widgetId,
+            },
+        });
+    });
+
+    React.useEffect(() => {
+        // Reset the flag for this effect run
+        ignoreResultsRef.current = false;
+
+        // Wait to figure out what the original size of the image is.
+        // Use whichever is larger between the original image size and the
+        // saved background image size for zooming.
+        Util.getImageSizeModern(backgroundImage.url!).then((naturalSize) => {
+            // Ignore results if effect has been cleaned up
+            // This prevents updates after component unmounts or dependencies change
+            if (ignoreResultsRef.current) {
+                return;
+            }
+
+            const [naturalWidth, naturalHeight] = naturalSize;
+            // Only update if the new size is larger
+            // This prevents unnecessary updates and infinite loops
+            if (naturalWidth > (backgroundImage.width || 0)) {
+                setZoomSize([naturalWidth, naturalHeight]);
+            }
+        });
+
+        return () => {
+            // Mark results as stale when dependencies change or component unmounts
+            ignoreResultsRef.current = true;
+        };
+    }, [backgroundImage.url, backgroundImage.width]);
 
     if (!backgroundImage.url) {
         return null;
+    }
+
+    const svgImage = (
+        <AssetContext.Consumer>
+            {({setAssetStatus}) => (
+                <SvgImage
+                    src={backgroundImage.url!}
+                    // Between the original image size and the saved background
+                    // image size, use the larger size to determine if the
+                    // image is large enough to allow zooming.
+                    width={zoomWidth}
+                    height={zoomHeight}
+                    preloader={apiOptions.imagePreloader}
+                    extraGraphie={{
+                        box: box,
+                        range: range,
+                        labels: labels,
+                    }}
+                    trackInteraction={trackInteraction}
+                    zoomToFullSizeOnMobile={apiOptions.isMobile}
+                    constrainHeight={apiOptions.isMobile}
+                    allowFullBleed={apiOptions.isMobile}
+                    allowZoom={!decorative}
+                    alt={decorative || caption === alt ? "" : alt}
+                    setAssetStatus={setAssetStatus}
+                />
+            )}
+        </AssetContext.Consumer>
+    );
+
+    // Early return for decorative images
+    if (imageUpgradeFF && decorative) {
+        return (
+            <figure
+                className="perseus-image-widget"
+                style={{
+                    // Set the max width of the image container to the
+                    // width saved inside `backgroundImage` - this is the
+                    // width intended to be used when rendering the image
+                    // within the content item.
+                    maxWidth: backgroundImage.width,
+                }}
+            >
+                {svgImage}
+            </figure>
+        );
     }
 
     return (
         <figure
             className="perseus-image-widget"
             style={{
+                // Set the max width of the image container to the
+                // width saved inside `backgroundImage` - this is the
+                // width intended to be used when rendering the image
+                // within the content item.
                 maxWidth: backgroundImage.width,
             }}
         >
@@ -43,7 +149,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {title && (
                 <div className={`perseus-image-title ${styles.titleContainer}`}>
                     {/* The Renderer component is used here so that the title
-                        can support markdown and TeX. */}
+                        can support Markdown and TeX. */}
                     <Renderer
                         content={title}
                         apiOptions={apiOptions}
@@ -54,32 +160,11 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             )}
 
             {/* Image */}
-            <AssetContext.Consumer>
-                {({setAssetStatus}) => (
-                    <SvgImage
-                        src={backgroundImage.url!}
-                        alt={caption === alt ? "" : alt}
-                        width={backgroundImage.width}
-                        height={backgroundImage.height}
-                        preloader={apiOptions.imagePreloader}
-                        extraGraphie={{
-                            box: box,
-                            range: range,
-                            labels: labels,
-                        }}
-                        trackInteraction={trackInteraction}
-                        zoomToFullSizeOnMobile={apiOptions.isMobile}
-                        constrainHeight={apiOptions.isMobile}
-                        allowFullBleed={apiOptions.isMobile}
-                        setAssetStatus={setAssetStatus}
-                        renderSpacer={false}
-                    />
-                )}
-            </AssetContext.Consumer>
+            {svgImage}
 
             {/* Description & Caption */}
             {(caption || (imageUpgradeFF && longDescription)) && (
-                <ImageDescriptionAndCaption {...props} />
+                <ImageDescriptionAndCaption zoomSize={zoomSize} {...props} />
             )}
         </figure>
     );

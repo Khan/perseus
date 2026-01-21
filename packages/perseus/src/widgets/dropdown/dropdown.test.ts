@@ -1,12 +1,18 @@
 import {
     generateTestPerseusItem,
     splitPerseusItem,
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
@@ -14,6 +20,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {basicDropdown} from "./dropdown.testdata";
 
+import type {PerseusDependenciesV2} from "../../types";
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -112,7 +119,29 @@ describe("Dropdown widget", () => {
         expect(score).toHaveInvalidInput();
     });
 
-    it("should be return true when focus() called", async () => {
+    it("should send analytics event when widget is rendered", async () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        // Act
+        renderQuestion(basicDropdown, undefined, undefined, undefined, depsV2);
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "dropdown",
+                widgetId: "dropdown 1",
+            },
+        });
+    });
+
+    it("should return true when focus() called and focus the dropdown button", async () => {
         // Arrange
         const {renderer} = renderQuestion(basicDropdown);
 
@@ -121,10 +150,8 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(focused).toBe(true);
-        // TODO(LP-10797): we don't check that the document.activeElement is
-        // actually set because the dropdown widget focuses a <div> (it's root
-        // element), which is not actually focusable because it doesn't have a
-        // tabindex.
+        const button = screen.getByRole("combobox");
+        expect(button).toHaveFocus();
     });
 
     it("has an ARIA label", async () => {
@@ -133,6 +160,61 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(screen.getByLabelText("Select an answer")).toBeInTheDocument();
+    });
+
+    it("should not claim to focus when the dropdown is read-only", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(basicDropdown, {readOnly: true});
+
+        // Act
+        const focused = renderer.focus();
+
+        // Assert
+        expect(focused).toBeFalsy();
+        const button = screen.getByRole("combobox");
+        expect(button).not.toHaveFocus();
+    });
+
+    it("should not claim to focus when the dropdown is static", async () => {
+        // Arrange
+        const staticDropdown = generateTestPerseusRenderer({
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdownWidget({
+                    static: true,
+                    options: generateDropdownOptions({
+                        placeholder: "Choose an answer",
+                        choices: [
+                            {content: "True", correct: true},
+                            {content: "False", correct: false},
+                        ],
+                    }),
+                }),
+            },
+        });
+        const {renderer} = renderQuestion(staticDropdown);
+
+        // Act
+        const focused = renderer.focus();
+
+        // Assert
+        expect(focused).toBeFalsy();
+        const button = screen.getByRole("combobox");
+        expect(button).not.toHaveFocus();
+    });
+
+    it("should not claim to focus when the dropdown button has aria-disabled", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(basicDropdown);
+        const button = screen.getByRole("combobox");
+        button.setAttribute("aria-disabled", "true");
+
+        // Act
+        const focused = renderer.focus();
+
+        // Assert
+        expect(focused).toBeFalsy();
+        expect(button).not.toHaveFocus();
     });
 
     describe("interactive: full vs answerless", () => {

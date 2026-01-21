@@ -12,13 +12,19 @@ import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import {withDependencies} from "../../components/with-dependencies";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type Props = WidgetProps<
@@ -27,6 +33,7 @@ type Props = WidgetProps<
 > & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
+    dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = {
@@ -49,7 +56,7 @@ type State = {
 
 const plotterDefaults = CoreWidgetRegistry.getDefaultWidgetOptions("plotter");
 
-export class Plotter extends React.Component<Props, State> implements Widget {
+class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -74,6 +81,15 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         this._isMounted = true;
 
         this.setupGraphie(this.props.userInput);
+
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetType: "plotter",
+                widgetSubType: "null",
+                widgetId: this.props.widgetId,
+            },
+        });
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -391,17 +407,19 @@ export class Plotter extends React.Component<Props, State> implements Widget {
             },
         );
 
-        graphie
+        const xAxisLabel = graphie
             .label(
                 [c.dimX / 2, isMobile ? -padBottom : -35 / c.scale[1]],
                 self.props.labels[0],
                 isMobile ? "above" : "below",
                 false,
             )
-            .css("font-weight", "bold")
-            .css("color", isMobile && KhanColors.GRAY_F);
+            .css("font-weight", "bold");
+        if (isMobile) {
+            xAxisLabel.css("color", KhanColors.GRAY_F);
+        }
 
-        graphie
+        const yAxisLabel = graphie
             .label(
                 [(isMobile ? -35 : -60) / c.scale[0], c.dimY / 2],
                 self.props.labels[1],
@@ -409,8 +427,10 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                 false,
             )
             .css("font-weight", "bold")
-            .css("color", isMobile && KhanColors.GRAY_F)
             .addClass("rotate");
+        if (isMobile) {
+            yAxisLabel.css("color", KhanColors.GRAY_F);
+        }
 
         if (this.props.apiOptions.isMobile) {
             this.horizHairline = new WrappedLine(this.graphie, [0, 0], [0, 0], {
@@ -1188,12 +1208,14 @@ function getUserInputFromSerializedState(
     return serializedState.values;
 }
 
+const WrappedPlotter = withDependencies(Plotter);
+
 export default {
     name: "plotter",
     displayName: "Plotter",
     hidden: true,
-    widget: Plotter,
+    widget: WrappedPlotter,
     getCorrectUserInput,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Plotter>;
+} satisfies WidgetExports<typeof WrappedPlotter>;

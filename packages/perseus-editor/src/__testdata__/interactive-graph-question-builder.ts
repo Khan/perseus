@@ -26,9 +26,9 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
-export type SnapTo = "grid" | "angles" | "sides";
+type SnapTo = "grid" | "angles" | "sides";
 
-export type LockedFunctionOptions = {
+type LockedFunctionOptions = {
     color?: LockedFigureColor;
     strokeStyle?: LockedLineStyle;
     weight?: StrokeWeight;

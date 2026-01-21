@@ -37,8 +37,6 @@ import type {
     ShowSolutions,
     KeypadContextRendererInterface,
     RendererInterface,
-    KEScore,
-    UserInputArray,
     UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -46,9 +44,9 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 type OwnProps = {
     hintsVisible?: number;
     item: PerseusItem;
-    score?: KEScore | null;
     problemNum?: number;
     reviewMode?: boolean;
+    highlightEmptyWidgets?: boolean;
     keypadElement?: KeypadAPI | null | undefined;
     dependencies: PerseusDependenciesV2;
     showSolutions?: ShowSolutions;
@@ -65,19 +63,6 @@ type DefaultProps = Required<
 >;
 
 type State = {
-    /**
-     * questionCompleted is used to signal that a learner has attempted
-     * the exercise. This is used when widgets want to show things like
-     * rationale or partial correctness.
-     */
-    questionCompleted: boolean;
-    /**
-     * As far as I can tell, this is used to highlight empty widgets
-     * after a learner has clicked the "check" button. I don't think this could
-     * still be used though, because the "check" button is disabled while there
-     * are empty widgets.
-     */
-    questionHighlightedWidgets: ReadonlyArray<string>;
     /**
      * Keeps track of whether each asset (SvgImage or TeX) rendered by
      * the questionRenderer has finished loading or rendering.
@@ -124,8 +109,6 @@ export class ServerItemRenderer
         super(props);
 
         this.state = {
-            questionCompleted: false,
-            questionHighlightedWidgets: [],
             assetStatuses: {},
         };
         this._fullyRendered = false;
@@ -145,32 +128,8 @@ export class ServerItemRenderer
         this.maybeCallOnRendered();
     }
 
-    // eslint-disable-next-line react/no-unsafe
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        this.setState({
-            questionHighlightedWidgets: [],
-        });
-    }
-
-    componentDidUpdate(prevProps: Props, prevState: State) {
-        const answerableCallback = this.props.apiOptions.answerableCallback;
-        if (answerableCallback != null) {
-            const isAnswerable =
-                this.questionRenderer.emptyWidgets().length === 0;
-            answerableCallback(isAnswerable);
-        }
-
+    componentDidUpdate() {
         this.maybeCallOnRendered();
-
-        if (this.props.score && this.props.score !== prevProps.score) {
-            const emptyQuestionAreaWidgets =
-                this.questionRenderer.emptyWidgets();
-
-            this.setState({
-                questionCompleted: this.props.score.correct,
-                questionHighlightedWidgets: emptyQuestionAreaWidgets,
-            });
-        }
     }
 
     componentWillUnmount() {
@@ -304,28 +263,6 @@ export class ServerItemRenderer
         return questionAreaInputPaths;
     }
 
-    handleInteractWithWidget: (widgetId: string) => void = (widgetId) => {
-        const withRemoved = _.difference(
-            this.state.questionHighlightedWidgets,
-            [widgetId],
-        );
-
-        this.setState(
-            {
-                questionCompleted: false,
-                questionHighlightedWidgets: withRemoved,
-            },
-            () => {
-                // Call the interactionCallback, if it exists,
-                // with the current user input data
-                // (in the setState callback to avoid stale state)
-                this.props.apiOptions?.interactionCallback?.(
-                    this.questionRenderer.getUserInputMap(),
-                );
-            },
-        );
-    };
-
     focus(): boolean | null | undefined {
         return this.questionRenderer.focus();
     }
@@ -342,17 +279,6 @@ export class ServerItemRenderer
 
     getPromptJSON(): RendererPromptJSON {
         return this.questionRenderer.getPromptJSON();
-    }
-
-    /**
-     * Returns an array of the widget `.getUserInput()` results
-     *
-     * TODO: can we remove this? Seems to be just for backwards
-     * compatibility with old Perseus Chrome logging
-     * @deprecated use getUserInput
-     */
-    getUserInputLegacy(): UserInputArray {
-        return this.questionRenderer.getUserInput();
     }
 
     /**
@@ -422,14 +348,7 @@ export class ServerItemRenderer
                             <Renderer
                                 keypadElement={this.props.keypadElement}
                                 problemNum={this.props.problemNum}
-                                onInteractWithWidget={
-                                    this.handleInteractWithWidget
-                                }
-                                highlightedWidgets={
-                                    this.state.questionHighlightedWidgets
-                                }
                                 apiOptions={apiOptions}
-                                questionCompleted={this.state.questionCompleted}
                                 reviewMode={this.props.reviewMode}
                                 showSolutions={this.props.showSolutions}
                                 ref={(elem) => {
@@ -457,7 +376,6 @@ export class ServerItemRenderer
                                         userInput,
                                         widgetsEmpty,
                                     );
-                                    this.handleInteractWithWidget(id);
                                 }}
                                 initializeUserInput={initializeUserInput}
                             />
@@ -469,6 +387,7 @@ export class ServerItemRenderer
 
         const hintsRenderer = (
             <HintsRenderer
+                dependencies={this.props.dependencies}
                 hints={this.props.item.hints}
                 hintsVisible={this.props.hintsVisible}
                 apiOptions={apiOptions}

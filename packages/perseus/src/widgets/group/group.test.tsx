@@ -2,7 +2,6 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 // eslint-disable-next-line testing-library/no-manual-cleanup
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -43,27 +42,6 @@ describe("group widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("initial render");
-    });
-
-    it("should render annotations if groupAnnotator provided", () => {
-        // Arrange
-        const groupAnnotator = jest.fn().mockImplementation((...args) => {
-            return (
-                <div data-widget-id={args[1]}>{`Group Widget: ${args[1]}`}</div>
-            );
-        });
-
-        // Act
-        renderQuestion(question1, {
-            groupAnnotator,
-        });
-
-        // Assert
-        // Annotations should be in the DOM
-        const annotations = screen.getAllByText(/Group Widget:/);
-        expect(annotations).toHaveLength(2);
-        expect(annotations[0]).toHaveTextContent("Group Widget: group 1");
-        expect(annotations[1]).toHaveTextContent("Group Widget: group 2");
     });
 
     describe("focus management", () => {
@@ -142,47 +120,22 @@ describe("group widget", () => {
         });
     });
 
-    it("should call onInteractWithWidget when internal widget interacted with", async () => {
-        // Arrange
-        const onInteractWithWidget = jest.fn();
-
-        renderQuestion(
-            question1,
-            {},
-            {
-                onInteractWithWidget,
-            },
-        );
-
-        // Act
-        await userEvent.type(
-            screen.getByRole("textbox", {
-                name: "value rounded to the nearest ten",
-            }),
-            "99",
-        );
-
-        // Assert
-        // NOTE: The numeric-input that we typed into is in the second group.
-        expect(onInteractWithWidget).toHaveBeenCalledWith("group 2");
-    });
-
     it("should return contained renderer's getUserInput", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         await userEvent.type(screen.getAllByRole("textbox")[0], "99");
 
         // Act
-        const userInput = renderer.getUserInput();
+        const userInput = renderer.getUserInputMap();
 
         // Assert
-        expect(userInput).toEqual([
-            {
+        expect(userInput).toEqual({
+            "group 1": {
                 "radio 1": {
                     selectedChoiceIds: [],
                 },
             },
-            {
+            "group 2": {
                 "numeric-input 1": {
                     currentValue: "99",
                 },
@@ -190,7 +143,7 @@ describe("group widget", () => {
                     currentValue: "",
                 },
             },
-        ]);
+        });
     });
 
     it("should return contained renderer's getSerializedState", async () => {
@@ -352,33 +305,30 @@ describe("group widget", () => {
 
         const guess = renderer.getUserInputMap();
         const score = scorePerseusItem(question1, guess, "en");
-        const guessAndScore = [renderer.getUserInput(), score];
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
-        expect(guessAndScore).toEqual([
-            [
-                {
-                    "radio 1": {
-                        selectedChoiceIds: ["4-4-4-4-4"],
-                    },
+        expect(score).toEqual({
+            earned: 3,
+            message: null,
+            total: 3,
+            type: "points",
+        });
+        expect(guess).toEqual({
+            "group 1": {
+                "radio 1": {
+                    selectedChoiceIds: ["4-4-4-4-4"],
                 },
-                {
-                    "numeric-input 1": {
-                        currentValue: "230",
-                    },
-                    "numeric-input 2": {
-                        currentValue: "200",
-                    },
-                },
-            ],
-            {
-                earned: 3,
-                message: null,
-                total: 3,
-                type: "points",
             },
-        ]);
+            "group 2": {
+                "numeric-input 1": {
+                    currentValue: "230",
+                },
+                "numeric-input 2": {
+                    currentValue: "200",
+                },
+            },
+        });
     });
 
     it("should return input paths from contained Renderer", () => {

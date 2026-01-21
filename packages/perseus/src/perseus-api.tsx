@@ -30,8 +30,6 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import StubTagEditor from "./components/stub-tag-editor";
-
 import type {APIOptionsWithDefaults} from "./types";
 
 export const ApiOptions = {
@@ -39,20 +37,12 @@ export const ApiOptions = {
         isArticle: PropTypes.bool.isRequired,
 
         onFocusChange: PropTypes.func.isRequired,
-        GroupMetadataEditor: PropTypes.func.isRequired,
         showAlignmentOptions: PropTypes.bool.isRequired,
         readOnly: PropTypes.bool.isRequired,
 
         answerableCallback: PropTypes.func,
         getAnotherHint: PropTypes.func,
         interactionCallback: PropTypes.func,
-
-        // A function that takes in the relative problem number (starts at
-        // 0 and is incremented for each group widget), and the ID of the
-        // group widget, then returns a react component that will be added
-        // immediately above the renderer in the group widget. If the
-        // function returns null, no annotation will be added.
-        groupAnnotator: PropTypes.func.isRequired,
 
         // If imagePlaceholder or widgetPlaceholder are set, perseus will
         // render the placeholder instead of the image or widget node.
@@ -131,13 +121,10 @@ export const ApiOptions = {
         isArticle: false,
         isMobile: false,
         isMobileApp: false,
+        editingDisabled: false,
         onFocusChange: function () {},
-        GroupMetadataEditor: StubTagEditor,
         showAlignmentOptions: false,
         readOnly: false,
-        groupAnnotator: function (): null {
-            return null;
-        },
         baseElements: {
             Link: (
                 props: any,

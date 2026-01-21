@@ -4,14 +4,19 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {mockImageLoading} from "../../../../../testing/image-loader-utils";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
+import {DependenciesContext} from "../../../../perseus/src/dependencies";
 import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
 import ImageEditor from "../image-editor/image-editor";
 
+import type {PerseusImageBackground} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-const realKhanImageUrl =
-    "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg";
 const nonKhanImageWarning =
     "Images must be from sites hosted by Khan Academy. Please input a Khan Academy-owned address, or use the Add Image tool to rehost an existing image";
 const altTextTooLongError =
@@ -24,10 +29,17 @@ const apiOptions = {
     flags: getFeatureFlags({"image-widget-upgrade": true}),
 };
 
+const ImageEditorWithDependencies = (props: PropsFor<typeof ImageEditor>) => {
+    return (
+        <DependenciesContext.Provider value={testDependenciesV2}>
+            <ImageEditor {...props} />
+        </DependenciesContext.Provider>
+    );
+};
+
 describe("image editor", () => {
     let userEvent: UserEvent;
-    const images: Array<Record<any, any>> = [];
-    let originalImage;
+    let unmockImageLoading: () => void;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -38,71 +50,61 @@ describe("image editor", () => {
             testDependencies,
         );
 
-        originalImage = window.Image;
-        // The editor preview uses SvgImage, which uses ImageLoader.
-        // We need to mock the image loading in ImageLoader for it to render.
-        // Mock HTML Image so we can trigger onLoad callbacks and see full
-        // image rendering.
-        // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
-        window.Image = jest.fn(() => {
-            const img: Record<string, any> = {};
-            images.push(img);
-            return img;
+        unmockImageLoading = mockImageLoading({
+            naturalWidth: earthMoonImage.width,
+            naturalHeight: earthMoonImage.height,
         });
     });
 
     afterEach(() => {
-        window.Image = originalImage;
+        unmockImageLoading();
     });
 
-    // Tells the image loader 1, or all, of our images loaded
-    const markImagesAsLoaded = (imageIndex?: number) => {
-        if (imageIndex != null) {
-            const img = images[imageIndex];
-            if (img?.onload) {
-                act(() => img.onload());
-            }
-        } else {
-            images.forEach((i) => {
-                if (i?.onload) {
-                    act(() => i.onload());
-                }
-            });
-        }
-    };
+    it.each([
+        {}, // No url, no dimensions
+        {width: 100, height: 100}, // No url
+        {url: earthMoonImage.url, width: 100}, // No height
+        {url: earthMoonImage.url, height: 100}, // No width
+    ] satisfies Array<PerseusImageBackground>)(
+        "should render empty image editor if image is missing values",
+        (backgroundImage) => {
+            // Arrange
 
-    it("should render empty image editor", () => {
-        // Arrange
+            // Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    onChange={() => {}}
+                    backgroundImage={backgroundImage}
+                />,
+            );
 
-        // Act
-        render(<ImageEditor apiOptions={apiOptions} onChange={() => {}} />);
+            // Assert
+            const urlField = screen.getByRole("textbox", {name: "Image URL"});
+            expect(urlField).toBeInTheDocument();
 
-        // Assert
-        const urlField = screen.getByRole("textbox", {name: "Image URL"});
-        expect(urlField).toBeInTheDocument();
-
-        // None of the rest of the UI should be rendered.
-        expect(screen.queryByText(nonKhanImageWarning)).not.toBeInTheDocument();
-        expect(screen.queryByText("Preview:")).not.toBeInTheDocument();
-        expect(screen.queryByText("Dimensions:")).not.toBeInTheDocument();
-        expect(screen.queryByText("Alt text:")).not.toBeInTheDocument();
-        expect(screen.queryByText("Long Description:")).not.toBeInTheDocument();
-        expect(screen.queryByText("Caption:")).not.toBeInTheDocument();
-
-        expect(screen.queryByText(altTextTooLongError)).not.toBeInTheDocument();
-        expect(
-            screen.queryByText(altTextTooShortError),
-        ).not.toBeInTheDocument();
-    });
+            // None of the rest of the UI should be rendered.
+            expect(
+                screen.queryByText(nonKhanImageWarning),
+            ).not.toBeInTheDocument();
+            expect(screen.queryByText("Preview:")).not.toBeInTheDocument();
+            expect(screen.queryByText("Dimensions:")).not.toBeInTheDocument();
+            expect(screen.queryByText("Alt text:")).not.toBeInTheDocument();
+            expect(
+                screen.queryByText("Long Description:"),
+            ).not.toBeInTheDocument();
+            expect(screen.queryByText("Caption:")).not.toBeInTheDocument();
+        },
+    );
 
     it("should render populated image editor with all fields", () => {
         // Arrange
 
         // Act
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 alt="Earth and moon alt"
                 longDescription="Earth and moon long description"
                 caption="Earth and moon caption"
@@ -111,7 +113,8 @@ describe("image editor", () => {
             />,
         );
 
-        const dimensionsLabel = screen.getByText("Dimensions:");
+        const widthField = screen.getByRole("spinbutton", {name: "Width"});
+        const heightField = screen.getByRole("spinbutton", {name: "Height"});
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
         const altField = screen.getByRole("textbox", {name: "Alt text"});
         const longDescriptionField = screen.getByRole("textbox", {
@@ -121,15 +124,17 @@ describe("image editor", () => {
         const titleField = screen.getByRole("textbox", {name: "Title"});
 
         // Assert
-        expect(dimensionsLabel).toBeInTheDocument();
+        expect(widthField).toBeInTheDocument();
+        expect(heightField).toBeInTheDocument();
         expect(urlField).toBeInTheDocument();
         expect(altField).toBeInTheDocument();
         expect(longDescriptionField).toBeInTheDocument();
         expect(captionField).toBeInTheDocument();
         expect(titleField).toBeInTheDocument();
 
-        expect(screen.getByText("unknown")).toBeInTheDocument();
-        expect(urlField).toHaveValue(realKhanImageUrl);
+        expect(widthField).toHaveValue(earthMoonImage.width);
+        expect(heightField).toHaveValue(earthMoonImage.height);
+        expect(urlField).toHaveValue(earthMoonImage.url);
         expect(altField).toHaveValue("Earth and moon alt");
         expect(longDescriptionField).toHaveValue(
             "Earth and moon long description",
@@ -148,14 +153,15 @@ describe("image editor", () => {
 
         // Act
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 onChange={() => {}}
             />,
         );
 
-        const dimensionsLabel = screen.getByText("Dimensions:");
+        const widthField = screen.getByRole("spinbutton", {name: "Width"});
+        const heightField = screen.getByRole("spinbutton", {name: "Height"});
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
         const altField = screen.getByRole("textbox", {name: "Alt text"});
         const longDescriptionField = screen.getByRole("textbox", {
@@ -165,15 +171,17 @@ describe("image editor", () => {
         const titleField = screen.getByRole("textbox", {name: "Title"});
 
         // Assert
-        expect(dimensionsLabel).toBeInTheDocument();
+        expect(widthField).toBeInTheDocument();
+        expect(heightField).toBeInTheDocument();
         expect(urlField).toBeInTheDocument();
         expect(altField).toBeInTheDocument();
         expect(longDescriptionField).toBeInTheDocument();
         expect(captionField).toBeInTheDocument();
         expect(titleField).toBeInTheDocument();
 
-        expect(screen.getByText("unknown")).toBeInTheDocument();
-        expect(urlField).toHaveValue(realKhanImageUrl);
+        expect(widthField).toHaveValue(earthMoonImage.width);
+        expect(heightField).toHaveValue(earthMoonImage.height);
+        expect(urlField).toHaveValue(earthMoonImage.url);
 
         // All other fields should have value "" if undefined
         expect(altField).toHaveValue("");
@@ -191,7 +199,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={{}}
                 onChange={onChangeMock}
@@ -213,15 +221,19 @@ describe("image editor", () => {
 
         // Act
         render(
-            <ImageEditor
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                alt="Earth and moon alt"
-                onChange={() => {}}
-            />,
+            <DependenciesContext.Provider value={testDependenciesV2}>
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    alt="Earth and moon alt"
+                    onChange={() => {}}
+                />
+            </DependenciesContext.Provider>,
         );
 
-        markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
+        act(() => {
+            jest.runAllTimers();
+        });
 
         // Assert
         expect(
@@ -232,49 +244,41 @@ describe("image editor", () => {
     it("should render preview image without alt text", () => {
         // Arrange
         render(
-            <ImageEditor
+            <DependenciesContext.Provider value={testDependenciesV2}>
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />
+            </DependenciesContext.Provider>,
+        );
+
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        // Assert
+        expect(screen.getByAltText("Preview: No alt text")).toBeInTheDocument();
+    });
+
+    it("should show the image dimensions if the image size is known", () => {
+        // Arrange
+
+        // Act
+        render(
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={() => {}}
             />,
         );
 
-        markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
+        const widthField = screen.getByRole("spinbutton", {name: "Width"});
+        const heightField = screen.getByRole("spinbutton", {name: "Height"});
 
         // Assert
-        expect(screen.getByAltText("Preview: No alt text")).toBeInTheDocument();
-    });
-
-    it("should show unknown dimensions if the image size is not known", () => {
-        // Arrange
-        render(
-            <ImageEditor
-                apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
-        expect(screen.getByText("unknown")).toBeInTheDocument();
-    });
-
-    it("should show the image dimensions if the image size is known", () => {
-        // Arrange
-        render(
-            <ImageEditor
-                apiOptions={apiOptions}
-                backgroundImage={{
-                    url: realKhanImageUrl,
-                    width: 400,
-                    height: 225,
-                }}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
-        expect(screen.getByText("400 x 225")).toBeInTheDocument();
+        expect(widthField).toHaveValue(400);
+        expect(heightField).toHaveValue(225);
     });
 
     it("should call onChange with the new image url", async () => {
@@ -282,7 +286,7 @@ describe("image editor", () => {
         jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 300]);
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 backgroundImage={{}}
                 onChange={onChangeMock}
@@ -292,13 +296,13 @@ describe("image editor", () => {
         // Act
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
         urlField.focus();
-        await userEvent.paste(realKhanImageUrl);
+        await userEvent.paste(earthMoonImage.url);
         await userEvent.tab();
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
             backgroundImage: {
-                url: realKhanImageUrl,
+                url: earthMoonImage.url,
                 width: 200,
                 height: 300,
             },
@@ -309,7 +313,12 @@ describe("image editor", () => {
     it("should call onChange with empty image url", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<ImageEditor apiOptions={apiOptions} onChange={onChangeMock} />);
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                onChange={onChangeMock}
+            />,
+        );
 
         // Act
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
@@ -328,11 +337,11 @@ describe("image editor", () => {
         });
     });
 
-    it("should should clear the warning when the image url is cleared", async () => {
+    it("should clear the warning when the image url is cleared", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={{url: "abc"}}
@@ -357,13 +366,125 @@ describe("image editor", () => {
         expect(screen.queryByText(nonKhanImageWarning)).not.toBeInTheDocument();
     });
 
+    it("should call onChange with resized image when width is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                backgroundImage={{
+                    url: earthMoonImage.url,
+                    // Using easier to verify side lengths.
+                    width: 100,
+                    height: 200,
+                }}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const widthField = screen.getByRole("spinbutton", {name: "Width"});
+        widthField.focus();
+        await userEvent.clear(widthField);
+        await userEvent.paste("300");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            backgroundImage: {
+                url: earthMoonImage.url,
+                width: 300,
+                height: 600,
+            },
+        });
+    });
+
+    it("should call onChange with resized image when height is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                backgroundImage={{
+                    url: earthMoonImage.url,
+                    // Using easier to verify side lengths.
+                    width: 100,
+                    height: 200,
+                }}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const heightField = screen.getByRole("spinbutton", {name: "Height"});
+        heightField.focus();
+        await userEvent.clear(heightField);
+        await userEvent.paste("100");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            backgroundImage: {
+                url: earthMoonImage.url,
+                width: 50,
+                height: 100,
+            },
+        });
+    });
+
+    it("should call onChange with original image size when reset to original size is clicked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                backgroundImage={{
+                    url: earthMoonImage.url,
+                    width: earthMoonImage.width / 2,
+                    height: earthMoonImage.height / 2,
+                }}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const resetToOriginalSizeButton = screen.getByRole("button", {
+            name: "Reset to original size",
+        });
+        await userEvent.click(resetToOriginalSizeButton);
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            backgroundImage: earthMoonImage,
+        });
+    });
+
+    it("should not call onChange when reset to original size is clicked and the image size is already the original size", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                backgroundImage={earthMoonImage}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const resetToOriginalSizeButton = screen.getByRole("button", {
+            name: "Reset to original size",
+        });
+        await userEvent.click(resetToOriginalSizeButton);
+
+        // Assert
+        expect(onChangeMock).not.toHaveBeenCalled();
+    });
+
     it("should call onChange with new alt text", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
             />,
         );
@@ -383,9 +504,9 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 alt="Earth and moon"
                 onChange={onChangeMock}
             />,
@@ -405,9 +526,9 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
             />,
         );
@@ -429,9 +550,9 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 longDescription="Earth and moon long description"
                 onChange={onChangeMock}
             />,
@@ -453,7 +574,7 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={{
                     ...ApiOptions.defaults,
                     flags: getFeatureFlags({"image-widget-upgrade": false}),
@@ -470,9 +591,9 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
             />,
         );
@@ -492,9 +613,9 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 caption="Earth and moon"
                 onChange={onChangeMock}
             />,
@@ -513,9 +634,9 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
             />,
         );
@@ -535,9 +656,9 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 title="Earth and moon"
                 onChange={onChangeMock}
             />,
@@ -557,10 +678,10 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
             />,
         );
 
@@ -580,10 +701,10 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
             />,
         );
 
@@ -600,10 +721,10 @@ describe("image editor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ImageEditor
+            <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
-                backgroundImage={{url: realKhanImageUrl}}
+                backgroundImage={earthMoonImage}
                 alt="aaa" // Start with short alt text that will trigger error on blur
             />,
         );
@@ -622,5 +743,86 @@ describe("image editor", () => {
         expect(
             screen.queryByText(altTextTooShortError),
         ).not.toBeInTheDocument();
+    });
+
+    describe("decorative toggle", () => {
+        it("should render when feature flag is enabled", () => {
+            // Arrange & Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("switch", {name: "Decorative"}),
+            ).toBeInTheDocument();
+            expect(screen.getByLabelText("Decorative")).toBeInTheDocument();
+        });
+
+        it("should not render feature flag is disabled", () => {
+            // Arrange & Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: getFeatureFlags({"image-widget-upgrade": false}),
+                    }}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("switch", {name: "Decorative"}),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByLabelText("Decorative"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should render when decorative is true", () => {
+            // Arrange & Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    decorative={true}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            const decorativeToggle = screen.getByRole("switch", {
+                name: "Decorative",
+            });
+            expect(decorativeToggle).toBeInTheDocument();
+            expect(decorativeToggle).toBeChecked();
+        });
+
+        it("should call onChange when decorative toggle is clicked", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            const decorativeToggle = screen.getByRole("switch", {
+                name: "Decorative",
+            });
+            await userEvent.click(decorativeToggle);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({decorative: true});
+        });
     });
 });

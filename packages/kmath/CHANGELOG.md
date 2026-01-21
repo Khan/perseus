@@ -1,5 +1,164 @@
 # @khanacademy/kmath
 
+## 2.2.29
+
+### Patch Changes
+
+-   Updated dependencies [[`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032), [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed)]:
+    -   @khanacademy/perseus-core@22.1.0
+
+## 2.2.28
+
+### Patch Changes
+
+-   Updated dependencies [[`47ea66e85a`](https://github.com/Khan/perseus/commit/47ea66e85a5dc4fbe66eea2b125b73008cf14faf), [`800c03e92e`](https://github.com/Khan/perseus/commit/800c03e92e141d3c78486ce477946700ff9ac669)]:
+    -   @khanacademy/perseus-core@22.0.0
+
+## 2.2.27
+
+### Patch Changes
+
+-   Updated dependencies [[`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e), [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641)]:
+    -   @khanacademy/perseus-core@21.2.1
+
+## 2.2.26
+
+### Patch Changes
+
+-   Updated dependencies [[`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72)]:
+    -   @khanacademy/perseus-core@21.2.0
+
+## 2.2.25
+
+### Patch Changes
+
+-   Updated dependencies [[`ad36c9195e`](https://github.com/Khan/perseus/commit/ad36c9195e68031b37e529c3cd1fe81e5c159cfd), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`12ec59f0fe`](https://github.com/Khan/perseus/commit/12ec59f0fea0055ad1310d1b407994256f0c3897), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`e8247e65b4`](https://github.com/Khan/perseus/commit/e8247e65b482b24f18f85c6a5ee5fce3afadc383), [`ef79632da5`](https://github.com/Khan/perseus/commit/ef79632da5e595672320e1cd1abeb9661362b7c5)]:
+    -   @khanacademy/perseus-core@21.1.0
+
+## 2.2.24
+
+### Patch Changes
+
+-   Updated dependencies [[`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705)]:
+    -   @khanacademy/perseus-core@21.0.2
+
+## 2.2.23
+
+### Patch Changes
+
+-   Updated dependencies [[`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3)]:
+    -   @khanacademy/perseus-core@21.0.1
+
+## 2.2.22
+
+### Patch Changes
+
+-   Updated dependencies [[`c674007016`](https://github.com/Khan/perseus/commit/c6740070169dedaac85056d6b972ad1f2145bc3c), [`75eb53092c`](https://github.com/Khan/perseus/commit/75eb53092c04c85224ab6d586888a4ed0bf8300f), [`5efb2b5f25`](https://github.com/Khan/perseus/commit/5efb2b5f259994be85af04967371638a4a91bda6)]:
+    -   @khanacademy/perseus-core@21.0.0
+
+## 2.2.21
+
+### Patch Changes
+
+-   Updated dependencies [[`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea), [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753), [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b), [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3), [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c), [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32)]:
+    -   @khanacademy/perseus-core@20.4.1
+
+## 2.2.20
+
+### Patch Changes
+
+-   Updated dependencies [[`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266), [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108)]:
+    -   @khanacademy/perseus-core@20.4.0
+
+## 2.2.19
+
+### Patch Changes
+
+-   [#3069](https://github.com/Khan/perseus/pull/3069) [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade to pnpm@10.22.0
+
+-   Updated dependencies [[`a7bc025971`](https://github.com/Khan/perseus/commit/a7bc025971f3c5548fb5dac80f82afe0c262f102), [`29cd960359`](https://github.com/Khan/perseus/commit/29cd960359660b5eacadf82f54e4a0d78ee6317f), [`889b0b3aff`](https://github.com/Khan/perseus/commit/889b0b3affff534ca5a6d9e067290fa7c4fb684b), [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66)]:
+    -   @khanacademy/perseus-core@20.3.0
+    -   @khanacademy/perseus-utils@2.1.4
+
+## 2.2.18
+
+### Patch Changes
+
+-   [#3006](https://github.com/Khan/perseus/pull/3006) [`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb) Thanks [@Myranae](https://github.com/Myranae)! - Add catalog hash system for dependency tracking
+
+-   Updated dependencies [[`bae4cfa6f1`](https://github.com/Khan/perseus/commit/bae4cfa6f10410b2e2b5ea558a56c1231fa4e744), [`58f942cb9c`](https://github.com/Khan/perseus/commit/58f942cb9cfb04638f74c79aad444ccfb6b7ce97), [`022624f6f6`](https://github.com/Khan/perseus/commit/022624f6f682a18529b0c381746e3b7d8beb77f2), [`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb), [`723d2101e7`](https://github.com/Khan/perseus/commit/723d2101e76509d7557d2a4745a9bbc7ecd55cc7)]:
+    -   @khanacademy/perseus-core@20.2.1
+    -   @khanacademy/perseus-utils@2.1.3
+
+## 2.2.17
+
+### Patch Changes
+
+-   Updated dependencies [[`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015), [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84)]:
+    -   @khanacademy/perseus-core@20.2.0
+
+## 2.2.16
+
+### Patch Changes
+
+-   [#3030](https://github.com/Khan/perseus/pull/3030) [`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-publish to enable trusted publishing
+
+-   Updated dependencies [[`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480), [`8859e97f01`](https://github.com/Khan/perseus/commit/8859e97f0140a18e8924d13f6b18a6d38206dbf2)]:
+    -   @khanacademy/perseus-core@20.1.4
+    -   @khanacademy/perseus-utils@2.1.2
+
+## 2.2.15
+
+### Patch Changes
+
+-   Updated dependencies [[`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465)]:
+    -   @khanacademy/perseus-core@20.1.3
+
+## 2.2.14
+
+### Patch Changes
+
+-   Updated dependencies [[`1ddcb6b800`](https://github.com/Khan/perseus/commit/1ddcb6b800ebc19fce4665598f20817200330123)]:
+    -   @khanacademy/perseus-core@20.1.2
+
+## 2.2.13
+
+### Patch Changes
+
+-   [#2982](https://github.com/Khan/perseus/pull/2982) [`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Include provenance information when publishing to npmjs
+
+-   Updated dependencies [[`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374)]:
+    -   @khanacademy/perseus-core@20.1.1
+    -   @khanacademy/perseus-utils@2.1.1
+
+## 2.2.12
+
+### Patch Changes
+
+-   Updated dependencies [[`3d5bb1b0b5`](https://github.com/Khan/perseus/commit/3d5bb1b0b5c5cbd2b78974ddf826d93752f5bd66), [`47ba785e06`](https://github.com/Khan/perseus/commit/47ba785e06a85b7592c55da19ffa3656bea710b7)]:
+    -   @khanacademy/perseus-core@20.1.0
+
+## 2.2.11
+
+### Patch Changes
+
+-   Updated dependencies [[`b3a751707c`](https://github.com/Khan/perseus/commit/b3a751707c44437875efc16a21b505a7ec7879c6)]:
+    -   @khanacademy/perseus-core@20.0.0
+
+## 2.2.10
+
+### Patch Changes
+
+-   Updated dependencies [[`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6)]:
+    -   @khanacademy/perseus-core@19.5.0
+
+## 2.2.9
+
+### Patch Changes
+
+-   Updated dependencies [[`42c456d99e`](https://github.com/Khan/perseus/commit/42c456d99e0002589c088c721f09cbb26ea57b2c)]:
+    -   @khanacademy/perseus-core@19.4.0
+
 ## 2.2.8
 
 ### Patch Changes

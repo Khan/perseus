@@ -6,12 +6,19 @@ import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
+import {withDependencies} from "../../components/with-dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import InputWithExamples from "../numeric-input/input-with-examples";
 
 import type {PerseusStrings} from "../../strings";
-import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    Path,
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import type {
     PerseusInputNumberWidgetOptions,
@@ -62,6 +69,7 @@ type Props = ExternalProps & {
     // NOTE(kevinb): This was the only default prop that is listed as
     // not-required in PerseusInputNumberWidgetOptions.
     answerType: NonNullable<ExternalProps["answerType"]>;
+    dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = Pick<
@@ -88,6 +96,17 @@ class InputNumber extends React.Component<Props> implements Widget {
         linterContext: linterContextDefault,
         userInput: {currentValue: ""},
     };
+
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "input-number",
+                widgetId: this.props.widgetId,
+            },
+        });
+    }
 
     shouldShowExamples: () => boolean = () => {
         return this.props.answerType !== "number";
@@ -278,13 +297,22 @@ function getStartUserInput(): PerseusInputNumberUserInput {
     return {currentValue: ""};
 }
 
+function getCorrectUserInput(
+    options: PerseusInputNumberWidgetOptions,
+): PerseusInputNumberUserInput {
+    return {currentValue: options.value.toString()};
+}
+
+const WrappedInputNumber = withDependencies(InputNumber);
+
 export default {
     name: "input-number",
     displayName: "Input number (deprecated - use numeric input instead)",
     hidden: true,
-    widget: InputNumber,
+    widget: WrappedInputNumber,
     isLintable: true,
     getOneCorrectAnswerFromRubric,
     getStartUserInput,
+    getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof InputNumber>;
+} satisfies WidgetExports<typeof WrappedInputNumber>;

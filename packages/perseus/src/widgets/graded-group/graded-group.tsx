@@ -9,6 +9,7 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
+import {withDependencies} from "../../components/with-dependencies";
 import {iconOk, iconRemove} from "../../icon-paths";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
@@ -29,6 +30,7 @@ import GradedGroupAnswerBar from "./graded-group-answer-bar";
 import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 import type {
     FocusPath,
+    PerseusDependenciesV2,
     TrackingGradedGroupExtraArguments,
     Widget,
     WidgetExports,
@@ -75,6 +77,7 @@ type Props = WidgetProps<
 > & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
     onNextQuestion?: () => unknown; // Set by graded-group-set.jsx
+    dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = {
@@ -102,9 +105,8 @@ type State = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
-    Empty,
-    undefined
-> satisfies PropsFor<typeof GradedGroup>;
+    Empty
+> satisfies PropsFor<typeof WrappedGradedGroup>;
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
@@ -136,6 +138,17 @@ export class GradedGroup
 
     rendererRef = React.createRef<Renderer>();
     hintRendererRef = React.createRef<Renderer>();
+
+    componentDidMount(): void {
+        this.props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetType: "graded-group",
+                widgetSubType: "null",
+                widgetId: this.props.widgetId,
+            },
+        });
+    }
 
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
         return nextProps !== this.props || nextState !== this.state;
@@ -497,12 +510,14 @@ const styles = StyleSheet.create({
     },
 });
 
+const WrappedGradedGroup = withDependencies(GradedGroup);
+
 export default {
     name: "graded-group",
     displayName: "Graded group (articles only)",
-    widget: GradedGroup,
+    widget: WrappedGradedGroup,
     // TODO(aasmund): This widget should be available for articles only
     hidden: false,
     tracking: "all",
     isLintable: true,
-} satisfies WidgetExports<typeof GradedGroup>;
+} satisfies WidgetExports<typeof WrappedGradedGroup>;

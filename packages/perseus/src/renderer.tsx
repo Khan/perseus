@@ -71,7 +71,6 @@ import type {
     PerseusScore,
     UserInputMap,
     UserInput,
-    UserInputArray,
     PerseusItem,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -123,14 +122,12 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
     findExternalWidgets: any;
-    highlightedWidgets?: ReadonlyArray<any>;
     images: PerseusRenderer["images"];
     keypadElement?: KeypadAPI | null;
-    onInteractWithWidget: (id: string) => void;
     onRender: (node?: any) => void;
     problemNum?: number;
-    questionCompleted?: boolean;
     reviewMode?: boolean | null | undefined;
+    highlightEmptyWidgets?: boolean;
     /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
@@ -157,7 +154,6 @@ type State = {
     translationLintErrors: ReadonlyArray<string>;
     widgetInfo: Readonly<PerseusWidgetsMap>;
     jiptContent: any;
-    lastUsedWidgetId: string | null | undefined;
 };
 
 type FullLinterContext = LinterContextProps & {
@@ -174,12 +170,9 @@ type DefaultProps = Required<
         | "alwaysUpdate"
         | "content"
         | "findExternalWidgets"
-        | "highlightedWidgets"
         | "images"
         | "linterContext"
-        | "onInteractWithWidget"
         | "onRender"
-        | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
         | "widgets"
@@ -254,14 +247,11 @@ class Renderer
         content: "",
         widgets: {},
         images: {},
-        highlightedWidgets: [],
-        questionCompleted: false,
         showSolutions: "none",
         // onRender may be called multiple times per render, for example
         // if there are multiple images or TeX pieces within `content`.
         // It is a good idea to debounce any functions passed here.
         onRender: noopOnRender,
-        onInteractWithWidget: function () {},
         findExternalWidgets: () => [],
         alwaysUpdate: false,
         reviewMode: false,
@@ -279,11 +269,6 @@ class Renderer
             // location. This is a list of error strings TranslationLinter
             // detected on its last run.
             translationLintErrors: [],
-
-            // The ID of the last widget the user interacted with. We'll
-            // use this to set the `isLastUsedWidget` flag on the
-            // corresponding widget.
-            lastUsedWidgetId: null,
 
             ...this._getInitialWidgetState(props),
         };
@@ -310,6 +295,8 @@ class Renderer
                 this.handletranslationLintErrors,
             );
         }
+
+        this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -326,6 +313,7 @@ class Renderer
         // QUESTION(jeremy): Shouldn't we look at `nextProps` here? Otherwise
         // we're always looking "one render behind".
         if (this.props.alwaysUpdate) {
+            // TODO(ivy): passage-ref is already deprecated see LEMS-3124, check if this is still needed
             // TOTAL hacks so that findWidgets doesn't break
             // when one widget updates without the other.
             // See passage-refs inside radios, which was why
@@ -363,6 +351,13 @@ class Renderer
                 this.props.content,
                 this.handletranslationLintErrors,
             );
+        }
+
+        if (
+            this.props.userInput &&
+            !_.isEqual(this.props.userInput, prevProps.userInput)
+        ) {
+            this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
         }
     }
 
@@ -437,6 +432,13 @@ class Renderer
         );
     };
 
+    _isAnswerable(): boolean {
+        if (this.props.userInput) {
+            return this.emptyWidgets().length === 0;
+        }
+        return false;
+    }
+
     renderWidget: (
         impliedType: string,
         id: string,
@@ -454,11 +456,11 @@ class Renderer
 
         if (widgetInfo) {
             const type = (widgetInfo && widgetInfo.type) || impliedType;
-            const shouldHighlight = _.contains(
-                // @ts-expect-error - TS2345 - Argument of type 'readonly any[] | undefined' is not assignable to parameter of type 'Collection<any>'.
-                this.props.highlightedWidgets,
-                id,
-            );
+
+            let shouldHighlight = false;
+            if (this.props.highlightEmptyWidgets && this.props.userInput) {
+                shouldHighlight = this.emptyWidgets().includes(id);
+            }
 
             // By this point we should have no duplicates, which are
             // filtered out in this.render(), so we shouldn't have to
@@ -515,8 +517,6 @@ class Renderer
         // The widget needs access to its "scoring data" at all times when in review
         // mode (which is really just part of its widget info).
         const widgetInfo = this.state.widgetInfo[widgetId];
-        const reviewModeRubric =
-            this.props.reviewMode && widgetInfo ? widgetInfo.options : null;
 
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!this._interactionTrackers) {
@@ -545,12 +545,10 @@ class Renderer
             problemNum: this.props.problemNum,
             apiOptions: this.getApiOptions(),
             keypadElement: this.props.keypadElement,
-            questionCompleted: this.props.questionCompleted,
             showSolutions: this.props.showSolutions,
             onFocus: _.partial(this._onWidgetFocus, widgetId),
             onBlur: _.partial(this._onWidgetBlur, widgetId),
             findWidgets: this.findWidgets,
-            reviewModeRubric: reviewModeRubric,
             reviewMode: this.props.reviewMode,
             handleUserInput: (newUserInput: UserInput) => {
                 // Calculate widgetsEmpty using the updated user input
@@ -570,10 +568,9 @@ class Renderer
                     newUserInput,
                     widgetsEmpty,
                 );
-                this.props.onInteractWithWidget(widgetId);
+                this.props.apiOptions?.interactionCallback?.(updatedUserInput);
             },
             trackInteraction: interactionTracker.track,
-            isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
         };
     }
 
@@ -621,8 +618,6 @@ class Renderer
      *
      * If you need to do logic with more than the components, it is possible
      * to do such logic inside the filter, rather than on the result array.
-     *
-     * See the passage-ref widget for an example.
      *
      * "Remember: abilities are not inherently good or evil, it's how you use
      * them." ~ Kyle Katarn
@@ -1134,6 +1129,7 @@ class Renderer
                     <AssetContext.Consumer>
                         {({setAssetStatus}) => (
                             <SvgImage
+                                allowZoom={true}
                                 setAssetStatus={setAssetStatus}
                                 // @ts-expect-error - TS2322 - Type 'string | null | undefined' is not assignable to type 'string | undefined'.
                                 src={PerseusMarkdown.sanitizeUrl(node.target)}
@@ -1334,6 +1330,15 @@ class Renderer
                 return widget.getDOMNodeForPath(interWidgetPath);
             }
             if (interWidgetPath.length === 0) {
+                const container = this._widgetContainers.get(
+                    makeContainerId(widgetId),
+                );
+                if (container) {
+                    // Use the container ref so function components that expose an
+                    // imperative handle (and thus aren't valid ReactDOM targets)
+                    // still produce a DOM node.
+                    return ReactDOM.findDOMNode(container);
+                }
                 // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
                 return ReactDOM.findDOMNode(widget);
             }
@@ -1449,71 +1454,6 @@ class Renderer
             this.props.userInput,
             this.context.locale,
         );
-    }
-
-    handleStateUpdate(id: string, cb: () => boolean, silent?: boolean) {
-        this.setState(
-            (prevState) => {
-                // Update the `lastUsedWidgetId` to this widget - unless we're
-                // in silent mode. We only want to track the last widget that
-                // was actually _used_, and silent updates generally don't come
-                // from _usage_.
-                const lastUsedWidgetId = silent
-                    ? prevState.lastUsedWidgetId
-                    : id;
-
-                return {
-                    lastUsedWidgetId,
-                };
-            },
-            () => {
-                // Wait until all components have rendered. In React 16 setState
-                // callback fires immediately after this componentDidUpdate, and
-                // there is no guarantee that parent/siblings components have
-                // finished rendering.
-                // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-                // eslint-disable-next-line no-restricted-syntax
-                setTimeout(() => {
-                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                    const cbResult = cb && cb();
-                    if (!silent) {
-                        this.props.onInteractWithWidget(id);
-                    }
-                    if (cbResult !== false) {
-                        // TODO(jack): For some reason, some widgets don't always
-                        // end up in refs here, which is repro-able if you make an
-                        // [[ orderer 1 ]] and copy-paste this, then change it to
-                        // be an [[ orderer 2 ]]. The resulting Renderer ends up
-                        // with an "orderer 2" ref but not an "orderer 1" ref.
-                        // @_@??
-                        // TODO(jack): Figure out why this is happening and fix it
-                        // As far as I can tell, this is only an issue in the
-                        // editor-page, so doing this shouldn't break clients
-                        // hopefully
-                        this._setCurrentFocus([id]);
-                    }
-                }, 0);
-            },
-        );
-    }
-
-    /**
-     * Returns an array of the widget `.getUserInput()` results
-     *
-     * TODO: can we remove this?
-     * @deprecated use getUserInputMap
-     */
-    getUserInput(): UserInputArray {
-        const userInput = this.props.userInput;
-        if (!userInput) {
-            throw new Error(
-                `getUserInput called without providing userInput to Renderer`,
-            );
-        }
-
-        return this.widgetIds.map((id: string) => {
-            return userInput[id];
-        });
     }
 
     /**

@@ -1,5 +1,223 @@
 # @khanacademy/perseus-core
 
+## 22.1.0
+
+### Minor Changes
+
+-   [#3147](https://github.com/Khan/perseus/pull/3147) [`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Deprecate passage-related widgets (passage, passage-ref, passage-ref-target)
+
+### Patch Changes
+
+-   [#3179](https://github.com/Khan/perseus/pull/3179) [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed) Thanks [@handeyeco](https://github.com/handeyeco)! - Lint against Math.random
+
+-   Updated dependencies [[`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed)]:
+    -   @khanacademy/kas@2.1.7
+    -   @khanacademy/pure-markdown@2.2.5
+
+## 22.0.0
+
+### Major Changes
+
+-   [#3174](https://github.com/Khan/perseus/pull/3174) [`800c03e92e`](https://github.com/Khan/perseus/commit/800c03e92e141d3c78486ce477946700ff9ac669) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove isRealJSONParse and some deprecated exports
+
+### Patch Changes
+
+-   [#3172](https://github.com/Khan/perseus/pull/3172) [`47ea66e85a`](https://github.com/Khan/perseus/commit/47ea66e85a5dc4fbe66eea2b125b73008cf14faf) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Add feature flag for image aligment
+
+## 21.2.1
+
+### Patch Changes
+
+-   [#3152](https://github.com/Khan/perseus/pull/3152) [`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update tests referencing the passage widget in preparation for deprecating passage related widgets
+
+*   [#3168](https://github.com/Khan/perseus/pull/3168) [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix infinite loop in SvgImage component when loading graphie images. This fixes the "Maximum update depth exceeded" error (React error # 185) that was occurring when rendering graphie images (web+graphie:// URLs) in production.
+
+## 21.2.0
+
+### Minor Changes
+
+-   [#3150](https://github.com/Khan/perseus/pull/3150) [`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72) Thanks [@handeyeco](https://github.com/handeyeco)! - Modify HintsRenderer to ignore hints with new `placeholder` flag.
+
+## 21.1.0
+
+### Minor Changes
+
+-   [#3151](https://github.com/Khan/perseus/pull/3151) [`ef79632da5`](https://github.com/Khan/perseus/commit/ef79632da5e595672320e1cd1abeb9661362b7c5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add `placeholder` to Hint schema
+
+### Patch Changes
+
+-   [#3119](https://github.com/Khan/perseus/pull/3119) [`ad36c9195e`](https://github.com/Khan/perseus/commit/ad36c9195e68031b37e529c3cd1fe81e5c159cfd) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group] Create a graded group generator for testdata
+
+*   [#3112](https://github.com/Khan/perseus/pull/3112) [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Create an interactive graph generator for testdata
+
+-   [#3117](https://github.com/Khan/perseus/pull/3117) [`12ec59f0fe`](https://github.com/Khan/perseus/commit/12ec59f0fea0055ad1310d1b407994256f0c3897) Thanks [@nishasy](https://github.com/nishasy)! - [Group] Create a group generator for testdata
+
+*   [#3112](https://github.com/Khan/perseus/pull/3112) [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Delete radioQuestionBuilder and use radioWidgetGenerator in testdata instead
+
+-   [#3120](https://github.com/Khan/perseus/pull/3120) [`e8247e65b4`](https://github.com/Khan/perseus/commit/e8247e65b482b24f18f85c6a5ee5fce3afadc383) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group Set] Create a graded group set generator for testdata
+
+## 21.0.2
+
+### Patch Changes
+
+-   [#3136](https://github.com/Khan/perseus/pull/3136) [`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Ensuring LabelImages are marked as inaccessible if any marker is missing a label.
+
+## 21.0.1
+
+### Patch Changes
+
+-   [#3128](https://github.com/Khan/perseus/pull/3128) [`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3) Thanks [@handeyeco](https://github.com/handeyeco)! - Add EMPTY_RESPONSE_ERROR handling
+
+## 21.0.0
+
+### Major Changes
+
+-   [#3089](https://github.com/Khan/perseus/pull/3089) [`c674007016`](https://github.com/Khan/perseus/commit/c6740070169dedaac85056d6b972ad1f2145bc3c) Thanks [@handeyeco](https://github.com/handeyeco)! - Add new validateUserInput function to perseus-score
+
+### Patch Changes
+
+-   [#3107](https://github.com/Khan/perseus/pull/3107) [`75eb53092c`](https://github.com/Khan/perseus/commit/75eb53092c04c85224ab6d586888a4ed0bf8300f) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Delete radioQuestionBuilder and use radioWidgetGenerator in testdata instead
+
+*   [#3106](https://github.com/Khan/perseus/pull/3106) [`5efb2b5f25`](https://github.com/Khan/perseus/commit/5efb2b5f259994be85af04967371638a4a91bda6) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Create a radio widget generator for testdata
+
+## 20.4.1
+
+### Patch Changes
+
+-   [#3105](https://github.com/Khan/perseus/pull/3105) [`5027aca0ac`](https://github.com/Khan/perseus/commit/5027aca0ac9cde4a6c00cc4535b1dee819f52dea) Thanks [@nishasy](https://github.com/nishasy)! - [Definition] Create definition widget generator for testdata
+
+*   [#3104](https://github.com/Khan/perseus/pull/3104) [`71908ba4a3`](https://github.com/Khan/perseus/commit/71908ba4a3d4377e3f8a16b537248ade13d7b753) Thanks [@nishasy](https://github.com/nishasy)! - [Explanation] Create explanation widget generator for testdata
+
+-   [#3109](https://github.com/Khan/perseus/pull/3109) [`2d84e2094c`](https://github.com/Khan/perseus/commit/2d84e2094c2a62047779c37a39a9f03cca24071b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Move getFigureForType into perseus-core
+
+*   [#3096](https://github.com/Khan/perseus/pull/3096) [`5c3578f34f`](https://github.com/Khan/perseus/commit/5c3578f34f4e439c9905a7c9ab265635d9f219a3) Thanks [@nishasy](https://github.com/nishasy)! - [Dropdown] Create dropdown widget generator for testdata
+
+-   [#3092](https://github.com/Khan/perseus/pull/3092) [`8425937fa6`](https://github.com/Khan/perseus/commit/8425937fa608a5ea163f2501391d435b5c0f735c) Thanks [@nishasy](https://github.com/nishasy)! - [Expression] Creat expression widget generator for testdata
+
+*   [#3093](https://github.com/Khan/perseus/pull/3093) [`de07b91b0e`](https://github.com/Khan/perseus/commit/de07b91b0e36c623709d6a4f35c1869582b49a32) Thanks [@nishasy](https://github.com/nishasy)! - [Numeric Input] Create numeric input widget generator for testdata
+
+## 20.4.0
+
+### Minor Changes
+
+-   [#3091](https://github.com/Khan/perseus/pull/3091) [`27ab0dba64`](https://github.com/Khan/perseus/commit/27ab0dba6491476adf0412126392a426a316b266) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Move the Khanmigo data functions to Perseus Core for Server Side Scoring initiative
+
+### Patch Changes
+
+-   [#3086](https://github.com/Khan/perseus/pull/3086) [`0d1d39b563`](https://github.com/Khan/perseus/commit/0d1d39b563eaba5549d3d732b3fefce7d6697108) Thanks [@nishasy](https://github.com/nishasy)! - Create free response widget generator for testdata
+
+## 20.3.0
+
+### Minor Changes
+
+-   [#3050](https://github.com/Khan/perseus/pull/3050) [`29cd960359`](https://github.com/Khan/perseus/commit/29cd960359660b5eacadf82f54e4a0d78ee6317f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Do not apply custom aligment float left or right to mobile it will be display block instead.
+
+### Patch Changes
+
+-   [#3085](https://github.com/Khan/perseus/pull/3085) [`a7bc025971`](https://github.com/Khan/perseus/commit/a7bc025971f3c5548fb5dac80f82afe0c262f102) Thanks [@nishasy](https://github.com/nishasy)! - [Video] Create video widget generator for testdata
+
+*   [#3087](https://github.com/Khan/perseus/pull/3087) [`889b0b3aff`](https://github.com/Khan/perseus/commit/889b0b3affff534ca5a6d9e067290fa7c4fb684b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   [#3069](https://github.com/Khan/perseus/pull/3069) [`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade to pnpm@10.22.0
+
+-   Updated dependencies [[`c112928d3d`](https://github.com/Khan/perseus/commit/c112928d3d9dd51b03a7a328148ef1d625da2a66)]:
+    -   @khanacademy/kas@2.1.6
+    -   @khanacademy/perseus-utils@2.1.4
+    -   @khanacademy/pure-markdown@2.2.4
+
+## 20.2.1
+
+### Patch Changes
+
+-   [#3060](https://github.com/Khan/perseus/pull/3060) [`bae4cfa6f1`](https://github.com/Khan/perseus/commit/bae4cfa6f10410b2e2b5ea558a56c1231fa4e744) Thanks [@nishasy](https://github.com/nishasy)! - Add Label Image widget save warnings to perseus linter
+
+*   [#3058](https://github.com/Khan/perseus/pull/3058) [`58f942cb9c`](https://github.com/Khan/perseus/commit/58f942cb9cfb04638f74c79aad444ccfb6b7ce97) Thanks [@nishasy](https://github.com/nishasy)! - Add Python Program widget save warnings to perseus linter
+
+-   [#3061](https://github.com/Khan/perseus/pull/3061) [`022624f6f6`](https://github.com/Khan/perseus/commit/022624f6f682a18529b0c381746e3b7d8beb77f2) Thanks [@nishasy](https://github.com/nishasy)! - Add Interactive Graph widget save warnings to perseus linter
+
+*   [#3006](https://github.com/Khan/perseus/pull/3006) [`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb) Thanks [@Myranae](https://github.com/Myranae)! - Add catalog hash system for dependency tracking
+
+-   [#3057](https://github.com/Khan/perseus/pull/3057) [`723d2101e7`](https://github.com/Khan/perseus/commit/723d2101e76509d7557d2a4745a9bbc7ecd55cc7) Thanks [@nishasy](https://github.com/nishasy)! - Add Phet Simulation widget save warnings to perseus linter
+
+-   Updated dependencies [[`01d273fcfb`](https://github.com/Khan/perseus/commit/01d273fcfb00f707412832138952220f66585dfb)]:
+    -   @khanacademy/kas@2.1.5
+    -   @khanacademy/perseus-utils@2.1.3
+    -   @khanacademy/pure-markdown@2.2.3
+
+## 20.2.0
+
+### Minor Changes
+
+-   [#3032](https://github.com/Khan/perseus/pull/3032) [`9201e1887b`](https://github.com/Khan/perseus/commit/9201e1887bdacdcc8982a114bd903be8d1d9d015) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Error Boundary] Add stack trace to error payload to aid in troubleshooting rendering errors
+
+### Patch Changes
+
+-   [#3045](https://github.com/Khan/perseus/pull/3045) [`099aeff249`](https://github.com/Khan/perseus/commit/099aeff249a3af7b060b9c36f5a2d36488d7ee84) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Error Boundary] Correct type for stack property in widget-rendering-error:ti
+
+## 20.1.4
+
+### Patch Changes
+
+-   [#3030](https://github.com/Khan/perseus/pull/3030) [`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-publish to enable trusted publishing
+
+*   [#3028](https://github.com/Khan/perseus/pull/3028) [`8859e97f01`](https://github.com/Khan/perseus/commit/8859e97f0140a18e8924d13f6b18a6d38206dbf2) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Update the axis labels to be TeX by default again
+
+*   Updated dependencies [[`9a3d65a370`](https://github.com/Khan/perseus/commit/9a3d65a3709f6db4de8f2c4ec3972ebe770a6480)]:
+    -   @khanacademy/kas@2.1.4
+    -   @khanacademy/perseus-utils@2.1.2
+    -   @khanacademy/pure-markdown@2.2.2
+
+## 20.1.3
+
+### Patch Changes
+
+-   [#2990](https://github.com/Khan/perseus/pull/2990) [`b843ed6113`](https://github.com/Khan/perseus/commit/b843ed6113bb4feed5c5bc7ff49434eb3b546465) Thanks [@handeyeco](https://github.com/handeyeco)! - Run knip to clean up unused code and exports
+
+## 20.1.2
+
+### Patch Changes
+
+-   [#2981](https://github.com/Khan/perseus/pull/2981) [`1ddcb6b800`](https://github.com/Khan/perseus/commit/1ddcb6b800ebc19fce4665598f20817200330123) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor type fixes
+
+## 20.1.1
+
+### Patch Changes
+
+-   [#2982](https://github.com/Khan/perseus/pull/2982) [`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Include provenance information when publishing to npmjs
+
+-   Updated dependencies [[`24d025b7c7`](https://github.com/Khan/perseus/commit/24d025b7c7c472ba68469a761cced16315f7a374)]:
+    -   @khanacademy/kas@2.1.3
+    -   @khanacademy/perseus-utils@2.1.1
+    -   @khanacademy/pure-markdown@2.2.1
+
+## 20.1.0
+
+### Minor Changes
+
+-   [#2964](https://github.com/Khan/perseus/pull/2964) [`47ba785e06`](https://github.com/Khan/perseus/commit/47ba785e06a85b7592c55da19ffa3656bea710b7) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add support for aligning the image widget to float left or float right
+
+### Patch Changes
+
+-   [#2967](https://github.com/Khan/perseus/pull/2967) [`3d5bb1b0b5`](https://github.com/Khan/perseus/commit/3d5bb1b0b5c5cbd2b78974ddf826d93752f5bd66) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add decorative in accessible function in ImageWidget registry
+
+## 20.0.0
+
+### Major Changes
+
+-   [#2961](https://github.com/Khan/perseus/pull/2961) [`b3a751707c`](https://github.com/Khan/perseus/commit/b3a751707c44437875efc16a21b505a7ec7879c6) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move ErrorCodes from @khanacademy/perseus-score to @khanacademy/perseus-core
+
+## 19.5.0
+
+### Minor Changes
+
+-   [#2946](https://github.com/Khan/perseus/pull/2946) [`658b772c88`](https://github.com/Khan/perseus/commit/658b772c88f519b15006962bf5f27b91711e57c6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update the Radio Widget current version to 3.0
+
+## 19.4.0
+
+### Minor Changes
+
+-   [#2918](https://github.com/Khan/perseus/pull/2918) [`42c456d99e`](https://github.com/Khan/perseus/commit/42c456d99e0002589c088c721f09cbb26ea57b2c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add new decorative props in Image Widget
+
 ## 19.3.0
 
 ### Minor Changes

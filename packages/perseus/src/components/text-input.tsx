@@ -101,6 +101,7 @@ class TextInput extends React.Component<Props> {
             placeholder,
             onKeyDown,
             style,
+            className,
         } = this.props;
 
         const formattedValue = value === null ? "" : value.toString();
@@ -112,6 +113,8 @@ class TextInput extends React.Component<Props> {
         return (
             <TextField
                 ref={this.inputRef}
+                // @ts-expect-error - TS2322 - Property className does not exist on type
+                className={className}
                 style={style}
                 disabled={disabled}
                 id={this.id}
@@ -125,7 +128,6 @@ class TextInput extends React.Component<Props> {
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}
-                // @ts-expect-error - TS2322 - Type '{ style: StyleType; disabled: boolean | undefined; id: string; value: string; type: "text"; "aria-label": string | undefined; onChange: (value: string) => void; placeholder: string | undefined; ... 5 more ...; autoComplete: string; }' is not assignable to type 'IntrinsicAttributes & ExportProps & RefAttributes<HTMLInputElement>'.
                 autoCorrect="off"
                 autoCapitalize="off"
                 autoComplete="off"

@@ -1,11 +1,13 @@
-import {components} from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
+import {TextArea} from "@khanacademy/wonder-blocks-form";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 
-import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
+import ImagePreview from "../../components/image-preview";
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
 import styles from "./radio-editor.module.css";
@@ -14,8 +16,6 @@ import {
     setMarkdownContentFromImageProxy,
     setImageProxyFromMarkdownContent,
 } from "./utils";
-
-const {SvgImage} = components;
 
 type Props = {
     isNoneOfTheAbove: boolean;
@@ -32,18 +32,44 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
     // States for updating content and images
     const [proxiedContent, setProxiedContent] = React.useState<string>("");
     const [images, setImages] = React.useState<
-        {url: string; altText: string}[]
+        {url: string; altText: string; width?: number; height?: number}[]
     >([]);
 
     // States for adding an image
     const [addingImage, setAddingImage] = React.useState(false);
 
     React.useEffect(() => {
-        const [proxiedContent, images] = setImageProxyFromMarkdownContent(
+        const [proxiedContent, parsedImages] = setImageProxyFromMarkdownContent(
             content ?? "",
         );
         setProxiedContent(proxiedContent);
-        setImages(images);
+
+        // Set images immediately without dimensions so they render right away
+        setImages(parsedImages);
+
+        // Fetch dimensions for all images asynchronously,
+        // to prevent image from overflowing its container in editor previews
+        async function fetchAllDimensions() {
+            const imagesWithDimensions = await Promise.all(
+                parsedImages.map(async (image) => {
+                    try {
+                        const size = await Util.getImageSizeModern(image.url);
+                        return {
+                            ...image,
+                            width: size[0],
+                            height: size[1],
+                        };
+                    } catch (error) {
+                        // If we can't get dimensions, return image without them
+                        return image;
+                    }
+                }),
+            );
+            // Update images with dimensions once fetched
+            setImages(imagesWithDimensions);
+        }
+
+        void fetchAllDimensions();
     }, [content]);
 
     // Add the image markdown at the end of the content.
@@ -51,6 +77,8 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         choiceIndex: number,
         imageUrl: string,
         imageAltText: string,
+        width?: number,
+        height?: number,
     ) => {
         const newContent = `${content}\n![${imageAltText}](${imageUrl})`;
         onContentChange(choiceIndex, newContent);
@@ -72,9 +100,11 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         imageIndex: number,
         url: string,
         altText: string,
+        width?: number,
+        height?: number,
     ) => {
         const newImages = [...images];
-        newImages[imageIndex] = {url, altText};
+        newImages[imageIndex] = {url, altText, width, height};
         setImages(newImages);
 
         const newContent = setMarkdownContentFromImageProxy(
@@ -124,11 +154,12 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                 <HeadingXSmall tag="label" htmlFor={contentTextAreaId}>
                     Content
                 </HeadingXSmall>
-                <AutoResizingTextArea
+                <TextArea
                     id={contentTextAreaId}
                     value="None of the above"
                     disabled={true}
                     onChange={() => {}}
+                    autoResize={true}
                 />
             </>
         );
@@ -144,7 +175,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
             >
                 Content
             </HeadingXSmall>
-            <AutoResizingTextArea
+            <TextArea
                 id={contentTextAreaId}
                 value={proxiedContent}
                 placeholder="Type a choice here..."
@@ -152,6 +183,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                     handleContentChange(choiceIndex, value);
                 }}
                 onPaste={handlePaste}
+                autoResize={true}
             />
 
             {/* Add image button */}
@@ -175,8 +207,14 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                     initialImageUrl=""
                     initialImageAltText=""
                     containerClassName={styles.imageEditorContainer}
-                    onSave={(imageUrl, imageAltText) => {
-                        handleAddImage(choiceIndex, imageUrl, imageAltText);
+                    onSave={(imageUrl, imageAltText, width, height) => {
+                        handleAddImage(
+                            choiceIndex,
+                            imageUrl,
+                            imageAltText,
+                            width,
+                            height,
+                        );
                     }}
                     onClose={() => {
                         setAddingImage(false);
@@ -202,24 +240,37 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                         paddingBlockEnd: sizing.size_120,
                     }}
                 >
-                    <SvgImage
-                        src={image.url}
-                        alt={`Preview: ${image.altText ?? "No alt text"}`}
+                    <LabeledField
+                        label="Preview"
+                        field={
+                            <ImagePreview
+                                src={image.url}
+                                alt={`Preview: ${image.altText ?? "No alt text"}`}
+                                width={image.width}
+                                height={image.height}
+                            />
+                        }
                     />
-                    <RadioImageEditor
-                        initialImageUrl={image.url}
-                        initialImageAltText={image.altText}
-                        onSave={(imageUrl, imageAltText) => {
-                            handleUpdateImage(
-                                imageIndex,
-                                imageUrl,
-                                imageAltText,
-                            );
-                        }}
-                        onDelete={() => {
-                            handleDeleteImageConfirmation(imageIndex);
-                        }}
-                    />
+                    <div style={{marginTop: sizing.size_160}}>
+                        <RadioImageEditor
+                            initialImageUrl={image.url}
+                            initialImageAltText={image.altText}
+                            initialImageWidth={image.width}
+                            initialImageHeight={image.height}
+                            onSave={(imageUrl, imageAltText, width, height) => {
+                                handleUpdateImage(
+                                    imageIndex,
+                                    imageUrl,
+                                    imageAltText,
+                                    width,
+                                    height,
+                                );
+                            }}
+                            onDelete={() => {
+                                handleDeleteImageConfirmation(imageIndex);
+                            }}
+                        />
+                    </div>
                 </PerseusEditorAccordion>
             )) ?? null}
         </>

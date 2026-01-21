@@ -1,4 +1,8 @@
-import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
+import {
+    generateExpressionOptions,
+    generateExpressionWidget,
+    getDefaultAnswerArea,
+} from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
@@ -12,20 +16,16 @@ const expression = {
         content: "[[☃ expression 1]]",
         images: {},
         widgets: {
-            "expression 1": {
-                type: "expression",
+            "expression 1": generateExpressionWidget({
                 graded: true,
-                options: {
-                    answerForms: [],
-                    times: false,
-                    buttonSets: ["basic"],
+                version: {major: 1, minor: 0},
+                options: generateExpressionOptions({
                     functions: [],
                     buttonsVisible: "always",
                     ariaLabel: "Test aria label",
                     visibleLabel: "Test visible label",
-                },
-                version: {major: 1, minor: 0},
-            },
+                }),
+            }),
         },
     },
     answerArea: getDefaultAnswerArea(),
@@ -34,11 +34,9 @@ const expression = {
 
 describe("Expression AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
-        const widgetData: any = {
-            visibleLabel: "Enter an expression",
-        };
+        const label: string | undefined = "Enter an expression";
 
-        const resultJSON = getPromptJSON(widgetData, "2 + 2");
+        const resultJSON = getPromptJSON(label, "2 + 2");
 
         expect(resultJSON).toEqual({
             type: "expression",

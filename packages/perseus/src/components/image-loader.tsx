@@ -4,9 +4,9 @@
 
 import * as React from "react";
 
-import {getDependencies} from "../dependencies";
+import {type Dimensions, type PerseusDependenciesV2} from "../types";
 
-import type {Dimensions} from "../types";
+import {withDependencies} from "./with-dependencies";
 
 const Status = {
     PENDING: "pending",
@@ -20,7 +20,6 @@ export type ImageProps = {
     title?: string;
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
-    onClick?: (e: React.SyntheticEvent) => void;
     style?: Dimensions;
 };
 
@@ -34,6 +33,7 @@ type Props = {
     onUpdate: (status: (typeof Status)[keyof typeof Status]) => void;
     preloader: (() => React.ReactNode) | null | undefined;
     src: string;
+    dependencies: PerseusDependenciesV2;
 };
 
 type State = {
@@ -121,50 +121,46 @@ class ImageLoader extends React.Component<Props, State> {
         }
     };
 
+    /**
+     * If the image is clickable, render a <Clickable> component over the image.
+     * Otherwise, render the image itself.
+     *
+     * This approach is used to ensure that the button and the image remain
+     * separate elements in the DOM. This is important for accessibility, as
+     * the button and the image should be separate elements for screen readers
+     * to identify. This way, the image has the alt text to identify the image
+     * content, and the button has the click prompt that informs the user that
+     * they can click for some action (i.e. zooming in on the image).
+     */
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
         const {src, imgProps} = this.props;
-        let onKeyUp;
-        let onKeyDown;
-        if (imgProps.onClick != null) {
-            onKeyUp = (e: React.KeyboardEvent) => {
-                // 13 is enter key, 32 is space key
-                if (e.keyCode === 13 || e.keyCode === 32) {
-                    imgProps.onClick?.(e);
-                }
-            };
-            onKeyDown = (e: React.KeyboardEvent) => {
-                // 32 is space key
-                if (e.keyCode === 32) {
-                    // don't scroll on space when the image is focused
-                    e.preventDefault();
-                }
-            };
-        }
-        const staticUrl = getDependencies().staticUrl;
-
-        // If the image is interactive, it should have a role of "button"
-        // to indicate that it is interactive.
-        const imageRole = imgProps.onClick !== null ? "button" : "img";
+        // Destructure to exclude props that shouldn't be on the <img> element
 
         return (
-            // (LEMS-2871) NOTE: This image IS interactive if it requires zooming, and LevelAccess specifically requested
-            // that the role and tabIndex be set here. When users interact with the image on mobile, it will zoom in.
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
             <img
-                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO(LEMS-2871): Address a11y error
-                tabIndex={0}
-                role={imageRole}
-                src={staticUrl(src)}
-                onKeyUp={onKeyUp}
-                onKeyDown={onKeyDown}
+                // Class name makes this img findable in Cypress tests.
+                className="image-loader-img"
+                src={this.props.dependencies.generateUrl({
+                    url: src,
+                    context: "image_loader:image_url",
+                })}
                 // Stop the image size from being larger than 100%
                 // when width and height are not explicitly provided.
-                style={
-                    imgProps.style ?? {
+                style={{
+                    // Using `display: block` to make sure the image outline
+                    // is flush with the image itself. Using a different
+                    // display value could cause a 4px gap below images.
+                    display: "block",
+                    ...(imgProps.style ?? {
+                        // Not adding `height` to styles here, because it
+                        // gets set automatically based on the width and
+                        // aspect ratio of the image. Setting `height: 100%`
+                        // could cause the image to stretch vertically in
+                        // certain cases (example: images inside markdown
+                        // tables in Safari).
                         width: "100%",
-                        height: "100%",
-                    }
-                }
+                    }),
+                }}
                 {...imgProps}
             />
         );
@@ -190,4 +186,4 @@ class ImageLoader extends React.Component<Props, State> {
     }
 }
 
-export default ImageLoader;
+export default withDependencies(ImageLoader);

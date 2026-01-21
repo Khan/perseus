@@ -14,6 +14,7 @@ import type {
     PerseusItem,
     KEScore,
     ShowSolutions,
+    UserInput,
 } from "@khanacademy/perseus-core";
 
 /**
@@ -99,8 +100,11 @@ export const useItemRenderer = (
             "en",
         );
 
+        const widgetIds = renderer.getWidgetIds();
+        const userInputArray = widgetIds.map((id) => userInput[id]);
+
         // Continue to include an empty guess for the now defunct answer area.
-        const maxCompatGuess = [renderer.getUserInputLegacy(), []];
+        const maxCompatGuess: [UserInput[], []] = [userInputArray, []];
 
         const keScore = keScoreFromPerseusScore(
             score,

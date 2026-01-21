@@ -270,8 +270,7 @@ var populateInitialState = function (
  *     @state: an optional object to be threaded through parse
  *         calls. Allows clients to add stateful operations to
  *         parsing, such as keeping track of how many levels deep
- *         some nesting is. For an example use-case, see passage-ref
- *         parsing in src/widgets/passage/passage-markdown.jsx
+ *         some nesting is.
  */
 var parserFor = function (
     rules: ParserRules,
