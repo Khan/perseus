@@ -24,7 +24,7 @@ import WrappedServerItemRenderer from "../../server-item-renderer";
 import {registerWidget} from "../../widgets";
 
 import ExpressionExport from "./expression";
-import {expressionItem2} from "./expression.testdata";
+import {expressionItemMultipleEquivalentAnswers} from "./expression.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -68,7 +68,7 @@ function KeypadWithContext() {
     );
 }
 
-function ConnectedRenderer({item = expressionItem2}) {
+function ConnectedRenderer({item = expressionItemMultipleEquivalentAnswers}) {
     return (
         <RenderStateRoot>
             <StatefulKeypadContextProvider>

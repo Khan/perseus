@@ -1,6 +1,4 @@
-import type expression from "../../widgets/expression/expression";
 import type {PerseusExpressionUserInput} from "@khanacademy/perseus-core";
-import type React from "react";
 
 export type ExpressionPromptJSON = {
     type: "expression";
@@ -11,12 +9,12 @@ export type ExpressionPromptJSON = {
 };
 
 export const getPromptJSON = (
-    widgetData: React.ComponentProps<typeof expression.widget>,
+    label: string | undefined,
     userInput: PerseusExpressionUserInput,
 ): ExpressionPromptJSON => {
     return {
         type: "expression",
-        label: widgetData.visibleLabel,
+        label,
         userInput: {
             value: userInput,
         },

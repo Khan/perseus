@@ -107,7 +107,10 @@ import type {WidgetProps} from "@khanacademy/perseus-core";
 ### Test Structure
 1. Follow the AAA pattern: Arrange, Act, Assert
 1.1 If Arrange and Act are one action, combine them to `//Arrange, Act`
-2. Follow the test structure below:
+2. Use widget generators to build test data and test data options.
+   You can find generators for all widgets in packages/perseus-core/src/utils/generators.
+   An example usage can be seen here: packages/perseus/src/widgets/expression/expression.testdata.ts.
+3. Follow the test structure below:
 ```typescript
 import {render, screen} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";

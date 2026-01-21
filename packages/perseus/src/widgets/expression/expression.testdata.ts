@@ -50,53 +50,55 @@ export const expressionItemWithLabels = createExpressionItemJson(
     }),
 );
 
-export const expressionItem2: PerseusItem = createExpressionItemJson(
-    generateExpressionWidget({
-        options: generateExpressionOptions({
-            answerForms: [
-                generateExpressionAnswerForm({
-                    considered: "correct",
-                    value: "123-x",
-                }),
-                generateExpressionAnswerForm({
-                    considered: "correct",
-                    value: "x-123",
-                }),
-            ],
-            buttonsVisible: "always",
-            extraKeys: ["x"],
+export const expressionItemMultipleEquivalentAnswers: PerseusItem =
+    createExpressionItemJson(
+        generateExpressionWidget({
+            options: generateExpressionOptions({
+                answerForms: [
+                    generateExpressionAnswerForm({
+                        considered: "correct",
+                        value: "123-x",
+                    }),
+                    generateExpressionAnswerForm({
+                        considered: "correct",
+                        value: "x-123",
+                    }),
+                ],
+                buttonsVisible: "always",
+                extraKeys: ["x"],
+            }),
         }),
-    }),
-);
+    );
 
-export const expressionItem3: PerseusItem = createExpressionItemJson(
-    generateExpressionWidget({
-        options: generateExpressionOptions({
-            answerForms: [
-                generateExpressionAnswerForm({
-                    considered: "ungraded",
-                    value: "x+1",
-                }),
-                generateExpressionAnswerForm({
-                    considered: "wrong",
-                    value: "y+1",
-                }),
-                generateExpressionAnswerForm({
-                    considered: "correct",
-                    value: "z+1",
-                }),
-                generateExpressionAnswerForm({
-                    considered: "correct",
-                    value: "a+1",
-                }),
-            ],
-            buttonsVisible: "focused",
-            extraKeys: ["z", "a"],
+export const expressionItemMixedAnswerStates: PerseusItem =
+    createExpressionItemJson(
+        generateExpressionWidget({
+            options: generateExpressionOptions({
+                answerForms: [
+                    generateExpressionAnswerForm({
+                        considered: "ungraded",
+                        value: "x+1",
+                    }),
+                    generateExpressionAnswerForm({
+                        considered: "wrong",
+                        value: "y+1",
+                    }),
+                    generateExpressionAnswerForm({
+                        considered: "correct",
+                        value: "z+1",
+                    }),
+                    generateExpressionAnswerForm({
+                        considered: "correct",
+                        value: "a+1",
+                    }),
+                ],
+                buttonsVisible: "focused",
+                extraKeys: ["z", "a"],
+            }),
         }),
-    }),
-);
+    );
 
-export const expressionItem4: PerseusItem = createExpressionItemJson(
+export const expressionItemWithFraction: PerseusItem = createExpressionItemJson(
     generateExpressionWidget({
         options: generateExpressionOptions({
             answerForms: [
@@ -113,20 +115,43 @@ export const expressionItem4: PerseusItem = createExpressionItemJson(
     }),
 );
 
-export const expressionItem4Static: PerseusItem = createExpressionItemJson(
+export const expressionItemWithFractionStatic: PerseusItem =
+    createExpressionItemJson(
+        generateExpressionWidget({
+            static: true,
+            options: generateExpressionOptions({
+                answerForms: [
+                    generateExpressionAnswerForm({
+                        considered: "correct",
+                        value: "5/8",
+                    }),
+                ],
+                times: true,
+                buttonSets: ["basic+div"],
+                buttonsVisible: "always",
+                extraKeys: ["x"],
+            }),
+        }),
+    );
+
+export const expressionItemKitchenSink: PerseusItem = createExpressionItemJson(
     generateExpressionWidget({
-        static: true,
         options: generateExpressionOptions({
             answerForms: [
                 generateExpressionAnswerForm({
                     considered: "correct",
-                    value: "5/8",
+                    form: false,
+                    simplify: false,
+                    value: "8675309",
                 }),
             ],
+            buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
+            functions: ["f", "g", "h"],
             times: true,
-            buttonSets: ["basic+div"],
+            visibleLabel: "Expression Kitchen Sink",
+            ariaLabel: "Expression Kitchen Sink",
             buttonsVisible: "always",
-            extraKeys: ["x"],
+            extraKeys: ["x", "y", "z"],
         }),
     }),
 );
