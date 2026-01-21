@@ -366,13 +366,6 @@ export type UserInput = UserInputRegistry[keyof UserInputRegistry];
  */
 export type UserInputMap = MakeWidgetMap<UserInputRegistry>;
 
-/**
- * deprecated prefer using UserInputMap
- */
-export type UserInputArray = Array<
-    UserInputArray | UserInput | null | undefined
->;
-
 export interface ValidationDataTypes {
     categorizer: PerseusCategorizerValidationData;
     group: PerseusGroupValidationData;
