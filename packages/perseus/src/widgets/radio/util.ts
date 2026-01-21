@@ -38,7 +38,10 @@ export function getUserInputFromSerializedState(
             // Guard against undefined choiceStates when choices array length exceeds choiceStates length
             // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
             if (choiceStates[i]?.selected) {
-                selectedChoiceIds.push(serializedState.choices[i].id);
+                const choiceId = serializedState.choices[i]?.id;
+                if (choiceId) {
+                    selectedChoiceIds.push(choiceId);
+                }
             }
         }
         return {
