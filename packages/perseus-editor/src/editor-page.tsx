@@ -122,7 +122,7 @@ class EditorPage extends React.Component<Props, State> {
         this.updateRenderer();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(previousProps: Props) {
         // NOTE: It is required to delay the preview update until after the
         // current frame, to allow for ItemEditor to render its widgets.
         // This then enables to serialize the widgets properties correctly,
@@ -133,6 +133,18 @@ class EditorPage extends React.Component<Props, State> {
         setTimeout(() => {
             this.updateRenderer();
         });
+
+        if (
+            (this.props.jsonMode &&
+                previousProps.question !== this.props.question) ||
+            previousProps.answerArea !== this.props.answerArea ||
+            previousProps.hints !== this.props.hints
+        ) {
+            this.setState({
+                // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea">' is not assignable to type 'PerseusJson'.
+                json: _.pick(this.props, "question", "answerArea", "hints"),
+            });
+        }
     }
 
     componentWillUnmount() {
