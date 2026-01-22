@@ -191,9 +191,6 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
                 ? "correct"
                 : "wrong"
             : undefined;
-        const content = choice.isNoneOfTheAbove
-            ? i18nStrings.noneOfTheAbove
-            : choice.content;
         let rationale: React.ReactElement | undefined;
         if (reviewMode && choice.hasRationale) {
             const rationaleId = `${contentId}-rationale`;
@@ -219,7 +216,7 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
                 updateChecked={updateChecked}
             >
                 <div className={styles.content}>
-                    <div id={contentId}>{content}</div>
+                    <div id={contentId}>{choice.content}</div>
                     {rationale}
                 </div>
             </Choice>
