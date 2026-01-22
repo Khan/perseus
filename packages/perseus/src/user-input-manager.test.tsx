@@ -273,23 +273,20 @@ describe("UserInputManager", () => {
     it("initializes static user input", async () => {
         const renderSpy = jest.fn();
         const widgets: PerseusWidgetsMap = {
-            "radio 1": generateRadioWidget({
+            "dropdown 1": {
+                type: "dropdown",
                 static: true,
+                graded: true,
                 options: {
+                    placeholder: "Select an option",
+                    static: true,
                     choices: [
-                        {
-                            id: "0-0-0-0-0",
-                            content: "Correct",
-                            correct: true,
-                        },
-                        {
-                            id: "1-1-1-1-1",
-                            content: "Incorrect",
-                            correct: false,
-                        },
+                        {content: "Incorrect", correct: false},
+                        {content: "Correct", correct: true},
+                        {content: "Also incorrect", correct: false},
                     ],
                 },
-            }),
+            },
         };
 
         render(
@@ -299,8 +296,8 @@ describe("UserInputManager", () => {
         );
 
         expect(renderSpy).toHaveBeenCalledWith({
-            "radio 1": {
-                selectedChoiceIds: ["0-0-0-0-0"],
+            "dropdown 1": {
+                value: 2, // "Correct" is at index 1, so 1-indexed = 2
             },
         });
     });

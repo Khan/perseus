@@ -5,24 +5,11 @@ import Radio from "./radio.ff";
 import {getUserInputFromSerializedState} from "./util";
 
 import type {WidgetExports} from "../../types";
-import type {
-    PerseusRadioUserInput,
-    PerseusRadioWidgetOptions,
-} from "@khanacademy/perseus-core";
+import type {PerseusRadioUserInput} from "@khanacademy/perseus-core";
 
 function getStartUserInput(): PerseusRadioUserInput {
     return {
         selectedChoiceIds: [],
-    };
-}
-
-function getCorrectUserInput(
-    options: PerseusRadioWidgetOptions,
-): PerseusRadioUserInput {
-    return {
-        selectedChoiceIds: options.choices
-            .filter((option) => option.correct)
-            .map((option) => option.id),
     };
 }
 
@@ -31,7 +18,6 @@ export default {
     displayName: "Radio / Multiple choice",
     widget: Radio,
     getStartUserInput,
-    getCorrectUserInput,
     version: radioLogic.version,
     isLintable: true,
 
