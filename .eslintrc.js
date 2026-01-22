@@ -350,7 +350,6 @@ module.exports = {
         "react/sort-comp": [
             "error",
             {
-                // TODO(kevinb): specify where "constructor" should go
                 order: [
                     "type-annotations",
                     "static-variables",
