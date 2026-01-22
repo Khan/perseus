@@ -153,7 +153,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
         // @ts-expect-error - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
         const graphie = GraphUtils.createGraphie(this.graphieDiv.current);
 
-        // TODO(jakesandlund): It's not the react way to hang
+        // NOTE(jakesandlund): It's not the react way to hang
         // something off the component object, but since graphie
         // is outside React, it makes it easier to do this.
         self.graphie = graphie;
@@ -234,7 +234,6 @@ class Plotter extends React.Component<Props, State> implements Widget {
         let padTop = 25;
         let padBottom = 25 * 3;
 
-        // TODO(michaelpolyak): Handle other plot types: Dot, Histogram, Line.
         if (isMobile && (isBar || isTiledPlot)) {
             const maxCategoryHeight = Math.max(
                 0,
@@ -1001,9 +1000,6 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         // In order to make sure that manipulating the graph doesn't cause
         // dragging, we disable touch actions for the whole mouselayer.
-        // TODO(emily): Figure out a way to turn of touch actions for only the
-        // part of the widget that can be manipulated. Putting this style
-        // directly on the rects below doesn't work.
         graphie.mouselayer.canvas.style.touchAction = "none";
 
         pics[i] = [];
