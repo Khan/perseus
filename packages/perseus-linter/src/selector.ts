@@ -73,10 +73,6 @@
  * If you call Selector.parse() on a string that does not match this grammar,
  * it will throw an exception
  *
- * TODO(davidflanagan): it might be useful to allow more sophsticated node
- * selector matching with attribute matches and pseudo-classes, like
- * "heading[level=2]" or "paragraph:first-child"
- *
  * Implementation Note: this file exports a very simple Selector class but all
  * the actual work is done in various internal classes. The Parser class
  * parses the string representation of a selector into a parse tree that
@@ -255,10 +251,6 @@ class Parser {
 
     // Parse a single node selector.
     // For now, this is just a node type or a wildcard.
-    //
-    // TODO(davidflanagan): we may need to extend this with attribute
-    // selectors like 'heading[level=3]', or with pseudo-classes like
-    // paragraph:first-child
     parseNodeSelector(): Selector {
         // First, skip any whitespace
         this.skipSpace();

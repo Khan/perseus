@@ -60,8 +60,6 @@ function deriveExtraKeys(
         }
     }
 
-    // TODO(charlie): Alert the keypad as to which of these symbols should be
-    // treated as functions.
     const extraVariables = Object.keys(
         uniqueExtraVariables,
     ).sort() as ReadonlyArray<KeypadKey>;

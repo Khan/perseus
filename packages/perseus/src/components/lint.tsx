@@ -94,7 +94,7 @@ class Lint extends React.Component<Props, State> {
     getPosition: () => void = () => {
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'getBoundingClientRect' does not exist on type 'Element | Text'.
         const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
-        // TODO(scottgrant): This is a magic number! We don't know the size
+        // NOTE(scottgrant): This is a magic number! We don't know the size
         // of the tooltip at this point, so we're arbitrarily choosing a
         // point at which to flip the tooltip's position.
         this.setState({tooltipAbove: rect.top > 100});

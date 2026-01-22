@@ -98,11 +98,6 @@ class MathInput extends React.Component<Props, State> {
             this.context.locale,
             {
                 onCursorMove: (cursor: Cursor) => {
-                    // TODO(charlie): It's not great that there is so much coupling
-                    // between this keypad and the input behavior. We should wrap
-                    // this `MathInput` component in an intermediary component
-                    // that translates accesses on the keypad into vanilla props,
-                    // to make this input keypad-agnostic.
                     this.props.keypadElement?.setCursor(cursor);
                 },
             },
@@ -146,7 +141,6 @@ class MathInput extends React.Component<Props, State> {
                 // below the keypad is that the keypad may be anchored above
                 // the 'Check answer' bottom bar, in which case, we don't want
                 // to dismiss the keypad on check.
-                // TODO(charlie): Inject this logic.
                 if (!this._container.contains(evt.target)) {
                     let touchDidStartInOrBelowKeypad = false;
                     if (
@@ -184,11 +178,6 @@ class MathInput extends React.Component<Props, State> {
 
         this.blurOnTouchEndOutside = (evt) => {
             // If the user didn't scroll, blur the input.
-            // TODO(charlie): Verify that the touch that ended actually started
-            // outside the keypad. Right now, you can touch down on the keypad,
-            // touch elsewhere, release the finger on the keypad, and trigger a
-            // dismissal. This code needs to be generalized to handle
-            // multi-touch.
             if (this.state.focused && this.didTouchOutside && !this.didScroll) {
                 this.blur();
                 this.mathField.blur();
@@ -392,12 +381,6 @@ class MathInput extends React.Component<Props, State> {
             // Android Browser 4.3.
             setTimeout(() => {
                 if (this._isMounted) {
-                    // TODO(benkomalo): the keypad is animating at this point,
-                    // so we can't call _cacheKeypadBounds(), even though
-                    // it'd be nice to do so. It should probably be the case
-                    // that the higher level controller tells us when the
-                    // keypad is settled (then scrollIntoView wouldn't have
-                    // to make assumptions about that either).
                     const maybeKeypadNode =
                         this.props.keypadElement?.getDOMNode();
                     scrollIntoView(this._container, maybeKeypadNode);
@@ -506,7 +489,6 @@ class MathInput extends React.Component<Props, State> {
             // Since we're doing three hit tests per loop it's possible that
             // we hit multiple leaf nodes at the same time.  In this case we
             // we prefer the DOMNode with the most hits.
-            // TODO(kevinb) consider preferring nodes hit by [x, y].
             for (const [id, count] of entries(counts)) {
                 if (count > max) {
                     max = count;
@@ -789,10 +771,6 @@ class MathInput extends React.Component<Props, State> {
                 handle: {
                     animateIntoPosition: false,
                     visible: true,
-                    // TODO(charlie): Use clientX and clientY to avoid the need for
-                    // scroll offsets. This likely also means that the cursor
-                    // detection doesn't work when scrolled, since we're not
-                    // offsetting those values.
                     x: this._constrainToBound(
                         relativeX,
                         0,
@@ -885,9 +863,6 @@ class MathInput extends React.Component<Props, State> {
         if (mathQuillKey) {
             this.mathField.pressKey(mathQuillKey);
 
-            // TODO(diedra): If the new value being added is off-screen to the right
-            // due to the max-width of the text box, scroll the box to show the newest
-            // value
             const value = this.mathField.getContent();
             if (this.props.value !== value) {
                 this.mathField.setContent(this.props.value);
@@ -898,7 +873,6 @@ class MathInput extends React.Component<Props, State> {
     };
 
     getBorderWidthPx: () => number = () => {
-        // TODO(diedra): Move these to the common style package.
         const normalBorderWidthPx = 1;
         const focusedBorderWidthPx = 2;
 
@@ -958,8 +932,6 @@ class MathInput extends React.Component<Props, State> {
         // We added the tapping instructions because there is currently a bug where
         // Android users need to use two fingers to tap the input field to make the
         // keyboard appear. It should only require one finger, which is how iOS works.
-        // TODO(diedra): Fix the bug that is causing Android to require a two finger tap
-        // to the open the keyboard, and then remove the second half of this label.
         const ariaLabel =
             this.context.strings.mathInputBox +
             " " +

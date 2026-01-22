@@ -2,12 +2,6 @@
  * This component, given a set of DOMHighlights, draws highlight rectangles in
  * the same absolute position as the highlighted content, as computed by the
  * range's `getClientRects` method.
- *
- * TODO(mdr): Many things can affect the correct positioning of highlighting,
- *     and this component does not attempt to anticipate them. If we start
- *     using this highlighting library on content with a more dynamic layout,
- *     we should add a hook to allow the parent to `forceUpdate` the
- *     `HighlightingUI`.
  */
 import * as React from "react";
 

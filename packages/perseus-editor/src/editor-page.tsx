@@ -115,7 +115,7 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
+        // NOTE(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 

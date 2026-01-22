@@ -73,9 +73,6 @@ class HighlightableContent extends React.PureComponent<Props, State> {
     };
 
     _buildHighlight(highlightRange: DOMRange): DOMHighlight | null | undefined {
-        // TODO(mdr): If _buildHighlight starts getting called more often, we
-        //     might want to cache the DOMHighlightSet instead of recomputing
-        //     it here.
         return buildHighlight(
             this._getDOMHighlights(),
             this.state.wordRanges,
@@ -180,11 +177,6 @@ class HighlightableContent extends React.PureComponent<Props, State> {
                             zIndexes={{
                                 // The content has a z-index of 1, so, to
                                 // be below the content, use z-index of 0.
-                                //
-                                // TODO(mdr): Is this way of passing around
-                                //     `z-index: 0` actually worth the
-                                //     trouble? We used to have more, but
-                                //     now we don't need them...
                                 belowContent: 0,
                             }}
                             onAddHighlight={this._handleAddHighlight}

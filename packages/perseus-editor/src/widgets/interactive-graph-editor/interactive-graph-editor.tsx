@@ -290,7 +290,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
         if (this.props.valid === true) {
             const correct = this.props.correct;
 
-            // TODO(aria): send these down all at once
             const graphProps = {
                 ref: "graph",
                 box: this.props.box,

@@ -230,6 +230,8 @@ class Renderer
     };
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
+    // TODO(benchristel): _isTwoColumn causes a class to be set on a <div>.
+    // No CSS in frontend or Perseus references that class name. Delete this?
     // @ts-expect-error - TS2564 - Property '_isTwoColumn' has no initializer and is not definitely assigned in the constructor.
     _isTwoColumn: boolean;
 
@@ -319,7 +321,6 @@ class Renderer
             // See passage-refs inside radios, which was why
             // this was introduced.
             // I'm sorry!
-            // TODO(aria): cry
             //
             // HACK(djf): I've also set this alwaysUpdate property from
             // async-renderer.jsx in the manticore-package. I'm doing this
@@ -332,7 +333,6 @@ class Renderer
             // of infinite loop, but by avoiding the time-consuming deep
             // equal comparisons on our props (which are often huge) I can
             // no longer reproduce the bug.
-            // TODO(djf): Remove this comment
             // https://khanacademy.atlassian.net/browse/CP-834 is resolved.
             return true;
         }
@@ -742,7 +742,6 @@ class Renderer
         props: Props,
         state: State,
     ): boolean => {
-        // TODO(aria): Pass this in via khan/frontend as an apiOption
         return (
             getDependencies().JIPT.useJIPT &&
             state.jiptContent == null &&
@@ -779,9 +778,6 @@ class Renderer
                 // paragraph and lets the translator know to not use \n\n,
                 // hopefully. We can't wait for linting because we can't
                 // safely render the node.
-                // TODO(aria): Check for the max number of backticks or tildes
-                // in the content, and just render a red code block of the
-                // content here instead?
                 content =
                     "$\\large{\\red{\\text{Please translate each " +
                     "paragraph to a single paragraph.}}}$";
@@ -1013,8 +1009,6 @@ class Renderer
                 // scaled out it's inset from the edge of the page.  When the
                 // TeX component is full size it will extend to the edge of the
                 // page if it's larger than the page.
-                //
-                // TODO(kevinb) automatically determine the margin size
                 const margin = 16;
                 const outerStyle = {
                     marginLeft: -margin,
@@ -1122,7 +1116,6 @@ class Renderer
             // themselves to the width of their parent containers. Thus,
             // responsive images don't do very well within tables. To avoid
             // haphazard sizing, simply make images within tables unresponsive.
-            // TODO(alex): Make tables themselves responsive.
             const responsive = !state.inTable;
             return (
                 <ErrorBoundary key={state.key}>
@@ -1150,8 +1143,6 @@ class Renderer
         if (node.type === "columns") {
             // Note that we have two columns. This is so we can put
             // a className on the outer renderer content for SAT.
-            // TODO(aria): See if there is a better way we can do
-            // things like this
             this._isTwoColumn = true;
             // but then render normally:
             return (
@@ -1207,8 +1198,6 @@ class Renderer
                 </div>
             );
 
-            // TODO(benkomalo): how should we deal with tappable items inside
-            // of tables?
             return <div style={outerStyle}>{wrappedOutput}</div>;
         }
         // If it's a "normal" or "simple" markdown node, just
@@ -1626,7 +1615,6 @@ class Renderer
             PerseusLinter.runLinter(parsedMarkdown, fullLinterContext, true);
 
             // Apply the lint errors from the last TranslationLinter run.
-            // TODO(joshuan): Support overlapping dots.
             this._translationLinter.applyLintErrors(parsedMarkdown, [
                 ...this.state.translationLintErrors,
                 ...(this.props.legacyPerseusLint || []),

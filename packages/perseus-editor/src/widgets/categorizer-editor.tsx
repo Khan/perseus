@@ -85,7 +85,7 @@ class CategorizerEditor extends React.Component<Props> {
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         this.change({
                             items: items,
-                            // TODO(eater): This truncates props.values so there
+                            // NOTE(eater): This truncates props.values so there
                             // are never more correct answers than items,
                             // ensuring the widget is possible to answer
                             // correctly. It doesn't necessarly keep each

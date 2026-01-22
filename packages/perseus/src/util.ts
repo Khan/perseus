@@ -100,7 +100,6 @@ const snowman = "\u2603";
  * {value: 2.3, exact: true}.
  */
 function firstNumericalParse(text: string): ParsedValue | null | undefined {
-    // TODO(alpert): This is sort of hacky...
     let first;
     const val = KhanAnswerTypes.predicate.createValidatorFunctional(
         function (ans) {
@@ -166,8 +165,6 @@ function gridDimensionConfig(
  *      getGridStep([[-10, 10], [-10, 10]], [1, 1], 340)
  *
  * Returns: [1, 1]
- *
- * TODO(somewhatabstract, FEI-3464): Consolidate query string parsing functions.
  */
 function getGridStep(
     range: [Coordinates, Coordinates],
@@ -327,8 +324,6 @@ function constrainedTickStepsFromTickSteps(
  * http://stackoverflow.com/questions/901115/get-querystring-values-in-javascript/2880929#2880929
  */
 function parseQueryString(query: string): QueryParams {
-    // TODO(jangmi, CP-3340): Use withLocation to access SSR safe location.
-    // eslint-disable-next-line no-restricted-syntax
     query = query || window.location.search.substring(1);
     const urlParams: Record<string, any> = {};
     // Regex for replacing addition symbol with a space
@@ -491,13 +486,8 @@ function getImageSize(
         // `.clientHeight`. I think we could also solve the problem by
         // adding the image to the document before setting the src, but then
         // the experience would be worse for other browsers.
-        // TODO(scottgrant): This is correctly calculating the width of SVG
-        // images in browsers, but incorrectly saving the width of what may
-        // be a smaller viewport when using the editor, and reusing that
-        // width in a full-screen article.
         if (img.width === 0 && img.height === 0) {
             document.body?.appendChild(img);
-            // TODO(scottgrant): Remove this use of _.defer.
             _.defer(function () {
                 callback(img.clientWidth, img.clientHeight);
                 document.body?.removeChild(img);

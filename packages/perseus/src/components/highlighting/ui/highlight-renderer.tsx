@@ -3,12 +3,6 @@
  * This component, given a single DOMHighlight, draws highlight rectangles in
  * the same absolute position as the highlighted content, as computed via
  * `getClientRects`.
- *
- * TODO(mdr): Many things can affect the correct positioning of highlighting,
- *     and this component does not attempt to anticipate them. If we start
- *     using this highlighting library on content with a more dynamic layout,
- *     we should add a hook to allow the parent to `forceUpdate` the
- *     `HighlightRenderer`.
  */
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";

@@ -28,7 +28,6 @@ type DefaultProps = {
 };
 
 // Editor for labels
-// TODO(eater): Add text direction
 class LabelEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         coordX: "0",

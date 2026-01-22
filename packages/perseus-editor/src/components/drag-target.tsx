@@ -12,15 +12,6 @@
  * the element will become partially transparent as a visual indicator that
  * it's a target.
  */
-// TODO(joel) - indicate before the hover is over the target that it's possible
-// to drag into the target. This would (I think) require a high level handler -
-// like on Perseus itself, waiting for onDragEnter, then passing down the
-// event. Sounds like a pain. Possible workaround - create a div covering the
-// entire page...
-//
-// Other extensions:
-// * custom styles for global drag and dragOver
-// * only respond to certain types of drags (only images for instance)!
 
 import * as React from "react";
 

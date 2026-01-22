@@ -286,8 +286,6 @@ const styles = StyleSheet.create({
         boxShadow: "none",
     },
 
-    // TODO (josh): This should probably be its own component, rather than
-    // sharing styles this way.
     dropdownBody: {
         position: "absolute",
         border: "solid 1px rgba(0, 0, 0, 0.1)",

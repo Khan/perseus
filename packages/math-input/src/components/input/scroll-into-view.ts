@@ -4,9 +4,6 @@
  * strong assumption that the keypad will be anchored to the bottom of the page
  * in calculating its height, as this method may be called before the keypad has
  * animated into view.
- *
- * TODO(charlie): Move this scroll logic out of our components and into a higher
- * level in the component tree--perhaps even into khan/frontend, beyond Perseus.
  */
 
 // HACK(charlie): This should be injected by webapp somehow.
@@ -15,9 +12,6 @@
 const toolbarHeightPx = 60;
 
 export const scrollIntoView = (containerNode, keypadNode) => {
-    // TODO(charlie): There's no need for us to be reading the keypad bounds
-    // here, since they're pre-determined by logic in the store. We should
-    // instead pass around an object that knows the bounds.
     const containerBounds = containerNode.getBoundingClientRect();
     const containerBottomPx = containerBounds.bottom;
     const containerTopPx = containerBounds.top;
