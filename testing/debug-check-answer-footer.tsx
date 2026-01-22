@@ -81,7 +81,10 @@ export const DebugCheckAnswerFooter = ({
 
         // Invalid answer
         {
-            const title = mockStrings.keepTrying;
+            // Error or "almost there" message
+            const title = score.suppressAlmostThere
+                ? mockStrings.tryAgain
+                : mockStrings.keepTrying;
 
             // Use mapErrorToString to correctly map error codes to their text representations
             const errorMessage = score.message
