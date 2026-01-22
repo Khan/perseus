@@ -49,7 +49,25 @@ export const DebugCheckAnswerFooter = ({
             return null;
         }
 
-        // Correct answer
+        if (score.type === "invalid") {
+            // Error or "almost there" message
+            const title = score.suppressAlmostThere
+                ? mockStrings.tryAgain
+                : mockStrings.keepTrying;
+
+            // Use mapErrorToString to correctly map error codes to their text representations
+            const errorMessage = score.message
+                ? mapErrorToString(score.message, mockStrings)
+                : mockStrings.ERROR_MESSAGE;
+
+            return (
+                <View>
+                    <LabelLarge style={styles.errorLabel}>{title}</LabelLarge>
+                    <Body>{errorMessage}</Body>
+                </View>
+            );
+        }
+
         if (isCorrect(score)) {
             return (
                 <>
@@ -68,33 +86,13 @@ export const DebugCheckAnswerFooter = ({
         }
 
         // Incorrect answer
-        if (score.type === "points") {
+        {
             return (
                 <View>
                     <LabelLarge style={styles.incorrectLabel}>
                         {mockStrings.incorrect}
                     </LabelLarge>
                     <View>{mockStrings.tryAgain}</View>
-                </View>
-            );
-        }
-
-        // Invalid answer
-        {
-            // Error or "almost there" message
-            const title = score.suppressAlmostThere
-                ? mockStrings.tryAgain
-                : mockStrings.keepTrying;
-
-            // Use mapErrorToString to correctly map error codes to their text representations
-            const errorMessage = score.message
-                ? mapErrorToString(score.message, mockStrings)
-                : mockStrings.ERROR_MESSAGE;
-
-            return (
-                <View>
-                    <LabelLarge style={styles.errorLabel}>{title}</LabelLarge>
-                    <Body>{errorMessage}</Body>
                 </View>
             );
         }
