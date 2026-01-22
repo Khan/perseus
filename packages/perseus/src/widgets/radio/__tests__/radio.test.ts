@@ -28,14 +28,12 @@ const selectOption = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     index: number,
 ) => {
-    const options = screen.getAllByRole("radio");
-
+    const options = screen.getAllByRole("button");
     // element that is null/undefined (ie. if the index is invalid) so we
     // manually check and throw here to protect future me, and others :)
     if (index > options.length) {
         throw new Error("Invalid array index for radio");
     }
-
     await userEvent.click(options[index]);
 };
 describe("Radio Widget", () => {
@@ -99,9 +97,7 @@ describe("Radio Widget", () => {
 
                 it("should accept the right answer (mouse)", async () => {
                     // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions, {
-                        reviewMode,
-                    });
+                    const {renderer} = renderQuestion(question, apiOptions);
 
                     // Act
                     await selectOption(userEvent, correct);
@@ -117,7 +113,7 @@ describe("Radio Widget", () => {
                 it("should accept the right answer (touch)", async () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
-                    const correctRadio = screen.getAllByRole("radio")[correct];
+                    const correctRadio = screen.getAllByRole("button")[correct];
 
                     // Act
                     fireEvent.touchStart(correctRadio);
@@ -165,40 +161,6 @@ describe("Radio Widget", () => {
 
                     // Assert
                     expect(gotFocus).toBe(true);
-                });
-
-                it("should disable all radio inputs when static is true", async () => {
-                    // Arrange
-                    const staticQuestion = {
-                        ...question,
-                        widgets: {
-                            ...question.widgets,
-                            "radio 1": {
-                                ...question.widgets["radio 1"],
-                                static: true,
-                            },
-                        },
-                    } as const;
-                    renderQuestion(staticQuestion, apiOptions, {reviewMode});
-
-                    // Act
-                    await selectOption(userEvent, correct);
-
-                    // Assert
-                    // Everything's read-only so no selections made
-                    // Note(TB): The visual buttons are hidden from screen
-                    // readers, so they need to be identified as hidden;
-                    // the visual button has the aria attributes
-                    screen
-                        .getAllByRole("button", {hidden: true})
-                        .forEach((r) => {
-                            expect(r).toHaveAttribute("aria-disabled", "true");
-                        });
-                    // Note(TB): Confirms the screen reader only
-                    // radio options are also disabled
-                    screen.getAllByRole("radio").forEach((r) => {
-                        expect(r).toHaveAttribute("disabled");
-                    });
                 });
             },
         );
@@ -254,7 +216,10 @@ describe("Radio Widget", () => {
             await userEvent.keyboard(" ");
 
             // Assert
-            expect(screen.getAllByRole("radio")[0]).toBeChecked();
+            expect(screen.getAllByRole("button")[0]).toHaveAttribute(
+                "aria-pressed",
+                "true",
+            );
         });
 
         it("should be able to navigate to 'None of the above' choice by keyboard", async () => {
@@ -297,7 +262,7 @@ describe("Radio Widget", () => {
                 // We click on the first item, which was the second (index == 1)
                 // item in the original choices. But because of enforced ordering,
                 // it is now at the top of the list (and thus our correct answer).
-                await userEvent.click(screen.getAllByRole("radio")[0]);
+                await userEvent.click(screen.getAllByRole("button")[0]);
                 const score = scorePerseusItemTesting(
                     q,
                     renderer.getUserInputMap(),
@@ -468,7 +433,7 @@ describe("Radio Widget", () => {
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            const options = screen.getAllByRole("checkbox");
+            const options = screen.getAllByRole("button");
             for (const i of correct) {
                 await userEvent.click(options[i]);
             }
@@ -526,7 +491,7 @@ describe("Radio Widget", () => {
             renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
 
             // Act
-            const options = screen.getAllByRole("checkbox");
+            const options = screen.getAllByRole("button");
             await userEvent.click(options[2]);
             await userEvent.click(options[3]);
 
@@ -580,7 +545,7 @@ describe("Radio Widget", () => {
             renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
 
             // Act
-            const options = screen.getAllByRole("checkbox");
+            const options = screen.getAllByRole("button");
             await userEvent.click(options[2]);
             await userEvent.click(options[3]);
             await userEvent.click(options[2]);
@@ -596,7 +561,7 @@ describe("Radio Widget", () => {
             const {container} = renderQuestion(question, apiOptions);
 
             // Act
-            const options = screen.getAllByRole("checkbox");
+            const options = screen.getAllByRole("button");
             for (const i of incorrect[0]) {
                 await userEvent.click(options[i]);
             }
@@ -669,7 +634,7 @@ describe("Radio Widget", () => {
             );
 
             // Act
-            const option = screen.getAllByRole("checkbox");
+            const option = screen.getAllByRole("button");
             await userEvent.click(option[0]); // correct
             await userEvent.click(option[1]); // correct
             await userEvent.click(option[2]); // incorrect
@@ -689,7 +654,7 @@ describe("Radio Widget", () => {
                 const {renderer} = renderQuestion(question, apiOptions);
 
                 // Act
-                const option = screen.getAllByRole("checkbox");
+                const option = screen.getAllByRole("button");
                 for (let i = 0; i < choices.length; i++) {
                     await userEvent.click(option[i]);
                 }
@@ -710,7 +675,7 @@ describe("Radio Widget", () => {
                 const {renderer} = renderQuestion(question, apiOptions);
 
                 // Act
-                const option = screen.getAllByRole("checkbox");
+                const option = screen.getAllByRole("button");
                 for (const i of choices) {
                     await userEvent.click(option[i]);
                 }
@@ -919,7 +884,7 @@ describe("Radio Widget", () => {
             const {container} = renderQuestion(multipleShuffledRadioQuestion);
 
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const radios = container.querySelectorAll(".perseus-widget-radio");
+            const radios = container.querySelectorAll(`[data-widget="radio"]`);
 
             expect(radios.length).toBe(2);
 

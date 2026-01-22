@@ -6,6 +6,8 @@ import {
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
+
 import RadioNew from "./multiple-choice-widget.new";
 import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
@@ -48,6 +50,8 @@ function initChoiceStates(choices: Props["choices"]) {
  * TODO(LEMS-2994): Clean up this file.
  */
 class Radio extends React.Component<Props> implements Widget {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
     radioRef = React.createRef<RadioWidgetHandle>();
 
     state: State = {
@@ -183,8 +187,6 @@ class Radio extends React.Component<Props> implements Widget {
             ...choiceTransform(
                 this.props.choices,
                 this.props.randomize,
-                // TODO: Fix the following issue when working on LEMS-3849
-                // @ts-expect-error - TS2571: Object is of type unknown
                 this.context.strings,
                 randomSeed,
             ),
