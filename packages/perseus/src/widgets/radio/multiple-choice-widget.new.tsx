@@ -300,13 +300,15 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                         : choice.content;
 
                 // Extract the choice state for the choice.
+                // Guard against undefined choiceStates when choices array length exceeds choiceStates length
+                // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
                 const {
-                    selected,
-                    rationaleShown,
-                    correctnessShown,
-                    readOnly,
-                    previouslyAnswered,
-                } = choiceStates[i];
+                    selected = false,
+                    rationaleShown = false,
+                    correctnessShown = false,
+                    readOnly = false,
+                    previouslyAnswered = false,
+                } = choiceStates[i] ?? {};
 
                 return {
                     id: choice.id,
