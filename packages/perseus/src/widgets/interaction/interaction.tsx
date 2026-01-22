@@ -335,8 +335,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             );
                         }
                         if (element.type === "movable-point") {
-                            // TODO(eater): Would be nice if the constraint
-                            // system were more flexible.
                             const constraints = [
                                 (coord: any) => {
                                     const coordX = Math.max(
@@ -398,7 +396,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                 });
                             }
 
-                            // TODO(eater): foo_[xyz] are hacky non-props to
+                            // NOTE(eater): foo_[xyz] are hacky non-props to
                             // get the component to update when constraints
                             // change
                             return (
@@ -427,10 +425,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             );
                         }
                         if (element.type === "movable-line") {
-                            // TODO(eater): Would be nice if the constraint
-                            // system were more flexible.
-                            // TODO(eater): Don't duplicate this code from
-                            // movable-point above
                             const constraints = [
                                 (coord: any) => {
                                     const coordX = Math.max(
@@ -599,8 +593,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                             element.options.strokeWidth,
                                         strokeDasharray:
                                             element.options.strokeDasharray,
-                                        plotPoints: 100, // TODO(eater): why
-                                        // so slow?
+                                        plotPoints: 100,
                                     }}
                                 />
                             );
@@ -666,8 +659,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                             element.options.strokeWidth,
                                         strokeDasharray:
                                             element.options.strokeDasharray,
-                                        plotPoints: 100, // TODO(eater): why
-                                        // so slow?
+                                        plotPoints: 100,
                                     }}
                                 />
                             );
@@ -729,7 +721,6 @@ const _getInitialVariables: (
     arg1: ReadonlyArray<PerseusInteractionElement>,
 ) => any = (elements) => {
     const variables: Record<string, any> = {};
-    // TODO(eater): look at all this copypasta! refactor this!
     _.each(_.where(elements, {type: "movable-point"}), (element) => {
         // @ts-expect-error - TS2339 - Property 'varSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const subscript = element.options.varSubscript;
