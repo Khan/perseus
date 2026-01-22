@@ -401,7 +401,6 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
                     />
                 </svg>
             );
-        // TODO: figure out what the difference is and what we need for what
         case "FRAC_INCLUSIVE":
         case "FRAC_EXCLUSIVE":
         case "FRAC":

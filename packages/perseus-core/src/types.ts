@@ -1,9 +1,6 @@
 // Types that can be shared between Perseus packages
 // ideally without causing circular dependencies
 
-// TODO: this should be typed
-type State = any;
-
 // Interfact currently only implemented by
 // ServerItemRenderer
 export interface RendererInterface {
@@ -11,7 +8,7 @@ export interface RendererInterface {
     /**
      * @deprecated - do not use in new code.
      */
-    getSerializedState(): State;
+    getSerializedState(): any;
     // TODO(LEMS-3185): remove serializedState
     blur(): void;
     focus(): boolean | null | undefined;

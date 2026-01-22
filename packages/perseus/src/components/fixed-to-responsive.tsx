@@ -55,7 +55,7 @@ class FixedToResponsive extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
+        // NOTE(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 
@@ -64,7 +64,6 @@ class FixedToResponsive extends React.Component<Props, State> {
         // anti-pattern, because we do actually want to trigger a re-render
         // after the initial render (because initial render may be
         // server-side).
-        // TODO(david): Don't do this for each image. Do this once per page.
         if (window.innerHeight < MIN_VIEWPORT_HEIGHT) {
             // There is a weird issue when this gets rendered in an Android
             // webview where window.innerHeight might be initially very small,

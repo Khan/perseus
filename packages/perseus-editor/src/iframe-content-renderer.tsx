@@ -39,9 +39,6 @@ window.addEventListener("message", (event) => {
             updateIframeHeight[event.data.id](event.data.height);
         } else if (event.data.lintWarnings) {
             // This is a lint report being sent back from the linter.
-            // TODO:
-            // We'll want to display the number of warnings in the HUD.
-            // But for now, we just log it to the console
             Log.log("LINTER REPORT", {
                 lintWarnings: JSON.stringify(event.data.lintWarnings),
             });
@@ -77,7 +74,7 @@ class IframeContentRenderer extends React.Component<Props> {
     iframeID: number;
 
     componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
+        // NOTE(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 

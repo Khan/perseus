@@ -80,9 +80,6 @@ export default class QuestionMarkers extends React.Component<QuestionMarkersProp
 
         const staticUrl = Dependencies.getDependencies().staticUrl;
 
-        // TODO(michaelpolyak): If a Graphie image is specified, only its SVG
-        // layer will be rendered, as when rendering the full Graphie its
-        // dynamic content may overflow the widget editor, CP-253
         return (
             <div>
                 <div className={css(styles.title)}>Markers</div>

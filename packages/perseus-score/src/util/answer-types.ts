@@ -62,9 +62,6 @@ export type Score = {
  * element so we have setupFunctional and createValidatorFunctional for them
  * which take only $solution.text() and $solution.data(). This makes it easier
  * to reuse specific answer types.
- *
- * TODO(alpert): Think of a less-absurd name for createValidatorFunctional.
- *
  */
 const KhanAnswerTypes = {
     /*
