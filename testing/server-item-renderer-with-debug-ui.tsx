@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {KeypadContext} from "../packages/keypad-context/src/keypad-context";
 import {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
+import {isCorrect} from "../packages/perseus/src/util/scoring";
 
 import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
@@ -95,8 +96,8 @@ export const ServerItemRendererWithDebugUI = ({
                                     showSolutions={state.showSolutions}
                                     hintsVisible={state.hintsVisible}
                                     reviewMode={
-                                        (state.score && state.score?.correct) ||
-                                        false
+                                        state.score != null &&
+                                        isCorrect(state.score)
                                     }
                                 />
                             )}
@@ -105,7 +106,8 @@ export const ServerItemRendererWithDebugUI = ({
 
                     {/* Debug accordion UI */}
                     <DebugAccordionUI
-                        state={state.score}
+                        score={state.score}
+                        userInput={state.userInput}
                         perseusItem={state.perseusItem}
                         updateJson={updateJson}
                     />
@@ -114,7 +116,7 @@ export const ServerItemRendererWithDebugUI = ({
 
             {/* Footer with action buttons - back outside wrapper */}
             <DebugCheckAnswerFooter
-                state={state.score}
+                score={state.score}
                 showSolutions={state.showSolutions || "none"}
                 popover={{
                     isOpen: state.showPopover,

@@ -14,11 +14,12 @@ import checkCircle from "@phosphor-icons/core/regular/check-circle.svg";
 import * as React from "react";
 
 import {mapErrorToString, mockStrings} from "../packages/perseus/src/strings";
+import {isCorrect} from "../packages/perseus/src/util/scoring";
 
-import type {KEScore, ShowSolutions} from "@khanacademy/perseus-core";
+import type {PerseusScore, ShowSolutions} from "@khanacademy/perseus-core";
 
 type DebugCheckAnswerFooterProps = {
-    state: KEScore | null | undefined;
+    score: PerseusScore | undefined;
     showSolutions: ShowSolutions;
     popover: {
         isOpen: boolean;
@@ -35,7 +36,7 @@ type DebugCheckAnswerFooterProps = {
  * A component that renders the debug check answer footer for Perseus items
  */
 export const DebugCheckAnswerFooter = ({
-    state,
+    score,
     showSolutions,
     popover,
     actions,
@@ -43,13 +44,31 @@ export const DebugCheckAnswerFooter = ({
     /**
      * Creates the popover content based on the scoring state
      */
-    const getPopoverContent = (state: KEScore | null | undefined) => {
-        if (!state) {
+    const getPopoverContent = (score: PerseusScore | undefined) => {
+        if (!score) {
             return null;
         }
 
-        // Correct answer
-        if (state.correct) {
+        if (score.type === "invalid") {
+            // Error or "almost there" message
+            const title = score.suppressAlmostThere
+                ? mockStrings.tryAgain
+                : mockStrings.keepTrying;
+
+            // Use mapErrorToString to correctly map error codes to their text representations
+            const errorMessage = score.message
+                ? mapErrorToString(score.message, mockStrings)
+                : mockStrings.ERROR_MESSAGE;
+
+            return (
+                <View>
+                    <LabelLarge style={styles.errorLabel}>{title}</LabelLarge>
+                    <Body>{errorMessage}</Body>
+                </View>
+            );
+        }
+
+        if (isCorrect(score)) {
             return (
                 <>
                     <PhosphorIcon
@@ -67,7 +86,7 @@ export const DebugCheckAnswerFooter = ({
         }
 
         // Incorrect answer
-        if (state.correct === false && !state.empty) {
+        {
             return (
                 <View>
                     <LabelLarge style={styles.incorrectLabel}>
@@ -77,27 +96,11 @@ export const DebugCheckAnswerFooter = ({
                 </View>
             );
         }
-
-        // Error or "almost there" message
-        const title = state?.suppressAlmostThere
-            ? mockStrings.tryAgain
-            : mockStrings.keepTrying;
-
-        // Use mapErrorToString to correctly map error codes to their text representations
-        const errorMessage = state.message
-            ? mapErrorToString(state.message, mockStrings)
-            : mockStrings.ERROR_MESSAGE;
-
-        return (
-            <View>
-                <LabelLarge style={styles.errorLabel}>{title}</LabelLarge>
-                <Body>{errorMessage}</Body>
-            </View>
-        );
     };
 
     // Determine if buttons should be disabled
-    const isCheckDisabled = Boolean(state?.correct) || showSolutions === "all";
+    const isCheckDisabled =
+        (score != null && isCorrect(score)) || showSolutions === "all";
 
     return (
         <View
@@ -133,7 +136,7 @@ export const DebugCheckAnswerFooter = ({
                             style={styles.popoverContent}
                             closeButtonVisible
                         >
-                            {getPopoverContent(state)}
+                            {getPopoverContent(score)}
                         </PopoverContentCore>
                     }
                 >
