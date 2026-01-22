@@ -15,26 +15,6 @@ var defaultReactOutput = SimpleMarkdown.defaultReactOutput;
 var defaultHtmlOutput = SimpleMarkdown.defaultHtmlOutput;
 
 /**
- * A pretty-printer that handles `undefined` and functions better
- * than JSON.stringify
- * Important because some AST node fields can be undefined, and
- * if those don't show up in the assert output, it can be
- * very confusing to figure out how the actual and expected differ
- * Whether node's util.inspect or JSON.stringify is better seems
- * context dependent.
- *
- * @param {SimpleMarkdown.ASTNode | Array<SimpleMarkdown.TableAlignment>} ast
- */
-var prettyPrintAST = function (ast: any) {
-    return JSON.stringify(ast, null, 4);
-    //    // FIXME(aria): For debugging in more depth? This used to work?
-    //    return nodeUtil.inspect(ast, {
-    //        depth: null,
-    //        colors: false
-    //    });
-};
-
-/**
  * Asset that two ast parse trees are equal
  * @param {SimpleMarkdown.ASTNode | Array<SimpleMarkdown.TableAlignment>} parsed
  * @param {SimpleMarkdown.ASTNode | Array<SimpleMarkdown.TableAlignment>} expected

@@ -302,9 +302,11 @@ function doMovePointInFigure(
                 coords: newCoords,
             };
         }
-        case "angle":
         case "circle":
-            throw new Error("FIXME implement circle reducer");
+            throw new Error(
+                `Don't use movePointInFigure for circle graphs. Use moveCenter or moveRadiusPoint.`,
+            );
+        case "angle":
         case "none":
         case "point":
         case "polygon":
