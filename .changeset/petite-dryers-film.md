@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-update editor
+Updates EditorPage to sync `json` state with incoming props in componentDidUpdate
