@@ -18,15 +18,6 @@ export interface RendererInterface {
     props: any;
 }
 
-export type KEScore = {
-    empty: boolean;
-    correct: boolean;
-    message?: string | null | undefined;
-    suppressAlmostThere?: boolean | null | undefined;
-    guess: any;
-    state: any;
-};
-
 // Base marker, with the props that are set by the editor.
 export type MarkerType = {
     // The list of correct answers expected for the marker.

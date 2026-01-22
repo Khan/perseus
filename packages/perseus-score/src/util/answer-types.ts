@@ -13,9 +13,6 @@ type TransformedFraction = {
     exact: boolean;
 };
 
-// TOOD(kevinb): Figure out how this relates to KEScore in
-// perseus-all-package/types.js and see if there's a way to
-// unify these types.
 export type Score = {
     empty: boolean;
     correct: boolean;
