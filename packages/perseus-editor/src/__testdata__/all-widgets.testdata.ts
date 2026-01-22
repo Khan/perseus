@@ -36,7 +36,7 @@ import {
  * the full range of Perseus widgets.
  */
 export const comprehensiveQuestion: PerseusRenderer = {
-    content: `[[\u2603 categorizer 1]] [[\u2603 definition 1]] [[\u2603 dropdown 1]] [[\u2603 expression 1]] [[\u2603 explanation 1]] [[\u2603 free-response 1]] [[\u2603 graded-group 1]] [[\u2603 graded-group-set 1]] [[\u2603 grapher 1]] [[\u2603 group 1]] [[\u2603 image 1]] [[\u2603 input-number 1]] [[\u2603 interaction 1]] [[\u2603 interactive-graph 1]] [[\u2603 label-image 1]] [[\u2603 matcher 1]] [[\u2603 matrix 1]] [[\u2603 measurer 1]] [[\u2603 number-line 1]] [[\u2603 numeric-input 1]] [[\u2603 orderer 1]] [[\u2603 passage 1]] [[\u2603 passage-ref 1]] [[\u2603 plotter 1]] [[\u2603 radio 1]] [[\u2603 sorter 1]] [[\u2603 table 1]]`,
+    content: `[[\u2603 categorizer 1]] [[\u2603 definition 1]] [[\u2603 dropdown 1]] [[\u2603 expression 1]] [[\u2603 explanation 1]] [[\u2603 free-response 1]] [[\u2603 graded-group 1]] [[\u2603 graded-group-set 1]] [[\u2603 grapher 1]] [[\u2603 group 1]] [[\u2603 image 1]] [[\u2603 input-number 1]] [[\u2603 interaction 1]] [[\u2603 interactive-graph 1]] [[\u2603 label-image 1]] [[\u2603 matcher 1]] [[\u2603 matrix 1]] [[\u2603 measurer 1]] [[\u2603 number-line 1]] [[\u2603 numeric-input 1]] [[\u2603 orderer 1]] [[\u2603 plotter 1]] [[\u2603 radio 1]] [[\u2603 sorter 1]] [[\u2603 table 1]]`,
     images: {
         "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png": {
             width: 300,
@@ -400,31 +400,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 ],
             },
         }),
-        "passage 1": {
-            graded: true,
-            version: {major: 0, minor: 0},
-            static: false,
-            type: "passage",
-            options: {
-                passageTitle: "Sample Passage",
-                passageText:
-                    "This is a sample passage for testing. It contains text that students would read.",
-                footnotes: "",
-                showLineNumbers: true,
-                static: false,
-            },
-        },
-        "passage-ref 1": {
-            graded: true,
-            version: {major: 0, minor: 1},
-            static: false,
-            type: "passage-ref",
-            options: {
-                passageNumber: 1,
-                referenceNumber: 1,
-                summaryText: "",
-            },
-        },
         "interaction 1": {
             graded: true,
             version: {major: 0, minor: 0},

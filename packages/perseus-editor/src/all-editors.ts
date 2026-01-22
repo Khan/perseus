@@ -23,9 +23,6 @@ import MoleculeEditor from "./widgets/molecule-editor";
 import NumberLineEditor from "./widgets/number-line-editor";
 import NumericInputEditor from "./widgets/numeric-input-editor";
 import OrdererEditor from "./widgets/orderer-editor";
-import PassageEditor from "./widgets/passage-editor";
-import PassageRefEditor from "./widgets/passage-ref-editor";
-import PassageRefTargetEditor from "./widgets/passage-ref-target-editor";
 import PhetSimulationEditor from "./widgets/phet-simulation-editor";
 import PlotterEditor from "./widgets/plotter-editor";
 import PythonProgramEditor from "./widgets/python-program-editor";
@@ -59,9 +56,6 @@ export default [
     NumberLineEditor,
     NumericInputEditor,
     OrdererEditor,
-    PassageEditor,
-    PassageRefEditor,
-    PassageRefTargetEditor,
     PhetSimulationEditor,
     PlotterEditor,
     PythonProgramEditor,

@@ -38,7 +38,6 @@ export {default as GrapherWidget} from "./widgets/grapher";
 
 // Some utils in grapher/utils and scoring don't need to be used outside of
 // `perseus`, so only export the stuff that does need to be exposed
-import {keScoreFromPerseusScore} from "./util/scoring";
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -53,10 +52,6 @@ export const GrapherUtil = {
     defaultPlotProps,
     getEquationString,
     typeToButton,
-};
-
-export const ScoringUtil = {
-    keScoreFromPerseusScore,
 };
 
 /**
@@ -161,6 +156,7 @@ export type {
     EditorMode,
     FocusPath,
     GenerateUrlArgs,
+    GraphieLabelElement,
     ImageDict,
     ImageUploader,
     JiptLabelStore,

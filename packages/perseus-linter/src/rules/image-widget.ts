@@ -48,5 +48,14 @@ Add a description in the "Alt Text" box of the image widget.`;
 for accessibility, all images should have descriptive alt text.
 This image's alt text is only ${alt.trim().length} characters long.`;
         }
+
+        // Make sure the alt text is not too long to be navigable
+        if (alt.trim().length > 150) {
+            return `Images should have alt text:
+for accessibility, image alt text should not exceed 150 characters.
+This image's alt text is ${alt.trim().length} characters long.
+Please pair your alt with a long description below if you need significantly
+more text to sufficiently describe the image.`;
+        }
     },
 }) as Rule;

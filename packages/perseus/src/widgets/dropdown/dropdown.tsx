@@ -17,6 +17,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dr
 
 import type {
     PerseusDependenciesV2,
+    Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
@@ -34,11 +35,10 @@ type Props = WidgetProps<
 };
 
 // Widget interface methods exposed via ref
-type WidgetHandle = {
-    focus: () => boolean;
-    getPromptJSON: () => DropdownPromptJSON;
-    getSerializedState: () => any;
-};
+type WidgetHandle = Pick<
+    Widget,
+    "focus" | "getPromptJSON" | "getSerializedState"
+>;
 
 const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
     const {strings} = usePerseusI18n();
