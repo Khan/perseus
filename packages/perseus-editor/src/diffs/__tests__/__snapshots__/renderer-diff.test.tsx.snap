@@ -1051,37 +1051,6 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
             </div>
           </div>
         </div>
-        <div>
-          <div
-            style="clear: both;"
-          >
-            <div
-              class="removed dark diff-row before"
-            >
-              <div
-                style="padding-left: 0px;"
-              >
-                static: 
-                <span
-                  class="inner-value dark removed dark"
-                >
-                  false
-                </span>
-              </div>
-            </div>
-            <div
-              class="blank-space diff-row after"
-            >
-              <div
-                style="padding-left: 0px;"
-              >
-                <span
-                  class="inner-value dark blank-space"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -1732,37 +1701,6 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     false
                   </span>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div
-            style="clear: both;"
-          >
-            <div
-              class="blank-space diff-row before"
-            >
-              <div
-                style="padding-left: 0px;"
-              >
-                <span
-                  class="inner-value dark blank-space"
-                />
-              </div>
-            </div>
-            <div
-              class="added dark diff-row after"
-            >
-              <div
-                style="padding-left: 0px;"
-              >
-                static: 
-                <span
-                  class="inner-value dark added dark"
-                >
-                  false
-                </span>
               </div>
             </div>
           </div>

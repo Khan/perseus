@@ -200,7 +200,6 @@ describe("Widget API support", () => {
             "matrix",
             "number-line",
             "plotter",
-            "radio",
             "dropdown",
             "expression",
             "numeric-input",
@@ -211,7 +210,7 @@ describe("Widget API support", () => {
         });
 
         // some widgets that shouldn't support static mode
-        it.each(["definition"])(
+        it.each(["definition", "radio"])(
             "supportsStaticMode returns false: %s",
             (type: string) => {
                 expect(Widgets.supportsStaticMode(type)).toBe(false);
