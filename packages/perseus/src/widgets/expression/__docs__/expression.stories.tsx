@@ -1,12 +1,10 @@
-import * as React from "react";
-
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
-import expressionExport from "../expression";
 import {
-    expressionItem2,
-    expressionItem3,
-    expressionItem4,
-    expressionItem4Static,
+    expressionItemKitchenSink,
+    expressionItemMixedAnswerStates,
+    expressionItemMultipleEquivalentAnswers,
+    expressionItemWithFraction,
+    expressionItemWithFractionStatic,
 } from "../expression.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -31,90 +29,32 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 /** This story shows how the expression widget looks when the keypad is
  * configured with _every_ option it supports.  */
-// TODO: use a Renderer wrapper rather than rendering this directly
-export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
-    return (
-        <div style={{padding: "2rem"}}>
-            <expressionExport.widget
-                alignment={null}
-                visibleLabel=""
-                ariaLabel=""
-                containerSizeClass="small"
-                findWidgets={(callback) => []}
-                problemNum={1}
-                static={false}
-                handleUserInput={() => {}}
-                userInput=""
-                trackInteraction={() => {}}
-                widgetId="expression"
-                widgetIndex={0}
-                extraKeys={["x", "y", "z"]}
-                reviewMode={false}
-                answerForms={[
-                    {
-                        considered: "correct",
-                        form: false,
-                        simplify: false,
-                        value: "8675309",
-                    },
-                ]}
-            />
-        </div>
-    );
-};
-
-export const ExpressionItem2: Story = {
+export const DesktopKitchenSink: Story = {
     args: {
-        item: expressionItem2,
+        item: expressionItemKitchenSink,
     },
 };
 
-export const ExpressionItem3: Story = {
+export const MultipleEquivalentAnswers: Story = {
     args: {
-        item: expressionItem3,
+        item: expressionItemMultipleEquivalentAnswers,
     },
 };
 
-/**
- * This story allows us to specifically test division in the expression widget.
- */
-export const ExpressionItem4: Story = {
+export const MixedAnswerStates: Story = {
     args: {
-        item: expressionItem4,
+        item: expressionItemMixedAnswerStates,
     },
 };
 
-export const AnswerlessExpression: Story = {
+export const FractionInput: Story = {
     args: {
-        item: expressionItem3,
-        startAnswerless: true,
+        item: expressionItemWithFraction,
     },
 };
 
 export const StaticExpression: Story = {
     args: {
-        item: expressionItem4Static,
+        item: expressionItemWithFractionStatic,
     },
-};
-
-/** This story shows how the expression widget looks when the keypad is
- * configured with _every_ option it supports.  */
-// TODO: use a Renderer wrapper rather than rendering this directly
-export const ShowAnswerButton = (): React.ReactElement => {
-    const [showAnswer, setShowAnswer] = React.useState(true);
-    return (
-        <div style={{padding: "2rem"}}>
-            <label>
-                <input
-                    type="checkbox"
-                    checked={showAnswer}
-                    onChange={() => setShowAnswer(!showAnswer)}
-                />
-                Show answer
-            </label>
-            <ServerItemRendererWithDebugUI
-                item={showAnswer ? expressionItem4Static : expressionItem4}
-            />
-        </div>
-    );
 };

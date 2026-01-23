@@ -1,5 +1,56 @@
 # @khanacademy/perseus
 
+## 73.1.0
+
+### Minor Changes
+
+-   [#3147](https://github.com/Khan/perseus/pull/3147) [`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Deprecate passage-related widgets (passage, passage-ref, passage-ref-target)
+
+### Patch Changes
+
+-   [#3184](https://github.com/Khan/perseus/pull/3184) [`f27e7a5137`](https://github.com/Khan/perseus/commit/f27e7a51372bec9b2a43391a05350aaa896317bc) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - removes radio codeowners
+
+-   Updated dependencies [[`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032), [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed)]:
+    -   @khanacademy/perseus-core@22.1.0
+    -   @khanacademy/simple-markdown@2.2.0
+    -   @khanacademy/kas@2.1.7
+    -   @khanacademy/keypad-context@3.2.29
+    -   @khanacademy/kmath@2.2.29
+    -   @khanacademy/math-input@26.3.9
+    -   @khanacademy/perseus-linter@4.6.11
+    -   @khanacademy/perseus-score@8.2.5
+    -   @khanacademy/pure-markdown@2.2.5
+
+## 73.0.0
+
+### Major Changes
+
+-   [#3174](https://github.com/Khan/perseus/pull/3174) [`800c03e92e`](https://github.com/Khan/perseus/commit/800c03e92e141d3c78486ce477946700ff9ac669) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove isRealJSONParse and some deprecated exports
+
+*   [#3101](https://github.com/Khan/perseus/pull/3101) [`6f7054c450`](https://github.com/Khan/perseus/commit/6f7054c45096ade94b3961610c9f6b9badd560c9) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `score` prop from ServerItemRenderer
+
+-   [#3175](https://github.com/Khan/perseus/pull/3175) [`9ed6cda37c`](https://github.com/Khan/perseus/commit/9ed6cda37c577415076414d5c22147fd8c8c2dac) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove handleStateUpdate method from Renderer
+
+### Patch Changes
+
+-   [#3164](https://github.com/Khan/perseus/pull/3164) [`96901f1512`](https://github.com/Khan/perseus/commit/96901f15121d3dd77f2042fa5f5c4a6a8467d12d) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [CSS] Migrate Definition styling to CSS Modules
+
+*   [#3162](https://github.com/Khan/perseus/pull/3162) [`1062044db9`](https://github.com/Khan/perseus/commit/1062044db9c860425c4f30b2da6971fff6d64123) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [CSS] Migrate Numeric Input styling to CSS Modules
+
+-   [#3084](https://github.com/Khan/perseus/pull/3084) [`da13cffd00`](https://github.com/Khan/perseus/commit/da13cffd00e9e9590187c417994993ee3e2a89a6) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Explanation] Bugix - Math within the widget has additional space added below it when in mobile viewport
+
+*   [#3163](https://github.com/Khan/perseus/pull/3163) [`8a3fcc6350`](https://github.com/Khan/perseus/commit/8a3fcc6350649b86580ab328d380b315e943dad2) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [CSS] Migrate Explanation styling to CSS Modules
+
+-   [#3161](https://github.com/Khan/perseus/pull/3161) [`c5416ff4df`](https://github.com/Khan/perseus/commit/c5416ff4df1d26faee3cd0ec1780b4f90b8c8185) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [CSS] Add tool to synchronize CSS Modules with legacy Aphrodite
+
+-   Updated dependencies [[`47ea66e85a`](https://github.com/Khan/perseus/commit/47ea66e85a5dc4fbe66eea2b125b73008cf14faf), [`800c03e92e`](https://github.com/Khan/perseus/commit/800c03e92e141d3c78486ce477946700ff9ac669)]:
+    -   @khanacademy/perseus-core@22.0.0
+    -   @khanacademy/keypad-context@3.2.28
+    -   @khanacademy/kmath@2.2.28
+    -   @khanacademy/math-input@26.3.8
+    -   @khanacademy/perseus-linter@4.6.10
+    -   @khanacademy/perseus-score@8.2.4
+
 ## 72.8.0
 
 ### Minor Changes

@@ -1,6 +1,5 @@
 export type {PerseusAnalyticsEvent, AnalyticsEventHandlerFn} from "./analytics";
 export type {
-    KEScore,
     RendererInterface,
     MarkerType,
     InteractiveMarkerType,
@@ -41,7 +40,6 @@ export {itemHasHints} from "./utils/item-has-hints";
 export {makeSafeUrl} from "./utils/make-safe-url";
 
 export {
-    parsePerseusItem,
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
     parseAndMigrateUserInputMap,
@@ -112,12 +110,6 @@ export {default as numericInputLogic} from "./widgets/numeric-input";
 export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
 export {default as ordererLogic} from "./widgets/orderer";
 export type {OrdererDefaultWidgetOptions} from "./widgets/orderer";
-export {default as passageLogic} from "./widgets/passage";
-export type {PassageDefaultWidgetOptions} from "./widgets/passage";
-export {default as passageRefLogic} from "./widgets/passage-ref";
-export type {PassageRefDefaultWidgetOptions} from "./widgets/passage-ref";
-export {default as passageRefTargetLogic} from "./widgets/passage-ref-target";
-export type {PassageRefTargetDefaultWidgetOptions} from "./widgets/passage-ref-target";
 export {default as phetSimulationLogic} from "./widgets/phet-simulation";
 export type {PhetSimulationDefaultWidgetOptions} from "./widgets/phet-simulation";
 export {default as plotterLogic} from "./widgets/plotter";

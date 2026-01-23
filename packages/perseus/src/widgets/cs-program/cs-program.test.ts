@@ -4,8 +4,6 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./cs-program.testdata";
 
-import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-core";
-
 describe("cs-program widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -45,8 +43,7 @@ describe("cs-program widget", () => {
         } as const;
 
         const {renderer} = renderQuestion(question1, apiOptions);
-        const userInput =
-            renderer.getUserInput()[0] as PerseusCSProgramUserInput;
+        const userInput = renderer.getUserInputMap()["cs-program 1"];
 
         expect(userInput.status).toBe("incomplete");
         expect(userInput.message).toBe(null);

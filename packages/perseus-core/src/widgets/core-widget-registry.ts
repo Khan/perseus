@@ -25,9 +25,6 @@ import measurerWidgetLogic from "./measurer";
 import numberLineWidgetLogic from "./number-line";
 import numericInputWidgetLogic from "./numeric-input";
 import ordererWidgetLogic from "./orderer";
-import passageWidgetLogic from "./passage";
-import passageRefWidgetLogic from "./passage-ref";
-import passageRefTargetWidgetLogic from "./passage-ref-target";
 import phetSimulationWidgetLogic from "./phet-simulation";
 import plotterWidgetLogic from "./plotter";
 import pythonProgramWidgetLogic from "./python-program";
@@ -214,9 +211,6 @@ export function registerCoreWidgets() {
         numberLineWidgetLogic,
         numericInputWidgetLogic,
         ordererWidgetLogic,
-        passageWidgetLogic,
-        passageRefWidgetLogic,
-        passageRefTargetWidgetLogic,
         phetSimulationWidgetLogic,
         plotterWidgetLogic,
         pythonProgramWidgetLogic,

@@ -40,6 +40,7 @@ export function generateRadioChoice(
 ): PerseusRadioChoice {
     return {
         content: text,
+        // eslint-disable-next-line no-restricted-properties
         id: `radio-choice-${Math.random()}`,
         correct: false,
         ...options,

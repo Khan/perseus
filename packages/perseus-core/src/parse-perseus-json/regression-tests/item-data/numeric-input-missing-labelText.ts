@@ -111,20 +111,6 @@ export default {
                         minor: 0,
                     },
                 },
-                "passage 1": {
-                    type: "passage",
-                    graded: true,
-                    options: {
-                        passageTitle: "",
-                        passageText: "",
-                        footnotes: "",
-                        showLineNumbers: true,
-                    },
-                    version: {
-                        major: 0,
-                        minor: 0,
-                    },
-                },
                 "expression 1": {
                     type: "expression",
                     graded: true,

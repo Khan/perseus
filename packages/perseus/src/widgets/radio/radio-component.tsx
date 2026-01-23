@@ -5,7 +5,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
-import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
 
@@ -80,6 +79,7 @@ class Radio extends React.Component<Props> implements Widget {
         let nextPassageRefId = 1;
         const widgets: Record<string, any> = {};
 
+        // passage-ref is already deprecated see LEMS-3124
         const modContent = content.replace(
             /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
             (
@@ -99,7 +99,7 @@ class Radio extends React.Component<Props> implements Widget {
                         referenceNumber: parseInt(refNum),
                         summaryText: summaryText,
                     },
-                    version: PassageRef.version,
+                    version: {major: 0, minor: 0},
                 };
 
                 return "[[" + Util.snowman + " " + widgetId + "]]";
@@ -241,14 +241,16 @@ class Radio extends React.Component<Props> implements Widget {
                         ? strings.noneOfTheAbove
                         : choice.content;
 
+                // Guard against undefined choiceStates when choices array length exceeds choiceStates length
+                // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
                 const {
-                    selected,
-                    rationaleShown,
-                    correctnessShown,
-                    readOnly,
-                    highlighted,
-                    previouslyAnswered,
-                } = choiceStates[i];
+                    selected = false,
+                    rationaleShown = false,
+                    correctnessShown = false,
+                    readOnly = false,
+                    highlighted = false,
+                    previouslyAnswered = false,
+                } = choiceStates[i] ?? {};
 
                 return {
                     id: choice.id,
@@ -261,6 +263,7 @@ class Radio extends React.Component<Props> implements Widget {
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
+                    // TODO(LEMS-3783): remove uses of `questionCompleted` and `revealNoneOfTheAbove`
                     revealNoneOfTheAbove: !!(
                         this.props.questionCompleted && selected
                     ),

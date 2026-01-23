@@ -149,15 +149,21 @@ class WidgetEditor extends React.Component<
 
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
-        const imageUpgradeFF = isFeatureOn(this.props, "image-widget-upgrade");
+        const imageUpgradeAlignmentFF = isFeatureOn(
+            this.props,
+            "image-widget-upgrade-alignment",
+        );
 
-        if (widgetInfo.type === "image" && !imageUpgradeFF) {
+        if (this.props.apiOptions.showAlignmentOptions) {
             // TODO(LEMS-3520): Feature flag cleanup
-            supportedAlignments = ["block", "full-width"];
-        } else if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
-                widgetInfo.type,
-            );
+            // Remove if statement once the image alignment upgrade FF is released
+            if (widgetInfo.type === "image" && !imageUpgradeAlignmentFF) {
+                supportedAlignments = ["block", "full-width"];
+            } else {
+                supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
+                    widgetInfo.type,
+                );
+            }
         } else {
             // NOTE(kevinb): "default" is not one in `validAlignments` in widgets.js.
             supportedAlignments = ["default"];

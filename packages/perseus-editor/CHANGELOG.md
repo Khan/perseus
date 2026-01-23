@@ -1,5 +1,42 @@
 # @khanacademy/perseus-editor
 
+## 28.9.0
+
+### Minor Changes
+
+-   [#3147](https://github.com/Khan/perseus/pull/3147) [`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Deprecate passage-related widgets (passage, passage-ref, passage-ref-target)
+
+### Patch Changes
+
+-   [#3179](https://github.com/Khan/perseus/pull/3179) [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed) Thanks [@handeyeco](https://github.com/handeyeco)! - Lint against Math.random
+
+*   [#3185](https://github.com/Khan/perseus/pull/3185) [`cbef3cb967`](https://github.com/Khan/perseus/commit/cbef3cb967b64c31d8bb9d306f1fb32144e52d56) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix custom image alignment dropdown display, only show it for article editor
+
+*   Updated dependencies [[`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032), [`f27e7a5137`](https://github.com/Khan/perseus/commit/f27e7a51372bec9b2a43391a05350aaa896317bc), [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed)]:
+    -   @khanacademy/perseus@73.1.0
+    -   @khanacademy/perseus-core@22.1.0
+    -   @khanacademy/kas@2.1.7
+    -   @khanacademy/keypad-context@3.2.29
+    -   @khanacademy/kmath@2.2.29
+    -   @khanacademy/math-input@26.3.9
+    -   @khanacademy/perseus-linter@4.6.11
+    -   @khanacademy/perseus-score@8.2.5
+
+## 28.8.14
+
+### Patch Changes
+
+-   [#3172](https://github.com/Khan/perseus/pull/3172) [`47ea66e85a`](https://github.com/Khan/perseus/commit/47ea66e85a5dc4fbe66eea2b125b73008cf14faf) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Add feature flag for image aligment
+
+-   Updated dependencies [[`96901f1512`](https://github.com/Khan/perseus/commit/96901f15121d3dd77f2042fa5f5c4a6a8467d12d), [`47ea66e85a`](https://github.com/Khan/perseus/commit/47ea66e85a5dc4fbe66eea2b125b73008cf14faf), [`1062044db9`](https://github.com/Khan/perseus/commit/1062044db9c860425c4f30b2da6971fff6d64123), [`800c03e92e`](https://github.com/Khan/perseus/commit/800c03e92e141d3c78486ce477946700ff9ac669), [`6f7054c450`](https://github.com/Khan/perseus/commit/6f7054c45096ade94b3961610c9f6b9badd560c9), [`da13cffd00`](https://github.com/Khan/perseus/commit/da13cffd00e9e9590187c417994993ee3e2a89a6), [`8a3fcc6350`](https://github.com/Khan/perseus/commit/8a3fcc6350649b86580ab328d380b315e943dad2), [`c5416ff4df`](https://github.com/Khan/perseus/commit/c5416ff4df1d26faee3cd0ec1780b4f90b8c8185), [`9ed6cda37c`](https://github.com/Khan/perseus/commit/9ed6cda37c577415076414d5c22147fd8c8c2dac)]:
+    -   @khanacademy/perseus@73.0.0
+    -   @khanacademy/perseus-core@22.0.0
+    -   @khanacademy/keypad-context@3.2.28
+    -   @khanacademy/kmath@2.2.28
+    -   @khanacademy/math-input@26.3.8
+    -   @khanacademy/perseus-linter@4.6.10
+    -   @khanacademy/perseus-score@8.2.4
+
 ## 28.8.13
 
 ### Patch Changes
