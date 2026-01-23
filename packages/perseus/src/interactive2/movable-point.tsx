@@ -121,14 +121,10 @@ type State = {
     tooltip: boolean;
     touchOffset: null | Coord;
     mouseTarget: unknown;
-    // TODO(benchristel): Change the type of visibleShape to WrappedEllipse,
-    // once WrappedEllipse is converted to an ES6 class
     visibleShape: {wrapper: HTMLElement; toBack(): void; toFront(): void};
     normalStyle: Record<string, any>;
     highlightStyle: Record<string, any>;
 };
-// TODO(benchristel): this is a memory leak. We add items to
-// tooltipResetFunctions, but never remove them.
 const tooltipResetFunctions: Array<() => void> = [];
 
 export class MovablePoint {
@@ -167,7 +163,6 @@ export class MovablePoint {
                 // because they:
                 //    - are objects, not primitives (and need a deeper copy)
                 //    - they don't need getters created for them
-                // TODO(jack): Consider "default" once we es3ify perseus
                 pluck(MovablePointOptions, "standard"),
                 // We only update props here, because we want things on state to
                 // be persistent, and updated appropriately in modify()
@@ -596,7 +591,6 @@ export class MovablePoint {
      *   with the event's standard parameters [usually (coord, prevCoord) or
      *   (state, prevState)]
      */
-    // TODO(benchristel): listen() is duplicated in movable.ts
     listen(eventName: string, id: string, func: () => unknown) {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         this._listenerMap = this._listenerMap || {};
@@ -616,8 +610,6 @@ export class MovablePoint {
      *
      * If the given id has not been registered already, this is a no-op
      */
-    // TODO(benchristel): I don't think unlisten is used. Delete it?
-    // TODO(benchristel): unlisten is duplicated in movable.ts
     unlisten(eventName, id) {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         this._listenerMap = this._listenerMap || {};
@@ -700,8 +692,6 @@ export class MovablePoint {
         if (this.movable) {
             this.movable.remove();
         }
-        // TODO(jack): This should really be moved off of
-        // movablePoint.state and only kept on movable.state
         this.state.mouseTarget = null;
     }
 
