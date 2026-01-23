@@ -71,15 +71,83 @@ Each widget type has its own specialized editor component.
 
 ## Data Flow
 
-Perseus follows a straightforward data flow:
+Perseus is in charge of creating, parsing, rendering, and scoring exercises.
 
-**1. Content is created and stored as structured data (PerseusItem or PerseusRenderer)**
+A high-level overview:
 
-**2. When displayed, this data is passed to the appropriate renderer**
+1. Content is created using widget editors
+2. We parse and migrate the data before using it
+3. The renderers take the data and render a UI
+4. We use the data and the user input to generate a score
 
-**3. The renderer parses the content, instantiates widgets, and renders the final output**
+### A More Detailed Look at Data Flow at Khan Academy
 
-**4. User interactions with widgets are processed and scored against expected answers**
+As much as possible, we decouple widget logic from shared logic:
+
+-   The editors defer to individual widget editors for creating widget options
+-   `splitPerseusItem` defers to individual widget splitting functions
+-   `parseAndMigratePerseusItem` defers to individual widget parsing functions
+-   The renderers defer to individual widget components for rendering/updating
+-   `validateUserInput` defers to individual widget validators
+-   `scorePerseusItem` defers to individual widget scorers
+
+#### Generating Content
+
+`@khanacademy/perseus-editor`
+
+-   We have two main editing pages:
+    -   `ArticleEditor` for editing articles
+    -   `EditorPage` for editing exercises
+-   The editing pages take the output from the widget editors to make a full piece of content
+    -   `PerseusArticle` for articles
+    -   `PerseusItem` for exercises
+-   The content is stringified and sent to the content pipeline
+-   The content pipeline parses content to find translatable strings
+
+Additionally for exercises, we generate an "answerless" version of the PerseusItem. This is sent to the learner pre-attempt to prevent cheating.
+
+#### Parsing Content
+
+`@khanacademy/perseus-core`
+
+Over time the shape of our data changes, so we migrate old versions of the data to new versions.
+
+-   We have parsers:
+    -   `parseAndMigratePerseusArticle` for articles
+    -   `parseAndMigratePerseusItem` for exercises
+-   They parse the stringified data into a valid object
+-   They migrate old formats of the content to the latest version
+
+#### Rendering Content
+
+`@khanacademy/perseus`
+
+-   We have multiple renderers:
+    -   `ArticleRenderer` for articles
+    -   `ServerItemRenderer` for exercises
+-   They take data and render a UI using React
+-   The UI is configurable (see `PerseusDependencies` and `ApiOptions`)
+
+#### Scoring User Input
+
+`@khanacademy/perseus-score`
+
+Widgets in articles are scored internally and scores are not recorded (see `GradedGroup` and `GradedGroupSet`).
+
+Scoring exercises is a little more complex:
+
+-   `ServerItemRenderer` provides `getUserInput` for getting the user input
+-   We do client-side validation using `validateUserInput`
+    -   We do as much validation as possible with the "answerless" `PerseusItem`
+-   We make a call to the Perseus Service (a Node server) for scoring
+    -   We provide the `UserInput`
+    -   We provide the "answerful" `PerseusItem`
+-   We call `scorePerseusItem`
+    -   It does server-side validation (validation requiring "answerful" data)
+    -   It scores each widgets
+    -   It returns a final score (correct/incorrect/invalid)
+
+We return the "answerful" `PerseusItem` with the attempt and the UI updates to show answer, hints, and rationales.
 
 ## TypeScript Types and Conventions
 
