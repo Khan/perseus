@@ -142,7 +142,6 @@ class Card extends React.Component<CardProps, CardState> {
             this.props.floating ||
             nextProps.floating ||
             this.props.content !== nextProps.content ||
-            // TODO(alpert): Remove ref here after fixing facebook/react#1392.
             this.props.fakeRef !== nextProps.fakeRef
         );
     }
@@ -455,7 +454,6 @@ class Orderer
         };
 
         // Find the position of the card we should animate to
-        // TODO(alpert): Update mouse position once more before animating?
         // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
         const offset = $(ReactDOM.findDOMNode(draggable)).position();
         let finalOffset = null;

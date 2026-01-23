@@ -1164,9 +1164,6 @@ class Plotter extends React.Component<Props, State> implements Widget {
     }
 
     render(): React.ReactNode {
-        // TODO(kevinb) actually compute the size of the graphie correctly and
-        // make it that size so we don't have to add extra padding.  The value
-        // was determined by eye-balling the layout.  :(
         const paddingForBottomLabel = 75;
         const style = {
             marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0,

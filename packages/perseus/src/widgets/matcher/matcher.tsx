@@ -303,7 +303,6 @@ const styles = StyleSheet.create({
     },
 
     column: {
-        // TODO(benkomalo): constraint to half width?
         padding: 0,
         border: 0,
     },

@@ -7,8 +7,6 @@
  * `Graphie` prototype for dealing with interactive graphie elements.
  */
 
-// TODO(emily): This file breaks our line length limits like nobody's business.
-// Figure out how to fix that.
 import {
     vector as kvector,
     point as kpoint,
@@ -1085,7 +1083,6 @@ _.extend(GraphUtils.Graphie.prototype, {
         for (let i = 0; i < lineSegment.ticks; ++i) {
             const tickoffset =
                 0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];
-            // TODO(kevinb) figure out why path isn't being used
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             path += GraphUtils.unscaledSvgPath([
                 [tickoffset, -7],
@@ -2399,9 +2396,6 @@ _.extend(GraphUtils.Graphie.prototype, {
                 if (event.type === "vmouseover") {
                     circle.highlight = true;
                     if (!dragging) {
-                        // TODO(jack): Figure out why this doesn't work
-                        // for circleHighlightStyle's that change
-                        // stroke-dasharray
                         circle.circ.animate(circle.circleHighlightStyle, 50);
                         circle.centerPoint.visibleShape.animate(
                             circle.centerHighlightStyle,
@@ -3584,8 +3578,6 @@ function MovableAngle(graphie: any, options: any) {
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.graphie = graphie;
 
-    // TODO(alex): Move standard colors from math.js to somewhere else
-    // so that they are available when this file is first parsed
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, options);
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.

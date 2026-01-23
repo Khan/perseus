@@ -129,8 +129,6 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
     );
 });
 
-// TODO(benchristel): Move this to a more central location if it's reused.
-// Or install the library.
 function classNames(
     ...names: Array<string | false | null | undefined>
 ): string {

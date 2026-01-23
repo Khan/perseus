@@ -290,8 +290,6 @@ describe("parsing", () => {
 
         expect("|x|").toParseAs("abs(x)");
         expect("||x||").toParseAs("abs(abs(x))");
-        // TODO(alex): fix the below so it doesn't require an *
-        // may require own lexer/preprocessor
         expect("|x|*|y|").toParseAs("abs(x)*abs(y)");
 
         expect("\\abs(x)").toParseAs("abs(x)");

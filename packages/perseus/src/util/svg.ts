@@ -81,8 +81,6 @@ function scaleCommandBy(scaleFactor: number): (command: Command) => Command {
     return (command) => {
         switch (command.action) {
             case "A":
-                // TODO(benchristel): do we want to refactor this switch to
-                // use polymorphism?
                 // Arc command
                 return {
                     ...command,

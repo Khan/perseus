@@ -28,8 +28,6 @@ describe("MathQuill", () => {
         document.body.removeChild(span);
     });
 
-    // TODO(charlie): Add tests for "FRAC_EXCLUSIVE" (the mixed-number
-    // fraction key).
     describe("Fraction Bar", () => {
         it("should work with no content", () => {
             mathField.pressKey("FRAC_INCLUSIVE");
@@ -166,14 +164,6 @@ describe("MathQuill", () => {
             mathField.pressKey("EXP");
             expect(mathField.getContent()).toEqual("35x^{ }");
         });
-
-        // TODO(kevinb): makes the expression an exponent when it shouldn't
-        it.skip("should work on a selected expression", () => {
-            mathField.setContent("35x+5");
-            mathField.selectAll();
-            mathField.pressKey("EXP");
-            expect(mathField.getContent()).toEqual("\\left(35x+5\\right)^{ }");
-        });
     });
 
     describe("Square Root", () => {
@@ -206,14 +196,6 @@ describe("MathQuill", () => {
             mathField.setContent("35x^{2}");
             mathField.pressKey("RADICAL");
             expect(mathField.getContent()).toEqual("35x^{2}\\sqrt[]{}");
-        });
-
-        it.skip("should work on a selected expression", () => {
-            mathField.setContent("35x+5");
-            mathField.selectAll();
-            mathField.pressKey("RADICAL");
-            // TODO(kevinb): check cursor location
-            expect(mathField.getContent()).toEqual("\\sqrt[ ]{35x+5}");
         });
     });
 
@@ -279,7 +261,6 @@ describe("MathQuill", () => {
             expect(mathField.getContent()).toEqual("35x^{2}");
         });
 
-        // TODO(kevinb) math isn't selected
         it("should select a fraction when deleting from outside of it", () => {
             const expr = "\\frac{35x+5}{x^{2}}";
             mathField.setContent(expr);
@@ -312,15 +293,6 @@ describe("MathQuill", () => {
             // Delete the first element within the parens
             mathField.pressKey("BACKSPACE");
             expect(mathField.getContent()).toEqual("\\left(35x+\\right)");
-        });
-
-        // TODO(kevinb) fix this behavior so that we delete the exponent too
-        it.skip("should not delete squared exponents", () => {
-            mathField.setContent("35x^{2}");
-            mathField.pressKey("BACKSPACE");
-            expect(mathField.getContent()).toEqual("35x^{2}");
-            mathField.pressKey("BACKSPACE");
-            expect(mathField.getContent()).toEqual("35x^{ }");
         });
 
         it("should not delete non-square exponents", () => {
@@ -643,10 +615,4 @@ describe("MathQuill", () => {
             expect(cursor[MQ.R].ctrlSeq).toEqual("5");
         });
     });
-
-    describe.skip("Jump out", () => {
-        // TODO(charlie): Write extensive tests for the 'Jump out' behavior.
-    });
-
-    describe.skip("Equals =, !=, <, <=, >, >=", () => {});
 });

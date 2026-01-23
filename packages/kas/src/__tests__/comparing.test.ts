@@ -163,8 +163,6 @@ describe("comparing", () => {
         expect("x^2+y^2=r^2").toEqualExpr("r^2=x^2+y^2");
         expect("23^1.5=110.304").toEqualExpr("110.304=23^1.5");
 
-        // TODO(alex): make sure that I have both positive and negative
-        // test cases for all functionality
         expect("6.12*10^-2").toEqualExpr("6.12*10^-2");
         expect("6.12*10^-2").not.toEqualExpr("6.12*10^-6");
 
@@ -198,7 +196,6 @@ describe("comparing", () => {
         expect("sin(500pi x)").not.toEqualExpr("sin(pi x)");
 
         // Check that floating point error isn't killing us
-        // TODO(jack): These don't seem to test much; make better tests
         expect("0").toEqualExpr("sin(7pi)");
         expect("sin(7pi)").toEqualExpr("0");
         expect("0").toEqualExpr("sin(500pi)");
@@ -293,8 +290,6 @@ describe("comparing", () => {
         // to isolate `f(x)` in each expression and then check that the
         // expressions that they're equal to are equal.  In this case that
         // would be `sin^2(x)+cos^2(x)` and `1`.
-        // TODO(TP-11651): Update compare to isolate functions on wide side
-        // before comparing expressions on the other side.
         // expect("f(x) = sin^2(x)+cos^2(x)").toEqualExpr("f(x) = 1");
         expect("f(x) = ln|x|+c").toEqualExpr("f(x)-ln|x|-c = 0");
 

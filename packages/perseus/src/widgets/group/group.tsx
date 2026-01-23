@@ -56,7 +56,7 @@ class Group extends React.Component<Props> implements Widget {
     };
 
     componentDidMount() {
-        // TODO(marcia): See comment in render method about our cyclical
+        // NOTE(marcia): See comment in render method about our cyclical
         // numbering scheme. We force another render so that we can annotate
         // the group with the correct number.
         this.forceUpdate();
@@ -107,8 +107,6 @@ class Group extends React.Component<Props> implements Widget {
             },
         };
 
-        // TODO(mdr): Widgets inside this Renderer are not discoverable through
-        //     the parent Renderer's `findWidgets` function.
         return (
             <div
                 className={classNames({

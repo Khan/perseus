@@ -21,7 +21,6 @@ type Story = StoryObj<typeof InputWithExamples>;
 
 const testExamples = ["Sample 1", "Sample 2", "Sample 3"];
 
-// TODO: This will be the states gallery for new documentation format.
 export const DefaultAndMostlyEmptyProps: Story = {};
 
 export const ListOfExamples: Story = {

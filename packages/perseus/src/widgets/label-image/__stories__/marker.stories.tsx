@@ -29,7 +29,7 @@ const Wrapper = (props) => (
     </div>
 );
 
-// TODO(jeremy): There are a bunch of props that we have to pass to the Marker
+// NOTE(jeremy): There are a bunch of props that we have to pass to the Marker
 // that are not used by it, but required because we share a props type.
 
 export const Unfilled = (args: StoryArgs): React.ReactElement => {

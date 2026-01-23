@@ -492,8 +492,6 @@ class InteractiveGraph extends React.Component<Props, State> {
             const angle = (2 * Math.PI) / n;
             const offset = (1 / n - 1 / 2) * Math.PI;
 
-            // TODO(alex): Generalize this to more than just triangles so that
-            // all polygons have whole number side lengths if snapping to sides
             const radius =
                 graph.snapTo === "sides" ? (Math.sqrt(3) / 3) * 7 : 4;
 
@@ -689,7 +687,6 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getCurrentQuadraticCoefficients(props: Props): QuadraticCoefficient {
-        // TODO(alpert): Don't duplicate
         const coords =
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             props.userInput.coords ||
@@ -752,7 +749,6 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static getCircleEquationString(props: Props): string {
         const graph = props.userInput;
-        // TODO(alpert): Don't duplicate
         // @ts-expect-error - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'.
         const center = graph.center || [0, 0];
         // @ts-expect-error - TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
