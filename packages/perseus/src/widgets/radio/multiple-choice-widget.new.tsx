@@ -10,7 +10,7 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import MultipleChoiceComponent from "./multiple-choice-component.new";
-import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
+import {getChoiceStates} from "./utils/general-utils";
 
 import type {
     WidgetProps,
@@ -41,6 +41,7 @@ export interface ChoiceType {
     correct: boolean;
     isNoneOfTheAbove: boolean;
     previouslyAnswered: boolean;
+    // TODO(LEMS-3783): remove uses of `revealNoneOfTheAbove`
     revealNoneOfTheAbove: boolean;
     disabled: boolean;
 }
@@ -90,6 +91,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             countChoices = false,
             showSolutions = "none",
             choiceStates,
+            // TODO(LEMS-3783): remove uses of `questionCompleted`
             questionCompleted,
             static: isStatic,
             apiOptions,
@@ -138,17 +140,13 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
         );
 
         /**
-         * Renders content that may contain nested widgets (currently only passage-refs).
-         * Parses the content, extracts any widgets, and returns a Renderer component
-         * configured with the appropriate context.
+         * Renders content for radio choice labels.
+         * Returns a Renderer component configured with the appropriate context.
          *
          * @param content - The content to render (defaults to empty string)
          * @returns A React element with the rendered content
          */
         const renderContent = (content = ""): React.ReactNode => {
-            const {parsedContent, extractedWidgets} =
-                parseNestedWidgets(content);
-
             // This has been called out as a hack in the past.
             // We pass in a key here so that we avoid a semi-spurious
             // react warning when the ChoiceNoneAbove renders a
@@ -156,8 +154,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             // state, but since all we're doing is outputting
             // "None of the above", that is okay. Widgets inside this Renderer
             // are not discoverable through the parent Renderer's `findWidgets` function.
-            // alwaysUpdate={true} so that passage-refs findWidgets
-            // get called when the outer passage updates the renderer
             const linterContext: LinterContextProps = {
                 contentType: "radio",
                 highlightLint: false,
@@ -174,8 +170,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                 >
                     <Renderer
                         key="choiceContentRenderer"
-                        content={parsedContent}
-                        widgets={extractedWidgets}
+                        content={content}
                         findExternalWidgets={findWidgets}
                         alwaysUpdate={true}
                         linterContext={linterContext}
@@ -305,13 +300,15 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                         : choice.content;
 
                 // Extract the choice state for the choice.
+                // Guard against undefined choiceStates when choices array length exceeds choiceStates length
+                // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
                 const {
-                    selected,
-                    rationaleShown,
-                    correctnessShown,
-                    readOnly,
-                    previouslyAnswered,
-                } = choiceStates[i];
+                    selected = false,
+                    rationaleShown = false,
+                    correctnessShown = false,
+                    readOnly = false,
+                    previouslyAnswered = false,
+                } = choiceStates[i] ?? {};
 
                 return {
                     id: choice.id,
@@ -324,6 +321,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
+                    // TODO(LEMS-3783): remove uses of `questionCompleted` and `revealNoneOfTheAbove`
                     revealNoneOfTheAbove: !!(questionCompleted && selected),
                     previouslyAnswered,
                 };
@@ -348,6 +346,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                 isStatic,
                 showSolutions,
                 choiceStates,
+                reviewMode,
             });
 
             // Build the choice props from the updated choice states

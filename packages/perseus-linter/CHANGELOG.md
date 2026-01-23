@@ -1,5 +1,74 @@
 # @khanacademy/perseus-linter
 
+## 4.6.11
+
+### Patch Changes
+
+-   Updated dependencies [[`2500753a99`](https://github.com/Khan/perseus/commit/2500753a99198b0e3966db2b00099061c40c2032), [`201c19d8ac`](https://github.com/Khan/perseus/commit/201c19d8ac0fa70177c967d211005444bb3d32ed)]:
+    -   @khanacademy/perseus-core@22.1.0
+    -   @khanacademy/kas@2.1.7
+    -   @khanacademy/kmath@2.2.29
+
+## 4.6.10
+
+### Patch Changes
+
+-   Updated dependencies [[`47ea66e85a`](https://github.com/Khan/perseus/commit/47ea66e85a5dc4fbe66eea2b125b73008cf14faf), [`800c03e92e`](https://github.com/Khan/perseus/commit/800c03e92e141d3c78486ce477946700ff9ac669)]:
+    -   @khanacademy/perseus-core@22.0.0
+    -   @khanacademy/kmath@2.2.28
+
+## 4.6.9
+
+### Patch Changes
+
+-   [#3155](https://github.com/Khan/perseus/pull/3155) [`9574a1edc1`](https://github.com/Khan/perseus/commit/9574a1edc1b1d8b4e0eca803f236990932697502) Thanks [@nishasy](https://github.com/nishasy)! - Warn content editors to add the correct keypad for expression widgets with exponents
+
+*   [#3168](https://github.com/Khan/perseus/pull/3168) [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix infinite loop in SvgImage component when loading graphie images. This fixes the "Maximum update depth exceeded" error (React error # 185) that was occurring when rendering graphie images (web+graphie:// URLs) in production.
+
+*   Updated dependencies [[`1c7a39281b`](https://github.com/Khan/perseus/commit/1c7a39281be6773e41115f8fd5eaf774d19b626e), [`85efea21c3`](https://github.com/Khan/perseus/commit/85efea21c3cf3a1faebd4f1f6add9e87b1076641)]:
+    -   @khanacademy/perseus-core@21.2.1
+    -   @khanacademy/kmath@2.2.27
+
+## 4.6.8
+
+### Patch Changes
+
+-   Updated dependencies [[`0e833ec4b5`](https://github.com/Khan/perseus/commit/0e833ec4b5e3f8dd7fdc1e948138c7fc7e250d72)]:
+    -   @khanacademy/perseus-core@21.2.0
+    -   @khanacademy/kmath@2.2.26
+
+## 4.6.7
+
+### Patch Changes
+
+-   Updated dependencies [[`ad36c9195e`](https://github.com/Khan/perseus/commit/ad36c9195e68031b37e529c3cd1fe81e5c159cfd), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`12ec59f0fe`](https://github.com/Khan/perseus/commit/12ec59f0fea0055ad1310d1b407994256f0c3897), [`693b63d445`](https://github.com/Khan/perseus/commit/693b63d445d0fa71b9a7cbea79a34d6860dcfef6), [`e8247e65b4`](https://github.com/Khan/perseus/commit/e8247e65b482b24f18f85c6a5ee5fce3afadc383), [`ef79632da5`](https://github.com/Khan/perseus/commit/ef79632da5e595672320e1cd1abeb9661362b7c5)]:
+    -   @khanacademy/perseus-core@21.1.0
+    -   @khanacademy/kmath@2.2.25
+
+## 4.6.6
+
+### Patch Changes
+
+-   Updated dependencies [[`8f8bcd1c37`](https://github.com/Khan/perseus/commit/8f8bcd1c37c3119d27401ef088ca33d0b1ee7705)]:
+    -   @khanacademy/perseus-core@21.0.2
+    -   @khanacademy/kmath@2.2.24
+
+## 4.6.5
+
+### Patch Changes
+
+-   Updated dependencies [[`86ecef3f5c`](https://github.com/Khan/perseus/commit/86ecef3f5cf2609dd3522a8b4f125bba086c34a3)]:
+    -   @khanacademy/perseus-core@21.0.1
+    -   @khanacademy/kmath@2.2.23
+
+## 4.6.4
+
+### Patch Changes
+
+-   Updated dependencies [[`c674007016`](https://github.com/Khan/perseus/commit/c6740070169dedaac85056d6b972ad1f2145bc3c), [`75eb53092c`](https://github.com/Khan/perseus/commit/75eb53092c04c85224ab6d586888a4ed0bf8300f), [`5efb2b5f25`](https://github.com/Khan/perseus/commit/5efb2b5f259994be85af04967371638a4a91bda6)]:
+    -   @khanacademy/perseus-core@21.0.0
+    -   @khanacademy/kmath@2.2.22
+
 ## 4.6.3
 
 ### Patch Changes

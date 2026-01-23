@@ -1,20 +1,16 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateRadioOptions,
+    generateRadioWidget,
+    generateTestPerseusItem,
+} from "@khanacademy/perseus-core";
 
 export const PerseusItemWithRadioWidget = generateTestPerseusItem({
     question: {
         content: "Here's a radio widget: [[\u2603 radio 1]] \n\n",
         images: {},
         widgets: {
-            "radio 1": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "radio",
-                options: {
-                    countChoices: false,
-                    deselectEnabled: false,
-                    hasNoneOfTheAbove: false,
-                    multipleSelect: false,
+            "radio 1": generateRadioWidget({
+                options: generateRadioOptions({
                     randomize: true,
                     choices: [
                         {
@@ -38,20 +34,11 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
                             correct: false,
                         },
                     ],
-                },
-                alignment: "default",
-            },
+                }),
+            }),
             // This widget is not used in the content for testing purposes.
-            "radio 2": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "radio",
-                options: {
-                    countChoices: false,
-                    deselectEnabled: false,
-                    hasNoneOfTheAbove: false,
-                    multipleSelect: false,
+            "radio 2": generateRadioWidget({
+                options: generateRadioOptions({
                     randomize: true,
                     choices: [
                         {
@@ -75,9 +62,8 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
                             correct: false,
                         },
                     ],
-                },
-                alignment: "default",
-            },
+                }),
+            }),
         },
     },
     hints: [

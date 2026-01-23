@@ -6,6 +6,7 @@ function buttonNotInButtonSet(name: string, set: string): string {
 
 const stringToButtonSet = {
     "\\sqrt": "prealgebra",
+    "^": "prealgebra",
     "\\sin": "trig",
     "\\cos": "trig",
     "\\tan": "trig",

@@ -2,6 +2,8 @@ import {Util} from "@khanacademy/perseus";
 import {
     generateImageOptions,
     generateImageWidget,
+    generateRadioOptions,
+    generateRadioWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
@@ -17,18 +19,15 @@ import {
     getCtaForIssueId,
 } from "./issue-ctas-utils";
 
-import type {PerseusWidgetsMap, RadioWidget} from "@khanacademy/perseus-core";
+import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 const defaultImageWidget = generateImageWidget({
-    options: generateImageOptions({}),
+    options: generateImageOptions(),
 });
 
-const defaultRadioWidget: RadioWidget = {
-    type: "radio",
-    options: {
-        choices: [],
-    },
-};
+const defaultRadioWidget = generateRadioWidget({
+    options: generateRadioOptions(),
+});
 
 describe("getFirstAvailableWidgetIndex", () => {
     // Breaking this out so that it won't complain about types.

@@ -38,7 +38,6 @@ export {default as GrapherWidget} from "./widgets/grapher";
 
 // Some utils in grapher/utils and scoring don't need to be used outside of
 // `perseus`, so only export the stuff that does need to be exposed
-import {keScoreFromPerseusScore} from "./util/scoring";
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -53,10 +52,6 @@ export const GrapherUtil = {
     defaultPlotProps,
     getEquationString,
     typeToButton,
-};
-
-export const ScoringUtil = {
-    keScoreFromPerseusScore,
 };
 
 /**
@@ -104,37 +99,8 @@ export {
     getAnswerFromUserInput,
     getImagesWithoutAltData,
 } from "./util/extract-perseus-data";
-export {
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    parsePerseusItem,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    parseAndMigratePerseusItem,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    parseAndMigratePerseusArticle,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    isSuccess,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    isFailure,
-    getAnswersFromWidgets,
-    injectWidgets,
-    getPerseusAIData,
-} from "@khanacademy/perseus-core";
 
-export {
-    generateTestRadioWidget,
-    generateTestInteractiveGraphWidget,
-    generateTestCategorizerWidget,
-} from "./util/test-utils";
+export {generateTestCategorizerWidget} from "./util/test-utils";
 export {
     getWidgetTypeByWidgetId,
     getWidgetSubTypeByWidgetId,
@@ -190,6 +156,7 @@ export type {
     EditorMode,
     FocusPath,
     GenerateUrlArgs,
+    GraphieLabelElement,
     ImageDict,
     ImageUploader,
     JiptLabelStore,
@@ -202,20 +169,6 @@ export type {
     SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
-export type {
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    Result,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    Success,
-    /**
-     * @deprecated - import this function from perseus-core instead
-     */
-    Failure,
-} from "@khanacademy/perseus-core";
 export type {Coord} from "./interactive2/types";
 export type {
     RendererPromptJSON,

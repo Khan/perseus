@@ -35,8 +35,13 @@ export function getUserInputFromSerializedState(
         const choiceStates = serializedState.choiceStates;
 
         for (let i = 0; i < choiceStates.length; i++) {
-            if (choiceStates[i].selected) {
-                selectedChoiceIds.push(serializedState.choices[i].id);
+            // Guard against undefined choiceStates when choices array length exceeds choiceStates length
+            // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
+            if (choiceStates[i]?.selected) {
+                const choiceId = serializedState.choices[i]?.id;
+                if (choiceId) {
+                    selectedChoiceIds.push(choiceId);
+                }
             }
         }
         return {

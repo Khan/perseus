@@ -2,6 +2,9 @@ import {
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
+    generateGroupOptions,
+    generateGroupWidget,
+    generateRadioWidget,
     type PerseusWidgetsMap,
     type UserInputMap,
 } from "@khanacademy/perseus-core";
@@ -43,14 +46,12 @@ function generateNumberLineMap(): PerseusWidgetsMap {
 
 function generateGroupedNumberLineMap(): PerseusWidgetsMap {
     return {
-        "group 1": {
-            type: "group",
-            options: {
+        "group 1": generateGroupWidget({
+            options: generateGroupOptions({
                 content: "[[☃ number-line 1]]",
                 widgets: generateNumberLineMap(),
-                images: {},
-            },
-        },
+            }),
+        }),
     };
 }
 
@@ -272,21 +273,17 @@ describe("UserInputManager", () => {
     it("initializes static user input", async () => {
         const renderSpy = jest.fn();
         const widgets: PerseusWidgetsMap = {
-            "radio 1": {
-                type: "radio",
+            "dropdown 1": {
+                type: "dropdown",
                 static: true,
+                graded: true,
                 options: {
+                    placeholder: "Select an option",
+                    static: true,
                     choices: [
-                        {
-                            id: "0-0-0-0-0",
-                            content: "Correct",
-                            correct: true,
-                        },
-                        {
-                            id: "1-1-1-1-1",
-                            content: "Incorrect",
-                            correct: false,
-                        },
+                        {content: "Incorrect", correct: false},
+                        {content: "Correct", correct: true},
+                        {content: "Also incorrect", correct: false},
                     ],
                 },
             },
@@ -299,8 +296,8 @@ describe("UserInputManager", () => {
         );
 
         expect(renderSpy).toHaveBeenCalledWith({
-            "radio 1": {
-                selectedChoiceIds: ["0-0-0-0-0"],
+            "dropdown 1": {
+                value: 2, // "Correct" is at index 1, so 1-indexed = 2
             },
         });
     });
@@ -309,8 +306,7 @@ describe("UserInputManager", () => {
         const renderSpy = jest.fn();
 
         const widgets: PerseusWidgetsMap = {
-            "radio 1": {
-                type: "radio",
+            "radio 1": generateRadioWidget({
                 static: false,
                 options: {
                     choices: [
@@ -326,7 +322,7 @@ describe("UserInputManager", () => {
                         },
                     ],
                 },
-            },
+            }),
         };
 
         const initialUserInput: UserInputMap = {
@@ -354,8 +350,7 @@ describe("UserInputManager", () => {
 
     it("allows initial user input to be changed", async () => {
         const widgets: PerseusWidgetsMap = {
-            "radio 1": {
-                type: "radio",
+            "radio 1": generateRadioWidget({
                 static: false,
                 options: {
                     choices: [
@@ -371,7 +366,7 @@ describe("UserInputManager", () => {
                         },
                     ],
                 },
-            },
+            }),
         };
 
         const initialUserInput: UserInputMap = {

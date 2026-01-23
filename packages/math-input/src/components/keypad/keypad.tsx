@@ -1,25 +1,20 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {Tabs} from "@khanacademy/wonder-blocks-tabs";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import xBold from "@phosphor-icons/core/bold/x-bold.svg";
 import * as React from "react";
 import {useEffect} from "react";
 
-import Tabbar from "../tabbar";
-
-import ExtrasPage from "./keypad-pages/extras-page";
-import FractionsPage from "./keypad-pages/fractions-page";
-import GeometryPage from "./keypad-pages/geometry-page";
-import NumbersPage from "./keypad-pages/numbers-page";
-import OperatorsPage from "./keypad-pages/operators-page";
-import NavigationPad from "./navigation-pad";
-import SharedKeys from "./shared-keys";
-import {expandedViewThreshold} from "./utils";
+import {KeypadFractionsOnly} from "./keypad-fractions-only";
+import styles from "./keypad.module.css";
+import {getAvailableTabs} from "./utils/get-available-tabs";
 
 import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 import type {PerseusAnalyticsEvent, KeypadKey} from "@khanacademy/perseus-core";
 
-type Props = {
+export interface KeypadProps {
     extraKeys?: ReadonlyArray<KeypadKey>;
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
     showDismiss?: boolean;
@@ -42,69 +37,61 @@ type Props = {
             {type: "math-input:keypad-opened" | "math-input:keypad-closed"}
         >,
     ) => void;
-};
-
-function getAvailableTabs(props: Props): ReadonlyArray<KeypadPageType> {
-    // We don't want to show any available tabs on the fractions keypad
-    if (props.fractionsOnly) {
-        return [];
-    }
-
-    const tabs: Array<KeypadPageType> = ["Numbers"];
-    if (
-        // OperatorsButtonSets
-        props.preAlgebra ||
-        props.logarithms ||
-        props.basicRelations ||
-        props.advancedRelations
-    ) {
-        tabs.push("Operators");
-    }
-
-    if (props.trigonometry) {
-        tabs.push("Geometry");
-    }
-
-    if (props.extraKeys?.length) {
-        tabs.push("Extras");
-    }
-
-    return tabs;
 }
+
+// Inline styles needed because CSS modules don't have enough specificity
+// to override Wonder Blocks View default styles
+const keypadOuterContainerStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+} as const;
+
+// Border and layout styles for expanded view (iPad landscape)
+// These are duplicated from keypad.module.css (.expanded-wrapper) but must be
+// inline styles because WonderBlocks View's default styles override CSS module classes
+const expandedWrapperStyle = {
+    borderWidth: border.width.thin,
+    borderStyle: "solid",
+    borderColor: semanticColor.core.border.neutral.subtle,
+    maxWidth: 500,
+    borderRadius: border.radius.radius_040,
+} as const;
+
+const tabsStyles = {
+    tab: {
+        marginBlockStart: sizing.size_080,
+        marginBlockEnd: sizing.size_080,
+    },
+    tablist: {
+        gap: sizing.size_080,
+        paddingInline: sizing.size_080,
+    },
+    tabPanel: {
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "nowrap",
+        backgroundColor: semanticColor.core.background.disabled.strong,
+        direction: "ltr",
+    },
+} as const;
 
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
-export default function Keypad({extraKeys = [], ...props}: Props) {
-    // If we're using the Fractions keypad, we want to default select that page
-    // Otherwise, we want to default to the Numbers page
-    const defaultSelectedPage = props.fractionsOnly ? "Fractions" : "Numbers";
-    const [selectedPage, setSelectedPage] =
-        React.useState<KeypadPageType>(defaultSelectedPage);
-    const [isMounted, setIsMounted] = React.useState<boolean>(false);
-
-    // We don't want any tabs available on mobile fractions keypad
-    const availableTabs = getAvailableTabs({...props, extraKeys});
-
+export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
     const {
-        onClickKey,
-        cursorContext,
-        convertDotToTimes,
-        divisionKey,
-        preAlgebra,
-        logarithms,
-        basicRelations,
-        advancedRelations,
-        scientific,
-        showDismiss,
         onAnalyticsEvent,
         fractionsOnly,
         expandedView,
+        showDismiss,
+        onClickKey,
     } = props;
-
-    // Use a different grid for our fraction keypad
-    const gridStyle = fractionsOnly
-        ? styles.fractionsGrid
-        : styles.expressionGrid;
+    // If we're using the Fractions keypad, we want to default select that page
+    // Otherwise, we want to default to the Numbers page
+    const defaultSelectedPage = fractionsOnly ? "Fractions" : "Numbers";
+    const [selectedPage, setSelectedPage] =
+        React.useState<KeypadPageType>(defaultSelectedPage);
+    const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
     // This useEffect is only used to ensure that we can test the keypad in storybook
     useEffect(() => {
@@ -130,108 +117,61 @@ export default function Keypad({extraKeys = [], ...props}: Props) {
         };
     }, [onAnalyticsEvent, isMounted]);
 
-    return (
-        <View style={expandedView ? styles.keypadOuterContainer : null}>
-            <View
-                style={[
-                    styles.wrapper,
-                    expandedView ? styles.expandedWrapper : null,
-                ]}
-            >
-                <Tabbar
-                    items={availableTabs}
-                    selectedItem={selectedPage}
-                    onSelectItem={(newSelectedPage: KeypadPageType) => {
-                        setSelectedPage(newSelectedPage);
-                    }}
-                    onClickClose={
-                        showDismiss ? () => onClickKey("DISMISS") : undefined
-                    }
-                />
+    // We don't want to show any available tabs on the fraction keypad
+    if (fractionsOnly) {
+        return <KeypadFractionsOnly {...props} />;
+    }
 
-                <View style={styles.keypadInnerContainer}>
+    // We don't want any tabs available on mobile fractions keypad
+    // TODO(ivy): figure out how the getAvailableTabs influences mobile fractions keypad
+    const availableTabs = getAvailableTabs({...props, extraKeys}, selectedPage);
+
+    return (
+        <View
+            className={expandedView ? styles.keypadOuterContainer : ""}
+            style={expandedView ? keypadOuterContainerStyle : undefined}
+        >
+            <View
+                className={`${styles.wrapper} ${expandedView ? styles.expandedWrapper : ""}`}
+                style={
+                    expandedView
+                        ? {...expandedWrapperStyle, position: "relative"}
+                        : {position: "relative"}
+                }
+            >
+                {showDismiss && (
                     <View
-                        style={[styles.keypadGrid, gridStyle]}
-                        aria-label="Keypad"
+                        style={{
+                            position: "absolute",
+                            top: sizing.size_120,
+                            right: sizing.size_080,
+                            zIndex: 10,
+                        }}
                     >
-                        {selectedPage === "Fractions" && (
-                            <FractionsPage
-                                onClickKey={onClickKey}
-                                cursorContext={cursorContext}
-                            />
-                        )}
-                        {selectedPage === "Numbers" && (
-                            <NumbersPage
-                                onClickKey={onClickKey}
-                                scientific={scientific}
-                            />
-                        )}
-                        {selectedPage === "Extras" && (
-                            <ExtrasPage
-                                onClickKey={onClickKey}
-                                extraKeys={extraKeys}
-                            />
-                        )}
-                        {selectedPage === "Operators" && (
-                            <OperatorsPage
-                                onClickKey={onClickKey}
-                                preAlgebra={preAlgebra}
-                                logarithms={logarithms}
-                                basicRelations={basicRelations}
-                                advancedRelations={advancedRelations}
-                            />
-                        )}
-                        {selectedPage === "Geometry" && (
-                            <GeometryPage onClickKey={onClickKey} />
-                        )}
-                        {!fractionsOnly && (
-                            <SharedKeys
-                                onClickKey={onClickKey}
-                                cursorContext={cursorContext}
-                                convertDotToTimes={convertDotToTimes}
-                                divisionKey={divisionKey}
-                                selectedPage={selectedPage}
-                            />
-                        )}
+                        <IconButton
+                            icon={xBold}
+                            kind="tertiary"
+                            aria-label="Dismiss"
+                            onClick={() => onClickKey("DISMISS")}
+                            size="xsmall"
+                            tabIndex={0}
+                            style={{
+                                color: semanticColor.core.foreground.neutral
+                                    .default,
+                            }}
+                        />
                     </View>
-                    {expandedView && <NavigationPad onClickKey={onClickKey} />}
-                </View>
+                )}
+                <Tabs
+                    aria-label="Keypad"
+                    tabs={availableTabs}
+                    selectedTabId={selectedPage}
+                    onTabSelected={(newSelectedPage: string) => {
+                        setSelectedPage(newSelectedPage as KeypadPageType);
+                    }}
+                    styles={tabsStyles}
+                />
             </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    keypadOuterContainer: {
-        display: "flex",
-        alignItems: "center",
-    },
-    wrapper: {
-        background: color.white,
-    },
-    expandedWrapper: {
-        borderWidth: "1px 1px 0 1px",
-        borderColor: color.offBlack32,
-        maxWidth: expandedViewThreshold,
-        borderRadius: "3px 3px 0 0",
-    },
-    keypadInnerContainer: {
-        display: "flex",
-        flexDirection: "row",
-        backgroundColor: "#DBDCDD",
-        // Even in RTL languages, math is LTR.
-        // So we force this component to always render LTR
-        direction: "ltr",
-    },
-    keypadGrid: {
-        display: "grid",
-        gridTemplateRows: "repeat(4, 1fr)",
-        flex: 1,
-    },
-    expressionGrid: {
-        gridTemplateColumns: "repeat(6, 1fr)",
-    },
-    fractionsGrid: {
-        gridTemplateColumns: "repeat(5, 1fr)",
-    },
-});

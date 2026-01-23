@@ -1,6 +1,5 @@
 export type {PerseusAnalyticsEvent, AnalyticsEventHandlerFn} from "./analytics";
 export type {
-    KEScore,
     RendererInterface,
     MarkerType,
     InteractiveMarkerType,
@@ -41,7 +40,6 @@ export {itemHasHints} from "./utils/item-has-hints";
 export {makeSafeUrl} from "./utils/make-safe-url";
 
 export {
-    parsePerseusItem,
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
     parseAndMigrateUserInputMap,
@@ -112,12 +110,6 @@ export {default as numericInputLogic} from "./widgets/numeric-input";
 export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
 export {default as ordererLogic} from "./widgets/orderer";
 export type {OrdererDefaultWidgetOptions} from "./widgets/orderer";
-export {default as passageLogic} from "./widgets/passage";
-export type {PassageDefaultWidgetOptions} from "./widgets/passage";
-export {default as passageRefLogic} from "./widgets/passage-ref";
-export type {PassageRefDefaultWidgetOptions} from "./widgets/passage-ref";
-export {default as passageRefTargetLogic} from "./widgets/passage-ref-target";
-export type {PassageRefTargetDefaultWidgetOptions} from "./widgets/passage-ref-target";
 export {default as phetSimulationLogic} from "./widgets/phet-simulation";
 export type {PhetSimulationDefaultWidgetOptions} from "./widgets/phet-simulation";
 export {default as plotterLogic} from "./widgets/plotter";
@@ -230,14 +222,52 @@ export {
     generateFreeResponseWidget,
 } from "./utils/generators/free-response-widget-generator";
 export {
+    generateGradedGroupOptions,
+    generateGradedGroupWidget,
+} from "./utils/generators/graded-group-widget-generator";
+export {generateGradedGroupSetWidget} from "./utils/generators/graded-group-set-widget-generator";
+export {
+    generateGroupOptions,
+    generateGroupWidget,
+} from "./utils/generators/group-widget-generator";
+export {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
+export {
+    generateInteractiveGraphOptions,
+    generateIGAngleGraph,
+    generateIGCircleGraph,
+    generateIGLinearGraph,
+    generateIGLinearSystemGraph,
+    generateIGNoneGraph,
+    generateIGPointGraph,
+    generateIGPolygonGraph,
+    generateIGQuadraticGraph,
+    generateIGRayGraph,
+    generateIGSegmentGraph,
+    generateIGSinusoidGraph,
+    generateIGLockedPoint,
+    generateIGLockedLine,
+    generateIGLockedVector,
+    generateIGLockedEllipse,
+    generateIGLockedPolygon,
+    generateIGLockedFunction,
+    generateIGLockedLabel,
+    generateInteractiveGraphWidget,
+} from "./utils/generators/interactive-graph-widget-generator";
 export {
     generateNumericInputOptions,
     generateNumericInputAnswer,
     generateNumericInputWidget,
 } from "./utils/generators/numeric-input-widget-generator";
+export {
+    generateRadioOptions,
+    generateRadioWidget,
+    generateRadioChoice,
+    generateSimpleRadioQuestion,
+    generateSimpleRadioItem,
+} from "./utils/generators/radio-widget-generator";
 export {generateVideoWidget} from "./utils/generators/video-widget-generator";
 
 export {

@@ -407,17 +407,19 @@ class Plotter extends React.Component<Props, State> implements Widget {
             },
         );
 
-        graphie
+        const xAxisLabel = graphie
             .label(
                 [c.dimX / 2, isMobile ? -padBottom : -35 / c.scale[1]],
                 self.props.labels[0],
                 isMobile ? "above" : "below",
                 false,
             )
-            .css("font-weight", "bold")
-            .css("color", isMobile && KhanColors.GRAY_F);
+            .css("font-weight", "bold");
+        if (isMobile) {
+            xAxisLabel.css("color", KhanColors.GRAY_F);
+        }
 
-        graphie
+        const yAxisLabel = graphie
             .label(
                 [(isMobile ? -35 : -60) / c.scale[0], c.dimY / 2],
                 self.props.labels[1],
@@ -425,8 +427,10 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 false,
             )
             .css("font-weight", "bold")
-            .css("color", isMobile && KhanColors.GRAY_F)
             .addClass("rotate");
+        if (isMobile) {
+            yAxisLabel.css("color", KhanColors.GRAY_F);
+        }
 
         if (this.props.apiOptions.isMobile) {
             this.horizHairline = new WrappedLine(this.graphie, [0, 0], [0, 0], {

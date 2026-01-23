@@ -1,4 +1,11 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+    generateRadioWidget,
+    generateRadioOptions,
+    generateRadioChoice,
+    generateSimpleRadioItem,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
@@ -9,10 +16,8 @@ import {
     choicesWithGraphie,
     choicesWithImages,
     overflowContentInGradedGroupSet,
-    questionWithPassage,
     questionWithRationale,
 } from "../__tests__/radio.testdata";
-import {radioQuestionBuilder} from "../radio-question-builder";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {StoryObj} from "@storybook/react-vite";
@@ -42,27 +47,33 @@ export default {
 
 export const SingleSelect: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2")
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .build(),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
 };
 
 export const SingleSelectWithNoneOfTheAbove: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2")
-                .addChoice("Choice 3")
-                .addChoice("None of the above", {isNoneOfTheAbove: true})
-                .withHasNoneOfTheAbove(true)
-                .build(),
+        item: generateSimpleRadioItem({
+            hasNoneOfTheAbove: true,
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("None of the above", {
+                    isNoneOfTheAbove: true,
+                }),
+            ],
         }),
     },
 };
@@ -70,28 +81,42 @@ export const SingleSelectWithNoneOfTheAbove: Story = {
 export const SingleSelectStatic: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2")
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .withStatic(true)
-                .build(),
+            question: generateTestPerseusRenderer({
+                content: "[[☃ radio 1]]",
+                widgets: {
+                    "radio 1": generateRadioWidget({
+                        // Static widget
+                        static: true,
+                        options: generateRadioOptions({
+                            choices: [
+                                generateRadioChoice("Choice 1", {
+                                    correct: true,
+                                }),
+                                generateRadioChoice("Choice 2"),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
+                            ],
+                        }),
+                    }),
+                },
+            }),
         }),
     },
 };
 
 export const SingleSelectShowSolutions: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1")
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1"),
                 // Leaving the correct choice in the second position to test that
                 //     the first choice still has a top border.
-                .addChoice("Choice 2", {correct: true})
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .build(),
+                generateRadioChoice("Choice 2", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
         showSolutions: "all",
     },
@@ -99,24 +124,17 @@ export const SingleSelectShowSolutions: Story = {
 
 export const SingleSelectRTL: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2")
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .build(),
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
         rtl: true,
-    },
-};
-
-export const SingleSelectWithPassageRef: Story = {
-    args: {
-        // Can't use radioQuestionBuilder here because it also includes a passage widget.
-        item: generateTestPerseusItem({
-            question: questionWithPassage,
-        }),
     },
 };
 
@@ -140,59 +158,65 @@ export const SingleSelectWithImages: Story = {
 export const SingleSelectWithImagesAndScroll: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .withContent("Select 9 ponies.[[\u2603 radio 1]]\n\n")
-                .addChoice(
-                    "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
-                    {
-                        correct: true,
-                    },
-                )
-                .addChoice(
-                    "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
-                )
-                .addChoice(
-                    "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
-                )
-                .build(),
+            question: generateTestPerseusRenderer({
+                content: "Select 9 ponies.[[\u2603 radio 1]]\n\n",
+                widgets: {
+                    "radio 1": generateRadioWidget({
+                        options: generateRadioOptions({
+                            choices: [
+                                generateRadioChoice(
+                                    "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice(
+                                    "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
+                                ),
+                                generateRadioChoice(
+                                    "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
+                                ),
+                            ],
+                        }),
+                    }),
+                },
+            }),
         }),
     },
 };
 
 export const SingleSelectWithLongMathjax: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice(
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice(
                     "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
                     {correct: true},
-                )
-                .addChoice("$100-50$")
-                .addChoice("$200-125+10$")
-                .addChoice("$10+10+10+10$")
-                .build(),
+                ),
+                generateRadioChoice("$100-50$"),
+                generateRadioChoice("$200-125+10$"),
+                generateRadioChoice("$10+10+10+10$"),
+            ],
         }),
     },
 };
 
 export const SingleSelectWithLongText: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice(
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
                     {correct: true},
-                )
-                .addChoice(
+                ),
+                generateRadioChoice(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                )
-                .addChoice(
+                ),
+                generateRadioChoice(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                )
-                .addChoice(
+                ),
+                generateRadioChoice(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                )
-                .build(),
+                ),
+            ],
         }),
     },
 };
@@ -209,30 +233,36 @@ export const SingleSelectWithGraphie = {
 
 export const MultiSelect: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2")
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .withMultipleSelect(true)
-                .build(),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
 };
 
 export const MultiSelectCountChoices: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2", {correct: true})
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .withMultipleSelect(true)
-                .withCountChoices(true)
-                .withNumCorrect(2)
-                .build(),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            countChoices: true,
+            numCorrect: 2,
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
     },
 };
@@ -240,31 +270,49 @@ export const MultiSelectCountChoices: Story = {
 export const MultiSelectStatic: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2", {correct: true})
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .withMultipleSelect(true)
-                .withStatic(true)
-                .build(),
+            question: generateTestPerseusRenderer({
+                content: "[[☃ radio 1]]",
+                widgets: {
+                    "radio 1": generateRadioWidget({
+                        // Static widget
+                        static: true,
+                        options: generateRadioOptions({
+                            multipleSelect: true,
+                            choices: [
+                                generateRadioChoice("Choice 1", {
+                                    correct: true,
+                                }),
+                                generateRadioChoice("Choice 2", {
+                                    correct: true,
+                                }),
+                                generateRadioChoice("Choice 3"),
+                                generateRadioChoice("Choice 4"),
+                            ],
+                        }),
+                    }),
+                },
+            }),
         }),
     },
 };
 
 export const MultiSelectShowSolutions: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
                 // Tests that borders between separate correct answers are hidden properly
-                .addChoice("Choice 2")
-                .addChoice("Choice 3", {correct: true})
+                generateRadioChoice("Choice 2"),
+                generateRadioChoice("Choice 3", {
+                    correct: true,
+                }),
                 // Leaving the last choice as not correct to test that there is still a bottom border
                 // (i.e. the removal of the border only affects the top of the choice, not the whole choice.)
-                .addChoice("Choice 4")
-                .withMultipleSelect(true)
-                .build(),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
         showSolutions: "all",
     },
@@ -272,14 +320,18 @@ export const MultiSelectShowSolutions: Story = {
 
 export const MultiSelectRTL: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice("Choice 1", {correct: true})
-                .addChoice("Choice 2", {correct: true})
-                .addChoice("Choice 3")
-                .addChoice("Choice 4")
-                .withMultipleSelect(true)
-                .build(),
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice("Choice 1", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 2", {
+                    correct: true,
+                }),
+                generateRadioChoice("Choice 3"),
+                generateRadioChoice("Choice 4"),
+            ],
         }),
         rtl: true,
     },
@@ -287,19 +339,19 @@ export const MultiSelectRTL: Story = {
 
 export const MultiSelectWithLongMathjax: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice(
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice(
                     "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
                     {correct: true},
-                )
-                .addChoice("$100-50$", {
+                ),
+                generateRadioChoice("$100-50$", {
                     correct: true,
-                })
-                .addChoice("$200-125+10$")
-                .addChoice("$10+10+10+10$")
-                .withMultipleSelect(true)
-                .build(),
+                }),
+                generateRadioChoice("$200-125+10$"),
+                generateRadioChoice("$10+10+10+10$"),
+            ],
         }),
     },
 };
@@ -307,49 +359,53 @@ export const MultiSelectWithLongMathjax: Story = {
 export const MultiSelectWithImagesAndScroll: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .withContent("Select 9 ponies.[[\u2603 radio 1]]\n\n")
-                .addChoice(
-                    "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
-                    {
-                        correct: true,
-                    },
-                )
-                .addChoice(
-                    "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
-                    {
-                        correct: true,
-                    },
-                )
-                .addChoice(
-                    "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
-                )
-                .withMultipleSelect(true)
-                .build(),
+            question: generateTestPerseusRenderer({
+                content: "Select 9 ponies.[[\u2603 radio 1]]\n\n",
+                widgets: {
+                    "radio 1": generateRadioWidget({
+                        options: generateRadioOptions({
+                            multipleSelect: true,
+                            choices: [
+                                generateRadioChoice(
+                                    "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice(
+                                    "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
+                                    {correct: true},
+                                ),
+                                generateRadioChoice(
+                                    "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
+                                ),
+                            ],
+                        }),
+                    }),
+                },
+            }),
         }),
     },
 };
 
 export const MultiSelectWithLongText: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice(
+        item: generateSimpleRadioItem({
+            multipleSelect: true,
+            choices: [
+                generateRadioChoice(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
                     {correct: true},
-                )
-                .addChoice(
+                ),
+                generateRadioChoice(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
                     {correct: true},
-                )
-                .addChoice(
+                ),
+                generateRadioChoice(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                )
-                .addChoice(
+                ),
+                generateRadioChoice(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
-                )
-                .withMultipleSelect(true)
-                .build(),
+                ),
+            ],
         }),
     },
 };

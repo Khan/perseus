@@ -4,13 +4,5 @@
 # AI Utils are owned by Tutor Platform
 widget-ai-utils/* @Khan/tut
 
-# For new radio widget project
-**/widgets/radio/** @ivyolamit @mark-fitzgerald @SonicScrewdriver @anakaren-rojas
-
 # For image widget project
 **/widgets/image/** @nishasy @ivyolamit @catandthemachines
-
-# For math input and keypad temporary ownership while doing a big refactor
-packages/math-input/src/components/keypad/** @ivyolamit
-packages/math-input/src/components/tabbar/** @ivyolamit
-packages/perseus/src/components/math-input.tsx @ivyolamit

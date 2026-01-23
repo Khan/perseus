@@ -4,41 +4,28 @@
  */
 
 import {Dependencies, type PerseusDependenciesV2} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import RendererDiff from "./renderer-diff";
 
-const rendererProps = PropTypes.shape({
-    content: PropTypes.string,
-    images: PropTypes.objectOf(PropTypes.any),
-    widgets: PropTypes.objectOf(PropTypes.any),
-});
+import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
 
 interface Props {
-    after: any;
-    before: any;
+    after: PerseusArticle;
+    before: PerseusArticle;
     dependencies: PerseusDependenciesV2;
 }
 
-type State = any;
+type ArticleDiffState = {
+    // Externally we allow both arrays and single PerseusRenderer objects.
+    // Internally we convert to arrays.
+    before: PerseusRenderer[];
+    after: PerseusRenderer[];
+};
 
-class ArticleDiff extends React.Component<Props, State> {
-    static propTypes = {
-        // TODO(alex): Check whether we still have any Perseus articles whose
-        // top-level json is an object, not an array. If not, simplify here.
-        after: PropTypes.oneOfType([
-            rendererProps,
-            PropTypes.arrayOf(rendererProps),
-        ]).isRequired,
-        before: PropTypes.oneOfType([
-            rendererProps,
-            PropTypes.arrayOf(rendererProps),
-        ]).isRequired,
-    };
-
-    static _stateFromProps: (arg1: Props) => State = (props) => {
+class ArticleDiff extends React.Component<Props, ArticleDiffState> {
+    static _stateFromProps: (arg1: Props) => ArticleDiffState = (props) => {
         const {before, after} = props;
         return {
             before: Array.isArray(before) ? before : [before],
@@ -46,7 +33,7 @@ class ArticleDiff extends React.Component<Props, State> {
         };
     };
 
-    state: State = ArticleDiff._stateFromProps(this.props);
+    state: ArticleDiffState = ArticleDiff._stateFromProps(this.props);
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState(ArticleDiff._stateFromProps(nextProps));

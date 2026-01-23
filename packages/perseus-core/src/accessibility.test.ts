@@ -8,6 +8,15 @@ import {
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
 import {
+    generateIGPointGraph,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
+} from "./utils/generators/interactive-graph-widget-generator";
+import {
+    generateRadioOptions,
+    generateRadioWidget,
+} from "./utils/generators/radio-widget-generator";
+import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "./utils/test-utils";
@@ -34,33 +43,16 @@ describe("isItemAccessible", () => {
                                 explanation: "Test explanation",
                             }),
                         }),
-                        "interactive-graph 1": {
-                            type: "interactive-graph",
-                            options: {
-                                graph: {
-                                    type: "point",
+                        "interactive-graph 1": generateInteractiveGraphWidget({
+                            options: generateInteractiveGraphOptions({
+                                graph: generateIGPointGraph({
                                     numPoints: 1,
-                                },
-                                range: [
-                                    [-10, 10],
-                                    [-10, 10],
-                                ],
-                                showAxisArrows: {
-                                    xMin: true,
-                                    xMax: true,
-                                    yMin: true,
-                                    yMax: true,
-                                },
-                                step: [1, 1],
-                                markings: "graph",
-                                showProtractor: false,
-                                correct: {
-                                    type: "point",
+                                }),
+                                correct: generateIGPointGraph({
                                     coords: [[0, 0]],
-                                },
-                                lockedFigures: [],
-                            },
-                        },
+                                }),
+                            }),
+                        }),
                         "matcher 1": {
                             type: "matcher",
                             options: {
@@ -91,9 +83,8 @@ describe("isItemAccessible", () => {
                                 explanation: "Test explanation",
                             }),
                         }),
-                        "radio 1": {
-                            type: "radio",
-                            options: {
+                        "radio 1": generateRadioWidget({
+                            options: generateRadioOptions({
                                 choices: [
                                     {
                                         id: "0-0-0-0-0",
@@ -106,8 +97,8 @@ describe("isItemAccessible", () => {
                                         correct: false,
                                     },
                                 ],
-                            },
-                        },
+                            }),
+                        }),
                     },
                     images: {},
                 }),
@@ -204,33 +195,16 @@ describe("isItemAccessible", () => {
                                 explanation: "Test explanation",
                             }),
                         }),
-                        "interactive-graph 1": {
-                            type: "interactive-graph",
-                            options: {
-                                graph: {
-                                    type: "point",
+                        "interactive-graph 1": generateInteractiveGraphWidget({
+                            options: generateInteractiveGraphOptions({
+                                graph: generateIGPointGraph({
                                     numPoints: 1,
-                                },
-                                range: [
-                                    [-10, 10],
-                                    [-10, 10],
-                                ],
-                                showAxisArrows: {
-                                    xMin: true,
-                                    xMax: true,
-                                    yMin: true,
-                                    yMax: true,
-                                },
-                                step: [1, 1],
-                                markings: "graph",
-                                showProtractor: false,
-                                correct: {
-                                    type: "point",
+                                }),
+                                correct: generateIGPointGraph({
                                     coords: [[0, 0]],
-                                },
-                                lockedFigures: [],
-                            },
-                        },
+                                }),
+                            }),
+                        }),
                         "matcher 1": {
                             type: "matcher",
                             options: {

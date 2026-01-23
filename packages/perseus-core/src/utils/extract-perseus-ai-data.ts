@@ -375,21 +375,6 @@ export function injectWidgets(
                     );
                 }
                 break;
-            case "passage":
-                // Replace passage with the passage text
-                // '[[☃ Passage 1]]' -> '# Passage Title\n\nPassage text'
-                const passage = widget;
-                if (
-                    passage.options?.passageTitle ||
-                    passage.options?.passageText
-                ) {
-                    const {passageTitle, passageText} = passage.options;
-                    context = context.replace(
-                        `[[☃ ${widgetID}]]`,
-                        `# ${passageTitle}\n\n${passageText}`,
-                    );
-                }
-                break;
             case "group":
             case "graded-group":
                 // Replace group with the group's nested content

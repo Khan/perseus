@@ -10,9 +10,31 @@ import {
     generateDefinitionWidget,
 } from "./generators/definition-widget-generator";
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+} from "./generators/dropdown-widget-generator";
+import {
     generateExplanationOptions,
     generateExplanationWidget,
 } from "./generators/explanation-widget-generator";
+import {
+    generateGradedGroupOptions,
+    generateGradedGroupWidget,
+} from "./generators/graded-group-widget-generator";
+import {
+    generateIGPolygonGraph,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
+} from "./generators/interactive-graph-widget-generator";
+import {
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+} from "./generators/numeric-input-widget-generator";
+import {
+    generateRadioChoice,
+    generateRadioWidget,
+} from "./generators/radio-widget-generator";
 import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
@@ -51,24 +73,15 @@ describe("getPerseusAIData", () => {
                 content: "What is 2+2? [[☃ radio 1]]",
                 images: {},
                 widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
-                                {id: "0-0-0-0-0", content: "3", correct: false},
-                                {id: "1-1-1-1-1", content: "4", correct: true},
-                                {id: "2-2-2-2-2", content: "5", correct: false},
+                                generateRadioChoice("3"),
+                                generateRadioChoice("4", {correct: true}),
+                                generateRadioChoice("5"),
                             ],
-                            randomize: false,
-                            multipleSelect: false,
-                            hasNoneOfTheAbove: false,
-                            deselectEnabled: false,
                         },
-                        version: {major: 1, minor: 0},
-                    },
+                    }),
                 },
             },
             answerArea: {
@@ -102,22 +115,13 @@ describe("getPerseusAIData", () => {
             question: generateTestPerseusRenderer({
                 content: "What is 2+2? [[☃ radio 1]]",
                 widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
-                                {id: "0-0-0-0-0", content: "4", correct: true},
+                                generateRadioChoice("4", {correct: true}),
                             ],
-                            randomize: false,
-                            multipleSelect: false,
-                            hasNoneOfTheAbove: false,
-                            deselectEnabled: false,
                         },
-                        version: {major: 1, minor: 0},
-                    },
+                    }),
                 },
             }),
             answerArea: {
@@ -163,39 +167,21 @@ describe("getPerseusAIData", () => {
 
     it("should handle items with no hints", () => {
         // Arrange
-        const perseusItem: PerseusItem = {
-            question: {
+        const perseusItem: PerseusItem = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
                 content: "What is 2+2? [[☃ radio 1]]",
-                images: {},
                 widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
-                                {id: "0-0-0-0-0", content: "4", correct: true},
+                                generateRadioChoice("4", {correct: true}),
                             ],
-                            randomize: false,
-                            multipleSelect: false,
-                            hasNoneOfTheAbove: false,
-                            deselectEnabled: false,
                         },
-                        version: {major: 1, minor: 0},
-                    },
+                    }),
                 },
-            },
-            answerArea: {
-                calculator: false,
-                financialCalculatorMonthlyPayment: false,
-                financialCalculatorTotalAmount: false,
-                financialCalculatorTimeToPayOff: false,
-                periodicTableWithKey: false,
-                periodicTable: false,
-            },
-            hints: [],
-        };
+            }),
+            hints: [], // No hints
+        });
 
         // Act
         const result = getPerseusAIData(perseusItem);
@@ -477,53 +463,23 @@ describe("injectWidgets", () => {
         expect(content).toEqual("Content with a definition: word");
     });
 
-    it("should inject explaination widget into the content", () => {
+    it("should inject explanation widget into the content", () => {
         const widgets = {
-            "Explaination 1": generateExplanationWidget({
+            "explanation 1": generateExplanationWidget({
                 options: generateExplanationOptions({
-                    explanation: "explaination content",
+                    explanation: "explanation content",
                     showPrompt: "a",
                     hidePrompt: "a",
                 }),
             }),
         } as const;
         const content = injectWidgets(
-            "Content with a explaination\n[[☃ Explaination 1]]",
+            "Content with a explanation\n[[☃ explanation 1]]",
             widgets,
         );
         expect(content).toEqual(
-            "Content with a explaination\nexplaination content",
+            "Content with a explanation\nexplanation content",
         );
-    });
-
-    it("should inject passage widget into the content", () => {
-        const widgets = {
-            "passage 1": {
-                type: "passage",
-                options: {
-                    footnotes: "",
-                    passageText:
-                        "Sociologists study folktales.\nSometimes not.",
-                    passageTitle: "Intro to Sociologists",
-                    showLineNumbers: true,
-                    static: false,
-                },
-            },
-        } as const;
-        const content = injectWidgets(
-            "Here's a passage\n\n[[☃ passage 1]]\n\n",
-            widgets,
-        );
-        expect(content).toMatchInlineSnapshot(`
-                "Here's a passage
-
-                # Intro to Sociologists
-
-                Sociologists study folktales.
-                Sometimes not.
-
-                "
-            `);
     });
 
     it("should inject dropdown widget into the content", () => {
@@ -765,10 +721,9 @@ describe("injectWidgets", () => {
 
     it("should inject interactive-graph widget into the content", () => {
         const widgets: PerseusWidgetsMap = {
-            "interactive-graph 1": {
-                type: "interactive-graph",
-                options: {
-                    correct: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    correct: generateIGPolygonGraph({
                         coords: [
                             [7, -7],
                             [5, 4],
@@ -777,36 +732,17 @@ describe("injectWidgets", () => {
                         ],
                         numSides: "unlimited",
                         snapTo: "grid",
-                        type: "polygon",
-                    },
-                    graph: {
+                    }),
+                    graph: generateIGPolygonGraph({
                         numSides: "unlimited",
                         snapTo: "grid",
-                        type: "polygon",
-                    },
-                    gridStep: [1, 1],
-                    labels: ["x", "y"],
-                    markings: "graph",
+                    }),
                     range: [
                         [-10, 10],
                         [-10, 10],
                     ],
-                    rulerLabel: "",
-                    rulerTicks: 10,
-                    showProtractor: false,
-                    showRuler: false,
-                    showTooltips: false,
-                    snapStep: [0.5, 0.5],
-                    step: [1, 1],
-                    lockedFigures: [],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                },
-            },
+                }),
+            }),
         };
 
         const content = injectWidgets("[[☃ interactive-graph 1]]", widgets);
@@ -1128,52 +1064,36 @@ describe("getAnswersFromWidgets", () => {
     });
 
     it("should get the answers from a graded-group widget", () => {
-        const widget = {
-            type: "graded-group",
-            options: {
+        const widget = generateGradedGroupWidget({
+            options: generateGradedGroupOptions({
                 content: "Answer the questions in the following widgets",
                 title: "Question Group",
-                images: {},
                 widgets: {
-                    "radio 1": {
-                        type: "radio",
+                    "radio 1": generateRadioWidget({
                         options: {
                             choices: [
-                                {
-                                    id: "0-0-0-0-0",
-                                    content: "correct choice",
+                                generateRadioChoice("correct choice", {
                                     correct: true,
-                                },
-                                {
-                                    id: "1-1-1-1-1",
-                                    content: "incorrect choice",
-                                    correct: false,
-                                },
+                                }),
+                                generateRadioChoice("incorrect choice"),
                             ],
                         },
-                    } satisfies RadioWidget,
-                    "numeric-input 1": {
-                        type: "numeric-input",
-                        options: {
+                    }),
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
                             answers: [
-                                {
+                                generateNumericInputAnswer({
                                     message: "rationale",
                                     value: 42,
-                                    status: "correct",
-                                    strict: false,
                                     maxError: 0,
-                                    simplify: "required",
-                                },
+                                }),
                             ],
                             labelText: "Enter a number",
-                            size: "normal",
-                            coefficient: false,
-                            static: false,
-                        },
-                    } satisfies NumericInputWidget,
+                        }),
+                    }),
                 },
-            },
-        } as const;
+            }),
+        });
         const answer = getAnswersFromWidgets({"graded-group 1": widget});
         expect(answer).toEqual(["correct choice", "42"]);
     });
@@ -1252,12 +1172,10 @@ describe("getAnswersFromWidgets", () => {
     });
 
     it("should get the answers from a dropdown widget", () => {
-        const widget: DropdownWidget = {
-            type: "dropdown",
-            options: {
+        const widget: DropdownWidget = generateDropdownWidget({
+            options: generateDropdownOptions({
                 placeholder: "Select an option",
                 ariaLabel: "",
-                static: false,
                 choices: [
                     {
                         content: "choice 1",
@@ -1268,8 +1186,8 @@ describe("getAnswersFromWidgets", () => {
                         correct: false,
                     },
                 ],
-            },
-        };
+            }),
+        });
         const answer = getAnswersFromWidgets({"dropdown 1": widget});
         expect(answer).toEqual(["choice 1"]);
     });

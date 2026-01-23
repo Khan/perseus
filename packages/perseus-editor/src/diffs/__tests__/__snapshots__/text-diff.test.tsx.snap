@@ -1,0 +1,518 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextDiff renders text in the diff view 1`] = `
+<div>
+  <div>
+    <div
+      class="diff-header"
+    >
+      A day in the life of a text diff
+    </div>
+    <div
+      class="diff-header"
+    >
+      A day in the life of a text diff
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div
+        class="diff-row before"
+      >
+        <div
+          class="diff-line removed"
+        >
+          <span
+            class=""
+          >
+            Hello, world
+          </span>
+          <span
+            class="not-present"
+          >
+            !!
+          </span>
+          <span
+            class="removed dark"
+          >
+            !
+          </span>
+        </div>
+        <div />
+      </div>
+      <div
+        class="diff-row after"
+      >
+        <div
+          class="diff-line added"
+        >
+          <span
+            class=""
+          >
+            Hello, world
+          </span>
+          <span
+            class="added dark"
+          >
+            !!
+          </span>
+          <span
+            class="not-present"
+          >
+            !
+          </span>
+        </div>
+        <div />
+      </div>
+    </div>
+    <div
+      class="diff-row before"
+      role="button"
+      tabindex="0"
+    />
+    <div
+      class="diff-row after"
+      role="button"
+      tabindex="0"
+    />
+  </div>
+</div>
+`;
+
+exports[`TextDiff renders text with images in the diff view 1`] = `
+<div>
+  <div>
+    <div
+      class="diff-header"
+    >
+      A day in the life of a text diff
+    </div>
+    <div
+      class="diff-header"
+    >
+      A day in the life of a text diff
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div
+        class="diff-row before"
+      >
+        <div
+          class="diff-line removed"
+        >
+          <span
+            class=""
+          >
+            Hello, world! and ![
+          </span>
+          <span
+            class="removed dark"
+          >
+            an image](https://cdn.kastatic.org/ka-content-images/4f38f705977774bcac3b5bed9f81b56710abc8b0.png) ![
+          </span>
+          <span
+            class=""
+          >
+            graphie image](web+graphie://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138) ![another graphie image](web+graphie://ka-perseus-graphie.s3.amazonaws.com/669d6011774f3c0f6809553d210b4f51b7e3e4fe)
+          </span>
+          <span
+            class="not-present"
+          >
+             ![A graph](https://fastly.kastatic.org/ka-perseus-images/9757eb155d1283bb137d0cfdaf9818fd600702ed.png)
+          </span>
+        </div>
+        <div>
+          <div>
+            <div
+              class="image image-removed"
+            >
+              <span
+                style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+              >
+                <div
+                  class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                >
+                  <svg
+                    height="48"
+                    viewBox="0 0 48 48"
+                    width="48"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                      fill-rule="nonzero"
+                    />
+                  </svg>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div>
+            <div
+              class="image image-unchanged"
+            >
+              <div
+                class="unresponsive-svg-image"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="image image-unchanged"
+            >
+              <div
+                class="unresponsive-svg-image"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="diff-row after"
+      >
+        <div
+          class="diff-line added"
+        >
+          <span
+            class=""
+          >
+            Hello, world! and ![
+          </span>
+          <span
+            class="not-present"
+          >
+            an image](https://cdn.kastatic.org/ka-content-images/4f38f705977774bcac3b5bed9f81b56710abc8b0.png) ![
+          </span>
+          <span
+            class=""
+          >
+            graphie image](web+graphie://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138) ![another graphie image](web+graphie://ka-perseus-graphie.s3.amazonaws.com/669d6011774f3c0f6809553d210b4f51b7e3e4fe)
+          </span>
+          <span
+            class="added dark"
+          >
+             ![A graph](https://fastly.kastatic.org/ka-perseus-images/9757eb155d1283bb137d0cfdaf9818fd600702ed.png)
+          </span>
+        </div>
+        <div>
+          <div>
+            <div
+              class="image image-unchanged"
+            >
+              <div
+                class="unresponsive-svg-image"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="image image-unchanged"
+            >
+              <div
+                class="unresponsive-svg-image"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="image image-added"
+            >
+              <span
+                style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+              >
+                <div
+                  class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                >
+                  <svg
+                    height="48"
+                    viewBox="0 0 48 48"
+                    width="48"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                      fill-rule="nonzero"
+                    />
+                  </svg>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="diff-row before"
+      role="button"
+      tabindex="0"
+    />
+    <div
+      class="diff-row after"
+      role="button"
+      tabindex="0"
+    />
+  </div>
+</div>
+`;
+
+exports[`TextDiff renders with both 'before' and 'after' undefined 1`] = `
+<div>
+  <div>
+    <div
+      class="diff-header"
+    >
+      Both undefined
+    </div>
+    <div
+      class="diff-header"
+    >
+      Both undefined
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div
+        class="diff-row before"
+      />
+      <div
+        class="diff-row after"
+      />
+    </div>
+    <div
+      class="diff-row collapsed before"
+      role="button"
+      tabindex="0"
+    >
+      <span>
+        <span
+          class="expand-button"
+        >
+           
+          [ show unmodified ]
+           
+        </span>
+      </span>
+    </div>
+    <div
+      class="diff-row collapsed after"
+      role="button"
+      tabindex="0"
+    >
+      <span>
+        <span
+          class="expand-button"
+        >
+           
+          [ show unmodified ]
+           
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TextDiff renders with missing 'after' props 1`] = `
+<div>
+  <div>
+    <div
+      class="diff-header"
+    >
+      Missing after
+    </div>
+    <div
+      class="diff-header"
+    >
+      Missing after
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div
+        class="diff-row before"
+      >
+        <div
+          class="diff-line"
+        >
+          <span
+            class="removed dark"
+          >
+            Hello, world!
+          </span>
+        </div>
+        <div />
+      </div>
+      <div
+        class="diff-row after"
+      >
+        <div
+          class="diff-line"
+        >
+          <span
+            class="not-present"
+          >
+            Hello, world!
+          </span>
+        </div>
+        <div />
+      </div>
+    </div>
+    <div
+      class="diff-row before"
+      role="button"
+      tabindex="0"
+    />
+    <div
+      class="diff-row after"
+      role="button"
+      tabindex="0"
+    />
+  </div>
+</div>
+`;
+
+exports[`TextDiff renders with missing 'before' props 1`] = `
+<div>
+  <div>
+    <div
+      class="diff-header"
+    >
+      Missing before
+    </div>
+    <div
+      class="diff-header"
+    >
+      Missing before
+    </div>
+    <div
+      class="diff-body ui-helper-clearfix"
+    >
+      <div
+        class="diff-row before"
+      >
+        <div
+          class="diff-line"
+        >
+          <span
+            class="not-present"
+          >
+            Hello, world!
+          </span>
+        </div>
+        <div />
+      </div>
+      <div
+        class="diff-row after"
+      >
+        <div
+          class="diff-line"
+        >
+          <span
+            class="added dark"
+          >
+            Hello, world!
+          </span>
+        </div>
+        <div />
+      </div>
+    </div>
+    <div
+      class="diff-row before"
+      role="button"
+      tabindex="0"
+    />
+    <div
+      class="diff-row after"
+      role="button"
+      tabindex="0"
+    />
+  </div>
+</div>
+`;

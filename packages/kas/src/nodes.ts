@@ -52,6 +52,7 @@ const isInfinite = function (object) {
 // not that inclusivity means much, probabilistically, on floats
 const randomFloat = function (min: number, max: number) {
     var extent = max - min;
+    // eslint-disable-next-line no-restricted-properties
     return Math.random() * extent + min;
 };
 
@@ -2057,7 +2058,7 @@ export class Pow extends Expr {
     static nthroot = function (radicand: Expr, degree: Expr) {
         var exp = Mul.fold(Mul.handleDivide(new Int(1), degree));
 
-        // FIXME(johnsullivan): If oneOverDegree ends up being a pow object,
+        // TODO(johnsullivan): If oneOverDegree ends up being a pow object,
         //     this "root" hint is lost between here and when tex() is called.
         return new Pow(radicand, exp.addHint("root"));
     };
