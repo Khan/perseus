@@ -613,7 +613,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("rejects percentages greater than 100%", () => {
-        // TODO(benchristel): This seems like incorrect behavior. I've added
+        // NOTE(benchristel): This seems like incorrect behavior. I've added
         // this test to characterize the current behavior. Feel free to
         // delete/change it if it's in your way.
         const rubric: PerseusNumericInputRubric = {
@@ -636,7 +636,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("accepts answers with an extra, incorrect percent sign if > 1", () => {
-        // TODO(benchristel): This seems like incorrect behavior. I've added
+        // NOTE(benchristel): This seems like incorrect behavior. I've added
         // this test to characterize the current behavior. Feel free to
         // delete/change it if it's in your way.
         const rubric: PerseusNumericInputRubric = {

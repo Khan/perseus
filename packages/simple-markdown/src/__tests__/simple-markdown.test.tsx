@@ -4286,8 +4286,6 @@ describe("simple markdown", function () {
             );
         });
 
-        // TODO(aria): Figure out how to test the newline rule here
-
         it("should output paragraphs", function () {
             var html = htmlFromReactMarkdown("hi\n\n");
             assert.strictEqual(html, '<div class="paragraph">hi</div>');
@@ -4614,8 +4612,6 @@ describe("simple markdown", function () {
                     "</tbody></table>",
             );
         });
-
-        // TODO(aria): Figure out how to test the newline rule here
 
         it("should output paragraphs", function () {
             var html = htmlFromMarkdown("hi\n\n");

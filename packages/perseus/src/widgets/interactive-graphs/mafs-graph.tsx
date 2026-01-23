@@ -703,7 +703,7 @@ function handleKeyboardEvent(
 ) {
     if (isUnlimitedGraphState(state)) {
         if (event.key === "Backspace" || event.key === "Delete") {
-            // TODO(benchristel): Checking classList here is a hack to prevent
+            // NOTE(benchristel): Checking classList here is a hack to prevent
             // points from being deleted if the user presses the backspace key
             // while the whole graph is focused. Instead of doing this, we
             // should move the keyboard event handler to the movable point

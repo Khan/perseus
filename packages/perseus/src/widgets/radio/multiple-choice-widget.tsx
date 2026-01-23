@@ -52,8 +52,7 @@ export type RadioProps = {
     editMode?: boolean;
     labelWrap?: boolean;
     randomize?: boolean;
-    // TODO: https://khanacademy.atlassian.net/browse/LEMS-3542
-    // remove onChange from Radio
+    // TODO(LEMS-3542): remove onChange from Radio
     onChange: ChangeHandler;
 };
 
@@ -235,7 +234,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 ? choiceStates.map((state) => ({...state}))
                 : choices.map(() => ({
                       selected: false,
-                      // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
+                      // TODO(LEMS-2994): Remove this field when we remove the old Radio files
                       highlighted: false,
                       rationaleShown: false,
                       correctnessShown: false,
