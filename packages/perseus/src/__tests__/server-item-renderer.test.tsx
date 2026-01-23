@@ -95,7 +95,7 @@ describe("server item renderer", () => {
         // Assert
         expect(
             // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-            container.querySelectorAll('[data-widget="radio"] button'),
+            container.querySelectorAll('[id$="-rationale"]'),
         ).toHaveLength(4);
     });
 
