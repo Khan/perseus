@@ -275,6 +275,8 @@ describe("EditorPage", () => {
         );
 
         // Assert
-        expect(screen.getByDisplayValue(/Updated content from parent/)).toBeInTheDocument()
+        expect(
+            screen.getByDisplayValue(/Updated content from parent/),
+        ).toBeInTheDocument();
     });
 });

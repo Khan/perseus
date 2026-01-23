@@ -32,9 +32,7 @@ describe("JsonEditor", () => {
         );
 
         // Assert
-        expect(
-            screen.getByDisplayValue(/Test content/),
-        ).toBeInTheDocument();
+        expect(screen.getByDisplayValue(/Test content/)).toBeInTheDocument();
     });
 
     it("should update when value prop changes", () => {
@@ -69,9 +67,7 @@ describe("JsonEditor", () => {
         );
 
         // Assert
-        expect(
-            screen.getByDisplayValue(/Updated content/),
-        ).toBeInTheDocument();
+        expect(screen.getByDisplayValue(/Updated content/)).toBeInTheDocument();
     });
 
     it("should call onChange when valid JSON is entered", async () => {
