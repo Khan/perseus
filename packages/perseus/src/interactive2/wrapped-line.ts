@@ -70,9 +70,6 @@ class WrappedLine extends WrappedDrawing {
         return this.wrapper;
     }
 
-    // TODO(benchristel): we need to suppress a type error here because moveTo
-    // takes 2 parameters here, but only 1 parameter in the superclass's
-    // definition. Rename this method after confirming it's safe to do so
     // @ts-expect-error - TS2416: Property 'moveTo' in type 'WrappedLine' is not assignable to the same property in base type 'WrappedDefaults'.
     moveTo(start, end) {
         const scaledStart = this.graphie.scalePoint(start);

@@ -9,8 +9,6 @@ export type Constraint = (
     options: ConstraintCallbacks,
 ) => Coord | boolean | undefined;
 
-// TODO(benchristel): these callbacks feel overcomplicated. Can we
-// get rid of them?
 export type ConstraintCallbacks = {
     onSkipRemaining(): void;
     onOutOfBounds?: () => void;

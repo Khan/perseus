@@ -130,8 +130,6 @@ const constraints = {
         // @ts-expect-error: Type 'boolean | Coord' is not assignable to type 'Coord'.
         return function (coord: Coord) {
             if (snap === null) {
-                // TODO(benchristel), NOTE(kevinb): this should probably return
-                // the original point
                 return true;
             }
             // @ts-expect-error - TS2339: Property 'snap' does not exist on type 'Graphie'.

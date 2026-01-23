@@ -50,18 +50,12 @@ interface State {
         remove(): void;
         getMouseTarget(): Element;
     } | null;
-    // TODO(benchristel): I don't think cursor is used
     cursor?: null;
     id: string;
     add?: (() => void)[];
-    // TODO(benchristel): I don't see any evidence that implementers of
-    // modify do anything with the second argument. Remove it?
     modify?: ((state: State, prevState?: State) => void)[];
     draw?: ((state: State, prevState?: State) => void)[];
     remove?: (() => void)[];
-    // TODO(benchristel): callers pass the position twice to onMoveStart.
-    // But I don't see any implementers expecting two arguments. Remove the
-    // second argument.
     onMoveStart?: ((position: Coord, positionAgain: Coord) => void)[];
     onMove?: ((end: Coord, start: Coord) => void)[];
     onMoveEnd?: ((end: Coord, start: Coord) => void)[];
@@ -73,7 +67,6 @@ export class Movable<Options extends Record<string, any>> {
     graphie: Graphie;
     state: State;
     prevState: State | undefined;
-    // TODO(benchristel): delete _listenerMap; it's unused
     _listenerMap: Record<string, number> = {};
 
     constructor(graphie: Graphie, options: Options) {
@@ -185,8 +178,6 @@ export class Movable<Options extends Record<string, any>> {
 
         // Trigger an add event if this hasn't been added before
         if (!state.added) {
-            // TODO(benchristel): No one seems to handle the modify event. Can
-            // we delete this?
             // @ts-expect-error - TS2345: Argument of type '{}' is not assignable to parameter of type 'State'.
             this._fireEvent(state.modify, this.cloneState(), {});
             state.added = true;
