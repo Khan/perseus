@@ -40,7 +40,7 @@ type StoryArgs = {
  */
 
 export default {
-    title: "Widgets/RadioNew/Widget Demo",
+    title: "Widgets/Radio/Widget Demo",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
     parameters: {

@@ -138,12 +138,7 @@ describe("Radio AI utils", () => {
             const {renderer} = renderQuestion(shuffledQuestion);
 
             // click the shuffled answer at a specific index
-            const radioInput = screen
-                .queryByText(choice.content)
-                // eslint-disable-next-line testing-library/no-node-access
-                ?.closest("li")
-                // eslint-disable-next-line testing-library/no-node-access
-                ?.querySelector("button");
+            const radioInput = screen.queryByText(choice.content);
             if (!radioInput) {
                 throw new Error(
                     `Could not find radio input for choice content: ${choice.content}`,
