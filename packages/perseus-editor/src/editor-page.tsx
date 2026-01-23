@@ -135,10 +135,9 @@ class EditorPage extends React.Component<Props, State> {
         });
 
         if (
-            this.props.jsonMode &&
-            (previousProps.question !== this.props.question ||
-                previousProps.answerArea !== this.props.answerArea ||
-                previousProps.hints !== this.props.hints)
+            previousProps.question !== this.props.question ||
+            previousProps.answerArea !== this.props.answerArea ||
+            previousProps.hints !== this.props.hints
         ) {
             this.setState({
                 // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea">' is not assignable to type 'PerseusJson'.
