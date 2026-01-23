@@ -1,19 +1,19 @@
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
+import invariant from "tiny-invariant";
 
 import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
-import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
-
-import {itemRendererReducer, createInitialState} from "./item-renderer-reducer";
+import {createInitialState, itemRendererReducer} from "./item-renderer-reducer";
 
 import type {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
 import type {APIOptions} from "../packages/perseus/src/types";
 import type {
     PerseusItem,
-    KEScore,
     ShowSolutions,
+    PerseusScore,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 /**
@@ -60,8 +60,8 @@ export const useItemRenderer = (
             return;
         }
 
-        // If the answer is not empty or there's a message, show the popover
-        if (!state.score.empty || state.score.message !== null) {
+        // If the answer is valid or there's a message, show the popover
+        if (state.score.type === "points" || state.score.message !== null) {
             // This is a hack to ensure the popover is shown after the score is set
             // so that it gets the correct position.
             setTimeout(() => {
@@ -86,11 +86,21 @@ export const useItemRenderer = (
         [apiOptions, state.isMobile, state.showPopover, state.showSolutions],
     );
 
-    const getScore = React.useCallback((): KEScore | undefined => {
+    const getUserInput = React.useCallback((): UserInputMap => {
         const renderer = ref.current;
-        if (!renderer) {
-            return undefined;
-        }
+        invariant(
+            renderer,
+            "useItemRenderer: renderer is not defined! Did you remember to set the ref?",
+        );
+        return renderer.getUserInput();
+    }, []);
+
+    const getScore = React.useCallback((): PerseusScore => {
+        const renderer = ref.current;
+        invariant(
+            renderer,
+            "useItemRenderer: renderer is not defined! Did you remember to set the ref?",
+        );
 
         const userInput = renderer.getUserInput();
         const score = scorePerseusItem(
@@ -99,21 +109,13 @@ export const useItemRenderer = (
             "en",
         );
 
-        // Continue to include an empty guess for the now defunct answer area.
-        const maxCompatGuess = [renderer.getUserInputLegacy(), []];
-
-        const keScore = keScoreFromPerseusScore(
-            score,
-            maxCompatGuess,
-            renderer.getSerializedState().question,
-        );
-
-        if (!keScore.empty) {
-            // Show solutions for selected answers when the score is not empty
+        if (score.type === "points") {
+            // Show solutions for selected answers when the user answered the
+            // question
             dispatch({type: "SET_SHOW_SOLUTIONS", payload: "selected"});
         }
 
-        return keScore;
+        return score;
     }, [state.perseusItem]);
 
     const updateJson = React.useCallback((json: string): boolean => {
@@ -146,11 +148,12 @@ export const useItemRenderer = (
 
     const handleCheck = React.useCallback(() => {
         dispatch({type: "SET_ANSWERLESS", payload: false});
-        const score = getScore();
-        if (score) {
-            dispatch({type: "SET_SCORE", payload: score});
-        }
-    }, [getScore]);
+        dispatch({
+            type: "SET_SCORE",
+            score: getScore(),
+            userInput: getUserInput(),
+        });
+    }, [getScore, getUserInput]);
 
     const setShowPopover = React.useCallback((show: boolean) => {
         dispatch({type: "TOGGLE_POPOVER", payload: show});

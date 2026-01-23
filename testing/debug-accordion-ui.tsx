@@ -7,13 +7,20 @@ import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import styles from "./debug-accordion-ui.module.css";
-import KEScoreUI from "./ke-score-ui";
+import {isCorrect} from "../packages/perseus/src/util/scoring";
 
-import type {KEScore, PerseusItem} from "@khanacademy/perseus-core";
+import styles from "./debug-accordion-ui.module.css";
+import UserInputUI from "./user-input-ui";
+
+import type {
+    PerseusItem,
+    PerseusScore,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
 
 type DebugAccordionUIProps = {
-    state: KEScore | null | undefined;
+    score: PerseusScore | undefined;
+    userInput: UserInputMap | undefined;
     perseusItem: PerseusItem;
     updateJson: (json: string) => boolean;
 };
@@ -21,7 +28,7 @@ type DebugAccordionUIProps = {
 /**
  * ScoreHeader displays the score state with colored indicators
  */
-const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
+const ScoreHeader = ({score}: {score: PerseusScore}): React.ReactElement => {
     // Create the status badge component for the score
     const StatusBadge = ({
         label,
@@ -54,13 +61,13 @@ const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
             Score
             <StatusBadge
                 label="Empty"
-                value={score?.empty}
-                success={!score?.empty}
+                value={score.type === "invalid"}
+                success={score.type !== "invalid"}
             />
             <StatusBadge
                 label="Correct"
-                value={score?.correct}
-                success={score?.correct}
+                value={isCorrect(score)}
+                success={isCorrect(score)}
             />
         </div>
     );
@@ -127,7 +134,8 @@ const JsonEditor = ({
  * A component that renders the debug accordion UI for Perseus items
  */
 export const DebugAccordionUI = ({
-    state,
+    score,
+    userInput,
     perseusItem,
     updateJson,
 }: DebugAccordionUIProps): React.ReactElement => {
@@ -138,13 +146,13 @@ export const DebugAccordionUI = ({
     const getAccordionSections = () => {
         // Create the score section if we have a score
         const scoreSection =
-            state != null
+            userInput != null && score != null
                 ? [
                       <AccordionSection
-                          header={<ScoreHeader score={state} />}
+                          header={<ScoreHeader score={score} />}
                           key="score"
                       >
-                          <KEScoreUI score={state} />
+                          <UserInputUI userInput={userInput} />
                       </AccordionSection>,
                   ]
                 : [];

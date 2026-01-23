@@ -1,7 +1,8 @@
 import type {
     PerseusItem,
-    KEScore,
     ShowSolutions,
+    PerseusScore,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 // Define state type
@@ -12,7 +13,8 @@ export type ItemRendererState = {
     originalItem: PerseusItem;
     answerless: boolean;
     startAnswerless: boolean;
-    score: KEScore | null | undefined;
+    score: PerseusScore | undefined;
+    userInput: UserInputMap | undefined;
     showPopover: boolean;
     showSolutions: ShowSolutions | undefined;
     hintsVisible: number;
@@ -25,7 +27,7 @@ export type ItemRendererAction =
     | {type: "TOGGLE_MOBILE"; payload: boolean}
     | {type: "TOGGLE_RTL"; payload: boolean}
     | {type: "UPDATE_ITEM"; payload: PerseusItem}
-    | {type: "SET_SCORE"; payload: KEScore | null | undefined}
+    | {type: "SET_SCORE"; score: PerseusScore; userInput: UserInputMap}
     | {type: "TOGGLE_POPOVER"; payload: boolean}
     | {type: "SET_SHOW_SOLUTIONS"; payload: ShowSolutions | undefined}
     | {type: "SET_HINTS_VISIBLE"; payload: number}
@@ -48,7 +50,8 @@ export const createInitialState = (
     originalItem: item,
     answerless: startAnswerless,
     startAnswerless,
-    score: null,
+    score: undefined,
+    userInput: undefined,
     showPopover: false,
     showSolutions,
     hintsVisible: 0,
@@ -72,7 +75,11 @@ export const itemRendererReducer = (
             return {...state, perseusItem: action.payload};
 
         case "SET_SCORE":
-            return {...state, score: action.payload};
+            return {
+                ...state,
+                score: action.score,
+                userInput: action.userInput,
+            };
 
         case "TOGGLE_POPOVER":
             return {...state, showPopover: action.payload};

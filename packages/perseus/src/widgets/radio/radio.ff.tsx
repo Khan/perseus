@@ -198,9 +198,11 @@ class Radio extends React.Component<Props> implements Widget {
             choices,
             choiceStates: this.state.choiceStates?.map((choiceState, index) => {
                 const choice = choices[index];
+                // Guard against undefined when choiceStates length exceeds choices length
+                // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
                 const selected =
                     this.props.userInput?.selectedChoiceIds.includes(
-                        choice.id,
+                        choice?.id,
                     ) ?? false;
                 return {
                     ...choiceState,
