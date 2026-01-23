@@ -12,11 +12,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio
 import MultipleChoiceComponent from "./multiple-choice-component.new";
 import {getChoiceStates} from "./utils/general-utils";
 
-import type {
-    WidgetProps,
-    ChoiceState,
-    ChangeHandler,
-} from "../../types";
+import type {WidgetProps, ChoiceState, ChangeHandler} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
