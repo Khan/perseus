@@ -516,7 +516,6 @@ export default {
     name: "graded-group",
     displayName: "Graded group (articles only)",
     widget: WrappedGradedGroup,
-    // TODO(aasmund): This widget should be available for articles only
     hidden: false,
     tracking: "all",
     isLintable: true,

@@ -58,12 +58,6 @@ export default Rule.makeRule({
                     }
                 }
             });
-
-            // The following TODO is transferred over from the expression editor:
-            // TODO(joel) - warn about:
-            //   - unreachable answers (how??)
-            //   - specific answers following unspecific answers
-            //   - incorrect answers as the final form
         }
 
         const allWarningsString = issues.join("\n\n");

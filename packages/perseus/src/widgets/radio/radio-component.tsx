@@ -33,8 +33,7 @@ export type RadioProps = PerseusRadioWidgetOptions & {
     choices: RadioChoiceWithMetadata[];
     showSolutions?: ShowSolutions;
     choiceStates?: ChoiceState[];
-    // TODO: https://khanacademy.atlassian.net/browse/LEMS-3542
-    // remove onChange from Radio
+    // TODO(LEMS-3542): remove onChange from Radio
     onChange: ChangeHandler;
 };
 
@@ -108,14 +107,12 @@ class Radio extends React.Component<Props> implements Widget {
 
         // alwaysUpdate={true} so that passage-refs findWidgets
         // get called when the outer passage updates the renderer
-        // TODO(aria): This is really hacky
+        // NOTE(aria): This is really hacky
         // We pass in a key here so that we avoid a semi-spurious
         // react warning when the ChoiceNoneAbove renders a
         // different renderer in the same place. Note this destroys
         // state, but since all we're doing is outputting
         // "None of the above", that is okay.
-        // TODO(mdr): Widgets inside this Renderer are not discoverable through
-        //     the parent Renderer's `findWidgets` function.
         return (
             <Renderer
                 key="choiceContentRenderer"
@@ -133,7 +130,7 @@ class Radio extends React.Component<Props> implements Widget {
         );
     };
 
-    // TODO(LP-10672): I think this might be unused right now. I can't find anywhere
+    // NOTE(LP-10672): I think this might be unused right now. I can't find anywhere
     // that we pass a value to `.focus()` and it seems to have been used for
     // adding hints when editing.
     // See: https://github.com/Khan/perseus/blame/e18582b4b69959270b90e237ef1813899711ddfa/src/widgets/radio.js#L169

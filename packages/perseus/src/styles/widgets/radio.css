@@ -21,7 +21,6 @@
 }
 .perseus-widget-radio.perseus-rendered-radio div,
 .perseus-widget-radio.perseus-rendered-radio div > p {
-    /* TODO(alpert): Find a better way of doing inline renderers */
     display: inline;
 }
 .perseus-widget-radio.perseus-rendered-radio

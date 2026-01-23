@@ -82,7 +82,6 @@ _.extend(MovableLine.prototype, {
                 // because they:
                 //    - are objects, not primitives (and need a deeper copy)
                 //    - they don't need getters created for them
-                // TODO(jack): Consider "default" once we es3ify perseus
                 pluck(MovableLineOptions, "standard"),
             ),
             DEFAULT_PROPS,

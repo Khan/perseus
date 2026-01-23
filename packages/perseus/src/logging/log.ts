@@ -3,10 +3,6 @@ import {getDependencies} from "../dependencies";
 import type {ErrorKind} from "@khanacademy/perseus-core";
 import type {Metadata} from "@khanacademy/wonder-stuff-core";
 
-// TODO(LP-11481): Change the primary API we use for logging in Perseus to use
-// getDependencies() internally... simplify usage to just using a "singleton"
-// which get's the injected logger.
-
 export type LogErrorOptions = {
     // The cause of the error.
     cause?: Error | null | undefined;

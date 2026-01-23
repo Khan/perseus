@@ -146,10 +146,6 @@ const draw = {
     },
 
     highlight: function (state: any, prevState: any) {
-        // TODO(jack): Figure out a way to highlight the points attached to
-        // the line. Maybe this means an additional isHovering: []
-        // function to state of movable/movablepoint to define [additional?]
-        // times it should be highlighted
         if (state.isHovering && !prevState.isHovering) {
             state.visibleShape.animate(state.highlightStyle, 50);
         } else if (!state.isHovering && prevState.isHovering) {

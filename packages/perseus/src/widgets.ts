@@ -111,8 +111,6 @@ export const getWidget = (
 ): React.ComponentType<any> | null | undefined => {
     const widget = widgets.get(type);
 
-    // TODO(alex): Consider referring to these as renderers to avoid
-    // overloading "widget"
     if (widget == null) {
         return null;
     }

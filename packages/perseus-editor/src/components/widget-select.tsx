@@ -14,7 +14,7 @@ class WidgetSelect extends React.Component<WidgetSelectProps> {
     handleChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
         const widgetType = e.currentTarget.value;
         if (widgetType === "") {
-            // TODO(alpert): Not sure if change will trigger here
+            // NOTE(alpert): Not sure if change will trigger here
             // but might as well be safe
             return;
         }

@@ -42,7 +42,6 @@ function polarAdd(origin: any, angle, length) {
  *         convertTree; the computed position of this atom is added to this
  *         object in place, in addition to being returned in the layout
  *         instruction.
- *         TODO(colin): refactor so that we don't need to modify this in place
  *     atoms: the list of all atoms, as returned from convertTree, used to
  *         position this atom appropriately relative to its neighbors
  *     bonds: the list of all bonds, as returned from convertTree, used to
@@ -120,8 +119,6 @@ function atomLayout(
     // with 120 degree angles.  This means we need to flip the angle every
     // other atom.  The parser ensures that indices always alternate odd-even,
     // including taking into account branch points.
-    // TODO(colin): don't depend on the parser's indexing scheme and just track
-    // this entirely in the layout engine.
     if (parseInt(lastAtomIdx) % 2 !== 0) {
         angle =
             prevPositionedAtom.baseAngle -
@@ -150,10 +147,6 @@ function atomLayout(
  * This function returns the start and end positions of the bond's line, taking
  * into account that one or both end points might need to be moved to make room
  * for text.
- *
- * TODO(colin): this makes assumptions about the relative sizes of the length
- * of a bond and the text.  Think about alternate ways to represent this that
- * might not have that problem.
  */
 function maybeShrinkLines(fromAtom: any, toAtom) {
     const shrinkFactor = 0.25;

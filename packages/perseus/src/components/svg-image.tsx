@@ -21,8 +21,6 @@ import type {Dimensions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
 
 function isImageProbablyPhotograph(imageUrl) {
-    // TODO(david): Do an inventory to refine this heuristic. For example, what
-    //     % of .png images are illustrations?
     return /\.(jpg|jpeg)$/i.test(imageUrl);
 }
 
@@ -175,7 +173,7 @@ class SvgImage extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
+        // NOTE(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 
@@ -312,10 +310,6 @@ class SvgImage extends React.Component<Props, State> {
                 );
             } else if (labelData.coordinates) {
                 // Create labels from the data
-                // TODO(charlie): Some erroneous labels are being sent down
-                // without coordinates. They don't seem to have any content, so
-                // it seems fine to just ignore them (rather than error), but
-                // we should figure out why this is happening.
 
                 // 'styling' - When a default scale (1) is used,
                 //     setting the font size to 100% is redundant.
@@ -335,9 +329,6 @@ class SvgImage extends React.Component<Props, State> {
                 );
 
                 // Convert absolute positioning css from pixels to percentages
-                // TODO(alex): Dynamically resize font-size as well. This
-                // almost certainly means listening to throttled window resize
-                // events.
                 const labelStyle = label[0].style;
                 let labelTop = this._tryGetPixels(labelStyle.top);
                 let labelLeft = this._tryGetPixels(labelStyle.left);
@@ -422,17 +413,12 @@ class SvgImage extends React.Component<Props, State> {
         // this information, especially in places where <Renderer /> is used
         // to render inline Markdown images within a widget. See Radio, Sorter,
         // Matcher, etc.
-        // TODO(alex): Make all of those image rendering locations aware of
-        // width+height so that they too can render responsively.
         const responsive = this.props.responsive && !!(width && height);
 
         // An additional <Graphie /> may be inserted after the image/graphie
         // pair. Only used by the image widget, for its legacy labels support.
         // Note that since the image widget always provides width and height
         // data, extraGraphie can be ignored for unresponsive images.
-        // TODO(alex): Convert all existing uses of that to web+graphie. This
-        // is tricky because web+graphie doesn't support labels on non-graphie
-        // images.
         let extraGraphie;
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
@@ -536,7 +522,7 @@ class SvgImage extends React.Component<Props, State> {
                 );
             }
 
-            // TODO: the "40" scale factor was introduced in D14974 but is not
+            // NOTE: the "40" scale factor was introduced in D14974 but is not
             // documented where it came from.
             graphie = (
                 <Graphie

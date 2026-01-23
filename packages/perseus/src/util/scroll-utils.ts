@@ -55,7 +55,6 @@ const scrollElementToOffset = (
     const numberOfSteps = duration / tickLength;
     let step = 0;
 
-    // TODO (josh): Rewrite this using window.requestAnimationFrame
     // TODO(jeff, WEB-1378): Use Wonder Blocks Timing API
     // eslint-disable-next-line no-restricted-syntax
     const scrollInterval = setInterval(function () {

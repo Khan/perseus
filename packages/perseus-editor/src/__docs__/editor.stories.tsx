@@ -72,7 +72,6 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                             showWordCount={true}
                             warnNoPrompt={false}
                             warnNoWidgets={true}
-                            // TODO(LEMS-2656): remove TS suppression
                             onChange={
                                 ((props: Partial<PerseusRenderer>) => {
                                     action("onChange")(props);

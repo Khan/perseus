@@ -308,8 +308,6 @@ const BaseRadio = function ({
                     }
                     const className = classNames(
                         aphroditeClassName(choice.checked),
-                        // TODO(aria): Make test case for these API
-                        // classNames
                         ApiClassNames.RADIO.OPTION,
                         choice.checked && ApiClassNames.RADIO.SELECTED,
                         correctnessClass,
@@ -342,11 +340,6 @@ const BaseRadio = function ({
                         };
                     }
 
-                    // TODO(mattdr): Index isn't a *good* choice of key
-                    // here; is there a better one? Can we use choice
-                    // content somehow? Would changing our choice of key
-                    // somehow break something happening inside a choice's
-                    // child Renderers, by changing when we mount/unmount?
                     return (
                         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
                         <li
@@ -390,10 +383,6 @@ const styles: StyleDeclaration = StyleSheet.create({
         [mediaQueries.smOrSmaller]: {
             fontSize: 16,
         },
-        // TODO(emily): We want this to match choice text, which turns
-        // to 20px at min-width 1200px, but this media query is
-        // min-width 1280px because our media queries don't exactly
-        // match pure. Make those match up.
         [mediaQueries.xl]: {
             fontSize: 20,
         },

@@ -27,14 +27,12 @@ type Props = {
     rotationAngle: PerseusMoleculeRendererWidgetOptions["rotationAngle"];
 };
 
-// TODO: Add documentation for the Molecule widget
 class Molecule extends React.Component<Props, MoleculeState> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     state: MoleculeState = {parsedSmiles: null, error: null};
 
-    // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
     UNSAFE_componentWillMount() {
         this.stateFromSmiles(this.props.smiles);
     }
@@ -110,8 +108,6 @@ class Molecule extends React.Component<Props, MoleculeState> {
     };
 
     render(): React.ReactNode {
-        // TODO(colin): escape the punctuation in the SMILES alt text for
-        // screen readers?
         let content = (
             <canvas
                 className="molecule-canvas"

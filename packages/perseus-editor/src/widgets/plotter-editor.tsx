@@ -175,7 +175,6 @@ class PlotterEditor extends React.Component<Props, State> {
     changePicUrl: (arg1: string) => void = (value) => {
         // We don't need the labels and other data in the plotter, so just
         // extract the raw image and use that.
-        // TODO(emily): Maybe indicate that such a change has happened?
         const url = Util.getRealImageUrl(value);
 
         this.props.onChange({picUrl: url});

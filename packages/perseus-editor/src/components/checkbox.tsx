@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
             bottom: -2,
             left: -2,
             borderRadius: borderRadius + 2,
-            backgroundColor: "lightblue", // TODO(kevinb) get real focus ring
+            backgroundColor: "lightblue",
         },
     },
     svg: {

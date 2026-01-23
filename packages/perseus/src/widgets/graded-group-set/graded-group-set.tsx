@@ -109,8 +109,6 @@ type State = {
     currentGroup: number;
 };
 
-// TODO(jared): find a better name for this :) and for GradedGroup; the names
-// are currently a little confusing.
 class GradedGroupSet extends React.Component<Props, State> implements Widget {
     // @ts-expect-error - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.
     _childGroup: GradedGroup;
@@ -183,8 +181,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                 <div className={css(styles.container)}>
                     {this.props.gradedGroups.map((gradedGroup, i) => {
                         return (
-                            // TODO(jeremy): Don't spread this.props, instead
-                            // pass in all props GradedGroup needs explicilty
                             <GradedGroup
                                 key={i}
                                 {...this.props}
@@ -226,8 +222,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                         }
                     />
                 </div>
-                {/* TODO(jeremy): Don't spread this.props, instead
-                    pass in all props GradedGroup needs explicitly */}
                 {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <GradedGroup
                     key={this.state.currentGroup}
@@ -253,7 +247,6 @@ export default {
     name: "graded-group-set",
     displayName: "Graded group set (articles only)",
     widget: WrappedGradedGroupSet,
-    // TODO(michaelpolyak): This widget should be available for articles only
     hidden: false,
     tracking: "all",
     isLintable: true,

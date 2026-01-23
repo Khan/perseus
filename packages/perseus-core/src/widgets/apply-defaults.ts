@@ -32,7 +32,6 @@ export const applyDefaultsToWidget = (
 
     if (!isWidgetRegistered(type)) {
         // If we have a widget that isn't registered, we can't upgrade it
-        // TODO(aria): Figure out what the best thing to do here would be
         return oldWidgetInfo;
     }
 
@@ -106,9 +105,8 @@ export function applyDefaultsToWidgets(
             const newValues: Record<string, any> = {};
 
             if (!widgetInfo.type) {
-                // TODO: why does widget have no type?
+                // TODO(LEMS-1845): why does widget have no type?
                 // We don't want to derive type from widget ID
-                // see: LEMS-1845
                 newValues.type = widgetId.split(" ")[0];
             }
 

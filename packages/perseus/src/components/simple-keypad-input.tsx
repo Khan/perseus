@@ -2,10 +2,6 @@
  * A version of the `math-input` subrepo's KeypadInput component that adheres to
  * the same API as Perseus's  MathOuput and NumberInput, allowing it to be
  * dropped in as a replacement for those components without any modifications.
- *
- * TODO(charlie): Once the keypad API has stabilized, move this into the
- * `math-input` subrepo and use it everywhere as a simpler, keypad-coupled
- * interface to `math-input`'s MathInput component.
  */
 
 import {KeypadContext} from "@khanacademy/keypad-context";
@@ -25,7 +21,7 @@ export default class SimpleKeypadInput
     inputRef = React.createRef<KeypadInput>();
 
     componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
+        // NOTE(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
     }

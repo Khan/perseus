@@ -27,8 +27,6 @@ export class DrawingTransform {
         this.setScale(initialScale);
     }
 
-    // TODO(benchristel): rename these methods to transform* instead of scale*.
-    // They're doing more than scaling! Some of them also translate.
     scaleVector = (point: number | Coord) => {
         if (typeof point === "number") {
             return this.scaleVector([point, point]);

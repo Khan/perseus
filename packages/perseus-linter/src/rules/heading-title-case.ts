@@ -37,15 +37,6 @@ export default Rule.makeRule({
         // the heading is incorrectly in title case and will warn.
         // But if there is at least one non-capitalized long word then
         // we're not in title case and we should not warn.
-        //
-        // TODO(davidflanagan): if this rule causes a lot of false
-        // positives, we should tweak it or remove it. Note that it will
-        // fail for headings like "World War II in Russia"
-        //
-        // TODO(davidflanagan): This rule is specific to English.
-        // It is marked with a locale property above, but that is NYI
-        //
-        // for APA style rules for title case
 
         const heading = content.trim();
         let words = heading.split(/\s+/);

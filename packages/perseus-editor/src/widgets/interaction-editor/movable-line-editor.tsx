@@ -37,7 +37,6 @@ type DefaultProps = {
 };
 
 // Editor for interactive movable line segments
-// TODO(eater): Rethink how constraints are represented
 class MovableLineEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         startX: "-5",

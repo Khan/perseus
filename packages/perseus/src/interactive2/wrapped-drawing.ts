@@ -41,10 +41,10 @@ export default abstract class WrappedDrawing {
 
     toFront() {
         const parentNode = this.wrapper.parentNode;
-        // TODO(emily): Sometimes, we call `.remove()` but then hold a
+        // NOTE(emily): Sometimes, we call `.remove()` but then hold a
         // reference to this object, and sometimes call `.toFront` on it.
         // Notably, this happens in the reflection transformation in the
-        // Transformer widget. This is a hacky fix. Make this less bad.
+        // Transformer widget. This is a hacky fix.
         if (parentNode) {
             parentNode.appendChild(this.wrapper);
         }

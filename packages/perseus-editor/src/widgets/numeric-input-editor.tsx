@@ -185,7 +185,6 @@ class NumericInputEditor extends React.Component<Props, State> {
 
         // Don't bother to make a new answer box unless we are editing the last
         // one.
-        // TODO(oliver): This might not be necessary anymore.
         if (choiceIndex === answers.length) {
             const lastAnswer: any = initAnswer(this.state.lastStatus);
             answers = answers.concat(lastAnswer);
@@ -208,8 +207,6 @@ class NumericInputEditor extends React.Component<Props, State> {
     getSaveWarnings = () => {
         // Filter out all the empty answers
         const warnings = [];
-        // TODO(emily): This doesn't actually work, because the value is either
-        // null or undefined when undefined, probably.
         if (_.contains(_.pluck(this.props.answers, "value"), "")) {
             // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
             warnings.push("One or more answers is empty");

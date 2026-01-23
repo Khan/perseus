@@ -74,8 +74,6 @@ class ArticleRenderer
         newFocusPath,
         oldFocusPath,
     ) => {
-        // TODO(charlie): DRY this up--some of this logic is repeated in
-        // ItemRenderer.
         if (newFocusPath) {
             this._setCurrentFocus(newFocusPath);
         } else {
@@ -213,7 +211,6 @@ class ArticleRenderer
             [ApiClassNames.MOBILE]: apiOptions.isMobile,
         });
 
-        // TODO(alex): Add mobile api functions and pass them down here
         // We're using the index as the key here because we don't have a unique
         // identifier for each section. This should be fine as we never remove
         // or reorder sections.

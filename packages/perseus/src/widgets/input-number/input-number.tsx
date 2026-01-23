@@ -192,7 +192,6 @@ class InputNumber extends React.Component<Props> implements Widget {
 
     render(): React.ReactNode {
         if (this.props.apiOptions.customKeypad) {
-            // TODO(charlie): Support "Review Mode".
             const input = (
                 <SimpleKeypadInput
                     // eslint-disable-next-line react/no-string-refs

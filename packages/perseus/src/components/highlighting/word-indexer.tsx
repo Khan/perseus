@@ -78,14 +78,6 @@ class WordIndexer extends React.PureComponent<Props> {
                     // This includes exiting one paragraph to visit another,
                     // but also includes text interrupted by inline-block
                     // elements.
-                    //
-                    // TODO(mdr): Is this behavior *generalizably* correct?
-                    // TODO(mdr): I don't *fully* understand the performance
-                    //     implications of `getComputedStyle`, but I think it's
-                    //     gonna be nbd at the current call sites. If we try to
-                    //     generalize to frequently-updating content, we might
-                    //     want to watch this as a potential performance
-                    //     bottleneck.
                     trailingWordRange = null;
                 }
             } else if (node.nodeType === Node.TEXT_NODE) {

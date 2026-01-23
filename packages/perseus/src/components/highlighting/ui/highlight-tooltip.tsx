@@ -56,8 +56,6 @@ class HighlightTooltip extends React.PureComponent<Props> {
         //     paragraphs, in which case the focus range has no client rects?
         //     Not sure why, or in what browsers (only noticed in Chrome 60),
         //     but let's catch that case and bail out.
-        // TODO(mdr): Instead, we should somehow walk back the range until we
-        //     find an appropriate position for the tooltip. Sounds tricky!
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!focusRect) {
             Log.log(

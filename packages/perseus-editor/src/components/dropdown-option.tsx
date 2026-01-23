@@ -148,10 +148,6 @@ class Option extends React.Component<Props> {
     }
 }
 
-// TODO(kevinb):
-// - keep the the option group within the page bounds
-// - do we really want to dismiss this on scroll
-// - how does the drop down interact with tooltips?  what's the z-index order?
 class OptionGroup extends React.Component<{
     // An event when an option is selected
     onSelected: (value: string) => void;
