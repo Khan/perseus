@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 28.10.0
+
+### Minor Changes
+
+-   [#3186](https://github.com/Khan/perseus/pull/3186) [`4fc881daf8`](https://github.com/Khan/perseus/commit/4fc881daf812f93dddc6ebd75edcfb0f56c95914) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Radio] Remove getCorrectUserInput from the radio widget to hide the "Static" switch in the widget editor
+
+### Patch Changes
+
+-   Updated dependencies [[`d5b27f0aad`](https://github.com/Khan/perseus/commit/d5b27f0aadb96de3ceeb99b9e0c9176f3155fede), [`4fc881daf8`](https://github.com/Khan/perseus/commit/4fc881daf812f93dddc6ebd75edcfb0f56c95914), [`2d57e51583`](https://github.com/Khan/perseus/commit/2d57e515833b78d95c8a53ebce7ef60ce7affd4c), [`e34c3db786`](https://github.com/Khan/perseus/commit/e34c3db78634019fbd06e53fc1c2681d4e8390db), [`29c3c697fb`](https://github.com/Khan/perseus/commit/29c3c697fb1e90dd16df59cf1e5a7b6adcc8c85f), [`ea593fef51`](https://github.com/Khan/perseus/commit/ea593fef511c4ed974c70b77d6b035ebcdce2d9c), [`9cba5197a2`](https://github.com/Khan/perseus/commit/9cba5197a28f6ab0a783c2bb4f57c12590281048), [`3f6e33047d`](https://github.com/Khan/perseus/commit/3f6e33047d5e0e1bdd6135ab0fd383e1e493d8c6), [`5756410e90`](https://github.com/Khan/perseus/commit/5756410e90b0302db641a0c14f03f40d66441ca2), [`779c55b0c3`](https://github.com/Khan/perseus/commit/779c55b0c36f2bc5cbf83c0603344d831057e65b)]:
+    -   @khanacademy/perseus@74.0.0
+    -   @khanacademy/perseus-core@23.0.0
+    -   @khanacademy/math-input@26.3.10
+    -   @khanacademy/perseus-linter@4.6.12
+    -   @khanacademy/keypad-context@3.2.30
+    -   @khanacademy/kmath@2.2.30
+    -   @khanacademy/perseus-score@8.2.6
+
 ## 28.9.0
 
 ### Minor Changes
