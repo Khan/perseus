@@ -63,18 +63,18 @@ class Option extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property 'node' has no initializer and is not definitely assigned in the constructor.
     node: HTMLDivElement;
 
-    handleKeyDown(event: any): void {
+    handleKeyDown(event: React.KeyboardEvent<HTMLButtonElement>): void {
         const {onDropdownClose} = this.props;
         const pressedKey = event.key;
-        const focusedElement = event.target;
+        const focusedElement = event.target as HTMLElement;
 
         if (pressedKey === "ArrowDown" && focusedElement.nextSibling) {
             event.preventDefault();
-            focusedElement.nextSibling.focus();
+            (focusedElement.nextSibling as HTMLElement).focus();
         }
         if (pressedKey === "ArrowUp" && focusedElement.previousSibling) {
             event.preventDefault();
-            focusedElement.previousSibling.focus();
+            (focusedElement.previousSibling as HTMLElement).focus();
         }
         if (
             pressedKey === "ArrowUp" &&
@@ -116,15 +116,14 @@ class Option extends React.Component<Props> {
                     disabled && styles.cursorDefault,
                     hideFocusState && styles.noFocus,
                 )}
-                // @ts-expect-error - TS2322 - Type '(value: string) => void' is not assignable to type 'MouseEventHandler<HTMLButtonElement>'.
-                onClick={(value: string) => {
+                onClick={() => {
                     if (!disabled && onClick) {
-                        // @ts-expect-error - TS2554 - Expected 0 arguments, but got 1.
-                        onClick(value);
+                        onClick();
                     }
                 }}
-                // @ts-expect-error - TS2322 - Type '(event: KeyboardEvent) => void' is not assignable to type 'KeyboardEventHandler<HTMLButtonElement>'.
-                onKeyDown={(event: KeyboardEvent) => this.handleKeyDown(event)}
+                onKeyDown={(event: React.KeyboardEvent<HTMLButtonElement>) =>
+                    this.handleKeyDown(event)
+                }
                 aria-disabled={disabled}
                 aria-label={ariaLabel}
                 data-testid={testId}
@@ -148,11 +147,7 @@ class Option extends React.Component<Props> {
     }
 }
 
-// TODO(kevinb):
-// - keep the the option group within the page bounds
-// - do we really want to dismiss this on scroll
-// - how does the drop down interact with tooltips?  what's the z-index order?
-class OptionGroup extends React.Component<{
+type OptionGroupProps = {
     // An event when an option is selected
     onSelected: (value: string) => void;
     // The list of options to display
@@ -167,14 +162,27 @@ class OptionGroup extends React.Component<{
     // Use caution when using this - keyboard users need to know what
     // they're focused on in order to interact with the product!
     hideFocusState?: boolean;
-}> {
-    // @ts-expect-error - TS2564 - Property 'focusedElement' has no initializer and is not definitely assigned in the constructor.
-    focusedElement: Element;
+};
+
+type OptionGroupState = {
+    focusedElement: Element | undefined;
+};
+
+// TODO(kevinb):
+// - keep the the option group within the page bounds
+// - do we really want to dismiss this on scroll
+// - how does the drop down interact with tooltips?  what's the z-index order?
+class OptionGroup extends React.Component<OptionGroupProps, OptionGroupState> {
+    constructor(props: OptionGroupProps) {
+        super(props);
+        this.state = {
+            focusedElement: undefined,
+        };
+    }
 
     componentDidMount() {
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (this.focusedElement) {
-            findAndFocusElement(this.focusedElement);
+        if (this.state.focusedElement !== undefined) {
+            findAndFocusElement(this.state.focusedElement);
         }
     }
 
@@ -190,31 +198,23 @@ class OptionGroup extends React.Component<{
 
         return (
             <div
-                // @ts-expect-error - TS2322 - Type 'Window | null' is not assignable to type 'Top<string | number> | undefined'.
-                style={{top}}
+                style={{top: 0}}
                 className={css(
                     styles.optionGroup,
                     noMargin && styles.optionGroupNoMargin,
                 )}
             >
                 {React.Children.map(children, (child, index) => {
-                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
+                    if (child === undefined) {
+                        return null;
+                    }
                     const selected = selectedValues.includes(child.props.value);
 
-                    const reference =
-                        selected || index === 0
-                            ? (node: Element) => (this.focusedElement = node)
-                            : null;
-
-                    // @ts-expect-error - TS2769 - No overload matches this call.
                     return React.cloneElement(child, {
-                        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                         ...child.props,
                         key: index,
                         selected: selected,
-                        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                         onClick: () => onSelected(child.props.value),
-                        ref: reference,
                         onDropdownClose: onDropdownClose,
                         hideFocusState: hideFocusState,
                     });

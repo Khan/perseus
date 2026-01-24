@@ -42,7 +42,7 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = excludeDenylistKeys(props);
-    return applyDefaultsToWidget(filteredProps as any);
+    return applyDefaultsToWidget(filteredProps as PerseusWidget);
 };
 
 // This component handles upgading widget editor props via prop
