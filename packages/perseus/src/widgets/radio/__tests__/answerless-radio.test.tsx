@@ -121,14 +121,14 @@ describe("interactive: full vs answerless", () => {
             const {renderer} = renderQuestion(renderItem.question);
 
             await userEvent.click(
-                screen.getByRole("checkbox", {name: "(Choice A) Correct 1"}),
+                screen.getByRole("button", {name: /(Choice A)/}),
             );
             await userEvent.click(
-                screen.getByRole("checkbox", {name: "(Choice B) Correct 2"}),
+                screen.getByRole("button", {name: /(Choice B)/}),
             );
 
             // assert that functionality previous based on answers still works
-            expect(screen.getByRole("group", {name: "Choose 2 answers:"}));
+            expect(screen.getByText("Choose 2 answers:")).toBeInTheDocument();
 
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(

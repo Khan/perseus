@@ -19,7 +19,7 @@ interface RendererQuestion {
 }
 
 const meta = {
-    title: "Widgets/RadioNew",
+    title: "Widgets/Radio",
     tags: ["!dev"],
     component: RadioDemo,
     parameters: {

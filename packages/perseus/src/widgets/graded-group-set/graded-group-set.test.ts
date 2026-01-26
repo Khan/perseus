@@ -329,7 +329,7 @@ describe("graded group set widget", () => {
         renderQuestion(groupSetRadioRationaleQuestion);
 
         // Select the correct answer: "$8$" (index 2)
-        await userEvent.click(screen.getAllByRole("radio")[2]);
+        await userEvent.click(screen.getByRole("button", {name: /(Choice C)/}));
 
         // Act
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
@@ -345,7 +345,7 @@ describe("graded group set widget", () => {
         renderQuestion(groupSetRadioRationaleQuestion);
 
         // Select an incorrect answer: "$-8$" (index 1)
-        await userEvent.click(screen.getAllByRole("radio")[1]);
+        await userEvent.click(screen.getByRole("button", {name: /(Choice B)/}));
 
         // Act
         await userEvent.click(screen.getByRole("button", {name: "Check"}));

@@ -84,13 +84,18 @@ describe("server item renderer", () => {
 
     it("should pass showSolutions to the widgets", () => {
         // Arrange
-        renderQuestion(itemWithRadioAndExpressionWidgets, Object.freeze({}), {
-            showSolutions: "all",
-        });
+        const {container} = renderQuestion(
+            itemWithRadioAndExpressionWidgets,
+            Object.freeze({}),
+            {
+                showSolutions: "all",
+            },
+        );
 
         // Assert
         expect(
-            screen.queryAllByTestId(/perseus-radio-rationale-content/),
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+            container.querySelectorAll('[id$="-rationale"]'),
         ).toHaveLength(4);
     });
 
@@ -558,31 +563,31 @@ describe("server item renderer", () => {
 
             // select the right answer
             await userEvent.click(
-                screen.getByRole("checkbox", {name: "(Choice B) Right 1"}),
+                screen.getByRole("button", {name: /(Choice B)/}),
             );
             await userEvent.click(
-                screen.getByRole("checkbox", {name: "(Choice D) Right 2"}),
+                screen.getByRole("button", {name: /(Choice D)/}),
             );
 
             // assert choices are in the correct state
             expect(
-                screen.getByRole("checkbox", {
-                    name: "(Choice A) Wrong 1",
+                screen.getByRole("button", {
+                    name: /(Choice A)/,
                 }),
             ).toBeInTheDocument();
             expect(
-                screen.getByRole("checkbox", {
-                    name: "(Choice B, Checked) Right 1",
+                screen.getByRole("button", {
+                    name: /(Choice B)/,
                 }),
             ).toBeInTheDocument();
             expect(
-                screen.getByRole("checkbox", {
-                    name: "(Choice C) Wrong 2",
+                screen.getByRole("button", {
+                    name: /(Choice C)/,
                 }),
             ).toBeInTheDocument();
             expect(
-                screen.getByRole("checkbox", {
-                    name: "(Choice D, Checked) Right 2",
+                screen.getByRole("button", {
+                    name: /(Choice D)/,
                 }),
             ).toBeInTheDocument();
 
@@ -601,23 +606,23 @@ describe("server item renderer", () => {
 
             // make sure we're showing the answers as expected
             expect(
-                screen.getByRole("checkbox", {
-                    name: "(Choice A, Incorrect) Wrong 1",
+                screen.getByRole("button", {
+                    name: /(Choice A)/,
                 }),
             ).toBeInTheDocument();
             expect(
-                screen.getByRole("checkbox", {
-                    name: "(Choice B, Checked, Correct) Right 1",
+                screen.getByRole("button", {
+                    name: /(Choice B)/,
                 }),
             ).toBeInTheDocument();
             expect(
-                screen.getByRole("checkbox", {
-                    name: "(Choice C, Incorrect) Wrong 2",
+                screen.getByRole("button", {
+                    name: /(Choice C)/,
                 }),
             ).toBeInTheDocument();
             expect(
-                screen.getByRole("checkbox", {
-                    name: "(Choice D, Checked, Correct) Right 2",
+                screen.getByRole("button", {
+                    name: /(Choice D)/,
                 }),
             ).toBeInTheDocument();
 

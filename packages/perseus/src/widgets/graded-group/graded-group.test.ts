@@ -202,7 +202,9 @@ describe("graded-group", () => {
             renderQuestion(groupedRadioRationaleQuestion);
 
             // Select the correct answer: "$8$" (index 2)
-            await userEvent.click(screen.getAllByRole("radio")[2]);
+            await userEvent.click(
+                screen.getByRole("button", {name: /(Choice C)/}),
+            );
 
             // Act
             await checkAnswer(userEvent);
@@ -220,7 +222,9 @@ describe("graded-group", () => {
             renderQuestion(groupedRadioRationaleQuestion);
 
             // Select an incorrect answer: "$-8$" (index 1)
-            await userEvent.click(screen.getAllByRole("radio")[1]);
+            await userEvent.click(
+                screen.getByRole("button", {name: /(Choice B)/}),
+            );
 
             // Act
             await checkAnswer(userEvent);
@@ -373,7 +377,9 @@ describe("graded-group", () => {
             expect(checkButton).toHaveAttribute("aria-disabled", "true");
 
             // Act
-            await userEvent.click(screen.getByRole("radio", {name: /Correct/}));
+            await userEvent.click(
+                screen.getByRole("button", {name: /(Choice C)/}),
+            );
 
             // Assert - Check button should be visible and enabled
             expect(checkButton).toBeVisible();

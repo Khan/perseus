@@ -5,7 +5,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import {getPromptJSON} from "./radio-ai-utils";
+import {getPromptJSON, type RadioPromptJSON} from "./radio-ai-utils";
 
 import type {
     PerseusRenderer,
@@ -76,6 +76,7 @@ describe("Radio AI utils", () => {
     });
 
     it("should get prompt json which matches the state of the UI", () => {
+        // Arrange
         const widgetData: any = {
             numCorrect: 1,
             countChoices: false,
@@ -112,8 +113,10 @@ describe("Radio AI utils", () => {
             selectedChoiceIds: ["0-0-0-0-0"],
         };
 
+        // Act
         const resultJSON = getPromptJSON(widgetData, userInput);
 
+        // Assert
         expect(resultJSON).toEqual({
             type: "radio",
             hasNoneOfTheAbove: false,
@@ -134,21 +137,22 @@ describe("Radio AI utils", () => {
     )(
         "prompt answer order should map to UI answer order: index %s",
         async (_, choice) => {
-            // render the question which triggers shuffling
+            // Act - render the question which triggers shuffling
             const {renderer} = renderQuestion(shuffledQuestion);
 
-            // click the shuffled answer at a specific index
-            const radioInput = screen.getByRole("radio", {
-                name: new RegExp(choice.content),
-            });
-            await userEvent.click(radioInput);
+            const radioInput = screen.queryByText(choice.content);
 
-            // get prompt JSON
+            // Assert
+            expect(radioInput).not.toBeNull();
+
+            // Act - click the shuffled answer at a specific index
+            await userEvent.click(radioInput!);
+
             const json = renderer.getPromptJSON();
-            const widgetJSON = json.widgets["radio 1"];
-            if (widgetJSON.type !== "radio") {
-                throw new Error("Expected a radio widget");
-            }
+            const widgetJSON = json.widgets["radio 1"] as RadioPromptJSON;
+
+            // Assert
+            expect(widgetJSON.type).toEqual("radio");
 
             // Ensure the options are shown in the correct order
             const listItems = screen.getAllByRole("listitem");
@@ -169,6 +173,7 @@ describe("Radio AI utils", () => {
     // (user input should be initialized already)
     // but there's a bug somewhere and an urgency to get this patched
     it("should handle undefined/null user input", () => {
+        // Arange
         const widgetData: any = {
             numCorrect: 1,
             countChoices: false,
@@ -196,8 +201,10 @@ describe("Radio AI utils", () => {
             ],
         };
 
+        // Act
         const resultJSON = getPromptJSON(widgetData, undefined as any);
 
+        // Assert
         expect(resultJSON).toEqual({
             type: "radio",
             hasNoneOfTheAbove: false,

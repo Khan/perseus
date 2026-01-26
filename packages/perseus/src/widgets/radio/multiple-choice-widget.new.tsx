@@ -12,12 +12,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio
 import MultipleChoiceComponent from "./multiple-choice-component.new";
 import {getChoiceStates} from "./utils/general-utils";
 
-import type {
-    WidgetProps,
-    ChoiceState,
-    Widget,
-    ChangeHandler,
-} from "../../types";
+import type {WidgetProps, ChoiceState, ChangeHandler} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -46,19 +41,24 @@ export interface ChoiceType {
     disabled: boolean;
 }
 
-type RadioProps = {
+export type RadioProps = {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;
     countChoices?: boolean;
     deselectEnabled?: boolean;
-    choices: ReadonlyArray<RadioChoiceWithMetadata>;
-    choiceStates?: ReadonlyArray<ChoiceState>;
+    choices: RadioChoiceWithMetadata[];
+    choiceStates?: ChoiceState[];
     editMode?: boolean;
     labelWrap?: boolean;
+    randomize?: boolean;
     // TODO: https://khanacademy.atlassian.net/browse/LEMS-3542
     // remove onChange from Radio
     onChange: ChangeHandler;
+};
+
+export type RadioWidgetHandle = {
+    getPromptJSON(): RadioPromptJSON;
 };
 
 /**
@@ -83,7 +83,7 @@ type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
  *
  * Created as part of the Radio Revitalization Project (LEMS-2933).
  */
-const MultipleChoiceWidget = forwardRef<Widget, Props>(
+const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
     function MultipleChoiceWidget(props, ref) {
         const {
             choices = [],
