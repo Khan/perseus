@@ -1,7 +1,7 @@
 import jsdiff from "jsdiff";
 import _ from "underscore";
 
-export type ImageEntry = {
+type ImageEntry = {
     value: string[];
     added?: boolean;
     removed?: boolean;
