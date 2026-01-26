@@ -11,6 +11,11 @@ const config: KnipConfig = {
     entry: ["packages/*/src/index.ts"],
     // Where we want to look for dead code
     project: ["packages/*/src/*.{ts,tsx,js,jsx}"],
+    rules: {
+        // TODO, we need to turn this back on
+        // but it will require going through unused deps
+        dependencies: "off",
+    },
     // Special exceptions
     ignore: [
         // symlinked type defs for third-party libs
@@ -23,8 +28,11 @@ const config: KnipConfig = {
         "packages/perseus-core/src/parse-perseus-json/**",
         "jest.config.js",
         "config/test/**",
-        // TODO(LEMS-3867): fix these
+        // these need fixing
+        // TODO(LEMS-3867)
         "packages/perseus-editor/src/components/__stories__/**",
+        // TODO(LEMS-3868)
+        "packages/perseus-editor/src/preview/message-types.ts",
     ],
     // Scripts we use in `package.json`
     ignoreBinaries: [
