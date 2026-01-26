@@ -6,6 +6,7 @@ import * as React from "react";
 
 import IssueCta from "./issue-cta";
 import PerseusEditorAccordion from "./perseus-editor-accordion";
+import ShowMe from "./show-me-issue";
 
 import type {Issue} from "./issues-panel";
 import type {APIOptions} from "@khanacademy/perseus";
@@ -25,6 +26,16 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const toggleVisibility = () => setExpanded(!expanded);
 
+    const accordionColor =
+        issue.impact === "high"
+            ? semanticColor.feedback.critical.subtle.background
+            : semanticColor.feedback.warning.subtle.background;
+    const messageStyling = {
+        // Allow newlines in the message
+        whiteSpace: "pre-line",
+        color: semanticColor.core.foreground.critical.subtle,
+    };
+
     // TODO(LEMS-3520): Remove this once the "image-widget-upgrade" feature
     // flag is has been fully rolled out. Also remove the `apiOptions` prop.
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
@@ -34,12 +45,7 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
             animated={true}
             expanded={expanded}
             onToggle={toggleVisibility}
-            containerStyle={{
-                backgroundColor:
-                    issue.impact === "high"
-                        ? semanticColor.feedback.critical.subtle.background
-                        : semanticColor.feedback.warning.subtle.background,
-            }}
+            containerStyle={{backgroundColor: accordionColor}}
             panelStyle={{backgroundColor: "white"}}
             header={
                 <LabelLarge
@@ -66,15 +72,8 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
             <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>
                 Issue:
             </LabelSmall>
-            <span
-                style={{
-                    // Allow newlines in the message
-                    whiteSpace: "pre-line",
-                    color: semanticColor.core.foreground.critical.subtle,
-                }}
-            >
-                {issue.message}
-            </span>
+            <span style={messageStyling}>{issue.message}</span>
+            <ShowMe elements={issue.elements} />
             {imageUpgradeFF && <IssueCta issue={issue} />}
         </PerseusEditorAccordion>
     );
