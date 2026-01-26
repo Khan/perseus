@@ -58,7 +58,7 @@ describe("group widget", () => {
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["group 1", "radio 1"], // New focus
+                ["group 2", "numeric-input 1"], // New focus
                 null, // Old focus
             );
         });
@@ -235,10 +235,7 @@ describe("group widget", () => {
                             originalIndex: 4,
                         },
                     ],
-                    countChoices: false,
-                    deselectEnabled: false,
                     hasNoneOfTheAbove: false,
-                    multipleSelect: false,
                     numCorrect: 1,
                     static: false,
                 },
@@ -289,7 +286,7 @@ describe("group widget", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         // Answer all widgets correctly
-        await userEvent.click(screen.getAllByRole("radio")[4]);
+        await userEvent.click(screen.getByRole("button", {name: /(Choice E)/}));
         // Note(jeremy): If we don't tab away from the radio button in this
         // test, it seems like the userEvent typing doesn't land in the first
         // text field.
