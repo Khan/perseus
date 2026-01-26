@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 23.0.0
+
+### Major Changes
+
+-   [#3192](https://github.com/Khan/perseus/pull/3192) [`2d57e51583`](https://github.com/Khan/perseus/commit/2d57e515833b78d95c8a53ebce7ef60ce7affd4c) Thanks [@benchristel](https://github.com/benchristel)! - Remove the deprecated `KEScore` type.
+
+*   [#3188](https://github.com/Khan/perseus/pull/3188) [`ea593fef51`](https://github.com/Khan/perseus/commit/ea593fef511c4ed974c70b77d6b035ebcdce2d9c) Thanks [@benchristel](https://github.com/benchristel)! - Remove the deprecated `getUserInput` method from `Renderer`, and delete the `UserInputArray` type.
+
+### Minor Changes
+
+-   [#3157](https://github.com/Khan/perseus/pull/3157) [`9cba5197a2`](https://github.com/Khan/perseus/commit/9cba5197a28f6ab0a783c2bb4f57c12590281048) Thanks [@Myranae](https://github.com/Myranae)! - Convert Expression to functional component and improve testing and typing
+
 ## 22.1.0
 
 ### Minor Changes

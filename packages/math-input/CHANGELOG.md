@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 26.3.10
+
+### Patch Changes
+
+-   [#3190](https://github.com/Khan/perseus/pull/3190) [`e34c3db786`](https://github.com/Khan/perseus/commit/e34c3db78634019fbd06e53fc1c2681d4e8390db) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Update Storybook to v9.1.17 (security patch)
+
+-   Updated dependencies [[`2d57e51583`](https://github.com/Khan/perseus/commit/2d57e515833b78d95c8a53ebce7ef60ce7affd4c), [`ea593fef51`](https://github.com/Khan/perseus/commit/ea593fef511c4ed974c70b77d6b035ebcdce2d9c), [`9cba5197a2`](https://github.com/Khan/perseus/commit/9cba5197a28f6ab0a783c2bb4f57c12590281048)]:
+    -   @khanacademy/perseus-core@23.0.0
+    -   @khanacademy/keypad-context@3.2.30
+
 ## 26.3.9
 
 ### Patch Changes

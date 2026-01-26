@@ -1,5 +1,17 @@
 # @khanacademy/perseus-linter
 
+## 4.6.12
+
+### Patch Changes
+
+-   [#2921](https://github.com/Khan/perseus/pull/2921) [`29c3c697fb`](https://github.com/Khan/perseus/commit/29c3c697fb1e90dd16df59cf1e5a7b6adcc8c85f) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add issues panel warning for long alt text
+
+*   [#3183](https://github.com/Khan/perseus/pull/3183) [`779c55b0c3`](https://github.com/Khan/perseus/commit/779c55b0c36f2bc5cbf83c0603344d831057e65b) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds linter to radio editor - triggered when NOTA and another choice are marked as correct
+
+*   Updated dependencies [[`2d57e51583`](https://github.com/Khan/perseus/commit/2d57e515833b78d95c8a53ebce7ef60ce7affd4c), [`ea593fef51`](https://github.com/Khan/perseus/commit/ea593fef511c4ed974c70b77d6b035ebcdce2d9c), [`9cba5197a2`](https://github.com/Khan/perseus/commit/9cba5197a28f6ab0a783c2bb4f57c12590281048)]:
+    -   @khanacademy/perseus-core@23.0.0
+    -   @khanacademy/kmath@2.2.30
+
 ## 4.6.11
 
 ### Patch Changes
