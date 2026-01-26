@@ -74,7 +74,7 @@ class ImageDiffSide extends React.Component<ImageDiffSideProps> {
     }
 }
 
-export type TextDiffProps = {
+type TextDiffProps = {
     title: string;
     after: string | undefined;
     before: string | undefined;

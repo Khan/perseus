@@ -3943,5 +3943,3 @@ _.extend(MovableAngle.prototype, {
         this.labeledAngle.remove();
     },
 });
-
-export default InteractiveUtils;

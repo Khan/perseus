@@ -1,1 +1,1 @@
-export {default, Categorizer} from "./categorizer";
+export {default} from "./categorizer";
