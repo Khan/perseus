@@ -134,21 +134,60 @@ class EditorPage extends React.Component<Props, State> {
             this.updateRenderer();
         });
 
+        if (!previousProps.jsonMode && this.props.jsonMode) {
+            this.syncJsonStateOnModeChange();
+            return;
+        }
+
         if (
             !_.isEqual(previousProps.question, this.props.question) ||
             !_.isEqual(previousProps.answerArea, this.props.answerArea) ||
             !_.isEqual(previousProps.hints, this.props.hints)
         ) {
-            this.setState({
-                // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea">' is not assignable to type 'PerseusJson'.
-                json: _.pick(this.props, "question", "answerArea", "hints"),
-            });
+            this.syncJsonStateFromProps();
         }
+    }
+
+    /**
+     * Captures editor state before switching to JSON mode.
+     *
+     * Widget editors may have corrected or calculated values. These fixes
+     * only exist in the editor refs, not in `state.json`, so we must serialize
+     * them before the editors unmount.
+     */
+    syncJsonStateOnModeChange() {
+        this.setState({
+            json: _.extend(
+                this.itemEditor.current?.serialize({
+                    keepDeletedWidgets: true,
+                }),
+                {
+                    hints: this.hintsEditor.current?.serialize({
+                        keepDeletedWidgets: true,
+                    }),
+                },
+            ),
+        });
+    }
+    
+    /**
+     * Updates JSON state when props change from the parent.
+     *
+     * `state.json` is initialized once in the constructor. If the
+     * Frontend sends fresh data while the editor is already mounted,
+     * we need to update state.json to reflect those changes.
+     */
+    syncJsonStateFromProps() {
+        this.setState({
+            // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea">' is not assignable to type 'PerseusJson'.
+            json: _.pick(this.props, "question", "answerArea", "hints"),
+        });
     }
 
     componentWillUnmount() {
         this._isMounted = false;
     }
+
 
     toggleJsonMode: () => void = () => {
         this.setState(
