@@ -60,7 +60,7 @@
 }
 
 .modal-image-container img {
-    background-color: white
+    background-color: var(--wb-semanticColor-core-background-base-default);
 }
 
 .modal-description-container {
