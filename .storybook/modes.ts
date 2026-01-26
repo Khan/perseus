@@ -1,4 +1,4 @@
-export const allModes = {
+const allModes = {
     // Responsive modes
     small: {
         viewport: "small",
