@@ -160,7 +160,7 @@ class EditorPage extends React.Component<Props, State> {
             json: _.extend(
                 this.itemEditor.current?.serialize({
                     keepDeletedWidgets: true,
-                }),
+                }) || {},
                 {
                     hints: this.hintsEditor.current?.serialize({
                         keepDeletedWidgets: true,
@@ -169,7 +169,7 @@ class EditorPage extends React.Component<Props, State> {
             ),
         });
     }
-    
+
     /**
      * Updates JSON state when props change from the parent.
      *
