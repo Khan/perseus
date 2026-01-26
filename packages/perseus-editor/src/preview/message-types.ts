@@ -12,15 +12,10 @@ import type {
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 /**
- * Constant identifier for all Perseus preview messages
- */
-export const PREVIEW_MESSAGE_SOURCE = "perseus-preview" as const;
-
-/**
  * Base type for all preview messages
  */
 interface PreviewMessageBase {
-    source: typeof PREVIEW_MESSAGE_SOURCE;
+    source: "perseus-preview";
     id: string | number;
 }
 
