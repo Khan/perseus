@@ -46,10 +46,7 @@ type State = {
     uniqueId: string;
 };
 
-export class Categorizer
-    extends React.Component<Props, State>
-    implements Widget
-{
+class Categorizer extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
