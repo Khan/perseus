@@ -25,7 +25,7 @@ const Container = (props: {children: React.ReactNode}): React.ReactElement => {
 };
 
 export default {
-    title: "Widgets/RadioNew/Widget Internal Components/Choice",
+    title: "Widgets/Radio/Widget Internal Components/Choice",
     tags: ["!dev"],
 };
 

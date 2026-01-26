@@ -1,5 +1,8 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {type PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    type PerseusRenderer,
+    type RadioWidget,
+} from "@khanacademy/perseus-core";
 import {scoreRadio} from "@khanacademy/perseus-score";
 import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -25,17 +28,11 @@ import {
 import type {APIOptions, PerseusDependenciesV2} from "../../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
-// Create API options with the new-radio-widget flag enabled
-const createApiOptions = (options: Partial<APIOptions> = {}): APIOptions => ({
-    ...options,
-    flags: getFeatureFlags({"new-radio-widget": false}),
-});
-
 const selectOption = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     index: number,
 ) => {
-    const options = screen.getAllByRole("radio");
+    const options = screen.getAllByRole("button");
 
     // element that is null/undefined (ie. if the index is invalid) so we
     // manually check and throw here to protect future me, and others :)
@@ -68,7 +65,7 @@ describe("Multiple Choice Widget", () => {
 
     describe("single-choice question", () => {
         const [question, correct, incorrect] = questionAndAnswer;
-        const apiOptions = createApiOptions();
+        const apiOptions = Object.freeze({});
 
         describe.each([[true], [false]])(
             "reviewMode: %s",
@@ -107,9 +104,7 @@ describe("Multiple Choice Widget", () => {
 
                 it("should accept the right answer (mouse)", async () => {
                     // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions, {
-                        reviewMode,
-                    });
+                    const {renderer} = renderQuestion(question, apiOptions);
 
                     // Act
                     await selectOption(userEvent, correct);
@@ -125,7 +120,7 @@ describe("Multiple Choice Widget", () => {
                 it("should accept the right answer (touch)", async () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
-                    const correctRadio = screen.getAllByRole("radio")[correct];
+                    const correctRadio = screen.getAllByRole("button")[correct];
 
                     // Act
                     fireEvent.touchStart(correctRadio);
@@ -161,40 +156,6 @@ describe("Multiple Choice Widget", () => {
                         expect(score).toHaveBeenAnsweredIncorrectly();
                     },
                 );
-
-                it("should disable all radio inputs when static is true", async () => {
-                    // Arrange
-                    const staticQuestion = {
-                        ...question,
-                        widgets: {
-                            ...question.widgets,
-                            "radio 1": {
-                                ...question.widgets["radio 1"],
-                                static: true,
-                            },
-                        },
-                    } as const;
-                    renderQuestion(staticQuestion, apiOptions, {reviewMode});
-
-                    // Act
-                    await selectOption(userEvent, correct);
-
-                    // Assert
-                    // Everything's read-only so no selections made
-                    // Note(TB): The visual buttons are hidden from screen
-                    // readers, so they need to be identified as hidden;
-                    // the visual button has the aria attributes
-                    screen
-                        .getAllByRole("button", {hidden: true})
-                        .forEach((r) => {
-                            expect(r).toHaveAttribute("aria-disabled", "true");
-                        });
-                    // Note(TB): Confirms the screen reader only
-                    // radio options are also disabled
-                    screen.getAllByRole("radio").forEach((r) => {
-                        expect(r).toHaveAttribute("disabled");
-                    });
-                });
             },
         );
 
@@ -249,7 +210,10 @@ describe("Multiple Choice Widget", () => {
             await userEvent.keyboard(" ");
 
             // Assert
-            expect(screen.getAllByRole("radio")[0]).toBeChecked();
+            expect(screen.getAllByRole("button")[0]).toHaveAttribute(
+                "aria-pressed",
+                "true",
+            );
         });
 
         it("should be able to select an option by keyboard (enter)", async () => {
@@ -261,7 +225,10 @@ describe("Multiple Choice Widget", () => {
             await userEvent.keyboard("{Enter}");
 
             // Assert
-            expect(screen.getAllByRole("radio")[0]).toBeChecked();
+            expect(screen.getAllByRole("button")[0]).toHaveAttribute(
+                "aria-pressed",
+                "true",
+            );
         });
 
         it("should be able to navigate to 'None of the above' choice by keyboard", async () => {
@@ -304,7 +271,7 @@ describe("Multiple Choice Widget", () => {
                 // We click on the first item, which was the second (index == 1)
                 // item in the original choices. But because of enforced ordering,
                 // it is now at the top of the list (and thus our correct answer).
-                await userEvent.click(screen.getAllByRole("radio")[0]);
+                await userEvent.click(screen.getAllByRole("button")[0]);
                 const score = scorePerseusItemTesting(
                     q,
                     renderer.getUserInputMap(),
@@ -341,13 +308,14 @@ describe("Multiple Choice Widget", () => {
 
         it("should render all rationales when showSolutions is 'all'", async () => {
             // Arrange
-            renderQuestion(question, apiOptions, {
+            const {container} = renderQuestion(question, apiOptions, {
                 showSolutions: "all",
             });
 
             // Assert
             expect(
-                screen.queryAllByTestId(/perseus-radio-rationale-content/),
+                // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+                container.querySelectorAll(`[id$="-rationale"]`),
             ).toHaveLength(4);
         });
 
@@ -365,10 +333,9 @@ describe("Multiple Choice Widget", () => {
 
         it("should be invalid when first rendered", async () => {
             // Arrange
-            const apiOptions = createApiOptions();
+            const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            const {renderer} = renderQuestion(question, apiOptions);
             const score = scorePerseusItemTesting(
                 question,
                 renderer.getUserInputMap(),
@@ -376,30 +343,6 @@ describe("Multiple Choice Widget", () => {
 
             // Assert
             expect(score).toHaveInvalidInput();
-        });
-
-        it("Should render correct option select statuses (rationales) when review mode enabled", async () => {
-            // Arrange
-            const apiOptions = createApiOptions();
-            renderQuestion(question, apiOptions, {reviewMode: true});
-
-            // Act
-            await selectOption(userEvent, correct);
-
-            // Assert
-            expect(screen.getAllByText("Correct (selected)")).toHaveLength(1);
-        });
-
-        it("Should render incorrect option select statuses (rationales) when review mode enabled", async () => {
-            // Arrange
-            const apiOptions = createApiOptions();
-            renderQuestion(question, apiOptions, {reviewMode: true});
-
-            // Act
-            await selectOption(userEvent, incorrect[0]);
-
-            // Assert
-            expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
         });
 
         it("should send analytics event when widget is rendered", async () => {
@@ -432,43 +375,6 @@ describe("Multiple Choice Widget", () => {
             });
         });
 
-        it("should display all rationales when static is true", async () => {
-            // Arrange
-            const staticQuestion = {
-                ...question,
-                widgets: {
-                    ...question.widgets,
-                    "radio 1": {
-                        ...question.widgets["radio 1"],
-                        static: true,
-                    },
-                },
-            } as const;
-
-            // Act
-            renderQuestion(staticQuestion, apiOptions);
-
-            // Assert
-            // Part of Choice A rationale
-            expect(
-                screen.getByText(
-                    /the positive square root when performed on a number, so/,
-                ),
-            ).toBeVisible();
-            // Part of Choice B rationale
-            expect(
-                screen.getByText(/, the square root operation/),
-            ).toBeVisible();
-            // Part of Choice C rationale
-            expect(
-                screen.getByText(/is the positive square root of/),
-            ).toBeVisible();
-            // Part of Choice D rationale
-            expect(
-                screen.getAllByText(/satisfies the equation./)[3],
-            ).toBeVisible();
-        });
-
         it("should register as correct when none of the above option selected", async () => {
             // Arrange
             const q = clone(question);
@@ -480,7 +386,7 @@ describe("Multiple Choice Widget", () => {
             const {renderer} = renderQuestion(q, apiOptions);
 
             // Act
-            const noneOption = screen.getByRole("radio", {
+            const noneOption = screen.getByRole("button", {
                 name: "(Choice D) None of the above",
             });
             await userEvent.click(noneOption);
@@ -492,20 +398,93 @@ describe("Multiple Choice Widget", () => {
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();
         });
+
+        // LEMS-3445: Ensures that deselecting one choice doesn't select other choices
+        it("should not select other choices when deselecting current choice", async () => {
+            // Arrange
+            const radio1Widget = question.widgets["radio 1"];
+            const radioOptions = radio1Widget.options;
+
+            // Create a radio question with deselect enabled (single select mode)
+            const deselectionTestQuestion: PerseusRenderer = {
+                ...question,
+                widgets: {
+                    ...question.widgets,
+                    "radio 1": {
+                        ...radio1Widget,
+                        options: {
+                            ...radioOptions,
+                            choices: [
+                                {
+                                    id: "choice-a",
+                                    content: "Choice A",
+                                    correct: false,
+                                },
+                                {
+                                    id: "choice-b",
+                                    content: "Choice B",
+                                    correct: false,
+                                },
+                                {
+                                    id: "choice-c",
+                                    content: "Choice C",
+                                    correct: false,
+                                },
+                                {
+                                    id: "choice-d",
+                                    content: "Choice D",
+                                    correct: false,
+                                },
+                            ],
+                            multipleSelect: false,
+                            deselectEnabled: true,
+                        },
+                    },
+                },
+            };
+
+            const {renderer} = renderQuestion(
+                deselectionTestQuestion,
+                apiOptions,
+            );
+
+            // Act
+            const options = screen.getAllByRole("button");
+            expect(options).toHaveLength(4);
+
+            await userEvent.click(options[0]); // Select Choice A
+            expect(options[0]).toHaveAttribute("aria-pressed", "true");
+            expect(options[1]).not.toHaveAttribute("aria-pressed", "true");
+            expect(options[2]).not.toHaveAttribute("aria-pressed", "true");
+            expect(options[3]).not.toHaveAttribute("aria-pressed", "true");
+
+            await userEvent.click(options[0]); // Deselect Choice A
+
+            // Assert
+            expect(options[0]).not.toHaveAttribute("aria-pressed", "true");
+            expect(options[1]).not.toHaveAttribute("aria-pressed", "true");
+            expect(options[2]).not.toHaveAttribute("aria-pressed", "true");
+            expect(options[3]).not.toHaveAttribute("aria-pressed", "true");
+
+            // Also verify that the user input reflects no selections
+            const userInputMap = renderer.getUserInputMap();
+            const radioUserInput = userInputMap["radio 1"];
+            expect(radioUserInput.selectedChoiceIds).toEqual([]);
+        });
     });
 
     describe("multi-choice question", () => {
         const [question, correct, incorrect, invalid] =
             multiChoiceQuestionAndAnswer;
 
-        const apiOptions = createApiOptions();
+        const apiOptions: APIOptions = Object.freeze({});
 
         it("should accept the right answer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            const options = screen.getAllByRole("checkbox");
+            const options = screen.getAllByRole("button");
             for (const i of correct) {
                 await userEvent.click(options[i]);
             }
@@ -562,13 +541,13 @@ describe("Multiple Choice Widget", () => {
             renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
 
             // Act
-            const options = screen.getAllByRole("checkbox");
+            const options = screen.getAllByRole("button");
             await userEvent.click(options[2]);
             await userEvent.click(options[3]);
 
             // Assert
-            expect(options[2]).toBeChecked();
-            expect(options[3]).toBeChecked();
+            expect(options[2]).toHaveAttribute("aria-pressed", "true");
+            expect(options[3]).toHaveAttribute("aria-pressed", "true");
         });
 
         it("should deselect selected options when clicked", async () => {
@@ -615,88 +594,15 @@ describe("Multiple Choice Widget", () => {
             renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
 
             // Act
-            const options = screen.getAllByRole("checkbox");
+            const options = screen.getAllByRole("button");
             await userEvent.click(options[2]);
             await userEvent.click(options[3]);
             await userEvent.click(options[2]);
             await userEvent.click(options[3]);
 
             // Assert
-            expect(options[2]).not.toBeChecked();
-            expect(options[3]).not.toBeChecked();
-        });
-
-        // LEMS-3445: Ensures that deselecting one choice doesn't select other choices
-        it("should not select other choices when deselecting current choice - single select", async () => {
-            // Arrange
-            const radio1Widget = question.widgets["radio 1"];
-            const radioOptions = radio1Widget.options;
-
-            // Create a radio question with deselect enabled (single select mode)
-            const deselectionTestQuestion: PerseusRenderer = {
-                ...question,
-                widgets: {
-                    ...question.widgets,
-                    "radio 1": {
-                        ...radio1Widget,
-                        options: {
-                            ...radioOptions,
-                            choices: [
-                                {
-                                    id: "choice-a",
-                                    content: "Choice A",
-                                    correct: false,
-                                },
-                                {
-                                    id: "choice-b",
-                                    content: "Choice B",
-                                    correct: false,
-                                },
-                                {
-                                    id: "choice-c",
-                                    content: "Choice C",
-                                    correct: false,
-                                },
-                                {
-                                    id: "choice-d",
-                                    content: "Choice D",
-                                    correct: false,
-                                },
-                            ],
-                            multipleSelect: false,
-                            deselectEnabled: true,
-                        },
-                    },
-                },
-            };
-
-            const {renderer} = renderQuestion(
-                deselectionTestQuestion,
-                apiOptions,
-            );
-
-            // Act
-            const options = screen.getAllByRole("radio");
-            expect(options).toHaveLength(4);
-
-            await userEvent.click(options[0]); // Select Choice A
-            expect(options[0]).toBeChecked();
-            expect(options[1]).not.toBeChecked();
-            expect(options[2]).not.toBeChecked();
-            expect(options[3]).not.toBeChecked();
-
-            await userEvent.click(options[0]); // Deselect Choice A
-
-            // Assert
-            expect(options[0]).not.toBeChecked();
-            expect(options[1]).not.toBeChecked();
-            expect(options[2]).not.toBeChecked();
-            expect(options[3]).not.toBeChecked();
-
-            // Also verify that the user input reflects no selections
-            const userInputMap = renderer.getUserInputMap();
-            const radioUserInput = userInputMap["radio 1"];
-            expect(radioUserInput.selectedChoiceIds).toEqual([]);
+            expect(options[2]).not.toHaveAttribute("aria-pressed", "true");
+            expect(options[3]).not.toHaveAttribute("aria-pressed", "true");
         });
 
         it("should snapshot the same when invalid", async () => {
@@ -704,7 +610,7 @@ describe("Multiple Choice Widget", () => {
             const {container} = renderQuestion(question, apiOptions);
 
             // Act
-            const options = screen.getAllByRole("checkbox");
+            const options = screen.getAllByRole("button");
             for (const i of incorrect[0]) {
                 await userEvent.click(options[i]);
             }
@@ -803,7 +709,7 @@ describe("Multiple Choice Widget", () => {
             );
 
             // Act
-            const option = screen.getAllByRole("checkbox");
+            const option = screen.getAllByRole("button");
             await userEvent.click(option[0]); // correct
             await userEvent.click(option[1]); // correct
             await userEvent.click(option[2]); // incorrect
@@ -823,7 +729,7 @@ describe("Multiple Choice Widget", () => {
                 const {renderer} = renderQuestion(question, apiOptions);
 
                 // Act
-                const option = screen.getAllByRole("checkbox");
+                const option = screen.getAllByRole("button");
                 for (let i = 0; i < choices.length; i++) {
                     await userEvent.click(option[i]);
                 }
@@ -844,7 +750,7 @@ describe("Multiple Choice Widget", () => {
                 const {renderer} = renderQuestion(question, apiOptions);
 
                 // Act
-                const option = screen.getAllByRole("checkbox");
+                const option = screen.getAllByRole("button");
                 for (const i of choices) {
                     await userEvent.click(option[i]);
                 }
@@ -867,12 +773,11 @@ describe("Multiple Choice Widget", () => {
          */
         it("can be scored correctly when shuffled", async () => {
             // Arrange
-            const apiOptions = createApiOptions();
-            const {renderer} = renderQuestion(shuffledQuestion, apiOptions);
+            const {renderer} = renderQuestion(shuffledQuestion);
 
             // Act
             await userEvent.click(
-                screen.getByRole("radio", {name: /Correct Choice$/}),
+                screen.getByRole("button", {name: /Correct Choice$/}),
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
@@ -895,12 +800,11 @@ describe("Multiple Choice Widget", () => {
          */
         it("can be scored incorrectly when shuffled", async () => {
             // Arrange
-            const apiOptions = createApiOptions();
-            const {renderer} = renderQuestion(shuffledQuestion, apiOptions);
+            const {renderer} = renderQuestion(shuffledQuestion);
 
             // Act
             await userEvent.click(
-                screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
+                screen.getByRole("button", {name: /Incorrect Choice 1$/}),
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
@@ -923,12 +827,11 @@ describe("Multiple Choice Widget", () => {
          */
         it("can be scored correctly when shuffled with none of the above", async () => {
             // Arrange
-            const apiOptions = createApiOptions();
-            const {renderer} = renderQuestion(shuffledNoneQuestion, apiOptions);
+            const {renderer} = renderQuestion(shuffledNoneQuestion);
 
             // Act
             await userEvent.click(
-                screen.getByRole("radio", {name: /None of the above$/}),
+                screen.getByRole("button", {name: /None of the above$/}),
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
@@ -951,12 +854,11 @@ describe("Multiple Choice Widget", () => {
          */
         it("can be scored incorrectly when shuffled with none of the above", async () => {
             // Arrange
-            const apiOptions = createApiOptions();
-            const {renderer} = renderQuestion(shuffledNoneQuestion, apiOptions);
+            const {renderer} = renderQuestion(shuffledNoneQuestion);
 
             // Act
             await userEvent.click(
-                screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
+                screen.getByRole("button", {name: /Incorrect Choice 1$/}),
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
@@ -984,21 +886,28 @@ describe("Multiple Choice Widget", () => {
          */
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
             // Arrange
-            const apiOptions = createApiOptions();
-            renderQuestion(questionWithUndefinedCorrect, apiOptions, {
-                reviewMode: true,
-            });
+            renderQuestion(
+                questionWithUndefinedCorrect,
+                {},
+                {
+                    reviewMode: true,
+                },
+            );
 
             // Act
-            // Find all list items that represent choices, and count how many are marked as correct
-            const listItems = screen.getAllByRole("listitem");
+            // Find all choice buttons, and count how many are marked as correct
+            const choiceButtons = screen.getAllByRole("button");
             let correctCount = 0;
             let correctChoiceContent = "";
-            for (const item of listItems) {
-                const content = item.textContent || "";
-                if (content.includes("Correct")) {
+            for (const button of choiceButtons) {
+                const classes = button.getAttribute("class") || "";
+                if (classes.includes("is-correct")) {
                     correctCount++;
-                    correctChoiceContent = content;
+                    correctChoiceContent =
+                        // @ts-expect-error - TS2531: Object is possibly null
+                        // eslint-disable-next-line testing-library/no-node-access
+                        button.parentElement?.querySelector(".content")
+                            .textContent || "";
                 }
             }
 
@@ -1007,6 +916,64 @@ describe("Multiple Choice Widget", () => {
             // and that correct choice should be Choice B
             expect(correctCount).toBe(1);
             expect(correctChoiceContent).toContain("Choice B");
+        });
+    });
+
+    describe("shuffling", () => {
+        // regression LEMS-297
+        it("shuffles differently for multiple radios in the same exercise", () => {
+            let counter: number = 0;
+            const generateId = () => `${counter++}`;
+            function generateRadio(): RadioWidget {
+                return {
+                    type: "radio",
+                    version: {major: 3, minor: 0},
+                    options: {
+                        choices: [
+                            {
+                                content: "Choice 1",
+                                id: generateId(),
+                            },
+                            {
+                                content: "Choice 2",
+                                id: generateId(),
+                            },
+                            {
+                                content: "Choice 3",
+                                id: generateId(),
+                            },
+                            {
+                                content: "Choice 4",
+                                id: generateId(),
+                            },
+                        ],
+                        randomize: true,
+                    },
+                };
+            }
+            const multipleShuffledRadioQuestion: PerseusRenderer = {
+                content: "[[☃ radio 1]]\n[[☃ radio 2]]",
+                widgets: {
+                    "radio 1": generateRadio(),
+                    "radio 2": generateRadio(),
+                },
+                images: {},
+            };
+
+            const {container} = renderQuestion(multipleShuffledRadioQuestion);
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const radios = container.querySelectorAll(`[data-widget="radio"]`);
+
+            expect(radios.length).toBe(2);
+
+            // eslint-disable-next-line testing-library/no-node-access
+            const lis1 = Array.from(radios[0].querySelectorAll("li"));
+            // eslint-disable-next-line testing-library/no-node-access
+            const lis2 = Array.from(radios[1].querySelectorAll("li"));
+
+            const getText = (element) => element.textContent;
+            expect(lis1.map(getText)).not.toEqual(lis2.map(getText));
         });
     });
 });
