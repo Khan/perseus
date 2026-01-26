@@ -17,7 +17,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 registerAllWidgetsAndEditorsForTesting();
 
 const meta: Meta = {
-    title: "Widgets/RadioNew/Editor Demo",
+    title: "Widgets/Radio/Editor Demo",
     component: RadioEditor,
     tags: ["!autodocs"],
 } satisfies Meta<typeof RadioEditor>;

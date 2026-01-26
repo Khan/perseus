@@ -107,595 +107,275 @@ exports[`group widget should snapshot: initial render 1`] = `
                         <div
                           class="perseus-widget-container widget-nohighlight widget-block"
                         >
-                          <div
-                            class="responsiveContainer_12z1v8o"
+                          <fieldset
+                            class="container"
                           >
-                            <fieldset
-                              class="perseus-widget-radio-fieldset responsiveFieldset_le06t6"
+                            <legend
+                              aria-hidden="true"
+                              class="instructions"
+                              id=":r0:"
                             >
-                              <legend
-                                class="perseus-sr-only"
-                              >
-                                Choose 1 answer:
-                              </legend>
-                              <div
-                                aria-hidden="true"
-                                class="instructions instructions_f9jkqj"
-                              >
-                                Choose 1 answer:
-                              </div>
+                              Choose 1 answer:
+                            </legend>
+                            <div
+                              id=":r1:-scroll"
+                              role="group"
+                              style="overflow-x: auto;"
+                            >
                               <ul
-                                class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
-                                style="list-style: none;"
+                                aria-labelledby=":r0:"
+                                class="choice-list"
+                                data-widget="radio"
+                                role="list"
                               >
                                 <li
-                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="choice"
+                                  role="listitem"
                                 >
+                                  <button
+                                    aria-disabled="false"
+                                    aria-label="(Choice A)"
+                                    aria-labelledby=":r4: :r3:-choice-1"
+                                    aria-pressed="false"
+                                    class="base circle-shape"
+                                    id=":r4:"
+                                    type="button"
+                                  >
+                                    <span>
+                                      A
+                                    </span>
+                                  </button>
                                   <div
-                                    class="description description_psmgei"
-                                    style="flex-direction: column; color: rgb(33, 36, 44);"
+                                    class="content"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
+                                      id=":r3:-choice-1"
                                     >
                                       <div
-                                        class="perseus-sr-only"
-                                      >
-                                        <label>
-                                          (Choice A)
-                                             
-                                          <div
-                                            class="perseus-renderer perseus-renderer-responsive"
-                                          >
-                                            <div
-                                              class="paragraph perseus-paragraph-centered"
-                                              data-perseus-paragraph-index="0"
-                                            >
-                                              <div
-                                                class="perseus-block-math"
-                                              >
-                                                <div
-                                                  class="perseus-block-math-inner"
-                                                  style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                >
-                                                  <span
-                                                    class="mock-TeX"
-                                                  >
-                                                    45
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <input
-                                            class="perseus-radio-option-content"
-                                            tabindex="-1"
-                                            type="radio"
-                                          />
-                                        </label>
-                                      </div>
-                                      <button
-                                        aria-disabled="false"
-                                        aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                        type="button"
+                                        class="perseus-renderer perseus-renderer-responsive"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                                          class="paragraph perseus-paragraph-centered"
+                                          data-perseus-paragraph-index="0"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="perseus-block-math"
                                           >
-                                            <span
-                                              class="ring_ya75gi"
-                                              data-testid="focus-ring"
-                                              style="border-color: transparent; border-radius: 50%;"
+                                            <div
+                                              class="perseus-block-math-inner"
+                                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
                                             >
-                                              <div
-                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
-                                                data-is-radio-icon="true"
-                                                data-testid="choice-icon__library-choice-icon"
+                                              <span
+                                                class="mock-TeX"
                                               >
-                                                <div
-                                                  class="innerWrapper_177sg8x"
-                                                >
-                                                  <span>
-                                                    A
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </span>
-                                          </div>
-                                          <span
-                                            style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                          >
-                                            <div />
-                                            <div>
-                                              <div
-                                                class="perseus-renderer perseus-renderer-responsive"
-                                              >
-                                                <div
-                                                  class="paragraph perseus-paragraph-centered"
-                                                  data-perseus-paragraph-index="0"
-                                                >
-                                                  <div
-                                                    class="perseus-block-math"
-                                                  >
-                                                    <div
-                                                      class="perseus-block-math-inner"
-                                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                    >
-                                                      <span
-                                                        class="mock-TeX"
-                                                      >
-                                                        45
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
+                                                45
+                                              </span>
                                             </div>
-                                          </span>
+                                          </div>
                                         </div>
-                                      </button>
+                                      </div>
                                     </div>
                                   </div>
                                 </li>
                                 <li
-                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="choice"
+                                  role="listitem"
                                 >
+                                  <button
+                                    aria-disabled="false"
+                                    aria-label="(Choice B)"
+                                    aria-labelledby=":r5: :r3:-choice-2"
+                                    aria-pressed="false"
+                                    class="base circle-shape"
+                                    id=":r5:"
+                                    type="button"
+                                  >
+                                    <span>
+                                      B
+                                    </span>
+                                  </button>
                                   <div
-                                    class="description description_psmgei"
-                                    style="flex-direction: column; color: rgb(33, 36, 44);"
+                                    class="content"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
+                                      id=":r3:-choice-2"
                                     >
                                       <div
-                                        class="perseus-sr-only"
-                                      >
-                                        <label>
-                                          (Choice B)
-                                             
-                                          <div
-                                            class="perseus-renderer perseus-renderer-responsive"
-                                          >
-                                            <div
-                                              class="paragraph perseus-paragraph-centered"
-                                              data-perseus-paragraph-index="0"
-                                            >
-                                              <div
-                                                class="perseus-block-math"
-                                              >
-                                                <div
-                                                  class="perseus-block-math-inner"
-                                                  style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                >
-                                                  <span
-                                                    class="mock-TeX"
-                                                  >
-                                                    42
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <input
-                                            class="perseus-radio-option-content"
-                                            tabindex="-1"
-                                            type="radio"
-                                          />
-                                        </label>
-                                      </div>
-                                      <button
-                                        aria-disabled="false"
-                                        aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                        type="button"
+                                        class="perseus-renderer perseus-renderer-responsive"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                                          class="paragraph perseus-paragraph-centered"
+                                          data-perseus-paragraph-index="0"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="perseus-block-math"
                                           >
-                                            <span
-                                              class="ring_ya75gi"
-                                              data-testid="focus-ring"
-                                              style="border-color: transparent; border-radius: 50%;"
+                                            <div
+                                              class="perseus-block-math-inner"
+                                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
                                             >
-                                              <div
-                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
-                                                data-is-radio-icon="true"
-                                                data-testid="choice-icon__library-choice-icon"
+                                              <span
+                                                class="mock-TeX"
                                               >
-                                                <div
-                                                  class="innerWrapper_177sg8x"
-                                                >
-                                                  <span>
-                                                    B
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </span>
-                                          </div>
-                                          <span
-                                            style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                          >
-                                            <div />
-                                            <div>
-                                              <div
-                                                class="perseus-renderer perseus-renderer-responsive"
-                                              >
-                                                <div
-                                                  class="paragraph perseus-paragraph-centered"
-                                                  data-perseus-paragraph-index="0"
-                                                >
-                                                  <div
-                                                    class="perseus-block-math"
-                                                  >
-                                                    <div
-                                                      class="perseus-block-math-inner"
-                                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                    >
-                                                      <span
-                                                        class="mock-TeX"
-                                                      >
-                                                        42
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
+                                                42
+                                              </span>
                                             </div>
-                                          </span>
+                                          </div>
                                         </div>
-                                      </button>
+                                      </div>
                                     </div>
                                   </div>
                                 </li>
                                 <li
-                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="choice"
+                                  role="listitem"
                                 >
+                                  <button
+                                    aria-disabled="false"
+                                    aria-label="(Choice C)"
+                                    aria-labelledby=":r6: :r3:-choice-3"
+                                    aria-pressed="false"
+                                    class="base circle-shape"
+                                    id=":r6:"
+                                    type="button"
+                                  >
+                                    <span>
+                                      C
+                                    </span>
+                                  </button>
                                   <div
-                                    class="description description_psmgei"
-                                    style="flex-direction: column; color: rgb(33, 36, 44);"
+                                    class="content"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
+                                      id=":r3:-choice-3"
                                     >
                                       <div
-                                        class="perseus-sr-only"
-                                      >
-                                        <label>
-                                          (Choice C)
-                                             
-                                          <div
-                                            class="perseus-renderer perseus-renderer-responsive"
-                                          >
-                                            <div
-                                              class="paragraph perseus-paragraph-centered"
-                                              data-perseus-paragraph-index="0"
-                                            >
-                                              <div
-                                                class="perseus-block-math"
-                                              >
-                                                <div
-                                                  class="perseus-block-math-inner"
-                                                  style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                >
-                                                  <span
-                                                    class="mock-TeX"
-                                                  >
-                                                    30
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <input
-                                            class="perseus-radio-option-content"
-                                            tabindex="-1"
-                                            type="radio"
-                                          />
-                                        </label>
-                                      </div>
-                                      <button
-                                        aria-disabled="false"
-                                        aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                        type="button"
+                                        class="perseus-renderer perseus-renderer-responsive"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                                          class="paragraph perseus-paragraph-centered"
+                                          data-perseus-paragraph-index="0"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="perseus-block-math"
                                           >
-                                            <span
-                                              class="ring_ya75gi"
-                                              data-testid="focus-ring"
-                                              style="border-color: transparent; border-radius: 50%;"
+                                            <div
+                                              class="perseus-block-math-inner"
+                                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
                                             >
-                                              <div
-                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
-                                                data-is-radio-icon="true"
-                                                data-testid="choice-icon__library-choice-icon"
+                                              <span
+                                                class="mock-TeX"
                                               >
-                                                <div
-                                                  class="innerWrapper_177sg8x"
-                                                >
-                                                  <span>
-                                                    C
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </span>
-                                          </div>
-                                          <span
-                                            style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                          >
-                                            <div />
-                                            <div>
-                                              <div
-                                                class="perseus-renderer perseus-renderer-responsive"
-                                              >
-                                                <div
-                                                  class="paragraph perseus-paragraph-centered"
-                                                  data-perseus-paragraph-index="0"
-                                                >
-                                                  <div
-                                                    class="perseus-block-math"
-                                                  >
-                                                    <div
-                                                      class="perseus-block-math-inner"
-                                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                    >
-                                                      <span
-                                                        class="mock-TeX"
-                                                      >
-                                                        30
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
+                                                30
+                                              </span>
                                             </div>
-                                          </span>
+                                          </div>
                                         </div>
-                                      </button>
+                                      </div>
                                     </div>
                                   </div>
                                 </li>
                                 <li
-                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="choice"
+                                  role="listitem"
                                 >
+                                  <button
+                                    aria-disabled="false"
+                                    aria-label="(Choice D)"
+                                    aria-labelledby=":r7: :r3:-choice-4"
+                                    aria-pressed="false"
+                                    class="base circle-shape"
+                                    id=":r7:"
+                                    type="button"
+                                  >
+                                    <span>
+                                      D
+                                    </span>
+                                  </button>
                                   <div
-                                    class="description description_psmgei"
-                                    style="flex-direction: column; color: rgb(33, 36, 44);"
+                                    class="content"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
+                                      id=":r3:-choice-4"
                                     >
                                       <div
-                                        class="perseus-sr-only"
-                                      >
-                                        <label>
-                                          (Choice D)
-                                             
-                                          <div
-                                            class="perseus-renderer perseus-renderer-responsive"
-                                          >
-                                            <div
-                                              class="paragraph perseus-paragraph-centered"
-                                              data-perseus-paragraph-index="0"
-                                            >
-                                              <div
-                                                class="perseus-block-math"
-                                              >
-                                                <div
-                                                  class="perseus-block-math-inner"
-                                                  style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                >
-                                                  <span
-                                                    class="mock-TeX"
-                                                  >
-                                                    18
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <input
-                                            class="perseus-radio-option-content"
-                                            tabindex="-1"
-                                            type="radio"
-                                          />
-                                        </label>
-                                      </div>
-                                      <button
-                                        aria-disabled="false"
-                                        aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                        type="button"
+                                        class="perseus-renderer perseus-renderer-responsive"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                                          class="paragraph perseus-paragraph-centered"
+                                          data-perseus-paragraph-index="0"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="perseus-block-math"
                                           >
-                                            <span
-                                              class="ring_ya75gi"
-                                              data-testid="focus-ring"
-                                              style="border-color: transparent; border-radius: 50%;"
+                                            <div
+                                              class="perseus-block-math-inner"
+                                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
                                             >
-                                              <div
-                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
-                                                data-is-radio-icon="true"
-                                                data-testid="choice-icon__library-choice-icon"
+                                              <span
+                                                class="mock-TeX"
                                               >
-                                                <div
-                                                  class="innerWrapper_177sg8x"
-                                                >
-                                                  <span>
-                                                    D
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </span>
-                                          </div>
-                                          <span
-                                            style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                          >
-                                            <div />
-                                            <div>
-                                              <div
-                                                class="perseus-renderer perseus-renderer-responsive"
-                                              >
-                                                <div
-                                                  class="paragraph perseus-paragraph-centered"
-                                                  data-perseus-paragraph-index="0"
-                                                >
-                                                  <div
-                                                    class="perseus-block-math"
-                                                  >
-                                                    <div
-                                                      class="perseus-block-math-inner"
-                                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                    >
-                                                      <span
-                                                        class="mock-TeX"
-                                                      >
-                                                        18
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
+                                                18
+                                              </span>
                                             </div>
-                                          </span>
+                                          </div>
                                         </div>
-                                      </button>
+                                      </div>
                                     </div>
                                   </div>
                                 </li>
                                 <li
-                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="choice"
+                                  role="listitem"
                                 >
+                                  <button
+                                    aria-disabled="false"
+                                    aria-label="(Choice E)"
+                                    aria-labelledby=":r8: :r3:-choice-5"
+                                    aria-pressed="false"
+                                    class="base circle-shape"
+                                    id=":r8:"
+                                    type="button"
+                                  >
+                                    <span>
+                                      E
+                                    </span>
+                                  </button>
                                   <div
-                                    class="description description_psmgei"
-                                    style="flex-direction: column; color: rgb(33, 36, 44);"
+                                    class="content"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
+                                      id=":r3:-choice-5"
                                     >
                                       <div
-                                        class="perseus-sr-only"
-                                      >
-                                        <label>
-                                          (Choice E)
-                                             
-                                          <div
-                                            class="perseus-renderer perseus-renderer-responsive"
-                                          >
-                                            <div
-                                              class="paragraph perseus-paragraph-centered"
-                                              data-perseus-paragraph-index="0"
-                                            >
-                                              <div
-                                                class="perseus-block-math"
-                                              >
-                                                <div
-                                                  class="perseus-block-math-inner"
-                                                  style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                >
-                                                  <span
-                                                    class="mock-TeX"
-                                                  >
-                                                    15
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <input
-                                            class="perseus-radio-option-content"
-                                            tabindex="-1"
-                                            type="radio"
-                                          />
-                                        </label>
-                                      </div>
-                                      <button
-                                        aria-disabled="false"
-                                        aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                        type="button"
+                                        class="perseus-renderer perseus-renderer-responsive"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                                          class="paragraph perseus-paragraph-centered"
+                                          data-perseus-paragraph-index="0"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="perseus-block-math"
                                           >
-                                            <span
-                                              class="ring_ya75gi"
-                                              data-testid="focus-ring"
-                                              style="border-color: transparent; border-radius: 50%;"
+                                            <div
+                                              class="perseus-block-math-inner"
+                                              style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
                                             >
-                                              <div
-                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
-                                                data-is-radio-icon="true"
-                                                data-testid="choice-icon__library-choice-icon"
+                                              <span
+                                                class="mock-TeX"
                                               >
-                                                <div
-                                                  class="innerWrapper_177sg8x"
-                                                >
-                                                  <span>
-                                                    E
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </span>
-                                          </div>
-                                          <span
-                                            style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                          >
-                                            <div />
-                                            <div>
-                                              <div
-                                                class="perseus-renderer perseus-renderer-responsive"
-                                              >
-                                                <div
-                                                  class="paragraph perseus-paragraph-centered"
-                                                  data-perseus-paragraph-index="0"
-                                                >
-                                                  <div
-                                                    class="perseus-block-math"
-                                                  >
-                                                    <div
-                                                      class="perseus-block-math-inner"
-                                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                                    >
-                                                      <span
-                                                        class="mock-TeX"
-                                                      >
-                                                        15
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
+                                                15
+                                              </span>
                                             </div>
-                                          </span>
+                                          </div>
                                         </div>
-                                      </button>
+                                      </div>
                                     </div>
                                   </div>
                                 </li>
                               </ul>
-                            </fieldset>
-                          </div>
+                            </div>
+                          </fieldset>
                         </div>
                       </div>
                     </div>
@@ -760,13 +440,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocorrect="off"
                             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                             data-testid="input-with-examples"
-                            id=":r0:"
+                            id=":r9:"
                             tabindex="0"
                             type="text"
                             value=""
                           />
                           <span
-                            id="aria-for-:r0:"
+                            id="aria-for-:r9:"
                             style="display: none;"
                           />
                         </div>
@@ -817,13 +497,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocorrect="off"
                             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                             data-testid="input-with-examples"
-                            id=":r3:"
+                            id=":rc:"
                             tabindex="0"
                             type="text"
                             value=""
                           />
                           <span
-                            id="aria-for-:r3:"
+                            id="aria-for-:rc:"
                             style="display: none;"
                           />
                         </div>

@@ -18,9 +18,6 @@ const expectedSerializedRadio = {
     static: false,
     numCorrect: 1,
     hasNoneOfTheAbove: false,
-    multipleSelect: false,
-    countChoices: false,
-    deselectEnabled: false,
     choices: [
         {
             id: "5-5-5-5-5",
@@ -162,7 +159,7 @@ describe("Radio serialization", () => {
         const preAnswerState = renderer.getSerializedState();
 
         // select the first options
-        const radioInputs = screen.getAllByRole("radio");
+        const radioInputs = screen.getAllByRole("button");
         await userEvent.click(radioInputs[0]);
 
         // Act
