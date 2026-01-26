@@ -87,6 +87,10 @@ jobs:
               run: |
                   pnpm prettier --check .
 
+            - name: Check for dead code
+              run: |
+                  pnpm knip
+
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
               uses: Khan/actions@filter-files-v1
