@@ -31,7 +31,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
 
             - name: Update browserslist DB
-              run: npx update-browserslist-db@latest
+              run: pnpm exec update-browserslist-db
 
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0

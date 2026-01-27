@@ -127,6 +127,7 @@
         "typescript": "5.9.3",
         "typescript-coverage-report": "^0.7.0",
         "typescript-plugin-css-modules": "^5.1.0",
+        "update-browserslist-db": "^1.2.3",
         "vite": "catalog:devDeps",
         "vite-css-modules": "1.8.6",
         "vite-plugin-istanbul": "^5.0.0",
