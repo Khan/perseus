@@ -28,6 +28,24 @@ const cssWrapper = {
     },
 };
 
+// This is a workaround to fix an issue with how MDX compiler used by Storybook
+// generates import statements (it generates them as file:// URLs) which causes
+// the mdx-react-shim.js file to not be found.
+// See https://github.com/storybookjs/storybook/issues/26976
+const mdxReactShimFix = {
+    name: "fix-mdx-react-shim",
+    enforce: "pre",
+    resolveId(source) {
+        if (
+            source.startsWith("file://") &&
+            source.includes("mdx-react-shim.js")
+        ) {
+            return new URL(source).pathname;
+        }
+        return null;
+    },
+};
+
 // This is used to sort the stories in the Storybook sidebar navigation.
 // See https://storybook.js.org/addons/storybook-multilevel-sort
 configureSort({
@@ -62,6 +80,15 @@ configureSort({
 });
 
 const config: StorybookConfig = {
+    // This framework automatically reads the vite.config.ts in the root dir,
+    // but we customize it in this configuration (see viteFinal below).
+    // https://www.npmjs.com/package/@storybook/builder-vite#customize-vite-config
+    framework: "@storybook/react-vite",
+    addons: [
+        "@storybook/addon-a11y",
+        "@storybook/addon-docs",
+        "@storybook/addon-links",
+    ],
     // TODO(ivy): Simplify code below once improvements are done
     // stories: ["../src/**/*.stories.@(ts|tsx|mdx)"]
     stories: [
@@ -83,15 +110,6 @@ const config: StorybookConfig = {
         // Docs for Math Input
         "../packages/math-input/src/**/*.stories.tsx",
     ],
-    addons: [
-        "@storybook/addon-a11y",
-        "@storybook/addon-docs",
-        "@storybook/addon-links",
-    ],
-    // This framework automatically reads the vite.config.ts in the root dir
-    // https://www.npmjs.com/package/@storybook/builder-vite#customize-vite-config
-    framework: "@storybook/react-vite",
-
     // NOTE(kevinb): We customize the padding a bit so that stories using the
     // on-screen keypad render correctly.  Storybook adds its own padding
     // as a class to <body> so we use !important to override that.
@@ -133,7 +151,7 @@ const config: StorybookConfig = {
                     return !file.endsWith(".svg");
                 },
             },
-            plugins: [cssWrapper],
+            plugins: [cssWrapper, mdxReactShimFix],
         });
     },
     staticDirs: ["../static"],
