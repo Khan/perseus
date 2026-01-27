@@ -1,5 +1,5 @@
 import {ApiOptions} from "@khanacademy/perseus";
-import {expect, within} from "@storybook/test";
+import {expect, within} from "storybook/test";
 import * as React from "react";
 
 import {testDependenciesV2} from "../../../../testing/test-dependencies";
