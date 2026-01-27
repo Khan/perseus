@@ -27,19 +27,39 @@ export function getChoiceLetter(pos: number, strings: PerseusStrings): string {
 }
 
 export function getUserInputFromSerializedState(
-    serializedState: any,
+    serializedState: unknown,
 ): PerseusRadioUserInput {
     const selectedChoiceIds: string[] = [];
 
-    if (serializedState.choiceStates) {
-        const choiceStates = serializedState.choiceStates;
+    // Type guard for the serialized state structure
+    if (
+        serializedState != null &&
+        typeof serializedState === "object" &&
+        "choiceStates" in serializedState &&
+        Array.isArray(serializedState.choiceStates) &&
+        "choices" in serializedState &&
+        Array.isArray(serializedState.choices)
+    ) {
+        const {choiceStates, choices} = serializedState;
 
         for (let i = 0; i < choiceStates.length; i++) {
             // Guard against undefined choiceStates when choices array length exceeds choiceStates length
             // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
-            if (choiceStates[i]?.selected) {
-                const choiceId = serializedState.choices[i]?.id;
-                if (choiceId) {
+            const choiceState = choiceStates[i];
+            if (
+                choiceState != null &&
+                typeof choiceState === "object" &&
+                "selected" in choiceState &&
+                choiceState.selected
+            ) {
+                const choice = choices[i];
+                const choiceId =
+                    choice != null &&
+                    typeof choice === "object" &&
+                    "id" in choice
+                        ? choice.id
+                        : undefined;
+                if (typeof choiceId === "string") {
                     selectedChoiceIds.push(choiceId);
                 }
             }
@@ -58,11 +78,10 @@ export function getUserInputFromSerializedState(
 export function moveNoneOfTheAboveToEnd(
     choices: ReadonlyArray<RadioChoiceWithMetadata>,
 ) {
-    let noneOfTheAbove = null;
+    let noneOfTheAbove: RadioChoiceWithMetadata | null = null;
 
     const newChoices = choices.filter((choice, index) => {
         if (choice.isNoneOfTheAbove) {
-            // @ts-expect-error - TS2322 - Type 'RadioChoiceWithMetadata' is not assignable to type 'null'.
             noneOfTheAbove = choice;
             return false;
         }
