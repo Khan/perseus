@@ -122,7 +122,23 @@ class EditorPage extends React.Component<Props, State> {
         this.updateRenderer();
     }
 
-    componentDidUpdate(previousProps: Props) {
+    getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
+        if (!prevProps.jsonMode && this.props.jsonMode) {
+            return _.extend(
+                this.itemEditor.current?.serialize({
+                    keepDeletedWidgets: true,
+                }) || {},
+                {
+                    hints: this.hintsEditor.current?.serialize({
+                        keepDeletedWidgets: true,
+                    }),
+                },
+            );
+        }
+        return null;
+    }
+
+    componentDidUpdate(previousProps: Props, prevState: State, snapshot: any) {
         // NOTE: It is required to delay the preview update until after the
         // current frame, to allow for ItemEditor to render its widgets.
         // This then enables to serialize the widgets properties correctly,
@@ -134,8 +150,9 @@ class EditorPage extends React.Component<Props, State> {
             this.updateRenderer();
         });
 
-        if (!previousProps.jsonMode && this.props.jsonMode) {
-            this.syncJsonStateOnModeChange();
+        // Use serialized snapshot from before unmount
+        if (snapshot) {
+            this.setState({json: snapshot});
             return;
         }
 
@@ -146,28 +163,6 @@ class EditorPage extends React.Component<Props, State> {
         ) {
             this.syncJsonStateFromProps();
         }
-    }
-
-    /**
-     * Captures editor state before switching to JSON mode.
-     *
-     * Widget editors may have corrected or calculated values. These fixes
-     * only exist in the editor refs, not in `state.json`, so we must serialize
-     * them before the editors unmount.
-     */
-    syncJsonStateOnModeChange() {
-        this.setState({
-            json: _.extend(
-                this.itemEditor.current?.serialize({
-                    keepDeletedWidgets: true,
-                }) || {},
-                {
-                    hints: this.hintsEditor.current?.serialize({
-                        keepDeletedWidgets: true,
-                    }),
-                },
-            ),
-        });
     }
 
     /**
