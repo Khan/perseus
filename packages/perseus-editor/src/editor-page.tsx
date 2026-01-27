@@ -183,7 +183,6 @@ class EditorPage extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-
     toggleJsonMode: () => void = () => {
         this.setState(
             {
