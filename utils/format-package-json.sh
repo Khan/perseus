@@ -19,6 +19,10 @@ pushd "$SCRIPT_DIR/.." > /dev/null 2>&1 || exit
 # truncation errors (especially in the face of failures in the processing
 # pipeline).
 for dir in ./packages/*; do
+    if [ ! -d "$dir" ]; then
+        continue
+    fi
+
     echo "$dir"
     PKG_NAME="$(basename "$dir")"
 
