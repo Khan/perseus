@@ -145,6 +145,5 @@ export const ClassNames = {
     RESPONSIVE_RENDERER: "perseus-renderer-responsive",
     INPUT: "perseus-input",
     FOCUSED: "perseus-focused",
-    UNANSWERED: "perseus-unanswered", // TODO: Pretty sure this is unused - verify and remove if so
     MOBILE: "perseus-mobile",
 } as const;
