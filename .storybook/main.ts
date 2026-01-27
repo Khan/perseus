@@ -31,7 +31,7 @@ const cssWrapper = {
 // This is a workaround to fix an issue with how MDX compiler used by Storybook
 // generates import statements (it generates them as file:// URLs) which causes
 // the mdx-react-shim.js file to not be found.
-// See https://github.com/storybookjs/storybook/issues/26976
+// See https://github.com/storybookjs/storybook/issues/33537
 const mdxReactShimFix = {
     name: "fix-mdx-react-shim",
     enforce: "pre",
