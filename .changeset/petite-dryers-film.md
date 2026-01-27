@@ -2,4 +2,5 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Updates EditorPage to sync `json` state with incoming props in componentDidUpdate
+JsonEditor: Replaced deprecated lifecycle method with componentDidUpdate to sync internal state when props change
+EditorPage: Added getSnapshotBeforeUpdate to capture editor state before switching to JSON mode
