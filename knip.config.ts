@@ -7,17 +7,16 @@ import type {KnipConfig} from "knip";
  * To use: `pnpm knip`
  */
 const config: KnipConfig = {
-    entry: [
-        "{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
-        "src/{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
-    ],
-    project: [
-        "**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
-        // dev tools
-        "!utils/**",
-        // there seems to be a bug with the knip Jest plugin?
-        "!config/test/**",
-    ],
+    // Where our external APIs are exported from
+    entry: ["packages/*/src/index.ts"],
+    // Where we want to look for dead code
+    project: ["packages/*/src/*.{ts,tsx,js,jsx}"],
+    rules: {
+        // TODO, we need to turn this back on
+        // but it will require going through unused deps
+        dependencies: "off",
+    },
+    // Special exceptions
     ignore: [
         // symlinked type defs for third-party libs
         "**/aphrodite.d.ts",
@@ -25,17 +24,20 @@ const config: KnipConfig = {
         "**/jsdiff.d.ts",
         "**/raphael.d.ts",
         "**/utility.d.ts",
-        // dev tools
-        "wallaby.js",
-        "data/find-questions.ts",
-        // there seems to be a bug with the knip Jest plugin?
+        // these files are used by tests
+        "packages/perseus-core/src/parse-perseus-json/**",
         "jest.config.js",
-        // this file causes side-effects by importing it
-        // so it's not "used" in the conventional sense
-        "packages/perseus/src/util/interactive.ts",
-        // type tests, code that's not run
-        // but can trigger helpful TS errors when things change
-        "**/*.typetest.ts",
+        "config/test/**",
+        // these need fixing
+        // TODO(LEMS-3867)
+        "packages/perseus-editor/src/components/__stories__/**",
+        // TODO(LEMS-3868)
+        "packages/perseus-editor/src/preview/message-types.ts",
+    ],
+    // Scripts we use in `package.json`
+    ignoreBinaries: [
+        "utils/pre-publish-check-ci.ts",
+        "utils/update-catalog-hashes-cli.ts",
     ],
 };
 
