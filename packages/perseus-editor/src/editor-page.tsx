@@ -165,6 +165,10 @@ class EditorPage extends React.Component<Props, State> {
         }
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     /**
      * Updates JSON state when props change from the parent.
      *
@@ -177,10 +181,6 @@ class EditorPage extends React.Component<Props, State> {
             // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea">' is not assignable to type 'PerseusJson'.
             json: _.pick(this.props, "question", "answerArea", "hints"),
         });
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
     }
 
     toggleJsonMode: () => void = () => {
