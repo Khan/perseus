@@ -59,13 +59,10 @@ export function applyDefaultsToWidgets(
 ): PerseusWidgetsMap {
     return mapObject(oldWidgetOptions, (widgetInfo, widgetId) => {
         if (!widgetInfo.type || !widgetInfo.alignment) {
-            const newValues: Record<string, any> = {};
-
-            if (!widgetInfo.alignment) {
-                newValues.alignment = "default";
-            }
-
-            widgetInfo = {...widgetInfo, ...newValues};
+            widgetInfo = {
+                ...widgetInfo,
+                alignment: widgetInfo.alignment || "default",
+            };
         }
 
         return applyDefaultsToWidget(widgetInfo) as any;
