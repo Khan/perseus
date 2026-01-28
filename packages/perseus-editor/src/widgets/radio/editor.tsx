@@ -34,7 +34,7 @@ export interface RadioEditorProps {
 
     onChange: (
         values: Partial<PerseusRadioWidgetOptions>,
-        callback?: (() => void) | null
+        callback?: (() => void) | null,
     ) => void;
 }
 
