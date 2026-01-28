@@ -16,7 +16,6 @@ export const portraitImage = {
     height: 1851,
 };
 export const portraitImageTitle = "The Arnolfini Portrait";
-export const portraitImageAlt = "Jan van Eyck, The Arnolfini Portrait";
 export const portraitImageCaption =
     "Jan van Eyck, *The Arnolfini Portrait*, 1434, oil on oak panel, 82.2 x 60 cm (National Gallery, London; photo: [Steven Zucker](https://flic.kr/p/2qEGNDi), CC BY-NC-SA 4.0)";
 export const portraitImageLongDescription =
