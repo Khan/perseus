@@ -102,7 +102,7 @@ class Radio extends React.Component<Props> implements Widget {
         return this.radioRef.current.getPromptJSON();
     }
 
-    _handleChange(arg: {choiceStates?: ChoiceState[]}) {
+    _handleChange(arg: {choiceStates?: ReadonlyArray<ChoiceState>}) {
         const newChoiceStates = arg.choiceStates;
         if (newChoiceStates) {
             /**
@@ -209,7 +209,8 @@ class Radio extends React.Component<Props> implements Widget {
                     selected,
                 };
             }),
-            onChange: (arg: any) => this._handleChange(arg),
+            onChange: (arg: {choiceStates?: ReadonlyArray<ChoiceState>}) =>
+                this._handleChange(arg),
         };
     }
 

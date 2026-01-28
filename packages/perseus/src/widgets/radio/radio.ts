@@ -25,7 +25,7 @@ export default {
     /**
      * @deprecated - do not use in new code.
      */
-    getUserInputFromSerializedState: (serializedState: any) => {
+    getUserInputFromSerializedState: (serializedState: unknown) => {
         return getUserInputFromSerializedState(serializedState);
     },
 } satisfies WidgetExports<typeof Radio>;
