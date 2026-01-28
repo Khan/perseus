@@ -28,10 +28,10 @@
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/kmath": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
-        "@khanacademy/perseus-utils": "workspace:*"
+        "@khanacademy/perseus-utils": "workspace:*",
+        "@khanacademy/pure-markdown": "workspace:*"
     },
     "devDependencies": {
-        "@khanacademy/pure-markdown": "workspace:*",
         "perseus-build-settings": "workspace:*"
     },
     "keywords": [],
