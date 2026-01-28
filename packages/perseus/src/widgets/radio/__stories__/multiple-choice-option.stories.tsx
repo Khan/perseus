@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import Choice from "../choice.new";
+import Choice from "../choice";
 
-import type {IndicatorContent} from "../choice-indicator.new";
+import type {IndicatorContent} from "../choice-indicator";
 
 const getIndicatorContent = (letter: string): IndicatorContent => {
     return {

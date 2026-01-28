@@ -8,10 +8,10 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 
-import RadioNew from "./multiple-choice-widget.new";
+import RadioNew from "./multiple-choice-widget";
 import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
-import type {RadioProps, RadioWidgetHandle} from "./multiple-choice-widget.new";
+import type {RadioProps, RadioWidgetHandle} from "./multiple-choice-widget";
 import type {
     ChangeHandler,
     ChoiceState,
