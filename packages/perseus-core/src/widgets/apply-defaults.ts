@@ -47,8 +47,7 @@ export const applyDefaultsToWidget = (
         // maintain other info, like type
         ...oldWidgetInfo,
         version,
-        // Default graded to true (so null/undefined becomes true):
-        graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
+        graded: oldWidgetInfo.graded ?? true,
         alignment,
         static: oldWidgetInfo.static ?? DEFAULT_STATIC,
         options,
