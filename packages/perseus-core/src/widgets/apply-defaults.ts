@@ -54,7 +54,7 @@ export const applyDefaultsToWidget = (
         alignment: alignment,
         static: oldWidgetInfo.static ?? DEFAULT_STATIC,
         options: newEditorOptions,
-    } as any;
+    };
 };
 
 export function applyDefaultsToWidgets(
