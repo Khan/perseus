@@ -127,6 +127,22 @@ type State = {
     backgroundImage: PerseusImageBackground;
 };
 
+type DefaultProps = {
+    box: Props["box"];
+    labels: Props["labels"];
+    labelLocation: Props["labelLocation"];
+    range: Props["range"];
+    step: Props["step"];
+    gridStep: Props["gridStep"];
+    snapStep: Props["snapStep"];
+    valid: Props["valid"];
+    backgroundImage: Props["backgroundImage"];
+    markings: Props["markings"];
+    showProtractor: Props["showProtractor"];
+    showTooltips: Props["showTooltips"];
+    showAxisArrows: Props["showAxisArrows"];
+};
+
 class InteractiveGraphSettings extends React.Component<Props, State> {
     _isMounted = false;
 
@@ -156,7 +172,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         };
     }
 
-    static defaultProps = {
+    static defaultProps: DefaultProps = {
         box: [
             interactiveSizes.defaultBoxSizeSmall,
             interactiveSizes.defaultBoxSizeSmall,

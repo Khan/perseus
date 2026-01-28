@@ -29,7 +29,7 @@ type Props = {
     component?: any;
     shouldDragHighlight: (any) => boolean;
     style?: any;
-    children?: any;
+    children?: React.ReactNode | React.ReactNode[];
     className?: string;
 };
 

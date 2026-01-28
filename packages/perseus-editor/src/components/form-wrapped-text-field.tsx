@@ -47,8 +47,8 @@ type Props = {
     style?: React.CSSProperties | undefined;
     className?: string;
     width?: number | string;
-    grow?: boolean | number;
-    shrink?: boolean | number;
+    grow?: number;
+    shrink?: number;
     // HACK(mattmorgan) to enforce WB LabelMedium-like styles on this older
     // component.
     labelMediumInputText?: boolean;
@@ -123,22 +123,19 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
         } = this.props;
         const {focused} = this.state;
 
-        const extraStyles: any = {};
+        const extraStyles: React.CSSProperties = {};
         const spanStyle = [styles.input, styles.container];
 
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (width) {
+        if (width !== undefined) {
             extraStyles.width = width;
         }
 
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (grow) {
-            extraStyles.flexGrow = grow === true ? 1 : grow;
+        if (grow !== undefined) {
+            extraStyles.flexGrow = grow === undefined ? 1 : grow;
         }
 
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (shrink || shrink === 0) {
-            extraStyles.flexShrink = shrink === true ? 0 : shrink;
+            extraStyles.flexShrink = shrink === undefined ? 0 : shrink;
         }
 
         if (backgroundColor) {

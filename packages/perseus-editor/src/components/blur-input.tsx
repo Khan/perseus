@@ -39,13 +39,13 @@ class BlurInput extends React.Component<Props, State> {
         this.setState({value: nextProps.value});
     }
 
-    handleChange: (e: any) => void = (e) => {
+    handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         this.setState({value: e.target.value});
-    };
+    }
 
-    handleBlur: (e: any) => void = (e) => {
+    handleBlur(e: React.FocusEvent<HTMLInputElement>) {
         this.props.onChange(e.target.value);
-    };
+    }
 
     focus() {
         this.input.current?.focus();

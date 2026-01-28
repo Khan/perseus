@@ -167,7 +167,7 @@ export default class Marker extends React.Component<MarkerProps, State> {
                                 styles.dropdownPositionWithArrow,
                             )}
                         >
-                            <Option value="" onClick={() => onRemove()}>
+                            <Option value="" onClick={onRemove}>
                                 Delete marker
                             </Option>
 
