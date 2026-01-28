@@ -2,7 +2,11 @@ import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import {mapObject} from "../utils/objective_";
 
-import {getCurrentVersion, getDefaultWidgetOptions, getSupportedAlignments,} from "./core-widget-registry";
+import {
+    getCurrentVersion,
+    getDefaultWidgetOptions,
+    getSupportedAlignments,
+} from "./core-widget-registry";
 
 import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 
@@ -13,7 +17,7 @@ export const applyDefaultsToWidget = (
 
     const latestVersion = getCurrentVersion(type);
     // pre-July 2014, widgets did not have a version field.
-    const version = oldWidgetInfo.version ?? latestVersion
+    const version = oldWidgetInfo.version ?? latestVersion;
 
     // Minor version upgrades (eg. new optional props) don't have
     // transform functions. Instead, we fill in the new props with their
@@ -57,5 +61,8 @@ export function applyDefaultsToWidgets(
     // The cast to PerseusWidgetsMap is needed because TS can't prove that
     // every key in the map will match the associated widget's `type`
     // property.
-    return mapObject(oldWidgetOptions, applyDefaultsToWidget) as PerseusWidgetsMap;
+    return mapObject(
+        oldWidgetOptions,
+        applyDefaultsToWidget,
+    ) as PerseusWidgetsMap;
 }

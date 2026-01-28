@@ -7,15 +7,7 @@
  * This supports widgets that contain renderers, such as the
  * group or sequence widgets.
  */
-import {
-    Errors,
-    PerseusError,
-    traverse,
-    applyDefaultsToWidget,
-} from "@khanacademy/perseus-core";
-import _ from "underscore";
-
-import type {PerseusWidget} from "@khanacademy/perseus-core";
+import {Errors, PerseusError, traverse} from "@khanacademy/perseus-core";
 
 const isWidgetInfoRenderableBy = function (
     widgetInfo: any,

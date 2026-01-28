@@ -307,7 +307,10 @@ export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
  * The type representing the common structure of all widget's options. The
  * `Options` generic type represents the widget-specific option data.
  */
-export type WidgetOptions<Type extends string, Options extends Record<string, any>> = {
+export type WidgetOptions<
+    Type extends string,
+    Options extends Record<string, any>,
+> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
     // Whether this widget is displayed with the values and is immutable.  For display only
