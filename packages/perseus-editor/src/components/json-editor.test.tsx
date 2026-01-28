@@ -67,7 +67,9 @@ describe("JsonEditor", () => {
         );
 
         // Assert
-        expect(screen.queryByDisplayValue(/Initial content/)).not.toBeInTheDocument();
+        expect(
+            screen.queryByDisplayValue(/Initial content/),
+        ).not.toBeInTheDocument();
         expect(screen.getByDisplayValue(/Updated content/)).toBeInTheDocument();
     });
 
@@ -128,7 +130,7 @@ describe("JsonEditor", () => {
         // Act
         render(
             <JsonEditor
-            multiLine={true}
+                multiLine={true}
                 value={initialValue}
                 onChange={() => {}}
                 editingDisabled={true}

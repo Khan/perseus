@@ -125,9 +125,9 @@ class EditorPage extends React.Component<Props, State> {
     getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
         if (!prevProps.jsonMode && this.props.jsonMode) {
             return {
-                ...this.itemEditor.current?.serialize({
+                ...(this.itemEditor.current?.serialize({
                     keepDeletedWidgets: true,
-                }) ?? {},
+                }) ?? {}),
                 hints: this.hintsEditor.current?.serialize({
                     keepDeletedWidgets: true,
                 }),
@@ -184,7 +184,7 @@ class EditorPage extends React.Component<Props, State> {
                 question: this.props.question,
                 answerArea: this.props.answerArea,
                 hints: this.props.hints as Hint[],
-            }
+            },
         });
     }
 
