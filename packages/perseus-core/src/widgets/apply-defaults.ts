@@ -30,13 +30,12 @@ export const applyDefaultsToWidget = (
 
     // Widgets that support multiple alignments will "lock in" the
     // alignment to the alignment that would be listed first in the
-    // select box. If the widget only supports one alignment, the
-    // alignment value will likely just end up as "default".
+    // select box.
     if (alignment == null || alignment === "default") {
         alignment = getSupportedAlignments(type)?.[0];
         if (!alignment) {
             throw new PerseusError(
-                "No default alignment found when upgrading widget",
+                "applyDefaultsToWidget: No default alignment found",
                 Errors.Internal,
                 {metadata: {widgetType: type}},
             );
@@ -57,14 +56,8 @@ export const applyDefaultsToWidget = (
 export function applyDefaultsToWidgets(
     oldWidgetOptions: PerseusWidgetsMap,
 ): PerseusWidgetsMap {
-    return mapObject(oldWidgetOptions, (widgetInfo, widgetId) => {
-        if (!widgetInfo.type || !widgetInfo.alignment) {
-            widgetInfo = {
-                ...widgetInfo,
-                alignment: widgetInfo.alignment || "default",
-            };
-        }
-
-        return applyDefaultsToWidget(widgetInfo) as any;
-    });
+    // The cast to PerseusWidgetsMap is needed because TS can't prove that
+    // every key in the map will match the associated widget's `type`
+    // property.
+    return mapObject(oldWidgetOptions, applyDefaultsToWidget) as PerseusWidgetsMap;
 }
