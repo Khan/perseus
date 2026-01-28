@@ -21,7 +21,7 @@ export const applyDefaultsToWidget = (
     // transform functions. Instead, we fill in the new props with their
     // defaults.
     const defaultOptions = getDefaultWidgetOptions(type);
-    const newEditorOptions = {
+    const options = {
         ...defaultOptions,
         ...oldWidgetInfo.options,
     };
@@ -49,9 +49,9 @@ export const applyDefaultsToWidget = (
         version,
         // Default graded to true (so null/undefined becomes true):
         graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
-        alignment: alignment,
+        alignment,
         static: oldWidgetInfo.static ?? DEFAULT_STATIC,
-        options: newEditorOptions,
+        options,
     };
 };
 
