@@ -9,7 +9,8 @@
 
 .title-container {
     text-align: center;
-    border-top: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
     padding-block-start: var(--wb-sizing-size_160);
     padding-block-end: var(--wb-sizing-size_160);
 }
@@ -19,7 +20,8 @@
     flex-direction: row;
     margin-block-start: var(--wb-sizing-size_160);
     padding-block-end: var(--wb-sizing-size_160);
-    border-bottom: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-bottom: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
 .modal-container {
@@ -41,7 +43,8 @@
     display: flex;
     flex-direction: row;
     height: var(--modal-panel-height);
-    border-block-start: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-block-start: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
     padding: var(--wb-sizing-size_080);
     padding-inline-end: 0;
     /* Undo the default padding for the modal panel. */
