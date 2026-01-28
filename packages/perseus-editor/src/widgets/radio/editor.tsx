@@ -13,6 +13,7 @@ import LabeledSwitch from "../../components/labeled-switch";
 import {RadioOptionSettings} from "./radio-option-settings";
 import {getMovedChoices} from "./utils";
 
+import type {RadioOptionSettingsHandle} from "./radio-option-settings";
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
 import type {Changeable, APIOptions} from "@khanacademy/perseus";
 import type {
@@ -43,6 +44,11 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     static defaultProps: RadioDefaultWidgetOptions =
         radioLogic.defaultWidgetOptions;
 
+    // Store refs to each choice editor for focus management
+    // Using choice.id as key ensures refs remain valid after reorder/delete
+    choiceRefs: Map<string, React.RefObject<RadioOptionSettingsHandle>> =
+        new Map();
+
     componentDidMount() {
         // Recalculate numCorrect when multipleSelect and countChoices are enabled
         // This ensures stale values are corrected on load
@@ -65,6 +71,19 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             this.props.onChange({choices: updatedChoices});
         }
     }
+
+    // Get or create a ref for a choice by its id
+    getChoiceRef = (
+        choiceId: string,
+    ): React.RefObject<RadioOptionSettingsHandle> => {
+        if (!this.choiceRefs.has(choiceId)) {
+            this.choiceRefs.set(
+                choiceId,
+                React.createRef<RadioOptionSettingsHandle>(),
+            );
+        }
+        return this.choiceRefs.get(choiceId)!;
+    };
 
     // Called when the "Multiple selections" checkbox is toggled,
     // allowing the content author to specifiy multiple correct answers.
@@ -199,6 +218,9 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         const choices = this.props.choices.slice();
         const deleted = choices[choiceIndex];
 
+        // Clean up the ref for the deleted choice
+        this.choiceRefs.delete(deleted.id);
+
         choices.splice(choiceIndex, 1);
 
         this.props.onChange({
@@ -233,11 +255,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     noneOfTheAbove || this.props.hasNoneOfTheAbove,
             },
             () => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
-                this.refs[`choice-editor${addIndex}`].refs[
-                    "content-editor"
-                ].focus();
+                // Focus the newly added choice editor
+                this.getChoiceRef(newChoice.id).current?.focus();
             },
         );
     };
@@ -257,9 +276,11 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     };
 
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
-        this.refs["choice-editor0"].refs["content-editor"].focus();
+        // Focus the first choice editor
+        const firstChoice = this.props.choices[0];
+        if (firstChoice?.id) {
+            this.getChoiceRef(firstChoice.id).current?.focus();
+        }
         return true;
     };
 
@@ -348,7 +369,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
                 {this.props.choices.map((choice, index) => (
                     <RadioOptionSettings
-                        key={`choice-${choice.id}}`}
+                        key={`choice-${choice.id}`}
+                        ref={this.getChoiceRef(choice.id)}
                         index={index}
                         choice={choice}
                         multipleSelect={this.props.multipleSelect}
