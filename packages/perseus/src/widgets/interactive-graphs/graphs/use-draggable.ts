@@ -5,6 +5,7 @@ import invariant from "tiny-invariant";
 
 import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
+import {getCSSZoomFactor} from "../utils";
 
 import type {RefObject} from "react";
 
@@ -171,8 +172,18 @@ export function useDraggable(args: Params): DragState {
                     return;
                 }
 
-                const movement = vec.transform(
+                // Compensate for CSS zoom applied by mobile font scaling
+                // The pixelMovement from the drag library is in zoomed coordinates
+                const zoomFactor = target.current
+                    ? getCSSZoomFactor(target.current)
+                    : 1;
+                const unzoomedPixelMovement = vec.scale(
                     pixelMovement,
+                    1 / zoomFactor,
+                );
+
+                const movement = vec.transform(
+                    unzoomedPixelMovement,
                     inverseViewTransform,
                 );
                 onMove(

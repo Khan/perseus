@@ -7,6 +7,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
+import {getCSSZoomFactor} from "../utils";
 
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {PerseusStrings} from "../../../strings";
@@ -135,9 +136,11 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
 
                     const elementRect =
                         event.currentTarget.getBoundingClientRect();
+                    const zoomFactor = getCSSZoomFactor(event.currentTarget);
 
-                    const x = event.clientX - elementRect.x;
-                    const y = event.clientY - elementRect.y;
+                    // Compensate for CSS zoom applied by mobile font scaling
+                    const x = (event.clientX - elementRect.x) / zoomFactor;
+                    const y = (event.clientY - elementRect.y) / zoomFactor;
 
                     const graphCoordinates = pixelsToVectors(
                         [[x, y]],
