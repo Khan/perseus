@@ -8,7 +8,7 @@ import _ from "underscore";
 import type {
     ChoiceType,
     RadioChoiceWithMetadata,
-} from "./multiple-choice-widget.new";
+} from "./multiple-choice-widget";
 import type {PerseusStrings} from "../../strings";
 import type {ChoiceState} from "../../types";
 

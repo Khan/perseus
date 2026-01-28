@@ -7,7 +7,7 @@ import {
     moveNoneOfTheAboveToEnd,
 } from "./util";
 
-import type {RadioChoiceWithMetadata} from "./multiple-choice-widget.new";
+import type {RadioChoiceWithMetadata} from "./multiple-choice-widget";
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 
 describe("getChoiceLetter (in English)", () => {
