@@ -6,8 +6,6 @@ import {getCurrentVersion, getDefaultWidgetOptions, getSupportedAlignments,} fro
 
 import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 
-const DEFAULT_STATIC = false;
-
 export const applyDefaultsToWidget = (
     oldWidgetInfo: PerseusWidget,
 ): PerseusWidget => {
@@ -48,7 +46,7 @@ export const applyDefaultsToWidget = (
         version,
         graded: oldWidgetInfo.graded ?? true,
         alignment,
-        static: oldWidgetInfo.static ?? DEFAULT_STATIC,
+        static: oldWidgetInfo.static ?? false,
         options,
     };
 };
