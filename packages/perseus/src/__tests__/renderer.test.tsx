@@ -203,33 +203,6 @@ describe("renderer", () => {
             expect(renderer.state.widgetInfo).toStrictEqual(question1.widgets);
         });
 
-        it("should derive type widget ID if type missing", () => {
-            // Arrange
-            // Note that the types disallow this, but our Renderer handles the
-            // case so for now, I'm adding this test. We can remove the test
-            // if/when we clean up the code for it in _getAllWidgetsInfo().
-            const question = {
-                ...question1,
-                widgets: {
-                    ...question1.widgets,
-                    // We have to override the type to `undefined` to test this properly
-                    // @ts-expect-error - TS2352 - Conversion of type '{ type: undefined; static?: boolean | undefined; graded?: boolean | undefined; alignment?: string | undefined; options: PerseusCategorizerWidgetOptions | null | undefined; key?: number | undefined; version?: Version | undefined; } | ... 38 more ... | { ...; }' to type 'DropdownWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
-                    "dropdown 1": {
-                        ...question1.widgets["dropdown 1"],
-                        type: undefined,
-                    } as DropdownWidget,
-                },
-            } as const;
-
-            // Act
-            const {renderer} = renderQuestion(question);
-
-            // Assert
-            expect(renderer.state.widgetInfo["dropdown 1"]?.type).toBe(
-                "dropdown",
-            );
-        });
-
         it("should default alignment if missing", () => {
             // Arrange/Act
             const {renderer} = renderQuestion({

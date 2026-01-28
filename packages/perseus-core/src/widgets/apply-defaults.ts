@@ -19,16 +19,6 @@ export const applyDefaultsToWidget = (
     oldWidgetInfo: PerseusWidget,
 ): PerseusWidget => {
     const type = oldWidgetInfo.type;
-    // NOTE(jeremy): This looks like it could be replaced by fixing types so
-    // that `type` is non-optional. But we're seeing this in Sentry today so I
-    // suspect we have legacy data (potentially unpublished) and we should
-    // figure that out before depending solely on types.
-    if (!_.isString(type)) {
-        throw new PerseusError(
-            "widget type must be a string, but was: " + type,
-            Errors.Internal,
-        );
-    }
 
     if (!isWidgetRegistered(type)) {
         // If we have a widget that isn't registered, we can't upgrade it
@@ -104,13 +94,6 @@ export function applyDefaultsToWidgets(
     return mapObject(oldWidgetOptions, (widgetInfo, widgetId) => {
         if (!widgetInfo.type || !widgetInfo.alignment) {
             const newValues: Record<string, any> = {};
-
-            if (!widgetInfo.type) {
-                // TODO: why does widget have no type?
-                // We don't want to derive type from widget ID
-                // see: LEMS-1845
-                newValues.type = widgetId.split(" ")[0];
-            }
 
             if (!widgetInfo.alignment) {
                 newValues.alignment = "default";
