@@ -173,7 +173,7 @@ export const ImageWithDifferentSizes: Story = {
                 <ImageQuestionRenderer
                     question={generateTestPerseusRenderer({
                         content:
-                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]",
+                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]",
                         widgets: {
                             "image 1": generateImageWidget({
                                 options: generateImageOptions({
@@ -208,6 +208,13 @@ export const ImageWithDifferentSizes: Story = {
                                 options: generateImageOptions({
                                     backgroundImage: earthMoonImage,
                                     alt: "Earth and Moon",
+                                    longDescription: "long description",
+                                }),
+                            }),
+                            "image 5": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: graphieImage,
+                                    alt: graphieImageAlt,
                                     longDescription: "long description",
                                 }),
                             }),
