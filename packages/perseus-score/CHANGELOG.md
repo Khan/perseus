@@ -1,5 +1,11 @@
 # @khanacademy/perseus-score
 
+## 8.2.7
+
+### Patch Changes
+
+-   [#3203](https://github.com/Khan/perseus/pull/3203) [`63ed9ea52e`](https://github.com/Khan/perseus/commit/63ed9ea52ef376a33ed52318bc7ca05ac7b2c394) Thanks [@handeyeco](https://github.com/handeyeco)! - Export libVersion from perseus-score
+
 ## 8.2.6
 
 ### Patch Changes
