@@ -67,6 +67,7 @@ describe("JsonEditor", () => {
         );
 
         // Assert
+        expect(screen.queryByDisplayValue(/Initial content/)).not.toBeInTheDocument();
         expect(screen.getByDisplayValue(/Updated content/)).toBeInTheDocument();
     });
 
@@ -127,7 +128,7 @@ describe("JsonEditor", () => {
         // Act
         render(
             <JsonEditor
-                multiLine={true}
+            multiLine={true}
                 value={initialValue}
                 onChange={() => {}}
                 editingDisabled={true}
@@ -136,6 +137,40 @@ describe("JsonEditor", () => {
 
         // Assert
         expect(screen.getByRole("textbox")).toBeDisabled();
+    });
+
+    it("should replace valid user input when parent updates value", async () => {
+        // Arrange
+        const initialValue = {content: "Initial"};
+        const updatedValue = {content: "Updated from parent"};
+
+        const {rerender} = render(
+            <JsonEditor
+                multiLine={true}
+                value={initialValue}
+                onChange={() => {}}
+                editingDisabled={false}
+            />,
+        );
+
+        const textarea = screen.getByRole("textbox") as HTMLTextAreaElement;
+
+        // Act
+        await userEvent.clear(textarea);
+        textarea.focus();
+        await userEvent.paste('{"content": "Valid user input"}');
+
+        rerender(
+            <JsonEditor
+                multiLine={true}
+                value={updatedValue}
+                onChange={() => {}}
+                editingDisabled={false}
+            />,
+        );
+
+        // Assert
+        expect(textarea.value).toContain("Updated from parent");
     });
 
     it("should replace invalid user input when parent updates value", async () => {
@@ -154,11 +189,11 @@ describe("JsonEditor", () => {
 
         const textarea = screen.getByRole("textbox") as HTMLTextAreaElement;
 
+        // Act
         await userEvent.clear(textarea);
         textarea.focus();
         await userEvent.paste('{"content": "User is typing');
 
-        // Act
         rerender(
             <JsonEditor
                 multiLine={true}

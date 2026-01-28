@@ -124,16 +124,14 @@ class EditorPage extends React.Component<Props, State> {
 
     getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
         if (!prevProps.jsonMode && this.props.jsonMode) {
-            return _.extend(
-                this.itemEditor.current?.serialize({
+            return {
+                ...this.itemEditor.current?.serialize({
                     keepDeletedWidgets: true,
-                }) || {},
-                {
-                    hints: this.hintsEditor.current?.serialize({
-                        keepDeletedWidgets: true,
-                    }),
-                },
-            );
+                }) ?? {},
+                hints: this.hintsEditor.current?.serialize({
+                    keepDeletedWidgets: true,
+                }),
+            };
         }
         return null;
     }
@@ -177,9 +175,16 @@ class EditorPage extends React.Component<Props, State> {
      * we need to update state.json to reflect those changes.
      */
     syncJsonStateFromProps() {
+        if (!this.props.question || !this.props.hints) {
+            return;
+        }
+
         this.setState({
-            // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea">' is not assignable to type 'PerseusJson'.
-            json: _.pick(this.props, "question", "answerArea", "hints"),
+            json: {
+                question: this.props.question,
+                answerArea: this.props.answerArea,
+                hints: this.props.hints as Hint[],
+            }
         });
     }
 
