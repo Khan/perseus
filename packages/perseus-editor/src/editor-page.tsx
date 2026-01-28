@@ -122,7 +122,21 @@ class EditorPage extends React.Component<Props, State> {
         this.updateRenderer();
     }
 
-    componentDidUpdate() {
+    getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
+        if (!prevProps.jsonMode && this.props.jsonMode) {
+            return {
+                ...(this.itemEditor.current?.serialize({
+                    keepDeletedWidgets: true,
+                }) ?? {}),
+                hints: this.hintsEditor.current?.serialize({
+                    keepDeletedWidgets: true,
+                }),
+            };
+        }
+        return null;
+    }
+
+    componentDidUpdate(previousProps: Props, prevState: State, snapshot: any) {
         // NOTE: It is required to delay the preview update until after the
         // current frame, to allow for ItemEditor to render its widgets.
         // This then enables to serialize the widgets properties correctly,
@@ -133,10 +147,45 @@ class EditorPage extends React.Component<Props, State> {
         setTimeout(() => {
             this.updateRenderer();
         });
+
+        // Use serialized snapshot from before unmount
+        if (snapshot) {
+            this.setState({json: snapshot});
+            return;
+        }
+
+        if (
+            !_.isEqual(previousProps.question, this.props.question) ||
+            !_.isEqual(previousProps.answerArea, this.props.answerArea) ||
+            !_.isEqual(previousProps.hints, this.props.hints)
+        ) {
+            this.syncJsonStateFromProps();
+        }
     }
 
     componentWillUnmount() {
         this._isMounted = false;
+    }
+
+    /**
+     * Updates JSON state when props change from the parent.
+     *
+     * `state.json` is initialized once in the constructor. If the
+     * Frontend sends fresh data while the editor is already mounted,
+     * we need to update state.json to reflect those changes.
+     */
+    syncJsonStateFromProps() {
+        if (!this.props.question) {
+            return;
+        }
+
+        this.setState({
+            json: {
+                question: this.props.question,
+                answerArea: this.props.answerArea,
+                hints: this.props.hints as Hint[],
+            },
+        });
     }
 
     toggleJsonMode: () => void = () => {

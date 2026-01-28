@@ -226,4 +226,57 @@ describe("EditorPage", () => {
         const widgetSelect = screen.getByTestId("editor__widget-select");
         expect(widgetSelect).toBeDisabled();
     });
+
+    it("should sync json state when props change in JSON mode", async () => {
+        // Arrange
+        const initialQuestion: PerseusRenderer = {
+            content: "Initial content",
+            images: {},
+            widgets: {},
+        };
+
+        const updatedQuestion: PerseusRenderer = {
+            content: "Updated content from parent",
+            images: {},
+            widgets: {},
+        };
+
+        const onChangeMock = jest.fn();
+
+        const {rerender} = render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={initialQuestion}
+                onChange={onChangeMock}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={true}
+                jsonMode={true}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Act
+        rerender(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={updatedQuestion}
+                onChange={onChangeMock}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={true}
+                jsonMode={true}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByDisplayValue(/Updated content from parent/),
+        ).toBeInTheDocument();
+    });
 });
