@@ -175,7 +175,7 @@ class EditorPage extends React.Component<Props, State> {
      * we need to update state.json to reflect those changes.
      */
     syncJsonStateFromProps() {
-        if (!this.props.question || !this.props.hints) {
+        if (!this.props.question) {
             return;
         }
 
