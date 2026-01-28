@@ -14,7 +14,7 @@ import {RadioOptionSettings} from "./radio-option-settings";
 import {getMovedChoices} from "./utils";
 
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
-import type {Changeable, APIOptions} from "@khanacademy/perseus";
+import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
@@ -22,7 +22,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 // Exported for testing
-export interface RadioEditorProps extends Changeable.ChangeableProps {
+export interface RadioEditorProps {
     apiOptions: APIOptions;
     countChoices: boolean;
     choices: PerseusRadioChoice[];
@@ -31,6 +31,11 @@ export interface RadioEditorProps extends Changeable.ChangeableProps {
     multipleSelect: boolean;
     deselectEnabled: boolean;
     static: boolean;
+
+    onChange: (
+        values: Partial<PerseusRadioWidgetOptions>,
+        callback?: (() => void) | null
+    ) => void;
 }
 
 // JSDoc will be shown in Storybook widget editor description
