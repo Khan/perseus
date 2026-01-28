@@ -20,12 +20,6 @@ export const applyDefaultsToWidget = (
 ): PerseusWidget => {
     const type = oldWidgetInfo.type;
 
-    if (!isWidgetRegistered(type)) {
-        // If we have a widget that isn't registered, we can't upgrade it
-        // TODO(aria): Figure out what the best thing to do here would be
-        return oldWidgetInfo;
-    }
-
     // Unversioned widgets (pre-July 2014) are all implicitly 0.0
     const initialVersion = oldWidgetInfo.version || {major: 0, minor: 0};
     const latestVersion = getCurrentVersion(type);

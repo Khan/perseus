@@ -485,7 +485,7 @@ describe("server item renderer", () => {
     "mock-widget 1": {
       "alignment": "default",
       "currentValue": "-42",
-      "static": undefined,
+      "static": false,
       "value": "3",
     },
   },
