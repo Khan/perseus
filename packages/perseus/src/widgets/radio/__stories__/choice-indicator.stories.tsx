@@ -1,9 +1,9 @@
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import React, {useRef} from "react";
 
-import Indicator from "../choice-indicator.new";
+import Indicator from "../choice-indicator";
 
-import type {IndicatorContent} from "../choice-indicator.new";
+import type {IndicatorContent} from "../choice-indicator";
 
 const indicatorContent: IndicatorContent = {
     visible: "A",

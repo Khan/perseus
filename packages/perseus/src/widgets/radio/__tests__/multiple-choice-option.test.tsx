@@ -2,10 +2,10 @@ import {describe, it} from "@jest/globals";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import * as IndicatorComponent from "../choice-indicator.new";
-import Choice from "../choice.new";
+import * as IndicatorComponent from "../choice-indicator";
+import Choice from "../choice";
 
-import type {IndicatorContent} from "../choice-indicator.new";
+import type {IndicatorContent} from "../choice-indicator";
 
 const indicatorContent: IndicatorContent = {
     visible: "A",

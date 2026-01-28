@@ -3,9 +3,9 @@ import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import Indicator from "../choice-indicator.new";
+import Indicator from "../choice-indicator";
 
-import type {IndicatorContent} from "../choice-indicator.new";
+import type {IndicatorContent} from "../choice-indicator";
 
 const indicatorContent: IndicatorContent = {
     visible: "A",

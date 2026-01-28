@@ -5,13 +5,13 @@ import {usePerseusI18n} from "../../components/i18n-context";
 import ScrollableView from "../../components/scrollable-view";
 import {getBackgroundColor} from "../../util/colors";
 
-import Choice from "./choice.new";
+import Choice from "./choice";
 import styles from "./multiple-choice.module.css";
 import {getChoiceLetter} from "./util";
 import {getInstructionsText} from "./utils/string-utils";
 
-import type {IndicatorContent} from "./choice-indicator.new";
-import type {ChoiceType} from "./multiple-choice-widget.new";
+import type {IndicatorContent} from "./choice-indicator";
+import type {ChoiceType} from "./multiple-choice-widget";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 /**

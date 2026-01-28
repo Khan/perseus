@@ -1,9 +1,9 @@
 import React, {useRef} from "react";
 
-import Indicator from "./choice-indicator.new";
+import Indicator from "./choice-indicator";
 import styles from "./choice.module.css";
 
-import type {IndicatorContent} from "./choice-indicator.new";
+import type {IndicatorContent} from "./choice-indicator";
 
 export interface IndicatorProps {
     checked: boolean;
