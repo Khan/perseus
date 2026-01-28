@@ -1,5 +1,3 @@
-import _ from "underscore";
-
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import {mapObject} from "../utils/objective_";
@@ -25,7 +23,7 @@ export const applyDefaultsToWidget = (
     const defaultOptions = getDefaultWidgetOptions(type);
     const newEditorOptions = {
         ...defaultOptions,
-        ...(_.clone(oldWidgetInfo.options) ?? {}),
+        ...oldWidgetInfo.options,
     };
 
     let alignment = oldWidgetInfo.alignment;
