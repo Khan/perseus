@@ -4,12 +4,7 @@ import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import {mapObject} from "../utils/objective_";
 
-import {
-    getCurrentVersion,
-    getDefaultWidgetOptions,
-    getSupportedAlignments,
-    isWidgetRegistered,
-} from "./core-widget-registry";
+import {getCurrentVersion, getDefaultWidgetOptions, getSupportedAlignments,} from "./core-widget-registry";
 
 import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 
@@ -24,15 +19,13 @@ export const applyDefaultsToWidget = (
     // pre-July 2014, widgets did not have a version field.
     const version = oldWidgetInfo.version ?? latestVersion
 
-    let newEditorOptions = _.clone(oldWidgetInfo.options) ?? {};
-
     // Minor version upgrades (eg. new optional props) don't have
     // transform functions. Instead, we fill in the new props with their
     // defaults.
     const defaultOptions = getDefaultWidgetOptions(type);
-    newEditorOptions = {
+    const newEditorOptions = {
         ...defaultOptions,
-        ...newEditorOptions,
+        ...(_.clone(oldWidgetInfo.options) ?? {}),
     };
 
     let alignment = oldWidgetInfo.alignment;
@@ -52,12 +45,6 @@ export const applyDefaultsToWidget = (
         }
     }
 
-    let widgetStatic = oldWidgetInfo.static;
-
-    if (widgetStatic == null) {
-        widgetStatic = DEFAULT_STATIC;
-    }
-
     return {
         // maintain other info, like type
         ...oldWidgetInfo,
@@ -65,7 +52,7 @@ export const applyDefaultsToWidget = (
         // Default graded to true (so null/undefined becomes true):
         graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
         alignment: alignment,
-        static: widgetStatic,
+        static: oldWidgetInfo.static ?? DEFAULT_STATIC,
         options: newEditorOptions,
     } as any;
 };
