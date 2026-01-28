@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-invalid-this */
-/* eslint-disable react/no-unsafe */
 import * as React from "react";
 import _ from "underscore";
 
@@ -42,18 +41,28 @@ class JsonEditor extends React.Component<Props, State> {
         };
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        const shouldReplaceContent =
-            !this.state.valid ||
-            !_.isEqual(
-                nextProps.value,
-                JSON.parse(
-                    this.state.currentValue ? this.state.currentValue : "",
-                ),
-            );
+    componentDidUpdate(prevProps: Props) {
+        if (!_.isEqual(prevProps.value, this.props.value)) {
+            const shouldReplaceContent =
+                !this.state.valid ||
+                !_.isEqual(this.props.value, this.getCurrentValueAsJson());
 
-        if (shouldReplaceContent) {
-            this.setState(this.getInitialState());
+            if (shouldReplaceContent) {
+                this.setState({
+                    currentValue: JSON.stringify(this.props.value, null, 4),
+                    valid: true,
+                });
+            }
+        }
+    }
+
+    getCurrentValueAsJson() {
+        try {
+            return this.state.currentValue
+                ? JSON.parse(this.state.currentValue)
+                : {};
+        } catch {
+            return null;
         }
     }
 
