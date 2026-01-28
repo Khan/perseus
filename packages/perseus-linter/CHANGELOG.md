@@ -1,5 +1,11 @@
 # @khanacademy/perseus-linter
 
+## 4.7.0
+
+### Minor Changes
+
+-   [#3214](https://github.com/Khan/perseus/pull/3214) [`3fad723caf`](https://github.com/Khan/perseus/commit/3fad723caf42432d394607093c553fc6fa76b200) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move @khanacadey/pure-markdown dependency to 'dependencies'
+
 ## 4.6.12
 
 ### Patch Changes
