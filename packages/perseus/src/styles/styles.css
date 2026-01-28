@@ -206,52 +206,6 @@
 .framework-perseus.perseus-article:not(.perseus-mobile) pre {
     margin: 0 -16px 32px -16px;
 }
-.framework-perseus:not(.perseus-article):not(.perseus-mobile)
-    .perseus-radio-option-content
-    .perseus-renderer
-    > .paragraph {
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.25;
-    color: #21242c;
-}
-.framework-perseus:not(.perseus-article):not(.perseus-mobile)
-    .perseus-radio-option-content
-    .perseus-renderer
-    > .paragraph
-    .paragraph {
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.25;
-    color: #21242c;
-}
-.framework-perseus:not(.perseus-article):not(.perseus-mobile)
-    .perseus-radio-rationale-content
-    .perseus-renderer
-    > .paragraph {
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.25;
-    color: #21242c;
-}
-.framework-perseus:not(.perseus-article):not(.perseus-mobile)
-    .perseus-radio-rationale-content
-    .perseus-renderer
-    > .paragraph
-    .paragraph {
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.25;
-    color: #21242c;
-}
-.framework-perseus:not(.perseus-article):not(.perseus-mobile)
-    .perseus-radio-rationale-content
-    .perseus-renderer
-    > .paragraph
-    .paragraph
-    mjx-container {
-    color: #21242c;
-}
 .framework-perseus.perseus-mobile
     .perseus-article
     .perseus-renderer
@@ -416,52 +370,6 @@
         color: #626569;
     }
     .framework-perseus.perseus-mobile
-        .perseus-radio-option-content
-        .perseus-renderer
-        > .paragraph {
-        font-family: inherit;
-        font-size: 16px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-option-content
-        .perseus-renderer
-        > .paragraph
-        .paragraph {
-        font-family: inherit;
-        font-size: 16px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-rationale-content
-        .perseus-renderer
-        > .paragraph {
-        font-family: inherit;
-        font-size: 16px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-rationale-content
-        .perseus-renderer
-        > .paragraph
-        .paragraph {
-        font-family: inherit;
-        font-size: 16px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-rationale-content
-        .perseus-renderer
-        > .paragraph
-        .paragraph
-        mjx-container {
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
         .perseus-image-caption
         .paragraph
         .paragraph {
@@ -580,52 +488,6 @@
         color: #626569;
     }
     .framework-perseus.perseus-mobile
-        .perseus-radio-option-content
-        .perseus-renderer
-        > .paragraph {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-option-content
-        .perseus-renderer
-        > .paragraph
-        .paragraph {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-rationale-content
-        .perseus-renderer
-        > .paragraph {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-rationale-content
-        .perseus-renderer
-        > .paragraph
-        .paragraph {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-rationale-content
-        .perseus-renderer
-        > .paragraph
-        .paragraph
-        mjx-container {
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
         .perseus-image-caption
         .paragraph
         .paragraph {
@@ -742,52 +604,6 @@
         font-size: 22px;
         line-height: 1.4;
         color: #626569;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-option-content
-        .perseus-renderer
-        > .paragraph {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-option-content
-        .perseus-renderer
-        > .paragraph
-        .paragraph {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-rationale-content
-        .perseus-renderer
-        > .paragraph {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-rationale-content
-        .perseus-renderer
-        > .paragraph
-        .paragraph {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.25;
-        color: #21242c;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-radio-rationale-content
-        .perseus-renderer
-        > .paragraph
-        .paragraph
-        mjx-container {
-        color: #21242c;
     }
     .framework-perseus.perseus-mobile
         .perseus-image-caption

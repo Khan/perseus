@@ -326,9 +326,12 @@ describe("Multiple Choice Widget", () => {
             });
 
             // Assert
-            expect(
-                screen.queryAllByTestId(/perseus-radio-rationale-content/),
-            ).toHaveLength(0);
+            // Check that none of the unique rationale texts not found in choice
+            // content are rendered
+            const content = document.body.textContent || "";
+            expect(content).not.toContain("equal to only");
+            expect(content).not.toContain("While");
+            expect(content).not.toContain("is the positive square root of");
         });
 
         it("should be invalid when first rendered", async () => {
