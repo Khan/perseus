@@ -321,13 +321,14 @@ describe("Multiple Choice Widget", () => {
 
         it("should render no rationales when showSolutions is 'none'", async () => {
             // Arrange
-            renderQuestion(question, apiOptions, {
+            const {container} = renderQuestion(question, apiOptions, {
                 showSolutions: "none",
             });
 
             // Assert
             expect(
-                screen.queryAllByTestId(/perseus-radio-rationale-content/),
+                // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+                container.querySelectorAll(`[id$="-rationale"]`),
             ).toHaveLength(0);
         });
 
