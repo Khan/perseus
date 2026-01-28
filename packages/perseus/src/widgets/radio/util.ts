@@ -5,8 +5,12 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import type {RadioChoiceWithMetadata} from "./multiple-choice-widget.new";
+import type {
+    ChoiceType,
+    RadioChoiceWithMetadata,
+} from "./multiple-choice-widget.new";
 import type {PerseusStrings} from "../../strings";
+import type {ChoiceState} from "../../types";
 
 /**
  * Given a choice's position in the radio widget, return the corresponding
@@ -26,14 +30,15 @@ export function getChoiceLetter(pos: number, strings: PerseusStrings): string {
     return " ";
 }
 
-// Type guards for radio serialized state (hasChoiceData, isSelectedChoiceState, isChoice).
+// Type guards for radio serialized state.
 // These are necessary because serializedState is typed as `unknown`.
 // We first check the outer structure has arrays, then validate each array element
 // as we iterate since checking all elements upfront would be less efficient.
 
-function hasChoiceData(
-    state: unknown,
-): state is {choiceStates: unknown[]; choices: unknown[]} {
+function hasChoiceData(state: unknown): state is {
+    choiceStates: Partial<ChoiceState>[];
+    choices: Partial<ChoiceType>[];
+} {
     return (
         state != null &&
         typeof state === "object" &&
@@ -41,24 +46,6 @@ function hasChoiceData(
         "choices" in state &&
         Array.isArray(state.choiceStates) &&
         Array.isArray(state.choices)
-    );
-}
-
-function isSelectedChoiceState(item: unknown): boolean {
-    return (
-        item != null &&
-        typeof item === "object" &&
-        "selected" in item &&
-        item.selected === true
-    );
-}
-
-function isChoice(item: unknown): item is {id: string} {
-    return (
-        item != null &&
-        typeof item === "object" &&
-        "id" in item &&
-        typeof item.id === "string"
     );
 }
 
@@ -71,24 +58,17 @@ export function getUserInputFromSerializedState(
         const {choiceStates, choices} = serializedState;
 
         for (let i = 0; i < choiceStates.length; i++) {
-            // Guard against undefined when choices array length exceeds choiceStates length
-            // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
             const choiceState = choiceStates[i];
             const choice = choices[i];
 
-            if (isSelectedChoiceState(choiceState) && isChoice(choice)) {
+            // Only include choices that are selected and have a valid id
+            if (choiceState?.selected && choice?.id) {
                 selectedChoiceIds.push(choice.id);
             }
         }
-        return {
-            selectedChoiceIds,
-        };
     }
 
-    // Nothing checked
-    return {
-        selectedChoiceIds,
-    };
+    return {selectedChoiceIds};
 }
 
 export function moveNoneOfTheAboveToEnd(
