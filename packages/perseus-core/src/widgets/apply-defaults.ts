@@ -20,20 +20,9 @@ export const applyDefaultsToWidget = (
 ): PerseusWidget => {
     const type = oldWidgetInfo.type;
 
-    // Unversioned widgets (pre-July 2014) are all implicitly 0.0
-    const initialVersion = oldWidgetInfo.version || {major: 0, minor: 0};
     const latestVersion = getCurrentVersion(type);
-
-    // If the widget version is later than what we understand (major
-    // version is higher than latest, or major versions are equal and minor
-    // version is higher than latest), don't perform any upgrades.
-    if (
-        initialVersion.major > latestVersion.major ||
-        (initialVersion.major === latestVersion.major &&
-            initialVersion.minor > latestVersion.minor)
-    ) {
-        return oldWidgetInfo;
-    }
+    // pre-July 2014, widgets did not have a version field.
+    const version = oldWidgetInfo.version ?? latestVersion
 
     let newEditorOptions = _.clone(oldWidgetInfo.options) ?? {};
 
@@ -70,10 +59,9 @@ export const applyDefaultsToWidget = (
     }
 
     return {
-        ...oldWidgetInfo,
         // maintain other info, like type
-        // After upgrading we guarantee that the version is up-to-date
-        version: latestVersion,
+        ...oldWidgetInfo,
+        version,
         // Default graded to true (so null/undefined becomes true):
         graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
         alignment: alignment,
