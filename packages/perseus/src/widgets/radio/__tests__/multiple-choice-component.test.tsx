@@ -149,17 +149,19 @@ describe("Multiple choice component", () => {
             expect(screen.getByText("foo-bar-zot")).toBeInTheDocument();
         });
 
-        it("uses the i18n version of 'None of the above' when the choice is set as such", () => {
+        it("displays provided content for 'None of the above' choices", () => {
+            // The widget layer is responsible for setting the correct content
+            // for NOTA choices. The component just displays whatever content
+            // is passed to it.
             const choiceOverrides = {
                 isNoneOfTheAbove: true,
-                content: "foo-bar-zot",
+                content: "Custom NOTA content",
             };
             const props = getComponentProps({
                 choiceOverrides,
             });
             render(<MultipleChoiceComponent {...props} />);
-            expect(screen.queryByText("foo-bar-zot")).not.toBeInTheDocument();
-            expect(screen.getByText("None of the above")).toBeInTheDocument();
+            expect(screen.getByText("Custom NOTA content")).toBeInTheDocument();
         });
 
         it("shows the provided rationale when in review mode", () => {
