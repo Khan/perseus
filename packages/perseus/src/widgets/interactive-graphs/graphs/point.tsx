@@ -3,11 +3,11 @@ import * as React from "react";
 
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
+import {getCSSZoomFactor} from "../utils";
 
 import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
-import {getCSSZoomFactor} from "../utils";
 
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {PerseusStrings} from "../../../strings";
