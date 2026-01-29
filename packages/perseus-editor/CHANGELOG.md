@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 28.10.2
+
+### Patch Changes
+
+-   [#3218](https://github.com/Khan/perseus/pull/3218) [`ec2a1c646f`](https://github.com/Khan/perseus/commit/ec2a1c646f5b3a467ca1b8ad9365ed802e2d28ec) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Update radio editor to have typesafe interface
+
+-   Updated dependencies [[`e1168514df`](https://github.com/Khan/perseus/commit/e1168514dfbfe61d805fd22d9df9c8e0890e7564), [`64e88e9fd0`](https://github.com/Khan/perseus/commit/64e88e9fd0d202894808e631a1a2d162e768a776), [`da0d22d0ee`](https://github.com/Khan/perseus/commit/da0d22d0ee614f2071f3acd8f663c461e95b7c54)]:
+    -   @khanacademy/perseus@74.0.2
+
 ## 28.10.1
 
 ### Patch Changes
