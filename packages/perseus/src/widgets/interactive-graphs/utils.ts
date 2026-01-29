@@ -248,14 +248,16 @@ export const calculateNestedSVGCoords = (
  * as both clientX/clientY and getBoundingClientRect() return zoomed values, but
  * the SVG coordinate system expects unzoomed pixel values.
  *
+ * In the KA architecture, zoom is applied once to either the body element (articles)
+ * or .exercise-chrome-content-for-mobile-zoom (exercises), not nested.
+ *
  * @param element - The DOM element to check for CSS zoom
- * @returns The cumulative zoom factor (e.g., 1.5 for 150% zoom, 1.0 for no zoom)
+ * @returns The zoom factor (e.g., 1.5 for 150% zoom, 1.0 for no zoom)
  */
 export function getCSSZoomFactor(element: Element): number {
-    let zoomFactor = 1;
     let currentElement: Element | null = element;
 
-    // Traverse up the DOM tree to accumulate all zoom values
+    // Traverse up the DOM tree to find the first zoom value
     while (currentElement) {
         const computedStyle = window.getComputedStyle(currentElement);
         const zoom = computedStyle.zoom;
@@ -263,12 +265,12 @@ export function getCSSZoomFactor(element: Element): number {
         if (zoom && zoom !== "normal") {
             const zoomValue = parseFloat(zoom);
             if (!isNaN(zoomValue)) {
-                zoomFactor *= zoomValue;
+                return zoomValue;
             }
         }
 
         currentElement = currentElement.parentElement;
     }
 
-    return zoomFactor;
+    return 1;
 }
