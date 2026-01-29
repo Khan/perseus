@@ -308,15 +308,17 @@ describe("Multiple Choice Widget", () => {
 
         it("should render all rationales when showSolutions is 'all'", async () => {
             // Arrange
-            const {container} = renderQuestion(question, apiOptions, {
+            renderQuestion(question, apiOptions, {
                 showSolutions: "all",
             });
 
             // Assert
-            expect(
-                // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-                container.querySelectorAll(`[id$="-rationale"]`),
-            ).toHaveLength(4);
+            // Check that the unique rationale texts not found in choice
+            // content are rendered
+            const content = document.body.textContent || "";
+            expect(content).toContain("equal to only");
+            expect(content).toContain("While");
+            expect(content).toContain("is the positive square root of");
         });
 
         it("should render no rationales when showSolutions is 'none'", async () => {
