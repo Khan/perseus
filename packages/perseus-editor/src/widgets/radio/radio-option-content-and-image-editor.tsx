@@ -24,10 +24,25 @@ type Props = {
     onContentChange: (choiceIndex: number, content: string) => void;
 };
 
-export const RadioOptionContentAndImageEditor = (props: Props) => {
+export type RadioOptionContentAndImageEditorHandle = {
+    focus: () => void;
+};
+
+export const RadioOptionContentAndImageEditor = React.forwardRef<
+    RadioOptionContentAndImageEditorHandle,
+    Props
+>(function RadioOptionContentAndImageEditor(props, ref) {
     const {content, choiceIndex, onContentChange, isNoneOfTheAbove} = props;
     const uniqueId = React.useId();
     const contentTextAreaId = `${uniqueId}-content-textarea`;
+    const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
+
+    // Expose focus method to parent components
+    React.useImperativeHandle(ref, () => ({
+        focus: () => {
+            textAreaRef.current?.focus();
+        },
+    }));
 
     // States for updating content and images
     const [proxiedContent, setProxiedContent] = React.useState<string>("");
@@ -177,6 +192,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
             </HeadingXSmall>
             <TextArea
                 id={contentTextAreaId}
+                ref={textAreaRef}
                 value={proxiedContent}
                 placeholder="Type a choice here..."
                 onChange={(value) => {
@@ -275,4 +291,4 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
             )) ?? null}
         </>
     );
-};
+});
