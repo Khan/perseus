@@ -12,7 +12,7 @@
     &:global(.perseus-article) {
         .choice:not(.is-correct):has(> button[aria-pressed="true"])
             :global(.paragraph) {
-            color: var(--wb-semanticColor-core-foreground-instructive-default);
+            color: var(--wb-semanticColor-core-foreground-instructive-strong);
         }
     }
 }
@@ -49,7 +49,7 @@
 }
 
 .choice:not(.is-correct):has(> button[aria-pressed="true"]) {
-    color: var(--wb-semanticColor-core-foreground-instructive-default);
+    color: var(--wb-semanticColor-core-foreground-instructive-strong);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -144,7 +144,7 @@
     --perseus-multiple-choice-correctness-outline-color: var(
         --wb-semanticColor-core-border-success-default
     );
-    color: var(--wb-semanticColor-core-foreground-success-strong);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
 }
 
 .is-wrong {
