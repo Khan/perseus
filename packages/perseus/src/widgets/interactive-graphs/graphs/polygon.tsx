@@ -17,7 +17,7 @@ import {
     calculateSideSnap,
 } from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {bound, TARGET_SIZE} from "../utils";
+import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
@@ -513,9 +513,11 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
 
                     const elementRect =
                         event.currentTarget.getBoundingClientRect();
+                    const zoomFactor = getCSSZoomFactor(event.currentTarget);
 
-                    const x = event.clientX - elementRect.x;
-                    const y = event.clientY - elementRect.y;
+                    // Compensate for CSS zoom applied by mobile font scaling
+                    const x = (event.clientX - elementRect.x) / zoomFactor;
+                    const y = (event.clientY - elementRect.y) / zoomFactor;
 
                     const graphCoordinates = pixelsToVectors(
                         [[x, y]],
