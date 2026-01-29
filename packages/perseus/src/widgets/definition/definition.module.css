@@ -3,12 +3,13 @@
     border-bottom: none;
 }
 
-:hover>.definition,
-:focus>.definition,
-:active>.definition {
+:hover > .definition,
+:focus > .definition,
+:active > .definition {
     /* Note(TB): Probably don't need borderBottom styling as Clickable handles that.
        If removed, also remove the Focused story. */
-    border-bottom: 2px solid var(--wb-semanticColor-core-border-instructive-default);
+    border-bottom: 2px solid
+        var(--wb-semanticColor-core-border-instructive-default);
 }
 
 .tooltip-body {
