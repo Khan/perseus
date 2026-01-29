@@ -12,7 +12,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio
 import MultipleChoiceComponent from "./multiple-choice-component.new";
 import {getChoiceStates} from "./utils/general-utils";
 
-import type {WidgetProps, ChoiceState, ChangeHandler} from "../../types";
+import type {WidgetProps, ChoiceState} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -52,9 +52,6 @@ export type RadioProps = {
     editMode?: boolean;
     labelWrap?: boolean;
     randomize?: boolean;
-    // TODO: https://khanacademy.atlassian.net/browse/LEMS-3542
-    // remove onChange from Radio
-    onChange: ChangeHandler;
 };
 
 export type RadioWidgetHandle = {
@@ -95,7 +92,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             questionCompleted,
             static: isStatic,
             apiOptions,
-            onChange,
+            handleUserInput,
             trackInteraction,
             findWidgets,
             reviewMode,
@@ -186,7 +183,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
          * Updates choice states based on the selection, handles single/multiple
          * selection logic, and notifies Perseus of the interaction.
          *
-         * @param choiceIndex - The index of the choice that changed
+         * @param choiceId - The ID of the choice that changed
          * @param newCheckedState - Whether the choice is now selected
          */
         const handleChoiceChange = (
@@ -249,7 +246,21 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 choiceState.selected = checkedChoiceIds.includes(choiceId);
             });
 
-            onChange({choiceStates: newChoiceStates});
+            // Call handleUserInput directly with properly formatted data.
+            // The choice IDs are already the original IDs from the choices array,
+            // so no unshuffling is needed here
+            if (handleUserInput) {
+                const selectedChoiceIds = choices
+                    .filter((_, i) => newChoiceStates[i].selected)
+                    .map((choice) => choice.id);
+
+                const userInput: PerseusRadioUserInput = {
+                    selectedChoiceIds,
+                };
+
+                handleUserInput(userInput);
+            }
+
             trackInteraction();
             announceChoiceChange(newChoiceStates);
         };

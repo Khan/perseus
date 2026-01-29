@@ -31,7 +31,7 @@ export function getUserInputFromSerializedState(
 ): PerseusRadioUserInput {
     const selectedChoiceIds: string[] = [];
 
-    if (serializedState.choiceStates) {
+    if (serializedState?.choiceStates) {
         const choiceStates = serializedState.choiceStates;
 
         for (let i = 0; i < choiceStates.length; i++) {
