@@ -96,10 +96,6 @@ class Radio extends React.Component<Props> implements Widget {
         return this.radioRef.current.getPromptJSON();
     }
 
-    // _handleChange method removed as part of LEMS-3542
-    // The RadioNew component now calls handleUserInput directly
-
-    // onChange removed as part of LEMS-3542
     _mergePropsAndState(): Props & {
         numCorrect: number;
     } {
