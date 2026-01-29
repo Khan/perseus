@@ -46,7 +46,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                   </div>
                 </span>
                 <button
-                  aria-disabled="false"
                   aria-label="Zoom image."
                   class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                   type="button"
@@ -548,7 +547,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </div>
                               </span>
                               <button
-                                aria-disabled="false"
                                 aria-label="Zoom image."
                                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                                 type="button"

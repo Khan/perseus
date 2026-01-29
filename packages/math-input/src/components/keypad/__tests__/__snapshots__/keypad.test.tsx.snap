@@ -159,7 +159,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_1"
             >
               <button
-                aria-disabled="false"
                 aria-label="1"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -191,7 +190,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_2"
             >
               <button
-                aria-disabled="false"
                 aria-label="2"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -223,7 +221,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_3"
             >
               <button
-                aria-disabled="false"
                 aria-label="3"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -255,7 +252,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_4"
             >
               <button
-                aria-disabled="false"
                 aria-label="4"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -287,7 +283,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_5"
             >
               <button
-                aria-disabled="false"
                 aria-label="5"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -319,7 +314,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_6"
             >
               <button
-                aria-disabled="false"
                 aria-label="6"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -351,7 +345,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_7"
             >
               <button
-                aria-disabled="false"
                 aria-label="7"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -383,7 +376,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_8"
             >
               <button
-                aria-disabled="false"
                 aria-label="8"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -415,7 +407,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_9"
             >
               <button
-                aria-disabled="false"
                 aria-label="9"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -447,7 +438,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NUM_0"
             >
               <button
-                aria-disabled="false"
                 aria-label="0"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -479,7 +469,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="DECIMAL"
             >
               <button
-                aria-disabled="false"
                 aria-label="Decimal"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -512,7 +501,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="NEGATIVE"
             >
               <button
-                aria-disabled="false"
                 aria-label="Negative"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -546,7 +534,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="PERCENT"
             >
               <button
-                aria-disabled="false"
                 aria-label="Percent"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -580,7 +567,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="FRAC"
             >
               <button
-                aria-disabled="false"
                 aria-label="Fraction, excluding the current expression"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -614,7 +600,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="PLUS"
             >
               <button
-                aria-disabled="false"
                 aria-label="Plus"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -654,7 +639,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="MINUS"
             >
               <button
-                aria-disabled="false"
                 aria-label="Minus"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -688,7 +672,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="CDOT"
             >
               <button
-                aria-disabled="false"
                 aria-label="Multiply"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -737,7 +720,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="LEFT_PAREN"
             >
               <button
-                aria-disabled="false"
                 aria-label="Left parenthesis"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -771,7 +753,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="RIGHT_PAREN"
             >
               <button
-                aria-disabled="false"
                 aria-label="Right parenthesis"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -805,7 +786,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               data-testid="BACKSPACE"
             >
               <button
-                aria-disabled="false"
                 aria-label="Delete"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -845,7 +825,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
               >
                 <button
-                  aria-disabled="false"
                   aria-label="Up arrow"
                   class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
                   type="button"
@@ -891,7 +870,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
               >
                 <button
-                  aria-disabled="false"
                   aria-label="Right arrow"
                   class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
                   type="button"
@@ -937,7 +915,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-inlineStyles_4h080i"
               >
                 <button
-                  aria-disabled="false"
                   aria-label="Down arrow"
                   class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
                   type="button"
@@ -983,7 +960,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-inlineStyles_1drshe8"
               >
                 <button
-                  aria-disabled="false"
                   aria-label="Left arrow"
                   class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
                   type="button"
@@ -1216,7 +1192,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_1"
             >
               <button
-                aria-disabled="false"
                 aria-label="1"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1248,7 +1223,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_2"
             >
               <button
-                aria-disabled="false"
                 aria-label="2"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1280,7 +1254,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_3"
             >
               <button
-                aria-disabled="false"
                 aria-label="3"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1312,7 +1285,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_4"
             >
               <button
-                aria-disabled="false"
                 aria-label="4"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1344,7 +1316,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_5"
             >
               <button
-                aria-disabled="false"
                 aria-label="5"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1376,7 +1347,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_6"
             >
               <button
-                aria-disabled="false"
                 aria-label="6"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1408,7 +1378,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_7"
             >
               <button
-                aria-disabled="false"
                 aria-label="7"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1440,7 +1409,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_8"
             >
               <button
-                aria-disabled="false"
                 aria-label="8"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1472,7 +1440,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_9"
             >
               <button
-                aria-disabled="false"
                 aria-label="9"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1504,7 +1471,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NUM_0"
             >
               <button
-                aria-disabled="false"
                 aria-label="0"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1536,7 +1502,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="DECIMAL"
             >
               <button
-                aria-disabled="false"
                 aria-label="Decimal"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1569,7 +1534,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="NEGATIVE"
             >
               <button
-                aria-disabled="false"
                 aria-label="Negative"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1603,7 +1567,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="PERCENT"
             >
               <button
-                aria-disabled="false"
                 aria-label="Percent"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1637,7 +1600,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="FRAC"
             >
               <button
-                aria-disabled="false"
                 aria-label="Fraction, excluding the current expression"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1671,7 +1633,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="PLUS"
             >
               <button
-                aria-disabled="false"
                 aria-label="Plus"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1711,7 +1672,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="MINUS"
             >
               <button
-                aria-disabled="false"
                 aria-label="Minus"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1745,7 +1705,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="CDOT"
             >
               <button
-                aria-disabled="false"
                 aria-label="Multiply"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1794,7 +1753,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="LEFT_PAREN"
             >
               <button
-                aria-disabled="false"
                 aria-label="Left parenthesis"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1828,7 +1786,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="RIGHT_PAREN"
             >
               <button
-                aria-disabled="false"
                 aria-label="Right parenthesis"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
@@ -1862,7 +1819,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               data-testid="BACKSPACE"
             >
               <button
-                aria-disabled="false"
                 aria-label="Delete"
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
