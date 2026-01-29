@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 28.10.2
+
+### Patch Changes
+
+-   [#3218](https://github.com/Khan/perseus/pull/3218) [`ec2a1c646f`](https://github.com/Khan/perseus/commit/ec2a1c646f5b3a467ca1b8ad9365ed802e2d28ec) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Update radio editor to have typesafe interface
+
+*   [#3223](https://github.com/Khan/perseus/pull/3223) [`e330545575`](https://github.com/Khan/perseus/commit/e3305455758a4c1011c37f4156f7b51fb8a84634) Thanks [@jandrade](https://github.com/jandrade)! - Updates `semanticColor.core.foreground` references in CSS to match to the new WB mappings
+
+-   [#3220](https://github.com/Khan/perseus/pull/3220) [`0252e2e91e`](https://github.com/Khan/perseus/commit/0252e2e91ead4dfae9554ea4faf6648dcf71bb07) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Removes the React string refs pattern in the RadioEditor component, replacing them with the modern React.createRef() and forwardRef pattern.
+
+-   Updated dependencies [[`e1168514df`](https://github.com/Khan/perseus/commit/e1168514dfbfe61d805fd22d9df9c8e0890e7564), [`83c280a8e1`](https://github.com/Khan/perseus/commit/83c280a8e1a67c048d98611d411c1f70c7dd851c), [`64e88e9fd0`](https://github.com/Khan/perseus/commit/64e88e9fd0d202894808e631a1a2d162e768a776), [`e330545575`](https://github.com/Khan/perseus/commit/e3305455758a4c1011c37f4156f7b51fb8a84634), [`da0d22d0ee`](https://github.com/Khan/perseus/commit/da0d22d0ee614f2071f3acd8f663c461e95b7c54)]:
+    -   @khanacademy/perseus@74.0.2
+    -   @khanacademy/math-input@26.3.11
+
 ## 28.10.1
 
 ### Patch Changes

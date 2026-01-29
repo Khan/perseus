@@ -1,5 +1,22 @@
 # @khanacademy/perseus
 
+## 74.0.2
+
+### Patch Changes
+
+-   [#3201](https://github.com/Khan/perseus/pull/3201) [`e1168514df`](https://github.com/Khan/perseus/commit/e1168514dfbfe61d805fd22d9df9c8e0890e7564) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding a white background to images in long description dialogs to fix contrast issues in transparent images.
+
+*   [#3215](https://github.com/Khan/perseus/pull/3215) [`83c280a8e1`](https://github.com/Khan/perseus/commit/83c280a8e1a67c048d98611d411c1f70c7dd851c) Thanks [@Myranae](https://github.com/Myranae)! - Remove old radio widget styles
+
+-   [#3213](https://github.com/Khan/perseus/pull/3213) [`64e88e9fd0`](https://github.com/Khan/perseus/commit/64e88e9fd0d202894808e631a1a2d162e768a776) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Correct color token for instructions
+
+*   [#3223](https://github.com/Khan/perseus/pull/3223) [`e330545575`](https://github.com/Khan/perseus/commit/e3305455758a4c1011c37f4156f7b51fb8a84634) Thanks [@jandrade](https://github.com/jandrade)! - Updates `semanticColor.core.foreground` references in CSS to match to the new WB mappings
+
+-   [#3219](https://github.com/Khan/perseus/pull/3219) [`da0d22d0ee`](https://github.com/Khan/perseus/commit/da0d22d0ee614f2071f3acd8f663c461e95b7c54) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Remove "new" from file names
+
+-   Updated dependencies [[`e330545575`](https://github.com/Khan/perseus/commit/e3305455758a4c1011c37f4156f7b51fb8a84634)]:
+    -   @khanacademy/math-input@26.3.11
+
 ## 74.0.1
 
 ### Patch Changes

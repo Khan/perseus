@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 26.3.11
+
+### Patch Changes
+
+-   [#3223](https://github.com/Khan/perseus/pull/3223) [`e330545575`](https://github.com/Khan/perseus/commit/e3305455758a4c1011c37f4156f7b51fb8a84634) Thanks [@jandrade](https://github.com/jandrade)! - Updates `semanticColor.core.foreground` references in CSS to match to the new WB mappings
+
 ## 26.3.10
 
 ### Patch Changes
