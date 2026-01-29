@@ -59,6 +59,11 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
             return;
         }
 
+        // Don't update anything if the URL hasn't actually changed.
+        if (url === backgroundImage.url) {
+            return;
+        }
+
         // Require the image to be hosted by Khan Academy.
         if (url && !INTERNALLY_HOSTED_URL_RE.test(url)) {
             setBackgroundImageError(
