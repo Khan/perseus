@@ -2,11 +2,11 @@ import {describe, it} from "@jest/globals";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import * as Choice from "../choice.new";
-import MultipleChoiceComponent from "../multiple-choice-component.new";
+import * as Choice from "../choice";
+import MultipleChoiceComponent from "../multiple-choice-component";
 
-import type {MultipleChoiceComponentProps} from "../multiple-choice-component.new";
-import type {ChoiceType} from "../multiple-choice-widget.new";
+import type {MultipleChoiceComponentProps} from "../multiple-choice-component";
+import type {ChoiceType} from "../multiple-choice-widget";
 
 type overrideProps = {
     choiceOverrides?: Partial<ChoiceType>;

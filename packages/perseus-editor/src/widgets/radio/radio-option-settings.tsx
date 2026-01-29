@@ -9,8 +9,13 @@ import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image
 import {RadioOptionSettingsActions} from "./radio-option-settings-actions";
 import {RadioStatusPill} from "./radio-status-pill";
 
+import type {RadioOptionContentAndImageEditorHandle} from "./radio-option-content-and-image-editor";
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
+
+export type RadioOptionSettingsHandle = {
+    focus: () => void;
+};
 
 interface RadioOptionSettingsProps {
     index: number;
@@ -25,21 +30,36 @@ interface RadioOptionSettingsProps {
     onMove: (choiceIndex: number, movement: ChoiceMovementType) => void;
 }
 
-export function RadioOptionSettings({
-    index,
-    choice,
-    multipleSelect,
-    onStatusChange,
-    onContentChange,
-    onRationaleChange,
-    showDelete,
-    showMove,
-    onDelete,
-    onMove,
-}: RadioOptionSettingsProps) {
+export const RadioOptionSettings = React.forwardRef<
+    RadioOptionSettingsHandle,
+    RadioOptionSettingsProps
+>(function RadioOptionSettings(
+    {
+        index,
+        choice,
+        multipleSelect,
+        onStatusChange,
+        onContentChange,
+        onRationaleChange,
+        showDelete,
+        showMove,
+        onDelete,
+        onMove,
+    },
+    ref,
+) {
     const {content, rationale, correct, isNoneOfTheAbove} = choice;
     const uniqueId = React.useId();
     const rationaleTextAreaId = `${uniqueId}-rationale-textarea`;
+    const contentEditorRef =
+        React.useRef<RadioOptionContentAndImageEditorHandle>(null);
+
+    // Forward focus to the content editor
+    React.useImperativeHandle(ref, () => ({
+        focus: () => {
+            contentEditorRef.current?.focus();
+        },
+    }));
 
     return (
         <div className={styles.tile}>
@@ -97,6 +117,7 @@ export function RadioOptionSettings({
 
             {/* Content and rationale text areas */}
             <RadioOptionContentAndImageEditor
+                ref={contentEditorRef}
                 content={content}
                 choiceIndex={index}
                 isNoneOfTheAbove={isNoneOfTheAbove ?? false}
@@ -133,4 +154,4 @@ export function RadioOptionSettings({
             />
         </div>
     );
-}
+});

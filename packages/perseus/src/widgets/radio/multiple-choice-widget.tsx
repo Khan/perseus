@@ -9,7 +9,7 @@ import MathRenderingContext from "../../math-rendering-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
-import MultipleChoiceComponent from "./multiple-choice-component.new";
+import MultipleChoiceComponent from "./multiple-choice-component";
 import {getChoiceStates} from "./utils/general-utils";
 
 import type {WidgetProps, ChoiceState, ChangeHandler} from "../../types";

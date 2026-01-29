@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-[Radio] Remove old widget files
+[Radio] Remove "new" from file names

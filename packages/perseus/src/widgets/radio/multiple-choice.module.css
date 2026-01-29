@@ -95,7 +95,7 @@
 
 .instructions {
     display: block;
-    color: var(--wb-semanticColor-core-foreground-instructive-strong);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 1.8rem;
     line-height: 1.25;
     font-family: inherit;

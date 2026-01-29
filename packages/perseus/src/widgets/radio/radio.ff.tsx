@@ -8,10 +8,10 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 
-import RadioNew from "./multiple-choice-widget.new";
+import RadioNew from "./multiple-choice-widget";
 import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
-import type {RadioProps, RadioWidgetHandle} from "./multiple-choice-widget.new";
+import type {RadioProps, RadioWidgetHandle} from "./multiple-choice-widget";
 import type {
     ChangeHandler,
     ChoiceState,
@@ -102,7 +102,7 @@ class Radio extends React.Component<Props> implements Widget {
         return this.radioRef.current.getPromptJSON();
     }
 
-    _handleChange(arg: {choiceStates?: ChoiceState[]}) {
+    _handleChange(arg: {choiceStates?: ReadonlyArray<ChoiceState>}) {
         const newChoiceStates = arg.choiceStates;
         if (newChoiceStates) {
             /**
@@ -209,7 +209,8 @@ class Radio extends React.Component<Props> implements Widget {
                     selected,
                 };
             }),
-            onChange: (arg: any) => this._handleChange(arg),
+            onChange: (arg: {choiceStates?: ReadonlyArray<ChoiceState>}) =>
+                this._handleChange(arg),
         };
     }
 
