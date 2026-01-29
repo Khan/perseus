@@ -18,6 +18,7 @@ import type {
     PerseusRadioChoice,
     PerseusRadioRubric,
     PerseusRadioUserInput,
+    PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -146,7 +147,10 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
          * @param content - The content to render (defaults to empty string)
          * @returns A React element with the rendered content
          */
-        const renderContent = (content = ""): React.ReactNode => {
+        const renderContent = (
+            content = "",
+            widgets: PerseusWidgetsMap | undefined,
+        ): React.ReactNode => {
             // This has been called out as a hack in the past.
             // We pass in a key here so that we avoid a semi-spurious
             // react warning when the ChoiceNoneAbove renders a
@@ -171,6 +175,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                     <Renderer
                         key="choiceContentRenderer"
                         content={content}
+                        widgets={widgets}
                         findExternalWidgets={findWidgets}
                         alwaysUpdate={true}
                         linterContext={linterContext}
@@ -312,12 +317,12 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
 
                 return {
                     id: choice.id,
-                    content: renderContent(content),
+                    content: renderContent(content, choice.widgets),
                     checked: selected,
                     correct: !!choice.correct,
                     disabled: readOnly,
                     hasRationale: !!choice.rationale,
-                    rationale: renderContent(choice.rationale),
+                    rationale: renderContent(choice.rationale, choice.widgets),
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,

@@ -7,7 +7,8 @@ import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.tes
 import {
     question,
     choicesWithGraphie,
-    choicesWithImages,
+    choicesWithImagesMarkdown,
+    choicesWithImageWidgets,
     multiChoiceQuestionSimple,
     multiChoiceQuestion,
     multiChoiceQuestionSimpleOverflowContent,
@@ -121,10 +122,18 @@ export const SelectWithGraphie = {
     },
 };
 
-export const SelectWithImages = {
+export const SelectWithImagesMarkdown = {
     args: {
         item: generateTestPerseusItem({
-            question: choicesWithImages,
+            question: choicesWithImagesMarkdown,
+        }),
+    },
+};
+
+export const SelectWithImageWidgets = {
+    args: {
+        item: generateTestPerseusItem({
+            question: choicesWithImageWidgets,
         }),
     },
 };
