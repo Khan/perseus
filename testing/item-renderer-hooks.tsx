@@ -103,11 +103,7 @@ export const useItemRenderer = (
         );
 
         const userInput = renderer.getUserInput();
-        const score = scorePerseusItem(
-            state.perseusItem.question,
-            userInput,
-            "en",
-        );
+        const score = scorePerseusItem(item.question, userInput, "en");
 
         if (score.type === "points") {
             // Show solutions for selected answers when the user answered the
@@ -116,7 +112,7 @@ export const useItemRenderer = (
         }
 
         return score;
-    }, [state.perseusItem]);
+    }, [item]);
 
     const updateJson = React.useCallback((json: string): boolean => {
         try {
