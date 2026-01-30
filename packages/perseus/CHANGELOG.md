@@ -1,5 +1,40 @@
 # @khanacademy/perseus
 
+## 74.0.2
+
+### Patch Changes
+
+-   [#3201](https://github.com/Khan/perseus/pull/3201) [`e1168514df`](https://github.com/Khan/perseus/commit/e1168514dfbfe61d805fd22d9df9c8e0890e7564) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding a white background to images in long description dialogs to fix contrast issues in transparent images.
+
+*   [#3215](https://github.com/Khan/perseus/pull/3215) [`83c280a8e1`](https://github.com/Khan/perseus/commit/83c280a8e1a67c048d98611d411c1f70c7dd851c) Thanks [@Myranae](https://github.com/Myranae)! - Remove old radio widget styles
+
+-   [#3213](https://github.com/Khan/perseus/pull/3213) [`64e88e9fd0`](https://github.com/Khan/perseus/commit/64e88e9fd0d202894808e631a1a2d162e768a776) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Correct color token for instructions
+
+*   [#3223](https://github.com/Khan/perseus/pull/3223) [`e330545575`](https://github.com/Khan/perseus/commit/e3305455758a4c1011c37f4156f7b51fb8a84634) Thanks [@jandrade](https://github.com/jandrade)! - Updates `semanticColor.core.foreground` references in CSS to match to the new WB mappings
+
+-   [#3219](https://github.com/Khan/perseus/pull/3219) [`da0d22d0ee`](https://github.com/Khan/perseus/commit/da0d22d0ee614f2071f3acd8f663c461e95b7c54) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Remove "new" from file names
+
+-   Updated dependencies [[`e330545575`](https://github.com/Khan/perseus/commit/e3305455758a4c1011c37f4156f7b51fb8a84634)]:
+    -   @khanacademy/math-input@26.3.11
+
+## 74.0.1
+
+### Patch Changes
+
+-   [#3206](https://github.com/Khan/perseus/pull/3206) [`3da63e556a`](https://github.com/Khan/perseus/commit/3da63e556abccd8bfb6aec901d66302e07f9406d) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused exports from misc files
+
+*   [#3211](https://github.com/Khan/perseus/pull/3211) [`029ba6b529`](https://github.com/Khan/perseus/commit/029ba6b5292ede88575b44db1d74bc5e3552f86b) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix Radio widget missing or bad types
+
+-   [#3199](https://github.com/Khan/perseus/pull/3199) [`70097fff07`](https://github.com/Khan/perseus/commit/70097fff073ed20c24e88e7b8442d977cc74d3b2) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Remove old widget files
+
+*   [#3205](https://github.com/Khan/perseus/pull/3205) [`3532cdc97c`](https://github.com/Khan/perseus/commit/3532cdc97cdbb2c7dff4a87f31790ad473d44272) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused test data
+
+-   [#3208](https://github.com/Khan/perseus/pull/3208) [`bc23d69064`](https://github.com/Khan/perseus/commit/bc23d69064bd957e35252c1e74a9edde872385c1) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused scroll-utils.ts
+
+-   Updated dependencies [[`3fad723caf`](https://github.com/Khan/perseus/commit/3fad723caf42432d394607093c553fc6fa76b200), [`63ed9ea52e`](https://github.com/Khan/perseus/commit/63ed9ea52ef376a33ed52318bc7ca05ac7b2c394)]:
+    -   @khanacademy/perseus-linter@4.7.0
+    -   @khanacademy/perseus-score@8.2.7
+
 ## 74.0.0
 
 ### Major Changes

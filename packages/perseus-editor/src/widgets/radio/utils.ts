@@ -3,6 +3,14 @@ import {PerseusMarkdown} from "@khanacademy/perseus";
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 
+// Minimal type for markdown AST nodes used in traverseContent callback
+// The upstream traverseContent uses `any`, so we define what we need here
+type MarkdownNode = {
+    type: string;
+    target?: string;
+    alt?: string;
+};
+
 export function getMovedChoices(
     choices: PerseusRadioChoice[],
     hasNoneOfTheAbove: boolean,
@@ -86,7 +94,7 @@ export function setImageProxyFromMarkdownContent(
     const parsedMarkdown = PerseusMarkdown.parse(markdownContent, {});
 
     // Find all image nodes in the parsed tree.
-    PerseusMarkdown.traverseContent(parsedMarkdown, (node: any) => {
+    PerseusMarkdown.traverseContent(parsedMarkdown, (node: MarkdownNode) => {
         if (node.type === "image") {
             images.push({
                 url: node.target || "",

@@ -1,5 +1,39 @@
 # @khanacademy/perseus-editor
 
+## 28.10.2
+
+### Patch Changes
+
+-   [#3218](https://github.com/Khan/perseus/pull/3218) [`ec2a1c646f`](https://github.com/Khan/perseus/commit/ec2a1c646f5b3a467ca1b8ad9365ed802e2d28ec) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Update radio editor to have typesafe interface
+
+*   [#3223](https://github.com/Khan/perseus/pull/3223) [`e330545575`](https://github.com/Khan/perseus/commit/e3305455758a4c1011c37f4156f7b51fb8a84634) Thanks [@jandrade](https://github.com/jandrade)! - Updates `semanticColor.core.foreground` references in CSS to match to the new WB mappings
+
+-   [#3220](https://github.com/Khan/perseus/pull/3220) [`0252e2e91e`](https://github.com/Khan/perseus/commit/0252e2e91ead4dfae9554ea4faf6648dcf71bb07) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Removes the React string refs pattern in the RadioEditor component, replacing them with the modern React.createRef() and forwardRef pattern.
+
+-   Updated dependencies [[`e1168514df`](https://github.com/Khan/perseus/commit/e1168514dfbfe61d805fd22d9df9c8e0890e7564), [`83c280a8e1`](https://github.com/Khan/perseus/commit/83c280a8e1a67c048d98611d411c1f70c7dd851c), [`64e88e9fd0`](https://github.com/Khan/perseus/commit/64e88e9fd0d202894808e631a1a2d162e768a776), [`e330545575`](https://github.com/Khan/perseus/commit/e3305455758a4c1011c37f4156f7b51fb8a84634), [`da0d22d0ee`](https://github.com/Khan/perseus/commit/da0d22d0ee614f2071f3acd8f663c461e95b7c54)]:
+    -   @khanacademy/perseus@74.0.2
+    -   @khanacademy/math-input@26.3.11
+
+## 28.10.1
+
+### Patch Changes
+
+-   [#3167](https://github.com/Khan/perseus/pull/3167) [`8a9c35cbb9`](https://github.com/Khan/perseus/commit/8a9c35cbb97b6c4bce8f1f4945744520a236ea5c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Add accessibility checker (axe-core) in the exercise editor
+
+*   [#3196](https://github.com/Khan/perseus/pull/3196) [`079f261241`](https://github.com/Khan/perseus/commit/079f26124138a43e0215857eb7ba36badf30931a) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - JsonEditor: Replaced deprecated lifecycle method with componentDidUpdate to sync internal state when props change
+    EditorPage: Added getSnapshotBeforeUpdate to capture editor state before switching to JSON mode
+
+-   [#3206](https://github.com/Khan/perseus/pull/3206) [`3da63e556a`](https://github.com/Khan/perseus/commit/3da63e556abccd8bfb6aec901d66302e07f9406d) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused exports from misc files
+
+*   [#3211](https://github.com/Khan/perseus/pull/3211) [`029ba6b529`](https://github.com/Khan/perseus/commit/029ba6b5292ede88575b44db1d74bc5e3552f86b) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix Radio widget missing or bad types
+
+-   [#3208](https://github.com/Khan/perseus/pull/3208) [`bc23d69064`](https://github.com/Khan/perseus/commit/bc23d69064bd957e35252c1e74a9edde872385c1) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused scroll-utils.ts
+
+-   Updated dependencies [[`3fad723caf`](https://github.com/Khan/perseus/commit/3fad723caf42432d394607093c553fc6fa76b200), [`3da63e556a`](https://github.com/Khan/perseus/commit/3da63e556abccd8bfb6aec901d66302e07f9406d), [`029ba6b529`](https://github.com/Khan/perseus/commit/029ba6b5292ede88575b44db1d74bc5e3552f86b), [`63ed9ea52e`](https://github.com/Khan/perseus/commit/63ed9ea52ef376a33ed52318bc7ca05ac7b2c394), [`70097fff07`](https://github.com/Khan/perseus/commit/70097fff073ed20c24e88e7b8442d977cc74d3b2), [`3532cdc97c`](https://github.com/Khan/perseus/commit/3532cdc97cdbb2c7dff4a87f31790ad473d44272), [`bc23d69064`](https://github.com/Khan/perseus/commit/bc23d69064bd957e35252c1e74a9edde872385c1)]:
+    -   @khanacademy/perseus-linter@4.7.0
+    -   @khanacademy/perseus@74.0.1
+    -   @khanacademy/perseus-score@8.2.7
+
 ## 28.10.0
 
 ### Minor Changes

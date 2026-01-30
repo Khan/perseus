@@ -7,10 +7,10 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 
-import RadioNew from "./multiple-choice-widget.new";
+import RadioNew from "./multiple-choice-widget";
 import {choiceTransform} from "./util";
 
-import type {RadioProps, RadioWidgetHandle} from "./multiple-choice-widget.new";
+import type {RadioProps, RadioWidgetHandle} from "./multiple-choice-widget";
 import type {ChoiceState, Widget, WidgetProps} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
