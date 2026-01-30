@@ -24,33 +24,44 @@ export default function ImageDimensionsInput({
     onChange,
 }: Props) {
     // Auto-populate empty dimensions with the image's natural size
+    const {url, width, height} = backgroundImage;
     React.useEffect(() => {
+        // Only proceed if we have an image URL but missing dimensions
+        if (!url || (width != null && height != null)) {
+            return;
+        }
+
+        let cancelled = false;
+
         async function populateMissingDimensions() {
-            // Only proceed if we have an image URL but missing dimensions
-            if (
-                !backgroundImage.url ||
-                (backgroundImage.width != null &&
-                    backgroundImage.height != null)
-            ) {
-                return;
+            try {
+                // url is guaranteed to be defined here due to the check above
+                const naturalSize = await Util.getImageSizeModern(url!);
+                const [naturalWidth, naturalHeight] = naturalSize;
+
+                // Don't update if this effect has been superseded
+                if (cancelled) {
+                    return;
+                }
+
+                onChange({
+                    backgroundImage: {
+                        ...backgroundImage,
+                        width: naturalWidth,
+                        height: naturalHeight,
+                    },
+                });
+            } catch (e) {
+                // Image failed to load - silently ignore
             }
-
-            const naturalSize = await Util.getImageSizeModern(
-                backgroundImage.url,
-            );
-            const [naturalWidth, naturalHeight] = naturalSize;
-
-            onChange({
-                backgroundImage: {
-                    ...backgroundImage,
-                    width: naturalWidth,
-                    height: naturalHeight,
-                },
-            });
         }
 
         populateMissingDimensions();
-    }, [backgroundImage, onChange]);
+
+        return () => {
+            cancelled = true;
+        };
+    }, [url, width, height, backgroundImage, onChange]);
 
     function handleWidthChange(newWidth: string) {
         const newHeight = getOtherSideLengthWithPreservedAspectRatio(
