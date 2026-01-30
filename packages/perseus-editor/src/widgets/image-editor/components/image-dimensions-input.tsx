@@ -23,7 +23,13 @@ export default function ImageDimensionsInput({
     backgroundImage,
     onChange,
 }: Props) {
-    // Auto-populate empty dimensions with the image's natural size
+    // Auto-populate empty dimensions with the image's natural size.
+    // We use a ref to access the current backgroundImage in the async callback
+    // without adding it as a dependency (which would cause re-runs on every
+    // render since it's a new object reference each time).
+    const backgroundImageRef = React.useRef(backgroundImage);
+    backgroundImageRef.current = backgroundImage;
+
     const {url, width, height} = backgroundImage;
     React.useEffect(() => {
         // Only proceed if we have an image URL but missing dimensions
@@ -35,24 +41,25 @@ export default function ImageDimensionsInput({
 
         async function populateMissingDimensions() {
             try {
-                // url is guaranteed to be defined here due to the check above
+                // url is guaranteed to be defined due to the early return above
                 const naturalSize = await Util.getImageSizeModern(url!);
                 const [naturalWidth, naturalHeight] = naturalSize;
 
-                // Don't update if this effect has been superseded
+                // Don't update if the URL has changed (different image)
                 if (cancelled) {
                     return;
                 }
 
                 onChange({
                     backgroundImage: {
-                        ...backgroundImage,
+                        ...backgroundImageRef.current,
                         width: naturalWidth,
                         height: naturalHeight,
                     },
                 });
-            } catch (e) {
-                // Image failed to load - silently ignore
+            } catch {
+                // If the image fails to load, leave dimensions empty
+                // for the user to fill in manually.
             }
         }
 
@@ -61,7 +68,7 @@ export default function ImageDimensionsInput({
         return () => {
             cancelled = true;
         };
-    }, [url, width, height, backgroundImage, onChange]);
+    }, [url, width, height, onChange]);
 
     function handleWidthChange(newWidth: string) {
         const newHeight = getOtherSideLengthWithPreservedAspectRatio(
