@@ -29,53 +29,71 @@ export default function ImageDimensionsInput({
 
     // Track the URL we're currently fetching to prevent stale updates
     const fetchingUrlRef = React.useRef<string | null>(null);
+    // Keep a ref to the latest backgroundImage to avoid stale closures
+    const backgroundImageRef = React.useRef(backgroundImage);
+    backgroundImageRef.current = backgroundImage;
 
     // If backgroundImage has no width or height on load,
     // set the width and height to the natural image size.
     React.useEffect(() => {
+        // Skip if no URL
+        if (!backgroundImage.url) {
+            return;
+        }
+
+        // Skip if dimensions are already set
+        if (backgroundImage.width && backgroundImage.height) {
+            return;
+        }
+
         async function setNaturalSize(url: string) {
             console.log(`[${url}] Starting fetch for natural size`);
             fetchingUrlRef.current = url;
 
-            const naturalSize = await Util.getImageSizeModern(url);
-            const [naturalWidth, naturalHeight] = naturalSize;
+            try {
+                const naturalSize = await Util.getImageSizeModern(url);
+                const [naturalWidth, naturalHeight] = naturalSize;
 
-            console.log(
-                `[${url}] Fetch complete: ${naturalWidth}x${naturalHeight}`,
-                `Current URL: ${backgroundImage.url}`,
-                `Ref URL: ${fetchingUrlRef.current}`,
-            );
-
-            // Only update if this is still the current URL being displayed
-            if (fetchingUrlRef.current === url && backgroundImage.url === url) {
                 console.log(
-                    `[${url}] Calling onChange with dimensions`,
-                    `Current backgroundImage:`,
-                    JSON.stringify(backgroundImage),
+                    `[${url}] Fetch complete: ${naturalWidth}x${naturalHeight}`,
                 );
-                // Only pass the URL and dimensions, don't spread the entire
-                // backgroundImage object to avoid overwriting concurrent updates
-                onChange({
-                    backgroundImage: {
-                        url: backgroundImage.url,
-                        width: naturalWidth,
-                        height: naturalHeight,
-                    },
-                });
-            } else {
-                console.log(`[${url}] Skipping onChange (stale)`);
+
+                // Only update if this is still the current URL being displayed
+                if (fetchingUrlRef.current === url) {
+                    // Use the ref to get the latest backgroundImage value
+                    // to avoid stale closure issues
+                    const latestBg = backgroundImageRef.current;
+
+                    // Skip if dimensions were set by another update
+                    if (latestBg.width && latestBg.height) {
+                        console.log(
+                            `[${url}] Skipping onChange (dimensions already set by another update)`,
+                        );
+                        return;
+                    }
+
+                    console.log(`[${url}] Calling onChange with dimensions`);
+                    // Spread backgroundImage to preserve any existing properties
+                    // like scale, top, left, etc. that might have been set
+                    onChange({
+                        backgroundImage: {
+                            ...latestBg,
+                            width: naturalWidth,
+                            height: naturalHeight,
+                        },
+                    });
+                } else {
+                    console.log(`[${url}] Skipping onChange (URL changed)`);
+                }
+            } catch (error) {
+                console.error(`[${url}] Error fetching image size:`, error);
             }
         }
 
-        if (
-            backgroundImage.url &&
-            (!backgroundImage.width || !backgroundImage.height)
-        ) {
-            console.log(
-                `[${backgroundImage.url}] Effect triggered, dimensions missing`,
-            );
-            setNaturalSize(backgroundImage.url);
-        }
+        console.log(
+            `[${backgroundImage.url}] Effect triggered, dimensions missing`,
+        );
+        setNaturalSize(backgroundImage.url);
         // We ONLY want to run this effect if the URL, width, or height changes.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [backgroundImage.url, backgroundImage.width, backgroundImage.height]);
