@@ -23,28 +23,48 @@ export default function ImageDimensionsInput({
     backgroundImage,
     onChange,
 }: Props) {
+    // Track the URL we're currently fetching to prevent stale updates
+    const fetchingUrlRef = React.useRef<string | null>(null);
+
     // If backgroundImage has no width or height on load,
     // set the width and height to the natural image size.
     React.useEffect(() => {
-        async function setNaturalSize() {
-            const naturalSize = await Util.getImageSizeModern(
-                backgroundImage.url!,
-            );
+        async function setNaturalSize(url: string) {
+            console.log(`[${url}] Starting fetch for natural size`);
+            fetchingUrlRef.current = url;
+
+            const naturalSize = await Util.getImageSizeModern(url);
             const [naturalWidth, naturalHeight] = naturalSize;
-            onChange({
-                backgroundImage: {
-                    ...backgroundImage,
-                    width: naturalWidth,
-                    height: naturalHeight,
-                },
-            });
+
+            console.log(
+                `[${url}] Fetch complete: ${naturalWidth}x${naturalHeight}`,
+                `Current URL: ${backgroundImage.url}`,
+                `Ref URL: ${fetchingUrlRef.current}`,
+            );
+
+            // Only update if this is still the current URL being displayed
+            if (fetchingUrlRef.current === url && backgroundImage.url === url) {
+                console.log(`[${url}] Calling onChange with dimensions`);
+                onChange({
+                    backgroundImage: {
+                        ...backgroundImage,
+                        width: naturalWidth,
+                        height: naturalHeight,
+                    },
+                });
+            } else {
+                console.log(`[${url}] Skipping onChange (stale)`);
+            }
         }
 
         if (
             backgroundImage.url &&
             (!backgroundImage.width || !backgroundImage.height)
         ) {
-            setNaturalSize();
+            console.log(
+                `[${backgroundImage.url}] Effect triggered, dimensions missing`,
+            );
+            setNaturalSize(backgroundImage.url);
         }
         // We ONLY want to run this effect if the URL, width, or height changes.
         // eslint-disable-next-line react-hooks/exhaustive-deps
