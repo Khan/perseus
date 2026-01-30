@@ -11,13 +11,13 @@ import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {containerSizeClass} from "../../../util/sizing-utils";
-import Radio from "../multiple-choice-widget.new";
+import Radio from "../multiple-choice-widget";
 
 import type {WidgetProps} from "../../../types";
 import type {
     RadioChoiceWithMetadata,
     RadioProps,
-} from "../multiple-choice-widget.new";
+} from "../multiple-choice-widget";
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
