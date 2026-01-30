@@ -35,15 +35,7 @@ class ImageEditor extends React.Component<Props> {
         return (
             <div className="perseus-image-editor">
                 <ImageUrlInput {...this.props} />
-
-                {this.props.backgroundImage.url &&
-                    // ImageSettings is null if the background image is missing
-                    // width or height. Check for both to prevent the settings
-                    // from being rendered prematurely.
-                    !!this.props.backgroundImage.width &&
-                    !!this.props.backgroundImage.height && (
-                        <ImageSettings {...this.props} />
-                    )}
+                <ImageSettings {...this.props} />
             </div>
         );
     }
