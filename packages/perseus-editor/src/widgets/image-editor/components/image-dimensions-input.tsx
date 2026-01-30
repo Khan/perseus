@@ -23,6 +23,10 @@ export default function ImageDimensionsInput({
     backgroundImage,
     onChange,
 }: Props) {
+    console.log(
+        `[${backgroundImage.url}] Component render - width: ${backgroundImage.width}, height: ${backgroundImage.height}`,
+    );
+
     // Track the URL we're currently fetching to prevent stale updates
     const fetchingUrlRef = React.useRef<string | null>(null);
 
@@ -44,10 +48,16 @@ export default function ImageDimensionsInput({
 
             // Only update if this is still the current URL being displayed
             if (fetchingUrlRef.current === url && backgroundImage.url === url) {
-                console.log(`[${url}] Calling onChange with dimensions`);
+                console.log(
+                    `[${url}] Calling onChange with dimensions`,
+                    `Current backgroundImage:`,
+                    JSON.stringify(backgroundImage),
+                );
+                // Only pass the URL and dimensions, don't spread the entire
+                // backgroundImage object to avoid overwriting concurrent updates
                 onChange({
                     backgroundImage: {
-                        ...backgroundImage,
+                        url: backgroundImage.url,
                         width: naturalWidth,
                         height: naturalHeight,
                     },
