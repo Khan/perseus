@@ -200,10 +200,12 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                     ? choiceStates
                           .map((state, i) => ({
                               selected: state.selected,
-                              id: choices[i].id,
+                              id: choices[i]?.id,
                           }))
-                          .filter((choice) => choice.selected)
-                          .map((choice) => choice.id)
+                          .filter(
+                              (choice) => choice.selected && choice.id != null,
+                          )
+                          .map((choice) => choice.id as string)
                     : [];
                 checkedChoiceIds.push(...currentSelectedIds, choiceId);
             } else {
@@ -212,13 +214,15 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                     ? choiceStates
                           .map((state, i) => ({
                               selected: state.selected,
-                              id: choices[i].id,
+                              id: choices[i]?.id,
                           }))
                           .filter(
                               (choice) =>
-                                  choice.selected && choice.id !== choiceId,
+                                  choice.selected &&
+                                  choice.id != null &&
+                                  choice.id !== choiceId,
                           )
-                          .map((choice) => choice.id)
+                          .map((choice) => choice.id as string)
                     : [];
                 checkedChoiceIds.push(...currentSelectedIds);
             }
@@ -227,18 +231,25 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             // first interaction with the widget, we'll need to initialize them to
             // new objects with all fields set to the default values. Otherwise, we
             // should clone the old `choiceStates` objects, in preparation to
-            // mutate them.
-            const newChoiceStates: ChoiceState[] = choiceStates
-                ? choiceStates.map((state) => ({...state}))
-                : choices.map(() => ({
-                      selected: false,
-                      // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
-                      highlighted: false,
-                      rationaleShown: false,
-                      correctnessShown: false,
-                      previouslyAnswered: false,
-                      readOnly: false,
-                  }));
+            // mutate them. We need to ensure the array length matches choices length
+            // to handle the case where choiceStates is shorter than choices (LEMS-3861).
+            const newChoiceStates: ChoiceState[] = choices.map((_, i) => {
+                if (choiceStates && choiceStates[i]) {
+                    // Clone existing state
+                    return {...choiceStates[i]};
+                } else {
+                    // Create default state for missing entries
+                    return {
+                        selected: false,
+                        // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
+                        highlighted: false,
+                        rationaleShown: false,
+                        correctnessShown: false,
+                        previouslyAnswered: false,
+                        readOnly: false,
+                    };
+                }
+            });
 
             // Mutate the new `choiceState` objects, according to the checkedChoiceIds.
             newChoiceStates.forEach((choiceState: ChoiceState, i) => {
@@ -249,17 +260,21 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             // Call handleUserInput directly with properly formatted data.
             // The choice IDs are already the original IDs from the choices array,
             // so no unshuffling is needed here
-            if (handleUserInput) {
-                const selectedChoiceIds = choices
-                    .filter((_, i) => newChoiceStates[i].selected)
-                    .map((choice) => choice.id);
+            const selectedChoiceIds = choices.reduce<string[]>(
+                (selected, choice, i) => {
+                    if (newChoiceStates[i].selected && choice?.id) {
+                        selected.push(choice.id);
+                    }
+                    return selected;
+                },
+                [],
+            );
 
-                const userInput: PerseusRadioUserInput = {
-                    selectedChoiceIds,
-                };
+            const userInput: PerseusRadioUserInput = {
+                selectedChoiceIds,
+            };
 
-                handleUserInput(userInput);
-            }
+            handleUserInput(userInput);
 
             trackInteraction();
             announceChoiceChange(newChoiceStates);
