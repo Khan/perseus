@@ -23,31 +23,35 @@ export default function ImageDimensionsInput({
     backgroundImage,
     onChange,
 }: Props) {
+    console.log("in the use effect");
     // If backgroundImage has no width or height on load,
     // set the width and height to the natural image size.
-    React.useEffect(() => {
-        async function setNaturalSize() {
-            const naturalSize = await Util.getImageSizeModern(
-                backgroundImage.url!,
-            );
-            const [naturalWidth, naturalHeight] = naturalSize;
-            onChange({
-                backgroundImage: {
-                    url: backgroundImage.url,
-                    width: naturalWidth,
-                    height: naturalHeight,
-                },
-            });
-        }
-        if (!backgroundImage.width || !backgroundImage.height) {
-            setNaturalSize();
-        }
-    }, [
-        backgroundImage.url,
-        backgroundImage.width,
-        backgroundImage.height,
-        onChange,
-    ]);
+    React.useEffect(
+        () => {
+            async function setNaturalSize() {
+                console.log("in the setNaturalSize function");
+                const naturalSize = await Util.getImageSizeModern(
+                    backgroundImage.url!,
+                );
+                const [naturalWidth, naturalHeight] = naturalSize;
+                console.log("changing size to", naturalWidth, naturalHeight);
+                onChange({
+                    backgroundImage: {
+                        url: backgroundImage.url,
+                        width: naturalWidth,
+                        height: naturalHeight,
+                    },
+                });
+            }
+            if (!backgroundImage.width || !backgroundImage.height) {
+                console.log("in the conditional");
+                setNaturalSize();
+            }
+        },
+        // Only run on first load.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [],
+    );
 
     function handleWidthChange(newWidth: string) {
         const newHeight = getOtherSideLengthWithPreservedAspectRatio(
