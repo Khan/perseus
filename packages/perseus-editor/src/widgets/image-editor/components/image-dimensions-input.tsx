@@ -23,6 +23,32 @@ export default function ImageDimensionsInput({
     backgroundImage,
     onChange,
 }: Props) {
+    // If backgroundImage has no width or height on load,
+    // set the width and height to the natural image size.
+    React.useEffect(() => {
+        async function setNaturalSize() {
+            const naturalSize = await Util.getImageSizeModern(
+                backgroundImage.url!,
+            );
+            const [naturalWidth, naturalHeight] = naturalSize;
+            onChange({
+                backgroundImage: {
+                    url: backgroundImage.url,
+                    width: naturalWidth,
+                    height: naturalHeight,
+                },
+            });
+        }
+        if (!backgroundImage.width || !backgroundImage.height) {
+            setNaturalSize();
+        }
+    }, [
+        backgroundImage.url,
+        backgroundImage.width,
+        backgroundImage.height,
+        onChange,
+    ]);
+
     function handleWidthChange(newWidth: string) {
         const newHeight = getOtherSideLengthWithPreservedAspectRatio(
             backgroundImage.width!, // current side (width)

@@ -33,26 +33,6 @@ export default function ImageSettings({
         null,
     );
 
-    const [width, setWidth] = React.useState<number>(
-        backgroundImage.width || 0,
-    );
-    const [height, setHeight] = React.useState<number>(
-        backgroundImage.height || 0,
-    );
-
-    // Sync local state with incoming props to prevent stale state
-    // within the editor preview.
-    React.useEffect(() => {
-        setWidth(backgroundImage.width || 0);
-        setHeight(backgroundImage.height || 0);
-    }, [backgroundImage.width, backgroundImage.height]);
-
-    console.log("backgroundImage URL", backgroundImage.url);
-    console.log("backgroundImage width", backgroundImage.width);
-    console.log("width", width);
-    console.log("backgroundImage height", backgroundImage.height);
-    console.log("height", height);
-
     if (!backgroundImage.url) {
         return null;
     }
@@ -93,8 +73,8 @@ export default function ImageSettings({
                     <ImagePreview
                         src={backgroundImage.url}
                         alt={`Preview: ${alt || "No alt text"}`}
-                        width={width}
-                        height={height}
+                        width={backgroundImage.width}
+                        height={backgroundImage.height}
                     />
                 }
                 styles={wbFieldStyles}
