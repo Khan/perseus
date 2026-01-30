@@ -24,11 +24,13 @@ export default function ImageDimensionsInput({
     onChange,
 }: Props) {
     // Auto-populate empty dimensions with the image's natural size.
-    // We use a ref to access the current backgroundImage in the async callback
-    // without adding it as a dependency (which would cause re-runs on every
-    // render since it's a new object reference each time).
+    // We use refs to access current values in the async callback without
+    // causing effect re-runs when object references change.
     const backgroundImageRef = React.useRef(backgroundImage);
     backgroundImageRef.current = backgroundImage;
+
+    const onChangeRef = React.useRef(onChange);
+    onChangeRef.current = onChange;
 
     const {url, width, height} = backgroundImage;
     React.useEffect(() => {
@@ -37,20 +39,28 @@ export default function ImageDimensionsInput({
             return;
         }
 
-        let cancelled = false;
+        // Track the URL we're fetching for
+        const urlToFetch = url;
 
         async function populateMissingDimensions() {
             try {
-                // url is guaranteed to be defined due to the early return above
-                const naturalSize = await Util.getImageSizeModern(url!);
+                const naturalSize = await Util.getImageSizeModern(urlToFetch);
                 const [naturalWidth, naturalHeight] = naturalSize;
 
-                // Don't update if the URL has changed (different image)
-                if (cancelled) {
+                // Don't update if the URL has changed (we're now on a different image)
+                if (backgroundImageRef.current.url !== urlToFetch) {
                     return;
                 }
 
-                onChange({
+                // Don't update if dimensions were set by something else
+                if (
+                    backgroundImageRef.current.width != null &&
+                    backgroundImageRef.current.height != null
+                ) {
+                    return;
+                }
+
+                onChangeRef.current({
                     backgroundImage: {
                         ...backgroundImageRef.current,
                         width: naturalWidth,
@@ -64,11 +74,7 @@ export default function ImageDimensionsInput({
         }
 
         populateMissingDimensions();
-
-        return () => {
-            cancelled = true;
-        };
-    }, [url, width, height, onChange]);
+    }, [url, width, height]);
 
     function handleWidthChange(newWidth: string) {
         const newHeight = getOtherSideLengthWithPreservedAspectRatio(
