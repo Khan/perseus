@@ -234,7 +234,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             // mutate them. We need to ensure the array length matches choices length
             // to handle the case where choiceStates is shorter than choices (LEMS-3861).
             const newChoiceStates: ChoiceState[] = choices.map((_, i) => {
-                if (choiceStates && choiceStates[i]) {
+                if (choiceStates && choiceStates[i] !== undefined) {
                     // Clone existing state
                     return {...choiceStates[i]};
                 } else {
