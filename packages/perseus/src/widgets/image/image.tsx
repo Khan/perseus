@@ -71,10 +71,19 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             }
 
             const [naturalWidth, naturalHeight] = naturalSize;
+            const [savedWidth, savedHeight] = [
+                backgroundImage.width || 0,
+                backgroundImage.height || 0,
+            ];
             // Only update if the new size is larger
             // This prevents unnecessary updates and infinite loops
-            if (naturalWidth > (backgroundImage.width || 0)) {
+            if (naturalWidth > savedWidth) {
                 setZoomSize([naturalWidth, naturalHeight]);
+            } else {
+                // Set the zoom size to the saved background image size.
+                // We need to do this here in the useEffect to make sure
+                // the size properly updates in the editor preview.
+                setZoomSize([savedWidth, savedHeight]);
             }
         });
 
@@ -82,7 +91,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             // Mark results as stale when dependencies change or component unmounts
             ignoreResultsRef.current = true;
         };
-    }, [backgroundImage.url, backgroundImage.width]);
+    }, [backgroundImage.url, backgroundImage.width, backgroundImage.height]);
 
     if (!backgroundImage.url) {
         return null;
