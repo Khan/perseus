@@ -52,6 +52,14 @@ export default function ImageDimensionsInput({
     // images load simultaneously.
     const fetchingUrlRef = React.useRef<string | null | undefined>(null);
 
+    // Keep a ref to always have the CURRENT backgroundImage value.
+    // This is critical because when multiple images fetch simultaneously,
+    // their async callbacks complete in a batch. Without this ref, each
+    // callback would spread a STALE backgroundImage from when the effect
+    // started, causing later updates to overwrite earlier ones.
+    const backgroundImageRef = React.useRef(backgroundImage);
+    backgroundImageRef.current = backgroundImage;
+
     const {url, width, height} = backgroundImage;
     const needsDimensions = Boolean(url) && (width == null || height == null);
     const urlShort = url?.slice(-30) ?? "no-url";
@@ -132,10 +140,15 @@ export default function ImageDimensionsInput({
                     fetchingUrlRef.current = null;
                 }
 
+                // Use the REF to get the CURRENT backgroundImage, not the stale
+                // closure value. This ensures that when multiple images complete
+                // their fetches simultaneously, each uses the latest state.
+                const currentBgImage = backgroundImageRef.current;
+
                 // Capture what we're about to send
                 const payload = {
                     backgroundImage: {
-                        ...backgroundImage,
+                        ...currentBgImage,
                         width: naturalWidth,
                         height: naturalHeight,
                     },
@@ -144,12 +157,13 @@ export default function ImageDimensionsInput({
                 // #region agent log
                 debugLog(
                     "onChange-payload",
-                    "Payload being sent to onChange",
+                    "Payload being sent to onChange (using ref)",
                     {
                         urlShort,
                         payloadUrl: payload.backgroundImage.url?.slice(-30),
                         payloadWidth: payload.backgroundImage.width,
                         payloadHeight: payload.backgroundImage.height,
+                        refUrl: currentBgImage.url?.slice(-30),
                     },
                     "E,F",
                 );
