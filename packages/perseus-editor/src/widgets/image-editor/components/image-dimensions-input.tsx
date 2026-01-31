@@ -115,11 +115,12 @@ export default function ImageDimensionsInput({
                 // #region agent log
                 debugLog(
                     "fetch-success",
-                    "Fetch succeeded, calling onChange",
+                    "Fetch succeeded, about to call onChange",
                     {
                         urlShort,
                         naturalWidth,
                         naturalHeight,
+                        bgUrl: backgroundImage.url?.slice(-30),
                         bgWidth: backgroundImage.width,
                         bgHeight: backgroundImage.height,
                     },
@@ -131,18 +132,35 @@ export default function ImageDimensionsInput({
                     fetchingUrlRef.current = null;
                 }
 
-                onChange({
+                // Capture what we're about to send
+                const payload = {
                     backgroundImage: {
                         ...backgroundImage,
                         width: naturalWidth,
                         height: naturalHeight,
                     },
-                });
+                };
+
+                // #region agent log
+                debugLog(
+                    "onChange-payload",
+                    "Payload being sent to onChange",
+                    {
+                        urlShort,
+                        payloadUrl: payload.backgroundImage.url?.slice(-30),
+                        payloadWidth: payload.backgroundImage.width,
+                        payloadHeight: payload.backgroundImage.height,
+                    },
+                    "E,F",
+                );
+                // #endregion
+
+                onChange(payload);
 
                 // #region agent log
                 debugLog(
                     "onChange-called",
-                    "onChange was called",
+                    "onChange completed",
                     {urlShort, naturalWidth, naturalHeight},
                     "C",
                 );
