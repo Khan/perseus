@@ -24,57 +24,54 @@ export default function ImageDimensionsInput({
     onChange,
 }: Props) {
     // Auto-populate empty dimensions with the image's natural size.
-    // We use refs to access current values in the async callback without
-    // causing effect re-runs when object references change.
-    const backgroundImageRef = React.useRef(backgroundImage);
-    backgroundImageRef.current = backgroundImage;
-
-    const onChangeRef = React.useRef(onChange);
-    onChangeRef.current = onChange;
+    // We track in-flight fetches to avoid race conditions when multiple
+    // images load simultaneously.
+    const fetchingUrlRef = React.useRef<string | null | undefined>(null);
 
     const {url, width, height} = backgroundImage;
+    const needsDimensions = Boolean(url) && (width == null || height == null);
+
     React.useEffect(() => {
-        // Only proceed if we have an image URL but missing dimensions
-        if (!url || (width != null && height != null)) {
+        if (!needsDimensions) {
             return;
         }
 
-        // Track the URL we're fetching for
-        const urlToFetch = url;
+        // If we're already fetching for this URL, don't start another fetch
+        if (fetchingUrlRef.current === url) {
+            return;
+        }
+
+        fetchingUrlRef.current = url;
 
         async function populateMissingDimensions() {
             try {
-                const naturalSize = await Util.getImageSizeModern(urlToFetch);
+                const naturalSize = await Util.getImageSizeModern(url!);
                 const [naturalWidth, naturalHeight] = naturalSize;
 
-                // Don't update if the URL has changed (we're now on a different image)
-                if (backgroundImageRef.current.url !== urlToFetch) {
-                    return;
+                // Clear the fetching state
+                if (fetchingUrlRef.current === url) {
+                    fetchingUrlRef.current = null;
                 }
 
-                // Don't update if dimensions were set by something else
-                if (
-                    backgroundImageRef.current.width != null &&
-                    backgroundImageRef.current.height != null
-                ) {
-                    return;
-                }
-
-                onChangeRef.current({
+                onChange({
                     backgroundImage: {
-                        ...backgroundImageRef.current,
+                        ...backgroundImage,
                         width: naturalWidth,
                         height: naturalHeight,
                     },
                 });
             } catch {
+                // Clear the fetching state on error
+                if (fetchingUrlRef.current === url) {
+                    fetchingUrlRef.current = null;
+                }
                 // If the image fails to load, leave dimensions empty
                 // for the user to fill in manually.
             }
         }
 
         populateMissingDimensions();
-    }, [url, width, height]);
+    }, [needsDimensions, url, backgroundImage, onChange]);
 
     function handleWidthChange(newWidth: string) {
         const newHeight = getOtherSideLengthWithPreservedAspectRatio(
