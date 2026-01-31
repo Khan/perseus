@@ -19,6 +19,30 @@ interface Props {
     onChange: ImageEditorProps["onChange"];
 }
 
+// #region agent log helper
+const DEBUG_ENDPOINT =
+    "http://127.0.0.1:7242/ingest/c63c859e-8e78-46f2-8afd-b67d4321b942";
+function debugLog(
+    location: string,
+    message: string,
+    data: object,
+    hypothesisId: string,
+) {
+    fetch(DEBUG_ENDPOINT, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            location,
+            message,
+            data,
+            timestamp: Date.now(),
+            sessionId: "debug-session",
+            hypothesisId,
+        }),
+    }).catch(() => {});
+}
+// #endregion
+
 export default function ImageDimensionsInput({
     backgroundImage,
     onChange,
@@ -30,14 +54,45 @@ export default function ImageDimensionsInput({
 
     const {url, width, height} = backgroundImage;
     const needsDimensions = Boolean(url) && (width == null || height == null);
+    const urlShort = url?.slice(-30) ?? "no-url";
 
     React.useEffect(() => {
+        // #region agent log
+        debugLog(
+            "effect-start",
+            "Effect triggered",
+            {
+                urlShort,
+                width,
+                height,
+                needsDimensions,
+                fetchingRef: fetchingUrlRef.current?.slice(-30),
+            },
+            "A,B",
+        );
+        // #endregion
+
         if (!needsDimensions) {
+            // #region agent log
+            debugLog(
+                "early-exit-no-need",
+                "Early exit: needsDimensions is false",
+                {urlShort, width, height},
+                "A",
+            );
+            // #endregion
             return;
         }
 
-        // If we're already fetching for this URL, don't start another fetch
         if (fetchingUrlRef.current === url) {
+            // #region agent log
+            debugLog(
+                "early-exit-already-fetching",
+                "Early exit: already fetching this URL",
+                {urlShort},
+                "B",
+            );
+            // #endregion
             return;
         }
 
@@ -45,10 +100,33 @@ export default function ImageDimensionsInput({
 
         async function populateMissingDimensions() {
             try {
+                // #region agent log
+                debugLog(
+                    "fetch-start",
+                    "Starting getImageSizeModern",
+                    {urlShort},
+                    "D",
+                );
+                // #endregion
+
                 const naturalSize = await Util.getImageSizeModern(url!);
                 const [naturalWidth, naturalHeight] = naturalSize;
 
-                // Clear the fetching state
+                // #region agent log
+                debugLog(
+                    "fetch-success",
+                    "Fetch succeeded, calling onChange",
+                    {
+                        urlShort,
+                        naturalWidth,
+                        naturalHeight,
+                        bgWidth: backgroundImage.width,
+                        bgHeight: backgroundImage.height,
+                    },
+                    "C,E",
+                );
+                // #endregion
+
                 if (fetchingUrlRef.current === url) {
                     fetchingUrlRef.current = null;
                 }
@@ -60,31 +138,53 @@ export default function ImageDimensionsInput({
                         height: naturalHeight,
                     },
                 });
-            } catch {
-                // Clear the fetching state on error
+
+                // #region agent log
+                debugLog(
+                    "onChange-called",
+                    "onChange was called",
+                    {urlShort, naturalWidth, naturalHeight},
+                    "C",
+                );
+                // #endregion
+            } catch (err) {
+                // #region agent log
+                debugLog(
+                    "fetch-error",
+                    "Fetch threw an error",
+                    {urlShort, error: String(err)},
+                    "D",
+                );
+                // #endregion
+
                 if (fetchingUrlRef.current === url) {
                     fetchingUrlRef.current = null;
                 }
-                // If the image fails to load, leave dimensions empty
-                // for the user to fill in manually.
             }
         }
 
         populateMissingDimensions();
-    }, [needsDimensions, url, backgroundImage, onChange]);
+    }, [
+        needsDimensions,
+        url,
+        urlShort,
+        width,
+        height,
+        backgroundImage,
+        onChange,
+    ]);
 
     function handleWidthChange(newWidth: string) {
         const newHeight = getOtherSideLengthWithPreservedAspectRatio(
-            backgroundImage.width!, // current side (width)
-            backgroundImage.height!, // other side (height)
-            Number(newWidth), // new side (width)
+            backgroundImage.width!,
+            backgroundImage.height!,
+            Number(newWidth),
         );
 
         if (isNaN(newHeight)) {
             return;
         }
 
-        // Prevent unnecessary updates if values haven't changed
         const newWidthNumber = Number(newWidth);
         if (
             newWidthNumber === backgroundImage.width &&
@@ -104,16 +204,15 @@ export default function ImageDimensionsInput({
 
     function handleHeightChange(newHeight: string) {
         const newWidth = getOtherSideLengthWithPreservedAspectRatio(
-            backgroundImage.height!, // current side (height)
-            backgroundImage.width!, // other side (width)
-            Number(newHeight), // new side (height)
+            backgroundImage.height!,
+            backgroundImage.width!,
+            Number(newHeight),
         );
 
         if (isNaN(newWidth)) {
             return;
         }
 
-        // Prevent unnecessary updates if values haven't changed
         const newHeightNumber = Number(newHeight);
         if (
             newWidth === backgroundImage.width &&
