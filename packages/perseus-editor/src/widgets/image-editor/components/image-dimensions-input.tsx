@@ -19,176 +19,22 @@ interface Props {
     onChange: ImageEditorProps["onChange"];
 }
 
-// #region agent log helper
-const DEBUG_ENDPOINT =
-    "http://127.0.0.1:7242/ingest/c63c859e-8e78-46f2-8afd-b67d4321b942";
-function debugLog(
-    location: string,
-    message: string,
-    data: object,
-    hypothesisId: string,
-) {
-    fetch(DEBUG_ENDPOINT, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            location,
-            message,
-            data,
-            timestamp: Date.now(),
-            sessionId: "debug-session",
-            hypothesisId,
-        }),
-    }).catch(() => {});
-}
-// #endregion
-
 export default function ImageDimensionsInput({
     backgroundImage,
     onChange,
 }: Props) {
-    // Store fetched dimensions in local state. This ensures each widget's
-    // onChange is called in its OWN render cycle, not batched with others.
-    const [fetchedDimensions, setFetchedDimensions] = React.useState<{
-        url: string;
-        width: number;
-        height: number;
-    } | null>(null);
-
-    const {url, width, height} = backgroundImage;
-    const needsDimensions = Boolean(url) && (width == null || height == null);
-    const urlShort = url?.slice(-30) ?? "no-url";
-
-    // Effect 1: Fetch dimensions and store in local state
-    React.useEffect(() => {
-        // #region agent log
-        debugLog(
-            "fetch-effect",
-            "Fetch effect triggered",
-            {urlShort, width, height, needsDimensions},
-            "A,G",
-        );
-        // #endregion
-
-        if (!needsDimensions || !url) {
-            return;
-        }
-
-        let cancelled = false;
-
-        async function fetchDimensions() {
-            try {
-                // #region agent log
-                debugLog("fetch-start", "Starting fetch", {urlShort}, "D");
-                // #endregion
-
-                const naturalSize = await Util.getImageSizeModern(url!);
-                const [naturalWidth, naturalHeight] = naturalSize;
-
-                if (cancelled) {
-                    // #region agent log
-                    debugLog("fetch-cancelled", "Cancelled", {urlShort}, "G");
-                    // #endregion
-                    return;
-                }
-
-                // #region agent log
-                debugLog(
-                    "fetch-success",
-                    "Storing in local state",
-                    {urlShort, naturalWidth, naturalHeight},
-                    "G",
-                );
-                // #endregion
-
-                setFetchedDimensions({
-                    url: url!,
-                    width: naturalWidth,
-                    height: naturalHeight,
-                });
-            } catch (err) {
-                // #region agent log
-                debugLog(
-                    "fetch-error",
-                    "Error",
-                    {urlShort, err: String(err)},
-                    "D",
-                );
-                // #endregion
-            }
-        }
-
-        fetchDimensions();
-
-        return () => {
-            cancelled = true;
-        };
-    }, [needsDimensions, url, urlShort, width, height]);
-
-    // Effect 2: When we have fetched dimensions, call onChange
-    // This runs in a SEPARATE render cycle from other widgets
-    React.useEffect(() => {
-        if (!fetchedDimensions) {
-            return;
-        }
-
-        // Only apply if the URL still matches and dimensions are still missing
-        if (
-            fetchedDimensions.url !== backgroundImage.url ||
-            backgroundImage.width != null ||
-            backgroundImage.height != null
-        ) {
-            // #region agent log
-            debugLog(
-                "onChange-skipped",
-                "Skipping - URL changed or dims set",
-                {
-                    urlShort,
-                    fetchedUrl: fetchedDimensions.url?.slice(-30),
-                    bgWidth: backgroundImage.width,
-                },
-                "G",
-            );
-            // #endregion
-            setFetchedDimensions(null);
-            return;
-        }
-
-        // #region agent log
-        debugLog(
-            "onChange-calling",
-            "Calling onChange",
-            {urlShort, w: fetchedDimensions.width, h: fetchedDimensions.height},
-            "G",
-        );
-        // #endregion
-
-        onChange({
-            backgroundImage: {
-                ...backgroundImage,
-                width: fetchedDimensions.width,
-                height: fetchedDimensions.height,
-            },
-        });
-
-        setFetchedDimensions(null);
-
-        // #region agent log
-        debugLog("onChange-done", "onChange completed", {urlShort}, "G");
-        // #endregion
-    }, [fetchedDimensions, backgroundImage, onChange, urlShort]);
-
     function handleWidthChange(newWidth: string) {
         const newHeight = getOtherSideLengthWithPreservedAspectRatio(
-            backgroundImage.width!,
-            backgroundImage.height!,
-            Number(newWidth),
+            backgroundImage.width!, // current side (width)
+            backgroundImage.height!, // other side (height)
+            Number(newWidth), // new side (width)
         );
 
         if (isNaN(newHeight)) {
             return;
         }
 
+        // Prevent unnecessary updates if values haven't changed
         const newWidthNumber = Number(newWidth);
         if (
             newWidthNumber === backgroundImage.width &&
@@ -208,15 +54,16 @@ export default function ImageDimensionsInput({
 
     function handleHeightChange(newHeight: string) {
         const newWidth = getOtherSideLengthWithPreservedAspectRatio(
-            backgroundImage.height!,
-            backgroundImage.width!,
-            Number(newHeight),
+            backgroundImage.height!, // current side (height)
+            backgroundImage.width!, // other side (width)
+            Number(newHeight), // new side (height)
         );
 
         if (isNaN(newWidth)) {
             return;
         }
 
+        // Prevent unnecessary updates if values haven't changed
         const newHeightNumber = Number(newHeight);
         if (
             newWidth === backgroundImage.width &&
