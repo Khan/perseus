@@ -49,7 +49,7 @@ describe("categorizer-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({randomizeItems: true}),
         );
     });

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`number-line widget snapshots all tick labels show when "Style" is "decimal ticks" (deprecated option): show decimal ticks 1`] = `
 <div>

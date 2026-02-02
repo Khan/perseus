@@ -37,7 +37,7 @@ describe("python-program-editor", () => {
 
         await userEvent.type(input, "1");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({programID: "1", height: 400}),
             undefined,
         );
@@ -54,7 +54,7 @@ describe("python-program-editor", () => {
 
         await userEvent.type(input, "1");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({programID: "", height: 4001}),
             undefined,
         );

@@ -77,7 +77,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             times: true,
         });
     });
@@ -95,12 +95,14 @@ describe("expression-editor", () => {
         // make sure we can add things
         await userEvent.type(input, "x y z");
 
-        expect(onChangeMock).lastCalledWith({functions: ["x", "y", "z"]});
+        expect(onChangeMock).toHaveBeenLastCalledWith({
+            functions: ["x", "y", "z"],
+        });
 
         // make sure we can remove things
         await userEvent.type(input, "{backspace}");
 
-        expect(onChangeMock).lastCalledWith({functions: ["x", "y"]});
+        expect(onChangeMock).toHaveBeenLastCalledWith({functions: ["x", "y"]});
     });
 
     it("should toggle division checkbox", async () => {
@@ -115,7 +117,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             buttonSets: ["basic+div"],
         });
     });
@@ -132,7 +134,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             buttonSets: ["basic", "trig"],
         });
     });
@@ -149,7 +151,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             buttonSets: ["basic", "prealgebra"],
         });
     });
@@ -165,7 +167,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             buttonSets: ["basic", "logarithms"],
         });
     });
@@ -181,7 +183,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             buttonSets: ["basic", "basic relations"],
         });
     });
@@ -198,7 +200,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             buttonSets: ["basic", "advanced relations"],
         });
     });
@@ -215,7 +217,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             buttonSets: ["basic", "scientific"],
         });
     });
@@ -233,8 +235,8 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(crypto.randomUUID).toBeCalled();
-        expect(onChangeMock).toBeCalledWith({
+        expect(crypto.randomUUID).toHaveBeenCalled();
+        expect(onChangeMock).toHaveBeenCalledWith({
             answerForms: [
                 {
                     considered: "correct",
@@ -279,7 +281,7 @@ describe("expression-editor", () => {
         );
         act(() => jest.runOnlyPendingTimers());
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             answerForms: [
                 {
                     considered: "correct",
@@ -318,7 +320,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             answerForms: [
                 {
                     considered: "correct",
@@ -357,7 +359,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             answerForms: [
                 {
                     considered: "correct",
@@ -402,7 +404,7 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             answerForms: [],
         });
     });

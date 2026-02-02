@@ -96,9 +96,7 @@ describe("constrainedShuffle", () => {
 
     it("throws given a constraint that is never satisfied", () => {
         const rng = seededRNG(0);
-        expect(() =>
-            constrainedShuffle([1, 2, 3], rng, () => false),
-        ).toThrowError();
+        expect(() => constrainedShuffle([1, 2, 3], rng, () => false)).toThrow();
     });
 });
 

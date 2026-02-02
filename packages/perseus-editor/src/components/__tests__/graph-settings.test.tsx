@@ -212,7 +212,7 @@ describe("GraphSettings", () => {
         await userEvent.selectOptions(select, ["4"]);
 
         // Assert
-        expect(onChange).toBeCalledWith(
+        expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({rulerTicks: 4}),
             undefined,
         );
