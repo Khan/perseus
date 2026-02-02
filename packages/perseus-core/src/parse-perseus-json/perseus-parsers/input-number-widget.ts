@@ -41,6 +41,10 @@ export const parseInputNumberWidget = parseWidget(
         rightAlign: optional(boolean),
         simplify: enumeration("required", "optional", "enforced"),
         size: enumeration("normal", "small"),
+        // TODO(benchristel): there are some content items where value is a
+        // boolean, even though that makes no sense. We should figure out if
+        // those content items are actually published anywhere, and consider
+        // updating them.
         value: defaulted(
             union(number).or(string).or(booleanToString).parser,
             () => 0,
