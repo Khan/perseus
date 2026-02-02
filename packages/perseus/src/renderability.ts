@@ -7,20 +7,19 @@
  * This supports widgets that contain renderers, such as the
  * group or sequence widgets.
  */
-import {
-    Errors,
-    PerseusError,
-    traverse,
-    applyDefaultsToWidget,
-} from "@khanacademy/perseus-core";
-import _ from "underscore";
+import {Errors, PerseusError, traverse} from "@khanacademy/perseus-core";
 
-import type {PerseusWidget} from "@khanacademy/perseus-core";
-
-const isUpgradedWidgetInfoRenderableBy = function (
-    widgetInfo: PerseusWidget,
-    widgetRendererVersion: any,
+const isWidgetInfoRenderableBy = function (
+    widgetInfo: any,
+    rendererContentVersion: any,
 ) {
+    // Empty/non-existant widgets are always safe to render
+    if (widgetInfo == null || widgetInfo.type == null) {
+        return true;
+    }
+
+    const widgetRendererVersion = rendererContentVersion[widgetInfo.type];
+
     if (widgetRendererVersion == null) {
         // If the widget does not exist in this version, this will
         // be null, and that version of perseus cannot render the
@@ -28,7 +27,14 @@ const isUpgradedWidgetInfoRenderableBy = function (
         return false;
     }
 
-    const widgetVersion = widgetInfo.version || {major: 0, minor: 0};
+    const widgetVersion = widgetInfo.version;
+
+    // If the widget has no version, we can assume its options format has
+    // never changed. Therefore, any version of Perseus that recognizes the
+    // widget can render it.
+    if (widgetVersion == null) {
+        return true;
+    }
     if (widgetRendererVersion.major > widgetVersion.major) {
         return true;
     }
@@ -40,24 +46,6 @@ const isUpgradedWidgetInfoRenderableBy = function (
     // For example, input-number 3.2 can render an input-number
     // 2.4, 3.0, or 3.2, but not an input number 3.3 or 4.0.
     return widgetRendererVersion.minor >= widgetVersion.minor;
-};
-
-const isRawWidgetInfoRenderableBy = function (
-    widgetInfo: any,
-    rendererContentVersion: any,
-) {
-    // Empty/non-existant widgets are always safe to render
-    if (widgetInfo == null || widgetInfo.type == null) {
-        return true;
-    }
-
-    // NOTE: This doesn't modify the widget info if the widget info
-    // is at a later version than is supported.
-    const upgradedWidgetInfo = applyDefaultsToWidget(widgetInfo);
-    return isUpgradedWidgetInfoRenderableBy(
-        upgradedWidgetInfo,
-        rendererContentVersion[upgradedWidgetInfo.type],
-    );
 };
 
 const isRendererContentRenderableBy = function (
@@ -73,7 +61,7 @@ const isRendererContentRenderableBy = function (
 
         isRenderable =
             isRenderable &&
-            isRawWidgetInfoRenderableBy(widgetInfo, rendererContentVersion);
+            isWidgetInfoRenderableBy(widgetInfo, rendererContentVersion);
     });
     return isRenderable;
 };
