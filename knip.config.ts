@@ -7,14 +7,24 @@ import type {KnipConfig} from "knip";
  * To use: `pnpm knip`
  */
 const config: KnipConfig = {
-    // Where our external APIs are exported from
-    entry: ["packages/*/src/index.ts"],
-    // Where we want to look for dead code
-    project: ["packages/*/src/*.{ts,tsx,js,jsx}"],
+    // Entrypoints to the code, including:
+    // - Where our external APIs are exported from (index.ts).
+    // - Tests and stories.
+    // Paths marked with `!` are production files.
+    entry: [
+        "config/**/*.{ts,js}",
+        "packages/*/src/index.ts!",
+        "packages/*/src/**/*.cypress.ts",
+        "packages/*/src/**/*.test.{ts,tsx}",
+        "packages/*/src/**/*.stories.{ts,tsx}",
+        "testing/**/*.{ts,tsx,js,jsx}",
+        "utils/**/*.{ts,tsx,js,jsx}",
+    ],
+    // Where we want to look for dead code.
+    // Paths marked with `!` are production files.
+    project: ["packages/*/src/*.{ts,tsx,js,jsx}!"],
     rules: {
-        // TODO, we need to turn this back on
-        // but it will require going through unused deps
-        dependencies: "off",
+        dependencies: "error",
     },
     // Special exceptions
     ignore: [
@@ -26,13 +36,17 @@ const config: KnipConfig = {
         "**/utility.d.ts",
         // these files are used by tests
         "packages/perseus-core/src/parse-perseus-json/**",
-        "jest.config.js",
-        "config/test/**",
         // these need fixing
         // TODO(LEMS-3867)
         "packages/perseus-editor/src/components/__stories__/**",
         // TODO(LEMS-3868)
         "packages/perseus-editor/src/preview/message-types.ts",
+    ],
+    ignoreDependencies: [
+        "perseus-build-settings",
+        "@swc-node/register",
+        "nyc",
+        "swc_mut_cjs_exports",
     ],
     // Scripts we use in `package.json`
     ignoreBinaries: [
