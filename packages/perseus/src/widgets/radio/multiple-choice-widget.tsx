@@ -222,7 +222,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                                   choice.id != null &&
                                   choice.id !== choiceId,
                           )
-                          .map((choice) => choice.id as string)
+                          .map((choice) => choice.id)
                     : [];
                 checkedChoiceIds.push(...currentSelectedIds);
             }
