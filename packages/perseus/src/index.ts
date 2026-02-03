@@ -65,7 +65,6 @@ export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as LoadingContext} from "./loading-context";
 export {default as MathRenderingContext} from "./math-rendering-context";
 export {default as PerseusMarkdown} from "./perseus-markdown";
-export {isItemRenderableByVersion} from "./renderability";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
 export {DependenciesContext} from "./dependencies";
