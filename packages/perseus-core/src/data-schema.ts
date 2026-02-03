@@ -32,8 +32,6 @@
 // be independent of everything else.
 import type {KeypadKey} from "./keypad";
 
-// TODO(FEI-4010): Remove `Perseus` prefix for all types here
-
 export type Coord = [x: number, y: number];
 export type Interval = [min: number, max: number];
 export type Vector2 = Coord; // Same name as Mafs
@@ -751,8 +749,6 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     rulerTicks?: number;
     // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
-    // TODO(kevinb): Add a transform function to interactive-graph.jsx to
-    // rename `range` to `ranges` so that things are less confusing.
     range: GraphRange;
     // The type of graph
     graph: PerseusGraphType;

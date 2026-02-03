@@ -32,13 +32,6 @@ const SelectImage = ({onChange, url}: SelectImageProps): React.ReactElement => (
             <div className={css(styles.spacer)} />
 
             <Button
-                // TODO(michaelpolyak): Design calls for uploading an image from
-                // the widget. This functionality already exists in
-                // `perseus-one-package/item-controls.jsx`, it's not obvious if
-                // it can be triggered from within the widget, or requires
-                // a similar implementation locally, in which case consider
-                // refactoring `perseus-admin-package/image-upload-dialog.jsx`
-                // as common utility, CP-118
                 disabled={!url}
                 aria-label={
                     url

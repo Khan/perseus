@@ -322,8 +322,6 @@ export function getPolygonCoords(
         const angle = (2 * Math.PI) / n;
         const offset = (1 / n - 1 / 2) * Math.PI;
 
-        // TODO(alex): Generalize this to more than just triangles so that
-        // all polygons have whole number side lengths if snapping to sides
         const radius = graph.snapTo === "sides" ? (Math.sqrt(3) / 3) * 7 : 4;
 
         // Generate coords of a regular polygon with n sides

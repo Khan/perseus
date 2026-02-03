@@ -14,8 +14,8 @@ const getDecimalSeparator = (locale: string): string => {
 
         default:
             const numberWithDecimalSeparator = 1.1;
-            // TODO(FEI-3647): Update to use .formatToParts() once we no longer have to
-            // support Safari 12.
+            // TODO(FEI-3647): Update to use .formatToParts() since we no
+            // longer have to support Safari 12.
             const match = new Intl.NumberFormat(locale)
                 .format(numberWithDecimalSeparator)
                 // 0x661 is ARABIC-INDIC DIGIT ONE

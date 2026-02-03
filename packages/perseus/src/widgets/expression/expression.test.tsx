@@ -84,12 +84,10 @@ const assertIncorrect = async (
     expect(score).toHaveBeenAnsweredIncorrectly();
 };
 
-// TODO: actually Assert that message is being set on the score object.
 const assertInvalid = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     itemData: PerseusItem,
     input: string,
-    message?: string,
 ) => {
     jest.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);

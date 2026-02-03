@@ -79,12 +79,6 @@ const createBaseConfig = (): MathFieldConfig => ({
     // if you're in one, but moves focus to the next input if you're
     // not. Spaces (with this option enabled) are just ignored in the
     // latter case.
-    //
-    // TODO(alex): In order to allow inputting mixed numbers, we will
-    // have to accept spaces in certain cases. The desired behavior is
-    // still to escape nested contexts if currently in one, but to
-    // insert a space if not (we don't expect mixed numbers in nested
-    // contexts). We should also limit to one consecutive space.
     spaceBehavesLikeTab: true,
 });
 

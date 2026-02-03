@@ -21,7 +21,6 @@ const createPoint = function (options) {
 
             // Mock visibleShape which is only added when a movable point is used
             // with a shape.
-            // TODO(kevinb): update MovablePoint to require a visibleShape
             visibleShape: {
                 wrapper: {},
             },

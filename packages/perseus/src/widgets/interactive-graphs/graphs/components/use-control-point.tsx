@@ -155,7 +155,6 @@ export function useControlPoint(params: Params): Return {
     };
 }
 
-// TODO(benchristel): move this to a more central place if we want to reuse it.
 function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T): void {
     if (typeof ref === "function") {
         ref(value);

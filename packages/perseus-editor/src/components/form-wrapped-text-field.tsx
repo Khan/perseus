@@ -18,9 +18,6 @@ import type {components} from "@khanacademy/perseus";
 
 type Props = {
     // This id is used to tie the input field to the label that describes it.
-    // TODO(diedra): Instead of passing in this id to connect the label and input
-    // field, we should pass in the label for the input field and place it
-    // inside the <form>.
     id?: string;
     testId?: string;
     type?: string;
@@ -165,8 +162,6 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
             ? styles.labelMediumInputBase
             : styles.inputBase;
 
-        // TODO(diedra): The label for the input field should be here inside of
-        // the form.
         return (
             <form
                 className={css(...spanStyle)}
@@ -196,7 +191,6 @@ const styles = StyleSheet.create({
         background: "inherit",
         border: "none",
 
-        // TODO: can we use WB typography?
         fontFamily: "inherit",
         fontSize: 15,
         lineHeight: "22px",

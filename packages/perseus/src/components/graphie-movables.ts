@@ -15,7 +15,6 @@ const MovablePoint: any = GraphieClasses.createClass({
         if (this.props.isMobile) {
             const isMobile = this.props.isMobile;
 
-            // TODO(kevinb) precompute commonStyle and commonMobileStyle
             const commonStyle = isMobile
                 ? {
                       stroke: "#ffffff",
@@ -27,7 +26,6 @@ const MovablePoint: any = GraphieClasses.createClass({
                       fill: KhanColors.INTERACTIVE,
                   };
 
-            // TODO(kevinb) precompute normalStyle and normalMobileStyle
             const normalStyle = isMobile
                 ? Object.assign(
                       commonStyle,
@@ -35,7 +33,6 @@ const MovablePoint: any = GraphieClasses.createClass({
                   )
                 : Object.assign(commonStyle, this.props.normalStyle);
 
-            // TODO(kevinb) precompute highlightStyle and highlightMobileStyle
             const highlightStyle = isMobile
                 ? {
                       ...commonStyle,

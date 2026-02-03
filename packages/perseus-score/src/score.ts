@@ -39,7 +39,6 @@ export function scorePerseusItem(
     return flattenScores(scores);
 }
 
-// TODO: combine scorePerseusItem with scoreWidgetsFunctional
 export function scoreWidgetsFunctional(
     widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why

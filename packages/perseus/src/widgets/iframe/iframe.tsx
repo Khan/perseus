@@ -129,16 +129,7 @@ class Iframe extends React.Component<Props> implements Widget {
         }
 
         let sandboxProperties = "allow-same-origin allow-scripts";
-        // TODO(scottgrant): This line is an intentional hack to retain the
-        // allow-top-navigation sandbox property. Once our LearnStorm articles
-        // have this value checked and published, this line should be removed
-        // and replaced with the conditional check below that is commented out.
-        // We don't want to break LearnStorm badges, so this will be a two-part
-        // deploy.
         sandboxProperties += " allow-top-navigation";
-        // if (this.props.allowTopNavigation === true) {
-        //     sandboxProperties += " allow-top-navigation";
-        // }
 
         // We sandbox the iframe so that we allowlist only the functionality
         //  that we need. This makes it a bit safer in case some content

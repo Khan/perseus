@@ -23,8 +23,6 @@ const defaultImage = {
 } as const;
 
 type Props = WidgetProps<PerseusMeasurerWidgetOptions> & {
-    // TODO: these don't show up anywhere else in code
-    // I'm guessing they could just be constants
     protractorX: number;
     protractorY: number;
 };
@@ -42,7 +40,6 @@ type DefaultProps = {
     rulerLength: Props["rulerLength"];
 };
 
-// TODO: Add documentation for the Measurer widget
 class Measurer extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         box: [480, 480],
@@ -152,8 +149,6 @@ class Measurer extends React.Component<Props> implements Widget {
     render() {
         const image = _.extend({}, defaultImage, this.props.image);
 
-        // TODO(scottgrant): This isn't a11y-friendly! We should insist on
-        // finding some valid alt text when this widget is used.
         return (
             <div
                 className={

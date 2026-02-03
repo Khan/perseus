@@ -42,10 +42,6 @@
  * cycles. If you call it on a cyclic graph instead of a tree, it will cause
  * infinite recursion (or, more likely, a stack overflow).
  *
- * TODO(davidflanagan): it probably wouldn't be hard to detect cycles: when
- * pushing a new node onto the containers stack we could just check that it
- * isn't already there.
- *
  * If a node has a text-valued `content` property, it is taken to be the
  * plain-text content of the node. The traverse() method concatenates these
  * content strings and passes them to the traversal callback for each

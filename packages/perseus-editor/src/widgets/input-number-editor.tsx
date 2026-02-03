@@ -153,8 +153,7 @@ class InputNumberEditor extends React.Component<Props> {
                     </label>
 
                     <label>
-                        <input /* TODO(emily): don't use a hidden checkbox
-                        for alignment */
+                        <input /* HACK(emily): hidden checkbox for alignment */
                             type="checkbox"
                             style={{visibility: "hidden"}}
                         />
