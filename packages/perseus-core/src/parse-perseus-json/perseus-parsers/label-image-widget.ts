@@ -20,7 +20,7 @@ export const parseLabelImageWidget = parseWidget(
         imageWidth: number,
         markers: array(
             object({
-                answers: array(string),
+                answers: defaulted(array(string), () => []),
                 label: string,
                 x: number,
                 y: number,
