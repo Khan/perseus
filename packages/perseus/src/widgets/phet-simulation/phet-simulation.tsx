@@ -231,7 +231,6 @@ export class PhetSimulation
         return (
             <View style={containerStyle}>
                 {banner !== null && (
-                    // TODO(anna): Make this banner focusable
                     <View
                         style={{
                             marginBottom: phoneMargin,

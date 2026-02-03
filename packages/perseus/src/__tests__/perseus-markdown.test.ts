@@ -528,10 +528,6 @@ describe("perseus markdown", () => {
         });
     });
 
-    // TODO(michaelpolyak): Ideally we would render the output with React,
-    // to assert the markup. However, the `simple-markdown` library currently
-    // produces rendering warnings such as missing `key` for table rows/columns.
-    // We'll need to fix these warnings in order to not fail the tests.
     describe("output", () => {
         it("should output paragraphs", () => {
             // Arrange

@@ -27,7 +27,6 @@ function combineScores(
             scoreB.message &&
             scoreA.message !== scoreB.message
         ) {
-            // TODO(alpert): Figure out how to combine messages usefully
             message = null;
         } else {
             message = scoreA.message || scoreB.message;
@@ -52,7 +51,6 @@ function combineScores(
             scoreB.message &&
             scoreA.message !== scoreB.message
         ) {
-            // TODO(alpert): Figure out how to combine messages usefully
             message = null;
         } else {
             message = scoreA.message || scoreB.message;

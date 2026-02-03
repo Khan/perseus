@@ -1,6 +1,5 @@
 import {screen} from "@testing-library/react";
 
-// TODO(somewhatabstract): Replace with wonder-stuff-testing version
 if (typeof jest === "undefined") {
     /**
      * This file is for test use only.

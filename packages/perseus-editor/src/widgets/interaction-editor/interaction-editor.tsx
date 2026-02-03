@@ -100,8 +100,6 @@ class InteractionEditor extends React.Component<Props, State> {
     }
 
     _updateGraphProps: (arg1: any) => any = (newProps) => {
-        // TODO(eater): GraphSettings should name this tickStep instead
-        // of step. Grr..
         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({
             graph: _.extend(_.omit(newProps, "step"), {
@@ -159,8 +157,6 @@ class InteractionEditor extends React.Component<Props, State> {
             // @ts-expect-error - TS2339 - Property 'endSubscript' does not exist on type '{}'.
             newElement.options.endSubscript = nextSubscript + 1;
         } else if (elementType === "function") {
-            // TODO(eater): The 22nd function added will be {(x) since '{'
-            // comes after 'z'
             const nextLetter = String.fromCharCode(
                 _.max([
                     _.max(

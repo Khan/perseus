@@ -29,7 +29,7 @@ export const KeypadKeys = [
     "LOG",
     "LOG_N",
     "SIN",
-    "COS", // TODO(charlie): Add in additional Greek letters.,
+    "COS",
     "TAN",
     "PI",
     "THETA",

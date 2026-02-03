@@ -1,9 +1,3 @@
-// TODO(davidflanagan):
-// This should probably be converted to use import and to export
-// and object that maps rule names to rules. Also, maybe this should
-// be an auto-generated file with a script that updates it any time
-// we add a new rule?
-
 import AbsoluteUrl from "./absolute-url";
 import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
 import ExpressionWidget from "./expression-widget";

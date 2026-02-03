@@ -103,5 +103,6 @@ module.exports = {
     // TODO(LEMS-2858) We turn off Prettier as Prettier v3 is incompatible with
     // Jest v29. Once they release Jest v30 we can switch to that:
     // https://github.com/jestjs/jest/issues/14305
+    // NOTE: Jest v30 has been released.
     prettierPath: null,
 };

@@ -20,8 +20,6 @@ export const MOVABLES = {
     SINUSOID: "SINUSOID",
 };
 
-// TODO(charlie): These really need to go into a utility file as they're being
-// used by both interactive-graph and now grapher.
 function canonicalSineCoefficients(coeffs: any) {
     // For a curve of the form f(x) = a * Sin(b * x - c) + d,
     // this function ensures that a, b > 0, and c is its

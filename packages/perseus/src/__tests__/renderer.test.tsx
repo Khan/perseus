@@ -907,9 +907,6 @@ describe("renderer", () => {
 
             // Act and Assert
             expect(() => {
-                // TODO: Right now KAError is mocked because we're
-                // jest.mock()ing the logging module. Figure out how to
-                // unmock.
                 widget2.props.onFocus("this is not an array");
             }).toThrow("widget props.onFocus focusPath must be an Array");
         });

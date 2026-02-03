@@ -36,10 +36,7 @@
  *   the beginning and end of the problematic content. Note that these numbers
  *   are relative to the content string passed to the traversal callback, not
  *   to the entire string that was used to generate the parse tree in the
- *   first place. TODO(davidflanagan): modify the simple-markdown library to
- *   have an option to add the text offset of each node to the parse
- *   tree. This will allows us to pinpoint lint errors within a long string
- *   of markdown text.
+ *   first place.
  *
  * - If the function returns null, then check() returns null. Otherwise,
  *   check() returns an object with `rule`, `message`, `start` and `end`

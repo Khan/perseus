@@ -79,7 +79,6 @@ function handleBackspaceInRootIndex(
             // root's index, delete a character.
             mathField.keystroke("Backspace");
         } else {
-            // TODO(kevinb) verify that we want this behavior after testing
             // Do nothing because we haven't completely deleted the
             // index of the radical.
         }

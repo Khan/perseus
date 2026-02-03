@@ -4,8 +4,8 @@ const {interactiveSizes} = constants;
 
 // Note: these size cutoffs represent content-width cutoffs as specified in
 // http://zpl.io/1mVmvU (broken link - we no longer use Zeplin)
-// TODO(benkomalo): these values aren't used in JS outside of this file, but
-// are coupled to the values in styles/styles.css - DRY it up at some point
+// NOTE(benkomalo): these values aren't used in JS outside of this file, but
+// are coupled to the values in styles/styles.css
 const smMax = constants.articleMaxWidthTableInPx;
 const mdMax = constants.articleMaxWidthInPx;
 

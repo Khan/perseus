@@ -126,9 +126,6 @@ class WidgetEditor extends React.Component<
     };
 
     serialize = () => {
-        // TODO(alex): Make this properly handle the case where we load json
-        // with a more recent widget version than this instance of Perseus
-        // knows how to handle.
         const widgetInfo = this.state.widgetInfo;
         return {
             type: widgetInfo.type,

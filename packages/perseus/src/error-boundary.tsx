@@ -48,11 +48,6 @@ class ErrorBoundary extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         if (this.state.error) {
-            // TODO(djf): perhaps we should have one error boundary for
-            // inline elements and one for block elements. This one uses
-            // a <span> and effectively converts block elements with
-            // errors into inline elements.
-            // TODO(michaelpolyak): Link error icon to "Report a problem".
             return (
                 <svg height="16" width="16" viewBox="0 0 16 16" role={"img"}>
                     <title>Rendering Error!</title>

@@ -209,8 +209,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                             value = value.replace(/<>/g, "\\ne");
 
                             // Use the specified symbol to represent multiplication
-                            // TODO(alex): Add an option to disallow variables, in
-                            // which case 'x' should get converted to '\\times'
                             if (
                                 convertDotToTimesByLocale(
                                     locale,

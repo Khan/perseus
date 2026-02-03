@@ -221,10 +221,6 @@ export const TooltipsWithFloatingPointIssues: Story = {
     },
 };
 
-// TODO(jeremy): As of Jan 2022 there are no peresus items in production that
-// use the "quadratic" graph type.
-// "quadratic"
-
 export const AnswerlessAngle: Story = {
     args: {
         item: generateTestPerseusItem({
