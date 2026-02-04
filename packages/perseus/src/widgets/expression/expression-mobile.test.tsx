@@ -18,7 +18,7 @@ import * as React from "react";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
+} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import WrappedServerItemRenderer from "../../server-item-renderer";
 import {registerWidget} from "../../widgets";

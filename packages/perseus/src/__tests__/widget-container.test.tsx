@@ -4,7 +4,7 @@ import * as React from "react";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../testing/test-dependencies";
+} from "../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
 import WidgetContainer from "../widget-container";
 import {registerWidget} from "../widgets";

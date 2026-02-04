@@ -3,7 +3,7 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";

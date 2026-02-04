@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs} from "mafs";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";

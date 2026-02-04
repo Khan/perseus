@@ -2,7 +2,7 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {AnswerPill} from "../answer-pill";
 

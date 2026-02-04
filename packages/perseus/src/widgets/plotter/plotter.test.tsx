@@ -4,7 +4,7 @@ import {act, screen, waitFor} from "@testing-library/react";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
+} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";

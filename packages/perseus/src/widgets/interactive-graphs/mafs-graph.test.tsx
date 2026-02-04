@@ -7,7 +7,7 @@ import invariant from "tiny-invariant";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
+} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
 import {MafsGraph} from "./mafs-graph";

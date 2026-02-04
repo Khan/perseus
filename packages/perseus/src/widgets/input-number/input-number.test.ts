@@ -9,7 +9,7 @@ import _ from "underscore";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
+} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {
     getAnswerfulItem,

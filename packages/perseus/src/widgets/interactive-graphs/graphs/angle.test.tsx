@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";

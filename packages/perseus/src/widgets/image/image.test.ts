@@ -6,12 +6,12 @@ import {
 import {act, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
-import {mockImageLoading} from "../../../../../testing/image-loader-utils";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
+import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependenciesV2,
     testDependencies,
-} from "../../../../../testing/test-dependencies";
+} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";

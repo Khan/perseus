@@ -1,4 +1,4 @@
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 

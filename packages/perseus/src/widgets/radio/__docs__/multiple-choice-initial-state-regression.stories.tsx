@@ -8,8 +8,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
-import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
+import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {

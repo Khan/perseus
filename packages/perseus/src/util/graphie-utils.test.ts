@@ -1,5 +1,5 @@
 import {Dependencies} from "..";
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {testDependencies} from "../testing/test-dependencies";
 import {Log} from "../logging/log";
 
 import {

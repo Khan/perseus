@@ -1,6 +1,6 @@
 import {Errors} from "@khanacademy/perseus-core";
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {testDependencies} from "../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
 
 import {Log} from "./log";

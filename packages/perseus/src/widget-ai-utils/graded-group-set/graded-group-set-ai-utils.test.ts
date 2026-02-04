@@ -1,7 +1,7 @@
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {article1} from "../../widgets/graded-group-set/graded-group-set.testdata";

@@ -4,7 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
+} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 

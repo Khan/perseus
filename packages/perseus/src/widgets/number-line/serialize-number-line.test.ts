@@ -4,7 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";

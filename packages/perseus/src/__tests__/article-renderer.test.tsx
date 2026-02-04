@@ -10,7 +10,7 @@ import * as React from "react";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../testing/test-dependencies";
+} from "../testing/test-dependencies";
 import {articleSectionWithExpression} from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import * as Dependencies from "../dependencies";

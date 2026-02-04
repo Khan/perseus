@@ -1,7 +1,7 @@
 import {act, render} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import Sortable from "../sortable";
 

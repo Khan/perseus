@@ -8,7 +8,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
+} from "../../testing/test-dependencies";
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";

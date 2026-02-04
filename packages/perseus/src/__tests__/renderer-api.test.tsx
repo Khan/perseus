@@ -5,7 +5,7 @@ import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {testDependencies} from "../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";

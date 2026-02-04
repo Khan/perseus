@@ -12,7 +12,7 @@ import {Plot} from "mafs";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {scorePerseusItemTesting} from "../../util/test-utils";

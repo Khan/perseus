@@ -8,8 +8,8 @@ import * as React from "react";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
-import {wait} from "../../../../../testing/wait";
+} from "../../testing/test-dependencies";
+import {wait} from "../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";

@@ -5,7 +5,7 @@ import {
 import {act} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";

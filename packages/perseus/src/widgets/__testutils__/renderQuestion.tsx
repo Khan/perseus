@@ -6,7 +6,7 @@ import {
     testDependenciesV2,
     testDependencies,
     // eslint-disable-next-line import/no-relative-packages
-} from "../../../../../testing/test-dependencies";
+} from "../../testing/test-dependencies";
 import {
     DependenciesContext,
     useDependencies,

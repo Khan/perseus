@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs, Polygon} from "mafs";
 import React from "react";
 
-import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
