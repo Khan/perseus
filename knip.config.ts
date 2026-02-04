@@ -12,9 +12,9 @@ const config: KnipConfig = {
     // - Tests and stories.
     // Paths marked with `!` are production files.
     entry: [
-        "config/**/*.{ts,js}",
-        "packages/*/src/index.ts!",
-        "packages/*/src/**/*.cypress.ts",
+        "config/**/*.{ts,tsx,js,jsx}",
+        "packages/*/src/index.{ts,tsx}!",
+        "packages/*/src/**/*.cypress.{ts,tsx}",
         "packages/*/src/**/*.test.{ts,tsx}",
         "packages/*/src/**/*.stories.{ts,tsx}",
         "utils/**/*.{ts,tsx,js,jsx}",
