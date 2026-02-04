@@ -3,8 +3,6 @@
 import {registerAllWidgetsForTesting} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {TestMathjax} from "./test-mathjax";
-
 import type {
     ILogger,
     PerseusDependencies,
@@ -115,30 +113,4 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
             },
         };
     },
-};
-
-const storybookTestDependencies: PerseusDependencies = {
-    ...testDependencies,
-    TeX: TestMathjax,
-    staticUrl: (str) => str,
-};
-
-const storybookDependenciesV2: PerseusDependenciesV2 = {
-    ...testDependenciesV2,
-    analytics: {
-        onAnalyticsEvent: async (event) => {
-            console.info("⚡️ Sending analytics event:", event);
-        },
-    },
-};
-
-const cypressTestDependencies: PerseusDependencies = {
-    ...testDependencies,
-    TeX: TestMathjax,
-    staticUrl: (str) => str,
-};
-
-const cypressDependenciesV2: PerseusDependenciesV2 = {
-    ...testDependenciesV2,
-    // Override if necessary
 };

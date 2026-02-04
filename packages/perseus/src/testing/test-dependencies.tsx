@@ -115,6 +115,13 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
     },
 };
 
+// TODO(benchristel): Move to .storybook/preview.tsx
+export const storybookTestDependencies: PerseusDependencies = {
+    ...testDependencies,
+    TeX: TestMathjax,
+    staticUrl: (str) => str,
+};
+
 export const storybookDependenciesV2: PerseusDependenciesV2 = {
     ...testDependenciesV2,
     analytics: {
