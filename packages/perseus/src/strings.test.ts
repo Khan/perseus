@@ -1,4 +1,4 @@
-import {clone} from "../../../testing/object-utils";
+import {clone} from "./testing/object-utils";
 
 import {mapErrorToString, mockStrings} from "./strings";
 

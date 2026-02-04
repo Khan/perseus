@@ -2,15 +2,15 @@
 // It should not make network requests, for example.
 import * as React from "react";
 
-import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
+import {registerAllWidgetsForTesting} from "@khanacademy/perseus";
 
 import {TestMathjax} from "./test-mathjax";
 
-import type {ILogger} from "../packages/perseus/src/logging/log";
+import type {ILogger} from "@khanacademy/perseus";
 import type {
     PerseusDependencies,
     PerseusDependenciesV2,
-} from "../packages/perseus/src/types";
+} from "@khanacademy/perseus";
 
 registerAllWidgetsForTesting();
 
@@ -118,13 +118,13 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
     },
 };
 
-export const storybookTestDependencies: PerseusDependencies = {
+const storybookTestDependencies: PerseusDependencies = {
     ...testDependencies,
     TeX: TestMathjax,
     staticUrl: (str) => str,
 };
 
-export const storybookDependenciesV2: PerseusDependenciesV2 = {
+const storybookDependenciesV2: PerseusDependenciesV2 = {
     ...testDependenciesV2,
     analytics: {
         onAnalyticsEvent: async (event) => {
@@ -133,13 +133,13 @@ export const storybookDependenciesV2: PerseusDependenciesV2 = {
     },
 };
 
-export const cypressTestDependencies: PerseusDependencies = {
+const cypressTestDependencies: PerseusDependencies = {
     ...testDependencies,
     TeX: TestMathjax,
     staticUrl: (str) => str,
 };
 
-export const cypressDependenciesV2: PerseusDependenciesV2 = {
+const cypressDependenciesV2: PerseusDependenciesV2 = {
     ...testDependenciesV2,
     // Override if necessary
 };

@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../testing/feature-flags-util";
+import {getFeatureFlags} from "../testing/feature-flags-util";
 import IssuesPanel from "../components/issues-panel";
 
 import type {IssueImpact} from "../components/issues-panel";

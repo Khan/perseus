@@ -7,7 +7,7 @@ import {
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-import {mockImageLoading} from "../../../../testing/image-loader-utils";
+import {mockImageLoading} from "../testing/image-loader-utils";
 import {
     earthMoonImage,
     frescoImage,

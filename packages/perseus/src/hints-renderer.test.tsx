@@ -5,7 +5,7 @@ import * as React from "react";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../testing/test-dependencies";
+} from "./testing/test-dependencies";
 
 import {PerseusI18nContextProvider} from "./components/i18n-context";
 import {DependenciesContext, setDependencies} from "./dependencies";

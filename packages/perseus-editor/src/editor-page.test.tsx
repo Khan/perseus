@@ -10,7 +10,7 @@ import * as React from "react";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../testing/test-dependencies";
+} from "./testing/test-dependencies";
 
 import EditorPage from "./editor-page";
 import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";

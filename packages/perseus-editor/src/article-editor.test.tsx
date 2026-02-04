@@ -9,7 +9,7 @@ import * as React from "react";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../testing/test-dependencies";
+} from "./testing/test-dependencies";
 
 import ArticleEditor from "./article-editor";
 

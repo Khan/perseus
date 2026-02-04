@@ -9,7 +9,7 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import {Editor} from "..";
-import SplitView from "../../../../testing/split-view";
+import SplitView from "../testing/split-view";
 import {question1} from "../__testdata__/numeric-input.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 

@@ -7,7 +7,7 @@ import {
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import {mockImageLoading} from "../../../../../testing/image-loader-utils";
+import {mockImageLoading} from "../../testing/image-loader-utils";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import RendererDiff from "../renderer-diff";
 

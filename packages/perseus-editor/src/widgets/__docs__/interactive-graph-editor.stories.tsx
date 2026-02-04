@@ -10,7 +10,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {testDependenciesV2} from "../../../../../testing/test-dependencies";
+import {testDependenciesV2} from "../../testing/test-dependencies";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {interactiveGraphQuestionBuilder} from "../../__testdata__/interactive-graph-question-builder";
 import {
