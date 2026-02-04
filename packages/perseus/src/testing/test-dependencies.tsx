@@ -127,3 +127,7 @@ export const storybookDependenciesV2: PerseusDependenciesV2 = {
     },
 };
 
+export const cypressDependenciesV2: PerseusDependenciesV2 = {
+    ...testDependenciesV2,
+    // Override if necessary
+};
