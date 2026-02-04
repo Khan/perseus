@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import {ArticleRendererWithDebugUI} from "../../../../testing/article-renderer-with-debug-ui";
+import {ArticleRendererWithDebugUI} from "../testing/article-renderer-with-debug-ui";
 import {
     singleSectionArticle,
     multiSectionArticle,
