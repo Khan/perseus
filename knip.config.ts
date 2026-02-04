@@ -17,7 +17,6 @@ const config: KnipConfig = {
         "packages/*/src/**/*.cypress.ts",
         "packages/*/src/**/*.test.{ts,tsx}",
         "packages/*/src/**/*.stories.{ts,tsx}",
-        "testing/**/*.{ts,tsx,js,jsx}",
         "utils/**/*.{ts,tsx,js,jsx}",
     ],
     // Where we want to look for dead code.
