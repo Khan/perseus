@@ -99,10 +99,4 @@ module.exports = {
     // Only output log messages on test failure. From:
     // https://github.com/facebook/jest/issues/4156#issuecomment-490764080
     // reporters: ["<rootDir>/config/test/log-on-fail-reporter.js"],
-
-    // TODO(LEMS-2858) We turn off Prettier as Prettier v3 is incompatible with
-    // Jest v29. Once they release Jest v30 we can switch to that:
-    // https://github.com/jestjs/jest/issues/14305
-    // NOTE: Jest v30 has been released.
-    prettierPath: null,
 };

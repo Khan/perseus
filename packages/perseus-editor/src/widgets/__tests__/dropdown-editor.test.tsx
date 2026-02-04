@@ -28,7 +28,7 @@ describe("dropdown-editor", () => {
         const input = screen.getByPlaceholderText("Placeholder value");
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toBeCalledWith({placeholder: "a"});
+        expect(onChangeMock).toHaveBeenCalledWith({placeholder: "a"});
     });
 
     it("should be possible to delete choice", async () => {
@@ -40,7 +40,7 @@ describe("dropdown-editor", () => {
             screen.getByRole("button", {name: "Delete choice"}),
         );
 
-        expect(onChangeMock).toBeCalledWith({choices: []});
+        expect(onChangeMock).toHaveBeenCalledWith({choices: []});
     });
 
     it("should be possible to add choice", async () => {
@@ -52,7 +52,7 @@ describe("dropdown-editor", () => {
             screen.getByRole("button", {name: "Add a choice"}),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             {
                 choices: [
                     {content: "", correct: false},

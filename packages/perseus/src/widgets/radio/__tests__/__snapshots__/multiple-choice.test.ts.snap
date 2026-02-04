@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Multiple Choice Widget multi-choice question should snapshot the same when invalid: invalid state 1`] = `
 <div>

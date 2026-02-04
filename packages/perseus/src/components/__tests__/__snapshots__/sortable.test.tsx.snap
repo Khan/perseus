@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Sortable renders a spinner while waiting for the TeX renderer to load: first render: displays a spinner 1`] = `
 <div>

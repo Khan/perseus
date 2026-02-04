@@ -48,7 +48,7 @@ describe("Result.assertFailure", () => {
     });
 
     it("throws given a success", () => {
-        expect(() => assertFailure(success(42))).toThrowError(
+        expect(() => assertFailure(success(42))).toThrow(
             "Invariant failed: expected result to be a Failure, but got a Success",
         );
     });
@@ -68,7 +68,7 @@ describe("Result.assertSuccess", () => {
     });
 
     it("throws given a failure", () => {
-        expect(() => assertSuccess(failure(42))).toThrowError(
+        expect(() => assertSuccess(failure(42))).toThrow(
             "Invariant failed: expected result to be a Success, but got a Failure",
         );
     });

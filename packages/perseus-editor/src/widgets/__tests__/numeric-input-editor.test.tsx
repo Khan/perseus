@@ -43,7 +43,7 @@ describe("numeric-input-editor", () => {
             ),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({size: "normal"}),
             undefined,
         );
@@ -61,7 +61,7 @@ describe("numeric-input-editor", () => {
             ),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({size: "small"}),
             undefined,
         );
@@ -79,7 +79,7 @@ describe("numeric-input-editor", () => {
             ),
         );
 
-        expect(onChangeMock).toBeCalledWith({rightAlign: true});
+        expect(onChangeMock).toHaveBeenCalledWith({rightAlign: true});
     });
 
     it("should be possible to select coefficient", async () => {
@@ -93,7 +93,7 @@ describe("numeric-input-editor", () => {
             ).getByRole("radio", {name: "Coefficient"}),
         );
 
-        expect(onChangeMock).toBeCalledWith({coefficient: true});
+        expect(onChangeMock).toHaveBeenCalledWith({coefficient: true});
     });
 
     it("should be possible to select strictly match only these formats", async () => {
@@ -107,7 +107,7 @@ describe("numeric-input-editor", () => {
             ).getByRole("radio", {name: "Required"}),
         );
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             answers: [
                 {
                     answerForms: [],
@@ -133,7 +133,7 @@ describe("numeric-input-editor", () => {
 
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({labelText: "a"}),
             undefined,
         );
@@ -175,7 +175,7 @@ describe("numeric-input-editor", () => {
             ).getByRole("radio", {name: "Ungraded"}),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 answers: expect.arrayContaining([
                     expect.objectContaining({simplify: "required"}),
@@ -195,7 +195,7 @@ describe("numeric-input-editor", () => {
             ).getByRole("radio", {name: "Accepted"}),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 answers: expect.arrayContaining([
                     expect.objectContaining({simplify: "optional"}),
@@ -215,7 +215,7 @@ describe("numeric-input-editor", () => {
             ).getByRole("radio", {name: "Wrong"}),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 answers: expect.arrayContaining([
                     expect.objectContaining({simplify: "enforced"}),
@@ -241,7 +241,7 @@ describe("numeric-input-editor", () => {
 
             await userEvent.click(screen.getByRole("checkbox", {name: name}));
 
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     answers: expect.arrayContaining([
                         expect.objectContaining({answerForms: [key]}),

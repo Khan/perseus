@@ -38,7 +38,7 @@ describe("definition-editor", () => {
         });
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({togglePrompt: "a"}),
             undefined,
         );

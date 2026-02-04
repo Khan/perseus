@@ -475,22 +475,22 @@ describe("server item renderer", () => {
 
             // Assert
             expect(state).toMatchInlineSnapshot(`
-{
-  "hints": [
-    {},
-    {},
-    {},
-  ],
-  "question": {
-    "mock-widget 1": {
-      "alignment": "default",
-      "currentValue": "-42",
-      "static": false,
-      "value": "3",
-    },
-  },
-}
-`);
+                {
+                  "hints": [
+                    {},
+                    {},
+                    {},
+                  ],
+                  "question": {
+                    "mock-widget 1": {
+                      "alignment": "default",
+                      "currentValue": "-42",
+                      "static": false,
+                      "value": "3",
+                    },
+                  },
+                }
+            `);
         });
     });
 
