@@ -1,9 +1,8 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
 import invariant from "tiny-invariant";
-
-import {splitPerseusItem} from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import {createInitialState, itemRendererReducer} from "./item-renderer-reducer";
 

@@ -1,5 +1,5 @@
-import renderSingleKeypad from "../../../testing/render-keypad-with-cypress";
 import {mockStrings} from "../../../strings";
+import renderSingleKeypad from "../../../testing/render-keypad-with-cypress";
 
 import {getTestDataTabs} from "./test-data-tabs";
 

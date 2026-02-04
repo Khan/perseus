@@ -10,7 +10,6 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {testDependenciesV2} from "../../testing/test-dependencies";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {interactiveGraphQuestionBuilder} from "../../__testdata__/interactive-graph-question-builder";
 import {
@@ -31,6 +30,7 @@ import {
     unlimitedPolygonWithCorrectAnswerQuestion,
 } from "../../__testdata__/interactive-graph.testdata";
 import {EditorPage} from "../../index";
+import {testDependenciesV2} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 

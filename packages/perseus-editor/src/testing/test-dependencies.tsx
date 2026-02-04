@@ -1,13 +1,12 @@
 // This defines a version of PerseusDependencies that is suitable for use in tests.
 // It should not make network requests, for example.
-import * as React from "react";
-
 import {registerAllWidgetsForTesting} from "@khanacademy/perseus";
+import * as React from "react";
 
 import {TestMathjax} from "./test-mathjax";
 
-import type {ILogger} from "@khanacademy/perseus";
 import type {
+    ILogger,
     PerseusDependencies,
     PerseusDependenciesV2,
 } from "@khanacademy/perseus";

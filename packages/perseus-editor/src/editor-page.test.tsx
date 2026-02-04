@@ -7,12 +7,11 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import EditorPage from "./editor-page";
 import {
     testDependencies,
     testDependenciesV2,
 } from "./testing/test-dependencies";
-
-import EditorPage from "./editor-page";
 import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
 
 import type {UserEvent} from "@testing-library/user-event";

@@ -1,9 +1,9 @@
 import {mount} from "@cypress/react";
+import {MathInputI18nContextProvider} from "@khanacademy/math-input";
+import {mockStrings as mathInputMockStrings} from "@khanacademy/math-input/strings";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
-import {MathInputI18nContextProvider} from "@khanacademy/math-input";
-import {mockStrings as mathInputMockStrings} from "@khanacademy/math-input/strings";
 import AssetContext from "../asset-context";
 import {DependenciesContext} from "../dependencies";
 import * as Perseus from "../index";

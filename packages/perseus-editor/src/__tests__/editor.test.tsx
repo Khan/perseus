@@ -3,13 +3,13 @@ import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {DependenciesContext} from "../../../perseus/src/dependencies";
+import Editor from "../editor";
 import {mockImageLoading} from "../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
-import {DependenciesContext} from "../../../perseus/src/dependencies";
-import Editor from "../editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";

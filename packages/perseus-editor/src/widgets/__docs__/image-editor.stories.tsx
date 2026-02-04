@@ -9,9 +9,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageEditor from "../image-editor/image-editor";
 

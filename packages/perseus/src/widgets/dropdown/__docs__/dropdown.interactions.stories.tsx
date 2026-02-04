@@ -7,8 +7,8 @@ import {
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import ArticleRenderer from "../../../article-renderer";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 
 import type {Meta} from "@storybook/react-vite";
 

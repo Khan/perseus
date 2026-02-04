@@ -1,5 +1,5 @@
-import {testDependencies} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./cs-program.testdata";

@@ -1,9 +1,9 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
+import {testDependencies} from "../../../testing/test-dependencies";
 import {earthMoonImage} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";

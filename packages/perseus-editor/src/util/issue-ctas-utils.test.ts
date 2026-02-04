@@ -7,11 +7,11 @@ import {
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-import {mockImageLoading} from "../testing/image-loader-utils";
 import {
     earthMoonImage,
     frescoImage,
 } from "../../../perseus/src/widgets/image/utils";
+import {mockImageLoading} from "../testing/image-loader-utils";
 
 import {
     getFirstAvailableWidgetIndex,

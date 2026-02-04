@@ -1,10 +1,10 @@
+import {KeypadContext} from "@khanacademy/keypad-context";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
 
-import {KeypadContext} from "@khanacademy/keypad-context";
 import ArticleRenderer from "../article-renderer";
 
 import SplitView from "./split-view";

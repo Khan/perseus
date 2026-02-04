@@ -5,12 +5,12 @@ import {
 import {act} from "@testing-library/react";
 import * as React from "react";
 
+import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
 import {wait} from "../../testing/wait";
-import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 

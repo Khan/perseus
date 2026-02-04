@@ -1,7 +1,7 @@
 import {act} from "react-dom/test-utils";
 
-import {testDependencies} from "../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 

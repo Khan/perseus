@@ -9,8 +9,8 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import {Editor} from "..";
-import SplitView from "../testing/split-view";
 import {question1} from "../__testdata__/numeric-input.testdata";
+import SplitView from "../testing/split-view";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!

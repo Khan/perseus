@@ -3,9 +3,9 @@ import {
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 
+import * as Perseus from "../../index";
 import renderQuestionWithCypress from "../../testing/render-question-with-cypress";
 import {cypressTestDependencies} from "../../testing/test-dependencies";
-import * as Perseus from "../../index";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 
 import {

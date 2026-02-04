@@ -1,9 +1,9 @@
+import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../testing/wait";
-import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {

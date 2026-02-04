@@ -6,11 +6,11 @@ import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
+import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import {
     getAnswerfulItem,
     getAnswerlessItem,

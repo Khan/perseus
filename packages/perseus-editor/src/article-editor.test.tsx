@@ -6,12 +6,11 @@ import {
 } from "@testing-library/user-event";
 import * as React from "react";
 
+import ArticleEditor from "./article-editor";
 import {
     testDependencies,
     testDependenciesV2,
 } from "./testing/test-dependencies";
-
-import ArticleEditor from "./article-editor";
 
 describe("ArticleEditor", () => {
     let userEvent: UserEvent;

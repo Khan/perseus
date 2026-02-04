@@ -7,9 +7,9 @@ import {
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
+import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {
     basicDropdown,
     dropdownWithEmptyPlaceholder,

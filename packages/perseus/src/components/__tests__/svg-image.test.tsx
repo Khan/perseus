@@ -1,12 +1,12 @@
 import {act, render} from "@testing-library/react";
 import * as React from "react";
 
+import * as Dependencies from "../../dependencies";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import * as GraphieUtils from "../../util/graphie-utils";
 import {typicalCase} from "../../util/graphie-utils.testdata";
 import SvgImage from "../svg-image";

@@ -1,11 +1,11 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
+import * as Dependencies from "../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
-import * as Dependencies from "../dependencies";
 import WidgetContainer from "../widget-container";
 import {registerWidget} from "../widgets";
 import Explanation from "../widgets/explanation";

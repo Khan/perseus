@@ -1,12 +1,12 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 
+import * as Dependencies from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 

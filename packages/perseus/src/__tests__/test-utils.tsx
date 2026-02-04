@@ -3,11 +3,11 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
+import WrappedServerItemRenderer from "../server-item-renderer";
 import {
     testDependenciesV2,
     // eslint-disable-next-line import/no-relative-packages
 } from "../testing/test-dependencies";
-import WrappedServerItemRenderer from "../server-item-renderer";
 
 import type {ServerItemRenderer} from "../server-item-renderer";
 import type {APIOptions} from "../types";

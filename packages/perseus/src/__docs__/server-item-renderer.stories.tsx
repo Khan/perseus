@@ -2,8 +2,6 @@ import * as React from "react";
 import {useState} from "react";
 import {action} from "storybook/actions";
 
-import {ServerItemRendererWithDebugUI} from "../testing/server-item-renderer-with-debug-ui";
-import {storybookDependenciesV2} from "../testing/test-dependencies";
 import {
     itemWithNumericInput,
     itemWithLintingError,
@@ -13,6 +11,8 @@ import {
     itemWithRadioAndExpressionWidgets,
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
+import {ServerItemRendererWithDebugUI} from "../testing/server-item-renderer-with-debug-ui";
+import {storybookDependenciesV2} from "../testing/test-dependencies";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

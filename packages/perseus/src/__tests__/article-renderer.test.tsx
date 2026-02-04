@@ -7,14 +7,14 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {screen, render, fireEvent, waitFor, act} from "@testing-library/react";
 import * as React from "react";
 
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../testing/test-dependencies";
 import {articleSectionWithExpression} from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import * as Dependencies from "../dependencies";
 import {ApiOptions} from "../perseus-api";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../testing/test-dependencies";
 
 import type {APIOptions} from "../types";
 import type {PerseusArticle} from "@khanacademy/perseus-core";

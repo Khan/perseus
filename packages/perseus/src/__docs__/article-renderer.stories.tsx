@@ -1,12 +1,12 @@
 import {action} from "storybook/actions";
 
-import {ArticleRendererWithDebugUI} from "../testing/article-renderer-with-debug-ui";
 import {
     singleSectionArticle,
     multiSectionArticle,
     articleSectionWithExpression,
     multiSectionArticleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
+import {ArticleRendererWithDebugUI} from "../testing/article-renderer-with-debug-ui";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

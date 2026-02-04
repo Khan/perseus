@@ -7,10 +7,7 @@ import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-tes
 import {TestMathjax} from "./test-mathjax";
 
 import type {ILogger} from "../logging/log";
-import type {
-    PerseusDependencies,
-    PerseusDependenciesV2,
-} from "../types";
+import type {PerseusDependencies, PerseusDependenciesV2} from "../types";
 
 registerAllWidgetsForTesting();
 
