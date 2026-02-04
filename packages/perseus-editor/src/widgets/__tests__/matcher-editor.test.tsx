@@ -37,7 +37,7 @@ describe("matcher-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({orderMatters: true});
+        expect(onChangeMock).toHaveBeenCalledWith({orderMatters: true});
     });
 
     it("should be possible to change padding", async () => {
@@ -47,6 +47,6 @@ describe("matcher-editor", () => {
 
         await userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
 
-        expect(onChangeMock).toBeCalledWith({padding: false});
+        expect(onChangeMock).toHaveBeenCalledWith({padding: false});
     });
 });

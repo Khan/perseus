@@ -38,7 +38,7 @@ describe("explanation-editor", () => {
         });
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             // The dropdown initalizes with "Explain"
             expect.objectContaining({showPrompt: "Explaina"}),
             undefined,
@@ -55,7 +55,7 @@ describe("explanation-editor", () => {
         });
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             // The dropdown initalizes with "Hide explain"
             expect.objectContaining({hidePrompt: "Hide explanationa"}),
             undefined,

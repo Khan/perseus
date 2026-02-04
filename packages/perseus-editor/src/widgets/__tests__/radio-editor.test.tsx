@@ -152,7 +152,7 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 multipleSelect: true,
                 numCorrect: 0,
@@ -174,7 +174,7 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({countChoices: true});
+        expect(onChangeMock).toHaveBeenCalledWith({countChoices: true});
     });
 
     it("should toggle randomize order checkbox", async () => {
@@ -188,7 +188,7 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({randomize: true});
+        expect(onChangeMock).toHaveBeenCalledWith({randomize: true});
     });
 
     it("should be possible to add answer", async () => {
@@ -202,7 +202,7 @@ describe("radio-editor", () => {
             })[0],
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: [
                     {content: "", id: "radio-choice-0"},
@@ -241,8 +241,8 @@ describe("radio-editor", () => {
             })[0],
         );
 
-        expect(confirmSpy).toBeCalled();
-        expect(onChangeMock).toBeCalledWith(
+        expect(confirmSpy).toHaveBeenCalled();
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: threeChoicesWithCorrectAndNoneOfTheAbove,
                 hasNoneOfTheAbove: true,
@@ -269,8 +269,8 @@ describe("radio-editor", () => {
             })[3],
         );
 
-        expect(confirmSpy).toBeCalled();
-        expect(onChangeMock).toBeCalledWith(
+        expect(confirmSpy).toHaveBeenCalled();
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: threeChoicesWithCorrect,
                 hasNoneOfTheAbove: false,
@@ -297,8 +297,8 @@ describe("radio-editor", () => {
             })[0],
         );
 
-        expect(confirmSpy).toBeCalled();
-        expect(onChangeMock).not.toBeCalled();
+        expect(confirmSpy).toHaveBeenCalled();
+        expect(onChangeMock).not.toHaveBeenCalled();
     });
 
     it("shows the 'None of the above' button when there is no 'None of the above' choice", () => {

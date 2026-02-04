@@ -91,7 +91,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(addFigureButton);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith({
+            expect(onChangeMock).toHaveBeenCalledWith({
                 lockedFigures: [getDefaultFigureForType(figureType)],
             });
         });
@@ -116,8 +116,8 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(deleteButton);
 
             // Assert
-            expect(confirmSpy).toBeCalled();
-            expect(onChangeMock).toBeCalledWith(
+            expect(confirmSpy).toHaveBeenCalled();
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [],
                 }),
@@ -144,8 +144,8 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(deleteButton);
 
             // Assert
-            expect(confirmSpy).toBeCalled();
-            expect(onChangeMock).not.toBeCalled();
+            expect(confirmSpy).toHaveBeenCalled();
+            expect(onChangeMock).not.toHaveBeenCalled();
         });
 
         describe("movement", () => {
@@ -178,7 +178,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.click(moveButton[2]);
 
                 // Assert
-                expect(onChangeMock).toBeCalledWith(
+                expect(onChangeMock).toHaveBeenCalledWith(
                     expect.objectContaining({
                         lockedFigures: [third, first, second],
                     }),
@@ -201,7 +201,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.click(moveButton[2]);
 
                 // Assert
-                expect(onChangeMock).toBeCalledWith(
+                expect(onChangeMock).toHaveBeenCalledWith(
                     expect.objectContaining({
                         lockedFigures: [first, third, second],
                     }),
@@ -224,7 +224,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.click(moveButton[0]);
 
                 // Assert
-                expect(onChangeMock).toBeCalledWith(
+                expect(onChangeMock).toHaveBeenCalledWith(
                     expect.objectContaining({
                         lockedFigures: [second, first, third],
                     }),
@@ -247,7 +247,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.click(moveButton[0]);
 
                 // Assert
-                expect(onChangeMock).toBeCalledWith(
+                expect(onChangeMock).toHaveBeenCalledWith(
                     expect.objectContaining({
                         lockedFigures: [second, third, first],
                     }),
@@ -270,7 +270,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.click(moveButton[0]);
 
                 // Assert
-                expect(onChangeMock).not.toBeCalled();
+                expect(onChangeMock).not.toHaveBeenCalled();
             });
 
             test(`Does not call onChange when a locked ${figureType} is moved backward and is already in the back`, async () => {
@@ -289,7 +289,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.click(moveButton[0]);
 
                 // Assert
-                expect(onChangeMock).not.toBeCalled();
+                expect(onChangeMock).not.toHaveBeenCalled();
             });
 
             test(`Does not call onChange when a locked ${figureType} is moved forward and is already in the front`, async () => {
@@ -308,7 +308,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.click(moveButton[2]);
 
                 // Assert
-                expect(onChangeMock).not.toBeCalled();
+                expect(onChangeMock).not.toHaveBeenCalled();
             });
 
             test(`Does not call onChange when a locked ${figureType} is moved to the front and is already in the front`, async () => {
@@ -327,7 +327,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.click(moveButton[2]);
 
                 // Assert
-                expect(onChangeMock).not.toBeCalled();
+                expect(onChangeMock).not.toHaveBeenCalled();
             });
         });
 
@@ -367,7 +367,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(colorSelection);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -399,7 +399,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -428,7 +428,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -457,7 +457,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(fillInput);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -485,7 +485,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).not.toBeCalled();
+            expect(onChangeMock).not.toHaveBeenCalled();
         });
 
         test("Does not call onChange when y coord is cleared", async () => {
@@ -505,7 +505,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).not.toBeCalled();
+            expect(onChangeMock).not.toHaveBeenCalled();
         });
 
         test.each`
@@ -534,7 +534,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.tab();
 
                 // Assert
-                expect(onChangeMock).not.toBeCalled();
+                expect(onChangeMock).not.toHaveBeenCalled();
             },
         );
     });
@@ -558,7 +558,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(styleSelection);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -589,7 +589,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -623,7 +623,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -657,7 +657,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -691,7 +691,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -722,7 +722,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(kindSelection);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -748,7 +748,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(toggle);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -774,7 +774,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(toggle);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -806,7 +806,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -836,7 +836,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -871,7 +871,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 await userEvent.tab();
 
                 // Assert
-                expect(onChangeMock).toBeCalledWith(
+                expect(onChangeMock).toHaveBeenCalledWith(
                     expect.objectContaining({
                         lockedFigures: [
                             expect.objectContaining({
@@ -902,7 +902,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.tab();
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -930,7 +930,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(strokeSelection);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -958,7 +958,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(fillSelection);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -988,7 +988,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(fillSelection);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -1016,7 +1016,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(strokeSelection);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -1042,7 +1042,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(toggle);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -1070,7 +1070,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(addPointButton);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -1110,7 +1110,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(deleteButton);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -1139,7 +1139,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.type(xCoordInput, "7");
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
@@ -1172,7 +1172,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.type(yCoordInput, "7");
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({

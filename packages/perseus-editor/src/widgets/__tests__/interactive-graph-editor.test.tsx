@@ -77,7 +77,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.click(screen.getByRole("option", {name: "Polygon"}));
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 graph: {type: "polygon"},
                 correct: expect.objectContaining({type: "polygon"}),
@@ -260,7 +260,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.click(pointsSelection);
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 correct: {type: "point", numPoints: 5},
                 graph: {type: "point", numPoints: 5},
@@ -291,7 +291,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.click(sidesSelection);
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 correct: {
                     type: "polygon",
@@ -334,7 +334,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.click(snapToSelection);
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 correct: {
                     coords: null,
@@ -370,7 +370,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.click(input);
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 correct: {
                     type: "polygon",
@@ -409,7 +409,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.click(input);
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 correct: {
                     type: "polygon",
@@ -448,7 +448,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.click(segmentsSelection);
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 correct: {
                     type: "segment",
@@ -488,7 +488,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.click(answerMustSelection);
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 correct: {
                     type: "polygon",
@@ -523,7 +523,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.click(answerMustSelection);
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 correct: {
                     type: "angle",
@@ -639,7 +639,7 @@ describe("InteractiveGraphEditor", () => {
         await userEvent.type(xInput, "1");
 
         // Assert
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 graph: {
                     type: "linear",

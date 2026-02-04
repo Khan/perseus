@@ -48,7 +48,9 @@ describe("free-response editor", () => {
         );
 
         // Assert
-        expect(onChangeMock).toBeCalledWith({allowUnlimitedCharacters: true});
+        expect(onChangeMock).toHaveBeenCalledWith({
+            allowUnlimitedCharacters: true,
+        });
     });
 
     it("calls onChange when the character limit is changed to a number", async () => {
@@ -63,7 +65,7 @@ describe("free-response editor", () => {
         await userEvent.type(screen.getByLabelText(/Character limit/), "1");
 
         // Assert
-        expect(onChangeMock).toBeCalledWith({characterLimit: 1});
+        expect(onChangeMock).toHaveBeenCalledWith({characterLimit: 1});
     });
 
     it("does not call onChange when the character limit is changed to a non-number", async () => {
@@ -78,7 +80,7 @@ describe("free-response editor", () => {
         await userEvent.type(screen.getByLabelText(/Character limit/), "e");
 
         // Assert
-        expect(onChangeMock).not.toBeCalled();
+        expect(onChangeMock).not.toHaveBeenCalled();
     });
 
     it("calls onChange when the question is changed", async () => {
@@ -90,7 +92,7 @@ describe("free-response editor", () => {
         await userEvent.type(screen.getByLabelText("Question"), "2");
 
         // Assert
-        expect(onChangeMock).toBeCalledWith({question: "2"});
+        expect(onChangeMock).toHaveBeenCalledWith({question: "2"});
     });
 
     it("calls onChange when the placeholder is changed", async () => {
@@ -108,7 +110,9 @@ describe("free-response editor", () => {
         await userEvent.type(screen.getByLabelText("Placeholder"), "2");
 
         // Assert
-        expect(onChangeMock).toBeCalledWith({placeholder: "test-placeholder2"});
+        expect(onChangeMock).toHaveBeenCalledWith({
+            placeholder: "test-placeholder2",
+        });
     });
 
     it("calls onChange when a criterion is changed", async () => {
@@ -125,7 +129,7 @@ describe("free-response editor", () => {
         await userEvent.type(screen.getByLabelText("Criterion 1"), "2");
 
         // Assert
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             scoringCriteria: [{text: "2"}],
         });
     });
@@ -269,7 +273,7 @@ describe("free-response editor", () => {
         );
 
         // Assert
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             scoringCriteria: [{text: "criterion-1"}, {text: ""}],
         });
     });
@@ -291,7 +295,7 @@ describe("free-response editor", () => {
         ).not.toBeInTheDocument();
 
         // Assert
-        expect(onChangeMock).not.toBeCalled();
+        expect(onChangeMock).not.toHaveBeenCalled();
     });
 
     it("deletes a criterion when the delete button is clicked", async () => {
@@ -310,7 +314,7 @@ describe("free-response editor", () => {
         );
 
         // Assert
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             scoringCriteria: [{text: "criterion-2"}],
         });
     });
