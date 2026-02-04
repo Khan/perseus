@@ -41,10 +41,21 @@ const config: KnipConfig = {
         // TODO(LEMS-3868)
         "packages/perseus-editor/src/preview/message-types.ts",
     ],
+    // These are packages that are listed in package.json files but not
+    // directly imported in our code.
     ignoreDependencies: [
+        // perseus-build-settings is listed as a dependency so package
+        // versions will get automatically bumped when there is a change to
+        // our build tooling.
         "perseus-build-settings",
+        // @swc-node/register is used in the shabang of executable TypeScript
+        // files.
         "@swc-node/register",
+        // nyc measures code coverage.
         "nyc",
+        // swc_mut_cjs_exports is a plugin for swc, configured like
+        // `swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);`
+        // (hence, not imported).
         "swc_mut_cjs_exports",
     ],
     // Scripts we use in `package.json`
