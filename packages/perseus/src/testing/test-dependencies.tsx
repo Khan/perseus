@@ -131,6 +131,12 @@ export const storybookDependenciesV2: PerseusDependenciesV2 = {
     },
 };
 
+export const cypressTestDependencies: PerseusDependencies = {
+    ...testDependencies,
+    TeX: TestMathjax,
+    staticUrl: (str) => str,
+};
+
 export const cypressDependenciesV2: PerseusDependenciesV2 = {
     ...testDependenciesV2,
     // Override if necessary
