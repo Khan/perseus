@@ -7,9 +7,9 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
+import {testDependencies} from "../../../testing/test-dependencies";
 import {containerSizeClass} from "../../../util/sizing-utils";
 import Radio from "../multiple-choice-widget";
 
