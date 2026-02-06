@@ -3,6 +3,7 @@
 {
     "exclude": [
         "dist",
+        "src/testing/**",
         "**/*.test.*",
         "**/__tests__/**",
         "**/*.testdata.*",
