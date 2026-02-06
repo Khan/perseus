@@ -114,3 +114,12 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
         };
     },
 };
+
+export const storybookDependenciesV2: PerseusDependenciesV2 = {
+    ...testDependenciesV2,
+    analytics: {
+        onAnalyticsEvent: async (event) => {
+            console.info("⚡️ Sending analytics event:", event);
+        },
+    },
+};

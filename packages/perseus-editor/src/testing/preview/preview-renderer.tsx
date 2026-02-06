@@ -4,23 +4,23 @@ import {
     StatefulKeypadContextProvider,
 } from "@khanacademy/keypad-context";
 import {MobileKeypad} from "@khanacademy/math-input";
-import {pushContextStack} from "@khanacademy/perseus-linter";
-import {View} from "@khanacademy/wonder-blocks-core";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
-import * as React from "react";
-
 import {
     ArticleRenderer,
     Dependencies,
     Renderer,
     ServerItemRenderer,
     usePerseusI18n,
-} from "../..";
-import {lintGutterWidth} from "../../../../perseus-editor/src/styles/constants";
+} from "@khanacademy/perseus";
+import {pushContextStack} from "@khanacademy/perseus-linter";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
+
+import {lintGutterWidth} from "../../styles/constants";
 import {storybookDependenciesV2} from "../test-dependencies";
 
-import type {PreviewContent} from "../../../../perseus-editor/src/preview/message-types";
+import type {PreviewContent} from "../../preview/message-types";
 
 type Props = {
     data: PreviewContent;
