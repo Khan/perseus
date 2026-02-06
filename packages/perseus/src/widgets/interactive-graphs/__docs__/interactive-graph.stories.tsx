@@ -1,7 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {ApiOptions} from "../../../perseus-api";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {
     angleQuestion,
     circleQuestion,

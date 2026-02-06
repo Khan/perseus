@@ -7,9 +7,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
+import {testDependenciesV2} from "../../../testing/test-dependencies";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 

@@ -1,18 +1,21 @@
 import {mount} from "@cypress/react";
+import {MathInputI18nContextProvider} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
-import {MathInputI18nContextProvider} from "../packages/math-input/src/components/i18n-context";
-import {mockStrings as mathInputMockStrings} from "../packages/math-input/src/strings";
-import AssetContext from "../packages/perseus/src/asset-context";
-import {DependenciesContext} from "../packages/perseus/src/dependencies";
-import * as Perseus from "../packages/perseus/src/index";
-import {mockStrings} from "../packages/perseus/src/strings";
-import UserInputManager from "../packages/perseus/src/user-input-manager";
+// TODO(benchristel): Figure out why cypress tests fail when we import
+// mockStrings from "@khanacademy/math-input/strings" here. Alternatively,
+// export mockStrings from packages/math-input/src/index.ts.
+import {mockStrings as mathInputMockStrings} from "../../../math-input/src/strings";
+import AssetContext from "../asset-context";
+import {DependenciesContext} from "../dependencies";
+import * as Perseus from "../index";
+import {mockStrings} from "../strings";
+import UserInputManager from "../user-input-manager";
 
 import {cypressDependenciesV2} from "./test-dependencies";
 
-import type {APIOptions} from "../packages/perseus/src/types";
+import type {APIOptions} from "../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 /**

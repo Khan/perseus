@@ -1,11 +1,11 @@
 import {screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
+} from "../../testing/test-dependencies";
 import {
     getAnswerfulItem,
     getAnswerlessItem,

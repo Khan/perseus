@@ -2,15 +2,12 @@
 // It should not make network requests, for example.
 import * as React from "react";
 
-import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
+import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 
 import {TestMathjax} from "./test-mathjax";
 
-import type {ILogger} from "../packages/perseus/src/logging/log";
-import type {
-    PerseusDependencies,
-    PerseusDependenciesV2,
-} from "../packages/perseus/src/types";
+import type {ILogger} from "../logging/log";
+import type {PerseusDependencies, PerseusDependenciesV2} from "../types";
 
 registerAllWidgetsForTesting();
 
@@ -118,6 +115,7 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
     },
 };
 
+// TODO(benchristel): Move to .storybook/preview.tsx
 export const storybookTestDependencies: PerseusDependencies = {
     ...testDependencies,
     TeX: TestMathjax,

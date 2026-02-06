@@ -3,9 +3,9 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs} from "mafs";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../../testing/test-dependencies";
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import * as ReducerGraphConfig from "../reducer/use-graph-config";
 import {getBaseMafsGraphPropsForTests} from "../utils";
