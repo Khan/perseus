@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {itemWithPieChart} from "../../__testdata__/graphie.testdata";
+import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 import Graphie from "../graphie";
 
 import GraphieDocsPage from "./graphie.mdx";

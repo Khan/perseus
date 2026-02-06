@@ -2,9 +2,9 @@ import {ApiOptions} from "@khanacademy/perseus";
 import {expect, within} from "@storybook/test";
 import * as React from "react";
 
-import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
+import {testDependenciesV2} from "../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import {usePreviewUrl} from "./use-preview-url";

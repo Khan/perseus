@@ -1,6 +1,5 @@
-import {clone} from "../../../testing/object-utils";
-
 import {mapErrorToString, mockStrings} from "./strings";
+import {clone} from "./testing/object-utils";
 
 describe("mapErrorToString", () => {
     it("handles translated strings", () => {

@@ -1,4 +1,4 @@
-import {testWidgetIdExtraction} from "../../../../testing/extract-widget-ids-contract-tests";
+import {testWidgetIdExtraction} from "../testing/extract-widget-ids-contract-tests";
 
 import {extractWidgetIds} from "./extract-widget-ids";
 

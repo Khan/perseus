@@ -8,10 +8,10 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
-import {storybookDependenciesV2} from "../../../../../../testing/test-dependencies";
 import ArticleRenderer from "../../../article-renderer";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {choicesWithMathFont, question} from "../__tests__/radio.testdata";
 

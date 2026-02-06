@@ -7,10 +7,6 @@ import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testWidgetIdExtraction} from "../../../../testing/extract-widget-ids-contract-tests";
-import {mockImageLoading} from "../../../../testing/image-loader-utils";
-import {clone} from "../../../../testing/object-utils";
-import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     dropdownWidget,
     imageWidget,
@@ -25,6 +21,10 @@ import {
     isDifferentQuestion,
     type DifferentQuestionPartialProps,
 } from "../renderer";
+import {testWidgetIdExtraction} from "../testing/extract-widget-ids-contract-tests";
+import {mockImageLoading} from "../testing/image-loader-utils";
+import {clone} from "../testing/object-utils";
+import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";

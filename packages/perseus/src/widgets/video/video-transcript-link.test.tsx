@@ -1,8 +1,8 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependenciesV2} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {testDependenciesV2} from "../../testing/test-dependencies";
 
 import VideoTranscriptLink from "./video-transcript-link";
 

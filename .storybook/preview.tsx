@@ -13,7 +13,7 @@ import {
 import {
     storybookTestDependencies,
     storybookDependenciesV2,
-} from "../testing/test-dependencies";
+} from "../packages/perseus/src/testing/test-dependencies";
 
 // This will bring in the shared styles from prod so that the components can
 // have the same styles as prod when viewed within Storybook.

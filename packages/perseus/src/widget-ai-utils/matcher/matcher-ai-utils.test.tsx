@@ -1,8 +1,8 @@
 import {screen, within} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./matcher-ai-utils";

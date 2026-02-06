@@ -2,11 +2,11 @@ import {type PerseusRenderer} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
+} from "../../testing/test-dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {

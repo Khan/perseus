@@ -4,7 +4,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import RadioEditor from "../radio/editor";
 
 import {

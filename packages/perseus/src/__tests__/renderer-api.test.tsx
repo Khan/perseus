@@ -5,11 +5,11 @@ import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {testDependencies} from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import {mockStrings} from "../strings";
+import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {MockWidget} from "../widgets/mock-widgets";

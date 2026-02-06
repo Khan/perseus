@@ -2,11 +2,11 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
+} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {
     getAnswerfulItem,

@@ -1,14 +1,13 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
 import invariant from "tiny-invariant";
 
-import {splitPerseusItem} from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
-
 import {createInitialState, itemRendererReducer} from "./item-renderer-reducer";
 
-import type {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
-import type {APIOptions} from "../packages/perseus/src/types";
+import type {ServerItemRenderer} from "../server-item-renderer";
+import type {APIOptions} from "../types";
 import type {
     PerseusItem,
     ShowSolutions,

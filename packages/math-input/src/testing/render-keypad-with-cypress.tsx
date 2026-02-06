@@ -1,7 +1,7 @@
 import {mount} from "@cypress/react";
 import * as React from "react";
 
-import Keypad from "../packages/math-input/src/components/keypad";
+import Keypad from "../components/keypad";
 
 const renderSingleKeypad = () =>
     mount(

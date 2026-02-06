@@ -5,7 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 import {getAnswerfulItem} from "../../util/test-utils";
 
 import {question1, question2, question3} from "./input-number.testdata";

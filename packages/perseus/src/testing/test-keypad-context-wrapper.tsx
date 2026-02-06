@@ -1,13 +1,12 @@
-import {View} from "@khanacademy/wonder-blocks-core";
-import {StyleSheet} from "aphrodite";
-import * as React from "react";
-import {action} from "storybook/actions";
-
 import {
     KeypadContext,
     StatefulKeypadContextProvider,
 } from "@khanacademy/keypad-context";
 import {MobileKeypad} from "@khanacademy/math-input";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
+import {action} from "storybook/actions";
 
 type Props = {
     children: React.ReactElement;

@@ -1,8 +1,8 @@
 import $ from "jquery";
 import Raphael from "raphael";
 
-import {testDependencies} from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
+import {testDependencies} from "../testing/test-dependencies";
 
 import GraphUtils, {normalizeRange} from "./graphie";
 

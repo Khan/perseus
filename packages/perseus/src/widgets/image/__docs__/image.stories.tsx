@@ -6,7 +6,7 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {getWidget} from "../../../widgets";
 import {questionWithZoom} from "../image.testdata";
 

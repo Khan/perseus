@@ -7,7 +7,7 @@ import {
     generateGradedGroupOptions,
 } from "@khanacademy/perseus-core";
 
-import {ArticleRendererWithDebugUI} from "../../../../../testing/article-renderer-with-debug-ui";
+import {ArticleRendererWithDebugUI} from "../../testing/article-renderer-with-debug-ui";
 
 import {
     article1,

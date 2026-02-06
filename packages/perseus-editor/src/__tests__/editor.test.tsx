@@ -1,15 +1,19 @@
-import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
+import {
+    ApiOptions,
+    Dependencies,
+    DependenciesContext,
+    Util,
+} from "@khanacademy/perseus";
 import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {mockImageLoading} from "../../../../testing/image-loader-utils";
+import Editor from "../editor";
+import {mockImageLoading} from "../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../testing/test-dependencies";
-import {DependenciesContext} from "../../../perseus/src/dependencies";
-import Editor from "../editor";
+} from "../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";

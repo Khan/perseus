@@ -4,12 +4,12 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
+import {renderQuestion} from "../../__tests__/test-utils";
+import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
-import {renderQuestion} from "../../__tests__/test-utils";
-import * as Dependencies from "../../dependencies";
+} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";

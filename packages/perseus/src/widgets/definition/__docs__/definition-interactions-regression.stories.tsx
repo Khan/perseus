@@ -1,7 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {question} from "../definition.testdata";
 
 import type {Meta} from "@storybook/react-vite";

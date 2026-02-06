@@ -6,7 +6,7 @@ import * as React from "react";
 
 import {PreviewRenderer} from "./preview-renderer";
 
-import type {PreviewContent} from "../../packages/perseus-editor/src/preview/message-types";
+import type {PreviewContent} from "../../preview/message-types";
 
 /**
  * Loads the exercise preview frame

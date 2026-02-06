@@ -1,6 +1,6 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 
 import {dotPlotter, question1, simple} from "./plotter.testdata";
 

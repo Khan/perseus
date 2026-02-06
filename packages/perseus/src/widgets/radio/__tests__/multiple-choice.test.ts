@@ -7,13 +7,13 @@ import {scoreRadio} from "@khanacademy/perseus-score";
 import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
-import {clone} from "../../../../../../testing/object-utils";
+import * as Dependencies from "../../../dependencies";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
+import {clone} from "../../../testing/object-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../../testing/test-dependencies";
-import * as Dependencies from "../../../dependencies";
+} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 

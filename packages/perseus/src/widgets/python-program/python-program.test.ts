@@ -1,4 +1,4 @@
-import {testDependenciesV2} from "../../../../../testing/test-dependencies";
+import {testDependenciesV2} from "../../testing/test-dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./python-program.testdata";

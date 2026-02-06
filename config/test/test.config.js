@@ -48,7 +48,6 @@ swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 
 /** @type {import('jest').Config} */
 module.exports = {
-    rootDir: path.join(__dirname, "../../"),
     setupFiles: [],
     transform: {
         "^.+\\.(j|t)sx?$": ["@swc/jest", swcrc],
@@ -96,7 +95,4 @@ module.exports = {
         "!**/*.testdata.ts",
     ],
     coverageProvider: "v8",
-    // Only output log messages on test failure. From:
-    // https://github.com/facebook/jest/issues/4156#issuecomment-490764080
-    // reporters: ["<rootDir>/config/test/log-on-fail-reporter.js"],
 };
