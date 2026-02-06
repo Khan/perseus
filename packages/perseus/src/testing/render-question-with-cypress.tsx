@@ -1,9 +1,12 @@
 import {mount} from "@cypress/react";
 import {MathInputI18nContextProvider} from "@khanacademy/math-input";
-import {mockStrings as mathInputMockStrings} from "@khanacademy/math-input/strings";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
+// TODO(benchristel): Figure out why cypress tests fail when we import
+// mockStrings from "@khanacademy/math-input/strings" here. Alternatively,
+// export mockStrings from packages/math-input/src/index.ts.
+import {mockStrings as mathInputMockStrings} from "../../../math-input/src/strings";
 import AssetContext from "../asset-context";
 import {DependenciesContext} from "../dependencies";
 import * as Perseus from "../index";
