@@ -28,10 +28,9 @@ export function scorePerseusItem(
     userInputMap: UserInputMap,
     locale: string,
 ): PerseusScore {
-    const {upgradedWidgets, scoreableWidgetIds} =
-        getScoreableWidgets(perseusRenderData);
+    const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
     const scores = scoreWidgetsFunctional(
-        upgradedWidgets,
+        perseusRenderData.widgets,
         scoreableWidgetIds,
         userInputMap,
         locale,
