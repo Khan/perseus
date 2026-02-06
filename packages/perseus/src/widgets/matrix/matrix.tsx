@@ -402,9 +402,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                             // the new information in the `onBlur`
                                             // handler, which happens before the props
                                             // change has time to propagate.
-                                            // TODO(emily): Try to fix `MathOutput` so
-                                            // it correctly sends blur events before
-                                            // focus events.
                                             this.cursorPosition = [row, col];
                                             this.setState({
                                                 cursorPosition: [row, col],

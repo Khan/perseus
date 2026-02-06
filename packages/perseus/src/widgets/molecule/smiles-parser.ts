@@ -137,8 +137,6 @@ function parseParenthesizedExpression(smiles: any, ctx: any) {
             // indices in branches; the layout engine uses this to select
             // angles, and if we don't do this, editing one part of a molecule
             // can cause another to flop around oddly.
-            // TODO(colin): this should just start at 0 all the time, and the
-            // layout engine should figure out continuity.
             inBranchIdx = 0;
         }
         const parenCtx = {
@@ -224,7 +222,6 @@ function parseAtom(smiles, ctx) {
         _mset(newCtx, ["bond", "bondType"], "single"),
     );
     if (!Array.isArray(restOfMolecule) && !!restOfMolecule) {
-        //TODO(colin): fix this awkwardness.
         restOfMolecule = [restOfMolecule];
     }
     const atomObj = {
@@ -284,12 +281,8 @@ function parse(smiles: any, ctx: any): any {
         );
     }
     if (isModifierChar(smiles[0])) {
-        // TODO(colin): add a better error message in the case where the input
-        // is invalid and starts with a modifier character?
         return parseBondModifier(smiles, ctx);
     }
-    // TODO(colin): add additional cases for unimplemented bits of SMILES
-    // syntax.
     return parseParenthesizedExpression(smiles, ctx);
 }
 

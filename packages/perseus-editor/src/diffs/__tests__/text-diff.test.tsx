@@ -2,8 +2,8 @@ import {Dependencies} from "@khanacademy/perseus";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import {mockImageLoading} from "../../../../../testing/image-loader-utils";
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {mockImageLoading} from "../../testing/image-loader-utils";
+import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import TextDiff from "../text-diff";
 

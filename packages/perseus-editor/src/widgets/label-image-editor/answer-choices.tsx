@@ -106,8 +106,6 @@ const AddAnswer = ({onClick}: AddAnswerProps): React.ReactElement => (
 
 /**
  * An answer item in the choices list.
- *
- * TODO(michaelpolyak): Implement answer reordering, CP-117
  */
 const Answer = ({
     answer,

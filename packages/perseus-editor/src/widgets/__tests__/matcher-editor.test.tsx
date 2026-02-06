@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import MatcherEditor from "../matcher-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -37,7 +37,7 @@ describe("matcher-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({orderMatters: true});
+        expect(onChangeMock).toHaveBeenCalledWith({orderMatters: true});
     });
 
     it("should be possible to change padding", async () => {
@@ -47,6 +47,6 @@ describe("matcher-editor", () => {
 
         await userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
 
-        expect(onChangeMock).toBeCalledWith({padding: false});
+        expect(onChangeMock).toHaveBeenCalledWith({padding: false});
     });
 });

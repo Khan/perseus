@@ -131,11 +131,6 @@ class ExpressionEditor extends React.Component<Props, State> {
                     }
                 }
             });
-
-            // TODO(joel) - warn about:
-            //   - unreachable answers (how??)
-            //   - specific answers following unspecific answers
-            //   - incorrect answers as the final form
         }
 
         return issues;

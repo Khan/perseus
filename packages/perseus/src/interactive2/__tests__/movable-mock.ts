@@ -15,13 +15,11 @@ const createMock = function (): any {
 
 class MovableMock extends Movable<Record<string, never>> {
     modify(options: any) {
-        // TODO(benchristel): what is mouseTarget? It seems to be unused.
         super.modify(_.omit(options, "mouseTarget"));
     }
 
     move(...args) {
         const [startPoint, ...rest] = args;
-        // TODO(jack): Move these into onMoveStart, onMove, and onMoveEnd
         this.state.isMouseOver = true;
         this.state.isHovering = true;
         this.onMoveStart(startPoint, startPoint);

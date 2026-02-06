@@ -71,7 +71,7 @@ describe("parseAndMigratePerseusItem", () => {
     });
 
     it("throws an error given malformed JSON", () => {
-        expect(() => parseAndMigratePerseusItem("")).toThrowError(
+        expect(() => parseAndMigratePerseusItem("")).toThrow(
             new SyntaxError("Unexpected end of JSON input"),
         );
     });
@@ -158,7 +158,7 @@ describe("parseAndMigratePerseusArticle", () => {
     });
 
     it("throws an error given malformed JSON", () => {
-        expect(() => parseAndMigratePerseusArticle("")).toThrowError(
+        expect(() => parseAndMigratePerseusArticle("")).toThrow(
             new SyntaxError("Unexpected end of JSON input"),
         );
     });
@@ -203,6 +203,6 @@ describe("parseAndMigrateUserInputMap", () => {
     });
 
     it("throws a SyntaxError given malformed JSON", () => {
-        expect(() => parseAndMigrateUserInputMap("")).toThrowError(SyntaxError);
+        expect(() => parseAndMigrateUserInputMap("")).toThrow(SyntaxError);
     });
 });

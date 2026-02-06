@@ -5,9 +5,9 @@ import {
 import {act} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
+import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {question1} from "../__testdata__/sorter.testdata";

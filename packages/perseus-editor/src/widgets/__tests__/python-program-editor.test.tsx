@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import PythonProgramEditor, {validateOptions} from "../python-program-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -37,7 +37,7 @@ describe("python-program-editor", () => {
 
         await userEvent.type(input, "1");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({programID: "1", height: 400}),
             undefined,
         );
@@ -54,7 +54,7 @@ describe("python-program-editor", () => {
 
         await userEvent.type(input, "1");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({programID: "", height: 4001}),
             undefined,
         );

@@ -263,7 +263,6 @@ describe("KAS", () => {
             expect("ln(x+y)").toBeSimplified();
 
             // Will only expand logarithms if leads to a simpler expression
-            // TODO(alex): Combine all simplify(assert, ) and isSimplified(assert, ) tests!
             expect("ln(x/y)").toBeSimplified();
             expect("ln(x/y)+ln(y)").not.toBeSimplified();
         });
@@ -329,7 +328,6 @@ describe("KAS", () => {
             expect("y=(x+1)/(x+2)").toBeSimplified();
             expect("y/(x+1)=1/(x+2)").toBeSimplified();
 
-            // TODO(alex): Combine all isSimplified(assert, ) and simplify(assert, ) tests!
             expect("y=(x+1)/(2x+2)").not.toBeSimplified();
             expect("y=1/2").toBeSimplified();
 

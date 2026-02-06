@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`image widget - isMobile(false) custom alignment should render image with wrap-left alignment: widget-wrap-left 1`] = `
 <div>

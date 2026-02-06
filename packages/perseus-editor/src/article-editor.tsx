@@ -491,8 +491,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
      */
     getSaveWarnings(): ReadonlyArray<RendererProps> {
         if (this.props.mode !== "edit") {
-            // TODO(joshuan): We should be able to get save warnings in
-            // preview mode.
             throw new PerseusError(
                 "Can only get save warnings in edit mode.",
                 Errors.NotAllowed,

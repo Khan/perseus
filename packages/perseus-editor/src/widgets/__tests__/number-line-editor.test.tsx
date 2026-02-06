@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import NumberLineEditor from "../number-line-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -38,7 +38,7 @@ describe("number-line-editor", () => {
             });
             await userEvent.selectOptions(select, rel);
 
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({correctRel: rel}),
             );
         });
@@ -52,7 +52,7 @@ describe("number-line-editor", () => {
         const input = screen.getByPlaceholderText("answer");
         await userEvent.type(input, "1");
 
-        expect(onChangeMock).toBeCalledWith({correctX: 1});
+        expect(onChangeMock).toHaveBeenCalledWith({correctX: 1});
     });
 
     it("should be possible to update position", async () => {
@@ -63,7 +63,7 @@ describe("number-line-editor", () => {
         const input = screen.getByRole("textbox", {name: "Position: ∈"});
         await userEvent.type(input, "1");
 
-        expect(onChangeMock).toBeCalledWith({initialX: 1});
+        expect(onChangeMock).toHaveBeenCalledWith({initialX: 1});
     });
 
     const styles = {
@@ -80,7 +80,7 @@ describe("number-line-editor", () => {
 
             await userEvent.click(screen.getByTitle(title));
 
-            expect(onChangeMock).toBeCalledWith({labelStyle: key});
+            expect(onChangeMock).toHaveBeenCalledWith({labelStyle: key});
         });
     });
 
@@ -93,7 +93,7 @@ describe("number-line-editor", () => {
             screen.getByRole("checkbox", {name: "Show tick controller"}),
         );
 
-        expect(onChangeMock).toBeCalledWith({isTickCtrl: true});
+        expect(onChangeMock).toHaveBeenCalledWith({isTickCtrl: true});
     });
 
     it("should be possible to change show label tickets", async () => {
@@ -105,7 +105,7 @@ describe("number-line-editor", () => {
             screen.getByRole("checkbox", {name: "Show label ticks"}),
         );
 
-        expect(onChangeMock).toBeCalledWith({labelTicks: false});
+        expect(onChangeMock).toHaveBeenCalledWith({labelTicks: false});
     });
 
     it("should be possible to change show tooltips", async () => {
@@ -117,7 +117,7 @@ describe("number-line-editor", () => {
             screen.getByRole("checkbox", {name: "Show tooltips"}),
         );
 
-        expect(onChangeMock).toBeCalledWith({showTooltips: true});
+        expect(onChangeMock).toHaveBeenCalledWith({showTooltips: true});
     });
 
     it("should be possible to update tick steps", async () => {
@@ -130,7 +130,7 @@ describe("number-line-editor", () => {
         });
         await userEvent.type(input, "6");
 
-        expect(onChangeMock).toBeCalledWith({
+        expect(onChangeMock).toHaveBeenCalledWith({
             numDivisions: null,
             tickStep: 6,
         });
@@ -146,6 +146,6 @@ describe("number-line-editor", () => {
         });
         await userEvent.type(input, "6");
 
-        expect(onChangeMock).toBeCalledWith({snapDivisions: 26});
+        expect(onChangeMock).toHaveBeenCalledWith({snapDivisions: 26});
     });
 });

@@ -47,9 +47,7 @@ describe("keypad", () => {
                         cursorContext={
                             context as (typeof CursorContext)[keyof typeof CursorContext]
                         }
-                        onAnalyticsEvent={async () => {
-                            /* TODO: verify correct analytics event sent */
-                        }}
+                        onAnalyticsEvent={async () => {}}
                     />,
                 );
 

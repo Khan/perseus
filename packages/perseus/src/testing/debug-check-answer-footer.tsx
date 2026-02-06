@@ -13,8 +13,8 @@ import {Body, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import checkCircle from "@phosphor-icons/core/regular/check-circle.svg";
 import * as React from "react";
 
-import {mapErrorToString, mockStrings} from "../packages/perseus/src/strings";
-import {isCorrect} from "../packages/perseus/src/util/scoring";
+import {mapErrorToString, mockStrings} from "../strings";
+import {isCorrect} from "../util/scoring";
 
 import type {PerseusScore, ShowSolutions} from "@khanacademy/perseus-core";
 

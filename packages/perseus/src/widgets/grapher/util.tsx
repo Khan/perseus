@@ -99,15 +99,6 @@ export const defaultPlotProps = (
     // asymptote rather than leaving it null; if the user moves the coords
     // but not the asymptote, the widget is non-empty and eligible for
     // grading.
-    //
-    // TODO(mattdr): Consider an updated scoring function that marks the
-    // default coords as empty *unless* they're the correct coords. This
-    // would remove this default-coords-are-always-wrong constraints on
-    // the questions we write, while still maintaining our kind behavior
-    // when users forget to update a widget... but we'd also be revealing
-    // extra information. It would be valid to always submit the default
-    // widget before even reading the question; you can't lose, but you
-    // might get a free win.
     const model = GrapherUtil.functionForType(type);
     const defaultAsymptote =
         "defaultAsymptote" in model ? model.defaultAsymptote : null;

@@ -228,8 +228,6 @@ class Categorizer extends React.Component<Props, State> implements Widget {
             </table>
         );
 
-        // TODO(benkomalo): kill CSS-based styling and move everything to
-        // aphrodite.
         const extraClassNames = classNames({
             "categorizer-container": true,
             "static-mode": this.props.static,
@@ -246,7 +244,6 @@ class Categorizer extends React.Component<Props, State> implements Widget {
     }
 }
 
-// TODO(benkomalo): inject page-margin into Perseus instead of hardcoding.
 const pageMargin = 16;
 
 // Stylesheets aren't directly testable

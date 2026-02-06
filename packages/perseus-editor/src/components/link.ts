@@ -9,9 +9,6 @@ import * as React from "react";
 
 import type {CSSProperties} from "aphrodite";
 
-// TODO(diedra): This is terrible! If we don't have a href for a link, it should
-// be a button instead. We just need to make sure we override the default browser
-// button styling (backgroundColor, border, and padding).
 const DEFAULT_HREF = "javascript:void(0)";
 
 type DefaultProps = {

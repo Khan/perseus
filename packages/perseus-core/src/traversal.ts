@@ -2,8 +2,7 @@
  * Traverses a {content, widgets, images} renderer props object,
  * such as `itemData.question`
  *
- * This traversal is deep and handles some widget prop upgrades
- * (TODO(aria): Handle minor prop upgrades :) )
+ * This traversal is deep.
  *
  * This is the right way to traverse itemData.
  *

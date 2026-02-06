@@ -32,8 +32,6 @@
 // be independent of everything else.
 import type {KeypadKey} from "./keypad";
 
-// TODO(FEI-4010): Remove `Perseus` prefix for all types here
-
 export type Coord = [x: number, y: number];
 export type Interval = [min: number, max: number];
 export type Vector2 = Coord; // Same name as Mafs
@@ -307,7 +305,10 @@ export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
  * The type representing the common structure of all widget's options. The
  * `Options` generic type represents the widget-specific option data.
  */
-export type WidgetOptions<Type extends string, Options> = {
+export type WidgetOptions<
+    Type extends string,
+    Options extends Record<string, any>,
+> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
     // Whether this widget is displayed with the values and is immutable.  For display only
@@ -748,8 +749,6 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     rulerTicks?: number;
     // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
-    // TODO(kevinb): Add a transform function to interactive-graph.jsx to
-    // rename `range` to `ranges` so that things are less confusing.
     range: GraphRange;
     // The type of graph
     graph: PerseusGraphType;

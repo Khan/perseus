@@ -35,7 +35,6 @@ type Props = {
 
     children?: React.ReactNode;
 
-    // TODO(LC-772) - type this prop!
     options: any;
 
     setDrawingAreaAvailable?: (boolean) => void;
@@ -204,8 +203,6 @@ class Graphie extends React.Component<Props> {
 
         if (this.props.responsive) {
             // Overwrite fixed styles set in init()
-            // TODO(alex): Either make this component always responsive by
-            // itself, or always wrap it in other components so that it is.
             $(graphieDiv).css({width: "100%", height: "100%"});
             graphie.raphael.setSize("100%", "100%");
         }

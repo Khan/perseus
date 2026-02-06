@@ -40,10 +40,6 @@ class WidgetContainer extends React.Component<Props, State> {
     };
 
     state: State = {
-        // TODO(benkomalo): before we're mounted, we don't know how big
-        // we're going to be, so just default to MEDIUM for now. :/ In the
-        // future we can sniff with user-agents or something to get a
-        // better approximation, to avoid flickers
         sizeClass: containerSizeClass.MEDIUM,
     };
 

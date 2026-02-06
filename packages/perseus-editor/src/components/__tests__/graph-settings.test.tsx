@@ -3,7 +3,7 @@ import {render, screen, waitFor, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import GraphSettings from "../graph-settings";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -212,7 +212,7 @@ describe("GraphSettings", () => {
         await userEvent.selectOptions(select, ["4"]);
 
         // Assert
-        expect(onChange).toBeCalledWith(
+        expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({rulerTicks: 4}),
             undefined,
         );

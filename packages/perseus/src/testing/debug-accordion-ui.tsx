@@ -7,7 +7,7 @@ import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import {isCorrect} from "../packages/perseus/src/util/scoring";
+import {isCorrect} from "../util/scoring";
 
 import styles from "./debug-accordion-ui.module.css";
 import UserInputUI from "./user-input-ui";

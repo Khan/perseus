@@ -1,16 +1,20 @@
-import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
+import {
+    ApiOptions,
+    Dependencies,
+    DependenciesContext,
+    Util,
+} from "@khanacademy/perseus";
 import {act, render, screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../../testing/feature-flags-util";
-import {mockImageLoading} from "../../../../../testing/image-loader-utils";
+import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
+import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
-import {DependenciesContext} from "../../../../perseus/src/dependencies";
-import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
+} from "../../testing/test-dependencies";
 import ImageEditor from "../image-editor/image-editor";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus-core";

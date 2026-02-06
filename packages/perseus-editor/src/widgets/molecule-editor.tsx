@@ -37,8 +37,7 @@ class MoleculeWidgetEditor extends React.Component<Props> {
         return (
             <div>
                 <div>
-                    {/* TODO(colin): instead of nbsp hacks, use styles to get
-                    the spacing right. */}
+                    {/* HACK(colin): nbsp for spacing instead of CSS */}
                     <label>
                         SMILES:&nbsp;
                         <TextInput

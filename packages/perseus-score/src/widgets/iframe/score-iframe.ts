@@ -3,7 +3,6 @@ import type {
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
-// TODO: merge this with scoreCSProgram, it's the same code
 function scoreIframe(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
