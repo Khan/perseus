@@ -1,5 +1,3 @@
-import {applyDefaultsToWidgets} from "@khanacademy/perseus-core";
-
 import flattenScores from "./util/flatten-scores";
 import getScoreableWidgets from "./util/get-scoreable-widgets";
 import isWidgetScoreable from "./util/is-widget-scoreable";
@@ -46,16 +44,13 @@ export function scoreWidgetsFunctional(
     userInputMap: UserInputMap,
     locale: string,
 ): {[widgetId: string]: PerseusScore} {
-    // TODO: do we still need this? Shouldn't this happen during parse/migrate?
-    const upgradedWidgets = applyDefaultsToWidgets(widgets);
-
     const gradedWidgetIds = widgetIds.filter((id) =>
-        isWidgetScoreable(upgradedWidgets[id]),
+        isWidgetScoreable(widgets[id]),
     );
 
     const widgetScores: Record<string, PerseusScore> = {};
     gradedWidgetIds.forEach((id) => {
-        const widget = upgradedWidgets[id]!;
+        const widget = widgets[id]!;
 
         // TODO(benchristel): Without the explicit type annotation, the type of
         // userInput would be inferred as `any`. This is because the keys of
