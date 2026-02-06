@@ -4,10 +4,10 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import UserInputManager from "../../../user-input-manager";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";

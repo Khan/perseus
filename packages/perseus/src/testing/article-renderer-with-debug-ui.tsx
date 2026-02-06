@@ -1,17 +1,17 @@
+import {KeypadContext} from "@khanacademy/keypad-context";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
 
-import {KeypadContext} from "../packages/keypad-context/src/keypad-context";
-import ArticleRenderer from "../packages/perseus/src/article-renderer";
+import ArticleRenderer from "../article-renderer";
 
 import SplitView from "./split-view";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
-import type {APIOptions} from "../packages/perseus/src/types";
+import type {APIOptions} from "../types";
 import type {PerseusArticle} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 

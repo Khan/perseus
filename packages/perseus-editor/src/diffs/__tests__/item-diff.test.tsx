@@ -10,11 +10,11 @@ import {
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {mockImageLoading} from "../../../../../testing/image-loader-utils";
+import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
+} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ItemDiff from "../item-diff";
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../perseus/src/testing/server-item-renderer-with-debug-ui";
 import Behavior from "../behavior";
 
 import type {PreferredPopoverDirection} from "../behavior";

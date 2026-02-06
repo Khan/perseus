@@ -3,7 +3,7 @@ import {render, screen, waitFor, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import GraphSettings from "../graph-settings";
 
 import type {UserEvent} from "@testing-library/user-event";

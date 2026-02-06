@@ -2,8 +2,8 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 
 import {StatefulMafsGraph} from "./stateful-mafs-graph";
 

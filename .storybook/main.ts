@@ -68,7 +68,7 @@ const config: StorybookConfig = {
         // This is a special story that can render arbitrary Perseus
         // content. It is hosted by the preview iframe in stories for
         // the editors.
-        "../testing/preview.stories.tsx",
+        "../packages/perseus-editor/src/testing/preview.stories.tsx",
 
         // This will be used for the main documentation pages
         "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
