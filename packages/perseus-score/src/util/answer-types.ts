@@ -93,8 +93,17 @@ const KhanAnswerTypes = {
         defaultForms: "integer, proper, improper, mixed, decimal",
         createValidatorFunctional: function (
             predicate: Predicate,
-            options: any,
-        ): (arg1: Guess) => Score {
+            options: {
+                simplify: "required" | "optional" | "enforced";
+                ratio: boolean;
+                forms: string;
+                inexact: boolean;
+                maxError: number;
+                decimal_separator: string;
+                fallback: string;
+                message: string;
+            },
+        ): (guess: Guess) => Score {
             // Extract the options from the given solution object
             options = _.extend(
                 {
