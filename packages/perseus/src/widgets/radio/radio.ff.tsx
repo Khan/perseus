@@ -41,7 +41,9 @@ function initChoiceStates(choices: Props["choices"]) {
  * This is necessary to ensure that we do not interrupt the assessment studies
  * that are currently running.
  *
- * TODO(LEMS-2994): Clean up this file.
+ * TODO(LEMS-2994): Clean up this file. State, initChoiceStates, the
+ * constructor, and UNSAFE_componentWillUpdate are all now only providing
+ * static defaults that never update on user interaction.
  */
 class Radio extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;

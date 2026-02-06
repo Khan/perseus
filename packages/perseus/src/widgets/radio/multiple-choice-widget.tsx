@@ -191,40 +191,25 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             newCheckedState: boolean,
         ): void => {
             const checkedChoiceIds: string[] = [];
-
+            const currentSelectedIds = choiceStates
+                ? choiceStates
+                      .map((state, i) => ({
+                          selected: state.selected,
+                          id: choices[i]?.id,
+                      }))
+                      .filter((choice) => choice.selected && choice.id != null)
+                      .map((choice) => choice.id)
+                : [];
             if (newCheckedState && !multipleSelect) {
                 checkedChoiceIds.push(choiceId);
             } else if (newCheckedState && multipleSelect) {
                 // Multi-select mode + checking: add to existing
-                const currentSelectedIds = choiceStates
-                    ? choiceStates
-                          .map((state, i) => ({
-                              selected: state.selected,
-                              id: choices[i]?.id,
-                          }))
-                          .filter(
-                              (choice) => choice.selected && choice.id != null,
-                          )
-                          .map((choice) => choice.id as string)
-                    : [];
                 checkedChoiceIds.push(...currentSelectedIds, choiceId);
             } else {
                 // Unchecking: remove this choice from checked list
-                const currentSelectedIds = choiceStates
-                    ? choiceStates
-                          .map((state, i) => ({
-                              selected: state.selected,
-                              id: choices[i]?.id,
-                          }))
-                          .filter(
-                              (choice) =>
-                                  choice.selected &&
-                                  choice.id != null &&
-                                  choice.id !== choiceId,
-                          )
-                          .map((choice) => choice.id)
-                    : [];
-                checkedChoiceIds.push(...currentSelectedIds);
+                checkedChoiceIds.push(
+                    ...currentSelectedIds.filter((id) => id !== choiceId),
+                );
             }
 
             // Construct the baseline `choiceStates` objects. If this is the user's
@@ -257,24 +242,9 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 choiceState.selected = checkedChoiceIds.includes(choiceId);
             });
 
-            // Call handleUserInput directly with properly formatted data.
-            // The choice IDs are already the original IDs from the choices array,
-            // so no unshuffling is needed here
-            const selectedChoiceIds = choices.reduce<string[]>(
-                (selected, choice, i) => {
-                    if (newChoiceStates[i].selected && choice?.id) {
-                        selected.push(choice.id);
-                    }
-                    return selected;
-                },
-                [],
-            );
-
-            const userInput: PerseusRadioUserInput = {
-                selectedChoiceIds,
-            };
-
-            handleUserInput(userInput);
+            handleUserInput({
+                selectedChoiceIds: checkedChoiceIds,
+            });
 
             trackInteraction();
             announceChoiceChange(newChoiceStates);

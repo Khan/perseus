@@ -7,7 +7,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {containerSizeClass} from "../../../util/sizing-utils";
@@ -115,7 +115,7 @@ describe("multiple choice widget", () => {
         jest.restoreAllMocks();
     });
 
-    it("calls handleUserInput directly without onChange prop", async () => {
+    it("calls handleUserInput with the selected choice ID when a choice is clicked", async () => {
         // Arrange
         const handleUserInput = jest.fn();
         const props = getBaseProps({handleUserInput});
