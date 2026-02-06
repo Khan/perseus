@@ -1,9 +1,13 @@
-import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
+import {
+    ApiOptions,
+    Dependencies,
+    DependenciesContext,
+    Util,
+} from "@khanacademy/perseus";
 import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {DependenciesContext} from "../../../perseus/src/dependencies";
 import Editor from "../editor";
 import {mockImageLoading} from "../testing/image-loader-utils";
 import {
