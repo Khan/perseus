@@ -670,30 +670,14 @@ const KhanAnswerTypes = {
      * of a solution
      */
     number: {
-        convertToPredicate: function (
-            correctAnswer: string,
-            options: PredicateValidatorOptions,
-        ): [predicate: Predicate, options: PredicateValidatorOptions] {
-            const correctFloat = parseFloat(correctAnswer);
-
-            return [
-                function (guess, maxError) {
-                    return Math.abs(guess - correctFloat) < maxError;
-                },
-                {
-                    ...options,
-                },
-            ];
-        },
         createValidatorFunctional: function (
             correctAnswer: string,
             options: PredicateValidatorOptions,
         ): (arg1: Guess) => Score {
+            const correctFloat = parseFloat(correctAnswer);
             return KhanAnswerTypes.predicate.createValidatorFunctional(
-                ...KhanAnswerTypes.number.convertToPredicate(
-                    correctAnswer,
-                    options,
-                ),
+                (guess, maxError) => Math.abs(guess - correctFloat) < maxError,
+                {...options},
             );
         },
     },
