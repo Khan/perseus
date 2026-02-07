@@ -4,6 +4,8 @@ import {KhanMath} from "@khanacademy/kmath";
 import {ErrorCodes, Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
+import type {MathFormat} from "@khanacademy/perseus-core";
+
 const MAXERROR_EPSILON = Math.pow(2, -42);
 
 type Guess = any;
@@ -21,6 +23,20 @@ export type Score = {
     guess: Guess;
     // It would be nice if we could ungraded required
     ungraded?: boolean;
+};
+
+type PredicateValidatorOptions = {
+    // TODO(benchristel): `true` should not be allowed for `simplify`.
+    simplify?: "required" | "optional" | "enforced" | true;
+    ratio?: boolean;
+    // TODO(benchristel): forms should have type `MathFormat[]`.
+    forms?: string | MathFormat[];
+    inexact?: boolean;
+    // TODO(benchristel): maxError should have type `number`.
+    maxError?: string | number | null;
+    decimal_separator?: string;
+    fallback?: string;
+    message?: string;
 };
 
 /**
@@ -93,26 +109,16 @@ const KhanAnswerTypes = {
         defaultForms: "integer, proper, improper, mixed, decimal",
         createValidatorFunctional: function (
             predicate: Predicate,
-            options: {
-                simplify: "required" | "optional" | "enforced";
-                ratio: boolean;
-                forms: string;
-                inexact: boolean;
-                maxError: number;
-                decimal_separator: string;
-                fallback: string;
-                message: string;
-            },
+            rawOptions: PredicateValidatorOptions,
         ): (guess: Guess) => Score {
             // Extract the options from the given solution object
-            options = _.extend(
-                {
-                    simplify: "required",
-                    ratio: false,
-                    forms: KhanAnswerTypes.predicate.defaultForms,
-                },
-                options,
-            );
+            const options = {
+                simplify: "required",
+                ratio: false,
+                forms: KhanAnswerTypes.predicate.defaultForms,
+                ...rawOptions,
+            };
+
             let acceptableForms;
             // this is maintaining backwards compatibility
             // TODO(merlob) fix all places that depend on this, then delete
@@ -131,7 +137,7 @@ const KhanAnswerTypes = {
             // Allow a small tolerance on maxError, to avoid numerical
             // representation issues (2.3 should be correct for a solution of
             // 2.45 with maxError=0.15).
-            options.maxError = +options.maxError + MAXERROR_EPSILON;
+            const maxError = +(options.maxError ?? 0) + MAXERROR_EPSILON;
 
             // If percent is an acceptable form, make sure it's the last one
             // in the list so we don't prematurely complain about not having
@@ -591,7 +597,7 @@ const KhanAnswerTypes = {
                             const piApprox = transformed[j].piApprox;
                             // If a string was returned, and it exactly matches,
                             // return true
-                            if (predicate(val, options.maxError)) {
+                            if (predicate(val, maxError)) {
                                 // If the exact correct number was returned,
                                 // return true
                                 if (exact || options.simplify === "optional") {
@@ -666,8 +672,8 @@ const KhanAnswerTypes = {
     number: {
         convertToPredicate: function (
             correctAnswer: string,
-            options: any,
-        ): [predicate: Predicate, options: any] {
+            options: PredicateValidatorOptions,
+        ): [predicate: Predicate, options: PredicateValidatorOptions] {
             const correctFloat = parseFloat(correctAnswer);
 
             return [
@@ -676,13 +682,12 @@ const KhanAnswerTypes = {
                 },
                 {
                     ...options,
-                    type: "predicate",
                 },
             ];
         },
         createValidatorFunctional: function (
             correctAnswer: string,
-            options: any,
+            options: PredicateValidatorOptions,
         ): (arg1: Guess) => Score {
             return KhanAnswerTypes.predicate.createValidatorFunctional(
                 ...KhanAnswerTypes.number.convertToPredicate(
