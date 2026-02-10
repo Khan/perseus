@@ -39,7 +39,7 @@ runs:
               echo "artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
         - name: Check out base branch
-          uses: actions/checkout@v4
+          uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
           with:
               # This checks out the base branch of the PR (the branch the PR
               # is targeting)
