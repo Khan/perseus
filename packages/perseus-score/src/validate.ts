@@ -26,12 +26,11 @@ export function validateUserInput(
     userInputMap: UserInputMap,
     locale: string,
 ): PerseusScore | null {
-    const {upgradedWidgets, scoreableWidgetIds} =
-        getScoreableWidgets(perseusRenderData);
+    const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
 
     const validationErrors: Record<string, PerseusScore> = {};
     scoreableWidgetIds.forEach((id) => {
-        const widget = upgradedWidgets[id]!;
+        const widget = perseusRenderData.widgets[id]!;
 
         // TODO(benchristel): Without the explicit type annotation, the type of
         // userInput would be inferred as `any`. This is because the keys of
