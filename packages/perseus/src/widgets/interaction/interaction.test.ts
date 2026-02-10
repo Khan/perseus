@@ -38,7 +38,10 @@ describe("interaction widget", () => {
             renderer.getUserInputMap(),
         );
 
-        invariant(score.type === "points", `score.type is ${score.type}`);
+        invariant(
+            score.type === "points",
+            `score.type should be "points", but was ${score.type}`,
+        );
 
         // Assert
         expect(score.earned).toBe(0);
