@@ -28,13 +28,13 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - uses: pnpm/action-setup@v4
+            - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
               name: Install pnpm
               with:
                   run_install: false
 
             - name: Force Node version
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
               with:
                   node-version: ${{ matrix.node-version }}
                   # Note that we don't specify 'cache: pnpm' here because we
@@ -45,7 +45,7 @@ jobs:
               id: changed
 
             - name: Filter out files that don't need a changeset
-              uses: Khan/actions@filter-files-v1
+              uses: Khan/actions@filter-files-v2
               id: match
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -54,7 +54,7 @@ jobs:
                   matchAllGlobs: true # Default is to match any of the globs, which ends up matching all files
                   conjunctive: true # Only match files that match all of the above
 
-            - uses: webfactory/ssh-agent@v0.9.0
+            - uses: webfactory/ssh-agent@a6f90b1f127823b31d4d4a8d96047790581349bd # v0.9.1
               with:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
@@ -93,14 +93,14 @@ jobs:
 
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
-              uses: Khan/actions@filter-files-v1
+              uses: Khan/actions@filter-files-v2
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   extensions: ".js,.jsx,.ts,.tsx"
                   files: "pnpm-lock.yaml,tsconfig-build.json,tsconfig-common.json,tsconfig.json,packages/tsconfig-shared.json"
 
             - id: eslint-reset
-              uses: Khan/actions@filter-files-v1
+              uses: Khan/actions@filter-files-v2
               name: Files that would trigger a full eslint run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -125,7 +125,7 @@ jobs:
 
             # Run tests for our target matrix
             - id: jest-reset
-              uses: Khan/actions@filter-files-v1
+              uses: Khan/actions@filter-files-v2
               name: Files that would trigger a full jest run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -158,7 +158,7 @@ jobs:
 
             # MUST be before we install node_modules as that depends on finding
             # Cypress binaries in this cache!
-            - uses: actions/cache@v4
+            - uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
               with:
                   path: ~/.cache/Cypress
                   # Generate a new cache whenever the lock file changes
@@ -184,7 +184,7 @@ jobs:
               run: pnpm cypress:ci
 
             - name: Upload Screenshots
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
               if: failure()
               with:
                   name: cypress-screenshots
