@@ -5,6 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
+import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
@@ -56,7 +57,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         expect(container).toMatchSnapshot("first render");
     });
 
-    it("should be unanswerable", () => {
+    it("should score zero points", () => {
         // Arrange
 
         // Act
@@ -66,8 +67,13 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             renderer.getUserInputMap(),
         );
 
+        invariant(
+            score.type === "points",
+            `score.type should be "points", but was ${score.type}`,
+        );
+
         // Assert
-        expect(score).toHaveBeenAnsweredIncorrectly();
+        expect(score.earned).toBe(0);
     });
 
     it("should not render empty image", () => {
