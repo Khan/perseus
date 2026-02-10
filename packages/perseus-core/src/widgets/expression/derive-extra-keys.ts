@@ -1,10 +1,6 @@
 import * as KAS from "@khanacademy/kas";
 
-import {
-    type KeypadKey,
-    type KeypadConfiguration,
-    KeypadKeys,
-} from "../../keypad";
+import {type KeypadKey, KeypadKeys} from "../../keypad";
 
 import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 
@@ -14,7 +10,7 @@ import type {PerseusExpressionWidgetOptions} from "../../data-schema";
  */
 function deriveExtraKeys(
     widgetOptions: PerseusExpressionWidgetOptions,
-): KeypadConfiguration["extraKeys"] {
+): KeypadKey[] {
     if (widgetOptions.extraKeys) {
         return widgetOptions.extraKeys;
     }
