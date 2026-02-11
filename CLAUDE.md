@@ -1,33 +1,17 @@
 # Perseus Development Guide for AI Assistants
 
-This document provides essential context for AI assistants working on the Perseus codebase. Detailed documentation for specific topics is available in `.claude/prompts/`.
+This document provides essential information for AI assistants working on the Perseus codebase.
 
 ## Project Overview
 
-Perseus is Khan Academy's educational content rendering system that powers all exercises and articles. It's a TypeScript monorepo that extends Markdown with interactive widgets and beautiful math rendering.
+Perseus is Khan Academy's educational content rendering system that powers all exercises and articles. It's a TypeScript
+monorepo that extends Markdown with interactive widgets and beautiful math rendering.
 
-**Core Components:**
+**Core Architecture:**
 - **Renderers**: Display content (ServerItemRenderer for exercises, ArticleRenderer for articles)
 - **Widgets**: Interactive components (radio, numeric-input, interactive-graph, etc.)
-- **State Management**: Centralized via UserInputManager with `handleUserInput` pattern
+- **Editors**: Authoring interfaces for content creators
 - **Math**: TeX expressions rendered via MathJax
-
-## Prompt Library Reference
-
-Comprehensive documentation is organized by topic in `.claude/prompts/`:
-
-### Architecture & Organization
-- **[codebase-map.md](.claude/prompts/codebase-map.md)** - Package structure, data flow, module boundaries
-- **[file-organization.md](.claude/prompts/file-organization.md)** - Directory structure, naming conventions, imports
-
-### Development Guides
-- **[widget-development.md](.claude/prompts/widget-development.md)** - Creating and maintaining widgets
-- **[component-best-practices.md](.claude/prompts/component-best-practices.md)** - React components, Wonder Blocks, accessibility
-- **[testing-best-practices.md](.claude/prompts/testing-best-practices.md)** - Testing patterns and utilities
-- **[math-and-content.md](.claude/prompts/math-and-content.md)** - Math rendering, content structure, MathJax
-
-### Workflow & Process
-- **[iteration-and-feedback.md](.claude/prompts/iteration-and-feedback.md)** - When to ask for help, debugging, deployment checklist
 
 ## Quick Start Commands
 
@@ -35,8 +19,6 @@ Comprehensive documentation is organized by topic in `.claude/prompts/`:
 ```bash
 pnpm storybook             # Launch Storybook documentation
 pnpm test                  # Run tests
-pnpm build:types           # Build TypeScript types
-pnpm build                 # Build all packages
 ```
 
 ### Code Quality
@@ -48,68 +30,176 @@ pnpm prettier . --write    # Auto-format code
 pnpm tsc                   # Type-check all packages
 ```
 
-### Testing
+### Testing Specific Packages
 ```bash
 pnpm --filter perseus test                   # Test main perseus package
 pnpm --filter perseus-editor test            # Test editor package
 pnpm test packages/perseus/src/widgets/radio # Test specific widget
-pnpm test -u                                 # Update snapshots
-pnpm test --coverage                         # Run with coverage
 ```
 
-## Key Architectural Decisions
+## Key Directories
 
-### State Management Evolution
-- **Legacy**: Widgets used `onChange` callbacks with local state
-- **Current**: Transitioning to `handleUserInput` with centralized UserInputManager
-- **Migration Status**: Radio widget bridging old/new patterns (LEMS-2994)
-- **Example**: NumericInput fully modernized, use as reference
+```
+packages/
+├── perseus/             # Main package (renderers, widgets, components)
+│   ├── src/__docs__/    # Main Storybook stories
+│   ├── src/widgets/     # Widget implementations
+│   └── src/components/  # Reusable components
+├── perseus-editor/      # Editor UI components
+├── math-input/          # Math keypad and input components
+├── perseus-core/        # Shared types and utilities
+├── perseus-linter/      # Content validation tools
+└── perseus-score/       # Server-side scoring functions
+```
 
-### Type System
-- **Three-layer architecture**:
-  1. `WidgetOptions` - Configuration from content creators
-  2. `ValidationData` - Client-side validation (no answers)
-  3. `Rubric` - Full scoring data (`ValidationData & WidgetOptions`)
-- **Important**: Rubric never passed as prop to widgets, only used in scoring
+## Common Development Patterns
 
-### Import Rules
-- Use package aliases: `@khanacademy/perseus`, etc.
-- NO file extensions in imports
+### Creating a New Widget
+1. **Create widget directory**: `packages/perseus/src/widgets/[widget-name]/`
+2. **Implement widget files**:
+   - `[widget-name].tsx` - Main component
+   - `[widget-name].test.ts` - Tests
+   - `index.ts` - Exports
+   - `__docs__/[widget-name].stories.tsx` - Storybook story
+   - `__docs__/a11y.mdx` - Accessibility documentation
+3. **Register widget** in `packages/perseus/src/widgets.ts`
+4. **If scorable, add scoring functions** in `packages/perseus-score/src/widgets/[widget-name]/`:
+   - `score-[widget-name].ts` - Scoring logic
+   - `score-[widget-name].test.ts` - Scoring tests
+   - `validate-[widget-name].ts` - Input validation (optional)
+   - `validate-[widget-name].test.ts` - Validation tests (optional)
+5. **Register scoring** in `packages/perseus-score/src/widgets/widget-registry.ts`
+6. **Add types** to `packages/perseus-core/src/data-schema.ts`
+
+### Widget Implementation Pattern
+```typescript
+// Export interface following WidgetExports<T> pattern
+export default {
+    name: "widget-name",
+    displayName: "Widget Display Name",
+    widget: WidgetComponent,
+    isLintable: true, // For use by the editor
+} as WidgetExports<typeof WidgetComponent>;
+```
+
+### Focus Management
+All widgets must implement proper focus management for accessibility.
+
+## Package Dependencies
+
+### Import Guidelines
+- Use package aliases: `@khanacademy/perseus`, `@khanacademy/perseus-editor`
+- NO file extensions in imports (`.ts`, `.tsx` banned by ESLint)
 - NO cross-package relative imports
 - Import order: builtin > external > internal > relative > types
 
-## Before Submitting Code
+### Example Correct Imports
+```typescript
+import React from "react";                           // external
+import {ApiOptions} from "@khanacademy/perseus";     // internal package
+import {WidgetContainer} from "../widget-container"; // relative
 
-### Pre-commit Checklist
-1. `pnpm test` - All tests pass
-2. `pnpm tsc` - No type errors
-3. `pnpm lint --fix` - No linting issues
-4. `pnpm prettier . --write` - Code formatted
-5. `pnpm build` - Build succeeds
-6. `pnpm storybook` - Components render correctly
-7. Accessibility documented (for new widgets)
-8. Mobile tested (if applicable)
-9. Console clear of debug statements
+import type {WidgetProps} from "@khanacademy/perseus-core";
+```
 
-### Common Issues to Check
-- Console statements left in code
-- Unused imports
-- Missing displayName on components
-- onChange used instead of handleUserInput
-- Local state for user answers (should use UserInputManager)
-- Unescaped backslashes in TeX strings
+## Testing Guidelines
 
-## Migration & Deprecation
+### Test Structure
+1. Follow the AAA pattern: Arrange, Act, Assert
+1.1 If Arrange and Act are one action, combine them to `//Arrange, Act`
+2. Use widget generators to build test data and test data options.
+   You can find generators for all widgets in packages/perseus-core/src/utils/generators.
+   An example usage can be seen here: packages/perseus/src/widgets/expression/expression.testdata.ts.
+3. Follow the test structure below:
+```typescript
+import {render, screen} from "@testing-library/react";
+import {userEvent} from "@testing-library/user-event";
 
-### Deprecated Patterns
-- `onChange` prop - Use `handleUserInput` instead (LEMS-3245, LEMS-3542)
-- Local widget state for answers - Use UserInputManager
-- Class components for new widgets - Use functional components
+import {question1} from "../__testdata__/widget.testdata";
+import WidgetComponent from "../widget-component";
 
-### In Transition
-- Radio widget - Bridging old/new patterns
-- Some widgets still using legacy patterns
-- Gradual migration to centralized state
+describe("WidgetComponent", () => {
+    it("renders correctly", () => {
+        render(<WidgetComponent {...question1} />);
+        expect(screen.getByRole("button")).toBeInTheDocument();
+    });
+
+    it("handles user interaction", async () => {
+        const user = userEvent.setup();
+        const onChange = jest.fn();
+
+        render(<WidgetComponent {...question1} onChange={onChange} />);
+        await user.click(screen.getByRole("button"));
+
+        expect(onChange).toHaveBeenCalled();
+    });
+});
+```
+
+### Writing Tests
+- use `it` for individual test cases and not `test`
+- use `describe` to group related tests
+
+## Common Issues & Solutions
+
+### Math Rendering (TeX)
+- Use `$...$` for inline math, `$$...$$` for display math
+- For complex expressions, use `\dfrac` instead of `\frac`
+- Test math rendering in different contexts (articles, exercises, hints)
+
+### Widget State Management
+- Use `useState` for local component state
+- Props flow down from parent renderer
+- Call `onChange` to notify parent of state changes
+- Implement proper serialization for persistent state
+
+### Mobile Considerations
+- All widgets must work on mobile devices
+- Support touch interactions
+- Consider on-screen keypad for math inputs
+- Test with different screen sizes using Storybook
+
+### Performance Optimization
+- Use `React.memo()` for expensive components
+- Implement `useMemo()` for complex calculations
+- Avoid unnecessary re-renders in widget hierarchies
+- Profile performance with React DevTools
+
+## Debugging Tips
+
+### Storybook Development
+- Use Storybook for isolated component development
+- Test different props combinations
+- Verify accessibility with Storybook a11y addon
+- Check mobile layouts with device frame addon
+
+### Console Debugging
+```typescript
+// Temporary debugging (remove before commit)
+console.log("Widget state:", this.state);
+console.log("Props received:", this.props);
+```
+
+### Error Boundaries
+- Widgets are wrapped in error boundaries
+- Check browser console for widget-specific errors
+- Implement graceful fallbacks for failed widgets
+
+## Deployment Notes
+
+### Before Submitting PR
+1. Run full test suite: `pnpm test`
+2. Check types: `pnpm build:types`
+3. Lint and format: `pnpm lint --fix && pnpm prettier . --write`
+4. Test in Storybook: `pnpm storybook`
+5. Verify accessibility compliance
+
+### Common Pre-commit Failures
+- ESLint errors (unused imports, console statements)
+- Prettier formatting (spacing, quotes, semicolons)
+- TypeScript type errors
+- Missing accessibility documentation
+- Test failures
 
 ## Additional Resources
 
@@ -118,9 +208,7 @@ pnpm test --coverage                         # Run with coverage
 - **Widget Gallery**: Browse existing widgets in Storybook for patterns
 - **Accessibility Guidelines**: Each widget should have `a11y.mdx` documentation
 - **Khan Academy Design System**: Wonder Blocks components for consistent UI
-- **Test Generators**: `@khanacademy/perseus-core/utils/generators`
-- **Type Definitions**: `packages/perseus-core/src/data-schema.ts`
 
 ---
 
-*This document provides an overview and quick reference. For detailed information on any topic, refer to the appropriate document in `.claude/prompts/`. For human developers, see the main README.md files in each package.*
+*This document is maintained for AI assistants. For human developers, see the main README.md files in each package.*
