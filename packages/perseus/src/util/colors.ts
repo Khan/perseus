@@ -6,13 +6,16 @@
  * khan-exercises submodule, as graphie-to-png still relies on the palette
  * provided on KhanUtil.
  */
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 
+// TODO(WB-2160): Update these to use the new semanticColor tokens, and use the
+// new tokenValue() function to get the raw value of the token. This is
+// necessary because graphie only supports raw CSS colors.
 const KhanColors = {
-    BLUE: semanticColor.core.foreground.instructive.default,
+    BLUE: color.blue,
     ORANGE: "#FFA500",
     PINK: "#FF00AF",
-    GREEN: semanticColor.core.foreground.success.default,
+    GREEN: color.green,
     PURPLE: "#9D38BD",
     RED: "#DF0030",
     GRAY: "gray",
@@ -87,9 +90,9 @@ const KhanColors = {
     // background color used in exercises is subject to change at the whim
     // of any redesigns.
     _BACKGROUND: "#FDFDFD",
-    INTERACTING: semanticColor.core.foreground.success.default,
-    INTERACTIVE: semanticColor.core.foreground.success.default,
-    DYNAMIC: semanticColor.core.foreground.instructive.default,
+    INTERACTING: color.green,
+    INTERACTIVE: color.green,
+    DYNAMIC: color.blue,
 } as const;
 
 /**
