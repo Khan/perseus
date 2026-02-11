@@ -26,8 +26,8 @@ const SampleContent = () => {
             }}
         >
             The DeviceFramer controls the size of the content inside the frame.
-            So there's not much to look at here except how large each device
-            type's size is.
+            So there&apos;s not much to look at here except how large each
+            device type&apos;s size is.
         </div>
     );
 };
