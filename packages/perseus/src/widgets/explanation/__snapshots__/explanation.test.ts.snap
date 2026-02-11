@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Explanation should snapshot when expanded: expanded 1`] = `
 <div>
@@ -33,6 +33,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
               class="default_xu2jcg-o_O-endIcon_zk6zd4-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
             >
               <span
+                aria-hidden="true"
                 class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1hkg79p"
               />
             </div>
@@ -104,6 +105,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
               class="default_xu2jcg-o_O-endIcon_zk6zd4-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
             >
               <span
+                aria-hidden="true"
                 class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1dxyeu2"
               />
             </div>

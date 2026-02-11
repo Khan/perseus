@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`label-image-editor popover direction snapshots should render with DOWN popover direction 1`] = `
 <div>
@@ -13,8 +13,8 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         class="components_jro6t0"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          style="flex-grow: 1;"
         >
           <input
             class="inputBase_w7cswd"
@@ -43,8 +43,8 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       class="smallSpacer_1y6xiyp"
     />
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      style="width: 100%;"
     >
       <input
         class="inputBase_w7cswd"
@@ -129,8 +129,8 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -214,8 +214,8 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -299,8 +299,8 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -412,7 +412,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
@@ -453,7 +453,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
@@ -530,8 +530,8 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         class="components_jro6t0"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          style="flex-grow: 1;"
         >
           <input
             class="inputBase_w7cswd"
@@ -560,8 +560,8 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       class="smallSpacer_1y6xiyp"
     />
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      style="width: 100%;"
     >
       <input
         class="inputBase_w7cswd"
@@ -646,8 +646,8 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -731,8 +731,8 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -816,8 +816,8 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -929,7 +929,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
@@ -970,7 +970,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
@@ -1047,8 +1047,8 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         class="components_jro6t0"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          style="flex-grow: 1;"
         >
           <input
             class="inputBase_w7cswd"
@@ -1077,8 +1077,8 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       class="smallSpacer_1y6xiyp"
     />
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      style="width: 100%;"
     >
       <input
         class="inputBase_w7cswd"
@@ -1163,8 +1163,8 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -1248,8 +1248,8 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -1333,8 +1333,8 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -1446,7 +1446,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
@@ -1487,7 +1487,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
@@ -1564,8 +1564,8 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         class="components_jro6t0"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          style="flex-grow: 1;"
         >
           <input
             class="inputBase_w7cswd"
@@ -1594,8 +1594,8 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       class="smallSpacer_1y6xiyp"
     />
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      style="width: 100%;"
     >
       <input
         class="inputBase_w7cswd"
@@ -1680,8 +1680,8 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -1765,8 +1765,8 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -1850,8 +1850,8 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -1963,7 +1963,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
@@ -2004,7 +2004,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
@@ -2081,8 +2081,8 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         class="components_jro6t0"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-          style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          style="flex-grow: 1;"
         >
           <input
             class="inputBase_w7cswd"
@@ -2111,8 +2111,8 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       class="smallSpacer_1y6xiyp"
     />
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-      style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      style="width: 100%;"
     >
       <input
         class="inputBase_w7cswd"
@@ -2197,8 +2197,8 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -2282,8 +2282,8 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -2367,8 +2367,8 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             class="spacer_1ciyl4o"
           />
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="flex-grow: 1; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="flex-grow: 1;"
           >
             <input
               class="inputBase_w7cswd"
@@ -2480,7 +2480,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
@@ -2521,7 +2521,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
                 fill-rule="evenodd"
               >
                 <rect
-                  fill="#ffffff"
+                  fill="var(--wb-semanticColor-core-foreground-knockout-default)"
                   height="15"
                   rx="4"
                   stroke="#888D93"
