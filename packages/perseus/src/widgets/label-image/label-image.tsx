@@ -82,7 +82,7 @@ type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
 type Props = WidgetProps<Options, PerseusLabelImageUserInput> & {
     analytics: DependencyProps["analytics"];
     // preferred placement for popover (preference, not MUST)
-    // TODO: this is sus, probably never passed in
+    // NOTE: this is sus, probably never passed in
     preferredPopoverDirection?: PreferredPopoverDirection;
 };
 

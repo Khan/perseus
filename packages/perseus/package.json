@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "74.0.1",
+    "version": "75.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -83,9 +83,7 @@
         "@popperjs/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
-        "intersection-observer": "^0.12.0",
         "jquery": "catalog:devDeps",
-        "lodash.debounce": "^4.0.8",
         "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "raphael": "workspace:*",
@@ -122,9 +120,7 @@
         "@popperjs/core": "catalog:peerDeps",
         "aphrodite": "catalog:peerDeps",
         "classnames": "catalog:peerDeps",
-        "intersection-observer": "^0.12.0",
         "jquery": "catalog:peerDeps",
-        "lodash.debounce": "^4.0.8",
         "prop-types": "catalog:peerDeps",
         "react": "catalog:peerDeps",
         "react-dom": "catalog:peerDeps",
@@ -133,6 +129,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "86251d04b53c7d14"
+        "catalogHash": "cb75588f4bb498b6"
     }
 }

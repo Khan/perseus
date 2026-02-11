@@ -357,7 +357,6 @@ class Editor extends React.Component<Props, State> {
             const imageUrl = dataTransfer.getData("URL");
 
             if (imageUrl) {
-                // TODO(joel) - relocate when the image upload dialog lands
                 const newContent = content + "\n\n![](" + imageUrl + ")";
                 // See componentDidUpdate() for how this flag is used
                 this.lastUserValue = this.props.content;
@@ -394,8 +393,6 @@ class Editor extends React.Component<Props, State> {
                 }
 
                 const sentinel = "\u2603 " + _.uniqueId("image_");
-                // TODO(joel) - figure out how to temporarily include the image
-                // before the server returns.
                 content += "\n\n![](" + sentinel + ")";
 
                 return {file: file, sentinel: sentinel};
@@ -506,7 +503,6 @@ class Editor extends React.Component<Props, State> {
             // before. Avoid name conflicts by renumbering pasted widgets so that
             // their numbers are always higher than the highest numbered widget of
             // their type.
-            // TODO(sam): Fix widget numbering in the widget editor titles
 
             const widgetJSON = localStorage.perseusLastCopiedWidgets;
             const lastCopiedText = localStorage.perseusLastCopiedText;
@@ -516,10 +512,6 @@ class Editor extends React.Component<Props, State> {
 
             // Only intercept if we have widget data to paste and the user is
             // pasting something originally from Perseus.
-            // TODO(sam/aria/alex): Make it so that you can paste arbitrary text
-            // (e.g. from a text editor) instead of exactly what was copied, and
-            // let the widgetJSON match up with it. This would let you copy text
-            // into a buffer, perform complex operations on it, then paste it back.
             if (widgetJSON && lastCopiedText === textToBePasted) {
                 e.preventDefault();
 
@@ -528,9 +520,6 @@ class Editor extends React.Component<Props, State> {
                     this._safeWidgetNameMapping(widgetData);
 
                 // Use safe widget name map to construct the new widget data
-                // TODO(aria/alex): Don't use `rWidgetSplit` or other piecemeal
-                // regexes directly; abstract this out so that we don't have to
-                // worry about potential edge cases.
                 const safeWidgetData: Record<string, any> = {};
                 for (const [key, data] of Object.entries(widgetData)) {
                     safeWidgetData[safeWidgetMapping[key]] = data;
@@ -914,13 +903,6 @@ class Editor extends React.Component<Props, State> {
                         const type = match[2] as PerseusWidget["type"];
 
                         const selected = false;
-                        // TODO(alpert):
-                        // var selected = focused && selStart === selEnd &&
-                        //         offset <= selStart &&
-                        //         selStart < offset + text.length;
-                        // if (selected) {
-                        //     selectedWidget = id;
-                        // }
 
                         const duplicate = id in widgets;
 
@@ -937,19 +919,6 @@ class Editor extends React.Component<Props, State> {
                     }
                 }
             }
-
-            // TODO(alpert): Move this to the content-change event handler
-            // _.each(_.keys(this.props.widgets), function(id) {
-            //     if (!(id in widgets)) {
-            //         // It's strange if these preloaded options stick around
-            //         // since it's inconsistent with how things work if you
-            //         // don't have the serialize/deserialize step in the
-            //         // middle
-            //         // TODO(alpert): Save options in a consistent manner so
-            //         // that you can undo the deletion of a widget
-            //         delete this.props.widgets[id];
-            //     }
-            // }, this);
 
             this.widgetIds = _.keys(widgets);
             widgetsDropDown = <WidgetSelect onChange={this._addWidget} />;

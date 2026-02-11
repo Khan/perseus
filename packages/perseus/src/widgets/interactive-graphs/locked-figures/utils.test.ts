@@ -1,6 +1,5 @@
 import {clampDomain} from "./utils";
 
-// TODO: Change/handle the last case here
 describe("clampDomain", () => {
     test.each`
         domain                   | graphXBounds | expected

@@ -1,4 +1,4 @@
-/* eslint-disable no-var, @typescript-eslint/no-unused-vars, no-console, import/no-commonjs, no-redeclare, no-useless-escape */
+/* eslint-disable no-var, @typescript-eslint/no-unused-vars, no-console, import/no-commonjs, no-redeclare */
 import assert from "assert";
 
 import {render} from "@testing-library/react";
@@ -3924,7 +3924,7 @@ describe("simple markdown", function () {
                     bracketed: {
                         order: SimpleMarkdown.defaultRules.text.order - 1,
                         match: function (/** @type {string} */ source) {
-                            return /^\{((?:\\[\S\s]|[^\\\*])+)\}/.exec(source);
+                            return /^\{((?:\\[\S\s]|[^\\*])+)\}/.exec(source);
                         },
                         parse: function (
                             /** @type {SimpleMarkdown.Capture} */ capture,
@@ -4286,8 +4286,6 @@ describe("simple markdown", function () {
             );
         });
 
-        // TODO(aria): Figure out how to test the newline rule here
-
         it("should output paragraphs", function () {
             var html = htmlFromReactMarkdown("hi\n\n");
             assert.strictEqual(html, '<div class="paragraph">hi</div>');
@@ -4614,8 +4612,6 @@ describe("simple markdown", function () {
                     "</tbody></table>",
             );
         });
-
-        // TODO(aria): Figure out how to test the newline rule here
 
         it("should output paragraphs", function () {
             var html = htmlFromMarkdown("hi\n\n");

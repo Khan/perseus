@@ -1,8 +1,8 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
     question,

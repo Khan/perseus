@@ -138,7 +138,7 @@ module.exports = {
             },
         },
         {
-            files: ["config/**", "utils/**", "testing/*"],
+            files: ["config/**", "utils/**", "packages/*/src/testing/*"],
             rules: {
                 "@typescript-eslint/no-require-imports": "off",
                 "import/no-commonjs": "off",
@@ -350,7 +350,6 @@ module.exports = {
         "react/sort-comp": [
             "error",
             {
-                // TODO(kevinb): specify where "constructor" should go
                 order: [
                     "type-annotations",
                     "static-variables",

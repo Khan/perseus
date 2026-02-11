@@ -267,7 +267,7 @@ describe("InteractiveGraph scoring on a point question", () => {
             },
         };
 
-        expect(() => scoreInteractiveGraph(guess, rubric)).toThrowError();
+        expect(() => scoreInteractiveGraph(guess, rubric)).toThrow();
     });
 
     it("does not award points if guess.coords is wrong", () => {

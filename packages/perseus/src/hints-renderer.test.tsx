@@ -2,16 +2,15 @@ import {describe, beforeEach, it} from "@jest/globals";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../../testing/test-dependencies";
-
 import {PerseusI18nContextProvider} from "./components/i18n-context";
 import {DependenciesContext, setDependencies} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
 import {ApiOptions} from "./perseus-api";
 import {mockStrings} from "./strings";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "./testing/test-dependencies";
 
 import type {Hint} from "@khanacademy/perseus-core";
 

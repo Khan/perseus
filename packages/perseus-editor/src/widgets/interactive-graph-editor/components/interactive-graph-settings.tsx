@@ -184,7 +184,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
+        // NOTE(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 
@@ -482,7 +482,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         //   true -> the settings are valid
         //   a string -> the settings are invalid, and the explanation
         //               is contained in the string
-        // TODO(aria): Refactor this to not be confusing
         const validationResult = this.validateGraphSettings(
             range,
             step,

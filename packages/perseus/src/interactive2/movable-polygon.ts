@@ -90,7 +90,6 @@ _.extend(MovablePolygon.prototype, {
                 // because they:
                 //    - are objects, not primitives (and need a deeper copy)
                 //    - they don't need getters created for them
-                // TODO(jack): Consider "default" once we es3ify perseus
                 pluck(MovablePolygonOptions, "standard"),
 
                 // We only update props here, because we want things on state to
@@ -298,8 +297,6 @@ _.extend(MovablePolygon.prototype, {
             this.movable.remove();
         }
 
-        // TODO(jack): This should really be moved off of
-        // movablePolygon.state and only kept on movable.state
         this.state.mouseTarget = null;
     },
 

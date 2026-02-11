@@ -561,7 +561,6 @@ abstract class Expr {
         return new Mul(NumOne, this);
     }
 
-    // TODO(alex): rename to isDefinitePositive or similar?
     // return whether this expression is 100% positive
     isPositive(): boolean {
         throw new Error(
@@ -571,7 +570,6 @@ abstract class Expr {
         );
     }
 
-    // TODO(alex): rename to hasNegativeSign or similar?
     // return whether this expression has a negative sign
     isNegative() {
         return false;
@@ -1388,7 +1386,6 @@ export class Mul extends Seq {
         if (expr instanceof Num && expr.n > 0) {
             // e.g. - 2 -> -2
             var negated = expr.negate();
-            // TODO(alex): rework hint system so that this isn't necessary
             negated.hints = expr.hints;
             return negated.addHint(hint);
         } else if (expr instanceof Mul) {
@@ -2509,7 +2506,6 @@ export class Trig extends Expr {
         }
     }
 
-    // TODO(alex): does every new node type need to redefine these?
     needsExplicitMul() {
         return false;
     }

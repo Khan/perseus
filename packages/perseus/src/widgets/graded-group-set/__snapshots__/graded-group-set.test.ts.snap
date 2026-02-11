@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`graded group set widget should snapshot 1`] = `
 <div>
@@ -44,7 +44,6 @@ exports[`graded group set widget should snapshot 1`] = `
                   class="indicator_7k5kza"
                 >
                   <button
-                    aria-disabled="false"
                     aria-label="Skip to Problem 1a"
                     class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
                     role="button"
@@ -69,7 +68,6 @@ exports[`graded group set widget should snapshot 1`] = `
                   class="indicator_7k5kza"
                 >
                   <button
-                    aria-disabled="false"
                     aria-label="Skip to Problem 1b"
                     class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
                     role="button"
@@ -84,7 +82,6 @@ exports[`graded group set widget should snapshot 1`] = `
                   class="indicator_7k5kza"
                 >
                   <button
-                    aria-disabled="false"
                     aria-label="Skip to Problem 1c"
                     class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
                     role="button"

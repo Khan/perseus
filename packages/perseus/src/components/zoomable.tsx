@@ -182,8 +182,6 @@ class Zoomable extends React.Component<Props, State> {
         }
     };
 
-    // TODO(benkomalo): call this on viewport width changes?
-    // https://github.com/Khan/math-input/blob/master/src/components/math-keypad.js#L43
     measureAndScaleChildToFit(zoomed: boolean) {
         if (!this._isMounted) {
             return;
@@ -233,8 +231,6 @@ class Zoomable extends React.Component<Props, State> {
                 expandedHeight: childHeight,
             });
 
-            // TODO(charlie): Do this as a callback to `setState`. Something is
-            // going wrong with that approach in initial testing.
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
             // eslint-disable-next-line no-restricted-syntax
             setTimeout(() => {

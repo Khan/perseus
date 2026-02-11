@@ -113,15 +113,10 @@ export class Graphie {
     range?: [Interval, Interval];
     scale?: Coord;
     dimensions?: Coord;
-    // TODO(benchristel): xpixels and ypixels are never used by this class, but
-    // other code reaches in to access them :(
-    // Refactor to accessor methods that look at this.dimensions.
     xpixels?: number;
     ypixels?: number;
 
     // set by Movables
-    // TODO(benchristel): consider putting this state on the Movable instead of
-    // on the Graphie
     isDragging?: boolean;
 
     constructor(el: Element) {
@@ -145,8 +140,6 @@ export class Graphie {
         let scale = options.scale || [40, 40];
         scale = typeof scale === "number" ? [scale, scale] : scale;
 
-        // TODO(jeremy): This can be removed once we're confident that callers
-        // obey the Typescript types.
         if (options.range == null) {
             throw new PerseusError(
                 "range should be specified in graph init",
@@ -171,8 +164,6 @@ export class Graphie {
 
         this.range = options.range;
         this.scale = scale;
-        // TODO(benchristel): I don't think dimensions is used. Can we
-        // remove it?
         this.dimensions = [w, h];
         this.xpixels = w;
         this.ypixels = h;
@@ -667,7 +658,6 @@ export class Graphie {
 
             // We round the coordinates to make testing easier, because trig
             // operations return unround numbers.
-            // TODO(benchristel): move rounding to scalePoint?
             const round = (x) => knumber.round(x, 6);
             const startPoint = this.scalePoint([
                 round(center[0] + startVector[0]),
@@ -1442,10 +1432,10 @@ export class Graphie {
     addMouseLayer(options: {
         onClick?: MouseHandler;
         onMouseMove?: MouseHandler;
-        onMouseDown?: MouseHandler | null; // TODO: just use undefined instead of null!
-        onMouseOver?: MouseHandler | null; // TODO: just use undefined instead of null!
-        onMouseOut?: MouseHandler | null; // TODO: just use undefined instead of null!
-        onMouseUp?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseDown?: MouseHandler | null;
+        onMouseOver?: MouseHandler | null;
+        onMouseOut?: MouseHandler | null;
+        onMouseUp?: MouseHandler | null;
         allowScratchpad?: boolean;
         setDrawingAreaAvailable?: (available: boolean) => void;
     }): void {

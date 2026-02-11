@@ -333,7 +333,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         cb: () => unknown,
         silent: boolean,
     ) => {
-        // TODO(joel) - lens
         const hints = [...this.props.hints];
         hints[i] = _.extend(
             {},

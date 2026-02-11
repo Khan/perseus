@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 /**
  * The Selector class implements a CSS-like system for matching nodes in a
  * parse tree based on the structure of the tree. Create a Selector object by
@@ -72,10 +71,6 @@
  *
  * If you call Selector.parse() on a string that does not match this grammar,
  * it will throw an exception
- *
- * TODO(davidflanagan): it might be useful to allow more sophsticated node
- * selector matching with attribute matches and pseudo-classes, like
- * "heading[level=2]" or "paragraph:first-child"
  *
  * Implementation Note: this file exports a very simple Selector class but all
  * the actual work is done in various internal classes. The Parser class
@@ -255,10 +250,6 @@ class Parser {
 
     // Parse a single node selector.
     // For now, this is just a node type or a wildcard.
-    //
-    // TODO(davidflanagan): we may need to extend this with attribute
-    // selectors like 'heading[level=3]', or with pseudo-classes like
-    // paragraph:first-child
     parseNodeSelector(): Selector {
         // First, skip any whitespace
         this.skipSpace();
@@ -281,7 +272,7 @@ class Parser {
 // are identifiers, integers, punctuation and spaces. Note that spaces
 // tokens are only returned when they appear before an identifier or
 // wildcard token and are otherwise omitted.
-Parser.TOKENS = /([a-zA-Z][\w-]*)|(\d+)|[^\s]|(\s(?=[a-zA-Z\*]))/g;
+Parser.TOKENS = /([a-zA-Z][\w-]*)|(\d+)|[^\s]|(\s(?=[a-zA-Z*]))/g;
 
 /**
  * This is a trivial Error subclass that the Parser uses to signal parse errors

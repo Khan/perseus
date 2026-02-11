@@ -393,7 +393,6 @@ var parserFor = function (
                     (currRule.order === currOrder && currRule.quality))
             );
 
-            // TODO(aria): Write tests for these
             if (rule == null || capture == null) {
                 throw new Error(
                     "Could not find a matching rule for the below " +
@@ -720,7 +719,6 @@ var TABLES = (function () {
     var TABLE_CENTER_ALIGN = /^ *:-+: *$/;
     var TABLE_LEFT_ALIGN = /^ *:-+ *$/;
 
-    // TODO: This needs a real type
     type TableAlignment = any;
 
     var parseTableAlignCapture = function (
@@ -1200,7 +1198,7 @@ var defaultRules: DefaultRules = {
     },
     def: {
         order: currOrder++,
-        // TODO(aria): This will match without a blank line before the next
+        // NOTE(aria): This will match without a blank line before the next
         // block element, which is inconsistent with most of the rest of
         // simple-markdown.
         match: blockRegex(
@@ -1904,7 +1902,6 @@ var markdownToHtml = function (source: string, state?: State | null): string {
     return defaultHtmlOutput(defaultBlockParse(source, state), state);
 };
 
-// TODO: This needs definition
 type Props = any;
 var ReactMarkdown = function (props: Props): React.ReactElement {
     var divProps: Record<string, any> = {};

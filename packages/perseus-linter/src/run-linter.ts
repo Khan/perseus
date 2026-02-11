@@ -25,11 +25,6 @@ export const allLintRules: ReadonlyArray<any> = AllRules.filter(
  *
  *   context.widgets is the widgets object associated
  *   with the content string
- *
- * TODO: to make this even more general, allow the first argument to be a
- * string and run the parser over it in that case? (but ignore highlight in
- * that case). This would allow the one function to be used for both online
- * linting and batch linting.
  */
 export function runLinter(
     tree: any,
@@ -100,10 +95,6 @@ export function runLinter(
             if (warning) {
                 // The start and end locations are relative to this
                 // particular node, and so are not generally very useful.
-                // TODO: When the markdown parser saves the node
-                // locations in the source string then we can add
-                // these numbers to that one and get and absolute
-                // character range that will be useful
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (warning.start || warning.end) {
                     warning.target = content.substring(

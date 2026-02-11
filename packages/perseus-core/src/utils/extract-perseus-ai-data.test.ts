@@ -625,14 +625,14 @@ describe("injectWidgets", () => {
 
         const content = injectWidgets("[[☃ Graded Group Set 1]]", widgets);
         expect(content).toMatchInlineSnapshot(`
-                "Write 7 times 7 times 7 using an exponent.
+            "Write 7 times 7 times 7 using an exponent.
 
-                ?
-                Write 5 times 5 times 5 times 5 times 5 times 5 using an exponent.
+            ?
+            Write 5 times 5 times 5 times 5 times 5 times 5 using an exponent.
 
-                ?
-                "
-            `);
+            ?
+            "
+        `);
     });
 
     it("should inject categorizer widget into the content", () => {
@@ -655,14 +655,14 @@ describe("injectWidgets", () => {
 
         const content = injectWidgets("[[☃ categorizer 1]]", widgets);
         expect(content).toMatchInlineSnapshot(`
-                "For each item, select the correct category. Categories: True, False.
-                Items:
-                AAA
-                BBB
-                CCC
-                DDD
-                "
-            `);
+            "For each item, select the correct category. Categories: True, False.
+            Items:
+            AAA
+            BBB
+            CCC
+            DDD
+            "
+        `);
     });
 
     it("should inject orderer widget into the content", () => {
@@ -697,10 +697,10 @@ describe("injectWidgets", () => {
         // these keys.
         const content = injectWidgets("[[☃ orderer 1]]", widgets);
         expect(content).toMatchInlineSnapshot(`
-                "$12.1$
-                $12.2$
-                $\\sqrt{145}$"
-            `);
+            "$12.1$
+            $12.2$
+            $\\sqrt{145}$"
+        `);
     });
 
     it("should inject sorter widget into the content", () => {
@@ -796,14 +796,14 @@ describe("injectWidgets", () => {
 
         const content = injectWidgets("[[☃ matcher 1]]", widgets);
         expect(content).toMatchInlineSnapshot(`
-                "The user needs to move items in the right column to match the correct option on the left. The order of items on the right side will be different from what the user sees.
-                | Left | Right |
-                | --- | --- |
-                | 1 | 1 |
-                | 2 | 2 |
-                | 3 | 3 |
-                | 4 | 4 |"
-            `);
+            "The user needs to move items in the right column to match the correct option on the left. The order of items on the right side will be different from what the user sees.
+            | Left | Right |
+            | --- | --- |
+            | 1 | 1 |
+            | 2 | 2 |
+            | 3 | 3 |
+            | 4 | 4 |"
+        `);
     });
 
     it("should inject ? placeholder string for input widgets", () => {
@@ -943,13 +943,13 @@ describe("getAnswersFromWidgets", () => {
 
         const answer = getAnswersFromWidgets({"categorizer 1": widget});
         expect(answer).toMatchInlineSnapshot(`
-                        [
-                          "Item #1: True",
-                          "Item #2: False",
-                          "Item #3: True",
-                          "Item #4: True",
-                        ]
-                `);
+            [
+              "Item #1: True",
+              "Item #2: False",
+              "Item #3: True",
+              "Item #4: True",
+            ]
+        `);
     });
 
     it("should get the answer from a input-number widget", () => {
@@ -993,11 +993,11 @@ describe("getAnswersFromWidgets", () => {
 
         const answer = getAnswersFromWidgets({"expression 1": widget});
         expect(answer).toMatchInlineSnapshot(`
-                        [
-                          "27\\pi",
-                          "84.78",
-                        ]
-                `);
+            [
+              "27\\pi",
+              "84.78",
+            ]
+        `);
     });
 
     it("should get the answer from a numeric-input widget", () => {
@@ -1123,10 +1123,10 @@ describe("getAnswersFromWidgets", () => {
 
         const answer = getAnswersFromWidgets({"plotter 1": widget});
         expect(answer).toMatchInlineSnapshot(`
-                        [
-                          "{Mystery: 9, Non-fiction: 6, Fiction: 10, Fairytale: 5}",
-                        ]
-                `);
+            [
+              "{Mystery: 9, Non-fiction: 6, Fiction: 10, Fairytale: 5}",
+            ]
+        `);
     });
 
     it("should get the answers from a grapher widget", () => {
@@ -1165,10 +1165,10 @@ describe("getAnswersFromWidgets", () => {
 
         const answer = getAnswersFromWidgets({"grapher 1": widget});
         expect(answer).toMatchInlineSnapshot(`
-                        [
-                          "There should be point(s) on [-4,-1], [-3,0]",
-                        ]
-                `);
+            [
+              "There should be point(s) on [-4,-1], [-3,0]",
+            ]
+        `);
     });
 
     it("should get the answers from a dropdown widget", () => {
@@ -1218,12 +1218,12 @@ describe("getAnswersFromWidgets", () => {
         // @ts-expect-error - TS2322 - Type '{ readonly type: "orderer"; readonly options: { readonly correctOptions: readonly [{ readonly content: "$\\sqrt{145}$"; }, { readonly content: "$12.1$"; }, { readonly content: "$12.2$"; }]; readonly height: "normal"; readonly layout: "horizontal"; readonly options: readonly [...]; readonly otherOptions: readonly [];...' is not assignable to type 'PerseusWidget'.
         const answer = getAnswersFromWidgets({"orderer 1": widget});
         expect(answer).toMatchInlineSnapshot(`
-                        [
-                          "$\\sqrt{145}$
-                        $12.1$
-                        $12.2$",
-                        ]
-                `);
+            [
+              "$\\sqrt{145}$
+            $12.1$
+            $12.2$",
+            ]
+        `);
     });
 
     it("should get the answers from an sorter widget", () => {
@@ -1238,10 +1238,10 @@ describe("getAnswersFromWidgets", () => {
 
         const answer = getAnswersFromWidgets({"sorter 1": widget});
         expect(answer).toMatchInlineSnapshot(`
-                        [
-                          "$4^2+2$, $5^2$, $6^2-6$",
-                        ]
-                `);
+            [
+              "$4^2+2$, $5^2$, $6^2-6$",
+            ]
+        `);
     });
 
     it("should get the answers from the label-image widget", () => {

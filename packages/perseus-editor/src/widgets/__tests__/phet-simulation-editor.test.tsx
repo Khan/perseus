@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import PhetSimulationEditor from "../phet-simulation-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -38,7 +38,7 @@ describe("phet-simulation editor", () => {
         await userEvent.type(screen.getByLabelText("URL"), "h");
 
         // Assert
-        expect(onChangeMock).toBeCalledWith({url: "h"});
+        expect(onChangeMock).toHaveBeenCalledWith({url: "h"});
     });
 
     it("should be possible to change Description", async () => {
@@ -50,6 +50,6 @@ describe("phet-simulation editor", () => {
         await userEvent.type(screen.getByLabelText("Description"), "P");
 
         // Assert
-        expect(onChangeMock).toBeCalledWith({description: "P"});
+        expect(onChangeMock).toHaveBeenCalledWith({description: "P"});
     });
 });
