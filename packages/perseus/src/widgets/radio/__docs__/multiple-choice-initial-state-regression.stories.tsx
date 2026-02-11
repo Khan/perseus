@@ -85,8 +85,6 @@ export const SingleSelectStatic: Story = {
                 content: "[[☃ radio 1]]",
                 widgets: {
                     "radio 1": generateRadioWidget({
-                        // Static widget
-                        static: true,
                         options: generateRadioOptions({
                             choices: [
                                 generateRadioChoice("Choice 1", {
@@ -274,8 +272,6 @@ export const MultiSelectStatic: Story = {
                 content: "[[☃ radio 1]]",
                 widgets: {
                     "radio 1": generateRadioWidget({
-                        // Static widget
-                        static: true,
                         options: generateRadioOptions({
                             multipleSelect: true,
                             choices: [
