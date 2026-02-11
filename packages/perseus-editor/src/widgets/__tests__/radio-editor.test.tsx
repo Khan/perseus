@@ -1363,6 +1363,145 @@ describe("radio-editor", () => {
         });
     });
 
+    describe("Shuffle preview toggle", () => {
+        it("renders the shuffle preview toggle", () => {
+            renderRadioEditor();
+
+            expect(
+                screen.getByRole("switch", {name: "Shuffle preview"}),
+            ).toBeInTheDocument();
+        });
+
+        it("is disabled when randomize is off", () => {
+            renderRadioEditor(() => {}, {randomize: false});
+
+            const toggle = screen.getByRole("switch", {
+                name: "Shuffle preview",
+            });
+            expect(toggle).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("is enabled when randomize is on", () => {
+            renderRadioEditor(() => {}, {randomize: true});
+
+            const toggle = screen.getByRole("switch", {
+                name: "Shuffle preview",
+            });
+            expect(toggle).not.toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("does not include _showShuffledPreview in serialize when toggle is off", () => {
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                    choices={fourChoices}
+                    randomize={true}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const options = editorRef.current?.serialize();
+            expect(options?._showShuffledPreview).toBeUndefined();
+        });
+
+        it("includes _showShuffledPreview in serialize when prop is true and randomize is on", () => {
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                    choices={fourChoices}
+                    randomize={true}
+                    _showShuffledPreview={true}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const options = editorRef.current?.serialize();
+            expect(options?._showShuffledPreview).toBe(true);
+        });
+
+        it("does not include _showShuffledPreview when randomize is off even if prop is true", () => {
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                    choices={fourChoices}
+                    randomize={false}
+                    _showShuffledPreview={true}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const options = editorRef.current?.serialize();
+            expect(options?._showShuffledPreview).toBeUndefined();
+            expect(options?.randomize).toBe(false);
+        });
+
+        it("calls onChange with _showShuffledPreview when toggled", async () => {
+            const onChangeMock = jest.fn();
+
+            renderRadioEditor(onChangeMock, {randomize: true});
+
+            await userEvent.click(
+                screen.getByRole("switch", {name: "Shuffle preview"}),
+            );
+
+            expect(onChangeMock).toHaveBeenCalledWith({
+                _showShuffledPreview: true,
+            });
+        });
+
+        it("resets _showShuffledPreview when randomize is turned off", async () => {
+            const onChangeMock = jest.fn();
+
+            renderRadioEditor(onChangeMock, {
+                randomize: true,
+                _showShuffledPreview: true,
+            });
+
+            await userEvent.click(
+                screen.getByRole("switch", {name: "Randomize order"}),
+            );
+
+            expect(onChangeMock).toHaveBeenCalledWith({
+                randomize: false,
+                _showShuffledPreview: false,
+            });
+        });
+
+        it("preserves the real randomize value in serialize", () => {
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                    choices={fourChoices}
+                    randomize={true}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const options = editorRef.current?.serialize();
+            expect(options?.randomize).toBe(true);
+        });
+    });
+
     describe("ensureValidIds", () => {
         it("should generate new ID for empty string", () => {
             // Reset mock and set specific return value

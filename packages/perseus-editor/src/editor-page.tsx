@@ -222,7 +222,7 @@ class EditorPage extends React.Component<Props, State> {
         this.itemEditor.current?.triggerPreviewUpdate({
             type: "question",
             data: _({
-                item: this.serialize(),
+                item: this.serializeForPreview(),
                 apiOptions: deviceBasedApiOptions,
                 initialHintsVisible: 0,
                 device: this.props.previewDevice,
@@ -255,9 +255,51 @@ class EditorPage extends React.Component<Props, State> {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-        return _.extend(this.itemEditor.current?.serialize(options), {
+        const result = _.extend(this.itemEditor.current?.serialize(options), {
             hints: this.hintsEditor.current?.serialize(options),
         });
+
+        // Strip editor-only marker fields from radio widget options
+        // so they are never persisted to content data.
+        const widgets = result?.question?.widgets;
+        if (widgets) {
+            for (const widgetId of Object.keys(widgets)) {
+                const widget = widgets[widgetId];
+                if (widget?.type === "radio" && widget.options) {
+                    delete widget.options._showShuffledPreview;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    // Serializes item data for the Edit tab iframe preview.
+    // Unlike serialize() (the save path), this preserves the
+    // _showShuffledPreview marker to control preview shuffling,
+    // then applies the preview-specific shuffle override.
+    serializeForPreview(): PerseusItem {
+        const item = _.extend(this.itemEditor.current?.serialize(), {
+            hints: this.hintsEditor.current?.serialize(),
+        });
+
+        // For the Edit tab preview, default radio widgets to unshuffled
+        // unless the editor's "Shuffle preview" toggle is on.
+        const widgets = item?.question?.widgets;
+        if (widgets) {
+            for (const widgetId of Object.keys(widgets)) {
+                const widget = widgets[widgetId];
+                if (widget?.type === "radio" && widget.options) {
+                    if (widget.options._showShuffledPreview) {
+                        delete widget.options._showShuffledPreview;
+                    } else {
+                        widget.options.randomize = false;
+                    }
+                }
+            }
+        }
+
+        return item;
     }
 
     // eslint-disable-next-line import/no-deprecated
