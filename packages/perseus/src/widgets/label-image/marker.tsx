@@ -6,7 +6,7 @@
  */
 
 import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {boxShadow, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -90,7 +90,7 @@ export default class Marker extends React.Component<Props> {
         // default dot
         let args: Icon["props"] = {
             size: MARKER_SIZE,
-            color: color.white,
+            color: semanticColor.core.foreground.knockout.default,
             icon: iconNull,
         };
 
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     marker: {
         position: "absolute",
 
-        backgroundColor: color.white,
+        backgroundColor: semanticColor.core.background.base.default,
         borderRadius: MARKER_SIZE,
 
         // Center marker position based on its maximum size.
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
         marginTop: MARKER_SIZE / -2,
 
         // Add a shadow to the marker to make it stand out from the image.
-        boxShadow: `0 8px 8px ${color.offBlack8}`,
+        boxShadow: boxShadow.mid,
     },
 
     // The base and unfilled marker style.
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
         width: MARKER_SIZE,
         height: MARKER_SIZE,
 
-        border: `2px solid ${color.offBlack64}`,
+        border: `2px solid ${semanticColor.core.border.neutral.default}`,
         borderRadius: MARKER_SIZE,
     },
 
@@ -219,12 +219,14 @@ const styles = StyleSheet.create({
         animationName: {
             "0%": {
                 transform: "scale(1)",
-                backgroundColor: color.blue,
+                backgroundColor:
+                    semanticColor.core.background.instructive.default,
             },
 
             "100%": {
                 transform: "scale(1.3)",
-                backgroundColor: color.blue,
+                backgroundColor:
+                    semanticColor.core.background.instructive.default,
             },
         },
 
@@ -247,16 +249,16 @@ const styles = StyleSheet.create({
     },
 
     markerActive: {
-        outline: `2px solid ${color.blue}`,
+        outline: `2px solid ${semanticColor.core.border.instructive.default}`,
         outlineOffset: 2,
     },
 
     // The learner is making an initial selection
     markerSelected: {
-        boxShadow: `0 8px 8px ${color.offBlack8}`,
+        boxShadow: boxShadow.mid,
 
-        border: `solid 4px ${color.white}`,
-        backgroundColor: color.blue,
+        border: `solid 4px ${semanticColor.core.border.knockout.default}`,
+        backgroundColor: semanticColor.core.background.instructive.default,
         borderRadius: MARKER_SIZE,
         transform: "rotate(180deg)",
     },
@@ -264,7 +266,7 @@ const styles = StyleSheet.create({
     // The learner has made a selection
     markerFilled: {
         backgroundColor: "#ECF3FE",
-        border: `4px solid ${color.blue}`,
+        border: `4px solid ${semanticColor.core.border.instructive.default}`,
     },
 
     markerGraded: {
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
 
         justifyContent: "center",
         alignItems: "center",
-        border: `2px solid ${color.white}`,
+        border: `2px solid ${semanticColor.core.border.knockout.default}`,
     },
 
     markerCorrect: {
@@ -281,6 +283,6 @@ const styles = StyleSheet.create({
     },
 
     markerIncorrect: {
-        background: color.offBlack64,
+        background: semanticColor.core.background.neutral.default,
     },
 });

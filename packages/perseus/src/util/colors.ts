@@ -6,13 +6,13 @@
  * khan-exercises submodule, as graphie-to-png still relies on the palette
  * provided on KhanUtil.
  */
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 
 const KhanColors = {
-    BLUE: color.blue,
+    BLUE: semanticColor.core.foreground.instructive.default,
     ORANGE: "#FFA500",
     PINK: "#FF00AF",
-    GREEN: color.green,
+    GREEN: semanticColor.core.foreground.success.default,
     PURPLE: "#9D38BD",
     RED: "#DF0030",
     GRAY: "gray",
@@ -87,9 +87,9 @@ const KhanColors = {
     // background color used in exercises is subject to change at the whim
     // of any redesigns.
     _BACKGROUND: "#FDFDFD",
-    INTERACTING: color.green,
-    INTERACTIVE: color.green,
-    DYNAMIC: color.blue,
+    INTERACTING: semanticColor.core.foreground.success.default,
+    INTERACTIVE: semanticColor.core.foreground.success.default,
+    DYNAMIC: semanticColor.core.foreground.instructive.default,
 } as const;
 
 /**

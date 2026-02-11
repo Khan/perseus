@@ -9,12 +9,7 @@ import {Text, View} from "@khanacademy/wonder-blocks-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
-import {
-    color,
-    font,
-    spacing,
-    semanticColor,
-} from "@khanacademy/wonder-blocks-tokens";
+import {font, spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import warningCircleIcon from "@phosphor-icons/core/regular/warning-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -158,7 +153,7 @@ const styles = StyleSheet.create({
         fontSize: font.size.small,
     },
     overCharacterLimit: {
-        color: color.red,
+        color: semanticColor.core.foreground.critical.default,
     },
     textarea: {
         padding: spacing.medium_16,
