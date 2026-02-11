@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import * as KAS from "@khanacademy/kas";
 import {KhanMath} from "@khanacademy/kmath";
 import {ErrorCodes, Errors, PerseusError} from "@khanacademy/perseus-core";
@@ -444,7 +443,7 @@ const KhanAnswerTypes = {
 
                     // Replace unicode minus sign with hyphen
                     text = text.replace(/\u2212/, "-");
-                    text = text.replace(/[ \(\)]/g, "");
+                    text = text.replace(/[ ()]/g, "");
 
                     if ((match = text.match(/^log\s*(\S+)\s*$/i))) {
                         // @ts-expect-error - TS2322 - Type '{ value: number | undefined; exact: boolean; }[]' is not assignable to type 'never[]'.
@@ -543,7 +542,7 @@ const KhanAnswerTypes = {
                     };
 
                     const commas = function (text: string) {
-                        text = text.replace(/([\.,])/g, function (_, c) {
+                        text = text.replace(/([.,])/g, function (_, c) {
                             return c === "." ? "," : ".";
                         });
                         return normal(text);

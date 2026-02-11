@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 /**
  * The Selector class implements a CSS-like system for matching nodes in a
  * parse tree based on the structure of the tree. Create a Selector object by
@@ -273,7 +272,7 @@ class Parser {
 // are identifiers, integers, punctuation and spaces. Note that spaces
 // tokens are only returned when they appear before an identifier or
 // wildcard token and are otherwise omitted.
-Parser.TOKENS = /([a-zA-Z][\w-]*)|(\d+)|[^\s]|(\s(?=[a-zA-Z\*]))/g;
+Parser.TOKENS = /([a-zA-Z][\w-]*)|(\d+)|[^\s]|(\s(?=[a-zA-Z*]))/g;
 
 /**
  * This is a trivial Error subclass that the Parser uses to signal parse errors
