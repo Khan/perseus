@@ -370,9 +370,9 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         />
                         <InfoTip>
                             The editor preview shows choices unshuffled by
-                            default. Use &quot;Shuffle preview&quot; to see
-                            the randomized order. The Preview tab always
-                            shows the randomized order when enabled.
+                            default. Use &quot;Shuffle preview&quot; to see the
+                            randomized order. The Preview tab always shows the
+                            randomized order when enabled.
                         </InfoTip>
                     </div>
                     <LabeledSwitch
