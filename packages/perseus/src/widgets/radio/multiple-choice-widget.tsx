@@ -1,7 +1,7 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import {forwardRef, useImperativeHandle} from "react";
+import {forwardRef, useImperativeHandle, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import {useDependencies} from "../../dependencies";
@@ -10,6 +10,7 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import MultipleChoiceComponent from "./multiple-choice-component";
+import {choiceTransform} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
 import type {WidgetProps, ChoiceState, ChangeHandler} from "../../types";
@@ -56,6 +57,8 @@ export type RadioProps = {
     onChange: ChangeHandler;
 };
 
+type ChoiceStateWithoutSelected = Omit<ChoiceState, "selected">;
+
 export type RadioWidgetHandle = {
     getPromptJSON(): RadioPromptJSON;
 };
@@ -89,7 +92,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             multipleSelect = false,
             countChoices = false,
             showSolutions = "none",
-            choiceStates,
+            // choiceStates,
             // TODO(LEMS-3783): remove uses of `questionCompleted`
             questionCompleted,
             static: isStatic,
@@ -103,6 +106,9 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
 
         const {strings} = usePerseusI18n();
         const {analytics} = useDependencies();
+        const [choiceStates, setChoiceStates] = useState<
+            ChoiceStateWithoutSelected[]
+        >([]);
 
         useOnMountEffect(() => {
             analytics.onAnalyticsEvent({
@@ -117,9 +123,45 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             });
         });
 
+        const modifiedProps = ((): Props & {
+            numCorrect: number;
+        } => {
+            // randomSeed is problemNum (which changes how we shuffle between exercises)
+            // and widgetIndex (which changes how we shuffle between widgets)
+            const randomSeed =
+                (props.problemNum ?? 0) + (props.widgetIndex ?? 0);
+            const choices = [
+                ...choiceTransform(
+                    props.choices,
+                    props.randomize,
+                    strings,
+                    randomSeed,
+                ),
+            ];
+
+            return {
+                ...props,
+                numCorrect: props.numCorrect ?? 0,
+                choices,
+                choiceStates: choiceStates?.map((choiceState, index) => {
+                    const choice = choices[index];
+                    // Guard against undefined when choiceStates length exceeds choices length
+                    // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
+                    const selected =
+                        props.userInput?.selectedChoiceIds.includes(
+                            choice?.id,
+                        ) ?? false;
+                    return {
+                        ...choiceState,
+                        selected,
+                    };
+                }),
+            };
+        })();
+
         // Perseus Widget API methods
         // TODO(LEMS-2994): When we remove the old Radio files, we may need to move some
-        // of the methods from radio.ff.tsx into here, such as getSerializedState, etc.
+        // of the methods from radio.tsx into here, such as getSerializedState, etc.
         useImperativeHandle(
             ref,
             () => ({
@@ -134,8 +176,23 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 getPromptJSON: (): RadioPromptJSON => {
                     return _getPromptJSON(props, props.userInput);
                 },
+                /**
+                 * @deprecated and likely very broken API
+                 * [LEMS-3185] do not trust serializedState
+                 */
+                getSerializedState() {
+                    const {
+                        userInput: _,
+                        randomize: __,
+                        ...rest
+                    } = modifiedProps;
+                    return {
+                        ...rest,
+                        hasNoneOfTheAbove: rest.hasNoneOfTheAbove ?? false,
+                    };
+                },
             }),
-            [props],
+            [props, modifiedProps],
         );
 
         /**
@@ -198,8 +255,8 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 checkedChoiceIds.push(choiceId);
             } else if (newCheckedState && multipleSelect) {
                 // Multi-select mode + checking: add to existing
-                const currentSelectedIds = choiceStates
-                    ? choiceStates
+                const currentSelectedIds = modifiedProps.choiceStates
+                    ? modifiedProps.choiceStates
                           .map((state, i) => ({
                               selected: state.selected,
                               id: choices[i].id,
@@ -210,8 +267,8 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 checkedChoiceIds.push(...currentSelectedIds, choiceId);
             } else {
                 // Unchecking: remove this choice from checked list
-                const currentSelectedIds = choiceStates
-                    ? choiceStates
+                const currentSelectedIds = modifiedProps.choiceStates
+                    ? modifiedProps.choiceStates
                           .map((state, i) => ({
                               selected: state.selected,
                               id: choices[i].id,
@@ -230,17 +287,10 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             // new objects with all fields set to the default values. Otherwise, we
             // should clone the old `choiceStates` objects, in preparation to
             // mutate them.
-            const newChoiceStates: ChoiceState[] = choiceStates
-                ? choiceStates.map((state) => ({...state}))
-                : choices.map(() => ({
-                      selected: false,
-                      // TODO(LEMS-2994): Remove this field when we remove the old Radio files
-                      highlighted: false,
-                      rationaleShown: false,
-                      correctnessShown: false,
-                      previouslyAnswered: false,
-                      readOnly: false,
-                  }));
+            const newChoiceStates = ensureChoiceStates(
+                choices,
+                modifiedProps.choiceStates,
+            );
 
             // Mutate the new `choiceState` objects, according to the checkedChoiceIds.
             newChoiceStates.forEach((choiceState: ChoiceState, i) => {
@@ -251,6 +301,23 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             onChange({choiceStates: newChoiceStates});
             trackInteraction();
             announceChoiceChange(newChoiceStates);
+        };
+
+        const ensureChoiceStates = (
+            choices: RadioChoiceWithMetadata[],
+            choiceStates?: ChoiceState[] | undefined,
+        ): ChoiceState[] => {
+            return choiceStates
+                ? choiceStates.map((state) => ({...state}))
+                : choices.map(() => ({
+                      selected: false,
+                      // TODO(LEMS-2994): Remove this field when we remove the old Radio files
+                      highlighted: false,
+                      rationaleShown: false,
+                      correctnessShown: false,
+                      previouslyAnswered: false,
+                      readOnly: false,
+                  }));
         };
 
         const announceChoiceChange = (
@@ -344,7 +411,10 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 choices,
                 isStatic,
                 showSolutions,
-                choiceStates,
+                choiceStates: ensureChoiceStates(
+                    choices,
+                    modifiedProps.choiceStates,
+                ),
                 reviewMode,
             });
 

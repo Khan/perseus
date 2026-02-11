@@ -1,5 +1,6 @@
 import {
     deepClone,
+    radioLogic,
     type PerseusRadioRubric,
     type PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
@@ -8,7 +9,7 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 
-import RadioNew from "./multiple-choice-widget";
+import MultipleChoice from "./multiple-choice-widget";
 import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
 import type {RadioProps, RadioWidgetHandle} from "./multiple-choice-widget";
@@ -16,6 +17,7 @@ import type {
     ChangeHandler,
     ChoiceState,
     Widget,
+    WidgetExports,
     WidgetProps,
 } from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
@@ -216,8 +218,29 @@ class Radio extends React.Component<Props> implements Widget {
 
     render(): React.ReactNode {
         const props = this._mergePropsAndState();
-        return <RadioNew ref={this.radioRef} {...props} />;
+        return <MultipleChoice ref={this.radioRef} {...props} />;
     }
 }
 
-export default Radio;
+function getStartUserInput(): PerseusRadioUserInput {
+    return {
+        selectedChoiceIds: [],
+    };
+}
+
+export default {
+    name: "radio",
+    displayName: "Radio / Multiple choice",
+    widget: Radio,
+    getStartUserInput,
+    version: radioLogic.version,
+    isLintable: true,
+
+    // TODO(LEMS-3185): remove serializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
+    getUserInputFromSerializedState: (serializedState: unknown) => {
+        return getUserInputFromSerializedState(serializedState);
+    },
+} satisfies WidgetExports<typeof Radio>;
