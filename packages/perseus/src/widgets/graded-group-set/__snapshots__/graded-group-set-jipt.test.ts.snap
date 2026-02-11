@@ -97,7 +97,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_oak3yy"
+                class="showHintLink_1n4y2tp"
                 tabindex="0"
               >
                 Explain
@@ -174,7 +174,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_oak3yy"
+                class="showHintLink_1n4y2tp"
                 tabindex="0"
               >
                 Explain
@@ -251,7 +251,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_oak3yy"
+                class="showHintLink_1n4y2tp"
                 tabindex="0"
               >
                 Explain
