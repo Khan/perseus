@@ -150,8 +150,8 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
         }
 
         const borderColorStyle = focused
-            ? focusBorderColor || semanticColor.core.border.instructive.default
-            : borderColor || semanticColor.core.border.neutral.default;
+            ? focusBorderColor || semanticColor.focus.outer
+            : borderColor || semanticColor.core.border.neutral.subtle;
         extraStyles.border = `1px solid ${borderColorStyle}`;
 
         const wrappedIcon = icon && (

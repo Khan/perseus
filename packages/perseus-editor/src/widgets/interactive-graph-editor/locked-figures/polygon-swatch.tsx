@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     container: {
         // Add a white outline so that the color swatch is visible when
         // the dropdown option is highlighted with its blue background.
-        outline: `2px solid ${semanticColor.focus.outer}`,
+        outline: `2px solid ${semanticColor.focus.inner}`,
         width: spacing.large_24,
         height: spacing.large_24,
         backgroundColor: semanticColor.core.background.base.default,
