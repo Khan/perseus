@@ -645,7 +645,7 @@ const styles = StyleSheet.create({
         backgroundColor: semanticColor.core.background.success.subtle,
     },
     answerStatusUngraded: {
-        backgroundColor: semanticColor.core.background.base.strong,
+        backgroundColor: semanticColor.core.background.instructive.subtle,
     },
     buttonRow: {
         display: "flex",
