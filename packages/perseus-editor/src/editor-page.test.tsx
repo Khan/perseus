@@ -1,5 +1,7 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {
+    generateRadioWidget,
+    generateRadioOptions,
     type PerseusOrdererWidgetOptions,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -277,5 +279,98 @@ describe("EditorPage", () => {
         expect(
             screen.getByDisplayValue(/Updated content from parent/),
         ).toBeInTheDocument();
+    });
+
+    describe("radio shuffle preview stripping", () => {
+        function radioQuestion(
+            optionOverrides: Record<string, unknown> = {},
+        ): PerseusRenderer {
+            return {
+                content: "[[☃ radio 1]]",
+                images: {},
+                widgets: {
+                    "radio 1": generateRadioWidget({
+                        options: generateRadioOptions({
+                            choices: [
+                                {id: "id-1", content: "A", correct: true},
+                                {id: "id-2", content: "B"},
+                            ],
+                            randomize: true,
+                            ...optionOverrides,
+                        }),
+                    }),
+                },
+            };
+        }
+
+        it("strips _showShuffledPreview from serialize() output", () => {
+            const editorRef = React.createRef<EditorPage>();
+
+            render(
+                <EditorPage
+                    ref={editorRef}
+                    dependencies={testDependenciesV2}
+                    question={radioQuestion({
+                        _showShuffledPreview: true,
+                    })}
+                    onChange={() => {}}
+                    onPreviewDeviceChange={() => {}}
+                    previewDevice="desktop"
+                    previewURL=""
+                    itemId="itemId"
+                    developerMode={false}
+                    jsonMode={false}
+                />,
+            );
+
+            const serialized = editorRef.current?.serialize();
+            const options = serialized?.question?.widgets?.["radio 1"]?.options;
+
+            expect(options?._showShuffledPreview).toBeUndefined();
+            expect(options?.randomize).toBe(true);
+        });
+
+        it("strips _showShuffledPreview from non-radio widgets without error", () => {
+            const editorRef = React.createRef<EditorPage>();
+
+            const question: PerseusRenderer = {
+                content: "[[☃ categorizer 1]]",
+                images: {},
+                widgets: {
+                    "categorizer 1": {
+                        type: "categorizer",
+                        static: false,
+                        options: {
+                            static: false,
+                            items: ["A"],
+                            categories: ["B"],
+                            values: [0],
+                            randomizeItems: false,
+                        },
+                    },
+                },
+            };
+
+            render(
+                <EditorPage
+                    ref={editorRef}
+                    dependencies={testDependenciesV2}
+                    question={question}
+                    onChange={() => {}}
+                    onPreviewDeviceChange={() => {}}
+                    previewDevice="desktop"
+                    previewURL=""
+                    itemId="itemId"
+                    developerMode={false}
+                    jsonMode={false}
+                />,
+            );
+
+            // Should not throw
+            const serialized = editorRef.current?.serialize();
+            expect(
+                serialized?.question?.widgets?.["categorizer 1"],
+            ).toBeDefined();
+        });
     });
 });

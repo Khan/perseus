@@ -87,6 +87,21 @@ type State = {
     widgetsAreOpen: boolean;
 };
 
+// Strips editor-only marker fields (e.g. _showShuffledPreview) from
+// radio widget options so they are never persisted to content data.
+function stripEditorOnlyRadioFields(item: any) {
+    const widgets = item?.question?.widgets;
+    if (widgets) {
+        for (const widgetId of Object.keys(widgets)) {
+            const widget = widgets[widgetId];
+            if (widget?.type === "radio" && widget.options) {
+                widget.options = {...widget.options};
+                delete widget.options._showShuffledPreview;
+            }
+        }
+    }
+}
+
 class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
 
@@ -124,7 +139,7 @@ class EditorPage extends React.Component<Props, State> {
 
     getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
         if (!prevProps.jsonMode && this.props.jsonMode) {
-            return {
+            const snapshot = {
                 ...(this.itemEditor.current?.serialize({
                     keepDeletedWidgets: true,
                 }) ?? {}),
@@ -132,6 +147,8 @@ class EditorPage extends React.Component<Props, State> {
                     keepDeletedWidgets: true,
                 }),
             };
+            stripEditorOnlyRadioFields(snapshot);
+            return snapshot;
         }
         return null;
     }
@@ -258,18 +275,7 @@ class EditorPage extends React.Component<Props, State> {
         const result = _.extend(this.itemEditor.current?.serialize(options), {
             hints: this.hintsEditor.current?.serialize(options),
         });
-
-        // Strip editor-only marker fields from radio widget options
-        // so they are never persisted to content data.
-        const widgets = result?.question?.widgets;
-        if (widgets) {
-            for (const widgetId of Object.keys(widgets)) {
-                const widget = widgets[widgetId];
-                if (widget?.type === "radio" && widget.options) {
-                    delete widget.options._showShuffledPreview;
-                }
-            }
-        }
+        stripEditorOnlyRadioFields(result);
 
         return result;
     }
@@ -290,6 +296,8 @@ class EditorPage extends React.Component<Props, State> {
             for (const widgetId of Object.keys(widgets)) {
                 const widget = widgets[widgetId];
                 if (widget?.type === "radio" && widget.options) {
+                    // Shallow copy to avoid mutating the source object
+                    widget.options = {...widget.options};
                     if (widget.options._showShuffledPreview) {
                         delete widget.options._showShuffledPreview;
                     } else {

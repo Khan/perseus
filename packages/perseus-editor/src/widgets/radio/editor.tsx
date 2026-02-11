@@ -11,8 +11,6 @@ import _ from "underscore";
 
 import LabeledSwitch from "../../components/labeled-switch";
 
-const {InfoTip} = components;
-
 import {RadioOptionSettings} from "./radio-option-settings";
 import {getMovedChoices} from "./utils";
 
@@ -24,6 +22,8 @@ import type {
     PerseusRadioChoice,
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
+
+const {InfoTip} = components;
 
 type RadioSerializedOptions = PerseusRadioWidgetOptions & {
     _showShuffledPreview?: boolean;
