@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 2.2.1
+
+### Patch Changes
+
+-   [#3238](https://github.com/Khan/perseus/pull/3238) [`53938664e9`](https://github.com/Khan/perseus/commit/53938664e98915af4b970b3d2c07d80bc25e940e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove unnecessary escaping in regular expressions.
+
 ## 2.2.0
 
 ### Minor Changes

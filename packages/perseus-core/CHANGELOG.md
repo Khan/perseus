@@ -1,5 +1,14 @@
 # @khanacademy/perseus-core
 
+## 23.0.2
+
+### Patch Changes
+
+-   [#3233](https://github.com/Khan/perseus/pull/3233) [`10d2e0850e`](https://github.com/Khan/perseus/commit/10d2e0850e1e84540ddb6868c82f98092bd606e7) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Delete outdated TODO comment.
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@2.2.6
+
 ## 23.0.1
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @khanacademy/perseus-linter
 
+## 4.7.2
+
+### Patch Changes
+
+-   [#3238](https://github.com/Khan/perseus/pull/3238) [`53938664e9`](https://github.com/Khan/perseus/commit/53938664e98915af4b970b3d2c07d80bc25e940e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove unnecessary escaping in regular expressions.
+
+-   Updated dependencies [[`10d2e0850e`](https://github.com/Khan/perseus/commit/10d2e0850e1e84540ddb6868c82f98092bd606e7)]:
+    -   @khanacademy/perseus-core@23.0.2
+    -   @khanacademy/kmath@2.2.32
+    -   @khanacademy/pure-markdown@2.2.6
+
 ## 4.7.1
 
 ### Patch Changes
