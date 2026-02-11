@@ -2,7 +2,7 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 12,
-        color: color.offBlack64,
+        color: semanticColor.core.foreground.neutral.subtle,
         textTransform: "uppercase",
         marginBottom: 11,
         letterSpacing: 0.8,
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
         height: 10,
         borderRadius: "100%",
         borderWidth: 2,
-        borderColor: color.blue,
+        borderColor: semanticColor.core.border.instructive.default,
         borderStyle: "solid",
     },
 
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     },
 
     indicatorDotActive: {
-        backgroundColor: color.blue,
+        backgroundColor: semanticColor.core.background.instructive.default,
         width: "100%",
         height: "100%",
     },

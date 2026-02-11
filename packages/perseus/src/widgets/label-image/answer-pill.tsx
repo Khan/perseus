@@ -1,5 +1,5 @@
 import Pill from "@khanacademy/wonder-blocks-pill";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, type CSSProperties} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
@@ -9,7 +9,7 @@ import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
 const BringToFront: CSSProperties = {
-    boxShadow: `0 8px 8px ${color.offBlack64}`,
+    boxShadow: `0 8px 8px ${semanticColor.core.border.neutral.default}`,
     zIndex: 1000,
 };
 
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#00880b",
     },
     incorrect: {
-        backgroundColor: color.offBlack64,
+        backgroundColor: semanticColor.core.background.neutral.default,
     },
     pill: {
         // Reset the Pill's default height in order to account
