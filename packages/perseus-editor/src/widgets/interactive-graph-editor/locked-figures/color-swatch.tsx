@@ -3,7 +3,7 @@ import {
     type LockedFigureColor,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -30,7 +30,7 @@ const ColorSwatch = (props: Props) => {
                     border: `4px solid ${lockedFigureColors[color]}`,
                     backgroundColor: filled
                         ? lockedFigureColors[color]
-                        : wbColor.white,
+                        : semanticColor.core.background.base.default,
                 },
             ]}
         />
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     colorSwatch: {
         // Add a white outline so that the color swatch is visible when
         // the dropdown option is highlighted with its blue background.
-        outline: `2px solid ${wbColor.offWhite}`,
+        outline: `2px solid ${semanticColor.focus.outer}`,
         borderRadius: "50%",
         width: spacing.large_24,
         height: spacing.large_24,

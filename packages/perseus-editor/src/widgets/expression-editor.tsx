@@ -9,7 +9,11 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {
+    semanticColor,
+    sizing,
+    spacing,
+} from "@khanacademy/wonder-blocks-tokens";
 import {
     HeadingSmall,
     HeadingXSmall,
@@ -635,13 +639,13 @@ const styles = StyleSheet.create({
         flexDirection: "column",
     },
     answerStatusWrong: {
-        backgroundColor: color.fadedRed16,
+        backgroundColor: semanticColor.core.background.critical.subtle,
     },
     answerStatusCorrect: {
-        backgroundColor: color.fadedGreen16,
+        backgroundColor: semanticColor.core.background.success.subtle,
     },
     answerStatusUngraded: {
-        backgroundColor: color.fadedBlue16,
+        backgroundColor: semanticColor.core.background.base.strong,
     },
     buttonRow: {
         display: "flex",

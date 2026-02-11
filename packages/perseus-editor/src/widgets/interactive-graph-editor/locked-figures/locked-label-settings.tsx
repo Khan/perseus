@@ -14,7 +14,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -93,7 +93,9 @@ export default function LockedLabelSettings(props: Props) {
                         <LabelLarge
                             style={[
                                 {
-                                    backgroundColor: wbColor.white,
+                                    backgroundColor:
+                                        semanticColor.core.background.base
+                                            .default,
                                     color: lockedFigureColors[color],
                                 },
                                 styles.accordionHeader,
