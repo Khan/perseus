@@ -814,7 +814,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            // Decorative img has role="presentation".
+            // Decorative images have role="presentation" due to empty alt text
             const image = screen.getByRole("presentation");
             expect(image).toHaveAttribute("alt", "");
             expect(
@@ -855,7 +855,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 screen.queryByRole("button", {name: "Explore image"}),
             ).not.toBeInTheDocument();
 
-            // Decorative img has role="presentation".
+            // Decorative images have role="presentation" due to empty alt text
             const image = screen.getByRole("presentation");
             expect(image).toHaveAttribute("alt", "");
             expect(
