@@ -708,7 +708,10 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            const image = screen.getByRole("img");
+            // Decorative img has empty alt and aria-hidden=true. This means
+            // its role changes to "presentation" and is hidden from a11y tree,
+            // so we need to use hidden: true to query it.
+            const image = screen.getByRole("presentation", {hidden: true});
             expect(image).toHaveAttribute("aria-hidden", "true");
         });
 
@@ -813,8 +816,10 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            // Decorative images have role="presentation" due to empty alt text
-            const image = screen.getByRole("presentation");
+            // Decorative img has empty alt and aria-hidden=true. This means
+            // its role changes to "presentation" and is hidden from a11y tree,
+            // so we need to use hidden: true to query it.
+            const image = screen.getByRole("presentation", {hidden: true});
             expect(image).toHaveAttribute("alt", "");
             expect(
                 screen.queryByAltText("widget alt text"),
@@ -854,8 +859,10 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 screen.queryByRole("button", {name: "Explore image"}),
             ).not.toBeInTheDocument();
 
-            // Decorative images have role="presentation" due to empty alt text
-            const image = screen.getByRole("presentation");
+            // Decorative img has empty alt and aria-hidden=true. This means
+            // its role changes to "presentation" and is hidden from a11y tree,
+            // so we need to use hidden: true to query it.
+            const image = screen.getByRole("presentation", {hidden: true});
             expect(image).toHaveAttribute("alt", "");
             expect(
                 screen.queryByAltText("widget alt text"),
