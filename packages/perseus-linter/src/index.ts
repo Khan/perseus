@@ -5,6 +5,7 @@ export {linterContextDefault} from "./proptypes";
 export {default as Rule} from "./rule";
 export {runLinter, allLintRules as rules} from "./run-linter";
 
+export type {LinterWarning} from "./rule";
 export type {LinterContextProps} from "./types";
 
 export function pushContextStack(context: any, name: string): any {
