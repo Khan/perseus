@@ -353,6 +353,10 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
         const choicesProps = prepareChoicesProps();
         const numCorrect = props.numCorrect;
 
+        // This is strange, but currently we're showing the same view for both
+        // reviewMode, and showSolutions === "all". We may wish to
+        // differentiate between the two in the future, depending on the outcomes
+        // of the Perseus GUTC project.
         const isReviewMode = reviewMode || showSolutions === "all";
 
         const onChoiceChange =
