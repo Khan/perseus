@@ -1,5 +1,5 @@
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {mockStrings} from "../../strings";
@@ -107,7 +107,7 @@ export function V2KeypadWithMathquill() {
                     style={{
                         width: "100%",
                         marginBottom: "1em",
-                        border: `1px solid ${color.offBlack16}`,
+                        border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
                     }}
                     ref={mathFieldWrapperRef}
                 />
