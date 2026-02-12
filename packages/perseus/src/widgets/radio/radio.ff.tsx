@@ -83,8 +83,10 @@ class Radio extends React.Component<Props> implements Widget {
      */
     getSerializedState() {
         const {
+            // Strip fields that shouldn't be persisted in serialized state
             userInput: _,
             randomize: __,
+            static: ___,
             ...rest
         } = this._mergePropsAndState();
         return {
