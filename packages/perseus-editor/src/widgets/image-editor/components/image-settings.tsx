@@ -33,11 +33,7 @@ export default function ImageSettings({
         null,
     );
 
-    if (
-        !backgroundImage.url ||
-        !backgroundImage.width ||
-        !backgroundImage.height
-    ) {
+    if (!backgroundImage.url) {
         return null;
     }
 
