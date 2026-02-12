@@ -52,10 +52,17 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
     }
 
     async function onUrlChange(url: string) {
+        // Clear previous errors
+        setBackgroundImageError(null);
+
         // Don't try to load the image if there is no URL.
         if (!url) {
-            setBackgroundImageError(null);
             setUrl(url, 0, 0);
+            return;
+        }
+
+        // Don't update anything if the URL hasn't actually changed.
+        if (url === backgroundImage.url) {
             return;
         }
 
@@ -68,9 +75,6 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
             );
             return;
         }
-
-        // Clear previous errors
-        setBackgroundImageError(null);
 
         // Try to load the image.
         try {
