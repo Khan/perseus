@@ -15,6 +15,7 @@ import {
     articleDecorator,
     mobileArticleDecorator,
     articleFloatLeftDecorator,
+    surroundingButtonsDecorator,
 } from "../../__testutils__/story-decorators";
 import {
     earthMoonImage,
@@ -120,8 +121,12 @@ export const ImageFloatLeftWithinArticle: Story = {
     },
 };
 
+/**
+ * Surrounding buttons are added so that the focus is more obvious when
+ * testing manually with a screen reader.
+ */
 export const DecorativeImage: Story = {
-    decorators: [imageRendererDecorator],
+    decorators: [imageRendererDecorator, surroundingButtonsDecorator],
     args: {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
@@ -133,8 +138,16 @@ export const DecorativeImage: Story = {
     },
 };
 
+/**
+ * Surrounding buttons are added so that the focus is more obvious when
+ * testing manually with a screen reader.
+ */
 export const DecorativeImageMobile: Story = {
-    decorators: [imageRendererDecorator, mobileDecorator],
+    decorators: [
+        imageRendererDecorator,
+        mobileDecorator,
+        surroundingButtonsDecorator,
+    ],
     args: {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",

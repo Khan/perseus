@@ -1,3 +1,4 @@
+import Button from "@khanacademy/wonder-blocks-button";
 import * as React from "react";
 
 export const mobileDecorator = (Story) => (
@@ -21,6 +22,14 @@ export const mobileArticleDecorator = (Story) => (
 export const rtlDecorator = (Story) => (
     <div style={{direction: "rtl"}}>
         <Story />
+    </div>
+);
+
+export const surroundingButtonsDecorator = (Story) => (
+    <div>
+        <Button onClick={() => {}}>Before</Button>
+        <Story />
+        <Button onClick={() => {}}>After</Button>
     </div>
 );
 
