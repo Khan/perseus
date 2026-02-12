@@ -110,6 +110,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     allowFullBleed={apiOptions.isMobile}
                     allowZoom={!decorative}
                     alt={decorative || caption === alt ? "" : alt}
+                    decorative={decorative}
                     setAssetStatus={setAssetStatus}
                 />
             )}

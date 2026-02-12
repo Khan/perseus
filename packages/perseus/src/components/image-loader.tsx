@@ -21,6 +21,7 @@ export type ImageProps = {
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
     style?: Dimensions;
+    decorative?: boolean;
 };
 
 type Props = {
@@ -136,6 +137,8 @@ class ImageLoader extends React.Component<Props, State> {
         const {src, imgProps} = this.props;
         // Destructure to exclude props that shouldn't be on the <img> element
 
+        const {decorative, style, ...rest} = imgProps;
+
         return (
             <img
                 // Class name makes this img findable in Cypress tests.
@@ -144,6 +147,10 @@ class ImageLoader extends React.Component<Props, State> {
                     url: src,
                     context: "image_loader:image_url",
                 })}
+                // If the image is decorative, set aria-hidden to true
+                // so that screen readers don't read the alt text or the
+                // (likely unintelligible) image title.
+                aria-hidden={decorative}
                 // Stop the image size from being larger than 100%
                 // when width and height are not explicitly provided.
                 style={{
@@ -151,7 +158,7 @@ class ImageLoader extends React.Component<Props, State> {
                     // is flush with the image itself. Using a different
                     // display value could cause a 4px gap below images.
                     display: "block",
-                    ...(imgProps.style ?? {
+                    ...(style ?? {
                         // Not adding `height` to styles here, because it
                         // gets set automatically based on the width and
                         // aspect ratio of the image. Setting `height: 100%`
@@ -161,7 +168,7 @@ class ImageLoader extends React.Component<Props, State> {
                         width: "100%",
                     }),
                 }}
-                {...imgProps}
+                {...rest}
             />
         );
     };

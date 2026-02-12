@@ -687,6 +687,31 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     });
 
     describe("decorative images", () => {
+        it("should render decorative image with aria-hidden=true", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            decorative: true,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            const image = screen.getByRole("img");
+            expect(image).toHaveAttribute("aria-hidden", "true");
+        });
+
         it("should render decorative image without title", () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({

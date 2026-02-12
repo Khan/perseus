@@ -48,6 +48,7 @@ type Props = {
     allowFullBleed?: boolean;
     allowZoom: boolean;
     alt: string;
+    decorative?: boolean;
     constrainHeight?: boolean;
     extraGraphie?: {
         box: Size;
@@ -400,6 +401,7 @@ class SvgImage extends React.Component<Props, State> {
         const imageProps: ImageProps = {
             alt: this.props.alt,
             title: this.props.title,
+            decorative: this.props.decorative,
         };
 
         const width = this.props.width && this.props.width * this.props.scale;
