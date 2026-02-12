@@ -1,4 +1,4 @@
-/* eslint-disable no-var, @typescript-eslint/no-unused-vars, no-console, import/no-commonjs, no-redeclare, no-useless-escape */
+/* eslint-disable no-var, @typescript-eslint/no-unused-vars, no-console, import/no-commonjs, no-redeclare */
 import assert from "assert";
 
 import {render} from "@testing-library/react";
@@ -3924,7 +3924,7 @@ describe("simple markdown", function () {
                     bracketed: {
                         order: SimpleMarkdown.defaultRules.text.order - 1,
                         match: function (/** @type {string} */ source) {
-                            return /^\{((?:\\[\S\s]|[^\\\*])+)\}/.exec(source);
+                            return /^\{((?:\\[\S\s]|[^\\*])+)\}/.exec(source);
                         },
                         parse: function (
                             /** @type {SimpleMarkdown.Capture} */ capture,

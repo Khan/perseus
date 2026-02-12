@@ -1,5 +1,22 @@
 # @khanacademy/perseus-core
 
+## 23.0.2
+
+### Patch Changes
+
+-   [#3233](https://github.com/Khan/perseus/pull/3233) [`10d2e0850e`](https://github.com/Khan/perseus/commit/10d2e0850e1e84540ddb6868c82f98092bd606e7) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Delete outdated TODO comment.
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@2.2.6
+
+## 23.0.1
+
+### Patch Changes
+
+-   [#3231](https://github.com/Khan/perseus/pull/3231) [`748d3bf4e8`](https://github.com/Khan/perseus/commit/748d3bf4e8c641f09479908ddf74be09de3f1e8c) Thanks [@benchristel](https://github.com/benchristel)! - Fix the parser for label image widgets to handle answerless data.
+
+*   [#3217](https://github.com/Khan/perseus/pull/3217) [`d7ffa5cbb6`](https://github.com/Khan/perseus/commit/d7ffa5cbb64e9befc4a014eac041c9faccc82797) Thanks [@benchristel](https://github.com/benchristel)! - Clarify constraints on the `Options` type argument of `WidgetOptions`.
+
 ## 23.0.0
 
 ### Major Changes

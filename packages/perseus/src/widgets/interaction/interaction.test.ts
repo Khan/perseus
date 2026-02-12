@@ -1,3 +1,5 @@
+import invariant from "tiny-invariant";
+
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../testing/wait";
@@ -25,7 +27,7 @@ describe("interaction widget", () => {
         expect(container).toMatchSnapshot();
     });
 
-    it("should be unanswerable", async () => {
+    it("should score zero points", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         await waitForInitialGraphieRender();
@@ -36,10 +38,13 @@ describe("interaction widget", () => {
             renderer.getUserInputMap(),
         );
 
+        invariant(
+            score.type === "points",
+            `score.type should be "points", but was ${score.type}`,
+        );
+
         // Assert
-        // Note that this widget can never be answered correctly, no matter
-        // what state its in.
-        expect(score).toHaveBeenAnsweredIncorrectly();
+        expect(score.earned).toBe(0);
     });
 
     it("renders movable point elements with blank constraintXMin, constraintXMax, etc.", async () => {

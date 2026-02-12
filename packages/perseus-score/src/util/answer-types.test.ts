@@ -3,7 +3,7 @@ import khanAnswerTypes from "./answer-types";
 const validateFraction = (correctAnswer: string, guess: string) => {
     const validator = khanAnswerTypes.number.createValidatorFunctional(
         correctAnswer,
-        {simplified: true},
+        {},
     );
     return validator(guess);
 };
@@ -11,7 +11,7 @@ const validateFraction = (correctAnswer: string, guess: string) => {
 const validateImproperFraction = (correctAnswer: string, guess: string) => {
     const validator = khanAnswerTypes.number.createValidatorFunctional(
         correctAnswer,
-        {forms: ["improper"], strict: true, simplify: "optional"},
+        {forms: ["improper"], simplify: "optional"},
     );
     return validator(guess);
 };

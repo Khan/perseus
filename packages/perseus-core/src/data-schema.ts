@@ -501,7 +501,6 @@ export type PerseusExpressionWidgetOptions = {
     times: boolean;
     // What extra keys need to be displayed on the keypad so that the
     // question can be answerable without a keyboard (ie mobile)
-    // TODO: this is really Key[]
     extraKeys?: KeypadKey[];
     // visible label associated with the MathQuill field
     visibleLabel?: string;
