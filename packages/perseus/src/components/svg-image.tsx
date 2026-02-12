@@ -479,6 +479,9 @@ class SvgImage extends React.Component<Props, State> {
                                 imgSrc={imageSrc}
                                 width={width}
                                 height={height}
+                                // Keep non-SVG images at their original
+                                // size in zoom/focus mode.
+                                allowScaleUp={false}
                             />
                         )}
                     </FixedToResponsive>
@@ -568,6 +571,9 @@ class SvgImage extends React.Component<Props, State> {
                             imgSrc={imageUrl}
                             width={width}
                             height={height}
+                            // Allow SVG images to scale up to fill
+                            // the viewport in zoom/focus mode.
+                            allowScaleUp={true}
                         />
                     )}
                 </FixedToResponsive>

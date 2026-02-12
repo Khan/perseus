@@ -26,6 +26,10 @@ type Props = {
     children: React.ReactNode;
     className?: string;
     constrainHeight?: boolean;
+    /**
+     * When the content is at least as wide as the viewport (i.e. mobile),
+     * allow the content to fill the entire viewport.
+     */
     allowFullBleed?: boolean;
 };
 

@@ -555,6 +555,84 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Assert
             expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
         });
+
+        it("does not scale up normal images (e.g. photos) when zoomed", async () => {
+            // Arrange - normal image (jpg) uses allowScaleUp: false
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            // Non-SVG image
+                            backgroundImage: earthMoonImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Act - open the zoom modal
+            const button = screen.getByRole("button", {
+                name: "Zoom image.",
+            });
+            await userEvent.click(button);
+
+            // Assert - no CSS transform scale wrapper (image stays at original size)
+            const dialog = screen.getByRole("dialog");
+            expect(dialog).toBeVisible();
+            const scaleWrappers = Array.from(
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                dialog.querySelectorAll("div"),
+            ).filter((el: Element) => {
+                const style = el.getAttribute("style");
+                return (
+                    style?.includes("transform") && style?.includes("scale(")
+                );
+            });
+            expect(scaleWrappers).toHaveLength(0);
+        });
+
+        it("scales up Graphie/SVG images when zoomed", async () => {
+            // Arrange - Graphie image uses allowScaleUp: true
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            // SVG image
+                            backgroundImage: graphieImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(imageQuestion, apiOptions);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Act - open the zoom modal
+            const button = screen.getByRole("button", {
+                name: "Zoom image.",
+            });
+            await userEvent.click(button);
+
+            // Assert - zoom uses transform scale so graph + labels scale together.
+            // When allowScaleUp is true, ZoomedImageView wraps content in a div with
+            // inline transform (scale(...)).
+            const dialog = screen.getByRole("dialog");
+            expect(dialog).toBeVisible();
+            const scaleWrapper = Array.from(
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                dialog.querySelectorAll("div"),
+            ).find((el: Element) => {
+                const style = el.getAttribute("style");
+                return (
+                    style?.includes("transform") && style?.includes("scale(")
+                );
+            });
+            expect(scaleWrapper).toBeDefined();
+            expect(scaleWrapper).toBeInTheDocument();
+        });
     });
 
     describe("upgrade-image-widget feature flag", () => {

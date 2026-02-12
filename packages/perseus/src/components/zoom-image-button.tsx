@@ -10,9 +10,20 @@ type Props = {
     imgSrc: string;
     width: number;
     height: number;
+    /**
+     * When true, scale up to fill viewport (SVGs/Graphies).
+     * When false, only scale to their original size.
+     */
+    allowScaleUp?: boolean;
 };
 
-export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
+export const ZoomImageButton = ({
+    imgElement,
+    imgSrc,
+    width,
+    height,
+    allowScaleUp = false,
+}: Props) => {
     const i18n = usePerseusI18n();
 
     // Check for "Command + Click" or "Control + Click" to open the image
@@ -37,6 +48,7 @@ export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
                     imgElement={imgElement}
                     width={width}
                     height={height}
+                    allowScaleUp={allowScaleUp}
                     onClose={closeModal}
                 />
             )}

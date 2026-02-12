@@ -15,6 +15,11 @@ type Props = {
     imgElement: React.ReactNode;
     width: number;
     height: number;
+    /**
+     * When true, scale up to fill viewport (SVGs/Graphies).
+     * When false, only scale to their original size.
+     */
+    allowScaleUp?: boolean;
     onClose: () => void;
 };
 
@@ -22,6 +27,7 @@ export const ZoomedImageView = ({
     imgElement,
     width,
     height,
+    allowScaleUp = false,
     onClose,
 }: Props) => {
     const i18n = usePerseusI18n();
@@ -30,17 +36,15 @@ export const ZoomedImageView = ({
     const maxWidth = window.innerWidth - WB_MODAL_PADDING_TOTAL;
     const maxHeight = window.innerHeight - WB_MODAL_PADDING_TOTAL;
 
-    // Figure out the scale for the width and height, and use it to determine
-    // which dimension to use for the final size.
     const scaleWidth = maxWidth / width;
     const scaleHeight = maxHeight / height;
-    // Choose the smaller of the two so that the image fits inside
-    // the window - no scrolling.
-    const scale = Math.min(scaleWidth, scaleHeight, 1);
+    // When allowScaleUp is false (e.g. photos), cap at 1 so we never scale up.
+    const scale = allowScaleUp
+        ? Math.min(scaleWidth, scaleHeight)
+        : Math.min(scaleWidth, scaleHeight, 1);
 
-    // Calculate the final dimensions, constraine by the window size.
-    const constrainedWidth = width * scale;
-    const constrainedHeight = height * scale;
+    const displayWidth = width * scale;
+    const displayHeight = height * scale;
 
     return (
         <ModalDialog
@@ -68,14 +72,42 @@ export const ZoomedImageView = ({
                                     // styled correctly. Otherwise the Graphie
                                     // labels may not be in the correct positions.
                                     className="framework-perseus"
+                                    style={{
+                                        width: displayWidth,
+                                        height: displayHeight,
+                                    }}
                                 >
-                                    <FixedToResponsive
-                                        className="svg-image"
-                                        width={constrainedWidth}
-                                        height={constrainedHeight}
-                                    >
-                                        {imgElement}
-                                    </FixedToResponsive>
+                                    {allowScaleUp ? (
+                                        <div
+                                            style={{
+                                                width,
+                                                height,
+                                                /**
+                                                 * Use CSS transform to scale
+                                                 * the whole box, so that
+                                                 * Graphie + labels scale together.
+                                                 */
+                                                transform: `scale(${scale}, ${scale})`,
+                                                transformOrigin: "top left",
+                                            }}
+                                        >
+                                            <FixedToResponsive
+                                                className="svg-image"
+                                                width={width}
+                                                height={height}
+                                            >
+                                                {imgElement}
+                                            </FixedToResponsive>
+                                        </div>
+                                    ) : (
+                                        <FixedToResponsive
+                                            className="svg-image"
+                                            width={displayWidth}
+                                            height={displayHeight}
+                                        >
+                                            {imgElement}
+                                        </FixedToResponsive>
+                                    )}
                                 </div>
                             )}
                         </Clickable>
