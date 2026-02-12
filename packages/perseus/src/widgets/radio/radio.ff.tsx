@@ -1,5 +1,4 @@
 import {
-    deepClone,
     type PerseusRadioRubric,
     type PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
@@ -9,15 +8,10 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 
 import RadioNew from "./multiple-choice-widget";
-import {choiceTransform, getUserInputFromSerializedState} from "./util";
+import {choiceTransform} from "./util";
 
 import type {RadioProps, RadioWidgetHandle} from "./multiple-choice-widget";
-import type {
-    ChangeHandler,
-    ChoiceState,
-    Widget,
-    WidgetProps,
-} from "../../types";
+import type {ChoiceState, Widget, WidgetProps} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 // TODO: this should be using PerseusRadioWidgetOptions instead of RadioProps
@@ -47,7 +41,9 @@ function initChoiceStates(choices: Props["choices"]) {
  * This is necessary to ensure that we do not interrupt the assessment studies
  * that are currently running.
  *
- * TODO(LEMS-2994): Clean up this file.
+ * TODO(LEMS-2994): Clean up this file. State, initChoiceStates, the
+ * constructor, and UNSAFE_componentWillUpdate are all now only providing
+ * static defaults that never update on user interaction.
  */
 class Radio extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
@@ -102,67 +98,7 @@ class Radio extends React.Component<Props> implements Widget {
         return this.radioRef.current.getPromptJSON();
     }
 
-    _handleChange(arg: {choiceStates?: ReadonlyArray<ChoiceState>}) {
-        const newChoiceStates = arg.choiceStates;
-        if (newChoiceStates) {
-            /**
-             * Inside the Radio component(s) we use ChoiceState
-             * which includes both UI state and UserInput state.
-             * After LEMS-3208, we'd like to keep user input state in a
-             * "ready to score" format and ideally we'd like to internalize
-             * UI state (so Renderer doesn't manage state it doesn't need to;
-             * see LEMS-3245). At the time of writing, Radio is in the middle
-             * of a major refactor and SSS needs to move forward with LEMS-3208.
-             *
-             * This code maintains the original Radio props (ChoiceState)
-             * while allowing Renderer to have UserInput in the shape it needs
-             * and for this component to take over managing UI state
-             * (ChoiceStateWithoutSelected). To do that we convert ChoiceState
-             * into those two chunks of data.
-             */
-            this.setState(
-                {
-                    choiceStates: newChoiceStates.map((choiceState) => {
-                        const {selected: _, ...rest} = choiceState;
-                        return {
-                            ...rest,
-                        };
-                    }),
-                },
-                () => {
-                    // Restructure the data in a format that
-                    // getUserInputFromSerializedState will understand
-                    const props = this._mergePropsAndState();
-
-                    // creating a shallow copy of props and cloning choiceStates
-                    // to minimize the chance of mutating choiceStates
-                    const mergedProps = {
-                        ...props,
-                        choiceStates: deepClone(props.choiceStates || []).map(
-                            (choiceState, index) => {
-                                return {
-                                    ...choiceState,
-                                    selected: newChoiceStates[index].selected,
-                                };
-                            },
-                        ),
-                    };
-                    // Use getUserInputFromSerializedState to get
-                    // unshuffled user input so that we can score with it
-                    const unshuffledUserInput =
-                        getUserInputFromSerializedState(mergedProps);
-                    this.props.handleUserInput(unshuffledUserInput);
-                },
-            );
-        } else {
-            throw new Error("unhandled onChange call in Radio!");
-        }
-    }
-
-    // TODO: https://khanacademy.atlassian.net/browse/LEMS-3542
-    // remove onChange from Radio
     _mergePropsAndState(): Props & {
-        onChange: ChangeHandler;
         numCorrect: number;
     } {
         /**
@@ -209,8 +145,6 @@ class Radio extends React.Component<Props> implements Widget {
                     selected,
                 };
             }),
-            onChange: (arg: {choiceStates?: ReadonlyArray<ChoiceState>}) =>
-                this._handleChange(arg),
         };
     }
 

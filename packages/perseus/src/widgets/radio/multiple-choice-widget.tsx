@@ -12,7 +12,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio
 import MultipleChoiceComponent from "./multiple-choice-component";
 import {getChoiceStates} from "./utils/general-utils";
 
-import type {WidgetProps, ChoiceState, ChangeHandler} from "../../types";
+import type {WidgetProps, ChoiceState} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -52,8 +52,6 @@ export type RadioProps = {
     editMode?: boolean;
     labelWrap?: boolean;
     randomize?: boolean;
-    // TODO(LEMS-3542): remove onChange from Radio
-    onChange: ChangeHandler;
 };
 
 export type RadioWidgetHandle = {
@@ -94,7 +92,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             questionCompleted,
             static: isStatic,
             apiOptions,
-            onChange,
+            handleUserInput,
             trackInteraction,
             findWidgets,
             reviewMode,
@@ -185,7 +183,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
          * Updates choice states based on the selection, handles single/multiple
          * selection logic, and notifies Perseus of the interaction.
          *
-         * @param choiceIndex - The index of the choice that changed
+         * @param choiceId - The ID of the choice that changed
          * @param newCheckedState - Whether the choice is now selected
          */
         const handleChoiceChange = (
@@ -193,54 +191,50 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             newCheckedState: boolean,
         ): void => {
             const checkedChoiceIds: string[] = [];
-
+            const currentSelectedIds = choiceStates
+                ? choiceStates
+                      .map((state, i) => ({
+                          selected: state.selected,
+                          id: choices[i]?.id,
+                      }))
+                      .filter((choice) => choice.selected && choice.id != null)
+                      .map((choice) => choice.id)
+                : [];
             if (newCheckedState && !multipleSelect) {
                 checkedChoiceIds.push(choiceId);
             } else if (newCheckedState && multipleSelect) {
                 // Multi-select mode + checking: add to existing
-                const currentSelectedIds = choiceStates
-                    ? choiceStates
-                          .map((state, i) => ({
-                              selected: state.selected,
-                              id: choices[i].id,
-                          }))
-                          .filter((choice) => choice.selected)
-                          .map((choice) => choice.id)
-                    : [];
                 checkedChoiceIds.push(...currentSelectedIds, choiceId);
             } else {
                 // Unchecking: remove this choice from checked list
-                const currentSelectedIds = choiceStates
-                    ? choiceStates
-                          .map((state, i) => ({
-                              selected: state.selected,
-                              id: choices[i].id,
-                          }))
-                          .filter(
-                              (choice) =>
-                                  choice.selected && choice.id !== choiceId,
-                          )
-                          .map((choice) => choice.id)
-                    : [];
-                checkedChoiceIds.push(...currentSelectedIds);
+                checkedChoiceIds.push(
+                    ...currentSelectedIds.filter((id) => id !== choiceId),
+                );
             }
 
             // Construct the baseline `choiceStates` objects. If this is the user's
             // first interaction with the widget, we'll need to initialize them to
             // new objects with all fields set to the default values. Otherwise, we
             // should clone the old `choiceStates` objects, in preparation to
-            // mutate them.
-            const newChoiceStates: ChoiceState[] = choiceStates
-                ? choiceStates.map((state) => ({...state}))
-                : choices.map(() => ({
-                      selected: false,
-                      // TODO(LEMS-2994): Remove this field when we remove the old Radio files
-                      highlighted: false,
-                      rationaleShown: false,
-                      correctnessShown: false,
-                      previouslyAnswered: false,
-                      readOnly: false,
-                  }));
+            // mutate them. We need to ensure the array length matches choices length
+            // to handle the case where choiceStates is shorter than choices (LEMS-3861).
+            const newChoiceStates: ChoiceState[] = choices.map((_, i) => {
+                if (choiceStates && choiceStates[i] !== undefined) {
+                    // Clone existing state
+                    return {...choiceStates[i]};
+                } else {
+                    // Create default state for missing entries
+                    return {
+                        selected: false,
+                        // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
+                        highlighted: false,
+                        rationaleShown: false,
+                        correctnessShown: false,
+                        previouslyAnswered: false,
+                        readOnly: false,
+                    };
+                }
+            });
 
             // Mutate the new `choiceState` objects, according to the checkedChoiceIds.
             newChoiceStates.forEach((choiceState: ChoiceState, i) => {
@@ -248,7 +242,10 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 choiceState.selected = checkedChoiceIds.includes(choiceId);
             });
 
-            onChange({choiceStates: newChoiceStates});
+            handleUserInput({
+                selectedChoiceIds: checkedChoiceIds,
+            });
+
             trackInteraction();
             announceChoiceChange(newChoiceStates);
         };
