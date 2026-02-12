@@ -147,10 +147,10 @@ class ImageLoader extends React.Component<Props, State> {
                     url: src,
                     context: "image_loader:image_url",
                 })}
-                // If the image is decorative, set aria-hidden to true
+                // If the image is decorative, set role to "presentation"
                 // so that screen readers don't read the alt text or the
                 // (likely unintelligible) image title.
-                aria-hidden={decorative ? true : undefined}
+                role={decorative ? "presentation" : undefined}
                 // Stop the image size from being larger than 100%
                 // when width and height are not explicitly provided.
                 style={{

@@ -687,7 +687,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     });
 
     describe("decorative images", () => {
-        it("should render decorative image with aria-hidden=true", () => {
+        it("should render decorative image presentation role", () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -708,11 +708,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            // Decorative img has empty alt and aria-hidden=true. This means
-            // its role changes to "presentation" and is hidden from a11y tree,
-            // so we need to use hidden: true to query it.
-            const image = screen.getByRole("presentation", {hidden: true});
-            expect(image).toHaveAttribute("aria-hidden", "true");
+            // Decorative img has role="presentation".
+            const image = screen.getByRole("presentation");
+            expect(image).toBeInTheDocument();
         });
 
         it("should render decorative image without title", () => {
@@ -816,10 +814,8 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            // Decorative img has empty alt and aria-hidden=true. This means
-            // its role changes to "presentation" and is hidden from a11y tree,
-            // so we need to use hidden: true to query it.
-            const image = screen.getByRole("presentation", {hidden: true});
+            // Decorative img has role="presentation".
+            const image = screen.getByRole("presentation");
             expect(image).toHaveAttribute("alt", "");
             expect(
                 screen.queryByAltText("widget alt text"),
@@ -859,10 +855,8 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 screen.queryByRole("button", {name: "Explore image"}),
             ).not.toBeInTheDocument();
 
-            // Decorative img has empty alt and aria-hidden=true. This means
-            // its role changes to "presentation" and is hidden from a11y tree,
-            // so we need to use hidden: true to query it.
-            const image = screen.getByRole("presentation", {hidden: true});
+            // Decorative img has role="presentation".
+            const image = screen.getByRole("presentation");
             expect(image).toHaveAttribute("alt", "");
             expect(
                 screen.queryByAltText("widget alt text"),
