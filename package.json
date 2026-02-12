@@ -118,6 +118,7 @@
         "build:types": "tsc --build tsconfig-build.json",
         "build:prodsizecheck": "pnpm build --configEnvironment='production'",
         "watch": "pnpm build --watch",
+        "fi": "pnpm install --force",
         "clean": "./utils/clean.sh",
         "coverage": "./utils/test-with-coverage.sh",
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
