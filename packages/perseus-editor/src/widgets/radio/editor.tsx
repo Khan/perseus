@@ -31,7 +31,6 @@ export interface RadioEditorProps {
     hasNoneOfTheAbove: boolean;
     multipleSelect: boolean;
     deselectEnabled: boolean;
-    static: boolean;
 
     onChange: (
         values: Partial<PerseusRadioWidgetOptions>,

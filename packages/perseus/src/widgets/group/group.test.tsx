@@ -237,7 +237,6 @@ describe("group widget", () => {
                     ],
                     hasNoneOfTheAbove: false,
                     numCorrect: 1,
-                    static: false,
                 },
             },
             "group 2": {

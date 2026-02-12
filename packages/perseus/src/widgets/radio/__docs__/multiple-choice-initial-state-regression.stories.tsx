@@ -78,32 +78,6 @@ export const SingleSelectWithNoneOfTheAbove: Story = {
     },
 };
 
-export const SingleSelectStatic: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        // Static widget
-                        static: true,
-                        options: generateRadioOptions({
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2"),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
-        }),
-    },
-};
-
 export const SingleSelectShowSolutions: Story = {
     args: {
         item: generateSimpleRadioItem({
@@ -263,35 +237,6 @@ export const MultiSelectCountChoices: Story = {
                 generateRadioChoice("Choice 3"),
                 generateRadioChoice("Choice 4"),
             ],
-        }),
-    },
-};
-
-export const MultiSelectStatic: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        // Static widget
-                        static: true,
-                        options: generateRadioOptions({
-                            multipleSelect: true,
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
         }),
     },
 };

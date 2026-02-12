@@ -23,8 +23,6 @@ import type {Meta} from "@storybook/react-vite";
 type StoryArgs = {
     // Story Option
     item: PerseusItem;
-    // Radio Options
-    static: boolean;
     // Testing Options
     startAnswerless: boolean;
 } & Pick<
@@ -53,7 +51,6 @@ export default {
         },
     },
     args: {
-        static: false,
         // Requires a page refresh for toggling this to affect the story
         startAnswerless: false,
         reviewMode: false,
@@ -84,20 +81,10 @@ export default {
 const applyStoryArgs = (args: StoryArgs): PerseusItem => {
     const storyItem = {
         ...args.item,
-        question: {
-            ...args.item.question,
-            widgets: {},
-        },
         apiOptions: {
             flags: getFeatureFlags({"new-radio-widget": true}),
         },
     };
-    for (const [widgetId, widget] of Object.entries(
-        args.item.question.widgets,
-    )) {
-        storyItem.question.widgets[widgetId] = {...widget, static: args.static};
-    }
-
     return storyItem;
 };
 
