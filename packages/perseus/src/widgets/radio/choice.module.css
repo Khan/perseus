@@ -28,15 +28,14 @@
     --perseus-multiple-choice-divider-space: var(
         --wb-border-width-medium
     ); /* Space between the choices, which is also used to position the divider */
+    align-items: center; /* Vertically center indicator with content */
     border-radius: var(--wb-border-radius-radius_080);
+    display: flex; /* Enable flexbox layout for indicator and content alignment */
     font-size: var(--wb-font-heading-size-medium);
     font-weight: var(--wb-font-weight-semi);
     line-height: var(--wb-font-heading-lineHeight-medium);
     margin-block-end: var(--perseus-multiple-choice-divider-space);
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
-    outline: var(--wb-border-width-medium) solid
-        var(--perseus-multiple-choice-correctness-outline-color, transparent);
-    outline-offset: calc(var(--wb-border-width-medium) * -1);
     padding: var(--perseus-multiple-choice-spacing);
     position: relative; /* Needed to enable the dividers (:before and :after pseudo-elements) to position correctly */
     width: 100%;
@@ -146,10 +145,8 @@
 
 .is-correct {
     --perseus-multiple-choice-divider-width: 0;
-    --perseus-multiple-choice-correctness-outline-color: var(
-        --wb-semanticColor-core-border-success-default
-    );
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    margin-block-end: 3px; /* 3px spacing between correct answers as per design spec */
 }
 
 .is-wrong {
