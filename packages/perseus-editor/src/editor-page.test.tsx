@@ -278,4 +278,62 @@ describe("EditorPage", () => {
             screen.getByDisplayValue(/Updated content from parent/),
         ).toBeInTheDocument();
     });
+
+    it("should call getStartWidgetOptions if available", async () => {
+        const onChangeMock = jest.fn();
+
+        const startRenderer: PerseusRenderer = {
+            content: "That's an onomatopoeia!",
+            widgets: {},
+            images: {},
+        };
+
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={startRenderer}
+                onChange={onChangeMock}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={false}
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        const textarea = screen.getByRole("textbox") as HTMLTextAreaElement;
+        expect(textarea).toBeInTheDocument();
+
+        textarea.setSelectionRange(10, 22);
+
+        const select = screen.getByTestId("editor__widget-select");
+        await userEvent.selectOptions(select, "Definition");
+
+        expect(onChangeMock).toHaveBeenCalledWith(
+            {
+                answerArea: {},
+                question: {
+                    content: "That's an [[☃ definition 1]]!",
+                    images: {},
+                    widgets: {
+                        "definition 1": {
+                            options: {
+                                definition: "",
+                                togglePrompt: "onomatopoeia",
+                            },
+                            type: "definition",
+                            version: {
+                                major: 0,
+                                minor: 0,
+                            },
+                        },
+                    },
+                },
+            },
+            expect.any(Function),
+            undefined,
+        );
+    });
 });

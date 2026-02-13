@@ -31,6 +31,18 @@ class DefinitionEditor extends React.Component<Props> {
     static defaultProps: DefinitionDefaultWidgetOptions =
         definitionLogic.defaultWidgetOptions;
 
+    static getStartWidgetOptions(selectedText?: string) {
+        const defaultWidgetOptions = {
+            ...definitionLogic.defaultWidgetOptions,
+        };
+
+        if (selectedText) {
+            defaultWidgetOptions.togglePrompt = selectedText;
+        }
+
+        return defaultWidgetOptions;
+    }
+
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
