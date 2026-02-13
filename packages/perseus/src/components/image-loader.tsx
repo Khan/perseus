@@ -137,7 +137,7 @@ class ImageLoader extends React.Component<Props, State> {
         const {src, imgProps} = this.props;
         // Destructure to exclude props that shouldn't be on the <img> element
 
-        const {decorative, style, ...rest} = imgProps;
+        const {decorative, ...rest} = imgProps;
 
         return (
             <img
@@ -158,7 +158,7 @@ class ImageLoader extends React.Component<Props, State> {
                     // is flush with the image itself. Using a different
                     // display value could cause a 4px gap below images.
                     display: "block",
-                    ...(style ?? {
+                    ...(imgProps.style ?? {
                         // Not adding `height` to styles here, because it
                         // gets set automatically based on the width and
                         // aspect ratio of the image. Setting `height: 100%`
