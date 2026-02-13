@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
     question,
@@ -122,6 +123,7 @@ export const SelectWithImagesAndScroll = {
             question: SingleSelectOverflowImageContent,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const SingleSelectWithScroll = {
@@ -130,6 +132,7 @@ export const SingleSelectWithScroll = {
             question: SingleSelectOverflowContent,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const MultiSelectSimple = {
@@ -154,6 +157,7 @@ export const MultiSelectWithScroll = {
             question: multiChoiceQuestionSimpleOverflowContent,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const GradedGroupSetWithScroll = {
@@ -162,6 +166,7 @@ export const GradedGroupSetWithScroll = {
             question: overflowContentInGradedGroupSet,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const GradedGroup = {

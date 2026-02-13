@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import type {Decorator} from "@storybook/react-vite";
+
 export const mobileDecorator = (Story) => (
     <div className="framework-perseus perseus-mobile">
         <Story />
@@ -80,5 +82,13 @@ export const articleFloatRightDecorator = (Story) => (
         <div className="paragraph">{articleContent1}</div>
         <div className="paragraph">{articleContent2}</div>
         <div className="paragraph">{articleContent3}</div>
+    </div>
+);
+
+// Decorator to constrain the viewport width so that overflow content
+// triggers scroll buttons in the radio widget.
+export const narrowViewportDecorator: Decorator = (Story) => (
+    <div style={{maxWidth: "400px"}}>
+        <Story />
     </div>
 );
