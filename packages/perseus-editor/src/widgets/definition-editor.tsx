@@ -7,6 +7,7 @@ import _ from "underscore";
 
 import Editor from "../editor";
 
+import type {StartWidgetOptionsContext} from "../editor";
 import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
@@ -31,13 +32,13 @@ class DefinitionEditor extends React.Component<Props> {
     static defaultProps: DefinitionDefaultWidgetOptions =
         definitionLogic.defaultWidgetOptions;
 
-    static getStartWidgetOptions(selectedText?: string) {
+    static getStartWidgetOptions(context: StartWidgetOptionsContext) {
         const defaultWidgetOptions = {
             ...definitionLogic.defaultWidgetOptions,
         };
 
-        if (selectedText) {
-            defaultWidgetOptions.togglePrompt = selectedText;
+        if (context.selectedText) {
+            defaultWidgetOptions.togglePrompt = context.selectedText;
         }
 
         return defaultWidgetOptions;

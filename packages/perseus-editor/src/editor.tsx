@@ -150,6 +150,10 @@ type State = {
     textAreaValue: string;
 };
 
+export type StartWidgetOptionsContext = {
+    selectedText: string;
+};
+
 // eslint-disable-next-line react/no-unsafe
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
@@ -674,8 +678,12 @@ class Editor extends React.Component<Props, State> {
 
         const newWidgets = {...this.props.widgets};
         const widgetEditor = Widgets.getEditor(widgetType);
-        const startWidgetOptions =
-            widgetEditor?.getStartWidgetOptions?.(selectedText);
+        const startWidgetOptionsContext: StartWidgetOptionsContext = {
+            selectedText,
+        };
+        const startWidgetOptions = widgetEditor?.getStartWidgetOptions?.(
+            startWidgetOptionsContext,
+        );
         const defaultProps = widgetEditor?.defaultProps;
         newWidgets[id] = {
             options: startWidgetOptions || defaultProps,
