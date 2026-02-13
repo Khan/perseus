@@ -1,7 +1,7 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import {forwardRef, useImperativeHandle} from "react";
+import {forwardRef, useImperativeHandle, useMemo} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import {useDependencies} from "../../dependencies";
@@ -13,7 +13,7 @@ import MultipleChoiceComponent from "./multiple-choice-component";
 import {choiceTransform} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
-import type {WidgetProps, ChoiceState} from "../../types";
+import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -50,6 +50,7 @@ export type RadioProps = {
 };
 
 export type RadioWidgetHandle = {
+    getSerializedState(): any;
     getPromptJSON(): RadioPromptJSON;
 };
 
@@ -81,8 +82,6 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             multipleSelect = false,
             countChoices = false,
             showSolutions = "none",
-            // TODO(LEMS-3783): remove uses of `questionCompleted`
-            questionCompleted,
             apiOptions,
             handleUserInput,
             trackInteraction,
@@ -95,14 +94,16 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
         const {analytics} = useDependencies();
 
         const randomSeed = (props.problemNum ?? 0) + (props.widgetIndex ?? 0);
-        const choices = [
-            ...choiceTransform(
-                props.choices,
-                props.randomize,
-                strings,
-                randomSeed,
-            ),
-        ];
+        const choices = useMemo(() => {
+            return [
+                ...choiceTransform(
+                    props.choices,
+                    props.randomize,
+                    strings,
+                    randomSeed,
+                ),
+            ];
+        }, [props.choices, props.randomize, strings, randomSeed]);
 
         useOnMountEffect(() => {
             analytics.onAnalyticsEvent({
@@ -118,8 +119,6 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
         });
 
         // Perseus Widget API methods
-        // TODO(LEMS-2994): When we remove the old Radio files, we may need to move some
-        // of the methods from radio.ff.tsx into here, such as getSerializedState, etc.
         useImperativeHandle(
             ref,
             () => ({
@@ -306,8 +305,6 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                     hasRationale: !!choice.rationale,
                     rationale: renderContent(choice.rationale),
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
-                    // TODO(LEMS-3783): remove uses of `questionCompleted` and `revealNoneOfTheAbove`
-                    revealNoneOfTheAbove: !!(questionCompleted && selected),
                 };
             });
         };
@@ -370,7 +367,34 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
     },
 );
 
-// Export as Radio for backwards compatibility until we can
-// perform Content Backfills to officially rename the Radio Widget
-const Radio = MultipleChoiceWidget;
+class Radio extends React.Component<Props> implements Widget {
+    radioRef = React.createRef<RadioWidgetHandle>();
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState
+     */
+    getSerializedState() {
+        if (!this.radioRef.current) {
+            throw new Error(
+                "Radio widget is not mounted; getSerializedState is unavailable.",
+            );
+        }
+        return this.radioRef.current.getSerializedState();
+    }
+
+    getPromptJSON(): RadioPromptJSON {
+        if (!this.radioRef.current) {
+            throw new Error(
+                "Radio widget is not mounted; getPromptJSON is unavailable.",
+            );
+        }
+        return this.radioRef.current.getPromptJSON();
+    }
+
+    render(): React.ReactNode {
+        return <MultipleChoiceWidget ref={this.radioRef} {...this.props} />;
+    }
+}
+
 export default Radio;
