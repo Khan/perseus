@@ -10,6 +10,7 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import MultipleChoiceComponent from "./multiple-choice-component";
+import {choiceTransform} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
 import type {WidgetProps, ChoiceState} from "../../types";
@@ -31,14 +32,8 @@ export interface ChoiceType {
     content: React.ReactNode;
     rationale: React.ReactNode;
     hasRationale: boolean;
-    showRationale: boolean;
-    showCorrectness: boolean;
     correct: boolean;
     isNoneOfTheAbove: boolean;
-    previouslyAnswered: boolean;
-    // TODO(LEMS-3783): remove uses of `revealNoneOfTheAbove`
-    revealNoneOfTheAbove: boolean;
-    disabled: boolean;
 }
 
 export type RadioProps = {
@@ -83,11 +78,9 @@ type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
     function MultipleChoiceWidget(props, ref) {
         const {
-            choices = [],
             multipleSelect = false,
             countChoices = false,
             showSolutions = "none",
-            choiceStates,
             // TODO(LEMS-3783): remove uses of `questionCompleted`
             questionCompleted,
             apiOptions,
@@ -100,6 +93,16 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
 
         const {strings} = usePerseusI18n();
         const {analytics} = useDependencies();
+
+        const randomSeed = (props.problemNum ?? 0) + (props.widgetIndex ?? 0);
+        const choices = [
+            ...choiceTransform(
+                props.choices,
+                props.randomize,
+                strings,
+                randomSeed,
+            ),
+        ];
 
         useOnMountEffect(() => {
             analytics.onAnalyticsEvent({
@@ -131,8 +134,31 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 getPromptJSON: (): RadioPromptJSON => {
                     return _getPromptJSON(props, props.userInput);
                 },
+                /**
+                 * @deprecated and likely very broken API
+                 * [LEMS-3185] do not trust serializedState
+                 */
+                getSerializedState() {
+                    const {userInput: _, randomize: __, ...rest} = props;
+                    return {
+                        ...rest,
+                        numCorrect: props.numCorrect ?? 0,
+                        choices,
+                        hasNoneOfTheAbove: props.hasNoneOfTheAbove ?? false,
+                        choiceStates: choices.map((choice) => {
+                            // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
+                            const selected =
+                                props.userInput?.selectedChoiceIds.includes(
+                                    choice?.id,
+                                ) ?? false;
+                            return {
+                                selected,
+                            };
+                        }),
+                    };
+                },
             }),
-            [props],
+            [choices, props],
         );
 
         /**
@@ -190,15 +216,20 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             newCheckedState: boolean,
         ): void => {
             const checkedChoiceIds: string[] = [];
+            const choiceStates: (ChoiceState & {id: string})[] = choices.map(
+                (choice) => {
+                    return {
+                        selected:
+                            props.userInput?.selectedChoiceIds.includes(
+                                choice.id,
+                            ) ?? false,
+                        id: choice.id,
+                    };
+                },
+            );
             const currentSelectedIds = choiceStates
-                ? choiceStates
-                      .map((state, i) => ({
-                          selected: state.selected,
-                          id: choices[i]?.id,
-                      }))
-                      .filter((choice) => choice.selected && choice.id != null)
-                      .map((choice) => choice.id)
-                : [];
+                .filter((choice) => choice.selected)
+                .map((choice) => choice.id);
             if (newCheckedState && !multipleSelect) {
                 checkedChoiceIds.push(choiceId);
             } else if (newCheckedState && multipleSelect) {
@@ -211,42 +242,12 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 );
             }
 
-            // Construct the baseline `choiceStates` objects. If this is the user's
-            // first interaction with the widget, we'll need to initialize them to
-            // new objects with all fields set to the default values. Otherwise, we
-            // should clone the old `choiceStates` objects, in preparation to
-            // mutate them. We need to ensure the array length matches choices length
-            // to handle the case where choiceStates is shorter than choices (LEMS-3861).
-            const newChoiceStates: ChoiceState[] = choices.map((_, i) => {
-                if (choiceStates && choiceStates[i] !== undefined) {
-                    // Clone existing state
-                    return {...choiceStates[i]};
-                } else {
-                    // Create default state for missing entries
-                    return {
-                        selected: false,
-                        // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
-                        highlighted: false,
-                        rationaleShown: false,
-                        correctnessShown: false,
-                        previouslyAnswered: false,
-                        readOnly: false,
-                    };
-                }
-            });
-
-            // Mutate the new `choiceState` objects, according to the checkedChoiceIds.
-            newChoiceStates.forEach((choiceState: ChoiceState, i) => {
-                const choiceId = choices[i].id;
-                choiceState.selected = checkedChoiceIds.includes(choiceId);
-            });
-
             handleUserInput({
                 selectedChoiceIds: checkedChoiceIds,
             });
 
             trackInteraction();
-            announceChoiceChange(newChoiceStates);
+            announceChoiceChange(choiceStates);
         };
 
         const announceChoiceChange = (
@@ -294,31 +295,19 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                         ? strings.noneOfTheAbove
                         : choice.content;
 
-                // Extract the choice state for the choice.
-                // Guard against undefined choiceStates when choices array length exceeds choiceStates length
                 // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
-                const {
-                    selected = false,
-                    rationaleShown = false,
-                    correctnessShown = false,
-                    readOnly = false,
-                    previouslyAnswered = false,
-                } = choiceStates[i] ?? {};
+                const {selected = false} = choiceStates[i] ?? {};
 
                 return {
                     id: choice.id,
                     content: renderContent(content),
                     checked: selected,
                     correct: !!choice.correct,
-                    disabled: readOnly,
                     hasRationale: !!choice.rationale,
                     rationale: renderContent(choice.rationale),
-                    showRationale: rationaleShown,
-                    showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
                     // TODO(LEMS-3783): remove uses of `questionCompleted` and `revealNoneOfTheAbove`
                     revealNoneOfTheAbove: !!(questionCompleted && selected),
-                    previouslyAnswered,
                 };
             });
         };
@@ -335,6 +324,15 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
          * @returns An array of choice props ready for the component
          */
         const prepareChoicesProps = () => {
+            const choiceStates: ChoiceState[] = choices.map((choice) => {
+                return {
+                    selected:
+                        props.userInput?.selectedChoiceIds.includes(
+                            choice.id,
+                        ) ?? false,
+                };
+            });
+
             // Get the updated choice states based on the current props
             const processedChoiceStates = getChoiceStates({
                 choices,
