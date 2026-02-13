@@ -39,6 +39,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
             </div>
             <div
               class="fixed-to-responsive svg-image"
+              data-scale="1"
               style="max-width: 400px; max-height: 225px;"
             >
               <img
@@ -123,6 +124,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
             </div>
             <div
               class="fixed-to-responsive svg-image"
+              data-scale="1"
               style="max-width: 400px; max-height: 225px;"
             >
               <img
@@ -216,6 +218,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                   </div>
                   <div
                     class="fixed-to-responsive svg-image"
+                    data-scale="1"
                     style="max-width: 420px; max-height: 345px;"
                   >
                     <span
@@ -390,6 +393,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
             </div>
             <div
               class="fixed-to-responsive svg-image"
+              data-scale="1"
               style="max-width: 400px; max-height: 225px;"
             >
               <img
@@ -474,6 +478,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
             </div>
             <div
               class="fixed-to-responsive svg-image"
+              data-scale="1"
               style="max-width: 400px; max-height: 225px;"
             >
               <img
@@ -567,6 +572,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                   </div>
                   <div
                     class="fixed-to-responsive svg-image"
+                    data-scale="1"
                     style="max-width: 420px; max-height: 345px;"
                   >
                     <span

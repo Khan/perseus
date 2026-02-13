@@ -23,6 +23,7 @@ export const parseImageWidget = parseWidget(
         longDescription: optional(string),
         decorative: optional(boolean),
         backgroundImage: parsePerseusImageBackground,
+        scale: optional(number),
         static: optional(boolean),
         labels: optional(
             array(

@@ -27,6 +27,7 @@ export interface ImageWidgetProps extends ExternalProps {
     range: NonNullable<ExternalProps["range"]>;
     box: NonNullable<ExternalProps["box"]>;
     backgroundImage: NonNullable<ExternalProps["backgroundImage"]>;
+    scale: NonNullable<ExternalProps["scale"]>;
     labels: NonNullable<ExternalProps["labels"]>;
     alt: NonNullable<ExternalProps["alt"]>;
     longDescription: NonNullable<ExternalProps["longDescription"]>;
@@ -41,6 +42,7 @@ interface DefaultProps extends Partial<ImageWidgetProps> {
     range: ImageWidgetProps["range"];
     box: ImageWidgetProps["box"];
     backgroundImage: ImageWidgetProps["backgroundImage"];
+    scale: ImageWidgetProps["scale"];
     labels: ImageWidgetProps["labels"];
     alt: ImageWidgetProps["alt"];
     longDescription: ImageWidgetProps["longDescription"];
@@ -59,6 +61,7 @@ class ImageWidget extends React.Component<ImageWidgetProps> implements Widget {
         range: [defaultRange, defaultRange],
         box: [defaultBoxSize, defaultBoxSize],
         backgroundImage: defaultBackgroundImage,
+        scale: 1,
         labels: [],
         alt: "",
         longDescription: "",
