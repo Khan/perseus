@@ -21,6 +21,7 @@ const altTextTooShortError =
 export default function ImageSettings({
     alt,
     backgroundImage,
+    scale = 1,
     apiOptions,
     caption,
     decorative,
@@ -83,6 +84,7 @@ export default function ImageSettings({
             {/* Dimensions */}
             <ImageDimensionsInput
                 backgroundImage={backgroundImage}
+                scale={scale}
                 onChange={onChange}
             />
 
