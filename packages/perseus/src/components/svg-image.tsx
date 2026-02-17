@@ -466,6 +466,7 @@ class SvgImage extends React.Component<Props, State> {
                         className="svg-image"
                         width={width}
                         height={height}
+                        scale={this.props.scale}
                         constrainHeight={this.props.constrainHeight}
                         allowFullBleed={
                             this.props.allowFullBleed &&
@@ -559,6 +560,7 @@ class SvgImage extends React.Component<Props, State> {
                     className="svg-image"
                     width={width}
                     height={height}
+                    scale={this.props.scale}
                     constrainHeight={this.props.constrainHeight}
                 >
                     {imageContent}

@@ -7,19 +7,18 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
-import Util from "../../util";
 
 import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
 import styles from "./image-widget.module.css";
 
 import type {ImageWidgetProps} from "./image.class";
-import type {Size} from "@khanacademy/perseus-core";
 
 export const ImageComponent = (props: ImageWidgetProps) => {
     const {
         apiOptions,
         alt,
         backgroundImage,
+        scale,
         box,
         caption,
         longDescription,
@@ -35,16 +34,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
     const {analytics} = useDependencies();
 
-    const [zoomSize, setZoomSize] = React.useState<Size>([
-        backgroundImage.width || 0,
-        backgroundImage.height || 0,
-    ]);
-
-    const [zoomWidth, zoomHeight] = zoomSize;
-
-    // Use ref to track if we should ignore async results
-    const ignoreResultsRef = React.useRef(false);
-
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
@@ -55,43 +44,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             },
         });
     });
-
-    React.useEffect(() => {
-        // Reset the flag for this effect run
-        ignoreResultsRef.current = false;
-
-        // Wait to figure out what the original size of the image is.
-        // Use whichever is larger between the original image size and the
-        // saved background image size for zooming.
-        Util.getImageSizeModern(backgroundImage.url!).then((naturalSize) => {
-            // Ignore results if effect has been cleaned up
-            // This prevents updates after component unmounts or dependencies change
-            if (ignoreResultsRef.current) {
-                return;
-            }
-
-            const [naturalWidth, naturalHeight] = naturalSize;
-            const [savedWidth, savedHeight] = [
-                backgroundImage.width || 0,
-                backgroundImage.height || 0,
-            ];
-            // Only update if the new size is larger
-            // This prevents unnecessary updates and infinite loops
-            if (naturalWidth > savedWidth) {
-                setZoomSize([naturalWidth, naturalHeight]);
-            } else {
-                // Set the zoom size to the saved background image size.
-                // We need to do this here in the useEffect to make sure
-                // the size properly updates in the editor preview.
-                setZoomSize([savedWidth, savedHeight]);
-            }
-        });
-
-        return () => {
-            // Mark results as stale when dependencies change or component unmounts
-            ignoreResultsRef.current = true;
-        };
-    }, [backgroundImage.url, backgroundImage.width, backgroundImage.height]);
 
     if (!backgroundImage.url) {
         return null;
@@ -105,8 +57,9 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     // Between the original image size and the saved background
                     // image size, use the larger size to determine if the
                     // image is large enough to allow zooming.
-                    width={zoomWidth}
-                    height={zoomHeight}
+                    width={backgroundImage.width}
+                    height={backgroundImage.height}
+                    scale={scale}
                     preloader={apiOptions.imagePreloader}
                     extraGraphie={{
                         box: box,
@@ -125,6 +78,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         </AssetContext.Consumer>
     );
 
+    const maxWidth = (backgroundImage.width ?? 0) * scale;
+
     // Early return for decorative images
     if (imageUpgradeFF && decorative) {
         return (
@@ -135,7 +90,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     // width saved inside `backgroundImage` - this is the
                     // width intended to be used when rendering the image
                     // within the content item.
-                    maxWidth: backgroundImage.width,
+                    maxWidth: maxWidth,
                 }}
             >
                 {svgImage}
@@ -151,7 +106,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                 // width saved inside `backgroundImage` - this is the
                 // width intended to be used when rendering the image
                 // within the content item.
-                maxWidth: backgroundImage.width,
+                maxWidth: maxWidth,
             }}
         >
             {/* Title */}
@@ -173,7 +128,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
 
             {/* Description & Caption */}
             {(caption || (imageUpgradeFF && longDescription)) && (
-                <ImageDescriptionAndCaption zoomSize={zoomSize} {...props} />
+                <ImageDescriptionAndCaption {...props} />
             )}
         </figure>
     );

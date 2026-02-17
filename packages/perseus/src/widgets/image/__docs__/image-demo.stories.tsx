@@ -154,6 +154,24 @@ export const GraphieImage: Story = {
     },
 };
 
+export const GraphieImageWithBiggerSize: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        scale: 2,
+        alt: graphieImageAlt,
+    },
+};
+
+export const GraphieImageWithSmallerSize: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        scale: 0.5,
+        alt: graphieImageAlt,
+    },
+};
+
 /**
  * Images with different sizes.
  *
@@ -173,47 +191,51 @@ export const ImageWithDifferentSizes: Story = {
                 <ImageQuestionRenderer
                     question={generateTestPerseusRenderer({
                         content:
-                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]",
+                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]",
                         widgets: {
                             "image 1": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: frescoImage,
+                                    backgroundImage: earthMoonImage,
+                                    scale: 1,
                                     alt: "Fresco painting",
                                     longDescription: "long description",
                                 }),
                             }),
                             "image 2": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: {
-                                        url: frescoImage.url,
-                                        width: 400,
-                                        height: 225,
-                                    },
+                                    backgroundImage: earthMoonImage,
+                                    scale: 0.5,
                                     alt: "Fresco painting",
                                     longDescription: "long description",
                                 }),
                             }),
                             "image 3": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: {
-                                        url: frescoImage.url,
-                                        width: 200,
-                                        height: 112,
-                                    },
+                                    backgroundImage: earthMoonImage,
+                                    scale: 2,
                                     alt: "Fresco painting",
                                     longDescription: "long description",
                                 }),
                             }),
                             "image 4": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    alt: "Earth and Moon",
+                                    backgroundImage: graphieImage,
+                                    alt: graphieImageAlt,
                                     longDescription: "long description",
                                 }),
                             }),
                             "image 5": generateImageWidget({
                                 options: generateImageOptions({
                                     backgroundImage: graphieImage,
+                                    scale: 0.5,
+                                    alt: graphieImageAlt,
+                                    longDescription: "long description",
+                                }),
+                            }),
+                            "image 6": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: graphieImage,
+                                    scale: 2,
                                     alt: graphieImageAlt,
                                     longDescription: "long description",
                                 }),
