@@ -12,6 +12,7 @@ import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
+import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
 import {
     choicesWithGraphie,
     choicesWithImages,
@@ -155,6 +156,7 @@ export const SingleSelectWithImagesAndScroll: Story = {
             }),
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const SingleSelectWithLongMathjax: Story = {
@@ -329,6 +331,7 @@ export const MultiSelectWithImagesAndScroll: Story = {
             }),
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const MultiSelectWithLongText: Story = {
@@ -363,6 +366,7 @@ export const GradedGroupSetWithScroll: Story = {
             question: overflowContentInGradedGroupSet,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 function RadioQuestionRenderer(props: {
