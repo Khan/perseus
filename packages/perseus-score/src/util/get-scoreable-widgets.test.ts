@@ -9,8 +9,7 @@ describe("getScoreableWidgets", () => {
             images: {},
         });
 
-        expect(result.scoreableWidgetIds).toEqual([]);
-        expect(result.upgradedWidgets).toEqual({});
+        expect(result).toEqual([]);
     });
 
     it("returns widget IDs referenced in content", () => {
@@ -22,7 +21,7 @@ describe("getScoreableWidgets", () => {
             images: {},
         });
 
-        expect(result.scoreableWidgetIds).toEqual(["dropdown 1"]);
+        expect(result).toEqual(["dropdown 1"]);
     });
 
     it("filters out widgets not referenced in content", () => {
@@ -35,7 +34,7 @@ describe("getScoreableWidgets", () => {
             images: {},
         });
 
-        expect(result.scoreableWidgetIds).toEqual(["dropdown 1"]);
+        expect(result).toEqual(["dropdown 1"]);
     });
 
     it("filters out static widgets", () => {
@@ -51,7 +50,7 @@ describe("getScoreableWidgets", () => {
             images: {},
         });
 
-        expect(result.scoreableWidgetIds).toEqual(["dropdown 1"]);
+        expect(result).toEqual(["dropdown 1"]);
     });
 
     it("filters out ungraded widgets", () => {
@@ -67,6 +66,6 @@ describe("getScoreableWidgets", () => {
             images: {},
         });
 
-        expect(result.scoreableWidgetIds).toEqual(["dropdown 1"]);
+        expect(result).toEqual(["dropdown 1"]);
     });
 });

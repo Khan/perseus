@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import DefinitionEditor from "../definition-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -38,7 +38,7 @@ describe("definition-editor", () => {
         });
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({togglePrompt: "a"}),
             undefined,
         );

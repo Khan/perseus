@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`image widget - isMobile(false) custom alignment should render image with wrap-left alignment: widget-wrap-left 1`] = `
 <div>
@@ -48,7 +48,6 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                 style="display: block; width: 100%;"
               />
               <button
-                aria-disabled="false"
                 aria-label="Zoom image."
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                 type="button"
@@ -133,7 +132,6 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                 style="display: block; width: 100%;"
               />
               <button
-                aria-disabled="false"
                 aria-label="Zoom image."
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                 type="button"
@@ -241,7 +239,6 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                       </div>
                     </span>
                     <button
-                      aria-disabled="false"
                       aria-label="Zoom image."
                       class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                       type="button"
@@ -402,7 +399,6 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                 style="display: block; width: 100%;"
               />
               <button
-                aria-disabled="false"
                 aria-label="Zoom image."
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                 type="button"
@@ -487,7 +483,6 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                 style="display: block; width: 100%;"
               />
               <button
-                aria-disabled="false"
                 aria-label="Zoom image."
                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                 type="button"
@@ -595,7 +590,6 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                       </div>
                     </span>
                     <button
-                      aria-disabled="false"
                       aria-label="Zoom image."
                       class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                       type="button"

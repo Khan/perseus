@@ -7,17 +7,25 @@ import type {KnipConfig} from "knip";
  * To use: `pnpm knip`
  */
 const config: KnipConfig = {
+    // Entrypoints to the code, including:
+    // - Where our external APIs are exported from (index.ts).
+    // - Tests and stories.
+    // Paths marked with `!` are production files.
     entry: [
-        "{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
-        "src/{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
+        "config/**/*.{ts,tsx,js,jsx}",
+        "packages/*/src/index.{ts,tsx}!",
+        "packages/*/src/**/*.cypress.{ts,tsx}",
+        "packages/*/src/**/*.test.{ts,tsx}",
+        "packages/*/src/**/*.stories.{ts,tsx}",
+        "utils/**/*.{ts,tsx,js,jsx}",
     ],
-    project: [
-        "**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
-        // dev tools
-        "!utils/**",
-        // there seems to be a bug with the knip Jest plugin?
-        "!config/test/**",
-    ],
+    // Where we want to look for dead code.
+    // Paths marked with `!` are production files.
+    project: ["packages/*/src/*.{ts,tsx,js,jsx}!"],
+    rules: {
+        dependencies: "error",
+    },
+    // Special exceptions
     ignore: [
         // symlinked type defs for third-party libs
         "**/aphrodite.d.ts",
@@ -25,17 +33,35 @@ const config: KnipConfig = {
         "**/jsdiff.d.ts",
         "**/raphael.d.ts",
         "**/utility.d.ts",
-        // dev tools
-        "wallaby.js",
-        "data/find-questions.ts",
-        // there seems to be a bug with the knip Jest plugin?
-        "jest.config.js",
-        // this file causes side-effects by importing it
-        // so it's not "used" in the conventional sense
-        "packages/perseus/src/util/interactive.ts",
-        // type tests, code that's not run
-        // but can trigger helpful TS errors when things change
-        "**/*.typetest.ts",
+        // these files are used by tests
+        "packages/perseus-core/src/parse-perseus-json/**",
+        // these need fixing
+        // TODO(LEMS-3867)
+        "packages/perseus-editor/src/components/__stories__/**",
+        // TODO(LEMS-3868)
+        "packages/perseus-editor/src/preview/message-types.ts",
+    ],
+    // These are packages that are listed in package.json files but not
+    // directly imported in our code.
+    ignoreDependencies: [
+        // perseus-build-settings is listed as a dependency so package
+        // versions will get automatically bumped when there is a change to
+        // our build tooling.
+        "perseus-build-settings",
+        // @swc-node/register is used in the shabang of executable TypeScript
+        // files.
+        "@swc-node/register",
+        // nyc measures code coverage.
+        "nyc",
+        // swc_mut_cjs_exports is a plugin for swc, configured like
+        // `swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);`
+        // (hence, not imported).
+        "swc_mut_cjs_exports",
+    ],
+    // Scripts we use in `package.json`
+    ignoreBinaries: [
+        "utils/pre-publish-check-ci.ts",
+        "utils/update-catalog-hashes-cli.ts",
     ],
 };
 

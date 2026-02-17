@@ -62,6 +62,10 @@
     max-height: var(--modal-panel-height);
 }
 
+.modal-image-container img {
+    background-color: var(--wb-semanticColor-core-background-base-default);
+}
+
 .modal-description-container {
     display: flex;
     flex-direction: column;

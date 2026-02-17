@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import SorterEditor from "../sorter-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -34,7 +34,7 @@ describe("sorter-editor", () => {
         const select = screen.getByRole("combobox", {name: "Layout:"});
         await userEvent.selectOptions(select, "vertical");
 
-        expect(onChangeMock).toBeCalledWith({layout: "vertical"});
+        expect(onChangeMock).toHaveBeenCalledWith({layout: "vertical"});
     });
 
     it("should be possible to change layout to horizontal", async () => {
@@ -45,7 +45,7 @@ describe("sorter-editor", () => {
         const select = screen.getByRole("combobox", {name: "Layout:"});
         await userEvent.selectOptions(select, "horizontal");
 
-        expect(onChangeMock).toBeCalledWith({layout: "horizontal"});
+        expect(onChangeMock).toHaveBeenCalledWith({layout: "horizontal"});
     });
 
     it("should be possible to change padding", async () => {
@@ -55,6 +55,6 @@ describe("sorter-editor", () => {
 
         await userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
 
-        expect(onChangeMock).toBeCalledWith({padding: false});
+        expect(onChangeMock).toHaveBeenCalledWith({padding: false});
     });
 });

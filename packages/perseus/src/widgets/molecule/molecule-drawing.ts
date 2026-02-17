@@ -72,9 +72,6 @@ function drawDoubleLine(ctx: any, item: any) {
  *     }
  */
 function drawTripleLine(ctx: any, item: any) {
-    // TODO(colin): consolidate duplicated code from the three line drawing
-    // functions.
-
     // Outer line that will form the two outer bond lines.
     let path = new Path2D();
     ctx.lineWidth = 7 * styles.lineWidth;

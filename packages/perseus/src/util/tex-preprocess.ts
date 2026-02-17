@@ -7,7 +7,6 @@ export default (texCode: string): string =>
         // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
         // support (yet) with \begin{aligned}...\end{aligned} which renders
         // the same is supported by KaTeX.  It does the same for align*.
-        // TODO(kevinb) update content to use aligned instead of align.
         // TODO(LEMS-1608) Remove this replacement as MathJax supports the
         // "align" macro correctly (and, in fact, it is not synonymous with
         // "aligned").

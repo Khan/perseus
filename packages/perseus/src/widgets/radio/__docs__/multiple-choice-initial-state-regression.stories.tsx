@@ -8,10 +8,11 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
-import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
+import {testDependenciesV2} from "../../../testing/test-dependencies";
+import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
 import {
     choicesWithGraphie,
     choicesWithImages,
@@ -74,32 +75,6 @@ export const SingleSelectWithNoneOfTheAbove: Story = {
                     isNoneOfTheAbove: true,
                 }),
             ],
-        }),
-    },
-};
-
-export const SingleSelectStatic: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        // Static widget
-                        static: true,
-                        options: generateRadioOptions({
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2"),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
         }),
     },
 };
@@ -181,6 +156,7 @@ export const SingleSelectWithImagesAndScroll: Story = {
             }),
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const SingleSelectWithLongMathjax: Story = {
@@ -263,35 +239,6 @@ export const MultiSelectCountChoices: Story = {
                 generateRadioChoice("Choice 3"),
                 generateRadioChoice("Choice 4"),
             ],
-        }),
-    },
-};
-
-export const MultiSelectStatic: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "[[☃ radio 1]]",
-                widgets: {
-                    "radio 1": generateRadioWidget({
-                        // Static widget
-                        static: true,
-                        options: generateRadioOptions({
-                            multipleSelect: true,
-                            choices: [
-                                generateRadioChoice("Choice 1", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 2", {
-                                    correct: true,
-                                }),
-                                generateRadioChoice("Choice 3"),
-                                generateRadioChoice("Choice 4"),
-                            ],
-                        }),
-                    }),
-                },
-            }),
         }),
     },
 };
@@ -384,6 +331,7 @@ export const MultiSelectWithImagesAndScroll: Story = {
             }),
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const MultiSelectWithLongText: Story = {
@@ -418,6 +366,7 @@ export const GradedGroupSetWithScroll: Story = {
             question: overflowContentInGradedGroupSet,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 function RadioQuestionRenderer(props: {

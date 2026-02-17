@@ -39,7 +39,6 @@ const ViewportResizer = (props: Props) => {
         </span>
     );
 
-    // TODO(david): Allow input of custom viewport sizes.
     return (
         <span className="viewport-resizer">
             Viewport:{" "}

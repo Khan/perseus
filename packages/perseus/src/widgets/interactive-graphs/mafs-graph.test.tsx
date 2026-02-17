@@ -4,11 +4,11 @@ import {vec} from "mafs";
 import React from "react";
 import invariant from "tiny-invariant";
 
+import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
+} from "../../testing/test-dependencies";
 
 import {MafsGraph} from "./mafs-graph";
 import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";

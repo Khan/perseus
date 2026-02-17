@@ -173,11 +173,11 @@ describe("getCatalogDepsHash", () => {
 
         // Assert
         expect(getMessagesFromSpy(consoleLogSpy)).toMatchInlineSnapshot(`
-[
-  "  📦 Processing @khanacademy/test-package:",
-  "     Catalog dependencies: tiny-invariant@1.3.1, react@^18.2.0",
-]
-`);
+            [
+              "  📦 Processing @khanacademy/test-package:",
+              "     Catalog dependencies: tiny-invariant@1.3.1, react@^18.2.0",
+            ]
+        `);
     });
 
     it("should not log when verbose is false", () => {

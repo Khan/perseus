@@ -37,17 +37,6 @@ export const angleQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const angleQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withAngle().build();
 
-export const angleWithStartingCoordsQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withAngle({
-            startCoords: [
-                [5, 1],
-                [1, 1],
-                [4, 5],
-            ],
-        })
-        .build();
-
 export const circleQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .withCircle({center: [-2, -4], radius: 2})
     .build();
@@ -124,16 +113,6 @@ export const floatingPointIssueQuestion: PerseusRenderer =
 export const pointQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withPoints(1).build();
 
-export const pointQuestionWithStartingCoords: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withPoints(2, {
-            startCoords: [
-                [0, 0],
-                [2, 2],
-            ],
-        })
-        .build();
-
 export const finitePointQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(
@@ -200,152 +179,6 @@ export const unlimitedPolygonQuestion: PerseusRenderer =
         })
         .build();
 
-// Clockwise points
-export const polygonWithStartingCoordsQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withMarkings("grid")
-        .withPolygon("grid", {
-            startCoords: [
-                [-7, 5],
-                [1, 5],
-                [6, 0],
-                [1, -5],
-                [-7, -5],
-                [-2, 0],
-            ],
-            showAngles: true,
-        })
-        .build();
-
-export const unlimitedPolygonWithCorrectAnswerQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withPolygon("grid", {
-            numSides: "unlimited",
-            coords: [
-                [-4.5, -6],
-                [4.5, -5],
-                [3.5, 0.5],
-                [-4.5, 0],
-            ],
-        })
-        .build();
-
-export const polygonWithAnglesQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withContent(
-            "**Angles shown** Drag the vertices of the triangle below to draw a right triangle with side lengths $3$, $4$, and $5$. \n[[\u2603 interactive-graph 1]] \n",
-        )
-        .withGridStep(0.5, 0.5)
-        .withSnapStep(0.25, 0.25)
-        .withTickStep(0.5, 0.5)
-        .withXRange(-1, 6)
-        .withYRange(-1, 6)
-        .withPolygon("grid", {
-            match: "congruent",
-            numSides: 3,
-            showAngles: true,
-            coords: [
-                [3.5, 2],
-                [3.5, 5],
-                [-0.5, 2],
-            ],
-        })
-        .build();
-
-export const polygonWithAnglesAndAnglesSnapToQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withContent(
-            "**Example of snapTo set to `angles`.** \n Drag the vertices of the triangle below to draw a right triangle with side lengths $3$, $4$, and $5$. \n[[\u2603 interactive-graph 1]] \n",
-        )
-        .withGridStep(0.5, 0.5)
-        .withSnapStep(0.25, 0.25)
-        .withTickStep(0.5, 0.5)
-        .withXRange(-1, 6)
-        .withYRange(-1, 6)
-        .withPolygon("angles", {
-            match: "congruent",
-            numSides: 3,
-            showSides: true,
-            showAngles: true,
-            coords: [
-                [3.5, 2],
-                [3.5, 5],
-                [-0.5, 2],
-            ],
-        })
-        .build();
-
-export const polygonWithAnglesAndManySidesQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withContent(
-            "**Polygon with angles and many sides** \n[[\u2603 interactive-graph 1]] \n",
-        )
-        .withGridStep(0.5, 0.5)
-        .withSnapStep(0.25, 0.25)
-        .withTickStep(0.5, 0.5)
-        .withXRange(-1, 6)
-        .withYRange(-1, 6)
-        .withPolygon("grid", {
-            match: "congruent",
-            numSides: 9,
-            showSides: true,
-            showAngles: true,
-        })
-        .build();
-
-export const polygonWithAnglesAndFourSidesQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withContent(
-            "**Polygon with angles and four sides** \n[[\u2603 interactive-graph 1]] \n",
-        )
-        .withGridStep(0.5, 0.5)
-        .withSnapStep(0.25, 0.25)
-        .withTickStep(0.5, 0.5)
-        .withXRange(-1, 6)
-        .withYRange(-1, 6)
-        .withPolygon("grid", {
-            match: "congruent",
-            numSides: 4,
-            showSides: true,
-            showAngles: true,
-        })
-        .build();
-
-export const polygonWithFourSidesSnappingQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withContent(
-            "**Example of snapping to sides** \n[[\u2603 interactive-graph 1]] \n",
-        )
-        .withGridStep(0.5, 0.5)
-        .withSnapStep(0.25, 0.25)
-        .withTickStep(0.5, 0.5)
-        .withXRange(-1, 6)
-        .withYRange(-1, 6)
-        .withPolygon("sides", {
-            match: "congruent",
-            numSides: 4,
-            showSides: true,
-            showAngles: false,
-        })
-        .build();
-
-export const polygonWithUnlimitedSidesQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withContent(
-            "**Example of unlimited polygon sides** \n[[\u2603 interactive-graph 1]] \n",
-        )
-        .withPolygon("grid", {
-            showAngles: true,
-            showSides: true,
-            numSides: "unlimited",
-            coords: [
-                [0, 0],
-                [-2.5, 0],
-                [-1, 0],
-            ],
-        })
-        .build();
-
 export const polygonQuestionDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withPolygon("grid").build();
 
@@ -392,100 +225,6 @@ export const segmentQuestionDefaultCorrect: PerseusRenderer =
                     [-5, 5],
                     [5, 5],
                 ],
-            ],
-        })
-        .build();
-
-export const segmentWithStartingCoordsQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withSegments({
-            startCoords: [
-                [
-                    [0, 0],
-                    [2, 2],
-                ],
-            ],
-        })
-        .build();
-
-export const segmentsWithStartingCoordsQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withSegments({
-            startCoords: [
-                [
-                    [0, 0],
-                    [2, 2],
-                ],
-                [
-                    [0, 2],
-                    [2, 0],
-                ],
-            ],
-        })
-        .build();
-
-export const linearWithStartingCoordsQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withLinear({
-            startCoords: [
-                [3, 0],
-                [3, 3],
-            ],
-        })
-        .build();
-
-export const linearSystemWithStartingCoordsQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withLinearSystem({
-            startCoords: [
-                [
-                    [-3, 0],
-                    [-3, 3],
-                ],
-                [
-                    [3, 0],
-                    [3, 3],
-                ],
-            ],
-        })
-        .build();
-
-export const rayWithStartingCoordsQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withRay({
-            startCoords: [
-                [3, 0],
-                [3, 3],
-            ],
-        })
-        .build();
-
-export const circleWithStartingCoordsQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withCircle({startCoords: {center: [9, 9], radius: 5}})
-        .build();
-
-export const quadraticWithStartingCoordsQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withQuadratic({
-            startCoords: [
-                [-1, -1],
-                [0, 0],
-                [1, -1],
-            ],
-        })
-        .build();
-
-export const sinusoidWithStartingCoordsAndPiTicksQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withXRange(-5 * Math.PI, 5 * Math.PI)
-        .withTickStep(Math.PI, 1)
-        .withGridStep(Math.PI / 2, 1)
-        .withSnapStep(Math.PI / 4, 1)
-        .withSinusoid({
-            startCoords: [
-                [0, 0],
-                [3 * Math.PI, -3],
             ],
         })
         .build();
@@ -554,9 +293,6 @@ export const sinusoidQuestion: PerseusRenderer =
             ],
         })
         .build();
-
-export const sinusoidMinimalQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder().withSinusoid().build();
 
 export const noneQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .withContent("This graph isn't interactive.\n\n[[☃ interactive-graph 1]]")
@@ -912,43 +648,6 @@ export const segmentWithLockedLabels: PerseusRenderer =
             color: "green",
             size: "large",
         })
-        .build();
-
-export const segmentWithLockedFigures: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .addLockedPointAt(-7, -7, {labels: [{text: "A"}], ariaLabel: "Point A"})
-        .addLockedLine([-7, -5], [2, -3], {
-            showPoint1: true,
-            showPoint2: true,
-            labels: [{text: "B"}],
-            ariaLabel: "Line B",
-        })
-        .addLockedVector([0, 0], [8, 2], {
-            color: "purple",
-            labels: [{text: "C"}],
-            ariaLabel: "Vector C",
-        })
-        .addLockedEllipse([0, 5], [4, 2], {
-            angle: Math.PI / 4,
-            color: "blue",
-            labels: [{text: "D"}],
-            ariaLabel: "Ellipse D",
-        })
-        .addLockedPolygon(
-            [
-                [-9, 4],
-                [-6, 4],
-                [-6, 1],
-                [-9, 1],
-            ],
-            {color: "pink", labels: [{text: "E"}], ariaLabel: "Polygon E"},
-        )
-        .addLockedFunction("sin(x)", {
-            color: "red",
-            labels: [{text: "F"}],
-            ariaLabel: "Function F",
-        })
-        .addLockedLabel("$\\sqrt{\\frac{1}{2}}$", [6, -5])
         .build();
 
 export const quadraticQuestion: PerseusRenderer =

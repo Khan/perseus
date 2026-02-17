@@ -4,10 +4,6 @@
  * for the `BEFORE_FRACTION` context), and then at its direct parent. Though a
  * cursor could in theory be nested in multiple contexts, we only care about the
  * immediate context.
- *
- * TODO(charlie): Add a context to represent being inside of a radical. Right
- * now, we show the dismiss button rather than allowing the user to jump out of
- * the radical.
  */
 
 export enum CursorContext {

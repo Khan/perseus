@@ -4,7 +4,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import RadioEditor from "../radio/editor";
 
 import {
@@ -38,7 +38,6 @@ function renderRadioEditor(
         <RadioEditor
             onChange={onChangeMock}
             apiOptions={ApiOptions.defaults}
-            static={false}
             {...props}
         />,
         {wrapper: RenderStateRoot},
@@ -152,7 +151,7 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 multipleSelect: true,
                 numCorrect: 0,
@@ -174,7 +173,7 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({countChoices: true});
+        expect(onChangeMock).toHaveBeenCalledWith({countChoices: true});
     });
 
     it("should toggle randomize order checkbox", async () => {
@@ -188,7 +187,7 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({randomize: true});
+        expect(onChangeMock).toHaveBeenCalledWith({randomize: true});
     });
 
     it("should be possible to add answer", async () => {
@@ -202,7 +201,7 @@ describe("radio-editor", () => {
             })[0],
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: [
                     {content: "", id: "radio-choice-0"},
@@ -241,8 +240,8 @@ describe("radio-editor", () => {
             })[0],
         );
 
-        expect(confirmSpy).toBeCalled();
-        expect(onChangeMock).toBeCalledWith(
+        expect(confirmSpy).toHaveBeenCalled();
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: threeChoicesWithCorrectAndNoneOfTheAbove,
                 hasNoneOfTheAbove: true,
@@ -269,8 +268,8 @@ describe("radio-editor", () => {
             })[3],
         );
 
-        expect(confirmSpy).toBeCalled();
-        expect(onChangeMock).toBeCalledWith(
+        expect(confirmSpy).toHaveBeenCalled();
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: threeChoicesWithCorrect,
                 hasNoneOfTheAbove: false,
@@ -297,8 +296,8 @@ describe("radio-editor", () => {
             })[0],
         );
 
-        expect(confirmSpy).toBeCalled();
-        expect(onChangeMock).not.toBeCalled();
+        expect(confirmSpy).toHaveBeenCalled();
+        expect(onChangeMock).not.toHaveBeenCalled();
     });
 
     it("shows the 'None of the above' button when there is no 'None of the above' choice", () => {
@@ -326,7 +325,6 @@ describe("radio-editor", () => {
                 ref={editorRef}
                 onChange={() => {}}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 choices={fourChoices}
             />,
             {wrapper: RenderStateRoot},
@@ -353,7 +351,6 @@ describe("radio-editor", () => {
                 ref={editorRef}
                 onChange={() => {}}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 choices={[
                     getCorrectChoice(),
                     getIncorrectChoice(),
@@ -376,7 +373,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 countChoices={true}
                 choices={[
@@ -607,7 +603,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 countChoices={true}
                 choices={[
@@ -634,7 +629,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 countChoices={false}
                 choices={[
@@ -662,7 +656,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 choices={[
                     getCorrectChoice(),
                     getIncorrectChoice(),
@@ -695,7 +688,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 choices={[
                     getCorrectChoice(),
@@ -730,7 +722,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={false}
                 choices={[
                     getCorrectChoice(),
@@ -765,7 +756,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 choices={[
                     getCorrectChoice(),
@@ -1376,7 +1366,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -1394,7 +1383,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -1417,7 +1405,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -1441,7 +1428,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                 />,
                 {wrapper: RenderStateRoot},
             );

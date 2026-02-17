@@ -26,7 +26,6 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
 export type InteractiveGraphElementSuite = {
     graph: ReactNode;
     interactiveElementsDescription: ReactNode;
-    // TODO(benchristel): add actionBar controls here
 };
 
 export type InteractiveGraphState =

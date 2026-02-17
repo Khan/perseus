@@ -1,10 +1,9 @@
 import type {ChoiceState} from "../../../types";
-import type {RadioChoiceWithMetadata} from "../multiple-choice-widget.new";
+import type {RadioChoiceWithMetadata} from "../multiple-choice-widget";
 import type {ShowSolutions} from "@khanacademy/perseus-core";
 
 interface GetChoiceStatesProps {
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
-    isStatic?: boolean | null;
     showSolutions?: ShowSolutions;
     choiceStates?: ReadonlyArray<ChoiceState>;
     reviewMode?: boolean;
@@ -12,10 +11,9 @@ interface GetChoiceStatesProps {
 
 /**
  * Determine the updated choice states for the Radio widget, based on the
- * widget's static / showSolutions / reviewMode states, and choiceStates.
+ * widget's showSolutions / reviewMode states, and choiceStates.
  *
  * @param choices - The choices for the Radio widget.
- * @param isStatic - Whether the widget is static.
  * @param showSolutions - Whether the widget is in showSolutions mode.
  * @param reviewMode - Whether the widget is in review mode.
  * @param choiceStates - The choice states for the widget. (The user's current selection states.)
@@ -23,7 +21,6 @@ interface GetChoiceStatesProps {
  */
 export const getChoiceStates = ({
     choices,
-    isStatic,
     showSolutions,
     choiceStates,
     reviewMode,
@@ -39,9 +36,9 @@ export const getChoiceStates = ({
     };
 
     // Case 1: Review mode
-    // The widget is in static, showSolutions, or reviewMode.
+    // The widget is in showSolutions or reviewMode.
     // — In this state, we display correct answers with explanations and prevent interaction.
-    if (isStatic || showSolutions === "all" || reviewMode) {
+    if (showSolutions === "all" || reviewMode) {
         return choices.map((choice) => ({
             ...defaultState,
             selected: !!choice.correct,

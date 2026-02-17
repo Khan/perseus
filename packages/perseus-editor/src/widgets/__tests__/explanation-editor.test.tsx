@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import ExplanationEditor from "../explanation-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -38,7 +38,7 @@ describe("explanation-editor", () => {
         });
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             // The dropdown initalizes with "Explain"
             expect.objectContaining({showPrompt: "Explaina"}),
             undefined,
@@ -55,7 +55,7 @@ describe("explanation-editor", () => {
         });
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             // The dropdown initalizes with "Hide explain"
             expect.objectContaining({hidePrompt: "Hide explanationa"}),
             undefined,

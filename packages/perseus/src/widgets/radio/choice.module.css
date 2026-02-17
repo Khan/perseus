@@ -12,7 +12,7 @@
     &:global(.perseus-article) {
         .choice:not(.is-correct):has(> button[aria-pressed="true"])
             :global(.paragraph) {
-            color: var(--wb-semanticColor-core-foreground-instructive-default);
+            color: var(--wb-semanticColor-core-foreground-instructive-strong);
         }
     }
 }
@@ -31,10 +31,7 @@
     font-size: var(--wb-font-heading-size-medium);
     font-weight: var(--wb-font-weight-semi);
     line-height: var(--wb-font-heading-lineHeight-medium);
-    /* Added !important below without this it will look double divider in mobile.
-     * TODO(LEMS-3301): When old radio widget is deleted, remove this !important.
-     */
-    margin-block-end: var(--perseus-multiple-choice-divider-space) !important;
+    margin-block-end: var(--perseus-multiple-choice-divider-space);
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
     outline: var(--wb-border-width-medium) solid
         var(--perseus-multiple-choice-correctness-outline-color, transparent);
@@ -49,7 +46,7 @@
 }
 
 .choice:not(.is-correct):has(> button[aria-pressed="true"]) {
-    color: var(--wb-semanticColor-core-foreground-instructive-default);
+    color: var(--wb-semanticColor-core-foreground-instructive-strong);
 }
 
 .choice :global(.paragraph) {
@@ -151,7 +148,7 @@
     --perseus-multiple-choice-correctness-outline-color: var(
         --wb-semanticColor-core-border-success-default
     );
-    color: var(--wb-semanticColor-core-foreground-success-strong);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
 }
 
 .is-wrong {

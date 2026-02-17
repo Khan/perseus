@@ -101,7 +101,7 @@ function scoreNumericInput(
             message: answer.message,
             simplify:
                 answer.status === "correct" ? answer.simplify : "optional",
-            inexact: true, // TODO(merlob) backfill / delete
+            inexact: true,
             maxError: answer.maxError,
             forms: validatorForms,
             // Pass locale-specific decimal separator to ensure that

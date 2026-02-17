@@ -35,10 +35,7 @@ class ImageEditor extends React.Component<Props> {
         return (
             <div className="perseus-image-editor">
                 <ImageUrlInput {...this.props} />
-
-                {this.props.backgroundImage.url && (
-                    <ImageSettings {...this.props} />
-                )}
+                <ImageSettings {...this.props} />
             </div>
         );
     }

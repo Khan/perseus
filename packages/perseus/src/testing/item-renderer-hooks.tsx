@@ -1,14 +1,13 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
 import invariant from "tiny-invariant";
 
-import {splitPerseusItem} from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
-
 import {createInitialState, itemRendererReducer} from "./item-renderer-reducer";
 
-import type {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
-import type {APIOptions} from "../packages/perseus/src/types";
+import type {ServerItemRenderer} from "../server-item-renderer";
+import type {APIOptions} from "../types";
 import type {
     PerseusItem,
     ShowSolutions,
@@ -103,11 +102,7 @@ export const useItemRenderer = (
         );
 
         const userInput = renderer.getUserInput();
-        const score = scorePerseusItem(
-            state.perseusItem.question,
-            userInput,
-            "en",
-        );
+        const score = scorePerseusItem(item.question, userInput, "en");
 
         if (score.type === "points") {
             // Show solutions for selected answers when the user answered the
@@ -116,7 +111,7 @@ export const useItemRenderer = (
         }
 
         return score;
-    }, [state.perseusItem]);
+    }, [item]);
 
     const updateJson = React.useCallback((json: string): boolean => {
         try {

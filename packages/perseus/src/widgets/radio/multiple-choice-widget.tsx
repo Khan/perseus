@@ -9,10 +9,10 @@ import MathRenderingContext from "../../math-rendering-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
-import MultipleChoiceComponent from "./multiple-choice-component.new";
+import MultipleChoiceComponent from "./multiple-choice-component";
 import {getChoiceStates} from "./utils/general-utils";
 
-import type {WidgetProps, ChoiceState, ChangeHandler} from "../../types";
+import type {WidgetProps, ChoiceState} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -52,9 +52,6 @@ export type RadioProps = {
     editMode?: boolean;
     labelWrap?: boolean;
     randomize?: boolean;
-    // TODO: https://khanacademy.atlassian.net/browse/LEMS-3542
-    // remove onChange from Radio
-    onChange: ChangeHandler;
 };
 
 export type RadioWidgetHandle = {
@@ -93,9 +90,8 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             choiceStates,
             // TODO(LEMS-3783): remove uses of `questionCompleted`
             questionCompleted,
-            static: isStatic,
             apiOptions,
-            onChange,
+            handleUserInput,
             trackInteraction,
             findWidgets,
             reviewMode,
@@ -186,7 +182,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
          * Updates choice states based on the selection, handles single/multiple
          * selection logic, and notifies Perseus of the interaction.
          *
-         * @param choiceIndex - The index of the choice that changed
+         * @param choiceId - The ID of the choice that changed
          * @param newCheckedState - Whether the choice is now selected
          */
         const handleChoiceChange = (
@@ -194,54 +190,50 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             newCheckedState: boolean,
         ): void => {
             const checkedChoiceIds: string[] = [];
-
+            const currentSelectedIds = choiceStates
+                ? choiceStates
+                      .map((state, i) => ({
+                          selected: state.selected,
+                          id: choices[i]?.id,
+                      }))
+                      .filter((choice) => choice.selected && choice.id != null)
+                      .map((choice) => choice.id)
+                : [];
             if (newCheckedState && !multipleSelect) {
                 checkedChoiceIds.push(choiceId);
             } else if (newCheckedState && multipleSelect) {
                 // Multi-select mode + checking: add to existing
-                const currentSelectedIds = choiceStates
-                    ? choiceStates
-                          .map((state, i) => ({
-                              selected: state.selected,
-                              id: choices[i].id,
-                          }))
-                          .filter((choice) => choice.selected)
-                          .map((choice) => choice.id)
-                    : [];
                 checkedChoiceIds.push(...currentSelectedIds, choiceId);
             } else {
                 // Unchecking: remove this choice from checked list
-                const currentSelectedIds = choiceStates
-                    ? choiceStates
-                          .map((state, i) => ({
-                              selected: state.selected,
-                              id: choices[i].id,
-                          }))
-                          .filter(
-                              (choice) =>
-                                  choice.selected && choice.id !== choiceId,
-                          )
-                          .map((choice) => choice.id)
-                    : [];
-                checkedChoiceIds.push(...currentSelectedIds);
+                checkedChoiceIds.push(
+                    ...currentSelectedIds.filter((id) => id !== choiceId),
+                );
             }
 
             // Construct the baseline `choiceStates` objects. If this is the user's
             // first interaction with the widget, we'll need to initialize them to
             // new objects with all fields set to the default values. Otherwise, we
             // should clone the old `choiceStates` objects, in preparation to
-            // mutate them.
-            const newChoiceStates: ChoiceState[] = choiceStates
-                ? choiceStates.map((state) => ({...state}))
-                : choices.map(() => ({
-                      selected: false,
-                      // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
-                      highlighted: false,
-                      rationaleShown: false,
-                      correctnessShown: false,
-                      previouslyAnswered: false,
-                      readOnly: false,
-                  }));
+            // mutate them. We need to ensure the array length matches choices length
+            // to handle the case where choiceStates is shorter than choices (LEMS-3861).
+            const newChoiceStates: ChoiceState[] = choices.map((_, i) => {
+                if (choiceStates && choiceStates[i] !== undefined) {
+                    // Clone existing state
+                    return {...choiceStates[i]};
+                } else {
+                    // Create default state for missing entries
+                    return {
+                        selected: false,
+                        // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
+                        highlighted: false,
+                        rationaleShown: false,
+                        correctnessShown: false,
+                        previouslyAnswered: false,
+                        readOnly: false,
+                    };
+                }
+            });
 
             // Mutate the new `choiceState` objects, according to the checkedChoiceIds.
             newChoiceStates.forEach((choiceState: ChoiceState, i) => {
@@ -249,7 +241,10 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                 choiceState.selected = checkedChoiceIds.includes(choiceId);
             });
 
-            onChange({choiceStates: newChoiceStates});
+            handleUserInput({
+                selectedChoiceIds: checkedChoiceIds,
+            });
+
             trackInteraction();
             announceChoiceChange(newChoiceStates);
         };
@@ -333,7 +328,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
          *
          * This function:
          * 1. Uses getChoiceStates() to determine the appropriate state for each choice
-         *    based on widget mode (review/static) and user selections
+         *    based on widget mode (review/showSolutions) and user selections
          * 2. Transforms these states into component props via buildChoiceProps(),
          *    including rendered content, correctness indicators, and rationales
          *
@@ -343,7 +338,6 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             // Get the updated choice states based on the current props
             const processedChoiceStates = getChoiceStates({
                 choices,
-                isStatic,
                 showSolutions,
                 choiceStates,
                 reviewMode,
@@ -357,10 +351,10 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
         const numCorrect = props.numCorrect;
 
         // This is strange, but currently we're showing the same view for both
-        // reviewMode, isStatic, and showSolutions === "all". We may wish to
+        // reviewMode, and showSolutions === "all". We may wish to
         // differentiate between the two in the future, depending on the outcomes
         // of the Perseus GUTC project.
-        const isReviewMode = reviewMode || isStatic || showSolutions === "all";
+        const isReviewMode = reviewMode || showSolutions === "all";
 
         const onChoiceChange =
             apiOptions.readOnly || isReviewMode ? () => {} : handleChoiceChange;

@@ -1,8 +1,8 @@
 import {act, render} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import Sortable from "../sortable";
 
 describe("Sortable", () => {
@@ -116,7 +116,7 @@ describe("moveOptionToIndex", () => {
 
         const underTest = () => sortable?.moveOptionToIndex("a", 99);
 
-        expect(underTest).toThrowError();
+        expect(underTest).toThrow();
     });
 
     it("throws an error when an item is out of bounds (negative)", () => {
@@ -138,7 +138,7 @@ describe("moveOptionToIndex", () => {
 
         const underTest = () => sortable?.moveOptionToIndex("a", -1);
 
-        expect(underTest).toThrowError();
+        expect(underTest).toThrow();
     });
 
     it("throws an error when the item is not in the set", () => {
@@ -160,7 +160,7 @@ describe("moveOptionToIndex", () => {
 
         const underTest = () => sortable?.moveOptionToIndex("dog", 99);
 
-        expect(underTest).toThrowError();
+        expect(underTest).toThrow();
     });
 });
 

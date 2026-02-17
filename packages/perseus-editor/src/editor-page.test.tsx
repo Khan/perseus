@@ -7,12 +7,11 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import EditorPage from "./editor-page";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../testing/test-dependencies";
-
-import EditorPage from "./editor-page";
+} from "./testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -225,5 +224,58 @@ describe("EditorPage", () => {
         // Check that add widget button is disabled
         const widgetSelect = screen.getByTestId("editor__widget-select");
         expect(widgetSelect).toBeDisabled();
+    });
+
+    it("should sync json state when props change in JSON mode", async () => {
+        // Arrange
+        const initialQuestion: PerseusRenderer = {
+            content: "Initial content",
+            images: {},
+            widgets: {},
+        };
+
+        const updatedQuestion: PerseusRenderer = {
+            content: "Updated content from parent",
+            images: {},
+            widgets: {},
+        };
+
+        const onChangeMock = jest.fn();
+
+        const {rerender} = render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={initialQuestion}
+                onChange={onChangeMock}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={true}
+                jsonMode={true}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Act
+        rerender(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={updatedQuestion}
+                onChange={onChangeMock}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={true}
+                jsonMode={true}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByDisplayValue(/Updated content from parent/),
+        ).toBeInTheDocument();
     });
 });

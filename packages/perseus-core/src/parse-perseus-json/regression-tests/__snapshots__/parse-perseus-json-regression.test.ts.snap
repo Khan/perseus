@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`parseAndMigratePerseusArticle given image-with-id-0.ts returns the same result as before 1`] = `
 [
@@ -10984,6 +10984,290 @@ ___
         },
         "static": false,
         "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given label-image.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "$\\maroonD{9} \\times \\blueD{5} = \\underbrace{\\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5}}_{\\maroonD9\\blueD{\\text{ fives}}}$",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "When we add a number, we jump that distance to the right on the number line.
+
+To show $\\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5} + \\blueD{5}$, we need to show $\\maroonD{9}$ jumps of $\\blueD{5}$ units.
+
+![The same number line as above, with each arrow labeled, plus 5](web+graphie://ka-perseus-graphie.s3.amazonaws.com/41b6249a8c169358946e888698e1543b6db098f5)",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/41b6249a8c169358946e888698e1543b6db098f5": {
+          "height": 100,
+          "width": 380,
+        },
+      },
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "$15+5=\\purpleC{20}$
+
+![The same number line with the first blank labeled 20](web+graphie://ka-perseus-graphie.s3.amazonaws.com/6b3c9a4e7ac918eb2839873a1ef9007a60544802)",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/6b3c9a4e7ac918eb2839873a1ef9007a60544802": {
+          "height": 100,
+          "width": 380,
+        },
+      },
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "$40+5=\\purpleC{45}$
+
+![The same number line with the second blank labeled 45](web+graphie://ka-perseus-graphie.s3.amazonaws.com/f9db1a770082515682709ce20934597a24dc7f1f)
+
+The last jump leaves us at $45$.
+
+$\\begin{align}
+\\maroonD{9} \\times \\blueD{5} &= \\blueD{5}+\\blueD{5}+\\blueD{5}+\\blueD{5}+\\blueD{5}+\\blueD{5}+\\blueD{5}+\\blueD{5}+\\blueD{5}\\\\\\\\
+&=45
+\\end{align}$",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/f9db1a770082515682709ce20934597a24dc7f1f": {
+          "height": 100,
+          "width": 380,
+        },
+      },
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "The completed number line:
+
+![The completed number line with the first blank labeled 20 and the second blank labeled 45](web+graphie://ka-perseus-graphie.s3.amazonaws.com/78bef08c55fc5a7fac6f512fc845d09f478a97c9)
+
+$9\\times 5=45$",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/78bef08c55fc5a7fac6f512fc845d09f478a97c9": {
+          "height": 100,
+          "width": 380,
+        },
+      },
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**Complete the number line to evaluate $9\\times 5$.**
+
+[[☃ label-image 1]]
+
+$9 \\times 5 =$ [[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "label-image 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            "41",
+            "45",
+            "20",
+          ],
+          "hideChoicesFromInstructions": true,
+          "imageAlt": "A number line labeled 0, 5, 10, 15, blank, 25, 30, 35, 40, blank. Arrows point right from each number to the next.",
+          "imageHeight": 80,
+          "imageUrl": "web+graphie://ka-perseus-graphie.s3.amazonaws.com/b49d6d406b682621b4991110ff8f39ae33133584",
+          "imageWidth": 380,
+          "markers": [
+            {
+              "answers": [
+                "20",
+              ],
+              "label": "first blank",
+              "x": 44.9,
+              "y": 79.7,
+            },
+            {
+              "answers": [
+                "45",
+              ],
+              "label": "second blank",
+              "x": 91.4,
+              "y": 78.3,
+            },
+          ],
+          "multipleAnswers": false,
+          "static": false,
+        },
+        "static": false,
+        "type": "label-image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 45,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "product",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given label-image.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**Complete the number line to evaluate $9\\times 5$.**
+
+[[☃ label-image 1]]
+
+$9 \\times 5 =$ [[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "label-image 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            "41",
+            "45",
+            "20",
+          ],
+          "hideChoicesFromInstructions": true,
+          "imageAlt": "A number line labeled 0, 5, 10, 15, blank, 25, 30, 35, 40, blank. Arrows point right from each number to the next.",
+          "imageHeight": 80,
+          "imageUrl": "web+graphie://ka-perseus-graphie.s3.amazonaws.com/b49d6d406b682621b4991110ff8f39ae33133584",
+          "imageWidth": 380,
+          "markers": [
+            {
+              "answers": [],
+              "label": "first blank",
+              "x": 44.9,
+              "y": 79.7,
+            },
+            {
+              "answers": [],
+              "label": "second blank",
+              "x": 91.4,
+              "y": 78.3,
+            },
+          ],
+          "multipleAnswers": false,
+          "static": false,
+        },
+        "static": false,
+        "type": "label-image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "product",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
         "version": {
           "major": 0,
           "minor": 0,

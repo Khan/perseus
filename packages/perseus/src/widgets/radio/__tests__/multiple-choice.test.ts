@@ -7,13 +7,13 @@ import {scoreRadio} from "@khanacademy/perseus-score";
 import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
-import {clone} from "../../../../../../testing/object-utils";
+import * as Dependencies from "../../../dependencies";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
+import {clone} from "../../../testing/object-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../../testing/test-dependencies";
-import * as Dependencies from "../../../dependencies";
+} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 
@@ -308,15 +308,17 @@ describe("Multiple Choice Widget", () => {
 
         it("should render all rationales when showSolutions is 'all'", async () => {
             // Arrange
-            const {container} = renderQuestion(question, apiOptions, {
+            renderQuestion(question, apiOptions, {
                 showSolutions: "all",
             });
 
             // Assert
-            expect(
-                // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-                container.querySelectorAll(`[id$="-rationale"]`),
-            ).toHaveLength(4);
+            // Check that the unique rationale texts not found in choice
+            // content are rendered
+            const content = document.body.textContent || "";
+            expect(content).toContain("equal to only");
+            expect(content).toContain("While");
+            expect(content).toContain("is the positive square root of");
         });
 
         it("should render no rationales when showSolutions is 'none'", async () => {
@@ -326,9 +328,12 @@ describe("Multiple Choice Widget", () => {
             });
 
             // Assert
-            expect(
-                screen.queryAllByTestId(/perseus-radio-rationale-content/),
-            ).toHaveLength(0);
+            // Check that none of the unique rationale texts not found in choice
+            // content are rendered
+            const content = document.body.textContent || "";
+            expect(content).not.toContain("equal to only");
+            expect(content).not.toContain("While");
+            expect(content).not.toContain("is the positive square root of");
         });
 
         it("should be invalid when first rendered", async () => {

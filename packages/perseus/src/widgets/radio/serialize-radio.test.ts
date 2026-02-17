@@ -5,9 +5,9 @@ import {
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -15,7 +15,6 @@ import type {UserEvent} from "@testing-library/user-event";
 
 const expectedSerializedRadio = {
     alignment: "default",
-    static: false,
     numCorrect: 1,
     hasNoneOfTheAbove: false,
     choices: [

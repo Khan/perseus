@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 /**
  * This editor is for embedding Khan Academy CS programs.
  */
@@ -124,7 +123,7 @@ class PairsEditor extends React.Component<any> {
     }
 }
 
-const KA_PROGRAM_URL = /khanacademy\.org\/computer-programming\/[^\/]+\/(\d+)/;
+const KA_PROGRAM_URL = /khanacademy\.org\/computer-programming\/[^/]+\/(\d+)/;
 
 /**
  * Given a program URL from the site, extract its program ID.

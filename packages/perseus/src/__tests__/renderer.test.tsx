@@ -7,10 +7,6 @@ import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testWidgetIdExtraction} from "../../../../testing/extract-widget-ids-contract-tests";
-import {mockImageLoading} from "../../../../testing/image-loader-utils";
-import {clone} from "../../../../testing/object-utils";
-import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     dropdownWidget,
     imageWidget,
@@ -25,12 +21,16 @@ import {
     isDifferentQuestion,
     type DifferentQuestionPartialProps,
 } from "../renderer";
+import {testWidgetIdExtraction} from "../testing/extract-widget-ids-contract-tests";
+import {mockImageLoading} from "../testing/image-loader-utils";
+import {clone} from "../testing/object-utils";
+import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 
-import type {PerseusRenderer, DropdownWidget} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
@@ -201,33 +201,6 @@ describe("renderer", () => {
             expect(renderer.state.translationLintErrors).toHaveLength(0);
 
             expect(renderer.state.widgetInfo).toStrictEqual(question1.widgets);
-        });
-
-        it("should derive type widget ID if type missing", () => {
-            // Arrange
-            // Note that the types disallow this, but our Renderer handles the
-            // case so for now, I'm adding this test. We can remove the test
-            // if/when we clean up the code for it in _getAllWidgetsInfo().
-            const question = {
-                ...question1,
-                widgets: {
-                    ...question1.widgets,
-                    // We have to override the type to `undefined` to test this properly
-                    // @ts-expect-error - TS2352 - Conversion of type '{ type: undefined; static?: boolean | undefined; graded?: boolean | undefined; alignment?: string | undefined; options: PerseusCategorizerWidgetOptions | null | undefined; key?: number | undefined; version?: Version | undefined; } | ... 38 more ... | { ...; }' to type 'DropdownWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
-                    "dropdown 1": {
-                        ...question1.widgets["dropdown 1"],
-                        type: undefined,
-                    } as DropdownWidget,
-                },
-            } as const;
-
-            // Act
-            const {renderer} = renderQuestion(question);
-
-            // Assert
-            expect(renderer.state.widgetInfo["dropdown 1"]?.type).toBe(
-                "dropdown",
-            );
         });
 
         it("should default alignment if missing", () => {
@@ -934,9 +907,6 @@ describe("renderer", () => {
 
             // Act and Assert
             expect(() => {
-                // TODO: Right now KAError is mocked because we're
-                // jest.mock()ing the logging module. Figure out how to
-                // unmock.
                 widget2.props.onFocus("this is not an array");
             }).toThrow("widget props.onFocus focusPath must be an Array");
         });

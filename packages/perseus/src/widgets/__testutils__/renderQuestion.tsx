@@ -3,17 +3,17 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 
 import {
-    testDependenciesV2,
-    testDependencies,
-    // eslint-disable-next-line import/no-relative-packages
-} from "../../../../../testing/test-dependencies";
-import {
     DependenciesContext,
     useDependencies,
     setDependencies,
 } from "../../dependencies";
 import * as Perseus from "../../index";
 import {mockStrings} from "../../strings";
+import {
+    testDependenciesV2,
+    testDependencies,
+    // eslint-disable-next-line import/no-relative-packages
+} from "../../testing/test-dependencies";
 import UserInputManager from "../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 

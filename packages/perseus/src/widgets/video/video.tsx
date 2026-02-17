@@ -114,9 +114,6 @@ class Video extends React.Component<Props> implements Widget {
 
                     {/* eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO(LEMS-2871): Address a11y error */}
                     <iframe
-                        // TODO(joshuan): Consider not using iframes when we're
-                        // loading this from khan/frontend. This iframe is
-                        // problematic for screenreaders.
                         className="perseus-video-widget"
                         sandbox="allow-same-origin allow-scripts"
                         width={DEFAULT_WIDTH}

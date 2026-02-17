@@ -10,11 +10,11 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
+} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -84,12 +84,10 @@ const assertIncorrect = async (
     expect(score).toHaveBeenAnsweredIncorrectly();
 };
 
-// TODO: actually Assert that message is being set on the score object.
 const assertInvalid = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     itemData: PerseusItem,
     input: string,
-    message?: string,
 ) => {
     jest.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);

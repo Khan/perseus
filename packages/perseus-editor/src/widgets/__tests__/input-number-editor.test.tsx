@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import InputNumberEditor from "../input-number-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -35,7 +35,7 @@ describe("input-number-editor", () => {
         await userEvent.type(input, "1");
         input.blur();
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({value: 1}),
         );
     });
@@ -49,7 +49,7 @@ describe("input-number-editor", () => {
             screen.getByRole("checkbox", {name: "Allow inexact answers"}),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({inexact: true}),
         );
     });
@@ -63,7 +63,7 @@ describe("input-number-editor", () => {
             screen.getByRole("checkbox", {name: "Right alignment"}),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({rightAlign: true}),
         );
     });
@@ -80,7 +80,7 @@ describe("input-number-editor", () => {
             });
             await userEvent.selectOptions(select, opt);
 
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({simplify: opt}),
             );
         });
@@ -107,7 +107,7 @@ describe("input-number-editor", () => {
             });
             await userEvent.selectOptions(select, opt);
 
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({answerType: opt}),
             );
         });
@@ -125,7 +125,7 @@ describe("input-number-editor", () => {
             });
             await userEvent.selectOptions(select, opt);
 
-            expect(onChangeMock).toBeCalledWith(
+            expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({size: opt}),
             );
         });

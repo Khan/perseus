@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import CategorizerEditor from "../categorizer-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -49,7 +49,7 @@ describe("categorizer-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
+        expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({randomizeItems: true}),
         );
     });

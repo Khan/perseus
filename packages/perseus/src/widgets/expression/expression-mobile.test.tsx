@@ -15,12 +15,12 @@ import {
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import * as Dependencies from "../../dependencies";
+import WrappedServerItemRenderer from "../../server-item-renderer";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
-import WrappedServerItemRenderer from "../../server-item-renderer";
+} from "../../testing/test-dependencies";
 import {registerWidget} from "../../widgets";
 
 import ExpressionExport from "./expression";

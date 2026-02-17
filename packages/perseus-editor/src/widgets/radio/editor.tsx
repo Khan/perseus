@@ -13,8 +13,9 @@ import LabeledSwitch from "../../components/labeled-switch";
 import {RadioOptionSettings} from "./radio-option-settings";
 import {getMovedChoices} from "./utils";
 
+import type {RadioOptionSettingsHandle} from "./radio-option-settings";
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
-import type {Changeable, APIOptions} from "@khanacademy/perseus";
+import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
@@ -22,7 +23,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 // Exported for testing
-export interface RadioEditorProps extends Changeable.ChangeableProps {
+export interface RadioEditorProps {
     apiOptions: APIOptions;
     countChoices: boolean;
     choices: PerseusRadioChoice[];
@@ -30,7 +31,11 @@ export interface RadioEditorProps extends Changeable.ChangeableProps {
     hasNoneOfTheAbove: boolean;
     multipleSelect: boolean;
     deselectEnabled: boolean;
-    static: boolean;
+
+    onChange: (
+        values: Partial<PerseusRadioWidgetOptions>,
+        callback?: (() => void) | null,
+    ) => void;
 }
 
 // JSDoc will be shown in Storybook widget editor description
@@ -42,6 +47,11 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     static defaultProps: RadioDefaultWidgetOptions =
         radioLogic.defaultWidgetOptions;
+
+    // Store refs to each choice editor for focus management
+    // Using choice.id as key ensures refs remain valid after reorder/delete
+    choiceRefs: Map<string, React.RefObject<RadioOptionSettingsHandle>> =
+        new Map();
 
     componentDidMount() {
         // Recalculate numCorrect when multipleSelect and countChoices are enabled
@@ -66,10 +76,25 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         }
     }
 
+    // Get or create a ref for a choice by its id
+    getChoiceRef = (
+        choiceId: string,
+    ): React.RefObject<RadioOptionSettingsHandle> => {
+        if (!this.choiceRefs.has(choiceId)) {
+            this.choiceRefs.set(
+                choiceId,
+                React.createRef<RadioOptionSettingsHandle>(),
+            );
+        }
+        return this.choiceRefs.get(choiceId)!;
+    };
+
     // Called when the "Multiple selections" checkbox is toggled,
     // allowing the content author to specifiy multiple correct answers.
-    onMultipleSelectChange: (arg1: any) => any = (allowMultiple) => {
-        const isMultipleSelect = allowMultiple.multipleSelect;
+    onMultipleSelectChange: (options: {multipleSelect: boolean}) => void = (
+        options,
+    ) => {
+        const isMultipleSelect = options.multipleSelect;
 
         // When switching to single-select mode, we want to deselect all
         // choices if more than one choice is currently selected as correct.
@@ -96,8 +121,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     // Called when the "Specify number correct" checkbox is toggled,
     // making it so that the title reads "Choose [number] answers"
-    onCountChoicesChange: (arg1: any) => void = (count) => {
-        const countChoices = count.countChoices;
+    onCountChoicesChange: (options: {countChoices: boolean}) => void = (
+        options,
+    ) => {
+        const countChoices = options.countChoices;
         this.props.onChange({
             countChoices,
         });
@@ -118,24 +145,25 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     // Updates the `correct` values for each choice, as well as the new
     // `numCorrect` value as a result. Updates the props with the new values.
-    onChange: (arg1: any) => void = ({checked}) => {
-        const choices = this.props.choices.map((choice, i) => {
-            return {
-                ...choice,
-                correct: checked[i],
-                content:
-                    choice.isNoneOfTheAbove && !checked[i]
-                        ? ""
-                        : choice.content,
-                id: this.ensureValidIds(choice.id, i),
-            };
-        });
+    onChange: (options: {checked: ReadonlyArray<boolean | undefined>}) => void =
+        ({checked}) => {
+            const choices = this.props.choices.map((choice, i) => {
+                return {
+                    ...choice,
+                    correct: checked[i],
+                    content:
+                        choice.isNoneOfTheAbove && !checked[i]
+                            ? ""
+                            : choice.content,
+                    id: this.ensureValidIds(choice.id, i),
+                };
+            });
 
-        this.props.onChange({
-            choices,
-            numCorrect: deriveNumCorrect(choices),
-        });
-    };
+            this.props.onChange({
+                choices,
+                numCorrect: deriveNumCorrect(choices),
+            });
+        };
 
     // Called when there is a change to which choice(s) are correct to
     // calculate the new list of correct choices.
@@ -163,7 +191,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
     };
 
-    onContentChange: (arg1: any, arg2: any) => void = (
+    onContentChange: (choiceIndex: number, newContent: string) => void = (
         choiceIndex,
         newContent,
     ) => {
@@ -194,6 +222,9 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         const choices = this.props.choices.slice();
         const deleted = choices[choiceIndex];
 
+        // Clean up the ref for the deleted choice
+        this.choiceRefs.delete(deleted.id);
+
         choices.splice(choiceIndex, 1);
 
         this.props.onChange({
@@ -204,7 +235,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
     };
 
-    addChoice: (arg1: boolean, arg2: any) => void = (noneOfTheAbove, e) => {
+    addChoice: (noneOfTheAbove: boolean, e: React.SyntheticEvent) => void = (
+        noneOfTheAbove,
+        e,
+    ) => {
         e.preventDefault();
 
         const choices = this.props.choices.slice();
@@ -225,11 +259,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     noneOfTheAbove || this.props.hasNoneOfTheAbove,
             },
             () => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
-                this.refs[`choice-editor${addIndex}`].refs[
-                    "content-editor"
-                ].focus();
+                // Focus the newly added choice editor
+                this.getChoiceRef(newChoice.id).current?.focus();
             },
         );
     };
@@ -249,9 +280,11 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     };
 
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
-        this.refs["choice-editor0"].refs["content-editor"].focus();
+        // Focus the first choice editor
+        const firstChoice = this.props.choices[0];
+        if (firstChoice?.id) {
+            this.getChoiceRef(firstChoice.id).current?.focus();
+        }
         return true;
     };
 
@@ -340,7 +373,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
                 {this.props.choices.map((choice, index) => (
                     <RadioOptionSettings
-                        key={`choice-${choice.id}}`}
+                        key={`choice-${choice.id}`}
+                        ref={this.getChoiceRef(choice.id)}
                         index={index}
                         choice={choice}
                         multipleSelect={this.props.multipleSelect}
