@@ -87,6 +87,11 @@
     z-index: -1; /* Ensures that the content is below the indicator and scroll fade */
 }
 
+/* Add small top padding to first content element to optically align text with indicator */
+.content > :first-child {
+    padding-block-start: 0.3rem;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .content {
         transition: all 0.125s;
