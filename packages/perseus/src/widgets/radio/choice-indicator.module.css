@@ -87,9 +87,6 @@
 .is-correct[aria-pressed="true"] {
     background-color: var(--wb-semanticColor-core-background-success-strong);
     color: var(--wb-semanticColor-core-foreground-knockout-default);
-    outline: var(--wb-border-width-medium) solid
-        var(--wb-semanticColor-core-border-success-default);
-    outline-offset: var(--wb-sizing-size_020);
     width: var(--perseus-multiple-choice-indicator-correct-size);
 }
 
