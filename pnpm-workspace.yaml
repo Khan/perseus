@@ -45,6 +45,11 @@ packages:
     - packages/*
     - vendor/*
 overrides:
+    # Newer versions of jsdom break our tests. Examples of the problems:
+    # - The `window` property of `window` is non-configurable, so we can't
+    #   mock it. (21.0.0)
+    # - window.getComputedStyle() returns bizarre results for background
+    #   color, e.g. `rgb(255, 0, 0)` instead of `green`. (21.1.0)Collapse comment
     jest-environment-jsdom>jsdom: 20.0.3
 catalogs:
     peerDeps:
