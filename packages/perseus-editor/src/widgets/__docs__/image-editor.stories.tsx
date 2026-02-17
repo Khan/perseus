@@ -9,7 +9,10 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
+import {
+    earthMoonImage,
+    graphieImage,
+} from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
@@ -97,6 +100,17 @@ export const Populated: Story = {
         alt: "The moon showing behind the Earth in space.",
         caption: "Captured via XYZ Telescope",
         title: "The Moon",
+    },
+};
+
+/**
+ * This Image widget editor has a graphie image.
+ */
+export const GraphieImage: Story = {
+    name: "Graphie Image (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: graphieImage,
     },
 };
 
