@@ -150,6 +150,9 @@ type State = {
     textAreaValue: string;
 };
 
+// Contextual information that widgets can use,
+// through getStartWidgetOptions,
+// to initialize widget options
 export type StartWidgetOptionsContext = {
     selectedText: string;
 };
