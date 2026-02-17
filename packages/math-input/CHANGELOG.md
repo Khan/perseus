@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 26.4.0
+
+### Minor Changes
+
+-   [#3113](https://github.com/Khan/perseus/pull/3113) [`082388a936`](https://github.com/Khan/perseus/commit/082388a9366c00e3519f9e26274e2eaca5c19644) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Break Perseus styling into its own Cascade Layers
+
+### Patch Changes
+
+-   [#3259](https://github.com/Khan/perseus/pull/3259) [`8ee65a2add`](https://github.com/Khan/perseus/commit/8ee65a2addeb26e0eb5213444e77b730f7152c96) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
 ## 26.3.13
 
 ### Patch Changes
