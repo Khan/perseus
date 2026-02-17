@@ -14,8 +14,12 @@ const cssWrapper = {
         if (pathname.endsWith(".css")) {
             // Exclude the CSS files that are not part of the shared layer.
             if (!excludedCssFiles.some((file) => pathname.endsWith(file))) {
-                // Exclude any CSS file that already has a layer statement.
-                if (!code.includes("@layer")) {
+                // Exclude any CSS file that already has a layer statement,
+                //    unless it is specifying a sub-layer.
+                if (
+                    !code.includes("@layer") ||
+                    /(?=.*@layer)(?=.*\bperseus-legacy\b)/s.test(code)
+                ) {
                     const layerStatements =
                         "@layer reset, shared, legacy;\n@layer shared";
                     return {
