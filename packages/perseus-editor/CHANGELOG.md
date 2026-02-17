@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 28.11.0
+
+### Minor Changes
+
+-   [#3247](https://github.com/Khan/perseus/pull/3247) [`0e578d70fa`](https://github.com/Khan/perseus/commit/0e578d70fa74ae11b04509ad32e184f63f550694) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove static props from radio widget
+
+### Patch Changes
+
+-   [#3225](https://github.com/Khan/perseus/pull/3225) [`6d7338e5c6`](https://github.com/Khan/perseus/commit/6d7338e5c6bd6c5c85c35fff5095c7e6e7553d4c) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Fix zoomed image view in preview
+
+*   [#3259](https://github.com/Khan/perseus/pull/3259) [`8ee65a2add`](https://github.com/Khan/perseus/commit/8ee65a2addeb26e0eb5213444e77b730f7152c96) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   Updated dependencies [[`0e578d70fa`](https://github.com/Khan/perseus/commit/0e578d70fa74ae11b04509ad32e184f63f550694), [`e1f9a0d2a1`](https://github.com/Khan/perseus/commit/e1f9a0d2a1b5538650e9d6b2fac3fa219dab0577), [`6d7338e5c6`](https://github.com/Khan/perseus/commit/6d7338e5c6bd6c5c85c35fff5095c7e6e7553d4c), [`8ee65a2add`](https://github.com/Khan/perseus/commit/8ee65a2addeb26e0eb5213444e77b730f7152c96), [`1cd9b4d66a`](https://github.com/Khan/perseus/commit/1cd9b4d66a839acc99f377ee6081530ed920d4e9), [`9eb52fe892`](https://github.com/Khan/perseus/commit/9eb52fe8923d8c469f00c19f23e56188e6f19f54), [`082388a936`](https://github.com/Khan/perseus/commit/082388a9366c00e3519f9e26274e2eaca5c19644)]:
+    -   @khanacademy/perseus@75.1.0
+    -   @khanacademy/math-input@26.4.0
+    -   @khanacademy/perseus-linter@4.8.0
+
 ## 28.10.4
 
 ### Patch Changes
