@@ -279,7 +279,7 @@ describe("EditorPage", () => {
         ).toBeInTheDocument();
     });
 
-    it("should call getStartWidgetOptions if available", async () => {
+    it("should call initializeWidgetOptions if available", async () => {
         const onChangeMock = jest.fn();
 
         const startRenderer: PerseusRenderer = {

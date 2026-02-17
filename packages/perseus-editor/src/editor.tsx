@@ -151,9 +151,9 @@ type State = {
 };
 
 // Contextual information that widgets can use,
-// through getStartWidgetOptions,
+// through initializeWidgetOptions,
 // to initialize widget options
-export type StartWidgetOptionsContext = {
+export type InitializeWidgetOptionsParams = {
     selectedText: string;
 };
 
@@ -681,11 +681,11 @@ class Editor extends React.Component<Props, State> {
 
         const newWidgets = {...this.props.widgets};
         const widgetEditor = Widgets.getEditor(widgetType);
-        const startWidgetOptionsContext: StartWidgetOptionsContext = {
+        const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
             selectedText,
         };
-        const startWidgetOptions = widgetEditor?.getStartWidgetOptions?.(
-            startWidgetOptionsContext,
+        const startWidgetOptions = widgetEditor?.initializeWidgetOptions?.(
+            initializeWidgetOptionsParams,
         );
         const defaultProps = widgetEditor?.defaultProps;
         newWidgets[id] = {
