@@ -1388,7 +1388,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                     choices={fourChoices}
                     randomize={true}
                 />,
@@ -1407,7 +1406,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                     choices={fourChoices}
                     randomize={true}
                     _showShuffledPreview={true}
@@ -1427,7 +1425,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                     choices={fourChoices}
                     randomize={false}
                     _showShuffledPreview={true}
@@ -1480,7 +1477,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                     choices={fourChoices}
                     randomize={true}
                 />,
