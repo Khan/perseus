@@ -46,18 +46,18 @@ export const renderQuestion = (
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
             <PerseusI18nContextProvider strings={mockStrings} locale={locale}>
-            <DependenciesContext.Provider value={dependencies}>
-                <RendererWrapper
-                    ref={(node) => (renderer = node)}
-                    question={question as any}
-                    apiOptions={apiOptions}
-                    initialUserInput={initialUserInput}
-                    extraProps={{
-                        ...extraProps,
-                        strings: mockStrings,
-                    }}
-                />
-            </DependenciesContext.Provider>
+                <DependenciesContext.Provider value={dependencies}>
+                    <RendererWrapper
+                        ref={(node) => (renderer = node)}
+                        question={question as any}
+                        apiOptions={apiOptions}
+                        initialUserInput={initialUserInput}
+                        extraProps={{
+                            ...extraProps,
+                            strings: mockStrings,
+                        }}
+                    />
+                </DependenciesContext.Provider>
             </PerseusI18nContextProvider>
         </RenderStateRoot>,
     );

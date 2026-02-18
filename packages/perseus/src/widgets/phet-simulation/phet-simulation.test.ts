@@ -90,7 +90,14 @@ describe("phet-simulation widget", () => {
         };
 
         // Act
-        renderQuestion(question1, apiOptions, undefined, undefined, undefined, "zz");
+        renderQuestion(
+            question1,
+            apiOptions,
+            undefined,
+            undefined,
+            undefined,
+            "zz",
+        );
 
         // Assert
         await waitFor(() => {
