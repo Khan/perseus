@@ -99,7 +99,7 @@ function stripEditorOnlyRadioFields(item: any): any {
     for (const widgetId of Object.keys(cleanedWidgets)) {
         const widget = cleanedWidgets[widgetId];
         if (widget?.type === "radio" && widget.options) {
-            const {_showShuffledPreview, ...cleanOptions} = widget.options;
+            const {_showShuffledPreview: _, ...cleanOptions} = widget.options;
             cleanedWidgets[widgetId] = {...widget, options: cleanOptions};
         }
     }
