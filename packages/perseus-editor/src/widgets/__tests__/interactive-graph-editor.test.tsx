@@ -835,7 +835,7 @@ describe("InteractiveGraphEditor", () => {
         // Assert:
         // A none-type graph should render; there should be no movable points.
         expect(screen.queryByLabelText(/point/i)).not.toBeInTheDocument();
-    })
+    });
 
     test.each`
         graphType          | expectedNumber | correctAnswer
