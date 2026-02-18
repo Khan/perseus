@@ -13,11 +13,6 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Renderers/Article Renderer",
     component: ArticleRendererWithDebugUI,
-    argTypes: {
-        useNewStyles: {
-            control: "boolean",
-        },
-    },
 };
 export default meta;
 
