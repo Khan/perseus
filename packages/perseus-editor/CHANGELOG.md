@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 28.12.0
+
+### Minor Changes
+
+-   [#3253](https://github.com/Khan/perseus/pull/3253) [`71bb581c84`](https://github.com/Khan/perseus/commit/71bb581c847dd1831c278d791c2316beaa1c1b13) Thanks [@handeyeco](https://github.com/handeyeco)! - Add initializeWidgetOptions API to widget editors to allow DefinitionEditor to prepopulate data in widget options
+
 ## 28.11.0
 
 ### Minor Changes
