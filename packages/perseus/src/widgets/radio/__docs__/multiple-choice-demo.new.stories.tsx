@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
     question,
@@ -23,8 +24,6 @@ import type {Meta} from "@storybook/react-vite";
 type StoryArgs = {
     // Story Option
     item: PerseusItem;
-    // Radio Options
-    static: boolean;
     // Testing Options
     startAnswerless: boolean;
 } & Pick<
@@ -53,7 +52,6 @@ export default {
         },
     },
     args: {
-        static: false,
         // Requires a page refresh for toggling this to affect the story
         startAnswerless: false,
         reviewMode: false,
@@ -84,20 +82,10 @@ export default {
 const applyStoryArgs = (args: StoryArgs): PerseusItem => {
     const storyItem = {
         ...args.item,
-        question: {
-            ...args.item.question,
-            widgets: {},
-        },
         apiOptions: {
             flags: getFeatureFlags({"new-radio-widget": true}),
         },
     };
-    for (const [widgetId, widget] of Object.entries(
-        args.item.question.widgets,
-    )) {
-        storyItem.question.widgets[widgetId] = {...widget, static: args.static};
-    }
-
     return storyItem;
 };
 
@@ -135,6 +123,7 @@ export const SelectWithImagesAndScroll = {
             question: SingleSelectOverflowImageContent,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const SingleSelectWithScroll = {
@@ -143,6 +132,7 @@ export const SingleSelectWithScroll = {
             question: SingleSelectOverflowContent,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const MultiSelectSimple = {
@@ -167,6 +157,7 @@ export const MultiSelectWithScroll = {
             question: multiChoiceQuestionSimpleOverflowContent,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const GradedGroupSetWithScroll = {
@@ -175,6 +166,7 @@ export const GradedGroupSetWithScroll = {
             question: overflowContentInGradedGroupSet,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const GradedGroup = {

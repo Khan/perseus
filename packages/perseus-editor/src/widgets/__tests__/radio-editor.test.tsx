@@ -38,7 +38,6 @@ function renderRadioEditor(
         <RadioEditor
             onChange={onChangeMock}
             apiOptions={ApiOptions.defaults}
-            static={false}
             {...props}
         />,
         {wrapper: RenderStateRoot},
@@ -326,7 +325,6 @@ describe("radio-editor", () => {
                 ref={editorRef}
                 onChange={() => {}}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 choices={fourChoices}
             />,
             {wrapper: RenderStateRoot},
@@ -353,7 +351,6 @@ describe("radio-editor", () => {
                 ref={editorRef}
                 onChange={() => {}}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 choices={[
                     getCorrectChoice(),
                     getIncorrectChoice(),
@@ -376,7 +373,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 countChoices={true}
                 choices={[
@@ -607,7 +603,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 countChoices={true}
                 choices={[
@@ -634,7 +629,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 countChoices={false}
                 choices={[
@@ -662,7 +656,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 choices={[
                     getCorrectChoice(),
                     getIncorrectChoice(),
@@ -695,7 +688,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 choices={[
                     getCorrectChoice(),
@@ -730,7 +722,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={false}
                 choices={[
                     getCorrectChoice(),
@@ -765,7 +756,6 @@ describe("radio-editor", () => {
             <RadioEditor
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
-                static={false}
                 multipleSelect={true}
                 choices={[
                     getCorrectChoice(),
@@ -1515,7 +1505,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -1533,7 +1522,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -1556,7 +1544,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -1580,7 +1567,6 @@ describe("radio-editor", () => {
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
-                    static={false}
                 />,
                 {wrapper: RenderStateRoot},
             );

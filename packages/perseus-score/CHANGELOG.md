@@ -1,5 +1,27 @@
 # @khanacademy/perseus-score
 
+## 8.2.9
+
+### Patch Changes
+
+-   [#3237](https://github.com/Khan/perseus/pull/3237) [`25c194b92e`](https://github.com/Khan/perseus/commit/25c194b92e75747d6f9911432a6afdacee9edfec) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Type the options parameter to `predicate.createValidatorFunctional`.
+
+*   [#3238](https://github.com/Khan/perseus/pull/3238) [`53938664e9`](https://github.com/Khan/perseus/commit/53938664e98915af4b970b3d2c07d80bc25e940e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove unnecessary escaping in regular expressions.
+
+-   [#3234](https://github.com/Khan/perseus/pull/3234) [`3c705a11ce`](https://github.com/Khan/perseus/commit/3c705a11cea1a437f76571aef61f09982acc011a) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Simplify `getScoreableWidgets`, removing unnecessary call to `applyDefaultsToWidgets`.
+
+-   Updated dependencies [[`10d2e0850e`](https://github.com/Khan/perseus/commit/10d2e0850e1e84540ddb6868c82f98092bd606e7)]:
+    -   @khanacademy/perseus-core@23.0.2
+    -   @khanacademy/kmath@2.2.32
+
+## 8.2.8
+
+### Patch Changes
+
+-   Updated dependencies [[`748d3bf4e8`](https://github.com/Khan/perseus/commit/748d3bf4e8c641f09479908ddf74be09de3f1e8c), [`d7ffa5cbb6`](https://github.com/Khan/perseus/commit/d7ffa5cbb64e9befc4a014eac041c9faccc82797)]:
+    -   @khanacademy/perseus-core@23.0.1
+    -   @khanacademy/kmath@2.2.31
+
 ## 8.2.7
 
 ### Patch Changes
