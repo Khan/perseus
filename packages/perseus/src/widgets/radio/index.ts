@@ -1,6 +1,6 @@
 import {radioLogic} from "@khanacademy/perseus-core";
 
-import Radio from "./multiple-choice-component";
+import Radio from "./multiple-choice-widget";
 import {getUserInputFromSerializedState} from "./util";
 
 import type {WidgetExports} from "../../types";

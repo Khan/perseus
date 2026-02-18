@@ -47,6 +47,7 @@ export type RadioProps = {
     editMode?: boolean;
     labelWrap?: boolean;
     randomize?: boolean;
+    onChoiceChange: (choiceId: string, newCheckedState: boolean) => void;
 };
 
 export type RadioWidgetHandle = {
@@ -138,7 +139,12 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                  * [LEMS-3185] do not trust serializedState
                  */
                 getSerializedState() {
-                    const {userInput: _, randomize: __, ...rest} = props;
+                    const {
+                        userInput: _,
+                        randomize: __,
+                        static: ___,
+                        ...rest
+                    } = props;
                     return {
                         ...rest,
                         numCorrect: props.numCorrect ?? 0,
