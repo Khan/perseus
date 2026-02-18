@@ -71,7 +71,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
                   fetch-depth: 0
 
@@ -90,7 +90,7 @@ jobs:
 
             - name: Create Release Pull Request or Publish to npm
               id: changesets
-              uses: changesets/action@v1
+              uses: changesets/action@c48e67d110a68bc90ccf1098e9646092baacaa87 # v1.6.0
               with:
                   publish: pnpm publish:ci
               env:
@@ -112,7 +112,7 @@ jobs:
 
             - name: Send a Slack notification if a publish fails
               if: failure()
-              uses: rtCamp/action-slack-notify@v2
+              uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # v2.3.3
               env:
                   SLACK_WEBHOOK: ${{ secrets.SLACK_EXERCISENEXT_WEBHOOK }}
                   SLACK_CHANNEL: eng-perseus
@@ -126,7 +126,7 @@ jobs:
 
             - name: Send a Slack notification for web if a publish happens
               if: steps.changesets.outputs.published == 'true'
-              uses: rtCamp/action-slack-notify@v2
+              uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # v2.3.3
               env:
                   SLACK_WEBHOOK: ${{ secrets.SLACK_EXERCISENEXT_WEBHOOK }}
                   SLACK_CHANNEL: eng-perseus
@@ -156,7 +156,7 @@ jobs:
         steps:
             # We need to checkout all history, so that the changeseat tool can diff it
             - name: Checkout current commit
-              uses: actions/checkout@v4
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
                   fetch-depth: "0"
 
@@ -229,7 +229,7 @@ jobs:
             - name: Find existing comment
               # Even if we're failing, we want to update the comments.
               if: always()
-              uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
+              uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
               id: find-comment
               with:
                   issue-number: ${{ github.event.pull_request.number }}
@@ -238,7 +238,7 @@ jobs:
 
             - name: Create or update npm snapshot comment - success
               if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
               with:
                   issue-number: ${{ github.event.pull_request.number }}
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
@@ -269,7 +269,7 @@ jobs:
 
             - name: Create or update npm snapshot comment - failure, snapshot publish failed
               if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
               with:
                   issue-number: ${{ github.event.pull_request.number }}
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
@@ -283,7 +283,7 @@ jobs:
 
             - name: Create or update npm snapshot comment - failure, concurrent with release
               if: failure() && steps.check-release.outputs.release_count != '0'
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
               with:
                   issue-number: ${{ github.event.pull_request.number }}
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
