@@ -815,6 +815,29 @@ describe("InteractiveGraphEditor", () => {
         expect(screen.getByRole("option", {name: "None"})).toBeInTheDocument();
     });
 
+    test("fixes a `correct` prop with the wrong graph type, defaulting it to `graph`", () => {
+        // This behavior is a workaround for the AX editor, which passes
+        // answerless data to the editor in question stems. The value of
+        // `correct` always defaults to `{type: "linear"}` when answerless
+        // data is used. This caused a bug where a movable line was
+        // incorrectly displayed on none-type graphs in the editor.
+        // See: https://khanacademy.atlassian.net/browse/LEMS-3903
+        render(
+            <InteractiveGraphEditor
+                {...baseProps}
+                graph={{type: "none"}}
+                correct={{type: "linear"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert:
+        // A none-type graph should render; there should be no movable points.
+        expect(screen.queryByLabelText(/point/i)).not.toBeInTheDocument();
+    });
+
     test.each`
         graphType          | expectedNumber | correctAnswer
         ${"linear"}        | ${1}           | ${"y = 5.000"}
