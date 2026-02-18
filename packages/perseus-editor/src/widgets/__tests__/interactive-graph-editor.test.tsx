@@ -821,6 +821,7 @@ describe("InteractiveGraphEditor", () => {
         // `correct` always defaults to `{type: "linear"}` when answerless
         // data is used. This caused a bug where a movable line was
         // incorrectly displayed on none-type graphs in the editor.
+        // See: https://khanacademy.atlassian.net/browse/LEMS-3903
         render(
             <InteractiveGraphEditor
                 {...baseProps}
