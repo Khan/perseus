@@ -33,6 +33,9 @@ jobs:
             - name: Update browserslist DB
               run: pnpm exec update-browserslist-db
 
+            - name: Create changeset (empty)
+              run: pnpm changeset --empty
+
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
               with:
