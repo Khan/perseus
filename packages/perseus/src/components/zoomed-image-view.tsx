@@ -92,13 +92,13 @@ const wbStyles = StyleSheet.create({
     dialog: {
         width: "auto",
         height: "auto",
-        // Add padding so that the image doesn't touch the edges
+        // Add margin so that the image doesn't touch the edges
         // of the screen on desktop.
-        padding: sizing.size_320,
+        margin: sizing.size_320,
 
         // Allow the image to touch the edges of the screen on mobile.
         "@media (max-width: 767px)": {
-            padding: 0,
+            margin: 0,
         },
     },
 });
