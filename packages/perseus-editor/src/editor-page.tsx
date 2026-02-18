@@ -89,17 +89,25 @@ type State = {
 
 // Strips editor-only marker fields (e.g. _showShuffledPreview) from
 // radio widget options so they are never persisted to content data.
-function stripEditorOnlyRadioFields(item: any) {
+function stripEditorOnlyRadioFields(item: any): any {
     const widgets = item?.question?.widgets;
-    if (widgets) {
-        for (const widgetId of Object.keys(widgets)) {
-            const widget = widgets[widgetId];
-            if (widget?.type === "radio" && widget.options) {
-                widget.options = {...widget.options};
-                delete widget.options._showShuffledPreview;
-            }
+    if (!widgets) {
+        return item;
+    }
+
+    const cleanedWidgets = {...widgets};
+    for (const widgetId of Object.keys(cleanedWidgets)) {
+        const widget = cleanedWidgets[widgetId];
+        if (widget?.type === "radio" && widget.options) {
+            const {_showShuffledPreview, ...cleanOptions} = widget.options;
+            cleanedWidgets[widgetId] = {...widget, options: cleanOptions};
         }
     }
+
+    return {
+        ...item,
+        question: {...item.question, widgets: cleanedWidgets},
+    };
 }
 
 class EditorPage extends React.Component<Props, State> {
@@ -147,8 +155,7 @@ class EditorPage extends React.Component<Props, State> {
                     keepDeletedWidgets: true,
                 }),
             };
-            stripEditorOnlyRadioFields(snapshot);
-            return snapshot;
+            return stripEditorOnlyRadioFields(snapshot);
         }
         return null;
     }
@@ -270,14 +277,13 @@ class EditorPage extends React.Component<Props, State> {
 
     serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
         if (this.props.jsonMode) {
-            return this.state.json;
+            return stripEditorOnlyRadioFields(this.state.json);
         }
         const result = _.extend(this.itemEditor.current?.serialize(options), {
             hints: this.hintsEditor.current?.serialize(options),
         });
-        stripEditorOnlyRadioFields(result);
 
-        return result;
+        return stripEditorOnlyRadioFields(result);
     }
 
     // Serializes item data for the Edit tab iframe preview.
