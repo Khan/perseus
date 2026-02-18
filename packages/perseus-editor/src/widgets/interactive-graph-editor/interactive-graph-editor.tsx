@@ -288,7 +288,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
         const sizeClass = containerSizeClass.SMALL;
 
         if (this.props.valid === true) {
-            const correct = this.props.correct;
+            // Default `correct` to `graph` if the type is wrong. This works
+            // around a bug in the AX editor.
+            const correct = this.props.correct.type === this.props.graph?.type ? this.props.correct : this.props.graph;
 
             const graphProps = {
                 ref: "graph",
