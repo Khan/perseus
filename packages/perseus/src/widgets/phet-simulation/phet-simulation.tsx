@@ -57,10 +57,6 @@ export class PhetSimulation
         isFullScreen: false,
     };
 
-    private get locale(): string {
-        return this.getPhetCompatibleLocale(this.context.locale);
-    }
-
     async componentDidMount() {
         await this.updateSimState(this.props.url);
     }
@@ -70,6 +66,10 @@ export class PhetSimulation
         if (prevProps.url !== this.props.url) {
             await this.updateSimState(this.props.url);
         }
+    }
+
+    private get locale(): string {
+        return this.getPhetCompatibleLocale(this.context.locale);
     }
 
     // kaLocales and PhET locales use different formats and abbreviations.

@@ -2,6 +2,7 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
+import {PerseusI18nContextProvider} from "../../components/i18n-context";
 import {
     DependenciesContext,
     useDependencies,
@@ -9,7 +10,6 @@ import {
 } from "../../dependencies";
 import * as Perseus from "../../index";
 import {mockStrings} from "../../strings";
-import {PerseusI18nContextProvider} from "../../components/i18n-context";
 import {
     testDependenciesV2,
     testDependencies,
