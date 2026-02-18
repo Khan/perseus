@@ -7,6 +7,7 @@ import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import {articleMaxWidthInPx} from "../../styles/constants";
 import Util from "../../util";
@@ -53,6 +54,9 @@ function getUrlFromProgramID(programID: any) {
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
 class CSProgram extends React.Component<Props> implements Widget {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         showEditor: false,
         showButtons: false,
@@ -153,6 +157,10 @@ class CSProgram extends React.Component<Props> implements Widget {
             });
             // This becomes available to programs as Program.settings()
             url = updateQueryString(url, "settings", JSON.stringify(settings));
+        }
+
+        if (this.context?.locale) {
+            url = updateQueryString(url, "locale", this.context.locale);
         }
 
         const sandboxOptions = [

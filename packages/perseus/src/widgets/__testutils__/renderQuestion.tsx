@@ -9,6 +9,7 @@ import {
 } from "../../dependencies";
 import * as Perseus from "../../index";
 import {mockStrings} from "../../strings";
+import {PerseusI18nContextProvider} from "../../components/i18n-context";
 import {
     testDependenciesV2,
     testDependencies,
@@ -31,6 +32,7 @@ export const renderQuestion = (
     extraProps?: ExtraProps,
     initialUserInput?: UserInputMap,
     dependencies: PerseusDependenciesV2 = testDependenciesV2,
+    locale: string = "en",
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
@@ -43,6 +45,7 @@ export const renderQuestion = (
     let renderer: Perseus.Renderer | null = null;
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
+            <PerseusI18nContextProvider strings={mockStrings} locale={locale}>
             <DependenciesContext.Provider value={dependencies}>
                 <RendererWrapper
                     ref={(node) => (renderer = node)}
@@ -55,6 +58,7 @@ export const renderQuestion = (
                     }}
                 />
             </DependenciesContext.Provider>
+            </PerseusI18nContextProvider>
         </RenderStateRoot>,
     );
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

@@ -14,7 +14,6 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import {getDependencies} from "../../dependencies";
 import {phoneMargin} from "../../styles/constants";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/phet-simulation-ai-utils";
 
@@ -47,7 +46,6 @@ export class PhetSimulation
     declare context: React.ContextType<typeof PerseusI18nContext>;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement> =
         React.createRef<HTMLIFrameElement>();
-    private readonly locale: string;
 
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
@@ -59,9 +57,8 @@ export class PhetSimulation
         isFullScreen: false,
     };
 
-    constructor(props) {
-        super(props);
-        this.locale = this.getPhetCompatibleLocale(getDependencies().kaLocale);
+    private get locale(): string {
+        return this.getPhetCompatibleLocale(this.context.locale);
     }
 
     async componentDidMount() {

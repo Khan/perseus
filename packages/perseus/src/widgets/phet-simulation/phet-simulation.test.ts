@@ -88,13 +88,9 @@ describe("phet-simulation widget", () => {
         const apiOptions: APIOptions = {
             isMobile: false,
         };
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-            ...testDependencies,
-            kaLocale: "zz",
-        });
 
         // Act
-        renderQuestion(question1, apiOptions);
+        renderQuestion(question1, apiOptions, undefined, undefined, undefined, "zz");
 
         // Assert
         await waitFor(() => {

@@ -97,6 +97,7 @@ class Video extends React.Component<Props> implements Widget {
         url = this.props.dependencies.generateUrl({
             url,
             context: "video:video_url",
+            kaLocale: this.context.locale,
         });
 
         return (
