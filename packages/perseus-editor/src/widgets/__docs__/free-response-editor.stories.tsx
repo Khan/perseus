@@ -1,4 +1,4 @@
-import freeResponseWidgetLogic from "@khanacademy/perseus-core/widgets/free-response";
+import {freeResponseLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import {action} from "storybook/actions";
 
@@ -77,7 +77,7 @@ const WithState = () => {
 
     return (
         <FreeResponseEditor
-            {...freeResponseWidgetLogic.initializeWidgetOptions()}
+            {...freeResponseLogic.initializeWidgetOptions()}
             {...state}
             onChange={onChange}
         />

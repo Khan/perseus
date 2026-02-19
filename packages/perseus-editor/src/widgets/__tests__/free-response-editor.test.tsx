@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import freeResponseWidgetLogic from "@khanacademy/perseus-core/widgets/free-response";
+import {freeResponseLogic} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -25,7 +25,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
-                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                {...freeResponseLogic.initializeWidgetOptions()}
                 question="test-question"
                 onChange={() => {}}
             />,
@@ -43,7 +43,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
-                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                {...freeResponseLogic.initializeWidgetOptions()}
                 allowUnlimitedCharacters={false}
                 onChange={onChangeMock}
             />,
@@ -65,7 +65,11 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <FreeResponseEditor characterLimit={0} onChange={onChangeMock} />,
+            <FreeResponseEditor
+                {...freeResponseLogic.initializeWidgetOptions()}
+                characterLimit={0}
+                onChange={onChangeMock}
+            />,
         );
 
         await userEvent.type(screen.getByLabelText(/Character limit/), "1");
@@ -80,7 +84,11 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <FreeResponseEditor characterLimit={5} onChange={onChangeMock} />,
+            <FreeResponseEditor
+                {...freeResponseLogic.initializeWidgetOptions()}
+                characterLimit={5}
+                onChange={onChangeMock}
+            />,
         );
 
         await userEvent.type(screen.getByLabelText(/Character limit/), "e");
@@ -96,7 +104,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
-                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                {...freeResponseLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -113,7 +121,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
-                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                {...freeResponseLogic.initializeWidgetOptions()}
                 placeholder="test-placeholder"
                 onChange={onChangeMock}
             />,
@@ -134,6 +142,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
+                {...freeResponseLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 scoringCriteria={[{text: ""}]}
             />,
@@ -152,7 +161,12 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <FreeResponseEditor ref={ref} question="" onChange={() => {}} />,
+            <FreeResponseEditor
+                {...freeResponseLogic.initializeWidgetOptions()}
+                ref={ref}
+                question=""
+                onChange={() => {}}
+            />,
         );
 
         // Assert
@@ -168,6 +182,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
+                {...freeResponseLogic.initializeWidgetOptions()}
                 ref={ref}
                 question="[[☃ radio 1]]"
                 onChange={() => {}}
@@ -187,6 +202,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
+                {...freeResponseLogic.initializeWidgetOptions()}
                 ref={ref}
                 placeholder=""
                 question="test-question"
@@ -205,7 +221,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
-                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                {...freeResponseLogic.initializeWidgetOptions()}
                 ref={ref}
                 question="test-question"
                 onChange={() => {}}
@@ -225,6 +241,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
+                {...freeResponseLogic.initializeWidgetOptions()}
                 ref={ref}
                 question="test-question"
                 scoringCriteria={[
@@ -251,7 +268,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
-                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                {...freeResponseLogic.initializeWidgetOptions()}
                 ref={ref}
                 onChange={() => {}}
             />,
@@ -270,7 +287,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
-                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                {...freeResponseLogic.initializeWidgetOptions()}
                 ref={ref}
                 onChange={() => {}}
             />,
@@ -289,6 +306,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
+                {...freeResponseLogic.initializeWidgetOptions()}
                 scoringCriteria={[{text: "criterion-1"}]}
                 onChange={onChangeMock}
             />,
@@ -310,6 +328,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
+                {...freeResponseLogic.initializeWidgetOptions()}
                 scoringCriteria={[{text: "criterion-1"}]}
                 onChange={onChangeMock}
             />,

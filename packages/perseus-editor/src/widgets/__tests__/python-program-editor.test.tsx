@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import pythonProgramWidgetLogic from "@khanacademy/perseus-core/widgets/python-program";
+import {pythonProgramLogic} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -24,7 +24,7 @@ describe("python-program-editor", () => {
     it("should render", async () => {
         render(
             <PythonProgramEditor
-                {...pythonProgramWidgetLogic.initializeWidgetOptions()}
+                {...pythonProgramLogic.initializeWidgetOptions()}
                 onChange={() => undefined}
             />,
         );
@@ -37,7 +37,7 @@ describe("python-program-editor", () => {
 
         render(
             <PythonProgramEditor
-                {...pythonProgramWidgetLogic.initializeWidgetOptions()}
+                {...pythonProgramLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -59,7 +59,7 @@ describe("python-program-editor", () => {
 
         render(
             <PythonProgramEditor
-                {...pythonProgramWidgetLogic.initializeWidgetOptions()}
+                {...pythonProgramLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );

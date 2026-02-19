@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import numberLineWidgetLogic from "@khanacademy/perseus-core/widgets/number-line";
+import {numberLineLogic} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -24,7 +24,7 @@ describe("number-line-editor", () => {
     it("should render", async () => {
         render(
             <NumberLineEditor
-                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                {...numberLineLogic.initializeWidgetOptions()}
                 onChange={() => undefined}
             />,
         );
@@ -39,7 +39,7 @@ describe("number-line-editor", () => {
 
             render(
                 <NumberLineEditor
-                    {...numberLineWidgetLogic.initializeWidgetOptions()}
+                    {...numberLineLogic.initializeWidgetOptions()}
                     onChange={onChangeMock}
                 />,
             );
@@ -60,7 +60,7 @@ describe("number-line-editor", () => {
 
         render(
             <NumberLineEditor
-                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                {...numberLineLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -76,7 +76,7 @@ describe("number-line-editor", () => {
 
         render(
             <NumberLineEditor
-                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                {...numberLineLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -99,7 +99,7 @@ describe("number-line-editor", () => {
 
             render(
                 <NumberLineEditor
-                    {...numberLineWidgetLogic.initializeWidgetOptions()}
+                    {...numberLineLogic.initializeWidgetOptions()}
                     onChange={onChangeMock}
                 />,
             );
@@ -115,7 +115,7 @@ describe("number-line-editor", () => {
 
         render(
             <NumberLineEditor
-                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                {...numberLineLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -132,7 +132,7 @@ describe("number-line-editor", () => {
 
         render(
             <NumberLineEditor
-                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                {...numberLineLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -149,7 +149,7 @@ describe("number-line-editor", () => {
 
         render(
             <NumberLineEditor
-                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                {...numberLineLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -166,7 +166,7 @@ describe("number-line-editor", () => {
 
         render(
             <NumberLineEditor
-                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                {...numberLineLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -187,7 +187,7 @@ describe("number-line-editor", () => {
 
         render(
             <NumberLineEditor
-                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                {...numberLineLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );

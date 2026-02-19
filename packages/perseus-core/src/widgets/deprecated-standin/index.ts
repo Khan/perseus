@@ -1,7 +1,12 @@
 import type {WidgetLogic} from "../logic-export.types";
 
-const deprecatedStandinWidgetLogic: WidgetLogic<any> = {
+function initializeWidgetOptions(): Record<string, never> {
+    return {};
+}
+
+const deprecatedStandinWidgetLogic: WidgetLogic<Record<string, never>> = {
     name: "deprecated-standin",
+    initializeWidgetOptions,
     accessible: true,
 };
 

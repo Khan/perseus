@@ -20,22 +20,22 @@ const EN_DASH = "\u2013";
 type Props = {
     range: number[];
 
-    labelRange: ReadonlyArray<number>;
+    labelRange: Array<number | null>;
     labelStyle: string;
     labelTicks: boolean;
 
-    divisionRange: ReadonlyArray<number>;
-    numDivisions: number;
+    divisionRange: number[];
+    numDivisions?: number | null;
     snapDivisions: number;
 
-    tickStep: number;
+    tickStep?: number | null;
     correctRel: "lt" | "gt" | "le" | "ge" | "eq";
-    correctX: number;
-    initialX: number;
+    correctX?: number | null;
+    initialX?: number | null;
     isTickCtrl?: boolean;
 
     static?: boolean;
-    showTooltips: boolean;
+    showTooltips?: boolean;
 } & Changeable.ChangeableProps;
 
 // JSDoc will be shown in Storybook widget editor description

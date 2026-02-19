@@ -4,7 +4,7 @@ import {
     DependenciesContext,
     Util,
 } from "@khanacademy/perseus";
-import imageWidgetLogic from "@khanacademy/perseus-core/widgets/image";
+import {imageLogic} from "@khanacademy/perseus-core";
 import {act, render, screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -320,7 +320,7 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                {...imageWidgetLogic.initializeWidgetOptions()}
+                {...imageLogic.initializeWidgetOptions()}
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
             />,
@@ -581,7 +581,7 @@ describe("image editor", () => {
         const onChangeMock = jest.fn();
         render(
             <ImageEditorWithDependencies
-                {...imageWidgetLogic.initializeWidgetOptions()}
+                {...imageLogic.initializeWidgetOptions()}
                 apiOptions={{
                     ...ApiOptions.defaults,
                     flags: getFeatureFlags({"image-widget-upgrade": false}),

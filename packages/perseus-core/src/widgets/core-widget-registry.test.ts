@@ -54,6 +54,7 @@ describe("core-widget-registry", () => {
         beforeEach(() => {
             registerWidget(mockWidgetType, {
                 name: mockWidgetType,
+                initializeWidgetOptions: () => ({}),
                 traverseChildWidgets: realTraverseChildWidgets,
             });
         });

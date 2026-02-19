@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import numericInputWidgetLogic from "@khanacademy/perseus-core/widgets/numeric-input";
+import {numericInputLogic} from "@khanacademy/perseus-core";
 import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -25,7 +25,7 @@ describe("numeric-input-editor", () => {
     it("should render", async () => {
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={() => undefined}
             />,
         );
@@ -42,7 +42,7 @@ describe("numeric-input-editor", () => {
 
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -65,7 +65,7 @@ describe("numeric-input-editor", () => {
 
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -88,7 +88,7 @@ describe("numeric-input-editor", () => {
 
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -108,7 +108,7 @@ describe("numeric-input-editor", () => {
 
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -127,7 +127,7 @@ describe("numeric-input-editor", () => {
 
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -158,7 +158,7 @@ describe("numeric-input-editor", () => {
 
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -188,7 +188,7 @@ describe("numeric-input-editor", () => {
 
             return (
                 <NumericInputEditor
-                    {...numericInputWidgetLogic.initializeWidgetOptions()}
+                    {...numericInputLogic.initializeWidgetOptions()}
                     onChange={mergeProps}
                     {...props}
                 />
@@ -211,7 +211,7 @@ describe("numeric-input-editor", () => {
 
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -236,7 +236,7 @@ describe("numeric-input-editor", () => {
 
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -261,7 +261,7 @@ describe("numeric-input-editor", () => {
 
         render(
             <NumericInputEditor
-                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                {...numericInputLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -296,7 +296,7 @@ describe("numeric-input-editor", () => {
 
             render(
                 <NumericInputEditor
-                    {...numericInputWidgetLogic.initializeWidgetOptions()}
+                    {...numericInputLogic.initializeWidgetOptions()}
                     onChange={onChangeMock}
                 />,
             );

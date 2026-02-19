@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import phetSimulationWidgetLogic from "@khanacademy/perseus-core/widgets/phet-simulation";
+import {phetSimulationLogic} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -25,7 +25,7 @@ describe("phet-simulation editor", () => {
         // Act
         render(
             <PhetSimulationEditor
-                {...phetSimulationWidgetLogic.initializeWidgetOptions()}
+                {...phetSimulationLogic.initializeWidgetOptions()}
                 onChange={() => {}}
             />,
         );
@@ -42,7 +42,7 @@ describe("phet-simulation editor", () => {
         // Act
         render(
             <PhetSimulationEditor
-                {...phetSimulationWidgetLogic.initializeWidgetOptions()}
+                {...phetSimulationLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -59,7 +59,7 @@ describe("phet-simulation editor", () => {
         // Act
         render(
             <PhetSimulationEditor
-                {...phetSimulationWidgetLogic.initializeWidgetOptions()}
+                {...phetSimulationLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );

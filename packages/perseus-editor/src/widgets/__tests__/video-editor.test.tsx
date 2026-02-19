@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import videoWidgetLogic from "@khanacademy/perseus-core/widgets/video";
+import {videoLogic} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -26,7 +26,7 @@ describe("VideoEditor", () => {
         // Arrange, Act
         render(
             <VideoEditor
-                {...videoWidgetLogic.initializeWidgetOptions()}
+                {...videoLogic.initializeWidgetOptions()}
                 onChange={() => undefined}
             />,
         );
@@ -40,7 +40,7 @@ describe("VideoEditor", () => {
         const onChangeMock = jest.fn();
         render(
             <VideoEditor
-                {...videoWidgetLogic.initializeWidgetOptions()}
+                {...videoLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -60,7 +60,7 @@ describe("VideoEditor", () => {
         const onChangeMock = jest.fn();
         render(
             <VideoEditor
-                {...videoWidgetLogic.initializeWidgetOptions()}
+                {...videoLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -87,7 +87,7 @@ describe("VideoEditor", () => {
         const onChangeMock = jest.fn();
         render(
             <VideoEditor
-                {...videoWidgetLogic.initializeWidgetOptions()}
+                {...videoLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -114,7 +114,7 @@ describe("VideoEditor", () => {
         const onChangeMock = jest.fn();
         render(
             <VideoEditor
-                {...videoWidgetLogic.initializeWidgetOptions()}
+                {...videoLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );

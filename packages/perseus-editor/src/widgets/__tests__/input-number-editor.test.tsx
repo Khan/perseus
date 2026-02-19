@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import inputNumberWidgetLogic from "@khanacademy/perseus-core/widgets/input-number";
+import {inputNumberLogic} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -24,7 +24,7 @@ describe("input-number-editor", () => {
     it("should render", async () => {
         render(
             <InputNumberEditor
-                {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                {...inputNumberLogic.initializeWidgetOptions()}
                 onChange={() => undefined}
             />,
         );
@@ -37,7 +37,7 @@ describe("input-number-editor", () => {
 
         render(
             <InputNumberEditor
-                {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                {...inputNumberLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -56,7 +56,7 @@ describe("input-number-editor", () => {
 
         render(
             <InputNumberEditor
-                {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                {...inputNumberLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -75,7 +75,7 @@ describe("input-number-editor", () => {
 
         render(
             <InputNumberEditor
-                {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                {...inputNumberLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
             />,
         );
@@ -96,7 +96,7 @@ describe("input-number-editor", () => {
 
             render(
                 <InputNumberEditor
-                    {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                    {...inputNumberLogic.initializeWidgetOptions()}
                     onChange={onChangeMock}
                 />,
             );
@@ -128,7 +128,7 @@ describe("input-number-editor", () => {
 
             render(
                 <InputNumberEditor
-                    {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                    {...inputNumberLogic.initializeWidgetOptions()}
                     onChange={onChangeMock}
                 />,
             );
@@ -151,7 +151,7 @@ describe("input-number-editor", () => {
 
             render(
                 <InputNumberEditor
-                    {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                    {...inputNumberLogic.initializeWidgetOptions()}
                     onChange={onChangeMock}
                 />,
             );

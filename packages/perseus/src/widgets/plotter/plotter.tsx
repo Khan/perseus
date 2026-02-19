@@ -54,7 +54,7 @@ type State = {
     categoryHeights: Record<string, number>;
 };
 
-const plotterDefaults = CoreWidgetRegistry.getDefaultWidgetOptions("plotter");
+const plotterDefaults = CoreWidgetRegistry.getInitialWidgetOptions("plotter");
 
 class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;

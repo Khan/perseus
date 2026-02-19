@@ -62,6 +62,7 @@ describe("expression-editor", () => {
 
         render(
             <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
                 onChange={() => undefined}
                 answerForms={answerForms}
             />,
@@ -311,6 +312,7 @@ describe("expression-editor", () => {
 
         render(
             <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 answerForms={[
                     {
@@ -357,6 +359,7 @@ describe("expression-editor", () => {
 
         render(
             <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 answerForms={[
                     {
@@ -396,6 +399,7 @@ describe("expression-editor", () => {
 
         render(
             <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 answerForms={[
                     {
@@ -435,6 +439,7 @@ describe("expression-editor", () => {
 
         render(
             <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 answerForms={[
                     {
@@ -493,6 +498,7 @@ describe("expression-editor", () => {
 
         render(
             <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
                 ref={editorRef}
                 onChange={() => {}}
                 answerForms={[
@@ -518,6 +524,7 @@ describe("expression-editor", () => {
 
         render(
             <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
                 onChange={(o) => {
                     options = o;
                 }}

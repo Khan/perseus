@@ -1,5 +1,5 @@
 import {Dependencies, ApiOptions} from "@khanacademy/perseus";
-import radioWidgetLogic from "@khanacademy/perseus-core/widgets/radio";
+import {radioLogic} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -37,7 +37,7 @@ function renderRadioEditor(
 ) {
     return render(
         <RadioEditor
-            {...radioWidgetLogic.initializeWidgetOptions()}
+            {...radioLogic.initializeWidgetOptions()}
             onChange={onChangeMock}
             apiOptions={ApiOptions.defaults}
             {...props}
@@ -324,6 +324,7 @@ describe("radio-editor", () => {
 
         render(
             <RadioEditor
+                {...radioLogic.initializeWidgetOptions()}
                 ref={editorRef}
                 onChange={() => {}}
                 apiOptions={ApiOptions.defaults}
@@ -350,6 +351,7 @@ describe("radio-editor", () => {
 
         render(
             <RadioEditor
+                {...radioLogic.initializeWidgetOptions()}
                 ref={editorRef}
                 onChange={() => {}}
                 apiOptions={ApiOptions.defaults}
@@ -373,6 +375,7 @@ describe("radio-editor", () => {
 
         render(
             <RadioEditor
+                {...radioLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
                 multipleSelect={true}
@@ -603,6 +606,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
         render(
             <RadioEditor
+                {...radioLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
                 multipleSelect={true}
@@ -629,6 +633,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
         render(
             <RadioEditor
+                {...radioLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
                 multipleSelect={true}
@@ -656,6 +661,7 @@ describe("radio-editor", () => {
 
         render(
             <RadioEditor
+                {...radioLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
                 choices={[
@@ -688,6 +694,7 @@ describe("radio-editor", () => {
 
         render(
             <RadioEditor
+                {...radioLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
                 multipleSelect={true}
@@ -722,6 +729,7 @@ describe("radio-editor", () => {
 
         render(
             <RadioEditor
+                {...radioLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
                 multipleSelect={false}
@@ -756,6 +764,7 @@ describe("radio-editor", () => {
 
         render(
             <RadioEditor
+                {...radioLogic.initializeWidgetOptions()}
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
                 multipleSelect={true}
@@ -1365,6 +1374,7 @@ describe("radio-editor", () => {
 
             render(
                 <RadioEditor
+                    {...radioLogic.initializeWidgetOptions()}
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
@@ -1382,6 +1392,7 @@ describe("radio-editor", () => {
             const validId = "1-2-3-4-5";
             render(
                 <RadioEditor
+                    {...radioLogic.initializeWidgetOptions()}
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
@@ -1404,6 +1415,7 @@ describe("radio-editor", () => {
 
             render(
                 <RadioEditor
+                    {...radioLogic.initializeWidgetOptions()}
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
@@ -1427,6 +1439,7 @@ describe("radio-editor", () => {
 
             render(
                 <RadioEditor
+                    {...radioLogic.initializeWidgetOptions()}
                     ref={editorRef}
                     onChange={() => {}}
                     apiOptions={ApiOptions.defaults}
