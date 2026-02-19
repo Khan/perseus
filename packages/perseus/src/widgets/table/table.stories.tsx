@@ -39,6 +39,5 @@ export const AnswerfulTable: Story = {
 export const AnswerlessTable: Story = {
     args: {
         item: tableItem,
-        startAnswerless: true,
     },
 };
