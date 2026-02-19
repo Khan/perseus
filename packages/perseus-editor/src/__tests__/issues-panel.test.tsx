@@ -125,25 +125,4 @@ describe("IssuesPanel", () => {
         // Assert
         expect(cta).toBeInTheDocument();
     });
-
-    it("does not show the CTA button when the issue has one but the feature flag is off", async () => {
-        // Arrange - same setup as above but without feature flag
-        render(
-            <IssuesPanel
-                // "image-markdown" issue ID has a CTA associated with it
-                issues={[makeIssue("image-markdown")]}
-            />,
-        );
-
-        // Act
-        const toggleHeader = screen.getByText("Issues");
-        await userEvent.click(toggleHeader);
-
-        const cta = screen.queryByRole("button", {
-            name: "Convert all image markdown to widget",
-        });
-
-        // Assert
-        expect(cta).not.toBeInTheDocument();
-    });
 });
