@@ -18,6 +18,7 @@
 }
 
 .choice {
+    -webkit-tap-highlight-color: transparent;
     --perseus-multiple-choice-divider-color: var(
         --wb-semanticColor-core-border-neutral-subtle
     ); /* This will change with hover & focus */
