@@ -14,19 +14,21 @@ export type InputNumberDefaultWidgetOptions = Pick<
     | "rightAlign"
 >;
 
-const defaultWidgetOptions: InputNumberDefaultWidgetOptions = {
-    value: 0,
-    simplify: "required",
-    size: "normal",
-    inexact: false,
-    maxError: 0.1,
-    answerType: "number",
-    rightAlign: false,
-};
+function initializeWidgetOptions(): InputNumberDefaultWidgetOptions {
+    return {
+        value: 0,
+        simplify: "required",
+        size: "normal",
+        inexact: false,
+        maxError: 0.1,
+        answerType: "number",
+        rightAlign: false,
+    };
+}
 
-const inputNumberWidgetLogic: WidgetLogic = {
+const inputNumberWidgetLogic: WidgetLogic<InputNumberDefaultWidgetOptions> = {
     name: "input-number",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     defaultAlignment: "inline-block",
     accessible: false,
     getPublicWidgetOptions: getInputNumberPublicWidgetOptions,

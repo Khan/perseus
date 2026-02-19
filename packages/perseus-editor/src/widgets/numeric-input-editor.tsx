@@ -7,7 +7,6 @@ import {
     Util,
 } from "@khanacademy/perseus";
 import {
-    numericInputLogic,
     type MathFormat,
     type NumericInputDefaultWidgetOptions,
     type PerseusNumericInputWidgetOptions,
@@ -82,9 +81,6 @@ type State = {
 class NumericInputEditor extends React.Component<Props, State> {
     static widgetName = "numeric-input";
     static displayName = "NumericInputEditor";
-
-    static defaultProps: NumericInputDefaultWidgetOptions =
-        numericInputLogic.defaultWidgetOptions;
 
     constructor(props: Props) {
         super(props);

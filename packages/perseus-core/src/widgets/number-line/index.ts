@@ -19,28 +19,30 @@ export type NumberLineDefaultWidgetOptions = Pick<
     | "showTooltips"
 >;
 
-const defaultWidgetOptions: NumberLineDefaultWidgetOptions = {
-    range: [0, 10],
+function initializeWidgetOptions(): NumberLineDefaultWidgetOptions {
+    return {
+        range: [0, 10],
 
-    labelRange: [null, null],
-    labelStyle: "decimal",
-    labelTicks: true,
+        labelRange: [null, null],
+        labelStyle: "decimal",
+        labelTicks: true,
 
-    divisionRange: [1, 12],
-    numDivisions: 5,
-    snapDivisions: 2,
+        divisionRange: [1, 12],
+        numDivisions: 5,
+        snapDivisions: 2,
 
-    tickStep: null,
-    correctRel: "eq",
-    correctX: null,
-    initialX: null,
+        tickStep: null,
+        correctRel: "eq",
+        correctX: null,
+        initialX: null,
 
-    showTooltips: false,
-};
+        showTooltips: false,
+    };
+}
 
-const numberLineWidgetLogic: WidgetLogic = {
+const numberLineWidgetLogic: WidgetLogic<NumberLineDefaultWidgetOptions> = {
     name: "number-line",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getNumberLinePublicWidgetOptions,
     accessible: false,
 };

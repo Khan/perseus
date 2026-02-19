@@ -6,15 +6,18 @@ export type PythonProgramDefaultWidgetOptions = Pick<
     "programID" | "height"
 >;
 
-const defaultWidgetOptions: PythonProgramDefaultWidgetOptions = {
-    programID: "",
-    height: 400,
-};
+function initializeWidgetOptions(): PythonProgramDefaultWidgetOptions {
+    return {
+        programID: "",
+        height: 400,
+    };
+}
 
-const pythonProgramWidgetLogic: WidgetLogic = {
-    name: "python-program",
-    defaultWidgetOptions,
-    accessible: true,
-};
+const pythonProgramWidgetLogic: WidgetLogic<PythonProgramDefaultWidgetOptions> =
+    {
+        name: "python-program",
+        initializeWidgetOptions,
+        accessible: true,
+    };
 
 export default pythonProgramWidgetLogic;

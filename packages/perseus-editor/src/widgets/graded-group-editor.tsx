@@ -6,7 +6,6 @@ import {
     Changeable,
     iconTrash,
 } from "@khanacademy/perseus";
-import {gradedGroupLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -34,9 +33,6 @@ class GradedGroupEditor extends React.Component<Props> {
     };
 
     static widgetName = "graded-group" as const;
-
-    static defaultProps: GradedGroupDefaultWidgetOptions =
-        gradedGroupLogic.defaultWidgetOptions;
 
     editor = React.createRef<Editor>();
     hintEditor = React.createRef<Editor>();

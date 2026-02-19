@@ -24,65 +24,68 @@ export type InteractiveGraphDefaultWidgetOptions = Pick<
     | "correct"
 >;
 
-const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
-    labels: ["$x$", "$y$"],
-    labelLocation: "onAxis",
-    lockedFigures: [],
-    range: [
-        [-10, 10],
-        [-10, 10],
-    ],
-    step: [1, 1],
-    backgroundImage: {
-        url: null,
-    },
-    markings: "graph",
-    showAxisArrows: {
-        xMin: true,
-        xMax: true,
-        yMin: true,
-        yMax: true,
-    },
-    showTooltips: false,
-    showProtractor: false,
-    graph: {
-        type: "linear",
-    },
-    correct: {
-        type: "linear",
-        coords: null,
-    },
-};
+function initializeWidgetOptions(): InteractiveGraphDefaultWidgetOptions {
+    return {
+        labels: ["$x$", "$y$"],
+        labelLocation: "onAxis",
+        lockedFigures: [],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        step: [1, 1],
+        backgroundImage: {
+            url: null,
+        },
+        markings: "graph",
+        showAxisArrows: {
+            xMin: true,
+            xMax: true,
+            yMin: true,
+            yMax: true,
+        },
+        showTooltips: false,
+        showProtractor: false,
+        graph: {
+            type: "linear",
+        },
+        correct: {
+            type: "linear",
+            coords: null,
+        },
+    };
+}
 
-const interactiveGraphWidgetLogic: WidgetLogic = {
-    name: "interactive-graph",
-    defaultWidgetOptions,
-    getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
-    // Function determining if a interactive graph is accessible.
-    // Interactive Graphs are accessible as long as:
-    // 1. They do not contain a protractor
-    // 2. They do not contain a graphie background image
-    accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
-        const interactiveGraphOptions =
-            widgetOptions as PerseusInteractiveGraphWidgetOptions;
+const interactiveGraphWidgetLogic: WidgetLogic<InteractiveGraphDefaultWidgetOptions> =
+    {
+        name: "interactive-graph",
+        initializeWidgetOptions,
+        getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
+        // Function determining if a interactive graph is accessible.
+        // Interactive Graphs are accessible as long as:
+        // 1. They do not contain a protractor
+        // 2. They do not contain a graphie background image
+        accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
+            const interactiveGraphOptions =
+                widgetOptions as PerseusInteractiveGraphWidgetOptions;
 
-        // Return false (inaccessible) if the interactive graph contains
-        // a protractor.
-        if (interactiveGraphOptions.showProtractor) {
-            return false;
-        }
+            // Return false (inaccessible) if the interactive graph contains
+            // a protractor.
+            if (interactiveGraphOptions.showProtractor) {
+                return false;
+            }
 
-        // Return false (inaccessible) if the interactive graph contains
-        // a graphie background image.
-        if (
-            interactiveGraphOptions.backgroundImage?.url &&
-            isLabeledSVG(interactiveGraphOptions.backgroundImage?.url)
-        ) {
-            return false;
-        }
+            // Return false (inaccessible) if the interactive graph contains
+            // a graphie background image.
+            if (
+                interactiveGraphOptions.backgroundImage?.url &&
+                isLabeledSVG(interactiveGraphOptions.backgroundImage?.url)
+            ) {
+                return false;
+            }
 
-        return true;
-    },
-};
+            return true;
+        },
+    };
 
 export default interactiveGraphWidgetLogic;

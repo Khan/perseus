@@ -8,19 +8,21 @@ export type DropdownDefaultWidgetOptions = Pick<
     "placeholder" | "choices"
 >;
 
-const defaultWidgetOptions: DropdownDefaultWidgetOptions = {
-    placeholder: "",
-    choices: [
-        {
-            content: "",
-            correct: false,
-        },
-    ],
-};
+function initializeWidgetOptions(): DropdownDefaultWidgetOptions {
+    return {
+        placeholder: "",
+        choices: [
+            {
+                content: "",
+                correct: false,
+            },
+        ],
+    };
+}
 
-const dropdownWidgetLogic: WidgetLogic = {
+const dropdownWidgetLogic: WidgetLogic<DropdownDefaultWidgetOptions> = {
     name: "dropdown",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getDropdownPublicWidgetOptions,
     accessible: true,

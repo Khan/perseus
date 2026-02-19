@@ -8,17 +8,19 @@ export type MatcherDefaultWidgetOptions = Pick<
     "left" | "right" | "labels" | "orderMatters" | "padding"
 >;
 
-const defaultWidgetOptions: MatcherDefaultWidgetOptions = {
-    left: ["$x$", "$y$", "$z$"],
-    right: ["$1$", "$2$", "$3$"],
-    labels: ["test", "label"],
-    orderMatters: false,
-    padding: true,
-};
+function initializeWidgetOptions(): MatcherDefaultWidgetOptions {
+    return {
+        left: ["$x$", "$y$", "$z$"],
+        right: ["$1$", "$2$", "$3$"],
+        labels: ["test", "label"],
+        orderMatters: false,
+        padding: true,
+    };
+}
 
-const matcherWidgetLogic: WidgetLogic = {
+const matcherWidgetLogic: WidgetLogic<MatcherDefaultWidgetOptions> = {
     name: "matcher",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getMatcherPublicWidgetOptions,
     accessible: false,
 };

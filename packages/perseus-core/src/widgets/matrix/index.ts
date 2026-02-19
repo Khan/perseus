@@ -8,17 +8,19 @@ export type MatrixDefaultWidgetOptions = Pick<
     "matrixBoardSize" | "answers" | "prefix" | "suffix" | "cursorPosition"
 >;
 
-const defaultWidgetOptions: MatrixDefaultWidgetOptions = {
-    matrixBoardSize: [3, 3],
-    answers: [[]],
-    prefix: "",
-    suffix: "",
-    cursorPosition: [0, 0],
-};
+function initializeWidgetOptions(): MatrixDefaultWidgetOptions {
+    return {
+        matrixBoardSize: [3, 3],
+        answers: [[]],
+        prefix: "",
+        suffix: "",
+        cursorPosition: [0, 0],
+    };
+}
 
-const matrixWidgetLogic: WidgetLogic = {
+const matrixWidgetLogic: WidgetLogic<MatrixDefaultWidgetOptions> = {
     name: "matrix",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getMatrixPublicWidgetOptions,
     accessible: false,
 };

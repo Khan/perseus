@@ -4,7 +4,7 @@ import {
     EditorJsonify,
     MatrixWidget,
 } from "@khanacademy/perseus";
-import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
+import {getMatrixSize} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -34,9 +34,6 @@ class MatrixEditor extends React.Component<Props> {
     };
 
     static widgetName = "matrix" as const;
-
-    static defaultProps: MatrixDefaultWidgetOptions =
-        matrixLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
         if (this.props.apiOptions.editingDisabled) {

@@ -6,15 +6,18 @@ export type PhetSimulationDefaultWidgetOptions = Pick<
     "url" | "description"
 >;
 
-const defaultWidgetOptions: PhetSimulationDefaultWidgetOptions = {
-    url: "",
-    description: "",
-};
+function initializeWidgetOptions(): PhetSimulationDefaultWidgetOptions {
+    return {
+        url: "",
+        description: "",
+    };
+}
 
-const phetSimulationWidgetLogic: WidgetLogic = {
-    name: "phet-simulation",
-    defaultWidgetOptions,
-    accessible: true,
-};
+const phetSimulationWidgetLogic: WidgetLogic<PhetSimulationDefaultWidgetOptions> =
+    {
+        name: "phet-simulation",
+        initializeWidgetOptions,
+        accessible: true,
+    };
 
 export default phetSimulationWidgetLogic;

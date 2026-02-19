@@ -7,7 +7,6 @@ import {
     Util,
 } from "@khanacademy/perseus";
 import {
-    interactionLogic,
     type Coords,
     type InteractionDefaultWidgetOptions,
     type MarkingsType,
@@ -58,8 +57,6 @@ type State = any;
  */
 class InteractionEditor extends React.Component<Props, State> {
     static widgetName = "interaction" as const;
-    static defaultProps: InteractionDefaultWidgetOptions =
-        interactionLogic.defaultWidgetOptions;
 
     state: State = {
         usedVarSubscripts: this._getAllVarSubscripts(this.props.elements),

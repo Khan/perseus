@@ -1,6 +1,5 @@
 import {EditorJsonify} from "@khanacademy/perseus";
 import {
-    imageLogic,
     type ImageDefaultWidgetOptions,
     type PerseusImageWidgetOptions,
 } from "@khanacademy/perseus-core";
@@ -23,9 +22,6 @@ export interface Props extends PerseusImageWidgetOptions {
 class ImageEditor extends React.Component<Props> {
     static displayName = "ImageEditor";
     static widgetName = "image";
-
-    static defaultProps: ImageDefaultWidgetOptions =
-        imageLogic.defaultWidgetOptions;
 
     serialize() {
         return EditorJsonify.serialize.call(this);

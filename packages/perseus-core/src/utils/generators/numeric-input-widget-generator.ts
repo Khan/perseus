@@ -10,7 +10,7 @@ export function generateNumericInputOptions(
     options?: Partial<PerseusNumericInputWidgetOptions>,
 ): PerseusNumericInputWidgetOptions {
     return {
-        ...numericInputWidgetLogic.defaultWidgetOptions,
+        ...(numericInputWidgetLogic.initializeWidgetOptions?.() as any),
         static: false,
         ...options,
     };
@@ -20,7 +20,8 @@ export function generateNumericInputAnswer(
     answerOptions?: Partial<PerseusNumericInputAnswer>,
 ): PerseusNumericInputAnswer {
     return {
-        ...numericInputWidgetLogic.defaultWidgetOptions.answers[0],
+        ...(numericInputWidgetLogic.initializeWidgetOptions?.() as any)
+            .answers[0],
         ...answerOptions,
     };
 }

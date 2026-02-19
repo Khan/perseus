@@ -1,12 +1,10 @@
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
 import {ApiOptions, Changeable} from "@khanacademy/perseus";
-import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
+import {gradedGroupLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 
 import GradedGroupEditor from "./graded-group-editor";
-
-import type {GradedGroupSetDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = any;
 
@@ -22,9 +20,6 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     static widgetName = "graded-group-set" as const;
-
-    static defaultProps: GradedGroupSetDefaultWidgetOptions =
-        gradedGroupSetLogic.defaultWidgetOptions;
 
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
     UNSAFE_componentWillMount() {
@@ -82,7 +77,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change(
             "gradedGroups",
-            groups.concat([GradedGroupEditor.defaultProps]),
+            groups.concat([gradedGroupLogic.initializeWidgetOptions?.() || {}]),
         );
     };
 

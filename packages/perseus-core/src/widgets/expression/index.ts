@@ -10,17 +10,19 @@ export type ExpressionDefaultWidgetOptions = Pick<
     "answerForms" | "times" | "buttonSets" | "functions"
 >;
 
-const defaultWidgetOptions: ExpressionDefaultWidgetOptions = {
-    answerForms: [],
-    times: false,
-    buttonSets: ["basic"],
-    functions: ["f", "g", "h"],
-};
+function initializeWidgetOptions(): ExpressionDefaultWidgetOptions {
+    return {
+        answerForms: [],
+        times: false,
+        buttonSets: ["basic"],
+        functions: ["f", "g", "h"],
+    };
+}
 
-const expressionWidgetLogic: WidgetLogic = {
+const expressionWidgetLogic: WidgetLogic<ExpressionDefaultWidgetOptions> = {
     name: "expression",
     version: currentVersion,
-    defaultWidgetOptions: defaultWidgetOptions,
+    initializeWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getExpressionPublicWidgetOptions,
     accessible: true,

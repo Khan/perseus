@@ -15,21 +15,23 @@ export type MeasurerDefaultWidgetOptions = Pick<
     | "rulerLength"
 >;
 
-const defaultWidgetOptions: MeasurerDefaultWidgetOptions = {
-    box: [480, 480],
-    image: {} as any,
-    showProtractor: true,
-    showRuler: false,
-    rulerLabel: "",
-    rulerTicks: 10,
-    rulerPixels: 40,
-    rulerLength: 10,
-};
+function initializeWidgetOptions(): MeasurerDefaultWidgetOptions {
+    return {
+        box: [480, 480],
+        image: {} as any,
+        showProtractor: true,
+        showRuler: false,
+        rulerLabel: "",
+        rulerTicks: 10,
+        rulerPixels: 40,
+        rulerLength: 10,
+    };
+}
 
-const measurerWidgetLogic: WidgetLogic = {
+const measurerWidgetLogic: WidgetLogic<MeasurerDefaultWidgetOptions> = {
     name: "measurer",
     version: currentVersion,
-    defaultWidgetOptions: defaultWidgetOptions,
+    initializeWidgetOptions,
     accessible: false,
 };
 

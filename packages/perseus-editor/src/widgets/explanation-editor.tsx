@@ -1,7 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
-import {explanationLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -30,9 +29,6 @@ class ExplanationEditor extends React.Component<Props, State> {
     };
 
     static widgetName = "explanation" as const;
-
-    static defaultProps: ExplanationDefaultWidgetOptions =
-        explanationLogic.defaultWidgetOptions;
 
     state: State = {};
 

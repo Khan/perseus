@@ -9,7 +9,7 @@ export function generateLabelImageOptions(
     options?: Partial<PerseusLabelImageWidgetOptions>,
 ): PerseusLabelImageWidgetOptions {
     return {
-        ...labelImageWidgetLogic.defaultWidgetOptions,
+        ...(labelImageWidgetLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

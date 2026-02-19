@@ -10,7 +10,7 @@ export function generateExpressionOptions(
     options?: Partial<PerseusExpressionWidgetOptions>,
 ): PerseusExpressionWidgetOptions {
     return {
-        ...expressionWidgetLogic.defaultWidgetOptions,
+        ...(expressionWidgetLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

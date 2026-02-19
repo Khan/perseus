@@ -1,5 +1,4 @@
 import {components, Util} from "@khanacademy/perseus";
-import {inputNumberLogic} from "@khanacademy/perseus-core";
 import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
@@ -39,9 +38,6 @@ type Props = {
  */
 class InputNumberEditor extends React.Component<Props> {
     static widgetName = "input-number" as const;
-
-    static defaultProps: InputNumberDefaultWidgetOptions =
-        inputNumberLogic.defaultWidgetOptions;
 
     input = React.createRef<BlurInput>();
 

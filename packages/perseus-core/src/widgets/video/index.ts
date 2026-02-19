@@ -6,13 +6,15 @@ export type VideoDefaultWidgetOptions = Pick<
     "location"
 >;
 
-const defaultWidgetOptions: VideoDefaultWidgetOptions = {
-    location: "",
-};
+function initializeWidgetOptions(): VideoDefaultWidgetOptions {
+    return {
+        location: "",
+    };
+}
 
-const videoWidgetLogic: WidgetLogic = {
+const videoWidgetLogic: WidgetLogic<VideoDefaultWidgetOptions> = {
     name: "video",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     supportedAlignments: ["block", "wrap-left", "wrap-right", "full-width"],
     defaultAlignment: "block",
     accessible: true,

@@ -6,24 +6,26 @@ export type InteractionDefaultWidgetOptions = Pick<
     "graph" | "elements"
 >;
 
-const defaultWidgetOptions: InteractionDefaultWidgetOptions = {
-    graph: {
-        box: [400, 400],
-        labels: ["x", "y"],
-        range: [
-            [-10, 10],
-            [-10, 10],
-        ],
-        tickStep: [1, 1],
-        gridStep: [1, 1],
-        markings: "graph",
-    },
-    elements: [],
-};
+function initializeWidgetOptions(): InteractionDefaultWidgetOptions {
+    return {
+        graph: {
+            box: [400, 400],
+            labels: ["x", "y"],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            tickStep: [1, 1],
+            gridStep: [1, 1],
+            markings: "graph",
+        },
+        elements: [],
+    };
+}
 
-const interactionWidgetLogic: WidgetLogic = {
+const interactionWidgetLogic: WidgetLogic<InteractionDefaultWidgetOptions> = {
     name: "interaction",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     accessible: false,
 };
 

@@ -15,24 +15,26 @@ export type RadioDefaultWidgetOptions = Pick<
     | "deselectEnabled"
 >;
 
-const defaultWidgetOptions: RadioDefaultWidgetOptions = {
-    choices: [
-        {content: "", id: "radio-choice-0"},
-        {content: "", id: "radio-choice-1"},
-        {content: "", id: "radio-choice-2"},
-        {content: "", id: "radio-choice-3"},
-    ],
-    randomize: false,
-    hasNoneOfTheAbove: false,
-    multipleSelect: false,
-    countChoices: false,
-    deselectEnabled: false,
-};
+function initializeWidgetOptions(): RadioDefaultWidgetOptions {
+    return {
+        choices: [
+            {content: "", id: "radio-choice-0"},
+            {content: "", id: "radio-choice-1"},
+            {content: "", id: "radio-choice-2"},
+            {content: "", id: "radio-choice-3"},
+        ],
+        randomize: false,
+        hasNoneOfTheAbove: false,
+        multipleSelect: false,
+        countChoices: false,
+        deselectEnabled: false,
+    };
+}
 
-const radioWidgetLogic: WidgetLogic = {
+const radioWidgetLogic: WidgetLogic<RadioDefaultWidgetOptions> = {
     name: "radio",
     version: currentVersion,
-    defaultWidgetOptions: defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getRadioPublicWidgetOptions,
     accessible: true,
 };

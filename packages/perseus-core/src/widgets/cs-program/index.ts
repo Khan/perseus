@@ -15,18 +15,20 @@ export type CSProgramDefaultWidgetOptions = Pick<
 
 const DEFAULT_HEIGHT = 400;
 
-const defaultWidgetOptions: CSProgramDefaultWidgetOptions = {
-    programID: "",
-    programType: null,
-    settings: [{name: "", value: ""}],
-    showEditor: false,
-    showButtons: false,
-    height: DEFAULT_HEIGHT,
-};
+function initializeWidgetOptions(): CSProgramDefaultWidgetOptions {
+    return {
+        programID: "",
+        programType: null,
+        settings: [{name: "", value: ""}],
+        showEditor: false,
+        showButtons: false,
+        height: DEFAULT_HEIGHT,
+    };
+}
 
-const csProgramWidgetLogic: WidgetLogic = {
+const csProgramWidgetLogic: WidgetLogic<CSProgramDefaultWidgetOptions> = {
     name: "cs-program",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     supportedAlignments: ["block", "full-width"],
     getPublicWidgetOptions: getCSProgramPublicWidgetOptions,
     accessible: false,

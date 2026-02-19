@@ -9,7 +9,7 @@ export function generateGradedGroupOptions(
     options?: Partial<PerseusGradedGroupWidgetOptions>,
 ): PerseusGradedGroupWidgetOptions {
     return {
-        ...gradedGroupWidgetLogic.defaultWidgetOptions,
+        ...(gradedGroupWidgetLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

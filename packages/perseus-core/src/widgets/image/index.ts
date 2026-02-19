@@ -9,26 +9,28 @@ export type ImageDefaultWidgetOptions = Pick<
     "title" | "range" | "box" | "backgroundImage" | "labels" | "alt" | "caption"
 >;
 
-const defaultWidgetOptions: ImageDefaultWidgetOptions = {
-    title: "",
-    range: [
-        [0, 10],
-        [0, 10],
-    ],
-    box: [400, 400],
-    backgroundImage: {
-        url: null,
-        width: 0,
-        height: 0,
-    },
-    labels: [],
-    alt: "",
-    caption: "",
-};
+function initializeWidgetOptions(): ImageDefaultWidgetOptions {
+    return {
+        title: "",
+        range: [
+            [0, 10],
+            [0, 10],
+        ],
+        box: [400, 400],
+        backgroundImage: {
+            url: null,
+            width: 0,
+            height: 0,
+        },
+        labels: [],
+        alt: "",
+        caption: "",
+    };
+}
 
-const imageWidgetLogic: WidgetLogic = {
+const imageWidgetLogic: WidgetLogic<ImageDefaultWidgetOptions> = {
     name: "image",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     // The float alignments will be set to inline-block floated left or right.
     // This will allow text to wrap around the widget and not have large space
     // on either side.

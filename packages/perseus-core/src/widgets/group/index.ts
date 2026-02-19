@@ -8,19 +8,21 @@ export type GroupDefaultWidgetOptions = Pick<
     "content" | "widgets" | "images"
 >;
 
-const defaultWidgetOptions: GroupDefaultWidgetOptions = {
-    content: "",
-    widgets: {},
-    images: {},
-};
+function initializeWidgetOptions(): GroupDefaultWidgetOptions {
+    return {
+        content: "",
+        widgets: {},
+        images: {},
+    };
+}
 
 const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
     return {...props, ...traverseRenderer(props)};
 };
 
-const groupWidgetLogic: WidgetLogic = {
+const groupWidgetLogic: WidgetLogic<GroupDefaultWidgetOptions> = {
     name: "group",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     accessible: false,
     traverseChildWidgets: traverseChildWidgets,
     getPublicWidgetOptions: getGroupPublicWidgetOptions,

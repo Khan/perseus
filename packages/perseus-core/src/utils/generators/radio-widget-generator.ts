@@ -15,7 +15,7 @@ export function generateRadioOptions(
     options?: Partial<PerseusRadioWidgetOptions>,
 ): PerseusRadioWidgetOptions {
     return {
-        ...radioWidgetLogic.defaultWidgetOptions,
+        ...(radioWidgetLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

@@ -17,20 +17,22 @@ export type LabelImageDefaultWidgetOptions = Pick<
     | "hideChoicesFromInstructions"
 >;
 
-const defaultWidgetOptions: LabelImageDefaultWidgetOptions = {
-    choices: [],
-    imageAlt: "",
-    imageUrl: "",
-    imageWidth: 0,
-    imageHeight: 0,
-    markers: [],
-    multipleAnswers: false,
-    hideChoicesFromInstructions: false,
-};
+function initializeWidgetOptions(): LabelImageDefaultWidgetOptions {
+    return {
+        choices: [],
+        imageAlt: "",
+        imageUrl: "",
+        imageWidth: 0,
+        imageHeight: 0,
+        markers: [],
+        multipleAnswers: false,
+        hideChoicesFromInstructions: false,
+    };
+}
 
-const labelImageWidgetLogic: WidgetLogic = {
+const labelImageWidgetLogic: WidgetLogic<LabelImageDefaultWidgetOptions> = {
     name: "label-image",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
     // Function determining if a label image is accessible.
     // Label Images is inaccessible if it does not have alt text for the image.

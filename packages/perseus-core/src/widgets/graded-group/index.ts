@@ -6,21 +6,23 @@ export type GradedGroupDefaultWidgetOptions = Pick<
     "title" | "content" | "widgets" | "images" | "hint"
 >;
 
-const defaultWidgetOptions: GradedGroupDefaultWidgetOptions = {
-    title: "",
-    content: "",
-    widgets: {},
-    images: {},
-    hint: null,
-};
+function initializeWidgetOptions(): GradedGroupDefaultWidgetOptions {
+    return {
+        title: "",
+        content: "",
+        widgets: {},
+        images: {},
+        hint: null,
+    };
+}
 
 const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
     return {...props, ...traverseRenderer(props)};
 };
 
-const gradedGroupWidgetLogic: WidgetLogic = {
+const gradedGroupWidgetLogic: WidgetLogic<GradedGroupDefaultWidgetOptions> = {
     name: "graded-group",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     accessible: true,
     traverseChildWidgets: traverseChildWidgets,
 };

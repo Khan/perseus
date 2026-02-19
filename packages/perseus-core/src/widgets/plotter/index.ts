@@ -20,28 +20,30 @@ export type PlotterDefaultWidgetOptions = Pick<
     | "picUrl"
 >;
 
-const defaultWidgetOptions: PlotterDefaultWidgetOptions = {
-    scaleY: 1,
-    maxY: 10,
-    snapsPerLine: 2,
-    correct: [1],
-    starting: [1],
+function initializeWidgetOptions(): PlotterDefaultWidgetOptions {
+    return {
+        scaleY: 1,
+        maxY: 10,
+        snapsPerLine: 2,
+        correct: [1],
+        starting: [1],
 
-    type: "bar",
-    labels: ["", ""],
-    categories: [""],
+        type: "bar",
+        labels: ["", ""],
+        categories: [""],
 
-    picSize: 30,
-    picBoxHeight: 36,
-    plotDimensions: [275, 200],
-    labelInterval: 1,
+        picSize: 30,
+        picBoxHeight: 36,
+        plotDimensions: [275, 200],
+        labelInterval: 1,
 
-    picUrl: null,
-};
+        picUrl: null,
+    };
+}
 
-const plotterWidgetLogic: WidgetLogic = {
+const plotterWidgetLogic: WidgetLogic<PlotterDefaultWidgetOptions> = {
     name: "plotter",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getPlotterPublicWidgetOptions,
     accessible: false,
 };

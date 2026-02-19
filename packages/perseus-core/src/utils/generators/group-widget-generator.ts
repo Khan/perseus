@@ -6,7 +6,7 @@ export function generateGroupOptions(
     options?: Partial<PerseusGroupWidgetOptions>,
 ): PerseusGroupWidgetOptions {
     return {
-        ...groupWidgetLogic.defaultWidgetOptions,
+        ...(groupWidgetLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

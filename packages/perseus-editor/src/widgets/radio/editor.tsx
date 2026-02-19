@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
+import {deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import Link from "@khanacademy/wonder-blocks-link";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -19,7 +19,6 @@ import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
-    RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 // Exported for testing
@@ -44,9 +43,6 @@ export interface RadioEditorProps {
  */
 class RadioEditor extends React.Component<RadioEditorProps> {
     static widgetName = "radio" as const;
-
-    static defaultProps: RadioDefaultWidgetOptions =
-        radioLogic.defaultWidgetOptions;
 
     // Store refs to each choice editor for focus management
     // Using choice.id as key ensures refs remain valid after reorder/delete

@@ -7,10 +7,7 @@ import {
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "@khanacademy/perseus";
-import {
-    GrapherUtil as CoreGrapherUtil,
-    grapherLogic,
-} from "@khanacademy/perseus-core";
+import {GrapherUtil as CoreGrapherUtil} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -35,9 +32,6 @@ class GrapherEditor extends React.Component<Props> {
     };
 
     static widgetName = "grapher" as const;
-
-    static defaultProps: GrapherDefaultWidgetOptions =
-        grapherLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);

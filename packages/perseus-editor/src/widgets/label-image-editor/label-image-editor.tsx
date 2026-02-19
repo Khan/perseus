@@ -1,5 +1,4 @@
 import {EditorJsonify, Util} from "@khanacademy/perseus";
-import {labelImageLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -47,9 +46,6 @@ type Props = {
  */
 class LabelImageEditor extends React.Component<Props> {
     _questionMarkers: QuestionMarkers | null | undefined;
-
-    static defaultProps: LabelImageDefaultWidgetOptions =
-        labelImageLogic.defaultWidgetOptions;
 
     static widgetName = "label-image" as const;
 

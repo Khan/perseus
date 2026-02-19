@@ -8,15 +8,17 @@ export type SorterDefaultWidgetOptions = Pick<
     "correct" | "layout" | "padding"
 >;
 
-const defaultWidgetOptions: SorterDefaultWidgetOptions = {
-    correct: ["$x$", "$y$", "$z$"],
-    layout: "horizontal",
-    padding: true,
-};
+function initializeWidgetOptions(): SorterDefaultWidgetOptions {
+    return {
+        correct: ["$x$", "$y$", "$z$"],
+        layout: "horizontal",
+        padding: true,
+    };
+}
 
-const sorterWidgetLogic: WidgetLogic = {
+const sorterWidgetLogic: WidgetLogic<SorterDefaultWidgetOptions> = {
     name: "sorter",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getSorterPublicWidgetOptions,
     accessible: false,
 };

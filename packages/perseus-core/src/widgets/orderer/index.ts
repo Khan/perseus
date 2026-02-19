@@ -8,16 +8,18 @@ export type OrdererDefaultWidgetOptions = Pick<
     "correctOptions" | "otherOptions" | "height" | "layout"
 >;
 
-const defaultWidgetOptions: OrdererDefaultWidgetOptions = {
-    correctOptions: [{content: "$x$"}] as any,
-    otherOptions: [{content: "$y$"}] as any,
-    height: "normal",
-    layout: "horizontal",
-};
+function initializeWidgetOptions(): OrdererDefaultWidgetOptions {
+    return {
+        correctOptions: [{content: "$x$"}] as any,
+        otherOptions: [{content: "$y$"}] as any,
+        height: "normal",
+        layout: "horizontal",
+    };
+}
 
-const ordererWidgetLogic: WidgetLogic = {
+const ordererWidgetLogic: WidgetLogic<OrdererDefaultWidgetOptions> = {
     name: "orderer",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getOrdererPublicWidgetOptions,
     accessible: false,
 };

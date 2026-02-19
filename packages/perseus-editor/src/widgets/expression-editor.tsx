@@ -3,7 +3,6 @@ import {components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
     deriveExtraKeys,
-    expressionLogic,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -63,9 +62,6 @@ type State = {
  */
 class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
-
-    static defaultProps: ExpressionDefaultWidgetOptions =
-        expressionLogic.defaultWidgetOptions;
 
     constructor(props: Props) {
         super(props);

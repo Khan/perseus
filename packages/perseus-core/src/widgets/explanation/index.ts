@@ -6,16 +6,18 @@ export type ExplanationDefaultWidgetOptions = Pick<
     "showPrompt" | "hidePrompt" | "explanation" | "widgets"
 >;
 
-const defaultWidgetOptions: ExplanationDefaultWidgetOptions = {
-    showPrompt: "Explain",
-    hidePrompt: "Hide explanation",
-    explanation: "explanation goes here\n\nmore explanation",
-    widgets: {},
-};
+function initializeWidgetOptions(): ExplanationDefaultWidgetOptions {
+    return {
+        showPrompt: "Explain",
+        hidePrompt: "Hide explanation",
+        explanation: "explanation goes here\n\nmore explanation",
+        widgets: {},
+    };
+}
 
-const explanationWidgetLogic: WidgetLogic = {
+const explanationWidgetLogic: WidgetLogic<ExplanationDefaultWidgetOptions> = {
     name: "explanation",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     defaultAlignment: "inline",
     accessible: true,
 };

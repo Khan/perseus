@@ -22,9 +22,6 @@ type Props = PhetSimulationDefaultWidgetOptions & {
  * with physics simulations.
  */
 class PhetSimulationEditor extends React.Component<Props> {
-    static defaultProps: PhetSimulationDefaultWidgetOptions =
-        phetSimulationLogic.defaultWidgetOptions;
-
     static widgetName = "phet-simulation" as const;
 
     serialize(): PerseusPhetSimulationWidgetOptions {

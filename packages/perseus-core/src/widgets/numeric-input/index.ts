@@ -8,27 +8,29 @@ export type NumericInputDefaultWidgetOptions = Pick<
     "answers" | "size" | "coefficient" | "labelText" | "rightAlign"
 >;
 
-const defaultWidgetOptions: NumericInputDefaultWidgetOptions = {
-    answers: [
-        {
-            value: null,
-            status: "correct",
-            message: "",
-            simplify: "required",
-            answerForms: [],
-            strict: false,
-            maxError: null,
-        },
-    ],
-    size: "normal",
-    coefficient: false,
-    labelText: "",
-    rightAlign: false,
-};
+function initializeWidgetOptions(): NumericInputDefaultWidgetOptions {
+    return {
+        answers: [
+            {
+                value: null,
+                status: "correct",
+                message: "",
+                simplify: "required",
+                answerForms: [],
+                strict: false,
+                maxError: null,
+            },
+        ],
+        size: "normal",
+        coefficient: false,
+        labelText: "",
+        rightAlign: false,
+    };
+}
 
-const numericInputWidgetLogic: WidgetLogic = {
+const numericInputWidgetLogic: WidgetLogic<NumericInputDefaultWidgetOptions> = {
     name: "numeric-input",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getNumericInputPublicWidgetOptions,
     accessible: true,

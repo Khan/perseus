@@ -12,9 +12,7 @@ import {
     type PerseusInteractiveGraphWidgetOptions,
     type PerseusGraphType,
     type MarkingsType,
-    type InteractiveGraphDefaultWidgetOptions,
     type AxisLabelLocation,
-    interactiveGraphLogic,
     type ShowAxisArrows,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
@@ -158,14 +156,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
     static widgetName = "interactive-graph";
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
-
-    static defaultProps: InteractiveGraphDefaultWidgetOptions & {
-        valid: true | string;
-    } = {
-        ...interactiveGraphLogic.defaultWidgetOptions,
-        valid: true,
-        lockedFigures: [],
-    };
 
     changeStartCoords = (coords) => {
         if (!this.props.graph?.type) {

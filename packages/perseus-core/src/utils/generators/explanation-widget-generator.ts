@@ -9,7 +9,7 @@ export function generateExplanationOptions(
     options?: Partial<PerseusExplanationWidgetOptions>,
 ): PerseusExplanationWidgetOptions {
     return {
-        ...explanationWidgetLogic.defaultWidgetOptions,
+        ...(explanationWidgetLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

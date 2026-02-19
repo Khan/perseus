@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unsafe */
 import {number as knumber} from "@khanacademy/kmath";
 import {components, PlotterWidget, Util} from "@khanacademy/perseus";
-import {plotterLogic, plotterPlotTypes} from "@khanacademy/perseus-core";
+import {plotterPlotTypes} from "@khanacademy/perseus-core";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -77,9 +77,6 @@ const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
  */
 class PlotterEditor extends React.Component<Props, State> {
     static widgetName = "plotter" as const;
-
-    static defaultProps: PlotterDefaultWidgetOptions =
-        plotterLogic.defaultWidgetOptions;
 
     state: State = {
         editing: this.props.static ? STARTING : CORRECT,

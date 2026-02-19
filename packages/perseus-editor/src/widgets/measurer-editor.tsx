@@ -1,6 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
-import {measurerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -36,9 +35,6 @@ class MeasurerEditor extends React.Component<Props> {
         rulerPixels: PropTypes.number,
         rulerLength: PropTypes.number,
     };
-
-    static defaultProps: MeasurerDefaultWidgetOptions =
-        measurerLogic.defaultWidgetOptions;
 
     className = "perseus-widget-measurer";
 

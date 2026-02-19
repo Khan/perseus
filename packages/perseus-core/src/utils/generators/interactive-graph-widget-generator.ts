@@ -44,7 +44,7 @@ export function generateInteractiveGraphOptions(
     options?: Partial<PerseusInteractiveGraphWidgetOptions>,
 ): PerseusInteractiveGraphWidgetOptions {
     return {
-        ...interactiveGraphWidgetLogic.defaultWidgetOptions,
+        ...(interactiveGraphWidgetLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

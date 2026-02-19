@@ -8,33 +8,35 @@ export type GrapherDefaultWidgetOptions = Pick<
     "graph" | "correct" | "availableTypes"
 >;
 
-const defaultWidgetOptions: GrapherDefaultWidgetOptions = {
-    graph: {
-        labels: ["x", "y"],
-        range: [
-            [-10, 10],
-            [-10, 10],
-        ],
-        step: [1, 1],
-        backgroundImage: {
-            url: null,
+function initializeWidgetOptions(): GrapherDefaultWidgetOptions {
+    return {
+        graph: {
+            labels: ["x", "y"],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            step: [1, 1],
+            backgroundImage: {
+                url: null,
+            },
+            markings: "graph",
+            rulerLabel: "",
+            rulerTicks: 10,
+            valid: true,
+            showTooltips: false,
         },
-        markings: "graph",
-        rulerLabel: "",
-        rulerTicks: 10,
-        valid: true,
-        showTooltips: false,
-    },
-    correct: {
-        type: "linear",
-        coords: null,
-    },
-    availableTypes: ["linear"],
-};
+        correct: {
+            type: "linear",
+            coords: null,
+        },
+        availableTypes: ["linear"],
+    };
+}
 
-const grapherWidgetLogic: WidgetLogic = {
+const grapherWidgetLogic: WidgetLogic<GrapherDefaultWidgetOptions> = {
     name: "grapher",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getGrapherPublicWidgetOptions,
     accessible: false,
 };

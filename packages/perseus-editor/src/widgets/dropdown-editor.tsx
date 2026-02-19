@@ -37,9 +37,6 @@ class DropdownEditor extends React.Component<Props> {
 
     static widgetName = "dropdown" as const;
 
-    static defaultProps: DropdownDefaultWidgetOptions =
-        dropdownLogic.defaultWidgetOptions;
-
     onVisibleLabelChange: (arg1: string) => void = (visibleLabel) => {
         this.props.onChange({visibleLabel});
     };

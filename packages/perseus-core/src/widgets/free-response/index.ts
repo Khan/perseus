@@ -12,23 +12,25 @@ export type FreeResponseDefaultWidgetOptions = Pick<
     | "scoringCriteria"
 >;
 
-const defaultWidgetOptions: FreeResponseDefaultWidgetOptions = {
-    allowUnlimitedCharacters: false,
-    characterLimit: 500,
-    placeholder: "Please provide response here",
-    question: "",
-    // Always display one criterion, since the user will always have to input
-    // at least one.
-    scoringCriteria: [
-        {
-            text: "",
-        },
-    ],
-};
+function initializeWidgetOptions(): FreeResponseDefaultWidgetOptions {
+    return {
+        allowUnlimitedCharacters: false,
+        characterLimit: 500,
+        placeholder: "Please provide response here",
+        question: "",
+        // Always display one criterion, since the user will always have to input
+        // at least one.
+        scoringCriteria: [
+            {
+                text: "",
+            },
+        ],
+    };
+}
 
-const freeResponseWidgetLogic: WidgetLogic = {
+const freeResponseWidgetLogic: WidgetLogic<FreeResponseDefaultWidgetOptions> = {
     name: "free-response",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getFreeResponsePublicWidgetOptions,
 };
 

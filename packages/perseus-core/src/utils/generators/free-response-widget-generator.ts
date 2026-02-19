@@ -9,7 +9,7 @@ export function generateFreeResponseOptions(
     options?: Partial<PerseusFreeResponseWidgetOptions>,
 ): PerseusFreeResponseWidgetOptions {
     return {
-        ...freeResponseLogic.defaultWidgetOptions,
+        ...(freeResponseLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

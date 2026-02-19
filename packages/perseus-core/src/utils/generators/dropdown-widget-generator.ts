@@ -9,7 +9,7 @@ export function generateDropdownOptions(
     options?: Partial<PerseusDropdownWidgetOptions>,
 ): PerseusDropdownWidgetOptions {
     return {
-        ...dropdownWidgetLogic.defaultWidgetOptions,
+        ...(dropdownWidgetLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

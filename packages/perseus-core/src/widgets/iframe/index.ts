@@ -13,18 +13,20 @@ export type IFrameDefaultWidgetOptions = Pick<
     | "allowTopNavigation"
 >;
 
-const defaultWidgetOptions: IFrameDefaultWidgetOptions = {
-    url: "",
-    settings: [{name: "", value: ""}],
-    width: "400",
-    height: "400",
-    allowFullScreen: false,
-    allowTopNavigation: false,
-};
+function initializeWidgetOptions(): IFrameDefaultWidgetOptions {
+    return {
+        url: "",
+        settings: [{name: "", value: ""}],
+        width: "400",
+        height: "400",
+        allowFullScreen: false,
+        allowTopNavigation: false,
+    };
+}
 
-const iframeWidgetLogic: WidgetLogic = {
+const iframeWidgetLogic: WidgetLogic<IFrameDefaultWidgetOptions> = {
     name: "iframe",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getIFramePublicWidgetOptions,
     accessible: false,
 };
