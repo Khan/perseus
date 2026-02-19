@@ -21,9 +21,6 @@ type Props = {
     item: PerseusItem;
     apiOptions?: APIOptions;
     linterContext?: LinterContextProps;
-    // Temporary measure testing rendering with answerless data;
-    // only exists until all widgets are renderable with answerless data
-    startAnswerless?: boolean;
     reviewMode?: boolean;
     showSolutions?: ShowSolutions;
 };
@@ -37,7 +34,6 @@ export const ServerItemRendererWithDebugUI = ({
     apiOptions = Object.freeze({}),
     linterContext,
     reviewMode = false,
-    startAnswerless = false,
     showSolutions,
 }: Props): React.ReactElement => {
     // Use our custom hook to manage the renderer state
@@ -52,13 +48,7 @@ export const ServerItemRendererWithDebugUI = ({
         handleSkip,
         handleCheck,
         setShowPopover,
-    } = useItemRenderer(
-        item,
-        apiOptions,
-        startAnswerless,
-        reviewMode,
-        showSolutions,
-    );
+    } = useItemRenderer(item, apiOptions, reviewMode, showSolutions);
 
     return (
         <View>

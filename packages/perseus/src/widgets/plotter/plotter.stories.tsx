@@ -33,20 +33,17 @@ export const Basic: Story = {
 export const AnswerlessPlotter: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
-        startAnswerless: true,
     },
 };
 
 export const SimplePlotter: Story = {
     args: {
         item: generateTestPerseusItem({question: simple}),
-        startAnswerless: true,
     },
 };
 
 export const DotPlotter: Story = {
     args: {
         item: generateTestPerseusItem({question: dotPlotter}),
-        startAnswerless: true,
     },
 };

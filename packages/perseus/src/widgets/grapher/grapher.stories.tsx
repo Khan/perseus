@@ -81,7 +81,6 @@ export const ComplexQuestion: Story = {
 export const AnswerlessQuestion: Story = {
     args: {
         item: generateTestPerseusItem({question: absoluteValueQuestion}),
-        startAnswerless: true,
     },
 };
 

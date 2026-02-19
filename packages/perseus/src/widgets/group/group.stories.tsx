@@ -39,6 +39,5 @@ export const Answerful: Story = {
 export const Answerless: Story = {
     args: {
         item: getFullGroupTestItem(),
-        startAnswerless: true,
     },
 };
