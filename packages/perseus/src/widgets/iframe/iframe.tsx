@@ -118,9 +118,12 @@ class Iframe extends React.Component<Props> implements Widget {
             url = updateQueryString(url, "height", `${this.props.height}`);
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", InitialRequestUrl.origin);
-            if (this.context?.locale) {
-                url = updateQueryString(url, "locale", this.context.locale);
-            }
+        }
+
+        // Forward content locale to KA program URLs so they render in the
+        // correct language, overriding any existing ?lang= param.
+        if (this.context?.locale && url?.includes("khanacademy.org")) {
+            url = updateQueryString(url, "lang", this.context.locale);
         }
 
         // Turn array of [{name: "", value: ""}] into object

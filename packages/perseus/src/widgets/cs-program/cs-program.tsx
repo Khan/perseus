@@ -160,7 +160,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         }
 
         if (this.context?.locale) {
-            url = updateQueryString(url, "locale", this.context.locale);
+            url = updateQueryString(url, "lang", this.context.locale);
         }
 
         const sandboxOptions = [
