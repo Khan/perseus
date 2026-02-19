@@ -1,19 +1,32 @@
 import type {PerseusDefinitionWidgetOptions} from "../../data-schema";
-import type {WidgetLogic} from "../logic-export.types";
+import type {
+    InitializeWidgetOptionsParams,
+    WidgetLogic,
+} from "../logic-export.types";
 
 export type DefinitionDefaultWidgetOptions = Pick<
     PerseusDefinitionWidgetOptions,
     "togglePrompt" | "definition"
 >;
 
-const defaultWidgetOptions: DefinitionDefaultWidgetOptions = {
-    togglePrompt: "",
-    definition: "",
-};
+function initializeWidgetOptions(
+    params?: InitializeWidgetOptionsParams,
+): DefinitionDefaultWidgetOptions {
+    const defaultWidgetOptions = {
+        togglePrompt: "",
+        definition: "",
+    };
 
-const definitionWidgetLogic: WidgetLogic = {
+    if (params?.selectedText) {
+        defaultWidgetOptions.togglePrompt = params.selectedText;
+    }
+
+    return defaultWidgetOptions;
+}
+
+const definitionWidgetLogic: WidgetLogic<DefinitionDefaultWidgetOptions> = {
     name: "definition",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     defaultAlignment: "inline",
     accessible: true,
 };

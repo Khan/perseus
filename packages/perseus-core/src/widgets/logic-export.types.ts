@@ -54,10 +54,19 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
-export type WidgetLogic = {
+// Contextual information that widgets can use,
+// through initializeWidgetOptions,
+// to initialize widget options
+export type InitializeWidgetOptionsParams = {
+    selectedText: string;
+};
+
+export type WidgetLogic<TDefaultWidgetOptions> = {
     name: string;
     version?: Version;
-    defaultWidgetOptions?: any;
+    initializeWidgetOptions?: (
+        params?: InitializeWidgetOptionsParams,
+    ) => TDefaultWidgetOptions;
     supportedAlignments?: ReadonlyArray<Alignment>;
     defaultAlignment?: Alignment;
     accessible?: boolean | ((options: PerseusWidgetOptions) => boolean);

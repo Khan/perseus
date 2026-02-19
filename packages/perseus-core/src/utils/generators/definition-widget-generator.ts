@@ -9,7 +9,7 @@ export function generateDefinitionOptions(
     options?: Partial<PerseusDefinitionWidgetOptions>,
 ): PerseusDefinitionWidgetOptions {
     return {
-        ...definitionWidgetLogic.defaultWidgetOptions,
+        ...(definitionWidgetLogic.initializeWidgetOptions?.() as any),
         ...options,
     };
 }

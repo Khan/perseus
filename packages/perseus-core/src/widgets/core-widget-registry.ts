@@ -34,15 +34,16 @@ import tableWidgetLogic from "./table";
 import videoWidgetLogic from "./video";
 
 import type {
+    InitializeWidgetOptionsParams,
     PublicWidgetOptionsFunction,
     WidgetLogic,
 } from "./logic-export.types";
 import type {PerseusWidgetOptions, PerseusWidget} from "../data-schema";
 import type {Alignment} from "../types";
 
-const widgets = new Registry<WidgetLogic>("Core widget registry");
+const widgets = new Registry<WidgetLogic<any>>("Core widget registry");
 
-export function registerWidget(type: string, logic: WidgetLogic) {
+export function registerWidget(type: string, logic: WidgetLogic<any>) {
     widgets.set(type, logic);
 }
 
@@ -64,9 +65,12 @@ export const getPublicWidgetOptionsFunction = (
     return widgets.get(type)?.getPublicWidgetOptions ?? ((i: any) => i);
 };
 
-export function getDefaultWidgetOptions(type: string) {
+export function getInitialWidgetOptions(
+    type: string,
+    params?: InitializeWidgetOptionsParams,
+) {
     const widgetLogic = widgets.get(type);
-    return widgetLogic?.defaultWidgetOptions || {};
+    return widgetLogic?.initializeWidgetOptions?.(params) || {};
 }
 
 export function isAccessible(

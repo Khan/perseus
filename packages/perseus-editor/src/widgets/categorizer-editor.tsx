@@ -5,13 +5,11 @@ import {
     Changeable,
     EditorJsonify,
 } from "@khanacademy/perseus";
-import {categorizerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import type {CategorizerDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {TextListEditor} = components;
@@ -34,9 +32,6 @@ class CategorizerEditor extends React.Component<Props> {
     };
 
     static widgetName = "categorizer" as const;
-
-    static defaultProps: CategorizerDefaultWidgetOptions =
-        categorizerLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);

@@ -150,13 +150,6 @@ type State = {
     textAreaValue: string;
 };
 
-// Contextual information that widgets can use,
-// through initializeWidgetOptions,
-// to initialize widget options
-export type InitializeWidgetOptionsParams = {
-    selectedText: string;
-};
-
 // eslint-disable-next-line react/no-unsafe
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
@@ -680,16 +673,14 @@ class Editor extends React.Component<Props, State> {
         const newContent = newPrelude + widgetContent + newPostlude;
 
         const newWidgets = {...this.props.widgets};
-        const widgetEditor = Widgets.getEditor(widgetType);
-        const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
-            selectedText,
-        };
-        const startWidgetOptions = widgetEditor?.initializeWidgetOptions?.(
-            initializeWidgetOptionsParams,
+        const initialWidgetOptions = CoreWidgetRegistry.getInitialWidgetOptions(
+            widgetType,
+            {
+                selectedText,
+            },
         );
-        const defaultProps = widgetEditor?.defaultProps;
         newWidgets[id] = {
-            options: startWidgetOptions || defaultProps,
+            options: initialWidgetOptions,
             type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a

@@ -4,7 +4,7 @@ import {mapObject} from "../utils/objective_";
 
 import {
     getCurrentVersion,
-    getDefaultWidgetOptions,
+    getInitialWidgetOptions,
     getSupportedAlignments,
 } from "./core-widget-registry";
 
@@ -22,7 +22,7 @@ export const applyDefaultsToWidget = (
     // Minor version upgrades (eg. new optional props) don't have
     // transform functions. Instead, we fill in the new props with their
     // defaults.
-    const defaultOptions = getDefaultWidgetOptions(type);
+    const defaultOptions = getInitialWidgetOptions(type);
     const options = {
         ...defaultOptions,
         ...oldWidgetInfo.options,

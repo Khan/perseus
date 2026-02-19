@@ -8,16 +8,18 @@ export type CategorizerDefaultWidgetOptions = Pick<
     "items" | "categories" | "values" | "randomizeItems"
 >;
 
-const defaultWidgetOptions: CategorizerDefaultWidgetOptions = {
-    items: [],
-    categories: [],
-    values: [],
-    randomizeItems: false,
-};
+function initializeWidgetOptions(): CategorizerDefaultWidgetOptions {
+    return {
+        items: [],
+        categories: [],
+        values: [],
+        randomizeItems: false,
+    };
+}
 
-const categorizerWidgetLogic: WidgetLogic = {
+const categorizerWidgetLogic: WidgetLogic<CategorizerDefaultWidgetOptions> = {
     name: "categorizer",
-    defaultWidgetOptions,
+    initializeWidgetOptions,
     getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
     accessible: false,
 };
