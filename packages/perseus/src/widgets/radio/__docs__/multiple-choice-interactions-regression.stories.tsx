@@ -22,8 +22,6 @@ import type {Meta} from "@storybook/react-vite";
 type StoryArgs = {
     // Story Option
     item: PerseusItem;
-    // Testing Options
-    startAnswerless: boolean;
 } & Pick<
     React.ComponentProps<typeof ServerItemRendererWithDebugUI>,
     "reviewMode" | "showSolutions"
@@ -43,8 +41,6 @@ export default {
         chromatic: {disableSnapshot: false},
     },
     args: {
-        // Requires a page refresh for toggling this to affect the story
-        startAnswerless: false,
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
@@ -65,7 +61,6 @@ export default {
             apiOptions={buildApiOptions(args)}
             reviewMode={args.reviewMode}
             showSolutions={args.showSolutions}
-            startAnswerless={args.startAnswerless}
         />
     ),
 } satisfies Meta<StoryArgs>;

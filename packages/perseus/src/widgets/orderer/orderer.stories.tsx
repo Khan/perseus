@@ -44,7 +44,6 @@ export const QuestionWithImages: Story = {
 export const Answerless: Story = {
     args: {
         item: generateTestPerseusItem({question: question2}),
-        startAnswerless: true,
     },
 };
 
