@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import phetSimulationWidgetLogic from "@khanacademy/perseus-core/widgets/phet-simulation";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -22,7 +23,12 @@ describe("phet-simulation editor", () => {
 
     it("renders", async () => {
         // Act
-        render(<PhetSimulationEditor onChange={() => {}} />);
+        render(
+            <PhetSimulationEditor
+                {...phetSimulationWidgetLogic.initializeWidgetOptions()}
+                onChange={() => {}}
+            />,
+        );
 
         // Assert
         expect(screen.getByLabelText("URL")).toBeInTheDocument();
@@ -34,7 +40,12 @@ describe("phet-simulation editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<PhetSimulationEditor onChange={onChangeMock} />);
+        render(
+            <PhetSimulationEditor
+                {...phetSimulationWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         await userEvent.type(screen.getByLabelText("URL"), "h");
 
         // Assert
@@ -46,7 +57,12 @@ describe("phet-simulation editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<PhetSimulationEditor onChange={onChangeMock} />);
+        render(
+            <PhetSimulationEditor
+                {...phetSimulationWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         await userEvent.type(screen.getByLabelText("Description"), "P");
 
         // Assert

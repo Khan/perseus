@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import numericInputWidgetLogic from "@khanacademy/perseus-core/widgets/numeric-input";
 import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -22,7 +23,12 @@ describe("numeric-input-editor", () => {
     });
 
     it("should render", async () => {
-        render(<NumericInputEditor onChange={() => undefined} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={() => undefined}
+            />,
+        );
 
         await waitFor(async () =>
             expect(
@@ -34,7 +40,12 @@ describe("numeric-input-editor", () => {
     it("should be possible to select normal width", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             within(screen.getByRole("group", {name: /^Width/})).getByRole(
@@ -52,7 +63,12 @@ describe("numeric-input-editor", () => {
     it("should be possible to select small width", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             within(screen.getByRole("group", {name: /^Width/})).getByRole(
@@ -70,7 +86,12 @@ describe("numeric-input-editor", () => {
     it("should be possible to select right alignment", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             within(screen.getByRole("group", {name: /^Alignment/})).getByRole(
@@ -85,7 +106,12 @@ describe("numeric-input-editor", () => {
     it("should be possible to select coefficient", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             within(
@@ -99,7 +125,12 @@ describe("numeric-input-editor", () => {
     it("should be possible to select strictly match only these formats", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             within(
@@ -125,7 +156,12 @@ describe("numeric-input-editor", () => {
     it("should be possible to update label text", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "aria label",
@@ -150,7 +186,13 @@ describe("numeric-input-editor", () => {
                 });
             }
 
-            return <NumericInputEditor onChange={mergeProps} {...props} />;
+            return (
+                <NumericInputEditor
+                    {...numericInputWidgetLogic.initializeWidgetOptions()}
+                    onChange={mergeProps}
+                    {...props}
+                />
+            );
         }
 
         render(<StatefulNumericInputEditor />);
@@ -167,7 +209,12 @@ describe("numeric-input-editor", () => {
     it("should be possible to set unsimplified answers to ungraded", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             within(
@@ -187,7 +234,12 @@ describe("numeric-input-editor", () => {
     it("should be possible to set unsimplified answers to accepted", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             within(
@@ -207,7 +259,12 @@ describe("numeric-input-editor", () => {
     it("should be possible to set unsimplified answers to wrong", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(
+            <NumericInputEditor
+                {...numericInputWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             within(
@@ -237,7 +294,12 @@ describe("numeric-input-editor", () => {
         it(`should be possible to set suggested answer format to: ${name}`, async () => {
             const onChangeMock = jest.fn();
 
-            render(<NumericInputEditor onChange={onChangeMock} />);
+            render(
+                <NumericInputEditor
+                    {...numericInputWidgetLogic.initializeWidgetOptions()}
+                    onChange={onChangeMock}
+                />,
+            );
 
             await userEvent.click(screen.getByRole("checkbox", {name: name}));
 

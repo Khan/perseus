@@ -74,7 +74,6 @@ export type {DropdownDefaultWidgetOptions} from "./widgets/dropdown";
 export {default as explanationLogic} from "./widgets/explanation";
 export type {ExplanationDefaultWidgetOptions} from "./widgets/explanation";
 export {default as expressionLogic} from "./widgets/expression";
-export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
 export {default as deriveExtraKeys} from "./widgets/expression/derive-extra-keys";
 export {default as gradedGroupLogic} from "./widgets/graded-group";
 export {default as freeResponseLogic} from "./widgets/free-response";

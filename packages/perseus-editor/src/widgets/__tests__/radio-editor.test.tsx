@@ -1,4 +1,5 @@
 import {Dependencies, ApiOptions} from "@khanacademy/perseus";
+import radioWidgetLogic from "@khanacademy/perseus-core/widgets/radio";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -36,6 +37,7 @@ function renderRadioEditor(
 ) {
     return render(
         <RadioEditor
+            {...radioWidgetLogic.initializeWidgetOptions()}
             onChange={onChangeMock}
             apiOptions={ApiOptions.defaults}
             {...props}

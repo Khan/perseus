@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {expressionLogic} from "@khanacademy/perseus-core";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -23,7 +24,12 @@ describe("expression-editor", () => {
     });
 
     it("should render", async () => {
-        render(<ExpressionEditor onChange={() => undefined} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={() => undefined}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         expect(await screen.findByText(/Add new answer/)).toBeInTheDocument();
@@ -68,7 +74,12 @@ describe("expression-editor", () => {
     it("should toggle multiplication checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<ExpressionEditor onChange={onChangeMock} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -85,7 +96,13 @@ describe("expression-editor", () => {
     it("should be possible to change function variables", async () => {
         const onChangeMock = jest.fn();
 
-        render(<ExpressionEditor onChange={onChangeMock} functions={[]} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+                functions={[]}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         const input = screen.getByRole("textbox", {
@@ -108,7 +125,12 @@ describe("expression-editor", () => {
     it("should toggle division checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<ExpressionEditor onChange={onChangeMock} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -125,7 +147,12 @@ describe("expression-editor", () => {
     it("should toggle trig checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<ExpressionEditor onChange={onChangeMock} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -142,7 +169,12 @@ describe("expression-editor", () => {
     it("should toggle prealgebra checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<ExpressionEditor onChange={onChangeMock} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -158,7 +190,12 @@ describe("expression-editor", () => {
 
     it("should toggle logarithms checkbox", async () => {
         const onChangeMock = jest.fn();
-        render(<ExpressionEditor onChange={onChangeMock} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -174,7 +211,12 @@ describe("expression-editor", () => {
 
     it("should toggle basic relations checkbox", async () => {
         const onChangeMock = jest.fn();
-        render(<ExpressionEditor onChange={onChangeMock} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -191,7 +233,12 @@ describe("expression-editor", () => {
     it("should toggle advanced relations checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<ExpressionEditor onChange={onChangeMock} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -208,7 +255,12 @@ describe("expression-editor", () => {
     it("should toggle scientific checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<ExpressionEditor onChange={onChangeMock} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -226,7 +278,12 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
         crypto.randomUUID = jest.fn(() => "0-0-0-0-0");
 
-        render(<ExpressionEditor onChange={onChangeMock} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -412,7 +469,13 @@ describe("expression-editor", () => {
     it("serializes", () => {
         const editorRef = React.createRef<ExpressionEditor>();
 
-        render(<ExpressionEditor ref={editorRef} onChange={() => {}} />);
+        render(
+            <ExpressionEditor
+                {...expressionLogic.initializeWidgetOptions()}
+                ref={editorRef}
+                onChange={() => {}}
+            />,
+        );
 
         const options = editorRef.current?.serialize();
 

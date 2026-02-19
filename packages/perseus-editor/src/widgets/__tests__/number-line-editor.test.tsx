@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import numberLineWidgetLogic from "@khanacademy/perseus-core/widgets/number-line";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -21,7 +22,12 @@ describe("number-line-editor", () => {
     });
 
     it("should render", async () => {
-        render(<NumberLineEditor onChange={() => undefined} />);
+        render(
+            <NumberLineEditor
+                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                onChange={() => undefined}
+            />,
+        );
 
         expect(await screen.findByText("Correct x")).toBeInTheDocument();
     });
@@ -31,7 +37,12 @@ describe("number-line-editor", () => {
         it(`should be possible to set relationship to: ${rel}`, async () => {
             const onChangeMock = jest.fn();
 
-            render(<NumberLineEditor onChange={onChangeMock} />);
+            render(
+                <NumberLineEditor
+                    {...numberLineWidgetLogic.initializeWidgetOptions()}
+                    onChange={onChangeMock}
+                />,
+            );
 
             const select = screen.getByRole("combobox", {
                 name: "Select relationship",
@@ -47,7 +58,12 @@ describe("number-line-editor", () => {
     it("should be possible to update the answer", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByPlaceholderText("answer");
         await userEvent.type(input, "1");
@@ -58,7 +74,12 @@ describe("number-line-editor", () => {
     it("should be possible to update position", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {name: "Position: ∈"});
         await userEvent.type(input, "1");
@@ -76,7 +97,12 @@ describe("number-line-editor", () => {
         it(`should be possible to update style: ${title}`, async () => {
             const onChangeMock = jest.fn();
 
-            render(<NumberLineEditor onChange={onChangeMock} />);
+            render(
+                <NumberLineEditor
+                    {...numberLineWidgetLogic.initializeWidgetOptions()}
+                    onChange={onChangeMock}
+                />,
+            );
 
             await userEvent.click(screen.getByTitle(title));
 
@@ -87,7 +113,12 @@ describe("number-line-editor", () => {
     it("should be possible to change show tick controller", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Show tick controller"}),
@@ -99,7 +130,12 @@ describe("number-line-editor", () => {
     it("should be possible to change show label tickets", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Show label ticks"}),
@@ -111,7 +147,12 @@ describe("number-line-editor", () => {
     it("should be possible to change show tooltips", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Show tooltips"}),
@@ -123,7 +164,12 @@ describe("number-line-editor", () => {
     it("should be possible to update tick steps", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "or tick step:",
@@ -139,7 +185,12 @@ describe("number-line-editor", () => {
     it("should be possible to update snap divisions", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumberLineEditor onChange={onChangeMock} />);
+        render(
+            <NumberLineEditor
+                {...numberLineWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "Snap increments per tick:",

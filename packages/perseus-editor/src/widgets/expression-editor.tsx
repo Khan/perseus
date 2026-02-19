@@ -22,7 +22,6 @@ import _ from "underscore";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
-    ExpressionDefaultWidgetOptions,
     PerseusExpressionAnswerForm,
     PerseusExpressionUserInput,
 } from "@khanacademy/perseus-core";

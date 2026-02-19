@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import videoWidgetLogic from "@khanacademy/perseus-core/widgets/video";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -23,7 +24,12 @@ describe("VideoEditor", () => {
 
     it("should render", () => {
         // Arrange, Act
-        render(<VideoEditor onChange={() => undefined} />);
+        render(
+            <VideoEditor
+                {...videoWidgetLogic.initializeWidgetOptions()}
+                onChange={() => undefined}
+            />,
+        );
 
         // Assert
         expect(screen.getByLabelText("KA Video Slug")).toBeInTheDocument();
@@ -32,7 +38,12 @@ describe("VideoEditor", () => {
     it("should call onChange when KA video Slug is provided", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<VideoEditor onChange={onChangeMock} />);
+        render(
+            <VideoEditor
+                {...videoWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         // Act
 
@@ -47,7 +58,12 @@ describe("VideoEditor", () => {
     it("should call onChange with the slug from the URL if a Khan Academy URL is provided (with prefix)", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<VideoEditor onChange={onChangeMock} />);
+        render(
+            <VideoEditor
+                {...videoWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         // Act
 
@@ -69,7 +85,12 @@ describe("VideoEditor", () => {
     it("should call onChange with the slug from the URL if a Khan Academy URL is provided (without prefix)", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<VideoEditor onChange={onChangeMock} />);
+        render(
+            <VideoEditor
+                {...videoWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         // Act
 
@@ -91,7 +112,12 @@ describe("VideoEditor", () => {
     it("should call onChange with the URL if a non-Khan Academy URL is provided", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(<VideoEditor onChange={onChangeMock} />);
+        render(
+            <VideoEditor
+                {...videoWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         // Act
         const slugInput = screen.getByLabelText("KA Video Slug");

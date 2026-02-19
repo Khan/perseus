@@ -5,7 +5,7 @@ import type {WidgetLogic} from "../logic-export.types";
 
 const currentVersion = {major: 2, minor: 0};
 
-export type ExpressionDefaultWidgetOptions = Pick<
+type ExpressionDefaultWidgetOptions = Pick<
     PerseusExpressionWidgetOptions,
     "answerForms" | "times" | "buttonSets" | "functions"
 >;

@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import inputNumberWidgetLogic from "@khanacademy/perseus-core/widgets/input-number";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -21,7 +22,12 @@ describe("input-number-editor", () => {
     });
 
     it("should render", async () => {
-        render(<InputNumberEditor onChange={() => undefined} />);
+        render(
+            <InputNumberEditor
+                {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                onChange={() => undefined}
+            />,
+        );
 
         expect(await screen.findByText("Correct answer:")).toBeInTheDocument();
     });
@@ -29,7 +35,12 @@ describe("input-number-editor", () => {
     it("should be possible to change the correct answer", async () => {
         const onChangeMock = jest.fn();
 
-        render(<InputNumberEditor onChange={onChangeMock} />);
+        render(
+            <InputNumberEditor
+                {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {name: "Correct answer:"});
         await userEvent.type(input, "1");
@@ -43,7 +54,12 @@ describe("input-number-editor", () => {
     it("should be possible to change allow inexact answers", async () => {
         const onChangeMock = jest.fn();
 
-        render(<InputNumberEditor onChange={onChangeMock} />);
+        render(
+            <InputNumberEditor
+                {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Allow inexact answers"}),
@@ -57,7 +73,12 @@ describe("input-number-editor", () => {
     it("should be possible to change right alignment", async () => {
         const onChangeMock = jest.fn();
 
-        render(<InputNumberEditor onChange={onChangeMock} />);
+        render(
+            <InputNumberEditor
+                {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Right alignment"}),
@@ -73,7 +94,12 @@ describe("input-number-editor", () => {
         it(`should be possible to set unsimplified answers to: ${opt}`, async () => {
             const onChangeMock = jest.fn();
 
-            render(<InputNumberEditor onChange={onChangeMock} />);
+            render(
+                <InputNumberEditor
+                    {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                    onChange={onChangeMock}
+                />,
+            );
 
             const select = screen.getByRole("combobox", {
                 name: "Unsimplified answers",
@@ -100,7 +126,12 @@ describe("input-number-editor", () => {
         it(`should be possible to set answer type to: ${opt}`, async () => {
             const onChangeMock = jest.fn();
 
-            render(<InputNumberEditor onChange={onChangeMock} />);
+            render(
+                <InputNumberEditor
+                    {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                    onChange={onChangeMock}
+                />,
+            );
 
             const select = screen.getByRole("combobox", {
                 name: "Answer type",
@@ -118,7 +149,12 @@ describe("input-number-editor", () => {
         it(`should be possible to set unsimplified answers to: ${opt}`, async () => {
             const onChangeMock = jest.fn();
 
-            render(<InputNumberEditor onChange={onChangeMock} />);
+            render(
+                <InputNumberEditor
+                    {...inputNumberWidgetLogic.initializeWidgetOptions()}
+                    onChange={onChangeMock}
+                />,
+            );
 
             const select = screen.getByRole("combobox", {
                 name: "Width",

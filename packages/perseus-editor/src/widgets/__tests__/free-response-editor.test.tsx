@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import freeResponseWidgetLogic from "@khanacademy/perseus-core/widgets/free-response";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -23,7 +24,11 @@ describe("free-response editor", () => {
     it("renders the question", async () => {
         // Act
         render(
-            <FreeResponseEditor question="test-question" onChange={() => {}} />,
+            <FreeResponseEditor
+                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                question="test-question"
+                onChange={() => {}}
+            />,
         );
 
         // Assert
@@ -38,6 +43,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
+                {...freeResponseWidgetLogic.initializeWidgetOptions()}
                 allowUnlimitedCharacters={false}
                 onChange={onChangeMock}
             />,
@@ -88,7 +94,12 @@ describe("free-response editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<FreeResponseEditor onChange={onChangeMock} />);
+        render(
+            <FreeResponseEditor
+                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
         await userEvent.type(screen.getByLabelText("Question"), "2");
 
         // Assert
@@ -102,6 +113,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
+                {...freeResponseWidgetLogic.initializeWidgetOptions()}
                 placeholder="test-placeholder"
                 onChange={onChangeMock}
             />,
@@ -193,6 +205,7 @@ describe("free-response editor", () => {
         // Act
         render(
             <FreeResponseEditor
+                {...freeResponseWidgetLogic.initializeWidgetOptions()}
                 ref={ref}
                 question="test-question"
                 onChange={() => {}}
@@ -236,7 +249,13 @@ describe("free-response editor", () => {
         const ref = React.createRef<FreeResponseEditor>();
 
         // Act
-        render(<FreeResponseEditor ref={ref} onChange={() => {}} />);
+        render(
+            <FreeResponseEditor
+                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                ref={ref}
+                onChange={() => {}}
+            />,
+        );
 
         // Assert
         expect(ref.current?.serialize()).toMatchObject({
@@ -249,7 +268,13 @@ describe("free-response editor", () => {
         const ref = React.createRef<FreeResponseEditor>();
 
         // Act
-        render(<FreeResponseEditor ref={ref} onChange={() => {}} />);
+        render(
+            <FreeResponseEditor
+                {...freeResponseWidgetLogic.initializeWidgetOptions()}
+                ref={ref}
+                onChange={() => {}}
+            />,
+        );
 
         // Assert
         expect(ref.current?.serialize()).toMatchObject({

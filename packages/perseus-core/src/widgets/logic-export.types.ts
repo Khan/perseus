@@ -64,7 +64,7 @@ export type InitializeWidgetOptionsParams = {
 export type WidgetLogic<TDefaultWidgetOptions> = {
     name: string;
     version?: Version;
-    initializeWidgetOptions?: (
+    initializeWidgetOptions: (
         params?: InitializeWidgetOptionsParams,
     ) => TDefaultWidgetOptions;
     supportedAlignments?: ReadonlyArray<Alignment>;

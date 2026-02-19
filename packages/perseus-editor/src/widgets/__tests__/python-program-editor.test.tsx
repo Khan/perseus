@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import pythonProgramWidgetLogic from "@khanacademy/perseus-core/widgets/python-program";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -21,7 +22,12 @@ describe("python-program-editor", () => {
     });
 
     it("should render", async () => {
-        render(<PythonProgramEditor onChange={() => undefined} />);
+        render(
+            <PythonProgramEditor
+                {...pythonProgramWidgetLogic.initializeWidgetOptions()}
+                onChange={() => undefined}
+            />,
+        );
 
         expect(await screen.findByText(/user program id/i)).toBeInTheDocument();
     });
@@ -29,7 +35,12 @@ describe("python-program-editor", () => {
     it("should be possible to update the User Program ID", async () => {
         const onChangeMock = jest.fn();
 
-        render(<PythonProgramEditor onChange={onChangeMock} />);
+        render(
+            <PythonProgramEditor
+                {...pythonProgramWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "User Program ID:",
@@ -46,7 +57,12 @@ describe("python-program-editor", () => {
     it("should be possible to update the height", async () => {
         const onChangeMock = jest.fn();
 
-        render(<PythonProgramEditor onChange={onChangeMock} />);
+        render(
+            <PythonProgramEditor
+                {...pythonProgramWidgetLogic.initializeWidgetOptions()}
+                onChange={onChangeMock}
+            />,
+        );
 
         const input = screen.getByRole("textbox", {
             name: "Height:",
