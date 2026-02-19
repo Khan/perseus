@@ -1,4 +1,3 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import * as React from "react";
 
@@ -49,12 +48,11 @@ export const ImageDescriptionAndCaption = (
     const [zoomWidth, _] = zoomSize;
 
     const context = React.useContext(PerseusI18nContext);
-    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     return (
         <div className={styles.descriptionAndCaptionContainer}>
             {/* Description */}
-            {imageUpgradeFF && longDescription && (
+            {longDescription && (
                 <ModalLauncher modal={<ExploreImageModal {...props} />}>
                     {({openModal}) => (
                         <ExploreImageButton

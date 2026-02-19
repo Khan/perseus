@@ -8,7 +8,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependenciesV2,
@@ -29,7 +28,6 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
     const apiOptions: APIOptions = {
         isMobile,
-        flags: getFeatureFlags({"image-widget-upgrade": true}),
     };
 
     beforeEach(() => {
@@ -572,12 +570,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 },
             });
 
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({"image-widget-upgrade": true}),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+            renderQuestion(imageQuestion, apiOptions);
             act(() => {
                 jest.runAllTimers();
             });
@@ -603,12 +596,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 },
             });
 
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({"image-widget-upgrade": true}),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+            renderQuestion(imageQuestion, apiOptions);
             act(() => {
                 jest.runAllTimers();
             });
@@ -636,12 +624,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 },
             });
 
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({"image-widget-upgrade": false}),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+            renderQuestion(imageQuestion, apiOptions);
             act(() => {
                 jest.runAllTimers();
             });
@@ -668,12 +651,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 },
             });
 
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({"image-widget-upgrade": false}),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+            renderQuestion(imageQuestion, apiOptions);
             act(() => {
                 jest.runAllTimers();
             });

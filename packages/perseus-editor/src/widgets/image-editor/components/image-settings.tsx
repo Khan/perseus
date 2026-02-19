@@ -1,4 +1,3 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import * as React from "react";
@@ -28,7 +27,6 @@ export default function ImageSettings({
     title,
     onChange,
 }: Props) {
-    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
     const [altFieldError, setAltFieldError] = React.useState<string | null>(
         null,
     );
@@ -47,7 +45,7 @@ export default function ImageSettings({
         if (value.length === 0) {
             // If the user clears the alt text, clear the error
             setAltFieldError(null);
-        } else if (imageUpgradeFF && value.length > MAX_ALT_TEXT_LENGTH) {
+        } else if (value.length > MAX_ALT_TEXT_LENGTH) {
             setAltFieldError(altTextTooLongError);
         } else if (value.length >= MIN_ALT_TEXT_LENGTH) {
             setAltFieldError(null);
@@ -87,13 +85,11 @@ export default function ImageSettings({
             />
 
             {/* Decorative */}
-            {imageUpgradeFF && (
-                <DecorativeToggle
-                    decorative={decorative}
-                    hasPopulatedFields={hasPopulatedFields}
-                    onChange={onChange}
-                />
-            )}
+            <DecorativeToggle
+                decorative={decorative}
+                hasPopulatedFields={hasPopulatedFields}
+                onChange={onChange}
+            />
 
             {/* Properties in DOM order */}
 
@@ -129,22 +125,18 @@ export default function ImageSettings({
             />
 
             {/* Long Description */}
-            {imageUpgradeFF && (
-                <LabeledField
-                    label="Long description"
-                    field={
-                        <TextArea
-                            value={longDescription ?? ""}
-                            onChange={(value) =>
-                                onChange({longDescription: value})
-                            }
-                            disabled={decorative}
-                            autoResize={true}
-                        />
-                    }
-                    styles={wbFieldStyles}
-                />
-            )}
+            <LabeledField
+                label="Long description"
+                field={
+                    <TextArea
+                        value={longDescription ?? ""}
+                        onChange={(value) => onChange({longDescription: value})}
+                        disabled={decorative}
+                        autoResize={true}
+                    />
+                }
+                styles={wbFieldStyles}
+            />
 
             {/* Caption */}
             <LabeledField
