@@ -85,11 +85,29 @@
     margin-inline-start: var(--perseus-multiple-choice-content-margin);
     position: relative; /* Needed to enable the z-index to work */
     z-index: -1; /* Ensures that the content is below the indicator and scroll fade */
+    /* Remove the following line once support for Safari is at least v16.4 */
+    --perseus-content-line-height: var(--wb-font-heading-lineHeight-medium);
 }
 
-/* Add small top padding to first content element to optically align text with indicator */
-.content > :first-child {
-    padding-block-start: 0.3rem;
+/* Remove the following line once support for Safari is at least v16.4
+   https://caniuse.com/wf-lh
+*/
+@supports (margin-block-start: 1lh) {
+    .content {
+        --perseus-content-line-height: 1lh;
+    }
+}
+
+/* Add small top margin to the content container to optically align text with the indicator.
+   This only applies to content that does not have an image as its first child.
+   This calculation takes into account the line height of the text and the height of the indicator.
+   The 0.4 multiplier is due to how the font distributes extra line height space around the text.
+   Since it isn't an exact 50% split (the descender probably messes things up),
+       a 40% multiplier works well across various line heights.
+*/
+.content:not(:has(:global(.paragraph):first-child > :global(.paragraph) img)) {
+    /* Replace "var(--perseus-content-line-height)" with "1lh" once support for Safari is at least v16.4 */
+    margin-block-start: calc((var(--perseus-multiple-choice-indicator-size) - var(--perseus-content-line-height)) * 0.4);
 }
 
 @media (prefers-reduced-motion: no-preference) {
