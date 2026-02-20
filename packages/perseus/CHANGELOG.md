@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 75.2.0
+
+### Minor Changes
+
+-   [#3221](https://github.com/Khan/perseus/pull/3221) [`131d5e6688`](https://github.com/Khan/perseus/commit/131d5e6688a1ba5d70f383538022a39d63afac15) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfix to account for frontend's application of zoom to support fontScaling on mobile.
+
+### Patch Changes
+
+-   [#3260](https://github.com/Khan/perseus/pull/3260) [`2d5364d93b`](https://github.com/Khan/perseus/commit/2d5364d93b4311a659d701dde9b97aec66aade99) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Stop weird shadow on zoomed view in Classroom
+
 ## 75.1.0
 
 ### Minor Changes
