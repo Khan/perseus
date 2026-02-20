@@ -9,7 +9,6 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import UserInputManager from "../../../user-input-manager";
 import {earthMoonImage} from "../utils";
@@ -91,7 +90,6 @@ function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
                     images={question.images}
                     apiOptions={{
                         ...ApiOptions.defaults,
-                        flags: getFeatureFlags({"image-widget-upgrade": true}),
                     }}
                 />
             )}

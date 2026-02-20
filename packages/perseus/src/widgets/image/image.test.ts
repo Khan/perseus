@@ -8,7 +8,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependenciesV2,
@@ -29,7 +28,6 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
     const apiOptions: APIOptions = {
         isMobile,
-        flags: getFeatureFlags({"image-widget-upgrade": true}),
     };
 
     beforeEach(() => {
@@ -554,135 +552,6 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert
             expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-        });
-    });
-
-    describe("upgrade-image-widget feature flag", () => {
-        it("should render the explore image button when the image widget upgrade feature flag is enabled", async () => {
-            // Arrange
-            const imageQuestion = generateTestPerseusRenderer({
-                content: "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            backgroundImage: earthMoonImage,
-                            longDescription: "widget long description",
-                        }),
-                    }),
-                },
-            });
-
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({"image-widget-upgrade": true}),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-            act(() => {
-                jest.runAllTimers();
-            });
-
-            // Assert
-            const button = screen.getByRole("button", {name: "Explore image"});
-            expect(button).toBeVisible();
-            expect(button).toHaveTextContent("Explore image");
-        });
-
-        it("should render the explore image icon when the image widget upgrade feature flag is enabled and the image has a caption", async () => {
-            // Arrange
-            const imageQuestion = generateTestPerseusRenderer({
-                content: "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            backgroundImage: earthMoonImage,
-                            longDescription: "widget long description",
-                            caption: "widget caption",
-                        }),
-                    }),
-                },
-            });
-
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({"image-widget-upgrade": true}),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-            act(() => {
-                jest.runAllTimers();
-            });
-
-            // Assert
-            const iconButton = screen.getByRole("button", {
-                name: "Explore image",
-            });
-            expect(iconButton).toBeVisible();
-            expect(iconButton).toHaveAttribute("aria-label", "Explore image");
-            expect(iconButton).not.toHaveTextContent("Explore image");
-        });
-
-        it("should NOT render the explore image button when the image widget upgrade feature flag is disabled", async () => {
-            // Arrange
-            const imageQuestion = generateTestPerseusRenderer({
-                content: "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            backgroundImage: earthMoonImage,
-                            longDescription: "widget long description",
-                        }),
-                    }),
-                },
-            });
-
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({"image-widget-upgrade": false}),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-            act(() => {
-                jest.runAllTimers();
-            });
-
-            // Assert
-            const button = screen.queryByRole("button", {
-                name: "Explore image",
-            });
-            expect(button).not.toBeInTheDocument();
-        });
-
-        it("should NOT render the explore image icon when the image widget upgrade feature flag is disabled and the image has a caption", async () => {
-            // Arrange
-            const imageQuestion = generateTestPerseusRenderer({
-                content: "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            backgroundImage: earthMoonImage,
-                            longDescription: "widget long description",
-                            caption: "widget caption",
-                        }),
-                    }),
-                },
-            });
-
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({"image-widget-upgrade": false}),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-            act(() => {
-                jest.runAllTimers();
-            });
-
-            // Assert
-            const iconButton = screen.queryByRole("button", {
-                name: "Explore image",
-            });
-            expect(iconButton).not.toBeInTheDocument();
         });
     });
 
