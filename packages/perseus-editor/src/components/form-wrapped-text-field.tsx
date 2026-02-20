@@ -8,7 +8,7 @@
  * If you need to handle `onSubmit`, please use <TextField> directly with your
  * own <form> that wraps all text fields in the form.
  **/
-import {color, color as WBColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -150,8 +150,8 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
         }
 
         const borderColorStyle = focused
-            ? focusBorderColor || WBColor.blue
-            : borderColor || WBColor.offBlack16;
+            ? focusBorderColor || semanticColor.focus.outer
+            : borderColor || semanticColor.core.border.neutral.subtle;
         extraStyles.border = `1px solid ${borderColorStyle}`;
 
         const wrappedIcon = icon && (
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
         marginBottom: 0,
     },
     defaultBackground: {
-        backgroundColor: color.white,
+        backgroundColor: semanticColor.core.background.base.default,
     },
     icon: {
         display: "flex",

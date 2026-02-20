@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {TextArea, TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -79,7 +79,7 @@ export default function InteractiveGraphDescription(props: Props) {
 
 const styles = StyleSheet.create({
     caption: {
-        color: color.offBlack64,
+        color: semanticColor.core.foreground.neutral.subtle,
         paddingTop: spacing.xxSmall_6,
         paddingBottom: spacing.xxSmall_6,
     },
