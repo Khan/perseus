@@ -225,7 +225,7 @@
     display: block;
 }
 
-/* Remove the leading margin for better alignment with the choice indicator */
-.choice :global(.paragraph):first-child {
+/* Remove the leading margin when the first paragraph is an image, for better alignment with the choice indicator */
+.choice :global(.paragraph):first-child:has(img:only-child) {
     margin-block-start: 0;
 }
