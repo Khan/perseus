@@ -1,5 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
+// eslint-disable-next-line no-restricted-imports -- Intentionally using Tabs instead of ResponsiveTabs to avoid rendering a dropdown within a Popover
 import {Tabs} from "@khanacademy/wonder-blocks-tabs";
 import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import xBold from "@phosphor-icons/core/bold/x-bold.svg";

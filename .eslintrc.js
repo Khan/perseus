@@ -306,6 +306,19 @@ module.exports = {
                     "Use seeded randomness. See: https://khanacademy.atlassian.net/browse/LEMS-3397",
             },
         ],
+        "no-restricted-imports": [
+            "error",
+            {
+                paths: [
+                    {
+                        name: "@khanacademy/wonder-blocks-tabs",
+                        importNames: ["NavigationTabs", "Tabs"],
+                        message:
+                            "Use WB ResponsiveNavigationTabs or ResponsiveTabs for responsive behaviour. They render NavigationTabs or Tabs by default and switch to a dropdown when space is limited - test both layouts. See https://khan.github.io/wonder-blocks/?path=/docs/packages-tabs-overview--docs. \n\nIf responsiveness isn't needed, ignore this rule for that import.",
+                    },
+                ],
+            },
+        ],
 
         /**
          * monorepo

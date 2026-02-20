@@ -19,7 +19,7 @@ export default {
         docs: {
             description: {
                 component:
-                    "A customizable virtual keyboard for mathematical input that provides different key layouts for various math concepts.",
+                    "A customizable virtual keyboard for mathematical input that provides different key layouts for various math concepts. \n\n Note: This intentionally uses the WB Tabs component (instead of ResponsiveTabs) to avoid rendering a dropdown within a Popover.",
             },
         },
     },
