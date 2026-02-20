@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import {components} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import Link from "@khanacademy/wonder-blocks-link";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {Footnote} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
@@ -22,6 +23,12 @@ import type {
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
+const {InfoTip} = components;
+
+type RadioSerializedOptions = PerseusRadioWidgetOptions & {
+    _showShuffledPreview?: boolean;
+};
+
 // Exported for testing
 export interface RadioEditorProps {
     apiOptions: APIOptions;
@@ -31,9 +38,10 @@ export interface RadioEditorProps {
     hasNoneOfTheAbove: boolean;
     multipleSelect: boolean;
     deselectEnabled: boolean;
+    _showShuffledPreview?: boolean;
 
     onChange: (
-        values: Partial<PerseusRadioWidgetOptions>,
+        values: Partial<RadioSerializedOptions>,
         callback?: (() => void) | null,
     ) => void;
 }
@@ -297,7 +305,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         return [];
     };
 
-    serialize(): PerseusRadioWidgetOptions {
+    serialize(): RadioSerializedOptions {
         const {
             choices,
             randomize,
@@ -305,9 +313,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             countChoices,
             hasNoneOfTheAbove,
             deselectEnabled,
+            _showShuffledPreview,
         } = this.props;
 
-        return {
+        const options: RadioSerializedOptions = {
             choices,
             randomize,
             multipleSelect,
@@ -316,6 +325,12 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             deselectEnabled,
             numCorrect: deriveNumCorrect(choices),
         };
+
+        if (randomize && _showShuffledPreview) {
+            options._showShuffledPreview = true;
+        }
+
+        return options;
     }
 
     render(): React.ReactNode {
@@ -331,14 +346,50 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     Multiple choice best practices
                 </Link>
                 <div className="perseus-widget-row">
-                    <LabeledSwitch
-                        label="Randomize order"
-                        checked={this.props.randomize}
-                        disabled={isEditingDisabled}
-                        onChange={(value) => {
-                            this.props.onChange({randomize: value});
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: sizing.size_040,
+                            marginBlockEnd: sizing.size_060,
                         }}
-                        style={{marginBlockEnd: sizing.size_060}}
+                    >
+                        <LabeledSwitch
+                            label="Randomize order"
+                            checked={this.props.randomize}
+                            disabled={isEditingDisabled}
+                            onChange={(value) => {
+                                this.props.onChange({
+                                    randomize: value,
+                                    ...(!value && {
+                                        _showShuffledPreview: false,
+                                    }),
+                                });
+                            }}
+                        />
+                        <InfoTip>
+                            The editor preview shows choices unshuffled by
+                            default. Use &quot;Shuffle preview&quot; to see the
+                            randomized order. The Preview tab always shows the
+                            randomized order when enabled.
+                        </InfoTip>
+                    </div>
+                    <LabeledSwitch
+                        label="Shuffle preview"
+                        checked={this.props._showShuffledPreview ?? false}
+                        disabled={!this.props.randomize || isEditingDisabled}
+                        onChange={(value) => {
+                            this.props.onChange({
+                                _showShuffledPreview: value,
+                            });
+                        }}
+                        style={{
+                            marginBlockEnd: sizing.size_060,
+                            ...(!this.props.randomize && {
+                                color: semanticColor.core.foreground.disabled
+                                    .default,
+                            }),
+                        }}
                     />
                     <LabeledSwitch
                         label="Multiple selections"

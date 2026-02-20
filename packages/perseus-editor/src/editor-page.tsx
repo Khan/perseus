@@ -87,6 +87,29 @@ type State = {
     widgetsAreOpen: boolean;
 };
 
+// Strips editor-only marker fields (e.g. _showShuffledPreview) from
+// radio widget options so they are never persisted to content data.
+function stripEditorOnlyRadioFields(item: any): any {
+    const widgets = item?.question?.widgets;
+    if (!widgets) {
+        return item;
+    }
+
+    const cleanedWidgets = {...widgets};
+    for (const widgetId of Object.keys(cleanedWidgets)) {
+        const widget = cleanedWidgets[widgetId];
+        if (widget?.type === "radio" && widget.options) {
+            const {_showShuffledPreview: _, ...cleanOptions} = widget.options;
+            cleanedWidgets[widgetId] = {...widget, options: cleanOptions};
+        }
+    }
+
+    return {
+        ...item,
+        question: {...item.question, widgets: cleanedWidgets},
+    };
+}
+
 class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
 
@@ -124,7 +147,7 @@ class EditorPage extends React.Component<Props, State> {
 
     getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
         if (!prevProps.jsonMode && this.props.jsonMode) {
-            return {
+            const snapshot = {
                 ...(this.itemEditor.current?.serialize({
                     keepDeletedWidgets: true,
                 }) ?? {}),
@@ -132,6 +155,7 @@ class EditorPage extends React.Component<Props, State> {
                     keepDeletedWidgets: true,
                 }),
             };
+            return stripEditorOnlyRadioFields(snapshot);
         }
         return null;
     }
@@ -222,7 +246,7 @@ class EditorPage extends React.Component<Props, State> {
         this.itemEditor.current?.triggerPreviewUpdate({
             type: "question",
             data: _({
-                item: this.serialize(),
+                item: this.serializeForPreview(),
                 apiOptions: deviceBasedApiOptions,
                 initialHintsVisible: 0,
                 device: this.props.previewDevice,
@@ -253,11 +277,43 @@ class EditorPage extends React.Component<Props, State> {
 
     serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
         if (this.props.jsonMode) {
-            return this.state.json;
+            return stripEditorOnlyRadioFields(this.state.json);
         }
-        return _.extend(this.itemEditor.current?.serialize(options), {
+        const result = _.extend(this.itemEditor.current?.serialize(options), {
             hints: this.hintsEditor.current?.serialize(options),
         });
+
+        return stripEditorOnlyRadioFields(result);
+    }
+
+    // Serializes item data for the Edit tab iframe preview.
+    // Unlike serialize() (the save path), this preserves the
+    // _showShuffledPreview marker to control preview shuffling,
+    // then applies the preview-specific shuffle override.
+    serializeForPreview(): PerseusItem {
+        const item = _.extend(this.itemEditor.current?.serialize(), {
+            hints: this.hintsEditor.current?.serialize(),
+        });
+
+        // For the Edit tab preview, default radio widgets to unshuffled
+        // unless the editor's "Shuffle preview" toggle is on.
+        const widgets = item?.question?.widgets;
+        if (widgets) {
+            for (const widgetId of Object.keys(widgets)) {
+                const widget = widgets[widgetId];
+                if (widget?.type === "radio" && widget.options) {
+                    // Shallow copy to avoid mutating the source object
+                    widget.options = {...widget.options};
+                    if (widget.options._showShuffledPreview) {
+                        delete widget.options._showShuffledPreview;
+                    } else {
+                        widget.options.randomize = false;
+                    }
+                }
+            }
+        }
+
+        return item;
     }
 
     // eslint-disable-next-line import/no-deprecated
