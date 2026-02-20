@@ -107,7 +107,12 @@
 */
 .content:not(:has(:global(.paragraph):first-child > :global(.paragraph) img)) {
     /* Replace "var(--perseus-content-line-height)" with "1lh" once support for Safari is at least v16.4 */
-    margin-block-start: calc((var(--perseus-multiple-choice-indicator-size) - var(--perseus-content-line-height)) * 0.4);
+    margin-block-start: calc(
+        (
+                var(--perseus-multiple-choice-indicator-size) -
+                    var(--perseus-content-line-height)
+            ) * 0.4
+    );
 }
 
 @media (prefers-reduced-motion: no-preference) {
