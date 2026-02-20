@@ -10,6 +10,7 @@
 import $ from "jquery";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
@@ -33,6 +34,9 @@ type DefaultProps = {
 
 /* This renders the iframe and handles validation via window.postMessage */
 class Iframe extends React.Component<Props> implements Widget {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         allowFullScreen: false,
         allowTopNavigation: false,
@@ -114,6 +118,12 @@ class Iframe extends React.Component<Props> implements Widget {
             url = updateQueryString(url, "height", `${this.props.height}`);
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", InitialRequestUrl.origin);
+        }
+
+        // Forward content locale to KA program URLs so they render in the
+        // correct language, overriding any existing ?lang= param.
+        if (this.context?.locale && url?.includes("khanacademy.org")) {
+            url = updateQueryString(url, "lang", this.context.locale);
         }
 
         // Turn array of [{name: "", value: ""}] into object
