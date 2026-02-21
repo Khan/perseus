@@ -50,7 +50,7 @@ export type RadioProps = {
     onChoiceChange: (choiceId: string, newCheckedState: boolean) => void;
 };
 
-export type RadioWidgetHandle = {
+type RadioWidgetHandle = {
     getSerializedState(): any;
     getPromptJSON(): RadioPromptJSON;
 };
