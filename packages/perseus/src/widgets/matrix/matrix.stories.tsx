@@ -33,6 +33,5 @@ export const Question1: Story = {
 export const AnswerlessMatrix: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
-        startAnswerless: true,
     },
 };

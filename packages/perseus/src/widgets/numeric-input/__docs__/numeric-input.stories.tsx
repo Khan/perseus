@@ -381,7 +381,6 @@ export const Answerless = (
             item={generateTestPerseusItem({
                 question,
             })}
-            startAnswerless={true}
         />
     );
 };

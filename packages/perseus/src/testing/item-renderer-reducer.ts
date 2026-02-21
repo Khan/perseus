@@ -12,7 +12,6 @@ export type ItemRendererState = {
     perseusItem: PerseusItem;
     originalItem: PerseusItem;
     answerless: boolean;
-    startAnswerless: boolean;
     score: PerseusScore | undefined;
     userInput: UserInputMap | undefined;
     showPopover: boolean;
@@ -38,7 +37,6 @@ export type ItemRendererAction =
 // Create initial state function to allow passing props
 export const createInitialState = (
     item: PerseusItem,
-    startAnswerless: boolean = false,
     isMobile: boolean = false,
     isRtl: boolean = false,
     reviewMode: boolean = false,
@@ -48,8 +46,7 @@ export const createInitialState = (
     isRtl,
     perseusItem: item,
     originalItem: item,
-    answerless: startAnswerless,
-    startAnswerless,
+    answerless: true,
     score: undefined,
     userInput: undefined,
     showPopover: false,
@@ -97,7 +94,6 @@ export const itemRendererReducer = (
             return {
                 ...createInitialState(
                     state.originalItem,
-                    state.startAnswerless,
                     state.isMobile,
                     state.isRtl,
                     state.reviewMode,
