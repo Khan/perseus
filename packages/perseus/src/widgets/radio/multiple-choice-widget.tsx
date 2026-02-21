@@ -132,7 +132,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                  * @returns A structured JSON object representing the widget's prompt
                  */
                 getPromptJSON: (): RadioPromptJSON => {
-                    return _getPromptJSON(props, props.userInput);
+                    return _getPromptJSON({...props, choices}, props.userInput);
                 },
                 /**
                  * @deprecated and likely very broken API

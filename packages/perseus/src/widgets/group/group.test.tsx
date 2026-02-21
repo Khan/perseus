@@ -160,46 +160,11 @@ describe("group widget", () => {
                 "radio 1": {
                     alignment: "default",
                     choiceStates: [
-                        {
-                            correctnessShown: false,
-                            highlighted: false,
-                            previouslyAnswered: false,
-                            rationaleShown: false,
-                            readOnly: false,
-                            selected: false,
-                        },
-                        {
-                            correctnessShown: false,
-                            highlighted: false,
-                            previouslyAnswered: false,
-                            rationaleShown: false,
-                            readOnly: false,
-                            selected: false,
-                        },
-                        {
-                            correctnessShown: false,
-                            highlighted: false,
-                            previouslyAnswered: false,
-                            rationaleShown: false,
-                            readOnly: false,
-                            selected: false,
-                        },
-                        {
-                            correctnessShown: false,
-                            highlighted: false,
-                            previouslyAnswered: false,
-                            rationaleShown: false,
-                            readOnly: false,
-                            selected: false,
-                        },
-                        {
-                            correctnessShown: false,
-                            highlighted: false,
-                            previouslyAnswered: false,
-                            rationaleShown: false,
-                            readOnly: false,
-                            selected: false,
-                        },
+                        {selected: false},
+                        {selected: false},
+                        {selected: false},
+                        {selected: false},
+                        {selected: false},
                     ],
                     choices: [
                         {
