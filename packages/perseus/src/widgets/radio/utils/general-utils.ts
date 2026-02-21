@@ -25,26 +25,12 @@ export const getChoiceStates = ({
     choiceStates,
     reviewMode,
 }: GetChoiceStatesProps): ReadonlyArray<ChoiceState> => {
-    // The default state for a choice state object.
-    const defaultState: ChoiceState = {
-        selected: false,
-        readOnly: false,
-        highlighted: false,
-        rationaleShown: false,
-        correctnessShown: false,
-        previouslyAnswered: false,
-    };
-
     // Case 1: Review mode
     // The widget is in showSolutions or reviewMode.
     // — In this state, we display correct answers with explanations and prevent interaction.
     if (showSolutions === "all" || reviewMode) {
         return choices.map((choice) => ({
-            ...defaultState,
             selected: !!choice.correct,
-            readOnly: true,
-            rationaleShown: true,
-            correctnessShown: true,
         }));
     }
 
@@ -58,5 +44,5 @@ export const getChoiceStates = ({
     // Case 3: Initial state
     // The widget is in its pristine state with no user interaction yet
     // — In this state, we return the default, unselected choice states.
-    return choices.map(() => ({...defaultState}));
+    return choices.map(() => ({selected: false}));
 };

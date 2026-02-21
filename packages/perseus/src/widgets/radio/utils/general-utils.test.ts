@@ -19,16 +19,6 @@ describe("getChoiceStates", () => {
         } as RadioChoiceWithMetadata,
     ];
 
-    const defaultState: ChoiceState = {
-        selected: false,
-        // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
-        highlighted: false,
-        readOnly: false,
-        rationaleShown: false,
-        correctnessShown: false,
-        previouslyAnswered: false,
-    };
-
     describe("Case 1: Review mode", () => {
         it("sets correct answers as selected when showSolutions is 'all'", () => {
             // Arrange & Act
@@ -39,15 +29,9 @@ describe("getChoiceStates", () => {
 
             // Assert
             expect(result).toHaveLength(3);
-            expect(result[0]).toEqual({
-                ...defaultState,
-                selected: true,
-                readOnly: true,
-                rationaleShown: true,
-                correctnessShown: true,
-            });
-            expect(result[1].selected).toBe(false);
-            expect(result[2].selected).toBe(false);
+            expect(result[0]).toEqual({selected: true});
+            expect(result[1]).toEqual({selected: false});
+            expect(result[2]).toEqual({selected: false});
         });
 
         it("sets correct answers as selected when reviewMode is true", () => {
@@ -59,15 +43,9 @@ describe("getChoiceStates", () => {
 
             // Assert
             expect(result).toHaveLength(3);
-            expect(result[0]).toEqual({
-                ...defaultState,
-                selected: true,
-                readOnly: true,
-                rationaleShown: true,
-                correctnessShown: true,
-            });
-            expect(result[1].selected).toBe(false);
-            expect(result[2].selected).toBe(false);
+            expect(result[0]).toEqual({selected: true});
+            expect(result[1]).toEqual({selected: false});
+            expect(result[2]).toEqual({selected: false});
         });
     });
 
@@ -75,8 +53,8 @@ describe("getChoiceStates", () => {
         it("preserves user's current choice states", () => {
             // Arrange
             const userChoiceStates: ChoiceState[] = [
-                {...defaultState, selected: true},
-                {...defaultState, selected: false},
+                {selected: true},
+                {selected: false},
             ];
 
             // Act
@@ -99,9 +77,9 @@ describe("getChoiceStates", () => {
 
             // Assert
             expect(result).toHaveLength(3);
-            expect(result[0]).toEqual(defaultState);
-            expect(result[1]).toEqual(defaultState);
-            expect(result[2]).toEqual(defaultState);
+            expect(result[0]).toEqual({selected: false});
+            expect(result[1]).toEqual({selected: false});
+            expect(result[2]).toEqual({selected: false});
         });
     });
 });

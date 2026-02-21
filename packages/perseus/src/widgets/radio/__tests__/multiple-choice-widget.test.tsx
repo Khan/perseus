@@ -77,6 +77,7 @@ const getBaseProps = (
     deselectEnabled: baseOptions.deselectEnabled,
     choices: baseChoices,
     choiceStates: baseChoiceStates,
+    onChoiceChange: jest.fn(),
     editMode: false,
     labelWrap: false,
     randomize: false,

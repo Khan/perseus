@@ -46,35 +46,15 @@ const expectedSerializedRadio = {
     choiceStates: [
         {
             selected: true, // <= note we stash user input
-            highlighted: false,
-            rationaleShown: false,
-            correctnessShown: false,
-            previouslyAnswered: false,
-            readOnly: false,
         },
         {
             selected: false,
-            highlighted: false,
-            rationaleShown: false,
-            correctnessShown: false,
-            previouslyAnswered: false,
-            readOnly: false,
         },
         {
             selected: false,
-            highlighted: false,
-            rationaleShown: false,
-            correctnessShown: false,
-            previouslyAnswered: false,
-            readOnly: false,
         },
         {
             selected: false,
-            highlighted: false,
-            rationaleShown: false,
-            correctnessShown: false,
-            previouslyAnswered: false,
-            readOnly: false,
         },
     ],
 };
