@@ -1,6 +1,5 @@
 const DEFAULT_FEATURE_FLAGS = {
     "new-radio-widget": false,
-    "image-widget-upgrade": false,
     "image-widget-upgrade-alignment": false,
     // ...add new flags here
 };

@@ -231,10 +231,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         <div className="perseus-editor-row" key={i}>
                             <fieldset disabled={editingDisabled}>
                                 <div className="perseus-editor-left-cell">
-                                    <IssuesPanel
-                                        apiOptions={this.props.apiOptions}
-                                        issues={this.state.issues}
-                                    />
+                                    <IssuesPanel issues={this.state.issues} />
                                     <div className="pod-title">
                                         Section {i + 1}
                                         <div

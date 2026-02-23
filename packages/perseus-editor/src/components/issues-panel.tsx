@@ -11,8 +11,6 @@ import IssueDetails from "./issue-details";
 import LabeledSwitch from "./labeled-switch";
 import ToggleableCaret from "./toggleable-caret";
 
-import type {APIOptions} from "@khanacademy/perseus";
-
 export type IssueImpact = "low" | "medium" | "high";
 export type Issue = {
     id: string;
@@ -25,9 +23,6 @@ export type Issue = {
 };
 
 type IssuesPanelProps = {
-    // TODO(LEMS-3520): Remove the `apiOptions` prop once the
-    // "image-widget-upgrade" feature flag is has been fully rolled out.
-    apiOptions?: APIOptions;
     issues?: Issue[];
     a11yCheck?: {
         callback: () => void;
@@ -36,7 +31,7 @@ type IssuesPanelProps = {
 };
 
 const IssuesPanel = (props: IssuesPanelProps) => {
-    const {apiOptions, issues = []} = props;
+    const {issues = []} = props;
     const a11yCheck = props.a11yCheck || {
         callback: () => {},
         isChecked: false,
@@ -94,11 +89,7 @@ const IssuesPanel = (props: IssuesPanelProps) => {
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
                         {sortedIssues.map((issue) => (
-                            <IssueDetails
-                                apiOptions={apiOptions}
-                                key={issue.id}
-                                issue={issue}
-                            />
+                            <IssueDetails key={issue.id} issue={issue} />
                         ))}
                         {issues.length === 0 && <div>No issues found</div>}
                         <LabeledSwitch
