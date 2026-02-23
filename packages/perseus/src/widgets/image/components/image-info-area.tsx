@@ -83,7 +83,7 @@ export const ImageInfoArea = (props: ImageInfoAreaProps) => {
 
             {/* Spacer if both GIF controls and description are shown */}
             {gifControlsFF && imageIsGif && longDescription && (
-                <div className={styles.spacer} />
+                <div className={styles.spacerHorizontal} />
             )}
 
             {/* Description */}
