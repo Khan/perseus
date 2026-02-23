@@ -148,6 +148,15 @@ describe("group widget", () => {
 
     it("should return contained renderer's getSerializedState", async () => {
         // Arrange
+        const expectedChoiceState = {
+            selected: false,
+            // TODO (LEMS-3185): REMOVE THESE FIELDS
+            highlighted: false,
+            readOnly: false,
+            rationaleShown: false,
+            correctnessShown: false,
+            previouslyAnswered: false,
+        };
         const {renderer} = renderQuestion(question1);
         await userEvent.type(screen.getAllByRole("textbox")[0], "99");
 
@@ -160,11 +169,11 @@ describe("group widget", () => {
                 "radio 1": {
                     alignment: "default",
                     choiceStates: [
-                        {selected: false},
-                        {selected: false},
-                        {selected: false},
-                        {selected: false},
-                        {selected: false},
+                        expectedChoiceState,
+                        expectedChoiceState,
+                        expectedChoiceState,
+                        expectedChoiceState,
+                        expectedChoiceState,
                     ],
                     choices: [
                         {

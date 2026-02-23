@@ -158,6 +158,12 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
                                 ) ?? false;
                             return {
                                 selected,
+                                // TODO (LEMS-3185): REMOVE THESE FIELDS
+                                highlighted: false,
+                                readOnly: false,
+                                rationaleShown: false,
+                                correctnessShown: false,
+                                previouslyAnswered: false,
                             };
                         }),
                     };
