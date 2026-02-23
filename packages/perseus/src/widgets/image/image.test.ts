@@ -29,6 +29,10 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
     const apiOptions: APIOptions = {
         isMobile,
+    };
+
+    const apiOptionsWithFeatureFlag = {
+        ...apiOptions,
         flags: getFeatureFlags({
             "image-widget-upgrade-gif-controls": true,
         }),
@@ -817,7 +821,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(gifImageQuestion, apiOptions);
+            renderQuestion(gifImageQuestion, apiOptionsWithFeatureFlag);
 
             // Assert
             const playButton = screen.getByRole("button", {
@@ -838,7 +842,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
 
             // Assert
             const playButton = screen.queryByRole("button", {
@@ -863,7 +867,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(gifImageQuestion, apiOptions);
+            renderQuestion(gifImageQuestion, apiOptionsWithFeatureFlag);
 
             // Act - gif is paused by default, click play button
             const playButton = screen.getByRole("button", {
@@ -890,7 +894,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(gifImageQuestion, apiOptions);
+            renderQuestion(gifImageQuestion, apiOptionsWithFeatureFlag);
 
             // Act - gif is paused by default, click play button
             const playButton = screen.getByRole("button", {
