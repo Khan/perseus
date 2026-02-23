@@ -22,6 +22,8 @@ export const GifControlsIcon = ({
                 isPlaying ? strings.gifPauseAriaLabel : strings.gifPlayAriaLabel
             }
             onClick={onToggle}
+            // Stop the icon button from getting squished.
+            style={{flexShrink: 0}}
         />
     );
 };

@@ -161,6 +161,8 @@ export const GifImage: Story = {
     args: {
         backgroundImage: gifImage,
         alt: gifImageAlt,
+        caption: gifImageAlt,
+        longDescription: gifImageAlt,
     },
 };
 
