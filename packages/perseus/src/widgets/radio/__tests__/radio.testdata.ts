@@ -145,7 +145,7 @@ export const choicesWithImageWidgets: PerseusRenderer =
                 options: generateRadioOptions({
                     choices: [
                         generateRadioChoice(
-                            "Same \nLine\n[[☃ image 1]]\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
+                            "Same \nLine\n[[☃ image 1]]\nSame\nLine",
                             {
                                 rationale:
                                     "The markdown only has single lines between each item, so they should be treated as one complete line.",
@@ -164,38 +164,105 @@ export const choicesWithImageWidgets: PerseusRenderer =
                             },
                         ),
                         generateRadioChoice(
-                            "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                            "Text \n\nBefore\n\n[[☃ image 1]]",
                             {
                                 rationale:
                                     "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
+                                widgets: {
+                                    "image 1": generateImageWidget({
+                                        options: generateImageOptions({
+                                            backgroundImage: {
+                                                url: "https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png",
+                                                width: 100,
+                                                height: 100,
+                                            },
+                                            alt: "2 micron diameter cell",
+                                        }),
+                                    }),
+                                },
                             },
                         ),
                         generateRadioChoice(
-                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
+                            "[[☃ image 1]]\n\nText \n\nAfter",
                             {
                                 rationale:
                                     "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
+                                widgets: {
+                                    "image 1": generateImageWidget({
+                                        options: generateImageOptions({
+                                            backgroundImage: {
+                                                url: "https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png",
+                                                width: 100,
+                                                height: 100,
+                                            },
+                                            alt: "2 micron diameter cell",
+                                        }),
+                                    }),
+                                },
                             },
                         ),
                         generateRadioChoice(
-                            "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
+                            "Text \n\nBefore\n\n[[☃ image 1]]\n\nText \n\nAfter",
                             {
                                 rationale:
                                     "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
+                                widgets: {
+                                    "image 1": generateImageWidget({
+                                        options: generateImageOptions({
+                                            backgroundImage: {
+                                                url: "https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png",
+                                                width: 100,
+                                                height: 100,
+                                            },
+                                            alt: "2 micron diameter cell",
+                                        }),
+                                    }),
+                                },
                             },
                         ),
-                        generateRadioChoice(
-                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                            {
-                                rationale:
-                                    "The markdown only has an image (no text), so nothing should be adjusted.",
+                        generateRadioChoice("[[☃ image 1]]", {
+                            rationale:
+                                "The markdown only has an image (no text), so nothing should be adjusted.",
+                            widgets: {
+                                "image 1": generateImageWidget({
+                                    options: generateImageOptions({
+                                        backgroundImage: {
+                                            url: "https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png",
+                                            width: 100,
+                                            height: 100,
+                                        },
+                                        alt: "2 micron diameter cell",
+                                    }),
+                                }),
                             },
-                        ),
+                        }),
                         generateRadioChoice(
-                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                            "[[☃ image 1]]\n\n[[☃ image 2]]",
                             {
                                 rationale:
                                     "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
+                                widgets: {
+                                    "image 1": generateImageWidget({
+                                        options: generateImageOptions({
+                                            backgroundImage: {
+                                                url: "https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png",
+                                                width: 100,
+                                                height: 100,
+                                            },
+                                            alt: "2 micron diameter cell",
+                                        }),
+                                    }),
+                                    "image 2": generateImageWidget({
+                                        options: generateImageOptions({
+                                            backgroundImage: {
+                                                url: "https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png",
+                                                width: 100,
+                                                height: 100,
+                                            },
+                                            alt: "2 micron diameter cell",
+                                        }),
+                                    }),
+                                },
                             },
                         ),
                     ],

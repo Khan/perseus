@@ -33,6 +33,9 @@ const radioWidgetLogic: WidgetLogic = {
     name: "radio",
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
+
+    supportedAlignments: ["block", "wrap-left", "wrap-right", "full-width"],
+    defaultAlignment: "block",
     getPublicWidgetOptions: getRadioPublicWidgetOptions,
     accessible: true,
 };
