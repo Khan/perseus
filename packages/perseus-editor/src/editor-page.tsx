@@ -304,11 +304,10 @@ class EditorPage extends React.Component<Props, State> {
                 if (widget?.type === "radio" && widget.options) {
                     // Shallow copy to avoid mutating the source object
                     widget.options = {...widget.options};
-                    if (widget.options._showShuffledPreview) {
-                        delete widget.options._showShuffledPreview;
-                    } else {
+                    if (!widget.options._showShuffledPreview) {
                         widget.options.randomize = false;
                     }
+                    delete widget.options._showShuffledPreview;
                 }
             }
         }
