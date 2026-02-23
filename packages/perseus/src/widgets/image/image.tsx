@@ -9,7 +9,7 @@ import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
-import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
+import {ImageInfoArea} from "./components/image-info-area";
 import styles from "./image-widget.module.css";
 import {isGif} from "./utils";
 
@@ -181,7 +181,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
 
             {/* Description & Caption */}
             {((gifControlsFF && imageIsGif) || caption || longDescription) && (
-                <ImageDescriptionAndCaption
+                <ImageInfoArea
                     zoomSize={zoomSize}
                     isGifPlaying={isGifPlaying}
                     setIsGifPlaying={setIsGifPlaying}

@@ -20,7 +20,7 @@ import {GifControlsIcon} from "./gif-controls-icon";
 import type {APIOptions} from "../../../types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-export interface ImageDescriptionAndCaptionProps {
+export interface ImageInfoAreaProps {
     backgroundImage: PerseusImageBackground;
     title: string;
     caption: string;
@@ -44,9 +44,7 @@ export interface ImageDescriptionAndCaptionProps {
     setIsGifPlaying: (isPaused: boolean) => void;
 }
 
-export const ImageDescriptionAndCaption = (
-    props: ImageDescriptionAndCaptionProps,
-) => {
+export const ImageInfoArea = (props: ImageInfoAreaProps) => {
     const {
         backgroundImage,
         caption,
@@ -74,7 +72,7 @@ export const ImageDescriptionAndCaption = (
     const imageIsGif = isGif(backgroundImage.url);
 
     return (
-        <div className={styles.descriptionAndCaptionContainer}>
+        <div className={styles.infoAreaContainer}>
             {/* GIF controls */}
             {gifControlsFF && imageIsGif && (
                 <GifControlsIcon

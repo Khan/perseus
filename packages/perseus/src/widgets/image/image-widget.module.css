@@ -15,7 +15,7 @@
     padding-block-end: var(--wb-sizing-size_160);
 }
 
-.description-and-caption-container {
+.info-area-container {
     display: flex;
     flex-direction: row;
     margin-block-start: var(--wb-sizing-size_160);
