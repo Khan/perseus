@@ -88,9 +88,7 @@ function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
                     content={question.content}
                     widgets={question.widgets}
                     images={question.images}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                    }}
+                    apiOptions={ApiOptions.defaults}
                 />
             )}
         </UserInputManager>
