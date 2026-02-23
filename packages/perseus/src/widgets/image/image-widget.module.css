@@ -79,6 +79,10 @@
     padding-block-end: var(--wb-sizing-size_240);
 }
 
+.spacer {
+    margin-inline-end: var(--wb-sizing-size_160);
+}
+
 /* NOTE: It looks like this 767px is hardcoded in CSS files.
     It can be found in packages/perseus/src/styles/constants.ts as
     a breakpoint constant to be used in jsx/tsx files. */

@@ -8,6 +8,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependenciesV2,
@@ -17,7 +18,7 @@ import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question} from "./image.testdata";
-import {earthMoonImage, graphieImage} from "./utils";
+import {earthMoonImage, gifImage, graphieImage} from "./utils";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -28,6 +29,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
     const apiOptions: APIOptions = {
         isMobile,
+        flags: getFeatureFlags({
+            "image-widget-upgrade-gif-controls": true,
+        }),
     };
 
     beforeEach(() => {
@@ -797,6 +801,181 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             const figure = screen.getByRole("figure");
             expect(figure).toBeVisible();
             expect(container).toMatchSnapshot("widget-wrap-right");
+        });
+    });
+
+    describe("gif controls", () => {
+        it("should render gif controls if the image is a gif", () => {
+            // Arrange, Act
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(gifImageQuestion, apiOptions);
+
+            // Assert
+            const playButton = screen.getByRole("button", {
+                name: "Play animation.",
+            });
+            expect(playButton).toBeVisible();
+        });
+
+        it("should not render gif controls if the image is not a gif", () => {
+            // Arrange, Act
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Assert
+            const playButton = screen.queryByRole("button", {
+                name: "Play animation.",
+            });
+            const pauseButton = screen.queryByRole("button", {
+                name: "Pause animation.",
+            });
+            expect(playButton).not.toBeInTheDocument();
+            expect(pauseButton).not.toBeInTheDocument();
+        });
+
+        it("should show the pause icon when the gif is playing", async () => {
+            // Arrange
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(gifImageQuestion, apiOptions);
+
+            // Act - gif is paused by default, click play button
+            const playButton = screen.getByRole("button", {
+                name: "Play animation.",
+            });
+            await userEvent.click(playButton);
+
+            // Assert - gif is playing, button has changed to pause icon
+            const pauseButton = screen.getByRole("button", {
+                name: "Pause animation.",
+            });
+            expect(pauseButton).toBeVisible();
+        });
+
+        it("should show the play icon when the gif is paused", async () => {
+            // Arrange
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(gifImageQuestion, apiOptions);
+
+            // Act - gif is paused by default, click play button
+            const playButton = screen.getByRole("button", {
+                name: "Play animation.",
+            });
+            await userEvent.click(playButton);
+
+            // Assert - button has changed to pause icon
+            const pauseButton = screen.getByRole("button", {
+                name: "Pause animation.",
+            });
+            expect(pauseButton).toBeVisible();
+
+            // Act - click pause button to pause gif
+            await userEvent.click(pauseButton);
+
+            // Assert - button has changed to play icon
+            const playButtonAgain = screen.getByRole("button", {
+                name: "Play animation.",
+            });
+            expect(playButtonAgain).toBeVisible();
+        });
+    });
+
+    describe("flags", () => {
+        it("should render gif controls when the feature flag is enabled", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+
+            const apiOptionsWithFeatureFlag = {
+                ...apiOptions,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-gif-controls": true,
+                }),
+            };
+
+            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+
+            // Assert
+            const playButton = screen.getByRole("button", {
+                name: "Play animation.",
+            });
+            expect(playButton).toBeVisible();
+        });
+
+        it("should not render gif controls when the feature flag is disabled", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+
+            const apiOptionsWithFeatureFlag = {
+                ...apiOptions,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-gif-controls": false,
+                }),
+            };
+
+            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+
+            // Assert
+            const playButton = screen.queryByRole("button", {
+                name: "Play animation.",
+            });
+            const pauseButton = screen.queryByRole("button", {
+                name: "Pause animation.",
+            });
+            expect(playButton).not.toBeInTheDocument();
+            expect(pauseButton).not.toBeInTheDocument();
         });
     });
 });

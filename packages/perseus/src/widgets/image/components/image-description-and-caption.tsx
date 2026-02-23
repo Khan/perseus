@@ -1,3 +1,10 @@
+import {
+    isFeatureOn,
+    type Interval,
+    type PerseusImageBackground,
+    type PerseusImageLabel,
+    type Size,
+} from "@khanacademy/perseus-core";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import * as React from "react";
 
@@ -7,14 +14,9 @@ import styles from "../image-widget.module.css";
 
 import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
+import {GifControlsIcon} from "./gif-controls-icon";
 
 import type {APIOptions} from "../../../types";
-import type {
-    Interval,
-    PerseusImageBackground,
-    PerseusImageLabel,
-    Size,
-} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 export interface ImageDescriptionAndCaptionProps {
@@ -37,20 +39,47 @@ export interface ImageDescriptionAndCaptionProps {
      * determine if the image is large enough to allow zooming.
      */
     zoomSize: Size;
+    imageIsGif: boolean;
+    isGifPlaying: boolean;
+    setIsGifPlaying: (isPaused: boolean) => void;
 }
 
 export const ImageDescriptionAndCaption = (
     props: ImageDescriptionAndCaptionProps,
 ) => {
-    const {caption, longDescription, apiOptions, linterContext, zoomSize} =
-        props;
+    const {
+        caption,
+        longDescription,
+        apiOptions,
+        linterContext,
+        zoomSize,
+        imageIsGif,
+        isGifPlaying,
+        setIsGifPlaying,
+    } = props;
 
     const [zoomWidth, _] = zoomSize;
 
     const context = React.useContext(PerseusI18nContext);
 
+    const gifControlsFF = isFeatureOn(
+        {apiOptions},
+        "image-widget-upgrade-gif-controls",
+    );
+
     return (
         <div className={styles.descriptionAndCaptionContainer}>
+            {/* GIF controls */}
+            {gifControlsFF && imageIsGif && (
+                <GifControlsIcon
+                    isPlaying={isGifPlaying}
+                    onToggle={() => setIsGifPlaying(!isGifPlaying)}
+                />
+            )}
+
+            {/* Spacer if both GIF controls and description are shown */}
+            {imageIsGif && longDescription && <div className={styles.spacer} />}
+
             {/* Description */}
             {longDescription && (
                 <ModalLauncher modal={<ExploreImageModal {...props} />}>
