@@ -1,4 +1,3 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
@@ -32,7 +31,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         widgetId,
     } = props;
     const context = React.useContext(PerseusI18nContext);
-    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
     const {analytics} = useDependencies();
 
     const [zoomSize, setZoomSize] = React.useState<Size>([
@@ -126,7 +124,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     );
 
     // Early return for decorative images
-    if (imageUpgradeFF && decorative) {
+    if (decorative) {
         return (
             <figure
                 className="perseus-image-widget"
@@ -172,7 +170,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {svgImage}
 
             {/* Description & Caption */}
-            {(caption || (imageUpgradeFF && longDescription)) && (
+            {(caption || longDescription) && (
                 <ImageDescriptionAndCaption zoomSize={zoomSize} {...props} />
             )}
         </figure>

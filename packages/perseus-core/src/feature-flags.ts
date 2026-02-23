@@ -11,7 +11,6 @@
  */
 const PerseusFeatureFlags = [
     "new-radio-widget", // TODO(LEMS-2994): clean up feature flag
-    "image-widget-upgrade", // TODO(LEMS-3521): clean up feature flag
     "image-widget-upgrade-alignment", // TODO(LEMS-3521): clean up feature flag
 ] as const;
 
