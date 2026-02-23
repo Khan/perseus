@@ -34,7 +34,6 @@ const defaultProps = {
         stack: ["widget"],
     },
     apiOptions: ApiOptions.defaults,
-    imageIsGif: false,
     isGifPlaying: false,
     setIsGifPlaying: () => {},
 };

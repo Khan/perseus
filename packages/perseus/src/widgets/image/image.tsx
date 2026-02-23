@@ -183,7 +183,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {((gifControlsFF && imageIsGif) || caption || longDescription) && (
                 <ImageDescriptionAndCaption
                     zoomSize={zoomSize}
-                    imageIsGif={imageIsGif}
                     isGifPlaying={isGifPlaying}
                     setIsGifPlaying={setIsGifPlaying}
                     {...props}

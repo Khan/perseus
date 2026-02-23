@@ -11,6 +11,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
+import {isGif} from "../utils";
 
 import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
@@ -39,7 +40,6 @@ export interface ImageDescriptionAndCaptionProps {
      * determine if the image is large enough to allow zooming.
      */
     zoomSize: Size;
-    imageIsGif: boolean;
     isGifPlaying: boolean;
     setIsGifPlaying: (isPaused: boolean) => void;
 }
@@ -48,12 +48,12 @@ export const ImageDescriptionAndCaption = (
     props: ImageDescriptionAndCaptionProps,
 ) => {
     const {
+        backgroundImage,
         caption,
         longDescription,
         apiOptions,
         linterContext,
         zoomSize,
-        imageIsGif,
         isGifPlaying,
         setIsGifPlaying,
     } = props;
@@ -66,6 +66,12 @@ export const ImageDescriptionAndCaption = (
         {apiOptions},
         "image-widget-upgrade-gif-controls",
     );
+
+    if (!backgroundImage.url) {
+        return null;
+    }
+
+    const imageIsGif = isGif(backgroundImage.url);
 
     return (
         <div className={styles.descriptionAndCaptionContainer}>
