@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 28.12.1
+
+### Patch Changes
+
+-   [#3264](https://github.com/Khan/perseus/pull/3264) [`304c071f16`](https://github.com/Khan/perseus/commit/304c071f1606b2398966449eacaaed219d74668c) Thanks [@benchristel](https://github.com/benchristel)! - Ensure the `correct` prop of interactive graphs matches the type of the `graph` prop. This works around a bug in the AX editor.
+
+-   Updated dependencies [[`2d5364d93b`](https://github.com/Khan/perseus/commit/2d5364d93b4311a659d701dde9b97aec66aade99), [`131d5e6688`](https://github.com/Khan/perseus/commit/131d5e6688a1ba5d70f383538022a39d63afac15)]:
+    -   @khanacademy/perseus@75.2.0
+
 ## 28.12.0
 
 ### Minor Changes
