@@ -79,10 +79,10 @@ describe("ArticleEditor", () => {
 
         // Assert
         expect(screen.getByText("1 issue")).toBeInTheDocument();
-        expect(screen.getByText("Warning: image-markdown")).toBeInTheDocument();
+        expect(screen.getByText("Error: image-markdown")).toBeInTheDocument();
 
         // Act - open the issue details
-        const detailAccordion = screen.getByText("Warning: image-markdown");
+        const detailAccordion = screen.getByText("Error: image-markdown");
         await userEvent.click(detailAccordion);
 
         // Assert
