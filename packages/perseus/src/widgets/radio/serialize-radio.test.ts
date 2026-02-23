@@ -48,37 +48,37 @@ const expectedSerializedRadio = {
             selected: true, // <= note we stash user input
             // TODO (LEMS-3185): REMOVE THESE FIELDS
             highlighted: false,
-            readOnly: false,
             rationaleShown: false,
             correctnessShown: false,
             previouslyAnswered: false,
+            readOnly: false,
         },
         {
             selected: false,
             // TODO (LEMS-3185): REMOVE THESE FIELDS
             highlighted: false,
-            readOnly: false,
             rationaleShown: false,
             correctnessShown: false,
             previouslyAnswered: false,
+            readOnly: false,
         },
         {
             selected: false,
             // TODO (LEMS-3185): REMOVE THESE FIELDS
             highlighted: false,
-            readOnly: false,
             rationaleShown: false,
             correctnessShown: false,
             previouslyAnswered: false,
+            readOnly: false,
         },
         {
             selected: false,
             // TODO (LEMS-3185): REMOVE THESE FIELDS
             highlighted: false,
-            readOnly: false,
             rationaleShown: false,
             correctnessShown: false,
             previouslyAnswered: false,
+            readOnly: false,
         },
     ],
 };
