@@ -78,7 +78,9 @@ export const ImageDescriptionAndCaption = (
             )}
 
             {/* Spacer if both GIF controls and description are shown */}
-            {imageIsGif && longDescription && <div className={styles.spacer} />}
+            {gifControlsFF && imageIsGif && longDescription && (
+                <div className={styles.spacer} />
+            )}
 
             {/* Description */}
             {longDescription && (
