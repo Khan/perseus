@@ -11,6 +11,7 @@ import * as React from "react";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import UserInputManager from "../../user-input-manager";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -47,6 +48,9 @@ export function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
                     images={question.images}
                     apiOptions={{
                         ...ApiOptions.defaults,
+                        flags: getFeatureFlags({
+                            "image-widget-upgrade-gif-controls": true,
+                        }),
                     }}
                 />
             )}
