@@ -157,6 +157,7 @@ describe("WidgetEditor", () => {
                             "new-radio-widget": false,
                             "image-widget-upgrade-alignment": true,
                             "image-widget-upgrade-gif-controls": false,
+                            "image-widget-upgrade-scale": false,
                         },
                     }}
                 />,
@@ -197,6 +198,7 @@ describe("WidgetEditor", () => {
                             "new-radio-widget": false,
                             "image-widget-upgrade-alignment": true,
                             "image-widget-upgrade-gif-controls": false,
+                            "image-widget-upgrade-scale": false,
                         },
                     }}
                 />,

@@ -36,6 +36,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         {apiOptions},
         "image-widget-upgrade-gif-controls",
     );
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
 
     // Gif should be paused on initial render for a11y.
     const [isGifPlaying, setIsGifPlaying] = React.useState<boolean>(false);
@@ -58,8 +59,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     const imageIsGif = isGif(backgroundImage.url);
 
     let scale = props.scale;
-    // Make sure the scale is valid.
-    if (scale <= 0 || scale === Infinity || scale === -Infinity) {
+    // Set the scale to 1 if the scale flag is disabled or the scale is invalid.
+    if (!scaleFF || scale <= 0 || scale === Infinity || scale === -Infinity) {
         scale = 1;
     }
 

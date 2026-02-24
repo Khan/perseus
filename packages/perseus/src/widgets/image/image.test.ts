@@ -38,6 +38,13 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         }),
     };
 
+    const apiOptionsWithScaleFlag = {
+        ...apiOptions,
+        flags: getFeatureFlags({
+            "image-widget-upgrade-scale": true,
+        }),
+    };
+
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -827,7 +834,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 });
 
                 // Act, Assert
-                renderQuestion(imageQuestion, apiOptions);
+                renderQuestion(imageQuestion, apiOptionsWithScaleFlag);
                 const expectedWidth = earthMoonImage.width * scale;
 
                 // Assert
@@ -854,7 +861,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 });
 
                 // Act, Assert
-                renderQuestion(imageQuestion, apiOptions);
+                renderQuestion(imageQuestion, apiOptionsWithScaleFlag);
 
                 // Assert
                 const image = screen.getByRole("figure");
@@ -1037,6 +1044,64 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
             expect(playButton).not.toBeInTheDocument();
             expect(pauseButton).not.toBeInTheDocument();
+        });
+
+        it("should scale image when the scale flag is enabled", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            scale: 2,
+                        }),
+                    }),
+                },
+            });
+
+            const apiOptionsWithFeatureFlag = {
+                ...apiOptions,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-scale": true,
+                }),
+            };
+
+            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+
+            // Assert
+            const image = screen.getByRole("figure");
+            expect(image).toHaveStyle(
+                `max-width: ${earthMoonImage.width * 2}px`,
+            );
+        });
+
+        it("should not scale image when the scale flag is disabled", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            scale: 2,
+                        }),
+                    }),
+                },
+            });
+
+            const apiOptionsWithFeatureFlag = {
+                ...apiOptions,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-scale": false,
+                }),
+            };
+
+            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+
+            // Assert
+            const image = screen.getByRole("figure");
+            expect(image).toHaveStyle(`max-width: ${earthMoonImage.width}px`);
         });
     });
 });
