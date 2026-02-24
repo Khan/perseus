@@ -3,7 +3,7 @@ import {components} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import Link from "@khanacademy/wonder-blocks-link";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {Footnote} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
@@ -346,9 +346,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
         const shufflePreviewStyle = {
             marginBlockEnd: sizing.size_060,
-            ...(!this.props.randomize && {
-                color: semanticColor.core.foreground.disabled.default,
-            }),
         };
 
         return (
