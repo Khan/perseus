@@ -8,8 +8,6 @@ export type NamedSineCoefficient = {
     verticalOffset: number;
 };
 
-// TODO: there's another, very similar getSinusoidCoefficients function
-// they should probably be merged
 export function getSinusoidCoefficients(
     coords: ReadonlyArray<Coord>,
 ): SineCoefficient {
@@ -28,8 +26,6 @@ export function getSinusoidCoefficients(
 
 export type QuadraticCoefficient = [number, number, number];
 
-// TODO: there's another, very similar getQuadraticCoefficients function
-// they should probably be merged
 export function getQuadraticCoefficients(
     coords: ReadonlyArray<Coord>,
 ): QuadraticCoefficient {
