@@ -116,4 +116,8 @@ describe("knumber", function () {
     it("toFraction(0.66, 0.01) should be 2/3", function () {
         expect(number.toFraction(0.66, 0.01)).toStrictEqual([2, 3]);
     });
+
+    it("toFraction(1000/3 - 999/3 should be 1/3)", function () {
+        expect(number.toFraction(1000 / 3 - 999 / 3)).toStrictEqual([1, 3]);
+    });
 });
