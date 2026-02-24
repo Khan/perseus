@@ -8,8 +8,9 @@ import SvgImage from "../../components/svg-image";
 import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 
-import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
+import {ImageInfoArea} from "./components/image-info-area";
 import styles from "./image-widget.module.css";
+import {isGif} from "./utils";
 
 import type {ImageWidgetProps} from "./image.class";
 
@@ -31,8 +32,14 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         widgetId,
     } = props;
     const context = React.useContext(PerseusI18nContext);
-    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
     const {analytics} = useDependencies();
+    const gifControlsFF = isFeatureOn(
+        {apiOptions},
+        "image-widget-upgrade-gif-controls",
+    );
+
+    // Gif should be paused on initial render for a11y.
+    const [isGifPlaying, setIsGifPlaying] = React.useState<boolean>(false);
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
@@ -48,6 +55,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     if (!backgroundImage.url) {
         return null;
     }
+
+    const imageIsGif = isGif(backgroundImage.url);
 
     const svgImage = (
         <AssetContext.Consumer>
@@ -81,7 +90,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     const maxWidth = (backgroundImage.width ?? 0) * scale;
 
     // Early return for decorative images
-    if (imageUpgradeFF && decorative) {
+    if (decorative) {
         return (
             <figure
                 className="perseus-image-widget"
@@ -126,9 +135,13 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {/* Image */}
             {svgImage}
 
-            {/* Description & Caption */}
-            {(caption || (imageUpgradeFF && longDescription)) && (
-                <ImageDescriptionAndCaption {...props} />
+            {/* Gif Controls, Description, and Caption */}
+            {((gifControlsFF && imageIsGif) || caption || longDescription) && (
+                <ImageInfoArea
+                    isGifPlaying={isGifPlaying}
+                    setIsGifPlaying={setIsGifPlaying}
+                    {...props}
+                />
             )}
         </figure>
     );

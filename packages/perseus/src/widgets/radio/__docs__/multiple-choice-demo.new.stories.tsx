@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
     question,
@@ -23,8 +24,6 @@ import type {Meta} from "@storybook/react-vite";
 type StoryArgs = {
     // Story Option
     item: PerseusItem;
-    // Testing Options
-    startAnswerless: boolean;
 } & Pick<
     React.ComponentProps<typeof ServerItemRendererWithDebugUI>,
     "reviewMode" | "showSolutions"
@@ -51,8 +50,6 @@ export default {
         },
     },
     args: {
-        // Requires a page refresh for toggling this to affect the story
-        startAnswerless: false,
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
@@ -73,7 +70,6 @@ export default {
             apiOptions={buildApiOptions(args)}
             reviewMode={args.reviewMode}
             showSolutions={args.showSolutions}
-            startAnswerless={args.startAnswerless}
         />
     ),
 } satisfies Meta<StoryArgs>;
@@ -122,6 +118,7 @@ export const SelectWithImagesAndScroll = {
             question: SingleSelectOverflowImageContent,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const SingleSelectWithScroll = {
@@ -130,6 +127,7 @@ export const SingleSelectWithScroll = {
             question: SingleSelectOverflowContent,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const MultiSelectSimple = {
@@ -154,6 +152,7 @@ export const MultiSelectWithScroll = {
             question: multiChoiceQuestionSimpleOverflowContent,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const GradedGroupSetWithScroll = {
@@ -162,6 +161,7 @@ export const GradedGroupSetWithScroll = {
             question: overflowContentInGradedGroupSet,
         }),
     },
+    decorators: [narrowViewportDecorator],
 };
 
 export const GradedGroup = {
@@ -183,7 +183,6 @@ export const AnswerlessSingleSelect = {
         item: generateTestPerseusItem({
             question: question,
         }),
-        startAnswerless: true,
     },
 };
 
@@ -192,6 +191,5 @@ export const AnswerlessMultiSelect = {
         item: generateTestPerseusItem({
             question: multiChoiceQuestion,
         }),
-        startAnswerless: true,
     },
 };

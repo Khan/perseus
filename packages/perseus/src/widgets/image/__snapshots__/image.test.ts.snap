@@ -55,7 +55,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
               />
             </div>
             <div
-              class="description-and-caption-container"
+              class="info-area-container"
             >
               <figcaption
                 class="perseus-image-caption"
@@ -140,7 +140,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
               />
             </div>
             <div
-              class="description-and-caption-container"
+              class="info-area-container"
             >
               <figcaption
                 class="perseus-image-caption"
@@ -248,7 +248,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                     />
                   </div>
                   <div
-                    class="description-and-caption-container"
+                    class="info-area-container"
                   >
                     <figcaption
                       class="perseus-image-caption"
@@ -409,7 +409,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
               />
             </div>
             <div
-              class="description-and-caption-container"
+              class="info-area-container"
             >
               <figcaption
                 class="perseus-image-caption"
@@ -494,7 +494,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
               />
             </div>
             <div
-              class="description-and-caption-container"
+              class="info-area-container"
             >
               <figcaption
                 class="perseus-image-caption"
@@ -602,7 +602,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                     />
                   </div>
                   <div
-                    class="description-and-caption-container"
+                    class="info-area-container"
                   >
                     <figcaption
                       class="perseus-image-caption"

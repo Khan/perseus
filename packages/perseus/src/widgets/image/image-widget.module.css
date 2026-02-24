@@ -15,7 +15,7 @@
     padding-block-end: var(--wb-sizing-size_160);
 }
 
-.description-and-caption-container {
+.info-area-container {
     display: flex;
     flex-direction: row;
     margin-block-start: var(--wb-sizing-size_160);
@@ -77,6 +77,10 @@
 
 .modal-caption-container {
     padding-block-end: var(--wb-sizing-size_240);
+}
+
+.spacer {
+    margin-inline-end: var(--wb-sizing-size_160);
 }
 
 /* NOTE: It looks like this 767px is hardcoded in CSS files.

@@ -9,7 +9,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependencies,
@@ -28,10 +27,7 @@ const altTextTooLongError =
 const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
 
-const apiOptions = {
-    ...ApiOptions.defaults,
-    flags: getFeatureFlags({"image-widget-upgrade": true}),
-};
+const apiOptions = ApiOptions.defaults;
 
 const ImageEditorWithDependencies = (props: PropsFor<typeof ImageEditor>) => {
     return (
@@ -574,23 +570,6 @@ describe("image editor", () => {
         });
     });
 
-    it("should not render long description field if the feature flag is off", () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        render(
-            <ImageEditorWithDependencies
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                    flags: getFeatureFlags({"image-widget-upgrade": false}),
-                }}
-                onChange={onChangeMock}
-            />,
-        );
-
-        // Assert
-        expect(screen.queryByText("Long Description:")).not.toBeInTheDocument();
-    });
-
     it("should call onChange with new caption", async () => {
         // Arrange
         const onChangeMock = jest.fn();
@@ -750,45 +729,6 @@ describe("image editor", () => {
     });
 
     describe("decorative toggle", () => {
-        it("should render when feature flag is enabled", () => {
-            // Arrange & Act
-            render(
-                <ImageEditorWithDependencies
-                    apiOptions={apiOptions}
-                    backgroundImage={earthMoonImage}
-                    onChange={() => {}}
-                />,
-            );
-
-            // Assert
-            expect(
-                screen.getByRole("switch", {name: "Decorative"}),
-            ).toBeInTheDocument();
-            expect(screen.getByLabelText("Decorative")).toBeInTheDocument();
-        });
-
-        it("should not render feature flag is disabled", () => {
-            // Arrange & Act
-            render(
-                <ImageEditorWithDependencies
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: getFeatureFlags({"image-widget-upgrade": false}),
-                    }}
-                    backgroundImage={earthMoonImage}
-                    onChange={() => {}}
-                />,
-            );
-
-            // Assert
-            expect(
-                screen.queryByRole("switch", {name: "Decorative"}),
-            ).not.toBeInTheDocument();
-            expect(
-                screen.queryByLabelText("Decorative"),
-            ).not.toBeInTheDocument();
-        });
-
         it("should render when decorative is true", () => {
             // Arrange & Act
             render(

@@ -155,8 +155,8 @@ describe("WidgetEditor", () => {
                         // Enable feature flag to use getSupportedAlignments instead of hardcoded values
                         flags: {
                             "new-radio-widget": false,
-                            "image-widget-upgrade": false,
                             "image-widget-upgrade-alignment": true,
+                            "image-widget-upgrade-gif-controls": false,
                         },
                     }}
                 />,
@@ -195,8 +195,8 @@ describe("WidgetEditor", () => {
                         // Enable feature flag to use getSupportedAlignments instead of hardcoded values
                         flags: {
                             "new-radio-widget": false,
-                            "image-widget-upgrade": false,
                             "image-widget-upgrade-alignment": true,
+                            "image-widget-upgrade-gif-controls": false,
                         },
                     }}
                 />,

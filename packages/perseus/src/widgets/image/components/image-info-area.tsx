@@ -1,24 +1,26 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
+import {
+    isFeatureOn,
+    type Interval,
+    type PerseusImageBackground,
+    type PerseusImageLabel,
+    type Size,
+} from "@khanacademy/perseus-core";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
+import {isGif} from "../utils";
 
 import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
+import {GifControlsIcon} from "./gif-controls-icon";
 
 import type {APIOptions} from "../../../types";
-import type {
-    Interval,
-    PerseusImageBackground,
-    PerseusImageLabel,
-    Size,
-} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-export interface ImageDescriptionAndCaptionProps {
+export interface ImageInfoAreaProps {
     backgroundImage: PerseusImageBackground;
     title: string;
     caption: string;
@@ -29,26 +31,51 @@ export interface ImageDescriptionAndCaptionProps {
     range: [Interval, Interval];
     linterContext: LinterContextProps;
     apiOptions: APIOptions;
+    isGifPlaying: boolean;
+    setIsGifPlaying: (isPaused: boolean) => void;
 }
 
-export const ImageDescriptionAndCaption = (
-    props: ImageDescriptionAndCaptionProps,
-) => {
+export const ImageInfoArea = (props: ImageInfoAreaProps) => {
     const {
+        backgroundImage,
         caption,
         longDescription,
         apiOptions,
         linterContext,
-        backgroundImage,
+        isGifPlaying,
+        setIsGifPlaying,
     } = props;
 
     const context = React.useContext(PerseusI18nContext);
-    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
+
+    const gifControlsFF = isFeatureOn(
+        {apiOptions},
+        "image-widget-upgrade-gif-controls",
+    );
+
+    if (!backgroundImage.url) {
+        return null;
+    }
+
+    const imageIsGif = isGif(backgroundImage.url);
 
     return (
-        <div className={styles.descriptionAndCaptionContainer}>
+        <div className={styles.infoAreaContainer}>
+            {/* GIF controls */}
+            {gifControlsFF && imageIsGif && (
+                <GifControlsIcon
+                    isPlaying={isGifPlaying}
+                    onToggle={() => setIsGifPlaying(!isGifPlaying)}
+                />
+            )}
+
+            {/* Spacer if both GIF controls and description are shown */}
+            {gifControlsFF && imageIsGif && longDescription && (
+                <div className={styles.spacer} />
+            )}
+
             {/* Description */}
-            {imageUpgradeFF && longDescription && (
+            {longDescription && (
                 <ModalLauncher modal={<ExploreImageModal {...props} />}>
                     {({openModal}) => (
                         <ExploreImageButton

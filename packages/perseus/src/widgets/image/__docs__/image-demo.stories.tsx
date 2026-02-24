@@ -19,6 +19,8 @@ import {
 import {
     earthMoonImage,
     frescoImage,
+    gifImage,
+    gifImageAlt,
     graphieImage,
     graphieImageAlt,
     portraitImage,
@@ -146,29 +148,13 @@ export const DecorativeImageMobile: Story = {
     },
 };
 
-export const GraphieImage: Story = {
+export const GifImage: Story = {
     decorators: [imageRendererDecorator],
     args: {
-        backgroundImage: graphieImage,
-        alt: graphieImageAlt,
-    },
-};
-
-export const GraphieImageWithBiggerSize: Story = {
-    decorators: [imageRendererDecorator],
-    args: {
-        backgroundImage: graphieImage,
-        scale: 2,
-        alt: graphieImageAlt,
-    },
-};
-
-export const GraphieImageWithSmallerSize: Story = {
-    decorators: [imageRendererDecorator],
-    args: {
-        backgroundImage: graphieImage,
-        scale: 0.5,
-        alt: graphieImageAlt,
+        backgroundImage: gifImage,
+        alt: gifImageAlt,
+        caption: gifImageAlt,
+        longDescription: gifImageAlt,
     },
 };
 

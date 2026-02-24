@@ -234,7 +234,6 @@ export const AnswerlessCircle: Story = {
         item: generateTestPerseusItem({
             question: circleQuestion,
         }),
-        startAnswerless: true,
     },
 };
 
@@ -243,7 +242,6 @@ export const AnswerlessLinear: Story = {
         item: generateTestPerseusItem({
             question: linearQuestion,
         }),
-        startAnswerless: true,
     },
 };
 
@@ -252,7 +250,6 @@ export const AnswerlessLinearSystem: Story = {
         item: generateTestPerseusItem({
             question: linearSystemQuestion,
         }),
-        startAnswerless: true,
     },
 };
 
@@ -261,7 +258,6 @@ export const AnswerlessPoint: Story = {
         item: generateTestPerseusItem({
             question: pointQuestion,
         }),
-        startAnswerless: true,
     },
 };
 
@@ -270,7 +266,6 @@ export const AnswerlessPolygon: Story = {
         item: generateTestPerseusItem({
             question: polygonQuestion,
         }),
-        startAnswerless: true,
     },
 };
 
@@ -279,7 +274,6 @@ export const AnswerlessUnlimitedPolygon: Story = {
         item: generateTestPerseusItem({
             question: unlimitedPolygonQuestion,
         }),
-        startAnswerless: true,
     },
 };
 
@@ -288,7 +282,6 @@ export const AnswerlessRay: Story = {
         item: generateTestPerseusItem({
             question: rayQuestion,
         }),
-        startAnswerless: true,
     },
 };
 
@@ -297,7 +290,6 @@ export const AnswerlessSegment: Story = {
         item: generateTestPerseusItem({
             question: segmentQuestion,
         }),
-        startAnswerless: true,
     },
 };
 
@@ -306,6 +298,5 @@ export const AnswerlessSinusoid: Story = {
         item: generateTestPerseusItem({
             question: sinusoidQuestion,
         }),
-        startAnswerless: true,
     },
 };

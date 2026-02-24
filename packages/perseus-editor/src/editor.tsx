@@ -150,6 +150,13 @@ type State = {
     textAreaValue: string;
 };
 
+// Contextual information that widgets can use,
+// through initializeWidgetOptions,
+// to initialize widget options
+export type InitializeWidgetOptionsParams = {
+    selectedText: string;
+};
+
 // eslint-disable-next-line react/no-unsafe
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
@@ -659,6 +666,7 @@ class Editor extends React.Component<Props, State> {
         const isBlock =
             CoreWidgetRegistry.getDefaultAlignment(widgetType) === "block";
 
+        const selectedText = oldContent.slice(cursorRange[0], cursorRange[1]);
         const prelude = oldContent.slice(0, cursorRange[0]);
         const postlude = oldContent.slice(cursorRange[1]);
 
@@ -672,8 +680,16 @@ class Editor extends React.Component<Props, State> {
         const newContent = newPrelude + widgetContent + newPostlude;
 
         const newWidgets = {...this.props.widgets};
+        const widgetEditor = Widgets.getEditor(widgetType);
+        const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
+            selectedText,
+        };
+        const startWidgetOptions = widgetEditor?.initializeWidgetOptions?.(
+            initializeWidgetOptionsParams,
+        );
+        const defaultProps = widgetEditor?.defaultProps;
         newWidgets[id] = {
-            options: Widgets.getEditor(widgetType)?.defaultProps,
+            options: startWidgetOptions || defaultProps,
             type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
@@ -860,7 +876,6 @@ class Editor extends React.Component<Props, State> {
         let pieces;
         let widgets;
         let underlayPieces;
-        let widgetsDropDown;
         let templatesDropDown;
         let widgetsAndTemplates;
         let wordCountDisplay;
@@ -920,8 +935,7 @@ class Editor extends React.Component<Props, State> {
                 }
             }
 
-            this.widgetIds = _.keys(widgets);
-            widgetsDropDown = <WidgetSelect onChange={this._addWidget} />;
+            this.widgetIds = Object.keys(widgets);
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (
@@ -957,7 +971,7 @@ class Editor extends React.Component<Props, State> {
                 widgetsAndTemplates = (
                     <div className="perseus-editor-widgets">
                         <div className="perseus-editor-widgets-selectors">
-                            {widgetsDropDown}
+                            <WidgetSelect onChange={this._addWidget} />
                             {templatesDropDown}
                             {wordCountDisplay}
                         </div>
