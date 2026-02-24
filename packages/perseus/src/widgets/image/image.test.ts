@@ -808,6 +808,63 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
     });
 
+    describe("scale", () => {
+        it.each([1, 2, 0.5])(
+            "should render with size scaled up by %d",
+            (scale: number) => {
+                // Arrange
+                const imageQuestion = generateTestPerseusRenderer({
+                    content: "[[☃ image 1]]",
+                    widgets: {
+                        "image 1": generateImageWidget({
+                            options: generateImageOptions({
+                                // The earthMoonImage is 400x225 pixels
+                                backgroundImage: earthMoonImage,
+                                scale,
+                            }),
+                        }),
+                    },
+                });
+
+                // Act, Assert
+                renderQuestion(imageQuestion, apiOptions);
+                const expectedWidth = earthMoonImage.width * scale;
+
+                // Assert
+                const image = screen.getByRole("figure");
+                expect(image).toHaveStyle(`max-width: ${expectedWidth}px`);
+            },
+        );
+
+        it.each([0, -1, Infinity, -Infinity])(
+            "uses a scale of 1 if invalid scale is provided (scale: %d)",
+            (scale: number) => {
+                // Arrange
+                const imageQuestion = generateTestPerseusRenderer({
+                    content: "[[☃ image 1]]",
+                    widgets: {
+                        "image 1": generateImageWidget({
+                            options: generateImageOptions({
+                                // The earthMoonImage is 400x225 pixels
+                                backgroundImage: earthMoonImage,
+                                scale,
+                            }),
+                        }),
+                    },
+                });
+
+                // Act, Assert
+                renderQuestion(imageQuestion, apiOptions);
+
+                // Assert
+                const image = screen.getByRole("figure");
+                expect(image).toHaveStyle(
+                    `max-width: ${earthMoonImage.width}px`,
+                );
+            },
+        );
+    });
+
     describe("gif controls", () => {
         it("should render gif controls if the image is a gif", () => {
             // Arrange, Act

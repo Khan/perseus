@@ -19,7 +19,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         apiOptions,
         alt,
         backgroundImage,
-        scale,
         box,
         caption,
         longDescription,
@@ -57,6 +56,12 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     }
 
     const imageIsGif = isGif(backgroundImage.url);
+
+    let scale = props.scale;
+    // Make sure the scale is valid.
+    if (scale <= 0 || scale === Infinity || scale === -Infinity) {
+        scale = 1;
+    }
 
     const svgImage = (
         <AssetContext.Consumer>
