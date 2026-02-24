@@ -337,6 +337,20 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         const numCorrect = deriveNumCorrect(this.props.choices);
         const isEditingDisabled = this.props.apiOptions.editingDisabled;
 
+        const randomizeRowStyle = {
+            display: "flex",
+            alignItems: "center",
+            gap: sizing.size_040,
+            marginBlockEnd: sizing.size_060,
+        };
+
+        const shufflePreviewStyle = {
+            marginBlockEnd: sizing.size_060,
+            ...(!this.props.randomize && {
+                color: semanticColor.core.foreground.disabled.default,
+            }),
+        };
+
         return (
             <div>
                 <Link
@@ -347,12 +361,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                 </Link>
                 <div className="perseus-widget-row">
                     <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: sizing.size_040,
-                            marginBlockEnd: sizing.size_060,
-                        }}
+                        style={randomizeRowStyle}
                     >
                         <LabeledSwitch
                             label="Randomize order"
@@ -383,13 +392,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                 _showShuffledPreview: value,
                             });
                         }}
-                        style={{
-                            marginBlockEnd: sizing.size_060,
-                            ...(!this.props.randomize && {
-                                color: semanticColor.core.foreground.disabled
-                                    .default,
-                            }),
-                        }}
+                        style={shufflePreviewStyle}
                     />
                     <LabeledSwitch
                         label="Multiple selections"
