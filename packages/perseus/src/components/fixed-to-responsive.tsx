@@ -23,7 +23,6 @@ const MIN_VIEWPORT_HEIGHT = 480;
 type Props = {
     width: number;
     height: number;
-    scale?: number;
     children: React.ReactNode;
     className?: string;
     constrainHeight?: boolean;
@@ -34,7 +33,6 @@ type DefaultProps = {
     className: Props["className"];
     constrainHeight: Props["constrainHeight"];
     allowFullBleed: Props["allowFullBleed"];
-    scale: Props["scale"];
 };
 
 type State = {
@@ -49,7 +47,6 @@ class FixedToResponsive extends React.Component<Props, State> {
         className: "",
         constrainHeight: false,
         allowFullBleed: false,
-        scale: 1,
     };
 
     state: State = {
@@ -130,11 +127,7 @@ class FixedToResponsive extends React.Component<Props, State> {
         );
 
         const container = (
-            <div
-                className={className}
-                style={style}
-                data-scale={this.props.scale}
-            >
+            <div className={className} style={style}>
                 {this.props.children}
             </div>
         );
