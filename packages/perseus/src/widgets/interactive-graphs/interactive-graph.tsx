@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe, react/sort-comp */
-import {angles, geometry} from "@khanacademy/kmath";
+import {angles, coefficients, geometry} from "@khanacademy/kmath";
 import {
     approximateEqual,
     Errors,
@@ -44,6 +44,8 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {StatefulMafsGraph} from "./index";
 
 const {getClockwiseAngle} = angles;
+
+const {getSinusoidCoefficients, getQuadraticCoefficients} = coefficients;
 
 const {getLineEquation, getLineIntersectionString, magnitude, vector} =
     geometry;
@@ -213,53 +215,6 @@ type State = any;
     InteractiveGraphPublicWidgetOptions,
     PerseusInteractiveGraphUserInput
 > satisfies PropsFor<typeof InteractiveGraph>;
-
-// TODO: there's another, very similar getSinusoidCoefficients function
-// they should probably be merged
-function getSinusoidCoefficients(coords: Coord[]): SineCoefficient {
-    // It's assumed that p1 is the root and p2 is the first peak
-    const p1 = coords[0];
-    const p2 = coords[1];
-
-    // Resulting coefficients are canonical for this sine curve
-    const amplitude = p2[1] - p1[1];
-    const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
-    const phase = p1[0] * angularFrequency;
-    const verticalOffset = p1[1];
-
-    return [amplitude, angularFrequency, phase, verticalOffset];
-}
-
-// TODO: there's another, very similar getQuadraticCoefficients function
-// they should probably be merged
-function getQuadraticCoefficients(coords: Coord[]): QuadraticCoefficient {
-    const p1 = coords[0];
-    const p2 = coords[1];
-    const p3 = coords[2];
-
-    const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
-    if (denom === 0) {
-        // Many of the callers assume that the return value is always defined.
-        // @ts-expect-error - TS2322 - Type 'undefined' is not assignable to type 'QuadraticCoefficient'.
-        return;
-    }
-    const a =
-        (p3[0] * (p2[1] - p1[1]) +
-            p2[0] * (p1[1] - p3[1]) +
-            p1[0] * (p3[1] - p2[1])) /
-        denom;
-    const b =
-        (p3[0] * p3[0] * (p1[1] - p2[1]) +
-            p2[0] * p2[0] * (p3[1] - p1[1]) +
-            p1[0] * p1[0] * (p2[1] - p3[1])) /
-        denom;
-    const c =
-        (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
-            p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
-            p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) /
-        denom;
-    return [a, b, c];
-}
 
 class InteractiveGraph extends React.Component<Props, State> {
     mafsRef = React.createRef<StatefulMafsGraphType>();
