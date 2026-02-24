@@ -1,4 +1,4 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
+import {isFeatureOn, type Size} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
@@ -9,11 +9,11 @@ import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
-import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
+import {ImageInfoArea} from "./components/image-info-area";
 import styles from "./image-widget.module.css";
+import {isGif} from "./utils";
 
 import type {ImageWidgetProps} from "./image.class";
-import type {Size} from "@khanacademy/perseus-core";
 
 export const ImageComponent = (props: ImageWidgetProps) => {
     const {
@@ -32,13 +32,19 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         widgetId,
     } = props;
     const context = React.useContext(PerseusI18nContext);
-    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
     const {analytics} = useDependencies();
+    const gifControlsFF = isFeatureOn(
+        {apiOptions},
+        "image-widget-upgrade-gif-controls",
+    );
 
     const [zoomSize, setZoomSize] = React.useState<Size>([
         backgroundImage.width || 0,
         backgroundImage.height || 0,
     ]);
+
+    // Gif should be paused on initial render for a11y.
+    const [isGifPlaying, setIsGifPlaying] = React.useState<boolean>(false);
 
     const [zoomWidth, zoomHeight] = zoomSize;
 
@@ -97,6 +103,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         return null;
     }
 
+    const imageIsGif = isGif(backgroundImage.url);
+
     const svgImage = (
         <AssetContext.Consumer>
             {({setAssetStatus}) => (
@@ -126,7 +134,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     );
 
     // Early return for decorative images
-    if (imageUpgradeFF && decorative) {
+    if (decorative) {
         return (
             <figure
                 className="perseus-image-widget"
@@ -172,8 +180,13 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {svgImage}
 
             {/* Description & Caption */}
-            {(caption || (imageUpgradeFF && longDescription)) && (
-                <ImageDescriptionAndCaption zoomSize={zoomSize} {...props} />
+            {((gifControlsFF && imageIsGif) || caption || longDescription) && (
+                <ImageInfoArea
+                    zoomSize={zoomSize}
+                    isGifPlaying={isGifPlaying}
+                    setIsGifPlaying={setIsGifPlaying}
+                    {...props}
+                />
             )}
         </figure>
     );

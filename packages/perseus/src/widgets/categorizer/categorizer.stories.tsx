@@ -34,6 +34,5 @@ export const Question1: Story = {
 export const AnswerlessCategorizer: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
-        startAnswerless: true,
     },
 };
