@@ -302,12 +302,12 @@ class EditorPage extends React.Component<Props, State> {
             for (const widgetId of Object.keys(widgets)) {
                 const widget = widgets[widgetId];
                 if (widget?.type === "radio" && widget.options) {
-                    // Shallow copy to avoid mutating the source object
-                    widget.options = {...widget.options};
-                    if (!widget.options._showShuffledPreview) {
-                        widget.options.randomize = false;
+                    const newOptions = {...widget.options};
+                    if (!newOptions._showShuffledPreview) {
+                        newOptions.randomize = false;
                     }
-                    delete widget.options._showShuffledPreview;
+                    delete newOptions._showShuffledPreview;
+                    widgets[widgetId] = {...widget, options: newOptions};
                 }
             }
         }
