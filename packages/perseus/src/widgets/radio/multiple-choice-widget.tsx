@@ -44,10 +44,7 @@ export type RadioProps = {
     deselectEnabled?: boolean;
     choices: RadioChoiceWithMetadata[];
     choiceStates?: ChoiceState[];
-    editMode?: boolean;
-    labelWrap?: boolean;
     randomize?: boolean;
-    onChoiceChange: (choiceId: string, newCheckedState: boolean) => void;
 };
 
 type RadioWidgetHandle = {

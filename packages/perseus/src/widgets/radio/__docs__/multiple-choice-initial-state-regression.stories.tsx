@@ -18,7 +18,7 @@ import {
     choicesWithImages,
     overflowContentInGradedGroupSet,
     questionWithRationale,
-} from "../__tests__/radio.testdata";
+} from "../__tests__/multiple-choice.testdata";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {StoryObj} from "@storybook/react-vite";

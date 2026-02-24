@@ -23,7 +23,7 @@ import {
     shuffledQuestion,
     shuffledNoneQuestion,
     questionWithUndefinedCorrect,
-} from "./radio.testdata";
+} from "./multiple-choice.testdata";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../../types";
 import type {UserEvent} from "@testing-library/user-event";
