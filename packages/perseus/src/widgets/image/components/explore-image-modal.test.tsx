@@ -34,6 +34,8 @@ const defaultProps = {
         stack: ["widget"],
     },
     apiOptions: ApiOptions.defaults,
+    isGifPlaying: false,
+    setIsGifPlaying: () => {},
 };
 
 describe("ExploreImageModal", () => {
