@@ -1,3 +1,4 @@
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import * as React from "react";
@@ -7,6 +8,7 @@ import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
 import DecorativeToggle from "./decorative-toggle";
 import ImageDimensionsInput from "./image-dimensions-input";
+import ImageScaleInput from "./image-scale-input";
 
 import type {Props} from "../image-editor";
 
@@ -31,6 +33,8 @@ export default function ImageSettings({
     const [altFieldError, setAltFieldError] = React.useState<string | null>(
         null,
     );
+
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
 
     if (!backgroundImage.url) {
         return null;
@@ -80,11 +84,18 @@ export default function ImageSettings({
             />
 
             {/* Dimensions */}
-            <ImageDimensionsInput
-                backgroundImage={backgroundImage}
-                scale={scale}
-                onChange={onChange}
-            />
+            {scaleFF ? (
+                <ImageScaleInput
+                    backgroundImage={backgroundImage}
+                    scale={scale}
+                    onChange={onChange}
+                />
+            ) : (
+                <ImageDimensionsInput
+                    backgroundImage={backgroundImage}
+                    onChange={onChange}
+                />
+            )}
 
             {/* Decorative */}
             <DecorativeToggle

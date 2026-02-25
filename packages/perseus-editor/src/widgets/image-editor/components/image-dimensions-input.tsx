@@ -1,53 +1,85 @@
 import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
-import {Body, BodyMonospace} from "@khanacademy/wonder-blocks-typography";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import * as React from "react";
 
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
 import styles from "../image-editor.module.css";
-import {wbFieldStyles} from "../utils";
+import {
+    wbFieldStyles,
+    getOtherSideLengthWithPreservedAspectRatio,
+} from "../utils";
 
 import type {Props as ImageEditorProps} from "../image-editor";
 import type {PerseusImageBackground} from "@khanacademy/perseus-core";
 
 interface Props {
     backgroundImage: PerseusImageBackground;
-    scale: number;
     onChange: ImageEditorProps["onChange"];
 }
 
+// TODO(LEMS-3912): Remove this component in favor of ImageScaleInput
+// when the image-widget-upgrade-scale feature flag is removed.
 export default function ImageDimensionsInput({
     backgroundImage,
-    scale,
     onChange,
 }: Props) {
-    const width = backgroundImage.width ?? 0;
-    const height = backgroundImage.height ?? 0;
+    function handleWidthChange(newWidth: string) {
+        const newHeight = getOtherSideLengthWithPreservedAspectRatio(
+            backgroundImage.width!, // current side (width)
+            backgroundImage.height!, // other side (height)
+            Number(newWidth), // new side (width)
+        );
 
-    function handleScaleChange(value: string) {
-        const newScale = parseFloat(value);
+        if (isNaN(newHeight)) {
+            return;
+        }
+
+        // Prevent unnecessary updates if values haven't changed
+        const newWidthNumber = Number(newWidth);
+        if (
+            newWidthNumber === backgroundImage.width &&
+            newHeight === backgroundImage.height
+        ) {
+            return;
+        }
+
         onChange({
-            scale: newScale,
+            backgroundImage: {
+                ...backgroundImage,
+                width: newWidthNumber,
+                height: newHeight,
+            },
         });
     }
 
-    function handleScaledWidthChange(value: string) {
-        const newWidth = parseFloat(value);
-        const scale = newWidth / width;
+    function handleHeightChange(newHeight: string) {
+        const newWidth = getOtherSideLengthWithPreservedAspectRatio(
+            backgroundImage.height!, // current side (height)
+            backgroundImage.width!, // other side (width)
+            Number(newHeight), // new side (height)
+        );
+
+        if (isNaN(newWidth)) {
+            return;
+        }
+
+        // Prevent unnecessary updates if values haven't changed
+        const newHeightNumber = Number(newHeight);
+        if (
+            newWidth === backgroundImage.width &&
+            newHeightNumber === backgroundImage.height
+        ) {
+            return;
+        }
 
         onChange({
-            scale: scale,
-        });
-    }
-
-    function handleScaledHeightChange(value: string) {
-        const newHeight = parseFloat(value);
-        const scale = newHeight / height;
-
-        onChange({
-            scale: scale,
+            backgroundImage: {
+                ...backgroundImage,
+                height: newHeightNumber,
+                width: newWidth,
+            },
         });
     }
 
@@ -73,55 +105,37 @@ export default function ImageDimensionsInput({
 
     return (
         <div className={styles.dimensionsContainer}>
-            <BodyMonospace>
-                Original dimensions: {backgroundImage.width} x{" "}
-                {backgroundImage.height}
-            </BodyMonospace>
-            <Button
-                kind="tertiary"
-                size="small"
-                startIcon={arrowCounterClockwise}
-                onClick={handleResetToOriginalSize}
-            >
-                Recalculate original size
-            </Button>
-            <div
-                style={{
-                    width: "100%",
-                    height: "1px",
-                    backgroundColor: "lightgray",
-                    marginTop: 8,
-                    marginBottom: 8,
-                }}
-            />
-            <Body>Scale</Body>
-            <ScrolllessNumberTextField
-                value={scale.toString()}
-                onChange={handleScaleChange}
-            />
             <div className={styles.dimensionsFieldContainer}>
                 <LabeledField
-                    label="Scaled width"
+                    label="Width"
                     field={
                         <ScrolllessNumberTextField
-                            value={(width * scale).toString()}
-                            onChange={handleScaledWidthChange}
+                            value={backgroundImage.width?.toString() ?? ""}
+                            onChange={handleWidthChange}
                         />
                     }
                     styles={wbFieldStyles}
                 />
                 <span className={styles.xSpan}>x</span>
                 <LabeledField
-                    label="Scaled height"
+                    label="Height"
                     field={
                         <ScrolllessNumberTextField
-                            value={(height * scale).toString()}
-                            onChange={handleScaledHeightChange}
+                            value={backgroundImage.height?.toString() ?? ""}
+                            onChange={handleHeightChange}
                         />
                     }
                     styles={wbFieldStyles}
                 />
             </div>
+            <Button
+                kind="tertiary"
+                size="small"
+                startIcon={arrowCounterClockwise}
+                onClick={handleResetToOriginalSize}
+            >
+                Reset to original size
+            </Button>
         </div>
     );
 }

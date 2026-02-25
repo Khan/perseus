@@ -9,6 +9,7 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {getFeatureFlags} from "../../../../perseus/src/testing/feature-flags-util";
 import {
     earthMoonImage,
     graphieImage,
@@ -21,11 +22,11 @@ import {PROD_EDITOR_WIDTH} from "./utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const withinEditorPageDecorator = (_, {args}) => {
+const withinEditorPageDecorator = (_, {args, parameters}) => {
     return (
         <div style={{width: PROD_EDITOR_WIDTH}}>
             <EditorPageWithStorybookPreview
-                apiOptions={ApiOptions.defaults}
+                apiOptions={parameters?.apiOptions ?? ApiOptions.defaults}
                 question={generateTestPerseusRenderer({
                     content: "[[☃ image 1]]",
                     widgets: {
@@ -105,6 +106,29 @@ export const GraphieImage: Story = {
     decorators: [withinEditorPageDecorator],
     args: {
         backgroundImage: graphieImage,
+    },
+};
+
+/**
+ * This Image widget editor has a graphie image, and the scale flag is enabled.
+ */
+export const GraphieImageWithScaleFlag: Story = {
+    name: "Graphie Image with Scale Flag (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: {
+            url: graphieImage.url,
+            width: graphieImage.width / 2,
+            height: graphieImage.height / 2,
+        },
+    },
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-scale": true,
+            }),
+        },
     },
 };
 
