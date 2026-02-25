@@ -6,6 +6,18 @@ import type {KnipConfig} from "knip";
  *
  * To use: `pnpm knip`
  */
+
+const basePackageConfig = {
+    project: ["src/**/*.{ts,tsx,js,jsx}!"],
+    entry: [
+        "src/index.{ts,tsx}!",
+        "src/**/*.cypress.{ts,tsx}",
+        "src/**/*.test.{ts,tsx}",
+        "src/**/*.typetest.{ts,tsx}",
+        "src/**/*.stories.{ts,tsx}",
+    ],
+}
+
 const config: KnipConfig = {
     // About `project` and `entry`: Knip will only look for dead code in
     // `project` files. Files and exports in `project` are reported as unused
@@ -18,28 +30,26 @@ const config: KnipConfig = {
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
-                "packages/perseus-core/src/parse-perseus-json/exhaustive-test-tool/index.ts",
             ],
         },
-        "packages/*": {
-            project: ["src/**/*.{ts,tsx,js,jsx}!"],
+        "packages/*": basePackageConfig,
+        "packages/perseus-core": {
+            ...basePackageConfig,
             entry: [
-                "src/index.{ts,tsx}!",
-                "src/**/*.cypress.{ts,tsx}",
-                "src/**/*.test.{ts,tsx}",
-                "src/**/*.typetest.{ts,tsx}",
-                "src/**/*.stories.{ts,tsx}",
-            ],
-        },
+                ...basePackageConfig.entry,
+                // These files contain test data. They are dynamically imported via
+                // glob patterns, so Knip can't figure out that they're used.
+                "src/parse-perseus-json/regression-tests/{article,item,user-input}-data/**",
+                // CLI used for testing against production data.
+                "src/parse-perseus-json/exhaustive-test-tool/index.ts",
+            ]
+        }
     },
     rules: {
         dependencies: "error",
     },
     // Special exceptions
     ignore: [
-        // These files contain test data. They are dynamically imported via
-        // glob patterns, so Knip can't figure out that they're used.
-        "packages/perseus-core/src/parse-perseus-json/regression-tests/{article,item,user-input}-data/**",
         // TODO(LEMS-3868)
         "packages/perseus-editor/src/preview/message-types.ts",
     ],
