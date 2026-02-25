@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 23.1.0
+
+### Minor Changes
+
+-   [#3270](https://github.com/Khan/perseus/pull/3270) [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade feature flag
+
+### Patch Changes
+
+-   [#3279](https://github.com/Khan/perseus/pull/3279) [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control buttons to explore image modal behind feature flag
+
+*   [#3275](https://github.com/Khan/perseus/pull/3275) [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control icon buttons behind feature flag
+
 ## 23.0.2
 
 ### Patch Changes
