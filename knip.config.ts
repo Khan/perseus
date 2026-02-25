@@ -45,11 +45,6 @@ const config: KnipConfig = {
             ],
         },
     },
-    // Special exceptions
-    ignore: [
-        // TODO(LEMS-3868)
-        "packages/perseus-editor/src/preview/message-types.ts",
-    ],
     // These are packages that are listed in package.json files but not
     // directly imported in our code.
     ignoreDependencies: [
