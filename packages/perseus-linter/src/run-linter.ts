@@ -66,14 +66,14 @@ export function runLinter(
     // issue too. But using JavaScript has its own downsides: there is
     // risk that the linter JavaScript would interfere with
     // widget-related Javascript.
-    let tableWarnings: Array<LinterWarning> = [];
+    let tableWarnings: LinterWarning[] = [];
     let insideTable = false;
 
     // Traverse through the nodes of the parse tree. At each node, loop
     // through the array of lint rules and check whether there is a
     // lint violation at that node.
     tt.traverse((node, state, content) => {
-        const nodeWarnings: Array<any> = [];
+        const nodeWarnings: LinterWarning[] = [];
 
         // If our rule is only designed to be tested against a particular
         // content type and we're not in that content type, we don't need to
