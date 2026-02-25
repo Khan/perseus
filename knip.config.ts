@@ -45,9 +45,6 @@ const config: KnipConfig = {
             ]
         }
     },
-    rules: {
-        dependencies: "error",
-    },
     // Special exceptions
     ignore: [
         // TODO(LEMS-3868)
