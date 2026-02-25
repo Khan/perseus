@@ -230,8 +230,9 @@ describe("ExploreImageModal", () => {
             const pauseButton = screen.getByRole("button", {
                 name: "Pause Animation",
             });
+
+            // Assert
             expect(pauseButton).toBeVisible();
-            await userEvent.click(pauseButton);
         });
 
         it("should show the play icon when the gif is paused", async () => {
@@ -249,7 +250,9 @@ describe("ExploreImageModal", () => {
             const playButton = screen.getByRole("button", {
                 name: "Play Animation",
             });
-            await userEvent.click(playButton);
+
+            // Assert
+            expect(playButton).toBeVisible();
         });
 
         it("should toggle the gif playing state when the play button is clicked", async () => {
