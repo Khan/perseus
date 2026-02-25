@@ -12,7 +12,7 @@ import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {
     sizing,
     spacing,
-    color as wbColor,
+    semanticColor,
 } from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
@@ -301,10 +301,10 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         marginLeft: -spacing.xxxSmall_4,
         marginRight: -spacing.xxxSmall_4,
-        backgroundColor: wbColor.white,
+        backgroundColor: semanticColor.core.background.base.default,
     },
     errorText: {
-        color: wbColor.red,
+        color: semanticColor.core.foreground.critical.default,
         marginTop: spacing.xSmall_8,
     },
     row: {
@@ -316,10 +316,10 @@ const styles = StyleSheet.create({
     },
     horizontalRule: {
         height: 1,
-        backgroundColor: wbColor.offBlack16,
+        backgroundColor: semanticColor.core.border.neutral.subtle,
     },
     labelContainer: {
-        backgroundColor: wbColor.white,
+        backgroundColor: semanticColor.core.background.base.default,
     },
 });
 

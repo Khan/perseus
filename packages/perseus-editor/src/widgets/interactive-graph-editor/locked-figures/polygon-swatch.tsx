@@ -3,7 +3,7 @@ import {
     lockedFigureFillStyles,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     container: {
         // Add a white outline so that the color swatch is visible when
         // the dropdown option is highlighted with its blue background.
-        outline: `2px solid ${wbColor.offWhite}`,
+        outline: `2px solid ${semanticColor.focus.inner}`,
         width: spacing.large_24,
         height: spacing.large_24,
-        backgroundColor: wbColor.white,
+        backgroundColor: semanticColor.core.background.base.default,
         alignItems: "center",
         justifyContent: "center",
     },

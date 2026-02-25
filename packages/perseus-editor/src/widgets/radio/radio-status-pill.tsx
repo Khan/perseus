@@ -1,6 +1,6 @@
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import Pill from "@khanacademy/wonder-blocks-pill";
-import {color, sizing, border} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing, border} from "@khanacademy/wonder-blocks-tokens";
 import checkIcon from "@phosphor-icons/core/bold/check-bold.svg";
 import minusCircleIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
 import * as React from "react";
@@ -26,13 +26,17 @@ export function RadioStatusPill({
             style={{
                 // Space between the pill and the text
                 marginInlineEnd: sizing.size_080,
-                color: correct ? color.white : color.red,
-                backgroundColor: correct ? color.activeGreen : color.fadedRed8,
+                color: correct
+                    ? semanticColor.core.foreground.knockout.default
+                    : semanticColor.core.foreground.critical.default,
+                backgroundColor: correct
+                    ? semanticColor.core.background.success.strong
+                    : semanticColor.core.background.critical.subtle,
                 // Round for single select, square for multiple select
                 borderRadius: multipleSelect
                     ? border.radius.radius_040
                     : sizing.size_240,
-                border: `1px solid ${correct ? color.activeGreen : color.red}`,
+                border: `1px solid ${correct ? semanticColor.core.border.success.strong : semanticColor.core.border.critical.default}`,
                 width: sizing.size_560,
                 flexDirection: "row",
             }}
@@ -43,7 +47,11 @@ export function RadioStatusPill({
                     size="small"
                     icon={correct ? checkIcon : minusCircleIcon}
                     style={{marginInlineEnd: sizing.size_060}}
-                    color={correct ? color.white : color.red}
+                    color={
+                        correct
+                            ? semanticColor.core.foreground.knockout.default
+                            : semanticColor.core.foreground.critical.default
+                    }
                 />
                 {String.fromCharCode(65 + index)}
             </>

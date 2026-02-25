@@ -32,8 +32,8 @@ exports[`Marker component rendering renders an empty marker 1`] = `
           class="labelContainer_cyxkvw"
         >
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="width: 100%;"
           >
             <input
               class="inputBase_w7cswd"
@@ -105,8 +105,8 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
           class="labelContainer_cyxkvw"
         >
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_g8m8cp"
-            style="width: 100%; border: 1px solid rgba(33,36,44,0.16);"
+            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            style="width: 100%;"
           >
             <input
               class="inputBase_w7cswd"
