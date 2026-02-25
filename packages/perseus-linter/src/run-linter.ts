@@ -211,8 +211,8 @@ export function runLinter(
                 const content = node.content; // Text nodes have content
                 const warning = nodeWarnings[0]; // There is only one warning.
                 // These are the lint boundaries within the content
-                const start = warning.start || 0;
-                const end = warning.end || content.length;
+                const start = warning.start;
+                const end = warning.end;
                 const prefix = content.substring(0, start);
                 const lint = content.substring(start, end);
                 const suffix = content.substring(end);
