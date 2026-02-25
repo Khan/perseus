@@ -1,5 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {spacing, color} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {
     BodyMonospace,
     LabelXSmall,
@@ -27,7 +27,7 @@ export function InteractiveGraphCorrectAnswer(props: Props) {
                         style={{
                             paddingTop: spacing.xxSmall_6,
                             paddingBottom: spacing.xxSmall_6,
-                            color: color.offBlack64,
+                            color: semanticColor.core.foreground.neutral.subtle,
                         }}
                     >
                         Graph the correct answer in the graph below and ensure

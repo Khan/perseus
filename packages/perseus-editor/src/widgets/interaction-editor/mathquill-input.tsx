@@ -1,6 +1,6 @@
 import {createMathField, useMathInputI18n} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useRef, useEffect} from "react";
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
         display: "inline-block",
         borderStyle: "solid",
         borderWidth: 1,
-        borderColor: color.offBlack50,
+        borderColor: semanticColor.core.border.neutral.default,
         borderRadius: 3,
-        background: color.white,
+        background: semanticColor.core.background.base.default,
     },
 });

@@ -2,7 +2,7 @@
 /**
  * Reusable checkbox component.
  **/
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -100,8 +100,14 @@ export default class Checkbox extends React.Component<CheckboxProps> {
                                             rx={borderRadius}
                                         />
                                         <path
-                                            fill={color.white}
-                                            stroke={color.white}
+                                            fill={
+                                                semanticColor.core.foreground
+                                                    .knockout.default
+                                            }
+                                            stroke={
+                                                semanticColor.core.foreground
+                                                    .knockout.default
+                                            }
                                             d="M4.98 7.41a0.58.58 0 1 0-0.81.81L6.47
                                  10.53c0.23.23.59.23.81
                                  0l4.55-4.55a0.58.58 0 0
@@ -111,7 +117,10 @@ export default class Checkbox extends React.Component<CheckboxProps> {
                                 )}
                                 {!checked && (
                                     <rect
-                                        fill={color.white}
+                                        fill={
+                                            semanticColor.core.foreground
+                                                .knockout.default
+                                        }
                                         stroke={gray68}
                                         width={size - 2 * padding}
                                         height={size - 2 * padding}
