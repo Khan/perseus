@@ -38,28 +38,25 @@ export default function ExploreImageModalContent({
         return null;
     }
 
-    let width: number;
-    let modalImageHeight: number;
+    // Contain the image to the modal dimensions:
+    // - Shrink image to the modal height if it's taller than the modal.
+    // - Keep image its original size if it's shorter than the modal.
+    // - Maintain the image's aspect ratio.
+    let modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
+    // bgWidth / bgHeight = X / modalImageHeight
+    // => X = (bgWidth / bgHeight) * modalImageHeight
+    let width = (zoomWidth / zoomHeight) * modalImageHeight;
 
     if (scaleFF) {
         // Contain the image to the modal dimensions:
         // - Shrink image to the modal height if it's taller than the modal.
         // - Keep image its original size if it's shorter than the modal.
         // - Maintain the image's aspect ratio.
-        const modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
+        modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
         // bgWidth / bgHeight = X / modalImageHeight
         // => X = (bgWidth / bgHeight) * modalImageHeight
         width =
             (backgroundImage.width / backgroundImage.height) * modalImageHeight;
-    } else {
-        // Contain the image to the modal dimensions:
-        // - Shrink image to the modal height if it's taller than the modal.
-        // - Keep image its original size if it's shorter than the modal.
-        // - Maintain the image's aspect ratio.
-        const modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
-        // bgWidth / bgHeight = X / modalImageHeight
-        // => X = (bgWidth / bgHeight) * modalImageHeight
-        width = (zoomWidth / zoomHeight) * modalImageHeight;
     }
 
     return (
