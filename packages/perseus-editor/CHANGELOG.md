@@ -1,5 +1,28 @@
 # @khanacademy/perseus-editor
 
+## 28.13.0
+
+### Minor Changes
+
+-   [#3270](https://github.com/Khan/perseus/pull/3270) [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade feature flag
+
+### Patch Changes
+
+-   [#3244](https://github.com/Khan/perseus/pull/3244) [`13247bac3e`](https://github.com/Khan/perseus/commit/13247bac3e3541e470d65552d9c306e7db37fc9b) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB `color` references to use the new `semanticColor` tokens instead.
+
+*   [#3279](https://github.com/Khan/perseus/pull/3279) [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control buttons to explore image modal behind feature flag
+
+-   [#3275](https://github.com/Khan/perseus/pull/3275) [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control icon buttons behind feature flag
+
+-   Updated dependencies [[`46e100430a`](https://github.com/Khan/perseus/commit/46e100430a3f2519df7549d6c68f9f6176702d9c), [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373), [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe), [`7023b4dae0`](https://github.com/Khan/perseus/commit/7023b4dae02a49a146f8ef645b87c3d1008c41ee), [`7682804e0e`](https://github.com/Khan/perseus/commit/7682804e0eda17cb227150bcc447d6bcc7a958ad), [`78031be86b`](https://github.com/Khan/perseus/commit/78031be86b0b424331259ce15c0f82ad1d43bbe4), [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1)]:
+    -   @khanacademy/perseus-linter@4.8.1
+    -   @khanacademy/perseus@75.3.0
+    -   @khanacademy/perseus-core@23.1.0
+    -   @khanacademy/kmath@2.2.33
+    -   @khanacademy/keypad-context@3.2.33
+    -   @khanacademy/math-input@26.4.1
+    -   @khanacademy/perseus-score@8.2.10
+
 ## 28.12.1
 
 ### Patch Changes

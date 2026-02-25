@@ -1,5 +1,14 @@
 # @khanacademy/kmath
 
+## 2.2.33
+
+### Patch Changes
+
+-   [#3277](https://github.com/Khan/perseus/pull/3277) [`7023b4dae0`](https://github.com/Khan/perseus/commit/7023b4dae02a49a146f8ef645b87c3d1008c41ee) Thanks [@benchristel](https://github.com/benchristel)! - Internal: inline constant for default `toFraction()` tolerance.
+
+-   Updated dependencies [[`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373), [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe), [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1)]:
+    -   @khanacademy/perseus-core@23.1.0
+
 ## 2.2.32
 
 ### Patch Changes

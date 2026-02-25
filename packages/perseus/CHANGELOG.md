@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 75.3.0
+
+### Minor Changes
+
+-   [#3270](https://github.com/Khan/perseus/pull/3270) [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade feature flag
+
+### Patch Changes
+
+-   [#3279](https://github.com/Khan/perseus/pull/3279) [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control buttons to explore image modal behind feature flag
+
+*   [#3276](https://github.com/Khan/perseus/pull/3276) [`7682804e0e`](https://github.com/Khan/perseus/commit/7682804e0eda17cb227150bcc447d6bcc7a958ad) Thanks [@benchristel](https://github.com/benchristel)! - Internal: use the getSinusoidCoefficients and getQuadraticCoefficients functions from kmath instead of redefining them in interactive-graph.tsx.
+
+-   [#3271](https://github.com/Khan/perseus/pull/3271) [`78031be86b`](https://github.com/Khan/perseus/commit/78031be86b0b424331259ce15c0f82ad1d43bbe4) Thanks [@Myranae](https://github.com/Myranae)! - Remove background flash in mobile browsers when choice is tapped
+
+*   [#3275](https://github.com/Khan/perseus/pull/3275) [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control icon buttons behind feature flag
+
+*   Updated dependencies [[`46e100430a`](https://github.com/Khan/perseus/commit/46e100430a3f2519df7549d6c68f9f6176702d9c), [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373), [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe), [`7023b4dae0`](https://github.com/Khan/perseus/commit/7023b4dae02a49a146f8ef645b87c3d1008c41ee), [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1)]:
+    -   @khanacademy/perseus-linter@4.8.1
+    -   @khanacademy/perseus-core@23.1.0
+    -   @khanacademy/kmath@2.2.33
+    -   @khanacademy/keypad-context@3.2.33
+    -   @khanacademy/math-input@26.4.1
+    -   @khanacademy/perseus-score@8.2.10
+
 ## 75.2.0
 
 ### Minor Changes
