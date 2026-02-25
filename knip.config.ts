@@ -7,6 +7,11 @@ import type {KnipConfig} from "knip";
  * To use: `pnpm knip`
  */
 
+// About `project` and `entry`: Knip will only look for dead code in `project`
+// files. Files and exports in `project` are reported as unused if they are
+// not reachable from any of the `entry` files.
+// See: https://knip.dev/guides/configuring-project-files#unused-files
+// Paths marked with `!` are production files.
 const basePackageConfig = {
     project: ["src/**/*.{ts,tsx,js,jsx}!"],
     entry: [
@@ -19,11 +24,6 @@ const basePackageConfig = {
 }
 
 const config: KnipConfig = {
-    // About `project` and `entry`: Knip will only look for dead code in
-    // `project` files. Files and exports in `project` are reported as unused
-    // if they are not reachable from any of the `entry` files.
-    // See: https://knip.dev/guides/configuring-project-files#unused-files
-    // Paths marked with `!` are production files.
     workspaces: {
         ".": {
             project: ["{config,utils}/**/*.{ts,tsx,js,jsx}"],
