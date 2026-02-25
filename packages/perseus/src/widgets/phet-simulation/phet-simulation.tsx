@@ -68,16 +68,12 @@ export class PhetSimulation
         }
     }
 
-    private get locale(): string {
-        return this.getPhetCompatibleLocale(this.context.locale);
-    }
-
     // kaLocales and PhET locales use different formats and abbreviations.
     // PhET accepts different formats, i.e. kaLocale's hyphens, but it does not accept
     // different abbreviations, so in points of divergence of abbreviations, we need to
     // convert kaLocale abbreviations into abbreviations recognized by PhET.
-    getPhetCompatibleLocale: (arg1: string) => string = (kaLocale) => {
-        switch (kaLocale) {
+    private getLocale(): string {
+        switch (this.context.locale) {
             case "pt-pt":
                 return "pt";
             case "zh-hans":
@@ -87,9 +83,9 @@ export class PhetSimulation
             case "fa-af":
                 return "fa_DA";
             default:
-                return kaLocale;
+                return this.context.locale;
         }
-    };
+    }
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
@@ -108,7 +104,7 @@ export class PhetSimulation
     async updateSimState(urlString: string) {
         const url = makeSafeUrl(
             urlString,
-            this.locale,
+            this.getLocale(),
             "https://phet.colorado.edu",
         );
         if (url === null) {
@@ -165,7 +161,7 @@ export class PhetSimulation
         const locales: string[] = Object.keys(responseJson);
 
         // Only display a locale warning if there is no fallback language
-        const baseLocale: string = this.locale.split("_")[0];
+        const baseLocale: string = this.getLocale().split("_")[0];
         for (const l of locales) {
             if (baseLocale === l.split("_")[0]) {
                 return false;
