@@ -1,3 +1,4 @@
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -22,8 +23,12 @@ export default function ExploreImageModalContent({
     box,
     labels,
     range,
+    zoomSize,
 }: ImageInfoAreaProps) {
     const context = React.useContext(PerseusI18nContext);
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
+
+    const [zoomWidth, zoomHeight] = zoomSize;
 
     if (
         !backgroundImage.height ||
@@ -33,15 +38,29 @@ export default function ExploreImageModalContent({
         return null;
     }
 
-    // Contain the image to the modal dimensions:
-    // - Shrink image to the modal height if it's taller than the modal.
-    // - Keep image its original size if it's shorter than the modal.
-    // - Maintain the image's aspect ratio.
-    const modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
-    // bgWidth / bgHeight = X / modalImageHeight
-    // => X = (bgWidth / bgHeight) * modalImageHeight
-    const width =
-        (backgroundImage.width / backgroundImage.height) * modalImageHeight;
+    let width: number;
+    let modalImageHeight: number;
+
+    if (scaleFF) {
+        // Contain the image to the modal dimensions:
+        // - Shrink image to the modal height if it's taller than the modal.
+        // - Keep image its original size if it's shorter than the modal.
+        // - Maintain the image's aspect ratio.
+        const modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
+        // bgWidth / bgHeight = X / modalImageHeight
+        // => X = (bgWidth / bgHeight) * modalImageHeight
+        width =
+            (backgroundImage.width / backgroundImage.height) * modalImageHeight;
+    } else {
+        // Contain the image to the modal dimensions:
+        // - Shrink image to the modal height if it's taller than the modal.
+        // - Keep image its original size if it's shorter than the modal.
+        // - Maintain the image's aspect ratio.
+        const modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
+        // bgWidth / bgHeight = X / modalImageHeight
+        // => X = (bgWidth / bgHeight) * modalImageHeight
+        width = (zoomWidth / zoomHeight) * modalImageHeight;
+    }
 
     return (
         <div className={styles.modalPanelContainer}>

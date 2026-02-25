@@ -31,6 +31,15 @@ export interface ImageInfoAreaProps {
     range: [Interval, Interval];
     linterContext: LinterContextProps;
     apiOptions: APIOptions;
+    /**
+     * zoomSize represents the larger of the image’s natural size (calculated on load)
+     * and the saved backgroundImage size (specified when the content is written). This
+     * ensures that zooming is enabled only if the image is sufficiently large.
+     * image (calculated on load) and the saved backgroundImage size (specified
+     * when the content is written). This larger image size is used to
+     * determine if the image is large enough to allow zooming.
+     */
+    zoomSize: Size;
     isGifPlaying: boolean;
     setIsGifPlaying: (isPaused: boolean) => void;
 }
@@ -42,9 +51,12 @@ export const ImageInfoArea = (props: ImageInfoAreaProps) => {
         longDescription,
         apiOptions,
         linterContext,
+        zoomSize,
         isGifPlaying,
         setIsGifPlaying,
     } = props;
+
+    const [zoomWidth, _] = zoomSize;
 
     const context = React.useContext(PerseusI18nContext);
 
@@ -52,6 +64,8 @@ export const ImageInfoArea = (props: ImageInfoAreaProps) => {
         {apiOptions},
         "image-widget-upgrade-gif-controls",
     );
+
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
 
     if (!backgroundImage.url) {
         return null;
@@ -91,7 +105,7 @@ export const ImageInfoArea = (props: ImageInfoAreaProps) => {
                 <figcaption
                     className="perseus-image-caption"
                     style={{
-                        maxWidth: backgroundImage.width,
+                        maxWidth: scaleFF ? backgroundImage.width : zoomWidth,
                     }}
                 >
                     {/* The Renderer component is used here so that the caption
