@@ -10,7 +10,11 @@ import * as kvector from "./vector";
 export type Point = ReadonlyArray<number>;
 
 // Rotate point (around origin unless a center is specified)
-export function rotateRad(point: readonly [number, number], theta: number, center?: readonly [number, number]): Point {
+export function rotateRad(
+    point: readonly [number, number],
+    theta: number,
+    center?: readonly [number, number],
+): Point {
     if (center === undefined) {
         return kvector.rotateRad(point, theta);
     } else {
@@ -21,7 +25,11 @@ export function rotateRad(point: readonly [number, number], theta: number, cente
     }
 }
 
-export function rotateDeg(point: readonly [number, number], theta: number, center?: readonly [number, number]): Point {
+export function rotateDeg(
+    point: readonly [number, number],
+    theta: number,
+    center?: readonly [number, number],
+): Point {
     if (center === undefined) {
         return kvector.rotateDeg(point, theta);
     } else {

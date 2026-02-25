@@ -159,10 +159,7 @@ export function polarDegFromCart(
  * Examples:
  * cartFromPolarRad(5, Math.PI)
  */
-export function cartFromPolarRad(
-    radius: number,
-    theta = 0,
-): [number, number] {
+export function cartFromPolarRad(radius: number, theta = 0): [number, number] {
     return [radius * Math.cos(theta), radius * Math.sin(theta)];
 }
 
@@ -171,10 +168,7 @@ export function cartFromPolarRad(
  * Examples:
  * cartFromPolarDeg(5, 30)
  */
-export function cartFromPolarDeg(
-    radius: number,
-    theta = 0,
-): [number, number] {
+export function cartFromPolarDeg(radius: number, theta = 0): [number, number] {
     return cartFromPolarRad(radius, (theta * Math.PI) / 180);
 }
 
