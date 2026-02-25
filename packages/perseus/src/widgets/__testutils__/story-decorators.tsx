@@ -1,24 +1,26 @@
 import * as React from "react";
 
-export const mobileDecorator = (Story) => (
+import type {Decorator} from "@storybook/react-vite";
+
+export const mobileDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-mobile">
         <Story />
     </div>
 );
 
-export const articleDecorator = (Story) => (
+export const articleDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-article">
         <Story />
     </div>
 );
 
-export const mobileArticleDecorator = (Story) => (
+export const mobileArticleDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-mobile perseus-article">
         <Story />
     </div>
 );
 
-export const rtlDecorator = (Story) => (
+export const rtlDecorator: Decorator = (Story) => (
     <div style={{direction: "rtl"}}>
         <Story />
     </div>
@@ -31,7 +33,7 @@ const articleContent2 =
 const articleContent3 =
     "The nucleolus (a structure inside the nucleus where ribosomes are made) disappears during prophase. The mitotic spindle begins to form during prophase, starting at regions called centrosomes. These regions contain the material needed for building the spindle, and also function to regulate the spindle throughout mitosis.";
 
-export const mobileArticleFloatLeftDecorator = (Story) => (
+export const mobileArticleFloatLeftDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-mobile perseus-article">
         <div className="paragraph">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-left">
@@ -44,7 +46,7 @@ export const mobileArticleFloatLeftDecorator = (Story) => (
     </div>
 );
 
-export const mobileArticleFloatRightDecorator = (Story) => (
+export const mobileArticleFloatRightDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-mobile perseus-article">
         <div className="paragraph">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
@@ -57,7 +59,7 @@ export const mobileArticleFloatRightDecorator = (Story) => (
     </div>
 );
 
-export const articleFloatLeftDecorator = (Story) => (
+export const articleFloatLeftDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-article">
         <div className="paragraph">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-left">
@@ -70,7 +72,7 @@ export const articleFloatLeftDecorator = (Story) => (
     </div>
 );
 
-export const articleFloatRightDecorator = (Story) => (
+export const articleFloatRightDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-article">
         <div className="paragraph">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
@@ -80,5 +82,12 @@ export const articleFloatRightDecorator = (Story) => (
         <div className="paragraph">{articleContent1}</div>
         <div className="paragraph">{articleContent2}</div>
         <div className="paragraph">{articleContent3}</div>
+    </div>
+);
+
+// Force overflow so the radio widget’s scroll controls render in these stories.
+export const narrowViewportDecorator: Decorator = (Story) => (
+    <div style={{maxWidth: "400px"}}>
+        <Story />
     </div>
 );

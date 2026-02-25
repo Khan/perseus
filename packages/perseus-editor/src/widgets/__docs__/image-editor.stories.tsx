@@ -14,7 +14,6 @@ import {
     graphieImage,
 } from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageEditor from "../image-editor/image-editor";
 
@@ -26,12 +25,7 @@ const withinEditorPageDecorator = (_, {args}) => {
     return (
         <div style={{width: PROD_EDITOR_WIDTH}}>
             <EditorPageWithStorybookPreview
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                    flags: getFeatureFlags({
-                        "image-widget-upgrade": true,
-                    }),
-                }}
+                apiOptions={ApiOptions.defaults}
                 question={generateTestPerseusRenderer({
                     content: "[[☃ image 1]]",
                     widgets: {
@@ -124,12 +118,7 @@ export const WithMarkdownImageLinterWarning: Story = {
         return (
             <div style={{width: PROD_EDITOR_WIDTH}}>
                 <EditorPageWithStorybookPreview
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: getFeatureFlags({
-                            "image-widget-upgrade": true,
-                        }),
-                    }}
+                    apiOptions={ApiOptions.defaults}
                     question={generateTestPerseusRenderer({
                         // Render Widget, Markdown, Radio
                         content: `Widget\n[[☃ image 1]]\n\nMarkdown\n![Earth and moon](${earthMoonImage.url})\n\nRadio\n[[☃ radio 1]]`,

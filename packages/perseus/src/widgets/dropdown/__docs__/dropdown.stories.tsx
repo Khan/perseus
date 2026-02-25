@@ -65,6 +65,5 @@ export const DropdownWithEmptyPlaceholder: Story = {
 export const AnswerlessBasicDropdown: Story = {
     args: {
         item: generateTestPerseusItem({question: basicDropdown}),
-        startAnswerless: true,
     },
 };

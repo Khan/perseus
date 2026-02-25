@@ -12,7 +12,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import arrowFatDown from "@phosphor-icons/core/regular/arrow-fat-down.svg";
 import arrowFatLeft from "@phosphor-icons/core/regular/arrow-fat-left.svg";
@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     pointAccordionContainer: {
-        backgroundColor: wbColor.white,
+        backgroundColor: semanticColor.core.background.base.default,
     },
     pointAccordionPanel: {
         alignItems: "start",
@@ -455,11 +455,11 @@ const styles = StyleSheet.create({
         alignSelf: "start",
     },
     labelContainer: {
-        backgroundColor: wbColor.white,
+        backgroundColor: semanticColor.core.background.base.default,
     },
     horizontalRule: {
         height: 1,
-        backgroundColor: wbColor.offBlack16,
+        backgroundColor: semanticColor.core.border.neutral.subtle,
     },
 });
 

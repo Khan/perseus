@@ -106,7 +106,6 @@ export const LabelWidgetAnswerless = (args: StoryArgs): React.ReactElement => {
             item={generateTestPerseusItem({
                 question: applyStoryArgs(textQuestion, args),
             })}
-            startAnswerless={true}
         />
     );
 };

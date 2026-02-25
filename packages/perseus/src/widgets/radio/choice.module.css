@@ -18,6 +18,7 @@
 }
 
 .choice {
+    -webkit-tap-highlight-color: transparent;
     --perseus-multiple-choice-divider-color: var(
         --wb-semanticColor-core-border-neutral-subtle
     ); /* This will change with hover & focus */
@@ -47,6 +48,13 @@
 
 .choice:not(.is-correct):has(> button[aria-pressed="true"]) {
     color: var(--wb-semanticColor-core-foreground-instructive-strong);
+}
+
+.choice :global(.paragraph) {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
 }
 
 @media (prefers-reduced-motion: no-preference) {

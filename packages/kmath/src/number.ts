@@ -7,9 +7,6 @@ import _ from "underscore";
 
 export const DEFAULT_TOLERANCE = 1e-9;
 
-// TODO: Should this just be Number.Epsilon
-export const EPSILON: number = Math.pow(2, -42);
-
 export function is(x: any): boolean {
     return _.isNumber(x) && !_.isNaN(x);
 }
@@ -78,7 +75,7 @@ export function ceilTo(num: number, increment: number): number {
 export function toFraction(
     decimal: number,
     // can't be 0
-    tolerance: number = EPSILON,
+    tolerance: number = Math.pow(2, -42),
     maxDenominator = 1000,
 ): [number, number] {
     // Initialize everything to compute successive terms of

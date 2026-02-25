@@ -3,7 +3,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
 import pencilCircle from "@phosphor-icons/core/regular/pencil-circle.svg";
 import {StyleSheet} from "aphrodite";
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         alignSelf: "start",
     },
     caption: {
-        color: color.offBlack64,
+        color: semanticColor.core.foreground.neutral.subtle,
     },
 });
 

@@ -21,7 +21,6 @@ import type {
 export const useItemRenderer = (
     item: PerseusItem,
     apiOptions: APIOptions = {},
-    startAnswerless: boolean = false,
     reviewMode: boolean = false,
     showSolutions?: ShowSolutions,
 ) => {
@@ -30,7 +29,6 @@ export const useItemRenderer = (
         itemRendererReducer,
         createInitialState(
             item,
-            startAnswerless,
             apiOptions.isMobile ?? false,
             false, // isRtl defaults to false
             reviewMode,

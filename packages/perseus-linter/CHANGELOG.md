@@ -1,5 +1,11 @@
 # @khanacademy/perseus-linter
 
+## 4.8.0
+
+### Minor Changes
+
+-   [#3248](https://github.com/Khan/perseus/pull/3248) [`1cd9b4d66a`](https://github.com/Khan/perseus/commit/1cd9b4d66a839acc99f377ee6081530ed920d4e9) Thanks [@nishasy](https://github.com/nishasy)! - Export LinterWarning type
+
 ## 4.7.2
 
 ### Patch Changes

@@ -1,10 +1,12 @@
 import {render, screen} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {testDependencies} from "../../../testing/test-dependencies";
-import {earthMoonImage} from "../utils";
+import {earthMoonImage, gifImage} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
@@ -13,6 +15,7 @@ import type {
     PerseusImageBackground,
     Size,
 } from "@khanacademy/perseus-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
     backgroundImage: {},
@@ -34,10 +37,23 @@ const defaultProps = {
         stack: ["widget"],
     },
     apiOptions: ApiOptions.defaults,
+    isGifPlaying: false,
+    setIsGifPlaying: () => {},
+};
+
+const apiOptionsWithGifControls = {
+    ...ApiOptions.defaults,
+    flags: getFeatureFlags({
+        "image-widget-upgrade-gif-controls": true,
+    }),
 };
 
 describe("ExploreImageModal", () => {
+    let userEvent: UserEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -158,5 +174,187 @@ describe("ExploreImageModal", () => {
         const descriptionLabel = screen.getByText("Description");
         expect(descriptionLabel).toBeInTheDocument();
         expect(screen.getByText("widget long description")).toBeInTheDocument();
+    });
+
+    describe("gif controls", () => {
+        it("should render gif controls if the image is a gif", () => {
+            // Arrange, Act
+            render(
+                <ExploreImageModal
+                    {...defaultProps}
+                    backgroundImage={gifImage}
+                    apiOptions={apiOptionsWithGifControls}
+                />,
+            );
+
+            // Assert
+            const playButton = screen.getByRole("button", {
+                name: "Play Animation",
+            });
+            expect(playButton).toBeVisible();
+        });
+
+        it("should not render gif controls if the image is not a gif", () => {
+            // Arrange, Act
+            render(
+                <ExploreImageModal
+                    {...defaultProps}
+                    backgroundImage={earthMoonImage}
+                    apiOptions={ApiOptions.defaults}
+                />,
+            );
+
+            // Assert
+            const playButton = screen.queryByRole("button", {
+                name: "Play Animation",
+            });
+            const pauseButton = screen.queryByRole("button", {
+                name: "Pause Animation",
+            });
+            expect(playButton).not.toBeInTheDocument();
+            expect(pauseButton).not.toBeInTheDocument();
+        });
+
+        it("should show the pause icon when the gif is playing", async () => {
+            // Arrange
+            render(
+                <ExploreImageModal
+                    {...defaultProps}
+                    backgroundImage={gifImage}
+                    isGifPlaying={true}
+                    apiOptions={apiOptionsWithGifControls}
+                />,
+            );
+
+            // Act
+            const pauseButton = screen.getByRole("button", {
+                name: "Pause Animation",
+            });
+
+            // Assert
+            expect(pauseButton).toBeVisible();
+        });
+
+        it("should show the play icon when the gif is paused", async () => {
+            // Arrange
+            render(
+                <ExploreImageModal
+                    {...defaultProps}
+                    backgroundImage={gifImage}
+                    isGifPlaying={false}
+                    apiOptions={apiOptionsWithGifControls}
+                />,
+            );
+
+            // Act
+            const playButton = screen.getByRole("button", {
+                name: "Play Animation",
+            });
+
+            // Assert
+            expect(playButton).toBeVisible();
+        });
+
+        it("should toggle the gif playing state when the play button is clicked", async () => {
+            // Arrange
+            const toggleGifPlaying = jest.fn();
+            render(
+                <ExploreImageModal
+                    {...defaultProps}
+                    backgroundImage={gifImage}
+                    isGifPlaying={false}
+                    setIsGifPlaying={toggleGifPlaying}
+                    apiOptions={apiOptionsWithGifControls}
+                />,
+            );
+
+            // Act
+            const playButton = screen.getByRole("button", {
+                name: "Play Animation",
+            });
+            await userEvent.click(playButton);
+
+            // Assert
+            expect(toggleGifPlaying).toHaveBeenCalledWith(true);
+        });
+
+        it("should toggle the gif playing state when the pause button is clicked", async () => {
+            // Arrange
+            const toggleGifPlaying = jest.fn();
+            render(
+                <ExploreImageModal
+                    {...defaultProps}
+                    backgroundImage={gifImage}
+                    isGifPlaying={true}
+                    setIsGifPlaying={toggleGifPlaying}
+                    apiOptions={apiOptionsWithGifControls}
+                />,
+            );
+
+            // Act
+            const pauseButton = screen.getByRole("button", {
+                name: "Pause Animation",
+            });
+            await userEvent.click(pauseButton);
+
+            // Assert
+            expect(toggleGifPlaying).toHaveBeenCalledWith(false);
+        });
+    });
+
+    describe("flags", () => {
+        it("should render gif controls when the feature flag is enabled", () => {
+            // Arrange
+
+            const apiOptionsWithFeatureFlag = {
+                ...ApiOptions.defaults,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-gif-controls": true,
+                }),
+            };
+
+            render(
+                <ExploreImageModal
+                    {...defaultProps}
+                    backgroundImage={gifImage}
+                    apiOptions={apiOptionsWithFeatureFlag}
+                />,
+            );
+
+            // Assert
+            const playButton = screen.getByRole("button", {
+                name: "Play Animation",
+            });
+            expect(playButton).toBeVisible();
+        });
+
+        it("should not render gif controls when the feature flag is disabled", () => {
+            // Arrange
+
+            const apiOptionsWithFeatureFlag = {
+                ...ApiOptions.defaults,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-gif-controls": false,
+                }),
+            };
+
+            render(
+                <ExploreImageModal
+                    {...defaultProps}
+                    backgroundImage={gifImage}
+                    apiOptions={apiOptionsWithFeatureFlag}
+                />,
+            );
+
+            // Assert
+            const playButton = screen.queryByRole("button", {
+                name: "Play Animation",
+            });
+            const pauseButton = screen.queryByRole("button", {
+                name: "Pause Animation",
+            });
+            expect(playButton).not.toBeInTheDocument();
+            expect(pauseButton).not.toBeInTheDocument();
+        });
     });
 });

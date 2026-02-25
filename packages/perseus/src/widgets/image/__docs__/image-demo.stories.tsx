@@ -5,6 +5,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {ApiOptions} from "../../../perseus-api";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {getWidget} from "../../../widgets";
 import {
     ImageQuestionRenderer,
@@ -19,6 +21,8 @@ import {
 import {
     earthMoonImage,
     frescoImage,
+    gifImage,
+    gifImageAlt,
     graphieImage,
     graphieImageAlt,
     portraitImage,
@@ -154,24 +158,26 @@ export const GraphieImage: Story = {
     },
 };
 
-export const GraphieImageWithBiggerSize: Story = {
+export const GifImage: Story = {
     decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-gif-controls": true,
+            }),
+        },
+    },
     args: {
-        backgroundImage: graphieImage,
-        scale: 2,
-        alt: graphieImageAlt,
+        backgroundImage: gifImage,
+        alt: gifImageAlt,
+        caption: gifImageAlt,
+        longDescription: gifImageAlt,
     },
 };
 
-export const GraphieImageWithSmallerSize: Story = {
-    decorators: [imageRendererDecorator],
-    args: {
-        backgroundImage: graphieImage,
-        scale: 0.5,
-        alt: graphieImageAlt,
-    },
-};
-
+// TODO(LEMS-3912): Remove this story after we turn on and remove the
+// image-widget-upgrade-scale feature flag.
 /**
  * Images with different sizes.
  *
@@ -191,51 +197,47 @@ export const ImageWithDifferentSizes: Story = {
                 <ImageQuestionRenderer
                     question={generateTestPerseusRenderer({
                         content:
-                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]",
+                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]",
                         widgets: {
                             "image 1": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    scale: 1,
+                                    backgroundImage: frescoImage,
                                     alt: "Fresco painting",
                                     longDescription: "long description",
                                 }),
                             }),
                             "image 2": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    scale: 0.5,
+                                    backgroundImage: {
+                                        url: frescoImage.url,
+                                        width: 400,
+                                        height: 225,
+                                    },
                                     alt: "Fresco painting",
                                     longDescription: "long description",
                                 }),
                             }),
                             "image 3": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    scale: 2,
+                                    backgroundImage: {
+                                        url: frescoImage.url,
+                                        width: 200,
+                                        height: 112,
+                                    },
                                     alt: "Fresco painting",
                                     longDescription: "long description",
                                 }),
                             }),
                             "image 4": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: graphieImage,
-                                    alt: graphieImageAlt,
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and Moon",
                                     longDescription: "long description",
                                 }),
                             }),
                             "image 5": generateImageWidget({
                                 options: generateImageOptions({
                                     backgroundImage: graphieImage,
-                                    scale: 0.5,
-                                    alt: graphieImageAlt,
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 6": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage,
-                                    scale: 2,
                                     alt: graphieImageAlt,
                                     longDescription: "long description",
                                 }),
@@ -244,6 +246,77 @@ export const ImageWithDifferentSizes: Story = {
                     })}
                 />
             </div>
+        );
+    },
+};
+
+/**
+ * Different sizes using the scale prop, behind feature flag.
+ */
+export const ImageWithScaledSizes: Story = {
+    render: function Render() {
+        return (
+            <ImageQuestionRenderer
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    flags: getFeatureFlags({
+                        "image-widget-upgrade-scale": true,
+                    }),
+                }}
+                question={generateTestPerseusRenderer({
+                    content:
+                        "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]",
+                    widgets: {
+                        "image 1": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: earthMoonImage,
+                                scale: 1,
+                                alt: "Fresco painting",
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 2": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: earthMoonImage,
+                                scale: 0.5,
+                                alt: "Fresco painting",
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 3": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: earthMoonImage,
+                                scale: 2,
+                                alt: "Fresco painting",
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 4": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: graphieImage,
+                                alt: graphieImageAlt,
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 5": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: graphieImage,
+                                scale: 0.5,
+                                alt: graphieImageAlt,
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 6": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: graphieImage,
+                                scale: 2,
+                                alt: graphieImageAlt,
+                                longDescription: "long description",
+                            }),
+                        }),
+                    },
+                })}
+            />
         );
     },
 };

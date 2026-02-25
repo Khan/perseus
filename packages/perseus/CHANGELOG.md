@@ -1,5 +1,37 @@
 # @khanacademy/perseus
 
+## 75.2.0
+
+### Minor Changes
+
+-   [#3221](https://github.com/Khan/perseus/pull/3221) [`131d5e6688`](https://github.com/Khan/perseus/commit/131d5e6688a1ba5d70f383538022a39d63afac15) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfix to account for frontend's application of zoom to support fontScaling on mobile.
+
+### Patch Changes
+
+-   [#3260](https://github.com/Khan/perseus/pull/3260) [`2d5364d93b`](https://github.com/Khan/perseus/commit/2d5364d93b4311a659d701dde9b97aec66aade99) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Stop weird shadow on zoomed view in Classroom
+
+## 75.1.0
+
+### Minor Changes
+
+-   [#3247](https://github.com/Khan/perseus/pull/3247) [`0e578d70fa`](https://github.com/Khan/perseus/commit/0e578d70fa74ae11b04509ad32e184f63f550694) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove static props from radio widget
+
+*   [#3227](https://github.com/Khan/perseus/pull/3227) [`e1f9a0d2a1`](https://github.com/Khan/perseus/commit/e1f9a0d2a1b5538650e9d6b2fac3fa219dab0577) Thanks [@Myranae](https://github.com/Myranae)! - Remove onChange from Radio
+
+-   [#3113](https://github.com/Khan/perseus/pull/3113) [`082388a936`](https://github.com/Khan/perseus/commit/082388a9366c00e3519f9e26274e2eaca5c19644) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Break Perseus styling into its own Cascade Layers
+
+### Patch Changes
+
+-   [#3225](https://github.com/Khan/perseus/pull/3225) [`6d7338e5c6`](https://github.com/Khan/perseus/commit/6d7338e5c6bd6c5c85c35fff5095c7e6e7553d4c) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Fix zoomed image view in preview
+
+*   [#3259](https://github.com/Khan/perseus/pull/3259) [`8ee65a2add`](https://github.com/Khan/perseus/commit/8ee65a2addeb26e0eb5213444e77b730f7152c96) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   [#3254](https://github.com/Khan/perseus/pull/3254) [`9eb52fe892`](https://github.com/Khan/perseus/commit/9eb52fe8923d8c469f00c19f23e56188e6f19f54) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Added a reusable narrowViewportDecorator that constrains the story width to 400px, forcing content overflow so scroll buttons appear and applied the decorator to all "with scroll" radio widget stories.
+
+-   Updated dependencies [[`8ee65a2add`](https://github.com/Khan/perseus/commit/8ee65a2addeb26e0eb5213444e77b730f7152c96), [`1cd9b4d66a`](https://github.com/Khan/perseus/commit/1cd9b4d66a839acc99f377ee6081530ed920d4e9), [`082388a936`](https://github.com/Khan/perseus/commit/082388a9366c00e3519f9e26274e2eaca5c19644)]:
+    -   @khanacademy/math-input@26.4.0
+    -   @khanacademy/perseus-linter@4.8.0
+
 ## 75.0.1
 
 ### Patch Changes

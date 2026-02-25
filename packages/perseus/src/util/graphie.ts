@@ -1729,7 +1729,6 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
                 : widthValues["width"];
         // We can calculate the true scale of the graphie by taking actual width and dividing by the expected width.
         // NOTE: Using 'replace' to remove the "px" unit from the end of the expected width value.
-        // STOPSHIP: Fix the scaling of Graphie labels
         let scale =
             (($container.width() ?? 0) /
                 parseInt(expectedWidth.replace(/px$/, ""))) *

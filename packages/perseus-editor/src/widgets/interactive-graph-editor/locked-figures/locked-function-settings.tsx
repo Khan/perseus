@@ -11,7 +11,11 @@ import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {
+    semanticColor,
+    sizing,
+    spacing,
+} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
 import autoPasteIcon from "@phosphor-icons/core/assets/regular/note-pencil.svg";
@@ -479,7 +483,7 @@ const styles = StyleSheet.create({
     },
     exampleContainer: {
         background: "white",
-        border: `1px solid ${color.fadedOffBlack16}`,
+        border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
         borderRadius: "4px",
         flexGrow: "1",
         listStyleType: "none",
@@ -494,7 +498,7 @@ const styles = StyleSheet.create({
     exampleContent: {
         fontFamily: `"Lato", sans-serif`,
         flexGrow: "1",
-        color: color.offBlack,
+        color: semanticColor.core.foreground.neutral.strong,
     },
     exampleRow: {
         alignItems: "center",
@@ -503,7 +507,7 @@ const styles = StyleSheet.create({
         minHeight: "44px",
     },
     exampleWorkspace: {
-        background: color.white50,
+        background: semanticColor.core.background.base.subtle,
     },
     rowSpace: {
         marginTop: spacing.xSmall_8,
@@ -523,10 +527,10 @@ const styles = StyleSheet.create({
     },
     horizontalRule: {
         height: 1,
-        backgroundColor: color.offBlack16,
+        backgroundColor: semanticColor.core.border.neutral.subtle,
     },
     labelContainer: {
-        backgroundColor: color.white,
+        backgroundColor: semanticColor.core.background.base.default,
     },
 });
 

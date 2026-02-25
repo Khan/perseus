@@ -1,4 +1,4 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
+import {isFeatureOn, type Size} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
@@ -7,9 +7,11 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
+import Util from "../../util";
 
-import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
+import {ImageInfoArea} from "./components/image-info-area";
 import styles from "./image-widget.module.css";
+import {isGif} from "./utils";
 
 import type {ImageWidgetProps} from "./image.class";
 
@@ -18,7 +20,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         apiOptions,
         alt,
         backgroundImage,
-        scale,
         box,
         caption,
         longDescription,
@@ -31,8 +32,25 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         widgetId,
     } = props;
     const context = React.useContext(PerseusI18nContext);
-    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
     const {analytics} = useDependencies();
+    const gifControlsFF = isFeatureOn(
+        {apiOptions},
+        "image-widget-upgrade-gif-controls",
+    );
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
+
+    const [zoomSize, setZoomSize] = React.useState<Size>([
+        backgroundImage.width || 0,
+        backgroundImage.height || 0,
+    ]);
+
+    // Gif should be paused on initial render for a11y.
+    const [isGifPlaying, setIsGifPlaying] = React.useState<boolean>(false);
+
+    const [zoomWidth, zoomHeight] = zoomSize;
+
+    // Use ref to track if we should ignore async results
+    const ignoreResultsRef = React.useRef(false);
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
@@ -45,8 +63,55 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         });
     });
 
+    // TODO(LEMS-3912): Remove this effect afte we turn on and remove the
+    // image-widget-upgrade-scale feature flag.
+    React.useEffect(() => {
+        // Reset the flag for this effect run
+        ignoreResultsRef.current = false;
+
+        // Wait to figure out what the original size of the image is.
+        // Use whichever is larger between the original image size and the
+        // saved background image size for zooming.
+        Util.getImageSizeModern(backgroundImage.url!).then((naturalSize) => {
+            // Ignore results if effect has been cleaned up
+            // This prevents updates after component unmounts or dependencies change
+            if (ignoreResultsRef.current) {
+                return;
+            }
+
+            const [naturalWidth, naturalHeight] = naturalSize;
+            const [savedWidth, savedHeight] = [
+                backgroundImage.width || 0,
+                backgroundImage.height || 0,
+            ];
+            // Only update if the new size is larger
+            // This prevents unnecessary updates and infinite loops
+            if (naturalWidth > savedWidth) {
+                setZoomSize([naturalWidth, naturalHeight]);
+            } else {
+                // Set the zoom size to the saved background image size.
+                // We need to do this here in the useEffect to make sure
+                // the size properly updates in the editor preview.
+                setZoomSize([savedWidth, savedHeight]);
+            }
+        });
+
+        return () => {
+            // Mark results as stale when dependencies change or component unmounts
+            ignoreResultsRef.current = true;
+        };
+    }, [backgroundImage.url, backgroundImage.width, backgroundImage.height]);
+
     if (!backgroundImage.url) {
         return null;
+    }
+
+    const imageIsGif = isGif(backgroundImage.url);
+
+    let scale = props.scale;
+    // Set the scale to 1 if the scale flag is disabled or the scale is invalid.
+    if (!scaleFF || scale <= 0 || scale === Infinity || scale === -Infinity) {
+        scale = 1;
     }
 
     const svgImage = (
@@ -57,8 +122,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     // Between the original image size and the saved background
                     // image size, use the larger size to determine if the
                     // image is large enough to allow zooming.
-                    width={backgroundImage.width}
-                    height={backgroundImage.height}
+                    width={scaleFF ? backgroundImage.width : zoomWidth}
+                    height={scaleFF ? backgroundImage.height : zoomHeight}
                     scale={scale}
                     preloader={apiOptions.imagePreloader}
                     extraGraphie={{
@@ -81,7 +146,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     const maxWidth = (backgroundImage.width ?? 0) * scale;
 
     // Early return for decorative images
-    if (imageUpgradeFF && decorative) {
+    if (decorative) {
         return (
             <figure
                 className="perseus-image-widget"
@@ -127,8 +192,13 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {svgImage}
 
             {/* Description & Caption */}
-            {(caption || (imageUpgradeFF && longDescription)) && (
-                <ImageDescriptionAndCaption {...props} />
+            {((gifControlsFF && imageIsGif) || caption || longDescription) && (
+                <ImageInfoArea
+                    zoomSize={zoomSize}
+                    isGifPlaying={isGifPlaying}
+                    setIsGifPlaying={setIsGifPlaying}
+                    {...props}
+                />
             )}
         </figure>
     );
