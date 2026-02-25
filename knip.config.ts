@@ -7,37 +7,39 @@ import type {KnipConfig} from "knip";
  * To use: `pnpm knip`
  */
 const config: KnipConfig = {
-    // Entrypoints to the code, including:
-    // - Where our external APIs are exported from (index.ts).
-    // - Tests and stories.
+    // About `project` and `entry`: Knip will only look for dead code in
+    // `project` files. Files and exports in `project` are reported as unused
+    // if they are not reachable from any of the `entry` files.
+    // See: https://knip.dev/guides/configuring-project-files#unused-files
     // Paths marked with `!` are production files.
-    entry: [
-        "config/**/*.{ts,tsx,js,jsx}",
-        "packages/*/src/index.{ts,tsx}!",
-        "packages/*/src/**/*.cypress.{ts,tsx}",
-        "packages/*/src/**/*.test.{ts,tsx}",
-        "packages/*/src/**/*.stories.{ts,tsx}",
-        "utils/**/*.{ts,tsx,js,jsx}",
-    ],
-    // Where we want to look for dead code.
-    // Paths marked with `!` are production files.
-    project: ["packages/*/src/*.{ts,tsx,js,jsx}!"],
+    workspaces: {
+        ".": {
+            project: ["{config,utils}/**/*.{ts,tsx,js,jsx}"],
+            entry: [
+                // CLI tools
+                "utils/**/*.{ts,tsx,js,jsx}",
+                "packages/perseus-core/src/parse-perseus-json/exhaustive-test-tool/index.ts",
+            ],
+        },
+        "packages/*": {
+            project: ["src/**/*.{ts,tsx,js,jsx}!"],
+            entry: [
+                "src/index.{ts,tsx}!",
+                "src/**/*.cypress.{ts,tsx}",
+                "src/**/*.test.{ts,tsx}",
+                "src/**/*.typetest.{ts,tsx}",
+                "src/**/*.stories.{ts,tsx}",
+            ],
+        },
+    },
     rules: {
         dependencies: "error",
     },
     // Special exceptions
     ignore: [
-        // symlinked type defs for third-party libs
-        "**/aphrodite.d.ts",
-        "**/assets.d.ts",
-        "**/jsdiff.d.ts",
-        "**/raphael.d.ts",
-        "**/utility.d.ts",
-        // these files are used by tests
-        "packages/perseus-core/src/parse-perseus-json/**",
-        // these need fixing
-        // TODO(LEMS-3867)
-        "packages/perseus-editor/src/components/__stories__/**",
+        // These files contain test data. They are dynamically imported via
+        // glob patterns, so Knip can't figure out that they're used.
+        "packages/perseus-core/src/parse-perseus-json/regression-tests/{article,item,user-input}-data/**",
         // TODO(LEMS-3868)
         "packages/perseus-editor/src/preview/message-types.ts",
     ],
