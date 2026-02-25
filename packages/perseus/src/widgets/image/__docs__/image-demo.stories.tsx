@@ -168,6 +168,8 @@ export const GifImage: Story = {
     },
 };
 
+// TODO(LEMS-3912): Remove this story after we turn on and remove the
+// image-widget-upgrade-scale feature flag.
 /**
  * Images with different sizes.
  *
@@ -183,57 +185,59 @@ export const ImageWithDifferentSizes: Story = {
     render: function Render() {
         return (
             // Limit width so zoom becomes possible.
-            <ImageQuestionRenderer
-                question={generateTestPerseusRenderer({
-                    content:
-                        "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]",
-                    widgets: {
-                        "image 1": generateImageWidget({
-                            options: generateImageOptions({
-                                backgroundImage: frescoImage,
-                                alt: "Fresco painting",
-                                longDescription: "long description",
+            <div style={{width: 600}}>
+                <ImageQuestionRenderer
+                    question={generateTestPerseusRenderer({
+                        content:
+                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]",
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: frescoImage,
+                                    alt: "Fresco painting",
+                                    longDescription: "long description",
+                                }),
                             }),
-                        }),
-                        "image 2": generateImageWidget({
-                            options: generateImageOptions({
-                                backgroundImage: {
-                                    url: frescoImage.url,
-                                    width: 400,
-                                    height: 225,
-                                },
-                                alt: "Fresco painting",
-                                longDescription: "long description",
+                            "image 2": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: {
+                                        url: frescoImage.url,
+                                        width: 400,
+                                        height: 225,
+                                    },
+                                    alt: "Fresco painting",
+                                    longDescription: "long description",
+                                }),
                             }),
-                        }),
-                        "image 3": generateImageWidget({
-                            options: generateImageOptions({
-                                backgroundImage: {
-                                    url: frescoImage.url,
-                                    width: 200,
-                                    height: 112,
-                                },
-                                alt: "Fresco painting",
-                                longDescription: "long description",
+                            "image 3": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: {
+                                        url: frescoImage.url,
+                                        width: 200,
+                                        height: 112,
+                                    },
+                                    alt: "Fresco painting",
+                                    longDescription: "long description",
+                                }),
                             }),
-                        }),
-                        "image 4": generateImageWidget({
-                            options: generateImageOptions({
-                                backgroundImage: earthMoonImage,
-                                alt: "Earth and Moon",
-                                longDescription: "long description",
+                            "image 4": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and Moon",
+                                    longDescription: "long description",
+                                }),
                             }),
-                        }),
-                        "image 5": generateImageWidget({
-                            options: generateImageOptions({
-                                backgroundImage: graphieImage,
-                                alt: graphieImageAlt,
-                                longDescription: "long description",
+                            "image 5": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: graphieImage,
+                                    alt: graphieImageAlt,
+                                    longDescription: "long description",
+                                }),
                             }),
-                        }),
-                    },
-                })}
-            />
+                        },
+                    })}
+                />
+            </div>
         );
     },
 };
