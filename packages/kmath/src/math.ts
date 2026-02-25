@@ -131,7 +131,6 @@ const KhanMath = {
      * with an approx symbol if num had to be rounded, and trailing 0s
      */
     toFixedApprox: function (num: number, precision: number): string {
-        // TODO(aria): Make this locale-dependent
         const fixedStr = num.toFixed(precision);
         if (knumber.equal(+fixedStr, num)) {
             return fixedStr;

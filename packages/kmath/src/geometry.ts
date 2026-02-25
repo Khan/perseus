@@ -316,9 +316,8 @@ export function getLineEquation(first: Coord, second: Coord): string {
 // Stolen from the wikipedia article
 // http://en.wikipedia.org/wiki/Line-line_intersection
 export function getLineIntersection(
-    // TODO(LP-10725): update these to be 2-tuples
-    firstPoints: ReadonlyArray<Coord>,
-    secondPoints: ReadonlyArray<Coord>,
+    firstPoints: [Coord, Coord],
+    secondPoints: [Coord, Coord],
 ): [number, number] | null {
     const x1 = firstPoints[0][0];
     const y1 = firstPoints[0][1];
@@ -345,8 +344,8 @@ export function getLineIntersection(
 }
 
 export function getLineIntersectionString(
-    firstPoints: ReadonlyArray<Coord>,
-    secondPoints: ReadonlyArray<Coord>,
+    firstPoints: [Coord, Coord],
+    secondPoints: [Coord, Coord],
 ): string {
     const intersection = getLineIntersection(firstPoints, secondPoints);
 
