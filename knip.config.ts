@@ -21,7 +21,7 @@ const basePackageConfig = {
         "src/**/*.typetest.{ts,tsx}",
         "src/**/*.stories.{ts,tsx}",
     ],
-}
+};
 
 const config: KnipConfig = {
     workspaces: {
@@ -42,8 +42,8 @@ const config: KnipConfig = {
                 "src/parse-perseus-json/regression-tests/{article,item,user-input}-data/**",
                 // CLI used for testing against production data.
                 "src/parse-perseus-json/exhaustive-test-tool/index.ts",
-            ]
-        }
+            ],
+        },
     },
     // Special exceptions
     ignore: [
