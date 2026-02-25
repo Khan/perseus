@@ -6,7 +6,7 @@
     "license": "MIT",
     "private": true,
     "engines": {
-        "node": ">=24 <25"
+        "node": ">=20 <25"
     },
     "devDependencies": {
         "@babel/core": "^7.23.2",
