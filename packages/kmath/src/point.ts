@@ -56,7 +56,7 @@ export function reflectOverLine<P extends Point>(point: P, line: [P, P]): P {
 }
 
 /**
- * Compares two points, returning -1, 0, or 1, for use with
+ * Compares two points, returning negative, 0, or positive, for use with
  * Array.prototype.sort
  *
  * Note: This technically doesn't satisfy the total-ordering
@@ -68,7 +68,7 @@ export function compare(
     point1: Point,
     point2: Point,
     equalityTolerance?: number,
-): number /* TODO: convert to -1 | 0 | 1 type */ {
+): number {
     if (point1.length !== point2.length) {
         return point1.length - point2.length;
     }
