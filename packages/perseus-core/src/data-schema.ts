@@ -1339,6 +1339,8 @@ export type PerseusRadioChoice = {
      * the radio widget. The format of this ID is subject to change.
      */
     id: string;
+    // A map of widget IDs to widget options.
+    widgets?: PerseusWidgetsMap;
     // Translatable Markdown; Rationale to give the user when they get it wrong
     rationale?: string;
     // Whether this option is a correct answer or not

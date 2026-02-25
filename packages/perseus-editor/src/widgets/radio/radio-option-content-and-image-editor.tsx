@@ -1,17 +1,11 @@
-import {Util} from "@khanacademy/perseus";
-import Button from "@khanacademy/wonder-blocks-button";
+import {ApiOptions, Util} from "@khanacademy/perseus";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
-import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 
-import ImagePreview from "../../components/image-preview";
-import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
+import Editor from "../../editor";
 
-import styles from "./radio-editor.module.css";
-import RadioImageEditor from "./radio-image-editor";
 import {
     setMarkdownContentFromImageProxy,
     setImageProxyFromMarkdownContent,
@@ -49,9 +43,6 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
     const [images, setImages] = React.useState<
         {url: string; altText: string; width?: number; height?: number}[]
     >([]);
-
-    // States for adding an image
-    const [addingImage, setAddingImage] = React.useState(false);
 
     React.useEffect(() => {
         const [proxiedContent, parsedImages] = setImageProxyFromMarkdownContent(
@@ -95,38 +86,8 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
         width?: number,
         height?: number,
     ) => {
+        // Update to use an image widget and not inject markdown content.
         const newContent = `${content}\n![${imageAltText}](${imageUrl})`;
-        onContentChange(choiceIndex, newContent);
-    };
-
-    const handleDeleteImage = (imageIndex: number) => {
-        const substr = `![Image ${imageIndex + 1}]`;
-        const newProxiedContent = proxiedContent.replace(substr, "");
-        setProxiedContent(newProxiedContent);
-
-        const newContent = setMarkdownContentFromImageProxy(
-            newProxiedContent,
-            images,
-        );
-        onContentChange(choiceIndex, newContent);
-    };
-
-    const handleUpdateImage = (
-        imageIndex: number,
-        url: string,
-        altText: string,
-        width?: number,
-        height?: number,
-    ) => {
-        const newImages = [...images];
-        newImages[imageIndex] = {url, altText, width, height};
-        setImages(newImages);
-
-        const newContent = setMarkdownContentFromImageProxy(
-            proxiedContent,
-            newImages,
-        );
-
         onContentChange(choiceIndex, newContent);
     };
 
@@ -151,15 +112,6 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
         ) {
             e.preventDefault();
             handleAddImage(choiceIndex, imageURL, "");
-        }
-    };
-
-    const handleDeleteImageConfirmation = (imageIndex: number) => {
-        if (
-            // eslint-disable-next-line no-alert
-            window.confirm("Are you sure you want to delete this image?")
-        ) {
-            handleDeleteImage(imageIndex);
         }
     };
 
@@ -190,6 +142,19 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
             >
                 Content
             </HeadingXSmall>
+
+            <Editor
+                id={contentTextAreaId}
+                apiOptions={ApiOptions.defaults}
+                content={proxiedContent}
+                widgets={{}}
+                widgetEnabled={true}
+                immutableWidgets={false}
+                onChange={() => {
+                    // Update to ensure we're updating content and widgets used.
+                    handleContentChange(choiceIndex, "");
+                }}
+            />
             <TextArea
                 id={contentTextAreaId}
                 ref={textAreaRef}
@@ -201,94 +166,6 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                 onPaste={handlePaste}
                 autoResize={true}
             />
-
-            {/* Add image button */}
-            {!addingImage && (
-                <Button
-                    startIcon={plusIcon}
-                    size="small"
-                    kind="tertiary"
-                    style={{alignSelf: "flex-start"}}
-                    onClick={() => {
-                        setAddingImage(true);
-                    }}
-                >
-                    Add image
-                </Button>
-            )}
-
-            {/* "Add image" tile */}
-            {addingImage && (
-                <RadioImageEditor
-                    initialImageUrl=""
-                    initialImageAltText=""
-                    containerClassName={styles.imageEditorContainer}
-                    onSave={(imageUrl, imageAltText, width, height) => {
-                        handleAddImage(
-                            choiceIndex,
-                            imageUrl,
-                            imageAltText,
-                            width,
-                            height,
-                        );
-                    }}
-                    onClose={() => {
-                        setAddingImage(false);
-                    }}
-                />
-            )}
-
-            {/* Image editor accordions */}
-            {images?.map((image, imageIndex) => (
-                <PerseusEditorAccordion
-                    key={image.url}
-                    header={`Image ${imageIndex + 1}`}
-                    expanded={true}
-                    containerStyle={{
-                        // White to contrast with the blue choice tile.
-                        backgroundColor:
-                            semanticColor.core.background.base.default,
-                        marginBlockStart: sizing.size_040,
-                        marginBlockEnd: sizing.size_040,
-                    }}
-                    panelStyle={{
-                        // Set the bottom padding to match the side padding.
-                        paddingBlockEnd: sizing.size_120,
-                    }}
-                >
-                    <LabeledField
-                        label="Preview"
-                        field={
-                            <ImagePreview
-                                src={image.url}
-                                alt={`Preview: ${image.altText ?? "No alt text"}`}
-                                width={image.width}
-                                height={image.height}
-                            />
-                        }
-                    />
-                    <div style={{marginTop: sizing.size_160}}>
-                        <RadioImageEditor
-                            initialImageUrl={image.url}
-                            initialImageAltText={image.altText}
-                            initialImageWidth={image.width}
-                            initialImageHeight={image.height}
-                            onSave={(imageUrl, imageAltText, width, height) => {
-                                handleUpdateImage(
-                                    imageIndex,
-                                    imageUrl,
-                                    imageAltText,
-                                    width,
-                                    height,
-                                );
-                            }}
-                            onDelete={() => {
-                                handleDeleteImageConfirmation(imageIndex);
-                            }}
-                        />
-                    </div>
-                </PerseusEditorAccordion>
-            )) ?? null}
         </>
     );
 });

@@ -15,7 +15,7 @@ import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
 import {
     choicesWithGraphie,
-    choicesWithImages,
+    choicesWithImagesMarkdown,
     overflowContentInGradedGroupSet,
     questionWithRationale,
 } from "../__tests__/radio.testdata";
@@ -125,7 +125,7 @@ export const SingleSelectWithRationale = {
 export const SingleSelectWithImages: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: choicesWithImages,
+            question: choicesWithImagesMarkdown,
         }),
     },
 };
