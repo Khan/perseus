@@ -12,7 +12,7 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -755,7 +755,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
     },
     backgroundUrlInput: {
-        border: `1px solid ${color.offBlack32}`,
+        border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
         borderRadius: spacing.xxxSmall_4,
         padding: spacing.xxxSmall_4,
     },
@@ -767,10 +767,10 @@ const styles = StyleSheet.create({
     },
     protractorSection: {
         marginTop: spacing.xSmall_8,
-        borderTop: `1px solid ${color.offBlack16}`,
+        borderTop: `1px solid ${semanticColor.core.border.neutral.subtle}`,
         paddingTop: spacing.xSmall_8,
         paddingBottom: spacing.xSmall_8,
-        borderBottom: `1px solid ${color.offBlack16}`,
+        borderBottom: `1px solid ${semanticColor.core.border.neutral.subtle}`,
     },
 });
 

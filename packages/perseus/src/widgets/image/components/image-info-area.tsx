@@ -44,6 +44,11 @@ export interface ImageInfoAreaProps {
     setIsGifPlaying: (isPaused: boolean) => void;
 }
 
+/**
+ * The ImageInfoArea component includes the GIF controls, description modal
+ * launcher, and caption for the image. This is displayed underneath the image
+ * in the Image widget.
+ */
 export const ImageInfoArea = (props: ImageInfoAreaProps) => {
     const {
         backgroundImage,
@@ -85,7 +90,7 @@ export const ImageInfoArea = (props: ImageInfoAreaProps) => {
 
             {/* Spacer if both GIF controls and description are shown */}
             {gifControlsFF && imageIsGif && longDescription && (
-                <div className={styles.spacer} />
+                <div className={styles.spacerHorizontal} />
             )}
 
             {/* Description */}

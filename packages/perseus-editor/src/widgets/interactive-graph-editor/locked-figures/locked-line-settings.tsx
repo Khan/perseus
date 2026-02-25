@@ -10,7 +10,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
@@ -381,17 +381,17 @@ const styles = StyleSheet.create({
         marginBottom: spacing.xSmall_8,
     },
     errorText: {
-        color: wbColor.red,
+        color: semanticColor.core.foreground.critical.default,
     },
     addButton: {
         alignSelf: "start",
     },
     horizontalRule: {
         height: 1,
-        backgroundColor: wbColor.offBlack16,
+        backgroundColor: semanticColor.core.border.neutral.subtle,
     },
     labelContainer: {
-        backgroundColor: wbColor.white,
+        backgroundColor: semanticColor.core.background.base.default,
     },
 });
 

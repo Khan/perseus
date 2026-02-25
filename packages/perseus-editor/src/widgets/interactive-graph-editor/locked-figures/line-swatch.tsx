@@ -3,7 +3,7 @@ import {
     type LockedFigureColor,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -32,7 +32,7 @@ const LineSwatch = (props: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: wbColor.white,
+        backgroundColor: semanticColor.core.background.base.default,
         justifyContent: "center",
         padding: spacing.xSmall_8,
         borderRadius: spacing.xxxSmall_4,

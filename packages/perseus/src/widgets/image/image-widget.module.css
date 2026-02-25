@@ -79,8 +79,12 @@
     padding-block-end: var(--wb-sizing-size_240);
 }
 
-.spacer {
+.spacer-horizontal {
     margin-inline-end: var(--wb-sizing-size_160);
+}
+
+.spacer-vertical {
+    margin-block-end: var(--wb-sizing-size_160);
 }
 
 /* NOTE: It looks like this 767px is hardcoded in CSS files.

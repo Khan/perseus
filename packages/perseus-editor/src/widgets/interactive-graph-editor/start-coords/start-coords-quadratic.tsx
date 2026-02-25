@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, font, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, font, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {
     BodyMonospace,
     LabelLarge,
@@ -73,7 +73,7 @@ const StartCoordsQuadratic = (props: Props) => {
 
 const styles = StyleSheet.create({
     tile: {
-        backgroundColor: color.fadedBlue8,
+        backgroundColor: semanticColor.core.background.instructive.subtle,
         marginTop: spacing.xSmall_8,
         padding: spacing.small_12,
         borderRadius: spacing.xSmall_8,
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
         marginTop: spacing.small_12,
     },
     equationBody: {
-        backgroundColor: color.fadedOffBlack8,
-        border: `1px solid ${color.fadedOffBlack32}`,
+        backgroundColor: semanticColor.core.background.neutral.subtle,
+        border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
         marginTop: spacing.xSmall_8,
         paddingLeft: spacing.xSmall_8,
         paddingRight: spacing.xSmall_8,

@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
         width: spacing.xxxLarge_64,
     },
     errorField: {
-        borderColor: wbColor.red,
-        backgroundColor: wbColor.fadedRed8,
+        borderColor: semanticColor.core.border.critical.default,
+        backgroundColor: semanticColor.core.background.critical.subtle,
     },
 });
 

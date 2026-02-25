@@ -8,6 +8,9 @@ import {SvgImage} from "../../../components";
 import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
+import {isGif} from "../utils";
+
+import {GifControlsButton} from "./gif-controls-button";
 
 import type {ImageInfoAreaProps} from "./image-info-area";
 
@@ -24,11 +27,17 @@ export default function ExploreImageModalContent({
     labels,
     range,
     zoomSize,
+    isGifPlaying,
+    setIsGifPlaying,
 }: ImageInfoAreaProps) {
     const context = React.useContext(PerseusI18nContext);
     const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
 
     const [zoomWidth, zoomHeight] = zoomSize;
+    const gifControlsFF = isFeatureOn(
+        {apiOptions},
+        "image-widget-upgrade-gif-controls",
+    );
 
     if (
         !backgroundImage.height ||
@@ -37,6 +46,8 @@ export default function ExploreImageModalContent({
     ) {
         return null;
     }
+
+    const imageIsGif = isGif(backgroundImage.url);
 
     // Contain the image to the modal dimensions:
     // - Shrink image to the modal height if it's taller than the modal.
@@ -89,6 +100,16 @@ export default function ExploreImageModalContent({
             <div
                 className={`perseus-image-modal-description ${styles.modalDescriptionContainer}`}
             >
+                {gifControlsFF && imageIsGif && (
+                    <>
+                        <GifControlsButton
+                            isPlaying={isGifPlaying}
+                            onToggle={() => setIsGifPlaying(!isGifPlaying)}
+                        />
+                        <div className={styles.spacerVertical} />
+                    </>
+                )}
+
                 {caption && (
                     <div className={styles.modalCaptionContainer}>
                         {/* Use Renderer so that the caption can support markdown and TeX. */}
@@ -100,6 +121,7 @@ export default function ExploreImageModalContent({
                         />
                     </div>
                 )}
+
                 <HeadingMedium tag="h2" style={wbStyles.descriptionHeading}>
                     {context.strings.imageDescriptionLabel}
                 </HeadingMedium>
