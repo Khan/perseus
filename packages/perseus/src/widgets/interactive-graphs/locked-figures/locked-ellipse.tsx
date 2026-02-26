@@ -3,7 +3,7 @@ import {
     lockedFigureColors,
     type LockedEllipseType,
 } from "@khanacademy/perseus-core";
-import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {Ellipse} from "mafs";
 import * as React from "react";
 
@@ -45,7 +45,7 @@ const LockedEllipse = (props: LockedEllipseType) => {
                     style: {
                         fill:
                             fillStyle === "white"
-                                ? wbColor.white
+                                ? semanticColor.core.background.base.default
                                 : lockedFigureColors[color],
                     },
                 }}
