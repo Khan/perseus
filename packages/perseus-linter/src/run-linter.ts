@@ -3,6 +3,7 @@ import AllRules from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
 import type {LinterWarning} from "./rule";
+import type {TreeNode} from "./tree-transformer";
 
 export const allLintRules: ReadonlyArray<any> = AllRules.filter(
     (r) => r.severity < Rule.Severity.BULK_WARNING,
@@ -214,8 +215,7 @@ export function runLinter(
                 const prefix = content.substring(0, start);
                 const lint = content.substring(start, end);
                 const suffix = content.substring(end);
-                // TODO(FEI-5003): Give this a real type.
-                const replacements: any[] = []; // What we'll replace the node with
+                const replacements: TreeNode[] = []; // What we'll replace the node with
 
                 // The prefix text node, if there is one
                 if (prefix) {
