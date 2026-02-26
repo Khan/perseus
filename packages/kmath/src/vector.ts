@@ -131,12 +131,12 @@ export function collinear(v1: Vector, v2: Vector, tolerance?: number): boolean {
     );
 }
 
-// TODO(jeremy) These coordinate conversion functions really only handle 2D points (ie. [number, number])
-
-// Convert a cartesian coordinate into a radian polar coordinate
+/**
+ * Convert a cartesian coordinate into a radian polar coordinate
+ */
 export function polarRadFromCart(
     v: ReadonlyArray<number>,
-): ReadonlyArray<number> {
+): [radius: number, theta: number] {
     const radius = length(v);
     let theta = Math.atan2(v[1], v[0]);
 
@@ -151,12 +151,13 @@ export function polarRadFromCart(
 // Converts a cartesian coordinate into a degree polar coordinate
 export function polarDegFromCart(
     v: ReadonlyArray<number>,
-): ReadonlyArray<number> /* TODO: convert to tuple/Point */ {
+): [radius: number, theta: number] {
     const polar = polarRadFromCart(v);
     return [polar[0], (polar[1] * 180) / Math.PI];
 }
 
-/* Convert a polar coordinate into a cartesian coordinate
+/**
+ * Convert a polar coordinate into a cartesian coordinate
  *
  * Examples:
  * cartFromPolarRad(5, Math.PI)
@@ -164,11 +165,12 @@ export function polarDegFromCart(
 export function cartFromPolarRad(
     radius: number,
     theta = 0,
-): ReadonlyArray<number> /* TODO: convert to tuple/Point */ {
+): [x: number, y: number] {
     return [radius * Math.cos(theta), radius * Math.sin(theta)];
 }
 
-/* Convert a polar coordinate into a cartesian coordinate
+/**
+ * Convert a polar coordinate into a cartesian coordinate
  *
  * Examples:
  * cartFromPolarDeg(5, 30)
@@ -176,7 +178,7 @@ export function cartFromPolarRad(
 export function cartFromPolarDeg(
     radius: number,
     theta = 0,
-): ReadonlyArray<number> {
+): [x: number, y: number] {
     return cartFromPolarRad(radius, (theta * Math.PI) / 180);
 }
 
@@ -184,7 +186,7 @@ export function cartFromPolarDeg(
 export function rotateRad(
     v: ReadonlyArray<number>,
     theta: number,
-): ReadonlyArray<number> {
+): [x: number, y: number] {
     const polar = polarRadFromCart(v);
     const angle = polar[1] + theta;
     return cartFromPolarRad(polar[0], angle);
@@ -193,7 +195,7 @@ export function rotateRad(
 export function rotateDeg(
     v: ReadonlyArray<number>,
     theta: number,
-): ReadonlyArray<number> {
+): [x: number, y: number] {
     const polar = polarDegFromCart(v);
     const angle = polar[1] + theta;
     return cartFromPolarDeg(polar[0], angle);
