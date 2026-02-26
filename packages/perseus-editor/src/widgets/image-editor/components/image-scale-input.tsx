@@ -28,6 +28,8 @@ export default function ImageScaleInput({
 
     function handleScaleChange(newScale: string) {
         const scaleNum = Number(newScale);
+
+        // Scale needs to be a positive number.
         if (isNaN(scaleNum) || scaleNum <= 0) {
             return;
         }
@@ -37,26 +39,30 @@ export default function ImageScaleInput({
         });
     }
 
-    function handleScaledWidthChange(newWidth: string) {
-        const widthNum = Number(newWidth);
-        if (isNaN(widthNum) || widthNum <= 0) {
+    function handleScaledWidthChange(newScaledWidth: string) {
+        const newScaledWidthNum = Number(newScaledWidth);
+
+        // Width needs to be a positive number.
+        if (isNaN(newScaledWidthNum) || newScaledWidthNum <= 0) {
             return;
         }
 
-        const newScale = widthNum / width;
+        const newScale = newScaledWidthNum / width;
 
         onChange({
             scale: newScale,
         });
     }
 
-    function handleScaledHeightChange(newHeight: string) {
-        const heightNum = Number(newHeight);
-        if (isNaN(heightNum) || heightNum <= 0) {
+    function handleScaledHeightChange(newScaledHeight: string) {
+        const newScaledHeightNum = Number(newScaledHeight);
+
+        // Height needs to be a positive number.
+        if (isNaN(newScaledHeightNum) || newScaledHeightNum <= 0) {
             return;
         }
 
-        const newScale = heightNum / height;
+        const newScale = newScaledHeightNum / height;
 
         onChange({
             scale: newScale,
