@@ -1,4 +1,5 @@
 .base {
+    -webkit-tap-highlight-color: transparent;
     appearance: none; /* Remove user agent formatting in favor of our own */
     background-color: var(--wb-semanticColor-core-transparent);
     border: solid var(--wb-border-width-medium)

@@ -1,5 +1,4 @@
 // WidgetIssueDetails.tsx
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -9,7 +8,6 @@ import PerseusEditorAccordion from "./perseus-editor-accordion";
 import ShowMe from "./show-me-issue";
 
 import type {Issue} from "./issues-panel";
-import type {APIOptions} from "@khanacademy/perseus";
 
 const impactStringMap = {
     high: "Error",
@@ -18,11 +16,10 @@ const impactStringMap = {
 };
 
 type IssueProps = {
-    apiOptions?: APIOptions;
     issue: Issue;
 };
 
-const IssueDetails = ({apiOptions, issue}: IssueProps) => {
+const IssueDetails = ({issue}: IssueProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const toggleVisibility = () => setExpanded(!expanded);
 
@@ -33,12 +30,8 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
     const messageStyling = {
         // Allow newlines in the message
         whiteSpace: "pre-line",
-        color: semanticColor.core.foreground.critical.subtle,
+        color: semanticColor.core.foreground.critical.default,
     };
-
-    // TODO(LEMS-3520): Remove this once the "image-widget-upgrade" feature
-    // flag is has been fully rolled out. Also remove the `apiOptions` prop.
-    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
 
     return (
         <PerseusEditorAccordion
@@ -74,7 +67,7 @@ const IssueDetails = ({apiOptions, issue}: IssueProps) => {
             </LabelSmall>
             <span style={messageStyling}>{issue.message}</span>
             <ShowMe elements={issue.elements} />
-            {imageUpgradeFF && <IssueCta issue={issue} />}
+            <IssueCta issue={issue} />
         </PerseusEditorAccordion>
     );
 };

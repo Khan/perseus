@@ -3,7 +3,7 @@
     "description": "Khan Academy's Javascript Numeric Math Utilities",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.2.31",
+    "version": "2.2.33",
     "publishConfig": {
         "access": "public"
     },

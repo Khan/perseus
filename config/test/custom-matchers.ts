@@ -112,10 +112,7 @@ expect.extend({
             };
         }
 
-        // TODO: Are we sure this is right? I wonder if it should be
-        // score.earned === score.total
-        // (in multi-widget questions, you can get some right and some wrong)
-        if (score.earned !== 0) {
+        if (score.earned >= score.total) {
             return {
                 pass: false,
                 message: () => `Problem was answered correctly.`,

@@ -1,5 +1,75 @@
 # @khanacademy/perseus-editor
 
+## 28.13.0
+
+### Minor Changes
+
+-   [#3270](https://github.com/Khan/perseus/pull/3270) [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade feature flag
+
+### Patch Changes
+
+-   [#3244](https://github.com/Khan/perseus/pull/3244) [`13247bac3e`](https://github.com/Khan/perseus/commit/13247bac3e3541e470d65552d9c306e7db37fc9b) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB `color` references to use the new `semanticColor` tokens instead.
+
+*   [#3279](https://github.com/Khan/perseus/pull/3279) [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control buttons to explore image modal behind feature flag
+
+-   [#3275](https://github.com/Khan/perseus/pull/3275) [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control icon buttons behind feature flag
+
+-   Updated dependencies [[`46e100430a`](https://github.com/Khan/perseus/commit/46e100430a3f2519df7549d6c68f9f6176702d9c), [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373), [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe), [`7023b4dae0`](https://github.com/Khan/perseus/commit/7023b4dae02a49a146f8ef645b87c3d1008c41ee), [`7682804e0e`](https://github.com/Khan/perseus/commit/7682804e0eda17cb227150bcc447d6bcc7a958ad), [`78031be86b`](https://github.com/Khan/perseus/commit/78031be86b0b424331259ce15c0f82ad1d43bbe4), [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1)]:
+    -   @khanacademy/perseus-linter@4.8.1
+    -   @khanacademy/perseus@75.3.0
+    -   @khanacademy/perseus-core@23.1.0
+    -   @khanacademy/kmath@2.2.33
+    -   @khanacademy/keypad-context@3.2.33
+    -   @khanacademy/math-input@26.4.1
+    -   @khanacademy/perseus-score@8.2.10
+
+## 28.12.1
+
+### Patch Changes
+
+-   [#3264](https://github.com/Khan/perseus/pull/3264) [`304c071f16`](https://github.com/Khan/perseus/commit/304c071f1606b2398966449eacaaed219d74668c) Thanks [@benchristel](https://github.com/benchristel)! - Ensure the `correct` prop of interactive graphs matches the type of the `graph` prop. This works around a bug in the AX editor.
+
+-   Updated dependencies [[`2d5364d93b`](https://github.com/Khan/perseus/commit/2d5364d93b4311a659d701dde9b97aec66aade99), [`131d5e6688`](https://github.com/Khan/perseus/commit/131d5e6688a1ba5d70f383538022a39d63afac15)]:
+    -   @khanacademy/perseus@75.2.0
+
+## 28.12.0
+
+### Minor Changes
+
+-   [#3253](https://github.com/Khan/perseus/pull/3253) [`71bb581c84`](https://github.com/Khan/perseus/commit/71bb581c847dd1831c278d791c2316beaa1c1b13) Thanks [@handeyeco](https://github.com/handeyeco)! - Add initializeWidgetOptions API to widget editors to allow DefinitionEditor to prepopulate data in widget options
+
+## 28.11.0
+
+### Minor Changes
+
+-   [#3247](https://github.com/Khan/perseus/pull/3247) [`0e578d70fa`](https://github.com/Khan/perseus/commit/0e578d70fa74ae11b04509ad32e184f63f550694) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove static props from radio widget
+
+### Patch Changes
+
+-   [#3225](https://github.com/Khan/perseus/pull/3225) [`6d7338e5c6`](https://github.com/Khan/perseus/commit/6d7338e5c6bd6c5c85c35fff5095c7e6e7553d4c) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Fix zoomed image view in preview
+
+*   [#3259](https://github.com/Khan/perseus/pull/3259) [`8ee65a2add`](https://github.com/Khan/perseus/commit/8ee65a2addeb26e0eb5213444e77b730f7152c96) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   Updated dependencies [[`0e578d70fa`](https://github.com/Khan/perseus/commit/0e578d70fa74ae11b04509ad32e184f63f550694), [`e1f9a0d2a1`](https://github.com/Khan/perseus/commit/e1f9a0d2a1b5538650e9d6b2fac3fa219dab0577), [`6d7338e5c6`](https://github.com/Khan/perseus/commit/6d7338e5c6bd6c5c85c35fff5095c7e6e7553d4c), [`8ee65a2add`](https://github.com/Khan/perseus/commit/8ee65a2addeb26e0eb5213444e77b730f7152c96), [`1cd9b4d66a`](https://github.com/Khan/perseus/commit/1cd9b4d66a839acc99f377ee6081530ed920d4e9), [`9eb52fe892`](https://github.com/Khan/perseus/commit/9eb52fe8923d8c469f00c19f23e56188e6f19f54), [`082388a936`](https://github.com/Khan/perseus/commit/082388a9366c00e3519f9e26274e2eaca5c19644)]:
+    -   @khanacademy/perseus@75.1.0
+    -   @khanacademy/math-input@26.4.0
+    -   @khanacademy/perseus-linter@4.8.0
+
+## 28.10.4
+
+### Patch Changes
+
+-   [#3238](https://github.com/Khan/perseus/pull/3238) [`53938664e9`](https://github.com/Khan/perseus/commit/53938664e98915af4b970b3d2c07d80bc25e940e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove unnecessary escaping in regular expressions.
+
+-   Updated dependencies [[`10d2e0850e`](https://github.com/Khan/perseus/commit/10d2e0850e1e84540ddb6868c82f98092bd606e7), [`25c194b92e`](https://github.com/Khan/perseus/commit/25c194b92e75747d6f9911432a6afdacee9edfec), [`53938664e9`](https://github.com/Khan/perseus/commit/53938664e98915af4b970b3d2c07d80bc25e940e), [`3c705a11ce`](https://github.com/Khan/perseus/commit/3c705a11cea1a437f76571aef61f09982acc011a)]:
+    -   @khanacademy/perseus-core@23.0.2
+    -   @khanacademy/perseus-score@8.2.9
+    -   @khanacademy/perseus-linter@4.7.2
+    -   @khanacademy/keypad-context@3.2.32
+    -   @khanacademy/kmath@2.2.32
+    -   @khanacademy/math-input@26.3.13
+    -   @khanacademy/perseus@75.0.1
+
 ## 28.10.3
 
 ### Patch Changes

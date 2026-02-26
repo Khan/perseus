@@ -1,5 +1,31 @@
 # @khanacademy/math-input
 
+## 26.4.1
+
+### Patch Changes
+
+-   Updated dependencies [[`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373), [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe), [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1)]:
+    -   @khanacademy/perseus-core@23.1.0
+    -   @khanacademy/keypad-context@3.2.33
+
+## 26.4.0
+
+### Minor Changes
+
+-   [#3113](https://github.com/Khan/perseus/pull/3113) [`082388a936`](https://github.com/Khan/perseus/commit/082388a9366c00e3519f9e26274e2eaca5c19644) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Break Perseus styling into its own Cascade Layers
+
+### Patch Changes
+
+-   [#3259](https://github.com/Khan/perseus/pull/3259) [`8ee65a2add`](https://github.com/Khan/perseus/commit/8ee65a2addeb26e0eb5213444e77b730f7152c96) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+## 26.3.13
+
+### Patch Changes
+
+-   Updated dependencies [[`10d2e0850e`](https://github.com/Khan/perseus/commit/10d2e0850e1e84540ddb6868c82f98092bd606e7)]:
+    -   @khanacademy/perseus-core@23.0.2
+    -   @khanacademy/keypad-context@3.2.32
+
 ## 26.3.12
 
 ### Patch Changes

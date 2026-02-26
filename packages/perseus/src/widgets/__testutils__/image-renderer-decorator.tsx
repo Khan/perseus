@@ -48,7 +48,9 @@ export function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
                     images={question.images}
                     apiOptions={{
                         ...ApiOptions.defaults,
-                        flags: getFeatureFlags({"image-widget-upgrade": true}),
+                        flags: getFeatureFlags({
+                            "image-widget-upgrade-gif-controls": true,
+                        }),
                     }}
                 />
             )}
