@@ -5,6 +5,8 @@ import caretRightIcon from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 import {useEffect, useRef, useState} from "react";
 
+import {getCSSZoomFactor} from "../util";
+
 import {usePerseusI18n} from "./i18n-context";
 import styles from "./scrollable-view.module.css";
 
@@ -154,8 +156,17 @@ function ScrollableArea({
         const newIsRtl =
             getComputedStyle(containerRef.current).direction === "rtl";
 
+        // Compensate for CSS zoom applied by the parent app (e.g. mobile font scaling).
+        // Under CSS zoom, scrollWidth can be reported in visual (zoomed) pixels while
+        // clientWidth and scrollLeft remain in CSS pixels, causing a false-positive
+        // overflow detection. Dividing scrollWidth by the zoom factor normalizes it
+        // to CSS pixels so the comparison is apples-to-apples.
+        const zoomFactor = getCSSZoomFactor(containerRef.current);
+        const adjustedScrollWidth = scrollWidth / zoomFactor;
+
         // Only consider content scrollable if there's a meaningful amount to scroll
-        const newIsScrollable = scrollWidth > clientWidth + scrollableThreshold;
+        const newIsScrollable =
+            adjustedScrollWidth > clientWidth + scrollableThreshold;
         setIsScrollable(newIsScrollable);
 
         // In RTL mode, scrollLeft values work differently (can be negative)
@@ -169,11 +180,12 @@ function ScrollableArea({
             newCanScrollStart = scrollLeft < -scrollableThreshold;
             newCanScrollEnd =
                 Math.abs(scrollLeft) <
-                scrollWidth - clientWidth - scrollableThreshold;
+                adjustedScrollWidth - clientWidth - scrollableThreshold;
         } else {
             newCanScrollStart = scrollLeft > scrollableThreshold;
             newCanScrollEnd =
-                scrollLeft + clientWidth < scrollWidth - scrollableThreshold;
+                scrollLeft + clientWidth <
+                adjustedScrollWidth - scrollableThreshold;
         }
 
         // Update global registry
