@@ -54,8 +54,9 @@
 
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
-// TreeNode is the type of a node in a parse tree. The only real requirement is
-// that every node has a string-valued `type` property
+/**
+ * TreeNode represents a node in a linted parse tree.
+ */
 export type TreeNode =
     | {
           type: string;
