@@ -9,6 +9,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependencies,
@@ -28,6 +29,13 @@ const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
 
 const apiOptions = ApiOptions.defaults;
+
+const apiOptionsWithScaleFlag = {
+    ...apiOptions,
+    flags: getFeatureFlags({
+        "image-widget-upgrade-scale": true,
+    }),
+};
 
 const ImageEditorWithDependencies = (props: PropsFor<typeof ImageEditor>) => {
     return (
@@ -767,6 +775,306 @@ describe("image editor", () => {
 
             // Assert
             expect(onChangeMock).toHaveBeenCalledWith({decorative: true});
+        });
+    });
+
+    describe("scale input", () => {
+        it("should render the scale inputs", () => {
+            // Arrange, Act
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={earthMoonImage}
+                    scale={1}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Assert
+            const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
+            const scaledWidthField = screen.getByRole("spinbutton", {
+                name: "Scaled Width",
+            });
+            const scaledHeightField = screen.getByRole("spinbutton", {
+                name: "Scaled Height",
+            });
+            const resetToOriginalSizeButton = screen.getByRole("button", {
+                name: "Recalculate original size",
+            });
+            expect(scaleField).toBeInTheDocument();
+            expect(scaleField).toHaveValue(1);
+            expect(scaledWidthField).toBeInTheDocument();
+            expect(scaledWidthField).toHaveValue(earthMoonImage.width);
+            expect(scaledHeightField).toBeInTheDocument();
+            expect(scaledHeightField).toHaveValue(earthMoonImage.height);
+            expect(resetToOriginalSizeButton).toBeInTheDocument();
+        });
+
+        it("should should render scaled values of width and height", () => {
+            // Arrange, Act
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={earthMoonImage}
+                    scale={2}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Assert
+            const scaledWidthField = screen.getByRole("spinbutton", {
+                name: "Scaled Width",
+            });
+            const scaledHeightField = screen.getByRole("spinbutton", {
+                name: "Scaled Height",
+            });
+
+            expect(scaledWidthField).toBeInTheDocument();
+            expect(scaledWidthField).toHaveValue(earthMoonImage.width * 2);
+            expect(scaledHeightField).toBeInTheDocument();
+            expect(scaledHeightField).toHaveValue(earthMoonImage.height * 2);
+        });
+
+        it("should call onChange with new scale when scale is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={earthMoonImage}
+                    scale={1}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
+            scaleField.focus();
+            await userEvent.clear(scaleField);
+            await userEvent.paste("2");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                scale: 2,
+            });
+        });
+
+        it("should call onChange with new scale when scaled width is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={earthMoonImage}
+                    scale={1}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            const scaledWidthField = screen.getByRole("spinbutton", {
+                name: "Scaled Width",
+            });
+            scaledWidthField.focus();
+            await userEvent.clear(scaledWidthField);
+            await userEvent.paste(`${earthMoonImage.width * 2}`);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                scale: 2,
+            });
+        });
+
+        it("should call onChange with new scale when scaled height is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={earthMoonImage}
+                    scale={1}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            const scaledHeightField = screen.getByRole("spinbutton", {
+                name: "Scaled Height",
+            });
+            scaledHeightField.focus();
+            await userEvent.clear(scaledHeightField);
+            await userEvent.paste(`${earthMoonImage.height * 2}`);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                scale: 2,
+            });
+        });
+
+        it.each([0, -1, -3.14])(
+            "should not call onChange when scale is invalid (%s)",
+            async (scale) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+                render(
+                    <ImageEditorWithDependencies
+                        apiOptions={apiOptionsWithScaleFlag}
+                        backgroundImage={earthMoonImage}
+                        scale={1}
+                        onChange={onChangeMock}
+                    />,
+                );
+
+                // Act
+                const scaleField = screen.getByRole("spinbutton", {
+                    name: "Scale",
+                });
+                scaleField.focus();
+                await userEvent.clear(scaleField);
+                await userEvent.paste(scale.toString());
+
+                // Assert
+                expect(onChangeMock).not.toHaveBeenCalled();
+            },
+        );
+
+        it("should call onChange with original image size when recalculate original size is clicked", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={{
+                        url: earthMoonImage.url,
+                        width: earthMoonImage.width / 2,
+                        height: earthMoonImage.height / 2,
+                    }}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            const resetToOriginalSizeButton = screen.getByRole("button", {
+                name: "Recalculate original size",
+            });
+            await userEvent.click(resetToOriginalSizeButton);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                backgroundImage: earthMoonImage,
+            });
+        });
+
+        it("should not call onChange when reset to original size is clicked and the image size is already the original size", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={earthMoonImage}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            const resetToOriginalSizeButton = screen.getByRole("button", {
+                name: "Recalculate original size",
+            });
+            await userEvent.click(resetToOriginalSizeButton);
+
+            // Assert
+            expect(onChangeMock).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("flags", () => {
+        it("should render the scale inputs when the scale flag is enabled", () => {
+            // Arrange, Act
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={{
+                        ...apiOptions,
+                        flags: getFeatureFlags({
+                            "image-widget-upgrade-scale": true,
+                        }),
+                    }}
+                    backgroundImage={earthMoonImage}
+                    scale={1}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Assert - make sure new inputs are rendered
+            const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
+            const scaledWidthField = screen.getByRole("spinbutton", {
+                name: "Scaled Width",
+            });
+            const scaledHeightField = screen.getByRole("spinbutton", {
+                name: "Scaled Height",
+            });
+            const resetToOriginalSizeButton = screen.getByRole("button", {
+                name: "Recalculate original size",
+            });
+            expect(scaleField).toBeInTheDocument();
+            expect(scaledWidthField).toBeInTheDocument();
+            expect(scaledHeightField).toBeInTheDocument();
+            expect(resetToOriginalSizeButton).toBeInTheDocument();
+
+            // Make sure old inputs are not rendered
+            const widthField = screen.queryByRole("spinbutton", {
+                name: "Width",
+            });
+            const heightField = screen.queryByRole("spinbutton", {
+                name: "Height",
+            });
+            expect(widthField).not.toBeInTheDocument();
+            expect(heightField).not.toBeInTheDocument();
+        });
+
+        it("should render the scale inputs when the scale flag is enabled", () => {
+            // Arrange, Act
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={{
+                        ...apiOptions,
+                        flags: getFeatureFlags({
+                            "image-widget-upgrade-scale": false,
+                        }),
+                    }}
+                    backgroundImage={earthMoonImage}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Assert - make sure old inputs are rendered
+            const widthField = screen.getByRole("spinbutton", {name: "Width"});
+            const heightField = screen.getByRole("spinbutton", {
+                name: "Height",
+            });
+            expect(widthField).toBeInTheDocument();
+            expect(heightField).toBeInTheDocument();
+
+            // Make sure new inputs are not rendered
+            const scaleField = screen.queryByRole("spinbutton", {
+                name: "Scale",
+            });
+            const scaledWidthField = screen.queryByRole("spinbutton", {
+                name: "Scaled Width",
+            });
+            const scaledHeightField = screen.queryByRole("spinbutton", {
+                name: "Scaled Height",
+            });
+            const resetToOriginalSizeButton = screen.queryByRole("button", {
+                name: "Recalculate original size",
+            });
+            expect(scaleField).not.toBeInTheDocument();
+            expect(scaledWidthField).not.toBeInTheDocument();
+            expect(scaledHeightField).not.toBeInTheDocument();
+            expect(resetToOriginalSizeButton).not.toBeInTheDocument();
         });
     });
 });
