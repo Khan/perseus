@@ -17,7 +17,8 @@ import {
     calculateSideSnap,
 } from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
+import {getCSSZoomFactor} from "../../../util";
+import {bound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";

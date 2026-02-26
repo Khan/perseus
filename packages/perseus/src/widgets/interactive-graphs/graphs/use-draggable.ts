@@ -5,7 +5,7 @@ import invariant from "tiny-invariant";
 
 import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getCSSZoomFactor} from "../utils";
+import {getCSSZoomFactor} from "../../../util";
 
 import type {RefObject} from "react";
 
