@@ -1,9 +1,9 @@
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 
+import {getCSSZoomFactor} from "../../../util";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getCSSZoomFactor} from "../../../util";
 
 import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";

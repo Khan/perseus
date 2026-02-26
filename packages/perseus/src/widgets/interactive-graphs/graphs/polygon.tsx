@@ -9,6 +9,7 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
+import {getCSSZoomFactor} from "../../../util";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
@@ -17,7 +18,6 @@ import {
     calculateSideSnap,
 } from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getCSSZoomFactor} from "../../../util";
 import {bound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
