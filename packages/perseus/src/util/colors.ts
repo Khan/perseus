@@ -6,6 +6,7 @@
  * khan-exercises submodule, as graphie-to-png still relies on the palette
  * provided on KhanUtil.
  */
+// eslint-disable-next-line no-restricted-imports -- Replace with semanticColor
 import {color} from "@khanacademy/wonder-blocks-tokens";
 
 // TODO(WB-2160): Update these to use the new semanticColor tokens, and use the
