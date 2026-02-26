@@ -54,13 +54,27 @@
 
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
-// TreeNode is the type of a node in a parse tree. The only real requirement is
-// that every node has a string-valued `type` property
-export type TreeNode = {
-    type: string;
-    widgetType?: string;
-    id?: string;
-};
+/**
+ * TreeNode represents a node in a linted parse tree.
+ */
+export type TreeNode =
+    | {
+          type: string;
+          content: string;
+          id?: string;
+          widgetType?: string;
+      }
+    | {
+          type: "lint";
+          content: TreeNode;
+          message: string;
+          ruleName: string;
+          blockHighlight?: boolean;
+          insideTable: boolean;
+          severity: number;
+          id?: undefined;
+          widgetType?: undefined;
+      };
 
 // TraversalCallback is the type of the callback function passed to the
 // traverse() method. It is invoked with node, state, and content arguments
@@ -133,9 +147,7 @@ export default class TreeTransformer {
             // Record the node's text content if it has any.
             // Usually this is for nodes with a type property of "text",
             // but other nodes types like "math" may also have content.
-            // @ts-expect-error - TS2339 - Property 'content' does not exist on type 'TreeNode'.
             if (typeof node.content === "string") {
-                // @ts-expect-error - TS2339 - Property 'content' does not exist on type 'TreeNode'.
                 content = node.content;
             }
 

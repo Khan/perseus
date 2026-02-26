@@ -173,7 +173,6 @@ export function runLinter(
                 // node under a new lint node and put the warnings there.
                 state.replace({
                     type: "lint",
-                    // @ts-expect-error - TS2345 - Argument of type '{ type: string; content: TreeNode; message: string; ruleName: any; blockHighlight: any; insideTable: boolean; severity: any; }' is not assignable to parameter of type 'TreeNode'.
                     content: node,
                     message: nodeWarnings.map((w) => w.message).join("\n\n"),
                     ruleName: nodeWarnings[0].rule,
@@ -207,7 +206,6 @@ export function runLinter(
                 // single line, so keeping them combined in that case might
                 // be the best thing, anyway.
                 //
-                // @ts-expect-error - TS2339 - Property 'content' does not exist on type 'TreeNode'.
                 const content = node.content; // Text nodes have content
                 const warning = nodeWarnings[0]; // There is only one warning.
                 // These are the lint boundaries within the content
