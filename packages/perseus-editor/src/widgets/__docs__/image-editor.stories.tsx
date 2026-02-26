@@ -118,6 +118,8 @@ export const GraphieImageWithScaleFlag: Story = {
     args: {
         backgroundImage: {
             url: graphieImage.url,
+            // Use smaller size so we can test the
+            // "Recalculate original size" button.
             width: graphieImage.width / 2,
             height: graphieImage.height / 2,
         },

@@ -111,6 +111,7 @@ export default function ImageScaleInput({
 
             <LabeledField
                 label="Scale"
+                description="Use a scale of 1 to display image at original size."
                 field={
                     <ScrolllessNumberTextField
                         value={scale > 0 ? scale.toString() : "1"}
