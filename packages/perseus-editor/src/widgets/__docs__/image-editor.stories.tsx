@@ -9,7 +9,11 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
+import {getFeatureFlags} from "../../../../perseus/src/testing/feature-flags-util";
+import {
+    earthMoonImage,
+    graphieImage,
+} from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageEditor from "../image-editor/image-editor";
@@ -18,11 +22,11 @@ import {PROD_EDITOR_WIDTH} from "./utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const withinEditorPageDecorator = (_, {args}) => {
+const withinEditorPageDecorator = (_, {args, parameters}) => {
     return (
         <div style={{width: PROD_EDITOR_WIDTH}}>
             <EditorPageWithStorybookPreview
-                apiOptions={ApiOptions.defaults}
+                apiOptions={parameters?.apiOptions ?? ApiOptions.defaults}
                 question={generateTestPerseusRenderer({
                     content: "[[☃ image 1]]",
                     widgets: {
@@ -91,6 +95,42 @@ export const Populated: Story = {
         alt: "The moon showing behind the Earth in space.",
         caption: "Captured via XYZ Telescope",
         title: "The Moon",
+    },
+};
+
+/**
+ * This Image widget editor has a graphie image.
+ */
+export const GraphieImage: Story = {
+    name: "Graphie Image (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: graphieImage,
+    },
+};
+
+/**
+ * This Image widget editor has a graphie image, and the scale flag is enabled.
+ */
+export const GraphieImageWithScaleFlag: Story = {
+    name: "Graphie Image with Scale Flag (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: {
+            url: graphieImage.url,
+            // Use smaller size so we can test the
+            // "Recalculate original size" button.
+            width: graphieImage.width / 2,
+            height: graphieImage.height / 2,
+        },
+    },
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-scale": true,
+            }),
+        },
     },
 };
 

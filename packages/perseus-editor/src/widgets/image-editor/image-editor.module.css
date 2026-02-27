@@ -22,3 +22,10 @@
     display: block;
     margin-inline: var(--wb-sizing-size_080);
 }
+
+.horizontal-line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--wb-semanticColor-core-background-neutral-default);
+    margin-block: var(--wb-sizing-size_080);
+}

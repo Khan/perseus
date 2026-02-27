@@ -6,7 +6,14 @@ import type {WidgetLogic} from "../logic-export.types";
 
 export type ImageDefaultWidgetOptions = Pick<
     PerseusImageWidgetOptions,
-    "title" | "range" | "box" | "backgroundImage" | "labels" | "alt" | "caption"
+    | "title"
+    | "range"
+    | "box"
+    | "backgroundImage"
+    | "scale"
+    | "labels"
+    | "alt"
+    | "caption"
 >;
 
 const defaultWidgetOptions: ImageDefaultWidgetOptions = {
@@ -21,6 +28,7 @@ const defaultWidgetOptions: ImageDefaultWidgetOptions = {
         width: 0,
         height: 0,
     },
+    scale: 1,
     labels: [],
     alt: "",
     caption: "",
