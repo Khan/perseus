@@ -16,15 +16,14 @@ export type CompareResult = {
 };
 
 export type ExpressionVars = {
-    equal: boolean;
-    equalIgnoringCase: boolean;
+    hasWrongVarCase: boolean;
     hasUnexpectedVars: boolean;
 };
 
 // TODO: Convert to interface and make the various Expr's implement it?
 export type Expression = {
     compare: (expr: Expression) => boolean;
-    sameVars: (
+    validateVars: (
         expr: Expression,
         extraKeys?: ReadonlyArray<string>,
     ) => ExpressionVars;
