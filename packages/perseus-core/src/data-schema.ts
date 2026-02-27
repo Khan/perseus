@@ -673,6 +673,8 @@ export type PerseusImageWidgetOptions = {
     decorative?: boolean;
     // The image details for the image to be displayed
     backgroundImage: PerseusImageBackground;
+    // The size scale of the image
+    scale?: number;
     // Always false.  Not used for this widget
     static?: boolean;
     // A list of labels to display on the image

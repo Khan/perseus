@@ -31,6 +31,7 @@ export default function ExploreImageModalContent({
     setIsGifPlaying,
 }: ImageInfoAreaProps) {
     const context = React.useContext(PerseusI18nContext);
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
 
     const [zoomWidth, zoomHeight] = zoomSize;
     const gifControlsFF = isFeatureOn(
@@ -52,10 +53,22 @@ export default function ExploreImageModalContent({
     // - Shrink image to the modal height if it's taller than the modal.
     // - Keep image its original size if it's shorter than the modal.
     // - Maintain the image's aspect ratio.
-    const modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
+    let modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
     // bgWidth / bgHeight = X / modalImageHeight
     // => X = (bgWidth / bgHeight) * modalImageHeight
-    const width = (zoomWidth / zoomHeight) * modalImageHeight;
+    let width = (zoomWidth / zoomHeight) * modalImageHeight;
+
+    if (scaleFF) {
+        // Contain the image to the modal dimensions:
+        // - Shrink image to the modal height if it's taller than the modal.
+        // - Keep image its original size if it's shorter than the modal.
+        // - Maintain the image's aspect ratio.
+        modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
+        // bgWidth / bgHeight = X / modalImageHeight
+        // => X = (bgWidth / bgHeight) * modalImageHeight
+        width =
+            (backgroundImage.width / backgroundImage.height) * modalImageHeight;
+    }
 
     return (
         <div className={styles.modalPanelContainer}>

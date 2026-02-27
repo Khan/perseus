@@ -37,6 +37,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         {apiOptions},
         "image-widget-upgrade-gif-controls",
     );
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
 
     const [zoomSize, setZoomSize] = React.useState<Size>([
         backgroundImage.width || 0,
@@ -62,6 +63,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         });
     });
 
+    // TODO(LEMS-3912): Remove this effect afte we turn on and remove the
+    // image-widget-upgrade-scale feature flag.
     React.useEffect(() => {
         // Reset the flag for this effect run
         ignoreResultsRef.current = false;
@@ -105,6 +108,12 @@ export const ImageComponent = (props: ImageWidgetProps) => {
 
     const imageIsGif = isGif(backgroundImage.url);
 
+    let scale = props.scale;
+    // Set the scale to 1 if the scale flag is disabled or the scale is invalid.
+    if (!scaleFF || scale <= 0 || scale === Infinity || scale === -Infinity) {
+        scale = 1;
+    }
+
     const svgImage = (
         <AssetContext.Consumer>
             {({setAssetStatus}) => (
@@ -113,8 +122,9 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     // Between the original image size and the saved background
                     // image size, use the larger size to determine if the
                     // image is large enough to allow zooming.
-                    width={zoomWidth}
-                    height={zoomHeight}
+                    width={scaleFF ? backgroundImage.width : zoomWidth}
+                    height={scaleFF ? backgroundImage.height : zoomHeight}
+                    scale={scale}
                     preloader={apiOptions.imagePreloader}
                     extraGraphie={{
                         box: box,
@@ -133,6 +143,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         </AssetContext.Consumer>
     );
 
+    const maxWidth = (backgroundImage.width ?? 0) * scale;
+
     // Early return for decorative images
     if (decorative) {
         return (
@@ -143,7 +155,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     // width saved inside `backgroundImage` - this is the
                     // width intended to be used when rendering the image
                     // within the content item.
-                    maxWidth: backgroundImage.width,
+                    maxWidth: maxWidth,
                 }}
             >
                 {svgImage}
@@ -159,7 +171,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                 // width saved inside `backgroundImage` - this is the
                 // width intended to be used when rendering the image
                 // within the content item.
-                maxWidth: backgroundImage.width,
+                maxWidth: maxWidth,
             }}
         >
             {/* Title */}
