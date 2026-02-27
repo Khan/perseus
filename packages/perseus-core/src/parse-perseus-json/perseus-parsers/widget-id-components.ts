@@ -16,7 +16,7 @@ import type {Parser} from "../parser-types";
  * @param ctx - The parse context for error reporting
  * @returns A ParseResult containing either the parsed number or an error
  */
-export const parseStringToNonNegativeInt: Parser<number> = (rawValue, ctx) => {
+const parseStringToNonNegativeInt: Parser<number> = (rawValue, ctx) => {
     // The article renderer seems to allow the numeric part of a widget ID to
     // be 0, at least for image widgets. However, if widget IDs in an exercise
     // contain 0, the exercise renderer will blow up. We allow 0 here for

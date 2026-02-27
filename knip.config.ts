@@ -6,41 +6,45 @@ import type {KnipConfig} from "knip";
  *
  * To use: `pnpm knip`
  */
-const config: KnipConfig = {
-    // Entrypoints to the code, including:
-    // - Where our external APIs are exported from (index.ts).
-    // - Tests and stories.
-    // Paths marked with `!` are production files.
+
+// About `project` and `entry`: Knip will only look for dead code in `project`
+// files. Files and exports in `project` are reported as unused if they are
+// not reachable from any of the `entry` files.
+// See: https://knip.dev/guides/configuring-project-files#unused-files
+// Paths marked with `!` are production files.
+const basePackageConfig = {
+    project: ["src/**/*.{ts,tsx,js,jsx}!"],
     entry: [
-        "config/**/*.{ts,tsx,js,jsx}",
-        "packages/*/src/index.{ts,tsx}!",
-        "packages/*/src/**/*.cypress.{ts,tsx}",
-        "packages/*/src/**/*.test.{ts,tsx}",
-        "packages/*/src/**/*.stories.{ts,tsx}",
-        "utils/**/*.{ts,tsx,js,jsx}",
+        "src/index.{ts,tsx}!",
+        "src/**/*.cypress.{ts,tsx}",
+        "src/**/*.test.{ts,tsx}",
+        "src/**/*.typetest.{ts,tsx}",
+        "src/**/*.stories.{ts,tsx}",
     ],
-    // Where we want to look for dead code.
-    // Paths marked with `!` are production files.
-    project: ["packages/*/src/*.{ts,tsx,js,jsx}!"],
-    rules: {
-        dependencies: "error",
+};
+
+const config: KnipConfig = {
+    workspaces: {
+        ".": {
+            project: ["{config,utils}/**/*.{ts,tsx,js,jsx}"],
+            entry: [
+                // CLI tools
+                "utils/**/*.{ts,tsx,js,jsx}",
+            ],
+        },
+        "packages/*": basePackageConfig,
+        "packages/perseus-core": {
+            ...basePackageConfig,
+            entry: [
+                ...basePackageConfig.entry,
+                // These files contain test data. They are dynamically imported via
+                // glob patterns, so Knip can't figure out that they're used.
+                "src/parse-perseus-json/regression-tests/{article,item,user-input}-data/**",
+                // CLI used for testing against production data.
+                "src/parse-perseus-json/exhaustive-test-tool/index.ts",
+            ],
+        },
     },
-    // Special exceptions
-    ignore: [
-        // symlinked type defs for third-party libs
-        "**/aphrodite.d.ts",
-        "**/assets.d.ts",
-        "**/jsdiff.d.ts",
-        "**/raphael.d.ts",
-        "**/utility.d.ts",
-        // these files are used by tests
-        "packages/perseus-core/src/parse-perseus-json/**",
-        // these need fixing
-        // TODO(LEMS-3867)
-        "packages/perseus-editor/src/components/__stories__/**",
-        // TODO(LEMS-3868)
-        "packages/perseus-editor/src/preview/message-types.ts",
-    ],
     // These are packages that are listed in package.json files but not
     // directly imported in our code.
     ignoreDependencies: [
