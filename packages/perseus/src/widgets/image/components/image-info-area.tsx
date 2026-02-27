@@ -70,6 +70,8 @@ export const ImageInfoArea = (props: ImageInfoAreaProps) => {
         "image-widget-upgrade-gif-controls",
     );
 
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
+
     if (!backgroundImage.url) {
         return null;
     }
@@ -108,7 +110,7 @@ export const ImageInfoArea = (props: ImageInfoAreaProps) => {
                 <figcaption
                     className="perseus-image-caption"
                     style={{
-                        maxWidth: zoomWidth,
+                        maxWidth: scaleFF ? backgroundImage.width : zoomWidth,
                     }}
                 >
                     {/* The Renderer component is used here so that the caption

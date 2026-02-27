@@ -11,9 +11,9 @@ import * as React from "react";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import UserInputManager from "../../user-input-manager";
 
+import type {APIOptions} from "../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const imageRendererDecorator = (_, {args, parameters}) => {
@@ -29,12 +29,16 @@ export const imageRendererDecorator = (_, {args, parameters}) => {
                     }),
                 },
             })}
+            apiOptions={parameters?.apiOptions}
         />
     );
 };
 
-export function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
-    const {question} = props;
+export function ImageQuestionRenderer(props: {
+    question: PerseusRenderer;
+    apiOptions?: APIOptions;
+}) {
+    const {question, apiOptions} = props;
     return (
         <UserInputManager widgets={question.widgets} problemNum={0}>
             {({userInput, handleUserInput, initializeUserInput}) => (
@@ -46,12 +50,7 @@ export function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
                     content={question.content}
                     widgets={question.widgets}
                     images={question.images}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: getFeatureFlags({
-                            "image-widget-upgrade-gif-controls": true,
-                        }),
-                    }}
+                    apiOptions={apiOptions ?? ApiOptions.defaults}
                 />
             )}
         </UserInputManager>
