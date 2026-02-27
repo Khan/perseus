@@ -26,8 +26,8 @@ export const compare = function (
     };
 
     // Variable checks
-    const vars = expr1.sameVars(expr2, optionsWithDefaults.extraKeys);
-    if (!vars.equal && vars.equalIgnoringCase) {
+    const vars = expr1.validateVars(expr2, optionsWithDefaults.extraKeys);
+    if (vars.hasWrongVarCase) {
         return {
             equal: false,
             wrongVariableCase: true,
@@ -36,7 +36,7 @@ export const compare = function (
                 "the wrong case (upper or lower).",
         };
     }
-    if (!vars.equal && vars.hasUnexpectedVars) {
+    if (vars.hasUnexpectedVars) {
         return {
             equal: false,
             wrongVariableNames: true,
