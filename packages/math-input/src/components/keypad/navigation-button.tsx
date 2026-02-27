@@ -1,6 +1,6 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -87,13 +87,13 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     base: {
-        boxShadow: `0px 1px 0px ${color.offBlack32}`,
+        boxShadow: `0px 1px 0px ${semanticColor.core.shadow.chonky.neutral.subtle}`,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: color.white,
+        background: semanticColor.core.background.base.default,
         borderWidth: 2,
-        borderColor: color.white,
+        borderColor: semanticColor.core.border.knockout.default,
     },
     up: {
         borderTopLeftRadius: borderRadiusPx,
@@ -112,16 +112,16 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: borderRadiusPx,
     },
     hovered: {
-        borderColor: color.blue,
+        borderColor: semanticColor.core.border.instructive.default,
         boxShadow: "none",
     },
     focused: {
-        borderColor: color.blue,
+        borderColor: semanticColor.core.border.instructive.default,
         boxShadow: "none",
     },
     pressed: {
         border: "2px solid #1B50B3",
-        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${color.white}`,
+        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${semanticColor.core.background.base.default}`,
         boxShadow: "none",
     },
 });

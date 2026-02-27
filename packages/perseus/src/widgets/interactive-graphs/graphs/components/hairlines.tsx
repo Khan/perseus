@@ -1,4 +1,4 @@
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
@@ -34,14 +34,14 @@ export default function Hairlines(props: Props) {
                 y1={y}
                 x2={verticalEndX}
                 y2={y}
-                stroke={color.blue}
+                stroke={semanticColor.core.border.instructive.default}
             />
             <line
                 x1={x}
                 y1={horizontalStartY}
                 x2={x}
                 y2={horizontalEndY}
-                stroke={color.blue}
+                stroke={semanticColor.core.border.instructive.default}
             />
         </g>
     );

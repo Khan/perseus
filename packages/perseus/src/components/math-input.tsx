@@ -11,7 +11,7 @@ import {
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {color, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
@@ -550,17 +550,17 @@ const styles = StyleSheet.create({
     },
     iconInactive: {
         border: "2px solid transparent",
-        backgroundColor: color.offBlack8,
+        backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     iconActive: {
         border: `2px solid ${semanticColor.core.border.knockout.default}`,
-        backgroundColor: color.offBlack64,
+        backgroundColor: semanticColor.core.background.neutral.default,
     },
     outerWrapper: {
         display: "inline-block",
         borderStyle: "solid",
         borderWidth: 1,
-        borderColor: color.offBlack50,
+        borderColor: semanticColor.core.border.neutral.default,
         borderRadius: 3,
         background: semanticColor.core.background.base.default,
         ":hover": inputFocused,

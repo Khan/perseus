@@ -1,5 +1,5 @@
 import {angles, geometry} from "@khanacademy/kmath";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {vec} from "mafs";
 import * as React from "react";
 
@@ -261,7 +261,11 @@ export const Angle = ({
                 <Arc arc={arc} className={arcClassName} />
             )}
             {showAngles && (
-                <TextLabel x={textX} y={textY} color={color.blue}>
+                <TextLabel
+                    x={textX}
+                    y={textY}
+                    color={semanticColor.core.foreground.instructive.default}
+                >
                     {angleLabel}°
                 </TextLabel>
             )}

@@ -2,7 +2,7 @@ import {
     lockedFigureColors,
     type LockedPointType,
 } from "@khanacademy/perseus-core";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point} from "mafs";
 import * as React from "react";
 
@@ -26,7 +26,7 @@ const LockedPoint = (props: LockedPointType) => {
                     style: {
                         fill: filled
                             ? lockedFigureColors[color]
-                            : wbColor.white,
+                            : semanticColor.core.background.base.default,
                         stroke: lockedFigureColors[color],
                         strokeWidth: spacing.xxxxSmall_2,
                     },

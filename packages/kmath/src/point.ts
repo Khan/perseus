@@ -10,7 +10,11 @@ import * as kvector from "./vector";
 export type Point = ReadonlyArray<number>;
 
 // Rotate point (around origin unless a center is specified)
-export function rotateRad(point: Point, theta: number, center?: Point): Point {
+export function rotateRad(
+    point: readonly [number, number],
+    theta: number,
+    center?: readonly [number, number],
+): Point {
     if (center === undefined) {
         return kvector.rotateRad(point, theta);
     } else {
@@ -21,7 +25,11 @@ export function rotateRad(point: Point, theta: number, center?: Point): Point {
     }
 }
 
-export function rotateDeg(point: Point, theta: number, center?: Point): Point {
+export function rotateDeg(
+    point: readonly [number, number],
+    theta: number,
+    center?: readonly [number, number],
+): Point {
     if (center === undefined) {
         return kvector.rotateDeg(point, theta);
     } else {
@@ -56,7 +64,7 @@ export function reflectOverLine<P extends Point>(point: P, line: [P, P]): P {
 }
 
 /**
- * Compares two points, returning -1, 0, or 1, for use with
+ * Compares two points, returning negative, 0, or positive, for use with
  * Array.prototype.sort
  *
  * Note: This technically doesn't satisfy the total-ordering
@@ -68,7 +76,7 @@ export function compare(
     point1: Point,
     point2: Point,
     equalityTolerance?: number,
-): number /* TODO: convert to -1 | 0 | 1 type */ {
+): number {
     if (point1.length !== point2.length) {
         return point1.length - point2.length;
     }

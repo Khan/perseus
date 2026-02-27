@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import {KeypadContext} from "@khanacademy/keypad-context";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -921,7 +921,8 @@ class MathInput extends React.Component<Props, State> {
             borderWidth: this.getBorderWidthPx(),
             ...(showInputFocusStyle
                 ? {
-                      borderColor: color.blue,
+                      borderColor:
+                          semanticColor.core.border.instructive.default,
                   }
                 : {}),
             ...style,
@@ -1043,9 +1044,9 @@ const inlineStyles = {
         boxSizing: "border-box",
         position: "relative",
         borderStyle: "solid",
-        borderColor: color.offBlack50,
+        borderColor: semanticColor.core.border.neutral.default,
         borderRadius: 4,
-        color: color.offBlack,
+        color: semanticColor.core.foreground.neutral.strong,
     },
 } as const;
 

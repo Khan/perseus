@@ -30,7 +30,7 @@ const IssueDetails = ({issue}: IssueProps) => {
     const messageStyling = {
         // Allow newlines in the message
         whiteSpace: "pre-line",
-        color: semanticColor.core.foreground.critical.subtle,
+        color: semanticColor.core.foreground.critical.default,
     };
 
     return (
