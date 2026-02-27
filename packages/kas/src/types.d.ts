@@ -3,6 +3,9 @@ export type CompareOptions = {
     form: boolean;
     // Check that the second expression is simplified
     simplify: boolean;
+    // Variables from other answer forms (e.g. intentionally wrong answers) that
+    // are "known" — students using these should be considered to have valid answers
+    extraKeys?: ReadonlyArray<string>;
 };
 
 export type CompareResult = {
@@ -13,14 +16,17 @@ export type CompareResult = {
 };
 
 export type ExpressionVars = {
-    equal: boolean;
-    equalIgnoringCase: boolean;
+    hasWrongVarCase: boolean;
+    hasUnexpectedVars: boolean;
 };
 
 // TODO: Convert to interface and make the various Expr's implement it?
 export type Expression = {
     compare: (expr: Expression) => boolean;
-    sameVars: (expr: Expression) => ExpressionVars;
+    validateVars: (
+        expr: Expression,
+        extraKeys?: ReadonlyArray<string>,
+    ) => ExpressionVars;
     sameForm: (expr: Expression) => unknown;
     isSimplified: () => boolean;
 };

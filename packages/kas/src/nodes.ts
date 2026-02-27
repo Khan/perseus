@@ -376,8 +376,9 @@ abstract class Expr {
         return this.exprArgs()[0].needsExplicitMul();
     }
 
-    // check that the variables in both expressions are the same
-    sameVars(other: Expr) {
+    // Validates the student's variables against the answer expression, returning
+    // whether there's a case mismatch or any variables not in the answer or extraKeys.
+    validateVars(other: Expr, extraKeys: ReadonlyArray<string> = []) {
         var vars1 = this.getVars();
         var vars2 = other.getVars();
 
@@ -393,12 +394,20 @@ abstract class Expr {
         };
 
         var equal = same(vars1, vars2);
-        var equalIgnoringCase = same(lower(vars1), lower(vars2));
 
-        return {equal: equal, equalIgnoringCase: equalIgnoringCase};
+        // True if the student's variables differ only in case from the answer's variables
+        var hasWrongVarCase = !equal && same(lower(vars1), lower(vars2));
+
+        // Variables the student used that don't appear in the answer
+        const extraVars = vars1.filter((v) => !vars2.includes(v));
+
+        // True if the student used a variable not found in the answer OR extraKeys
+        const hasUnexpectedVars = extraVars.some((v) => !extraKeys.includes(v));
+
+        return {hasWrongVarCase, hasUnexpectedVars};
     }
 
-    // semantic equality check, call after sameVars() to avoid potential false positives
+    // semantic equality check, call after validateVars() to avoid potential false positives
     // plug in random numbers for the variables in both expressions
     // if they both consistently evaluate the same, then they're the same
     compare(other: Expr) {

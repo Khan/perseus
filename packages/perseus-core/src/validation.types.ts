@@ -114,6 +114,7 @@ export type PerseusDropdownUserInput = {
 export type PerseusExpressionRubric = {
     answerForms: Array<PerseusExpressionAnswerForm>;
     functions: string[];
+    extraKeys?: ReadonlyArray<string>;
 };
 
 export type PerseusExpressionUserInput = string;
