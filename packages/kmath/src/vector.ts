@@ -131,12 +131,10 @@ export function collinear(v1: Vector, v2: Vector, tolerance?: number): boolean {
     );
 }
 
-// TODO(jeremy) These coordinate conversion functions really only handle 2D points (ie. [number, number])
-
 // Convert a cartesian coordinate into a radian polar coordinate
 export function polarRadFromCart(
-    v: ReadonlyArray<number>,
-): ReadonlyArray<number> {
+    v: readonly [number, number],
+): [number, number] {
     const radius = length(v);
     let theta = Math.atan2(v[1], v[0]);
 
@@ -150,8 +148,8 @@ export function polarRadFromCart(
 
 // Converts a cartesian coordinate into a degree polar coordinate
 export function polarDegFromCart(
-    v: ReadonlyArray<number>,
-): ReadonlyArray<number> /* TODO: convert to tuple/Point */ {
+    v: readonly [number, number],
+): [number, number] {
     const polar = polarRadFromCart(v);
     return [polar[0], (polar[1] * 180) / Math.PI];
 }
@@ -161,10 +159,7 @@ export function polarDegFromCart(
  * Examples:
  * cartFromPolarRad(5, Math.PI)
  */
-export function cartFromPolarRad(
-    radius: number,
-    theta = 0,
-): ReadonlyArray<number> /* TODO: convert to tuple/Point */ {
+export function cartFromPolarRad(radius: number, theta = 0): [number, number] {
     return [radius * Math.cos(theta), radius * Math.sin(theta)];
 }
 
@@ -173,27 +168,24 @@ export function cartFromPolarRad(
  * Examples:
  * cartFromPolarDeg(5, 30)
  */
-export function cartFromPolarDeg(
-    radius: number,
-    theta = 0,
-): ReadonlyArray<number> {
+export function cartFromPolarDeg(radius: number, theta = 0): [number, number] {
     return cartFromPolarRad(radius, (theta * Math.PI) / 180);
 }
 
 // Rotate vector
 export function rotateRad(
-    v: ReadonlyArray<number>,
+    v: readonly [number, number],
     theta: number,
-): ReadonlyArray<number> {
+): [number, number] {
     const polar = polarRadFromCart(v);
     const angle = polar[1] + theta;
     return cartFromPolarRad(polar[0], angle);
 }
 
 export function rotateDeg(
-    v: ReadonlyArray<number>,
+    v: readonly [number, number],
     theta: number,
-): ReadonlyArray<number> {
+): [number, number] {
     const polar = polarDegFromCart(v);
     const angle = polar[1] + theta;
     return cartFromPolarDeg(polar[0], angle);

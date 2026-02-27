@@ -23,8 +23,6 @@ export function midpoint(line: Line): Point {
 }
 
 export function equal(line1: Line, line2: Line, tolerance?: number): boolean {
-    // TODO: A nicer implementation might just check collinearity of
-    // vectors using underscore magick
     // Compare the directions of the lines
     const v1 = kvector.subtract(line1[1], line1[0]);
     const v2 = kvector.subtract(line2[1], line2[0]);

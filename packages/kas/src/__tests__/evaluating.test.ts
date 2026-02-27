@@ -102,7 +102,7 @@ describe("evaluating", () => {
         expect("g(1)").toEvaluateAs(-1, {f: "x", g: "-f(x)"}, ["f", "g"]);
     });
 
-    // TODO (LEMS-2198): these are tests from a failed attempt
+    // TODO(LEMS-2198): these are tests from a failed attempt
     // to support mixed numbers correctly. Keeping so we have a record
     // of what's wrong and what's expected.
     test("fraction expressions", () => {

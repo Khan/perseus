@@ -36,7 +36,6 @@ const KhanMath = {
 
     getGCD: function (a: number, b: number): number {
         if (arguments.length > 2) {
-            // TODO(kevinb): rewrite using rest args instead of arguments
             // eslint-disable-next-line prefer-rest-params
             const rest = [].slice.call(arguments, 1);
             // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
@@ -59,7 +58,6 @@ const KhanMath = {
 
     getLCM: function (a: number, b: number): number {
         if (arguments.length > 2) {
-            // TODO(kevinb): rewrite using rest args instead of arguments
             // eslint-disable-next-line prefer-rest-params
             const rest = [].slice.call(arguments, 1);
             // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
@@ -133,7 +131,6 @@ const KhanMath = {
      * with an approx symbol if num had to be rounded, and trailing 0s
      */
     toFixedApprox: function (num: number, precision: number): string {
-        // TODO(aria): Make this locale-dependent
         const fixedStr = num.toFixed(precision);
         if (knumber.equal(+fixedStr, num)) {
             return fixedStr;
