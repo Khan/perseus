@@ -1,7 +1,7 @@
 import {getChoiceStates} from "./general-utils";
 
 import type {ChoiceState} from "../../../types";
-import type {RadioChoiceWithMetadata} from "../multiple-choice-widget";
+import type {RadioChoiceWithMetadata} from "../radio-widget";
 
 describe("getChoiceStates", () => {
     const mockChoices: RadioChoiceWithMetadata[] = [

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Multiple Choice Widget multi-choice question should snapshot the same when invalid: invalid state 1`] = `
+exports[`Radio Widget multi-choice question should snapshot the same when invalid: invalid state 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -278,7 +278,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
 </div>
 `;
 
-exports[`Multiple Choice Widget single-choice question reviewMode: false should snapshot the same with correct answer: correct answer 1`] = `
+exports[`Radio Widget single-choice question reviewMode: false should snapshot the same with correct answer: correct answer 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -570,7 +570,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
 </div>
 `;
 
-exports[`Multiple Choice Widget single-choice question reviewMode: false should snapshot the same with incorrect answer: incorrect answer 1`] = `
+exports[`Radio Widget single-choice question reviewMode: false should snapshot the same with incorrect answer: incorrect answer 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -862,7 +862,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
 </div>
 `;
 
-exports[`Multiple Choice Widget single-choice question reviewMode: false should snapshot the same: first render 1`] = `
+exports[`Radio Widget single-choice question reviewMode: false should snapshot the same: first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1154,7 +1154,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
 </div>
 `;
 
-exports[`Multiple Choice Widget single-choice question reviewMode: true should snapshot the same with correct answer: correct answer 1`] = `
+exports[`Radio Widget single-choice question reviewMode: true should snapshot the same with correct answer: correct answer 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1446,7 +1446,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
 </div>
 `;
 
-exports[`Multiple Choice Widget single-choice question reviewMode: true should snapshot the same with incorrect answer: incorrect answer 1`] = `
+exports[`Radio Widget single-choice question reviewMode: true should snapshot the same with incorrect answer: incorrect answer 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1738,7 +1738,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
 </div>
 `;
 
-exports[`Multiple Choice Widget single-choice question reviewMode: true should snapshot the same: first render 1`] = `
+exports[`Radio Widget single-choice question reviewMode: true should snapshot the same: first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

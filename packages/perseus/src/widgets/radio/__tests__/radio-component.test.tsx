@@ -3,10 +3,10 @@ import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as Choice from "../choice";
-import MultipleChoiceComponent from "../multiple-choice-component";
+import RadioComponent from "../radio-component";
 
-import type {MultipleChoiceComponentProps} from "../multiple-choice-component";
-import type {ChoiceType} from "../multiple-choice-widget";
+import type {RadioComponentProps} from "../radio-component";
+import type {ChoiceType} from "../radio-widget";
 
 type overrideProps = {
     choiceOverrides?: Partial<ChoiceType>;
@@ -41,10 +41,10 @@ const getComponentProps = (props?: overrideProps) => {
         reviewMode,
         countChoices: false,
         numCorrect: 1,
-    } as MultipleChoiceComponentProps;
+    } as RadioComponentProps;
 };
 
-describe("Multiple choice component", () => {
+describe("Radio widget UI component", () => {
     let choiceSpy: jest.SpyInstance;
 
     beforeEach(() => {
@@ -58,7 +58,7 @@ describe("Multiple choice component", () => {
                 Verifying the base case here since subsequent tests check for changes.
              */
             const props = getComponentProps();
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             const classes = Array.from(screen.getByRole("list").classList);
             expect(classes).toHaveLength(1);
             expect(classes).toContain(`choice-list`);
@@ -66,7 +66,7 @@ describe("Multiple choice component", () => {
 
         it("adjusts the margin of the options and rationale when in review mode", () => {
             const props = getComponentProps({reviewMode: true});
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             const classes = Array.from(screen.getByRole("list").classList);
             expect(classes).toContain(`review-answers`);
         });
@@ -81,7 +81,7 @@ describe("Multiple choice component", () => {
                 choiceOverrides,
                 reviewMode: true,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             const classes = Array.from(
                 screen.getByText(rationaleContent).classList,
             );
@@ -100,7 +100,7 @@ describe("Multiple choice component", () => {
                 choiceOverrides,
                 reviewMode: true,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             const classes = Array.from(
                 screen.getByText(rationaleContent).classList,
             );
@@ -130,7 +130,7 @@ describe("Multiple choice component", () => {
                 choiceOverrides,
                 reviewMode,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             expect(choiceSpy.mock.calls[0][0].showCorrectness).toBe(
                 expectedCorrectness,
             );
@@ -143,7 +143,7 @@ describe("Multiple choice component", () => {
             const props = getComponentProps({
                 choiceOverrides,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             expect(screen.getByText("foo-bar-zot")).toBeInTheDocument();
         });
 
@@ -155,7 +155,7 @@ describe("Multiple choice component", () => {
             const props = getComponentProps({
                 choiceOverrides,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             expect(screen.queryByText("foo-bar-zot")).not.toBeInTheDocument();
             expect(screen.getByText("None of the above")).toBeInTheDocument();
         });
@@ -172,7 +172,7 @@ describe("Multiple choice component", () => {
                 choiceOverrides,
                 reviewMode: true,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             expect(screen.getByText(rationaleContent)).toBeInTheDocument();
         });
 
@@ -187,7 +187,7 @@ describe("Multiple choice component", () => {
             const props = getComponentProps({
                 choiceOverrides,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             expect(
                 screen.queryByText(rationaleContent),
             ).not.toBeInTheDocument();
@@ -205,7 +205,7 @@ describe("Multiple choice component", () => {
                 choiceOverrides,
                 reviewMode: true,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             expect(
                 screen.queryByText(rationaleContent),
             ).not.toBeInTheDocument();
@@ -229,7 +229,7 @@ describe("Multiple choice component", () => {
                 choiceOverrides,
                 reviewMode,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             expect(screen.getByRole("button")).toHaveAttribute(
                 "aria-label",
                 expectedLabel,
@@ -243,7 +243,7 @@ describe("Multiple choice component", () => {
             const props = getComponentProps({
                 onChoiceChange: onChoiceChangeFn,
             });
-            render(<MultipleChoiceComponent {...props} />);
+            render(<RadioComponent {...props} />);
             act(() => {
                 screen.getByRole("listitem").click();
             });

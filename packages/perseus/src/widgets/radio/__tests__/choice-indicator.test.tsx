@@ -12,7 +12,7 @@ const indicatorContent: IndicatorContent = {
     screenReader: "Choice A",
 };
 
-describe("Multiple choice indicator", () => {
+describe("Radio widget choice indicator", () => {
     let iconMock: jest.SpyInstance;
     let mockClickHandler: jest.Mock;
     let buttonRef: React.Ref<HTMLButtonElement>;

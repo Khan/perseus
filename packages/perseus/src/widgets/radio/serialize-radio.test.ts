@@ -13,7 +13,7 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-const expectedSerializedMultipleChoice = {
+const expectedSerializedRadio = {
     alignment: "default",
     numCorrect: 1,
     hasNoneOfTheAbove: false,
@@ -99,8 +99,8 @@ const expectedSerializedMultipleChoice = {
  *
  * This API needs to be removed and these tests need to be removed with it.
  */
-describe("Multiple Choice serialization", () => {
-    function generateBasicMultipleChoice(): PerseusItem {
+describe("Radio widget serialization", () => {
+    function generateBasicRadioContent(): PerseusItem {
         const question = generateTestPerseusRenderer({
             content: "[[☃ radio 1]]",
             widgets: {
@@ -157,7 +157,7 @@ describe("Multiple Choice serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicMultipleChoice());
+        const {renderer} = renderQuestion(generateBasicRadioContent());
 
         const preAnswerState = renderer.getSerializedState();
 
@@ -173,7 +173,7 @@ describe("Multiple Choice serialization", () => {
             preAnswerState.question["radio 1"].selectedChoiceIds,
         ).toBeUndefined();
         expect(postAnswerState.question["radio 1"]).toEqual(
-            expectedSerializedMultipleChoice,
+            expectedSerializedRadio,
         );
     });
 });

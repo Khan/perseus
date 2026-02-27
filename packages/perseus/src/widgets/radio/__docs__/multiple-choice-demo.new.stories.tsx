@@ -15,7 +15,7 @@ import {
     SingleSelectOverflowContent,
     SingleSelectOverflowImageContent,
     overflowContentInGradedGroupSet,
-} from "../__tests__/multiple-choice.testdata";
+} from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";

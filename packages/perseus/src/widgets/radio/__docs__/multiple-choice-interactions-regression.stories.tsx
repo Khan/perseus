@@ -13,10 +13,7 @@ import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
-import {
-    choicesWithMathFont,
-    question,
-} from "../__tests__/multiple-choice.testdata";
+import {choicesWithMathFont, question} from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";

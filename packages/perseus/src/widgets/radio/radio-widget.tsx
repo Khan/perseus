@@ -9,7 +9,7 @@ import MathRenderingContext from "../../math-rendering-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
-import MultipleChoiceComponent from "./multiple-choice-component";
+import RadioComponent from "./radio-component";
 import {choiceTransform} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
@@ -22,9 +22,8 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-// TODO(LEMS-3170): Simplify the ChoiceType by using ChoiceProps directly.
 /**
- * Represents a single choice in the MultipleChoiceComponent
+ * Represents a single choice in the RadioComponent
  */
 export interface ChoiceType {
     id: string;
@@ -63,19 +62,19 @@ export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
 type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 
 /**
- * MultipleChoiceWidget implements the Widget interface for multiple choice questions.
+ * RadioWidget implements the Widget interface for multiple choice questions.
  *
  * It handles Perseus-specific logic and user state management while delegating
- * UI rendering to the MultipleChoiceComponent.
+ * UI rendering to the RadioComponent.
  *
  * This component is exported as "Radio" for backwards compatibility with existing content,
  * though it supports both radio-button (single select) and checkbox (multiple select) modes.
- * Eventually, when Content Backfills are set up, we will officially rename the Radio Widget to MultipleChoiceWidget.
+ * Eventually, when Content Backfills are set up, we will officially rename the Radio Widget to RadioWidget.
  *
  * Created as part of the Radio Revitalization Project (LEMS-2933).
  */
-const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
-    function MultipleChoiceWidget(props, ref) {
+const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
+    function RadioWidget(props, ref) {
         const {
             multipleSelect = false,
             countChoices = false,
@@ -281,7 +280,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
         };
 
         /**
-         * Transforms choice states into component-ready props for the MultipleChoiceComponent.
+         * Transforms choice states into component-ready props for the RadioComponent.
          *
          * This function:
          * 1. Processes each choice's content
@@ -290,7 +289,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
          * 4. Determines correctness display based on choice data or review rubric
          *
          * @param choiceStates - The current state of each choice
-         * @returns An array of formatted choice props ready for the MultipleChoiceComponent
+         * @returns An array of formatted choice props ready for the RadioComponent
          */
         const buildChoiceProps = (
             choiceStates: ReadonlyArray<ChoiceState>,
@@ -319,7 +318,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
         };
 
         /**
-         * Prepares the choice props for rendering in the MultipleChoiceComponent.
+         * Prepares the choice props for rendering in the RadioComponent.
          *
          * This function:
          * 1. Uses getChoiceStates() to determine the appropriate state for each choice
@@ -364,7 +363,7 @@ const MultipleChoiceWidget = forwardRef<RadioWidgetHandle, Props>(
             apiOptions.readOnly || isReviewMode ? () => {} : handleChoiceChange;
 
         return (
-            <MultipleChoiceComponent
+            <RadioComponent
                 reviewMode={isReviewMode}
                 multipleSelect={multipleSelect}
                 countChoices={countChoices}
@@ -402,7 +401,7 @@ class Radio extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
-        return <MultipleChoiceWidget ref={this.radioRef} {...this.props} />;
+        return <RadioWidget ref={this.radioRef} {...this.props} />;
     }
 }
 

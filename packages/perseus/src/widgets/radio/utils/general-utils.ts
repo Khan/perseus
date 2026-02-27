@@ -1,5 +1,5 @@
 import type {ChoiceState} from "../../../types";
-import type {RadioChoiceWithMetadata} from "../multiple-choice-widget";
+import type {RadioChoiceWithMetadata} from "../radio-widget";
 import type {ShowSolutions} from "@khanacademy/perseus-core";
 
 interface GetChoiceStatesProps {
