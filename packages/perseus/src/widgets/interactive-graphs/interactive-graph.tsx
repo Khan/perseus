@@ -401,7 +401,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getLinearSystemCoords(
         graph: PerseusGraphType,
         props: Props,
-    ): Coord[][] {
+    ): [Coord, Coord][] {
         return (
             // The callers assume that we're return an array of points
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.

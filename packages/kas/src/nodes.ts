@@ -1,7 +1,6 @@
 /* eslint-disable max-lines */
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
-/* TODO: fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable indent, no-undef, no-var, no-dupe-keys, no-new-func, no-redeclare, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
 import _ from "underscore";
 
@@ -451,7 +450,6 @@ abstract class Expr {
 
         // collect here to avoid sometimes dividing by zero, and sometimes not
         // it is better to be deterministic, e.g. x/x -> 1
-        // TODO(alex): may want to keep track of assumptions as they're made
         var expr1 = this.collect();
         var expr2 = other.collect();
 
@@ -490,7 +488,6 @@ abstract class Expr {
             // which has no concept of complex numbers. The solution is simple:
             // Integrate a library for handling complex numbers.
             //
-            // TODO(alex): Add support for complex numbers, then remove this.
             var useFloats = i % 2 === 0;
 
             _.each(varList, function (v) {
@@ -613,10 +610,8 @@ abstract class Expr {
 /* abstract sequence node */
 abstract class Seq extends Expr {
     // This should always have at least two terms.
-    // TODO(kevinb): Try enforcing this at the type-level using [T, T, T[]]
     terms: Expr[];
 
-    // TODO(kevinb): Update this use `...args: Expr[]`
     constructor(...args: any[]) {
         super();
         if (args.length === 1) {
@@ -718,7 +713,6 @@ abstract class Seq extends Expr {
     }
 
     getDenominator(): Expr {
-        // TODO(alex): find and return LCM
         return new Mul(_.invoke(this.terms, "getDenominator")).flatten();
     }
 }
@@ -793,9 +787,6 @@ export class Add extends Seq {
                 return new Mul(coefficient, expr).collect(options);
             }),
         );
-
-        // TODO(alex): use the Pythagorean identity here
-        // e.g. x*sin^2(y) + x*cos^2(y) -> x
 
         return new Add(collected).flatten();
     }
@@ -1102,9 +1093,6 @@ export class Mul extends Seq {
             return term instanceof Rational;
         });
 
-        // Could also accomplish this by passing a new option
-        // e.g. return  memo.mul(term, {autocollect: false});
-        // TODO(alex): Decide whether this is a good use of options or not
         const ratObj = _.reduce(
             rationals as Rational[],
             (memo, term) => {
@@ -1217,9 +1205,6 @@ export class Mul extends Seq {
                     }
                 }
 
-                // TODO(alex): combine even if exponents not a perfect match
-                // TODO(alex): transform 1/sin and 1/cos into csc and sec
-
                 _.each(funcs, (exp, type) => {
                     trigs.push([new Trig(type, arg), exp]);
                 });
@@ -1263,8 +1248,6 @@ export class Mul extends Seq {
                     logs = logs.concat(pairs);
                 }
             });
-
-            // TODO(alex): combine if all inverses are the same e.g. ln(y)*ln(z)/ln(x)/ln(x)
         }
 
         var collected = _.map([...trigs, ...logs, ...exprs], (pair) => {
@@ -1304,7 +1287,6 @@ export class Mul extends Seq {
     }
 
     // factor out a single hinted -1 (assume it is the division hint)
-    // TODO(alex): make more general or rename to be more specific
     factorOut() {
         var factored = false;
         var terms = _.compact(
@@ -1874,8 +1856,6 @@ export class Pow extends Expr {
             const exp = pow.exp.remove(log).flatten();
             return new Pow(base, exp).collect(options);
         } else if (pow.base instanceof Num && pow.exp instanceof Num) {
-            // TODO(alex): Consider encapsualting this logic (and similar logic
-            // elsewhere) into a separate Decimal class for user-entered floats
             if (options && options.preciseFloats) {
                 // Avoid creating an imprecise float
                 // e.g. 23^1.5 -> 12167^0.5, not ~110.304
@@ -1885,7 +1865,6 @@ export class Pow extends Expr {
                 // the result is imprecise. This works for rationals as well
                 // as floats, but ideally rationals should be pre-processed
                 // e.g. (1/27)^(1/3) -> 1/3 to avoid most cases.
-                // TODO(alex): Catch such cases and avoid converting to floats.
                 const exp = pow.exp.asRational();
                 const decimalsInBase = pow.base.getDecimalPlaces();
                 const root = new Pow(pow.base, new Rational(1, exp.d));
@@ -2050,13 +2029,9 @@ export class Pow extends Expr {
 
     // NOTE(kevinb): nthroot is used as a constructor so we need to
     // define it as a static property instead of a static method.
-    // TODO(kevinb): update parser-generator.ts to call nthrooth
-    // without using `new`.
     static nthroot = function (radicand: Expr, degree: Expr) {
         var exp = Mul.fold(Mul.handleDivide(new Int(1), degree));
 
-        // TODO(johnsullivan): If oneOverDegree ends up being a pow object,
-        //     this "root" hint is lost between here and when tex() is called.
         return new Pow(radicand, exp.addHint("root"));
     };
 }
@@ -2217,7 +2192,7 @@ type TrigFunc = {
 
 /* trigonometric functions */
 export class Trig extends Expr {
-    type: string; // TODO(kevinb): Use a union type for this
+    type: string;
     arg: Expr;
     exp?: Expr;
 
@@ -2237,7 +2212,6 @@ export class Trig extends Expr {
         return [this.type, this.arg];
     }
 
-    // TODO(kevinb): Use union type for the function names.
     functions: Record<string, TrigFunc> = {
         sin: {
             eval: Math.sin,
@@ -2670,7 +2644,7 @@ export class Abs extends Expr {
 /* equation */
 export class Eq extends Expr {
     left: Expr;
-    type: string; // TODO(kevinb): use an enum for this
+    type: string;
     right: Expr;
 
     constructor(left: Expr, type: string, right: Expr) {
@@ -2776,8 +2750,6 @@ export class Eq extends Expr {
 
     // divide through by every common factor in the expression
     // e.g. 2y-4x(=0) -> y-2x(=0)
-    // TODO(alex): Make it an option to only divide by variables/expressions
-    // guaranteed to be nonzero
     divideThrough(expr: Expr) {
         const isInequality = !this.isEquality();
 
@@ -3480,8 +3452,6 @@ export class Float extends Num {
         return this.n;
     }
 
-    // TODO(alex): when we internationalize number parsing/display
-    // we should make sure to use the appropriate decimal mark here
     print(): string {
         return this.n.toString();
     }
@@ -3644,7 +3614,6 @@ export const parse = function (input: string, options?: ParseOptions) {
         // If ',' is the decimal dividor in your country, replace any ','s
         // with '.'s.
         // This isn't perfect, since the output will all still have '.'s.
-        // TODO(jack): Fix the output to have ','s in this case
         if (options && options.decimal_separator) {
             input = input.split(options.decimal_separator).join(".");
         }
@@ -3934,7 +3903,6 @@ var derivedUnits = {
     min: makeAlias("60 | s", hasntPrefixes),
     hr: makeAlias("3600 | s", hasntPrefixes),
     sec: makeAlias("| s", hasntPrefixes),
-    // TODO(joel) make day work
     day: makeAlias("86400 | s", hasntPrefixes),
     wk: makeAlias("604800 | s", hasntPrefixes),
     fortnight: makeAlias("14 | day", hasntPrefixes),
@@ -4037,7 +4005,6 @@ var derivedUnits = {
     Wb: makeAlias("1000 | g m m / C s", hasPrefixes),
 
     // photometry
-    // TODO not sure this is right
     lm: makeAlias("pi x 10^4 | cd / m m", hasntPrefixes),
     lx: makeAlias("| lm / m m", hasntPrefixes),
     nit: makeAlias("| cd / m m", hasntPrefixes),

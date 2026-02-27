@@ -114,7 +114,7 @@ describe("parsing", () => {
         expect("\\frac{42}{1}").toParseAs("42/1");
         expect("\\frac{0}{42}").toParseAs("0/42");
 
-        // TODO (LEMS-2198): this should actually be:
+        // TODO(LEMS-2198): this should actually be:
         // expect("2\\frac{1}{2}").toParseAs("2+1/2");
         expect("2\\frac{1}{2}").toParseAs("2*1/2");
         expect("\\frac{1}{2}\\frac{1}{2}").toParseAs("1/2*1/2");
@@ -131,7 +131,7 @@ describe("parsing", () => {
         expect("\\dfrac{42}{1}").toParseAs("42/1");
         expect("\\dfrac{0}{42}").toParseAs("0/42");
 
-        // TODO (LEMS-2198): this should actually be:
+        // TODO(LEMS-2198): this should actually be:
         // expect("2\\dfrac{1}{2}").toParseAs("2+1/2");
         expect("2\\dfrac{1}{2}").toParseAs("2*1/2");
         expect("\\dfrac{1}{2}\\dfrac{1}{2}").toParseAs("1/2*1/2");
