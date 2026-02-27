@@ -1,5 +1,27 @@
 # @khanacademy/perseus-editor
 
+## 28.14.0
+
+### Minor Changes
+
+-   [#3257](https://github.com/Khan/perseus/pull/3257) [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add scale prop to Image widget behind feature flag
+
+### Patch Changes
+
+-   [#3246](https://github.com/Khan/perseus/pull/3246) [`6a252c8786`](https://github.com/Khan/perseus/commit/6a252c8786d91ebe76beb024f377eded7d2b93ec) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB `color` references to use the new `semanticColor` tokens instead.
+
+*   [#3282](https://github.com/Khan/perseus/pull/3282) [`ee181a8ef6`](https://github.com/Khan/perseus/commit/ee181a8ef603f78849b3b93110c5ae8b3b23c25f) Thanks [@nishasy](https://github.com/nishasy)! - Update issues message color to have better contrast ratio
+
+*   Updated dependencies [[`6a252c8786`](https://github.com/Khan/perseus/commit/6a252c8786d91ebe76beb024f377eded7d2b93ec), [`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8), [`7eb47d9613`](https://github.com/Khan/perseus/commit/7eb47d9613dbf474be38aff01667ca82ce6ab7b5), [`c054d4ccdc`](https://github.com/Khan/perseus/commit/c054d4ccdc5360e466b34e483da1ea9e73ddd279), [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af)]:
+    -   @khanacademy/perseus@75.4.0
+    -   @khanacademy/kas@2.1.8
+    -   @khanacademy/kmath@2.2.34
+    -   @khanacademy/perseus-core@23.2.0
+    -   @khanacademy/math-input@26.4.2
+    -   @khanacademy/perseus-linter@4.8.2
+    -   @khanacademy/perseus-score@8.2.11
+    -   @khanacademy/keypad-context@3.2.34
+
 ## 28.13.0
 
 ### Minor Changes

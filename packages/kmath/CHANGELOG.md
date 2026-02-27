@@ -1,5 +1,14 @@
 # @khanacademy/kmath
 
+## 2.2.34
+
+### Patch Changes
+
+-   [#3281](https://github.com/Khan/perseus/pull/3281) [`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Delete old to-do comments and tighten up types.
+
+-   Updated dependencies [[`7eb47d9613`](https://github.com/Khan/perseus/commit/7eb47d9613dbf474be38aff01667ca82ce6ab7b5), [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af)]:
+    -   @khanacademy/perseus-core@23.2.0
+
 ## 2.2.33
 
 ### Patch Changes
