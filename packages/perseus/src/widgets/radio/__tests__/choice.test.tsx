@@ -12,7 +12,7 @@ const indicatorContent: IndicatorContent = {
     screenReader: "Choice A",
 };
 
-describe("Multiple choice option", () => {
+describe("Radio widget choice option", () => {
     it.each`
         isMultiSelect | isOrIsNot   | shape
         ${false}      | ${"is NOT"} | ${"circle"}

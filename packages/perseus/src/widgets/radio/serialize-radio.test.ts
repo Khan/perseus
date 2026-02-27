@@ -46,6 +46,7 @@ const expectedSerializedRadio = {
     choiceStates: [
         {
             selected: true, // <= note we stash user input
+            // TODO (LEMS-3185): REMOVE THESE FIELDS
             highlighted: false,
             rationaleShown: false,
             correctnessShown: false,
@@ -54,6 +55,7 @@ const expectedSerializedRadio = {
         },
         {
             selected: false,
+            // TODO (LEMS-3185): REMOVE THESE FIELDS
             highlighted: false,
             rationaleShown: false,
             correctnessShown: false,
@@ -62,6 +64,7 @@ const expectedSerializedRadio = {
         },
         {
             selected: false,
+            // TODO (LEMS-3185): REMOVE THESE FIELDS
             highlighted: false,
             rationaleShown: false,
             correctnessShown: false,
@@ -70,6 +73,7 @@ const expectedSerializedRadio = {
         },
         {
             selected: false,
+            // TODO (LEMS-3185): REMOVE THESE FIELDS
             highlighted: false,
             rationaleShown: false,
             correctnessShown: false,
@@ -95,8 +99,8 @@ const expectedSerializedRadio = {
  *
  * This API needs to be removed and these tests need to be removed with it.
  */
-describe("Radio serialization", () => {
-    function generateBasicRadio(): PerseusItem {
+describe("Radio widget serialization", () => {
+    function generateBasicRadioContent(): PerseusItem {
         const question = generateTestPerseusRenderer({
             content: "[[☃ radio 1]]",
             widgets: {
@@ -153,13 +157,13 @@ describe("Radio serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicRadio());
+        const {renderer} = renderQuestion(generateBasicRadioContent());
 
         const preAnswerState = renderer.getSerializedState();
 
         // select the first options
-        const radioInputs = screen.getAllByRole("button");
-        await userEvent.click(radioInputs[0]);
+        const choiceInputs = screen.getAllByRole("button");
+        await userEvent.click(choiceInputs[0]);
 
         // Act
         const postAnswerState = renderer.getSerializedState();

@@ -1,4 +1,4 @@
-import type radio from "../../widgets/radio/radio";
+import type radio from "../../widgets/radio";
 import type {
     PerseusRadioUserInput,
     RecursiveReadonly,
@@ -38,9 +38,11 @@ export const getPromptJSON = (
         return option;
     });
 
+    const hasNoneOfTheAbove = choices.some((choice) => choice.isNoneOfTheAbove);
+
     return {
         type: "radio",
-        hasNoneOfTheAbove: !!widgetData.hasNoneOfTheAbove,
+        hasNoneOfTheAbove,
         options,
         userInput: {
             selectedOptions: userInput?.selectedChoiceIds ?? [],
