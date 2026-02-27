@@ -352,3 +352,43 @@ describe("comparing", () => {
         expect("y=2x-5").not.toEqualExprAndForm("2x-y=5");
     });
 });
+
+describe("comparing with extraKeys", () => {
+    it("does not return wrongVariableNames when the extra variable is in extraKeys", () => {
+        // Correct answer is 8, student enters 8d, d is a known extraKey
+        const student = KAS.parse("8d").expr;
+        const correct = KAS.parse("8").expr;
+
+        const result = KAS.compare(student, correct, {extraKeys: ["d"]});
+
+        expect(result.wrongVariableNames).toBeFalsy();
+        expect(result.equal).toBe(false);
+    });
+
+    it("returns wrongVariableNames when the variable is not in extraKeys", () => {
+        const student = KAS.parse("8d").expr;
+        const correct = KAS.parse("8").expr;
+
+        const result = KAS.compare(student, correct, {extraKeys: []});
+
+        expect(result.wrongVariableNames).toBe(true);
+    });
+
+    it("returns wrongVariableCase for a case mismatch when the variable is not in extraKeys", () => {
+        const student = KAS.parse("8X").expr;
+        const correct = KAS.parse("8x").expr;
+
+        const result = KAS.compare(student, correct, {extraKeys: ["x"]});
+
+        expect(result.wrongVariableCase).toBe(true);
+    });
+
+    it("returns wrongVariableNames when there's both a case mismatch and a variable that is not in extraKeys", () => {
+        const student = KAS.parse("8Xd").expr;
+        const correct = KAS.parse("8x").expr;
+
+        const result = KAS.compare(student, correct, {extraKeys: ["x"]});
+
+        expect(result.wrongVariableNames).toBe(true);
+    });
+});
