@@ -357,9 +357,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     Multiple choice best practices
                 </Link>
                 <div className="perseus-widget-row">
-                    <div
-                        style={randomizeRowStyle}
-                    >
+                    <div style={randomizeRowStyle}>
                         <LabeledSwitch
                             label="Randomize order"
                             checked={this.props.randomize}
