@@ -1,5 +1,26 @@
 # @khanacademy/perseus
 
+## 75.4.0
+
+### Minor Changes
+
+-   [#3257](https://github.com/Khan/perseus/pull/3257) [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add scale prop to Image widget behind feature flag
+
+### Patch Changes
+
+-   [#3246](https://github.com/Khan/perseus/pull/3246) [`6a252c8786`](https://github.com/Khan/perseus/commit/6a252c8786d91ebe76beb024f377eded7d2b93ec) Thanks [@jandrade](https://github.com/jandrade)! - Updates perseus to use WB `semanticColor` tokens instead of the now deprecated `color` tokens.
+
+*   [#3281](https://github.com/Khan/perseus/pull/3281) [`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Delete old to-do comments and tighten up types.
+
+*   Updated dependencies [[`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8), [`7eb47d9613`](https://github.com/Khan/perseus/commit/7eb47d9613dbf474be38aff01667ca82ce6ab7b5), [`c054d4ccdc`](https://github.com/Khan/perseus/commit/c054d4ccdc5360e466b34e483da1ea9e73ddd279), [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af)]:
+    -   @khanacademy/kas@2.1.8
+    -   @khanacademy/kmath@2.2.34
+    -   @khanacademy/perseus-core@23.2.0
+    -   @khanacademy/math-input@26.4.2
+    -   @khanacademy/perseus-linter@4.8.2
+    -   @khanacademy/perseus-score@8.2.11
+    -   @khanacademy/keypad-context@3.2.34
+
 ## 75.3.0
 
 ### Minor Changes

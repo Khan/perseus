@@ -1,5 +1,18 @@
 # @khanacademy/perseus-core
 
+## 23.2.0
+
+### Minor Changes
+
+-   [#3257](https://github.com/Khan/perseus/pull/3257) [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add scale prop to Image widget behind feature flag
+
+### Patch Changes
+
+-   [#3287](https://github.com/Khan/perseus/pull/3287) [`7eb47d9613`](https://github.com/Khan/perseus/commit/7eb47d9613dbf474be38aff01667ca82ce6ab7b5) Thanks [@benchristel](https://github.com/benchristel)! - Use `Intl.NumberFormat(locale).formatToParts()` to get the decimal separator for a given locale.
+
+-   Updated dependencies [[`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8)]:
+    -   @khanacademy/kas@2.1.8
+
 ## 23.1.0
 
 ### Minor Changes
