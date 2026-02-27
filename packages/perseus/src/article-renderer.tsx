@@ -26,11 +26,6 @@ import type {
 type Props = Partial<React.ContextType<typeof DependenciesContext>> &
     SharedRendererProps & {
         json: PerseusArticle;
-        // Whether to use the new Bibliotron styles for articles
-        /**
-         * @deprecated Does nothing
-         */
-        useNewStyles: boolean;
         legacyPerseusLint?: ReadonlyArray<string>;
         keypadElement?: KeypadAPI | null | undefined;
         dependencies: PerseusDependenciesV2;
@@ -38,7 +33,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> &
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
-    useNewStyles: Props["useNewStyles"];
     linterContext: Props["linterContext"];
 };
 
@@ -54,7 +48,6 @@ class ArticleRenderer
 
     static defaultProps: DefaultProps = {
         apiOptions: ApiOptions.defaults,
-        useNewStyles: false,
         linterContext: PerseusLinter.linterContextDefault,
     };
 
