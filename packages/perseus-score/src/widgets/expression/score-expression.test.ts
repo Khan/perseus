@@ -104,6 +104,28 @@ describe("scoreExpression", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
+    it("should score as incorrect (not invalid) when student uses a variable from extraKeys", function () {
+        // Correct answer is 8. Student enters 8d. d is a known extra key
+        // (e.g. added as a wrong-answer variable by the content creator).
+        // The student should be marked incorrect, not shown a wrong-variable message.
+        const rubric: PerseusExpressionRubric = {
+            answerForms: [
+                {
+                    considered: "correct",
+                    value: "8",
+                    form: false,
+                    simplify: false,
+                },
+            ],
+            functions: [],
+            extraKeys: ["d"],
+        };
+
+        const result = scoreExpression("8d", rubric, "en");
+
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
     it("regression LEMS-2777: equivalent to correct answer", function () {
         // Arrange
         const incorrect = "f(5) = f(7) + 4";
