@@ -20,7 +20,7 @@ exports[`iframe widget should snapshot on mobile: first mobile render 1`] = `
           <iframe
             allowfullscreen=""
             sandbox="allow-same-origin allow-scripts allow-top-navigation"
-            src="https://www.khanacademy.org/computer-programming/program/4960944252/embedded?buttons=no&embed=yes&editor=no&author=no&width=410&height=410&origin=origin-test-interface&settings=%7B%22hue%22%3A%22210%22%2C%22subdivisions%22%3A%220%22%2C%22zoom%22%3A%222%22%2C%22seed%22%3A%226%22%7D"
+            src="https://www.khanacademy.org/computer-programming/program/4960944252/embedded?buttons=no&embed=yes&editor=no&author=no&width=410&height=410&origin=origin-test-interface&lang=en&settings=%7B%22hue%22%3A%22210%22%2C%22subdivisions%22%3A%220%22%2C%22zoom%22%3A%222%22%2C%22seed%22%3A%226%22%7D"
             style="width: 410px; height: 410px;"
           />
         </div>
@@ -50,7 +50,7 @@ exports[`iframe widget should snapshot: first render 1`] = `
           <iframe
             allowfullscreen=""
             sandbox="allow-same-origin allow-scripts allow-top-navigation"
-            src="https://www.khanacademy.org/computer-programming/program/4960944252/embedded?buttons=no&embed=yes&editor=no&author=no&width=410&height=410&origin=origin-test-interface&settings=%7B%22hue%22%3A%22210%22%2C%22subdivisions%22%3A%220%22%2C%22zoom%22%3A%222%22%2C%22seed%22%3A%226%22%7D"
+            src="https://www.khanacademy.org/computer-programming/program/4960944252/embedded?buttons=no&embed=yes&editor=no&author=no&width=410&height=410&origin=origin-test-interface&lang=en&settings=%7B%22hue%22%3A%22210%22%2C%22subdivisions%22%3A%220%22%2C%22zoom%22%3A%222%22%2C%22seed%22%3A%226%22%7D"
             style="width: 410px; height: 410px;"
           />
         </div>

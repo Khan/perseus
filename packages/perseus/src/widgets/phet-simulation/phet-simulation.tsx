@@ -14,7 +14,6 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import {getDependencies} from "../../dependencies";
 import {phoneMargin} from "../../styles/constants";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/phet-simulation-ai-utils";
 
@@ -47,7 +46,6 @@ export class PhetSimulation
     declare context: React.ContextType<typeof PerseusI18nContext>;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement> =
         React.createRef<HTMLIFrameElement>();
-    private readonly locale: string;
 
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
@@ -58,11 +56,6 @@ export class PhetSimulation
         banner: null,
         isFullScreen: false,
     };
-
-    constructor(props) {
-        super(props);
-        this.locale = this.getPhetCompatibleLocale(getDependencies().kaLocale);
-    }
 
     async componentDidMount() {
         await this.updateSimState(this.props.url);
@@ -79,8 +72,8 @@ export class PhetSimulation
     // PhET accepts different formats, i.e. kaLocale's hyphens, but it does not accept
     // different abbreviations, so in points of divergence of abbreviations, we need to
     // convert kaLocale abbreviations into abbreviations recognized by PhET.
-    getPhetCompatibleLocale: (arg1: string) => string = (kaLocale) => {
-        switch (kaLocale) {
+    private getLocale(): string {
+        switch (this.context.locale) {
             case "pt-pt":
                 return "pt";
             case "zh-hans":
@@ -90,9 +83,9 @@ export class PhetSimulation
             case "fa-af":
                 return "fa_DA";
             default:
-                return kaLocale;
+                return this.context.locale;
         }
-    };
+    }
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
@@ -111,7 +104,7 @@ export class PhetSimulation
     async updateSimState(urlString: string) {
         const url = makeSafeUrl(
             urlString,
-            this.locale,
+            this.getLocale(),
             "https://phet.colorado.edu",
         );
         if (url === null) {
@@ -168,7 +161,7 @@ export class PhetSimulation
         const locales: string[] = Object.keys(responseJson);
 
         // Only display a locale warning if there is no fallback language
-        const baseLocale: string = this.locale.split("_")[0];
+        const baseLocale: string = this.getLocale().split("_")[0];
         for (const l of locales) {
             if (baseLocale === l.split("_")[0]) {
                 return false;
