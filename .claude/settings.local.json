@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(pnpm --filter perseus test:*)",
+      "Bash(pnpm test:*)",
+      "Bash(git mv:*)",
+      "Bash(for file in sky.png city-far.png city-semi-far.png city-semi-close.png city-close.png streetlamp.png lamplight.png)",
+      "Bash(do git mv packages/perseus/src/__docs__/$file packages/perseus/src/games/crash-course/assets/backgrounds/)",
+      "Bash(done)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
