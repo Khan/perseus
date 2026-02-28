@@ -9,7 +9,18 @@ export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
 export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as ContentPreview} from "./content-preview";
+export {SelectableItemRenderer} from "./selectable-item-renderer";
 export type {Issue} from "./components/issues-panel";
+
+// Re-export variable selection utilities from perseus-core for convenience
+export {
+    extractSelectableRegions,
+    createItemVariation,
+    applyTextSubstitutions,
+    type SelectableRegion,
+    type VariableSubstitution,
+    type TextSubstitution,
+} from "@khanacademy/perseus-core";
 
 import "./styles/perseus-editor.css";
 
