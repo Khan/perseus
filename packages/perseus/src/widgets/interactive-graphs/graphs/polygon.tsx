@@ -101,12 +101,8 @@ const PolygonGraph = (props: Props) => {
     } = graphConfig;
     const [[left, top]] = useTransformVectorsToPixels([x[0], y[1]]);
 
-    // TODO(benchristel): can the default set of points be removed here? I don't
-    // think coords can be null.
-    const points = coords ?? [[0, 0]];
-
     // Logic to build the dragging experience. Primarily used by Limited Polygon.
-    const dragReferencePoint = points[0];
+    const dragReferencePoint = coords[0];
     const constrain: KeyboardMovementConstraint =
         getKeyboardMovementConstraintForPolygon(snapStep, snapTo);
 
@@ -157,7 +153,7 @@ const PolygonGraph = (props: Props) => {
         left,
         top,
         dragging,
-        points,
+        points: coords,
         hovered,
         setHovered,
         focusVisible,
