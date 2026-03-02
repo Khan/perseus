@@ -811,7 +811,7 @@ describe("image editor", () => {
             expect(resetToOriginalSizeButton).toBeInTheDocument();
         });
 
-        it("should should render scaled values of width and height", () => {
+        it("should render scaled values of width and height", () => {
             // Arrange, Act
             const onChangeMock = jest.fn();
             render(

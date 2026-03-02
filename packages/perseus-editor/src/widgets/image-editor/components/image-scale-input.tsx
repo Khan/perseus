@@ -114,7 +114,8 @@ export default function ImageScaleInput({
                 description="Use 1 to display image at original size."
                 field={
                     <ScrolllessNumberTextField
-                        value={scale > 0 ? scale.toString() : "1"}
+                        value={scale.toString()}
+                        min={0}
                         onChange={handleScaleChange}
                     />
                 }
@@ -126,6 +127,7 @@ export default function ImageScaleInput({
                     field={
                         <ScrolllessNumberTextField
                             value={(width * scale).toString()}
+                            min={0}
                             onChange={handleScaledWidthChange}
                         />
                     }
@@ -137,6 +139,7 @@ export default function ImageScaleInput({
                     field={
                         <ScrolllessNumberTextField
                             value={(height * scale).toString()}
+                            min={0}
                             onChange={handleScaledHeightChange}
                         />
                     }
