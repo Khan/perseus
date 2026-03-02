@@ -1,5 +1,20 @@
 # @khanacademy/perseus-linter
 
+## 4.8.2
+
+### Patch Changes
+
+-   [#3285](https://github.com/Khan/perseus/pull/3285) [`b2ffc7be66`](https://github.com/Khan/perseus/commit/b2ffc7be66e17decbea43f958dc979b9e19bbcc2) Thanks [@benchristel](https://github.com/benchristel)! - Internal: improve type safety.
+
+*   [#3289](https://github.com/Khan/perseus/pull/3289) [`3470a01283`](https://github.com/Khan/perseus/commit/3470a0128332c5e550bab2478f960f3d293bb016) Thanks [@benchristel](https://github.com/benchristel)! - Internal: replace a use of `any` with a real type.
+
+-   [#3286](https://github.com/Khan/perseus/pull/3286) [`368ba4d699`](https://github.com/Khan/perseus/commit/368ba4d6999924f4e47e70f603724d88f5fba3ae) Thanks [@benchristel](https://github.com/benchristel)! - Internal: fix TypeScript suppressions.
+
+-   Updated dependencies [[`d2a99133a2`](https://github.com/Khan/perseus/commit/d2a99133a2c049a2e6cff2bc686ac865798fbc1a), [`54e9348cd9`](https://github.com/Khan/perseus/commit/54e9348cd9146354a97619b9009b2098c1d50237), [`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8), [`7eb47d9613`](https://github.com/Khan/perseus/commit/7eb47d9613dbf474be38aff01667ca82ce6ab7b5), [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af), [`3fe7442a33`](https://github.com/Khan/perseus/commit/3fe7442a3378cf59563ab49a6c1ea4cb3aee5ff6)]:
+    -   @khanacademy/perseus-core@23.2.0
+    -   @khanacademy/kas@2.1.8
+    -   @khanacademy/kmath@2.2.34
+
 ## 4.8.1
 
 ### Patch Changes
