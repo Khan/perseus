@@ -1,4 +1,4 @@
-import getGrapherPublicWidgetOptions from "./grapher-util";
+import {getGrapherPublicWidgetOptions} from "./grapher-util";
 
 import type {PerseusGrapherWidgetOptions} from "../../data-schema";
 

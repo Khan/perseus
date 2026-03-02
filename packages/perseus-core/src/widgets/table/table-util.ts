@@ -5,7 +5,7 @@ type TablePublicWidgetOptions = Pick<
     "headers" | "rows" | "columns"
 >;
 
-export default function getTablePublicWidgetOptions(
+export function getTablePublicWidgetOptions(
     options: PerseusTableWidgetOptions,
 ): TablePublicWidgetOptions {
     const {answers: _, ...publicOptions} = options;

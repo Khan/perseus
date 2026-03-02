@@ -1,6 +1,6 @@
 import {range} from "../../utils/range";
 
-import getSorterPublicWidgetOptions, {shuffleSorter} from "./sorter-util";
+import {getSorterPublicWidgetOptions, shuffleSorter} from "./sorter-util";
 
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
 

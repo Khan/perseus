@@ -1,4 +1,4 @@
-import getInputNumberPublicWidgetOptions from "./input-number-util";
+import {getInputNumberPublicWidgetOptions} from "./input-number-util";
 
 import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";

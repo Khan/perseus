@@ -5,7 +5,7 @@ export type MatrixPublicWidgetOptions = Pick<
     "prefix" | "suffix" | "cursorPosition" | "matrixBoardSize" | "static"
 >;
 
-export default function getMatrixPublicWidgetOptions(
+export function getMatrixPublicWidgetOptions(
     options: PerseusMatrixWidgetOptions,
 ): MatrixPublicWidgetOptions {
     const {answers: _, ...publicOptions} = options;

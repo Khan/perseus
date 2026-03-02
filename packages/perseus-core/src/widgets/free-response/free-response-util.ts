@@ -15,7 +15,7 @@ type FreeResponsePublicWidgetOptions = {
  * Given a FreeResponsePublicWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-function getFreeResponsePublicWidgetOptions(
+export function getFreeResponsePublicWidgetOptions(
     options: PerseusFreeResponseWidgetOptions,
 ): FreeResponsePublicWidgetOptions {
     return {
@@ -25,5 +25,3 @@ function getFreeResponsePublicWidgetOptions(
         question: options.question,
     };
 }
-
-export default getFreeResponsePublicWidgetOptions;
