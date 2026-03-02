@@ -16,7 +16,7 @@ export type DropdownPublicWidgetOptions = {
  * Given a PerseusDropdownWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-function getDropdownPublicWidgetOptions(
+export function getDropdownPublicWidgetOptions(
     options: PerseusDropdownWidgetOptions,
 ): DropdownPublicWidgetOptions {
     return {
@@ -27,5 +27,3 @@ function getDropdownPublicWidgetOptions(
         ariaLabel: options.ariaLabel,
     };
 }
-
-export default getDropdownPublicWidgetOptions;

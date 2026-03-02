@@ -1,6 +1,7 @@
 import {generateLabelImageOptions} from "../../utils/generators/label-image-widget-generator";
 
-import getLabelImagePublicWidgetOptions, {
+import {
+    getLabelImagePublicWidgetOptions,
     isLabelImageAccessible,
 } from "./label-image-util";
 

@@ -40,7 +40,7 @@ function getNumericInputAnswerPublicData(
  * Given a PerseusNumericInputWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-function getNumericInputPublicWidgetOptions(
+export function getNumericInputPublicWidgetOptions(
     options: PerseusNumericInputWidgetOptions,
 ): NumericInputPublicWidgetOptions {
     const {answers, ...publicWidgetOptions} = options;
@@ -49,5 +49,3 @@ function getNumericInputPublicWidgetOptions(
         answers: answers.map(getNumericInputAnswerPublicData),
     };
 }
-
-export default getNumericInputPublicWidgetOptions;

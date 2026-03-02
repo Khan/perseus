@@ -19,11 +19,9 @@ type InputNumberPublicWidgetOptions = Pick<
  * Given a PerseusInputNumberWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-function getInputNumberPublicWidgetOptions(
+export function getInputNumberPublicWidgetOptions(
     options: PerseusInputNumberWidgetOptions,
 ): InputNumberPublicWidgetOptions {
     const {value: _, ...publicWidgetOptions} = options;
     return publicWidgetOptions;
 }
-
-export default getInputNumberPublicWidgetOptions;

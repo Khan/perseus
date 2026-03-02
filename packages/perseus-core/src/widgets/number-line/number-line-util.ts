@@ -17,7 +17,7 @@ export type NumberLinePublicWidgetOptions = Pick<
     | "static"
 >;
 
-export default function getNumberLinePublicWidgetOptions(
+export function getNumberLinePublicWidgetOptions(
     options: PerseusNumberLineWidgetOptions,
 ): NumberLinePublicWidgetOptions {
     const {correctX: _, correctRel: __, ...publicOptions} = options;

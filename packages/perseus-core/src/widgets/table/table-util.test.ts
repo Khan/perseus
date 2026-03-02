@@ -1,4 +1,4 @@
-import getTablePublicWidgetOptions from "./table-util";
+import {getTablePublicWidgetOptions} from "./table-util";
 
 import type {PerseusTableWidgetOptions} from "../../data-schema";
 

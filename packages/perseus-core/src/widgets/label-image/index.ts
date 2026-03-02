@@ -1,4 +1,5 @@
-import getLabelImagePublicWidgetOptions, {
+import {
+    getLabelImagePublicWidgetOptions,
     isLabelImageAccessible,
 } from "./label-image-util";
 

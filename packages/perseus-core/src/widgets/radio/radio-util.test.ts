@@ -1,4 +1,4 @@
-import getRadioPublicWidgetOptions from "./radio-util";
+import {getRadioPublicWidgetOptions} from "./radio-util";
 
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 
