@@ -143,6 +143,9 @@ export type * from "./widgets/logic-export.types";
 
 export * as CoreWidgetRegistry from "./widgets/core-widget-registry";
 
+// CLAUDE: change all the `get*PublicWidgetOptions` functions to use named exports
+// instead of default exports. The exports here should look like
+// export {getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 export type {OrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
