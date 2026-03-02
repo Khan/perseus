@@ -1,5 +1,29 @@
 # @khanacademy/perseus-editor
 
+## 28.14.0
+
+### Minor Changes
+
+-   [#3257](https://github.com/Khan/perseus/pull/3257) [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add scale prop to Image widget behind feature flag
+
+### Patch Changes
+
+-   [#3246](https://github.com/Khan/perseus/pull/3246) [`6a252c8786`](https://github.com/Khan/perseus/commit/6a252c8786d91ebe76beb024f377eded7d2b93ec) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB `color` references to use the new `semanticColor` tokens instead.
+
+*   [#3258](https://github.com/Khan/perseus/pull/3258) [`d2a99133a2`](https://github.com/Khan/perseus/commit/d2a99133a2c049a2e6cff2bc686ac865798fbc1a) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add scale prop to Image widget editor behind feature flag
+
+-   [#3282](https://github.com/Khan/perseus/pull/3282) [`ee181a8ef6`](https://github.com/Khan/perseus/commit/ee181a8ef603f78849b3b93110c5ae8b3b23c25f) Thanks [@nishasy](https://github.com/nishasy)! - Update issues message color to have better contrast ratio
+
+-   Updated dependencies [[`b2ffc7be66`](https://github.com/Khan/perseus/commit/b2ffc7be66e17decbea43f958dc979b9e19bbcc2), [`d2a99133a2`](https://github.com/Khan/perseus/commit/d2a99133a2c049a2e6cff2bc686ac865798fbc1a), [`54e9348cd9`](https://github.com/Khan/perseus/commit/54e9348cd9146354a97619b9009b2098c1d50237), [`3470a01283`](https://github.com/Khan/perseus/commit/3470a0128332c5e550bab2478f960f3d293bb016), [`e15d62d0b5`](https://github.com/Khan/perseus/commit/e15d62d0b5f16492c062058c4e70807a4b4acb56), [`6a252c8786`](https://github.com/Khan/perseus/commit/6a252c8786d91ebe76beb024f377eded7d2b93ec), [`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8), [`0408888728`](https://github.com/Khan/perseus/commit/04088887280c58b74ca8c961775bc9e02bac137a), [`7eb47d9613`](https://github.com/Khan/perseus/commit/7eb47d9613dbf474be38aff01667ca82ce6ab7b5), [`c054d4ccdc`](https://github.com/Khan/perseus/commit/c054d4ccdc5360e466b34e483da1ea9e73ddd279), [`368ba4d699`](https://github.com/Khan/perseus/commit/368ba4d6999924f4e47e70f603724d88f5fba3ae), [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af), [`3fe7442a33`](https://github.com/Khan/perseus/commit/3fe7442a3378cf59563ab49a6c1ea4cb3aee5ff6)]:
+    -   @khanacademy/perseus-linter@4.8.2
+    -   @khanacademy/perseus@75.4.0
+    -   @khanacademy/perseus-core@23.2.0
+    -   @khanacademy/kas@2.1.8
+    -   @khanacademy/kmath@2.2.34
+    -   @khanacademy/math-input@26.4.2
+    -   @khanacademy/keypad-context@3.2.34
+    -   @khanacademy/perseus-score@8.2.11
+
 ## 28.13.0
 
 ### Minor Changes
