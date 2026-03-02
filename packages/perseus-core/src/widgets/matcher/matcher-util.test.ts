@@ -1,6 +1,6 @@
 import {range} from "../../utils/range";
 
-import getMatcherPublicWidgetOptions, {shuffleMatcher} from "./matcher-util";
+import {getMatcherPublicWidgetOptions, shuffleMatcher} from "./matcher-util";
 
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 

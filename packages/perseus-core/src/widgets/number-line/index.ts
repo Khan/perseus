@@ -1,4 +1,4 @@
-import getNumberLinePublicWidgetOptions from "./number-line-util";
+import {getNumberLinePublicWidgetOptions} from "./number-line-util";
 
 import type {PerseusNumberLineWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";

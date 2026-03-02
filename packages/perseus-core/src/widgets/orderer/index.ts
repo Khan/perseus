@@ -1,4 +1,4 @@
-import getOrdererPublicWidgetOptions from "./orderer-util";
+import {getOrdererPublicWidgetOptions} from "./orderer-util";
 
 import type {PerseusOrdererWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";

@@ -20,7 +20,7 @@ export type InteractiveGraphPublicWidgetOptions = Pick<
     | "fullGraphAriaDescription"
 >;
 
-export default function getInteractiveGraphPublicWidgetOptions(
+export function getInteractiveGraphPublicWidgetOptions(
     options: PerseusInteractiveGraphWidgetOptions,
 ): InteractiveGraphPublicWidgetOptions {
     const {correct: _, ...publicOptions} = options;

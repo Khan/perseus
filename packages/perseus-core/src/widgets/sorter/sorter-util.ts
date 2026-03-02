@@ -18,7 +18,7 @@ export type SorterPublicWidgetOptions = {
  * Given a PerseusSorterWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-function getSorterPublicWidgetOptions(
+export function getSorterPublicWidgetOptions(
     options: PerseusSorterWidgetOptions,
 ): SorterPublicWidgetOptions {
     return {
@@ -53,5 +53,3 @@ function shuffleDisplacingFirst<T>(array: readonly T[], rng: RNG): T[] {
 
     return constrainedShuffle(array, rng, isFirstElementDisplaced);
 }
-
-export default getSorterPublicWidgetOptions;
