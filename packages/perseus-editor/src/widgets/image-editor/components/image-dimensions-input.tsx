@@ -19,6 +19,8 @@ interface Props {
     onChange: ImageEditorProps["onChange"];
 }
 
+// TODO(LEMS-3912): Remove this component in favor of ImageScaleInput
+// when the image-widget-upgrade-scale feature flag is removed.
 export default function ImageDimensionsInput({
     backgroundImage,
     onChange,
