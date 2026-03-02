@@ -166,6 +166,7 @@ type GenerateUrlContext =
 export type GenerateUrlArgs = {
     url: string;
     context: GenerateUrlContext;
+    kaLocale?: string;
 };
 
 /**
