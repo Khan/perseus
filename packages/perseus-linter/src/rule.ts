@@ -152,7 +152,7 @@ export type LinterWarning = {
     start: number;
     end: number;
     target?: string;
-    severity?: number;
+    severity: number;
     metadata?: Record<string, any>;
 };
 
@@ -346,6 +346,7 @@ export default class Rule {
             // a rule was failing.
             return {
                 rule: "lint-rule-failure",
+                severity: this.severity,
                 message: `Exception in rule ${this.name}: ${e.message}
 Stack trace:
 ${e.stack}`,
