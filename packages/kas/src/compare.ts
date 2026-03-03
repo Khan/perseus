@@ -25,27 +25,6 @@ export const compare = function (
         ...options,
     };
 
-    // Variable checks
-    const vars = expr1.validateVars(expr2, optionsWithDefaults.extraKeys);
-    if (vars.hasWrongVarCase) {
-        return {
-            equal: false,
-            wrongVariableCase: true,
-            message:
-                "Check your variables; one or more are using " +
-                "the wrong case (upper or lower).",
-        };
-    }
-    if (vars.hasUnexpectedVars) {
-        return {
-            equal: false,
-            wrongVariableNames: true,
-            message:
-                "Check your variables; you may have used the wrong " +
-                "letter for one or more of them.",
-        };
-    }
-
     // Semantic check
     if (!expr1.compare(expr2)) {
         return {equal: false, message: null};

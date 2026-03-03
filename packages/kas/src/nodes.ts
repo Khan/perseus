@@ -375,40 +375,8 @@ abstract class Expr {
         return this.exprArgs()[0].needsExplicitMul();
     }
 
-    // Validates the student's variables against the answer expression, returning
-    // whether there's a case mismatch or any variables not in the answer or extraKeys.
-    validateVars(other: Expr, extraKeys: ReadonlyArray<string> = []) {
-        var vars1 = this.getVars();
-        var vars2 = other.getVars();
-
-        // the other Expr can have more variables than this one
-        // this lets you multiply equations by other variables
-        var same = function (array1, array2) {
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            return !_.difference(array1, array2).length;
-        };
-
-        var lower = function (array) {
-            return _.uniq(_.invoke(array, "toLowerCase")).sort();
-        };
-
-        var equal = same(vars1, vars2);
-
-        // True if the student's variables differ only in case from the answer's variables
-        var hasWrongVarCase = !equal && same(lower(vars1), lower(vars2));
-
-        // Variables the student used that don't appear in the answer
-        const extraVars = vars1.filter((v) => !vars2.includes(v));
-
-        // True if the student used a variable not found in the answer OR extraKeys
-        const hasUnexpectedVars = extraVars.some((v) => !extraKeys.includes(v));
-
-        return {hasWrongVarCase, hasUnexpectedVars};
-    }
-
-    // semantic equality check, call after validateVars() to avoid potential false positives
-    // plug in random numbers for the variables in both expressions
-    // if they both consistently evaluate the same, then they're the same
+    // Semantic equality check: plugs in random numbers for the variables in both
+    // expressions and checks that they consistently evaluate the same.
     compare(other: Expr) {
         // equation comparisons are handled by Eq.compare()
         if (other instanceof Eq) {
