@@ -110,16 +110,16 @@
    Short inline math (e.g. $x = 4$) stays within the CSS line-height and benefits from the margin.
 */
 .content:not(
-    :has(
-        :global(.paragraph):first-child > :global(.paragraph) img,
-        :global(.paragraph):first-child :global(mjx-mfrac),
-        :global(.paragraph):first-child :global(mjx-msqrt),
-        :global(.paragraph):first-child :global(mjx-mroot),
-        :global(.paragraph):first-child :global(mjx-munder),
-        :global(.paragraph):first-child :global(mjx-mover),
-        :global(.paragraph):first-child :global(mjx-munderover)
-    )
-) {
+        :has(
+                :global(.paragraph):first-child > :global(.paragraph) img,
+                :global(.paragraph):first-child :global(mjx-mfrac),
+                :global(.paragraph):first-child :global(mjx-msqrt),
+                :global(.paragraph):first-child :global(mjx-mroot),
+                :global(.paragraph):first-child :global(mjx-munder),
+                :global(.paragraph):first-child :global(mjx-mover),
+                :global(.paragraph):first-child :global(mjx-munderover)
+            )
+    ) {
     /* Replace "var(--perseus-content-line-height)" with "1lh" once support for Safari is at least v16.4 */
     margin-block-start: calc(
         (
