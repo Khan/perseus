@@ -1740,6 +1740,38 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             scale = 100;
         }
 
+        // Make a new variable for the recalculated width and height
+        // so that we don't mutate the original width and height later.
+        let normalizedWidth = width;
+        let normalizedHeight = height;
+
+        // Check if the image has a manually set scale. If so, use it to
+        // appropriately scale the labels and the label padding.
+        const imageScale = Number($container.attr("data-scale"));
+        const hasValidImageScale =
+            !Number.isNaN(imageScale) && imageScale >= 0 && imageScale !== 1;
+
+        if (hasValidImageScale) {
+            scale = scale * imageScale;
+
+            // The measured width/height (from scrollWidth/scrollHeight)
+            // may already reflect a font-size scaling applied by the
+            // caller (setupGraphie in svg-image.tsx). Normalize the
+            // content portion so the margin calculation doesn't
+            // double-count, while preserving the padding portion which
+            // doesn't scale with font-size.
+
+            const rawPad = parseInt(
+                ($span.css("padding") ?? "0px").replace(/px$/, ""),
+            );
+            const padPx = Number.isNaN(rawPad) ? 0 : rawPad;
+            const totalPadding = 2 * padPx;
+            normalizedWidth =
+                (width - totalPadding) / imageScale + totalPadding;
+            normalizedHeight =
+                (height - totalPadding) / imageScale + totalPadding;
+        }
+
         // Any padding needs to be scaled accordingly.
         const padding = $span.css("padding") ?? "0px";
         const currentPadding = padding !== "none" ? padding : "0px";
@@ -1752,8 +1784,10 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // Margin and font size need to be scaled accordingly.
         const multipliers = labelDirections[direction || "center"];
         const styling = {
-            marginLeft: Math.round(width * multipliers[0] * scale) / 100,
-            marginTop: Math.round(height * multipliers[1] * scale) / 100,
+            marginLeft:
+                Math.round(normalizedWidth * multipliers[0] * scale) / 100,
+            marginTop:
+                Math.round(normalizedHeight * multipliers[1] * scale) / 100,
             padding: `${newPadding}px`,
         };
         if (scale !== 1) {
