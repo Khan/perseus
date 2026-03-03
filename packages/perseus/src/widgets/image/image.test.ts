@@ -870,6 +870,30 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 );
             },
         );
+
+        it("should not set max-width to 0 when backgroundImage.width is not set", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: {url: earthMoonImage.url},
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert - max-width should not be 0, which would collapse the container
+            const figure = screen.getByRole("figure");
+            expect(figure).not.toHaveStyle("max-width: 0px");
+        });
     });
 
     describe("gif controls", () => {
