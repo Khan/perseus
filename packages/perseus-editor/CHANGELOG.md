@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 28.14.1
+
+### Patch Changes
+
+-   [#3295](https://github.com/Khan/perseus/pull/3295) [`ad9b570acc`](https://github.com/Khan/perseus/commit/ad9b570accf24e4d776c2fe9046e0e89a40b6cbe) Thanks [@fmizzell](https://github.com/fmizzell)! - Sync peerDependencies with frontend: bump wonder-blocks-tokens to 16.0.0
+
+-   Updated dependencies [[`ad9b570acc`](https://github.com/Khan/perseus/commit/ad9b570accf24e4d776c2fe9046e0e89a40b6cbe)]:
+    -   @khanacademy/math-input@26.4.3
+    -   @khanacademy/perseus@75.4.1
+
 ## 28.14.0
 
 ### Minor Changes
