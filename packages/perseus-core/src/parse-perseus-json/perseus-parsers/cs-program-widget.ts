@@ -4,7 +4,7 @@ import {
     boolean,
     constant,
     number,
-    looseObject,
+    strictObject,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -13,10 +13,10 @@ import {parseWidget} from "./widget";
 
 export const parseCSProgramWidget = parseWidget(
     constant("cs-program"),
-    looseObject({
+    strictObject({
         programID: string,
         programType: any,
-        settings: array(looseObject({name: string, value: string})),
+        settings: array(strictObject({name: string, value: string})),
         showEditor: boolean,
         showButtons: boolean,
         height: number,

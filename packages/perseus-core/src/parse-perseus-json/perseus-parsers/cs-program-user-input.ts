@@ -1,11 +1,11 @@
 import {
     enumeration,
     nullable,
-    looseObject,
+    strictObject,
     string,
 } from "../general-purpose-parsers";
 
-export const parseCSProgramUserInput = looseObject({
+export const parseCSProgramUserInput = strictObject({
     status: enumeration("correct", "incorrect", "incomplete"),
     message: nullable(string),
 });

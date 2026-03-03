@@ -129,7 +129,6 @@ describe("parseWidgetsMap", () => {
                     settings: [],
                     showEditor: false,
                     showButtons: false,
-                    width: 0,
                     height: 0,
                     static: false,
                 },
