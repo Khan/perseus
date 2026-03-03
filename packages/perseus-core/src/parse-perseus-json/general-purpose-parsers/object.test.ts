@@ -26,7 +26,9 @@ describe("strictObject", () => {
     });
 });
 
-function testSharedObjectParserBehavior(objectParserCombinator: typeof strictObject) {
+function testSharedObjectParserBehavior(
+    objectParserCombinator: typeof strictObject,
+) {
     const emptyObject = objectParserCombinator({});
     const Person = objectParserCombinator({
         name: string,

@@ -1,4 +1,9 @@
-import {constant, looseObject, string, number} from "../general-purpose-parsers";
+import {
+    constant,
+    looseObject,
+    string,
+    number,
+} from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
 

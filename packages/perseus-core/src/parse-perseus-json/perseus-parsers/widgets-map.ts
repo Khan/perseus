@@ -1,4 +1,9 @@
-import {any, isPlainObject, looseObject, constant} from "../general-purpose-parsers";
+import {
+    any,
+    isPlainObject,
+    looseObject,
+    constant,
+} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
 import {parseCategorizerWidget} from "./categorizer-widget";

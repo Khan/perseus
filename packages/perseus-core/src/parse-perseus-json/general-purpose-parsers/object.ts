@@ -49,7 +49,6 @@ export function strictObject<S extends ObjectSchema>(
     };
 }
 
-
 export function looseObject<S extends ObjectSchema>(
     schema: S,
 ): Parser<OptionalizeProperties<{[K in keyof S]: ParsedValue<S[K]>}>> {

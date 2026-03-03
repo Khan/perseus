@@ -1,4 +1,9 @@
-import {boolean, constant, looseObject, string} from "../general-purpose-parsers";
+import {
+    boolean,
+    constant,
+    looseObject,
+    string,
+} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
