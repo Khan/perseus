@@ -13933,26 +13933,10 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
         "options": {
           "answerForms": [
             {
-              "buttonSets": [
-                "basic",
-              ],
-              "buttonsVisible": "focused",
               "considered": "correct",
               "form": true,
-              "functions": [
-                "f",
-                "g",
-                "h",
-              ],
               "key": "0",
-              "linterContext": {
-                "contentType": "",
-                "highlightLint": false,
-                "paths": [],
-                "stack": [],
-              },
               "simplify": true,
-              "times": false,
               "value": "\\frac{8}{27}",
             },
           ],

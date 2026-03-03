@@ -1,7 +1,7 @@
 import {
     boolean,
     constant,
-    looseObject,
+    strictObject,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -11,7 +11,7 @@ import {parseWidgetsMap} from "./widgets-map";
 
 export const parseExplanationWidget = parseWidget(
     constant("explanation"),
-    looseObject({
+    strictObject({
         showPrompt: string,
         hidePrompt: string,
         explanation: string,
