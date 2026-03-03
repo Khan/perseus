@@ -99,13 +99,27 @@
 }
 
 /* Add small top margin to the content container to optically align text with the indicator.
-   This only applies to content that does not have an image as its first child.
+   This only applies to content that does not have an image or tall-math-containing choices as its first child.
    This calculation takes into account the line height of the text and the height of the indicator.
    The 0.4 multiplier is due to how the font distributes extra line height space around the text.
    Since it isn't an exact 50% split (the descender probably messes things up),
        a 40% multiplier works well across various line heights.
+   Choices with tall MathJax elements are excluded because they render taller than the CSS line-height
+   (e.g. fractions, roots, under/over-scripts), which would cause the math to visually shift away from the indicator.
+   For tall math content, the natural top-alignment with the indicator is the correct visual behavior.
+   Short inline math (e.g. $x = 4$) stays within the CSS line-height and benefits from the margin.
 */
-.content:not(:has(:global(.paragraph):first-child > :global(.paragraph) img)) {
+.content:not(
+    :has(
+        :global(.paragraph):first-child > :global(.paragraph) img,
+        :global(.paragraph):first-child :global(mjx-mfrac),
+        :global(.paragraph):first-child :global(mjx-msqrt),
+        :global(.paragraph):first-child :global(mjx-mroot),
+        :global(.paragraph):first-child :global(mjx-munder),
+        :global(.paragraph):first-child :global(mjx-mover),
+        :global(.paragraph):first-child :global(mjx-munderover)
+    )
+) {
     /* Replace "var(--perseus-content-line-height)" with "1lh" once support for Safari is at least v16.4 */
     margin-block-start: calc(
         (
