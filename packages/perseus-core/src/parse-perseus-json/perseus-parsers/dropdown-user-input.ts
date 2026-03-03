@@ -1,5 +1,5 @@
-import {number, looseObject} from "../general-purpose-parsers";
+import {number, strictObject} from "../general-purpose-parsers";
 
-export const parseDropdownUserInput = looseObject({
+export const parseDropdownUserInput = strictObject({
     value: number,
 });
