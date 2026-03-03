@@ -1,7 +1,7 @@
 import {
     any,
     boolean,
-    object,
+    looseObject,
     optional,
     string,
 } from "../general-purpose-parsers";
@@ -10,7 +10,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parseImages} from "./images-map";
 import {parseWidgetsMap} from "./widgets-map";
 
-export const parseHint = object({
+export const parseHint = looseObject({
     replace: defaulted(optional(boolean), () => undefined),
     placeholder: defaulted(optional(boolean), () => undefined),
     content: string,

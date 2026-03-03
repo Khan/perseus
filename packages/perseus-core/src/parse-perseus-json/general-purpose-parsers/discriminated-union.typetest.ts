@@ -1,7 +1,7 @@
 import {constant} from "./constant";
 import {discriminatedUnionOn} from "./discriminated-union";
 import {number} from "./number";
-import {object} from "./object";
+import {strictObject} from "./object";
 
 import type {Parser} from "../parser-types";
 
@@ -10,18 +10,18 @@ type Figure =
     | {shape: "rectangle"; width: number; height: number}
     | {shape: "square"; sideLength: number};
 
-const parseCircle = object({
+const parseCircle = strictObject({
     shape: constant("circle"),
     radius: number,
 });
 
-const parseRectangle = object({
+const parseRectangle = strictObject({
     shape: constant("rectangle"),
     width: number,
     height: number,
 });
 
-const parseSquare = object({
+const parseSquare = strictObject({
     shape: constant("square"),
     sideLength: number,
 });
@@ -46,7 +46,7 @@ const parseSquare = object({
         .withBranch("circle", parseCircle)
         .withBranch("rectangle", parseRectangle)
         .withBranch("square", parseSquare)
-        .withBranch("extra", object({shape: constant("extra")})).parser;
+        .withBranch("extra", strictObject({shape: constant("extra")})).parser;
 
     // @ts-expect-error - Type '{shape: "extra"}' is not assignable to type 'Figure'
     parser satisfies Parser<Figure>;
@@ -55,7 +55,7 @@ const parseSquare = object({
 // Test: each variant must contain the discriminant key
 {
     // @ts-expect-error - property 'shape' is missing in type '{}'
-    discriminatedUnionOn("shape").withBranch("circle", object({}));
+    discriminatedUnionOn("shape").withBranch("circle", strictObject({}));
 }
 
 // Test: each variant must be an object

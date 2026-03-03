@@ -3,7 +3,7 @@ import {
     boolean,
     constant,
     number,
-    object,
+    looseObject,
     string,
 } from "../general-purpose-parsers";
 
@@ -14,13 +14,13 @@ import type {Parser} from "../parser-types";
 
 export const parseFreeResponseWidget: Parser<FreeResponseWidget> = parseWidget(
     constant("free-response"),
-    object({
+    looseObject({
         allowUnlimitedCharacters: boolean,
         characterLimit: number,
         placeholder: string,
         question: string,
         scoringCriteria: array(
-            object({
+            looseObject({
                 text: string,
             }),
         ),

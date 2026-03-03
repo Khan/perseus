@@ -1,10 +1,10 @@
-import {constant, object, string} from "../general-purpose-parsers";
+import {constant, looseObject, string} from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
 
 export const parsePhetSimulationWidget = parseWidget(
     constant("phet-simulation"),
-    object({
+    looseObject({
         url: string,
         description: string,
     }),

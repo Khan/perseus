@@ -1,9 +1,9 @@
-import {object, pipeParsers} from "../general-purpose-parsers";
+import {looseObject, pipeParsers} from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parsePerseusAnswerArea = pipeParsers(
-    defaulted(object({}), () => ({})),
+    defaulted(looseObject({}), () => ({})),
 ).then(convert(toAnswerArea)).parser;
 
 // Some answerAreas have extra, bogus fields, like:

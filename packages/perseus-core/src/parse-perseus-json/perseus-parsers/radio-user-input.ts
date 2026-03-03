@@ -1,5 +1,5 @@
-import {array, object, string} from "../general-purpose-parsers";
+import {array, looseObject, string} from "../general-purpose-parsers";
 
-export const parseRadioUserInput = object({
+export const parseRadioUserInput = looseObject({
     selectedChoiceIds: array(string),
 });

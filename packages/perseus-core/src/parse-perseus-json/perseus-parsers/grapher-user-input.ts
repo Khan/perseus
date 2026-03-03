@@ -2,7 +2,7 @@ import {
     constant,
     nullable,
     number,
-    object,
+    looseObject,
     pair,
 } from "../general-purpose-parsers";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
@@ -10,39 +10,39 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 const coord = pair(number, number);
 const coordPair = pair(coord, coord);
 
-const parseAbsoluteValueBranch = object({
+const parseAbsoluteValueBranch = looseObject({
     type: constant("absolute_value"),
     coords: nullable(coordPair),
 });
 
-const parseExponentialBranch = object({
+const parseExponentialBranch = looseObject({
     type: constant("exponential"),
     asymptote: coordPair,
     coords: nullable(coordPair),
 });
 
-const parseLinearBranch = object({
+const parseLinearBranch = looseObject({
     type: constant("linear"),
     coords: nullable(coordPair),
 });
 
-const parseLogarithmBranch = object({
+const parseLogarithmBranch = looseObject({
     type: constant("logarithm"),
     asymptote: coordPair,
     coords: nullable(coordPair),
 });
 
-const parseQuadraticBranch = object({
+const parseQuadraticBranch = looseObject({
     type: constant("quadratic"),
     coords: nullable(coordPair),
 });
 
-const parseSinusoidBranch = object({
+const parseSinusoidBranch = looseObject({
     type: constant("sinusoid"),
     coords: nullable(coordPair),
 });
 
-const parseTangentBranch = object({
+const parseTangentBranch = looseObject({
     type: constant("tangent"),
     coords: nullable(coordPair),
 });

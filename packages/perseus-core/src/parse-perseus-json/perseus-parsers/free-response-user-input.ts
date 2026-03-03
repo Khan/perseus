@@ -1,5 +1,5 @@
-import {object, string} from "../general-purpose-parsers";
+import {looseObject, string} from "../general-purpose-parsers";
 
-export const parseFreeResponseUserInput = object({
+export const parseFreeResponseUserInput = looseObject({
     currentValue: string,
 });

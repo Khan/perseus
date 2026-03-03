@@ -2,7 +2,7 @@ import {assertFailure, success} from "../result";
 
 import {array, arrayWithIndex} from "./array";
 import {defaulted} from "./defaulted";
-import {object} from "./object";
+import {strictObject} from "./object";
 import {string} from "./string";
 import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
@@ -113,7 +113,7 @@ describe("array", () => {
 describe("arrayWithIndex ", () => {
     // Test using object with defaulted field that uses index
     const arrayOfItemsWithIndexedIds = arrayWithIndex((index) =>
-        object({
+        strictObject({
             name: string,
             id: defaulted(string, () => `item-${index}`),
         }),
@@ -218,7 +218,7 @@ describe("arrayWithIndex ", () => {
 
     it("pinpoints mismatches in nested arrays", () => {
         const arrayOfArrayOfItems = arrayWithIndex(() =>
-            array(object({name: string})),
+            array(strictObject({name: string})),
         );
         const theArray = [
             [{name: ""}],
@@ -234,7 +234,7 @@ describe("arrayWithIndex ", () => {
 
     it("lists multiple mismatches in nested arrays", () => {
         const arrayOfArrayOfItems = arrayWithIndex(() =>
-            array(object({name: string})),
+            array(strictObject({name: string})),
         );
         const theArray = [
             [{name: ""}, {name: ""}, 4],

@@ -3953,7 +3953,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -4036,7 +4035,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -4424,7 +4422,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
         "image 2": {
           "alignment": "block",
           "graded": true,
-          "id": null,
           "key": null,
           "options": {
             "alt": "crwdns8172348:0crwdne8172348:0",
@@ -4474,7 +4471,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
         "image 1": {
           "alignment": "block",
           "graded": true,
-          "id": null,
           "key": null,
           "options": {
             "alt": "crwdns8172402:0crwdne8172402:0",
@@ -4524,7 +4520,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
         "image 1": {
           "alignment": "block",
           "graded": true,
-          "id": null,
           "key": null,
           "options": {
             "alt": "crwdns8172402:0crwdne8172402:0",
@@ -4586,7 +4581,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
       "image 2": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "crwdns8172264:0crwdne8172264:0",
@@ -4628,7 +4622,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -4737,7 +4730,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
       "image 2": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "crwdns8172264:0crwdne8172264:0",
@@ -4777,7 +4769,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -10750,7 +10741,6 @@ ___
       "definition 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "definition": "A trophy awarded each year to the top college football player in the United States",
@@ -10767,7 +10757,6 @@ ___
       "explanation 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "explanation": "Image source: Image provided by Chidi Young under a [Canva license](https://www.canva.com/policies/content-license-agreement/).",
@@ -10786,7 +10775,6 @@ ___
       "image 1": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "",
@@ -10919,7 +10907,6 @@ ___
       "definition 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "definition": "A trophy awarded each year to the top college football player in the United States",
@@ -10936,7 +10923,6 @@ ___
       "explanation 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "explanation": "Image source: Image provided by Chidi Young under a [Canva license](https://www.canva.com/policies/content-license-agreement/).",
@@ -10955,7 +10941,6 @@ ___
       "image 1": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "",
@@ -14714,7 +14699,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "image 1": {
           "alignment": "block",
           "graded": true,
-          "id": null,
           "key": null,
           "options": {
             "alt": "crwdns7006580:0crwdne7006580:0",
@@ -14764,7 +14748,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "image 1": {
           "alignment": "block",
           "graded": true,
-          "id": null,
           "key": null,
           "options": {
             "alt": "crwdns6998968:0crwdne6998968:0",
@@ -14814,7 +14797,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "image 1": {
           "alignment": "block",
           "graded": true,
-          "id": null,
           "key": null,
           "options": {
             "alt": "crwdns6996978:0crwdne6996978:0",
@@ -14897,7 +14879,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "image 1": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "crwdns6998746:0crwdne6998746:0",
@@ -14939,7 +14920,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "numeric-input 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "answers": [
@@ -14970,7 +14950,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "numeric-input 2": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "answers": [
@@ -15001,7 +14980,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "numeric-input 3": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "answers": [
@@ -15032,7 +15010,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -15145,7 +15122,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "image 1": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "crwdns6998746:0crwdne6998746:0",
@@ -15185,7 +15161,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "numeric-input 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "answers": [
@@ -15214,7 +15189,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "numeric-input 2": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "answers": [
@@ -15243,7 +15217,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "numeric-input 3": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "answers": [
@@ -15272,7 +15245,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -19531,7 +19503,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "definition 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "definition": "Phy·si·cal (fih-sic-ull): Having to do with the body",
@@ -19548,7 +19519,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "definition 2": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "definition": "Life·long (life-long): Lasting your whole life",
@@ -19565,7 +19535,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "definition 3": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "definition": "Men·tal (men-tull): Having to do with the mind",
@@ -19582,7 +19551,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "explanation 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "explanation": "Public domain image provided by [Pxhere](https://pxhere.com/en/photo/1033461)",
@@ -19601,7 +19569,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "image 1": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "Empty swings",
@@ -19643,7 +19610,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -19761,7 +19727,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "definition 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "definition": "Phy·si·cal (fih-sic-ull): Having to do with the body",
@@ -19778,7 +19743,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "definition 2": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "definition": "Life·long (life-long): Lasting your whole life",
@@ -19795,7 +19759,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "definition 3": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "definition": "Men·tal (men-tull): Having to do with the mind",
@@ -19812,7 +19775,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "explanation 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "explanation": "Public domain image provided by [Pxhere](https://pxhere.com/en/photo/1033461)",
@@ -19831,7 +19793,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "image 1": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "Empty swings",
@@ -19871,7 +19832,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -19938,7 +19898,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
         "explanation 1": {
           "alignment": "default",
           "graded": true,
-          "id": null,
           "key": null,
           "options": {
             "explanation": "Suppose we have the polynomial $4x + 2x^6 -7x^3 + 3$.\\n\\nLook for the exponent of the variable in each term.\\n\\n**Term** | $4x$ | $2x^6$ | $-7x^3$ | $3$\\n:- | :-: | :-: | :-: | :-:\\n**Degree** | $1$ | $6$ | $3$ | $0$\\n\\nThe term with the highest degree is $2x^\\\\maroonD{6}$, so the degree of the polynomial is $\\\\maroonD{6}$.",
@@ -19989,7 +19948,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -20088,7 +20046,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -20197,7 +20154,6 @@ ___
       "explanation 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "explanation": "Public domain image provided by the Boston Public Library",
@@ -20216,7 +20172,6 @@ ___
       "image 1": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "A class in 1895",
@@ -20258,7 +20213,6 @@ ___
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [
@@ -20381,7 +20335,6 @@ ___
       "explanation 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "explanation": "Public domain image provided by the Boston Public Library",
@@ -20400,7 +20353,6 @@ ___
       "image 1": {
         "alignment": "block",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "alt": "A class in 1895",
@@ -20440,7 +20392,6 @@ ___
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "id": null,
         "key": null,
         "options": {
           "choices": [

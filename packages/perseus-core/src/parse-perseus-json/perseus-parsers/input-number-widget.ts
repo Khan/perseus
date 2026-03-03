@@ -3,7 +3,7 @@ import {
     constant,
     enumeration,
     number,
-    object,
+    looseObject,
     optional,
     string,
     union,
@@ -23,7 +23,7 @@ const booleanToString: Parser<string> = (rawValue, ctx) => {
 
 export const parseInputNumberWidget = parseWidget(
     constant("input-number"),
-    object({
+    looseObject({
         answerType: optional(
             enumeration(
                 "number",

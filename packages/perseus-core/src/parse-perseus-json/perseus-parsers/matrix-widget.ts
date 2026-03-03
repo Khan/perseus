@@ -3,7 +3,7 @@ import {
     boolean,
     constant,
     number,
-    object,
+    looseObject,
     optional,
     pipeParsers,
     string,
@@ -21,7 +21,7 @@ const numeric = pipeParsers(defaulted(numberOrString, () => NaN)).then(
 
 export const parseMatrixWidget = parseWidget(
     defaulted(constant("matrix"), () => "matrix" as const),
-    object({
+    looseObject({
         prefix: optional(string),
         suffix: optional(string),
         answers: defaulted(array(array(numeric)), () => []),

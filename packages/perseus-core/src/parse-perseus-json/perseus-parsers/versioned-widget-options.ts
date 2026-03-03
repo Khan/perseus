@@ -1,7 +1,7 @@
 import {
     isPlainObject,
     number,
-    object,
+    looseObject,
     pipeParsers,
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
@@ -105,8 +105,8 @@ class VersionedWidgetOptionsParserBuilder<
     }
 }
 
-const parseVersionedObject = object({
-    version: defaulted(object({major: number, minor: number}), () => ({
+const parseVersionedObject = looseObject({
+    version: defaulted(looseObject({major: number, minor: number}), () => ({
         major: 0,
         minor: 0,
     })),

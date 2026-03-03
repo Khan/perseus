@@ -3,24 +3,38 @@ import {assertFailure, assertSuccess, success} from "../result";
 import {array} from "./array";
 import {defaulted} from "./defaulted";
 import {number} from "./number";
-import {object} from "./object";
+import {looseObject, strictObject} from "./object";
 import {optional} from "./optional";
 import {string} from "./string";
 import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
-describe("object", () => {
-    const emptyObject = object({});
-    const Person = object({
+describe("looseObject", () => {
+    testSharedObjectParserBehavior(looseObject);
+
+    it("accepts an object with properties not in the schema", () => {
+        const emptyObject = looseObject({});
+        expect(emptyObject({foo: 1}, ctx())).toEqual(success({foo: 1}));
+    });
+});
+
+describe("strictObject", () => {
+    testSharedObjectParserBehavior(strictObject);
+
+    it("accepts an object with properties not in the schema, but removes those properties", () => {
+        const emptyObject = strictObject({});
+        expect(emptyObject({foo: 1}, ctx())).toEqual(success({}));
+    });
+});
+
+function testSharedObjectParserBehavior(objectParserCombinator: typeof strictObject) {
+    const emptyObject = objectParserCombinator({});
+    const Person = objectParserCombinator({
         name: string,
         age: number,
     });
 
     it("accepts an object matching an empty schema", () => {
         expect(emptyObject({}, ctx())).toEqual(success({}));
-    });
-
-    it("accepts an object with properties not in the schema", () => {
-        expect(emptyObject({foo: 1}, ctx())).toEqual(success({foo: 1}));
     });
 
     it("accepts an object whose properties match the schema", () => {
@@ -88,7 +102,7 @@ describe("object", () => {
     });
 
     it("uses default values for `defaulted` fields", () => {
-        const Train = object({
+        const Train = objectParserCombinator({
             boxcars: defaulted(array(string), () => []),
         });
 
@@ -96,17 +110,17 @@ describe("object", () => {
     });
 
     it("does not include fields not present on the original object", () => {
-        const Penguin = object({hat: optional(string)});
+        const Penguin = objectParserCombinator({hat: optional(string)});
         const result = Penguin({}, ctx());
         assertSuccess(result);
         expect(result.value).not.toHaveProperty("hat");
     });
 
     it("includes `undefined` fields from the original object", () => {
-        const Penguin = object({hat: optional(string)});
+        const Penguin = objectParserCombinator({hat: optional(string)});
         const result = Penguin({hat: undefined}, ctx());
         assertSuccess(result);
         expect(result.value).toHaveProperty("hat");
         expect(result.value.hat).toBe(undefined);
     });
-});
+}

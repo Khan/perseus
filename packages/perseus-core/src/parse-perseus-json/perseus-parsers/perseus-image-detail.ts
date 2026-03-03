@@ -1,6 +1,6 @@
-import {number, object} from "../general-purpose-parsers";
+import {number, looseObject} from "../general-purpose-parsers";
 
-export const parsePerseusImageDetail = object({
+export const parsePerseusImageDetail = looseObject({
     width: number,
     height: number,
 });

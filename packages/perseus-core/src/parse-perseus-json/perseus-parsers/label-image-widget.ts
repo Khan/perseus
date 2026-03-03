@@ -3,7 +3,7 @@ import {
     boolean,
     constant,
     number,
-    object,
+    looseObject,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -12,14 +12,14 @@ import {parseWidget} from "./widget";
 
 export const parseLabelImageWidget = parseWidget(
     constant("label-image"),
-    object({
+    looseObject({
         choices: array(string),
         imageUrl: string,
         imageAlt: string,
         imageHeight: number,
         imageWidth: number,
         markers: array(
-            object({
+            looseObject({
                 answers: defaulted(array(string), () => []),
                 label: string,
                 x: number,

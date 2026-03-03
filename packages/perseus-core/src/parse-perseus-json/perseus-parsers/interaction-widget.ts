@@ -4,7 +4,7 @@ import {
     constant,
     enumeration,
     number,
-    object,
+    looseObject,
     optional,
     pair,
     pipeParsers,
@@ -23,10 +23,10 @@ const stringOrEmpty = defaulted(string, () => "");
 
 const parseKey = pipeParsers(optional(string)).then(convert(String)).parser;
 
-const parseFunctionElement = object({
+const parseFunctionElement = looseObject({
     type: constant("function"),
     key: parseKey,
-    options: object({
+    options: looseObject({
         value: string,
         funcName: string,
         rangeMin: string,
@@ -37,10 +37,10 @@ const parseFunctionElement = object({
     }),
 });
 
-const parseLabelElement = object({
+const parseLabelElement = looseObject({
     type: constant("label"),
     key: parseKey,
-    options: object({
+    options: looseObject({
         label: string,
         color: string,
         coordX: string,
@@ -48,10 +48,10 @@ const parseLabelElement = object({
     }),
 });
 
-const parseLineElement = object({
+const parseLineElement = looseObject({
     type: constant("line"),
     key: parseKey,
-    options: object({
+    options: looseObject({
         color: string,
         startX: string,
         startY: string,
@@ -63,10 +63,10 @@ const parseLineElement = object({
     }),
 });
 
-const parseMovableLineElement = object({
+const parseMovableLineElement = looseObject({
     type: constant("movable-line"),
     key: parseKey,
-    options: object({
+    options: looseObject({
         startX: string,
         startY: string,
         startSubscript: number,
@@ -83,10 +83,10 @@ const parseMovableLineElement = object({
     }),
 });
 
-const parseMovablePointElement = object({
+const parseMovablePointElement = looseObject({
     type: constant("movable-point"),
     key: parseKey,
-    options: object({
+    options: looseObject({
         startX: string,
         startY: string,
         varSubscript: number,
@@ -100,10 +100,10 @@ const parseMovablePointElement = object({
     }),
 });
 
-const parseParametricElement = object({
+const parseParametricElement = looseObject({
     type: constant("parametric"),
     key: parseKey,
-    options: object({
+    options: looseObject({
         x: string,
         y: string,
         rangeMin: string,
@@ -114,20 +114,20 @@ const parseParametricElement = object({
     }),
 });
 
-const parsePointElement = object({
+const parsePointElement = looseObject({
     type: constant("point"),
     key: parseKey,
-    options: object({
+    options: looseObject({
         color: string,
         coordX: string,
         coordY: string,
     }),
 });
 
-const parseRectangleElement = object({
+const parseRectangleElement = looseObject({
     type: constant("rectangle"),
     key: parseKey,
-    options: object({
+    options: looseObject({
         color: string,
         coordX: string,
         coordY: string,
@@ -138,9 +138,9 @@ const parseRectangleElement = object({
 
 export const parseInteractionWidget = parseWidget(
     constant("interaction"),
-    object({
+    looseObject({
         static: defaulted(boolean, () => false),
-        graph: object({
+        graph: looseObject({
             editableSettings: optional(array(enumeration("canvas", "graph"))),
             box: pairOfNumbers,
             labels: array(string),

@@ -2,7 +2,7 @@ import {
     array,
     constant,
     enumeration,
-    object,
+    looseObject,
     pipeParsers,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -31,7 +31,7 @@ const largeToAuto: PartialParser<
 
 export const parseOrdererWidget = parseWidget(
     constant("orderer"),
-    object({
+    looseObject({
         options: defaulted(array(parseRenderer), () => []),
         correctOptions: defaulted(array(parseRenderer), () => []),
         otherOptions: defaulted(array(parseRenderer), () => []),

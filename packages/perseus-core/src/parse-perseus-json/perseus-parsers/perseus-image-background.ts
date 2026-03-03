@@ -1,7 +1,7 @@
 import {
     nullable,
     number,
-    object,
+    looseObject,
     optional,
     pipeParsers,
     string,
@@ -27,7 +27,7 @@ const dimensionOrUndefined = defaulted(
     () => undefined,
 );
 
-export const parsePerseusImageBackground = object({
+export const parsePerseusImageBackground = looseObject({
     url: optional(nullable(string)),
     width: dimensionOrUndefined,
     height: dimensionOrUndefined,

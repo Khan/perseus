@@ -2,7 +2,7 @@ import {
     array,
     constant,
     number,
-    object,
+    strictObject,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -32,24 +32,24 @@ describe("versionedWidgetOptions parser", () => {
         correctAnswers: string[];
     };
 
-    const parseOptionsV0: Parser<OptionsV0> = object({
+    const parseOptionsV0: Parser<OptionsV0> = strictObject({
         type: constant("test-widget"),
         version: defaulted(
-            object({major: constant(0), minor: number}),
+            strictObject({major: constant(0), minor: number}),
             () => ({major: 0, minor: 0}) as const,
         ),
         answer: string,
     });
 
-    const parseOptionsV1: Parser<OptionsV1> = object({
+    const parseOptionsV1: Parser<OptionsV1> = strictObject({
         type: constant("test-widget"),
-        version: object({major: constant(1), minor: number}),
+        version: strictObject({major: constant(1), minor: number}),
         answers: array(string),
     });
 
-    const parseOptionsV2: Parser<OptionsV2> = object({
+    const parseOptionsV2: Parser<OptionsV2> = strictObject({
         type: constant("test-widget"),
-        version: object({major: constant(2), minor: number}),
+        version: strictObject({major: constant(2), minor: number}),
         correctAnswers: array(string),
     });
 

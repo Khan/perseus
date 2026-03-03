@@ -4,7 +4,7 @@ import {failure, success} from "../result";
 import {constant} from "./constant";
 import {discriminatedUnionOn} from "./discriminated-union";
 import {number} from "./number";
-import {object} from "./object";
+import {strictObject} from "./object";
 
 describe("a discriminatedUnion with no variants", () => {
     const parseUnion = discriminatedUnionOn("shape").parser;
@@ -33,7 +33,7 @@ describe("a discriminatedUnion with no variants", () => {
 });
 
 describe("a discriminatedUnion with one variant", () => {
-    const parseCircle = object({shape: constant("circle"), radius: number});
+    const parseCircle = strictObject({shape: constant("circle"), radius: number});
     const parseUnion = discriminatedUnionOn("shape").withBranch(
         "circle",
         parseCircle,
@@ -68,8 +68,8 @@ describe("a discriminatedUnion with one variant", () => {
 });
 
 describe("a discriminatedUnion with two variants", () => {
-    const parseCircle = object({shape: constant("circle"), radius: number});
-    const parseRectangle = object({
+    const parseCircle = strictObject({shape: constant("circle"), radius: number});
+    const parseRectangle = strictObject({
         shape: constant("rectangle"),
         width: number,
         height: number,

@@ -6,7 +6,7 @@ import {
     enumeration,
     nullable,
     number,
-    object,
+    looseObject,
     optional,
     pair,
     pipeParsers,
@@ -26,7 +26,7 @@ import type {PerseusGraphTypeLinear} from "../../data-schema";
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number);
 
-const parsePerseusGraphTypeAngle = object({
+const parsePerseusGraphTypeAngle = looseObject({
     type: constant("angle"),
     showAngles: optional(boolean),
     allowReflexAngles: optional(boolean),
@@ -37,36 +37,36 @@ const parsePerseusGraphTypeAngle = object({
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
 });
 
-const parsePerseusGraphTypeCircle = object({
+const parsePerseusGraphTypeCircle = looseObject({
     type: constant("circle"),
     center: optional(pairOfNumbers),
     radius: optional(number),
     startCoords: optional(
-        object({
+        looseObject({
             center: pairOfNumbers,
             radius: number,
         }),
     ),
 });
 
-const parsePerseusGraphTypeLinear = object({
+const parsePerseusGraphTypeLinear = looseObject({
     type: constant("linear"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
 });
 
-const parsePerseusGraphTypeLinearSystem = object({
+const parsePerseusGraphTypeLinearSystem = looseObject({
     type: constant("linear-system"),
     // TODO(benchristel): default coords to empty array?
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
 });
 
-const parsePerseusGraphTypeNone = object({
+const parsePerseusGraphTypeNone = looseObject({
     type: constant("none"),
 });
 
-const parsePerseusGraphTypePoint = object({
+const parsePerseusGraphTypePoint = looseObject({
     type: constant("point"),
     numPoints: optional(union(number).or(constant("unlimited")).parser),
     coords: optional(nullable(array(pairOfNumbers))),
@@ -74,7 +74,7 @@ const parsePerseusGraphTypePoint = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypePolygon = object({
+const parsePerseusGraphTypePolygon = looseObject({
     type: constant("polygon"),
     numSides: optional(union(number).or(constant("unlimited")).parser),
     showAngles: optional(boolean),
@@ -85,7 +85,7 @@ const parsePerseusGraphTypePolygon = object({
     coords: optional(nullable(array(pairOfNumbers))),
 });
 
-const parsePerseusGraphTypeQuadratic = object({
+const parsePerseusGraphTypeQuadratic = looseObject({
     type: constant("quadratic"),
     coords: optional(
         nullable(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
@@ -93,13 +93,13 @@ const parsePerseusGraphTypeQuadratic = object({
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
 });
 
-const parsePerseusGraphTypeRay = object({
+const parsePerseusGraphTypeRay = looseObject({
     type: constant("ray"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
 });
 
-const parsePerseusGraphTypeSegment = object({
+const parsePerseusGraphTypeSegment = looseObject({
     type: constant("segment"),
     // TODO(benchristel): default numSegments?
     numSegments: optional(number),
@@ -107,7 +107,7 @@ const parsePerseusGraphTypeSegment = object({
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
 });
 
-const parsePerseusGraphTypeSinusoid = object({
+const parsePerseusGraphTypeSinusoid = looseObject({
     type: constant("sinusoid"),
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
@@ -142,7 +142,7 @@ const parseStrokeWeight = defaulted(
     () => "medium" as const,
 );
 
-const parseLockedLabelType = object({
+const parseLockedLabelType = looseObject({
     type: constant("label"),
     coord: pairOfNumbers,
     text: string,
@@ -150,7 +150,7 @@ const parseLockedLabelType = object({
     size: enumeration("small", "medium", "large"),
 });
 
-const parseLockedPointType = object({
+const parseLockedPointType = looseObject({
     type: constant("point"),
     coord: pairOfNumbers,
     color: parseLockedFigureColor,
@@ -159,7 +159,7 @@ const parseLockedPointType = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedLineType = object({
+const parseLockedLineType = looseObject({
     type: constant("line"),
     kind: enumeration("line", "ray", "segment"),
     points: pair(parseLockedPointType, parseLockedPointType),
@@ -172,7 +172,7 @@ const parseLockedLineType = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedVectorType = object({
+const parseLockedVectorType = looseObject({
     type: constant("vector"),
     points: pair(pairOfNumbers, pairOfNumbers),
     color: parseLockedFigureColor,
@@ -181,7 +181,7 @@ const parseLockedVectorType = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedEllipseType = object({
+const parseLockedEllipseType = looseObject({
     type: constant("ellipse"),
     center: pairOfNumbers,
     radius: pairOfNumbers,
@@ -194,7 +194,7 @@ const parseLockedEllipseType = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedPolygonType = object({
+const parseLockedPolygonType = looseObject({
     type: constant("polygon"),
     points: array(pairOfNumbers),
     color: parseLockedFigureColor,
@@ -220,7 +220,7 @@ export const parseLockedFunctionDomain = defaulted(
     (): [number, number] => [-Infinity, Infinity],
 );
 
-const parseLockedFunctionType = object({
+const parseLockedFunctionType = looseObject({
     type: constant("function"),
     color: parseLockedFigureColor,
     strokeStyle: parseLockedLineStyle,
@@ -248,7 +248,7 @@ const parseLabelLocation = union(enumeration("onAxis", "alongEdge")).or(
 
 export const parseInteractiveGraphWidget = parseWidget(
     constant("interactive-graph"),
-    object({
+    looseObject({
         step: pairOfNumbers,
         // TODO(benchristel): rather than making gridStep and snapStep
         // optional, we should duplicate the defaulting logic from the
@@ -267,7 +267,7 @@ export const parseInteractiveGraphWidget = parseWidget(
         rulerTicks: optional(number),
         range: pair(pairOfNumbers, pairOfNumbers),
         showAxisArrows: defaulted(
-            object({
+            looseObject({
                 xMin: boolean,
                 xMax: boolean,
                 yMin: boolean,
