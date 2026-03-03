@@ -294,8 +294,7 @@ export const ImageWithoutWidthOrHeight: Story = {
     },
 };
 
-// Regression: caption should not collapse (max-width: 0) when
-// backgroundImage.width and backgroundImage.height are not set.
+// Regression: caption should not snap to the left.
 export const ImageWithoutWidthOrHeightWithCaption: Story = {
     decorators: [imageRendererDecorator],
     args: {
