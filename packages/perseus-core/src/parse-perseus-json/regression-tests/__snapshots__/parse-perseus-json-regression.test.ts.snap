@@ -680,12 +680,6 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.ts returns
             "A sheet of aluminium",
             "Mirror",
           ],
-          "linterContext": {
-            "contentType": "",
-            "highlightLint": false,
-            "paths": [],
-            "stack": [],
-          },
           "randomizeItems": true,
           "static": false,
           "values": [
@@ -1043,12 +1037,6 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
             "Speed",
             "Acceleration",
           ],
-          "linterContext": {
-            "contentType": "",
-            "highlightLint": false,
-            "paths": [],
-            "stack": [],
-          },
           "randomizeItems": false,
           "static": false,
           "values": [
@@ -11317,12 +11305,6 @@ Non-renewable source can be exhausted with continuous use",
             "Solar energy",
             "Coal",
           ],
-          "linterContext": {
-            "contentType": "",
-            "highlightLint": false,
-            "paths": [],
-            "stack": [],
-          },
           "randomizeItems": true,
           "static": false,
           "values": [
