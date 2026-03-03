@@ -1,3 +1,5 @@
+import {ErrorCodes} from "@khanacademy/perseus-core";
+
 import scoreExpression from "./score-expression";
 import {expressionItem3Options} from "./score-expression.testdata";
 
@@ -105,14 +107,20 @@ describe("scoreExpression", () => {
     });
 
     it("should score as incorrect (not invalid) when student uses a variable from extraKeys", function () {
-        // Correct answer is 8. Student enters 8d. d is a known extra key
-        // (e.g. added as a wrong-answer variable by the content creator).
-        // The student should be marked incorrect, not shown a wrong-variable message.
+        // The correct answer is 8. The content creator has predicted "8d" as a
+        // wrong answer and added it accordingly. When the student enters "8d",
+        // their answer should be marked incorrect instead of invalid.
         const rubric: PerseusExpressionRubric = {
             answerForms: [
                 {
                     considered: "correct",
                     value: "8",
+                    form: false,
+                    simplify: false,
+                },
+                {
+                    considered: "wrong",
+                    value: "8d",
                     form: false,
                     simplify: false,
                 },
@@ -124,6 +132,116 @@ describe("scoreExpression", () => {
         const result = scoreExpression("8d", rubric, "en");
 
         expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("should return a WRONG_LETTER_ERROR when student uses an unexpected variable", function () {
+        const rubric: PerseusExpressionRubric = {
+            answerForms: [
+                {
+                    considered: "correct",
+                    value: "8",
+                    form: false,
+                    simplify: false,
+                },
+            ],
+            functions: [],
+            extraKeys: [],
+        };
+
+        const result = scoreExpression("8d", rubric, "en");
+
+        expect(result).toHaveInvalidInput();
+        expect(result.message).toBe(ErrorCodes.WRONG_LETTER_ERROR);
+    });
+
+    it("should return a WRONG_CASE_ERROR when student uses wrong variable case", function () {
+        const rubric: PerseusExpressionRubric = {
+            answerForms: [
+                {
+                    considered: "correct",
+                    value: "8x",
+                    form: false,
+                    simplify: false,
+                },
+            ],
+            functions: [],
+            extraKeys: ["x"],
+        };
+
+        const result = scoreExpression("8X", rubric, "en");
+
+        expect(result).toHaveInvalidInput();
+        expect(result.message).toBe(ErrorCodes.WRONG_CASE_ERROR);
+        expect(result).toMatchObject({suppressAlmostThere: true});
+    });
+
+    it("should prioritize WRONG_LETTER_ERROR over WRONG_CASE_ERROR when both apply", function () {
+        // "X" is a case-mismatch for "x", but "d" is entirely unexpected.
+        // The letter error takes priority over the case error as it is more
+        // applicable/universal to both situations.
+        const rubric: PerseusExpressionRubric = {
+            answerForms: [
+                {
+                    considered: "correct",
+                    value: "8x",
+                    form: false,
+                    simplify: false,
+                },
+            ],
+            functions: [],
+            extraKeys: ["x"],
+        };
+
+        const result = scoreExpression("8Xd", rubric, "en");
+
+        expect(result).toHaveInvalidInput();
+        expect(result.message).toBe(ErrorCodes.WRONG_LETTER_ERROR);
+    });
+
+    it("should score as incorrect when the answer uses a variable the student omitted", function () {
+        // The check is one-directional: student vars must appear in the answer,
+        // but the answer may use variables the student didn't include.
+        const rubric: PerseusExpressionRubric = {
+            answerForms: [
+                {
+                    considered: "correct",
+                    value: "8d",
+                    form: false,
+                    simplify: false,
+                },
+            ],
+            functions: [],
+            extraKeys: ["d"],
+        };
+
+        const result = scoreExpression("8", rubric, "en");
+
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("should keep checking answer forms when earlier forms don't match", function () {
+        const rubric: PerseusExpressionRubric = {
+            answerForms: [
+                {
+                    considered: "correct",
+                    value: "x + 1",
+                    form: false,
+                    simplify: false,
+                },
+                {
+                    considered: "correct",
+                    value: "y + 1",
+                    form: false,
+                    simplify: false,
+                },
+            ],
+            functions: [],
+            extraKeys: ["x", "y"],
+        };
+
+        const result = scoreExpression("y + 1", rubric, "en");
+
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("regression LEMS-2777: equivalent to correct answer", function () {
