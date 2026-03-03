@@ -892,7 +892,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert - max-width should not be 0, which would collapse the container
             const figure = screen.getByRole("figure");
-            expect(figure).not.toHaveStyle("max-width: 0px");
+            expect(figure).toHaveStyle("max-width: 400px");
         });
     });
 
