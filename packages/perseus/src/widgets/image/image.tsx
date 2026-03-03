@@ -143,10 +143,9 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         </AssetContext.Consumer>
     );
 
-    const maxWidth =
-        backgroundImage.width != null
-            ? backgroundImage.width * scale
-            : undefined;
+    const maxWidth = backgroundImage.width
+        ? backgroundImage.width * scale
+        : undefined;
 
     // Early return for decorative images
     if (decorative) {
