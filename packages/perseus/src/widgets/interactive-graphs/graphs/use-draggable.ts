@@ -3,9 +3,9 @@ import {useTransformContext, vec} from "mafs";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
+import {getCSSZoomFactor} from "../../../util";
 import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getCSSZoomFactor} from "../utils";
 
 import type {RefObject} from "react";
 
