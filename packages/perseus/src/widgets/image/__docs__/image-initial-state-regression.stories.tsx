@@ -282,3 +282,26 @@ export const FloatRightImageWithinArticleMobile: Story = {
         alignment: "wrap-right",
     },
 };
+
+// Regression: image container should not collapse (max-width: 0) when
+// backgroundImage.width and backgroundImage.height are not set.
+export const ImageWithoutWidthOrHeight: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+        alt: "Earth and Moon",
+        title: "Earth and Moon",
+    },
+};
+
+// Regression: caption should not collapse (max-width: 0) when
+// backgroundImage.width and backgroundImage.height are not set.
+export const ImageWithoutWidthOrHeightWithCaption: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+        alt: "Earth and Moon",
+        title: "Earth and Moon",
+        caption: earthMoonImageCaption,
+    },
+};
