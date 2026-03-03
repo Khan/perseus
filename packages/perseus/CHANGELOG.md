@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 75.4.2
+
+### Patch Changes
+
+-   [#3297](https://github.com/Khan/perseus/pull/3297) [`eaa98d60af`](https://github.com/Khan/perseus/commit/eaa98d60afaa6d9296fb9bee1eefa0177910c340) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Image] Fixing collapsing image when width and height are not set.
+
 ## 75.4.1
 
 ### Patch Changes
