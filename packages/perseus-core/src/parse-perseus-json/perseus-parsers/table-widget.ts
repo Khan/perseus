@@ -2,7 +2,7 @@ import {
     array,
     number,
     constant,
-    looseObject,
+    strictObject,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -11,7 +11,7 @@ import {parseWidget} from "./widget";
 
 export const parseTableWidget = parseWidget(
     constant("table"),
-    looseObject({
+    strictObject({
         headers: array(string),
         rows: number,
         columns: number,

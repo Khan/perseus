@@ -2,7 +2,7 @@ import {
     boolean,
     nullable,
     number,
-    looseObject,
+    strictObject,
     objectWithAllPropertiesRequired,
     optional,
     string,
@@ -23,7 +23,7 @@ export function parseWidget<Type extends string, Options extends object>(
         options: parseOptions,
         key: optional(nullable(number)),
         version: optional(
-            looseObject({
+            strictObject({
                 major: number,
                 minor: number,
             }),
