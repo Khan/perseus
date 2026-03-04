@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 75.5.0
+
+### Minor Changes
+
+-   [#3255](https://github.com/Khan/perseus/pull/3255) [`77404ad02e`](https://github.com/Khan/perseus/commit/77404ad02e0647c9b1a90c3aa0b162d834f4d183) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Center align text content with radio widget's choice indictor.
+
 ## 75.4.2
 
 ### Patch Changes
