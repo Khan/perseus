@@ -46,16 +46,12 @@ export function objectWithAllPropertiesRequired<S extends ObjectSchema>(
 export function object<S extends ObjectSchema>(
     schema: S,
 ): Parser<OptionalizeProperties<{[K in keyof S]: ParsedValue<S[K]>}>> {
-    return (rawValue, ctx) => {
-        return parseObject(
-            // Initialize the parsed value to an empty object, ensuring that
-            // it only contains keys listed in the `schema`.
-            () => ({}),
-            schema,
-            rawValue,
-            ctx,
-        );
-    };
+    return objectParserWithInitializer(
+        // Initialize the parsed value to an empty object, ensuring that
+        // it only contains keys listed in the `schema`.
+        () => ({}),
+        schema,
+    );
 }
 
 /**
@@ -69,19 +65,23 @@ export function object<S extends ObjectSchema>(
 export function looseObject<S extends ObjectSchema>(
     schema: S,
 ): Parser<OptionalizeProperties<{[K in keyof S]: ParsedValue<S[K]>}>> {
-    return (rawValue, ctx) => {
-        return parseObject(
-            // Initialize the parsed value from the raw value's properties, so
-            // properties not listed in the schema are preserved.
-            (rawValue) => ({...rawValue}),
-            schema,
-            rawValue,
-            ctx,
-        );
-    };
+    return objectParserWithInitializer(
+        // Initialize the parsed value from the raw value's properties, so
+        // properties not listed in the schema are preserved.
+        (rawValue) => ({...rawValue}),
+        schema,
+    );
 }
 
 type AnyObject = Record<keyof any, unknown>;
+
+function objectParserWithInitializer<S extends ObjectSchema>(
+    initializeParsedValue: (rawValue: AnyObject) => AnyObject,
+    schema: S,
+): Parser<OptionalizeProperties<{[K in keyof S]: ParsedValue<S[K]>}>> {
+    return (rawValue, ctx) =>
+        parseObject(initializeParsedValue, schema, rawValue, ctx);
+}
 
 function parseObject<S extends ObjectSchema>(
     initializeParsedValue: (rawValue: AnyObject) => AnyObject,
