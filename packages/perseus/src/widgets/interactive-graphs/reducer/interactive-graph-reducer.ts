@@ -312,6 +312,7 @@ function doMovePointInFigure(
         case "polygon":
         case "quadratic":
         case "sinusoid":
+        case "absolute_value":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -545,6 +546,27 @@ function doMovePoint(
                 }),
             };
         }
+        case "absolute_value": {
+            const destination = action.destination;
+            const boundDestination = boundAndSnapToGrid(destination, state);
+
+            // Reject the move if it would place both points on the same x-coordinate
+            const newCoords: vec.Vector2[] = [...state.coords];
+            newCoords[action.index] = boundDestination;
+            if (newCoords[0][X] === newCoords[1][X]) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: boundDestination,
+                }),
+            };
+        }
         case "quadratic": {
             // Set up the new coords and check if the quadratic coefficients are valid
             const newCoords: QuadraticCoords = [...state.coords];
@@ -574,7 +596,7 @@ function doMovePoint(
         }
         default:
             throw new Error(
-                "The movePoint action is only for point, quadratic, and polygon graphs",
+                "The movePoint action is only for point, quadratic, polygon, sinusoid, and absolute_value graphs",
             );
     }
 }

@@ -184,6 +184,7 @@ export const shouldShowStartCoordsUI = (
             );
         case "none":
             return false;
+        case "absolute_value":
         case "angle":
         case "circle":
         case "linear":

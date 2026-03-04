@@ -899,6 +899,7 @@ export type LockedLabelType = {
 };
 
 export type PerseusGraphType =
+    | PerseusGraphTypeAbsoluteValue
     | PerseusGraphTypeAngle
     | PerseusGraphTypeCircle
     | PerseusGraphTypeLinear
@@ -1014,6 +1015,14 @@ export type PerseusGraphTypeSinusoid = {
     startCoords?: Coord[];
 };
 
+export type PerseusGraphTypeAbsoluteValue = {
+    type: "absolute_value";
+    // Expects 2 Coords: [vertex, second point]
+    coords?: [Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord];
+};
+
 export type PerseusGraphTypeRay = {
     type: "ray";
     // Expects a list of 2 Coords
@@ -1075,12 +1084,18 @@ type SinusoidGraphCorrect = {
     coords: CollinearTuple;
 };
 
+type AbsoluteValueGraphCorrect = {
+    type: "absolute_value";
+    coords: [Coord, Coord];
+};
+
 type RayGraphCorrect = {
     type: "ray";
     coords: CollinearTuple;
 };
 
 export type PerseusGraphCorrectType =
+    | AbsoluteValueGraphCorrect
     | AngleGraphCorrect
     | CircleGraphCorrect
     | LinearGraphCorrect

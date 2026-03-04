@@ -31,6 +31,7 @@ import {
 } from "./backgrounds/utils";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
+import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {SvgDefs} from "./graphs/components/text-label";
@@ -746,6 +747,8 @@ const renderGraphElements = (props: {
     const {state, dispatch, i18n, markings} = props;
     const {type} = state;
     switch (type) {
+        case "absolute_value":
+            return renderAbsoluteValueGraph(state, dispatch, i18n);
         case "angle":
             return renderAngleGraph(state, dispatch, i18n);
         case "segment":

@@ -8,6 +8,7 @@ import type {Coord} from "../../../interactive2/types";
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {
     PerseusGraphType,
+    PerseusGraphTypeAbsoluteValue,
     PerseusGraphTypeAngle,
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
@@ -109,6 +110,12 @@ export function initializeGraphState(
                 ...shared,
                 type: graph.type,
                 coords: getSinusoidCoords(graph, range, step),
+            };
+        case "absolute_value":
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getAbsoluteValueCoords(graph, range, step),
             };
         case "angle":
             return {
@@ -465,3 +472,27 @@ export const getAngleCoords = (params: {
     ];
     return coords;
 };
+
+export function getAbsoluteValueCoords(
+    graph: PerseusGraphTypeAbsoluteValue,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): [Coord, Coord] {
+    if (graph.coords) {
+        return [graph.coords[0], graph.coords[1]];
+    }
+
+    if (graph.startCoords) {
+        return [graph.startCoords[0], graph.startCoords[1]];
+    }
+
+    // Default coords: vertex at upper-left quarter, second point at lower-right quarter
+    let coords: [Coord, Coord] = [
+        [0.25, 0.75],
+        [0.75, 0.25],
+    ];
+
+    coords = normalizePoints(range, step, coords, true);
+
+    return coords;
+}

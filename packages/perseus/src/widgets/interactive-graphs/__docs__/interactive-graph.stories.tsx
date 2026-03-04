@@ -3,6 +3,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {
+    absoluteValueQuestion,
     angleQuestion,
     circleQuestion,
     linearQuestion,
@@ -48,6 +49,12 @@ const meta: Meta = {
 export default meta;
 
 type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const AbsoluteValue: Story = {
+    args: {
+        item: generateTestPerseusItem({question: absoluteValueQuestion}),
+    },
+};
 
 export const Angle: Story = {
     args: {

@@ -492,6 +492,27 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    srAbsoluteValueGraph: string;
+    srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
+    srAbsoluteValueSecondPoint: ({x, y}: {x: string; y: string}) => string;
+    srAbsoluteValueDescription: ({
+        vertex,
+        slope,
+    }: {
+        vertex: string;
+        slope: string;
+    }) => string;
+    srAbsoluteValueInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     imageExploreButton: string;
     imageAlternativeTitle: string;
     imageDescriptionLabel: string;
@@ -1097,6 +1118,33 @@ export const strings = {
         message:
             "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
     },
+    srAbsoluteValueGraph: {
+        context:
+            "Aria label for the container containing an Absolute Value function in the interactive graph widget.",
+        message: "An absolute value function on a coordinate plane.",
+    },
+    srAbsoluteValueVertexPoint: {
+        context:
+            "Aria label for the vertex Point of the Absolute Value function in the interactive graph widget.",
+        message: "Vertex point at %(x)s comma %(y)s.",
+    },
+    srAbsoluteValueSecondPoint: {
+        context:
+            "Aria label for the second Point of the Absolute Value function in the interactive graph widget.",
+        message: "Second point at %(x)s comma %(y)s.",
+    },
+    srAbsoluteValueDescription: {
+        context:
+            "Screen reader description of the Absolute Value function in the interactive graph widget.",
+        message:
+            "The graph shows a V-shaped absolute value function with vertex at %(vertex)s and slope %(slope)s.",
+    },
+    srAbsoluteValueInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Absolute Value function in the interactive graph widget.",
+        message:
+            "Absolute value graph with vertex point at %(point1X)s comma %(point1Y)s and second point at %(point2X)s comma %(point2Y)s.",
+    },
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
@@ -1434,6 +1482,18 @@ export const mockStrings: PerseusStrings = {
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
+    srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
+    srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
+    srAbsoluteValueSecondPoint: ({x, y}) => `Second point at ${x} comma ${y}.`,
+    srAbsoluteValueDescription: ({vertex, slope}) =>
+        `The graph shows a V-shaped absolute value function with vertex at ${vertex} and slope ${slope}.`,
+    srAbsoluteValueInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }) =>
+        `Absolute value graph with vertex point at ${point1X} comma ${point1Y} and second point at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",

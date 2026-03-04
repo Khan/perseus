@@ -10,6 +10,7 @@ import type {
     LockedPointType,
     LockedPolygonType,
     LockedVectorType,
+    PerseusGraphTypeAbsoluteValue,
     PerseusGraphTypeAngle,
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
@@ -141,6 +142,19 @@ export function generateIGSinusoidGraph(
 ): PerseusGraphTypeSinusoid {
     return {
         type: "sinusoid",
+        ...options,
+    };
+}
+
+export function generateIGAbsoluteValueGraph(
+    options?: Partial<Omit<PerseusGraphTypeAbsoluteValue, "type">>,
+): PerseusGraphTypeAbsoluteValue {
+    return {
+        type: "absolute_value",
+        coords: [
+            [0, 2],
+            [2, 0],
+        ],
         ...options,
     };
 }
