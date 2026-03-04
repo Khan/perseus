@@ -5,7 +5,7 @@ import {
     enumeration,
     nullable,
     number,
-    looseObject,
+    strictObject,
     optional,
     pair,
     pipeParsers,
@@ -41,14 +41,14 @@ const parseCorrect = defaulted(
     discriminatedUnionOn("type")
         .withBranch(
             "absolute_value",
-            looseObject({
+            strictObject({
                 type: constant("absolute_value"),
                 coords: parseCoords,
             }),
         )
         .withBranch(
             "exponential",
-            looseObject({
+            strictObject({
                 type: constant("exponential"),
                 asymptote: pairOfPoints,
                 coords: parseCoords,
@@ -56,14 +56,14 @@ const parseCorrect = defaulted(
         )
         .withBranch(
             "linear",
-            looseObject({
+            strictObject({
                 type: constant("linear"),
                 coords: parseCoords,
             }),
         )
         .withBranch(
             "logarithm",
-            looseObject({
+            strictObject({
                 type: constant("logarithm"),
                 asymptote: pairOfPoints,
                 coords: parseCoords,
@@ -71,21 +71,21 @@ const parseCorrect = defaulted(
         )
         .withBranch(
             "quadratic",
-            looseObject({
+            strictObject({
                 type: constant("quadratic"),
                 coords: parseCoords,
             }),
         )
         .withBranch(
             "sinusoid",
-            looseObject({
+            strictObject({
                 type: constant("sinusoid"),
                 coords: parseCoords,
             }),
         )
         .withBranch(
             "tangent",
-            looseObject({
+            strictObject({
                 type: constant("tangent"),
                 coords: parseCoords,
             }),
@@ -101,7 +101,7 @@ const parseCorrect = defaulted(
 
 export const parseGrapherWidget = parseWidget(
     constant("grapher"),
-    looseObject({
+    strictObject({
         availableTypes: array(
             enumeration(
                 "absolute_value",
@@ -114,8 +114,8 @@ export const parseGrapherWidget = parseWidget(
             ),
         ),
         correct: parseCorrect,
-        graph: looseObject({
-            backgroundImage: looseObject({
+        graph: strictObject({
+            backgroundImage: strictObject({
                 bottom: optional(number),
                 height: optional(number),
                 left: optional(number),

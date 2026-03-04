@@ -1,12 +1,12 @@
 import {
     enumeration,
     nullable,
-    looseObject,
+    strictObject,
     optional,
     string,
 } from "../general-purpose-parsers";
 
-export const parseIFrameUserInput = looseObject({
+export const parseIFrameUserInput = strictObject({
     status: enumeration("correct", "incorrect", "incomplete"),
     message: optional(nullable(string)),
 });

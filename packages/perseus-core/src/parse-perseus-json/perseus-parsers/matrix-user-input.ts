@@ -1,5 +1,5 @@
-import {array, string, looseObject} from "../general-purpose-parsers";
+import {array, string, strictObject} from "../general-purpose-parsers";
 
-export const parseMatrixUserInput = looseObject({
+export const parseMatrixUserInput = strictObject({
     answers: array(array(string)),
 });

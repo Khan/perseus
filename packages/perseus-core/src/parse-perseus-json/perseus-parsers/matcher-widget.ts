@@ -2,7 +2,7 @@ import {
     array,
     boolean,
     constant,
-    looseObject,
+    strictObject,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -11,7 +11,7 @@ import {parseWidget} from "./widget";
 
 import type {ParsedValue} from "../parser-types";
 
-const matcherOptions = looseObject({
+const matcherOptions = strictObject({
     labels: array(string),
     left: array(string),
     right: array(string),

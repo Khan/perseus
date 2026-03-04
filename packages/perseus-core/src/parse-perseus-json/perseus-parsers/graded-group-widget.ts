@@ -3,7 +3,7 @@ import {
     constant,
     nullable,
     number,
-    looseObject,
+    strictObject,
     optional,
     pipeParsers,
     record,
@@ -20,7 +20,7 @@ import {parseWidgetsMap} from "./widgets-map";
 const falseToNull = pipeParsers(constant(false)).then(
     convert(() => null),
 ).parser;
-export const parseGradedGroupWidgetOptions = looseObject({
+export const parseGradedGroupWidgetOptions = strictObject({
     title: defaulted(string, () => ""),
     hasHint: optional(nullable(boolean)),
     // This module has an import cycle with parsePerseusRenderer.
@@ -39,7 +39,7 @@ export const parseGradedGroupWidgetOptions = looseObject({
     immutableWidgets: optional(nullable(boolean)),
     images: record(
         string,
-        looseObject({
+        strictObject({
             width: number,
             height: number,
         }),

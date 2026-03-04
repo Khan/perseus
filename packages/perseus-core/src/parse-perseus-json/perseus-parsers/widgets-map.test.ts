@@ -505,7 +505,6 @@ describe("parseWidgetsMap", () => {
                     rulerPixels: 1,
                     rulerLength: 1,
                     box: [1, 1],
-                    static: false,
                 },
             },
         };

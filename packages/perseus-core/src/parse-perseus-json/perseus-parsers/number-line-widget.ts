@@ -1,6 +1,6 @@
 import {
     constant,
-    looseObject,
+    strictObject,
     array,
     number,
     string,
@@ -22,7 +22,7 @@ const emptyStringToNull = pipeParsers(constant("")).then(
 
 export const parseNumberLineWidget = parseWidget(
     constant("number-line"),
-    looseObject({
+    strictObject({
         // TODO(LEMS-3081): change `range` to `pair(number, number)` and update the related types
         // in data-schema.ts and number-line.tsx.
         range: array(number),

@@ -1,6 +1,6 @@
 import {
     constant,
-    looseObject,
+    strictObject,
     array,
     string,
     number,
@@ -66,9 +66,9 @@ function deprecatedSimplifyValuesToRequired(
 
 export const parseNumericInputWidget = parseWidget(
     constant("numeric-input"),
-    looseObject({
+    strictObject({
         answers: array(
-            looseObject({
+            strictObject({
                 message: defaulted(string, () => ""),
                 // TODO(benchristel): value should never be null or undefined,
                 // but we have some content where it is anyway. If we backfill
@@ -94,7 +94,7 @@ export const parseNumericInputWidget = parseWidget(
         static: defaulted(boolean, () => false),
         answerForms: optional(
             array(
-                looseObject({
+                strictObject({
                     name: parseMathFormat,
                     simplify: parseSimplify,
                 }),
