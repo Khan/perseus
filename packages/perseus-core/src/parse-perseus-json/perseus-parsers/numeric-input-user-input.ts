@@ -1,5 +1,5 @@
-import {strictObject, string} from "../general-purpose-parsers";
+import {object, string} from "../general-purpose-parsers";
 
-export const parseNumericInputUserInput = strictObject({
+export const parseNumericInputUserInput = object({
     currentValue: string,
 });

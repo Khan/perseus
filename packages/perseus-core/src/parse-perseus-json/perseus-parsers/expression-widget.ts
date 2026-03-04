@@ -6,7 +6,7 @@ import {
     constant,
     enumeration,
     number,
-    strictObject,
+    object,
     optional,
     pipeParsers,
     string,
@@ -30,7 +30,7 @@ function numberOrNullToString(v: string | number | null | undefined) {
     return typeof v === "number" || v === null ? String(v) : v;
 }
 
-const parsePossiblyInvalidAnswerForm = strictObject({
+const parsePossiblyInvalidAnswerForm = object({
     // `value` is the possibly invalid part of this. It should always be a
     // string, but some answer forms don't have it. The Expression widget
     // ignores invalid values, so we can safely filter them out during parsing.
@@ -59,11 +59,11 @@ const parseAnswerForms = pipeParsers(
     defaulted(array(parsePossiblyInvalidAnswerForm), () => []),
 ).then(convert(removeInvalidAnswerForms)).parser;
 
-const version2 = strictObject({major: constant(2), minor: number});
+const version2 = object({major: constant(2), minor: number});
 const parseExpressionWidgetV2 = parseWidgetWithVersion(
     version2,
     constant("expression"),
-    strictObject({
+    object({
         answerForms: parseAnswerForms,
         functions: array(string),
         times: boolean,
@@ -75,11 +75,11 @@ const parseExpressionWidgetV2 = parseWidgetWithVersion(
     }),
 );
 
-const version1 = strictObject({major: constant(1), minor: number});
+const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1 = parseWidgetWithVersion(
     version1,
     constant("expression"),
-    strictObject({
+    object({
         answerForms: parseAnswerForms,
         functions: array(string),
         times: boolean,
@@ -110,11 +110,11 @@ function migrateV1ToV2(
     };
 }
 
-const version0 = optional(strictObject({major: constant(0), minor: number}));
+const version0 = optional(object({major: constant(0), minor: number}));
 const parseExpressionWidgetV0 = parseWidgetWithVersion(
     version0,
     constant("expression"),
-    strictObject({
+    object({
         functions: array(string),
         times: boolean,
         visibleLabel: optional(string),

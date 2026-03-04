@@ -2,7 +2,7 @@ import {
     array,
     boolean,
     constant,
-    strictObject,
+    object,
     string,
     optional,
 } from "../general-purpose-parsers";
@@ -12,13 +12,13 @@ import {parseWidget} from "./widget";
 
 export const parseDropdownWidget = parseWidget(
     constant("dropdown"),
-    strictObject({
+    object({
         placeholder: defaulted(string, () => ""),
         ariaLabel: optional(string),
         visibleLabel: optional(string),
         static: defaulted(boolean, () => false),
         choices: array(
-            strictObject({
+            object({
                 content: string,
                 correct: defaulted(boolean, () => false),
             }),

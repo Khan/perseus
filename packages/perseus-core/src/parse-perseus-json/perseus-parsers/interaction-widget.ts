@@ -4,7 +4,7 @@ import {
     constant,
     enumeration,
     number,
-    strictObject,
+    object,
     optional,
     pair,
     pipeParsers,
@@ -23,10 +23,10 @@ const stringOrEmpty = defaulted(string, () => "");
 
 const parseKey = pipeParsers(optional(string)).then(convert(String)).parser;
 
-const parseFunctionElement = strictObject({
+const parseFunctionElement = object({
     type: constant("function"),
     key: parseKey,
-    options: strictObject({
+    options: object({
         value: string,
         funcName: string,
         rangeMin: string,
@@ -37,10 +37,10 @@ const parseFunctionElement = strictObject({
     }),
 });
 
-const parseLabelElement = strictObject({
+const parseLabelElement = object({
     type: constant("label"),
     key: parseKey,
-    options: strictObject({
+    options: object({
         label: string,
         color: string,
         coordX: string,
@@ -48,10 +48,10 @@ const parseLabelElement = strictObject({
     }),
 });
 
-const parseLineElement = strictObject({
+const parseLineElement = object({
     type: constant("line"),
     key: parseKey,
-    options: strictObject({
+    options: object({
         color: string,
         startX: string,
         startY: string,
@@ -63,10 +63,10 @@ const parseLineElement = strictObject({
     }),
 });
 
-const parseMovableLineElement = strictObject({
+const parseMovableLineElement = object({
     type: constant("movable-line"),
     key: parseKey,
-    options: strictObject({
+    options: object({
         startX: string,
         startY: string,
         startSubscript: number,
@@ -83,10 +83,10 @@ const parseMovableLineElement = strictObject({
     }),
 });
 
-const parseMovablePointElement = strictObject({
+const parseMovablePointElement = object({
     type: constant("movable-point"),
     key: parseKey,
-    options: strictObject({
+    options: object({
         startX: string,
         startY: string,
         varSubscript: number,
@@ -100,10 +100,10 @@ const parseMovablePointElement = strictObject({
     }),
 });
 
-const parseParametricElement = strictObject({
+const parseParametricElement = object({
     type: constant("parametric"),
     key: parseKey,
-    options: strictObject({
+    options: object({
         x: string,
         y: string,
         rangeMin: string,
@@ -114,20 +114,20 @@ const parseParametricElement = strictObject({
     }),
 });
 
-const parsePointElement = strictObject({
+const parsePointElement = object({
     type: constant("point"),
     key: parseKey,
-    options: strictObject({
+    options: object({
         color: string,
         coordX: string,
         coordY: string,
     }),
 });
 
-const parseRectangleElement = strictObject({
+const parseRectangleElement = object({
     type: constant("rectangle"),
     key: parseKey,
-    options: strictObject({
+    options: object({
         color: string,
         coordX: string,
         coordY: string,
@@ -138,9 +138,9 @@ const parseRectangleElement = strictObject({
 
 export const parseInteractionWidget = parseWidget(
     constant("interaction"),
-    strictObject({
+    object({
         static: defaulted(boolean, () => false),
-        graph: strictObject({
+        graph: object({
             editableSettings: optional(array(enumeration("canvas", "graph"))),
             box: pairOfNumbers,
             labels: array(string),

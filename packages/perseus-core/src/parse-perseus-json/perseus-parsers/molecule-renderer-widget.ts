@@ -1,6 +1,6 @@
 import {
     constant,
-    strictObject,
+    object,
     string,
     number,
     optional,
@@ -10,7 +10,7 @@ import {parseWidget} from "./widget";
 
 export const parseMoleculeRendererWidget = parseWidget(
     constant("molecule-renderer"),
-    strictObject({
+    object({
         widgetId: string,
         rotationAngle: optional(number),
         smiles: optional(string),

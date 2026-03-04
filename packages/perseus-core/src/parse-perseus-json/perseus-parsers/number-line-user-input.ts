@@ -1,6 +1,6 @@
-import {strictObject, number, enumeration} from "../general-purpose-parsers";
+import {object, number, enumeration} from "../general-purpose-parsers";
 
-export const parseNumberLineUserInput = strictObject({
+export const parseNumberLineUserInput = object({
     numLinePosition: number,
     rel: enumeration("eq", "lt", "gt", "le", "ge"),
     numDivisions: number,

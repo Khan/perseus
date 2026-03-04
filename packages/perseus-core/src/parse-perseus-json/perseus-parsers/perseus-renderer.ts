@@ -1,4 +1,4 @@
-import {any, strictObject, string} from "../general-purpose-parsers";
+import {any, object, string} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseImages} from "./images-map";
@@ -8,7 +8,7 @@ import type {PerseusRenderer} from "../../data-schema";
 import type {Parser} from "../parser-types";
 
 export const parsePerseusRenderer: Parser<PerseusRenderer> = defaulted(
-    strictObject({
+    object({
         // TODO(benchristel): content is also defaulted to empty string in
         // renderer.tsx. See if we can remove one default or the other.
         content: defaulted(string, () => ""),

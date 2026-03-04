@@ -1,7 +1,7 @@
 import {plotterPlotTypes} from "../../data-schema";
 import {
     constant,
-    strictObject,
+    object,
     string,
     array,
     number,
@@ -15,7 +15,7 @@ import {parseWidget} from "./widget";
 
 export const parsePlotterWidget = parseWidget(
     constant("plotter"),
-    strictObject({
+    object({
         labels: array(string),
         categories: array(string),
         type: enumeration(...plotterPlotTypes),

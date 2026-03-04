@@ -1,15 +1,10 @@
-import {
-    constant,
-    strictObject,
-    string,
-    number,
-} from "../general-purpose-parsers";
+import {constant, object, string, number} from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
 
 export const parsePythonProgramWidget = parseWidget(
     constant("python-program"),
-    strictObject({
+    object({
         programID: string,
         height: number,
     }),

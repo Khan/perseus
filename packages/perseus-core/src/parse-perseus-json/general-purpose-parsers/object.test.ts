@@ -3,7 +3,7 @@ import {assertFailure, assertSuccess, success} from "../result";
 import {array} from "./array";
 import {defaulted} from "./defaulted";
 import {number} from "./number";
-import {looseObject, strictObject} from "./object";
+import {looseObject, object} from "./object";
 import {optional} from "./optional";
 import {string} from "./string";
 import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
@@ -18,17 +18,15 @@ describe("looseObject", () => {
 });
 
 describe("strictObject", () => {
-    testSharedObjectParserBehavior(strictObject);
+    testSharedObjectParserBehavior(object);
 
     it("accepts an object with properties not in the schema, but removes those properties", () => {
-        const emptyObject = strictObject({});
+        const emptyObject = object({});
         expect(emptyObject({foo: 1}, ctx())).toEqual(success({}));
     });
 });
 
-function testSharedObjectParserBehavior(
-    objectParserCombinator: typeof strictObject,
-) {
+function testSharedObjectParserBehavior(objectParserCombinator: typeof object) {
     const emptyObject = objectParserCombinator({});
     const Person = objectParserCombinator({
         name: string,

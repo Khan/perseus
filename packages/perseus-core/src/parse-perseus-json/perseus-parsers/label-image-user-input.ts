@@ -1,13 +1,8 @@
-import {
-    array,
-    strictObject,
-    optional,
-    string,
-} from "../general-purpose-parsers";
+import {array, object, optional, string} from "../general-purpose-parsers";
 
-export const parseLabelImageUserInput = strictObject({
+export const parseLabelImageUserInput = object({
     markers: array(
-        strictObject({
+        object({
             selected: optional(array(string)),
             label: string,
         }),

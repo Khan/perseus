@@ -3,7 +3,7 @@ import {
     boolean,
     constant,
     number,
-    strictObject,
+    object,
     optional,
     string,
     union,
@@ -14,9 +14,9 @@ import {parseWidget} from "./widget";
 
 export const parseIframeWidget = parseWidget(
     constant("iframe"),
-    strictObject({
+    object({
         url: string,
-        settings: optional(array(strictObject({name: string, value: string}))),
+        settings: optional(array(object({name: string, value: string}))),
         width: union(number).or(string).parser,
         height: union(number).or(string).parser,
         allowFullScreen: defaulted(boolean, () => false),

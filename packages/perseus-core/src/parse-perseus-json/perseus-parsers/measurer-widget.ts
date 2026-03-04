@@ -2,7 +2,7 @@ import {
     boolean,
     constant,
     number,
-    strictObject,
+    object,
     pair,
     string,
 } from "../general-purpose-parsers";
@@ -13,7 +13,7 @@ import {parseWidget} from "./widget";
 
 export const parseMeasurerWidget = parseWidget(
     constant("measurer"),
-    strictObject({
+    object({
         // The default value for image comes from measurer.tsx.
         // See parse-perseus-json/README.md for why we want to duplicate the
         // defaults here.

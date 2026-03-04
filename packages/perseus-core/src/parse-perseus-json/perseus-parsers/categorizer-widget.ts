@@ -3,7 +3,7 @@ import {
     boolean,
     constant,
     number,
-    strictObject,
+    object,
     optional,
     string,
 } from "../general-purpose-parsers";
@@ -13,7 +13,7 @@ import {parseWidget} from "./widget";
 
 export const parseCategorizerWidget = parseWidget(
     constant("categorizer"),
-    strictObject({
+    object({
         items: array(string),
         categories: array(string),
         randomizeItems: defaulted(boolean, () => false),

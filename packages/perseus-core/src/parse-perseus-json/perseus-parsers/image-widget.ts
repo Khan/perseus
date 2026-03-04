@@ -3,7 +3,7 @@ import {
     boolean,
     constant,
     number,
-    strictObject,
+    object,
     optional,
     pair,
     string,
@@ -16,7 +16,7 @@ const pairOfNumbers = pair(number, number);
 
 export const parseImageWidget = parseWidget(
     constant("image"),
-    strictObject({
+    object({
         title: optional(string),
         caption: optional(string),
         alt: optional(string),
@@ -27,7 +27,7 @@ export const parseImageWidget = parseWidget(
         static: optional(boolean),
         labels: optional(
             array(
-                strictObject({
+                object({
                     content: string,
                     alignment: string,
                     coordinates: array(number),

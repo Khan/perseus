@@ -4,7 +4,7 @@ import {failure, success} from "../result";
 import {constant} from "./constant";
 import {discriminatedUnionOn} from "./discriminated-union";
 import {number} from "./number";
-import {strictObject} from "./object";
+import {object} from "./object";
 
 describe("a discriminatedUnion with no variants", () => {
     const parseUnion = discriminatedUnionOn("shape").parser;
@@ -33,7 +33,7 @@ describe("a discriminatedUnion with no variants", () => {
 });
 
 describe("a discriminatedUnion with one variant", () => {
-    const parseCircle = strictObject({
+    const parseCircle = object({
         shape: constant("circle"),
         radius: number,
     });
@@ -71,11 +71,11 @@ describe("a discriminatedUnion with one variant", () => {
 });
 
 describe("a discriminatedUnion with two variants", () => {
-    const parseCircle = strictObject({
+    const parseCircle = object({
         shape: constant("circle"),
         radius: number,
     });
-    const parseRectangle = strictObject({
+    const parseRectangle = object({
         shape: constant("rectangle"),
         width: number,
         height: number,

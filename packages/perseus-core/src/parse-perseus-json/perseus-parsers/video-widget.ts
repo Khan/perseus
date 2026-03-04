@@ -1,6 +1,6 @@
 import {
     constant,
-    strictObject,
+    object,
     string,
     boolean,
     optional,
@@ -10,7 +10,7 @@ import {parseWidget} from "./widget";
 
 export const parseVideoWidget = parseWidget(
     constant("video"),
-    strictObject({
+    object({
         location: string,
         static: optional(boolean),
     }),
