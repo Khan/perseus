@@ -7,7 +7,7 @@ import {
     constant,
     defaultedNonEmptyString,
     number,
-    looseObject,
+    strictObject,
     optional,
     string,
 } from "../general-purpose-parsers";
@@ -49,14 +49,14 @@ function generateChoiceId(index: number): string {
     return `radio-choice-${index}`;
 }
 
-const version3 = optional(looseObject({major: constant(3), minor: number}));
+const version3 = optional(strictObject({major: constant(3), minor: number}));
 const parseRadioWidgetV3 = parseWidgetWithVersion(
     version3,
     constant("radio"),
-    looseObject({
+    strictObject({
         numCorrect: optional(number),
         choices: arrayWithIndex((index) =>
-            looseObject({
+            strictObject({
                 content: defaulted(string, () => ""),
                 rationale: optional(string),
                 correct: optional(boolean),
@@ -72,19 +72,20 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
     }),
 );
 
-const version2 = optional(looseObject({major: constant(2), minor: number}));
+const version2 = optional(strictObject({major: constant(2), minor: number}));
 const parseRadioWidgetV2 = parseWidgetWithVersion(
     version2,
     constant("radio"),
     defaulted(
-        looseObject({
+        strictObject({
             numCorrect: optional(number),
             choices: array(
-                looseObject({
+                strictObject({
                     content: defaulted(string, () => ""),
                     clue: optional(string),
                     correct: optional(boolean),
                     isNoneOfTheAbove: optional(boolean),
+                    rationale: optional(string),
                     // deprecated
                     widgets: parseWidgetsMapOrUndefined,
                 }),
@@ -106,14 +107,14 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
     ),
 );
 
-const version1 = optional(looseObject({major: constant(1), minor: number}));
+const version1 = optional(strictObject({major: constant(1), minor: number}));
 const parseRadioWidgetV1 = parseWidgetWithVersion(
     version1,
     constant("radio"),
     defaulted(
-        looseObject({
+        strictObject({
             choices: array(
-                looseObject({
+                strictObject({
                     content: defaulted(string, () => ""),
                     clue: optional(string),
                     correct: optional(boolean),
@@ -139,14 +140,14 @@ const parseRadioWidgetV1 = parseWidgetWithVersion(
     ),
 );
 
-const version0 = optional(looseObject({major: constant(0), minor: number}));
+const version0 = optional(strictObject({major: constant(0), minor: number}));
 const parseRadioWidgetV0 = parseWidgetWithVersion(
     version0,
     constant("radio"),
     defaulted(
-        looseObject({
+        strictObject({
             choices: array(
-                looseObject({
+                strictObject({
                     content: defaulted(string, () => ""),
                     clue: optional(string),
                     correct: optional(boolean),
