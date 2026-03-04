@@ -39,6 +39,21 @@ export const question: PerseusRenderer = generateTestPerseusRenderer({
     },
 });
 
+export const singleSelectWithTallMath = generateSimpleRadioQuestion({
+    choices: [
+        generateRadioChoice("$x\\^{\\Large 5 + \\frac34}$ (Correct)", {
+            correct: true,
+        }),
+        generateRadioChoice("$\\sqrt{\\underbrace{\\sin(x)}_1-1}$ (Wrong)", {
+            correct: false,
+        }),
+        generateRadioChoice(
+            "$ax^2+\\underbrace{bx + c}_{\\text{你好}} = 0$ (Wrong)",
+            {correct: false},
+        ),
+    ],
+});
+
 export const questionAndAnswer: [
     PerseusRenderer,
     number,
