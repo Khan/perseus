@@ -215,6 +215,9 @@ export type PerseusItem = {
     // A collection of hints to be offered to the user that support answering the question.
     hints: Hint[];
     // Details about the tools the user might need to answer the question
+    // TODO(benchristel): The parser for PerseusAnswerArea never returns null
+    //     or undefined. We could remove `| null | undefined` here, but we'd
+    //     have to update a bunch of test data in both this repo and frontend.
     answerArea: PerseusAnswerArea | null | undefined;
 };
 
