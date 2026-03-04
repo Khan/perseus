@@ -1755,8 +1755,7 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // Check if the image has a manually set scale. If so, use it to
         // appropriately scale the labels and the label padding.
         const imageScale = Number($container.attr("data-scale"));
-        const hasValidImageScale =
-            !Number.isNaN(imageScale) && imageScale >= 0 && imageScale !== 1;
+        const hasValidImageScale = !Number.isNaN(imageScale) && imageScale >= 0;
 
         // Only update label scale if image has a manually set scale value.
         // (i.e. Image widget `scale` set by content authors.)
