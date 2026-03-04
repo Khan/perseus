@@ -3,13 +3,7 @@ import {failure, isSuccess} from "../result";
 import {isPlainObject} from "./is-plain-object";
 
 import type {OptionalizeProperties} from "./object-types";
-import type {
-    Mismatch,
-    ParseContext,
-    ParsedValue,
-    Parser,
-    ParseResult,
-} from "../parser-types";
+import type {Mismatch, ParsedValue, Parser} from "../parser-types";
 
 type ObjectSchema = Record<keyof any, Parser<any>>;
 
@@ -79,35 +73,27 @@ function objectParserWithInitializer<S extends ObjectSchema>(
     initializeParsedValue: (rawValue: AnyObject) => AnyObject,
     schema: S,
 ): Parser<OptionalizeProperties<{[K in keyof S]: ParsedValue<S[K]>}>> {
-    return (rawValue, ctx) =>
-        parseObject(initializeParsedValue, schema, rawValue, ctx);
-}
-
-function parseObject<S extends ObjectSchema>(
-    initializeParsedValue: (rawValue: AnyObject) => AnyObject,
-    schema: S,
-    rawValue: unknown,
-    ctx: ParseContext,
-): ParseResult<OptionalizeProperties<{[K in keyof S]: ParsedValue<S[K]>}>> {
-    if (!isPlainObject(rawValue)) {
-        return ctx.failure("object", rawValue);
-    }
-
-    const ret: any = initializeParsedValue(rawValue);
-    const mismatches: Mismatch[] = [];
-    for (const [prop, propParser] of Object.entries(schema)) {
-        const result = propParser(rawValue[prop], ctx.forSubtree(prop));
-        if (isSuccess(result)) {
-            if (result.value !== undefined || prop in rawValue) {
-                ret[prop] = result.value;
-            }
-        } else {
-            mismatches.push(...result.detail);
+    return (rawValue, ctx) => {
+        if (!isPlainObject(rawValue)) {
+            return ctx.failure("object", rawValue);
         }
-    }
 
-    if (mismatches.length > 0) {
-        return failure(mismatches);
-    }
-    return ctx.success(ret);
+        const ret: any = initializeParsedValue(rawValue);
+        const mismatches: Mismatch[] = [];
+        for (const [prop, propParser] of Object.entries(schema)) {
+            const result = propParser(rawValue[prop], ctx.forSubtree(prop));
+            if (isSuccess(result)) {
+                if (result.value !== undefined || prop in rawValue) {
+                    ret[prop] = result.value;
+                }
+            } else {
+                mismatches.push(...result.detail);
+            }
+        }
+
+        if (mismatches.length > 0) {
+            return failure(mismatches);
+        }
+        return ctx.success(ret);
+    };
 }
