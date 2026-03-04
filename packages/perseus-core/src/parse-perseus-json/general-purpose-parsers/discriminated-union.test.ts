@@ -33,10 +33,7 @@ describe("a discriminatedUnion with no variants", () => {
 });
 
 describe("a discriminatedUnion with one variant", () => {
-    const parseCircle = object({
-        shape: constant("circle"),
-        radius: number,
-    });
+    const parseCircle = object({shape: constant("circle"), radius: number});
     const parseUnion = discriminatedUnionOn("shape").withBranch(
         "circle",
         parseCircle,
@@ -71,10 +68,7 @@ describe("a discriminatedUnion with one variant", () => {
 });
 
 describe("a discriminatedUnion with two variants", () => {
-    const parseCircle = object({
-        shape: constant("circle"),
-        radius: number,
-    });
+    const parseCircle = object({shape: constant("circle"), radius: number});
     const parseRectangle = object({
         shape: constant("rectangle"),
         width: number,
