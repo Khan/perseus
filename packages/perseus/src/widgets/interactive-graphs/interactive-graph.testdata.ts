@@ -315,9 +315,6 @@ export const absoluteValueQuestion: PerseusRenderer =
         })
         .build();
 
-export const absoluteValueQuestionWithDefaultCorrect: PerseusRenderer =
-    interactiveGraphQuestionBuilder().withAbsoluteValue().build();
-
 export const questionsAndAnswers: ReadonlyArray<
     [
         PerseusRenderer, // Correct answer
