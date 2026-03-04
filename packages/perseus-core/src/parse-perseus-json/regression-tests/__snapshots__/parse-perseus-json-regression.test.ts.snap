@@ -439,10 +439,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.ts 
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 
@@ -499,10 +495,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.ts 
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 
@@ -553,10 +545,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.ts returns 
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 
@@ -602,10 +590,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.ts returns 
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 
@@ -653,10 +637,6 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.ts returns
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Categorise the following into transparent, translucent and opaque objects.**
 
@@ -714,10 +694,6 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.ts returns
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Categorise the following into transparent, translucent and opaque objects.**
 
@@ -768,10 +744,6 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "When you run a trial the simulator below, it produces a sequence of four random digits. If at least one of these digits is a zero, the trial is counted as a success.
 
@@ -850,10 +822,6 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "When you run a trial the simulator below, it produces a sequence of four random digits. If at least one of these digits is a zero, the trial is counted as a success.
 
@@ -1006,10 +974,6 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "An object is released from rest near the surface of the Earth and allowed to fall freely. 
 
@@ -1075,10 +1039,6 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "An object is released from rest near the surface of the Earth and allowed to fall freely. 
 
@@ -1419,10 +1379,6 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
       },
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "The quantities $a$ and $b$ are proportional.
 
@@ -1496,10 +1452,6 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "The quantities $a$ and $b$ are proportional.
 
@@ -1556,10 +1508,6 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts 
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Jake is younger than Sophie.  Sophie is $14$ years old.  
 
@@ -1621,10 +1569,6 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts 
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Jake is younger than Sophie.  Sophie is $14$ years old.  
 
@@ -1809,10 +1753,6 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.ts ret
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "** Combine like terms to simplify the expression: **
 
@@ -1864,10 +1804,6 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.ts ret
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "** Combine like terms to simplify the expression: **
 
@@ -1996,10 +1932,6 @@ $\\begin{align}\\sin (\\blue{\\theta})&=\\dfrac{3}{6}\\\\ &= \\frac{1}{2}\\end{a
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "The following drawing contains an equilateral triangle whose side is $6$ units.  
 $a$ is perpendicular to one of the sides of the triangle.
@@ -2226,10 +2158,6 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts ret
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "The following drawing contains an equilateral triangle whose side is $6$ units.  
 $a$ is perpendicular to one of the sides of the triangle.
@@ -2435,10 +2363,6 @@ Rounding the answer correctly to three significant figures gives us $5.77\\times
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Incandescent light bulbs produce light by heating a metal filament until it glows. The most common filament is tungsten, a grayish metal with atomic number $74$. 
 
@@ -2630,10 +2554,6 @@ exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.ts
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Incandescent light bulbs produce light by heating a metal filament until it glows. The most common filament is tungsten, a grayish metal with atomic number $74$. 
 
@@ -2916,10 +2836,6 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "$\\text B = \\left[\\begin{array}{rr}1 & 4 \\\\ 1 & 3\\end{array}\\right]$ and $\\text D = \\left[\\begin{array}{rr}4 & 3 \\\\ 0 & -1\\end{array}\\right]$. 
 
@@ -2997,10 +2913,6 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts return
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "$\\text B = \\left[\\begin{array}{rr}1 & 4 \\\\ 1 & 3\\end{array}\\right]$ and $\\text D = \\left[\\begin{array}{rr}4 & 3 \\\\ 0 & -1\\end{array}\\right]$. 
 
@@ -3371,10 +3283,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns th
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ grapher 1]]
 
@@ -3468,10 +3376,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns th
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ grapher 1]]
 
@@ -3828,10 +3732,6 @@ It is possible to solve any system of linear equations using the substitution me
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Congratulations on all you've learned about systems of equations!
 
@@ -3868,10 +3768,6 @@ exports[`parseAndMigratePerseusItem given hint-missing-images.ts returns the sam
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Congratulations on all you've learned about systems of equations!
 
@@ -3886,8 +3782,6 @@ In case you would like a fuller experience, here is a taste of a skill you can l
 
 exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the same result as before 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -3919,10 +3813,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "crwdns3439028:0{944544}crwdnd3439028:0$10$crwdne3439028:0",
     "images": {},
@@ -3971,8 +3861,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
 
 exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the same result as before with answer information removed 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -4001,10 +3889,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "crwdns3439028:0{944544}crwdnd3439028:0$10$crwdne3439028:0",
     "images": {},
@@ -4097,10 +3981,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
       },
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Congratulations, you have exposed disk 3, and since our goal is move 3 disks to peg "B", that's the disk we want on the bottom of peg "B". Move it to the target peg now.
 
@@ -4163,10 +4043,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Congratulations, you have exposed disk 3, and since our goal is move 3 disks to peg "B", that's the disk we want on the bottom of peg "B". Move it to the target peg now.
 
@@ -4330,10 +4206,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
       },
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "This is a question.",
     "images": {},
@@ -4360,10 +4232,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "This is a question.",
     "images": {},
@@ -4374,8 +4242,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
 
 exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns the same result as before 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -4547,10 +4413,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "crwdns7183087:0$B$crwdnd7183087:0$B$crwdne7183087:0",
     "images": {},
@@ -4654,8 +4516,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
 
 exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns the same result as before with answer information removed 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -4696,10 +4556,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "crwdns7183087:0$B$crwdnd7183087:0$B$crwdne7183087:0",
     "images": {},
@@ -4833,10 +4689,6 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "** Which of the following is a solution to the equation below?**
   
@@ -4964,10 +4816,6 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "** Which of the following is a solution to the equation below?**
   
@@ -5070,10 +4918,6 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ interaction 1]]",
     "images": {},
@@ -5272,10 +5116,6 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ interaction 1]]",
     "images": {},
@@ -6485,10 +6325,6 @@ So the second point is at $(\\blue{10},\\red{15})$.",
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "You are $5$ miles away from your house when you start walking directly away from your house.  In the table below, $w$ represents the number of miles you have walked, and $d$ represents your distance from home in miles.
 
@@ -6620,10 +6456,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "You are $5$ miles away from your house when you start walking directly away from your house.  In the table below, $w$ represents the number of miles you have walked, and $d$ represents your distance from home in miles.
 
@@ -7272,10 +7104,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ interactive-graph 1]]
 
@@ -7362,10 +7190,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ interactive-graph 1]]
 
@@ -9193,10 +9017,6 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "The magnetic field of the Earth is $B_E$ at a location where the magnetic dip is $I=+45\\degree$.
 
@@ -9314,10 +9134,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.ts ret
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "The magnetic field of the Earth is $B_E$ at a location where the magnetic dip is $I=+45\\degree$.
 
@@ -9460,10 +9276,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
       },
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Move the line on the first graph so it is in the same position as the line on the second graph.
 
@@ -9613,10 +9425,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Move the line on the first graph so it is in the same position as the line on the second graph.
 
@@ -9995,10 +9803,6 @@ We end up with a rhombus that looks like this:
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Click on the graph to draw a rhombus with an acute angle at $(0, 3)$, another vertex at $(3,7)$, side length of $5$ units, and two sides parallel to the $x$-axis.**  
 
@@ -10129,10 +9933,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Click on the graph to draw a rhombus with an acute angle at $(0, 3)$, another vertex at $(3,7)$, side length of $5$ units, and two sides parallel to the $x$-axis.**  
 
@@ -10226,10 +10026,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Ally is excited to compete in a $6$-mile race. The race organizers plotted the course on a coordinate map. The starting point is at $(4,3)$, and the ending point is at $(4,9)$.  Ally's family decides to stand at $(4,6)$ on the map.
 
@@ -10379,10 +10175,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Ally is excited to compete in a $6$-mile race. The race organizers plotted the course on a coordinate map. The starting point is at $(4,3)$, and the ending point is at $(4,9)$.  Ally's family decides to stand at $(4,6)$ on the map.
 
@@ -10503,8 +10295,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 
 exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts returns the same result as before 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -10514,7 +10304,6 @@ exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts retu
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": null,
   "question": {
     "content": "
  [[☃ image 1]]
@@ -10669,8 +10458,6 @@ ___
 
 exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts returns the same result as before with answer information removed 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -10680,7 +10467,6 @@ exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts retu
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": null,
   "question": {
     "content": "
  [[☃ image 1]]
@@ -11139,10 +10925,6 @@ Non-renewable source can be exhausted with continuous use",
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Classify the resource under its category**
 
@@ -11285,10 +11067,6 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns 
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Classify the resource under its category**
 
@@ -11812,10 +11590,6 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "If  $\\text{A} = \\left[\\begin{array}{rr}  -2 & 3\\\\ 1 & 2   \\end{array}\\right]$ and $\\text{B} = \\left[\\begin{array}{rr} -1 & 0 \\\\ 1 & 2   \\end{array}\\right]$, then find $(A + 2B)'$.
 
@@ -11878,10 +11652,6 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "If  $\\text{A} = \\left[\\begin{array}{rr}  -2 & 3\\\\ 1 & 2   \\end{array}\\right]$ and $\\text{B} = \\left[\\begin{array}{rr} -1 & 0 \\\\ 1 & 2   \\end{array}\\right]$, then find $(A + 2B)'$.
 
@@ -12111,10 +11881,6 @@ $\\left[\\begin{array}{c}
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Consider this matrix transformation:
 
@@ -12213,10 +11979,6 @@ exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.ts r
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Consider this matrix transformation:
 
@@ -12490,10 +12252,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ measurer 1]]
 
@@ -12537,10 +12295,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ measurer 1]]
 
@@ -12690,10 +12444,6 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
       },
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Janie has $\\$3$.  She earns $\\$1.20$ for each chore she does and can do fractions of chores.  She wants to earn enough money to buy a CD for $\\$13.50$.
 
@@ -12837,10 +12587,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.ts r
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Janie has $\\$3$.  She earns $\\$1.20$ for each chore she does and can do fractions of chores.  She wants to earn enough money to buy a CD for $\\$13.50$.
 
@@ -12951,10 +12697,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.ts returns 
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ number-line 1]]
 
@@ -13010,10 +12752,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.ts returns 
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ number-line 1]]
 
@@ -13104,10 +12842,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Which of the following inequalities are correct?**
 
@@ -13224,10 +12958,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Which of the following inequalities are correct?**
 
@@ -13342,10 +13072,6 @@ $=(31-31) -8$",
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Evaluate** $-31-8+31$.
 
@@ -13443,10 +13169,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**Evaluate** $-31-8+31$.
 
@@ -13530,10 +13252,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "$\\Huge36+3$
 
@@ -13580,10 +13298,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "$\\Huge36+3$
 
@@ -13643,10 +13357,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
 
@@ -13707,10 +13417,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
 
@@ -13776,10 +13482,6 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "$\\bigg(\\dfrac{2}{3} \\bigg)^3 =$ [[☃ expression 1]]",
     "images": {},
@@ -13879,10 +13581,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "$\\bigg(\\dfrac{2}{3} \\bigg)^3 =$ [[☃ expression 1]]",
     "images": {},
@@ -13960,10 +13658,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.ts r
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "For shipping purposes, foam mattresses are rolled tightly into cylinders. The volume of the cylinder is significantly less than the volume of the mattress when it is laid out as rectangular prism. For the sake of this problem, let's say that the volume of the rolled up mattress is exactly half of the laid out mattress.
 
@@ -14014,10 +13708,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.ts r
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "For shipping purposes, foam mattresses are rolled tightly into cylinders. The volume of the cylinder is significantly less than the volume of the mattress when it is laid out as rectangular prism. For the sake of this problem, let's say that the volume of the rolled up mattress is exactly half of the laid out mattress.
 
@@ -14231,10 +13921,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "![](https://ka-perseus-images.s3.amazonaws.com/ec3199bd52c57bcdb3ab16d727a172def834d4fe.jpg)
 
@@ -14386,10 +14072,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "![](https://ka-perseus-images.s3.amazonaws.com/ec3199bd52c57bcdb3ab16d727a172def834d4fe.jpg)
 
@@ -14489,8 +14171,6 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
 
 exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts returns the same result as before 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -14683,10 +14363,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "crwdns6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0:-:crwdnd6996888:0$2$crwdnd6996888:0$3$crwdnd6996888:0$4$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdne6996888:0",
     "images": {},
@@ -14863,8 +14539,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
 
 exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts returns the same result as before with answer information removed 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -14923,10 +14597,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "crwdns6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0:-:crwdnd6996888:0$2$crwdnd6996888:0$3$crwdnd6996888:0$4$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdne6996888:0",
     "images": {},
@@ -15189,10 +14859,6 @@ Stella landed $1.68$ kilometers from the skydiving center.",
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Stella's friends got her a skydiving lesson for her birthday. Her helicopter took off from the skydiving center, ascending in an angle of $37^\\circ$, and traveled a distance of $2.1$ kilometers before she fell in a straight line perpendicular to the ground.
  
@@ -15336,10 +15002,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "Stella's friends got her a skydiving lesson for her birthday. Her helicopter took off from the skydiving center, ascending in an angle of $37^\\circ$, and traveled a distance of $2.1$ kilometers before she fell in a straight line perpendicular to the ground.
  
@@ -15455,10 +15117,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**What is $\\text{sec}(\\angle A)?$**  
 *Reduce fractional answers to lowest terms.*
@@ -15516,10 +15174,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "**What is $\\text{sec}(\\angle A)?$**  
 *Reduce fractional answers to lowest terms.*
@@ -16593,10 +16247,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
       },
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "",
     "images": {},
@@ -16647,10 +16297,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-images.ts retur
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "",
     "images": {},
@@ -16721,10 +16367,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "What is the definition of the natural background rate of extinction? 
 
@@ -16813,10 +16455,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "What is the definition of the natural background rate of extinction? 
 
@@ -17032,10 +16670,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.ts retu
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "A woman slides a box onto a shelf.
 
@@ -17236,10 +16870,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.ts retu
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "A woman slides a box onto a shelf.
 
@@ -17445,10 +17075,6 @@ $\\green5 - \\red3= \\purple{2}$",
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "En familj spelar basket.  Pictogrammet visar hur många mål varje barn gjorde.  
 
@@ -17550,10 +17176,6 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "En familj spelar basket.  Pictogrammet visar hur många mål varje barn gjorde.  
 
@@ -17699,10 +17321,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "A kite enthusiast flies her kite on a particularly windy day. The kite string is pulled upward to make a 60° angle with respect to the ground. Using a tension meter, she finds that the kite is pulling with 30 N of force. What is the horizontal component of force produced by the kite?
 
@@ -17792,10 +17410,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
       "widgets": {},
     },
   ],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "A kite enthusiast flies her kite on a particularly windy day. The kite string is pulled upward to make a 60° angle with respect to the ground. Using a tension meter, she finds that the kite is pulling with 30 N of force. What is the horizontal component of force produced by the kite?
 
@@ -18046,10 +17660,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 
@@ -18326,10 +17936,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 
@@ -18590,10 +18196,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 
@@ -18870,10 +18472,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 
@@ -19134,10 +18732,6 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts return
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "$\\begin{align} 
 A &= \\{x: x \\text{ is a rectangle in the plane P} \\} \\\\\\\\
@@ -19200,10 +18794,6 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts return
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "$\\begin{align} 
 A &= \\{x: x \\text{ is a rectangle in the plane P} \\} \\\\\\\\
@@ -19253,8 +18843,6 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
 
 exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema.ts returns the same result as before 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -19264,10 +18852,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 [[☃ image 1]]
@@ -19477,8 +19061,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 
 exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema.ts returns the same result as before with answer information removed 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -19488,10 +19070,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 [[☃ image 1]]
@@ -19898,8 +19476,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
 
 exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the same result as before 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -19909,10 +19485,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 [[☃ image 1]]
@@ -20079,8 +19651,6 @@ ___
 
 exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the same result as before with answer information removed 1`] = `
 {
-  "_multi": null,
-  "answer": null,
   "answerArea": {
     "calculator": false,
     "financialCalculatorMonthlyPayment": false,
@@ -20090,10 +19660,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "
 [[☃ image 1]]
@@ -20256,10 +19822,6 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ sorter 1]]
 
@@ -20314,10 +19876,6 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ sorter 1]]
 
@@ -20376,10 +19934,6 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ transformer 1]]
 
@@ -20544,10 +20098,6 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
     "periodicTableWithKey": false,
   },
   "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
   "question": {
     "content": "[[☃ transformer 1]]
 

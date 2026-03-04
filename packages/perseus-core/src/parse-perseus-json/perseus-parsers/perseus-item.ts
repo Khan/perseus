@@ -1,4 +1,4 @@
-import {array, looseObject} from "../general-purpose-parsers";
+import {array, strictObject} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseHint} from "./hint";
@@ -8,7 +8,7 @@ import {parsePerseusRenderer} from "./perseus-renderer";
 import type {PerseusItem} from "../../data-schema";
 import type {Parser} from "../parser-types";
 
-export const parsePerseusItem: Parser<PerseusItem> = looseObject({
+export const parsePerseusItem: Parser<PerseusItem> = strictObject({
     question: parsePerseusRenderer,
     hints: defaulted(array(parseHint), () => []),
     answerArea: parsePerseusAnswerArea,
