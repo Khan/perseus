@@ -78,13 +78,13 @@ function objectParserWithInitializer<S extends ObjectSchema>(
             return ctx.failure("object", rawValue);
         }
 
-        const ret: any = initializeParsedValue(rawValue);
+        const parsed: any = initializeParsedValue(rawValue);
         const mismatches: Mismatch[] = [];
         for (const [prop, propParser] of Object.entries(schema)) {
             const result = propParser(rawValue[prop], ctx.forSubtree(prop));
             if (isSuccess(result)) {
                 if (result.value !== undefined || prop in rawValue) {
-                    ret[prop] = result.value;
+                    parsed[prop] = result.value;
                 }
             } else {
                 mismatches.push(...result.detail);
@@ -94,6 +94,6 @@ function objectParserWithInitializer<S extends ObjectSchema>(
         if (mismatches.length > 0) {
             return failure(mismatches);
         }
-        return ctx.success(ret);
+        return ctx.success(parsed);
     };
 }
