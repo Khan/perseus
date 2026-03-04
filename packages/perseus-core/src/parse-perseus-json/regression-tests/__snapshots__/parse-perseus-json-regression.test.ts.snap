@@ -3817,7 +3817,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
     "content": "crwdns3439028:0{944544}crwdnd3439028:0$10$crwdne3439028:0",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "radio 1": {
         "alignment": "default",
@@ -3893,7 +3892,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
     "content": "crwdns3439028:0{944544}crwdnd3439028:0$10$crwdne3439028:0",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "radio 1": {
         "alignment": "default",
@@ -4417,7 +4415,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
     "content": "crwdns7183087:0$B$crwdnd7183087:0$B$crwdne7183087:0",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "image 2": {
         "alignment": "block",
@@ -4560,7 +4557,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
     "content": "crwdns7183087:0$B$crwdnd7183087:0$B$crwdne7183087:0",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "image 2": {
         "alignment": "block",
@@ -10374,7 +10370,6 @@ ___
 =====",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "definition 1": {
         "alignment": "default",
@@ -10537,7 +10532,6 @@ ___
 =====",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "definition 1": {
         "alignment": "default",
@@ -14367,7 +14361,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
     "content": "crwdns6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0:-:crwdnd6996888:0$2$crwdnd6996888:0$3$crwdnd6996888:0$4$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdne6996888:0",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "image 1": {
         "alignment": "block",
@@ -14601,7 +14594,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
     "content": "crwdns6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0:-:crwdnd6996888:0$2$crwdnd6996888:0$3$crwdnd6996888:0$4$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdne6996888:0",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "image 1": {
         "alignment": "block",
@@ -18889,7 +18881,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 ",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "definition 1": {
         "alignment": "default",
@@ -19107,7 +19098,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 ",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "definition 1": {
         "alignment": "default",
@@ -19328,7 +19318,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
 [[☃ radio 1]]",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "radio 1": {
         "alignment": "default",
@@ -19426,7 +19415,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
 [[☃ radio 1]]",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "radio 1": {
         "alignment": "default",
@@ -19528,7 +19516,6 @@ ___
 ",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "explanation 1": {
         "alignment": "default",
@@ -19703,7 +19690,6 @@ ___
 ",
     "images": {},
     "metadata": null,
-    "replace": null,
     "widgets": {
       "explanation 1": {
         "alignment": "default",
