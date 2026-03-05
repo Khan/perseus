@@ -599,6 +599,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return InteractiveGraph.getPolygonEquationString(props);
             case "angle":
                 return InteractiveGraph.getAngleEquationString(props);
+            case "absolute_value":
+                return "";
             default:
                 throw new UnreachableCaseError(type);
         }

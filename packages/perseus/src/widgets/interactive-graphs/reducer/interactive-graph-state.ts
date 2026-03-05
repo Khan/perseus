@@ -92,6 +92,16 @@ export function getGradableGraph(
         };
     }
 
+    if (
+        state.type === "absolute_value" &&
+        initialGraph.type === "absolute_value"
+    ) {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
+    }
+
     if (state.type === "angle" && initialGraph.type === "angle") {
         return {
             ...initialGraph,

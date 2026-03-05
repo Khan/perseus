@@ -22,6 +22,23 @@ const {collinear, canonicalSineCoefficients, similar, clockwise} = geometry;
 const {getClockwiseAngle} = angles;
 const {getSinusoidCoefficients, getQuadraticCoefficients} = coefficients;
 
+// Returns {m, h, k} for f(x) = m * |x - h| + k, or undefined if coords share the same x.
+function getAbsoluteValueCoefficients(
+    coords: ReadonlyArray<Coord>,
+): {m: number; h: number; k: number} | undefined {
+    const vertex = coords[0];
+    const second = coords[1];
+    const h = vertex[0];
+    const k = vertex[1];
+    const x2 = second[0];
+    const y2 = second[1];
+    if (x2 === h) {
+        return undefined;
+    }
+    const m = (y2 - k) / Math.abs(x2 - h);
+    return {m, h, k};
+}
+
 function scoreInteractiveGraph(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
@@ -137,6 +154,23 @@ function scoreInteractiveGraph(
                     canonicalCorrectCoeffs,
                 )
             ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
+            userInput.type === "absolute_value" &&
+            rubric.correct.type === "absolute_value" &&
+            userInput.coords != null
+        ) {
+            const guessCoeffs = getAbsoluteValueCoefficients(userInput.coords);
+            const correctCoeffs = getAbsoluteValueCoefficients(
+                rubric.correct.coords,
+            );
+            if (approximateDeepEqual(guessCoeffs, correctCoeffs)) {
                 return {
                     type: "points",
                     earned: 1,

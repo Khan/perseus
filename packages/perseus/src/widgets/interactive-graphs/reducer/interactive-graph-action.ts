@@ -79,6 +79,9 @@ export const actions = {
     sinusoid: {
         movePoint,
     },
+    absoluteValue: {
+        movePoint,
+    },
 };
 
 export const DELETE_INTENT = "delete-intent";

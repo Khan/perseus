@@ -521,6 +521,9 @@ function mergeGraphs(
         case "sinusoid":
             invariant(b.type === "sinusoid");
             return {...a, ...b};
+        case "absolute_value":
+            invariant(b.type === "absolute_value");
+            return {...a, ...b};
         default:
             throw new UnreachableCaseError(a);
     }
