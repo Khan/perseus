@@ -13,6 +13,7 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import {useId} from "react";
 
+import {AlignmentSelect} from "./alignment-select";
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
 
@@ -202,16 +203,12 @@ class WidgetEditor extends React.Component<
                         />
                     )}
                     {supportedAlignments.length > 1 && (
-                        <select
-                            className="alignment"
-                            value={widgetInfo.alignment}
-                            disabled={isEditingDisabled}
+                        <AlignmentSelect
+                            supportedAlignments={supportedAlignments}
+                            widgetInfo={widgetInfo}
+                            isEditingDisabled={isEditingDisabled}
                             onChange={this._handleAlignmentChange}
-                        >
-                            {supportedAlignments.map((alignment) => (
-                                <option key={alignment}>{alignment}</option>
-                            ))}
-                        </select>
+                        />
                     )}
                     <SectionControlButton
                         icon={trashIcon}
