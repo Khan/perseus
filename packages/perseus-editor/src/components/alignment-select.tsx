@@ -26,16 +26,18 @@ export function AlignmentSelect({
             <InfoTip>
                 <ul>
                     {supportedAlignments.map((alignment, index) => (
-                        <li key={alignment}>
+                        <li
+                            key={alignment}
+                            style={{
+                                // Put line breaks after each alignment description
+                                // except the last one.
+                                marginBlockEnd:
+                                    index < supportedAlignments.length - 1
+                                        ? sizing.size_240
+                                        : 0,
+                            }}
+                        >
                             {alignmentInfoMap[alignment]}
-                            {/* Put line breaks after each alignment description
-                                except the last one. */}
-                            {index < supportedAlignments.length - 1 && (
-                                <>
-                                    <br />
-                                    <br />
-                                </>
-                            )}
                         </li>
                     ))}
                 </ul>
