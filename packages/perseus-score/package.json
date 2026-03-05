@@ -3,7 +3,7 @@
     "description": "Perseus score",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "8.2.10",
+    "version": "8.2.11",
     "publishConfig": {
         "access": "public"
     },

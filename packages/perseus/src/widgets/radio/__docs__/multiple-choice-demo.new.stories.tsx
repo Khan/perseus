@@ -15,6 +15,7 @@ import {
     SingleSelectOverflowContent,
     SingleSelectOverflowImageContent,
     overflowContentInGradedGroupSet,
+    singleSelectWithTallMath,
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -92,6 +93,14 @@ export const SingleSelect = {
     args: {
         item: generateTestPerseusItem({
             question: question,
+        }),
+    },
+};
+
+export const SingleSelectWithTallMath = {
+    args: {
+        item: generateTestPerseusItem({
+            question: singleSelectWithTallMath,
         }),
     },
 };

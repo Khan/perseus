@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "28.13.0",
+    "version": "28.14.3",
     "publishConfig": {
         "access": "public"
     },
@@ -112,6 +112,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "5f26eb73df5d4d55"
+        "catalogHash": "40f7fda340d48e57"
     }
 }
