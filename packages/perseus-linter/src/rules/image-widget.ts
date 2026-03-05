@@ -50,9 +50,9 @@ This image's alt text is only ${alt.trim().length} characters long.`;
         }
 
         // Make sure the alt text is not too long to be navigable
-        if (alt.trim().length > 150) {
+        if (alt.trim().length > 125) {
             return `Images should have alt text:
-for accessibility, image alt text should not exceed 150 characters.
+for accessibility, image alt text should not exceed 125 characters.
 This image's alt text is ${alt.trim().length} characters long.
 Please pair your alt with a long description below if you need significantly
 more text to sufficiently describe the image.`;
