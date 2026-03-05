@@ -20,12 +20,5 @@ export const parseCategorizerWidget = parseWidget(
         static: defaulted(boolean, () => false),
         values: defaulted(array(defaulted(number, () => 0)), () => []),
         highlightLint: optional(boolean),
-        linterContext: optional(
-            object({
-                contentType: string,
-                paths: array(string),
-                stack: array(string),
-            }),
-        ),
     }),
 );

@@ -1,4 +1,9 @@
-import {any, isPlainObject, object, constant} from "../general-purpose-parsers";
+import {
+    any,
+    isPlainObject,
+    looseObject,
+    constant,
+} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
 import {parseCategorizerWidget} from "./categorizer-widget";
@@ -206,5 +211,5 @@ const parseDeprecatedWidget: Parser<DeprecatedStandinWidget> = parseWidget(
     // Ignore the incoming widget type and hardcode "deprecated-standin"
     (_, ctx) => ctx.success("deprecated-standin" as const),
     // Allow any widget options
-    object({}),
+    looseObject({}),
 );
