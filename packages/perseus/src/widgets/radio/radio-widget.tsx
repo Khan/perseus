@@ -254,17 +254,11 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             });
 
             trackInteraction();
-            announceChoiceChange(choiceStates);
+            announceChoiceChange(checkedChoiceIds.length);
         };
 
-        const announceChoiceChange = (
-            newCheckedState: ReadonlyArray<ChoiceState>,
-        ) => {
+        const announceChoiceChange = (newCheckedCount: number) => {
             let screenReaderMessage = "";
-            const newCheckedCount = newCheckedState.reduce(
-                (count, choice) => count + (choice.selected ? 1 : 0),
-                0,
-            );
 
             if (!props.multipleSelect) {
                 // Single-select choice only announces when it is de-selected
@@ -277,6 +271,13 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                 });
             }
             announceMessage({message: screenReaderMessage});
+            // Temporary setup to enable proper reading of multiple-select announcements
+            // Waiting on WB Announcer fix (WB-2240 - https://khanacademy.atlassian.net/browse/WB-2240)
+            if (props.multipleSelect) {
+                setTimeout(() => {
+                    announceMessage({message: ""});
+                }, 300);
+            }
         };
 
         /**
