@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 2.1.8
+
+### Patch Changes
+
+-   [#3281](https://github.com/Khan/perseus/pull/3281) [`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Delete old to-do comments and tighten up types.
+
 ## 2.1.7
 
 ### Patch Changes

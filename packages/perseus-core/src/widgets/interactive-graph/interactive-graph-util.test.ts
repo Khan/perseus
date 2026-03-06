@@ -1,4 +1,4 @@
-import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
+import {getInteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
 
 import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 

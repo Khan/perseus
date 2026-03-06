@@ -1,4 +1,4 @@
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import DeviceFramer from "../device-framer";
@@ -17,8 +17,9 @@ const SampleContent = () => {
     return (
         <div
             style={{
-                backgroundColor: color.blue,
-                color: color.offWhite,
+                backgroundColor:
+                    semanticColor.core.background.instructive.default,
+                color: semanticColor.core.foreground.knockout.default,
                 width: "90%",
                 height: "300px",
                 padding: spacing.medium_16,

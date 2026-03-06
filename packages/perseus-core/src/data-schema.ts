@@ -215,6 +215,9 @@ export type PerseusItem = {
     // A collection of hints to be offered to the user that support answering the question.
     hints: Hint[];
     // Details about the tools the user might need to answer the question
+    // TODO(benchristel): The parser for PerseusAnswerArea never returns null
+    //     or undefined. We could remove `| null | undefined` here, but we'd
+    //     have to update a bunch of test data in both this repo and frontend.
     answerArea: PerseusAnswerArea | null | undefined;
 };
 
@@ -435,6 +438,7 @@ export type PerseusCategorizerWidgetOptions = {
     // The correct answers where index relates to the items and value relates to the category.  e.g. [0, 1, 0, 1, 2]
     values: number[];
     // Whether we should highlight i18n linter errors found on this widget
+    // TODO(benchristel): highlightLint doesn't seem to be used. Delete it.
     highlightLint?: boolean;
 };
 
@@ -673,6 +677,8 @@ export type PerseusImageWidgetOptions = {
     decorative?: boolean;
     // The image details for the image to be displayed
     backgroundImage: PerseusImageBackground;
+    // The size scale of the image
+    scale?: number;
     // Always false.  Not used for this widget
     static?: boolean;
     // A list of labels to display on the image

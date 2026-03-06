@@ -1,4 +1,4 @@
-import getFreeResponsePublicWidgetOptions from "./free-response-util";
+import {getFreeResponsePublicWidgetOptions} from "./free-response-util";
 
 import type {PerseusFreeResponseWidgetOptions} from "../../data-schema";
 

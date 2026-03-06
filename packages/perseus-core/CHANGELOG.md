@@ -1,5 +1,36 @@
 # @khanacademy/perseus-core
 
+## 23.2.0
+
+### Minor Changes
+
+-   [#3257](https://github.com/Khan/perseus/pull/3257) [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add scale prop to Image widget behind feature flag
+
+### Patch Changes
+
+-   [#3258](https://github.com/Khan/perseus/pull/3258) [`d2a99133a2`](https://github.com/Khan/perseus/commit/d2a99133a2c049a2e6cff2bc686ac865798fbc1a) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add scale prop to Image widget editor behind feature flag
+
+*   [#3280](https://github.com/Khan/perseus/pull/3280) [`54e9348cd9`](https://github.com/Khan/perseus/commit/54e9348cd9146354a97619b9009b2098c1d50237) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove unused exports.
+
+-   [#3287](https://github.com/Khan/perseus/pull/3287) [`7eb47d9613`](https://github.com/Khan/perseus/commit/7eb47d9613dbf474be38aff01667ca82ce6ab7b5) Thanks [@benchristel](https://github.com/benchristel)! - Use `Intl.NumberFormat(locale).formatToParts()` to get the decimal separator for a given locale.
+
+*   [#3294](https://github.com/Khan/perseus/pull/3294) [`3fe7442a33`](https://github.com/Khan/perseus/commit/3fe7442a3378cf59563ab49a6c1ea4cb3aee5ff6) Thanks [@benchristel](https://github.com/benchristel)! - Internal: replace some default exports with named exports.
+
+*   Updated dependencies [[`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8)]:
+    -   @khanacademy/kas@2.1.8
+
+## 23.1.0
+
+### Minor Changes
+
+-   [#3270](https://github.com/Khan/perseus/pull/3270) [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade feature flag
+
+### Patch Changes
+
+-   [#3279](https://github.com/Khan/perseus/pull/3279) [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control buttons to explore image modal behind feature flag
+
+*   [#3275](https://github.com/Khan/perseus/pull/3275) [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control icon buttons behind feature flag
+
 ## 23.0.2
 
 ### Patch Changes

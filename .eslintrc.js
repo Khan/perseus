@@ -310,6 +310,13 @@ module.exports = {
             "error",
             {
                 paths: [
+                    /** Wonder Blocks Restricted Imports */
+                    {
+                        name: "@khanacademy/wonder-blocks-tokens",
+                        importNames: ["color"],
+                        message:
+                            "Please use semanticColor instead. See https://khanacademy.atlassian.net/wiki/spaces/WB/pages/4049666283/Core or https://khan.github.io/wonder-blocks/?path=/docs/foundations-using-color--docs&globals=theme:thunderblocks",
+                    },
                     {
                         name: "@khanacademy/wonder-blocks-tabs",
                         importNames: ["NavigationTabs", "Tabs"],

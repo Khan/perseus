@@ -1,4 +1,4 @@
-import getMatrixPublicWidgetOptions from "./matrix-util";
+import {getMatrixPublicWidgetOptions} from "./matrix-util";
 
 import type {PerseusMatrixWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";

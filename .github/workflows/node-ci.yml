@@ -21,7 +21,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [20.x]
+                node-version: [24.x]
         steps:
             - name: Checkout repository
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -41,11 +41,11 @@ jobs:
                   # don't install node_modules in this workflow/job!
 
             - name: Get changed files
-              uses: Khan/actions@get-changed-files-v2
+              uses: Khan/actions@1662367b281368328845c72f77028f71d768b588 # get-changed-files-v2
               id: changed
 
             - name: Filter out files that don't need a changeset
-              uses: Khan/actions@filter-files-v2
+              uses: Khan/actions@70e6afa0077187462838d024a1773adf217fb2b8 # filter-files-v2
               id: match
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -59,7 +59,7 @@ jobs:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Verify changeset entries
-              uses: Khan/actions@check-for-changeset-v1
+              uses: Khan/actions@2faf7c5ee0179da7639a01731d7b9997695bb723 # check-for-changeset-v1
               with:
                   changed_files: ${{ steps.match.outputs.filtered }}
 
@@ -69,7 +69,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [20.x]
+                node-version: [24.x]
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -80,7 +80,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
 
             - name: Get All Changed Files
-              uses: Khan/actions@get-changed-files-v2
+              uses: Khan/actions@1662367b281368328845c72f77028f71d768b588 # get-changed-files-v2
               id: changed
 
             - name: Check formatting
@@ -93,14 +93,14 @@ jobs:
 
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
-              uses: Khan/actions@filter-files-v2
+              uses: Khan/actions@70e6afa0077187462838d024a1773adf217fb2b8 # filter-files-v2
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   extensions: ".js,.jsx,.ts,.tsx"
                   files: "pnpm-lock.yaml,tsconfig-build.json,tsconfig-common.json,tsconfig.json,packages/tsconfig-shared.json"
 
             - id: eslint-reset
-              uses: Khan/actions@filter-files-v2
+              uses: Khan/actions@70e6afa0077187462838d024a1773adf217fb2b8 # filter-files-v2
               name: Files that would trigger a full eslint run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -108,7 +108,7 @@ jobs:
 
             # Linting / type checking
             - name: Eslint
-              uses: Khan/actions@full-or-limited-v0
+              uses: Khan/actions@faa1972efeb996a27a95ddbd4ce5b555c40cd2e3 # full-or-limited-v0
               with:
                   full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
                   full: pnpm lint packages
@@ -125,14 +125,14 @@ jobs:
 
             # Run tests for our target matrix
             - id: jest-reset
-              uses: Khan/actions@filter-files-v2
+              uses: Khan/actions@70e6afa0077187462838d024a1773adf217fb2b8 # filter-files-v2
               name: Files that would trigger a full jest run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: "jest.config.js,package.json,pnpm-lock.yaml,test.config.js,test.transform.js"
 
             - name: Jest
-              uses: Khan/actions@full-or-limited-v0
+              uses: Khan/actions@faa1972efeb996a27a95ddbd4ce5b555c40cd2e3 # full-or-limited-v0
               with:
                   full-trigger: ${{ steps.jest-reset.outputs.filtered }}
                   full: pnpm jest
@@ -151,7 +151,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [20.x]
+                node-version: [24.x]
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -196,7 +196,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [20.x]
+                node-version: [24.x]
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -211,7 +211,7 @@ jobs:
             # in place for the next job; in other words, it leaves the repo on a
             # base branch.
             - name: Check Builds
-              uses: preactjs/compressed-size-action@v2
+              uses: preactjs/compressed-size-action@8518045ed95e94e971b83333085e1cb99aa18aa8 # v2
               with:
                   # We only care about the ES module size, really:
                   pattern: "**/dist/es/*.js"
@@ -232,7 +232,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [20.x]
+                node-version: [24.x]
         steps:
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -262,7 +262,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [20.x]
+                node-version: [24.x]
         steps:
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2

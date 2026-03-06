@@ -31,7 +31,7 @@ jobs:
             # which is very helpful.
             matrix:
                 os: [ubuntu-latest]
-                node-version: [20.x]
+                node-version: [24.x]
         steps:
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 

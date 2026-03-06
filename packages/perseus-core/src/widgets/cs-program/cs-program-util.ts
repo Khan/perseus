@@ -1,6 +1,6 @@
 import type {PerseusCSProgramWidgetOptions} from "../../data-schema";
 
-export default function getCSProgramPublicWidgetOptions(
+export function getCSProgramPublicWidgetOptions(
     options: PerseusCSProgramWidgetOptions,
 ): PerseusCSProgramWidgetOptions {
     return options;

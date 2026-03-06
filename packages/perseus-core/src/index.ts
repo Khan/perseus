@@ -143,45 +143,45 @@ export type * from "./widgets/logic-export.types";
 
 export * as CoreWidgetRegistry from "./widgets/core-widget-registry";
 
-export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
+export {getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 export type {OrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
-export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
+export {getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export type {CategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
-export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
-export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
-export {default as getFreeResponsePublicWidgetOptions} from "./widgets/free-response/free-response-util";
+export {getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
+export {getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
+export {getFreeResponsePublicWidgetOptions} from "./widgets/free-response/free-response-util";
 export type {ExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
-export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
+export {getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 export type {GrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
-export {default as getGroupPublicWidgetOptions} from "./widgets/group/group-util";
+export {getGroupPublicWidgetOptions} from "./widgets/group/group-util";
 export {
-    default as getInteractiveGraphPublicWidgetOptions,
+    getInteractiveGraphPublicWidgetOptions,
     type InteractiveGraphPublicWidgetOptions,
 } from "./widgets/interactive-graph/interactive-graph-util";
-export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
+export {getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export {
-    default as getSorterPublicWidgetOptions,
+    getSorterPublicWidgetOptions,
     shuffleSorter,
 } from "./widgets/sorter/sorter-util";
 export type {SorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export type {LabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export type {LabelImageMarkerPublicData} from "./widgets/label-image/label-image-util";
-export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
+export {getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
-export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
-export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
+export {getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
+export {getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export type {NumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
-export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
+export {getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
 export type {RadioPublicWidgetOptions} from "./widgets/radio/radio-util";
 export {deriveNumCorrect} from "./widgets/radio/derive-num-correct";
-export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
-export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
-export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
+export {getTablePublicWidgetOptions} from "./widgets/table/table-util";
+export {getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
+export {getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
 export type {MatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
-export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
+export {getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 export type {PlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 export {
-    default as getMatcherPublicWidgetOptions,
+    getMatcherPublicWidgetOptions,
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
 export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";

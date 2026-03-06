@@ -1,3 +1,10 @@
+export function isGif(url: string): boolean {
+    // Trying to do this the "right way" by loading in the image and counting
+    // frames would ad more complexity than we need here. With our CDN's filename
+    // structure, we can assume that all .gif images will have a URL ending in .gif.
+    return url.endsWith(".gif");
+}
+
 export const earthMoonImage = {
     url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
     width: 400,
@@ -37,3 +44,12 @@ export const graphieImage = {
 };
 export const graphieImageAlt =
     "An array of isosceles triangles. A triangle has height A. Two smaller triangle, one with height B and one with height C, have approximately the same combined height as A.";
+
+export const gifImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/79affe6b539eb0e163aa96b42160e53cad4b2097.gif",
+    width: 500,
+    height: 285,
+};
+
+export const gifImageAlt =
+    "A person on a skateboard moves back and forth across a concrete structure that forms the shape of a U.";

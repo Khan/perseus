@@ -5,6 +5,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
 import {
     type PerseusDependenciesV2,
@@ -33,6 +34,9 @@ type DefaultProps = {
  * This renders the program in an iframe.
  */
 class PythonProgram extends React.Component<Props> implements Widget {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         height: 400,
     };
@@ -46,6 +50,7 @@ class PythonProgram extends React.Component<Props> implements Widget {
         url = this.props.dependencies.generateUrl({
             url,
             context: "python_program:program_url",
+            kaLocale: this.context?.locale,
         });
 
         const iframeStyle = {

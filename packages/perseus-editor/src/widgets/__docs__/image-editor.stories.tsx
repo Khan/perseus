@@ -9,9 +9,12 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
+import {getFeatureFlags} from "../../../../perseus/src/testing/feature-flags-util";
+import {
+    earthMoonImage,
+    graphieImage,
+} from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageEditor from "../image-editor/image-editor";
 
@@ -19,16 +22,11 @@ import {PROD_EDITOR_WIDTH} from "./utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const withinEditorPageDecorator = (_, {args}) => {
+const withinEditorPageDecorator = (_, {args, parameters}) => {
     return (
         <div style={{width: PROD_EDITOR_WIDTH}}>
             <EditorPageWithStorybookPreview
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                    flags: getFeatureFlags({
-                        "image-widget-upgrade": true,
-                    }),
-                }}
+                apiOptions={parameters?.apiOptions ?? ApiOptions.defaults}
                 question={generateTestPerseusRenderer({
                     content: "[[☃ image 1]]",
                     widgets: {
@@ -101,6 +99,42 @@ export const Populated: Story = {
 };
 
 /**
+ * This Image widget editor has a graphie image.
+ */
+export const GraphieImage: Story = {
+    name: "Graphie Image (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: graphieImage,
+    },
+};
+
+/**
+ * This Image widget editor has a graphie image, and the scale flag is enabled.
+ */
+export const GraphieImageWithScaleFlag: Story = {
+    name: "Graphie Image with Scale Flag (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: {
+            url: graphieImage.url,
+            // Use smaller size so we can test the
+            // "Recalculate original size" button.
+            width: graphieImage.width / 2,
+            height: graphieImage.height / 2,
+        },
+    },
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-scale": true,
+            }),
+        },
+    },
+};
+
+/**
  * Only the markdown image in the main content should be flagged with a linter
  * warning. The Image widget and Radio widget containing a markdown image
  * should not be flagged.
@@ -110,12 +144,7 @@ export const WithMarkdownImageLinterWarning: Story = {
         return (
             <div style={{width: PROD_EDITOR_WIDTH}}>
                 <EditorPageWithStorybookPreview
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: getFeatureFlags({
-                            "image-widget-upgrade": true,
-                        }),
-                    }}
+                    apiOptions={ApiOptions.defaults}
                     question={generateTestPerseusRenderer({
                         // Render Widget, Markdown, Radio
                         content: `Widget\n[[☃ image 1]]\n\nMarkdown\n![Earth and moon](${earthMoonImage.url})\n\nRadio\n[[☃ radio 1]]`,

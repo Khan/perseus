@@ -60,7 +60,7 @@ export function usesNumCorrect(
  * Given a PerseusRadioWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-function getRadioPublicWidgetOptions(
+export function getRadioPublicWidgetOptions(
     options: PerseusRadioWidgetOptions,
 ): RadioPublicWidgetOptions {
     const {numCorrect, choices, multipleSelect, countChoices} = options;
@@ -74,5 +74,3 @@ function getRadioPublicWidgetOptions(
         choices: choices.map(getRadioChoicePublicData),
     };
 }
-
-export default getRadioPublicWidgetOptions;

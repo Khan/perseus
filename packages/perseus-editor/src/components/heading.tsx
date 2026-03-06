@@ -1,6 +1,6 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         // match otherwise there's a gap from this header to the edge
         // of the editor borders.
         marginInline: -10,
-        backgroundColor: color.offBlack8,
+        backgroundColor: semanticColor.core.background.neutral.subtle,
         padding: spacing.xSmall_8,
         width: "calc(100% + 20px)",
     },

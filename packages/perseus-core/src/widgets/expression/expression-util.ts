@@ -18,7 +18,7 @@ export type ExpressionPublicWidgetOptions = {
  * Given a PerseusExpressionWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-function getExpressionPublicWidgetOptions(
+export function getExpressionPublicWidgetOptions(
     options: PerseusExpressionWidgetOptions,
 ): ExpressionPublicWidgetOptions {
     return {
@@ -31,5 +31,3 @@ function getExpressionPublicWidgetOptions(
         extraKeys: options.extraKeys,
     };
 }
-
-export default getExpressionPublicWidgetOptions;

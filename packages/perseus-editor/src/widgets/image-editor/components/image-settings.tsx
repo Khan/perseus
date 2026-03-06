@@ -8,19 +8,21 @@ import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
 import DecorativeToggle from "./decorative-toggle";
 import ImageDimensionsInput from "./image-dimensions-input";
+import ImageScaleInput from "./image-scale-input";
 
 import type {Props} from "../image-editor";
 
 const MIN_ALT_TEXT_LENGTH = 8;
-const MAX_ALT_TEXT_LENGTH = 150;
+const MAX_ALT_TEXT_LENGTH = 125;
 const altTextTooLongError =
-    "Alt text should not exceed 150 characters. Please pair your alt with a long description below if you need significantly more text to sufficiently describe the image.";
+    "Alt text should not exceed 125 characters. Please pair your alt with a long description below if you need significantly more text to sufficiently describe the image.";
 const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
 
 export default function ImageSettings({
     alt,
     backgroundImage,
+    scale = 1,
     apiOptions,
     caption,
     decorative,
@@ -28,10 +30,11 @@ export default function ImageSettings({
     title,
     onChange,
 }: Props) {
-    const imageUpgradeFF = isFeatureOn({apiOptions}, "image-widget-upgrade");
     const [altFieldError, setAltFieldError] = React.useState<string | null>(
         null,
     );
+
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
 
     if (!backgroundImage.url) {
         return null;
@@ -47,7 +50,7 @@ export default function ImageSettings({
         if (value.length === 0) {
             // If the user clears the alt text, clear the error
             setAltFieldError(null);
-        } else if (imageUpgradeFF && value.length > MAX_ALT_TEXT_LENGTH) {
+        } else if (value.length > MAX_ALT_TEXT_LENGTH) {
             setAltFieldError(altTextTooLongError);
         } else if (value.length >= MIN_ALT_TEXT_LENGTH) {
             setAltFieldError(null);
@@ -81,19 +84,25 @@ export default function ImageSettings({
             />
 
             {/* Dimensions */}
-            <ImageDimensionsInput
-                backgroundImage={backgroundImage}
-                onChange={onChange}
-            />
-
-            {/* Decorative */}
-            {imageUpgradeFF && (
-                <DecorativeToggle
-                    decorative={decorative}
-                    hasPopulatedFields={hasPopulatedFields}
+            {scaleFF ? (
+                <ImageScaleInput
+                    backgroundImage={backgroundImage}
+                    scale={scale}
+                    onChange={onChange}
+                />
+            ) : (
+                <ImageDimensionsInput
+                    backgroundImage={backgroundImage}
                     onChange={onChange}
                 />
             )}
+
+            {/* Decorative */}
+            <DecorativeToggle
+                decorative={decorative}
+                hasPopulatedFields={hasPopulatedFields}
+                onChange={onChange}
+            />
 
             {/* Properties in DOM order */}
 
@@ -114,7 +123,7 @@ export default function ImageSettings({
             {/* Alt text */}
             <LabeledField
                 label="Alt text"
-                description="Summarize the image using up to 150 characters."
+                description="Summarize the image using up to 125 characters."
                 field={
                     <TextArea
                         value={alt ?? ""}
@@ -129,22 +138,18 @@ export default function ImageSettings({
             />
 
             {/* Long Description */}
-            {imageUpgradeFF && (
-                <LabeledField
-                    label="Long description"
-                    field={
-                        <TextArea
-                            value={longDescription ?? ""}
-                            onChange={(value) =>
-                                onChange({longDescription: value})
-                            }
-                            disabled={decorative}
-                            autoResize={true}
-                        />
-                    }
-                    styles={wbFieldStyles}
-                />
-            )}
+            <LabeledField
+                label="Long description"
+                field={
+                    <TextArea
+                        value={longDescription ?? ""}
+                        onChange={(value) => onChange({longDescription: value})}
+                        disabled={decorative}
+                        autoResize={true}
+                    />
+                }
+                styles={wbFieldStyles}
+            />
 
             {/* Caption */}
             <LabeledField

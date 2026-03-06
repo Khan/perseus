@@ -1,6 +1,6 @@
 import {isLabeledSVG} from "../../utils/util.graphie";
 
-import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
+import {getInteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
 
 import type {
     PerseusInteractiveGraphWidgetOptions,

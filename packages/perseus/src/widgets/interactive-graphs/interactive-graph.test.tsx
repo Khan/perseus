@@ -5,7 +5,7 @@ import {
     splitPerseusItem,
     getDefaultFigureForType,
 } from "@khanacademy/perseus-core";
-import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
@@ -413,7 +413,7 @@ describe("Interactive Graph", function () {
                 stroke: lockedFigureColors.grayH,
             });
             expect(points[1]).toHaveStyle({
-                fill: wbColor.white,
+                fill: semanticColor.core.background.base.default,
                 stroke: lockedFigureColors.grayH,
             });
         });
@@ -535,7 +535,7 @@ describe("Interactive Graph", function () {
                 stroke: lockedFigureColors.grayH,
             });
             expect(points[1]).toHaveStyle({
-                fill: wbColor.white,
+                fill: semanticColor.core.background.base.default,
                 stroke: lockedFigureColors.grayH,
             });
         });
@@ -785,11 +785,11 @@ describe("Interactive Graph", function () {
                 stroke: lockedFigureColors.green,
             });
             expect(linePoints[1]).toHaveStyle({
-                fill: wbColor.white,
+                fill: semanticColor.core.background.base.default,
                 stroke: lockedFigureColors.green,
             });
             expect(linePoints[2]).toHaveStyle({
-                fill: wbColor.white,
+                fill: semanticColor.core.background.base.default,
                 stroke: lockedFigureColors.grayH,
             });
             expect(linePoints[3]).toHaveStyle({
@@ -797,7 +797,7 @@ describe("Interactive Graph", function () {
                 stroke: lockedFigureColors.grayH,
             });
             expect(rayPoints[0]).toHaveStyle({
-                fill: wbColor.white,
+                fill: semanticColor.core.background.base.default,
                 stroke: lockedFigureColors.pink,
             });
         });
@@ -1015,7 +1015,7 @@ describe("Interactive Graph", function () {
             // Assert
             expect(whiteCircle).toHaveStyle({
                 "fill-opacity": 1,
-                fill: wbColor.white,
+                fill: semanticColor.core.background.base.default,
                 stroke: lockedFigureColors["green"],
             });
             expect(translucentCircle).toHaveStyle({
@@ -1186,7 +1186,7 @@ describe("Interactive Graph", function () {
             // Assert
             expect(whitePolygon).toHaveStyle({
                 "fill-opacity": 1,
-                fill: wbColor.white,
+                fill: semanticColor.core.background.base.default,
                 stroke: lockedFigureColors["green"],
             });
             expect(translucentPolygon).toHaveStyle({

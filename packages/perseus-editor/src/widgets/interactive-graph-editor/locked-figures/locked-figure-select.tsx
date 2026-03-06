@@ -7,7 +7,7 @@
  */
 import {View} from "@khanacademy/wonder-blocks-core";
 import {ActionItem, ActionMenu} from "@khanacademy/wonder-blocks-dropdown";
-import {spacing, color} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         marginTop: spacing.xSmall_8,
     },
     addElementSelect: {
-        backgroundColor: color.fadedBlue8,
+        backgroundColor: semanticColor.core.background.instructive.subtle,
         borderRadius: spacing.xxxSmall_4,
     },
 });

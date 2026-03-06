@@ -3,6 +3,7 @@ import AllRules from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
 import type {LinterWarning} from "./rule";
+import type {TreeNode} from "./tree-transformer";
 
 export const allLintRules: ReadonlyArray<any> = AllRules.filter(
     (r) => r.severity < Rule.Severity.BULK_WARNING,
@@ -66,14 +67,14 @@ export function runLinter(
     // issue too. But using JavaScript has its own downsides: there is
     // risk that the linter JavaScript would interfere with
     // widget-related Javascript.
-    let tableWarnings: Array<LinterWarning> = [];
+    let tableWarnings: LinterWarning[] = [];
     let insideTable = false;
 
     // Traverse through the nodes of the parse tree. At each node, loop
     // through the array of lint rules and check whether there is a
     // lint violation at that node.
     tt.traverse((node, state, content) => {
-        const nodeWarnings: Array<any> = [];
+        const nodeWarnings: LinterWarning[] = [];
 
         // If our rule is only designed to be tested against a particular
         // content type and we're not in that content type, we don't need to
@@ -173,7 +174,6 @@ export function runLinter(
                 // node under a new lint node and put the warnings there.
                 state.replace({
                     type: "lint",
-                    // @ts-expect-error - TS2345 - Argument of type '{ type: string; content: TreeNode; message: string; ruleName: any; blockHighlight: any; insideTable: boolean; severity: any; }' is not assignable to parameter of type 'TreeNode'.
                     content: node,
                     message: nodeWarnings.map((w) => w.message).join("\n\n"),
                     ruleName: nodeWarnings[0].rule,
@@ -207,17 +207,15 @@ export function runLinter(
                 // single line, so keeping them combined in that case might
                 // be the best thing, anyway.
                 //
-                // @ts-expect-error - TS2339 - Property 'content' does not exist on type 'TreeNode'.
                 const content = node.content; // Text nodes have content
                 const warning = nodeWarnings[0]; // There is only one warning.
                 // These are the lint boundaries within the content
-                const start = warning.start || 0;
-                const end = warning.end || content.length;
+                const start = warning.start;
+                const end = warning.end;
                 const prefix = content.substring(0, start);
                 const lint = content.substring(start, end);
                 const suffix = content.substring(end);
-                // TODO(FEI-5003): Give this a real type.
-                const replacements: any[] = []; // What we'll replace the node with
+                const replacements: TreeNode[] = []; // What we'll replace the node with
 
                 // The prefix text node, if there is one
                 if (prefix) {

@@ -39,7 +39,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
               >
                 <div
                   class="mq-editable-field mq-math-mode"
-                  style="background-color: white; min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-color: rgba(33,36,44,0.50); border-radius: 4px; color: rgb(33, 36, 44); border-width: 1px;"
+                  style="background-color: white; min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-radius: 4px; border-width: 1px;"
                 >
                   <span
                     class="mq-textarea"

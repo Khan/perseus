@@ -9,7 +9,7 @@ import {
 import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
-import type {Range} from "@khanacademy/perseus-core";
+import type {Coord, Range} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 type WordPosition = {
@@ -26,9 +26,6 @@ export type ParsedValue = {
     value: number;
     exact: boolean;
 };
-
-// TODO: dedupe this with Coord in interactive2/types.js
-type Coordinates = [number, number];
 
 export type GridDimensions = {
     scale: number;
@@ -144,7 +141,7 @@ function stringArrayOfSize2D(opt: {rows: number; columns: number}): string[][] {
  */
 function gridDimensionConfig(
     absTickStep: number,
-    extent: Coordinates,
+    extent: Coord,
     dimensionConstraint: number,
     gridStep: number,
 ): GridDimensions {
@@ -167,11 +164,11 @@ function gridDimensionConfig(
  * Returns: [1, 1]
  */
 function getGridStep(
-    range: [Coordinates, Coordinates],
-    step: Coordinates,
+    range: [Coord, Coord],
+    step: Coord,
     boxSize: number,
-): Coordinates {
-    // @ts-expect-error - TS2322 - Type '(number | null | undefined)[]' is not assignable to type 'Coordinates'.
+): Coord {
+    // @ts-expect-error - TS2322 - Type '(number | null | undefined)[]' is not assignable to type 'Coord'.
     return _(2).times(function (i) {
         const scale = scaleFromExtent(range[i], boxSize);
         const gridStep = gridStepFromTickStep(step[i], scale);
@@ -223,10 +220,7 @@ function gridStepFromTickStep(
  * Example:
  *      scaleFromExtent([-25, 25], 500) // returns 10
  */
-function scaleFromExtent(
-    extent: Coordinates,
-    dimensionConstraint: number,
-): number {
+function scaleFromExtent(extent: Coord, dimensionConstraint: number): number {
     const span = extent[1] - extent[0];
     const scale = dimensionConstraint / span;
     return scale;
@@ -239,7 +233,7 @@ function scaleFromExtent(
  *      tickStepFromExtent([-10, 10], 300) // returns 2
  */
 function tickStepFromExtent(
-    extent: Coordinates,
+    extent: Coord,
     dimensionConstraint: number,
 ): number {
     const span = extent[1] - extent[0];
@@ -310,7 +304,7 @@ const constrainTickStep = (step: number, range: Range): number => {
 function constrainedTickStepsFromTickSteps(
     tickSteps: [number, number],
     ranges: [Range, Range],
-): Coordinates {
+): Coord {
     return [
         constrainTickStep(tickSteps[0], ranges[0]),
         constrainTickStep(tickSteps[1], ranges[1]),

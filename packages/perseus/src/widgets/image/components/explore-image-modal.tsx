@@ -8,9 +8,9 @@ import styles from "../image-widget.module.css";
 
 import ExploreImageModalContent from "./explore-image-modal-content";
 
-import type {ImageDescriptionAndCaptionProps} from "./image-description-and-caption";
+import type {ImageInfoAreaProps} from "./image-info-area";
 
-export const ExploreImageModal = (props: ImageDescriptionAndCaptionProps) => {
+export const ExploreImageModal = (props: ImageInfoAreaProps) => {
     const context = React.useContext(PerseusI18nContext);
 
     const titleText = props.title || context.strings.imageAlternativeTitle;

@@ -8,7 +8,7 @@ import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         marginLeft: -spacing.xxxSmall_4,
         marginRight: -spacing.xxxSmall_4,
-        backgroundColor: wbColor.white,
+        backgroundColor: semanticColor.core.background.base.default,
     },
     definingPanel: {
         // Need more space since we don't have the actions' margins.
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
     // A regular point (NOT a defining point) has label
     // accordions with white backgrounds.
     lockedPointLabelContainer: {
-        backgroundColor: wbColor.white,
+        backgroundColor: semanticColor.core.background.base.default,
     },
     row: {
         flexDirection: "row",
@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
     },
     horizontalRule: {
         height: 1,
-        backgroundColor: wbColor.offBlack16,
+        backgroundColor: semanticColor.core.border.neutral.subtle,
     },
 });
 

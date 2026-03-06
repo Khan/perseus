@@ -1,5 +1,85 @@
 # @khanacademy/perseus-editor
 
+## 28.14.3
+
+### Patch Changes
+
+-   Updated dependencies [[`77404ad02e`](https://github.com/Khan/perseus/commit/77404ad02e0647c9b1a90c3aa0b162d834f4d183)]:
+    -   @khanacademy/perseus@75.5.0
+
+## 28.14.2
+
+### Patch Changes
+
+-   Updated dependencies [[`eaa98d60af`](https://github.com/Khan/perseus/commit/eaa98d60afaa6d9296fb9bee1eefa0177910c340)]:
+    -   @khanacademy/perseus@75.4.2
+
+## 28.14.1
+
+### Patch Changes
+
+-   [#3295](https://github.com/Khan/perseus/pull/3295) [`ad9b570acc`](https://github.com/Khan/perseus/commit/ad9b570accf24e4d776c2fe9046e0e89a40b6cbe) Thanks [@fmizzell](https://github.com/fmizzell)! - Sync peerDependencies with frontend: bump wonder-blocks-tokens to 16.0.0
+
+-   Updated dependencies [[`ad9b570acc`](https://github.com/Khan/perseus/commit/ad9b570accf24e4d776c2fe9046e0e89a40b6cbe)]:
+    -   @khanacademy/math-input@26.4.3
+    -   @khanacademy/perseus@75.4.1
+
+## 28.14.0
+
+### Minor Changes
+
+-   [#3257](https://github.com/Khan/perseus/pull/3257) [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add scale prop to Image widget behind feature flag
+
+### Patch Changes
+
+-   [#3246](https://github.com/Khan/perseus/pull/3246) [`6a252c8786`](https://github.com/Khan/perseus/commit/6a252c8786d91ebe76beb024f377eded7d2b93ec) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB `color` references to use the new `semanticColor` tokens instead.
+
+*   [#3258](https://github.com/Khan/perseus/pull/3258) [`d2a99133a2`](https://github.com/Khan/perseus/commit/d2a99133a2c049a2e6cff2bc686ac865798fbc1a) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add scale prop to Image widget editor behind feature flag
+
+-   [#3282](https://github.com/Khan/perseus/pull/3282) [`ee181a8ef6`](https://github.com/Khan/perseus/commit/ee181a8ef603f78849b3b93110c5ae8b3b23c25f) Thanks [@nishasy](https://github.com/nishasy)! - Update issues message color to have better contrast ratio
+
+-   Updated dependencies [[`b2ffc7be66`](https://github.com/Khan/perseus/commit/b2ffc7be66e17decbea43f958dc979b9e19bbcc2), [`d2a99133a2`](https://github.com/Khan/perseus/commit/d2a99133a2c049a2e6cff2bc686ac865798fbc1a), [`54e9348cd9`](https://github.com/Khan/perseus/commit/54e9348cd9146354a97619b9009b2098c1d50237), [`3470a01283`](https://github.com/Khan/perseus/commit/3470a0128332c5e550bab2478f960f3d293bb016), [`e15d62d0b5`](https://github.com/Khan/perseus/commit/e15d62d0b5f16492c062058c4e70807a4b4acb56), [`6a252c8786`](https://github.com/Khan/perseus/commit/6a252c8786d91ebe76beb024f377eded7d2b93ec), [`26d50e95ec`](https://github.com/Khan/perseus/commit/26d50e95ec10cea5ab67d0836162f6dc77d620b8), [`0408888728`](https://github.com/Khan/perseus/commit/04088887280c58b74ca8c961775bc9e02bac137a), [`7eb47d9613`](https://github.com/Khan/perseus/commit/7eb47d9613dbf474be38aff01667ca82ce6ab7b5), [`c054d4ccdc`](https://github.com/Khan/perseus/commit/c054d4ccdc5360e466b34e483da1ea9e73ddd279), [`368ba4d699`](https://github.com/Khan/perseus/commit/368ba4d6999924f4e47e70f603724d88f5fba3ae), [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af), [`3fe7442a33`](https://github.com/Khan/perseus/commit/3fe7442a3378cf59563ab49a6c1ea4cb3aee5ff6)]:
+    -   @khanacademy/perseus-linter@4.8.2
+    -   @khanacademy/perseus@75.4.0
+    -   @khanacademy/perseus-core@23.2.0
+    -   @khanacademy/kas@2.1.8
+    -   @khanacademy/kmath@2.2.34
+    -   @khanacademy/math-input@26.4.2
+    -   @khanacademy/keypad-context@3.2.34
+    -   @khanacademy/perseus-score@8.2.11
+
+## 28.13.0
+
+### Minor Changes
+
+-   [#3270](https://github.com/Khan/perseus/pull/3270) [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade feature flag
+
+### Patch Changes
+
+-   [#3244](https://github.com/Khan/perseus/pull/3244) [`13247bac3e`](https://github.com/Khan/perseus/commit/13247bac3e3541e470d65552d9c306e7db37fc9b) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB `color` references to use the new `semanticColor` tokens instead.
+
+*   [#3279](https://github.com/Khan/perseus/pull/3279) [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control buttons to explore image modal behind feature flag
+
+-   [#3275](https://github.com/Khan/perseus/pull/3275) [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Add gif control icon buttons behind feature flag
+
+-   Updated dependencies [[`46e100430a`](https://github.com/Khan/perseus/commit/46e100430a3f2519df7549d6c68f9f6176702d9c), [`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373), [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe), [`7023b4dae0`](https://github.com/Khan/perseus/commit/7023b4dae02a49a146f8ef645b87c3d1008c41ee), [`7682804e0e`](https://github.com/Khan/perseus/commit/7682804e0eda17cb227150bcc447d6bcc7a958ad), [`78031be86b`](https://github.com/Khan/perseus/commit/78031be86b0b424331259ce15c0f82ad1d43bbe4), [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1)]:
+    -   @khanacademy/perseus-linter@4.8.1
+    -   @khanacademy/perseus@75.3.0
+    -   @khanacademy/perseus-core@23.1.0
+    -   @khanacademy/kmath@2.2.33
+    -   @khanacademy/keypad-context@3.2.33
+    -   @khanacademy/math-input@26.4.1
+    -   @khanacademy/perseus-score@8.2.10
+
+## 28.12.1
+
+### Patch Changes
+
+-   [#3264](https://github.com/Khan/perseus/pull/3264) [`304c071f16`](https://github.com/Khan/perseus/commit/304c071f1606b2398966449eacaaed219d74668c) Thanks [@benchristel](https://github.com/benchristel)! - Ensure the `correct` prop of interactive graphs matches the type of the `graph` prop. This works around a bug in the AX editor.
+
+-   Updated dependencies [[`2d5364d93b`](https://github.com/Khan/perseus/commit/2d5364d93b4311a659d701dde9b97aec66aade99), [`131d5e6688`](https://github.com/Khan/perseus/commit/131d5e6688a1ba5d70f383538022a39d63afac15)]:
+    -   @khanacademy/perseus@75.2.0
+
 ## 28.12.0
 
 ### Minor Changes

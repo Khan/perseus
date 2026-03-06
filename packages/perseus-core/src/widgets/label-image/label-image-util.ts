@@ -25,7 +25,7 @@ export type LabelImageMarkerPublicData = Pick<
     "x" | "y" | "label"
 >;
 
-export default function getLabelImagePublicWidgetOptions(
+export function getLabelImagePublicWidgetOptions(
     options: PerseusLabelImageWidgetOptions,
 ): LabelImagePublicWidgetOptions {
     return {

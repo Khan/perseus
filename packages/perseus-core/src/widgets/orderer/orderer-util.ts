@@ -13,11 +13,9 @@ export type OrdererPublicWidgetOptions = Pick<
  * Given a PerseusOrdererWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-function getOrdererPublicWidgetOptions(
+export function getOrdererPublicWidgetOptions(
     fullOptions: PerseusOrdererWidgetOptions,
 ): OrdererPublicWidgetOptions {
     const {options, height, layout} = fullOptions;
     return {options, height, layout};
 }
-
-export default getOrdererPublicWidgetOptions;

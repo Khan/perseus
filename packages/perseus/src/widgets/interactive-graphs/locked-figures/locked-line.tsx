@@ -1,6 +1,6 @@
 import {angles} from "@khanacademy/kmath";
 import {lockedFigureColors} from "@khanacademy/perseus-core";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point, Line, vec} from "mafs";
 import * as React from "react";
 
@@ -136,7 +136,7 @@ const LockedLine = (props: Props) => {
                         style: {
                             fill: point1.filled
                                 ? lockedFigureColors[point1.color]
-                                : wbColor.white,
+                                : semanticColor.core.background.base.default,
                             stroke: lockedFigureColors[point1.color],
                             strokeWidth: spacing.xxxxSmall_2,
                         },
@@ -151,7 +151,7 @@ const LockedLine = (props: Props) => {
                         style: {
                             fill: point2.filled
                                 ? lockedFigureColors[point2.color]
-                                : wbColor.white,
+                                : semanticColor.core.background.base.default,
                             stroke: lockedFigureColors[point2.color],
                             strokeWidth: spacing.xxxxSmall_2,
                         },

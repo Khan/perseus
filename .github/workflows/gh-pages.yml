@@ -21,7 +21,7 @@ jobs:
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: 20.x
+                  node-version: 24.x
 
             - name: Build Storybook
               # Generate a static version of storybook inside "storybook-static/"

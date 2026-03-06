@@ -1,7 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
         padding: 0,
         border: "none",
         marginTop: 20,
-        color: color.blue,
+        color: semanticColor.core.foreground.instructive.default,
         cursor: "pointer",
         display: "block",
         clear: "both",
@@ -491,7 +491,7 @@ const styles = StyleSheet.create({
     explanationTitle: {
         backgroundColor: "unset",
         marginTop: 20,
-        color: color.blue,
+        color: semanticColor.core.foreground.instructive.default,
         marginBottom: 10,
         cursor: "pointer",
         fontSize: 14,

@@ -1,5 +1,29 @@
 # @khanacademy/math-input
 
+## 26.4.3
+
+### Patch Changes
+
+-   [#3295](https://github.com/Khan/perseus/pull/3295) [`ad9b570acc`](https://github.com/Khan/perseus/commit/ad9b570accf24e4d776c2fe9046e0e89a40b6cbe) Thanks [@fmizzell](https://github.com/fmizzell)! - Sync peerDependencies with frontend: bump wonder-blocks-tokens to 16.0.0
+
+## 26.4.2
+
+### Patch Changes
+
+-   [#3250](https://github.com/Khan/perseus/pull/3250) [`c054d4ccdc`](https://github.com/Khan/perseus/commit/c054d4ccdc5360e466b34e483da1ea9e73ddd279) Thanks [@jandrade](https://github.com/jandrade)! - Updates MathInput to use `semanticColor` tokens instead of the now deprecated WB color tokens.
+
+-   Updated dependencies [[`d2a99133a2`](https://github.com/Khan/perseus/commit/d2a99133a2c049a2e6cff2bc686ac865798fbc1a), [`54e9348cd9`](https://github.com/Khan/perseus/commit/54e9348cd9146354a97619b9009b2098c1d50237), [`7eb47d9613`](https://github.com/Khan/perseus/commit/7eb47d9613dbf474be38aff01667ca82ce6ab7b5), [`585522ca24`](https://github.com/Khan/perseus/commit/585522ca241ee4aa41556df821cfb93f0baef2af), [`3fe7442a33`](https://github.com/Khan/perseus/commit/3fe7442a3378cf59563ab49a6c1ea4cb3aee5ff6)]:
+    -   @khanacademy/perseus-core@23.2.0
+    -   @khanacademy/keypad-context@3.2.34
+
+## 26.4.1
+
+### Patch Changes
+
+-   Updated dependencies [[`0ea9b7fe1c`](https://github.com/Khan/perseus/commit/0ea9b7fe1c802c1a987fcc46e872de9c9621a373), [`876dd96e74`](https://github.com/Khan/perseus/commit/876dd96e74f92a4cc895bfd79510ac7175e189fe), [`8cc27db79a`](https://github.com/Khan/perseus/commit/8cc27db79add9e108959f7f8872ac57b9f29edf1)]:
+    -   @khanacademy/perseus-core@23.1.0
+    -   @khanacademy/keypad-context@3.2.33
+
 ## 26.4.0
 
 ### Minor Changes

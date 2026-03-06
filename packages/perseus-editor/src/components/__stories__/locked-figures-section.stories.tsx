@@ -1,7 +1,7 @@
 import {ApiOptions} from "@khanacademy/perseus";
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         width: containerSize,
         padding: padding,
         marginInlineStart: spacing.medium_16,
-        border: `1px solid ${color.offBlack32}`,
+        border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
         borderRadius: spacing.xxxSmall_4,
     },
 });

@@ -30,7 +30,7 @@ exports[`graded group set widget should snapshot 1`] = `
               class="top_cjo0m2"
             >
               <div
-                class="title_vo78fw"
+                class="title_t78eih"
               >
                 Problem 1a
               </div>
@@ -50,10 +50,10 @@ exports[`graded group set widget should snapshot 1`] = `
                     type="button"
                   >
                     <div
-                      class="default_xu2jcg-o_O-indicatorDot_yy8ygm"
+                      class="default_xu2jcg-o_O-indicatorDot_1ppx7bq"
                     >
                       <div
-                        class="default_xu2jcg-o_O-indicatorDotActive_1pky1a"
+                        class="default_xu2jcg-o_O-indicatorDotActive_xgych8"
                       >
                         <span
                           class="srOnly_19bpjuy"
@@ -74,7 +74,7 @@ exports[`graded group set widget should snapshot 1`] = `
                     type="button"
                   >
                     <div
-                      class="default_xu2jcg-o_O-indicatorDot_yy8ygm"
+                      class="default_xu2jcg-o_O-indicatorDot_1ppx7bq"
                     />
                   </button>
                 </li>
@@ -88,7 +88,7 @@ exports[`graded group set widget should snapshot 1`] = `
                     type="button"
                   >
                     <div
-                      class="default_xu2jcg-o_O-indicatorDot_yy8ygm"
+                      class="default_xu2jcg-o_O-indicatorDot_1ppx7bq"
                     />
                   </button>
                 </li>
@@ -160,7 +160,7 @@ exports[`graded group set widget should snapshot 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_oak3yy"
+                class="showHintLink_1n4y2tp"
                 tabindex="0"
               >
                 Explain

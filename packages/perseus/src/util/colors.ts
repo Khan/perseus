@@ -6,8 +6,12 @@
  * khan-exercises submodule, as graphie-to-png still relies on the palette
  * provided on KhanUtil.
  */
+// eslint-disable-next-line no-restricted-imports -- Replace with semanticColor
 import {color} from "@khanacademy/wonder-blocks-tokens";
 
+// TODO(WB-2160): Update these to use the new semanticColor tokens, and use the
+// new tokenValue() function to get the raw value of the token. This is
+// necessary because graphie only supports raw CSS colors.
 const KhanColors = {
     BLUE: color.blue,
     ORANGE: "#FFA500",

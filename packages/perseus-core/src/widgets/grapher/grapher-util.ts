@@ -5,7 +5,7 @@ export type GrapherPublicWidgetOptions = Pick<
     "availableTypes" | "graph"
 >;
 
-export default function getGrapherPublicWidgetOptions(
+export function getGrapherPublicWidgetOptions(
     options: PerseusGrapherWidgetOptions,
 ): GrapherPublicWidgetOptions {
     const {correct: _, ...publicOptions} = options;
