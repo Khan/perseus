@@ -913,7 +913,8 @@ export type PerseusGraphType =
     | PerseusGraphTypeQuadratic
     | PerseusGraphTypeRay
     | PerseusGraphTypeSegment
-    | PerseusGraphTypeSinusoid;
+    | PerseusGraphTypeSinusoid
+    | PerseusGraphTypeTangent;
 
 export type PerseusGraphTypeAngle = {
     type: "angle";
@@ -1018,6 +1019,14 @@ export type PerseusGraphTypeSinusoid = {
     startCoords?: Coord[];
 };
 
+export type PerseusGraphTypeTangent = {
+    type: "tangent";
+    // Expects a list of 2 Coords
+    coords?: Coord[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: Coord[];
+};
+
 export type PerseusGraphTypeRay = {
     type: "ray";
     // Expects a list of 2 Coords
@@ -1079,6 +1088,11 @@ type SinusoidGraphCorrect = {
     coords: CollinearTuple;
 };
 
+type TangentGraphCorrect = {
+    type: "tangent";
+    coords: CollinearTuple;
+};
+
 type RayGraphCorrect = {
     type: "ray";
     coords: CollinearTuple;
@@ -1095,7 +1109,8 @@ export type PerseusGraphCorrectType =
     | QuadraticGraphCorrect
     | RayGraphCorrect
     | SegmentGraphCorrect
-    | SinusoidGraphCorrect;
+    | SinusoidGraphCorrect
+    | TangentGraphCorrect;
 
 export type PerseusLabelImageWidgetOptions = {
     // Translatable Text; Tex representation of choices

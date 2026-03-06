@@ -305,6 +305,22 @@ export const noneQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const sinusoidQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withSinusoid().build();
 
+export const tangentQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Graph the tangent function by moving the two points.**\n\n[[☃ interactive-graph 1]]",
+        )
+        .withTangent({
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        })
+        .build();
+
+export const tangentQuestionWithDefaultCorrect: PerseusRenderer =
+    interactiveGraphQuestionBuilder().withTangent().build();
+
 export const questionsAndAnswers: ReadonlyArray<
     [
         PerseusRenderer, // Correct answer

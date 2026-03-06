@@ -293,6 +293,14 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withTangent(options?: {
+        coords?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new TangentGraphConfig(options);
+        return this;
+    }
+
     withPolygon(
         snapTo?: SnapTo,
         options?: {
@@ -793,6 +801,30 @@ class SinusoidGraphConfig implements InteractiveFigureConfig {
 
     graph(): PerseusGraphType {
         return {type: "sinusoid", startCoords: this.startCoords};
+    }
+}
+
+class TangentGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord];
+    private startCoords?: [Coord, Coord];
+
+    constructor(options?: {
+        coords?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "tangent",
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "tangent", startCoords: this.startCoords};
     }
 }
 

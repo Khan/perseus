@@ -585,6 +585,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return InteractiveGraph.getQuadraticEquationString(props);
             case "sinusoid":
                 return InteractiveGraph.getSinusoidEquationString(props);
+            case "tangent":
+                return InteractiveGraph.getTangentEquationString(props);
             case "circle":
                 return InteractiveGraph.getCircleEquationString(props);
             case "linear-system":
@@ -694,6 +696,37 @@ class InteractiveGraph extends React.Component<Props, State> {
             "y = " +
             coeffs[0].toFixed(3) +
             "sin(" +
+            coeffs[1].toFixed(3) +
+            "x - " +
+            coeffs[2].toFixed(3) +
+            ") + " +
+            coeffs[3].toFixed(3)
+        );
+    }
+
+    static getCurrentTangentCoefficients(props: Props): SineCoefficient {
+        const coords =
+            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
+            props.userInput.coords ||
+            InteractiveGraph.defaultTangentCoords(props);
+        return getSinusoidCoefficients(coords);
+    }
+
+    static defaultTangentCoords(props: Props): Coord[] {
+        const coords = [
+            [0.5, 0.5],
+            [0.75, 0.75],
+        ];
+        // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
+        return InteractiveGraph.pointsFromNormalized(props, coords);
+    }
+
+    static getTangentEquationString(props: Props): string {
+        const coeffs = InteractiveGraph.getCurrentTangentCoefficients(props);
+        return (
+            "y = " +
+            coeffs[0].toFixed(3) +
+            "tan(" +
             coeffs[1].toFixed(3) +
             "x - " +
             coeffs[2].toFixed(3) +

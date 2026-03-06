@@ -64,6 +64,12 @@ export function mafsStateToInteractiveGraph(
                 ...originalGraph,
                 coords: state.coords,
             };
+        case "tangent":
+            invariant(originalGraph.type === "tangent");
+            return {
+                ...originalGraph,
+                coords: state.coords,
+            };
         case "segment":
             invariant(originalGraph.type === "segment");
             return {

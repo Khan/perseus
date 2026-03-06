@@ -492,6 +492,31 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    srTangentGraph: string;
+    srTangentPoint1: ({x, y}: {x: string; y: string}) => string;
+    srTangentPoint2: ({x, y}: {x: string; y: string}) => string;
+    srTangentDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srTangentInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     imageExploreButton: string;
     imageAlternativeTitle: string;
     imageDescriptionLabel: string;
@@ -1095,6 +1120,33 @@ export const strings = {
         message:
             "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
     },
+    srTangentGraph: {
+        context:
+            "Aria label for the container containing a Tangent function in the interactive graph widget.",
+        message: "A tangent function on a coordinate plane.",
+    },
+    srTangentPoint1: {
+        context:
+            "Aria label for the first control point of the Tangent function in the interactive graph widget.",
+        message: "Point 1 at %(x)s comma %(y)s.",
+    },
+    srTangentPoint2: {
+        context:
+            "Aria label for the second control point of the Tangent function in the interactive graph widget.",
+        message: "Point 2 at %(x)s comma %(y)s.",
+    },
+    srTangentDescription: {
+        context:
+            "Screen reader description of the Tangent function in the interactive graph widget.",
+        message:
+            "The graph shows a tangent function with control points at %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s.",
+    },
+    srTangentInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Tangent function in the interactive graph widget.",
+        message:
+            "Tangent graph with point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    },
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
@@ -1430,6 +1482,13 @@ export const mockStrings: PerseusStrings = {
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
+    srTangentGraph: "A tangent function on a coordinate plane.",
+    srTangentPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
+    srTangentPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
+    srTangentDescription: ({point1X, point1Y, point2X, point2Y}) =>
+        `The graph shows a tangent function with control points at ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y}.`,
+    srTangentInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
+        `Tangent graph with point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
