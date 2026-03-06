@@ -1,4 +1,4 @@
-import type {SineCoefficient} from "./geometry";
+import type {SineCoefficient, TangentCoefficient} from "./geometry";
 import type {Coord} from "@khanacademy/perseus-core";
 
 export type NamedSineCoefficient = {
@@ -18,6 +18,20 @@ export function getSinusoidCoefficients(
     // Resulting coefficients are canonical for this sine curve
     const amplitude = p2[1] - p1[1];
     const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
+    const phase = p1[0] * angularFrequency;
+    const verticalOffset = p1[1];
+
+    return [amplitude, angularFrequency, phase, verticalOffset];
+}
+
+export function getTangentCoefficients(
+    coords: ReadonlyArray<Coord>,
+): TangentCoefficient {
+    const p1 = coords[0];
+    const p2 = coords[1];
+
+    const amplitude = p2[1] - p1[1];
+    const angularFrequency = Math.PI / (4 * (p2[0] - p1[0]));
     const phase = p1[0] * angularFrequency;
     const verticalOffset = p1[1];
 

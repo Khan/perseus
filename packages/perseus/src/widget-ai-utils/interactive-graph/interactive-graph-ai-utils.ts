@@ -220,6 +220,11 @@ const getGraphOptionsForProps = (
                 type: props.userInput.type,
                 startCoords: props.userInput.startCoords,
             };
+        case "tangent":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         case "none":
             return {};
         default:
@@ -270,6 +275,10 @@ const getUserInput = (userInput: PerseusGraphType): UserInput => {
                 coords: userInput.coords,
             };
         case "sinusoid":
+            return {
+                coords: userInput.coords,
+            };
+        case "tangent":
             return {
                 coords: userInput.coords,
             };

@@ -42,6 +42,7 @@ import {renderQuadraticGraph} from "./graphs/quadratic";
 import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
+import {renderTangentGraph} from "./graphs/tangent";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
 import {X, Y} from "./math";
 import {Protractor} from "./protractor";
@@ -766,6 +767,8 @@ const renderGraphElements = (props: {
             return renderQuadraticGraph(state, dispatch, i18n);
         case "sinusoid":
             return renderSinusoidGraph(state, dispatch, i18n);
+        case "tangent":
+            return renderTangentGraph(state, dispatch, i18n);
         case "none":
             return {graph: null, interactiveElementsDescription: null};
         default:
