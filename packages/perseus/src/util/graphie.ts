@@ -1743,17 +1743,48 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // Any padding needs to be scaled accordingly.
         const padding = $span.css("padding") ?? "0px";
         const currentPadding = padding !== "none" ? padding : "0px";
-        const newPadding =
-            Math.round(parseInt(currentPadding.replace(/px$/, "")) * scale) /
-            100;
+        const rawPadding = Math.round(
+            parseInt(currentPadding.replace(/px$/, "")),
+        );
+
+        // Make a new variable for the recalculated width and height
+        // so that we don't mutate the original width and height later.
+        let normalizedWidth = width;
+        let normalizedHeight = height;
+
+        // Check if the image has a manually set scale. If so, use it to
+        // appropriately scale the labels and the label padding.
+        const imageScale = Number($container.attr("data-scale"));
+        const hasValidImageScale = !Number.isNaN(imageScale) && imageScale >= 0;
+
+        // Only update label scale if image has a manually set scale value.
+        // (i.e. Image widget `scale` set by content authors.)
+        if (hasValidImageScale) {
+            // Update the scale so that the labels show up at the correct size
+            // (i.e. a bigger image should have bigger labels on it).
+            scale = scale * imageScale;
+
+            // Make sure that our label padding is scaled with the image:
+            // Get the scaled width without padding, and then add the padding
+            // back in, so that the padding is scaled appropriately later.
+            const totalPadding = 2 * rawPadding;
+            normalizedWidth =
+                (width - totalPadding) / imageScale + totalPadding;
+            normalizedHeight =
+                (height - totalPadding) / imageScale + totalPadding;
+        }
+
+        const newPadding = Math.round(rawPadding * scale) / 100;
 
         // "multipliers" basically move the position of the text by using 1, 0, -1
         // 'margin-left' and 'margin-top' are used to position the text.
         // Margin and font size need to be scaled accordingly.
         const multipliers = labelDirections[direction || "center"];
         const styling = {
-            marginLeft: Math.round(width * multipliers[0] * scale) / 100,
-            marginTop: Math.round(height * multipliers[1] * scale) / 100,
+            marginLeft:
+                Math.round(normalizedWidth * multipliers[0] * scale) / 100,
+            marginTop:
+                Math.round(normalizedHeight * multipliers[1] * scale) / 100,
             padding: `${newPadding}px`,
         };
         if (scale !== 1) {
