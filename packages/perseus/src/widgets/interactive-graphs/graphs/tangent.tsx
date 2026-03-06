@@ -76,9 +76,21 @@ export function getAsymptotePositions(
     return asymptotes.sort((a, b) => a - b);
 }
 
-// Get the plot segments (intervals between asymptotes) within the x-range.
-// Each segment is a domain for a separate Plot.OfX to avoid drawing
-// lines across discontinuities.
+// WORKAROUND: Mafs Plot.OfX renders a single SVG <path> and skips
+// non-finite points but uses "L" (lineTo) for the next valid point,
+// which draws vertical lines across discontinuities like asymptotes.
+// We split the curve into separate Plot.OfX segments between asymptotes
+// so each gets its own SVG path element.
+//
+// This can be removed if Mafs fixes the path generation to start a new
+// "M" (moveTo) after non-finite gaps instead of continuing with "L".
+// Tracked upstream: https://github.com/stevenpetryk/mafs/issues/133
+//
+// To remove this workaround:
+// 1. Delete getPlotSegments() and getAsymptotePositions()
+// 2. Replace the segments.map(...) in TangentGraph with a single:
+//    <Plot.OfX y={(x) => computeTangent(x, coeffRef.current)}
+//        color={interactiveColor} svgPathProps={{"aria-hidden": true}} />
 function getPlotSegments(
     coeffs: NamedTangentCoefficient,
     xRange: [number, number],
@@ -120,9 +132,7 @@ function TangentGraph(props: TangentGraphProps) {
         coeffRef.current = coeffs;
     }
 
-    // Split the tangent into separate Plot.OfX segments between
-    // asymptotes. Each segment gets its own domain so Mafs starts
-    // a fresh SVG path, preventing lines across discontinuities.
+    // WORKAROUND for Mafs discontinuity rendering — see getPlotSegments().
     const xRange: [number, number] = [range[0][0], range[0][1]];
     const segments = getPlotSegments(coeffRef.current, xRange);
 
