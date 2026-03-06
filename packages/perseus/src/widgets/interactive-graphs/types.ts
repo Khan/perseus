@@ -39,7 +39,8 @@ export type InteractiveGraphState =
     | PointGraphState
     | CircleGraphState
     | QuadraticGraphState
-    | SinusoidGraphState;
+    | SinusoidGraphState
+    | TangentGraphState;
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
@@ -114,6 +115,11 @@ export interface QuadraticGraphState extends InteractiveGraphStateCommon {
 
 export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     type: "sinusoid";
+    coords: [vec.Vector2, vec.Vector2];
+}
+
+export interface TangentGraphState extends InteractiveGraphStateCommon {
+    type: "tangent";
     coords: [vec.Vector2, vec.Vector2];
 }
 

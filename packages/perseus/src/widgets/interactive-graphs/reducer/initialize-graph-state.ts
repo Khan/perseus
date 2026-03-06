@@ -18,6 +18,7 @@ import type {
     PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
+    PerseusGraphTypeTangent,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -109,6 +110,12 @@ export function initializeGraphState(
                 ...shared,
                 type: graph.type,
                 coords: getSinusoidCoords(graph, range, step),
+            };
+        case "tangent":
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getTangentCoords(graph, range, step),
             };
         case "angle":
             return {
@@ -358,6 +365,29 @@ export function getSinusoidCoords(
     let coords: [Coord, Coord] = [
         [0.5, 0.5],
         [0.65, 0.6],
+    ];
+
+    coords = normalizePoints(range, step, coords, true);
+
+    return coords;
+}
+
+export function getTangentCoords(
+    graph: PerseusGraphTypeTangent,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): [Coord, Coord] {
+    if (graph.coords) {
+        return [graph.coords[0], graph.coords[1]];
+    }
+
+    if (graph.startCoords) {
+        return [graph.startCoords[0], graph.startCoords[1]];
+    }
+
+    let coords: [Coord, Coord] = [
+        [0.5, 0.5],
+        [0.75, 0.75],
     ];
 
     coords = normalizePoints(range, step, coords, true);

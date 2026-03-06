@@ -25,6 +25,13 @@ export type SineCoefficient = [
     number, // verticalOffset
 ];
 
+export type TangentCoefficient = [
+    number, // amplitude
+    number, // angularFrequency
+    number, // phase
+    number, // verticalOffset
+];
+
 // Given a number, return whether it is positive (1), negative (-1), or zero (0)
 export function sign(val: number): 0 | 1 | -1 {
     if (approximateEqual(val, 0)) {
@@ -277,6 +284,42 @@ export function canonicalSineCoefficients([
     }
 
     const period = 2 * Math.PI;
+    // Guarantee b > 0
+    if (angularFrequency < 0) {
+        angularFrequency *= -1;
+        phase *= -1;
+        phase += period / 2;
+    }
+
+    // Guarantee c is smallest possible positive value
+    while (phase > 0) {
+        phase -= period;
+    }
+    while (phase < 0) {
+        phase += period;
+    }
+
+    return [amplitude, angularFrequency, phase, verticalOffset];
+}
+
+export function canonicalTangentCoefficients([
+    amplitude,
+    angularFrequency,
+    phase,
+    verticalOffset,
+]: [any, any, any, any]) {
+    // For a curve of the form f(x) = a * Tan(b * x - c) + d,
+    // this function ensures that a, b > 0, and c is its
+    // smallest possible positive value.
+
+    // Guarantee a > 0
+    if (amplitude < 0) {
+        amplitude *= -1;
+        angularFrequency *= -1;
+        phase *= -1;
+    }
+
+    const period = Math.PI;
     // Guarantee b > 0
     if (angularFrequency < 0) {
         angularFrequency *= -1;
