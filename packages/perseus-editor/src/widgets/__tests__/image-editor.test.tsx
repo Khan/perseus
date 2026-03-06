@@ -121,8 +121,6 @@ describe("image editor", () => {
             />,
         );
 
-        const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        const heightField = screen.getByRole("spinbutton", {name: "Height"});
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
         const altField = screen.getByRole("textbox", {name: "Alt text"});
         const longDescriptionField = screen.getByRole("textbox", {
@@ -132,16 +130,12 @@ describe("image editor", () => {
         const titleField = screen.getByRole("textbox", {name: "Title"});
 
         // Assert
-        expect(widthField).toBeInTheDocument();
-        expect(heightField).toBeInTheDocument();
         expect(urlField).toBeInTheDocument();
         expect(altField).toBeInTheDocument();
         expect(longDescriptionField).toBeInTheDocument();
         expect(captionField).toBeInTheDocument();
         expect(titleField).toBeInTheDocument();
 
-        expect(widthField).toHaveValue(earthMoonImage.width);
-        expect(heightField).toHaveValue(earthMoonImage.height);
         expect(urlField).toHaveValue(earthMoonImage.url);
         expect(altField).toHaveValue("Earth and moon alt");
         expect(longDescriptionField).toHaveValue(
@@ -168,8 +162,6 @@ describe("image editor", () => {
             />,
         );
 
-        const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        const heightField = screen.getByRole("spinbutton", {name: "Height"});
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
         const altField = screen.getByRole("textbox", {name: "Alt text"});
         const longDescriptionField = screen.getByRole("textbox", {
@@ -179,16 +171,12 @@ describe("image editor", () => {
         const titleField = screen.getByRole("textbox", {name: "Title"});
 
         // Assert
-        expect(widthField).toBeInTheDocument();
-        expect(heightField).toBeInTheDocument();
         expect(urlField).toBeInTheDocument();
         expect(altField).toBeInTheDocument();
         expect(longDescriptionField).toBeInTheDocument();
         expect(captionField).toBeInTheDocument();
         expect(titleField).toBeInTheDocument();
 
-        expect(widthField).toHaveValue(earthMoonImage.width);
-        expect(heightField).toHaveValue(earthMoonImage.height);
         expect(urlField).toHaveValue(earthMoonImage.url);
 
         // All other fields should have value "" if undefined
@@ -281,12 +269,8 @@ describe("image editor", () => {
             />,
         );
 
-        const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        const heightField = screen.getByRole("spinbutton", {name: "Height"});
-
         // Assert
-        expect(widthField).toHaveValue(400);
-        expect(heightField).toHaveValue(225);
+        expect(screen.getByText("Dimensions: 400 x 225")).toBeInTheDocument();
     });
 
     it("should call onChange with the new image url", async () => {
@@ -374,70 +358,6 @@ describe("image editor", () => {
         expect(screen.queryByText(nonKhanImageWarning)).not.toBeInTheDocument();
     });
 
-    it("should call onChange with resized image when width is changed", async () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        render(
-            <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={{
-                    url: earthMoonImage.url,
-                    // Using easier to verify side lengths.
-                    width: 100,
-                    height: 200,
-                }}
-                onChange={onChangeMock}
-            />,
-        );
-
-        // Act
-        const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        widthField.focus();
-        await userEvent.clear(widthField);
-        await userEvent.paste("300");
-
-        // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: 300,
-                height: 600,
-            },
-        });
-    });
-
-    it("should call onChange with resized image when height is changed", async () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        render(
-            <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={{
-                    url: earthMoonImage.url,
-                    // Using easier to verify side lengths.
-                    width: 100,
-                    height: 200,
-                }}
-                onChange={onChangeMock}
-            />,
-        );
-
-        // Act
-        const heightField = screen.getByRole("spinbutton", {name: "Height"});
-        heightField.focus();
-        await userEvent.clear(heightField);
-        await userEvent.paste("100");
-
-        // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: 50,
-                height: 100,
-            },
-        });
-    });
-
     it("should call onChange with original image size when reset to original size is clicked", async () => {
         // Arrange
         const onChangeMock = jest.fn();
@@ -455,7 +375,7 @@ describe("image editor", () => {
 
         // Act
         const resetToOriginalSizeButton = screen.getByRole("button", {
-            name: "Reset to original size",
+            name: "Recalculate original size",
         });
         await userEvent.click(resetToOriginalSizeButton);
 
@@ -478,7 +398,7 @@ describe("image editor", () => {
 
         // Act
         const resetToOriginalSizeButton = screen.getByRole("button", {
-            name: "Reset to original size",
+            name: "Recalculate original size",
         });
         await userEvent.click(resetToOriginalSizeButton);
 
@@ -1015,23 +935,10 @@ describe("image editor", () => {
             const scaledHeightField = screen.getByRole("spinbutton", {
                 name: "Scaled Height",
             });
-            const resetToOriginalSizeButton = screen.getByRole("button", {
-                name: "Recalculate original size",
-            });
+
             expect(scaleField).toBeInTheDocument();
             expect(scaledWidthField).toBeInTheDocument();
             expect(scaledHeightField).toBeInTheDocument();
-            expect(resetToOriginalSizeButton).toBeInTheDocument();
-
-            // Make sure old inputs are not rendered
-            const widthField = screen.queryByRole("spinbutton", {
-                name: "Width",
-            });
-            const heightField = screen.queryByRole("spinbutton", {
-                name: "Height",
-            });
-            expect(widthField).not.toBeInTheDocument();
-            expect(heightField).not.toBeInTheDocument();
         });
 
         it("should render the scale inputs when the scale flag is enabled", () => {
@@ -1050,15 +957,7 @@ describe("image editor", () => {
                 />,
             );
 
-            // Assert - make sure old inputs are rendered
-            const widthField = screen.getByRole("spinbutton", {name: "Width"});
-            const heightField = screen.getByRole("spinbutton", {
-                name: "Height",
-            });
-            expect(widthField).toBeInTheDocument();
-            expect(heightField).toBeInTheDocument();
-
-            // Make sure new inputs are not rendered
+            // Assert - make sure new inputs are not rendered
             const scaleField = screen.queryByRole("spinbutton", {
                 name: "Scale",
             });
@@ -1068,13 +967,10 @@ describe("image editor", () => {
             const scaledHeightField = screen.queryByRole("spinbutton", {
                 name: "Scaled Height",
             });
-            const resetToOriginalSizeButton = screen.queryByRole("button", {
-                name: "Recalculate original size",
-            });
+
             expect(scaleField).not.toBeInTheDocument();
             expect(scaledWidthField).not.toBeInTheDocument();
             expect(scaledHeightField).not.toBeInTheDocument();
-            expect(resetToOriginalSizeButton).not.toBeInTheDocument();
         });
     });
 });
