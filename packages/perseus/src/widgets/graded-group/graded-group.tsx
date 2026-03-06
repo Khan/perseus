@@ -350,9 +350,14 @@ export class GradedGroup
                             </div>
                         )}
 
-                        <p role="status" aria-live="polite">
-                            {this.state.message}
-                        </p>
+                        <div role="status" aria-live="polite">
+                            <Renderer
+                                content={this.state.message}
+                                widgets={{}}
+                                images={{}}
+                                strings={this.context.strings}
+                            />
+                        </div>
 
                         <Button
                             kind="secondary"
