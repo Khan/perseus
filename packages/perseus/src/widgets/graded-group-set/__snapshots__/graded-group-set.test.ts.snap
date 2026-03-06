@@ -144,10 +144,22 @@ exports[`graded group set widget should snapshot 1`] = `
                   </div>
                 </div>
               </div>
-              <p
+              <div
                 aria-live="polite"
                 role="status"
-              />
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph perseus-paragraph-centered"
+                    data-perseus-paragraph-index="0"
+                  >
+                    
+
+                  </div>
+                </div>
+              </div>
               <button
                 aria-disabled="false"
                 class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba"
