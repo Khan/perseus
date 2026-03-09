@@ -374,68 +374,92 @@ describe("image editor", () => {
         expect(screen.queryByText(nonKhanImageWarning)).not.toBeInTheDocument();
     });
 
-    it("should call onChange with resized image when width is changed", async () => {
-        // Arrange
-        const onChangeMock = jest.fn();
+    {
+        /* Commenting out tests for the temporarily disabled sizing feature.
+            We can add them back if needed, or remove them entirely when
+            scaling is fully released and sizing is no longer disabled.
+        */
+    }
+
+    // it("should call onChange with resized image when width is changed", async () => {
+    //     // Arrange
+    //     const onChangeMock = jest.fn();
+    //     render(
+    //         <ImageEditorWithDependencies
+    //             apiOptions={apiOptions}
+    //             backgroundImage={{
+    //                 url: earthMoonImage.url,
+    //                 // Using easier to verify side lengths.
+    //                 width: 100,
+    //                 height: 200,
+    //             }}
+    //             onChange={onChangeMock}
+    //         />,
+    //     );
+
+    //     // Act
+    //     const widthField = screen.getByRole("spinbutton", {name: "Width"});
+    //     widthField.focus();
+    //     await userEvent.clear(widthField);
+    //     await userEvent.paste("300");
+
+    //     // Assert
+    //     expect(onChangeMock).toHaveBeenCalledWith({
+    //         backgroundImage: {
+    //             url: earthMoonImage.url,
+    //             width: 300,
+    //             height: 600,
+    //         },
+    //     });
+    // });
+
+    // it("should call onChange with resized image when height is changed", async () => {
+    //     // Arrange
+    //     const onChangeMock = jest.fn();
+    //     render(
+    //         <ImageEditorWithDependencies
+    //             apiOptions={apiOptions}
+    //             backgroundImage={{
+    //                 url: earthMoonImage.url,
+    //                 // Using easier to verify side lengths.
+    //                 width: 100,
+    //                 height: 200,
+    //             }}
+    //             onChange={onChangeMock}
+    //         />,
+    //     );
+
+    //     // Act
+    //     const heightField = screen.getByRole("spinbutton", {name: "Height"});
+    //     heightField.focus();
+    //     await userEvent.clear(heightField);
+    //     await userEvent.paste("100");
+
+    //     // Assert
+    //     expect(onChangeMock).toHaveBeenCalledWith({
+    //         backgroundImage: {
+    //             url: earthMoonImage.url,
+    //             width: 50,
+    //             height: 100,
+    //         },
+    //     });
+    // });
+
+    it("should have disabled width and height inputs when the sizing feature is disabled", () => {
+        // Arrange, Act
         render(
             <ImageEditorWithDependencies
                 apiOptions={apiOptions}
-                backgroundImage={{
-                    url: earthMoonImage.url,
-                    // Using easier to verify side lengths.
-                    width: 100,
-                    height: 200,
-                }}
-                onChange={onChangeMock}
+                backgroundImage={earthMoonImage}
+                onChange={() => {}}
             />,
         );
 
-        // Act
+        // Assert
         const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        widthField.focus();
-        await userEvent.clear(widthField);
-        await userEvent.paste("300");
-
-        // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: 300,
-                height: 600,
-            },
-        });
-    });
-
-    it("should call onChange with resized image when height is changed", async () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        render(
-            <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={{
-                    url: earthMoonImage.url,
-                    // Using easier to verify side lengths.
-                    width: 100,
-                    height: 200,
-                }}
-                onChange={onChangeMock}
-            />,
-        );
-
-        // Act
         const heightField = screen.getByRole("spinbutton", {name: "Height"});
-        heightField.focus();
-        await userEvent.clear(heightField);
-        await userEvent.paste("100");
-
-        // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: 50,
-                height: 100,
-            },
-        });
+        expect(widthField).toHaveAttribute("aria-disabled", "true");
+        expect(heightField).toHaveAttribute("aria-disabled", "true");
     });
 
     it("should call onChange with original image size when reset to original size is clicked", async () => {
