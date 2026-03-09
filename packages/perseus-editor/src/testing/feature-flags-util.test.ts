@@ -3,22 +3,22 @@ import {getFeatureFlags} from "./feature-flags-util";
 describe("getFeatureFlags", () => {
     it("returns default flags when no overrides are provided", () => {
         const flags = getFeatureFlags();
-        expect(flags["new-radio-widget"]).toBe(false);
-        expect(flags["image-widget-upgrade-alignment"]).toBe(false);
+        expect(flags["perseus-test-flag-1"]).toBe(false);
+        expect(flags["perseus-test-flag-2"]).toBe(false);
     });
 
     it("overrides a single flag correctly", () => {
-        const flags = getFeatureFlags({"new-radio-widget": true});
-        expect(flags["new-radio-widget"]).toBe(true);
-        expect(flags["image-widget-upgrade-alignment"]).toBe(false);
+        const flags = getFeatureFlags({"perseus-test-flag-1": true});
+        expect(flags["perseus-test-flag-1"]).toBe(true);
+        expect(flags["perseus-test-flag-2"]).toBe(false);
     });
 
     it("overrides multiple flags correctly", () => {
         const flags = getFeatureFlags({
-            "new-radio-widget": true,
-            "image-widget-upgrade-alignment": true,
+            "perseus-test-flag-1": true,
+            "perseus-test-flag-2": true,
         });
-        expect(flags["new-radio-widget"]).toBe(true);
-        expect(flags["image-widget-upgrade-alignment"]).toBe(true);
+        expect(flags["perseus-test-flag-1"]).toBe(true);
+        expect(flags["perseus-test-flag-2"]).toBe(true);
     });
 });
