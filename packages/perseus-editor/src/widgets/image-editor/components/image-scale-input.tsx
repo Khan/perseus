@@ -1,4 +1,8 @@
 import {Util} from "@khanacademy/perseus";
+import {
+    isFeatureOn,
+    type PerseusImageBackground,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {BodyMonospace} from "@khanacademy/wonder-blocks-typography";
@@ -10,19 +14,22 @@ import styles from "../image-editor.module.css";
 import {wbFieldStyles} from "../utils";
 
 import type {Props as ImageEditorProps} from "../image-editor";
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
+import type {APIOptions} from "@khanacademy/perseus";
 
 interface Props {
+    apiOptions: APIOptions;
     backgroundImage: PerseusImageBackground;
     scale: number;
     onChange: ImageEditorProps["onChange"];
 }
 
 export default function ImageScaleInput({
+    apiOptions,
     backgroundImage,
     scale,
     onChange,
 }: Props) {
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
     const width = backgroundImage.width ?? 0;
     const height = backgroundImage.height ?? 0;
 
@@ -93,8 +100,8 @@ export default function ImageScaleInput({
         });
     }
 
-    return (
-        <div className={styles.dimensionsContainer}>
+    const originalDimensionsArea = (
+        <>
             <BodyMonospace>
                 Dimensions: {width} x {height}
             </BodyMonospace>
@@ -106,6 +113,20 @@ export default function ImageScaleInput({
             >
                 Recalculate original size
             </Button>
+        </>
+    );
+
+    if (!scaleFF) {
+        return (
+            <div className={styles.dimensionsContainer}>
+                {originalDimensionsArea}
+            </div>
+        );
+    }
+
+    return (
+        <div className={styles.dimensionsContainer}>
+            {originalDimensionsArea}
 
             <div className={styles.horizontalLine} />
 
