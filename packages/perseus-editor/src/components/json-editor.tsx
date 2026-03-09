@@ -81,7 +81,7 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
     handleChange(e) {
         const nextString = e.target.value;
         try {
-            let json = this.typesafeParse(nextString);
+            let json = this.typesafeParseOrThrow(nextString);
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
@@ -103,32 +103,12 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
         }
     }
 
-    private typesafeParse(json: string): TData {
-        const parsed = this.props.parser(json);
-        if (isSuccess(parsed)) {
-            return parsed.value;
-        }
-
-        // Parse JSON embedded in quoted strings. This makes it easier to
-        // paste in data from e.g. the browser devtools' Network tab.
-        const parsedFromQuotedString = this.props.parser(JSON.parse(json));
-        if (isSuccess(parsedFromQuotedString)) {
-            return parsedFromQuotedString.value;
-        }
-
-        throw new TypeError("JsonEditor: parse failure");
-    }
-
     // You can type whatever you want as you're typing, but if it's not valid
     // when you blur, it will revert to the last valid value.
     handleBlur(e) {
         const nextString = e.target.value;
         try {
-            let json = JSON.parse(nextString);
-            // Some extra handling to allow copy-pasting from /api/vi
-            if (_.isString(json)) {
-                json = JSON.parse(json);
-            }
+            const json = this.typesafeParseOrThrow(nextString)
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
@@ -148,6 +128,22 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
                 valid: true,
             });
         }
+    }
+
+    private typesafeParseOrThrow(json: string): TData {
+        const parsed = this.props.parser(json);
+        if (isSuccess(parsed)) {
+            return parsed.value;
+        }
+
+        // Parse JSON embedded in quoted strings. This makes it easier to
+        // paste in data from e.g. the browser devtools' Network tab.
+        const parsedFromQuotedString = this.props.parser(JSON.parse(json));
+        if (isSuccess(parsedFromQuotedString)) {
+            return parsedFromQuotedString.value;
+        }
+
+        throw new TypeError("JsonEditor: parse failure");
     }
 
     render() {
