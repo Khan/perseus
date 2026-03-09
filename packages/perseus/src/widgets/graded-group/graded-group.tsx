@@ -353,8 +353,6 @@ export class GradedGroup
                         <div role="status" aria-live="polite">
                             <Renderer
                                 content={this.state.message}
-                                widgets={{}}
-                                images={{}}
                                 strings={this.context.strings}
                             />
                         </div>
