@@ -120,6 +120,34 @@ describe("JsonEditor", () => {
         });
     });
 
+    it("should call onChange when a quoted string containing valid JSON is entered", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        const initialValue = {question: {content: "test"}};
+
+        render(
+            <JsonEditor
+                multiLine={true}
+                value={initialValue}
+                parser={parseAndMigratePerseusItem}
+                onChange={onChangeMock}
+                editingDisabled={false}
+            />,
+        );
+
+        const textarea = screen.getByRole("textbox");
+
+        // Act
+        await userEvent.clear(textarea);
+        textarea.focus();
+        await userEvent.paste('"{\\"question\\": {\\"content\\": \\"new content\\"}}"');
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith(expect.objectContaining({
+            question: {content: "new content", images: {}, widgets: {}},
+        }));
+    });
+
     it("should not call onChange for malformed JSON", async () => {
         // Arrange
         const onChangeMock = jest.fn();

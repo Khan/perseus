@@ -2,7 +2,7 @@
 import * as React from "react";
 import _ from "underscore";
 
-import {isFailure, Result} from "@khanacademy/perseus-core";
+import {isSuccess, Result} from "@khanacademy/perseus-core";
 
 type Props<TData> = {
     multiLine: boolean;
@@ -103,24 +103,20 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
         }
     }
 
-    // WISH: rewrite this function to avoid the repeated isFailure checks and
-    // throws.
     private typesafeParse(json: string): TData {
-        let parsed = this.props.parser(json);
-
-        if (isFailure(parsed) && json.match(/^"/)) {
-            const parsedFromQuotedString = this.props.parser(JSON.parse(json))
-            if (isFailure(parsedFromQuotedString)) {
-                throw new TypeError("JsonEditor: parse failure")
-            }
-            return parsedFromQuotedString.value
+        const parsed = this.props.parser(json);
+        if (isSuccess(parsed)) {
+            return parsed.value;
         }
 
-        if (isFailure(parsed)) {
-            throw new TypeError("JsonEditor: parse failure")
+        // Parse JSON embedded in quoted strings. This makes it easier to
+        // paste in data from e.g. the browser devtools' Network tab.
+        const parsedFromQuotedString = this.props.parser(JSON.parse(json));
+        if (isSuccess(parsedFromQuotedString)) {
+            return parsedFromQuotedString.value;
         }
 
-        return parsed.value;
+        throw new TypeError("JsonEditor: parse failure");
     }
 
     // You can type whatever you want as you're typing, but if it's not valid
