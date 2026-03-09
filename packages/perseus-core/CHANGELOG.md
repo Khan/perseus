@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 23.3.0
+
+### Minor Changes
+
+-   [#3303](https://github.com/Khan/perseus/pull/3303) [`83402a8bf5`](https://github.com/Khan/perseus/commit/83402a8bf5e89153e7681ea03adb77b50e6c8975) Thanks [@benchristel](https://github.com/benchristel)! - When parsing Perseus JSON (articles, items, and user input), discard unrecognized object properties.
+
 ## 23.2.0
 
 ### Minor Changes

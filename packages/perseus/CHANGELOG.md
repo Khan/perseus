@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 75.6.0
+
+### Minor Changes
+
+-   [#3312](https://github.com/Khan/perseus/pull/3312) [`e181ce906d`](https://github.com/Khan/perseus/commit/e181ce906d54a2515efa5a7338f7e627223acffe) Thanks [@Myranae](https://github.com/Myranae)! - Fix TeX rendering in Graded Group message to user
+
+*   [#3299](https://github.com/Khan/perseus/pull/3299) [`5159e994de`](https://github.com/Khan/perseus/commit/5159e994de7ba010f7838ae7f71ccff4c5ac9832) Thanks [@benchristel](https://github.com/benchristel)! - Deprecate unused fields of `APIOptions`: `setDrawingAreaAvailable`, `canScrollPage`, and `editorChangeDelay`.
+
+### Patch Changes
+
+-   [#3307](https://github.com/Khan/perseus/pull/3307) [`e108dc754d`](https://github.com/Khan/perseus/commit/e108dc754df0b78cb44763875d76fa8958564e17) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Remove redundant strings for gif controls
+
+-   Updated dependencies [[`810a8d419c`](https://github.com/Khan/perseus/commit/810a8d419ca937a5682753f548fcbebbfa368479), [`83402a8bf5`](https://github.com/Khan/perseus/commit/83402a8bf5e89153e7681ea03adb77b50e6c8975)]:
+    -   @khanacademy/perseus-linter@4.8.3
+    -   @khanacademy/perseus-core@23.3.0
+    -   @khanacademy/keypad-context@3.2.35
+    -   @khanacademy/kmath@2.2.35
+    -   @khanacademy/math-input@26.4.4
+    -   @khanacademy/perseus-score@8.2.12
+
 ## 75.5.0
 
 ### Minor Changes
