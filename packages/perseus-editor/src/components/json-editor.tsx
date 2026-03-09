@@ -2,15 +2,14 @@
 import * as React from "react";
 import _ from "underscore";
 
-type Props = {
-    multiLine: boolean;
-    value: any;
-    onChange: (newJson: any) => void;
-    editingDisabled: boolean;
-};
+import type {Result} from "@khanacademy/perseus-core";
 
-type DefaultProps = {
-    value: Props["value"];
+type Props<TData> = {
+    multiLine: boolean;
+    value: TData;
+    onChange: (newJson: TData) => void;
+    parser: (json: string) => Result<TData, unknown>;
+    editingDisabled: boolean;
 };
 
 type State = {
@@ -18,12 +17,8 @@ type State = {
     valid: boolean | undefined;
 };
 
-class JsonEditor extends React.Component<Props, State> {
+class JsonEditor<TData> extends React.Component<Props<TData>, State> {
     static displayName: "JsonEditor";
-
-    static defaultProps: DefaultProps = {
-        value: {},
-    };
 
     constructor(props) {
         super(props);
@@ -41,7 +36,7 @@ class JsonEditor extends React.Component<Props, State> {
         };
     }
 
-    componentDidUpdate(prevProps: Props) {
+    componentDidUpdate(prevProps: Props<TData>) {
         if (!_.isEqual(prevProps.value, this.props.value)) {
             const shouldReplaceContent =
                 !this.state.valid ||
