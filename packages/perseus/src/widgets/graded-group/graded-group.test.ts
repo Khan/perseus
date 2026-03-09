@@ -264,7 +264,7 @@ describe("graded-group", () => {
             // rendered as literal text but passed through the TeX pipeline
             // (mocked as .mock-TeX spans in tests)
             expect(screen.queryByText(texMessage)).not.toBeInTheDocument();
-            expect(document.querySelector(".mock-TeX")).toBeInTheDocument();
+            expect(screen.getByText("x = 5")).toBeInTheDocument();
         });
 
         it("should not show rationales when answer is incorrect", async () => {
