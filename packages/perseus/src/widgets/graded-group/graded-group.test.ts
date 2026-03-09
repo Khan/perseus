@@ -260,9 +260,7 @@ describe("graded-group", () => {
             // Act
             await checkAnswer(userEvent);
 
-            // Assert - TeX is processed: the raw "$x = 5$" string is not
-            // rendered as literal text but passed through the TeX pipeline
-            // (mocked as .mock-TeX spans in tests)
+            // Assert
             expect(screen.queryByText(texMessage)).not.toBeInTheDocument();
             expect(screen.getByText("x = 5")).toBeInTheDocument();
         });
