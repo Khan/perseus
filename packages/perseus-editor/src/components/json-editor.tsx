@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-invalid-this */
+import {isSuccess} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
-import {isSuccess, Result} from "@khanacademy/perseus-core";
+import type {Result} from "@khanacademy/perseus-core";
 
 type Props<TData> = {
     multiLine: boolean;
@@ -81,7 +82,7 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
     handleChange(e) {
         const nextString = e.target.value;
         try {
-            let json = this.typesafeParseOrThrow(nextString);
+            const json = this.typesafeParseOrThrow(nextString);
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
@@ -108,7 +109,7 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
     handleBlur(e) {
         const nextString = e.target.value;
         try {
-            const json = this.typesafeParseOrThrow(nextString)
+            const json = this.typesafeParseOrThrow(nextString);
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through

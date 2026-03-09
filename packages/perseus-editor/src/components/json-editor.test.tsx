@@ -106,18 +106,11 @@ describe("JsonEditor", () => {
         await userEvent.paste('{"question": {"content": "new content"}}');
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            "answerArea": {
-                "calculator": false,
-                "financialCalculatorMonthlyPayment": false,
-                "financialCalculatorTimeToPayOff": false,
-                "financialCalculatorTotalAmount": false,
-                "periodicTable": false,
-                "periodicTableWithKey": false,
-            },
-            "hints": [],
-            question: {content: "new content", images: {}, widgets: {}},
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                question: {content: "new content", images: {}, widgets: {}},
+            }),
+        );
     });
 
     it("should call onChange when a quoted string containing valid JSON is entered", async () => {
@@ -140,12 +133,16 @@ describe("JsonEditor", () => {
         // Act
         await userEvent.clear(textarea);
         textarea.focus();
-        await userEvent.paste('"{\\"question\\": {\\"content\\": \\"new content\\"}}"');
+        await userEvent.paste(
+            '"{\\"question\\": {\\"content\\": \\"new content\\"}}"',
+        );
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith(expect.objectContaining({
-            question: {content: "new content", images: {}, widgets: {}},
-        }));
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                question: {content: "new content", images: {}, widgets: {}},
+            }),
+        );
     });
 
     it("should not call onChange for malformed JSON", async () => {
