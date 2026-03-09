@@ -107,7 +107,16 @@ describe("JsonEditor", () => {
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
-            question: {content: "new content"},
+            "answerArea": {
+                "calculator": false,
+                "financialCalculatorMonthlyPayment": false,
+                "financialCalculatorTimeToPayOff": false,
+                "financialCalculatorTotalAmount": false,
+                "periodicTable": false,
+                "periodicTableWithKey": false,
+            },
+            "hints": [],
+            question: {content: "new content", images: {}, widgets: {}},
         });
     });
 
@@ -137,7 +146,31 @@ describe("JsonEditor", () => {
         expect(onChangeMock).not.toHaveBeenCalled();
     });
 
-    // TODO: should not call onChange for JSON that fails the given parser
+    it("should not call onChange for well-formed JSON that fails the given parser", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        const initialValue = {question: {content: "test"}};
+
+        render(
+            <JsonEditor
+                multiLine={true}
+                value={initialValue}
+                parser={parseAndMigratePerseusItem}
+                onChange={onChangeMock}
+                editingDisabled={false}
+            />,
+        );
+
+        const textarea = screen.getByRole("textbox");
+
+        // Act: paste JSON where 'content' has the wrong type
+        await userEvent.clear(textarea);
+        textarea.focus();
+        await userEvent.paste('{"question": {"content": 999}}');
+
+        // Assert
+        expect(onChangeMock).not.toHaveBeenCalled();
+    });
 
     it("should be disabled when editingDisabled is true", () => {
         // Arrange

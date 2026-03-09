@@ -2,7 +2,7 @@
 import * as React from "react";
 import _ from "underscore";
 
-import type {Result} from "@khanacademy/perseus-core";
+import {isFailure, Result} from "@khanacademy/perseus-core";
 
 type Props<TData> = {
     multiLine: boolean;
@@ -81,11 +81,7 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
     handleChange(e) {
         const nextString = e.target.value;
         try {
-            let json = JSON.parse(nextString);
-            // Some extra handling to allow copy-pasting from /api/vi
-            if (_.isString(json)) {
-                json = JSON.parse(json);
-            }
+            let json = this.typesafeParse(nextString);
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
@@ -105,6 +101,26 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
                 valid: false,
             });
         }
+    }
+
+    // WISH: rewrite this function to avoid the repeated isFailure checks and
+    // throws.
+    private typesafeParse(json: string): TData {
+        let parsed = this.props.parser(json);
+
+        if (isFailure(parsed) && json.match(/^"/)) {
+            const parsedFromQuotedString = this.props.parser(JSON.parse(json))
+            if (isFailure(parsedFromQuotedString)) {
+                throw new TypeError("JsonEditor: parse failure")
+            }
+            return parsedFromQuotedString.value
+        }
+
+        if (isFailure(parsed)) {
+            throw new TypeError("JsonEditor: parse failure")
+        }
+
+        return parsed.value;
     }
 
     // You can type whatever you want as you're typing, but if it's not valid
