@@ -374,7 +374,14 @@ describe("image editor", () => {
         expect(screen.queryByText(nonKhanImageWarning)).not.toBeInTheDocument();
     });
 
-    it("should call onChange with resized image when width is changed", async () => {
+    {
+        /* Skipping tests for the temporarily disabled sizing feature.
+            We can unskip if needed, or remove them entirely when
+            scaling is fully released and sizing is no longer disabled.
+        */
+    }
+
+    it.skip("should call onChange with resized image when width is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -406,7 +413,7 @@ describe("image editor", () => {
         });
     });
 
-    it("should call onChange with resized image when height is changed", async () => {
+    it.skip("should call onChange with resized image when height is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -436,6 +443,23 @@ describe("image editor", () => {
                 height: 100,
             },
         });
+    });
+
+    it("should have disabled width and height inputs when the sizing feature is disabled", () => {
+        // Arrange, Act
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                backgroundImage={earthMoonImage}
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        const widthField = screen.getByRole("spinbutton", {name: "Width"});
+        const heightField = screen.getByRole("spinbutton", {name: "Height"});
+        expect(widthField).toHaveAttribute("aria-disabled", "true");
+        expect(heightField).toHaveAttribute("aria-disabled", "true");
     });
 
     it("should call onChange with original image size when reset to original size is clicked", async () => {
