@@ -1,5 +1,24 @@
 # @khanacademy/perseus-editor
 
+## 28.15.0
+
+### Minor Changes
+
+-   [#3310](https://github.com/Khan/perseus/pull/3310) [`1ed915b32b`](https://github.com/Khan/perseus/commit/1ed915b32b279518d35de9517ed33b497ebc5468) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade-alignment feature flag
+
+*   [#3314](https://github.com/Khan/perseus/pull/3314) [`a734a7479c`](https://github.com/Khan/perseus/commit/a734a7479cd32c02fc427b467406b12f56081669) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Disable image sizing fields
+
+### Patch Changes
+
+-   Updated dependencies [[`1ed915b32b`](https://github.com/Khan/perseus/commit/1ed915b32b279518d35de9517ed33b497ebc5468)]:
+    -   @khanacademy/perseus@75.7.0
+    -   @khanacademy/perseus-core@23.4.0
+    -   @khanacademy/keypad-context@3.2.36
+    -   @khanacademy/kmath@2.2.36
+    -   @khanacademy/math-input@26.4.5
+    -   @khanacademy/perseus-linter@4.8.4
+    -   @khanacademy/perseus-score@8.2.13
+
 ## 28.14.4
 
 ### Patch Changes
