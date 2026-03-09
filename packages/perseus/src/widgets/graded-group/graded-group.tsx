@@ -350,9 +350,14 @@ export class GradedGroup
                             </div>
                         )}
 
-                        <p role="status" aria-live="polite">
-                            {this.state.message}
-                        </p>
+                        {/* Using Renderer so TeX expressions in
+                           answer messages are displayed as formatted math */}
+                        <div role="status" aria-live="polite">
+                            <Renderer
+                                content={this.state.message}
+                                strings={this.context.strings}
+                            />
+                        </div>
 
                         <Button
                             kind="secondary"

@@ -3,7 +3,6 @@ import {Widgets, excludeDenylistKeys} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
-    isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -13,6 +12,7 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import {useId} from "react";
 
+import {AlignmentSelect} from "./alignment-select";
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
 
@@ -146,21 +146,11 @@ class WidgetEditor extends React.Component<
 
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
-        const imageUpgradeAlignmentFF = isFeatureOn(
-            this.props,
-            "image-widget-upgrade-alignment",
-        );
 
         if (this.props.apiOptions.showAlignmentOptions) {
-            // TODO(LEMS-3520): Feature flag cleanup
-            // Remove if statement once the image alignment upgrade FF is released
-            if (widgetInfo.type === "image" && !imageUpgradeAlignmentFF) {
-                supportedAlignments = ["block", "full-width"];
-            } else {
-                supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
-                    widgetInfo.type,
-                );
-            }
+            supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
+                widgetInfo.type,
+            );
         } else {
             // NOTE(kevinb): "default" is not one in `validAlignments` in widgets.js.
             supportedAlignments = ["default"];
@@ -202,16 +192,12 @@ class WidgetEditor extends React.Component<
                         />
                     )}
                     {supportedAlignments.length > 1 && (
-                        <select
-                            className="alignment"
-                            value={widgetInfo.alignment}
-                            disabled={isEditingDisabled}
+                        <AlignmentSelect
+                            supportedAlignments={supportedAlignments}
+                            widgetInfo={widgetInfo}
+                            isEditingDisabled={isEditingDisabled}
                             onChange={this._handleAlignmentChange}
-                        >
-                            {supportedAlignments.map((alignment) => (
-                                <option key={alignment}>{alignment}</option>
-                            ))}
-                        </select>
+                        />
                     )}
                     <SectionControlButton
                         icon={trashIcon}

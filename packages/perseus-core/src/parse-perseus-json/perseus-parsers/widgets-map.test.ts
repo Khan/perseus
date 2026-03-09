@@ -129,7 +129,6 @@ describe("parseWidgetsMap", () => {
                     settings: [],
                     showEditor: false,
                     showButtons: false,
-                    width: 0,
                     height: 0,
                     static: false,
                 },
@@ -506,7 +505,6 @@ describe("parseWidgetsMap", () => {
                     rulerPixels: 1,
                     rulerLength: 1,
                     box: [1, 1],
-                    static: false,
                 },
             },
         };

@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 23.4.0
+
+### Minor Changes
+
+-   [#3310](https://github.com/Khan/perseus/pull/3310) [`1ed915b32b`](https://github.com/Khan/perseus/commit/1ed915b32b279518d35de9517ed33b497ebc5468) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade-alignment feature flag
+
+## 23.3.0
+
+### Minor Changes
+
+-   [#3303](https://github.com/Khan/perseus/pull/3303) [`83402a8bf5`](https://github.com/Khan/perseus/commit/83402a8bf5e89153e7681ea03adb77b50e6c8975) Thanks [@benchristel](https://github.com/benchristel)! - When parsing Perseus JSON (articles, items, and user input), discard unrecognized object properties.
+
 ## 23.2.0
 
 ### Minor Changes
