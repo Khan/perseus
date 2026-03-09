@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 23.4.0
+
+### Minor Changes
+
+-   [#3310](https://github.com/Khan/perseus/pull/3310) [`1ed915b32b`](https://github.com/Khan/perseus/commit/1ed915b32b279518d35de9517ed33b497ebc5468) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade-alignment feature flag
+
 ## 23.3.0
 
 ### Minor Changes
