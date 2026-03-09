@@ -1730,22 +1730,19 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // We can calculate the true scale of the graphie by taking actual width and dividing by the expected width.
         // NOTE: Using 'replace' to remove the "px" unit from the end of the expected width value.
         let scale =
-            (($container.width() ?? 0) /
-                parseInt(expectedWidth.replace(/px$/, ""))) *
-            100;
-        // If something failed in the calculation, then default to 100% scale.
+            ($container.width() ?? 0) /
+            parseInt(expectedWidth.replace(/px$/, ""));
+        // If something failed in the calculation, then default to full scale.
         if (isNaN(scale)) {
-            scale = 100;
+            scale = 1;
         } else if (scale === 0) {
-            scale = 100;
+            scale = 1;
         }
 
         // Any padding needs to be scaled accordingly.
         const padding = $span.css("padding") ?? "0px";
         const currentPadding = padding !== "none" ? padding : "0px";
-        const rawPadding = Math.round(
-            parseInt(currentPadding.replace(/px$/, "")),
-        );
+        const rawPadding = parseInt(currentPadding.replace(/px$/, ""));
 
         // Make a new variable for the recalculated width and height
         // so that we don't mutate the original width and height later.
@@ -1774,22 +1771,18 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
                 (height - totalPadding) / imageScale + totalPadding;
         }
 
-        const newPadding = Math.round(rawPadding * scale) / 100;
+        const newPadding = rawPadding * scale;
 
         // "multipliers" basically move the position of the text by using 1, 0, -1
         // 'margin-left' and 'margin-top' are used to position the text.
         // Margin and font size need to be scaled accordingly.
         const multipliers = labelDirections[direction || "center"];
         const styling = {
-            marginLeft:
-                Math.round(normalizedWidth * multipliers[0] * scale) / 100,
-            marginTop:
-                Math.round(normalizedHeight * multipliers[1] * scale) / 100,
+            marginLeft: normalizedWidth * multipliers[0] * scale,
+            marginTop: normalizedHeight * multipliers[1] * scale,
             padding: `${newPadding}px`,
+            fontSize: `${scale * 100}%`,
         };
-        if (scale !== 1) {
-            styling["fontSize"] = `${Math.round(scale * 100) / 100}%`;
-        }
         $span.css(styling);
     }
 };
