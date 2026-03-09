@@ -54,7 +54,7 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
     getCurrentValueAsJson() {
         try {
             return this.state.currentValue
-                ? JSON.parse(this.state.currentValue)
+                ? this.typesafeParseOrThrow(this.state.currentValue)
                 : {};
         } catch {
             return null;
