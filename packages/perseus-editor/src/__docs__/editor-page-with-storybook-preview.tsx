@@ -4,6 +4,7 @@ import {
     type DeviceType,
 } from "@khanacademy/perseus";
 import {
+    getDefaultAnswerArea,
     type Hint,
     type PerseusAnswerArea,
     type PerseusRenderer,
@@ -50,14 +51,7 @@ function EditorPageWithStorybookPreview(props: Props) {
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");
     const [jsonMode, setJsonMode] = React.useState<boolean | undefined>(false);
-    const [answerArea, setAnswerArea] = React.useState<PerseusAnswerArea>({
-        calculator: false,
-        financialCalculatorMonthlyPayment: false,
-        financialCalculatorTotalAmount: false,
-        financialCalculatorTimeToPayOff: false,
-        periodicTable: false,
-        periodicTableWithKey: false,
-    });
+    const [answerArea, setAnswerArea] = React.useState<PerseusAnswerArea>(getDefaultAnswerArea);
     const [question, setQuestion] =
         React.useState<PerseusRenderer>(initialQuestion);
     const [hints, setHints] = React.useState<Hint[]>(initialHints);
