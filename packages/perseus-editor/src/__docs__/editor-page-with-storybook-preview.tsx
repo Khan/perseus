@@ -51,7 +51,8 @@ function EditorPageWithStorybookPreview(props: Props) {
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");
     const [jsonMode, setJsonMode] = React.useState<boolean | undefined>(false);
-    const [answerArea, setAnswerArea] = React.useState<PerseusAnswerArea>(getDefaultAnswerArea);
+    const [answerArea, setAnswerArea] =
+        React.useState<PerseusAnswerArea>(getDefaultAnswerArea);
     const [question, setQuestion] =
         React.useState<PerseusRenderer>(initialQuestion);
     const [hints, setHints] = React.useState<Hint[]>(initialHints);
