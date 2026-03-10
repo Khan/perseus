@@ -41,6 +41,7 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
@@ -199,14 +200,10 @@ export const InteractiveGraphZeroBounds = (): React.ReactElement => {
 export const WithSaveWarnings = (): React.ReactElement => {
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");
-    const [jsonMode, setJsonMode] = React.useState<boolean | undefined>(false);
-    const [answerArea, setAnswerArea] = React.useState<
-        PerseusAnswerArea | undefined | null
-    >();
-    const [question, setQuestion] = React.useState<PerseusRenderer | undefined>(
-        segmentWithLockedFigures,
-    );
-    const [hints, setHints] = React.useState<ReadonlyArray<Hint> | undefined>();
+    const [jsonMode, setJsonMode] = React.useState(false);
+    const [answerArea, setAnswerArea] = React.useState<PerseusAnswerArea>(getDefaultAnswerArea());
+    const [question, setQuestion] = React.useState(segmentWithLockedFigures);
+    const [hints, setHints] = React.useState<Hint[]>([]);
     const [saveWarnings, setSaveWarnings] = React.useState<string[]>([]);
 
     const editorPageRef = React.useRef<EditorPage>(null);
@@ -240,16 +237,16 @@ export const WithSaveWarnings = (): React.ReactElement => {
                 onChange={(props) => {
                     onChangeAction(props);
 
-                    if ("jsonMode" in props) {
+                    if (props.jsonMode != null) {
                         setJsonMode(props.jsonMode);
                     }
-                    if ("answerArea" in props) {
+                    if (props.answerArea != null) {
                         setAnswerArea(props.answerArea);
                     }
-                    if ("question" in props) {
+                    if (props.question != null) {
                         setQuestion(props.question);
                     }
-                    if ("hints" in props) {
+                    if (props.hints != null) {
                         setHints(props.hints);
                     }
                 }}

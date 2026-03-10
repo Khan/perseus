@@ -32,6 +32,7 @@ export const WithEditingDisabled = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
             question={comprehensiveQuestion}
+            hints={[]}
             apiOptions={disabledApiOptions}
         />
     );

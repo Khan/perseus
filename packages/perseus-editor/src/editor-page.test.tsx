@@ -15,6 +15,7 @@ import {
 import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
 
 import type {UserEvent} from "@testing-library/user-event";
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 
 describe("EditorPage", () => {
     beforeAll(() => {
@@ -58,6 +59,8 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={question}
+                hints={[]}
+                answerArea={getDefaultAnswerArea()}
                 onChange={(next) => (callbackValue = next)}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -82,6 +85,8 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={callbackValue.question}
+                hints={[]}
+                answerArea={getDefaultAnswerArea()}
                 onChange={(next) => (callbackValue = next)}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -141,6 +146,8 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={startRenderer}
+                hints={[]}
+                answerArea={getDefaultAnswerArea()}
                 onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -203,6 +210,8 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={question}
+                hints={[]}
+                answerArea={getDefaultAnswerArea()}
                 onChange={() => {}}
                 apiOptions={{editingDisabled: true}}
                 onPreviewDeviceChange={() => {}}
@@ -246,6 +255,8 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={initialQuestion}
+                hints={[]}
+                answerArea={getDefaultAnswerArea()}
                 onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -262,6 +273,8 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={updatedQuestion}
+                hints={[]}
+                answerArea={getDefaultAnswerArea()}
                 onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -292,6 +305,8 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={startRenderer}
+                hints={[]}
+                answerArea={getDefaultAnswerArea()}
                 onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -313,7 +328,8 @@ describe("EditorPage", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             {
-                answerArea: {},
+                hints: [],
+                answerArea: getDefaultAnswerArea(),
                 question: {
                     content: "That's an [[☃ definition 1]]!",
                     images: {},
@@ -332,8 +348,6 @@ describe("EditorPage", () => {
                     },
                 },
             },
-            expect.any(Function),
-            undefined,
         );
     });
 });

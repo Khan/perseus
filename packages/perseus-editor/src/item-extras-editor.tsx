@@ -7,6 +7,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 
@@ -18,14 +19,7 @@ type Props = PerseusAnswerArea & {
 };
 
 class ItemExtrasEditor extends React.Component<Props> {
-    static defaultProps: PerseusAnswerArea = {
-        calculator: false,
-        financialCalculatorMonthlyPayment: false,
-        financialCalculatorTotalAmount: false,
-        financialCalculatorTimeToPayOff: false,
-        periodicTable: false,
-        periodicTableWithKey: false,
-    };
+    static defaultProps: PerseusAnswerArea = getDefaultAnswerArea();
 
     shouldShowFinancialCalculatorOptions() {
         return (
