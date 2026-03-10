@@ -24,7 +24,8 @@ import type {
 import type {
     PerseusAnswerArea,
     PerseusWidgetsMap,
-    PerseusRenderer, PerseusItem,
+    PerseusRenderer,
+    PerseusItem,
 } from "@khanacademy/perseus-core";
 
 type Props = {

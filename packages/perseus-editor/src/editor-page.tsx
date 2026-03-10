@@ -17,8 +17,6 @@ import type {Issue} from "./components/issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
-    // eslint-disable-next-line import/no-deprecated
-    ChangeHandler,
     DeviceType,
     ImageUploader,
     PerseusDependenciesV2,
@@ -33,11 +31,11 @@ import type {
 const {HUD} = components;
 
 type OnChangeParams = {
-    jsonMode?: boolean
-    question?: PerseusRenderer
-    hints?: Hint[]
-    answerArea?: PerseusAnswerArea | null | undefined
-}
+    jsonMode?: boolean;
+    question?: PerseusRenderer;
+    hints?: Hint[];
+    answerArea?: PerseusAnswerArea | null | undefined;
+};
 
 type Props = {
     /** Additional templates that the host application would like to display
@@ -180,10 +178,6 @@ class EditorPage extends React.Component<Props, State> {
      * we need to update state.json to reflect those changes.
      */
     syncJsonStateFromProps() {
-        if (!this.props.question) {
-            return;
-        }
-
         this.setState({
             json: {
                 question: this.props.question,

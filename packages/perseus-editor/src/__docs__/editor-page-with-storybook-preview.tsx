@@ -44,7 +44,7 @@ const onChangeAction = action("onChange");
 function EditorPageWithStorybookPreview(props: Props) {
     const {
         hints: initialHints = [],
-        question: initialQuestion = {content: "", widgets: {}, images: {}}
+        question: initialQuestion = {content: "", widgets: {}, images: {}},
     } = props;
 
     const [previewDevice, setPreviewDevice] =
@@ -58,12 +58,9 @@ function EditorPageWithStorybookPreview(props: Props) {
         periodicTable: false,
         periodicTableWithKey: false,
     });
-    const [question, setQuestion] = React.useState<PerseusRenderer>(
-        initialQuestion,
-    );
-    const [hints, setHints] = React.useState<Hint[]>(
-        initialHints,
-    );
+    const [question, setQuestion] =
+        React.useState<PerseusRenderer>(initialQuestion);
+    const [hints, setHints] = React.useState<Hint[]>(initialHints);
 
     const apiOptions = props.apiOptions ?? {
         isMobile: false,

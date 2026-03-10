@@ -1,3 +1,4 @@
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {
@@ -35,13 +36,8 @@ import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-wi
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 
 import type {DeviceType} from "@khanacademy/perseus";
-import type {
-    Hint,
-    PerseusAnswerArea,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {Hint, PerseusAnswerArea} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
-import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
@@ -201,7 +197,9 @@ export const WithSaveWarnings = (): React.ReactElement => {
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");
     const [jsonMode, setJsonMode] = React.useState(false);
-    const [answerArea, setAnswerArea] = React.useState<PerseusAnswerArea>(getDefaultAnswerArea());
+    const [answerArea, setAnswerArea] = React.useState<PerseusAnswerArea>(
+        getDefaultAnswerArea(),
+    );
     const [question, setQuestion] = React.useState(segmentWithLockedFigures);
     const [hints, setHints] = React.useState<Hint[]>([]);
     const [saveWarnings, setSaveWarnings] = React.useState<string[]>([]);
