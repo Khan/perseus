@@ -4,6 +4,7 @@ import {
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
     parseAndMigrateUserInputMap,
+    parseAndMigratePerseusRenderer,
 } from "./index";
 
 describe("parseAndMigratePerseusItem", () => {
@@ -204,5 +205,79 @@ describe("parseAndMigrateUserInputMap", () => {
 
     it("throws a SyntaxError given malformed JSON", () => {
         expect(() => parseAndMigrateUserInputMap("")).toThrow(SyntaxError);
+    });
+});
+
+describe("parseAndMigratePerseusRenderer", () => {
+    it("parses a single renderer from a string", () => {
+        const result = parseAndMigratePerseusRenderer(
+            `{"content": "", "widgets": {}}`,
+        );
+
+        expect(result).toEqual(
+            success({
+                content: "",
+                widgets: {},
+                images: {},
+            }),
+        );
+    });
+
+    it("fails given an invalid renderer shape", () => {
+        const result = parseAndMigratePerseusRenderer({
+            content: 9,
+            widgets: {},
+        });
+
+        assertFailure(result);
+        expect(result.detail.message).toEqual(
+            "At (root).content -- expected string, but got 9",
+        );
+    });
+
+    it("parses a single renderer", () => {
+        const result = parseAndMigratePerseusRenderer({
+            content: "",
+            widgets: {},
+        });
+
+        expect(result).toEqual(
+            success({
+                content: "",
+                widgets: {},
+                images: {},
+            }),
+        );
+    });
+
+    it("fails given an invalid data string", () => {
+        const result = parseAndMigratePerseusRenderer("[9]");
+
+        assertFailure(result);
+        expect(result.detail.message).toEqual(
+            "At (root) -- expected object, but got [9]",
+        );
+    });
+
+    it("fails given invalid data", () => {
+        const result = parseAndMigratePerseusRenderer([9]);
+
+        assertFailure(result);
+        expect(result.detail.message).toEqual(
+            "At (root) -- expected object, but got [9]",
+        );
+    });
+
+    it("returns the invalid object along with the error", () => {
+        const result = parseAndMigratePerseusRenderer("[9]");
+
+        assertFailure(result);
+        expect(result.detail.invalidObject).toEqual([9]);
+    });
+
+    it("throws an error given malformed JSON", () => {
+        expect(() => parseAndMigratePerseusRenderer("")).toThrow(
+            new SyntaxError("Unexpected end of JSON input"),
+        );
     });
 });

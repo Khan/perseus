@@ -8,11 +8,13 @@ import {
     parseAndMigratePerseusArticle,
     parseAndMigratePerseusItem,
     parseAndMigrateUserInputMap,
+    parseAndMigratePerseusRenderer,
 } from "../index";
 import {parse} from "../parse";
 import {parsePerseusArticle} from "../perseus-parsers/perseus-article";
 import {parsePerseusItem} from "../perseus-parsers/perseus-item";
 import {parseUserInputMap} from "../perseus-parsers/user-input-map";
+import {parsePerseusRenderer} from "../perseus-parsers/perseus-renderer";
 import {assertSuccess, mapFailure} from "../result";
 
 const itemDataDir = join(__dirname, "item-data");
@@ -23,6 +25,9 @@ const articleDataFiles = fs.readdirSync(articleDataDir);
 
 const userInputDataDir = join(__dirname, "user-input-data");
 const userInputDataFiles = fs.readdirSync(userInputDataDir);
+
+const rendererDataDir = join(__dirname, "renderer-data");
+const rendererDataFiles = fs.readdirSync(rendererDataDir);
 
 describe("parseAndMigratePerseusItem", () => {
     beforeAll(() => {
@@ -208,6 +213,46 @@ describe("parseAndMigrateUserInputMap", () => {
     });
 });
 
+describe("parseAndMigratePerseusRenderer", () => {
+    beforeAll(() => {
+        registerCoreWidgets();
+    });
+
+    describe.each(rendererDataFiles)("given %s", (filename) => {
+        async function getParseResult() {
+            const {default: data} = await import(join(rendererDataDir, filename));
+            return parseAndMigratePerseusRenderer(data);
+        }
+
+        it("parses successfully", async () => {
+            const result = await getParseResult();
+            // If the parse fails, get just the error message. This makes the test
+            // failure easier to read, since otherwise the entire `invalidObject`
+            // from the ParseFailureDetail would be printed.
+            const resultWithMessage = mapFailure(getMessage)(result);
+
+            expect(resultWithMessage).toEqual(anySuccess);
+        });
+
+        it("returns the same result as before", async () => {
+            const result = await getParseResult();
+            assertSuccess(result);
+            expect(result.value).toMatchSnapshot();
+        });
+
+        it("is not changed by a second pass through the parser", async () => {
+            const result = await getParseResult();
+            assertSuccess(result);
+
+            const result2 = parse(result.value, parsePerseusRenderer);
+
+            expect(result2).toEqual(anySuccess);
+            assertSuccess(result2);
+            expect(result2.value).toEqual(result.value);
+        });
+    });
+});
+
 describe("the regression test data", () => {
     const inDirectory = (dir: string) => (file: string) => join(dir, file);
 
@@ -215,6 +260,7 @@ describe("the regression test data", () => {
         ...articleDataFiles.map(inDirectory(articleDataDir)),
         ...itemDataFiles.map(inDirectory(itemDataDir)),
         ...userInputDataFiles.map(inDirectory(userInputDataDir)),
+        ...rendererDataFiles.map(inDirectory(rendererDataDir)),
     ];
 
     describe.each(dataPaths)("in %s", (path) => {
