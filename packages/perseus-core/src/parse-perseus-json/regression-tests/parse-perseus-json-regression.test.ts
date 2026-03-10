@@ -13,8 +13,8 @@ import {
 import {parse} from "../parse";
 import {parsePerseusArticle} from "../perseus-parsers/perseus-article";
 import {parsePerseusItem} from "../perseus-parsers/perseus-item";
-import {parseUserInputMap} from "../perseus-parsers/user-input-map";
 import {parsePerseusRenderer} from "../perseus-parsers/perseus-renderer";
+import {parseUserInputMap} from "../perseus-parsers/user-input-map";
 import {assertSuccess, mapFailure} from "../result";
 
 const itemDataDir = join(__dirname, "item-data");
@@ -220,7 +220,9 @@ describe("parseAndMigratePerseusRenderer", () => {
 
     describe.each(rendererDataFiles)("given %s", (filename) => {
         async function getParseResult() {
-            const {default: data} = await import(join(rendererDataDir, filename));
+            const {default: data} = await import(
+                join(rendererDataDir, filename)
+            );
             return parseAndMigratePerseusRenderer(data);
         }
 
