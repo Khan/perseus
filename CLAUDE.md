@@ -28,6 +28,7 @@ pnpm lint --fix            # Auto-fix linting issues
 pnpm prettier . --check    # Check Prettier formatting
 pnpm prettier . --write    # Auto-format code
 pnpm tsc                   # Type-check all packages
+pnpm knip                  # Find unused files, exports, and dependencies
 ```
 
 ### Testing Specific Packages
