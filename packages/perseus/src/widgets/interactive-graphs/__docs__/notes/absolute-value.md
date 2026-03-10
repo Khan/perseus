@@ -179,3 +179,53 @@ there is exactly one absolute value function of the form `m|x - h| + k` that pas
 5. **Vertex as coords[0]** — Following the Grapher widget convention, `coords[0]` is the
    vertex `(h, k)` and `coords[1]` is the second point that determines slope. This matches
    the intuition that the vertex is the primary defining feature of the curve.
+
+## Tasks
+
+### Core implementation
+
+- [x] Add `PerseusGraphTypeAbsoluteValue` to `data-schema.ts` and `PerseusGraphType` union
+- [x] Add `AbsoluteValueGraphCorrect` to `data-schema.ts` and `PerseusGraphCorrectType` union
+- [x] Add `AbsoluteValueGraphState` to `types.ts` and `InteractiveGraphState` union
+- [x] Add `absolute_value` parser to `interactive-graph-widget.ts`
+- [x] Add `absolute_value` case to `initialize-graph-state.ts`
+- [x] Add `absolute_value` case to `interactive-graph-reducer.ts` (`doMovePoint` + `doMovePointInFigure`)
+- [x] Add `absolute_value` case to `interactive-graph-state.ts` (`mafsStateToCurrentGraph`)
+- [x] Add `absolute_value` case to `mafs-state-to-interactive-graph.ts`
+- [x] Create `graphs/absolute-value.tsx` (rendering, coefficients, keyboard constraint, SR descriptions)
+- [x] Register `renderAbsoluteValueGraph` in `mafs-graph.tsx`
+- [x] Add `absoluteValue: { movePoint }` to the actions registry in `interactive-graph-action.ts`
+- [x] Add `absolute_value` case to `getEquationString` in `interactive-graph.tsx`
+- [x] Add `absolute_value` cases to `interactive-graph-ai-utils.ts`
+
+### Scoring
+
+- [x] Add `getAbsoluteValueCoefficients` and scoring block to `score-interactive-graph.ts`
+- [ ] Add dedicated scoring tests for absolute value in `score-interactive-graph.test.ts`
+
+### i18n
+
+- [x] Add screen reader strings to `strings.ts` (`srAbsoluteValueGraph`, `srAbsoluteValueVertexPoint`, `srAbsoluteValueSecondPoint`, `srAbsoluteValueDescription`, `srAbsoluteValueInteractiveElements`)
+
+### Testing
+
+- [ ] Create `graphs/absolute-value.test.tsx` (rendering, point dragging, same-x constraint, SR output)
+
+### Generators and test data
+
+- [x] Add `generateIGAbsoluteValueGraph` to `interactive-graph-widget-generator.ts`
+- [x] Export `generateIGAbsoluteValueGraph` from `packages/perseus-core/src/index.ts`
+- [x] Add `absoluteValueQuestion` and `absoluteValueQuestionWithDefaultCorrect` to `interactive-graph.testdata.ts`
+- [x] Add `withAbsoluteValue()` to `interactive-graph-question-builder.ts`
+
+### Storybook
+
+- [x] Add `AbsoluteValue` story to `interactive-graph.stories.tsx`
+
+### Editor support
+
+- [x] Add `absolute_value` case to the graph merge switch in `interactive-graph-editor.tsx`
+- [x] Add `absolute_value` to the start-coords support check in `start-coords/util.ts`
+- [ ] Add `"Absolute value function"` option to `graph-type-selector.tsx` dropdown
+- [ ] Create `start-coords/start-coords-absolute-value.tsx` component (mirrors `start-coords-sinusoid.tsx`)
+- [ ] Wire up start-coords component in `start-coords-settings.tsx`
