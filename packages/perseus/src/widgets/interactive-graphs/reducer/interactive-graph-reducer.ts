@@ -312,6 +312,7 @@ function doMovePointInFigure(
         case "polygon":
         case "quadratic":
         case "sinusoid":
+        case "logarithm":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -545,6 +546,39 @@ function doMovePoint(
                 }),
             };
         }
+        case "logarithm": {
+            const destination = action.destination;
+            const boundDestination = boundAndSnapToGrid(destination, state);
+
+            const newCoords: vec.Vector2[] = [...state.coords];
+            newCoords[action.index] = boundDestination;
+
+            // Points cannot be on the asymptote line
+            const asymptoteX = state.asymptote[0][X];
+            if (boundDestination[X] === asymptoteX) {
+                return state;
+            }
+
+            // Points must have different y-values
+            if (newCoords[0][Y] === newCoords[1][Y]) {
+                return state;
+            }
+
+            // All points must be on the same side of the asymptote
+            if (newCoords[0][X] > asymptoteX !== newCoords[1][X] > asymptoteX) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: boundDestination,
+                }),
+            };
+        }
         case "quadratic": {
             // Set up the new coords and check if the quadratic coefficients are valid
             const newCoords: QuadraticCoords = [...state.coords];
@@ -621,9 +655,51 @@ function doMoveCenter(
                 radiusPoint: newRadiusPoint,
             };
         }
+        case "logarithm": {
+            // Move the asymptote horizontally only
+            let newX = snap(state.snapStep, action.destination)[X];
+            const coords = state.coords;
+            const stepX = state.snapStep[X];
+
+            // Check if ALL points are on the same side of the new position
+            const allRight = coords[0][X] > newX && coords[1][X] > newX;
+            const allLeft = coords[0][X] < newX && coords[1][X] < newX;
+
+            if (!allRight && !allLeft) {
+                // The asymptote would be between points or on a point.
+                // Snap to whichever valid side the user is dragging
+                // toward, based on the requested position relative to
+                // the midpoint of the two points.
+                const leftMost = Math.min(coords[0][X], coords[1][X]);
+                const rightMost = Math.max(coords[0][X], coords[1][X]);
+                const midpoint = (leftMost + rightMost) / 2;
+
+                if (newX >= midpoint) {
+                    // User is dragging toward the right side
+                    newX = rightMost + stepX;
+                } else {
+                    // User is dragging toward the left side
+                    newX = leftMost - stepX;
+                }
+            }
+
+            // Final safety: asymptote must not land on either point
+            if (newX === coords[0][X] || newX === coords[1][X]) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                asymptote: [
+                    [newX, state.range[Y][0]],
+                    [newX, state.range[Y][1]],
+                ],
+            };
+        }
         default:
             throw new Error(
-                "The doMoveCenter action is only for circle graphs",
+                "The doMoveCenter action is only for circle or logarithm graphs",
             );
     }
 }

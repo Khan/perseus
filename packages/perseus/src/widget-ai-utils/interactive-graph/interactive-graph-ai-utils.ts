@@ -117,11 +117,17 @@ type SinusoidUserInput = {
     coords?: readonly Coord[] | null;
 };
 
+type LogarithmUserInput = {
+    coords?: readonly Coord[] | null;
+    asymptote?: [Coord, Coord] | null;
+};
+
 type UserInput =
     | AngleUserInput
     | CircleUserInput
     | LinearUserInput
     | LinearSystemInput
+    | LogarithmUserInput
     | PointUserInput
     | PolygonUserInput
     | QuadraticUserInput
@@ -220,6 +226,11 @@ const getGraphOptionsForProps = (
                 type: props.userInput.type,
                 startCoords: props.userInput.startCoords,
             };
+        case "logarithm":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         case "none":
             return {};
         default:
@@ -272,6 +283,11 @@ const getUserInput = (userInput: PerseusGraphType): UserInput => {
         case "sinusoid":
             return {
                 coords: userInput.coords,
+            };
+        case "logarithm":
+            return {
+                coords: userInput.coords,
+                asymptote: userInput.asymptote,
             };
         case "none":
             return {};

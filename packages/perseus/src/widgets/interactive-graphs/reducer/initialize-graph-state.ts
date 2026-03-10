@@ -18,6 +18,7 @@ import type {
     PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
+    PerseusGraphTypeLogarithm,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -109,6 +110,12 @@ export function initializeGraphState(
                 ...shared,
                 type: graph.type,
                 coords: getSinusoidCoords(graph, range, step),
+            };
+        case "logarithm":
+            return {
+                ...shared,
+                type: graph.type,
+                ...getLogarithmCoords(graph, range, step),
             };
         case "angle":
             return {
@@ -363,6 +370,43 @@ export function getSinusoidCoords(
     coords = normalizePoints(range, step, coords, true);
 
     return coords;
+}
+
+export function getLogarithmCoords(
+    graph: PerseusGraphTypeLogarithm,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): {coords: [Coord, Coord]; asymptote: [Coord, Coord]} {
+    if (graph.coords && graph.asymptote) {
+        return {
+            coords: [graph.coords[0], graph.coords[1]],
+            asymptote: graph.asymptote,
+        };
+    }
+
+    if (graph.startCoords && graph.startAsymptote) {
+        return {
+            coords: [graph.startCoords[0], graph.startCoords[1]],
+            asymptote: graph.startAsymptote,
+        };
+    }
+
+    // Default: asymptote at x=0, two points to the right
+    let coords: [Coord, Coord] = [
+        [0.55, 0.5],
+        [0.75, 0.75],
+    ];
+
+    coords = normalizePoints(range, step, coords, true);
+
+    // Default asymptote: vertical line at x that is slightly left of the first point
+    const asymptoteX = coords[0][0] - step[0];
+    const asymptote: [Coord, Coord] = [
+        [asymptoteX, range[1][0]],
+        [asymptoteX, range[1][1]],
+    ];
+
+    return {coords, asymptote};
 }
 
 export function getQuadraticCoords(

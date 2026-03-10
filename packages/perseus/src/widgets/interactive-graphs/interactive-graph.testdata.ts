@@ -305,6 +305,23 @@ export const noneQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const sinusoidQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withSinusoid().build();
 
+export const logarithmQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Graph $y=4\\log_2(x+6)-7$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
+        )
+        .withLogarithm({
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+            asymptote: [
+                [-6, -10],
+                [-6, 10],
+            ],
+        })
+        .build();
+
 export const questionsAndAnswers: ReadonlyArray<
     [
         PerseusRenderer, // Correct answer

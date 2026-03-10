@@ -39,7 +39,8 @@ export type InteractiveGraphState =
     | PointGraphState
     | CircleGraphState
     | QuadraticGraphState
-    | SinusoidGraphState;
+    | SinusoidGraphState
+    | LogarithmGraphState;
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
@@ -115,6 +116,12 @@ export interface QuadraticGraphState extends InteractiveGraphStateCommon {
 export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     type: "sinusoid";
     coords: [vec.Vector2, vec.Vector2];
+}
+
+export interface LogarithmGraphState extends InteractiveGraphStateCommon {
+    type: "logarithm";
+    coords: [vec.Vector2, vec.Vector2];
+    asymptote: [vec.Vector2, vec.Vector2];
 }
 
 export interface AngleGraphState extends InteractiveGraphStateCommon {

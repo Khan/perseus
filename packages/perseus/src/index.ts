@@ -115,6 +115,7 @@ export {
     getPointCoords,
     getPolygonCoords,
     getSegmentCoords,
+    getLogarithmCoords,
     getSinusoidCoords,
     getQuadraticCoords,
     getAngleCoords,

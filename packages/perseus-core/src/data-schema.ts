@@ -913,7 +913,8 @@ export type PerseusGraphType =
     | PerseusGraphTypeQuadratic
     | PerseusGraphTypeRay
     | PerseusGraphTypeSegment
-    | PerseusGraphTypeSinusoid;
+    | PerseusGraphTypeSinusoid
+    | PerseusGraphTypeLogarithm;
 
 export type PerseusGraphTypeAngle = {
     type: "angle";
@@ -1018,6 +1019,18 @@ export type PerseusGraphTypeSinusoid = {
     startCoords?: Coord[];
 };
 
+export type PerseusGraphTypeLogarithm = {
+    type: "logarithm";
+    // Two points along the logarithmic curve.
+    coords?: Coord[] | null;
+    // Two points defining the vertical asymptote line.
+    asymptote?: [Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: Coord[];
+    // The initial asymptote position the graph renders with.
+    startAsymptote?: [Coord, Coord];
+};
+
 export type PerseusGraphTypeRay = {
     type: "ray";
     // Expects a list of 2 Coords
@@ -1079,6 +1092,12 @@ type SinusoidGraphCorrect = {
     coords: CollinearTuple;
 };
 
+type LogarithmGraphCorrect = {
+    type: "logarithm";
+    coords: CollinearTuple;
+    asymptote: [Coord, Coord];
+};
+
 type RayGraphCorrect = {
     type: "ray";
     coords: CollinearTuple;
@@ -1095,7 +1114,8 @@ export type PerseusGraphCorrectType =
     | QuadraticGraphCorrect
     | RayGraphCorrect
     | SegmentGraphCorrect
-    | SinusoidGraphCorrect;
+    | SinusoidGraphCorrect
+    | LogarithmGraphCorrect;
 
 export type PerseusLabelImageWidgetOptions = {
     // Translatable Text; Tex representation of choices

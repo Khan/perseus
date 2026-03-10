@@ -17,6 +17,7 @@ import {
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
     sinusoidQuestion,
+    logarithmQuestion,
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
     segmentWithLockedPolygons,
@@ -106,6 +107,12 @@ export const Segment: Story = {
 export const Sinusoid: Story = {
     args: {
         item: generateTestPerseusItem({question: sinusoidQuestion}),
+    },
+};
+
+export const Logarithm: Story = {
+    args: {
+        item: generateTestPerseusItem({question: logarithmQuestion}),
     },
 };
 

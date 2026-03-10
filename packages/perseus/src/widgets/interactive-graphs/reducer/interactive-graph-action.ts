@@ -79,6 +79,10 @@ export const actions = {
     sinusoid: {
         movePoint,
     },
+    logarithm: {
+        movePoint,
+        moveCenter, // reuse moveCenter for asymptote movement
+    },
 };
 
 export const DELETE_INTENT = "delete-intent";

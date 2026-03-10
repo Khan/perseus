@@ -13,6 +13,8 @@ import Util from "../../util";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 
+import {getLogarithmCoefficients} from "./graphs/logarithm";
+
 import type {StatefulMafsGraphType} from "./stateful-mafs-graph";
 import type {QuadraticGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
@@ -585,6 +587,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return InteractiveGraph.getQuadraticEquationString(props);
             case "sinusoid":
                 return InteractiveGraph.getSinusoidEquationString(props);
+            case "logarithm":
+                return InteractiveGraph.getLogarithmEquationString(props);
             case "circle":
                 return InteractiveGraph.getCircleEquationString(props);
             case "linear-system":
@@ -700,6 +704,40 @@ class InteractiveGraph extends React.Component<Props, State> {
             ") + " +
             coeffs[3].toFixed(3)
         );
+    }
+
+    static getLogarithmEquationString(props: Props): string {
+        const coords =
+            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
+            props.userInput.coords ||
+            InteractiveGraph.defaultLogarithmCoords(props);
+        // @ts-expect-error - TS2339 - Property 'asymptote' does not exist on type 'PerseusGraphType'.
+        const asymptote = props.userInput.asymptote || [
+            [0, -10],
+            [0, 10],
+        ];
+        const coeffs = getLogarithmCoefficients(coords, asymptote);
+        if (!coeffs) {
+            return "y = ln(x)";
+        }
+        return (
+            "y = " +
+            coeffs.a.toFixed(3) +
+            "ln(" +
+            coeffs.b.toFixed(3) +
+            "x + " +
+            coeffs.c.toFixed(3) +
+            ")"
+        );
+    }
+
+    static defaultLogarithmCoords(props: Props): Coord[] {
+        const coords = [
+            [0.55, 0.5],
+            [0.75, 0.75],
+        ];
+        // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
+        return InteractiveGraph.pointsFromNormalized(props, coords);
     }
 
     static getCircleEquationString(props: Props): string {

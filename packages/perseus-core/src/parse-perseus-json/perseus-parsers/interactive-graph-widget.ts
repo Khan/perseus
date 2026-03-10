@@ -113,11 +113,20 @@ const parsePerseusGraphTypeSinusoid = object({
     startCoords: optional(array(pairOfNumbers)),
 });
 
+const parsePerseusGraphTypeLogarithm = object({
+    type: constant("logarithm"),
+    coords: optional(nullable(array(pairOfNumbers))),
+    asymptote: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
+    startCoords: optional(array(pairOfNumbers)),
+    startAsymptote: optional(pair(pairOfNumbers, pairOfNumbers)),
+});
+
 export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("angle", parsePerseusGraphTypeAngle)
     .withBranch("circle", parsePerseusGraphTypeCircle)
     .withBranch("linear", parsePerseusGraphTypeLinear)
     .withBranch("linear-system", parsePerseusGraphTypeLinearSystem)
+    .withBranch("logarithm", parsePerseusGraphTypeLogarithm)
     .withBranch("none", parsePerseusGraphTypeNone)
     .withBranch("point", parsePerseusGraphTypePoint)
     .withBranch("polygon", parsePerseusGraphTypePolygon)

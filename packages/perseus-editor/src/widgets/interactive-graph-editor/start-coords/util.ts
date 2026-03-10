@@ -8,6 +8,7 @@ import {
     getPolygonCoords,
     getQuadraticCoords,
     getSegmentCoords,
+    getLogarithmCoords,
     getSinusoidCoords,
 } from "@khanacademy/perseus";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -64,6 +65,12 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "logarithm":
+            return getLogarithmCoords(
+                {...graph, startCoords: undefined, startAsymptote: undefined},
+                range,
+                step,
+            ).coords;
         case "quadratic":
             return getQuadraticCoords(
                 {...graph, startCoords: undefined},
@@ -192,6 +199,7 @@ export const shouldShowStartCoordsUI = (
         case "ray":
         case "segment":
         case "sinusoid":
+        case "logarithm":
             return true;
         default:
             throw new UnreachableCaseError(graph);

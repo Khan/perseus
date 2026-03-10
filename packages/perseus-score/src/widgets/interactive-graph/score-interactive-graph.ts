@@ -145,6 +145,38 @@ function scoreInteractiveGraph(
                 };
             }
         } else if (
+            userInput.type === "logarithm" &&
+            rubric.correct.type === "logarithm" &&
+            userInput.coords != null &&
+            userInput.asymptote != null
+        ) {
+            // For logarithm, we compare the coefficients directly.
+            // The logarithm doesn't have periodic equivalences, so no
+            // canonical normalization is needed.
+            const guessCoeffs = getLogarithmCoeffs(
+                userInput.coords,
+                userInput.asymptote,
+            );
+            const correctCoeffs = getLogarithmCoeffs(
+                rubric.correct.coords,
+                rubric.correct.asymptote,
+            );
+            if (
+                guessCoeffs &&
+                correctCoeffs &&
+                approximateDeepEqual(
+                    [guessCoeffs.a, guessCoeffs.b, guessCoeffs.c],
+                    [correctCoeffs.a, correctCoeffs.b, correctCoeffs.c],
+                )
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
             userInput.type === "circle" &&
             rubric.correct.type === "circle"
         ) {
@@ -325,6 +357,55 @@ function scoreInteractiveGraph(
         total: 1,
         message: null,
     };
+}
+
+// Compute logarithm coefficients from two points and an asymptote.
+// Uses the inverse exponential approach.
+// Formula: y = a * ln(b * x + c)
+function getLogarithmCoeffs(
+    coords: ReadonlyArray<Coord>,
+    asymptote: ReadonlyArray<Coord>,
+): {a: number; b: number; c: number} | undefined {
+    const p1 = coords[0];
+    const p2 = coords[1];
+    const asymptoteX = asymptote[0][0];
+
+    if (p1[1] === p2[1]) {
+        return;
+    }
+    if (p1[0] === asymptoteX || p2[0] === asymptoteX) {
+        return;
+    }
+
+    // Flip (x,y) -> (y,x) to convert to exponential
+    const flip = (coord: Coord): Coord => [coord[1], coord[0]];
+    const flippedCoords = [flip(p1), flip(p2)];
+    const cExp = asymptoteX;
+
+    const denom = flippedCoords[0][0] - flippedCoords[1][0];
+    if (denom === 0) {
+        return;
+    }
+
+    const bExp =
+        Math.log((flippedCoords[0][1] - cExp) / (flippedCoords[1][1] - cExp)) /
+        denom;
+    const aExp =
+        (flippedCoords[0][1] - cExp) / Math.exp(bExp * flippedCoords[0][0]);
+
+    if (!isFinite(aExp) || !isFinite(bExp) || aExp === 0) {
+        return;
+    }
+
+    const c = -cExp / aExp;
+    const b = 1 / aExp;
+    const a = 1 / bExp;
+
+    if (!isFinite(a) || !isFinite(b) || !isFinite(c)) {
+        return;
+    }
+
+    return {a, b, c};
 }
 
 export default scoreInteractiveGraph;

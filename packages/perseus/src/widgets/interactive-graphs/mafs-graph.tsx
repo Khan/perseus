@@ -36,6 +36,7 @@ import {renderCircleGraph} from "./graphs/circle";
 import {SvgDefs} from "./graphs/components/text-label";
 import {renderLinearGraph} from "./graphs/linear";
 import {renderLinearSystemGraph} from "./graphs/linear-system";
+import {renderLogarithmGraph} from "./graphs/logarithm";
 import {renderPointGraph} from "./graphs/point";
 import {renderPolygonGraph} from "./graphs/polygon";
 import {renderQuadraticGraph} from "./graphs/quadratic";
@@ -766,6 +767,8 @@ const renderGraphElements = (props: {
             return renderQuadraticGraph(state, dispatch, i18n);
         case "sinusoid":
             return renderSinusoidGraph(state, dispatch, i18n);
+        case "logarithm":
+            return renderLogarithmGraph(state, dispatch, i18n);
         case "none":
             return {graph: null, interactiveElementsDescription: null};
         default:
