@@ -39,7 +39,7 @@ const config: KnipConfig = {
                 ...basePackageConfig.entry,
                 // These files contain test data. They are dynamically imported via
                 // glob patterns, so Knip can't figure out that they're used.
-                "src/parse-perseus-json/regression-tests/{article,item,user-input}-data/**",
+                "src/parse-perseus-json/regression-tests/{article,item,user-input,renderer}-data/**",
                 // CLI used for testing against production data.
                 "src/parse-perseus-json/exhaustive-test-tool/index.ts",
             ],
