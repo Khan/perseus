@@ -10,7 +10,11 @@ import {
     Dependencies,
     PerseusMarkdown,
 } from "@khanacademy/perseus";
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {
+    Errors,
+    parseAndMigratePerseusArticle,
+    PerseusError,
+} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
@@ -524,6 +528,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                 multiLine={true}
                                 onChange={this._handleJsonChange}
                                 value={this.props.json}
+                                parser={parseAndMigratePerseusArticle}
                                 editingDisabled={editingDisabled}
                             />
                         </div>
