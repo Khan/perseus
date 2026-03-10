@@ -21,12 +21,7 @@ export default {
  * Current state of the editor page. (All feature flags are off.)
  */
 export const Demo = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            question={{content: "", widgets: {}, images: {}}}
-            hints={[]}
-        />
-    );
+    return <EditorPageWithStorybookPreview />;
 };
 
 /**
