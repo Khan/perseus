@@ -13,9 +13,9 @@ import ImageScaleInput from "./image-scale-input";
 import type {Props} from "../image-editor";
 
 const MIN_ALT_TEXT_LENGTH = 8;
-const MAX_ALT_TEXT_LENGTH = 150;
+const MAX_ALT_TEXT_LENGTH = 125;
 const altTextTooLongError =
-    "Alt text should not exceed 150 characters. Please pair your alt with a long description below if you need significantly more text to sufficiently describe the image.";
+    "Alt text should not exceed 125 characters. Please pair your alt with a long description below if you need significantly more text to sufficiently describe the image.";
 const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
 
@@ -123,7 +123,7 @@ export default function ImageSettings({
             {/* Alt text */}
             <LabeledField
                 label="Alt text"
-                description="Summarize the image using up to 150 characters."
+                description="Summarize the image using up to 125 characters."
                 field={
                     <TextArea
                         value={alt ?? ""}

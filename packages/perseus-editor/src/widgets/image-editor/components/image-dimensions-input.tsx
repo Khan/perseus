@@ -1,6 +1,8 @@
 import {Util} from "@khanacademy/perseus";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import * as React from "react";
 
@@ -105,11 +107,20 @@ export default function ImageDimensionsInput({
 
     return (
         <div className={styles.dimensionsContainer}>
+            <Banner
+                kind="warning"
+                text="Sizing is temporarily disabled due to detected issues."
+                styles={{root: {marginBottom: sizing.size_080}}}
+            />
             <div className={styles.dimensionsFieldContainer}>
                 <LabeledField
                     label="Width"
                     field={
                         <ScrolllessNumberTextField
+                            // Temporarily disabled to prevent content authors
+                            // from changing the dimensions until we can fix
+                            // issues we've been having with sizing.
+                            disabled={true}
                             value={backgroundImage.width?.toString() ?? ""}
                             onChange={handleWidthChange}
                         />
@@ -121,6 +132,10 @@ export default function ImageDimensionsInput({
                     label="Height"
                     field={
                         <ScrolllessNumberTextField
+                            // Temporarily disabled to prevent content authors
+                            // from changing the dimensions until we can fix
+                            // issues we've been having with sizing.
+                            disabled={true}
                             value={backgroundImage.height?.toString() ?? ""}
                             onChange={handleHeightChange}
                         />

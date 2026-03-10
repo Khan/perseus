@@ -1,5 +1,47 @@
 # @khanacademy/perseus
 
+## 75.7.0
+
+### Minor Changes
+
+-   [#3310](https://github.com/Khan/perseus/pull/3310) [`1ed915b32b`](https://github.com/Khan/perseus/commit/1ed915b32b279518d35de9517ed33b497ebc5468) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade-alignment feature flag
+
+### Patch Changes
+
+-   Updated dependencies [[`1ed915b32b`](https://github.com/Khan/perseus/commit/1ed915b32b279518d35de9517ed33b497ebc5468)]:
+    -   @khanacademy/perseus-core@23.4.0
+    -   @khanacademy/keypad-context@3.2.36
+    -   @khanacademy/kmath@2.2.36
+    -   @khanacademy/math-input@26.4.5
+    -   @khanacademy/perseus-linter@4.8.4
+    -   @khanacademy/perseus-score@8.2.13
+
+## 75.6.0
+
+### Minor Changes
+
+-   [#3312](https://github.com/Khan/perseus/pull/3312) [`e181ce906d`](https://github.com/Khan/perseus/commit/e181ce906d54a2515efa5a7338f7e627223acffe) Thanks [@Myranae](https://github.com/Myranae)! - Fix TeX rendering in Graded Group message to user
+
+*   [#3299](https://github.com/Khan/perseus/pull/3299) [`5159e994de`](https://github.com/Khan/perseus/commit/5159e994de7ba010f7838ae7f71ccff4c5ac9832) Thanks [@benchristel](https://github.com/benchristel)! - Deprecate unused fields of `APIOptions`: `setDrawingAreaAvailable`, `canScrollPage`, and `editorChangeDelay`.
+
+### Patch Changes
+
+-   [#3307](https://github.com/Khan/perseus/pull/3307) [`e108dc754d`](https://github.com/Khan/perseus/commit/e108dc754df0b78cb44763875d76fa8958564e17) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Remove redundant strings for gif controls
+
+-   Updated dependencies [[`810a8d419c`](https://github.com/Khan/perseus/commit/810a8d419ca937a5682753f548fcbebbfa368479), [`83402a8bf5`](https://github.com/Khan/perseus/commit/83402a8bf5e89153e7681ea03adb77b50e6c8975)]:
+    -   @khanacademy/perseus-linter@4.8.3
+    -   @khanacademy/perseus-core@23.3.0
+    -   @khanacademy/keypad-context@3.2.35
+    -   @khanacademy/kmath@2.2.35
+    -   @khanacademy/math-input@26.4.4
+    -   @khanacademy/perseus-score@8.2.12
+
+## 75.5.0
+
+### Minor Changes
+
+-   [#3255](https://github.com/Khan/perseus/pull/3255) [`77404ad02e`](https://github.com/Khan/perseus/commit/77404ad02e0647c9b1a90c3aa0b162d834f4d183) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Center align text content with radio widget's choice indictor.
+
 ## 75.4.2
 
 ### Patch Changes

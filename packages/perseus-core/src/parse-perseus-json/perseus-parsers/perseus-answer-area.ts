@@ -1,32 +1,22 @@
-import {object, pipeParsers} from "../general-purpose-parsers";
-import {convert} from "../general-purpose-parsers/convert";
-import {defaulted} from "../general-purpose-parsers/defaulted";
+import {boolean, defaulted, object} from "../general-purpose-parsers";
 
-export const parsePerseusAnswerArea = pipeParsers(
-    defaulted(object({}), () => ({})),
-).then(convert(toAnswerArea)).parser;
+const booleanOrFalse = defaulted(boolean, () => false);
 
-// Some answerAreas have extra, bogus fields, like:
-//
-//   "answerArea": {
-//     "type": "multiple",
-//     "options": {},
-//     "version": null,
-//     "static": false,
-//     "graded": false,
-//     "alignment": "",
-//   }
-//
-// This function filters the fields of an answerArea object, keeping only the
-// known ones, and converts `undefined` and `null` values to `false`.
-function toAnswerArea(raw: Record<string, unknown>) {
-    return {
-        calculator: !!raw.calculator,
-        financialCalculatorMonthlyPayment:
-            !!raw.financialCalculatorMonthlyPayment,
-        financialCalculatorTotalAmount: !!raw.financialCalculatorTotalAmount,
-        financialCalculatorTimeToPayOff: !!raw.financialCalculatorTimeToPayOff,
-        periodicTable: !!raw.periodicTable,
-        periodicTableWithKey: !!raw.periodicTableWithKey,
-    };
-}
+export const parsePerseusAnswerArea = defaulted(
+    object({
+        calculator: booleanOrFalse,
+        financialCalculatorMonthlyPayment: booleanOrFalse,
+        financialCalculatorTotalAmount: booleanOrFalse,
+        financialCalculatorTimeToPayOff: booleanOrFalse,
+        periodicTable: booleanOrFalse,
+        periodicTableWithKey: booleanOrFalse,
+    }),
+    () => ({
+        calculator: false,
+        financialCalculatorMonthlyPayment: false,
+        financialCalculatorTotalAmount: false,
+        financialCalculatorTimeToPayOff: false,
+        periodicTable: false,
+        periodicTableWithKey: false,
+    }),
+);

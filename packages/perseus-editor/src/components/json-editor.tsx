@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-invalid-this */
+import {isSuccess} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
-type Props = {
-    multiLine: boolean;
-    value: any;
-    onChange: (newJson: any) => void;
-    editingDisabled: boolean;
-};
+import type {Result} from "@khanacademy/perseus-core";
 
-type DefaultProps = {
-    value: Props["value"];
+type Props<TData> = {
+    multiLine: boolean;
+    value: TData;
+    onChange: (newJson: TData) => void;
+    parser: (json: string) => Result<TData, unknown>;
+    editingDisabled: boolean;
 };
 
 type State = {
@@ -18,12 +18,8 @@ type State = {
     valid: boolean | undefined;
 };
 
-class JsonEditor extends React.Component<Props, State> {
+class JsonEditor<TData> extends React.Component<Props<TData>, State> {
     static displayName: "JsonEditor";
-
-    static defaultProps: DefaultProps = {
-        value: {},
-    };
 
     constructor(props) {
         super(props);
@@ -41,7 +37,7 @@ class JsonEditor extends React.Component<Props, State> {
         };
     }
 
-    componentDidUpdate(prevProps: Props) {
+    componentDidUpdate(prevProps: Props<TData>) {
         if (!_.isEqual(prevProps.value, this.props.value)) {
             const shouldReplaceContent =
                 !this.state.valid ||
@@ -59,7 +55,7 @@ class JsonEditor extends React.Component<Props, State> {
     getCurrentValueAsJson() {
         try {
             return this.state.currentValue
-                ? JSON.parse(this.state.currentValue)
+                ? this.typesafeParseOrThrow(this.state.currentValue)
                 : {};
         } catch {
             return null;
@@ -86,11 +82,7 @@ class JsonEditor extends React.Component<Props, State> {
     handleChange(e) {
         const nextString = e.target.value;
         try {
-            let json = JSON.parse(nextString);
-            // Some extra handling to allow copy-pasting from /api/vi
-            if (_.isString(json)) {
-                json = JSON.parse(json);
-            }
+            const json = this.typesafeParseOrThrow(nextString);
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
@@ -117,11 +109,7 @@ class JsonEditor extends React.Component<Props, State> {
     handleBlur(e) {
         const nextString = e.target.value;
         try {
-            let json = JSON.parse(nextString);
-            // Some extra handling to allow copy-pasting from /api/vi
-            if (_.isString(json)) {
-                json = JSON.parse(json);
-            }
+            const json = this.typesafeParseOrThrow(nextString);
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
@@ -141,6 +129,22 @@ class JsonEditor extends React.Component<Props, State> {
                 valid: true,
             });
         }
+    }
+
+    private typesafeParseOrThrow(json: string): TData {
+        const parsed = this.props.parser(json);
+        if (isSuccess(parsed)) {
+            return parsed.value;
+        }
+
+        // Parse JSON embedded in quoted strings. This makes it easier to
+        // paste in data from e.g. the browser devtools' Network tab.
+        const parsedFromQuotedString = this.props.parser(JSON.parse(json));
+        if (isSuccess(parsedFromQuotedString)) {
+            return parsedFromQuotedString.value;
+        }
+
+        throw new TypeError("JsonEditor: parse failure");
     }
 
     render() {

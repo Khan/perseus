@@ -23,7 +23,9 @@ export const GifControlsButton = ({
             // rather than taking up the full width of the container.
             style={{width: "fit-content"}}
         >
-            {isPlaying ? strings.gifPauseButton : strings.gifPlayButton}
+            {isPlaying
+                ? strings.gifPauseButtonLabel
+                : strings.gifPlayButtonLabel}
         </Button>
     );
 };

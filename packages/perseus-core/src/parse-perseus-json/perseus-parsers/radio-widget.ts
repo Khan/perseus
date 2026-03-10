@@ -85,6 +85,7 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
                     clue: optional(string),
                     correct: optional(boolean),
                     isNoneOfTheAbove: optional(boolean),
+                    rationale: optional(string),
                     // deprecated
                     widgets: parseWidgetsMapOrUndefined,
                 }),
