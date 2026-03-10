@@ -105,7 +105,7 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
     );
 }
 
-const getAbsoluteValueKeyboardConstraint = (
+export const getAbsoluteValueKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
     pointIndex: number,
@@ -153,7 +153,7 @@ export type AbsoluteValueCoefficients = {
 
 // Returns the coefficients {m, h, k} for f(x) = m * |x - h| + k,
 // or undefined if the two coords share the same x-coordinate.
-const getAbsoluteValueCoefficients = (
+export const getAbsoluteValueCoefficients = (
     coords: ReadonlyArray<Coord>,
 ): AbsoluteValueCoefficients | undefined => {
     const vertex = coords[0]; // (h, k)
@@ -174,7 +174,7 @@ const getAbsoluteValueCoefficients = (
 };
 
 // Plot f(x) = m * |x - h| + k
-const computeAbsoluteValue = function (
+export const computeAbsoluteValue = function (
     x: number,
     coefficients: AbsoluteValueCoefficients,
 ) {

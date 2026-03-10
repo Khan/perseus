@@ -201,7 +201,7 @@ there is exactly one absolute value function of the form `m|x - h| + k` that pas
 ### Scoring
 
 - [x] Add `getAbsoluteValueCoefficients` and scoring block to `score-interactive-graph.ts`
-- [ ] Add dedicated scoring tests for absolute value in `score-interactive-graph.test.ts`
+- [x] Add dedicated scoring tests for absolute value in `score-interactive-graph.test.ts`
 
 ### i18n
 
@@ -209,7 +209,7 @@ there is exactly one absolute value function of the form `m|x - h| + k` that pas
 
 ### Testing
 
-- [ ] Create `graphs/absolute-value.test.tsx` (rendering, point dragging, same-x constraint, SR output)
+- [x] Create `graphs/absolute-value.test.tsx` (rendering, point dragging, same-x constraint, SR output)
 
 ### Generators and test data
 
@@ -226,6 +226,6 @@ there is exactly one absolute value function of the form `m|x - h| + k` that pas
 
 - [x] Add `absolute_value` case to the graph merge switch in `interactive-graph-editor.tsx`
 - [x] Add `absolute_value` to the start-coords support check in `start-coords/util.ts`
-- [ ] Add `"Absolute value function"` option to `graph-type-selector.tsx` dropdown
-- [ ] Create `start-coords/start-coords-absolute-value.tsx` component (mirrors `start-coords-sinusoid.tsx`)
-- [ ] Wire up start-coords component in `start-coords-settings.tsx`
+- [x] Add `"Absolute value function"` option to `graph-type-selector.tsx` dropdown
+- [x] Create `start-coords/start-coords-absolute-value.tsx` component (mirrors `start-coords-sinusoid.tsx`)
+- [x] Wire up start-coords component in `start-coords-settings.tsx`

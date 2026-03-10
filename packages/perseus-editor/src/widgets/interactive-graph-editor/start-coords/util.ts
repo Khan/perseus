@@ -1,5 +1,6 @@
 import {angles, vector as kvector} from "@khanacademy/kmath";
 import {
+    getAbsoluteValueCoords,
     getAngleCoords,
     getCircleCoords,
     getLineCoords,
@@ -60,6 +61,12 @@ export function getDefaultGraphStartCoords(
             return {center: startCoords.center, radius};
         case "sinusoid":
             return getSinusoidCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+        case "absolute_value":
+            return getAbsoluteValueCoords(
                 {...graph, startCoords: undefined},
                 range,
                 step,
@@ -145,6 +152,22 @@ export const getQuadraticEquation = (startCoords: [Coord, Coord, Coord]) => {
 
     return (
         "y = " + a.toFixed(3) + "x^2 + " + b.toFixed(3) + "x + " + c.toFixed(3)
+    );
+};
+
+export const getAbsoluteValueEquation = (startCoords: [Coord, Coord]) => {
+    const vertex = startCoords[0];
+    const second = startCoords[1];
+    const h = vertex[0];
+    const k = vertex[1];
+    const x2 = second[0];
+    const y2 = second[1];
+    if (x2 === h) {
+        return "y = |x|";
+    }
+    const m = (y2 - k) / Math.abs(x2 - h);
+    return (
+        "y = " + m.toFixed(3) + "|x - " + h.toFixed(3) + "| + " + k.toFixed(3)
     );
 };
 

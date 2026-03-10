@@ -19,6 +19,10 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             <OptionItem value="linear" label="Linear function" />
             <OptionItem value="quadratic" label="Quadratic function" />
             <OptionItem value="sinusoid" label="Sinusoid function" />
+            <OptionItem
+                value="absolute_value"
+                label="Absolute value function"
+            />
             <OptionItem value="circle" label="Circle" />
             <OptionItem value="point" label="Point(s)" />
             <OptionItem value="linear-system" label="Linear System" />

@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
+    getAbsoluteValueCoords,
     getAngleCoords,
     getCircleCoords,
     getLineCoords,
@@ -19,6 +20,7 @@ import * as React from "react";
 
 import Heading from "../../../components/heading";
 
+import StartCoordsAbsoluteValue from "./start-coords-absolute-value";
 import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
@@ -86,6 +88,18 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsSinusoid
                     startCoords={sinusoidCoords}
+                    onChange={onChange}
+                />
+            );
+        case "absolute_value":
+            const absoluteValueCoords = getAbsoluteValueCoords(
+                props,
+                range,
+                step,
+            );
+            return (
+                <StartCoordsAbsoluteValue
+                    startCoords={absoluteValueCoords}
                     onChange={onChange}
                 />
             );

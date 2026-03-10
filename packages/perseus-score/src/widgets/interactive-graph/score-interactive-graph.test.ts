@@ -510,3 +510,164 @@ describe("InteractiveGraph scoring on an angle question", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 });
+
+describe("InteractiveGraph scoring on an absolute value question", () => {
+    it("marks the answer invalid if guess.coords is missing", () => {
+        // Arrange
+        const guess: PerseusGraphType = {type: "absolute_value"};
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute_value"},
+            correct: {
+                type: "absolute_value",
+                coords: [
+                    [0, 0],
+                    [2, 2],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("does not award points if the slope is wrong", () => {
+        // Arrange — correct is m=1 (vertex at origin, second at (2,2));
+        // guess has m=2 (vertex at origin, second at (1,2))
+        const guess: PerseusGraphType = {
+            type: "absolute_value",
+            coords: [
+                [0, 0],
+                [1, 2],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute_value"},
+            correct: {
+                type: "absolute_value",
+                coords: [
+                    [0, 0],
+                    [2, 2],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("does not award points if the vertex is wrong", () => {
+        // Arrange — correct is vertex at (0,0); guess has vertex at (1,0)
+        const guess: PerseusGraphType = {
+            type: "absolute_value",
+            coords: [
+                [1, 0],
+                [3, 2],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute_value"},
+            correct: {
+                type: "absolute_value",
+                coords: [
+                    [0, 0],
+                    [2, 2],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("awards points when vertex and slope match exactly", () => {
+        // Arrange — vertex at (0,0), second at (2,2) → m=1
+        const guess: PerseusGraphType = {
+            type: "absolute_value",
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute_value"},
+            correct: {
+                type: "absolute_value",
+                coords: [
+                    [0, 0],
+                    [2, 2],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("awards points when the second point is on the opposite side of the vertex but describes the same curve", () => {
+        // Arrange — correct: vertex (0,0), second at (2,2) → m=1
+        // guess: vertex (0,0), second at (-3,3) → m = (3-0)/|(-3)-0| = 1
+        // Same curve, second point placed to the left of the vertex
+        const guess: PerseusGraphType = {
+            type: "absolute_value",
+            coords: [
+                [0, 0],
+                [-3, 3],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute_value"},
+            correct: {
+                type: "absolute_value",
+                coords: [
+                    [0, 0],
+                    [2, 2],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("awards points for a downward-opening V with negative slope", () => {
+        // Arrange — vertex at (1,3), second at (3,1) → m=-1
+        const guess: PerseusGraphType = {
+            type: "absolute_value",
+            coords: [
+                [1, 3],
+                [3, 1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute_value"},
+            correct: {
+                type: "absolute_value",
+                coords: [
+                    [1, 3],
+                    [3, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+});
