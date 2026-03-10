@@ -198,7 +198,7 @@ export const WithSaveWarnings = (): React.ReactElement => {
         React.useState<DeviceType>("phone");
     const [jsonMode, setJsonMode] = React.useState(false);
     const [answerArea, setAnswerArea] = React.useState<PerseusAnswerArea>(
-        getDefaultAnswerArea(),
+        getDefaultAnswerArea,
     );
     const [question, setQuestion] = React.useState(segmentWithLockedFigures);
     const [hints, setHints] = React.useState<Hint[]>([]);
