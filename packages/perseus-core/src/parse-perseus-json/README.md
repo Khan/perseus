@@ -183,7 +183,7 @@ complexity added over a decade ago, and it's now too entrenched to remove.
 
 It's completely fine to change an existing parser — even for an older version
 of a widget! You just need to make sure that the published parser functions
-(`parseAndMigratePerseusItem` and `parseAndMigratePerseusArticle`) still
+(`parseAndMigratePerseusItem`, `parseAndMigratePerseusArticle`, `parseAndMigrateUserInputMap`, and `parseAndMigratePerseusRenderer`) still
 accept old data formats and correctly migrate them to the latest schema. The
 regression tests (`parse-perseus-json/regression-tests`) are designed to verify
 that these properties are preserved. [See the section on regression
