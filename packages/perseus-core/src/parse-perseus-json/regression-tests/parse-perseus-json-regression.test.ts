@@ -226,9 +226,7 @@ describe("parseAndMigratePerseusRenderer", () => {
 
         it("parses successfully", async () => {
             const result = await getParseResult();
-            // If the parse fails, get just the error message. This makes the test
-            // failure easier to read, since otherwise the entire `invalidObject`
-            // from the ParseFailureDetail would be printed.
+
             const resultWithMessage = mapFailure(getMessage)(result);
 
             expect(resultWithMessage).toEqual(anySuccess);
