@@ -1,7 +1,9 @@
-import {PerseusRenderer} from "@khanacademy/perseus-core";
-import {parsePerseusRenderer} from "./perseus-renderer";
-import {assertSuccess} from "../result";
 import {ctx} from "../general-purpose-parsers/test-helpers";
+import {assertSuccess} from "../result";
+
+import {parsePerseusRenderer} from "./perseus-renderer";
+
+import type {PerseusRenderer} from "../../data-schema";
 
 describe("parsePerseusRenderer", () => {
     it("removes an orphaned widget", () => {
@@ -13,17 +15,19 @@ describe("parsePerseusRenderer", () => {
                     type: "radio",
                     version: {major: 3, minor: 0},
                     options: {
-                        choices: [{
-                            id: "1",
-                            content: "A",
-                        }],
+                        choices: [
+                            {
+                                id: "1",
+                                content: "A",
+                            },
+                        ],
                     },
                 },
             },
-        }
+        };
 
         const result = parsePerseusRenderer(renderer, ctx());
-        assertSuccess(result)
+        assertSuccess(result);
 
         // Assert: the radio widget is removed because it's not referenced.
         expect(result.value.widgets).toEqual({});
@@ -38,18 +42,20 @@ describe("parsePerseusRenderer", () => {
                     type: "radio",
                     version: {major: 3, minor: 0},
                     options: {
-                        choices: [{
-                            id: "1",
-                            content: "A",
-                        }],
+                        choices: [
+                            {
+                                id: "1",
+                                content: "A",
+                            },
+                        ],
                     },
                 },
             },
-        }
+        };
 
         const result = parsePerseusRenderer(renderer, ctx());
-        assertSuccess(result)
+        assertSuccess(result);
 
         expect(result.value.widgets).toHaveProperty("radio 1");
-    })
-})
+    });
+});
