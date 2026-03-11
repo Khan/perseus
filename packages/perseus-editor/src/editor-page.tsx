@@ -4,7 +4,10 @@ import {
     ClassNames,
     Dependencies,
 } from "@khanacademy/perseus";
-import {getDefaultAnswerArea, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
+import {
+    getDefaultAnswerArea,
+    parseAndMigratePerseusItem,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
