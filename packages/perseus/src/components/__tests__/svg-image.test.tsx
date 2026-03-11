@@ -255,5 +255,88 @@ describe("SvgImage", () => {
             // Assert - loadGraphie should be called twice
             expect(loadGraphieSpy).toHaveBeenCalledTimes(2);
         });
+
+        it("does not re-trigger loadGraphie when a prop change arrives after setupGraphie completes with multiple labels", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Mock loadGraphie to synchronously call back with three labels.
+            // Previously, setupGraphie called setState once per label, causing
+            // labelsRendered to only reflect the last label. A subsequent prop
+            // change would then expose the inconsistent state to Graphie, which
+            // would re-call _setupGraphie and trigger loadGraphie again.
+            jest.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
+                (url, callback) => {
+                    callback(
+                        {
+                            labels: [
+                                {
+                                    content: "A",
+                                    coordinates: [1, 1],
+                                    alignment: "center",
+                                    typesetAsMath: false,
+                                    style: {},
+                                },
+                                {
+                                    content: "B",
+                                    coordinates: [2, 2],
+                                    alignment: "center",
+                                    typesetAsMath: false,
+                                    style: {},
+                                },
+                                {
+                                    content: "C",
+                                    coordinates: [3, 3],
+                                    alignment: "center",
+                                    typesetAsMath: false,
+                                    style: {},
+                                },
+                            ],
+                            range: [
+                                [0, 10],
+                                [0, 10],
+                            ],
+                        },
+                        false,
+                    );
+                },
+            );
+
+            const loadGraphieSpy = jest.spyOn(GraphieUtils, "loadGraphie");
+
+            // Act
+            const {rerender} = render(
+                <SvgImage
+                    src={typicalCase.url}
+                    alt="svg image"
+                    allowZoom={false}
+                    width={200}
+                    height={200}
+                />,
+            );
+
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Simulate the zoomSize prop change arriving after setupGraphie
+            rerender(
+                <SvgImage
+                    src={typicalCase.url}
+                    alt="svg image"
+                    allowZoom={false}
+                    width={300}
+                    height={300}
+                />,
+            );
+
+            // Assert - loadGraphie should only have been called once.
+            // A second call would indicate setupGraphie was re-triggered by
+            // the prop change, meaning labelsRendered was in an inconsistent
+            // state (only the last label survived the setState storm).
+            expect(loadGraphieSpy).toHaveBeenCalledTimes(1);
+        });
     });
 });
