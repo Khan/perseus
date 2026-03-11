@@ -7,7 +7,7 @@ allowing content creators to define logarithm function exercises using two movab
 and a movable vertical asymptote.
 
 - **Ticket:** [LEMS-3950](https://khanacademy.atlassian.net/browse/LEMS-3950)
-- **POC:** TBD (PR link)
+- **POC:** TBD https://github.com/Khan/perseus/pull/3322
 - **Branch:** `LEMS-3950/poc-logarithm-interactive-graph`
 
 ## Scenarios
@@ -24,6 +24,7 @@ and a movable vertical asymptote.
 - The vertical asymptote is visually displayed as a solid line with a pill-shaped drag handle
 - The entire asymptote line is draggable (not just a single point) — constrained to horizontal movement
 - The asymptote can cross to the other side of the curve points, causing the curve to flip direction
+- The curve never visually touches or intersects the asymptote — it exits the visible area off-screen
 - No curve is drawn on the undefined side of the asymptote (domain restriction is enforced via `Plot.OfX` `domain` prop)
 - Keyboard navigation works on both control points (arrow keys move the point by snap step)
 - Points cannot be placed on the asymptote line, and both points must have different y-values — invalid moves are rejected gracefully (no crash, no invalid state)
@@ -69,6 +70,19 @@ The Grapher widget has a complete logarithm implementation that served as the ma
 - `packages/perseus/src/widgets/grapher/grapher.stories.tsx` — Storybook story rendering the
   logarithm question.
 
+### Grapher Discontinuity Handling (Visual Reference)
+
+The Grapher widget's `plotParametric()` function in `packages/perseus/src/util/graphie.ts`
+provides the reference for how the legacy system prevents curves from visually touching asymptotes:
+
+- Uses `plotParametric()` with a `shouldShowPoint` callback that returns `false` for points
+  where `|y| > 500000`, effectively clipping the curve far from the visible area
+- Detects sign flips in the function output to identify asymptote crossings
+- Splits the SVG path at discontinuities (starts a new `M` command instead of `L`)
+
+This informed our approach of returning `NaN` from the plot function when y-values exceed
+the visible range (see [Curve-Asymptote Visual Gap](#curve-asymptote-visual-gap-preventing-the-curve-from-touching-the-asymptote)).
+
 ### Interactive Graph: Sinusoid (Pattern Reference)
 
 The sinusoid graph type was the primary pattern reference for the logarithm implementation:
@@ -78,6 +92,15 @@ The sinusoid graph type was the primary pattern reference for the logarithm impl
 - `packages/perseus/src/widgets/interactive-graphs/reducer/initialize-graph-state.ts` — Sinusoid state initialization pattern. Logarithm follows the same approach with additional asymptote initialization.
 - `packages/perseus/src/widgets/interactive-graphs/types.ts` — `SinusoidGraphState` type. `LogarithmGraphState` follows the same shape with an added `asymptote` field.
 - `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.ts` — Sinusoid scoring block. Logarithm scoring is modeled after this but uses direct coefficient comparison (no canonical normalization).
+
+### Interactive Graph: MovableLine (Asymptote Pattern Reference)
+
+The `MovableLine` component provided the pattern for making the entire asymptote line draggable:
+
+- `packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-line.tsx` — Uses
+  `useDraggable` hook attached to a `<g>` element containing layered SVG lines (transparent
+  hit target → focus outlines → visible line). The logarithm asymptote follows the exact same
+  layering approach.
 
 ### Mafs Graphing Library
 
@@ -112,8 +135,11 @@ The coefficients are computed by treating the logarithm as the inverse of an exp
 
 The vertical asymptote occurs where `b * x + c = 0`, i.e. `x = -c / b`. The curve is only
 defined on one side of the asymptote. The `domain` prop on `Plot.OfX` restricts rendering to:
-- `[asymptoteX + epsilon, xMax]` if points are right of asymptote
-- `[xMin, asymptoteX - epsilon]` if points are left of asymptote
+- `[asymptoteX + 0.001, xMax]` if points are right of asymptote
+- `[xMin, asymptoteX - 0.001]` if points are left of asymptote
+
+The small offset (`0.001`) allows Mafs to sample points extremely close to the asymptote,
+so the curve extends as far as possible toward it before the y-value cutoff takes effect.
 
 This is simpler than the tangent approach (no segment splitting needed) since the logarithm
 has a single asymptote and the function is defined on only one side.
@@ -126,8 +152,10 @@ has a single asymptote and the function is defined on only one side.
 2. Use `coeffRef` to cache the last valid coefficients (fallback during transient invalid states)
 3. Determine which side of the asymptote the points are on
 4. Render a single `<Plot.OfX>` with a restricted `domain` on the valid side
-5. Render the asymptote as a fully draggable vertical line using the `useDraggable` hook
-6. Render a pill-shaped drag handle at the asymptote midpoint for visual affordance
+5. The plot function returns `NaN` when y-values exceed the visible range (with padding),
+   causing Mafs to end the SVG path before the curve gets close enough to visually touch the asymptote
+6. Render the asymptote as a fully draggable vertical line using the `useDraggable` hook
+7. Render a pill-shaped drag handle at the asymptote midpoint for visual affordance
 
 ### Asymptote Rendering
 
@@ -139,9 +167,9 @@ as `MovableLine` in the codebase:
 - Focus outline lines for keyboard accessibility
 - A visible solid line using the interactive color
 - A pill-shaped drag handle (`AsymptoteDragHandle`) at the midpoint with:
-  - Layered SVG `rect` elements (halo, ring, center) matching movable point styling
-  - Vertical oblong shape (12px wide × 22px tall) with rounded corners
-  - 6 white grip dots arranged in a 2×3 grid inside the pill
+  - **Active state** (focused or dragging): 12px wide × 22px tall pill with 6 white grip dots (2×3 grid)
+  - **Inactive state** (default): 6px wide × 16px tall pill, no grip dots
+  - Layered SVG `rect` elements (halo → ring → center) matching movable point styling
   - `pointerEvents: "none"` so drags pass through to the line
 
 ### Asymptote Drag Behavior
@@ -151,9 +179,32 @@ The asymptote movement follows the Grapher widget's behavior:
 1. **Valid position** — All points on the same side of the new asymptote position: move freely
 2. **Invalid position** — Asymptote would be between points or on a point: snap past all points
    to the other side (one `snapStep` beyond the nearest extreme point in the drag direction)
-3. **Direction detection** — Uses the requested position relative to the midpoint between the
+3. **Direction detection** — Uses the requested mouse position relative to the midpoint between the
    two curve points to determine snap direction (prevents flicker from state oscillation)
 4. **Safety check** — Asymptote can never land exactly on a point's x-coordinate
+
+### Curve-Asymptote Visual Gap (Preventing the Curve from Touching the Asymptote)
+
+A logarithmic curve approaches infinity near its asymptote — but the rendered SVG path has
+visible stroke width, which can make the curve appear to touch the asymptote line even when
+there is mathematical separation. Several approaches were evaluated:
+
+| Approach | Result | Issue |
+|----------|--------|-------|
+| Large domain offset (`0.1`) | Gap visible but curve appears "cut off" | Curve ends abruptly within the visible area |
+| Y-value clamping (cap at yMin/yMax) | Curve reaches edge but still appears to touch | SVG stroke width causes visual overlap at the boundary |
+| Pixel-to-graph-unit stroke calculation | Worse visual result | Overly complex and didn't account for curve curvature |
+| Dashed asymptote line | N/A — not matching Grapher's solid line | Grapher uses a solid asymptote line |
+| **NaN cutoff with y-padding (final)** | Curve exits off-screen naturally | No visual touching; curve appears to continue to infinity |
+
+**Final solution:** The plot function returns `NaN` when the computed y-value exceeds
+`yMin - yPadding` or `yMax + yPadding` (where `yPadding = 2 × visible y-range`). This causes
+Mafs to end the SVG path well before the curve's stroke reaches the asymptote. Combined with
+the small domain offset (`0.001`), the curve extends very close to the asymptote but exits
+the visible area upward/downward rather than ending abruptly at the domain boundary.
+
+This mirrors the Grapher's approach conceptually — the Grapher clips at `|y| > 500000` and
+splits paths at sign flips.
 
 ### Scoring (`score-interactive-graph.ts`)
 
@@ -186,6 +237,7 @@ The asymptote movement follows the Grapher widget's behavior:
 | Domain restriction | Undefined at each asymptote | Undefined on one side of asymptote |
 | Rendering approach | Segment splitting (multiple `Plot.OfX`) | Single `Plot.OfX` with `domain` prop |
 | Discontinuity workaround | Required (Mafs issue #133) | Not needed |
+| Curve-asymptote gap | NaN near asymptotes (within 0.001) | NaN when y exceeds visible range + padding |
 | Canonical normalization | Yes (periodic equivalences) | No |
 | Scoring comparison | Canonical coefficients | Direct coefficient comparison |
 
@@ -199,6 +251,7 @@ The asymptote movement follows the Grapher widget's behavior:
 | Discontinuity handling | Not needed | Not needed (domain restriction suffices) |
 | Coefficient computation | Direct from points | Inverse exponential approach |
 | Reducer actions | `movePoint` | `movePoint` + `moveCenter` (asymptote) |
+| Drag handle | None | Pill-shaped with active/inactive states |
 
 ## Files Modified (POC)
 
@@ -206,15 +259,16 @@ The asymptote movement follows the Grapher widget's behavior:
 - `packages/perseus/src/widgets/interactive-graphs/graphs/logarithm.tsx` — Main component with:
   - `renderLogarithmGraph()` — entry point
   - `LogarithmGraph` — React component with curve, asymptote line, drag handle, and movable points
-  - `AsymptoteDragHandle` — pill-shaped SVG drag handle component
+  - `AsymptoteDragHandle` — pill-shaped SVG drag handle component with active/inactive states
   - `computeLogarithm()` — evaluates `a * ln(b*x + c)`
   - `getLogarithmCoefficients()` — inverse exponential coefficient computation
   - `getLogarithmKeyboardConstraint()` — keyboard movement with asymptote/overlap avoidance
+  - `describeLogarithmGraph()` — screen reader description strings
+  - `getLogarithmDescription()` — interactive elements description for accessibility
 
 ### Modified files
 - `packages/perseus-core/src/data-schema.ts` — `PerseusGraphTypeLogarithm`, `LogarithmGraphCorrect` types
 - `packages/perseus-core/.../interactive-graph-widget.ts` — Parser for logarithm type
-- `packages/perseus-core/.../interactive-graph-widget-generator.ts` — `generateIGLogarithmGraph()`
 - `packages/perseus-score/.../score-interactive-graph.ts` — Logarithm scoring with `getLogarithmCoeffs()` helper
 - `packages/perseus/src/strings.ts` — Screen reader strings (`srLogarithmGraph`, `srLogarithmPoint1`, `srLogarithmPoint2`, `srLogarithmDescription`, `srLogarithmInteractiveElements`)
 - `packages/perseus/src/index.ts` — Export `getLogarithmCoords`
@@ -232,7 +286,7 @@ The asymptote movement follows the Grapher widget's behavior:
 - `packages/perseus-editor/.../start-coords/types.ts` — `{type: "logarithm"}` in start coords union
 - `packages/perseus-editor/.../start-coords/util.ts` — Default start coords and UI visibility
 - `packages/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder.ts` — `withLogarithm()`, `LogarithmGraphConfig`
-- `packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata.ts` — `logarithmQuestion`, `logarithmQuestionWithDefaultCorrect`
+- `packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata.ts` — `logarithmQuestion`
 - `packages/perseus/src/widgets/interactive-graphs/__docs__/interactive-graph.stories.tsx` — Logarithm story
 
 ## Decisions
@@ -259,10 +313,12 @@ The asymptote movement follows the Grapher widget's behavior:
    logarithm doesn't have periodic equivalences. Direct `approximateDeepEqual` on `[a, b, c]`
    is sufficient.
 
-6. **Snap-through asymptote behavior** — When the asymptote is dragged past the curve points, it
-   snaps to the other side (one `snapStep` beyond the farthest point). The snap direction is
-   determined by the requested mouse position relative to the midpoint between points, preventing
-   oscillation/flicker that would occur if based on the current asymptote state.
+6. **Midpoint-based snap-through for asymptote** — When the asymptote is dragged past the curve
+   points, it snaps to the other side (one `snapStep` beyond the farthest point). The snap
+   direction is determined by comparing the requested mouse position to the midpoint between
+   the two curve points. This prevents the oscillation/flicker bug that occurred when using the
+   previous asymptote position (`oldX`) for direction detection — because after snapping, the
+   state changes, causing the next frame to compute a different direction and snap back.
 
 7. **Full-line draggable asymptote** — The asymptote line uses the same `useDraggable` + `SVGLine`
    pattern as `MovableLine`, making the entire line interactive rather than requiring the user to
@@ -272,6 +328,50 @@ The asymptote movement follows the Grapher widget's behavior:
    (two endpoints of the vertical line) rather than a single x-value. This matches the Grapher
    widget's data shape and the `PerseusGraphTypeLogarithm` schema, making serialization straightforward.
 
-9. **Logarithm only has vertical asymptotes** — Horizontal asymptotes are not applicable to
-   logarithmic functions. Horizontal asymptotes will be addressed separately for the exponential
-   function graph type.
+9. **NaN cutoff for curve-asymptote visual gap** — The plot function returns `NaN` (instead of
+   clamping) when y-values exceed the visible range with padding. This causes Mafs to end the
+   SVG path before the curve's stroke gets close enough to visually touch the asymptote. This
+   approach was chosen after evaluating several alternatives (see
+   [Curve-Asymptote Visual Gap](#curve-asymptote-visual-gap-preventing-the-curve-from-touching-the-asymptote) table).
+
+10. **Active/inactive drag handle states** — The `AsymptoteDragHandle` pill has two visual states:
+    a larger pill with grip dots when focused/dragging, and a smaller pill without dots when idle.
+    This provides clear affordance that the asymptote is interactive while keeping the default
+    appearance clean.
+
+11. **Logarithm only has vertical asymptotes** — Horizontal asymptotes are not applicable to
+    logarithmic functions. Horizontal asymptotes will be addressed separately for the exponential
+    function graph type (see [Future: Horizontal Drag Handle](#future-horizontal-drag-handle-for-exponential-graph)).
+
+## Future: Horizontal Drag Handle for Exponential Graph
+
+The `AsymptoteDragHandle` component is currently designed for vertical asymptotes only. When the
+exponential graph type is implemented (which has a horizontal asymptote), the component will need
+minor modifications:
+
+### Current limitations (vertical-only)
+- **Dimensions are hardcoded vertical** — width < height (12×22 active, 6×16 inactive). A
+  horizontal handle would need width > height (22×12).
+- **Grip dots assume vertical layout** — 3 rows × 2 columns (`dy ∈ [-3,0,3]`, `dx ∈ [-2,2]`).
+  Horizontal would need 2 rows × 3 columns (swap dx/dy).
+
+### Proposed change
+Add an `orientation` prop to the component:
+
+```typescript
+type AsymptoteDragHandleProps = {
+    x: number;
+    y: number;
+    active: boolean;
+    orientation?: "vertical" | "horizontal"; // defaults to "vertical"
+};
+```
+
+Then swap width/height dimensions and the dot grid layout based on orientation. This is ~5 lines
+of conditional logic — no architectural change needed.
+
+### Recommendation
+Do not add the `orientation` prop now. The current component is clean and minimal for its single
+use case. When the exponential graph ticket comes, adding orientation support will be trivial
+and the actual design requirements will guide the exact dimensions. Premature abstraction adds
+complexity without a way to verify correctness.
