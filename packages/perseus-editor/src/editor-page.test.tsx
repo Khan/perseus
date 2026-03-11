@@ -59,8 +59,6 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={question}
-                hints={[]}
-                answerArea={getDefaultAnswerArea()}
                 onChange={(next) => (callbackValue = next)}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -85,8 +83,6 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={callbackValue.question}
-                hints={[]}
-                answerArea={getDefaultAnswerArea()}
                 onChange={(next) => (callbackValue = next)}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -146,8 +142,6 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={startRenderer}
-                hints={[]}
-                answerArea={getDefaultAnswerArea()}
                 onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -210,8 +204,6 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={question}
-                hints={[]}
-                answerArea={getDefaultAnswerArea()}
                 onChange={() => {}}
                 apiOptions={{editingDisabled: true}}
                 onPreviewDeviceChange={() => {}}
@@ -255,8 +247,6 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={initialQuestion}
-                hints={[]}
-                answerArea={getDefaultAnswerArea()}
                 onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -273,8 +263,6 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={updatedQuestion}
-                hints={[]}
-                answerArea={getDefaultAnswerArea()}
                 onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
@@ -305,8 +293,6 @@ describe("EditorPage", () => {
             <EditorPage
                 dependencies={testDependenciesV2}
                 question={startRenderer}
-                hints={[]}
-                answerArea={getDefaultAnswerArea()}
                 onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"

@@ -4,7 +4,7 @@ import {
     ClassNames,
     Dependencies,
 } from "@khanacademy/perseus";
-import {parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
+import {getDefaultAnswerArea, parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -82,7 +82,9 @@ type Props = {
 };
 
 type DefaultProps = {
+    answerArea: Props["answerArea"];
     developerMode: Props["developerMode"];
+    hints: Props["hints"];
     jsonMode: Props["jsonMode"];
     onChange: Props["onChange"];
 };
@@ -100,7 +102,9 @@ class EditorPage extends React.Component<Props, State> {
     hintsEditor = React.createRef<CombinedHintsEditor>();
 
     static defaultProps: DefaultProps = {
+        answerArea: getDefaultAnswerArea(),
         developerMode: false,
+        hints: [],
         jsonMode: false,
         onChange: () => {},
     };
