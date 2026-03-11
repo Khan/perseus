@@ -1,5 +1,4 @@
 import {getWidgetIdsFromContent} from "../../utils/widget-id-utils";
-
 import {any, object, pipeParsers, string} from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
