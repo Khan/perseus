@@ -294,7 +294,6 @@ type CombinedHintsEditorProps = {
     hints: Hint[];
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
-    // eslint-disable-next-line import/no-deprecated
     onChange: (changed: {hints: Hint[]}) => void;
     // The content ID of the AssessmentItem being edited. It may not be set
     // for non-content library exercise questions.
