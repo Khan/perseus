@@ -8,3 +8,11 @@ if MATCHES=$(git grep --line-number --column  -I -eSTOPSHIP -- ':(exclude).githu
     echo "$MATCHES" | sed -E "s/([^:]*):([^:]*):([^:]*):(.*)/::error file=\1,line=\2,col=\3,title=STOPSHIP found!::\4/"
     exit 1
 fi
+
+PLAN_FILES=$(git ls-files '.claude/plans/')
+if [ -n "$PLAN_FILES" ]; then
+    while IFS= read -r file; do
+        echo "::error file=$file,title=Plan file should not be committed::Remove $file from the repository before merging"
+    done <<< "$PLAN_FILES"
+    exit 1
+fi
