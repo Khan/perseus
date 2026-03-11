@@ -1,11 +1,16 @@
 import {parse} from "./parse";
 import {parsePerseusArticle as migrateAndTypecheckPerseusArticle} from "./perseus-parsers/perseus-article";
 import {parsePerseusItem as migrateAndTypecheckPerseusItem} from "./perseus-parsers/perseus-item";
+import {parsePerseusRenderer as migrateAndTypecheckPerseusRenderer} from "./perseus-parsers/perseus-renderer";
 import {parseUserInputMap} from "./perseus-parsers/user-input-map";
 import {failure, isFailure} from "./result";
 
 import type {Result} from "./result";
-import type {PerseusItem, PerseusArticle} from "../data-schema";
+import type {
+    PerseusItem,
+    PerseusArticle,
+    PerseusRenderer,
+} from "../data-schema";
 import type {UserInputMap} from "../validation.types";
 
 export type ParseFailureDetail = {
@@ -78,6 +83,27 @@ export function parseAndMigrateUserInputMap(
 ): Result<UserInputMap, ParseFailureDetail> {
     const object: unknown = typeof data === "string" ? JSON.parse(data) : data;
     const result = parse(object, parseUserInputMap);
+    if (isFailure(result)) {
+        return failure({message: result.detail, invalidObject: object});
+    }
+    return result;
+}
+
+/**
+ * Parses a PerseusRenderer from a plain object or JSON string, migrates old
+ * formats to the latest schema, and runtime-typechecks the result.
+ *
+ * @returns a {@link Result} of the parsed PerseusRenderer. If the result is a
+ * failure, it will contain an error message describing where in the tree
+ * parsing failed.
+ * @throws SyntaxError if the argument is a string that is not well-formed
+ * JSON.
+ */
+export function parseAndMigratePerseusRenderer(
+    data: unknown,
+): Result<PerseusRenderer, ParseFailureDetail> {
+    const object: unknown = typeof data === "string" ? JSON.parse(data) : data;
+    const result = parse(object, migrateAndTypecheckPerseusRenderer);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
     }

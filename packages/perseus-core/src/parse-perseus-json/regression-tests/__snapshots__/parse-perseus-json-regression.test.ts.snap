@@ -20822,3 +20822,11 @@ exports[`parseAndMigrateUserInputMap given the data from table.ts returns the sa
   ],
 }
 `;
+
+exports[`parseAndMigratePerseusRenderer given basic-renderer.ts returns the same result as before 1`] = `
+{
+  "content": "Hello from a renderer fixture.",
+  "images": {},
+  "widgets": {},
+}
+`;
