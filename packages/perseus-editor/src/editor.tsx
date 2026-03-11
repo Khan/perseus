@@ -830,12 +830,12 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
-    serialize: (options?: any) => {
+    serialize: () => {
         content: string;
         images: any;
         replace: any | undefined;
         widgets: Record<any, any>;
-    } = (options: any) => {
+    } = () => {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
@@ -847,22 +847,6 @@ class Editor extends React.Component<Props, State> {
             // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             widgets[id] = this.refs[id].serialize();
         });
-
-        // Preserve the data associated with deleted widgets in their last
-        // modified form. This is only intended to be useful in the context of
-        // immediate cut and paste operations if Editor.serialize() is called
-        // in between the two (which ideally should not be happening).
-        // TODO(alex): Remove this once all widget.serialize() methods
-        //             have been fixed to only return props,
-        //             and the above no longer applies.
-        if (options && options.keepDeletedWidgets) {
-            _.chain(this.props.widgets)
-                .keys()
-                .reject((id) => _.contains(widgetIds, id))
-                .each((id) => {
-                    widgets[id] = this.props.widgets[id];
-                });
-        }
 
         return {
             replace: this.props.replace,
