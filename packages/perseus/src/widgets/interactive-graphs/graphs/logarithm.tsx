@@ -113,11 +113,12 @@ function LogarithmGraph(props: LogarithmGraphProps) {
         asymptoteMid,
     );
 
-    // Track focus state for the drag handle appearance
+    // Track focus and hover state for the drag handle appearance
     const [asymptoteFocused, setAsymptoteFocused] = React.useState(false);
+    const [asymptoteHovered, setAsymptoteHovered] = React.useState(false);
 
     // Make the entire asymptote line draggable (horizontal only)
-    const asymptoteRef = React.useRef<SVGGElement>(null);
+    const asymptoteRef = React.useRef<SVGGElement | null>(null);
     const {dragging: asymptoteDragging} = useDraggable({
         gestureTarget: asymptoteRef,
         point: asymptoteBottom,
@@ -139,25 +140,14 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                 role="button"
                 onFocus={() => setAsymptoteFocused(true)}
                 onBlur={() => setAsymptoteFocused(false)}
+                onMouseEnter={() => setAsymptoteHovered(true)}
+                onMouseLeave={() => setAsymptoteHovered(false)}
             >
                 {/* Transparent wide hit target */}
                 <SVGLine
                     start={topPx}
                     end={bottomPx}
                     style={{stroke: "transparent", strokeWidth: 44}}
-                />
-                {/* Focus outline */}
-                <SVGLine
-                    start={topPx}
-                    end={bottomPx}
-                    className="movable-line-focus-outline"
-                    style={{}}
-                />
-                <SVGLine
-                    start={topPx}
-                    end={bottomPx}
-                    className="movable-line-focus-outline-gap"
-                    style={{}}
                 />
                 {/* Visible solid line */}
                 <SVGLine
@@ -173,7 +163,12 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                 <AsymptoteDragHandle
                     x={midPx[X]}
                     y={midPx[Y]}
-                    active={asymptoteDragging || asymptoteFocused}
+                    active={
+                        asymptoteDragging ||
+                        asymptoteFocused ||
+                        asymptoteHovered
+                    }
+                    focused={asymptoteFocused}
                 />
             </g>
             <Plot.OfX
@@ -220,7 +215,7 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     );
 }
 
-// Active (focused/dragging): full pill with dots
+// Active (hovered/focused/dragging): full pill with dots
 const ACTIVE_W = 12;
 const ACTIVE_H = 22;
 // Inactive: thinner pill without dots
@@ -228,9 +223,17 @@ const INACTIVE_W = 6;
 const INACTIVE_H = 16;
 const RING_PAD = 2;
 const HALO_PAD = 3;
+// Focus ring around the drag handle (keyboard navigation indicator)
+const FOCUS_RING_PAD = 2;
+const FOCUS_RING_STROKE = 2;
 
-function AsymptoteDragHandle(props: {x: number; y: number; active: boolean}) {
-    const {x, y, active} = props;
+function AsymptoteDragHandle(props: {
+    x: number;
+    y: number;
+    active: boolean;
+    focused: boolean;
+}) {
+    const {x, y, active, focused} = props;
     const {interactiveColor} = useGraphConfig();
 
     const centerW = active ? ACTIVE_W : INACTIVE_W;
@@ -240,8 +243,26 @@ function AsymptoteDragHandle(props: {x: number; y: number; active: boolean}) {
     const ringW = centerW + RING_PAD * 2;
     const ringH = centerH + RING_PAD * 2;
 
+    // Focus ring sits outside the halo
+    const focusRingW = haloW + FOCUS_RING_PAD * 2;
+    const focusRingH = haloH + FOCUS_RING_PAD * 2;
+
     return (
         <g aria-hidden={true} style={{pointerEvents: "none"}}>
+            {/* Focus ring — visible only on keyboard focus */}
+            {focused && (
+                <rect
+                    x={x - focusRingW / 2}
+                    y={y - focusRingH / 2}
+                    width={focusRingW}
+                    height={focusRingH}
+                    rx={focusRingW / 2}
+                    ry={focusRingW / 2}
+                    fill="none"
+                    stroke={interactiveColor}
+                    strokeWidth={FOCUS_RING_STROKE}
+                />
+            )}
             {/* Halo — matches movable-point-halo styling */}
             <rect
                 x={x - haloW / 2}
