@@ -334,11 +334,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         silent: boolean,
     ) => {
         const hints = [...this.props.hints];
-        hints[i] = _.extend(
-            {},
-            this.serializeHint(i),
-            newProps,
-        );
+        hints[i] = _.extend({}, this.serializeHint(i), newProps);
 
         this.props.onChange({hints: hints});
     };
@@ -391,9 +387,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     };
 
     // TODO(benchristel): the return type of serializeHint should be Hint, not string.
-    serializeHint: (index: number) => string = (
-        index: number,
-    ): string => {
+    serializeHint: (index: number) => string = (index: number): string => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs["hintEditor" + index].serialize();
