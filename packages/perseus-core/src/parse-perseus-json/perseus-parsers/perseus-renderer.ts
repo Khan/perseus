@@ -5,8 +5,9 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parseImages} from "./images-map";
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {PerseusRenderer} from "../../data-schema";
+import type {PerseusRenderer, PerseusWidgetsMap} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {getWidgetIdsFromContent} from "@khanacademy/perseus-core";
 
 const parseRenderer = object({
     // TODO(benchristel): content is also defaulted to empty string in
@@ -32,7 +33,17 @@ const createDefaultRenderer = () => ({
 });
 
 function removeOrphanedWidgets(renderer: PerseusRenderer): PerseusRenderer {
-    return renderer;
+    const referencedWidgetIds = getWidgetIdsFromContent(renderer.content)
+
+    const referencedWidgets: PerseusWidgetsMap = {}
+    for (const id of referencedWidgetIds) {
+        referencedWidgets[id] = renderer.widgets[id]
+    }
+
+    return {
+        ...renderer,
+        widgets: referencedWidgets,
+    };
 }
 
 export const parsePerseusRenderer: Parser<PerseusRenderer> = pipeParsers(
