@@ -289,6 +289,7 @@ class SvgImage extends React.Component<Props, State> {
         graphie: any,
         options: any,
     ) => {
+        const newLabelsRendered: LabelsRenderedMap = {};
         _.map(options.labels, (labelData) => {
             const {JIPT} = getDependencies();
             if (JIPT.useJIPT && this.state.labelDataIsLocalized) {
@@ -357,12 +358,13 @@ class SvgImage extends React.Component<Props, State> {
                     label.css(styleName, styleValue);
                 });
             }
-            this.setState({
-                labelsRendered: {
-                    ...this.state.labelsRendered,
-                    [labelData.content]: true,
-                },
-            });
+            newLabelsRendered[labelData.content] = true;
+        });
+        this.setState({
+            labelsRendered: {
+                ...this.state.labelsRendered,
+                ...newLabelsRendered,
+            },
         });
     };
 
