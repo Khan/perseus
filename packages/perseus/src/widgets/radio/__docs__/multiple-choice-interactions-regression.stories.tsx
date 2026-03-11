@@ -161,7 +161,6 @@ export const ChoiceTextColorInArticle = (): React.ReactNode => {
         <ArticleRenderer
             apiOptions={apiOptions}
             json={question}
-            useNewStyles
             dependencies={storybookDependenciesV2}
         />
     );
