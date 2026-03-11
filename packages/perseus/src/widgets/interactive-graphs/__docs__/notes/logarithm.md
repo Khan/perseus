@@ -7,7 +7,7 @@ allowing content creators to define logarithm function exercises using two movab
 and a movable vertical asymptote.
 
 - **Ticket:** [LEMS-3950](https://khanacademy.atlassian.net/browse/LEMS-3950)
-- **POC:** TBD https://github.com/Khan/perseus/pull/3322
+- **POC:** TBD (PR link)
 - **Branch:** `LEMS-3950/poc-logarithm-interactive-graph`
 
 ## Scenarios
@@ -22,14 +22,19 @@ and a movable vertical asymptote.
 - The curve updates in real time as the user drags either control point or the asymptote
 - The graph correctly renders `f(x) = a * ln(b * x + c)` based on point and asymptote positions
 - The vertical asymptote is visually displayed as a solid line with a pill-shaped drag handle
+- The drag handle shows an active state (larger pill with grip dots) on hover, focus, or drag, and an inactive state (smaller pill, no dots) otherwise
 - The entire asymptote line is draggable (not just a single point) — constrained to horizontal movement
 - The asymptote can cross to the other side of the curve points, causing the curve to flip direction
 - The curve never visually touches or intersects the asymptote — it exits the visible area off-screen
 - No curve is drawn on the undefined side of the asymptote (domain restriction is enforced via `Plot.OfX` `domain` prop)
 - Keyboard navigation works on both control points (arrow keys move the point by snap step)
-- Points cannot be placed on the asymptote line, and both points must have different y-values — invalid moves are rejected gracefully (no crash, no invalid state)
+- Keyboard navigation works on the asymptote line (arrow keys move it horizontally by snap step, with the same snap-through behavior as mouse drag)
+- Points cannot be placed on the asymptote line, both points must have different y-values, and points cannot cross to the other side of the asymptote — invalid moves are rejected gracefully (no crash, no invalid state)
+- Keyboard constraints enforce all three point validation rules (asymptote, same-y, same-side) with bounded retry (max 3 steps) and fallback to staying in place
 - The graph is scorable — the correct answer is compared using coefficient comparison with `approximateDeepEqual`
-- Screen reader announces the graph label, point positions, and asymptote position correctly
+- Screen reader announces the graph label, point positions, and asymptote position using localized strings
+- The asymptote aria-label is localized and includes keyboard navigation instructions
+- Asymptote position changes are announced to screen readers via `aria-live="polite"`
 - The widget renders correctly on mobile
 
 ### Content Creator: Configuring a Logarithm Graph Exercise
@@ -164,12 +169,12 @@ as `MovableLine` in the codebase:
 
 - A `<g>` element with `useDraggable` attached — the entire line responds to click/drag/keyboard
 - A transparent wide SVG line (44px stroke) as the hit target
-- Focus outline lines for keyboard accessibility
 - A visible solid line using the interactive color
 - A pill-shaped drag handle (`AsymptoteDragHandle`) at the midpoint with:
-  - **Active state** (focused or dragging): 12px wide × 22px tall pill with 6 white grip dots (2×3 grid)
+  - **Active state** (hovered, focused, or dragging): 12px wide × 22px tall pill with 6 white grip dots (2×3 grid)
   - **Inactive state** (default): 6px wide × 16px tall pill, no grip dots
-  - Layered SVG `rect` elements (halo → ring → center) matching movable point styling
+  - **Focus ring** (keyboard focus only): a rounded outline rect outside the halo, consistent with how movable points show their focus indicator on the element itself rather than on the full line
+  - Layered SVG `rect` elements (focus ring → halo → ring → center) matching movable point styling
   - `pointerEvents: "none"` so drags pass through to the line
 
 ### Asymptote Drag Behavior
@@ -217,8 +222,10 @@ splits paths at sign flips.
 **Points:**
 - Cannot be placed on the asymptote line (`point.x !== asymptoteX`)
 - Must have different y-values (`point1.y !== point2.y`)
-- Must remain on the same side of the asymptote
-- Keyboard movement skips positions that violate these constraints
+- Must remain on the same side of the asymptote as the other point
+- Keyboard movement uses a unified `isValidPosition()` check that enforces all three rules,
+  with a bounded retry loop (max 3 steps in the move direction) to skip past invalid positions.
+  If no valid position is found within 3 steps, the point stays in place.
 
 **Asymptote:**
 - Constrained to horizontal movement only
@@ -270,7 +277,7 @@ splits paths at sign flips.
 - `packages/perseus-core/src/data-schema.ts` — `PerseusGraphTypeLogarithm`, `LogarithmGraphCorrect` types
 - `packages/perseus-core/.../interactive-graph-widget.ts` — Parser for logarithm type
 - `packages/perseus-score/.../score-interactive-graph.ts` — Logarithm scoring with `getLogarithmCoeffs()` helper
-- `packages/perseus/src/strings.ts` — Screen reader strings (`srLogarithmGraph`, `srLogarithmPoint1`, `srLogarithmPoint2`, `srLogarithmDescription`, `srLogarithmInteractiveElements`)
+- `packages/perseus/src/strings.ts` — Screen reader strings (`srLogarithmGraph`, `srLogarithmPoint1`, `srLogarithmPoint2`, `srLogarithmDescription`, `srLogarithmInteractiveElements`, `srLogarithmAsymptote`)
 - `packages/perseus/src/index.ts` — Export `getLogarithmCoords`
 - `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx` — `getLogarithmEquationString()`, `defaultLogarithmCoords`, register logarithm type
 - `packages/perseus/src/widgets/interactive-graphs/mafs-graph.tsx` — Render case for logarithm
@@ -334,12 +341,24 @@ splits paths at sign flips.
    approach was chosen after evaluating several alternatives (see
    [Curve-Asymptote Visual Gap](#curve-asymptote-visual-gap-preventing-the-curve-from-touching-the-asymptote) table).
 
-10. **Active/inactive drag handle states** — The `AsymptoteDragHandle` pill has two visual states:
-    a larger pill with grip dots when focused/dragging, and a smaller pill without dots when idle.
-    This provides clear affordance that the asymptote is interactive while keeping the default
-    appearance clean.
+10. **Active/inactive drag handle states with localized focus ring** — The `AsymptoteDragHandle`
+    pill has two visual states: a larger pill with grip dots when hovered, focused, or dragging,
+    and a smaller pill without dots when idle. On keyboard focus, a focus ring appears around the
+    drag handle (not the full asymptote line), consistent with how movable points display their
+    focus indicator. The full-line focus outline was removed in favor of this localized approach.
 
-11. **Logarithm only has vertical asymptotes** — Horizontal asymptotes are not applicable to
+11. **Localized asymptote aria-label with `aria-live`** — The asymptote's `aria-label` uses a
+    translatable string from `strings.ts` (`srLogarithmAsymptote`) with `srFormatNumber` for
+    locale-appropriate number formatting. The label includes keyboard navigation instructions
+    ("Use left and right arrow keys to move"). `aria-live="polite"` on the asymptote element
+    causes screen readers to announce the updated position when the asymptote is moved.
+
+12. **Bounded keyboard constraint retry** — The keyboard constraint uses a unified
+    `isValidPosition()` check (asymptote, same-y, same-side) inside a bounded loop (max 3 steps).
+    This prevents the infinite-loop risk of the original two-separate-if approach and ensures the
+    point stays in place if no valid position exists in the move direction.
+
+13. **Logarithm only has vertical asymptotes** — Horizontal asymptotes are not applicable to
     logarithmic functions. Horizontal asymptotes will be addressed separately for the exponential
     function graph type (see [Future: Horizontal Drag Handle](#future-horizontal-drag-handle-for-exponential-graph)).
 
@@ -363,6 +382,7 @@ type AsymptoteDragHandleProps = {
     x: number;
     y: number;
     active: boolean;
+    focused: boolean;
     orientation?: "vertical" | "horizontal"; // defaults to "vertical"
 };
 ```
