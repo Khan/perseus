@@ -81,6 +81,8 @@ const config: StorybookConfig = {
         "../packages/perseus-editor/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
 
         // Docs for Perseus widgets, components, and renderers
+        // Exclude notes directories (used for internal documentation (AI context), not stories)
+        "!../**/notes/**",
         "../packages/perseus/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
         "../packages/perseus/src/widgets/**/**/*.@(stories.ts|stories.tsx|mdx)",
 

@@ -4,6 +4,7 @@ import {
     ClassNames,
     Dependencies,
 } from "@khanacademy/perseus";
+import {parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -342,6 +343,7 @@ class EditorPage extends React.Component<Props, State> {
                             <JsonEditor
                                 multiLine={true}
                                 value={this.state.json}
+                                parser={parseAndMigratePerseusItem}
                                 onChange={this.changeJSON}
                                 editingDisabled={editingDisabled}
                             />

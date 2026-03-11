@@ -313,7 +313,7 @@ const Tangent: TangentType = _.extend({}, PlotDefaults, {
         return (
             "y = " +
             a.toFixed(3) +
-            " sin(" +
+            " tan(" +
             b.toFixed(3) +
             "x - " +
             c.toFixed(3) +

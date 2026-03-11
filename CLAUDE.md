@@ -28,6 +28,7 @@ pnpm lint --fix            # Auto-fix linting issues
 pnpm prettier . --check    # Check Prettier formatting
 pnpm prettier . --write    # Auto-format code
 pnpm tsc                   # Type-check all packages
+pnpm knip                  # Find unused files, exports, and dependencies
 ```
 
 ### Testing Specific Packages
@@ -124,7 +125,7 @@ describe("WidgetComponent", () => {
         expect(screen.getByRole("button")).toBeInTheDocument();
     });
 
-    it("handles user interaction", async () => {
+    it("calls onChange when button is clicked", async () => {
         const user = userEvent.setup();
         const onChange = jest.fn();
 
@@ -139,6 +140,10 @@ describe("WidgetComponent", () => {
 ### Writing Tests
 - use `it` for individual test cases and not `test`
 - use `describe` to group related tests
+- Test titles should describe the requirement or observable outcome, not the implementation.
+  Prefer verbs like `returns`, `renders`, `disables`, `throws` over vague phrases like "should handle".
+  A failing test title should tell you which requirement broke without reading the test body.
+  ❌ `"should handle empty input"` → ✅ `"returns null when input is empty"`
 
 ## Common Issues & Solutions
 
