@@ -21,7 +21,7 @@ import type {
 } from "../types";
 import type {Coord} from "@khanacademy/perseus-core";
 
-export type NamedTangentCoefficient = {
+type NamedTangentCoefficient = {
     amplitude: number;
     angularFrequency: number;
     phase: number;
@@ -43,7 +43,7 @@ type TangentGraphProps = MafsGraphProps<TangentGraphState>;
 
 // Compute the x-positions of vertical asymptotes within a given x-range.
 // Asymptotes occur where b*x - c = π/2 + n*π, i.e. x = (c + π/2 + n*π) / b
-export function getAsymptotePositions(
+function getAsymptotePositions(
     coeffs: NamedTangentCoefficient,
     xRange: [number, number],
 ): number[] {
@@ -178,7 +178,7 @@ function TangentGraph(props: TangentGraphProps) {
     );
 }
 
-export const getTangentKeyboardConstraint = (
+const getTangentKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
     pointIndex: number,
@@ -220,7 +220,7 @@ export const getTangentKeyboardConstraint = (
 // Plot a tangent of the form: f(x) = a * tan(b * x - c) + d
 // Returns NaN near vertical asymptotes to break the SVG path,
 // preventing Mafs from drawing connecting lines across discontinuities.
-export const computeTangent = function (
+const computeTangent = function (
     x: number,
     tangentCoefficients: NamedTangentCoefficient,
 ) {
@@ -245,7 +245,7 @@ export const computeTangent = function (
     return a * Math.tan(arg) + d;
 };
 
-export const getTangentCoefficients = (
+const getTangentCoefficients = (
     coords: ReadonlyArray<Coord>,
 ): NamedTangentCoefficient | undefined => {
     const p1 = coords[0];

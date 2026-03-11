@@ -318,9 +318,6 @@ export const tangentQuestion: PerseusRenderer =
         })
         .build();
 
-export const tangentQuestionWithDefaultCorrect: PerseusRenderer =
-    interactiveGraphQuestionBuilder().withTangent().build();
-
 export const questionsAndAnswers: ReadonlyArray<
     [
         PerseusRenderer, // Correct answer

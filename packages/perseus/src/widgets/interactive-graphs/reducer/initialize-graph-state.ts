@@ -372,7 +372,7 @@ export function getSinusoidCoords(
     return coords;
 }
 
-export function getTangentCoords(
+function getTangentCoords(
     graph: PerseusGraphTypeTangent,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
