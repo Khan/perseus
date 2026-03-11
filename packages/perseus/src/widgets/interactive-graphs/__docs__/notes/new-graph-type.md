@@ -55,6 +55,14 @@ export type PerseusGraphType =
     | PerseusGraphTypeVectorSum; // add here
 ```
 
+Then register it in parsePerseusGraphType:
+
+```typescript
+  export const parsePerseusGraphType = discriminatedUnionOn("type")
+      // ... existing branches ...
+      .withBranch("vector-sum", parsePerseusGraphTypeVectorSum).parser;
+```
+
 **Note:** The `coords` field is typically `null` until the user interacts, and is populated by `getGradableGraph()` when the user submits.
 
 ---
@@ -221,6 +229,24 @@ if (state.type === "vector-sum" && initialGraph.type === "vector-sum") {
 
 Make sure this is added before the final `throw` at the bottom of the function.
 
+Map state to interactive graph data
+
+File: `packages/perseus/src/widgets/interactive-graphs/mafs-state-to-interactive-graph.ts`
+
+Add a case to `mafsStateToInteractiveGraph()` so the internal reducer state can be serialized back to the `PerseusGraphType` format. This is used by `getUserInput()`:
+
+```typescript
+case "vector-sum":
+    invariant(originalGraph.type === "vector-sum");
+    return {
+        ...originalGraph,
+        coords: state.coords,
+        // Include any extra state fields (e.g., asymptote for logarithm)
+    };
+```
+
+Note: This is distinct from `getGradableGraph()` in Step 6. Both convert state → `PerseusGraphType`, but `mafsStateToInteractiveGraph` is used during live interaction (e.g., equation display in the editor), while `getGradableGraph` is used at scoring time.
+
 ---
 
 ### 7. Implement the graph component
@@ -280,6 +306,35 @@ function getVectorSumDescription(
 }
 ```
 
+Add screen reader strings
+
+File: `packages/perseus/src/strings.ts`
+
+Every graph type needs screen reader strings for accessibility. Define keys in the `PerseusStrings` type and provide English defaults. The naming convention is `sr[Name]*`:
+
+```typescript
+// In the PerseusStrings type definition:
+srVectorSumGraph: string;
+srVectorSumPoint1: ({x, y}: {x: string; y: string}) => string;
+srVectorSumPoint2: ({x, y}: {x: string; y: string}) => string;
+srVectorSumDescription: (props: {/* description params */}) => string;
+srVectorSumInteractiveElements: string;
+```
+
+Then provide the English implementations:
+
+```typescript
+// In the English strings object:
+srVectorSumGraph: "A vector sum on a coordinate plane.",
+srVectorSumPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
+srVectorSumPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
+srVectorSumDescription: (props) => `The graph shows ...`,
+srVectorSumInteractiveElements: "The graph has 2 draggable points.",
+```
+
+These strings are consumed by your graph component (Step 7) via `usePerseusI18n()` and rendered as `aria-label`, `aria-describedby`, and `SRDescInSVG` elements.
+
+
 Reusable components available in `graphs/components/`:
 - `MovablePoint` — draggable point with keyboard support
 - `MovableLine` — draggable line segment
@@ -306,7 +361,34 @@ case "vector-sum":
     return renderVectorSumGraph(state, dispatch, i18n);
 ```
 
-The `default` branch of this switch uses `UnreachableCaseError`, so TypeScript will give a compile error if you add to `InteractiveGraphState` without also adding the case here.
+The `default` branch of this switch uses `UnreachableCaseError`, so TypeScript will give a compile error if you add to `InteractiveGraphState`
+
+Register the equation string
+
+File: `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx`
+
+Add a case in `getEquationString()` so the editor can display the current equation to content creators:
+
+```typescript
+case "vector-sum":
+    return InteractiveGraph.getVectorSumEquationString(props);
+```
+
+Then implement the static method:
+
+```typescript
+static getVectorSumEquationString(props: Props): string {
+  const userInput = props.userInput;
+  if (userInput.type !== "vector-sum" || !userInput.coords) {
+      return "";
+  }
+  // Compute coefficients and return a formatted equation string
+  // e.g., "y = a·f(x) + b"
+  return `...`;
+}
+```
+
+This string appears below the graph in the Content Editor to help authors see the currently configured answer.
 
 ---
 
