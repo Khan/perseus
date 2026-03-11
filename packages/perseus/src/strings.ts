@@ -521,6 +521,7 @@ export type PerseusStrings = {
         point2Y: string;
         asymptoteX: string;
     }) => string;
+    srLogarithmAsymptote: ({asymptoteX}: {asymptoteX: string}) => string;
     imageExploreButton: string;
     imageAlternativeTitle: string;
     imageDescriptionLabel: string;
@@ -1151,6 +1152,12 @@ export const strings = {
         message:
             "Logarithm graph with point 1 at %(point1X)s comma %(point1Y)s, point 2 at %(point2X)s comma %(point2Y)s, and vertical asymptote at x equals %(asymptoteX)s.",
     },
+    srLogarithmAsymptote: {
+        context:
+            "Aria label for the draggable vertical asymptote line in the Logarithm function in the interactive graph widget.",
+        message:
+            "Vertical asymptote at x equals %(asymptoteX)s. Use left and right arrow keys to move.",
+    },
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
@@ -1505,6 +1512,8 @@ export const mockStrings: PerseusStrings = {
         asymptoteX,
     }) =>
         `Logarithm graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and vertical asymptote at x equals ${asymptoteX}.`,
+    srLogarithmAsymptote: ({asymptoteX}) =>
+        `Vertical asymptote at x equals ${asymptoteX}. Use left and right arrow keys to move.`,
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",

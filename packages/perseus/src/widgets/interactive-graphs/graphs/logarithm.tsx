@@ -96,6 +96,7 @@ function LogarithmGraph(props: LogarithmGraphProps) {
         srLogarithmDescription,
         srLogarithmPoint1,
         srLogarithmPoint2,
+        srLogarithmAsymptote,
     } = describeLogarithmGraph(graphState, i18n);
 
     // Asymptote line endpoints (vertical line spanning the full y-range)
@@ -130,11 +131,12 @@ function LogarithmGraph(props: LogarithmGraphProps) {
 
     return (
         <g aria-label={srLogarithmGraph} aria-describedby={descriptionId}>
-            {/* Draggable dashed vertical asymptote line */}
+            {/* Draggable vertical asymptote line */}
             <g
                 ref={asymptoteRef}
                 tabIndex={0}
-                aria-label={`Asymptote at x equals ${asymptoteX}`}
+                aria-label={srLogarithmAsymptote}
+                aria-live="polite"
                 className="movable-line"
                 style={{cursor: asymptoteDragging ? "grabbing" : "grab"}}
                 role="button"
@@ -326,18 +328,37 @@ const getLogarithmKeyboardConstraint = (
     const coordToBeMoved = coords[pointIndex];
     const otherPoint = coords[1 - pointIndex];
     const asymptoteX = asymptote[0][X];
+    const otherPointSide = otherPoint[X] > asymptoteX;
+
+    const isValidPosition = (coord: vec.Vector2): boolean => {
+        // Can't be on the asymptote
+        if (coord[X] === asymptoteX) {
+            return false;
+        }
+        // Can't have same y as other point
+        if (coord[Y] === otherPoint[Y]) {
+            return false;
+        }
+        // Must be on the same side of the asymptote as the other point
+        if (coord[X] > asymptoteX !== otherPointSide) {
+            return false;
+        }
+        return true;
+    };
 
     const movePointWithConstraint = (
         moveFunc: (coord: vec.Vector2) => vec.Vector2,
     ): vec.Vector2 => {
         let movedCoord = moveFunc(coordToBeMoved);
-        // Can't be on the asymptote
-        if (movedCoord[X] === asymptoteX) {
+        // Try up to 3 steps to find a valid position (handles cases
+        // where the first move lands on the asymptote and the second
+        // lands on the other point's y-value).
+        for (let i = 0; i < 3 && !isValidPosition(movedCoord); i++) {
             movedCoord = moveFunc(movedCoord);
         }
-        // Can't have same y as other point
-        if (movedCoord[Y] === otherPoint[Y]) {
-            movedCoord = moveFunc(movedCoord);
+        // If still invalid after 3 attempts, stay in place
+        if (!isValidPosition(movedCoord)) {
+            return coordToBeMoved;
         }
         return movedCoord;
     };
@@ -465,6 +486,9 @@ function describeLogarithmGraph(
         point2Y: formattedPoint2.y,
         asymptoteX: srFormatNumber(asymptote[0][X], locale),
     });
+    const srLogarithmAsymptote = strings.srLogarithmAsymptote({
+        asymptoteX: srFormatNumber(asymptote[0][X], locale),
+    });
     const srLogarithmPoint1 = strings.srLogarithmPoint1(formattedPoint1);
     const srLogarithmPoint2 = strings.srLogarithmPoint2(formattedPoint2);
     const srLogarithmInteractiveElements = strings.srInteractiveElements({
@@ -480,6 +504,7 @@ function describeLogarithmGraph(
     return {
         srLogarithmGraph,
         srLogarithmDescription,
+        srLogarithmAsymptote,
         srLogarithmPoint1,
         srLogarithmPoint2,
         srLogarithmInteractiveElements,
