@@ -4,7 +4,10 @@ import {
     ClassNames,
     Dependencies,
 } from "@khanacademy/perseus";
-import {parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
+import {
+    getDefaultAnswerArea,
+    parseAndMigratePerseusItem,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -17,8 +20,6 @@ import type {Issue} from "./components/issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
-    // eslint-disable-next-line import/no-deprecated
-    ChangeHandler,
     DeviceType,
     ImageUploader,
     PerseusDependenciesV2,
@@ -32,19 +33,26 @@ import type {
 
 const {HUD} = components;
 
+type OnChangeParams = {
+    jsonMode?: boolean;
+    question?: PerseusRenderer;
+    hints?: Hint[];
+    answerArea?: PerseusAnswerArea | null | undefined;
+};
+
 type Props = {
     /** Additional templates that the host application would like to display
      * within the Perseus Editor.
      */
     additionalTemplates?: Record<string, string>;
     apiOptions?: APIOptions;
-    answerArea?: PerseusAnswerArea | null; // related to the question,
+    answerArea: PerseusAnswerArea; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
     contentPaths?: ReadonlyArray<string>;
     dependencies: PerseusDependenciesV2;
     /** "Power user" mode. Shows the raw JSON of the question. */
     developerMode: boolean;
-    hints?: ReadonlyArray<Hint>; // related to the question,
+    hints: Hint[]; // related to the question,
     /** A function which takes a file object (guaranteed to be an image) and
      * a callback, then calls the callback with the url where the image
      * will be hosted. Image drag and drop is disabled when imageUploader
@@ -59,14 +67,14 @@ type Props = {
      */
     jsonMode: boolean;
     /** A function which is called with the new JSON blob of content. */
-    onChange: ChangeHandler;
+    onChange: (changed: OnChangeParams) => void;
     /** A function which is called when the preview device changes. */
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
     /** A global control to expand/collapse all widget editors on a page. */
     widgetsAreOpen?: boolean;
     /** Initial value of the question being edited. */
-    question?: PerseusRenderer;
+    question: PerseusRenderer;
     /** URL of the route to show on initial load of the preview frames. */
     previewURL: string;
     /** Additional issues that the host application would like to display
@@ -77,7 +85,9 @@ type Props = {
 };
 
 type DefaultProps = {
+    answerArea: Props["answerArea"];
     developerMode: Props["developerMode"];
+    hints: Props["hints"];
     jsonMode: Props["jsonMode"];
     onChange: Props["onChange"];
 };
@@ -95,7 +105,9 @@ class EditorPage extends React.Component<Props, State> {
     hintsEditor = React.createRef<CombinedHintsEditor>();
 
     static defaultProps: DefaultProps = {
+        answerArea: getDefaultAnswerArea(),
         developerMode: false,
+        hints: [],
         jsonMode: false,
         onChange: () => {},
     };
@@ -104,10 +116,7 @@ class EditorPage extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea">' is not assignable to type 'PerseusJson'.
             json: _.pick(this.props, "question", "answerArea", "hints"),
-            gradeMessage: "",
-            wasAnswered: false,
             highlightLint: true,
             widgetsAreOpen: this.props.widgetsAreOpen ?? true,
         };
@@ -176,10 +185,6 @@ class EditorPage extends React.Component<Props, State> {
      * we need to update state.json to reflect those changes.
      */
     syncJsonStateFromProps() {
-        if (!this.props.question) {
-            return;
-        }
-
         this.setState({
             json: {
                 question: this.props.question,
@@ -261,11 +266,10 @@ class EditorPage extends React.Component<Props, State> {
         });
     }
 
-    // eslint-disable-next-line import/no-deprecated
-    handleChange: ChangeHandler = (toChange, cb, silent) => {
+    handleChange = (toChange: OnChangeParams) => {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
-        this.props.onChange(newProps, cb, silent);
+        this.props.onChange(newProps);
     };
 
     changeJSON: (newJson: PerseusItem) => void = (newJson: PerseusItem) => {

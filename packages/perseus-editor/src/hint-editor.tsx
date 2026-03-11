@@ -291,11 +291,10 @@ type CombinedHintsEditorProps = {
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
     highlightLint?: boolean;
-    hints: ReadonlyArray<Hint>;
+    hints: Hint[];
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
-    // eslint-disable-next-line import/no-deprecated
-    onChange: ChangeHandler;
+    onChange: (changed: {hints: Hint[]}) => void;
     // The content ID of the AssessmentItem being edited. It may not be set
     // for non-content library exercise questions.
     itemId?: string;
@@ -340,7 +339,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             newProps,
         );
 
-        this.props.onChange({hints: hints}, cb, silent);
+        this.props.onChange({hints: hints});
     };
 
     handleHintRemove: (i: number) => void = (i: number) => {
@@ -361,22 +360,13 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         const hints = [...this.props.hints];
         const hint = hints.splice(i, 1)[0];
         hints.splice(i + dir, 0, hint);
-        this.props.onChange({hints: hints}, () => {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs["hintEditor" + (i + dir)].focus();
-        });
+        this.props.onChange({hints: hints});
     };
 
     addHint: () => void = () => {
         const hint: PerseusRenderer = {content: "", images: {}, widgets: {}};
         const hints = [...this.props.hints, hint];
-        this.props.onChange({hints: hints}, () => {
-            const i = hints.length - 1;
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs["hintEditor" + i].focus();
-        });
+        this.props.onChange({hints: hints});
     };
 
     getSaveWarnings: () => any = () => {

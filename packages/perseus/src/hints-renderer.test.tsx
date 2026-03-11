@@ -21,7 +21,7 @@ describe("HintsRenderer", () => {
 
     it("rendering normal hints works as expected", () => {
         // Arrange
-        const hints: ReadonlyArray<Hint> = [
+        const hints: Hint[] = [
             {
                 content: "This is the first hint",
                 images: {},
@@ -56,7 +56,7 @@ describe("HintsRenderer", () => {
 
     it("rendering hints with placeholder as true should not show the hint", () => {
         // Arrange
-        const hints: ReadonlyArray<Hint> = [
+        const hints: Hint[] = [
             {
                 content: "This is a normal hint",
                 images: {},
@@ -102,7 +102,7 @@ describe("HintsRenderer", () => {
 
     it("doesn't throw when focusing", () => {
         // Arrange
-        const hints: ReadonlyArray<Hint> = [
+        const hints: Hint[] = [
             {
                 content: "",
                 images: {},

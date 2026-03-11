@@ -25,6 +25,7 @@ import type {
     PerseusAnswerArea,
     PerseusWidgetsMap,
     PerseusRenderer,
+    PerseusItem,
 } from "@khanacademy/perseus-core";
 
 type Props = {
@@ -40,8 +41,7 @@ type Props = {
     answerArea?: PerseusAnswerArea | null;
     /** URL of the route to show on initial load of the preview frames. */
     previewURL: string;
-    // eslint-disable-next-line import/no-deprecated
-    onChange: ChangeHandler;
+    onChange: (changed: Partial<PerseusItem>) => void;
     /** The content ID of the AssessmentItem being edited. It may not be set
      * for non-content library exercise questions.
      */
@@ -141,11 +141,10 @@ class ItemEditor extends React.Component<Props, State> {
     }
 
     // Notify the parent that the question or answer area has been updated.
-    // eslint-disable-next-line import/no-deprecated
-    updateProps: ChangeHandler = (newProps, cb, silent) => {
+    updateProps = (newProps: Partial<PerseusItem>) => {
         const props = _(this.props).pick("question", "answerArea");
 
-        this.props.onChange(_(props).extend(newProps), cb, silent);
+        this.props.onChange(_(props).extend(newProps));
     };
 
     triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
@@ -153,14 +152,14 @@ class ItemEditor extends React.Component<Props, State> {
     };
 
     // eslint-disable-next-line import/no-deprecated
-    handleEditorChange: ChangeHandler = (newProps, cb, silent) => {
+    handleEditorChange: ChangeHandler = (newProps) => {
         const question = _.extend({}, this.props.question, newProps);
-        this.updateProps({question}, cb, silent);
+        this.updateProps({question});
     };
 
     handleItemExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
         const answerArea = _.extend({}, this.props.answerArea, newProps);
-        this.updateProps({answerArea}, () => {}, true);
+        this.updateProps({answerArea});
     };
 
     getSaveWarnings: () => any = () => {
