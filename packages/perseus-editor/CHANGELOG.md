@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 28.16.0
+
+### Minor Changes
+
+-   [#3316](https://github.com/Khan/perseus/pull/3316) [`9e60fd05b8`](https://github.com/Khan/perseus/commit/9e60fd05b83013248aca4efb522141fac75d5cd3) Thanks [@benchristel](https://github.com/benchristel)! - When editing content in JSON mode, validate that changes conform to the Perseus schema.
+
+### Patch Changes
+
+-   Updated dependencies [[`75d06c5a69`](https://github.com/Khan/perseus/commit/75d06c5a69d70d9783df34f26d5d5575f0068602), [`a325571174`](https://github.com/Khan/perseus/commit/a325571174c4421963a17411930d18014851dba0)]:
+    -   @khanacademy/perseus-core@23.5.0
+    -   @khanacademy/keypad-context@3.2.37
+    -   @khanacademy/kmath@2.2.37
+    -   @khanacademy/math-input@26.4.6
+    -   @khanacademy/perseus@75.7.1
+    -   @khanacademy/perseus-linter@4.8.5
+    -   @khanacademy/perseus-score@8.2.14
+
 ## 28.15.0
 
 ### Minor Changes
