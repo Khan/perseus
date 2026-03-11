@@ -41,7 +41,6 @@ type Props = {
     answerArea?: PerseusAnswerArea | null;
     /** URL of the route to show on initial load of the preview frames. */
     previewURL: string;
-    // eslint-disable-next-line import/no-deprecated
     onChange: (changed: Partial<PerseusItem>) => void;
     /** The content ID of the AssessmentItem being edited. It may not be set
      * for non-content library exercise questions.
@@ -142,7 +141,6 @@ class ItemEditor extends React.Component<Props, State> {
     }
 
     // Notify the parent that the question or answer area has been updated.
-    // eslint-disable-next-line import/no-deprecated
     updateProps = (newProps: Partial<PerseusItem>) => {
         const props = _(this.props).pick("question", "answerArea");
 
