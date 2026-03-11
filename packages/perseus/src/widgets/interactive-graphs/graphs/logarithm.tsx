@@ -72,11 +72,23 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     const asymptoteX = asymptote[0][X];
     const xRange: [number, number] = [range[0][0], range[0][1]];
 
-    // Determine which side of the asymptote the points are on
+    // Determine which side of the asymptote the points are on.
+    // We use a very small domainOffset so that Mafs samples points
+    // extremely close to the asymptote. The curve shoots toward
+    // +/- infinity near the asymptote but never touches it.
+    const domainOffset = 0.001;
     const pointsRightOfAsymptote = coords[0][X] > asymptoteX;
     const domain: [number, number] = pointsRightOfAsymptote
-        ? [asymptoteX + 0.01, xRange[1]]
-        : [xRange[0], asymptoteX - 0.01];
+        ? [asymptoteX + domainOffset, xRange[1]]
+        : [xRange[0], asymptoteX - domainOffset];
+
+    // Extend the y-range so the curve renders well past the visible
+    // graph area. This prevents the curve from appearing "cut off"
+    // near the asymptote — it continues off-screen instead of ending
+    // abruptly at the domain boundary.
+    const yMin = range[1][0];
+    const yMax = range[1][1];
+    const yPadding = (yMax - yMin) * 2;
 
     // Aria strings
     const {
@@ -101,6 +113,9 @@ function LogarithmGraph(props: LogarithmGraphProps) {
         asymptoteMid,
     );
 
+    // Track focus state for the drag handle appearance
+    const [asymptoteFocused, setAsymptoteFocused] = React.useState(false);
+
     // Make the entire asymptote line draggable (horizontal only)
     const asymptoteRef = React.useRef<SVGGElement>(null);
     const {dragging: asymptoteDragging} = useDraggable({
@@ -122,6 +137,8 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                 className="movable-line"
                 style={{cursor: asymptoteDragging ? "grabbing" : "grab"}}
                 role="button"
+                onFocus={() => setAsymptoteFocused(true)}
+                onBlur={() => setAsymptoteFocused(false)}
             >
                 {/* Transparent wide hit target */}
                 <SVGLine
@@ -153,10 +170,26 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                     className={asymptoteDragging ? "movable-dragging" : ""}
                 />
                 {/* Drag handle at the midpoint of the asymptote */}
-                <AsymptoteDragHandle x={midPx[X]} y={midPx[Y]} />
+                <AsymptoteDragHandle
+                    x={midPx[X]}
+                    y={midPx[Y]}
+                    active={asymptoteDragging || asymptoteFocused}
+                />
             </g>
             <Plot.OfX
-                y={(x) => computeLogarithm(x, coeffRef.current)}
+                y={(x) => {
+                    const y = computeLogarithm(x, coeffRef.current);
+                    // Return NaN when the value exceeds the visible
+                    // range (with some padding). This stops the SVG
+                    // path before it reaches the asymptote, preventing
+                    // the curve's stroke from visually touching the
+                    // asymptote's stroke. The curve exits the visible
+                    // area and the path simply ends off-screen.
+                    if (y < yMin - yPadding || y > yMax + yPadding) {
+                        return NaN;
+                    }
+                    return y;
+                }}
                 domain={domain}
                 color={interactiveColor}
                 svgPathProps={{
@@ -187,23 +220,25 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     );
 }
 
-// Vertical oblong drag handle — similar scale to movable points
-// Center: 12px wide (matches point center diameter), 22px tall
-// Ring: +2px padding each side
-// Halo: +3px padding each side
-const CENTER_W = 12;
-const CENTER_H = 22;
+// Active (focused/dragging): full pill with dots
+const ACTIVE_W = 12;
+const ACTIVE_H = 22;
+// Inactive: thinner pill without dots
+const INACTIVE_W = 6;
+const INACTIVE_H = 16;
 const RING_PAD = 2;
 const HALO_PAD = 3;
 
-function AsymptoteDragHandle(props: {x: number; y: number}) {
-    const {x, y} = props;
+function AsymptoteDragHandle(props: {x: number; y: number; active: boolean}) {
+    const {x, y, active} = props;
     const {interactiveColor} = useGraphConfig();
 
-    const haloW = CENTER_W + (RING_PAD + HALO_PAD) * 2;
-    const haloH = CENTER_H + (RING_PAD + HALO_PAD) * 2;
-    const ringW = CENTER_W + RING_PAD * 2;
-    const ringH = CENTER_H + RING_PAD * 2;
+    const centerW = active ? ACTIVE_W : INACTIVE_W;
+    const centerH = active ? ACTIVE_H : INACTIVE_H;
+    const haloW = centerW + (RING_PAD + HALO_PAD) * 2;
+    const haloH = centerH + (RING_PAD + HALO_PAD) * 2;
+    const ringW = centerW + RING_PAD * 2;
+    const ringH = centerH + RING_PAD * 2;
 
     return (
         <g aria-hidden={true} style={{pointerEvents: "none"}}>
@@ -231,26 +266,27 @@ function AsymptoteDragHandle(props: {x: number; y: number}) {
             />
             {/* Center — filled with interactive color */}
             <rect
-                x={x - CENTER_W / 2}
-                y={y - CENTER_H / 2}
-                width={CENTER_W}
-                height={CENTER_H}
-                rx={CENTER_W / 2}
-                ry={CENTER_W / 2}
+                x={x - centerW / 2}
+                y={y - centerH / 2}
+                width={centerW}
+                height={centerH}
+                rx={centerW / 2}
+                ry={centerW / 2}
                 fill={interactiveColor}
             />
-            {/* Grip dots: 3 rows x 2 columns */}
-            {[-3, 0, 3].map((dy) =>
-                [-2, 2].map((dx) => (
-                    <circle
-                        key={`${dx},${dy}`}
-                        cx={x + dx}
-                        cy={y + dy}
-                        r={1}
-                        fill="#fff"
-                    />
-                )),
-            )}
+            {/* Grip dots: only shown when active */}
+            {active &&
+                [-3, 0, 3].map((dy) =>
+                    [-2, 2].map((dx) => (
+                        <circle
+                            key={`${dx},${dy}`}
+                            cx={x + dx}
+                            cy={y + dy}
+                            r={1}
+                            fill="#fff"
+                        />
+                    )),
+                )}
         </g>
     );
 }
