@@ -26,7 +26,7 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type Props = PropsFor<typeof Renderer> & {
     className?: string;
-    hints: ReadonlyArray<Hint>;
+    hints: Hint[];
     hintsVisible?: number;
     dependencies: PerseusDependenciesV2;
 };

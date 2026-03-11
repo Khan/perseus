@@ -3,6 +3,7 @@ import {
     type PerseusOrdererWidgetOptions,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -311,29 +312,26 @@ describe("EditorPage", () => {
         const select = screen.getByTestId("editor__widget-select");
         await userEvent.selectOptions(select, "Definition");
 
-        expect(onChangeMock).toHaveBeenCalledWith(
-            {
-                answerArea: {},
-                question: {
-                    content: "That's an [[☃ definition 1]]!",
-                    images: {},
-                    widgets: {
-                        "definition 1": {
-                            options: {
-                                definition: "",
-                                togglePrompt: "onomatopoeia",
-                            },
-                            type: "definition",
-                            version: {
-                                major: 0,
-                                minor: 0,
-                            },
+        expect(onChangeMock).toHaveBeenCalledWith({
+            hints: [],
+            answerArea: getDefaultAnswerArea(),
+            question: {
+                content: "That's an [[☃ definition 1]]!",
+                images: {},
+                widgets: {
+                    "definition 1": {
+                        options: {
+                            definition: "",
+                            togglePrompt: "onomatopoeia",
+                        },
+                        type: "definition",
+                        version: {
+                            major: 0,
+                            minor: 0,
                         },
                     },
                 },
             },
-            expect.any(Function),
-            undefined,
-        );
+        });
     });
 });
