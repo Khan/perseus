@@ -4,6 +4,7 @@ import {
     getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
+    getLogarithmCoords,
     getPointCoords,
     getPolygonCoords,
     getQuadraticCoords,
@@ -22,6 +23,7 @@ import Heading from "../../../components/heading";
 import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
+import StartCoordsLogarithm from "./start-coords-logarithm";
 import StartCoordsMultiline from "./start-coords-multiline";
 import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
@@ -29,17 +31,19 @@ import StartCoordsSinusoid from "./start-coords-sinusoid";
 import {getDefaultGraphStartCoords} from "./util";
 
 import type {StartCoords} from "./types";
-import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
+import type {Coord, PerseusGraphType, Range} from "@khanacademy/perseus-core";
 
 type Props = PerseusGraphType & {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
     allowReflexAngles?: boolean;
     onChange: (startCoords: StartCoords) => void;
+    onChangeAsymptote?: (startAsymptote: [Coord, Coord]) => void;
 };
 
 const StartCoordsSettingsInner = (props: Props) => {
-    const {type, range, step, allowReflexAngles, onChange} = props;
+    const {type, range, step, allowReflexAngles, onChange, onChangeAsymptote} =
+        props;
 
     switch (type) {
         // Graphs with startCoords of type CollinearTuple
@@ -110,6 +114,16 @@ const StartCoordsSettingsInner = (props: Props) => {
                     onChange={onChange}
                 />
             );
+        case "logarithm":
+            const logResult = getLogarithmCoords(props, range, step);
+            return (
+                <StartCoordsLogarithm
+                    startCoords={logResult.coords}
+                    startAsymptote={logResult.asymptote}
+                    onChangeCoords={onChange}
+                    onChangeAsymptote={onChangeAsymptote ?? (() => undefined)}
+                />
+            );
         case "angle":
             const angleCoords = getAngleCoords({graph: props, range, step});
             return (
@@ -125,7 +139,7 @@ const StartCoordsSettingsInner = (props: Props) => {
 };
 
 const StartCoordsSettings = (props: Props) => {
-    const {range, step, onChange} = props;
+    const {range, step, onChange, onChangeAsymptote} = props;
     const [isOpen, setIsOpen] = React.useState(true);
 
     return (
@@ -154,6 +168,22 @@ const StartCoordsSettings = (props: Props) => {
                             onChange(
                                 getDefaultGraphStartCoords(props, range, step),
                             );
+                            // Also reset asymptote for logarithm
+                            if (
+                                props.type === "logarithm" &&
+                                onChangeAsymptote
+                            ) {
+                                const defaults = getLogarithmCoords(
+                                    {
+                                        ...props,
+                                        startCoords: undefined,
+                                        startAsymptote: undefined,
+                                    },
+                                    range,
+                                    step,
+                                );
+                                onChangeAsymptote(defaults.asymptote);
+                            }
                         }}
                     >
                         Use default start coordinates

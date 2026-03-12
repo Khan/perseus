@@ -179,6 +179,18 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({graph: graph});
     };
 
+    changeStartAsymptote = (startAsymptote) => {
+        if (!this.props.graph?.type) {
+            return;
+        }
+
+        const graph = {
+            ...this.props.graph,
+            startAsymptote,
+        };
+        this.props.onChange({graph: graph});
+    };
+
     // serialize() is what makes copy/paste work. All the properties included
     // in the serialization json are included when, for example, a graph
     // is copied from the question editor and pasted into the hint editor
@@ -209,12 +221,20 @@ class InteractiveGraphEditor extends React.Component<Props> {
             // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             const correct = graph && graph.getUserInput();
+            const graphObj: Record<string, unknown> = {
+                type: correct.type,
+                startCoords:
+                    this.props.graph && getStartCoords(this.props.graph),
+            };
+            // Logarithm graphs also have a startAsymptote
+            if (
+                this.props.graph?.type === "logarithm" &&
+                "startAsymptote" in this.props.graph
+            ) {
+                graphObj.startAsymptote = this.props.graph.startAsymptote;
+            }
             _.extend(json, {
-                graph: {
-                    type: correct.type,
-                    startCoords:
-                        this.props.graph && getStartCoords(this.props.graph),
-                },
+                graph: graphObj,
                 correct: correct,
             });
 
@@ -435,6 +455,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     range={this.props.range}
                                     step={this.props.step}
                                     onChange={this.changeStartCoords}
+                                    onChangeAsymptote={
+                                        this.changeStartAsymptote
+                                    }
                                 />
                             )}
                         <InteractiveGraphSRTree

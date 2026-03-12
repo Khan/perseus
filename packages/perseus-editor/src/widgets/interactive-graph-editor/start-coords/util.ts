@@ -169,6 +169,56 @@ export const getAngleEquation = (
     return `${roundedAngle}\u00B0 angle at (${vertex[0]}, ${vertex[1]})`;
 };
 
+export const getLogarithmEquation = (
+    startCoords: [Coord, Coord],
+    asymptote: [Coord, Coord],
+) => {
+    const p1 = startCoords[0];
+    const p2 = startCoords[1];
+    const asymptoteX = asymptote[0][0];
+
+    // Points must have different y-values and not be on the asymptote
+    if (p1[1] === p2[1] || p1[0] === asymptoteX || p2[0] === asymptoteX) {
+        return "Invalid configuration";
+    }
+
+    // Inverse exponential approach (same as logarithm.tsx)
+    const flip = (coord: Coord): Coord => [coord[1], coord[0]];
+    const flippedCoords = [flip(p1), flip(p2)];
+    const cExp = asymptoteX;
+    const denom = flippedCoords[0][0] - flippedCoords[1][0];
+    if (denom === 0) {
+        return "Invalid configuration";
+    }
+    const bExp =
+        Math.log((flippedCoords[0][1] - cExp) / (flippedCoords[1][1] - cExp)) /
+        denom;
+    const aExp =
+        (flippedCoords[0][1] - cExp) / Math.exp(bExp * flippedCoords[0][0]);
+
+    if (!isFinite(aExp) || !isFinite(bExp) || aExp === 0) {
+        return "Invalid configuration";
+    }
+
+    const a = 1 / bExp;
+    const b = 1 / aExp;
+    const c = -cExp / aExp;
+
+    if (!isFinite(a) || !isFinite(b) || !isFinite(c)) {
+        return "Invalid configuration";
+    }
+
+    return (
+        "y = " +
+        a.toFixed(3) +
+        " * ln(" +
+        b.toFixed(3) +
+        "x + " +
+        c.toFixed(3) +
+        ")"
+    );
+};
+
 export const shouldShowStartCoordsUI = (
     graph: PerseusGraphType,
     isStatic?: boolean,
