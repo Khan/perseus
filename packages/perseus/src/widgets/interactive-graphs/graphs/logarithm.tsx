@@ -329,7 +329,6 @@ const getLogarithmKeyboardConstraint = (
     const coordToBeMoved = coords[pointIndex];
     const otherPoint = coords[1 - pointIndex];
     const asymptoteX = asymptote[0][X];
-    const otherPointSide = otherPoint[X] > asymptoteX;
 
     const isValidPosition = (coord: vec.Vector2): boolean => {
         // Can't be on the asymptote
@@ -340,10 +339,8 @@ const getLogarithmKeyboardConstraint = (
         if (coord[Y] === otherPoint[Y]) {
             return false;
         }
-        // Must be on the same side of the asymptote as the other point
-        if (coord[X] > asymptoteX !== otherPointSide) {
-            return false;
-        }
+        // Crossing the asymptote is allowed — the reducer reflects
+        // the other point so both end up on the same side.
         return true;
     };
 

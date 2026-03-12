@@ -564,9 +564,29 @@ function doMovePoint(
                 return state;
             }
 
-            // All points must be on the same side of the asymptote
-            if (newCoords[0][X] > asymptoteX !== newCoords[1][X] > asymptoteX) {
-                return state;
+            // If the moved point crosses the asymptote, reflect the
+            // other point across the asymptote so the entire curve
+            // moves to the new side. This matches the Grapher behavior
+            // where dragging a point past the asymptote relocates the
+            // whole curve.
+            const otherIndex = 1 - action.index;
+            const otherPoint = state.coords[otherIndex];
+            const movedSide = boundDestination[X] > asymptoteX;
+            const otherSide = otherPoint[X] > asymptoteX;
+
+            if (movedSide !== otherSide) {
+                const reflectedX = asymptoteX - (otherPoint[X] - asymptoteX);
+                const reflectedOther: vec.Vector2 = [reflectedX, otherPoint[Y]];
+                const updatedCoords: [vec.Vector2, vec.Vector2] = [
+                    ...state.coords,
+                ];
+                updatedCoords[action.index] = boundDestination;
+                updatedCoords[otherIndex] = reflectedOther;
+                return {
+                    ...state,
+                    hasBeenInteractedWith: true,
+                    coords: updatedCoords,
+                };
             }
 
             return {
