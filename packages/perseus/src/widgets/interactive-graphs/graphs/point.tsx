@@ -154,8 +154,10 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                     key={i}
                     point={point}
                     sequenceNumber={i + 1}
-                    onMove={(destination) => {
+                    onDragStart={() => {
                         setIsCurrentlyDragging(true);
+                    }}
+                    onMove={(destination) => {
                         dispatch(actions.pointGraph.movePoint(i, destination));
                     }}
                     onDragEnd={() => {
