@@ -7,7 +7,7 @@ allowing content creators to define logarithm function exercises using two movab
 and a movable vertical asymptote.
 
 - **Ticket:** [LEMS-3950](https://khanacademy.atlassian.net/browse/LEMS-3950)
-- **POC:** TBD (PR link)
+- **POC:** https://github.com/Khan/perseus/pull/3322
 - **Branch:** `LEMS-3950/poc-logarithm-interactive-graph`
 
 ## Scenarios
