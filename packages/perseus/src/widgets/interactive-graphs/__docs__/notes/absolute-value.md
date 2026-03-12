@@ -124,7 +124,7 @@ This is the same guard used by sinusoid and quadratic.
 
 ### Scoring / Equality
 
-Two absolute value graphs are equal iff their coefficients `[m, h, v]` all match (within floating-point
+Two absolute value graphs are equal if their coefficients `[m, h, v]` all match (within floating-point
 tolerance). No canonical normalization is required — the vertex `(h, v)` uniquely defines the graph's
 position, and `m` uniquely defines its shape and orientation. Use `approximateDeepEqual` following
 the sinusoid scoring pattern.
