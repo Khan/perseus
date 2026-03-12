@@ -554,9 +554,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             ariaLive={ariaLives[i]}
                             point={point}
                             sequenceNumber={i + 1}
-                            onDragStart={() => {
-                                setIsCurrentlyDragging(true);
-                            }}
+                            onDragStart={() => setIsCurrentlyDragging(true)}
                             onMove={(destination) => {
                                 dispatch(
                                     actions.polygon.movePoint(i, destination),
