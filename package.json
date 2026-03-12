@@ -146,7 +146,8 @@
         "onlyBuiltDependencies": [
             "cypress@13.6.5",
             "esbuild@0.24.0",
-            "@swc/core@1.11.13"
+            "@swc/core@1.11.13",
+            "mathquill"
         ],
         "patchedDependencies": {
             "postcss-url": "patches/postcss-url.patch"
