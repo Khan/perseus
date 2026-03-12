@@ -360,12 +360,12 @@ class SvgImage extends React.Component<Props, State> {
             }
             newLabelsRendered[labelData.content] = true;
         });
-        this.setState({
+        this.setState((prev) => ({
             labelsRendered: {
-                ...this.state.labelsRendered,
+                ...prev.labelsRendered,
                 ...newLabelsRendered,
             },
-        });
+        }));
     };
 
     // Try to parse a CSS value as pixels. Returns null if the parameter string
