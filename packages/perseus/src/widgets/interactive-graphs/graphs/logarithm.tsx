@@ -126,7 +126,8 @@ function LogarithmGraph(props: LogarithmGraphProps) {
         onMove: (newPoint) => {
             dispatch(actions.logarithm.moveCenter([newPoint[X], newPoint[Y]]));
         },
-        constrainKeyboardMovement: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: (p) =>
+            constrainAsymptoteKeyboard(p, coords, snapStep),
     });
 
     return (
@@ -377,6 +378,51 @@ const getLogarithmKeyboardConstraint = (
             vec.add(coord, [snapStep[0], 0]),
         ),
     };
+};
+
+// Keyboard constraint for the asymptote. When the next snapped position
+// would land between or on the curve points, snap past all points in the
+// movement direction. This mirrors the reducer's snap-through logic but
+// uses explicit direction (keyboard always moves one step at a time).
+const constrainAsymptoteKeyboard = (
+    p: vec.Vector2,
+    coords: ReadonlyArray<Coord>,
+    snapStep: vec.Vector2,
+): vec.Vector2 => {
+    const snapped = snap(snapStep, p);
+    let newX = snapped[X];
+    const stepX = snapStep[X];
+
+    const leftMost = Math.min(coords[0][X], coords[1][X]);
+    const rightMost = Math.max(coords[0][X], coords[1][X]);
+
+    // If the position is valid (all points on one side), allow it
+    const allRight = coords[0][X] > newX && coords[1][X] > newX;
+    const allLeft = coords[0][X] < newX && coords[1][X] < newX;
+
+    if (!allRight && !allLeft) {
+        // The position is between or on the points. Determine the
+        // keyboard direction from the current asymptote position:
+        // p is already the destination after one arrow key step.
+        // We compare against the midpoint to infer direction.
+        const midpoint = (leftMost + rightMost) / 2;
+        if (newX >= midpoint) {
+            newX = rightMost + stepX;
+        } else {
+            newX = leftMost - stepX;
+        }
+    }
+
+    // Can't land exactly on a point — skip one more step
+    if (newX === coords[0][X] || newX === coords[1][X]) {
+        if (newX >= (leftMost + rightMost) / 2) {
+            newX += stepX;
+        } else {
+            newX -= stepX;
+        }
+    }
+
+    return [newX, snapped[Y]];
 };
 
 // Plot a logarithm of the form: f(x) = a * ln(b * x + c)
