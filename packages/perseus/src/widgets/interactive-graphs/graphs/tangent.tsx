@@ -1,3 +1,4 @@
+import {coefficients} from "@khanacademy/kmath";
 import {Plot, vec} from "mafs";
 import * as React from "react";
 
@@ -19,14 +20,8 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
 } from "../types";
+import type {NamedTangentCoefficient} from "@khanacademy/kmath";
 import type {Coord} from "@khanacademy/perseus-core";
-
-type NamedTangentCoefficient = {
-    amplitude: number;
-    angularFrequency: number;
-    phase: number;
-    verticalOffset: number;
-};
 
 export function renderTangentGraph(
     state: TangentGraphState,
@@ -53,19 +48,21 @@ function getAsymptotePositions(
     }
 
     const period = Math.PI / Math.abs(b);
-    const firstAsymptote = (c + Math.PI / 2) / b;
+    // Reference asymptote: one solution to b*x - c = π/2.
+    // Not necessarily the leftmost — when b < 0 it may be right of the range.
+    const referenceAsymptote = (c + Math.PI / 2) / b;
 
     const asymptotes: number[] = [];
-    // Walk left from first asymptote
-    let x = firstAsymptote;
+    // Walk left from reference asymptote
+    let x = referenceAsymptote;
     while (x > xRange[0] - period) {
         if (x > xRange[0] && x < xRange[1]) {
             asymptotes.push(x);
         }
         x -= period;
     }
-    // Walk right from first asymptote
-    x = firstAsymptote + period;
+    // Walk right from reference asymptote
+    x = referenceAsymptote + period;
     while (x < xRange[1] + period) {
         if (x > xRange[0] && x < xRange[1]) {
             asymptotes.push(x);
@@ -248,17 +245,12 @@ const computeTangent = function (
 const getTangentCoefficients = (
     coords: ReadonlyArray<Coord>,
 ): NamedTangentCoefficient | undefined => {
-    const p1 = coords[0];
-    const p2 = coords[1];
-
-    if (p2[X] === p1[X]) {
+    if (coords[0][X] === coords[1][X]) {
         return;
     }
 
-    const amplitude = p2[Y] - p1[Y];
-    const angularFrequency = Math.PI / (4 * (p2[X] - p1[X]));
-    const phase = p1[X] * angularFrequency;
-    const verticalOffset = p1[Y];
+    const [amplitude, angularFrequency, phase, verticalOffset] =
+        coefficients.getTangentCoefficients(coords);
 
     return {amplitude, angularFrequency, phase, verticalOffset};
 };

@@ -24,6 +24,16 @@ export function getSinusoidCoefficients(
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
+export type NamedTangentCoefficient = {
+    amplitude: number;
+    angularFrequency: number;
+    phase: number;
+    verticalOffset: number;
+};
+
+// p1 is the inflection point (where tan = 0, i.e. the curve crosses
+// through its vertical offset). p2 is a quarter-period away and
+// determines the amplitude and period of the tangent function.
 export function getTangentCoefficients(
     coords: ReadonlyArray<Coord>,
 ): TangentCoefficient {

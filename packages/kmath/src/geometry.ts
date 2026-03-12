@@ -308,26 +308,24 @@ export function canonicalTangentCoefficients([
     phase,
     verticalOffset,
 ]: [any, any, any, any]) {
-    // For a curve of the form f(x) = a * Tan(b * x - c) + d,
-    // this function ensures that a, b > 0, and c is its
-    // smallest possible positive value.
+    // For a curve of the form f(x) = a * tan(b * x - c) + d,
+    // this function ensures that b > 0, and c is its
+    // smallest positive value in [0, π).
+    //
+    // Unlike sine (where sin(x + π) = -sin(x) allows guaranteeing
+    // both a > 0 and b > 0), tangent has no such half-period identity.
+    // We can only guarantee b > 0; the sign of a must be preserved.
 
-    // Guarantee a > 0
-    if (amplitude < 0) {
+    // Guarantee b > 0 using the odd function identity:
+    // a * tan(-|b|x - c) = -a * tan(|b|x + c) = (-a) * tan(|b|x - (-c))
+    if (angularFrequency < 0) {
         amplitude *= -1;
         angularFrequency *= -1;
         phase *= -1;
     }
 
+    // Guarantee c is smallest positive value in [0, π)
     const period = Math.PI;
-    // Guarantee b > 0
-    if (angularFrequency < 0) {
-        angularFrequency *= -1;
-        phase *= -1;
-        phase += period / 2;
-    }
-
-    // Guarantee c is smallest possible positive value
     while (phase > 0) {
         phase -= period;
     }

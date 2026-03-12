@@ -12,6 +12,10 @@ export * as coefficients from "./coefficients";
 export {default as KhanMath, sum} from "./math";
 
 export type {Range, SineCoefficient, TangentCoefficient} from "./geometry";
-export type {NamedSineCoefficient, QuadraticCoefficient} from "./coefficients";
+export type {
+    NamedSineCoefficient,
+    NamedTangentCoefficient,
+    QuadraticCoefficient,
+} from "./coefficients";
 
 export type * from "./types";
