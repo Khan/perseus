@@ -480,6 +480,67 @@ Look for where `AngleAnswerOptions`, `PolygonAnswerOptions`, etc. are rendered a
 
 ---
 
+### 13. Add AI utils support
+
+**File:** `packages/perseus/src/widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts`
+
+This file provides structured prompt data for AI-powered features (e.g., hints, answer checking). Two things need updating:
+
+#### Add graph options type and user input type
+
+Add a type for your graph's options and user input:
+
+```typescript
+type VectorSumGraphOptions = BaseGraphOptions & {
+    startCoords?: CollinearTuple;
+};
+
+type VectorSumUserInput = {
+    coords?: readonly Coord[] | null;
+};
+```
+
+Add both to their respective unions:
+
+```typescript
+type GraphOptions =
+    | AngleGraphOptions
+    // ... existing types ...
+    | VectorSumGraphOptions;
+
+type UserInput =
+    | AngleUserInput
+    // ... existing types ...
+    | VectorSumUserInput;
+```
+
+#### Add cases to `getGraphOptionsForProps()` and `getUserInput()`
+
+In `getGraphOptionsForProps()`, add a case that extracts the relevant props:
+
+```typescript
+case "vector-sum":
+    return {
+        type: props.userInput.type,
+        startCoords: props.userInput.startCoords,
+    };
+```
+
+In `getUserInput()`, add a case that extracts the current user input:
+
+```typescript
+case "vector-sum":
+    return {
+        coords: userInput.coords,
+    };
+```
+
+Both functions have `UnreachableCaseError` on the default branch, so TypeScript will flag a missing case.
+
+**Note:** If your graph type has extra state beyond `coords` (e.g., `asymptote` for logarithm), include it in both the user input type and the `getUserInput()` case.
+
+---
+
 ## Summary Table
 
 | What | File | Notes |
@@ -496,6 +557,7 @@ Look for where `AngleAnswerOptions`, `PolygonAnswerOptions`, etc. are rendered a
 | Editor selector | `interactive-graph-editor/components/graph-type-selector.tsx` | Add `<OptionItem>` |
 | Editor start coords | `interactive-graph-editor/start-coords/start-coords-settings.tsx` | Add `case` in switch |
 | Editor answer options | `interactive-graph-editor/components/xxx-answer-options.tsx` | New file if type-specific controls needed |
+| AI utils | `widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts` | Add types, `getGraphOptionsForProps()` case, `getUserInput()` case |
 
 ---
 
