@@ -302,37 +302,8 @@ export const AnswerlessSinusoid: Story = {
     },
 };
 
-/**
- * Demonstrates that users can click anywhere on the graph to add new points.
- * The graph starts empty and each click places a point at the clicked location.
- */
-export const ClickToAddPoints: Story = {
+export const AddingPoints: Story = {
     args: {
         item: generateTestPerseusItem({question: unlimitedPointQuestion}),
-    },
-    play: async ({canvas, userEvent}) => {
-        // The unlimited-point graph renders a transparent crosshair rect that
-        // handles click events to add new points at the clicked coordinates.
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const graphArea = canvas.container.querySelector(
-            'rect[style*="crosshair"]',
-        );
-        if (!graphArea) {
-            return;
-        }
-        const rect = graphArea.getBoundingClientRect();
-        // Click three positions across the graph to add three points
-        await userEvent.click(graphArea, {
-            clientX: rect.left + rect.width * 0.25,
-            clientY: rect.top + rect.height * 0.5,
-        });
-        await userEvent.click(graphArea, {
-            clientX: rect.left + rect.width * 0.5,
-            clientY: rect.top + rect.height * 0.25,
-        });
-        await userEvent.click(graphArea, {
-            clientX: rect.left + rect.width * 0.75,
-            clientY: rect.top + rect.height * 0.5,
-        });
     },
 };
