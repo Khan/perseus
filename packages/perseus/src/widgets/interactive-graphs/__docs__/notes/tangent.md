@@ -47,7 +47,7 @@ allowing content creators to define tangent function exercises using two movable
 
 The Grapher widget already has a tangent graph type that served as the mathematical reference:
 
-- `packages/perseus-core/src/utils/grapher-util.ts` — Tangent coefficient computation (`getTangentCoefficients`), equation string generation, and its own copy of `canonicalTangentCoefficients()` (kept in sync with the kmath version). Uses the same `f(x) = a * tan(b*x - c) + d` model. Also contains the `"sin("` → `"tan("` label bug (see [Related: Grapher Widget Bug](#related-grapher-widget-bug)).
+- `packages/perseus-core/src/utils/grapher-util.ts` — Tangent coefficient computation (`getTangentCoefficients`), equation string generation, and its own copy of `canonicalTangentCoefficients()` that uses a different normalization strategy than the kmath version: it guarantees both `a > 0` and `b > 0` by using a `phase += period/2` step, whereas the kmath version only guarantees `b > 0` via the odd function identity (see [Canonical Normalization](#canonical-normalization) for details). Uses the same `f(x) = a * tan(b*x - c) + d` model. Also contains the `"sin("` → `"tan("` label bug (see [Related: Grapher Widget Bug](#related-grapher-widget-bug)).
 - `packages/perseus-core/src/utils/grapher-types.ts` — `TangentPlotDefaults` type with default coords and asymptote config
 - `packages/perseus-core/src/data-schema.ts` — Existing `PerseusGrapherWidgetOptions` already includes `"tangent"` as a valid plot type
 - `packages/perseus-score/src/widgets/grapher/score-grapher.ts` — Grapher scoring uses `coefficients.getTangentCoefficients()` and `geometry.canonicalTangentCoefficients()` for comparison
