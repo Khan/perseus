@@ -24,7 +24,6 @@ import {
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
-    unlimitedPointQuestion,
     floatingPointIssueQuestion,
 } from "../interactive-graph.testdata";
 
@@ -299,11 +298,5 @@ export const AnswerlessSinusoid: Story = {
         item: generateTestPerseusItem({
             question: sinusoidQuestion,
         }),
-    },
-};
-
-export const AddingPoints: Story = {
-    args: {
-        item: generateTestPerseusItem({question: unlimitedPointQuestion}),
     },
 };
