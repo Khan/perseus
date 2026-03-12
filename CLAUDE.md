@@ -120,9 +120,9 @@ import {question1} from "../__testdata__/widget.testdata";
 import WidgetComponent from "../widget-component";
 
 describe("WidgetComponent", () => {
-    it("renders correctly", () => {
+    it("renders a button", async () => {
         render(<WidgetComponent {...question1} />);
-        expect(screen.getByRole("button")).toBeInTheDocument();
+        await screen.findByRole("button");
     });
 
     it("calls onChange when button is clicked", async () => {
@@ -130,12 +130,36 @@ describe("WidgetComponent", () => {
         const onChange = jest.fn();
 
         render(<WidgetComponent {...question1} onChange={onChange} />);
-        await user.click(screen.getByRole("button"));
+        await user.click(await screen.findByRole("button"));
 
         expect(onChange).toHaveBeenCalled();
     });
 });
 ```
+
+### Async Queries: Prefer `findBy` over `getBy` + `waitFor`
+Using `screen.getByXxx` inside `expect().toBeInTheDocument()` or `waitFor()` is a known source of test
+flakiness and should be considered an antipattern. Use `await screen.findByXxx` instead.
+
+**Antipatterns (do NOT use):**
+```typescript
+// Synchronous getBy — fails if element hasn't rendered yet
+expect(screen.getByRole("button", {name: "Submit"})).toBeInTheDocument();
+
+// getBy wrapped in waitFor — verbose and reinvents findBy
+await waitFor(() =>
+    expect(screen.getByRole("button", {name: "Submit"})).toBeInTheDocument()
+);
+```
+
+**Correct pattern:**
+```typescript
+// findBy retries automatically until the element appears or times out
+await screen.findByRole("button", {name: "Submit"});
+```
+
+`findByXxx` = `waitFor` + `getByXxx` with built-in retrying. It is the idiomatic way to assert
+that an element will appear in the DOM.
 
 ### Writing Tests
 - use `it` for individual test cases and not `test`
@@ -144,6 +168,7 @@ describe("WidgetComponent", () => {
   Prefer verbs like `returns`, `renders`, `disables`, `throws` over vague phrases like "should handle".
   A failing test title should tell you which requirement broke without reading the test body.
   ❌ `"should handle empty input"` → ✅ `"returns null when input is empty"`
+  ❌ `"renders correctly"` → ✅ `"renders a submit button"` or `"renders the prompt text"`
 
 ## Common Issues & Solutions
 
