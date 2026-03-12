@@ -129,12 +129,12 @@ The coefficients are computed by treating the logarithm as the inverse of an exp
 1. Flip each coordinate `(x, y)` → `(y, x)` for both points
 2. Use the asymptote x-position as the flipped exponential's c coefficient (`cExp = asymptoteX`)
 3. Compute exponential coefficients from the flipped coordinates:
-   - `bExp = ln((p1_flipped[1] - cExp) / (p2_flipped[1] - cExp)) / (p1_flipped[0] - p2_flipped[0])`
-   - `aExp = (p1_flipped[1] - cExp) / e^(bExp * p1_flipped[0])`
+    - `bExp = ln((p1_flipped[1] - cExp) / (p2_flipped[1] - cExp)) / (p1_flipped[0] - p2_flipped[0])`
+    - `aExp = (p1_flipped[1] - cExp) / e^(bExp * p1_flipped[0])`
 4. Invert the exponential coefficients to get logarithm coefficients:
-   - `a = 1 / bExp`
-   - `b = 1 / aExp`
-   - `c = -cExp / aExp`
+    - `a = 1 / bExp`
+    - `b = 1 / aExp`
+    - `c = -cExp / aExp`
 
 ### Domain Restriction
 
@@ -171,11 +171,11 @@ as `MovableLine` in the codebase:
 - A transparent wide SVG line (44px stroke) as the hit target
 - A visible solid line using the interactive color
 - A pill-shaped drag handle (`AsymptoteDragHandle`) at the midpoint with:
-  - **Active state** (hovered, focused, or dragging): 12px wide × 22px tall pill with 6 white grip dots (2×3 grid)
-  - **Inactive state** (default): 6px wide × 16px tall pill, no grip dots
-  - **Focus ring** (keyboard focus only): a rounded outline rect outside the halo, consistent with how movable points show their focus indicator on the element itself rather than on the full line
-  - Layered SVG `rect` elements (focus ring → halo → ring → center) matching movable point styling
-  - `pointerEvents: "none"` so drags pass through to the line
+    - **Active state** (hovered, focused, or dragging): 12px wide × 22px tall pill with 6 white grip dots (2×3 grid)
+    - **Inactive state** (default): 6px wide × 16px tall pill, no grip dots
+    - **Focus ring** (keyboard focus only): a rounded outline rect outside the halo, consistent with how movable points show their focus indicator on the element itself rather than on the full line
+    - Layered SVG `rect` elements (focus ring → halo → ring → center) matching movable point styling
+    - `pointerEvents: "none"` so drags pass through to the line
 
 ### Asymptote Drag Behavior
 
@@ -264,14 +264,18 @@ splits paths at sign flips.
 
 ### New files
 - `packages/perseus/src/widgets/interactive-graphs/graphs/logarithm.tsx` — Main component with:
-  - `renderLogarithmGraph()` — entry point
-  - `LogarithmGraph` — React component with curve, asymptote line, drag handle, and movable points
-  - `AsymptoteDragHandle` — pill-shaped SVG drag handle component with active/inactive states
-  - `computeLogarithm()` — evaluates `a * ln(b*x + c)`
-  - `getLogarithmCoefficients()` — inverse exponential coefficient computation
-  - `getLogarithmKeyboardConstraint()` — keyboard movement with asymptote/overlap avoidance
-  - `describeLogarithmGraph()` — screen reader description strings
-  - `getLogarithmDescription()` — interactive elements description for accessibility
+    - `renderLogarithmGraph()` — entry point
+    - `LogarithmGraph` — React component with curve, asymptote line, drag handle, and movable points
+    - `AsymptoteDragHandle` — pill-shaped SVG drag handle component with active/inactive states
+    - `computeLogarithm()` — evaluates `a * ln(b*x + c)`
+    - `getLogarithmCoefficients()` — inverse exponential coefficient computation
+    - `getLogarithmKeyboardConstraint()` — keyboard movement with asymptote/overlap avoidance
+    - `describeLogarithmGraph()` — screen reader description strings
+    - `getLogarithmDescription()` — interactive elements description for accessibility
+- `packages/perseus-editor/.../start-coords/start-coords-logarithm.tsx` — Start coords editor component with:
+    - Two coordinate pair inputs for Point 1 and Point 2
+    - A single number input for the asymptote x-position
+    - Equation display showing `y = a * ln(b*x + c)` computed from current start coords
 
 ### Modified files
 - `packages/perseus-core/src/data-schema.ts` — `PerseusGraphTypeLogarithm`, `LogarithmGraphCorrect` types
@@ -289,9 +293,10 @@ splits paths at sign flips.
 - `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-state.ts` — `getGradableGraph` case
 - `packages/perseus/src/widgets/interactive-graphs/widget-ai-utils/interactive-graph-ai-utils.ts` — `LogarithmUserInput` type
 - `packages/perseus-editor/.../graph-type-selector.tsx` — "Logarithm function" option
-- `packages/perseus-editor/.../interactive-graph-editor.tsx` — Editor support in `mergeGraphs`
+- `packages/perseus-editor/.../interactive-graph-editor.tsx` — Editor support in `mergeGraphs`, `changeStartAsymptote()` method, `serialize()` includes `startAsymptote`
+- `packages/perseus-editor/.../start-coords/start-coords-settings.tsx` — `case "logarithm"` in switch, `onChangeAsymptote` prop, reset button also resets asymptote
 - `packages/perseus-editor/.../start-coords/types.ts` — `{type: "logarithm"}` in start coords union
-- `packages/perseus-editor/.../start-coords/util.ts` — Default start coords and UI visibility
+- `packages/perseus-editor/.../start-coords/util.ts` — Default start coords and UI visibility, `getLogarithmEquation()` helper
 - `packages/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder.ts` — `withLogarithm()`, `LogarithmGraphConfig`
 - `packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata.ts` — `logarithmQuestion`
 - `packages/perseus/src/widgets/interactive-graphs/__docs__/interactive-graph.stories.tsx` — Logarithm story
