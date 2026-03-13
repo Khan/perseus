@@ -119,7 +119,7 @@ export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     coords: [vec.Vector2, vec.Vector2];
 }
 
-export interface AbsoluteValueGraphState extends InteractiveGraphStateCommon {
+interface AbsoluteValueGraphState extends InteractiveGraphStateCommon {
     type: "absolute-value";
     coords: [vec.Vector2, vec.Vector2];
 }
