@@ -183,6 +183,10 @@ export const shouldShowStartCoordsUI = (
                 graph.snapTo !== "sides"
             );
         case "none":
+        case "tangent":
+            // TODO(LEMS-3955): return true for tangent once
+            // StartCoordsSettingsInner and getDefaultGraphStartCoords
+            // handle the tangent type
             return false;
         case "angle":
         case "circle":
@@ -192,7 +196,6 @@ export const shouldShowStartCoordsUI = (
         case "ray":
         case "segment":
         case "sinusoid":
-        case "tangent":
             return true;
         default:
             throw new UnreachableCaseError(graph);
