@@ -258,25 +258,29 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("does not allow moving an endpoint of a sinusoid if the bounding logic would result in an invalid graph", () => {
+    it("rejects a sinusoid move when bounding clamps the point to the same x as the other point", () => {
+        // coords: point 0 at x=8, point 1 at x=9.
+        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
+        // snap 1 → effective max 9), which matches point 1's x.
+        // The same-x guard should reject this move entirely.
         const state: InteractiveGraphState = {
             ...baseSinusoidGraphState,
             coords: [
-                [9, 1],
-                [10, 2],
+                [8, 1],
+                [9, 2],
             ],
         };
 
         const updated = interactiveGraphReducer(
             state,
-            actions.sinusoid.movePoint(0, [15, 1]),
+            actions.sinusoid.movePoint(0, [15, 5]),
         );
 
         invariant(updated.type === "sinusoid");
-        // Assert: the move was canceled
+        expect(updated.hasBeenInteractedWith).toBe(false);
         expect(updated.coords).toEqual([
-            [9, 1],
-            [10, 2],
+            [8, 1],
+            [9, 2],
         ]);
     });
 
@@ -302,25 +306,29 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("does not allow moving an endpoint of a tangent if the bounding logic would result in an invalid graph", () => {
+    it("rejects a tangent move when bounding clamps the point to the same x as the other point", () => {
+        // coords: point 0 at x=8, point 1 at x=9.
+        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
+        // snap 1 → effective max 9), which matches point 1's x.
+        // The same-x guard should reject this move entirely.
         const state: InteractiveGraphState = {
             ...baseTangentGraphState,
             coords: [
-                [9, 1],
-                [10, 2],
+                [8, 1],
+                [9, 2],
             ],
         };
 
         const updated = interactiveGraphReducer(
             state,
-            actions.tangent.movePoint(0, [15, 1]),
+            actions.tangent.movePoint(0, [15, 5]),
         );
 
         invariant(updated.type === "tangent");
-        // Assert: the move was canceled
+        expect(updated.hasBeenInteractedWith).toBe(false);
         expect(updated.coords).toEqual([
-            [9, 1],
-            [10, 2],
+            [8, 1],
+            [9, 2],
         ]);
     });
 
