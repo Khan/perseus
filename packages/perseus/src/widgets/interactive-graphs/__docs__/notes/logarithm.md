@@ -24,13 +24,15 @@ and a movable vertical asymptote.
 - The vertical asymptote is visually displayed as a solid line with a pill-shaped drag handle
 - The drag handle shows an active state (larger pill with grip dots) on hover, focus, or drag, and an inactive state (smaller pill, no dots) otherwise
 - The entire asymptote line is draggable (not just a single point) — constrained to horizontal movement
-- The asymptote can cross to the other side of the curve points, causing the curve to flip direction
+- The asymptote can cross to the other side of the curve points (via mouse or keyboard), causing the curve to flip direction
 - The curve never visually touches or intersects the asymptote — it exits the visible area off-screen
 - No curve is drawn on the undefined side of the asymptote (domain restriction is enforced via `Plot.OfX` `domain` prop)
 - Keyboard navigation works on both control points (arrow keys move the point by snap step)
 - Keyboard navigation works on the asymptote line (arrow keys move it horizontally by snap step, with the same snap-through behavior as mouse drag)
-- Points cannot be placed on the asymptote line, both points must have different y-values, and points cannot cross to the other side of the asymptote — invalid moves are rejected gracefully (no crash, no invalid state)
-- Keyboard constraints enforce all three point validation rules (asymptote, same-y, same-side) with bounded retry (max 3 steps) and fallback to staying in place
+- Points cannot be placed on the asymptote line, and both points must have different y-values — invalid moves are rejected gracefully (no crash, no invalid state)
+- When a point is dragged across the asymptote, the other point is automatically reflected across the asymptote so the entire curve moves to the new side (matching Grapher behavior)
+- Keyboard constraints enforce point validation rules (asymptote, same-y) with bounded retry (max 3 steps) and fallback to staying in place
+- The asymptote can be moved past the curve points via keyboard using snap-through logic that mirrors the mouse drag behavior
 - The graph is scorable — the correct answer is compared using coefficient comparison with `approximateDeepEqual`
 - Screen reader announces the graph label, point positions, and asymptote position using localized strings
 - The asymptote aria-label is localized and includes keyboard navigation instructions
@@ -187,6 +189,21 @@ The asymptote movement follows the Grapher widget's behavior:
 3. **Direction detection** — Uses the requested mouse position relative to the midpoint between the
    two curve points to determine snap direction (prevents flicker from state oscillation)
 4. **Safety check** — Asymptote can never land exactly on a point's x-coordinate
+5. **Keyboard snap-through** — `constrainAsymptoteKeyboard()` mirrors this logic for arrow key
+   movement: when the next snapped position lands between or on points, it snaps past all points
+   using the midpoint heuristic for direction detection
+
+### Point Cross-Asymptote Behavior
+
+When a point is dragged across the asymptote (mouse or keyboard), the reducer automatically
+reflects the other point across the asymptote so both points end up on the same side. This
+means:
+
+1. The moved point lands at its new position on the opposite side of the asymptote
+2. The other point is reflected: `reflectedX = asymptoteX - (otherX - asymptoteX)`
+3. The curve flips to the new side, maintaining its shape relative to the asymptote
+4. This matches the Grapher widget behavior where dragging a point past the asymptote
+   relocates the whole curve
 
 ### Curve-Asymptote Visual Gap (Preventing the Curve from Touching the Asymptote)
 
@@ -222,16 +239,20 @@ splits paths at sign flips.
 **Points:**
 - Cannot be placed on the asymptote line (`point.x !== asymptoteX`)
 - Must have different y-values (`point1.y !== point2.y`)
-- Must remain on the same side of the asymptote as the other point
-- Keyboard movement uses a unified `isValidPosition()` check that enforces all three rules,
-  with a bounded retry loop (max 3 steps in the move direction) to skip past invalid positions.
-  If no valid position is found within 3 steps, the point stays in place.
+- When a point crosses the asymptote, the other point is reflected across the asymptote
+  so both points remain on the same side (the reducer handles this automatically)
+- Keyboard movement uses a unified `isValidPosition()` check that enforces the asymptote
+  and same-y rules, with a bounded retry loop (max 3 steps in the move direction) to skip
+  past invalid positions. If no valid position is found within 3 steps, the point stays in place.
 
 **Asymptote:**
 - Constrained to horizontal movement only
 - Snapped to the grid
 - Cannot land on either point's x-coordinate
 - Can cross to the other side of both points (curve flips direction)
+- Keyboard navigation uses `constrainAsymptoteKeyboard()` which applies snap-through logic
+  matching the mouse drag behavior — when the next snapped position would land between or on
+  the curve points, the asymptote snaps past all points in the movement direction
 
 ## Key Differences from Tangent
 
@@ -269,7 +290,8 @@ splits paths at sign flips.
     - `AsymptoteDragHandle` — pill-shaped SVG drag handle component with active/inactive states
     - `computeLogarithm()` — evaluates `a * ln(b*x + c)`
     - `getLogarithmCoefficients()` — inverse exponential coefficient computation
-    - `getLogarithmKeyboardConstraint()` — keyboard movement with asymptote/overlap avoidance
+    - `getLogarithmKeyboardConstraint()` — keyboard movement for curve points with asymptote/overlap avoidance
+    - `constrainAsymptoteKeyboard()` — keyboard movement for the asymptote with snap-through logic
     - `describeLogarithmGraph()` — screen reader description strings
     - `getLogarithmDescription()` — interactive elements description for accessibility
 - `packages/perseus-editor/.../start-coords/start-coords-logarithm.tsx` — Start coords editor component with:
@@ -358,12 +380,25 @@ splits paths at sign flips.
     ("Use left and right arrow keys to move"). `aria-live="polite"` on the asymptote element
     causes screen readers to announce the updated position when the asymptote is moved.
 
-12. **Bounded keyboard constraint retry** — The keyboard constraint uses a unified
-    `isValidPosition()` check (asymptote, same-y, same-side) inside a bounded loop (max 3 steps).
+12. **Point cross-asymptote reflection** — When a point is dragged across the asymptote, the
+    reducer reflects the other point across the asymptote (`reflectedX = asymptoteX - (otherX - asymptoteX)`)
+    so both points end up on the same side. This replaced the earlier approach of rejecting
+    cross-asymptote moves, and matches the Grapher widget behavior where dragging a point past
+    the asymptote relocates the whole curve. The keyboard constraint was also updated to allow
+    crossing (removing the same-side check), since the reducer handles the reflection.
+
+13. **Asymptote keyboard snap-through** — `constrainAsymptoteKeyboard()` was added to handle
+    keyboard navigation of the asymptote. Previously the asymptote used plain `snap()` for
+    keyboard movement, which could land the asymptote between or on the curve points. The new
+    constraint mirrors the reducer's mouse snap-through logic: when the snapped position is
+    invalid, it snaps past all points using the midpoint heuristic for direction.
+
+14. **Bounded keyboard constraint retry** — The keyboard constraint uses a unified
+    `isValidPosition()` check (asymptote, same-y) inside a bounded loop (max 3 steps).
     This prevents the infinite-loop risk of the original two-separate-if approach and ensures the
     point stays in place if no valid position exists in the move direction.
 
-13. **Logarithm only has vertical asymptotes** — Horizontal asymptotes are not applicable to
+15. **Logarithm only has vertical asymptotes** — Horizontal asymptotes are not applicable to
     logarithmic functions. Horizontal asymptotes will be addressed separately for the exponential
     function graph type (see [Future: Horizontal Drag Handle](#future-horizontal-drag-handle-for-exponential-graph)).
 
