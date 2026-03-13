@@ -42,6 +42,7 @@ import {renderQuadraticGraph} from "./graphs/quadratic";
 import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
+import {renderTangentGraph} from "./graphs/tangent";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
 import {X, Y} from "./math";
 import {Protractor} from "./protractor";
@@ -769,8 +770,7 @@ const renderGraphElements = (props: {
         case "none":
             return {graph: null, interactiveElementsDescription: null};
         case "tangent":
-            // TODO(LEMS-3955): Replace with real tangent rendering in PR 4
-            return {graph: null, interactiveElementsDescription: null};
+            return renderTangentGraph(state, dispatch, i18n);
         default:
             throw new UnreachableCaseError(type);
     }
