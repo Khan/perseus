@@ -6,6 +6,11 @@ const DEFAULT_FEATURE_FLAGS = {
     "new-radio-widget": false,
     "image-widget-upgrade-gif-controls": false,
     "image-widget-upgrade-scale": false,
+    "interactive-graph-absolute-value": false,
+    "interactive-graph-tangent": false,
+    "interactive-graph-logarithm": false,
+    "interactive-graph-exponent": false,
+    "interactive-graph-vector": false,
     // ...add new flags here
 };
 
