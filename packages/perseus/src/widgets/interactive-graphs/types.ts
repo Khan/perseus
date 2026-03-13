@@ -117,6 +117,14 @@ export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     coords: [vec.Vector2, vec.Vector2];
 }
 
+// TODO(LEMS-3937): Export and add to InteractiveGraphState union in PR 3
+// when reducer handlers are implemented.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface TangentGraphState extends InteractiveGraphStateCommon {
+    type: "tangent";
+    coords: [vec.Vector2, vec.Vector2];
+}
+
 export interface AngleGraphState extends InteractiveGraphStateCommon {
     type: "angle";
     // Whether to show the angle measurements.  default: false
