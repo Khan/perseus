@@ -68,10 +68,7 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
     } = describeAbsoluteValueGraph(graphState, i18n);
 
     return (
-        <g
-            aria-label={srAbsoluteValueGraph}
-            aria-describedby={descriptionId}
-        >
+        <g aria-label={srAbsoluteValueGraph} aria-describedby={descriptionId}>
             <Plot.OfX
                 y={(x) => m * Math.abs(x - h) + v}
                 color={interactiveColor}

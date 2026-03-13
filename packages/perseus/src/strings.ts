@@ -1528,7 +1528,8 @@ export const mockStrings: PerseusStrings = {
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
     srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
     srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
-    srAbsoluteValueSecondPoint: ({x, y}) =>bsoluteValueDescription: ({vertex, slope}) =>
+    srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
+    srAbsoluteValueDescription: ({vertex, slope}) =>
         `The graph shows an absolute value function with vertex at ${vertex} and slope ${slope}.`,
     srAbsoluteValueInteractiveElements: ({
         point1X,
