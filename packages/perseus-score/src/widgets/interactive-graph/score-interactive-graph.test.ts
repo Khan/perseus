@@ -511,6 +511,158 @@ describe("InteractiveGraph scoring on an angle question", () => {
     });
 });
 
+describe("InteractiveGraph scoring on an absolute-value question", () => {
+    it("marks the answer invalid if guess is undefined", () => {
+        // Arrange
+        const guess = undefined;
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer invalid if guess.coords is missing", () => {
+        // Arrange
+        const guess: PerseusGraphType = {type: "absolute-value"};
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("does not award points if guess.coords is wrong", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [1, 2],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("awards points if guess.coords produce the same coefficients as the rubric", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("awards points when p2 is on the other arm but slope is the same", () => {
+        // Arrange — vertex at (0,0), slope=1 regardless of which side p2 is on
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [-1, 1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("does not award points for a downward-opening graph when upward is correct", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [1, -1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+});
+
 describe("InteractiveGraph scoring on a tangent question", () => {
     it("marks the answer invalid if guess is undefined", () => {
         const guess = undefined;

@@ -27,6 +27,7 @@ const {
 } = geometry;
 const {getClockwiseAngle} = angles;
 const {
+    getAbsoluteValueCoefficients,
     getSinusoidCoefficients,
     getQuadraticCoefficients,
     getTangentCoefficients,
@@ -146,6 +147,28 @@ function scoreInteractiveGraph(
                     canonicalGuessCoeffs,
                     canonicalCorrectCoeffs,
                 )
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
+            userInput.type === "absolute-value" &&
+            rubric.correct.type === "absolute-value" &&
+            userInput.coords != null &&
+            rubric.correct.coords != null
+        ) {
+            const userCoeffs = getAbsoluteValueCoefficients(userInput.coords);
+            const rubricCoeffs = getAbsoluteValueCoefficients(
+                rubric.correct.coords,
+            );
+            if (
+                userCoeffs !== undefined &&
+                rubricCoeffs !== undefined &&
+                approximateDeepEqual(userCoeffs, rubricCoeffs)
             ) {
                 return {
                     type: "points",
