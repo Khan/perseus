@@ -88,7 +88,16 @@ export type PerseusCategorizerRubric = {
     values: number[];
 } & PerseusCategorizerValidationData;
 
+/**
+ * User input for the Categorizer widget. Records which category
+ * the user assigned to each item.
+ */
 export type PerseusCategorizerUserInput = {
+    /**
+     * The category index selected for each item, parallel to the
+     * rubric's `items` array. Null/undefined means not yet
+     * categorized.
+     */
     values: Array<number | null | undefined>;
 };
 
@@ -97,8 +106,14 @@ export type PerseusCategorizerValidationData = {
     items: string[];
 };
 
+/** User input for the CS Program widget. */
 export type PerseusCSProgramUserInput = {
+    /**
+     * The outcome of the CS program run, as reported by the program
+     * itself via postMessage.
+     */
     status: UserInputStatus;
+    /** An optional message from the program to display alongside the score. */
     message: string | null;
 };
 
@@ -106,8 +121,12 @@ export type PerseusDropdownRubric = {
     choices: Array<PerseusDropdownChoice>;
 };
 
+/** User input for the Dropdown widget. */
 export type PerseusDropdownUserInput = {
-    // 1-indexed selection
+    /**
+     * The 1-indexed position of the selected choice in the dropdown.
+     * A value of 0 indicates nothing is selected.
+     */
     value: number;
 };
 
@@ -117,10 +136,20 @@ export type PerseusExpressionRubric = {
     extraKeys?: ReadonlyArray<string>;
 };
 
+/**
+ * User input for the Expression widget: the raw math expression
+ * string the learner typed, parsed by @khanacademy/kas for scoring.
+ */
 export type PerseusExpressionUserInput = string;
 
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
 export type PerseusGroupValidationData = PerseusRenderer;
+
+/**
+ * User input for the Group widget: a map of widget IDs to each
+ * widget's user input. Scored by recursively scoring all contained
+ * widgets.
+ */
 export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
@@ -131,10 +160,20 @@ export type PerseusGrapherRubric = {
     correct: GrapherAnswerTypes;
 };
 
+/**
+ * User input for the Grapher widget: the function type and
+ * coordinates the learner plotted.
+ */
 export type PerseusGrapherUserInput = GrapherAnswerTypes;
 
+/** User input for the IFrame widget. */
 export type PerseusIFrameUserInput = {
+    /**
+     * The outcome of the iframe's interaction, as reported by the
+     * iframe via postMessage.
+     */
     status: UserInputStatus;
+    /** An optional message from the iframe to display alongside the score. */
     message?: string | null;
 };
 
@@ -154,7 +193,12 @@ export type PerseusInputNumberRubric = {
     value: string | number;
 };
 
+/** User input for the InputNumber widget. */
 export type PerseusInputNumberUserInput = {
+    /**
+     * The raw value entered by the learner. May be a TeX
+     * expression; the scorer parses it before grading.
+     */
     currentValue: string;
 };
 
@@ -164,6 +208,10 @@ export type PerseusInteractiveGraphRubric = {
     graph: PerseusGraphType;
 };
 
+/**
+ * User input for the InteractiveGraph widget: the graph type and
+ * coordinates the learner positioned.
+ */
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
 export type PerseusLabelImageRubric = {
@@ -173,12 +221,20 @@ export type PerseusLabelImageRubric = {
     }>;
 };
 
+/** User input for a single image marker in the LabelImage widget. */
 export type PerseusLabelImageUserInputMarker = {
+    /** The answer labels the user selected for this marker. */
     selected?: string[];
+    /** The label identifying this marker in the image. */
     label: string;
 };
 
+/** User input for the LabelImage widget. */
 export type PerseusLabelImageUserInput = {
+    /**
+     * The user's selections for each image marker, parallel to the
+     * rubric's markers array.
+     */
     markers: PerseusLabelImageUserInputMarker[];
 };
 
@@ -189,8 +245,14 @@ export type PerseusMatcherRubric = {
     right: string[];
 };
 
+/** User input for the Matcher widget. */
 export type PerseusMatcherUserInput = {
+    /** The left-column items in the learner's current arrangement. */
     left: string[];
+    /**
+     * The right-column items in the learner's arrangement. Must match the
+     * rubric's right column to be scored correct.
+     */
     right: string[];
 };
 
@@ -201,7 +263,12 @@ export type PerseusMatrixRubric = {
 
 export type PerseusMatrixValidationData = Empty;
 
+/** User input for the Matrix widget. */
 export type PerseusMatrixUserInput = {
+    /**
+     * A 2D array of cell values entered by the learner; each string may be a
+     * numeric expression.
+     */
     answers: string[][];
 };
 
@@ -215,9 +282,24 @@ export type PerseusNumberLineRubric = {
     divisionRange: number[];
 };
 
+/** User input for the NumberLine widget. */
 export type PerseusNumberLineUserInput = {
+    /**
+     * The actual numeric axis value where the learner placed the point
+     * (e.g. `3.5` on a `[0, 10]` number line). Clamped to the rubric's
+     * range and snapped to the nearest tick increment.
+     */
     numLinePosition: number;
+    /**
+     * The inequality relationship selected by the learner (e.g. "lt", "gt",
+     * "le", "ge", or "eq" for a standard point).
+     */
     rel: Relationship | "eq";
+    /**
+     * The number of tick-mark divisions the learner has set.
+     * Validated against the rubric's divisionRange when
+     * isTickCtrl is enabled.
+     */
     numDivisions: number;
 };
 
@@ -228,11 +310,18 @@ export type PerseusNumericInputRubric = {
     coefficient: boolean;
 };
 
+/** User input for the NumericInput widget. */
 export type PerseusNumericInputUserInput = {
+    /**
+     * The raw value the learner typed. May be a TeX expression or a percent
+     * string (e.g. "75%"); the scorer normalizes it before grading.
+     */
     currentValue: string;
 };
 
+/** User input for the FreeResponse widget. */
 export type PerseusFreeResponseUserInput = {
+    /** The free-text string entered by the learner. */
     currentValue: string;
 };
 
@@ -243,7 +332,12 @@ export type PerseusFreeResponseRubric = {
 
 export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
 
+/** User input for the Orderer widget. */
 export type PerseusOrdererUserInput = {
+    /**
+     * The content strings of the items in the learner's current order,
+     * compared against the rubric's correctOptions to score.
+     */
     current: string[];
 };
 
@@ -257,6 +351,10 @@ export type PerseusPlotterValidationData = {
     starting: number[];
 };
 
+/**
+ * User input for the Plotter widget: an array of Y-axis values, one
+ * per bar or data point, as set by the learner.
+ */
 export type PerseusPlotterUserInput = number[];
 
 export type PerseusRadioRubric = {
@@ -266,7 +364,14 @@ export type PerseusRadioRubric = {
     countChoices?: boolean;
 };
 
+/** User input for the Radio widget. */
 export type PerseusRadioUserInput = {
+    /**
+     * The IDs of the choices the learner selected. Each ID corresponds to a
+     * choice's `id` field in the rubric. Order is insignificant — scoring
+     * uses set membership, not position. IDs are stable and do not reflect
+     * the display order, which may be shuffled.
+     */
     selectedChoiceIds: string[];
 };
 
@@ -275,8 +380,17 @@ export type PerseusSorterRubric = {
     correct: string[];
 };
 
+/** User input for the Sorter widget. */
 export type PerseusSorterUserInput = {
+    /**
+     * The content strings of the sortable cards in the learner's current
+     * order, compared to the rubric's correct to score.
+     */
     options: string[];
+    /**
+     * Whether the learner has moved any cards from their initial randomized
+     * positions. The widget is invalid (considered empty) until true.
+     */
     changed: boolean;
 };
 
@@ -285,6 +399,10 @@ export type PerseusTableRubric = {
     answers: string[][];
 };
 
+/**
+ * User input for the Table widget: a 2D array of cell values
+ * entered by the learner, scored against the rubric's answers.
+ */
 export type PerseusTableUserInput = string[][];
 
 export interface RubricRegistry {
