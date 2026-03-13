@@ -34,6 +34,7 @@ type Params = {
      */
     sequenceNumber?: number;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
+    onDragStart?: (() => unknown) | undefined;
     onDragEnd?: (() => unknown) | undefined;
     onClick?: (() => unknown) | undefined;
     onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
@@ -59,6 +60,7 @@ export function useControlPoint(params: Params): Return {
         forwardedRef = noop,
         sequenceNumber = 1,
         onMove = noop,
+        onDragStart = noop,
         onDragEnd = noop,
         onClick = noop,
         onFocus = noop,
@@ -83,6 +85,7 @@ export function useControlPoint(params: Params): Return {
         gestureTarget: visiblePointRef,
         point,
         onMove,
+        onDragStart,
         onDragEnd,
         constrainKeyboardMovement: constrain,
     });
