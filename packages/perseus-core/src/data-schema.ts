@@ -1229,6 +1229,14 @@ export type PerseusGraphTypeTangent = {
     startCoords?: Coord[];
 };
 
+export type PerseusGraphTypeTangent = {
+    type: "tangent";
+    // Expects a list of 2 Coords
+    coords?: Coord[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: Coord[];
+};
+
 export type PerseusGraphTypeRay = {
     type: "ray";
     /** Expects a list of 2 Coords */
