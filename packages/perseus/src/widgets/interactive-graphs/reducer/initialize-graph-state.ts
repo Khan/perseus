@@ -379,7 +379,7 @@ export function getSinusoidCoords(
     return coords;
 }
 
-export function getAbsoluteValueCoords(
+function getAbsoluteValueCoords(
     graph: PerseusGraphTypeAbsoluteValue,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
