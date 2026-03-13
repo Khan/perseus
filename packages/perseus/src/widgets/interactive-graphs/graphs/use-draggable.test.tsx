@@ -239,7 +239,7 @@ describe("useDraggable", () => {
         expect(onDragStartSpy).toHaveBeenCalledTimes(1);
     });
 
-    it("does not call onDragStart on a click with no mouse movement", () => {
+    it("does not call onDragStart on a click with no mouse movement", async () => {
         const onDragStartSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
@@ -248,9 +248,8 @@ describe("useDraggable", () => {
         );
         const dragHandle = screen.getByRole("button");
 
-        // Act: mousedown and mouseup with no mousemove
-        mouseDownAt(dragHandle, 0, 0);
-        fireEvent.mouseUp(dragHandle);
+        // Act: click with no mousemove
+        await userEvent.click(dragHandle);
 
         // Assert
         expect(onDragStartSpy).not.toHaveBeenCalled();
