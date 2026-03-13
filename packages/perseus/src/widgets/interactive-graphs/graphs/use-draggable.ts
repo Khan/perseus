@@ -30,6 +30,7 @@ import type {RefObject} from "react";
 export type Params = {
     gestureTarget: RefObject<Element>;
     onMove: (point: vec.Vector2) => unknown;
+    onDragStart?: () => unknown;
     onDragEnd?: () => unknown;
     point: vec.Vector2;
     constrainKeyboardMovement: KeyboardMovementConstraint;
@@ -59,6 +60,7 @@ export function useDraggable(args: Params): DragState {
     const {
         gestureTarget: target,
         onMove,
+        onDragStart,
         onDragEnd,
         point,
         constrainKeyboardMovement,
@@ -76,6 +78,7 @@ export function useDraggable(args: Params): DragState {
     );
 
     const pickup = React.useRef<vec.Vector2>([0, 0]);
+    const dragStarted = React.useRef(false);
 
     useDrag(
         (state) => {
@@ -167,9 +170,17 @@ export function useDraggable(args: Params): DragState {
 
                 if (first) {
                     pickup.current = vec.transform(point, userTransform);
+                    dragStarted.current = false;
                 }
                 if (vec.mag(pixelMovement) === 0) {
                     return;
+                }
+                // Don't start a drag if no movement; a click with zero
+                // movement should not set isCurrentlyDragging and block
+                // subsequent click-to-add-point events.
+                if (!dragStarted.current) {
+                    dragStarted.current = true;
+                    onDragStart?.();
                 }
 
                 // Compensate for CSS zoom applied by mobile font scaling
