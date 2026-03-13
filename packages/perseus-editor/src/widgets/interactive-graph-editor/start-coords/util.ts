@@ -196,7 +196,6 @@ export const shouldShowStartCoordsUI = (
         case "ray":
         case "segment":
         case "sinusoid":
-        case "tangent":
             return true;
         default:
             throw new UnreachableCaseError(graph);
