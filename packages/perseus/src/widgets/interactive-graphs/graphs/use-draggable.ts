@@ -169,11 +169,10 @@ export function useDraggable(args: Params): DragState {
 
                 if (first) {
                     pickup.current = vec.transform(point, userTransform);
-                    // Don't start a drag if no movement; a click with zero
-                    // movement should not set isCurrentlyDragging and block
-                    // subsequent click-to-add-point events.
-                    if (vec.mag(pixelMovement) !== 0) {
-                        onDragStart?.();
+
+                    // Start a drag we have a callback if movement is non-zero
+                    if (onDragStart && vec.mag(pixelMovement) > 0) {
+                        onDragStart();
                     }
                 }
                 if (vec.mag(pixelMovement) === 0) {
