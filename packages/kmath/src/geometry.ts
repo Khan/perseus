@@ -324,14 +324,12 @@ export function canonicalTangentCoefficients([
         phase *= -1;
     }
 
+    // Guarantee c is smallest non-negative value in [0, π).
+    // Uses modular arithmetic instead of while loops to avoid infinite
+    // loops when phase is Infinity (from same-x control points) and
+    // to handle IEEE 754 edge cases at the period boundary.
     const period = Math.PI;
-    // Guarantee c is smallest non-negative value in [0, π)
-    while (phase > 0) {
-        phase -= period;
-    }
-    while (phase < 0) {
-        phase += period;
-    }
+    phase = ((phase % period) + period) % period;
 
     return [amplitude, angularFrequency, phase, verticalOffset];
 }

@@ -222,4 +222,28 @@ describe("canonicalTangentCoefficients", () => {
 
         expect(result[2]).toBeCloseTo(0);
     });
+
+    it("returns NaN instead of infinite-looping when phase is Infinity", () => {
+        // Happens if getTangentCoefficients receives same-x control points
+        // (e.g., [[1,0],[1,2]]), producing Infinity for angularFrequency
+        // and phase. The UI prevents this, but the function should not hang.
+        const coeffs: TangentCoefficient = [2, Infinity, Infinity, 0];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[0]).toBe(2);
+        expect(result[1]).toBe(Infinity);
+        expect(result[2]).toBeNaN();
+        expect(result[3]).toBe(0);
+    });
+
+    it("keeps phase strictly less than π for tiny negative values", () => {
+        // IEEE 754 edge case: -1e-16 + Math.PI rounds to exactly Math.PI
+        // in double precision. The modular arithmetic avoids this, keeping
+        // phase in the documented [0, π) range.
+        const coeffs: TangentCoefficient = [1, 1, -1e-16, 0];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[2]).toBeGreaterThanOrEqual(0);
+        expect(result[2]).toBeLessThan(Math.PI);
+    });
 });
