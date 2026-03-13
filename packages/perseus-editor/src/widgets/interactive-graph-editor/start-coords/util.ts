@@ -1,5 +1,6 @@
 import {angles, vector as kvector} from "@khanacademy/kmath";
 import {
+    getAbsoluteValueCoords,
     getAngleCoords,
     getCircleCoords,
     getLineCoords,
@@ -31,6 +32,12 @@ export function getDefaultGraphStartCoords(
     step: [x: number, y: number],
 ): StartCoords {
     switch (graph.type) {
+        case "absolute-value":
+            return getAbsoluteValueCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
         case "linear":
         case "ray":
             return getLineCoords(
