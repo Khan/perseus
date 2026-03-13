@@ -563,69 +563,113 @@ export type PerseusGradedGroupSetWidgetOptions = {
     gradedGroups: PerseusGradedGroupWidgetOptions[];
 };
 
-// 2D range: xMin, xMax, yMin, yMax
+/** A 2D coordinate range: x-axis [min, max] and y-axis [min, max]. */
 export type GraphRange = [
     x: [min: number, max: number],
     y: [min: number, max: number],
 ];
 
+/**
+ * The state of the grapher widget's plotted function, discriminated by
+ * function type. Used as both the learner's user input and the rubric's
+ * correct answer.
+ */
 export type GrapherAnswerTypes =
     | {
+          /**
+           * A V-shaped graph defined by its vertex.
+           */
           type: "absolute_value";
-          // If `coords` is null, the graph will not be gradable. All answers
-          // will be scored as invalid.
+          /**
+           * The vertex and a second point defining the V-shape. If null,
+           * the graph is not gradable and all answers score as invalid.
+           */
           coords: null | [vertex: Coord, secondPoint: Coord];
       }
     | {
+          /**
+           * A curve of the form y = a·bˣ approaching a horizontal (or
+           * vertical) asymptote.
+           */
           type: "exponential";
-          // Two points along the asymptote line. Usually (always?) a
-          // horizontal or vertical line.
+          /**
+           * Two points along the asymptote line. Usually (always?) a
+           * horizontal or vertical line.
+           */
           asymptote: [Coord, Coord];
-          // Two points along the exponential curve. One end of the curve
-          // trends towards the asymptote.
-          // If `coords` is null, the graph will not be gradable. All answers
-          // will be scored as invalid.
+          /**
+           * Two points along the exponential curve. One end of the curve
+           * trends towards the asymptote. If null, the graph is not
+           * gradable and all answers score as invalid.
+           */
           coords: null | [Coord, Coord];
       }
     | {
+          /**
+           * A straight line of the form y = mx + b.
+           */
           type: "linear";
-          // Two points along the straight line
-          // If coords is null, the graph will not be gradable. All answers
-          // will be scored as invalid.
+          /**
+           * Two points along the straight line. If null, the graph is not
+           * gradable and all answers score as invalid.
+           */
           coords: null | [Coord, Coord];
       }
     | {
+          /**
+           * A curve of the form y = a·log_b(x) approaching a vertical
+           * asymptote.
+           */
           type: "logarithm";
-          // Two points along the asymptote line.
+          /** Two points along the asymptote line. */
           asymptote: [Coord, Coord];
-          // Two points along the logarithmic curve. One end of the curve
-          // trends towards the asymptote.
-          // If coords is null, the graph will not be gradable. All answers
-          // will be scored as invalid.
+          /**
+           * Two points along the logarithmic curve. One end of the curve
+           * trends towards the asymptote. If null, the graph is not
+           * gradable and all answers score as invalid.
+           */
           coords: null | [Coord, Coord];
       }
     | {
+          /**
+           * A parabola of the form y = ax² + bx + c.
+           */
           type: "quadratic";
-          // If coords is null, the graph will not be gradable. All answers
-          // will be scored as invalid.
+          /**
+           * The vertex and a second point defining the parabola. If null,
+           * the graph is not gradable and all answers score as invalid.
+           */
           coords: null | [vertex: Coord, secondPoint: Coord];
       }
     | {
+          /**
+           * A periodic wave of the form y = a·sin(bx + c) + d.
+           */
           type: "sinusoid";
-          // Two points on the same slope in the sinusoid wave line.
-          // If coords is null, the graph will not be gradable. All answers
-          // will be scored as invalid.
+          /**
+           * Two points on the same slope of the sinusoid. If null, the
+           * graph is not gradable and all answers score as invalid.
+           */
           coords: null | [Coord, Coord];
       }
     | {
+          /**
+           * A periodic curve of the form y = a·tan(bx + c) + d.
+           */
           type: "tangent";
-          // Two points on the same slope in the tangent wave line.
-          // If coords is null, the graph will not be gradable. All answers
-          // will be scored as invalid.
+          /**
+           * Two points on the same slope of the tangent curve. If null,
+           * the graph is not gradable and all answers score as invalid.
+           */
           coords: null | [Coord, Coord];
       };
 
+/**
+ * Options for the Grapher widget. Defines the available function
+ * types, the correct answer, and the visual graph configuration.
+ */
 export type PerseusGrapherWidgetOptions = {
+    /** The set of function types the learner can choose from when plotting. */
     availableTypes: Array<
         | "absolute_value"
         | "exponential"
@@ -635,29 +679,55 @@ export type PerseusGrapherWidgetOptions = {
         | "sinusoid"
         | "tangent"
     >;
+    /** The correct answer; used to score the learner's plotted function. */
     correct: GrapherAnswerTypes;
+    /** Visual configuration for the coordinate plane. */
     graph: {
+        /** An optional background image displayed behind the graph. */
         backgroundImage: {
+            /** Vertical offset from the bottom of the graph in pixels. */
             bottom?: number;
+            /** Height of the image in pixels. */
             height?: number;
+            /** Horizontal offset from the left edge of the graph in pixels. */
             left?: number;
+            /** Scale factor applied to the image. */
             scale?: number;
+            /** URL of the background image, or null/undefined if none. */
             url?: string | null | undefined;
+            /** Width of the image in pixels. */
             width?: number;
         };
+        /** The [width, height] of the graph canvas in pixels. */
         box?: [number, number];
+        /** Which graph settings are editable in the editor UI. */
         editableSettings?: Array<"graph" | "snap" | "image" | "measure">;
+        /** The [x, y] spacing between grid lines. */
         gridStep?: [number, number];
+        /** The [x-axis, y-axis] labels. */
         labels: [string, string];
+        /** Which markings to show on the graph (axes, grid, graph, or none). */
         markings: MarkingsType;
+        /** The visible [x-range, y-range] of the coordinate plane. */
         range: GraphRange;
+        /** The label for the ruler overlay (currently always empty string). */
         rulerLabel: "";
+        /** The number of tick marks on the ruler overlay. */
         rulerTicks: number;
+        /** When true, a protractor overlay is shown on the graph. */
         showProtractor?: boolean;
+        /** When true, a ruler overlay is shown on the graph. */
         showRuler?: boolean;
+        /** When true, coordinate tooltips are shown on hover. */
         showTooltips?: boolean;
+        /** The [x, y] snap increment for interactive elements. */
         snapStep?: [number, number];
+        /** The [x, y] distance between labeled tick marks. */
         step: [number, number];
+        /**
+         * Whether the graph configuration is valid. Can be false or an
+         * error message string.
+         */
         valid?: boolean | string;
     };
 };

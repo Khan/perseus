@@ -49,42 +49,93 @@ import type {
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
 
+/**
+ * The signature of a widget's client-side validation function. This function
+ * must function using only widget option data that is not sensitive data that
+ * would reveal the answer (that data must be unique to the rubric type).
+ *
+ * Returns an invalid result (ie. empty) if the input is not yet ready to be
+ * scored, or null if valid.
+ */
 export type WidgetValidatorFunction = (
+    /**
+     * The user's input. Undefined if the widget has never been interacted
+     * with.
+     */
     userInput: UserInput | undefined,
+
+    /** The non-sensitive data needed to validate the input. */
     validationData: ValidationData,
+
+    /** The locale for locale-sensitive validation. */
     locale: string,
 ) => ValidationResult;
 
+/** The signature of a widget's scoring function. */
 export type WidgetScorerFunction = (
-    // The user data needed to score
+    /**
+     * The user's input (guess) data to score. Undefined if never interacted
+     * with.
+     */
     userInput: UserInput | undefined,
-    // The scoring criteria to score against
+
+    /** The scoring criteria containing the correct answer. */
     rubric: Rubric,
-    // Locale, for math evaluation
-    // (1,000.00 === 1.000,00 in some countries)
+
+    /**
+     * The locale for locale-sensitive scoring (eg. decimal separators).
+     */
     locale?: string,
 ) => PerseusScore;
 
+/** The result of scoring a widget's user input. */
 export type PerseusScore =
     | {
+          /** Indicates the input is not ready to score. */
           type: "invalid";
+          /**
+           * An error code describing why the input is invalid, or null
+           * for a generic invalid state.
+           */
           message?: ErrorCode | null;
+          /** When true, suppresses the "almost there" hint. */
           suppressAlmostThere?: boolean | null | undefined;
       }
     | {
+          /**
+           * Indicates the input has been scored and points awarded (widgets
+           * are free to reward any number of points, but the score is only
+           * considered "correct" when `earned` == `total`).
+           */
           type: "points";
+          /** The number of points the learner earned. */
           earned: number;
+          /** The total possible points for this widget. */
           total: number;
+          /** An optional feedback message to display alongside the score. */
           message?: string | null | undefined;
       };
 
+/**
+ * The return type of a widget validator. Null means the input is valid and
+ * ready to score; otherwise, an invalid PerseusScore describing why it is not
+ * ready.
+ */
 export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
 
+/**
+ * The outcome status reported by a self-grading widget (CS Program or IFrame)
+ * via postMessage.
+ */
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
+/** Scoring rubric for the Categorizer widget. */
 export type PerseusCategorizerRubric = {
-    // The correct answers where index relates to the items and value relates
-    // to the category.  e.g. [0, 1, 0, 1, 2]
+    /**
+     * The correct category index for each item. The array index corresponds to
+     * the item; the value is the category index.
+     * e.g. [0, 1, 0, 1, 2]
+     */
     values: number[];
 } & PerseusCategorizerValidationData;
 
@@ -101,8 +152,12 @@ export type PerseusCategorizerUserInput = {
     values: Array<number | null | undefined>;
 };
 
+/** Validation data for the Categorizer widget. */
 export type PerseusCategorizerValidationData = {
-    // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
+    /**
+     * Translatable text; items to categorize.
+     * e.g. ["banana", "yellow", "apple", "purple", "shirt"]
+     */
     items: string[];
 };
 
@@ -117,7 +172,9 @@ export type PerseusCSProgramUserInput = {
     message: string | null;
 };
 
+/** Scoring rubric for the Dropdown widget. */
 export type PerseusDropdownRubric = {
+    /** The list of choices; each has a `correct` flag used for scoring. */
     choices: Array<PerseusDropdownChoice>;
 };
 
@@ -130,8 +187,17 @@ export type PerseusDropdownUserInput = {
     value: number;
 };
 
+/** Scoring rubric for the Expression widget. */
 export type PerseusExpressionRubric = {
+    /**
+     * Ordered list of answer forms matched top-to-bottom; the first
+     * match determines the score.
+     */
     answerForms: Array<PerseusExpressionAnswerForm>;
+    /**
+     * Variable names treated as functions (e.g. ["f", "g"]) during KAS
+     * parsing.
+     */
     functions: string[];
     extraKeys?: ReadonlyArray<string>;
 };
@@ -142,21 +208,33 @@ export type PerseusExpressionRubric = {
  */
 export type PerseusExpressionUserInput = string;
 
+/**
+ * Scoring rubric for the Group widget: the full widget options including all
+ * nested widgets and their rubrics.
+ */
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
+
+/**
+ * Validation data for the Group widget: the full renderer content used to
+ * recursively validate nested widgets.
+ */
 export type PerseusGroupValidationData = PerseusRenderer;
 
 /**
- * User input for the Group widget: a map of widget IDs to each
- * widget's user input. Scored by recursively scoring all contained
- * widgets.
+ * User input for the Group widget: a map of widget IDs to each widget's user
+ * input. Scored by recursively scoring all contained widgets.
  */
 export type PerseusGroupUserInput = UserInputMap;
 
+/** Scoring rubric for the GradedGroup widget. */
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
 
+/** Scoring rubric for the GradedGroupSet widget. */
 export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
 
+/** Scoring rubric for the Grapher widget. */
 export type PerseusGrapherRubric = {
+    /** The expected function type and coordinates for a correct answer. */
     correct: GrapherAnswerTypes;
 };
 
@@ -169,15 +247,20 @@ export type PerseusGrapherUserInput = GrapherAnswerTypes;
 /** User input for the IFrame widget. */
 export type PerseusIFrameUserInput = {
     /**
-     * The outcome of the iframe's interaction, as reported by the
-     * iframe via postMessage.
+     * The outcome of the iframe's interaction, as reported by the iframe via
+     * postMessage.
      */
     status: UserInputStatus;
     /** An optional message from the iframe to display alongside the score. */
     message?: string | null;
 };
 
+/** Scoring rubric for the InputNumber widget. */
 export type PerseusInputNumberRubric = {
+    /**
+     * Constrains which numeric forms are accepted.
+     * Defaults to "number" if unset.
+     */
     answerType?:
         | "number"
         | "decimal"
@@ -187,36 +270,61 @@ export type PerseusInputNumberRubric = {
         | "mixed"
         | "percent"
         | "pi";
+    /**
+     * When true, approximate answers within `maxError` of the correct
+     * value are accepted.
+     */
     inexact?: boolean;
+    /**
+     * The maximum allowable deviation from the correct value when
+     * `inexact` is true.
+     */
     maxError?: number | string;
+    /** Whether the learner's answer must be in simplified form. */
     simplify: "required" | "optional" | "enforced";
+    /** The correct answer value. */
     value: string | number;
 };
 
 /** User input for the InputNumber widget. */
 export type PerseusInputNumberUserInput = {
     /**
-     * The raw value entered by the learner. May be a TeX
-     * expression; the scorer parses it before grading.
+     * The raw value entered by the learner. May be a TeX expression; the
+     * scorer parses it before grading.
      */
     currentValue: string;
 };
 
+/** Scoring rubric for the InteractiveGraph widget. */
 export type PerseusInteractiveGraphRubric = {
-    // TODO(LEMS-2344): make the type of `correct` more specific
+    /**
+     * The expected graph state for a correct answer.
+     */
+    // TODO(LEMS-2344): make the type of `correct` more specific.
     correct: PerseusGraphCorrectType;
+    /**
+     * The initial graph state; used to detect an unanswered/empty widget
+     * (input equals this when nothing has moved).
+     */
     graph: PerseusGraphType;
 };
 
 /**
- * User input for the InteractiveGraph widget: the graph type and
- * coordinates the learner positioned.
+ * User input for the InteractiveGraph widget: the graph type and coordinates
+ * the learner positioned.
  */
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
+/** Scoring rubric for the LabelImage widget. */
 export type PerseusLabelImageRubric = {
+    /**
+     * The expected answers for each labeled region in the image, parallel to
+     * the user input's markers.
+     */
     markers: Array<{
+        /** The set of correct answer labels for this marker. */
         answers: string[];
+        /** The label text identifying this marker in the image. */
         label: string;
     }>;
 };
@@ -238,10 +346,20 @@ export type PerseusLabelImageUserInput = {
     markers: PerseusLabelImageUserInputMarker[];
 };
 
+/** Scoring rubric for the Matcher widget. */
 export type PerseusMatcherRubric = {
-    // Translatable Text; Static concepts to show in the left column. e.g. ["Fruit", "Color", "Clothes"]
+    /**
+     * Static concepts for the left column. e.g. ["Fruit", "Color", "Clothes"]
+     *
+     * Translatable text.
+     */
     left: string[];
-    // Translatable Markup; Values that represent the concepts to be correlated with the concepts.  e.g. ["Red", "Shirt", "Banana"]
+    /**
+     * the correct right-column values, ordered to match the left. e.g.
+     * ["Banana", "Red", "Shirt"]
+     *
+     * Translatable markup.
+     */
     right: string[];
 };
 
@@ -256,11 +374,16 @@ export type PerseusMatcherUserInput = {
     right: string[];
 };
 
+/** Scoring rubric for the Matrix widget. */
 export type PerseusMatrixRubric = {
-    // A data matrix representing the "correct" answers to be entered into the matrix
+    /** The correct 2D matrix of answers. */
     answers: PerseusMatrixWidgetAnswers;
 } & PerseusMatrixValidationData;
 
+/**
+ * Validation data for the Matrix widget; currently empty — validation is
+ * performed from user input alone.
+ */
 export type PerseusMatrixValidationData = Empty;
 
 /** User input for the Matrix widget. */
@@ -272,13 +395,24 @@ export type PerseusMatrixUserInput = {
     answers: string[][];
 };
 
+/** Scoring rubric for the NumberLine widget. */
 export type PerseusNumberLineRubric = {
+    /**
+     * The correct inequality relation (e.g. "lt", "ge"), or null
+     * for an equality question.
+     */
     correctRel: string | null | undefined;
+    /** The correct numeric position on the number line. */
     correctX: number;
+    /** The [min, max] extent of the number line. */
     range: number[];
+    /** The starting position of the point. Defaults to range[0] if null. */
     initialX: number | null | undefined;
+    /** When true, the widget shows a shaded region and a relation selector. */
     isInequality: boolean;
+    /** When true, the learner can adjust the number of tick-mark divisions. */
     isTickCtrl?: boolean;
+    /** The [min, max] allowed number of divisions when isTickCtrl is true. */
     divisionRange: number[];
 };
 
@@ -303,10 +437,17 @@ export type PerseusNumberLineUserInput = {
     numDivisions: number;
 };
 
+/** Scoring rubric for the NumericInput widget. */
 export type PerseusNumericInputRubric = {
-    // A list of all the possible correct and incorrect answers
+    /**
+     * All possible correct and incorrect answer configurations,
+     * each with a value, status, and optional constraints.
+     */
     answers: PerseusNumericInputAnswer[];
-    // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
+    /**
+     * When true, allows shorthand coefficient entry: "-" means -1
+     * and an empty string means 1.
+     */
     coefficient: boolean;
 };
 
@@ -325,11 +466,18 @@ export type PerseusFreeResponseUserInput = {
     currentValue: string;
 };
 
+/** Scoring rubric for the FreeResponse widget. */
 export type PerseusFreeResponseRubric = {
+    /** The question text shown to the learner. */
     question: string;
+    /** The criteria used for AI-assisted scoring of the learner's response. */
     scoringCriteria: ReadonlyArray<PerseusFreeResponseWidgetScoringCriterion>;
 };
 
+/**
+ * Scoring rubric for the Orderer widget: the full widget options
+ * including the correct ordering.
+ */
 export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
 
 /** User input for the Orderer widget. */
@@ -341,13 +489,15 @@ export type PerseusOrdererUserInput = {
     current: string[];
 };
 
+/** Scoring rubric for the Plotter widget. */
 export type PerseusPlotterRubric = {
-    // The Y values that represent the correct answer expected
+    /** The expected Y-axis values representing the correct answer. */
     correct: number[];
 } & PerseusPlotterValidationData;
 
+/** Validation data for the Plotter widget. */
 export type PerseusPlotterValidationData = {
-    // The Y values the graph should start with
+    /** The initial Y-axis values the chart is pre-populated with. */
     starting: number[];
 };
 
@@ -357,10 +507,14 @@ export type PerseusPlotterValidationData = {
  */
 export type PerseusPlotterUserInput = number[];
 
+/** Scoring rubric for the Radio widget. */
 export type PerseusRadioRubric = {
-    // The choices provided to the user.
+    /** The answer choices shown to the learner; each has a `correct` flag. */
     choices: PerseusRadioChoice[];
-    // If true, the number of choices selected must match the number of correct choices.
+    /**
+     * When true, the learner must select exactly as many choices as there
+     * are correct answers before the answer is graded.
+     */
     countChoices?: boolean;
 };
 
@@ -375,8 +529,12 @@ export type PerseusRadioUserInput = {
     selectedChoiceIds: string[];
 };
 
+/** Scoring rubric for the Sorter widget. */
 export type PerseusSorterRubric = {
-    // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
+    /**
+     * Translatable text; the correct ordering of the cards. The
+     * learner sees them in a randomized order.
+     */
     correct: string[];
 };
 
@@ -394,8 +552,9 @@ export type PerseusSorterUserInput = {
     changed: boolean;
 };
 
+/** Scoring rubric for the Table widget. */
 export type PerseusTableRubric = {
-    // Translatable Text; A 2-dimensional array of text to populate the table with
+    /** Translatable text; the correct 2D array of cell values. */
     answers: string[][];
 };
 
@@ -405,6 +564,10 @@ export type PerseusTableRubric = {
  */
 export type PerseusTableUserInput = string[][];
 
+/**
+ * A registry mapping widget type names to their rubric types.
+ */
+// NOTE: Extend this interface to add new widget rubric types.
 export interface RubricRegistry {
     categorizer: PerseusCategorizerRubric;
     dropdown: PerseusDropdownRubric;
@@ -444,6 +607,7 @@ export type RubricMap = {
     };
 };
 
+/** A union of all widget rubric types. */
 export type Rubric = RubricRegistry[keyof RubricRegistry];
 
 /**
@@ -485,6 +649,10 @@ export type UserInput = UserInputRegistry[keyof UserInputRegistry];
  */
 export type UserInputMap = MakeWidgetMap<UserInputRegistry>;
 
+/**
+ * A registry mapping widget type names to their client-side
+ * validation data types.
+ */
 export interface ValidationDataTypes {
     categorizer: PerseusCategorizerValidationData;
     group: PerseusGroupValidationData;
