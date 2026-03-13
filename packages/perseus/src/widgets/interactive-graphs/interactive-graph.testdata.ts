@@ -305,6 +305,22 @@ export const noneQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const sinusoidQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withSinusoid().build();
 
+export const absoluteValueQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Graph $f(x) = 2|x - 1| + 3$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
+        )
+        .withAbsoluteValue({
+            coords: [
+                [1, 3],
+                [2, 5],
+            ],
+        })
+        .build();
+
+export const absoluteValueQuestionWithDefaultCorrect: PerseusRenderer =
+    interactiveGraphQuestionBuilder().withAbsoluteValue().build();
+
 export const tangentQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(

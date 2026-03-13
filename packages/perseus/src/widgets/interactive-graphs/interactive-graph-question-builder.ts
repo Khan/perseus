@@ -343,6 +343,14 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withAbsoluteValue(options?: {
+        coords?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new AbsoluteValueGraphConfig(options);
+        return this;
+    }
+
     addLockedPointAt(
         x: number,
         y: number,
@@ -967,5 +975,29 @@ class AngleGraphConfig implements InteractiveFigureConfig {
             snapDegrees: this.snapDegrees,
             match: this.match,
         };
+    }
+}
+
+class AbsoluteValueGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord];
+    private startCoords?: [Coord, Coord];
+
+    constructor(options?: {
+        coords?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "absolute-value",
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "absolute-value", startCoords: this.startCoords};
     }
 }
