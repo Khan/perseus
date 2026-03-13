@@ -97,6 +97,20 @@ const baseSinusoidGraphState: InteractiveGraphState = {
     ],
 };
 
+const baseTangentGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "tangent",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 0],
+        [1, 1],
+    ],
+};
+
 const baseQuadraticGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "quadratic",
@@ -263,6 +277,72 @@ describe("movePointInFigure", () => {
         expect(updated.coords).toEqual([
             [9, 1],
             [10, 2],
+        ]);
+    });
+
+    it("does not allow moving the endpoints of a tangent to the same x location", () => {
+        const state: InteractiveGraphState = {
+            ...baseTangentGraphState,
+            coords: [
+                [1, 1],
+                [2, 2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [2, 1]),
+        );
+
+        invariant(updated.type === "tangent");
+        // Assert: the move was canceled
+        expect(updated.coords).toEqual([
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
+    it("does not allow moving an endpoint of a tangent if the bounding logic would result in an invalid graph", () => {
+        const state: InteractiveGraphState = {
+            ...baseTangentGraphState,
+            coords: [
+                [9, 1],
+                [10, 2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [15, 1]),
+        );
+
+        invariant(updated.type === "tangent");
+        // Assert: the move was canceled
+        expect(updated.coords).toEqual([
+            [9, 1],
+            [10, 2],
+        ]);
+    });
+
+    it("allows moving a tangent endpoint to a valid position", () => {
+        const state: InteractiveGraphState = {
+            ...baseTangentGraphState,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(1, [3, 4]),
+        );
+
+        invariant(updated.type === "tangent");
+        expect(updated.hasBeenInteractedWith).toBe(true);
+        expect(updated.coords).toEqual([
+            [0, 0],
+            [3, 4],
         ]);
     });
 

@@ -312,6 +312,7 @@ function doMovePointInFigure(
         case "polygon":
         case "quadratic":
         case "sinusoid":
+        case "tangent":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -529,6 +530,31 @@ function doMovePoint(
 
             // Then, we need to verify that the new coordinates are not on the same
             // vertical line. If they are, then we don't want to move the point
+            const newCoords: vec.Vector2[] = [...state.coords];
+            newCoords[action.index] = boundDestination;
+            if (newCoords[0][X] === newCoords[1][X]) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: boundDestination,
+                }),
+            };
+        }
+        case "tangent": {
+            const boundDestination = boundAndSnapToGrid(
+                action.destination,
+                state,
+            );
+
+            // Reject the move if it would place both points on the same
+            // vertical line — same-x control points produce division by
+            // zero in getTangentCoefficients (angularFrequency = π/(4*0)).
             const newCoords: vec.Vector2[] = [...state.coords];
             newCoords[action.index] = boundDestination;
             if (newCoords[0][X] === newCoords[1][X]) {

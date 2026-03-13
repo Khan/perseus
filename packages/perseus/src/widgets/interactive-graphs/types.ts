@@ -39,7 +39,8 @@ export type InteractiveGraphState =
     | PointGraphState
     | CircleGraphState
     | QuadraticGraphState
-    | SinusoidGraphState;
+    | SinusoidGraphState
+    | TangentGraphState;
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
@@ -117,10 +118,7 @@ export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     coords: [vec.Vector2, vec.Vector2];
 }
 
-// TODO(LEMS-3955): Export and add to InteractiveGraphState union in PR 3
-// when reducer handlers are implemented.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface TangentGraphState extends InteractiveGraphStateCommon {
+export interface TangentGraphState extends InteractiveGraphStateCommon {
     type: "tangent";
     coords: [vec.Vector2, vec.Vector2];
 }
