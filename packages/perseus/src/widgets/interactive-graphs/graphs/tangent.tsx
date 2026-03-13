@@ -37,7 +37,7 @@ type TangentGraphProps = MafsGraphProps<TangentGraphState>;
 
 function TangentGraph(props: TangentGraphProps) {
     const {dispatch, graphState} = props;
-    const {interactiveColor} = useGraphConfig();
+    const {interactiveColor, range} = useGraphConfig();
     const i18n = usePerseusI18n();
     const id = React.useId();
     const descriptionId = id + "-description";
@@ -65,6 +65,10 @@ function TangentGraph(props: TangentGraphProps) {
         coeffRef.current = coeffs;
     }
 
+    // WORKAROUND for Mafs discontinuity rendering — see getPlotSegments().
+    const xRange: [number, number] = [range[0][0], range[0][1]];
+    const segments = getPlotSegments(coeffRef.current, xRange);
+
     // Aria strings
     const {
         srTangentGraph,
@@ -79,16 +83,20 @@ function TangentGraph(props: TangentGraphProps) {
             aria-label={srTangentGraph}
             aria-describedby={descriptionId}
         >
-            <Plot.OfX
-                y={(x) => computeTangent(x, coeffRef.current)}
-                color={interactiveColor}
-                svgPathProps={{
-                    // Use aria-hidden to hide the line from screen readers
-                    // so it doesn't read as "image" with no context.
-                    // This is okay because the graph has its own aria-label.
-                    "aria-hidden": true,
-                }}
-            />
+            {segments.map(([segStart, segEnd], i) => (
+                <Plot.OfX
+                    key={`tangent-segment-${i}`}
+                    y={(x) => computeTangent(x, coeffRef.current)}
+                    domain={[segStart, segEnd]}
+                    color={interactiveColor}
+                    svgPathProps={{
+                        // Use aria-hidden to hide the line from screen readers
+                        // so it doesn't read as "image" with no context.
+                        // This is okay because the graph has its own aria-label.
+                        "aria-hidden": true,
+                    }}
+                />
+            ))}
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={
@@ -161,6 +169,8 @@ export const getTangentKeyboardConstraint = (
 };
 
 // Plot a tangent of the form: f(x) = a * tan(b * x - c) + d
+// Returns NaN near asymptotes as a defensive backup to prevent
+// Mafs from drawing connecting lines across discontinuities..
 export const computeTangent = function (
     x: number,
     tangentCoefficients: NamedTangentCoefficient,
@@ -172,7 +182,23 @@ export const computeTangent = function (
         verticalOffset: d,
     } = tangentCoefficients;
 
-    return a * Math.tan(b * x - c) + d;
+    // Check proximity to asymptote: tan has asymptotes at arg = π/2 + nπ,
+    // i.e., (arg - π/2) is a multiple of π. Normalize the fractional part
+    // to [-0.5, 0.5) and check if near 0.
+    const arg = b * x - c;
+    const normalized = ((arg - Math.PI / 2) / Math.PI) % 1;
+    const distToAsymptote = Math.abs(
+        normalized > 0.5
+            ? normalized - 1
+            : normalized < -0.5
+              ? normalized + 1
+              : normalized,
+    );
+    if (distToAsymptote < 0.001) {
+        return NaN;
+    }
+
+    return a * Math.tan(arg) + d;
 };
 
 export const getTangentCoefficients = (
@@ -195,6 +221,75 @@ export const getTangentCoefficients = (
 
     return {amplitude, angularFrequency, phase, verticalOffset};
 };
+
+// Compute the x-positions of vertical asymptotes within a given x-range.
+// Asymptotes occur where b*x - c = π/2 + n*π, i.e. x = (c + π/2 + n*π) / b
+function getAsymptotePositions(
+    coeffs: NamedTangentCoefficient,
+    xRange: [number, number],
+): number[] {
+    const {angularFrequency: b, phase: c} = coeffs;
+    if (b === 0) {
+        return [];
+    }
+
+    const period = Math.PI / Math.abs(b);
+    const referenceAsymptote = (c + Math.PI / 2) / b;
+    const asymptotes: number[] = [];
+
+    // Walk left from the reference asymptote
+    let x = referenceAsymptote;
+    while (x > xRange[0] - period) {
+        if (x > xRange[0] && x < xRange[1]) {
+            asymptotes.push(x);
+        }
+        x -= period;
+    }
+
+    // Walk right from the reference asymptote
+    x = referenceAsymptote + period;
+    while (x < xRange[1] + period) {
+        if (x > xRange[0] && x < xRange[1]) {
+            asymptotes.push(x);
+        }
+        x += period;
+    }
+
+    return asymptotes.sort((a, b) => a - b);
+}
+
+// TODO: LEMS-2262
+// WORKAROUND: Mafs Plot.OfX renders a single SVG <path> and skips
+// non-finite points but uses "L" (lineTo) for the next valid point,
+// which draws vertical lines across discontinuities like asymptotes.
+// We split the curve into separate Plot.OfX segments between asymptotes
+// so each gets its own SVG path element.
+//
+// Tracked upstream: https://github.com/stevenpetryk/mafs/issues/133
+//
+// To remove this workaround:
+// 1. Delete getPlotSegments() and getAsymptotePositions()
+// 2. Replace the segments.map(...) in TangentGraph with a single:
+//    <Plot.OfX y={(x) => computeTangent(x, coeffRef.current)}
+//        color={interactiveColor} svgPathProps={{"aria-hidden": true}} />
+function getPlotSegments(
+    coeffs: NamedTangentCoefficient,
+    xRange: [number, number],
+): Array<[number, number]> {
+    const asymptotes = getAsymptotePositions(coeffs, xRange);
+    // Small epsilon to avoid plotting at exactly the asymptote
+    const eps = 0.01;
+    const segments: Array<[number, number]> = [];
+
+    let start = xRange[0];
+    for (const asymptote of asymptotes) {
+        segments.push([start, asymptote - eps]);
+        start = asymptote + eps;
+    }
+    segments.push([start, xRange[1]]);
+
+    return segments;
+}
 
 function getTangentDescription(
     state: TangentGraphState,
