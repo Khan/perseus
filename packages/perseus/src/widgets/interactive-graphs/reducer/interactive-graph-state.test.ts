@@ -118,4 +118,29 @@ describe("getGradableGraph", () => {
         invariant(result.type === "polygon");
         expect(result.coords).toEqual([[5, 0]]);
     });
+
+    it("returns tangent graph coords when interacted with", () => {
+        const state: InteractiveGraphState = {
+            type: "tangent",
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+        };
+        const initialGraph: PerseusGraphType = {
+            type: "tangent",
+        };
+        const result = getGradableGraph(state, initialGraph);
+        invariant(result.type === "tangent");
+        expect(result.coords).toEqual([
+            [1, 2],
+            [3, 4],
+        ]);
+    });
 });
