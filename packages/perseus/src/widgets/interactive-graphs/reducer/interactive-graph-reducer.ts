@@ -312,6 +312,7 @@ function doMovePointInFigure(
         case "polygon":
         case "quadratic":
         case "sinusoid":
+        case "absolute-value":
         case "tangent":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,

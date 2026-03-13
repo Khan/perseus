@@ -1093,6 +1093,7 @@ export type LockedLabelType = {
 };
 
 export type PerseusGraphType =
+    | PerseusGraphTypeAbsoluteValue
     | PerseusGraphTypeAngle
     | PerseusGraphTypeCircle
     | PerseusGraphTypeLinear
@@ -1227,6 +1228,14 @@ export type PerseusGraphTypeTangent = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
+};
+
+export type PerseusGraphTypeAbsoluteValue = {
+    type: "absolute-value";
+    // Expects [vertex, secondPoint]
+    coords?: [Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord];
 };
 
 export type PerseusGraphTypeRay = {
