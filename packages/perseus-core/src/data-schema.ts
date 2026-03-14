@@ -232,6 +232,8 @@ export type Version = {
     major: number;
     // The minor part of the version
     minor: number;
+    // Change SHOULD trigger schema check!
+    patch: number;
 };
 
 export type PerseusRenderer = {
