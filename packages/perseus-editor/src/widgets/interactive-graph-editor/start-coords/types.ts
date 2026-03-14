@@ -10,7 +10,8 @@ type GraphTypesThatHaveStartCoords =
     | {type: "quadratic"}
     | {type: "ray"}
     | {type: "segment"}
-    | {type: "sinusoid"};
+    | {type: "sinusoid"}
+    | {type: "tangent"};
 
 export type StartCoords = Extract<
     PerseusGraphType,

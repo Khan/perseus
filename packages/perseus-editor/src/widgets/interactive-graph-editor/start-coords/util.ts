@@ -100,6 +100,11 @@ export function getDefaultGraphStartCoords(
     }
 }
 
+// TODO(LEMS-3956): Both getSinusoidEquation and getTangentEquation have two
+// formatting quirks: (1) hardcoded "x - " and ") + " produce ugly strings
+// like "x - -0.785" and "+ -1.000" when phase/offset are negative, and
+// (2) no division-by-zero guard when both points share the same x-coordinate.
+// These should be cleaned up together for consistency.
 export const getSinusoidEquation = (startCoords: [Coord, Coord]) => {
     // Get coefficients
     // It's assumed that p1 is the root and p2 is the first peak
