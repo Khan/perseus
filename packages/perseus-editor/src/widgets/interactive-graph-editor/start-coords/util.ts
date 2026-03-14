@@ -9,6 +9,7 @@ import {
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
+    getTangentCoords,
 } from "@khanacademy/perseus";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
@@ -64,6 +65,12 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "tangent":
+            return getTangentCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
         case "quadratic":
             return getQuadraticCoords(
                 {...graph, startCoords: undefined},
@@ -109,6 +116,30 @@ export const getSinusoidEquation = (startCoords: [Coord, Coord]) => {
         "y = " +
         amplitude.toFixed(3) +
         "sin(" +
+        angularFrequency.toFixed(3) +
+        "x - " +
+        phase.toFixed(3) +
+        ") + " +
+        verticalOffset.toFixed(3)
+    );
+};
+
+export const getTangentEquation = (startCoords: [Coord, Coord]) => {
+    // Get coefficients
+    // It's assumed that p1 is the inflection point and p2 is a quarter-period away
+    const p1 = startCoords[0];
+    const p2 = startCoords[1];
+
+    // Resulting coefficients are canonical for this tangent curve
+    const amplitude = p2[1] - p1[1];
+    const angularFrequency = Math.PI / (4 * (p2[0] - p1[0]));
+    const phase = p1[0] * angularFrequency;
+    const verticalOffset = p1[1];
+
+    return (
+        "y = " +
+        amplitude.toFixed(3) +
+        "tan(" +
         angularFrequency.toFixed(3) +
         "x - " +
         phase.toFixed(3) +
@@ -183,15 +214,12 @@ export const shouldShowStartCoordsUI = (
                 graph.snapTo !== "sides"
             );
         case "none":
-        case "tangent":
-            // TODO(LEMS-3955): return true for tangent once
-            // StartCoordsSettingsInner and getDefaultGraphStartCoords
-            // handle the tangent type
             return false;
         case "angle":
         case "circle":
         case "linear":
         case "linear-system":
+        case "tangent":
         case "quadratic":
         case "ray":
         case "segment":
