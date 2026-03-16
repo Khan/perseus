@@ -384,7 +384,7 @@ export type WidgetOptions<
      * widget logic, which can be various other alignments (e.g.
      * "inline-block", "inline", etc).
      */
-    alignment?: "default" | "block" | "wrap-right" | "wrap-left";
+    alignment?: string;
     /**
      * Options specific to the type field of the widget. See Perseus*WidgetOptions for
      * more details
