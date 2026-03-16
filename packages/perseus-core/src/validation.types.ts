@@ -64,7 +64,7 @@ export type WidgetValidatorFunction = (
      */
     userInput: UserInput | undefined,
 
-    /** The non-sensitive data needed to validate the input. */
+    /** The answerless data needed to validate the input. */
     validationData: ValidationData,
 
     /** The locale for locale-sensitive validation. */
