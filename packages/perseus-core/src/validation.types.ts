@@ -77,8 +77,8 @@ export type WidgetValidatorFunction = (
 /** The signature of a widget's scoring function. */
 export type WidgetScorerFunction = (
     /**
-     * The user's input (guess) data to score. Undefined if never interacted
-     * with.
+     * The user's input (guess) data to score. Undefined if the user never
+     * interacted with the widget.
      */
     userInput: UserInput | undefined,
 
