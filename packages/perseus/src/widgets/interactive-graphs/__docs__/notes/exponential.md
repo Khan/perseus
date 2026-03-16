@@ -294,13 +294,12 @@ const asymptote: [Coord, Coord] = [
 
 ## PR Breakdown
 
-The work ships as three PRs across two tickets.
+The work ships as one spike PR and five implementation PRs. The structure mirrors the
+absolute-value graph type (LEMS-3347) which landed with the same PR breakdown.
 
 ### LEMS-3945 — Spike deliverable
 
-This document (`exponential.md`) is the sole deliverable for the spike ticket. It captures
-the technical research, design decisions, and implementation plan that answers the unknowns
-identified in LEMS-3945 and feeds into LEMS-3711.
+This document (`exponential.md`) is the sole deliverable for the spike ticket.
 
 **Branch:** `LEMS-3945`
 
@@ -310,25 +309,48 @@ identified in LEMS-3945 and feeds into LEMS-3711.
 
 ---
 
-### LEMS-3711 PR 1 — Learner-facing feature (18 files)
+### LEMS-3711 PR 1 — Types, kmath & stubs
 
-All implementation except editor authoring support. The exponential graph type is fully
-functional for learners and scorable, but cannot yet be created in the content editor.
-No existing content has `type: "exponential"`, so this is safe to land before PR 2.
+Establishes the type contract and foundational setup. Introduces `getExponentialCoefficients`
+to kmath, defines all type shapes, and adds placeholder stubs so the type can enter the
+`PerseusGraphType` union without breaking exhaustiveness checks or silently failing if an
+exponential widget is somehow encountered before PR 3 renders.
 
-**Branch:** `LEMS-3711/exponential-interactive-graph`
+**Branch:** `LEMS-3711/exponential-types-kmath`
 
 **New files:**
 
-- `packages/perseus/src/widgets/interactive-graphs/graphs/exponential.tsx` — rendering component
+- `packages/kmath/src/coefficients.test.ts` — tests for `getExponentialCoefficients`
 
 **Modified files:**
 
 | File | Change |
 | --- | --- |
-| `packages/perseus-core/src/data-schema.ts` | `PerseusGraphTypeExponential` type, added to `PerseusGraphType` and `PerseusGraphCorrectType` unions |
+| `packages/kmath/src/coefficients.ts` | `ExponentialCoefficient` type + `getExponentialCoefficients` function |
+| `packages/kmath/src/index.ts` | Export `ExponentialCoefficient` type |
+| `packages/perseus-core/src/data-schema.ts` | `PerseusGraphTypeExponential`, added to `PerseusGraphType` and `PerseusGraphCorrectType` unions |
 | `packages/perseus-core/.../interactive-graph-widget.ts` | Parser branch for `"exponential"` |
 | `packages/perseus/src/widgets/interactive-graphs/types.ts` | `ExponentialGraphState`, added to `InteractiveGraphState` union |
+| `packages/perseus/src/widgets/interactive-graphs/mafs-graph.tsx` | Stub: `case "exponential"` throws `"Not implemented"` |
+| `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx` | Stub: `case "exponential"` returns `""` for equation string |
+| `packages/perseus-editor/.../interactive-graph-editor.tsx` | Exhaustiveness fix: minimal `case "exponential"` in `mergeGraphs` |
+| `packages/perseus-editor/.../start-coords/util.ts` | Exhaustiveness fix: `case "exponential"` in `shouldShowStartCoordsUI` |
+
+---
+
+### LEMS-3711 PR 2 — State management
+
+Actions, reducer, initializer, and serialization. The graph is stateful and interactive but
+not yet visible (rendering still throws "Not implemented" from PR 1's stub).
+
+**Branch:** `LEMS-3711/exponential-pr2-state`
+
+**New files:** *(none)*
+
+**Modified files:**
+
+| File | Change |
+| --- | --- |
 | `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-action.ts` | `exponential: { movePoint, moveCenter }` actions |
 | `packages/perseus/src/widgets/interactive-graphs/reducer/initialize-graph-state.ts` | `case "exponential"`, exports `getExponentialCoords()` |
 | `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-reducer.ts` | `doMovePoint` and `doMoveCenter` cases with same-x and asymptote-crossing constraints |
@@ -336,29 +358,62 @@ No existing content has `type: "exponential"`, so this is safe to land before PR
 | `packages/perseus/src/widgets/interactive-graphs/mafs-state-to-interactive-graph.ts` | `case "exponential"` (includes `asymptote`) |
 | `packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata.ts` | Test fixture |
 | `packages/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder.ts` | `withExponential()` builder method |
-| `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx` | `getEquationString()` case and type registration |
-| `packages/perseus/src/widgets/interactive-graphs/mafs-graph.tsx` | `renderExponentialGraph()` dispatch |
+| `packages/perseus/src/index.ts` | Re-export `getExponentialCoords` |
+
+---
+
+### LEMS-3711 PR 3 — Rendering & accessibility
+
+The visual component and all strings. Replaces PR 1's stubs with real implementations.
+The graph is now fully visible and interactive for learners.
+
+**Branch:** `LEMS-3711/exponential-pr3-rendering`
+
+**New files:**
+
+- `packages/perseus/src/widgets/interactive-graphs/graphs/exponential.tsx` — rendering component (468 lines)
+
+**Modified files:**
+
+| File | Change |
+| --- | --- |
 | `packages/perseus/src/strings.ts` | Six SR strings for graph, points, asymptote, and descriptions |
+| `packages/perseus/src/widgets/interactive-graphs/mafs-graph.tsx` | Replace stub with `renderExponentialGraph()` dispatch |
+| `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx` | Replace stub with real `getEquationString()` case |
 | `packages/perseus/src/widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts` | `ExponentialUserInput` type and case handlers |
 | `packages/perseus/src/widgets/interactive-graphs/__docs__/interactive-graph.stories.tsx` | Storybook story |
-| `packages/perseus/src/index.ts` | Re-export `getExponentialCoords` |
-| `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.ts` | Scoring branch + `getExponentialCoefficients()` helper + tests |
 
 **Notes:**
 
 - `AsymptoteDragHandle` horizontal variant is inlined in `exponential.tsx`. Extract to a shared
   component when LEMS-3950 merges and its `AsymptoteDragHandle` is available on main.
-- Scoring tests (`score-interactive-graph.test.ts`) must be written before this PR lands —
-  they were not included in the POC.
 
 ---
 
-### LEMS-3711 PR 2 — Editor support (7 files)
+### LEMS-3711 PR 4 — Scoring
 
-Surfaces the exponential type in the content-creator UI. This is the "on switch" — once landed,
+Scoring branch in `perseus-score`. Imports `getExponentialCoefficients` from kmath (available
+since PR 1). The graph is now gradeable.
+
+**Branch:** `LEMS-3711/exponential-pr4-scoring`
+
+**New files:** *(none)*
+
+**Modified files:**
+
+| File | Change |
+| --- | --- |
+| `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.ts` | Scoring branch; imports `getExponentialCoefficients` from kmath |
+| `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.test.ts` | Scoring unit tests |
+
+---
+
+### LEMS-3711 PR 5 — Editor support
+
+Surfaces the exponential type in the content-creator UI. The "on switch" — once landed,
 content creators can author exponential graph exercises. Stacks on PR 1.
 
-**Branch:** `LEMS-3711/exponential-graph-editor`
+**Branch:** `LEMS-3711/exponential-pr5-editor`
 
 **New files:**
 
@@ -370,8 +425,8 @@ content creators can author exponential graph exercises. Stacks on PR 1.
 | File | Change |
 | --- | --- |
 | `packages/perseus-editor/.../components/graph-type-selector.tsx` | Add `"Exponential function"` option to dropdown |
-| `packages/perseus-editor/.../interactive-graph-editor.tsx` | `"exponential"` case in `mergeGraphs` |
+| `packages/perseus-editor/.../interactive-graph-editor.tsx` | Full `"exponential"` case in `mergeGraphs` (replaces PR 1 stub) |
 | `packages/perseus-editor/.../start-coords/types.ts` | Add `"exponential"` to `GraphTypesThatHaveStartCoords` |
-| `packages/perseus-editor/.../start-coords/util.ts` | `"exponential"` cases in `getDefaultGraphStartCoords` and `shouldShowStartCoordsUI` |
+| `packages/perseus-editor/.../start-coords/util.ts` | Full `"exponential"` cases in `getDefaultGraphStartCoords` and `shouldShowStartCoordsUI` |
 | `packages/perseus-editor/.../start-coords/start-coords-settings.tsx` | `case "exponential"` dispatching to `<StartCoordsExponential>` |
 | `packages/perseus-linter/.../interactive-graph-widget-error.ts` | Validation: start asymptote must not fall between or on the curve's start points |
