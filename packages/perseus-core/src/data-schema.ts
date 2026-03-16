@@ -218,7 +218,7 @@ export type PerseusItem = {
     /**
      * Question helpers that should be made available to the user. Perseus
      * itself does not ship with any of these tools, they are strictly hints to
-     * for host application.
+     * the host application.
      */
     // TODO(benchristel): The parser for PerseusAnswerArea never returns null
     //     or undefined. We could remove `| null | undefined` here, but we'd
