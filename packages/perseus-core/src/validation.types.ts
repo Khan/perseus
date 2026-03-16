@@ -107,8 +107,8 @@ export type PerseusScore =
     | {
           /**
            * Indicates the input has been scored and points awarded (widgets
-           * are free to reward any number of points, but the score is only
-           * considered "correct" when `earned` == `total`).
+           * are free to award any number of points, but the score is only
+           * considered "correct" when `earned` >= `total`).
            */
           type: "points";
           /** The number of points the learner earned. */
