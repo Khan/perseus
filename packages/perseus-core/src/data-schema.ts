@@ -693,7 +693,7 @@ export type GrapherAnswerTypes =
       }
     | {
           /**
-           * A curve of the form y = a·bˣ approaching a horizontal (or
+           * A curve of the form y = a·bˣ + c approaching a horizontal (or
            * vertical) asymptote.
            */
           type: "exponential";
