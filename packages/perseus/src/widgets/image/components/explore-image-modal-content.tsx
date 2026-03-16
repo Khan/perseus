@@ -45,32 +45,14 @@ export default function ExploreImageModalContent({
 
     const imageIsGif = isGif(backgroundImage.url);
 
-    let modalImageHeight: number | undefined;
-    let width: number | undefined;
-
-    if (scaleFF) {
-        if (backgroundImage.height && backgroundImage.width) {
-            // Contain the image to the modal dimensions:
-            // - Shrink image to the modal height if it's taller than the modal.
-            // - Keep image its original size if it's shorter than the modal.
-            // - Maintain the image's aspect ratio.
-            modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
-            // bgWidth / bgHeight = X / modalImageHeight
-            // => X = (bgWidth / bgHeight) * modalImageHeight
-            width =
-                (backgroundImage.width / backgroundImage.height) *
-                modalImageHeight;
-        }
-    } else {
-        // Contain the image to the modal dimensions:
-        // - Shrink image to the modal height if it's taller than the modal.
-        // - Keep image its original size if it's shorter than the modal.
-        // - Maintain the image's aspect ratio.
-        modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
-        // bgWidth / bgHeight = X / modalImageHeight
-        // => X = (bgWidth / bgHeight) * modalImageHeight
-        width = (zoomWidth / zoomHeight) * modalImageHeight;
-    }
+    // Contain the image to the modal dimensions:
+    // - Shrink image to the modal height if it's taller than the modal.
+    // - Keep image its original size if it's shorter than the modal.
+    // - Maintain the image's aspect ratio.
+    const modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
+    // bgWidth / bgHeight = X / modalImageHeight
+    // => X = (bgWidth / bgHeight) * modalImageHeight
+    const width = (zoomWidth / zoomHeight) * modalImageHeight;
 
     return (
         <div className={styles.modalPanelContainer}>
@@ -83,8 +65,8 @@ export default function ExploreImageModalContent({
                             // Don't allow opening a modal within a modal.
                             allowZoom={false}
                             alt={caption === alt ? "" : alt}
-                            width={width}
-                            height={modalImageHeight}
+                            width={scaleFF ? undefined : width}
+                            height={scaleFF ? undefined : modalImageHeight}
                             preloader={apiOptions.imagePreloader}
                             extraGraphie={{
                                 box: box,

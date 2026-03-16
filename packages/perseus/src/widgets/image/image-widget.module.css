@@ -64,6 +64,9 @@
 
 .modal-image-container img {
     background-color: var(--wb-semanticColor-core-background-base-default);
+    /* Stop large images from overflowing out of the image area of the modal. */
+    max-width: 100%;
+    max-height: var(--modal-panel-height);
 }
 
 .modal-description-container {
