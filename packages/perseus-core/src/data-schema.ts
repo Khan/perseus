@@ -722,7 +722,7 @@ export type GrapherAnswerTypes =
       }
     | {
           /**
-           * A curve of the form y = a·log_b(x) approaching a vertical
+           * A curve of the form y = a·log_b(x - c) approaching a vertical
            * asymptote.
            */
           type: "logarithm";
