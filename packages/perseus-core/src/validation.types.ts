@@ -51,8 +51,8 @@ import type {Relationship} from "./types";
 
 /**
  * The signature of a widget's client-side validation function. This function
- * must function using only widget option data that is not sensitive data that
- * would reveal the answer (that data must be unique to the rubric type).
+ * runs before the learner submits their attempt, so it will be passed
+ * answerless widget option data (as returned by `PublicWidgetOptionsFunction`).
  *
  * Returns an invalid result (ie. empty) if the input is not yet ready to be
  * scored, or null if valid.
