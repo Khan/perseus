@@ -88,8 +88,8 @@ export default function ExploreImageModalContent({
                             // Don't allow opening a modal within a modal.
                             allowZoom={false}
                             alt={caption === alt ? "" : alt}
-                            width={scaleFF ? undefined : width}
-                            height={scaleFF ? undefined : modalImageHeight}
+                            width={width}
+                            height={modalImageHeight}
                             preloader={apiOptions.imagePreloader}
                             extraGraphie={{
                                 box: box,
