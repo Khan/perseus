@@ -247,7 +247,7 @@ export type PerseusRenderer = {
      * TeX surrounded by `$` characters (eg. `Solve the following: $1 + 1 =
      * ?$.`).
      *
-     * For each widget found in the Markdown, there must have an entry in the
+     * For each widget found in the Markdown, there _must_ be an entry in the
      * {@link PerseusRenderer.widgets} object using the widget-id as the key.
      *
      * For each image found in the Markdown, there can be an entry in the
@@ -394,8 +394,10 @@ export type WidgetOptions<
      */
     key?: number | null;
     /**
-     * The version of the widget data spec. Used to differentiate between newer and
-     * older content data.
+     * The version of the widget data spec. Used to differentiate between newer
+     * and older content data. The parsers (`parseAndMigratePerseusItem`,
+     * `parseAndMigratePerseusArticle`, or `parseAndMigratePerseusRenderer`)
+     * will upgrade non-current versions of widget options to the latest.
      */
     version?: Version;
 };
@@ -487,7 +489,7 @@ export type PerseusImageBackground = {
 
 /**
  * The type of markings to display on the graph.
- * - axes: shows the axes without the gride lines
+ * - axes: shows the axes without the grid lines
  * - graph: shows the axes and the grid lines
  * - grid: shows only the grid lines
  * - none: shows no markings
@@ -496,6 +498,7 @@ export type MarkingsType = "axes" | "graph" | "grid" | "none";
 
 export type AxisLabelLocation = "onAxis" | "alongEdge";
 
+/** Options for the categorizer widget. Presents items to sort into groups. */
 export type PerseusCategorizerWidgetOptions = {
     /**
      * Translatable text; a list of items to categorize. e.g. ["banana",
@@ -518,6 +521,7 @@ export type PerseusCategorizerWidgetOptions = {
     highlightLint?: boolean;
 };
 
+/** Options for the definition widget. Reveals a definition on click. */
 export type PerseusDefinitionWidgetOptions = {
     /** Translatable text; the word to define. e.g. "vertex" */
     togglePrompt: string;
@@ -527,6 +531,7 @@ export type PerseusDefinitionWidgetOptions = {
     static: boolean;
 };
 
+/** Options for the dropdown widget. A list of choices in a dropdown. */
 export type PerseusDropdownWidgetOptions = {
     /** A list of choices for the dropdown */
     choices: PerseusDropdownChoice[];
@@ -547,6 +552,7 @@ export type PerseusDropdownChoice = {
     correct: boolean;
 };
 
+/** Options for the explanation widget. Reveals an explanation on click. */
 export type PerseusExplanationWidgetOptions = {
     /**
      * Translatable Text; The clickable text to expand an explanation.
@@ -583,6 +589,7 @@ export type LegacyButtonSets = Array<
     | "scientific"
 >;
 
+/** Options for the expression widget. Accepts a math expression answer. */
 export type PerseusExpressionWidgetOptions = {
     /** The expression forms the answer may come in */
     answerForms: PerseusExpressionAnswerForm[];
@@ -625,12 +632,13 @@ export type PerseusExpressionAnswerForm = {
     /** Whether the form is considered "correct", "wrong", or "ungraded" */
     considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
     /**
-     * A key to identify the answer form in a list.
-     * NOTE: perseus-format.js says this is required even though it isn't necessary.
+     * A key to identify the answer form in a list. Used only by the Perseus
+     * editor!
      */
     key?: string;
 };
 
+/** Options for the graded-group widget. A self-contained scoreable group. */
 export type PerseusGradedGroupWidgetOptions = {
     /** Translatable Text; A title to be displayed for the group. */
     title: string;
@@ -640,18 +648,19 @@ export type PerseusGradedGroupWidgetOptions = {
     hint?: PerseusRenderer | null | undefined;
     /** Translatable Markdown. May include widgets and images embedded. */
     content: string;
-    /** See PerseusRenderer.widgets */
+    /** See {@link PerseusRenderer.widgets} */
     widgets: PerseusWidgetsMap;
     /** Not used in Perseus */
     widgetEnabled?: boolean | null | undefined;
     /** Not used in Perseus */
     immutableWidgets?: boolean | null | undefined;
-    /** See PerseusRenderer.images */
+    /** See {@link PerseusRenderer.images} */
     images: {
         [key: string]: PerseusImageDetail;
     };
 };
 
+/** Options for the graded-group-set widget. A set of graded groups. */
 export type PerseusGradedGroupSetWidgetOptions = {
     /** A list of Widget Groups */
     gradedGroups: PerseusGradedGroupWidgetOptions[];
@@ -665,8 +674,8 @@ export type GraphRange = [
 
 /**
  * The state of the grapher widget's plotted function, discriminated by
- * function type. Used as both the learner's user input and the rubric's
- * correct answer.
+ * function type ({@link GrapherAnswerTypes.type}. Used as both the learner's
+ * user input and the rubric's correct answer.
  */
 export type GrapherAnswerTypes =
     | {
@@ -826,8 +835,10 @@ export type PerseusGrapherWidgetOptions = {
     };
 };
 
+/** Options for the group widget. An alias for PerseusRenderer. */
 export type PerseusGroupWidgetOptions = PerseusRenderer;
 
+/** Options for the image widget. Shows an image with a caption and alt text. */
 export type PerseusImageWidgetOptions = {
     /** Translatable Markdown; Text to be shown for the title of the image */
     title?: string;
@@ -865,6 +876,7 @@ export type PerseusImageLabel = {
     coordinates: number[];
 };
 
+/** Options for the interactive-graph widget. An interactive geometry graph. */
 export type PerseusInteractiveGraphWidgetOptions = {
     /**
      * Where the little black axis lines & labels (ticks) should render. Also
@@ -874,7 +886,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     /** Where the grid lines on the graph will render. default [1, 1] */
     gridStep?: [x: number, y: number];
     /**
-     * Where the graph points will lock to when they are dragged.
+     * Where the graph points will lock to when they are moved.
      * default [0.5, 0.5]
      */
     snapStep?: [x: number, y: number];
@@ -888,9 +900,11 @@ export type PerseusInteractiveGraphWidgetOptions = {
     labels?: string[];
     /**
      * Specifies the location of the labels on the graph.  default: "onAxis".
-     * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
-     * - "alongEdge": Labels are centered along the bottom (x) and left (y) edges of the graph.
-     *    The y label is rotated. Typically used when the range min is near 0 with longer labels.
+     * - "onAxis": Labels are positioned on the axis at the right (x) and top
+     *   (y) of the graph.
+     * - "alongEdge": Labels are centered along the bottom (x) and left (y)
+     *    edges of the graph. The y label is rotated. Typically used when the
+     *    range min is near 0 with longer labels.
      */
     labelLocation?: AxisLabelLocation;
     /** Which sides of the graph are bounded (removed axis arrows). */
@@ -1066,7 +1080,7 @@ export type LockedFunctionType = {
     ariaLabel?: string;
 };
 
-/** Not associated with a specific figure */
+// Not associated with a specific figure
 export type LockedLabelType = {
     type: "label";
     coord: Coord;
@@ -1101,9 +1115,15 @@ export type PerseusGraphTypeAngle = {
     snapDegrees?: number;
     /** How to match the answer. If missing, defaults to exact matching. */
     match?: "congruent";
-    /** must have 3 coords - ie [Coord, Coord, Coord] */
+    /**
+     * The current state of this graph, represented as ∠ABC, where point B is
+     * the vertex, while rays BA and BC form the angle.
+     */
     coords?: [Coord, Coord, Coord];
-    /** The initial coordinates the graph renders with. */
+    /**
+     * The initial state for this graph, represented as ∠ABC, where point B is
+     * the vertex, while rays BA and BC form the angle.
+     */
     startCoords?: [Coord, Coord, Coord];
 };
 
@@ -1277,6 +1297,7 @@ export type PerseusGraphCorrectType =
     | SegmentGraphCorrect
     | SinusoidGraphCorrect;
 
+/** Options for the label-image widget. Asks learners to label image parts. */
 export type PerseusLabelImageWidgetOptions = {
     /** Translatable Text; TeX representation of choices */
     choices: string[];
@@ -1315,6 +1336,7 @@ export type PerseusLabelImageMarker = {
     y: number;
 };
 
+/** Options for the matcher widget. Two-column drag-and-drop matching. */
 export type PerseusMatcherWidgetOptions = {
     /**
      * Translatable Text; Labels to adorn the headings for the columns. Only 2
@@ -1345,6 +1367,8 @@ export type PerseusMatcherWidgetOptions = {
 };
 
 export type PerseusMatrixWidgetAnswers = number[][];
+
+/** Options for the matrix widget. A grid of numeric cells to fill in. */
 export type PerseusMatrixWidgetOptions = {
     /** Translatable Text; Shown before the matrix */
     prefix?: string | undefined;
@@ -1355,7 +1379,10 @@ export type PerseusMatrixWidgetOptions = {
      * matrix
      */
     answers: PerseusMatrixWidgetAnswers;
-    /** The coordinate location of the cursor position at start. default: [0, 0] */
+    /**
+     * The coordinate location of the cursor position at start.
+     * default: [0, 0]
+     */
     cursorPosition?: number[] | undefined;
     /**
      * The coordinate size of the matrix. Only supports 2-dimensional matrix.
@@ -1369,6 +1396,7 @@ export type PerseusMatrixWidgetOptions = {
     static?: boolean | undefined;
 };
 
+/** Options for the measurer widget. A virtual ruler and/or protractor. */
 export type PerseusMeasurerWidgetOptions = {
     /** The image that the user is meant to measure */
     image: PerseusImageBackground;
@@ -1412,6 +1440,7 @@ export type PerseusNumericInputAnswerForm = {
  */
 export type PerseusNumericInputSimplify = "required" | "enforced" | "optional";
 
+/** Options for the numeric-input widget. Accepts a single numeric answer. */
 export type PerseusNumericInputWidgetOptions = {
     /** A list of all the possible correct and incorrect answers */
     answers: PerseusNumericInputAnswer[];
@@ -1464,6 +1493,7 @@ export type PerseusNumericInputAnswer = {
     simplify: PerseusNumericInputSimplify;
 };
 
+/** Options for the number-line widget. A draggable point on a number line. */
 export type PerseusNumberLineWidgetOptions = {
     /**
      * The position of the endpoints of the number line. Setting the range
@@ -1530,6 +1560,7 @@ export type PerseusNumberLineWidgetOptions = {
     static: boolean;
 };
 
+/** Options for the orderer widget. Cards to place in the correct order. */
 export type PerseusOrdererWidgetOptions = {
     /**
      * All of the options available to the user. Place the cards in the correct
@@ -1559,6 +1590,7 @@ export const plotterPlotTypes = [
 ] as const;
 export type PlotType = (typeof plotterPlotTypes)[number];
 
+/** Options for the plotter widget. A bar, line, histogram, or dot plot. */
 export type PerseusPlotterWidgetOptions = {
     /** Translatable Text; The Axis labels. e.g. ["X Label", "Y Label"] */
     labels: string[];
@@ -1598,6 +1630,7 @@ export type PerseusPlotterWidgetOptions = {
     plotDimensions: number[];
 };
 
+/** Options for the radio widget. Presents a multiple-choice question. */
 export type PerseusRadioWidgetOptions = {
     /** The choices provided to the user. */
     choices: PerseusRadioChoice[];
@@ -1634,6 +1667,7 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
 };
 
+/** Options for the sorter widget. Cards to arrange into the correct order. */
 export type PerseusSorterWidgetOptions = {
     /**
      * Translatable Text; The correct answer (in the correct order). The user
@@ -1652,6 +1686,7 @@ export type PerseusSorterWidgetOptions = {
     layout: "horizontal" | "vertical";
 };
 
+/** Options for the table widget. A grid of input cells with column headers. */
 export type PerseusTableWidgetOptions = {
     /** Translatable Text; A list of column headers */
     headers: string[];
@@ -1663,6 +1698,7 @@ export type PerseusTableWidgetOptions = {
     answers: string[][];
 };
 
+/** Options for the interaction widget. A customizable interactive graph. */
 export type PerseusInteractionWidgetOptions = {
     /** The definition of the graph */
     graph: PerseusInteractionGraph;
@@ -1902,6 +1938,7 @@ export type PerseusInteractionRectangleElementOptions = {
     height: string;
 };
 
+/** Options for the cs-program widget. Embeds a Khan Academy JS program. */
 export type PerseusCSProgramWidgetOptions = {
     /** The ID of the CS program to embed */
     programID: string;
@@ -1933,6 +1970,7 @@ export type PerseusCSProgramSetting = {
     value: string;
 };
 
+/** Options for the python-program widget. Embeds a KA Python program. */
 export type PerseusPythonProgramWidgetOptions = {
     /** The ID of the Python program to embed */
     programID: string;
@@ -1953,6 +1991,7 @@ export type PerseusFreeResponseWidgetScoringCriterion = {
     text: string;
 };
 
+/** Options for the free-response widget. An open-ended text answer. */
 export type PerseusFreeResponseWidgetOptions = {
     /** Whether to allow the user to enter an unlimited number of characters. */
     allowUnlimitedCharacters: boolean;
@@ -1972,6 +2011,7 @@ export type PerseusFreeResponseWidgetOptions = {
     scoringCriteria: ReadonlyArray<PerseusFreeResponseWidgetScoringCriterion>;
 };
 
+/** Options for the iframe widget. Embeds external content in an iframe. */
 export type PerseusIFrameWidgetOptions = {
     /** A URL to display OR a CS Program ID */
     url: string;
@@ -1992,6 +2032,7 @@ export type PerseusIFrameWidgetOptions = {
     static: boolean;
 };
 
+/** Options for the phet-simulation widget. Embeds a PhET simulation. */
 export type PerseusPhetSimulationWidgetOptions = {
     /** A URL to display, must start with https://phet.colorado.edu/ */
     url: string;
@@ -1999,12 +2040,14 @@ export type PerseusPhetSimulationWidgetOptions = {
     description: string;
 };
 
+/** Options for the video widget. Embeds a video by its location ID. */
 export type PerseusVideoWidgetOptions = {
     location: string;
     /** `static` is not used for the video widget. */
     static?: boolean;
 };
 
+/** Options for the input-number widget (deprecated; prefer numeric-input). */
 export type PerseusInputNumberWidgetOptions = {
     answerType?:
         | "number"
@@ -2024,6 +2067,7 @@ export type PerseusInputNumberWidgetOptions = {
     customKeypad?: boolean;
 };
 
+/** Options for the molecule-renderer widget. Renders a molecule via SMILES. */
 export type PerseusMoleculeRendererWidgetOptions = {
     widgetId: string;
     rotationAngle?: number;
