@@ -206,16 +206,20 @@ export type PerseusWidget = PerseusWidgetTypes[keyof PerseusWidgetTypes];
 /**
  * A "PerseusItem" is a classic Perseus item. It is rendered by the
  * `ServerItemRenderer` and the layout is pre-set.
- *
- * To render more complex Perseus items, see the `Item` type in the multi item
- * area.
  */
 export type PerseusItem = {
     /** The details of the question being asked to the user. */
     question: PerseusRenderer;
-    /** A collection of hints to be offered to the user that support answering the question. */
+    /**
+     * A collection of hints to be offered to the user that support answering
+     * the question.
+     */
     hints: Hint[];
-    /** Details about the tools the user might need to answer the question */
+    /**
+     * Question helpers that should be made available to the user. Perseus
+     * itself does not ship with any of these tools, they are strictly hints to
+     * for host application.
+     */
     // TODO(benchristel): The parser for PerseusAnswerArea never returns null
     //     or undefined. We could remove `| null | undefined` here, but we'd
     //     have to update a bunch of test data in both this repo and frontend.
@@ -238,10 +242,17 @@ export type Version = {
 export type PerseusRenderer = {
     /**
      * Translatable Markdown content to be rendered.  May include references to
-     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
-     * For each image found in this content, there can be an entry in the
-     * `images` dict (below) with the key being the image's url which defines
-     * additional attributes for the image.
+     * widgets (as `[[☃ widget-id]]`) or [deprecated] images (as `![image
+     * text](imageUrl)`). This markdown can also include Math in the form of
+     * TeX surrounded by `$` characters (eg. `Solve the following: $1 + 1 =
+     * ?$.`).
+     *
+     * For each widget found in the Markdown, there must have an entry in the
+     * {@link PerseusRenderer.widgets} object using the widget-id as the key.
+     *
+     * For each image found in the Markdown, there can be an entry in the
+     * {@link PerseusRenderer.images} object with the key being the image's url
+     * which defines additional attributes for the image.
      */
     content: string;
     /**
@@ -257,7 +268,10 @@ export type PerseusRenderer = {
      */
     metadata?: any;
     /**
-     * A dictionary of {[imageUrl]: PerseusImageDetail}.
+     * A dictionary of {[imageUrl]: {@link PerseusImageDetail}}.
+     *
+     * @deprecated Use of inline images is deprecated in Perseus. Please use an
+     * `image` widget instead.
      */
     images: {
         [imageUrl: string]: PerseusImageDetail;
@@ -267,8 +281,10 @@ export type PerseusRenderer = {
 export type Hint = PerseusRenderer & {
     /**
      * When `true`, causes the previous hint to be replaced with this hint when
-     * displayed. When `false`, the previous hint remains visible when this one
-     * is displayed. This allows for hints that build upon each other.
+     * it is displayed.
+     *
+     * When `false`, the previous hint remains visible when this one is
+     * displayed. This allows for hints that build upon each other.
      */
     replace?: boolean;
     /**
@@ -289,34 +305,47 @@ export type PerseusImageDetail = {
     height: number;
 };
 
+/**
+ * ItemExtras represent extra UI elements that help the learner in answering
+ * the question (such as a calculator for questions where solving by hand is
+ * not material to testing undertanding of the skill).
+ */
 export const ItemExtras = [
     /**
      * The user might benefit from using a Scientific Calculator.
+     *
      * Provided on Khan Academy when true.
      */
     "calculator",
     /**
-     * The user might benefit from using a monthly payments calculator.
+     * The user might benefit from using a monthly payments financial
+     * calculator.
+     *
      * Provided on Khan Academy when true.
      */
     "financialCalculatorMonthlyPayment",
     /**
-     * The user might benefit from using a total amount calculator.
+     * The user might benefit from using a total amount financial calculator.
+     *
      * Provided on Khan Academy when true.
      */
     "financialCalculatorTotalAmount",
     /**
-     * The user might benefit from using a time to pay off calculator.
+     * The user might benefit from using a time to pay off financial
+     * calculator.
+     *
      * Provided on Khan Academy when true.
      */
     "financialCalculatorTimeToPayOff",
     /**
      * The user might benefit from using a Periodic Table of Elements.
+     *
      * Provided on Khan Academy when true.
      */
     "periodicTable",
     /**
      * The user might benefit from using a Periodic Table of Elements with key.
+     *
      * Provided on Khan Academy when true.
      */
     "periodicTableWithKey",
@@ -331,9 +360,15 @@ export type WidgetOptions<
     Type extends string,
     Options extends Record<string, any>,
 > = {
-    /** The "type" of widget which will define what the Options field looks like */
+    /**
+     * The "type" of widget which will define what the Options field looks
+     * like.
+     */
     type: Type;
-    /** Whether this widget is displayed with the values and is immutable. For display only */
+    /**
+     * Whether this widget is displayed with the values and is immutable. For
+     * display only.
+     */
     static?: boolean;
     /**
      * Whether a widget is scored. Usually true except for IFrame widgets (deprecated).
@@ -341,11 +376,13 @@ export type WidgetOptions<
      */
     graded?: boolean;
     /**
-     * The HTML alignment of the widget. "default" or "block". If the alignment is
-     * "default", it gets the default alignment from the widget logic, which can be
-     * various other alignments (e.g. "inline-block", "inline", etc).
+     * The HTML alignment of the widget. "default" or "block".
+     *
+     * If the alignment is "default", it gets the default alignment from the
+     * widget logic, which can be various other alignments (e.g.
+     * "inline-block", "inline", etc).
      */
-    alignment?: string;
+    alignment?: "default" | "block" | "wrap-right" | "wrap-left";
     /**
      * Options specific to the type field of the widget. See Perseus*WidgetOptions for
      * more details
