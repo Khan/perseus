@@ -1,5 +1,27 @@
 # @khanacademy/perseus-editor
 
+## 29.0.0
+
+### Major Changes
+
+-   [#3266](https://github.com/Khan/perseus/pull/3266) [`277fedd984`](https://github.com/Khan/perseus/commit/277fedd9849c097f0ec573c65e722403bb74256f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove deprecated `useNewStyles` prop from `ArticleRenderer`. This prop was deprecated already and completely unused internally. To update to this version, just remove the prop from `<ArticleRenderer>` instances.
+
+*   [#3318](https://github.com/Khan/perseus/pull/3318) [`05a19ccc77`](https://github.com/Khan/perseus/commit/05a19ccc77f641e2828bd0d21ec180dda27cbbf8) Thanks [@benchristel](https://github.com/benchristel)! - The `cb` and `silent` parameters of the `EditorPage`'s `onChange` prop have been removed. Consumers of `EditorPage` should remove any usages of these parameters.
+
+### Patch Changes
+
+-   [#3344](https://github.com/Khan/perseus/pull/3344) [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add feature flags for Interactive Graph phase 2 project
+
+-   Updated dependencies [[`d0f81aedd0`](https://github.com/Khan/perseus/commit/d0f81aedd07e2c520196d70ef193e0e888e97b95), [`277fedd984`](https://github.com/Khan/perseus/commit/277fedd9849c097f0ec573c65e722403bb74256f), [`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a), [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c), [`05a19ccc77`](https://github.com/Khan/perseus/commit/05a19ccc77f641e2828bd0d21ec180dda27cbbf8)]:
+    -   @khanacademy/perseus@76.0.0
+    -   @khanacademy/kas@2.2.0
+    -   @khanacademy/perseus-core@23.6.0
+    -   @khanacademy/perseus-score@8.3.0
+    -   @khanacademy/perseus-linter@4.8.6
+    -   @khanacademy/keypad-context@3.2.38
+    -   @khanacademy/kmath@2.2.38
+    -   @khanacademy/math-input@26.4.7
+
 ## 28.16.0
 
 ### Minor Changes

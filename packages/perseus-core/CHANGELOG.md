@@ -1,5 +1,18 @@
 # @khanacademy/perseus-core
 
+## 23.6.0
+
+### Minor Changes
+
+-   [#3292](https://github.com/Khan/perseus/pull/3292) [`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that extra keys are considered when determining whether an Expression Widget answer is invalid.
+
+### Patch Changes
+
+-   [#3344](https://github.com/Khan/perseus/pull/3344) [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add feature flags for Interactive Graph phase 2 project
+
+-   Updated dependencies [[`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a)]:
+    -   @khanacademy/kas@2.2.0
+
 ## 23.5.0
 
 ### Minor Changes
