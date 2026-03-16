@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 76.0.1
+
+### Patch Changes
+
+-   [#3361](https://github.com/Khan/perseus/pull/3361) [`277769c002`](https://github.com/Khan/perseus/commit/277769c00233988c782e140c63e7326c0c87ed3f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Sync deps
+
+-   Updated dependencies [[`277769c002`](https://github.com/Khan/perseus/commit/277769c00233988c782e140c63e7326c0c87ed3f)]:
+    -   @khanacademy/math-input@26.4.8
+
 ## 76.0.0
 
 ### Major Changes
