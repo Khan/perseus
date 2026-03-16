@@ -27,6 +27,7 @@ type Props = {
     className?: string;
     constrainHeight?: boolean;
     allowFullBleed?: boolean;
+    scale?: number;
 };
 
 type DefaultProps = {
@@ -127,7 +128,11 @@ class FixedToResponsive extends React.Component<Props, State> {
         );
 
         const container = (
-            <div className={className} style={style}>
+            <div
+                className={className}
+                style={style}
+                data-scale={this.props.scale}
+            >
                 {this.props.children}
             </div>
         );
