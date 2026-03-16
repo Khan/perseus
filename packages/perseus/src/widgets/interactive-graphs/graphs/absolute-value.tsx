@@ -199,7 +199,6 @@ function describeAbsoluteValueGraph(
 
     const coeffs = getAbsoluteValueCoefficients(coords);
     const m = coeffs?.m ?? 1;
-    const vertexStr = `${srFormatNumber(vertex[X], locale)} comma ${srFormatNumber(vertex[Y], locale)}`;
 
     const srAbsoluteValueGraph = strings.srAbsoluteValueGraph;
     const srAbsoluteValueVertexPoint = strings.srAbsoluteValueVertexPoint({
@@ -211,7 +210,8 @@ function describeAbsoluteValueGraph(
         y: srFormatNumber(armPoint[Y], locale),
     });
     const srAbsoluteValueDescription = strings.srAbsoluteValueDescription({
-        vertex: vertexStr,
+        x: srFormatNumber(vertex[X], locale),
+        y: srFormatNumber(vertex[Y], locale),
         slope: srFormatNumber(m, locale),
     });
 

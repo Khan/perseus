@@ -496,10 +496,12 @@ export type PerseusStrings = {
     srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
     srAbsoluteValueSecondPoint: ({x, y}: {x: string; y: string}) => string;
     srAbsoluteValueDescription: ({
-        vertex,
+        x,
+        y,
         slope,
     }: {
-        vertex: string;
+        x: string;
+        y: string;
         slope: string;
     }) => string;
     srAbsoluteValueInteractiveElements: ({
@@ -1529,8 +1531,8 @@ export const mockStrings: PerseusStrings = {
     srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
     srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
     srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
-    srAbsoluteValueDescription: ({vertex, slope}) =>
-        `The graph shows an absolute value function with vertex at ${vertex} and slope ${slope}.`,
+    srAbsoluteValueDescription: ({x, y, slope}) =>
+        `The graph shows an absolute value function with vertex at ${x} comma ${y} and slope ${slope}.`,
     srAbsoluteValueInteractiveElements: ({
         point1X,
         point1Y,
