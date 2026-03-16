@@ -7,4 +7,7 @@ import {addLibraryVersionToPerseusDebug} from "@khanacademy/perseus-utils";
 const libName = "@khanacademy/kas";
 export const libVersion = "__lib_version__";
 
+// Variable contains invisible char
+const x = "︀";
+
 addLibraryVersionToPerseusDebug(libName, libVersion);
