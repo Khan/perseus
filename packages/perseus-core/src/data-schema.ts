@@ -270,8 +270,10 @@ export type PerseusRenderer = {
     /**
      * A dictionary of {[imageUrl]: {@link PerseusImageDetail}}.
      *
-     * @deprecated Use of inline images is deprecated in Perseus. Please use an
-     * `image` widget instead.
+     * @deprecated Use of inline images is deprecated in top-level Perseus
+     * content but may be used when widgets embed a PerseusRenderer (such as
+     * the `radio` widget). In top-level content, please use an `image` widget
+     * instead.
      */
     images: {
         [imageUrl: string]: PerseusImageDetail;
