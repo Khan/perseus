@@ -67,7 +67,10 @@ export type WidgetValidatorFunction = (
     /** The answerless data needed to validate the input. */
     validationData: ValidationData,
 
-    /** The locale for locale-sensitive validation. */
+    /**
+     * The user's locale, needed for some validations. For example,
+     * commas may be interpreted as decimal separators in some locales.
+     */
     locale: string,
 ) => ValidationResult;
 
