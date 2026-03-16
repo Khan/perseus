@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 76.0.2
+
+### Patch Changes
+
+-   [#3363](https://github.com/Khan/perseus/pull/3363) [`d901409ab3`](https://github.com/Khan/perseus/commit/d901409ab30abe8518b00770deab6ba1594f5981) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - [Interactive Graph] Ensure that we're clearing the dragEndCallbackTimer when starting a new drag
+
 ## 76.0.1
 
 ### Patch Changes
