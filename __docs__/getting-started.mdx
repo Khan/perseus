@@ -1,0 +1,172 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+
+<Meta
+    title="Getting Started"
+    parameters={{docs: {toc: {headingSelector: "h2, h3"}}}}
+/>
+
+# Getting Started
+
+This guide walks through integrating Perseus into your React application — from
+installation through rendering your first interactive exercise.
+
+## Installation
+
+Perseus is published as a set of scoped npm packages. At minimum, you'll need:
+
+```bash
+pnpm add @khanacademy/perseus @khanacademy/perseus-core
+```
+
+Perseus has a number of peer dependencies that must also be installed,
+including React, Aphrodite, and the Wonder Blocks design system. See the full
+list in the `peerDependencies` field of `@khanacademy/perseus/package.json`.
+
+## Core Concepts
+
+Before writing any code, it's worth understanding the two things Perseus needs
+from you as a consumer:
+
+1. **A `PerseusItem`** — the JSON content object describing the exercise,
+   including its question, widgets, and hints.
+2. **Dependencies** — a set of callbacks and components that Perseus delegates
+   to the host application (analytics, URL generation, video loading, etc.).
+
+## Providing Dependencies
+
+Perseus uses two dependency mechanisms:
+
+- **`PerseusDependencies`** (legacy) — passed via `setDependencies()` once at
+  app startup. Covers things like TeX rendering, logging, and locale.
+- **`PerseusDependenciesV2`** (preferred) — provided via React context using
+  `DependenciesContext`. Covers analytics, URL generation, and video loading.
+
+A minimal setup looks like this:
+
+```tsx
+import {
+    DependenciesContext,
+    ServerItemRenderer,
+} from "@khanacademy/perseus";
+import type {PerseusDependenciesV2} from "@khanacademy/perseus";
+
+const dependencies: PerseusDependenciesV2 = {
+    analytics: {
+        onAnalyticsEvent: async (event) => {
+            // Forward to your analytics system, or no-op
+        },
+    },
+    generateUrl: ({url}) => url,
+    useVideo: () => ({status: "loading"}),
+};
+
+function App() {
+    return (
+        <DependenciesContext.Provider value={dependencies}>
+            {/* Perseus components go here */}
+        </DependenciesContext.Provider>
+    );
+}
+```
+
+## Parsing Content
+
+Perseus content is stored as a JSON string. Before rendering, parse and migrate
+it to the latest schema version using `parseAndMigratePerseusItem` from
+`@khanacademy/perseus-core`:
+
+```tsx
+import {parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
+
+const item = parseAndMigratePerseusItem(rawJsonString);
+```
+
+This handles any schema migrations automatically, so older content works with
+the latest version of Perseus.
+
+## Rendering an Exercise
+
+Use `ServerItemRenderer` to render a full exercise with scoring support:
+
+```tsx
+import {ServerItemRenderer} from "@khanacademy/perseus";
+
+function Exercise({item}) {
+    return (
+        <ServerItemRenderer
+            item={item}
+            problemNum={1}
+            reviewMode={false}
+            apiOptions={{}}
+        />
+    );
+}
+```
+
+### Getting the User's Answer
+
+`ServerItemRenderer` exposes a `getUserInput()` method via a ref. Call it when
+the learner submits their answer:
+
+```tsx
+import {useRef} from "react";
+import {ServerItemRenderer} from "@khanacademy/perseus";
+import type {ServerItemRenderer as ServerItemRendererType} from "@khanacademy/perseus";
+
+function Exercise({item}) {
+    const rendererRef = useRef<ServerItemRendererType>(null);
+
+    function handleSubmit() {
+        const userInput = rendererRef.current?.getUserInput();
+        // Send userInput to your scoring service
+    }
+
+    return (
+        <>
+            <ServerItemRenderer
+                ref={rendererRef}
+                item={item}
+                problemNum={1}
+                reviewMode={false}
+                apiOptions={{}}
+            />
+            <button onClick={handleSubmit}>Submit</button>
+        </>
+    );
+}
+```
+
+## Rendering an Article
+
+For long-form, read-only content, use `ArticleRenderer` instead:
+
+```tsx
+import {ArticleRenderer} from "@khanacademy/perseus";
+
+function Article({content}) {
+    return <ArticleRenderer json={content} />;
+}
+```
+
+Articles are never scored, but they can contain embedded "knowledge check"
+widgets (`GradedGroup` / `GradedGroupSet`) that give learners in-line practice.
+
+## Registering Widgets
+
+Perseus widgets must be registered before they can be rendered. Call `init()`
+once at app startup — it registers all widgets and handles any deprecated widget
+replacements:
+
+```tsx
+import {init} from "@khanacademy/perseus";
+
+init();
+```
+
+`init()` is idempotent, so calling it multiple times is safe.
+
+## Next Steps
+
+- Browse the **Widget Gallery** in this Storybook to see all available widgets
+- Read the **Renderers Overview** for a deeper look at renderer configuration
+- See **`ApiOptions`** for the full list of options you can pass to renderers

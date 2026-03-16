@@ -1,5 +1,6 @@
 import {Markdown, Meta} from "@storybook/addon-docs/blocks";
 import {Renderer} from "@khanacademy/perseus";
+import {graphExample} from './sample-data'
 
 <Meta
     title="Introduction"
@@ -17,12 +18,16 @@ and as a separate open-source repository.
 At its core, Perseus is a specialized Markdown to React/HTML renderer with powerful educational features. It extends
 standard Markdown with two key capabilities:
 
-**1. Interactive Widgets,** Perseus can render custom React components called "widgets" that allow learners to interact with content and provide answers in various formats.
-
-**2. Beautiful Math Rendering,** Perseus seamlessly integrates with [MathJax](https://www.mathjax.org/) to display mathematical expressions and equations with high fidelity.
+**1. Beautiful Math Rendering,** Perseus seamlessly integrates with [MathJax](https://www.mathjax.org/) to display mathematical expressions and equations with high fidelity.
 
 <div style={{display: "flex", justifyContent: "center"}}>
     <Renderer content="$\sum_{n} \frac {1} {n^s} = \prod_{p} \frac {1} {1 - \frac{1} {p^s}}$" />
+</div>
+
+**2. Interactive Widgets,** Perseus can render custom React components called "widgets" that allow learners to interact with content and provide answers in various formats.
+
+<div style={{display: "flex", justifyContent: "center"}}>
+    <Renderer {...graphExample} />
 </div>
 
 These capabilities make Perseus ideal for creating interactive educational content that combines explanatory text, rich media, and assessment tools.
