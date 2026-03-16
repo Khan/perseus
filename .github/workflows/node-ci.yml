@@ -234,6 +234,45 @@ jobs:
             # Do not place any steps after "Check Builds"
             #
 
+    check_security:
+        name: Check for suspicious characters in filenames and content
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [24.x]
+        steps:
+            - name: Check out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  fetch-depth: 0 # Necessary to compare against the base branch
+
+            - name: Check filenames and diff content
+              run: |
+                  # Pattern: Private Use Area Ranges, Zero Width joiners, and
+                  # Bi-directional overrides.
+                  PATTERN='[\x{FE00}-\x{FE0F}\x{E0100}-\x{E01EF}\x{200B}\x{200C}\x{200D}\x{202E}]'
+                  echo "--- Scanning Filenames ---"
+                  # Get list of all files in the current commit
+                  if git ls-tree -r --name-only HEAD | grep -Pq "$PATTERN"; then
+                      echo "::error:: Malicious hidden characters detected in a FILENAME!"
+                      git ls-tree -r --name-only HEAD | grep -P "$PATTERN"
+                      FILENAME_FAIL=true
+                  fi
+
+                  echo "--- Scanning Content Changes ---"
+                  # Check added lines in the diff
+                  if git diff origin/${{ github.base_ref }}...HEAD | grep '^+' | grep -v '^+++' | grep -Pq "$PATTERN"; then
+                      echo "::error:: Malicious hidden characters detected in CODE CONTENT!"
+                      git diff origin/${{ github.base_ref }}...HEAD | grep '^+' | grep -v '^+++' | grep -P "$PATTERN"
+                      CONTENT_FAIL=true
+                  fi
+
+                  # Exit if either check failed
+                  if [ "$FILENAME_FAIL" = true ] || [ "$CONTENT_FAIL" = true ]; then
+                      exit 1
+                  fi
+
     check_schema:
         name: Check for schema changes
         runs-on: ${{ matrix.os }}
