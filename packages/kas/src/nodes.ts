@@ -375,31 +375,8 @@ abstract class Expr {
         return this.exprArgs()[0].needsExplicitMul();
     }
 
-    // check that the variables in both expressions are the same
-    sameVars(other: Expr) {
-        var vars1 = this.getVars();
-        var vars2 = other.getVars();
-
-        // the other Expr can have more variables than this one
-        // this lets you multiply equations by other variables
-        var same = function (array1, array2) {
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            return !_.difference(array1, array2).length;
-        };
-
-        var lower = function (array) {
-            return _.uniq(_.invoke(array, "toLowerCase")).sort();
-        };
-
-        var equal = same(vars1, vars2);
-        var equalIgnoringCase = same(lower(vars1), lower(vars2));
-
-        return {equal: equal, equalIgnoringCase: equalIgnoringCase};
-    }
-
-    // semantic equality check, call after sameVars() to avoid potential false positives
-    // plug in random numbers for the variables in both expressions
-    // if they both consistently evaluate the same, then they're the same
+    // Semantic equality check: plugs in random numbers for the variables in both
+    // expressions and checks that they consistently evaluate the same.
     compare(other: Expr) {
         // equation comparisons are handled by Eq.compare()
         if (other instanceof Eq) {
