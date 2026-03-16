@@ -34,8 +34,7 @@ import type {KeypadKey} from "./keypad";
 
 export type Coord = [x: number, y: number];
 export type Interval = [min: number, max: number];
-/** Same name as Mafs */
-export type Vector2 = Coord;
+export type Vector2 = Coord; // Same name as Mafs
 export type Range = Interval;
 export type Size = [width: number, height: number];
 export type CollinearTuple = [Vector2, Vector2];
