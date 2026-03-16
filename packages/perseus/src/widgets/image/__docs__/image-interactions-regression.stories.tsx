@@ -75,6 +75,25 @@ export const LongDescriptionClickedState = {
     },
 };
 
+export const LongDescriptionClickedStateWithNoSize = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+        alt: "Earth and Moon",
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+        title: "Earth and Moon",
+        caption: earthMoonImageCaption,
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const imageTrigger = canvas.getByRole("button", {
+            name: "Explore image",
+        });
+        await userEvent.click(imageTrigger);
+    },
+};
+
 function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
