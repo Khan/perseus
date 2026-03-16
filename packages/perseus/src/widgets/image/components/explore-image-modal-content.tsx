@@ -49,10 +49,33 @@ export default function ExploreImageModalContent({
     // - Shrink image to the modal height if it's taller than the modal.
     // - Keep image its original size if it's shorter than the modal.
     // - Maintain the image's aspect ratio.
-    const modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
+    let modalImageHeight: number | undefined = Math.min(
+        MODAL_HEIGHT,
+        zoomHeight,
+    );
     // bgWidth / bgHeight = X / modalImageHeight
     // => X = (bgWidth / bgHeight) * modalImageHeight
-    const width = (zoomWidth / zoomHeight) * modalImageHeight;
+    let width: number | undefined = (zoomWidth / zoomHeight) * modalImageHeight;
+
+    if (scaleFF) {
+        if (backgroundImage.height && backgroundImage.width) {
+            // Contain the image to the modal dimensions:
+            // - Shrink image to the modal height if it's taller than the modal.
+            // - Keep image its original size if it's shorter than the modal.
+            // - Maintain the image's aspect ratio.
+            modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
+            // bgWidth / bgHeight = X / modalImageHeight
+            // => X = (bgWidth / bgHeight) * modalImageHeight
+            width =
+                (backgroundImage.width / backgroundImage.height) *
+                modalImageHeight;
+        } else {
+            // Image does not have a size saved. Use undefined, and let the
+            // CSS styling handle the rest.
+            width = undefined;
+            modalImageHeight = undefined;
+        }
+    }
 
     return (
         <div className={styles.modalPanelContainer}>
