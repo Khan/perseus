@@ -39,35 +39,37 @@ export default function ExploreImageModalContent({
         "image-widget-upgrade-gif-controls",
     );
 
-    if (
-        !backgroundImage.height ||
-        !backgroundImage.width ||
-        !backgroundImage.url
-    ) {
+    if (!backgroundImage.url) {
         return null;
     }
 
     const imageIsGif = isGif(backgroundImage.url);
 
-    // Contain the image to the modal dimensions:
-    // - Shrink image to the modal height if it's taller than the modal.
-    // - Keep image its original size if it's shorter than the modal.
-    // - Maintain the image's aspect ratio.
-    let modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
-    // bgWidth / bgHeight = X / modalImageHeight
-    // => X = (bgWidth / bgHeight) * modalImageHeight
-    let width = (zoomWidth / zoomHeight) * modalImageHeight;
+    let modalImageHeight: number | undefined;
+    let width: number | undefined;
 
     if (scaleFF) {
+        if (backgroundImage.height && backgroundImage.width) {
+            // Contain the image to the modal dimensions:
+            // - Shrink image to the modal height if it's taller than the modal.
+            // - Keep image its original size if it's shorter than the modal.
+            // - Maintain the image's aspect ratio.
+            modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
+            // bgWidth / bgHeight = X / modalImageHeight
+            // => X = (bgWidth / bgHeight) * modalImageHeight
+            width =
+                (backgroundImage.width / backgroundImage.height) *
+                modalImageHeight;
+        }
+    } else {
         // Contain the image to the modal dimensions:
         // - Shrink image to the modal height if it's taller than the modal.
         // - Keep image its original size if it's shorter than the modal.
         // - Maintain the image's aspect ratio.
-        modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
+        modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
         // bgWidth / bgHeight = X / modalImageHeight
         // => X = (bgWidth / bgHeight) * modalImageHeight
-        width =
-            (backgroundImage.width / backgroundImage.height) * modalImageHeight;
+        width = (zoomWidth / zoomHeight) * modalImageHeight;
     }
 
     return (

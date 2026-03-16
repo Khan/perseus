@@ -11,7 +11,7 @@ import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import UserInputManager from "../../../user-input-manager";
-import {earthMoonImage} from "../utils";
+import {earthMoonImage, frescoImage} from "../utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
@@ -84,6 +84,26 @@ export const LongDescriptionClickedStateWithNoSize = {
             "This is a *very* long description of the earth and moon.",
         title: "Earth and Moon",
         caption: earthMoonImageCaption,
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const imageTrigger = canvas.getByRole("button", {
+            name: "Explore image",
+        });
+        await userEvent.click(imageTrigger);
+    },
+};
+
+export const LongDescriptionClickedStateWithNoSizeLargeImage = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: {url: frescoImage.url},
+        alt: "Fresco painting",
+        longDescription:
+            "This is a *very* long description of the fresco painting.",
+        title: "*The Offer of the Casa Madre to Victory*, 1932",
+        caption:
+            "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, *The Offer of the Casa Madre to Victory*, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
     },
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
