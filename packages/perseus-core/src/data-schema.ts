@@ -1118,8 +1118,8 @@ export type PerseusGraphTypeAngle = {
     /** How to match the answer. If missing, defaults to exact matching. */
     match?: "congruent";
     /**
-     * The current state of this graph, represented as ∠ABC, where point B is
-     * the vertex, while rays BA and BC form the angle.
+     * The angle represented as ∠ABC; point B is the vertex, while rays
+     * BA and BC are the sides of the angle.
      */
     coords?: [Coord, Coord, Coord];
     /**
