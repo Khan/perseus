@@ -227,7 +227,6 @@ export type PerseusItem = {
  */
 export type PerseusArticle = PerseusRenderer | PerseusRenderer[];
 
-// Comment change - shouldn't trigger schema check
 export type Version = {
     // The major part of the version
     major: number;
