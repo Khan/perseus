@@ -521,6 +521,9 @@ function mergeGraphs(
         case "sinusoid":
             invariant(b.type === "sinusoid");
             return {...a, ...b};
+        case "exponential":
+            invariant(b.type === "exponential");
+            return {...a, ...b};
         case "tangent":
             invariant(b.type === "tangent");
             return {...a, ...b};

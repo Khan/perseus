@@ -599,6 +599,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return InteractiveGraph.getPolygonEquationString(props);
             case "angle":
                 return InteractiveGraph.getAngleEquationString(props);
+            case "exponential":
+                return "";
             case "tangent":
                 // TODO(LEMS-3955): implement tangent equation string
                 return "";

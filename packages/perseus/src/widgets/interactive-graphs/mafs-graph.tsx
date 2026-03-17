@@ -768,6 +768,8 @@ const renderGraphElements = (props: {
             return renderSinusoidGraph(state, dispatch, i18n);
         case "none":
             return {graph: null, interactiveElementsDescription: null};
+        case "exponential":
+            throw new Error("Not implemented: exponential graph type");
         default:
             throw new UnreachableCaseError(type);
     }
