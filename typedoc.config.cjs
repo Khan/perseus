@@ -18,6 +18,10 @@ const config = {
     entryPoints,
     out: "docs",
     cleanOutputDir: true,
+    githubPages: true,
+    sidebarLinks: {
+        Storybook: "https://khan.github.io/perseus",
+    },
     packageOptions: {
         excludePrivate: true,
         excludeInternal: true,
