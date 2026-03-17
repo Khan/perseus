@@ -303,9 +303,25 @@ export type PerseusInputNumberRubric = {
     /**
      * The maximum allowable deviation from the correct value when
      * `inexact` is true.
+     *
+     * Legacy content encodes this number as a string (eg. "0.5"), encoding the
+     * values as the `number` type is preferred!
      */
     maxError?: number | string;
-    /** Whether the learner's answer must be in simplified form. */
+    /**
+     * Controls how the scorer handles unsimplified fractions (e.g. 2/4
+     * instead of 1/2) when the numerical value is otherwise correct.
+     *
+     *  - "required"  - The unsimplified answer is treated as not yet
+     *                  submitted: the scorer returns an invalid/empty result
+     *                  with a "needs to be simplified" prompt, so the learner
+     *                  must simplify before their attempt is graded.
+     *  - "optional"  - Unsimplified fractions are accepted as fully correct;
+     *                  simplification is not checked.
+     *  - "enforced"  - Unsimplified fractions are scored as wrong (incorrect,
+     *                  not just unsubmitted), with a "needs to be simplified"
+     *                  message shown alongside the incorrect result.
+     */
     simplify: "required" | "optional" | "enforced";
     /** The correct answer value. */
     value: string | number;
