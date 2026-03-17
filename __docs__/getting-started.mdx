@@ -36,21 +36,18 @@ from you as a consumer:
 
 Perseus uses two dependency mechanisms:
 
-- **`PerseusDependencies`** (legacy) — passed via `setDependencies()` once at
-  app startup. Covers things like TeX rendering, logging, and locale.
-- **`PerseusDependenciesV2`** (preferred) — provided via React context using
-  `DependenciesContext`. Covers analytics, URL generation, and video loading.
+-   **`PerseusDependencies`** — passed via `setDependencies()` once at app
+    startup. Covers things like TeX rendering, logging, and locale.
+-   **`PerseusDependenciesV2`** (preferred) — provided via React context using
+    `DependenciesContext`. Covers analytics, URL generation, and video loading.
 
 A minimal setup looks like this:
 
 ```tsx
-import {
-    DependenciesContext,
-    ServerItemRenderer,
-} from "@khanacademy/perseus";
+import {DependenciesContext, ServerItemRenderer} from "@khanacademy/perseus";
 import type {PerseusDependenciesV2} from "@khanacademy/perseus";
 
-const dependencies: PerseusDependenciesV2 = {
+const dependenciesV2: PerseusDependenciesV2 = {
     analytics: {
         onAnalyticsEvent: async (event) => {
             // Forward to your analytics system, or no-op
@@ -60,9 +57,14 @@ const dependencies: PerseusDependenciesV2 = {
     useVideo: () => ({status: "loading"}),
 };
 
+const dependencies: PerseusDependencies = {
+    /* ... */
+};
+setDependencies(dependencies);
+
 function App() {
     return (
-        <DependenciesContext.Provider value={dependencies}>
+        <DependenciesContext.Provider value={dependenciesV2}>
             {/* Perseus components go here */}
         </DependenciesContext.Provider>
     );
@@ -167,6 +169,6 @@ init();
 
 ## Next Steps
 
-- Browse the **Widget Gallery** in this Storybook to see all available widgets
-- Read the **Renderers Overview** for a deeper look at renderer configuration
-- See **`ApiOptions`** for the full list of options you can pass to renderers
+-   Browse the **Widget Gallery** in this Storybook to see all available widgets
+-   Read the **Renderers Overview** for a deeper look at renderer configuration
+-   See **`ApiOptions`** for the full list of options you can pass to renderers
