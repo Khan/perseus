@@ -21,6 +21,7 @@ export type ImageProps = {
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
     style?: Dimensions;
+    onLoad?: () => void;
 };
 
 type Props = {

@@ -241,7 +241,6 @@ class SvgImage extends React.Component<Props, State> {
 
         // When transitioning to paused, capture the current frame.
         if (this.props.isGifPaused && !prevProps.isGifPaused) {
-            console.log("Capturing GIF frame on pause transition");
             this.captureGifFrame();
         }
 
@@ -519,10 +518,23 @@ class SvgImage extends React.Component<Props, State> {
                 // FixedToResponsive, so it gets position:absolute coverage via
                 // the .fixed-to-responsive > :not(:first-child) CSS rule.
                 const isGifControlled = this.props.isGifPaused !== undefined;
+                const gifImageProps = isGifControlled
+                    ? {
+                          ...imageProps,
+                          onLoad: () => {
+                              if (this.props.isGifPaused) {
+                                  console.log(
+                                      "Image loaded capturing GIF frame on load",
+                                  );
+                                  this.captureGifFrame();
+                              }
+                          },
+                      }
+                    : imageProps;
                 const imageLoader = (
                     <ImageLoader
                         src={imageSrc}
-                        imgProps={imageProps}
+                        imgProps={gifImageProps}
                         preloader={preloader}
                         onUpdate={this.handleUpdate}
                     />
@@ -536,10 +548,7 @@ class SvgImage extends React.Component<Props, State> {
                         )}
                         {extraGraphie}
                         {this.props.isGifPaused && (
-                            <canvas
-                                ref={this.setCanvasRef}
-                                aria-hidden={true}
-                            />
+                            <canvas ref={this.setCanvasRef} />
                         )}
                     </>
                 );
