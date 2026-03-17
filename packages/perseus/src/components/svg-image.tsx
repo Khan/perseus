@@ -446,7 +446,7 @@ class SvgImage extends React.Component<Props, State> {
             ? () => preloaderBaseFunc(dimensions)
             : null;
 
-        // *********** Non-Graphie images ***********
+        // *********** Normal/Non-Graphie images ***********
 
         if (!Util.isLabeledSVG(imageSrc)) {
             // Responsive non-Graphie images

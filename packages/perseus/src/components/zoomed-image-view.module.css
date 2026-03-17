@@ -22,8 +22,8 @@
  * so it never overflows the modal.
  */
 .naturalSizeImage img {
-    max-width: calc(100vw - 2 * var(--wb-sizing-size_320));
-    max-height: calc(100vh - 2 * var(--wb-sizing-size_320));
+    max-width: calc(100vw - var(--wb-sizing-size_640));
+    max-height: calc(100vh - var(--wb-sizing-size_640));
     display: block;
 }
 
