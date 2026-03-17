@@ -15,3 +15,21 @@
         max-height: 100vh;
     }
 }
+
+/*
+ * Used when the image's intrinsic dimensions are not known.
+ * The image renders at its natural size but is capped to the viewport
+ * so it never overflows the modal.
+ */
+.naturalSizeImage img {
+    max-width: calc(100vw - 2 * var(--wb-sizing-size_320));
+    max-height: calc(100vh - 2 * var(--wb-sizing-size_320));
+    display: block;
+}
+
+@media (max-width: 767px) {
+    .naturalSizeImage img {
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+}

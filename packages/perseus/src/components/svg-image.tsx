@@ -446,10 +446,12 @@ class SvgImage extends React.Component<Props, State> {
             ? () => preloaderBaseFunc(dimensions)
             : null;
 
-        // Just use a normal image if a normal image is provided
+        // *********** Non-Graphie images ***********
+
         if (!Util.isLabeledSVG(imageSrc)) {
+            // Responsive non-Graphie images
             if (responsive) {
-                const imageContent = (
+                const responsiveImageContent = (
                     <>
                         <ImageLoader
                             src={imageSrc}
@@ -473,10 +475,10 @@ class SvgImage extends React.Component<Props, State> {
                         }
                         scale={this.props.scale}
                     >
-                        {imageContent}
+                        {responsiveImageContent}
                         {this.props.allowZoom && (
                             <ZoomImageButton
-                                imgElement={imageContent}
+                                imgElement={responsiveImageContent}
                                 imgSrc={imageSrc}
                                 width={width}
                                 height={height}
@@ -486,8 +488,10 @@ class SvgImage extends React.Component<Props, State> {
                 );
             }
 
+            // Unresponsive non-graphie images
+            // (i.e. markdown images in tables, or image widgets with no size saved)
             imageProps.style = dimensions;
-            return (
+            const imageContent = (
                 <ImageLoader
                     src={imageSrc}
                     preloader={preloader}
@@ -495,7 +499,30 @@ class SvgImage extends React.Component<Props, State> {
                     onUpdate={this.handleUpdate}
                 />
             );
+
+            if (this.props.allowZoom) {
+                return (
+                    <div
+                        style={{
+                            position: "relative",
+                            display: "inline-block",
+                            lineHeight: 0,
+                        }}
+                    >
+                        {imageContent}
+                        <ZoomImageButton
+                            imgElement={imageContent}
+                            imgSrc={imageSrc}
+                            width={width}
+                            height={height}
+                        />
+                    </div>
+                );
+            }
+            return imageContent;
         }
+
+        // *********** Graphie images ***********
 
         const imageUrl = Util.getSvgUrl(imageSrc);
 
@@ -540,6 +567,7 @@ class SvgImage extends React.Component<Props, State> {
             );
         }
 
+        // Responsive Graphie images
         if (responsive) {
             const imageContent = (
                 <>
@@ -575,9 +603,11 @@ class SvgImage extends React.Component<Props, State> {
                 </FixedToResponsive>
             );
         }
+
+        // Unresponsive Graphie images (i.e. markdown Graphie images in tables)
         imageProps.style = dimensions;
-        return (
-            <div className="unresponsive-svg-image" style={dimensions}>
+        const unresponsiveContent = (
+            <>
                 <ImageLoader
                     src={imageUrl}
                     onLoad={this.onImageLoad}
@@ -586,6 +616,22 @@ class SvgImage extends React.Component<Props, State> {
                     imgProps={imageProps}
                 />
                 {graphie}
+            </>
+        );
+        return (
+            <div
+                className="unresponsive-svg-image"
+                style={{...dimensions, position: "relative"}}
+            >
+                {unresponsiveContent}
+                {this.props.allowZoom && (
+                    <ZoomImageButton
+                        imgElement={unresponsiveContent}
+                        imgSrc={imageUrl}
+                        width={width}
+                        height={height}
+                    />
+                )}
             </div>
         );
     }

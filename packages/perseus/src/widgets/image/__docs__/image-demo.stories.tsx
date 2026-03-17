@@ -204,6 +204,24 @@ export const LargeImageWithNoSizeSavedScaleFlag: Story = {
     },
 };
 
+export const SmallImageWithNoSizeSavedScaleFlag: Story = {
+    decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-scale": true,
+            }),
+        },
+    },
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+        alt: "Earth and Moon",
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
 // TODO(LEMS-3912): Remove this story after we turn on and remove the
 // image-widget-upgrade-scale feature flag.
 /**
