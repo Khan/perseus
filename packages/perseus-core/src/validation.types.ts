@@ -261,8 +261,30 @@ export type PerseusIFrameUserInput = {
 /** Scoring rubric for the InputNumber widget. */
 export type PerseusInputNumberRubric = {
     /**
-     * Constrains which numeric forms are accepted.
+     * Constrains which numeric forms are accepted (ie. these don't change the
+     * correct numerical value - they only restrict which input representation
+     * the scorer accepts as valid).
+     *
      * Defaults to "number" if unset.
+     *
+     *  - "number"   - Any standard numeric form: integer, decimal, proper
+     *                 fraction, improper fraction, or mixed number (note that
+     *                 "percent" and "pi" are _not_ included in this format).
+     *  - "decimal"  - Decimal notation only (e.g. 1.5)
+     *  - "integer"  - Whole numbers only (e.g. 3, -7)
+     *  - "rational" - Integer, proper fraction, improper fraction, or mixed
+     *                 number — but no decimals
+     *  - "improper" - Integer, proper or improper fraction — mixed numbers
+     *                 like 1 3/4 are rejected
+     *  - "mixed"    - Integer, proper fraction, or mixed number — standalone
+     *                 improper fractions are rejected
+     *  - "percent"  - All numeric forms plus percent notation (e.g. 50%);
+     *                 requires the % sign to be present for exact credit
+     *  - "pi"       - Expressions involving π or τ (e.g. 3 pi, 5/6 pi, 2 \pi);
+     *                 the user must express the answer as a multiple of pi. 0
+     *                 is accepted literally since 0·π = 0. Decimal
+     *                 approximations within 0.1 of a multiple of π or τ are
+     *                 also accepted.
      */
     answerType?:
         | "number"
