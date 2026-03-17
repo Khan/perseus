@@ -310,7 +310,7 @@ export type PerseusImageDetail = {
 /**
  * ItemExtras represent extra UI elements that help the learner in answering
  * the question (such as a calculator for questions where solving by hand is
- * not material to testing undertanding of the skill).
+ * not material to testing understanding of the skill).
  */
 export const ItemExtras = [
     /**
@@ -676,7 +676,7 @@ export type GraphRange = [
 
 /**
  * The state of the grapher widget's plotted function, discriminated by
- * function type ({@link GrapherAnswerTypes.type}. Used as both the learner's
+ * function type {@link GrapherAnswerTypes.type}. Used as both the learner's
  * user input and the rubric's correct answer.
  */
 export type GrapherAnswerTypes =
@@ -1479,8 +1479,7 @@ export type PerseusNumericInputAnswer = {
     /** Whether this answer is "correct", "wrong", or "ungraded" */
     status: string;
     /**
-     * The forms available for this answer. Options: "integer", "decimal",
-     * "proper", "improper", "mixed", or "pi"
+     * The forms available for this answer.
      */
     answerForms?: MathFormat[];
     /**
@@ -1638,7 +1637,11 @@ export type PerseusRadioWidgetOptions = {
     choices: PerseusRadioChoice[];
     /** Does this have a "none of the above" option? */
     hasNoneOfTheAbove?: boolean;
-    /** If multipleSelect is enabled, specify the number expected to be correct. */
+    /**
+     * When true, the learner must select exactly as many choices as there
+     * are correct answers before the answer is graded. Only has an effect
+     * when there are multiple correct answers.
+     */
     countChoices?: boolean;
     /**
      * How many of the choices are correct, which is conditionally used to tell

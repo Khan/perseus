@@ -283,8 +283,10 @@ export type PerseusInputNumberRubric = {
      *  - "pi"       - Expressions involving π or τ (e.g. 3 pi, 5/6 pi, 2 \pi);
      *                 the user must express the answer as a multiple of pi. 0
      *                 is accepted literally since 0·π = 0. Decimal
-     *                 approximations within 0.1 of a multiple of π or τ are
-     *                 also accepted.
+     *                 approximations within 0.01 of a multiple of π or τ are
+     *                 also accepted. Any fraction with 7 as the denominator
+     *                 (ie. `x/7`) is resolved to a numeric value and compared
+     *                 against the answer (approximating pi).
      */
     answerType?:
         | "number"
@@ -560,7 +562,8 @@ export type PerseusRadioRubric = {
     choices: PerseusRadioChoice[];
     /**
      * When true, the learner must select exactly as many choices as there
-     * are correct answers before the answer is graded.
+     * are correct answers before the answer is graded. Only has an effect
+     * when there are multiple correct answers.
      */
     countChoices?: boolean;
 };
