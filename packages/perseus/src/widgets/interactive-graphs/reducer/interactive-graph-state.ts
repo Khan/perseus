@@ -92,6 +92,14 @@ export function getGradableGraph(
         };
     }
 
+    if (state.type === "exponential" && initialGraph.type === "exponential") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+            asymptote: state.asymptote,
+        };
+    }
+
     if (state.type === "angle" && initialGraph.type === "angle") {
         return {
             ...initialGraph,

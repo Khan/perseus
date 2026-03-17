@@ -305,6 +305,23 @@ export const noneQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const sinusoidQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withSinusoid().build();
 
+export const exponentialQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Graph $f(x) = -2e^x + 5$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
+        )
+        .withExponential({
+            coords: [
+                [0, 3],
+                [1, -1],
+            ],
+            asymptote: [
+                [-10, 5],
+                [10, 5],
+            ],
+        })
+        .build();
+
 export const questionsAndAnswers: ReadonlyArray<
     [
         PerseusRenderer, // Correct answer

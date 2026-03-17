@@ -110,6 +110,7 @@ export {
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
 export {
     getCircleCoords,
+    getExponentialCoords,
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,

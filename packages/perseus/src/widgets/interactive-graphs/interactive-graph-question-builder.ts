@@ -293,6 +293,16 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withExponential(options?: {
+        coords?: [Coord, Coord];
+        asymptote?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+        startAsymptote?: [Coord, Coord];
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new ExponentialGraphConfig(options);
+        return this;
+    }
+
     withPolygon(
         snapTo?: SnapTo,
         options?: {
@@ -793,6 +803,43 @@ class SinusoidGraphConfig implements InteractiveFigureConfig {
 
     graph(): PerseusGraphType {
         return {type: "sinusoid", startCoords: this.startCoords};
+    }
+}
+
+class ExponentialGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord];
+    private asymptote?: [Coord, Coord];
+    private startCoords?: [Coord, Coord];
+    private startAsymptote?: [Coord, Coord];
+
+    constructor(options?: {
+        coords?: [Coord, Coord];
+        asymptote?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+        startAsymptote?: [Coord, Coord];
+    }) {
+        this.coords = options?.coords;
+        this.asymptote = options?.asymptote;
+        this.startCoords = options?.startCoords;
+        this.startAsymptote = options?.startAsymptote;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "exponential",
+            coords: this.coords,
+            asymptote: this.asymptote,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {
+            type: "exponential",
+            startCoords:
+                this.startCoords != null && this.startAsymptote != null
+                    ? {coords: this.startCoords, asymptote: this.startAsymptote}
+                    : undefined,
+        };
     }
 }
 
