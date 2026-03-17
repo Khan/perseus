@@ -113,20 +113,23 @@ function Exercise({item}) {
 
 ### Getting the User's Answer
 
-`ServerItemRenderer` exposes a `getUserInput()` method via a ref. Call it when
-the learner submits their answer:
+`ServerItemRenderer` exposes a `getUserInput()` method via its ref. Call it
+when the learner submits their answer. User input can then be scored using
+functions in `@khanacademy/perseus-score`.
 
 ```tsx
 import {useRef} from "react";
 import {ServerItemRenderer} from "@khanacademy/perseus";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import type {ServerItemRenderer as ServerItemRendererType} from "@khanacademy/perseus";
 
-function Exercise({item}) {
+function Exercise({item}, {item: PerseusItem}) {
     const rendererRef = useRef<ServerItemRendererType>(null);
 
     function handleSubmit() {
         const userInput = rendererRef.current?.getUserInput();
-        // Send userInput to your scoring service
+        const score = scorePerseusItem(item.question, userInput, "en");
+        console.log(`The user's score: ${score}`);
     }
 
     return (
