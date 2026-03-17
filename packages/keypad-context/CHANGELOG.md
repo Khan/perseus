@@ -1,5 +1,14 @@
 # @khanacademy/keypad-context
 
+## 3.2.39
+
+### Patch Changes
+
+-   [#3339](https://github.com/Khan/perseus/pull/3339) [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229) Thanks [@Myranae](https://github.com/Myranae)! - Upgrade pnpm from 10.22.0 to 10.32.1.
+
+-   Updated dependencies [[`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229)]:
+    -   @khanacademy/perseus-core@23.6.1
+
 ## 3.2.38
 
 ### Patch Changes
