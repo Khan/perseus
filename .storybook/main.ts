@@ -143,7 +143,7 @@ const config: StorybookConfig = {
             plugins: [cssWrapper],
         });
     },
-    staticDirs: ["../static"],
+    staticDirs: ["../static", {from: "../docs", to: "/api-docs"}],
 };
 
 export default config;

@@ -17,6 +17,7 @@ const config = {
     entryPointStrategy: "packages",
     entryPoints,
     out: "docs",
+    cleanOutputDir: true,
     packageOptions: {
         excludePrivate: true,
         excludeInternal: true,

@@ -117,6 +117,7 @@
         "gen:parsers": "pnpm --filter ./packages/kas gen:parsers",
         "prebuild": "pnpm gen:parsers",
         "build": "rollup --bundleConfigAsCjs --config config/build/rollup.config.js",
+        "build:docs": "typedoc",
         "build:types": "tsc --build tsconfig-build.json",
         "build:prodsizecheck": "pnpm build --configEnvironment='production'",
         "watch": "pnpm build --watch",
