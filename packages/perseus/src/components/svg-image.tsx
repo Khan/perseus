@@ -523,9 +523,6 @@ class SvgImage extends React.Component<Props, State> {
                           ...imageProps,
                           onLoad: () => {
                               if (this.props.isGifPaused) {
-                                  console.log(
-                                      "Image loaded capturing GIF frame on load",
-                                  );
                                   this.captureGifFrame();
                               }
                           },
