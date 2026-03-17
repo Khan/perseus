@@ -248,6 +248,7 @@ export {
     generateIGRayGraph,
     generateIGSegmentGraph,
     generateIGSinusoidGraph,
+    generateIGTangentGraph,
     generateIGLockedPoint,
     generateIGLockedLine,
     generateIGLockedVector,

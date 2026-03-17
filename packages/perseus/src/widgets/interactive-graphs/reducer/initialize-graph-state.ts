@@ -125,6 +125,12 @@ export function initializeGraphState(
                 ...shared,
                 type: "none",
             };
+        case "tangent":
+            // TODO(LEMS-3955): implement tangent initialization
+            return {
+                ...shared,
+                type: "none",
+            };
         default:
             throw new UnreachableCaseError(graph);
     }

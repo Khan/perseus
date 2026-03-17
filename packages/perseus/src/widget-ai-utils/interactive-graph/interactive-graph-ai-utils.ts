@@ -60,6 +60,10 @@ type SinusoidGraphOptions = BaseGraphOptions & {
     startCoords?: readonly Coord[];
 };
 
+type TangentGraphOptions = BaseGraphOptions & {
+    startCoords?: readonly Coord[];
+};
+
 type NoneGraphOptions = Record<string, never>;
 
 type GraphOptions =
@@ -73,7 +77,8 @@ type GraphOptions =
     | QuadraticGraphOptions
     | RayGraphOptions
     | SegmentGraphOptions
-    | SinusoidGraphOptions;
+    | SinusoidGraphOptions
+    | TangentGraphOptions;
 
 type AngleUserInput = {
     coords?: readonly [Coord, Coord, Coord];
@@ -117,6 +122,10 @@ type SinusoidUserInput = {
     coords?: readonly Coord[] | null;
 };
 
+type TangentUserInput = {
+    coords?: readonly Coord[] | null;
+};
+
 type UserInput =
     | AngleUserInput
     | CircleUserInput
@@ -127,7 +136,8 @@ type UserInput =
     | QuadraticUserInput
     | RayUserInput
     | SegmentUserInput
-    | SinusoidUserInput;
+    | SinusoidUserInput
+    | TangentUserInput;
 
 export type InteractiveGraphPromptJSON = {
     type: "interactive-graph";
@@ -220,6 +230,11 @@ const getGraphOptionsForProps = (
                 type: props.userInput.type,
                 startCoords: props.userInput.startCoords,
             };
+        case "tangent":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         case "none":
             return {};
         default:
@@ -270,6 +285,10 @@ const getUserInput = (userInput: PerseusGraphType): UserInput => {
                 coords: userInput.coords,
             };
         case "sinusoid":
+            return {
+                coords: userInput.coords,
+            };
+        case "tangent":
             return {
                 coords: userInput.coords,
             };
