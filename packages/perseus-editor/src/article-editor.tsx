@@ -58,7 +58,6 @@ type DefaultProps = {
     sectionImageUploadGenerator: (
         i: number,
     ) => React.ReactElement<React.ComponentProps<"span">>;
-    useNewStyles: boolean;
 };
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
@@ -82,7 +81,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
-        useNewStyles: false,
     };
 
     state: State = {
@@ -196,7 +194,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 isArticle: true,
             },
             json: section,
-            useNewStyles: this.props.useNewStyles,
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,

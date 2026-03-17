@@ -476,6 +476,7 @@ class SvgImage extends React.Component<Props, State> {
                             this.props.allowFullBleed &&
                             isImageProbablyPhotograph(imageSrc)
                         }
+                        scale={this.props.scale}
                     >
                         {imageContent}
                         {this.props.allowZoom && (
@@ -565,6 +566,7 @@ class SvgImage extends React.Component<Props, State> {
                     width={width}
                     height={height}
                     constrainHeight={this.props.constrainHeight}
+                    scale={this.props.scale}
                 >
                     {imageContent}
                     {this.props.allowZoom && (

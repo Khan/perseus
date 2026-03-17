@@ -6,7 +6,6 @@ import {
     getDivideSymbol,
     PerseusError,
 } from "@khanacademy/perseus-core";
-import _ from "underscore";
 
 import KhanAnswerTypes from "../../util/answer-types";
 
@@ -18,13 +17,47 @@ import type {
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
+/**
+ * Checks whether the student used variables that don't appear in the answer.
+ * Returns an error code describing the mismatch, or undefined if valid.
+ */
+function getVarError(
+    studentVars: string[],
+    answerVars: string[],
+    extraKeys: readonly string[],
+): string | undefined {
+    // All student variables must appear in the answer, but the answer may
+    // contain variables the student didn't use.
+    if (studentVars.every((v) => answerVars.includes(v))) {
+        return;
+    }
+
+    // The student used at least one variable not in the answer.
+    // Check if it's just a casing issue (e.g. "X" instead of "x").
+    const studentVarsLower = [
+        ...new Set(studentVars.map((v) => v.toLowerCase())),
+    ];
+    const answerVarsLower = answerVars.map((v) => v.toLowerCase());
+    if (studentVarsLower.every((v) => answerVarsLower.includes(v))) {
+        return ErrorCodes.WRONG_CASE_ERROR;
+    }
+
+    // Check if any of the unrecognized variables aren't accounted for by extraKeys.
+    const extraVars = studentVars.filter((v) => !answerVars.includes(v));
+    if (extraVars.some((v) => !extraKeys.includes(v))) {
+        return ErrorCodes.WRONG_LETTER_ERROR;
+    }
+
+    return;
+}
+
 /* Content creators input a list of answers which are matched from top to
- * bottom. The intent is that they can include spcific solutions which should
+ * bottom. The intent is that they can include specific solutions which should
  * be graded as correct or incorrect (or ungraded!) first, then get more
  * general.
  *
  * We iterate through each answer, trying to match it with the user's input
- * using the following angorithm:
+ * using the following algorithm:
  * - Try to parse the user's input. If it doesn't parse then return "not
  *   graded".
  * - For each answer:
@@ -47,28 +80,28 @@ function scoreExpression(
         return {type: "invalid", message: null};
     }
 
-    const options = _.clone(rubric);
-    _.extend(options, {
+    const options = {
+        ...rubric,
         decimal_separator: getDecimalSeparator(locale),
         divide_symbol: getDivideSymbol(locale),
-    });
+    };
 
-    if (!KAS.parse(userInput, options).parsed) {
+    const parsedStudent = KAS.parse(userInput, options);
+    if (!parsedStudent.parsed) {
         return {
             type: "invalid",
             message: ErrorCodes.EXTRA_SYMBOLS_ERROR,
         };
     }
 
+    const studentVars = parsedStudent.expr.getVars();
+
     const createValidator = (answer: PerseusExpressionAnswerForm) => {
-        // We give options to KAS.parse here because it is parsing the
-        // solution answer, not the student answer, and we don't want a
-        // solution to work if the student is using a different language
-        // (different from the content creation language, ie. English).
+        // We parse with `rubric` (not `options`) so the solution isn't
+        // affected by the student's locale (e.g. a different decimal separator).
         const expression = KAS.parse(answer.value, rubric);
-        // An answer may not be parsed if the expression was defined
-        // incorrectly. For example if the answer is using a symbol defined
-        // in the function variables list for the expression.
+        // An answer may not parse if the expression was defined incorrectly,
+        // for example if a symbol from the function variables list was used.
         if (!expression.parsed) {
             /* c8 ignore next */
             throw new PerseusError(
@@ -78,12 +111,27 @@ function scoreExpression(
             );
         }
 
+        // Check whether the student used variables that don't appear in this answer form.
+        // If so, surface the error without penalizing them.
+        const varError = getVarError(
+            studentVars,
+            expression.expr.getVars(),
+            rubric.extraKeys ?? [],
+        );
+        if (varError != null) {
+            return (input: string): Score => ({
+                correct: false,
+                empty: false,
+                ungraded: true,
+                suppressAlmostThere: true,
+                message: varError,
+                guess: input,
+            });
+        }
+
         return KhanAnswerTypes.expression.createValidatorFunctional(
             expression.expr,
-            _({}).extend(options, {
-                simplify: answer.simplify,
-                form: answer.form,
-            }),
+            {...options, simplify: answer.simplify, form: answer.form},
         );
     };
 
@@ -98,15 +146,14 @@ function scoreExpression(
     // creator has predicted certain common wrong answers and wants to
     // provide guidance via a message), or an ungraded one (same idea,
     // but without giving the user an incorrect mark for the question).
+
     let matchingAnswerForm: PerseusExpressionAnswerForm | undefined;
     let matchMessage: string | undefined;
     let allEmpty = true;
     let firstUngradedResult: Score | undefined;
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    for (const answerForm of rubric.answerForms || []) {
+    for (const answerForm of rubric.answerForms ?? []) {
         const validator = createValidator(answerForm);
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (!validator) {
+        if (validator == null) {
             continue;
         }
 

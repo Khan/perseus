@@ -1,5 +1,20 @@
 # @khanacademy/kas
 
+## 2.2.1
+
+### Patch Changes
+
+-   [#3339](https://github.com/Khan/perseus/pull/3339) [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229) Thanks [@Myranae](https://github.com/Myranae)! - Upgrade pnpm from 10.22.0 to 10.32.1.
+
+-   Updated dependencies [[`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229)]:
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 2.2.0
+
+### Minor Changes
+
+-   [#3292](https://github.com/Khan/perseus/pull/3292) [`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that extra keys are considered when determining whether an Expression Widget answer is invalid.
+
 ## 2.1.8
 
 ### Patch Changes

@@ -1,5 +1,35 @@
 # @khanacademy/perseus-linter
 
+## 4.8.7
+
+### Patch Changes
+
+-   [#3339](https://github.com/Khan/perseus/pull/3339) [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229) Thanks [@Myranae](https://github.com/Myranae)! - Upgrade pnpm from 10.22.0 to 10.32.1.
+
+-   Updated dependencies [[`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229)]:
+    -   @khanacademy/kas@2.2.1
+    -   @khanacademy/kmath@2.2.39
+    -   @khanacademy/perseus-core@23.6.1
+    -   @khanacademy/perseus-utils@2.1.5
+    -   @khanacademy/pure-markdown@2.2.7
+
+## 4.8.6
+
+### Patch Changes
+
+-   Updated dependencies [[`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a), [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c)]:
+    -   @khanacademy/kas@2.2.0
+    -   @khanacademy/perseus-core@23.6.0
+    -   @khanacademy/kmath@2.2.38
+
+## 4.8.5
+
+### Patch Changes
+
+-   Updated dependencies [[`75d06c5a69`](https://github.com/Khan/perseus/commit/75d06c5a69d70d9783df34f26d5d5575f0068602), [`a325571174`](https://github.com/Khan/perseus/commit/a325571174c4421963a17411930d18014851dba0)]:
+    -   @khanacademy/perseus-core@23.5.0
+    -   @khanacademy/kmath@2.2.37
+
 ## 4.8.4
 
 ### Patch Changes

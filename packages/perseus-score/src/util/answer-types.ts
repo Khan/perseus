@@ -802,21 +802,6 @@ const KhanAnswerTypes = {
                 if (result.equal) {
                     // Correct answer
                     score.correct = true;
-                } else if (
-                    result.wrongVariableNames ||
-                    result.wrongVariableCase
-                ) {
-                    // We don't want to give people an error for getting the
-                    // variable names or the variable case wrong.
-                    // TODO(aasmund): This should ideally have been handled
-                    // under the `result.message` condition, but the
-                    // KAS messages currently aren't translatable.
-                    score.ungraded = true;
-                    score.message = result.wrongVariableCase
-                        ? ErrorCodes.WRONG_CASE_ERROR
-                        : ErrorCodes.WRONG_LETTER_ERROR;
-                    // Don't tell the use they're "almost there" in this case, that may not be true and isn't helpful.
-                    score.suppressAlmostThere = true;
                 } else if (result.message) {
                     // Nearly correct answer
                     // TODO(aasmund): This message also isn't translatable;

@@ -23,6 +23,7 @@ exports[`group widget should snapshot: initial render 1`] = `
             >
               <div
                 class="fixed-to-responsive svg-image"
+                data-scale="1"
                 style="max-width: 428px; max-height: 480px;"
               >
                 <span
@@ -524,6 +525,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                           >
                             <div
                               class="fixed-to-responsive svg-image"
+                              data-scale="1"
                               style="max-width: 380px; max-height: 80px;"
                             >
                               <span

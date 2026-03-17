@@ -1,5 +1,80 @@
 # @khanacademy/perseus-editor
 
+## 29.0.3
+
+### Patch Changes
+
+-   [#3301](https://github.com/Khan/perseus/pull/3301) [`5ad8750cdf`](https://github.com/Khan/perseus/commit/5ad8750cdf591fd8cd7157019e7a1d3566071722) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix Graphie label scaling for scaled images
+
+*   [#3339](https://github.com/Khan/perseus/pull/3339) [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229) Thanks [@Myranae](https://github.com/Myranae)! - Upgrade pnpm from 10.22.0 to 10.32.1.
+
+*   Updated dependencies [[`5ad8750cdf`](https://github.com/Khan/perseus/commit/5ad8750cdf591fd8cd7157019e7a1d3566071722), [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229)]:
+    -   @khanacademy/perseus@76.0.3
+    -   @khanacademy/kas@2.2.1
+    -   @khanacademy/keypad-context@3.2.39
+    -   @khanacademy/kmath@2.2.39
+    -   @khanacademy/math-input@26.4.9
+    -   @khanacademy/perseus-core@23.6.1
+    -   @khanacademy/perseus-linter@4.8.7
+    -   @khanacademy/perseus-score@8.3.1
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 29.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`d901409ab3`](https://github.com/Khan/perseus/commit/d901409ab30abe8518b00770deab6ba1594f5981)]:
+    -   @khanacademy/perseus@76.0.2
+
+## 29.0.1
+
+### Patch Changes
+
+-   [#3361](https://github.com/Khan/perseus/pull/3361) [`277769c002`](https://github.com/Khan/perseus/commit/277769c00233988c782e140c63e7326c0c87ed3f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Sync deps
+
+-   Updated dependencies [[`277769c002`](https://github.com/Khan/perseus/commit/277769c00233988c782e140c63e7326c0c87ed3f)]:
+    -   @khanacademy/math-input@26.4.8
+    -   @khanacademy/perseus@76.0.1
+
+## 29.0.0
+
+### Major Changes
+
+-   [#3266](https://github.com/Khan/perseus/pull/3266) [`277fedd984`](https://github.com/Khan/perseus/commit/277fedd9849c097f0ec573c65e722403bb74256f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove deprecated `useNewStyles` prop from `ArticleRenderer`. This prop was deprecated already and completely unused internally. To update to this version, just remove the prop from `<ArticleRenderer>` instances.
+
+*   [#3318](https://github.com/Khan/perseus/pull/3318) [`05a19ccc77`](https://github.com/Khan/perseus/commit/05a19ccc77f641e2828bd0d21ec180dda27cbbf8) Thanks [@benchristel](https://github.com/benchristel)! - The `cb` and `silent` parameters of the `EditorPage`'s `onChange` prop have been removed. Consumers of `EditorPage` should remove any usages of these parameters.
+
+### Patch Changes
+
+-   [#3344](https://github.com/Khan/perseus/pull/3344) [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add feature flags for Interactive Graph phase 2 project
+
+-   Updated dependencies [[`d0f81aedd0`](https://github.com/Khan/perseus/commit/d0f81aedd07e2c520196d70ef193e0e888e97b95), [`277fedd984`](https://github.com/Khan/perseus/commit/277fedd9849c097f0ec573c65e722403bb74256f), [`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a), [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c), [`05a19ccc77`](https://github.com/Khan/perseus/commit/05a19ccc77f641e2828bd0d21ec180dda27cbbf8)]:
+    -   @khanacademy/perseus@76.0.0
+    -   @khanacademy/kas@2.2.0
+    -   @khanacademy/perseus-core@23.6.0
+    -   @khanacademy/perseus-score@8.3.0
+    -   @khanacademy/perseus-linter@4.8.6
+    -   @khanacademy/keypad-context@3.2.38
+    -   @khanacademy/kmath@2.2.38
+    -   @khanacademy/math-input@26.4.7
+
+## 28.16.0
+
+### Minor Changes
+
+-   [#3316](https://github.com/Khan/perseus/pull/3316) [`9e60fd05b8`](https://github.com/Khan/perseus/commit/9e60fd05b83013248aca4efb522141fac75d5cd3) Thanks [@benchristel](https://github.com/benchristel)! - When editing content in JSON mode, validate that changes conform to the Perseus schema.
+
+### Patch Changes
+
+-   Updated dependencies [[`75d06c5a69`](https://github.com/Khan/perseus/commit/75d06c5a69d70d9783df34f26d5d5575f0068602), [`a325571174`](https://github.com/Khan/perseus/commit/a325571174c4421963a17411930d18014851dba0)]:
+    -   @khanacademy/perseus-core@23.5.0
+    -   @khanacademy/keypad-context@3.2.37
+    -   @khanacademy/kmath@2.2.37
+    -   @khanacademy/math-input@26.4.6
+    -   @khanacademy/perseus@75.7.1
+    -   @khanacademy/perseus-linter@4.8.5
+    -   @khanacademy/perseus-score@8.2.14
+
 ## 28.15.0
 
 ### Minor Changes
