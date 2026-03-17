@@ -489,7 +489,8 @@ class SvgImage extends React.Component<Props, State> {
             }
 
             // Unresponsive non-graphie images
-            // (i.e. markdown images in tables, or image widgets with no size saved)
+            // (i.e. markdown images inside tables or widgets, or
+            // Image widgets with no size saved)
             imageProps.style = dimensions;
             const imageContent = (
                 <ImageLoader
@@ -501,22 +502,25 @@ class SvgImage extends React.Component<Props, State> {
             );
 
             if (this.props.allowZoom) {
+                // The <span> keeps the <img> as an only-child so
+                // that CSS selectors like :has(img:only-child) in
+                // radio choices still match correctly.
                 return (
-                    <div
+                    <span
                         style={{
-                            position: "relative",
                             display: "inline-block",
+                            position: "relative",
                             lineHeight: 0,
                         }}
                     >
-                        {imageContent}
+                        <span>{imageContent}</span>
                         <ZoomImageButton
                             imgElement={imageContent}
                             imgSrc={imageSrc}
                             width={width}
                             height={height}
                         />
-                    </div>
+                    </span>
                 );
             }
             return imageContent;
