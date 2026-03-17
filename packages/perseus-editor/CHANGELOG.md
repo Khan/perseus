@@ -1,5 +1,24 @@
 # @khanacademy/perseus-editor
 
+## 29.0.3
+
+### Patch Changes
+
+-   [#3301](https://github.com/Khan/perseus/pull/3301) [`5ad8750cdf`](https://github.com/Khan/perseus/commit/5ad8750cdf591fd8cd7157019e7a1d3566071722) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix Graphie label scaling for scaled images
+
+*   [#3339](https://github.com/Khan/perseus/pull/3339) [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229) Thanks [@Myranae](https://github.com/Myranae)! - Upgrade pnpm from 10.22.0 to 10.32.1.
+
+*   Updated dependencies [[`5ad8750cdf`](https://github.com/Khan/perseus/commit/5ad8750cdf591fd8cd7157019e7a1d3566071722), [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229)]:
+    -   @khanacademy/perseus@76.0.3
+    -   @khanacademy/kas@2.2.1
+    -   @khanacademy/keypad-context@3.2.39
+    -   @khanacademy/kmath@2.2.39
+    -   @khanacademy/math-input@26.4.9
+    -   @khanacademy/perseus-core@23.6.1
+    -   @khanacademy/perseus-linter@4.8.7
+    -   @khanacademy/perseus-score@8.3.1
+    -   @khanacademy/perseus-utils@2.1.5
+
 ## 29.0.2
 
 ### Patch Changes
