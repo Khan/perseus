@@ -115,48 +115,43 @@ type WidgetState = {
     baseElements?: any;
 };
 
-type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
-    //- PerseusRenderer
-    content: PerseusRenderer["content"];
-    widgets: PerseusRenderer["widgets"];
-    images: PerseusRenderer["images"];
-    //- PerseusRenderer
+type Props = Partial<React.ContextType<typeof DependenciesContext>> &
+    PerseusRenderer & {
+        apiOptions?: APIOptions;
+        userInput?: UserInputMap;
 
-    apiOptions?: APIOptions;
-    userInput?: UserInputMap;
+        handleUserInput?: HandleUserInputCallback;
+        initializeUserInput?: InitializeUserInputCallback;
 
-    handleUserInput?: HandleUserInputCallback;
-    initializeUserInput?: InitializeUserInputCallback;
+        alwaysUpdate?: boolean;
+        findExternalWidgets: (criterion: FilterCriterion) => any;
+        keypadElement?: KeypadAPI | null;
+        onRender: (node?: any) => void;
+        problemNum?: number;
+        reviewMode?: boolean | null | undefined;
+        highlightEmptyWidgets?: boolean;
 
-    alwaysUpdate?: boolean;
-    findExternalWidgets: (criterion: FilterCriterion) => any;
-    keypadElement?: KeypadAPI | null;
-    onRender: (node?: any) => void;
-    problemNum?: number;
-    reviewMode?: boolean | null | undefined;
-    highlightEmptyWidgets?: boolean;
+        /**
+         * If set to "all", all rationales or solutions will be shown. If set to
+         * "selected", soltions will only be shown for selected choices. If set to
+         * "none", solutions will not be shown-- equivalent to `undefined`.
+         */
+        showSolutions?: ShowSolutions;
 
-    /**
-     * If set to "all", all rationales or solutions will be shown. If set to
-     * "selected", soltions will only be shown for selected choices. If set to
-     * "none", solutions will not be shown-- equivalent to `undefined`.
-     */
-    showSolutions?: ShowSolutions;
+        /**
+         * If linterContext.highlightLint is true, then content will be passed to
+         * the linter and any warnings will be highlighted in the rendered output.
+         */
+        linterContext: LinterContextProps;
 
-    /**
-     * If linterContext.highlightLint is true, then content will be passed to
-     * the linter and any warnings will be highlighted in the rendered output.
-     */
-    linterContext: LinterContextProps;
+        legacyPerseusLint?: ReadonlyArray<string>;
 
-    legacyPerseusLint?: ReadonlyArray<string>;
-
-    /**
-     *  Skip adding paragraph class
-     */
-    inline?: boolean;
-    strings: PerseusStrings;
-};
+        /**
+         *  Skip adding paragraph class
+         */
+        inline?: boolean;
+        strings: PerseusStrings;
+    };
 
 type State = {
     translationLintErrors: ReadonlyArray<string>;
