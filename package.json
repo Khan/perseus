@@ -105,6 +105,7 @@
         "storybook-multilevel-sort": "^2.0.1",
         "swc_mut_cjs_exports": "^8.0.1",
         "tiny-invariant": "catalog:devDeps",
+        "typedoc": "^0.28.17",
         "typescript": "5.9.3",
         "typescript-plugin-css-modules": "^5.1.0",
         "update-browserslist-db": "^1.2.3",
