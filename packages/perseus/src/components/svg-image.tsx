@@ -96,6 +96,17 @@ type Props = {
      * If not, it defaults to a no-op.
      */
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
+    /**
+     * When provided, enables GIF pause/play support. A canvas overlay
+     * captures and displays a static frame while the GIF is paused,
+     * keeping the underlying <img> in the DOM so animation resumes
+     * mid-stream when play is clicked.
+     *
+     * - `undefined`: no GIF controls (default, no extra DOM)
+     * - `false`: GIF is playing
+     * - `true`: GIF is paused — canvas overlay is shown
+     */
+    isGifPaused?: boolean;
 };
 
 type DefaultProps = {
@@ -143,6 +154,11 @@ class SvgImage extends React.Component<Props, State> {
 
     _isMounted: boolean;
     _isLoadingGraphie: boolean;
+
+    // Refs used for GIF pause/play canvas overlay
+    gifContainerRef: React.RefObject<HTMLDivElement> =
+        React.createRef<HTMLDivElement>();
+    _canvasElement: HTMLCanvasElement | null = null;
 
     static defaultProps: DefaultProps = {
         constrainHeight: false,
@@ -222,11 +238,59 @@ class SvgImage extends React.Component<Props, State> {
         if (!wasLoaded && isLoaded) {
             this.props.setAssetStatus(this.props.src, true);
         }
+
+        // When transitioning to paused, capture the current frame.
+        if (this.props.isGifPaused && !prevProps.isGifPaused) {
+            console.log("Capturing GIF frame on pause transition");
+            this.captureGifFrame();
+        }
+
+        // When transitioning to playing, restart the GIF from the beginning
+        // by briefly clearing the img src. The browser restarts the animation
+        // from frame 1 when the src is restored.
+        if (!this.props.isGifPaused && prevProps.isGifPaused) {
+            const img =
+                this.gifContainerRef.current?.querySelector<HTMLImageElement>(
+                    ".image-loader-img",
+                );
+            if (img) {
+                const src = img.src;
+                img.src = "";
+                img.src = src;
+            }
+        }
     }
 
     componentWillUnmount() {
         this._isMounted = false;
     }
+
+    // Callback ref for the canvas overlay element. Draws the current GIF
+    // frame immediately when the canvas is mounted in the DOM so there is
+    // no visible flash of an empty canvas.
+    setCanvasRef: (canvas: HTMLCanvasElement | null) => void = (canvas) => {
+        this._canvasElement = canvas;
+        if (canvas) {
+            this.captureGifFrame();
+        }
+    };
+
+    captureGifFrame: () => void = () => {
+        const container = this.gifContainerRef.current;
+        const canvas = this._canvasElement;
+        if (!container || !canvas) {
+            return;
+        }
+        const img =
+            container.querySelector<HTMLImageElement>(".image-loader-img");
+        if (!img || img.naturalWidth === 0) {
+            return;
+        }
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext("2d");
+        ctx?.drawImage(img, 0, 0);
+    };
 
     // Check if all of the resources are loaded in a given state
     isLoadedInState(state: State): boolean {
@@ -449,15 +513,34 @@ class SvgImage extends React.Component<Props, State> {
         // Just use a normal image if a normal image is provided
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
+                // When gif controls are active (isGifPaused is defined), wrap
+                // ImageLoader in a div so we can querySelector the <img> for
+                // canvas capture. The canvas is a non-first child of
+                // FixedToResponsive, so it gets position:absolute coverage via
+                // the .fixed-to-responsive > :not(:first-child) CSS rule.
+                const isGifControlled = this.props.isGifPaused !== undefined;
+                const imageLoader = (
+                    <ImageLoader
+                        src={imageSrc}
+                        imgProps={imageProps}
+                        preloader={preloader}
+                        onUpdate={this.handleUpdate}
+                    />
+                );
                 const imageContent = (
                     <>
-                        <ImageLoader
-                            src={imageSrc}
-                            imgProps={imageProps}
-                            preloader={preloader}
-                            onUpdate={this.handleUpdate}
-                        />
+                        {isGifControlled ? (
+                            <div ref={this.gifContainerRef}>{imageLoader}</div>
+                        ) : (
+                            imageLoader
+                        )}
                         {extraGraphie}
+                        {this.props.isGifPaused && (
+                            <canvas
+                                ref={this.setCanvasRef}
+                                aria-hidden={true}
+                            />
+                        )}
                     </>
                 );
 

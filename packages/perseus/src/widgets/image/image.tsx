@@ -138,6 +138,9 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     allowZoom={!decorative}
                     alt={decorative || caption === alt ? "" : alt}
                     setAssetStatus={setAssetStatus}
+                    isGifPaused={
+                        gifControlsFF && imageIsGif ? !isGifPlaying : undefined
+                    }
                 />
             )}
         </AssetContext.Consumer>

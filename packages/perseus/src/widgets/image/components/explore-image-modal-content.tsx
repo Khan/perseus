@@ -93,6 +93,11 @@ export default function ExploreImageModalContent({
                             constrainHeight={apiOptions.isMobile}
                             allowFullBleed={apiOptions.isMobile}
                             setAssetStatus={setAssetStatus}
+                            isGifPaused={
+                                gifControlsFF && imageIsGif
+                                    ? !isGifPlaying
+                                    : undefined
+                            }
                         />
                     )}
                 </AssetContext.Consumer>
