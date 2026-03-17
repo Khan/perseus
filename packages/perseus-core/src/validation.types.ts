@@ -278,8 +278,10 @@ export type PerseusInputNumberRubric = {
      *                 like 1 3/4 are rejected
      *  - "mixed"    - Integer, proper fraction, or mixed number — standalone
      *                 improper fractions are rejected
-     *  - "percent"  - All numeric forms plus percent notation (e.g. 50%);
-     *                 requires the % sign to be present for exact credit
+     *  - "percent"  - All numeric forms plus percent notation (e.g. 50%); all
+     *                 number forms are accepted, but the % sign is required
+     *                 when entering the value as a percentage (e.g. 50%)
+     *                 rather than as the equivalent decimal (e.g. 0.5).
      *  - "pi"       - Expressions involving π or τ (e.g. 3 pi, 5/6 pi, 2 \pi);
      *                 the user must express the answer as a multiple of pi. 0
      *                 is accepted literally since 0·π = 0. Decimal

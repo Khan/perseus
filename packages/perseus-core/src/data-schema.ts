@@ -693,13 +693,13 @@ export type GrapherAnswerTypes =
       }
     | {
           /**
-           * A curve of the form y = a·bˣ + c approaching a horizontal (or
-           * vertical) asymptote.
+           * A curve of the form y = a·bˣ + c approaching a horizontal.
            */
           type: "exponential";
           /**
-           * Two points along the asymptote line. Usually (always?) a
-           * horizontal or vertical line.
+           * Two points along the horizontal asymptote line. Only the
+           * y-coordinate of the first point is used during scoring;
+           * x-coordinates are completely ignored.
            */
           asymptote: [Coord, Coord];
           /**
