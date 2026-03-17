@@ -73,14 +73,20 @@ function App() {
 
 ## Parsing Content
 
-Perseus content is stored as a JSON string. Before rendering, parse and migrate
-it to the latest schema version using `parseAndMigratePerseusItem` from
-`@khanacademy/perseus-core`:
+Perseus content is often stored as a JSON serialized string. Before rendering,
+parse and migrate it to the latest schema version using
+`parseAndMigratePerseusItem` from `@khanacademy/perseus-core`:
 
 ```tsx
 import {parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
 
-const item = parseAndMigratePerseusItem(rawJsonString);
+const parseResult = parseAndMigratePerseusItem(rawJsonString);
+
+if (isFailure(parseResult)) {
+    console.error(parseResult.detail.message);
+}
+
+const item = parseResult.value;
 ```
 
 This handles any schema migrations automatically, so older content works with
