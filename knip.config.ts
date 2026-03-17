@@ -61,6 +61,8 @@ const config: KnipConfig = {
         // `swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);`
         // (hence, not imported).
         "swc_mut_cjs_exports",
+        // @swc/helpers is referenced via externalHelpers in .swcrc, not imported directly.
+        "@swc/helpers",
     ],
     // Scripts we use in `package.json`
     ignoreBinaries: [
