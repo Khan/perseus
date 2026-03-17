@@ -457,6 +457,87 @@ describe("initializeGraphState for sinusoid graphs", () => {
     });
 });
 
+describe("initializeGraphState for exponential graphs", () => {
+    it("uses the given coords and asymptote if present", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "exponential",
+                coords: [
+                    [0, 3],
+                    [2, 6],
+                ],
+                asymptote: [
+                    [-10, 1],
+                    [10, 1],
+                ],
+            },
+        });
+
+        // Assert
+        invariant(graph.type === "exponential");
+        expect(graph.coords).toEqual([
+            [0, 3],
+            [2, 6],
+        ]);
+        expect(graph.asymptote).toEqual([
+            [-10, 1],
+            [10, 1],
+        ]);
+    });
+
+    it("uses startCoords if given and explicit coords are absent", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "exponential",
+                startCoords: {
+                    coords: [
+                        [1, 4],
+                        [3, 8],
+                    ],
+                    asymptote: [
+                        [-10, 2],
+                        [10, 2],
+                    ],
+                },
+            },
+        });
+
+        // Assert
+        invariant(graph.type === "exponential");
+        expect(graph.coords).toEqual([
+            [1, 4],
+            [3, 8],
+        ]);
+        expect(graph.asymptote).toEqual([
+            [-10, 2],
+            [10, 2],
+        ]);
+    });
+
+    it("uses default coords and asymptote if neither coords nor startCoords are given", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "exponential"},
+        });
+
+        // Assert
+        invariant(graph.type === "exponential");
+        expect(graph.coords).toEqual([
+            [0, 1],
+            [5, 5],
+        ]);
+        expect(graph.asymptote).toEqual([
+            [-10, 0],
+            [10, 0],
+        ]);
+    });
+});
+
 describe("initializeGraphState for tangent graphs", () => {
     it("uses the given coords, if present", () => {
         const graph = initializeGraphState({

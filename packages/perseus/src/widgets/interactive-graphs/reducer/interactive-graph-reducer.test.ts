@@ -6,6 +6,7 @@ import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {
     CircleGraphState,
+    ExponentialGraphState,
     PointGraphState,
     InteractiveGraphState,
     PolygonGraphState,
@@ -1829,5 +1830,138 @@ describe("unlimited polygon", () => {
             [1, 1],
             [3, 3],
         ]);
+    });
+});
+
+const baseExponentialGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "exponential",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 3],
+        [2, 6],
+    ],
+    asymptote: [
+        [-10, 1],
+        [10, 1],
+    ],
+};
+
+describe("movePoint on an exponential graph", () => {
+    it("moves a point to the new coordinates", () => {
+        // Arrange
+        const state: InteractiveGraphState = baseExponentialGraphState;
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, 4]),
+        );
+
+        // Assert
+        invariant(updated.type === "exponential");
+        expect(updated.coords[0]).toEqual([-1, 4]);
+    });
+
+    it("sets hasBeenInteractedWith after a move", () => {
+        // Arrange
+        const state: InteractiveGraphState = {
+            ...baseExponentialGraphState,
+            hasBeenInteractedWith: false,
+        };
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, 4]),
+        );
+
+        // Assert
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("rejects the move when both points would share the same x-coordinate", () => {
+        // Arrange — point 0 at x=0, point 1 at x=2; trying to move point 0 to x=2
+        const state: InteractiveGraphState = baseExponentialGraphState;
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [2, 4]),
+        );
+
+        // Assert — move was rejected; point 0 stays at original position
+        invariant(updated.type === "exponential");
+        expect(updated.coords[0]).toEqual([0, 3]);
+    });
+
+    it("rejects the move when the point would land on the asymptote", () => {
+        // Arrange — asymptote at y=1; trying to move point 0 to y=1
+        const state: InteractiveGraphState = baseExponentialGraphState;
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, 1]),
+        );
+
+        // Assert — move was rejected
+        invariant(updated.type === "exponential");
+        expect(updated.coords[0]).toEqual([0, 3]);
+    });
+});
+
+describe("moveCenter on an exponential graph (asymptote)", () => {
+    it("moves the asymptote to a new y-value", () => {
+        // Arrange
+        const state: InteractiveGraphState = baseExponentialGraphState;
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([-10, -2]),
+        ) as ExponentialGraphState;
+
+        // Assert — y=-2 is below both curve points (y=3 and y=6), so it's valid
+        expect(updated.asymptote[0][1]).toBe(-2);
+    });
+
+    it("rejects the move when the asymptote would land between the curve points", () => {
+        // Arrange — curve points at y=3 and y=6; trying to move asymptote to y=4 (between them)
+        const state: InteractiveGraphState = {
+            ...baseExponentialGraphState,
+            coords: [
+                [0, 3],
+                [2, 6],
+            ],
+        };
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([0, 4]),
+        ) as ExponentialGraphState;
+
+        // Assert — y=4 < midpoint(4.5), so snaps to bottomMost - stepY = 3 - 1 = 2
+        expect(updated.asymptote[0][1]).toBe(2);
+    });
+
+    it("ignores the x component and only moves the asymptote vertically", () => {
+        // Arrange
+        const state: InteractiveGraphState = baseExponentialGraphState;
+
+        // Act — pass an arbitrary x value; only y should matter
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([99, -2]),
+        ) as ExponentialGraphState;
+
+        // Assert — asymptote moves to y=-2 regardless of the x passed
+        expect(updated.asymptote[0][1]).toBe(-2);
+        expect(updated.asymptote[1][1]).toBe(-2);
     });
 });
