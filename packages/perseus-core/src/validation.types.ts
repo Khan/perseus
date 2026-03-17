@@ -465,8 +465,11 @@ export type PerseusNumberLineUserInput = {
 /** Scoring rubric for the NumericInput widget. */
 export type PerseusNumericInputRubric = {
     /**
-     * All possible correct and incorrect answer configurations,
-     * each with a value, status, and optional constraints.
+     * A list of correct and incorrect answers. Each answer can have a
+     * message explaining why it is correct/incorrect. There may be
+     * multiple correct answers if multiple formats are accepted. For
+     * example, some questions might accept either a fraction or a
+     * decimal as correct.
      */
     answers: PerseusNumericInputAnswer[];
     /**
