@@ -1,4 +1,4 @@
-import {act, render} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
@@ -9,7 +9,7 @@ import {
 } from "../../testing/test-dependencies";
 import * as GraphieUtils from "../../util/graphie-utils";
 import {typicalCase} from "../../util/graphie-utils.testdata";
-import {graphieImage} from "../../widgets/image/utils";
+import {earthMoonImage, graphieImage} from "../../widgets/image/utils";
 import SvgImage from "../svg-image";
 
 describe("SvgImage", () => {
@@ -452,6 +452,162 @@ describe("SvgImage", () => {
 
             // Assert - loadGraphie should be called twice
             expect(loadGraphieSpy).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe("Zoom image button", () => {
+        it("should render for a normal responsive image", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Act
+            render(
+                <SvgImage
+                    src={earthMoonImage.url}
+                    // This goes down the "responsive" path because it has
+                    // the `responsive` prop AND has size passed in.
+                    width={earthMoonImage.width}
+                    height={earthMoonImage.height}
+                    responsive={true}
+                    alt="earth moon image"
+                    allowZoom={true}
+                />,
+            );
+
+            // Assert
+            const zoomButton = screen.getByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(zoomButton).toBeVisible();
+        });
+
+        it("should render for a normal unresponsive image (responsive=false)", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Act
+            render(
+                <SvgImage
+                    src={earthMoonImage.url}
+                    width={earthMoonImage.width}
+                    height={earthMoonImage.height}
+                    // Not responsive
+                    responsive={false}
+                    alt="earth moon image"
+                    allowZoom={true}
+                />,
+            );
+
+            // Assert
+            const zoomButton = screen.getByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(zoomButton).toBeVisible();
+        });
+
+        it("should render for a normal unresponsive image (responsive=true, size is undefined)", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Act
+            render(
+                <SvgImage
+                    src={earthMoonImage.url}
+                    // Responsive, but no size is passed in
+                    responsive={true}
+                    alt="earth moon image"
+                    allowZoom={true}
+                />,
+            );
+
+            // Assert
+            const zoomButton = screen.getByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(zoomButton).toBeVisible();
+        });
+
+        it("should render for a graphie image", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Act
+            render(
+                <SvgImage
+                    src={graphieImage.url}
+                    // This goes down the "responsive" path because it has
+                    // the `responsive` prop AND has size passed in.
+                    width={graphieImage.width}
+                    height={graphieImage.height}
+                    responsive={true}
+                    alt="graphie image"
+                    allowZoom={true}
+                />,
+            );
+
+            // Assert
+            const zoomButton = screen.getByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(zoomButton).toBeVisible();
+        });
+
+        it("should render for a graphie image (responsive=false)", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Act
+            render(
+                <SvgImage
+                    src={graphieImage.url}
+                    width={graphieImage.width}
+                    height={graphieImage.height}
+                    // Not responsive
+                    responsive={false}
+                    alt="graphie image"
+                    allowZoom={true}
+                />,
+            );
+
+            // Assert
+            const zoomButton = screen.getByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(zoomButton).toBeVisible();
+        });
+
+        it("should render for a graphie image (responsive=true, size is undefined)", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Act
+            render(
+                <SvgImage
+                    src={graphieImage.url}
+                    // Responsive, but no size is passed in
+                    responsive={true}
+                    alt="graphie image"
+                    allowZoom={true}
+                />,
+            );
+
+            // Assert
+            const zoomButton = screen.getByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(zoomButton).toBeVisible();
         });
     });
 });

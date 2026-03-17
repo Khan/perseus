@@ -4,6 +4,7 @@ exports[`SvgImage should load and render a localized graphie svg 1`] = `
 <div>
   <div
     class="unresponsive-svg-image"
+    style="position: relative;"
   >
     <img
       alt="svg image"
@@ -18,6 +19,7 @@ exports[`SvgImage should load and render a normal graphie svg 1`] = `
 <div>
   <div
     class="unresponsive-svg-image"
+    style="position: relative;"
   >
     <img
       alt="svg image"
