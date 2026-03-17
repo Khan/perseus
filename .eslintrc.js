@@ -139,7 +139,6 @@ module.exports = {
         },
         {
             files: [
-                ,
                 "config/**",
                 "utils/**",
                 "packages/*/src/testing/*",
