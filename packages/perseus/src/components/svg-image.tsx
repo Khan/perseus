@@ -360,6 +360,9 @@ class SvgImage extends React.Component<Props, State> {
             }
             newLabelsRendered[labelData.content] = true;
         });
+        // Note: Using a function is the preferred method of combining previous
+        // state with the new update
+        // (docs: https://react.dev/reference/react/Component#setstate-parameters)
         this.setState((prev) => ({
             labelsRendered: {
                 ...prev.labelsRendered,
