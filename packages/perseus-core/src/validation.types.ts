@@ -486,11 +486,14 @@ export type PerseusNumericInputRubric = {
      * multiple correct answers if multiple formats are accepted. For
      * example, some questions might accept either a fraction or a
      * decimal as correct.
+     *
+     * The first answer that matches (correct or incorrect) is the scoring
+     * result (so order of answers is very important).
      */
     answers: PerseusNumericInputAnswer[];
     /**
-     * When true, allows shorthand coefficient entry: "-" means -1
-     * and an empty string means 1.
+     * When true, allows shorthand coefficient entry: `"-"` means `-1`
+     * and an empty string (`""`) means `1`.
      */
     coefficient: boolean;
 };
