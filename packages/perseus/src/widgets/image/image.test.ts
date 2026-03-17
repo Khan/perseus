@@ -1005,6 +1005,124 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
             expect(playButtonAgain).toBeVisible();
         });
+
+        it("renders a canvas overlay when the gif is initially paused", () => {
+            // Arrange, Act
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert - canvas overlay should be present since gif starts paused
+            expect(document.querySelector("canvas")).toBeInTheDocument();
+        });
+
+        it("removes the canvas overlay when the gif is playing", async () => {
+            // Arrange
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("button", {name: "Play Animation"}),
+            );
+
+            // Assert
+            expect(document.querySelector("canvas")).not.toBeInTheDocument();
+        });
+
+        it("re-renders the canvas overlay when gif is paused after playing", async () => {
+            // Arrange
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+            act(() => {
+                jest.runAllTimers();
+            });
+            await userEvent.click(
+                screen.getByRole("button", {name: "Play Animation"}),
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("button", {name: "Pause Animation"}),
+            );
+
+            // Assert
+            expect(document.querySelector("canvas")).toBeInTheDocument();
+        });
+
+        it("does not render a canvas overlay for non-gif images", () => {
+            // Arrange, Act
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(imageQuestion, apiOptionsWithGifControlsFlag);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(document.querySelector("canvas")).not.toBeInTheDocument();
+        });
+
+        it("does not render a canvas overlay when the feature flag is disabled", () => {
+            // Arrange, Act
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(gifImageQuestion, apiOptions);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(document.querySelector("canvas")).not.toBeInTheDocument();
+        });
     });
 
     describe("flags", () => {

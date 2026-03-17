@@ -1,4 +1,4 @@
-import {act, render} from "@testing-library/react";
+import {act, fireEvent, render} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
@@ -254,6 +254,152 @@ describe("SvgImage", () => {
 
             // Assert - loadGraphie should be called twice
             expect(loadGraphieSpy).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe("gif pause/play", () => {
+        const GIF_SRC = "https://cdn.kastatic.org/test.gif";
+        let mockDrawImage: jest.Mock;
+
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            mockDrawImage = jest.fn();
+            jest.spyOn(
+                HTMLCanvasElement.prototype,
+                "getContext",
+            ).mockReturnValue({drawImage: mockDrawImage} as any);
+        });
+
+        it("renders a canvas overlay when isGifPaused is true", () => {
+            // Arrange, Act
+            const {container} = render(
+                <SvgImage
+                    src={GIF_SRC}
+                    alt="test gif"
+                    allowZoom={false}
+                    width={500}
+                    height={285}
+                    isGifPaused={true}
+                />,
+            );
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            expect(container.querySelector("canvas")).toBeInTheDocument();
+        });
+
+        it("does not render a canvas overlay when isGifPaused is false", () => {
+            // Arrange, Act
+            const {container} = render(
+                <SvgImage
+                    src={GIF_SRC}
+                    alt="test gif"
+                    allowZoom={false}
+                    width={500}
+                    height={285}
+                    isGifPaused={false}
+                />,
+            );
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            expect(container.querySelector("canvas")).not.toBeInTheDocument();
+        });
+
+        it("does not render a canvas overlay when isGifPaused is undefined", () => {
+            // Arrange, Act
+            const {container} = render(
+                <SvgImage
+                    src={GIF_SRC}
+                    alt="test gif"
+                    allowZoom={false}
+                    width={500}
+                    height={285}
+                />,
+            );
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            expect(container.querySelector("canvas")).not.toBeInTheDocument();
+        });
+
+        it("calls drawImage on the canvas when the img fires onLoad while paused", () => {
+            // Arrange
+            const {container} = render(
+                <SvgImage
+                    src={GIF_SRC}
+                    alt="test gif"
+                    allowZoom={false}
+                    width={500}
+                    height={285}
+                    isGifPaused={true}
+                />,
+            );
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const img = container.querySelector<HTMLImageElement>(".image-loader-img");
+            Object.defineProperty(img, "naturalWidth", {
+                value: 500,
+                configurable: true,
+            });
+            Object.defineProperty(img, "naturalHeight", {
+                value: 285,
+                configurable: true,
+            });
+
+            // Act - simulate the img element's own load event (the hook for captureGifFrame)
+            act(() => {
+                fireEvent.load(img!);
+            });
+
+            // Assert
+            expect(mockDrawImage).toHaveBeenCalledWith(img, 0, 0);
+        });
+
+        it("does not call drawImage when the img fires onLoad while playing", () => {
+            // Arrange
+            const {container} = render(
+                <SvgImage
+                    src={GIF_SRC}
+                    alt="test gif"
+                    allowZoom={false}
+                    width={500}
+                    height={285}
+                    isGifPaused={false}
+                />,
+            );
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const img = container.querySelector<HTMLImageElement>(".image-loader-img");
+            Object.defineProperty(img, "naturalWidth", {
+                value: 500,
+                configurable: true,
+            });
+
+            // Act
+            act(() => {
+                fireEvent.load(img!);
+            });
+
+            // Assert
+            expect(mockDrawImage).not.toHaveBeenCalled();
         });
     });
 });
