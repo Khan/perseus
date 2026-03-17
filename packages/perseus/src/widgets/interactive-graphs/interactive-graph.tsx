@@ -52,6 +52,7 @@ const {
     getSinusoidCoefficients,
     getTangentCoefficients,
     getQuadraticCoefficients,
+    getExponentialCoefficients,
 } = coefficients;
 
 const {getLineEquation, getLineIntersectionString, magnitude, vector} =
@@ -609,7 +610,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             case "absolute-value":
                 return InteractiveGraph.getAbsoluteValueEquationString(props);
             case "exponential":
-                return "";
+                return InteractiveGraph.getExponentialEquationString(props);
             case "tangent":
                 return InteractiveGraph.getTangentEquationString(props);
             default:
@@ -712,6 +713,40 @@ class InteractiveGraph extends React.Component<Props, State> {
             coeffs[2].toFixed(3) +
             ") + " +
             coeffs[3].toFixed(3)
+        );
+    }
+
+    static defaultExponentialCoords(props: Props): Coord[] {
+        const coords = [
+            [0.55, 0.5],
+            [0.75, 0.75],
+        ];
+        // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
+        return InteractiveGraph.pointsFromNormalized(props, coords);
+    }
+
+    static getExponentialEquationString(props: Props): string {
+        const coords =
+            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
+            props.userInput.coords ||
+            InteractiveGraph.defaultExponentialCoords(props);
+        const asymptote =
+            // @ts-expect-error - TS2339 - Property 'asymptote' does not exist on type 'PerseusGraphType'.
+            props.userInput.asymptote || [
+                [-10, 0],
+                [10, 0],
+            ];
+        const coeffs = getExponentialCoefficients(coords, asymptote);
+        if (coeffs == null) {
+            return "y = e^x";
+        }
+        return (
+            "y = " +
+            coeffs.a.toFixed(3) +
+            "e^(" +
+            coeffs.b.toFixed(3) +
+            "x) + " +
+            coeffs.c.toFixed(3)
         );
     }
 

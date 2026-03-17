@@ -42,6 +42,7 @@ import {renderPolygonGraph} from "./graphs/polygon";
 import {renderQuadraticGraph} from "./graphs/quadratic";
 import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
+import {renderExponentialGraph} from "./graphs/exponential";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
 import {renderTangentGraph} from "./graphs/tangent";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
@@ -768,6 +769,8 @@ const renderGraphElements = (props: {
             return renderQuadraticGraph(state, dispatch, i18n);
         case "sinusoid":
             return renderSinusoidGraph(state, dispatch, i18n);
+        case "exponential":
+            return renderExponentialGraph(state, dispatch, i18n);
         case "none":
             return {graph: null, interactiveElementsDescription: null};
         case "absolute-value":
