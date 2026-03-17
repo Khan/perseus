@@ -13,11 +13,10 @@ import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {SVGLine} from "./components/svg-line";
 import {srFormatNumber} from "./screenreader-text";
-import {useDraggable} from "./use-draggable";
 import {useTransformVectorsToPixels} from "./use-transform";
 
 import type {
@@ -91,67 +90,22 @@ function ExponentialGraph(props: ExponentialGraphProps) {
         asymptoteMid,
     );
 
-    const [asymptoteFocused, setAsymptoteFocused] = React.useState(false);
-    const [asymptoteHovered, setAsymptoteHovered] = React.useState(false);
-
-    const asymptoteRef = React.useRef<SVGGElement | null>(null);
-    const {dragging: asymptoteDragging} = useDraggable({
-        gestureTarget: asymptoteRef,
-        point: asymptoteLeft,
-        onMove: (newPoint) => {
-            dispatch(actions.exponential.moveCenter([newPoint[X], newPoint[Y]]));
-        },
-        constrainKeyboardMovement: (p) =>
-            constrainAsymptoteKeyboard(p, coords, snapStep),
-    });
-
     return (
         <g aria-label={srExponentialGraph} aria-describedby={descriptionId}>
-            {/* Draggable horizontal asymptote line */}
-            <g
-                ref={asymptoteRef}
-                tabIndex={0}
-                aria-label={srExponentialAsymptote}
-                aria-live="polite"
-                className="movable-line"
-                style={{cursor: asymptoteDragging ? "grabbing" : "grab"}}
-                role="button"
-                onFocus={() => setAsymptoteFocused(true)}
-                onBlur={() => setAsymptoteFocused(false)}
-                onMouseEnter={() => setAsymptoteHovered(true)}
-                onMouseLeave={() => setAsymptoteHovered(false)}
-            >
-                {/* Transparent tall hit target */}
-                <SVGLine
-                    start={leftPx}
-                    end={rightPx}
-                    style={{stroke: "transparent", strokeWidth: 44}}
-                />
-                {/* Visible solid line */}
-                <SVGLine
-                    start={leftPx}
-                    end={rightPx}
-                    style={{
-                        stroke: interactiveColor,
-                        strokeWidth: "var(--movable-line-stroke-weight)",
-                    }}
-                    className={asymptoteDragging ? "movable-dragging" : ""}
-                />
-                {/* Drag handle at the midpoint of the asymptote */}
-                {/* TODO(LEMS-3945): Extract into a shared AsymptoteDragHandle
-                    component supporting both orientations once the logarithm
-                    branch (LEMS-3950) merges. */}
-                <AsymptoteDragHandle
-                    x={midPx[X]}
-                    y={midPx[Y]}
-                    active={
-                        asymptoteDragging ||
-                        asymptoteFocused ||
-                        asymptoteHovered
-                    }
-                    focused={asymptoteFocused}
-                />
-            </g>
+            <MovableAsymptote
+                start={leftPx}
+                end={rightPx}
+                mid={midPx}
+                point={asymptoteLeft}
+                onMove={(newPoint) =>
+                    dispatch(actions.exponential.moveCenter(newPoint))
+                }
+                constrainKeyboardMovement={(p) =>
+                    constrainAsymptoteKeyboard(p, coords, snapStep)
+                }
+                orientation="horizontal"
+                ariaLabel={srExponentialAsymptote}
+            />
             <Plot.OfX
                 y={(x) => {
                     const y = computeExponential(x, coeffRef.current);
@@ -194,99 +148,6 @@ function ExponentialGraph(props: ExponentialGraphProps) {
 }
 
 // Horizontal drag handle — wide pill with horizontal dot grid.
-// TODO(LEMS-3945): Merge with the vertical AsymptoteDragHandle from the
-// logarithm implementation (LEMS-3950) into a single shared component.
-const ACTIVE_W = 22;
-const ACTIVE_H = 12;
-const INACTIVE_W = 16;
-const INACTIVE_H = 6;
-const RING_PAD = 2;
-const HALO_PAD = 3;
-const FOCUS_RING_PAD = 2;
-const FOCUS_RING_STROKE = 2;
-
-function AsymptoteDragHandle(props: {
-    x: number;
-    y: number;
-    active: boolean;
-    focused: boolean;
-}) {
-    const {x, y, active, focused} = props;
-    const {interactiveColor} = useGraphConfig();
-
-    const centerW = active ? ACTIVE_W : INACTIVE_W;
-    const centerH = active ? ACTIVE_H : INACTIVE_H;
-    const haloW = centerW + (RING_PAD + HALO_PAD) * 2;
-    const haloH = centerH + (RING_PAD + HALO_PAD) * 2;
-    const ringW = centerW + RING_PAD * 2;
-    const ringH = centerH + RING_PAD * 2;
-
-    const focusRingW = haloW + FOCUS_RING_PAD * 2;
-    const focusRingH = haloH + FOCUS_RING_PAD * 2;
-
-    return (
-        <g aria-hidden={true} style={{pointerEvents: "none"}}>
-            {focused && (
-                <rect
-                    x={x - focusRingW / 2}
-                    y={y - focusRingH / 2}
-                    width={focusRingW}
-                    height={focusRingH}
-                    rx={focusRingH / 2}
-                    ry={focusRingH / 2}
-                    fill="none"
-                    stroke={interactiveColor}
-                    strokeWidth={FOCUS_RING_STROKE}
-                />
-            )}
-            {/* Halo */}
-            <rect
-                x={x - haloW / 2}
-                y={y - haloH / 2}
-                width={haloW}
-                height={haloH}
-                rx={haloH / 2}
-                ry={haloH / 2}
-                fill={interactiveColor}
-                opacity={0.25}
-                style={{filter: "drop-shadow(0 5px 5px #0008)"}}
-            />
-            {/* Ring — white background */}
-            <rect
-                x={x - ringW / 2}
-                y={y - ringH / 2}
-                width={ringW}
-                height={ringH}
-                rx={ringH / 2}
-                ry={ringH / 2}
-                fill="#fff"
-            />
-            {/* Center — filled with interactive color */}
-            <rect
-                x={x - centerW / 2}
-                y={y - centerH / 2}
-                width={centerW}
-                height={centerH}
-                rx={centerH / 2}
-                ry={centerH / 2}
-                fill={interactiveColor}
-            />
-            {/* Horizontal grip dots: 3 columns × 2 rows */}
-            {active &&
-                [-2, 2].map((dy) =>
-                    [-3, 0, 3].map((dx) => (
-                        <circle
-                            key={`${dx},${dy}`}
-                            cx={x + dx}
-                            cy={y + dy}
-                            r={1}
-                            fill="#fff"
-                        />
-                    )),
-                )}
-        </g>
-    );
-}
 
 // Keyboard constraint for the asymptote. When the next snapped position
 // would land between or on the curve points, snap past all of them in the
