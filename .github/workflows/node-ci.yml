@@ -8,6 +8,13 @@ on:
         # The rest are the defaults.
         types: [edited, opened, synchronize, reopened]
 
+# Although our GITHUB_TOKEN has enough permissions for standard PRs, when these
+# actions are run for Dependabot PRs, we need to explicitly increase access.
+permissions:
+    contents: read
+    pull-requests: write
+    issues: write
+
 # When a new revision is pushed to a PR, cancel all in-progress CI runs for that
 # PR. See https://docs.github.com/en/actions/using-jobs/using-concurrency
 concurrency:
@@ -17,6 +24,7 @@ concurrency:
 jobs:
     changeset:
         name: Check for .changeset entries for all changed files
+        if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -248,7 +256,7 @@ jobs:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   build-command: |
                       pnpm install && \
-                      pnpm tsc --declaration --emitDeclarationOnly \
+                      pnpm tsc --declaration --emitDeclarationOnly --removeComments \
                         --outfile ${{ runner.temp }}/schema.d.ts \
                         packages/perseus-core/src/data-schema.ts
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts

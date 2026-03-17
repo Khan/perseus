@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 2.2.0
+
+### Minor Changes
+
+-   [#3292](https://github.com/Khan/perseus/pull/3292) [`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that extra keys are considered when determining whether an Expression Widget answer is invalid.
+
 ## 2.1.8
 
 ### Patch Changes

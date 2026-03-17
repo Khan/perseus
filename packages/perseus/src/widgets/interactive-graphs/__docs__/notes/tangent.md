@@ -5,7 +5,7 @@
 Research and POC for adding tangent graph support to the Interactive Graph widget,
 allowing content creators to define tangent function exercises using two movable points.
 
-- **Ticket:** LEMS-3937
+- **Ticket:** [LEMS-3937](https://khanacademy.atlassian.net/browse/LEMS-3937)
 - **POC:** https://github.com/Khan/perseus/pull/3311
 - **Branch:** `LEMS-3937/poc-interactive-tangent-graph`
 

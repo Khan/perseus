@@ -1,5 +1,43 @@
 # @khanacademy/perseus
 
+## 76.0.2
+
+### Patch Changes
+
+-   [#3363](https://github.com/Khan/perseus/pull/3363) [`d901409ab3`](https://github.com/Khan/perseus/commit/d901409ab30abe8518b00770deab6ba1594f5981) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - [Interactive Graph] Ensure that we're clearing the dragEndCallbackTimer when starting a new drag
+
+## 76.0.1
+
+### Patch Changes
+
+-   [#3361](https://github.com/Khan/perseus/pull/3361) [`277769c002`](https://github.com/Khan/perseus/commit/277769c00233988c782e140c63e7326c0c87ed3f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Sync deps
+
+-   Updated dependencies [[`277769c002`](https://github.com/Khan/perseus/commit/277769c00233988c782e140c63e7326c0c87ed3f)]:
+    -   @khanacademy/math-input@26.4.8
+
+## 76.0.0
+
+### Major Changes
+
+-   [#3266](https://github.com/Khan/perseus/pull/3266) [`277fedd984`](https://github.com/Khan/perseus/commit/277fedd9849c097f0ec573c65e722403bb74256f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove deprecated `useNewStyles` prop from `ArticleRenderer`. This prop was deprecated already and completely unused internally. To update to this version, just remove the prop from `<ArticleRenderer>` instances.
+
+### Patch Changes
+
+-   [#3340](https://github.com/Khan/perseus/pull/3340) [`d0f81aedd0`](https://github.com/Khan/perseus/commit/d0f81aedd07e2c520196d70ef193e0e888e97b95) Thanks [@jonmarkprice](https://github.com/jonmarkprice)! - Fix issue where using the keyboard arrows made clicking to create a point stop working.
+
+*   [#3344](https://github.com/Khan/perseus/pull/3344) [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add feature flags for Interactive Graph phase 2 project
+
+-   [#3318](https://github.com/Khan/perseus/pull/3318) [`05a19ccc77`](https://github.com/Khan/perseus/commit/05a19ccc77f641e2828bd0d21ec180dda27cbbf8) Thanks [@benchristel](https://github.com/benchristel)! - Use non-readonly type for the `hints` prop of `HintsRenderer`.
+
+-   Updated dependencies [[`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a), [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c)]:
+    -   @khanacademy/kas@2.2.0
+    -   @khanacademy/perseus-core@23.6.0
+    -   @khanacademy/perseus-score@8.3.0
+    -   @khanacademy/perseus-linter@4.8.6
+    -   @khanacademy/keypad-context@3.2.38
+    -   @khanacademy/kmath@2.2.38
+    -   @khanacademy/math-input@26.4.7
+
 ## 75.7.1
 
 ### Patch Changes

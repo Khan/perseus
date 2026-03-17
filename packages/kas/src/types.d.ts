@@ -7,19 +7,12 @@ export type CompareOptions = {
 
 export type CompareResult = {
     equal: boolean;
-    wrongVariableCase?: boolean;
-    wrongVariableNames?: boolean;
     message: string | null;
-};
-
-export type ExpressionVars = {
-    equal: boolean;
-    equalIgnoringCase: boolean;
 };
 
 export type Expression = {
     compare: (expr: Expression) => boolean;
-    sameVars: (expr: Expression) => ExpressionVars;
+    getVars: () => string[];
     sameForm: (expr: Expression) => unknown;
     isSimplified: () => boolean;
 };
