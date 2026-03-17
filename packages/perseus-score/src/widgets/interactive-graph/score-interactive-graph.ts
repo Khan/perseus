@@ -30,6 +30,7 @@ const {
     getAbsoluteValueCoefficients,
     getSinusoidCoefficients,
     getQuadraticCoefficients,
+    getExponentialCoefficients,
     getTangentCoefficients,
 } = coefficients;
 
@@ -146,6 +147,35 @@ function scoreInteractiveGraph(
                 approximateDeepEqual(
                     canonicalGuessCoeffs,
                     canonicalCorrectCoeffs,
+                )
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
+            userInput.type === "exponential" &&
+            rubric.correct.type === "exponential" &&
+            userInput.coords != null &&
+            userInput.asymptote != null
+        ) {
+            const guessCoeffs = getExponentialCoefficients(
+                userInput.coords,
+                userInput.asymptote,
+            );
+            const correctCoeffs = getExponentialCoefficients(
+                rubric.correct.coords,
+                rubric.correct.asymptote,
+            );
+            if (
+                guessCoeffs != null &&
+                correctCoeffs != null &&
+                approximateDeepEqual(
+                    [guessCoeffs.a, guessCoeffs.b, guessCoeffs.c],
+                    [correctCoeffs.a, correctCoeffs.b, correctCoeffs.c],
                 )
             ) {
                 return {
@@ -384,5 +414,3 @@ function scoreInteractiveGraph(
         message: null,
     };
 }
-
-export default scoreInteractiveGraph;

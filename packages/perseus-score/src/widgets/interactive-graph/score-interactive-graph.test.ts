@@ -511,6 +511,124 @@ describe("InteractiveGraph scoring on an angle question", () => {
     });
 });
 
+// Test data: f(x) = 2·4^x + 3  →  f(0)=5, f(1)=11, asymptote y=3
+const exponentialRubric: PerseusInteractiveGraphRubric = {
+    graph: {type: "exponential"},
+    correct: {
+        type: "exponential",
+        coords: [
+            [0, 5],
+            [1, 11],
+        ],
+        asymptote: [
+            [-10, 3],
+            [10, 3],
+        ],
+    },
+};
+
+describe("InteractiveGraph scoring on an exponential question", () => {
+    it("marks the answer invalid if guess is undefined", () => {
+        // Arrange, Act
+        const result = scoreInteractiveGraph(undefined, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer invalid if coords are missing", () => {
+        // Arrange
+        const guess: PerseusGraphType = {type: "exponential"};
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer incorrect if asymptote is missing", () => {
+        // Arrange — coords present (hasValue=true) but no asymptote,
+        // so the exponential scoring block is skipped and falls through to incorrect
+        const guess: PerseusGraphType = {
+            type: "exponential",
+            coords: [
+                [0, 5],
+                [1, 11],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks a correct answer as correct", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "exponential",
+            coords: [
+                [0, 5],
+                [1, 11],
+            ],
+            asymptote: [
+                [-10, 3],
+                [10, 3],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks a wrong answer as incorrect", () => {
+        // Arrange — different curve: f(x) = 4·(1/4)^x, asymptote y=0
+        const guess: PerseusGraphType = {
+            type: "exponential",
+            coords: [
+                [0, 4],
+                [1, 1],
+            ],
+            asymptote: [
+                [-10, 0],
+                [10, 0],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks a correct answer as correct when coords are in reverse order", () => {
+        // Arrange — same curve, points swapped
+        const guess: PerseusGraphType = {
+            type: "exponential",
+            coords: [
+                [1, 11],
+                [0, 5],
+            ],
+            asymptote: [
+                [-10, 3],
+                [10, 3],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+});
+
 describe("InteractiveGraph scoring on an absolute-value question", () => {
     it("marks the answer invalid if guess is undefined", () => {
         // Arrange
