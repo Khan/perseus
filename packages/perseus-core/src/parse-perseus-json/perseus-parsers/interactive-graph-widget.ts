@@ -113,6 +113,12 @@ const parsePerseusGraphTypeSinusoid = object({
     startCoords: optional(array(pairOfNumbers)),
 });
 
+const parsePerseusGraphTypeTangent = object({
+    type: constant("tangent"),
+    coords: optional(nullable(array(pairOfNumbers))),
+    startCoords: optional(array(pairOfNumbers)),
+});
+
 export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("angle", parsePerseusGraphTypeAngle)
     .withBranch("circle", parsePerseusGraphTypeCircle)
@@ -124,7 +130,8 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("quadratic", parsePerseusGraphTypeQuadratic)
     .withBranch("ray", parsePerseusGraphTypeRay)
     .withBranch("segment", parsePerseusGraphTypeSegment)
-    .withBranch("sinusoid", parsePerseusGraphTypeSinusoid).parser;
+    .withBranch("sinusoid", parsePerseusGraphTypeSinusoid)
+    .withBranch("tangent", parsePerseusGraphTypeTangent).parser;
 
 const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
 

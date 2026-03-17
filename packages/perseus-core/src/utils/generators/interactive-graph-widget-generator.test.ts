@@ -17,6 +17,7 @@ import {
     generateIGRayGraph,
     generateIGSegmentGraph,
     generateIGSinusoidGraph,
+    generateIGTangentGraph,
     generateInteractiveGraphOptions,
     generateInteractiveGraphWidget,
 } from "./interactive-graph-widget-generator";
@@ -747,6 +748,45 @@ describe("generateIGSinusoidGraph", () => {
                 [0, 0],
                 [1, 1],
                 [2, 2],
+            ],
+        });
+    });
+});
+
+describe("generateIGTangentGraph", () => {
+    it("builds a default tangent graph", () => {
+        // Arrange, Act
+        const tangentGraph = generateIGTangentGraph();
+
+        // Assert
+        expect(tangentGraph).toEqual({
+            type: "tangent",
+        });
+    });
+
+    it("builds a tangent graph with all props", () => {
+        // Arrange, Act
+        const tangentGraph = generateIGTangentGraph({
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            startCoords: [
+                [0, 0],
+                [1, 1],
+            ],
+        });
+
+        // Assert
+        expect(tangentGraph).toEqual({
+            type: "tangent",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            startCoords: [
+                [0, 0],
+                [1, 1],
             ],
         });
     });
