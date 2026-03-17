@@ -525,6 +525,9 @@ function mergeGraphs(
         case "absolute-value":
             invariant(b.type === "absolute-value");
             return {...a, ...b};
+        case "exponential":
+            invariant(b.type === "exponential");
+            return {...a, ...b};
         case "tangent":
             invariant(b.type === "tangent");
             return {...a, ...b};

@@ -33,6 +33,50 @@ export function getSinusoidCoefficients(
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
+export type ExponentialCoefficient = {
+    a: number;
+    b: number;
+    c: number;
+};
+
+/**
+ * Returns the coefficients {a, b, c} for f(x) = a·eᵇˣ + c given two points
+ * on the curve and a horizontal asymptote line.
+ *
+ * Returns undefined if the inputs are geometrically invalid (same x, a point
+ * on the asymptote, or points on opposite sides of the asymptote).
+ */
+export function getExponentialCoefficients(
+    coords: ReadonlyArray<Coord>,
+    asymptote: ReadonlyArray<Coord>,
+): ExponentialCoefficient | undefined {
+    const p1 = coords[0];
+    const p2 = coords[1];
+    const c = asymptote[0][1];
+
+    if (p1[0] === p2[0]) {
+        return;
+    } // same x makes b undefined
+    if (p1[1] === c || p2[1] === c) {
+        return;
+    } // point on asymptote
+
+    const denom = p1[0] - p2[0];
+    const ratio = (p1[1] - c) / (p2[1] - c);
+    if (ratio <= 0) {
+        return;
+    } // points on opposite sides of asymptote
+
+    const b = Math.log(ratio) / denom;
+    const a = (p1[1] - c) / Math.exp(b * p1[0]);
+
+    if (!isFinite(a) || !isFinite(b) || a === 0) {
+        return;
+    }
+
+    return {a, b, c};
+}
+
 // p1 is the inflection point (where tan = 0, i.e. the curve crosses
 // through its vertical offset). p2 is a quarter-period away and
 // determines the amplitude and period of the tangent function.
