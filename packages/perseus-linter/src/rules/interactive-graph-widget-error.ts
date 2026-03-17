@@ -24,7 +24,7 @@ export default Rule.makeRule({
         }
 
         const issues: Array<any | string> = [];
-        const {correct, lockedFigures} = widget.options;
+        const {correct, graph, lockedFigures} = widget.options;
 
         for (const figure of lockedFigures ?? []) {
             // A locked line on the graph cannot have length 0.
@@ -67,6 +67,20 @@ export default Rule.makeRule({
             correct.coords == null
         ) {
             issues.push("Polygon must be closed.");
+        }
+
+        // Exponential: the start asymptote must not fall between or on the
+        // curve's start points — that makes the coefficient formula undefined.
+        if (graph?.type === "exponential" && graph.startCoords != null) {
+            const {coords, asymptote} = graph.startCoords;
+            const asymptoteY = asymptote[0][1];
+            const minY = Math.min(coords[0][1], coords[1][1]);
+            const maxY = Math.max(coords[0][1], coords[1][1]);
+            if (asymptoteY >= minY && asymptoteY <= maxY) {
+                issues.push(
+                    "The exponential start asymptote must not fall between or on the curve's start points.",
+                );
+            }
         }
 
         const allIssuesString = issues.join("\n\n");

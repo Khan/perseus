@@ -266,6 +266,25 @@ class InteractiveGraphEditor extends React.Component<Props> {
             issues.push("Polygon must be closed.");
         }
 
+        // Exponential: the start asymptote must not fall between or on the
+        // curve's start points — that configuration produces an invalid
+        // exponential (the coefficient formula requires all points to be
+        // strictly on one side of the asymptote).
+        if (
+            this.props.graph?.type === "exponential" &&
+            this.props.graph.startCoords != null
+        ) {
+            const {coords, asymptote} = this.props.graph.startCoords;
+            const asymptoteY = asymptote[0][1];
+            const minY = Math.min(coords[0][1], coords[1][1]);
+            const maxY = Math.max(coords[0][1], coords[1][1]);
+            if (asymptoteY >= minY && asymptoteY <= maxY) {
+                issues.push(
+                    "The exponential start asymptote must not fall between or on the curve's start points.",
+                );
+            }
+        }
+
         return issues;
     };
 

@@ -3,6 +3,7 @@ import {
     getAbsoluteValueCoords,
     getAngleCoords,
     getCircleCoords,
+    getExponentialCoords,
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
@@ -72,6 +73,14 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "exponential": {
+            const {coords, asymptote} = getExponentialCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+            return {coords, asymptote};
+        }
         case "tangent":
             return getTangentCoords(
                 {...graph, startCoords: undefined},
@@ -229,6 +238,7 @@ export const shouldShowStartCoordsUI = (
             return false;
         case "angle":
         case "circle":
+        case "exponential":
         case "linear":
         case "linear-system":
         case "tangent":

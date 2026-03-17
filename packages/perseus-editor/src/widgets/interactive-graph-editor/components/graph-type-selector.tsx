@@ -36,6 +36,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             <OptionItem value="linear" label="Linear function" />
             <OptionItem value="quadratic" label="Quadratic function" />
             <OptionItem value="sinusoid" label="Sinusoid function" />
+            <OptionItem value="exponential" label="Exponential function" />
             {showTangent && (
                 <OptionItem value="tangent" label="Tangent function" />
             )}
