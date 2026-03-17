@@ -292,7 +292,7 @@ function AsymptoteDragHandle(props: {
 // would land between or on the curve points, snap past all of them in the
 // direction of travel. Mirrors logarithm's constrainAsymptoteKeyboard with
 // Y-axis instead of X.
-const constrainAsymptoteKeyboard = (
+export const constrainAsymptoteKeyboard = (
     p: vec.Vector2,
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
@@ -328,7 +328,7 @@ const constrainAsymptoteKeyboard = (
     return [snapped[X], newY];
 };
 
-const getExponentialKeyboardConstraint = (
+export const getExponentialKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     asymptote: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
