@@ -155,6 +155,7 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
             >
               <div
                 class="unresponsive-svg-image"
+                style="position: relative;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -185,6 +186,7 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
             >
               <div
                 class="unresponsive-svg-image"
+                style="position: relative;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -245,6 +247,7 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
             >
               <div
                 class="unresponsive-svg-image"
+                style="position: relative;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -275,6 +278,7 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
             >
               <div
                 class="unresponsive-svg-image"
+                style="position: relative;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"

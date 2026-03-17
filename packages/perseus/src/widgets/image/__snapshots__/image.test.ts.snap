@@ -50,7 +50,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
               />
               <button
                 aria-label="Zoom image."
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1teiu4f"
                 type="button"
               />
             </div>
@@ -135,7 +135,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
               />
               <button
                 aria-label="Zoom image."
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1teiu4f"
                 type="button"
               />
             </div>
@@ -243,7 +243,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                     </span>
                     <button
                       aria-label="Zoom image."
-                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1teiu4f"
                       type="button"
                     />
                   </div>
@@ -404,7 +404,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
               />
               <button
                 aria-label="Zoom image."
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1teiu4f"
                 type="button"
               />
             </div>
@@ -489,7 +489,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
               />
               <button
                 aria-label="Zoom image."
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1teiu4f"
                 type="button"
               />
             </div>
@@ -597,7 +597,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                     </span>
                     <button
                       aria-label="Zoom image."
-                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1teiu4f"
                       type="button"
                     />
                   </div>

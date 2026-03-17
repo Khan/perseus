@@ -1572,7 +1572,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
               >
                 <div
                   class="unresponsive-svg-image"
-                  style="width: 400px; height: 400px;"
+                  style="width: 400px; height: 400px; position: relative;"
                 >
                   <span
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -2024,7 +2024,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
               >
                 <div
                   class="unresponsive-svg-image"
-                  style="width: 425px; height: 425px;"
+                  style="width: 425px; height: 425px; position: relative;"
                 >
                   <span
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -2276,7 +2276,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
               >
                 <div
                   class="unresponsive-svg-image"
-                  style="width: 425px; height: 425px;"
+                  style="width: 425px; height: 425px; position: relative;"
                 >
                   <span
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -2938,7 +2938,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
               >
                 <div
                   class="unresponsive-svg-image"
-                  style="width: 400px; height: 400px;"
+                  style="width: 400px; height: 400px; position: relative;"
                 >
                   <span
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -3390,7 +3390,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
               >
                 <div
                   class="unresponsive-svg-image"
-                  style="width: 425px; height: 425px;"
+                  style="width: 425px; height: 425px; position: relative;"
                 >
                   <span
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -3757,7 +3757,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
               >
                 <div
                   class="unresponsive-svg-image"
-                  style="width: 425px; height: 425px;"
+                  style="width: 425px; height: 425px; position: relative;"
                 >
                   <span
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
