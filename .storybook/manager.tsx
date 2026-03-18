@@ -10,17 +10,3 @@ addons.setConfig({
     },
     theme: theme,
 });
-
-addons.register("api-docs-link", () => {
-    addons.add("api-docs-link/tool", {
-        type: types.TOOL,
-        title: "API Docs",
-        render: () => (
-            <a
-                href="/api-docs/index.html"
-            >
-                API Docs
-            </a>
-        ),
-    });
-});

@@ -38,6 +38,7 @@ configureSort({
     storyOrder: {
         introduction: null,
         "getting started": null,
+        "api documentation": null,
         widgetGallery: null,
         theming: null,
         renderers: {
