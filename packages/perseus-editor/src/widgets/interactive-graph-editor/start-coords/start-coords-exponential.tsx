@@ -12,7 +12,7 @@ import type {Coord} from "@khanacademy/perseus";
 
 type ExponentialStartCoords = {
     coords: [Coord, Coord];
-    asymptote: [Coord, Coord];
+    asymptote: number;
 };
 
 type Props = {
@@ -27,13 +27,13 @@ const StartCoordsExponential = (props: Props) => {
     // Local state for the asymptote y-value text field so the user can type
     // freely without the field resetting mid-keystroke. Pattern from StartCoordsCircle.
     const [asymptoteYState, setAsymptoteYState] = React.useState(
-        asymptote[0][1].toString(),
+        asymptote.toString(),
     );
 
     // Sync local state when props change (e.g. "Use default start coordinates" button).
     React.useEffect(() => {
-        setAsymptoteYState(asymptote[0][1].toString());
-    }, [asymptote[0][1]]);
+        setAsymptoteYState(asymptote.toString());
+    }, [asymptote]);
 
     function handleAsymptoteYChange(newValue: string) {
         // Update the local state to update the input field immediately.
@@ -53,10 +53,7 @@ const StartCoordsExponential = (props: Props) => {
         // {center, radius} object on every onChange call.)
         onChange({
             coords: [coords[0], coords[1]],
-            asymptote: [
-                [asymptote[0][0], newY],
-                [asymptote[1][0], newY],
-            ],
+            asymptote: newY,
         });
     }
 

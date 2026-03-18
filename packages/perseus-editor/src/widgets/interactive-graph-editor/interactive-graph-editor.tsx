@@ -275,7 +275,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             this.props.graph.startCoords != null
         ) {
             const {coords, asymptote} = this.props.graph.startCoords;
-            const asymptoteY = asymptote[0][1];
+            const asymptoteY = asymptote;
             const minY = Math.min(coords[0][1], coords[1][1]);
             const maxY = Math.max(coords[0][1], coords[1][1]);
             if (asymptoteY >= minY && asymptoteY <= maxY) {

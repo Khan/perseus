@@ -73,7 +73,7 @@ export default Rule.makeRule({
         // curve's start points — that makes the coefficient formula undefined.
         if (graph?.type === "exponential" && graph.startCoords != null) {
             const {coords, asymptote} = graph.startCoords;
-            const asymptoteY = asymptote[0][1];
+            const asymptoteY = asymptote;
             const minY = Math.min(coords[0][1], coords[1][1]);
             const maxY = Math.max(coords[0][1], coords[1][1]);
             if (asymptoteY >= minY && asymptoteY <= maxY) {

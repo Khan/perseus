@@ -115,7 +115,7 @@ const StartCoordsSettingsInner = (props: Props) => {
                 props,
                 range,
                 step,
-            ) as {coords: [Coord, Coord]; asymptote: [Coord, Coord]};
+            ) as {coords: [Coord, Coord]; asymptote: number};
             const currentStartCoords = props.startCoords ?? defaultStartCoords;
             return (
                 <StartCoordsExponential
