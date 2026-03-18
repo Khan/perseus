@@ -1024,7 +1024,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert - canvas overlay should be present since gif starts paused
-            expect(document.querySelector("canvas")).toBeInTheDocument();
+            expect(screen.getByTestId("gif-pause-canvas")).toBeInTheDocument();
         });
 
         it("removes the canvas overlay when the gif is playing", async () => {
@@ -1050,7 +1050,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             );
 
             // Assert
-            expect(document.querySelector("canvas")).not.toBeInTheDocument();
+            expect(
+                screen.queryByTestId("gif-pause-canvas"),
+            ).not.toBeInTheDocument();
         });
 
         it("re-renders the canvas overlay when gif is paused after playing", async () => {
@@ -1079,7 +1081,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             );
 
             // Assert
-            expect(document.querySelector("canvas")).toBeInTheDocument();
+            expect(screen.getByTestId("gif-pause-canvas")).toBeInTheDocument();
         });
 
         it("does not render a canvas overlay for non-gif images", () => {
@@ -1100,7 +1102,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            expect(document.querySelector("canvas")).not.toBeInTheDocument();
+            expect(
+                screen.queryByTestId("gif-pause-canvas"),
+            ).not.toBeInTheDocument();
         });
 
         it("does not render a canvas overlay when the feature flag is disabled", () => {
@@ -1121,7 +1125,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            expect(document.querySelector("canvas")).not.toBeInTheDocument();
+            expect(
+                screen.queryByTestId("gif-pause-canvas"),
+            ).not.toBeInTheDocument();
         });
     });
 
