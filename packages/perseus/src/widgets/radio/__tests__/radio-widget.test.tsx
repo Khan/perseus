@@ -39,19 +39,9 @@ const baseChoices: RadioChoiceWithMetadata[] = baseOptions.choices.map(
 const baseChoiceStates = [
     {
         selected: false,
-        highlighted: false,
-        rationaleShown: false,
-        correctnessShown: false,
-        previouslyAnswered: false,
-        readOnly: false,
     },
     {
         selected: false,
-        highlighted: false,
-        rationaleShown: false,
-        correctnessShown: false,
-        previouslyAnswered: false,
-        readOnly: false,
     },
 ];
 
