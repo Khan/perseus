@@ -1010,6 +1010,7 @@ class Editor extends React.Component<Props, State> {
             <textarea
                 ref={this.textarea}
                 key="textarea"
+                aria-label="Markdown content"
                 onChange={this.handleChange}
                 onKeyDown={this._handleKeyDown}
                 placeholder={this.props.placeholder}
