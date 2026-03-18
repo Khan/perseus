@@ -71,16 +71,40 @@ function App() {
 }
 ```
 
+## Registering Widgets
+
+Perseus widgets must be registered before they can be rendered. Call `init()`
+once at app startup — it registers all widgets and handles any deprecated widget
+replacements:
+
+```tsx
+import {init} from "@khanacademy/perseus";
+
+init();
+```
+
+`init()` is idempotent, so calling it multiple times is safe.
+
 ## Parsing Content
 
-Perseus content is often stored as a JSON serialized string. Before rendering,
-parse and migrate it to the latest schema version using
-`parseAndMigratePerseusItem` from `@khanacademy/perseus-core`:
+Before rendering, parse and migrate any PerseusItem to the latest schema
+version using `parseAndMigratePerseusItem` from `@khanacademy/perseus-core`.
+
+_Note: Perseus content is often stored as a JSON serialized string. All Perseus
+parsers can accept strings (which are first `JSON.parse()`'d before actual
+parsing)._
 
 ```tsx
 import {parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
 
-const parseResult = parseAndMigratePerseusItem(rawJsonString);
+const item = {
+    question: {
+        /* ... */
+    },
+    hints: [],
+};
+
+const parseResult = parseAndMigratePerseusItem(item);
 
 if (isFailure(parseResult)) {
     console.error(parseResult.detail.message);
@@ -153,28 +177,15 @@ For long-form, read-only content, use `ArticleRenderer` instead:
 
 ```tsx
 import {ArticleRenderer} from "@khanacademy/perseus";
+import type {PerseusArticle} from "@khanacademy/perseus-core";
 
-function Article({content}) {
-    return <ArticleRenderer json={content} />;
+function Article({article: PerseusArticle}) {
+    return <ArticleRenderer json={article} />;
 }
 ```
 
 Articles are never scored, but they can contain embedded "knowledge check"
 widgets (`GradedGroup` / `GradedGroupSet`) that give learners in-line practice.
-
-## Registering Widgets
-
-Perseus widgets must be registered before they can be rendered. Call `init()`
-once at app startup — it registers all widgets and handles any deprecated widget
-replacements:
-
-```tsx
-import {init} from "@khanacademy/perseus";
-
-init();
-```
-
-`init()` is idempotent, so calling it multiple times is safe.
 
 ## Next Steps
 
