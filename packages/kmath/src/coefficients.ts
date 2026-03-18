@@ -101,10 +101,7 @@ export function getAbsoluteValueCoefficients(
     }
 
     const num = p2[1] - p1[1];
-    let m = Math.abs(num / denom);
-    if (p2[1] < p1[1]) {
-        m = -m;
-    }
+    const m = num / Math.abs(denom);
 
     return [m, p1[0], p1[1]];
 }
