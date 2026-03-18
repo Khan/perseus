@@ -661,6 +661,33 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
+    
+    it("does not award points when p2 shares the same x as the vertex", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [0, 2], // same x as vertex → getAbsoluteValueCoefficients returns undefined
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+        
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+        
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+  }); 
 });
 
 describe("InteractiveGraph scoring on a tangent question", () => {
