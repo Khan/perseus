@@ -12,9 +12,11 @@ import {isGif, isSvg} from "../utils";
 
 import {GifControlsButton} from "./gif-controls-button";
 
-import type {ImageInfoAreaProps} from "./image-info-area";
+import type {CommonImageProps, ZoomProps, GifProps} from "./image-info-area";
 
 const MODAL_HEIGHT = 568;
+
+type Props = CommonImageProps & ZoomProps & GifProps;
 
 export default function ExploreImageModalContent({
     backgroundImage,
@@ -30,7 +32,7 @@ export default function ExploreImageModalContent({
     zoomSize,
     isGifPlaying,
     setIsGifPlaying,
-}: ImageInfoAreaProps) {
+}: Props) {
     const context = React.useContext(PerseusI18nContext);
 
     if (!backgroundImage.url) {
