@@ -748,7 +748,7 @@ export type GrapherAnswerTypes =
       }
     | {
           /**
-           * A periodic wave of the form y = a·sin(bx + c) + d.
+           * A periodic wave of the form y = a·sin(bx - c) + d.
            */
           type: "sinusoid";
           /**
@@ -759,7 +759,7 @@ export type GrapherAnswerTypes =
       }
     | {
           /**
-           * A periodic curve of the form y = a·tan(bx + c) + d.
+           * A periodic curve of the form y = a·tan(bx - c) + d.
            */
           type: "tangent";
           /**
@@ -1444,7 +1444,16 @@ export type PerseusNumericInputSimplify = "required" | "enforced" | "optional";
 
 /** Options for the numeric-input widget. Accepts a single numeric answer. */
 export type PerseusNumericInputWidgetOptions = {
-    /** A list of all the possible correct and incorrect answers */
+    /**
+     * A list of correct and incorrect answers. Each answer can have a
+     * message explaining why it is correct/incorrect. There may be
+     * multiple correct answers if multiple formats are accepted. For
+     * example, some questions might accept either a fraction or a
+     * decimal as correct.
+     *
+     * The first answer that matches (correct or incorrect) is the scoring
+     * result (so order of answers is very important).
+     */
     answers: PerseusNumericInputAnswer[];
     /**
      * Translatable Text; Text to describe this input. This will be shown to
