@@ -152,17 +152,6 @@ describe("WidgetEditor", () => {
                     apiOptions={{
                         ...ApiOptions.defaults,
                         showAlignmentOptions: true,
-                        // Enable feature flag to use getSupportedAlignments instead of hardcoded values
-                        flags: {
-                            "new-radio-widget": false,
-                            "image-widget-upgrade-gif-controls": false,
-                            "image-widget-upgrade-scale": false,
-                            "interactive-graph-absolute-value": false,
-                            "interactive-graph-tangent": false,
-                            "interactive-graph-logarithm": false,
-                            "interactive-graph-exponent": false,
-                            "interactive-graph-vector": false,
-                        },
                     }}
                 />,
             );
@@ -197,17 +186,6 @@ describe("WidgetEditor", () => {
                     apiOptions={{
                         ...ApiOptions.defaults,
                         showAlignmentOptions: true,
-                        // Enable feature flag to use getSupportedAlignments instead of hardcoded values
-                        flags: {
-                            "new-radio-widget": false,
-                            "image-widget-upgrade-gif-controls": false,
-                            "image-widget-upgrade-scale": false,
-                            "interactive-graph-absolute-value": false,
-                            "interactive-graph-tangent": false,
-                            "interactive-graph-logarithm": false,
-                            "interactive-graph-exponent": false,
-                            "interactive-graph-vector": false,
-                        },
                     }}
                 />,
             );
