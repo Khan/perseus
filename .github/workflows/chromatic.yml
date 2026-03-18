@@ -37,13 +37,6 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            # API docs are not built for Chromatic — create a stub so Storybook's
-            # staticDirs config (which serves docs/ as /api-docs) doesn't fail.
-            - name: Create stub API docs dir
-              run: |
-                  mkdir -p docs
-                  echo '<p>API docs are not available in Chromatic. See the <a href="https://khanacademy.github.io/perseus/api-docs/">GitHub Pages deployment</a> instead.</p>' > docs/index.html
-
             - name: Publish to Chromatic for visual testing
               uses: chromaui/action@f1f9e3277eb1eaa8cba4c6bcebc9809291ee29ea # v15.0.0
               with:
