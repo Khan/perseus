@@ -1,8 +1,16 @@
+import {isLabeledSVG} from "@khanacademy/perseus-core";
+
 export function isGif(url: string): boolean {
     // Trying to do this the "right way" by loading in the image and counting
     // frames would ad more complexity than we need here. With our CDN's filename
     // structure, we can assume that all .gif images will have a URL ending in .gif.
     return url.endsWith(".gif");
+}
+
+export function isSvg(url: string): boolean {
+    const hasSvgExtension = url.endsWith(".svg");
+    const hasGraphieUrl = isLabeledSVG(url);
+    return hasSvgExtension || hasGraphieUrl;
 }
 
 export const earthMoonImage = {

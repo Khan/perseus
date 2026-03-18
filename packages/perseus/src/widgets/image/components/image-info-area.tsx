@@ -22,6 +22,7 @@ import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 export interface ImageInfoAreaProps {
     backgroundImage: PerseusImageBackground;
+    scale: number;
     title: string;
     caption: string;
     alt: string;

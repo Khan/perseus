@@ -28,6 +28,7 @@ function renderModal(props: React.ComponentProps<typeof ExploreImageModal>) {
 
 const defaultProps = {
     backgroundImage: {},
+    scale: 1,
     title: "",
     caption: "",
     // Images should have alt text, and need alt text to be detectable
