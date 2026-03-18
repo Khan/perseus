@@ -146,8 +146,6 @@ export function initializeGraphState(
                 type: graph.type,
                 coords: getTangentCoords(graph, range, step),
             };
-        case "exponential":
-            throw new Error("Not implemented: exponential graph type");
         default:
             throw new UnreachableCaseError(graph);
     }
