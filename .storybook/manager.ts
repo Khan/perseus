@@ -1,5 +1,4 @@
-import * as React from "react";
-import {addons, types} from "storybook/manager-api";
+import {addons} from "storybook/manager-api";
 import theme from "./theme";
 
 addons.setConfig({
