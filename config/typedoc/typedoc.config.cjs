@@ -17,6 +17,9 @@ const config = {
     entryPointStrategy: "packages",
     entryPoints,
     out: "docs/",
+    // This is disabled for now. If we enable it, typedoc actually deletes the
+    // entire output folder (docs/) which then blows away our .gitkeep
+    // placeholder, which then dirties the repo, which is annoying.
     cleanOutputDir: false,
     githubPages: true,
     includeVersion: true,
