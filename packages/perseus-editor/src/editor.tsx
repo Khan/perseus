@@ -9,7 +9,8 @@ import {
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
-    Errors, getWidgetIdsFromContent,
+    Errors,
+    getWidgetIdsFromContent,
     PerseusError,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
@@ -189,6 +190,15 @@ class Editor extends React.Component<Props, State> {
         rememberedWidgetsForUndo: {},
     };
 
+    static getDerivedStateFromProps(props, state): Partial<State> {
+        return {
+            rememberedWidgetsForUndo: {
+                ...state.rememberedWidgetsForUndo,
+                ...props.widgets,
+            },
+        };
+    }
+
     componentDidMount() {
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = null;
@@ -214,15 +224,6 @@ class Editor extends React.Component<Props, State> {
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         if (this.props.content !== nextProps.content) {
             this.setState({textAreaValue: nextProps.content});
-        }
-    }
-
-    static getDerivedStateFromProps(props, state): Partial<State> {
-        return {
-            rememberedWidgetsForUndo: {
-                ...state.rememberedWidgetsForUndo,
-                ...props.widgets,
-            }
         }
     }
 
@@ -445,7 +446,7 @@ class Editor extends React.Component<Props, State> {
     ) => {
         const newValue = e.currentTarget.value;
         this.setState({textAreaValue: newValue});
-        const widgets = this.getWidgetsReferencedIn(newValue)
+        const widgets = this.getWidgetsReferencedIn(newValue);
         if (newValue !== this.props.content) {
             this.props.onChange({content: newValue, widgets});
         }
@@ -838,10 +839,10 @@ class Editor extends React.Component<Props, State> {
             // `rememberedWidgetsForUndo` will still have it.
             ...this.state.rememberedWidgetsForUndo,
             ...this.props.widgets,
-        }
-        const referencedWidgets: PerseusWidgetsMap = {}
+        };
+        const referencedWidgets: PerseusWidgetsMap = {};
         for (const id of referencedWidgetIds) {
-            referencedWidgets[id] = allWidgets[id]
+            referencedWidgets[id] = allWidgets[id];
         }
         return referencedWidgets;
     }
