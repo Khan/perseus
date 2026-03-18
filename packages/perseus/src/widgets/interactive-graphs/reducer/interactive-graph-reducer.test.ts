@@ -6,7 +6,6 @@ import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {
     CircleGraphState,
-    ExponentialGraphState,
     PointGraphState,
     InteractiveGraphState,
     PolygonGraphState,
@@ -1830,7 +1829,8 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
         const updated = interactiveGraphReducer(
             state,
             actions.exponential.moveCenter([-10, -2]),
-        ) as ExponentialGraphState;
+        );
+        invariant(updated.type === "exponential");
 
         // Assert — y=-2 is below both curve points (y=3 and y=6), so it's valid
         expect(updated.asymptote).toBe(-2);
@@ -1850,7 +1850,8 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
         const updated = interactiveGraphReducer(
             state,
             actions.exponential.moveCenter([0, 4]),
-        ) as ExponentialGraphState;
+        );
+        invariant(updated.type === "exponential");
 
         // Assert — y=4 < midpoint(4.5), so snaps to bottomMost - stepY = 3 - 1 = 2
         expect(updated.asymptote).toBe(2);
@@ -1864,7 +1865,8 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
         const updated = interactiveGraphReducer(
             state,
             actions.exponential.moveCenter([99, -2]),
-        ) as ExponentialGraphState;
+        );
+        invariant(updated.type === "exponential");
 
         // Assert — asymptote moves to y=-2 regardless of the x passed
         expect(updated.asymptote).toBe(-2);
