@@ -192,6 +192,7 @@ class SvgImage extends React.Component<Props, State> {
     gifContainerRef: React.RefObject<HTMLDivElement> =
         React.createRef<HTMLDivElement>();
     _canvasElement: HTMLCanvasElement | null = null;
+    _gifImgElement: HTMLImageElement | null = null;
 
     // GIF loop detection
     _gifLoopInterval: ReturnType<typeof setInterval> | null = null;
@@ -243,6 +244,7 @@ class SvgImage extends React.Component<Props, State> {
         if (this.props.src !== nextProps.src) {
             // Reset loading state when src changes
             this._isLoadingGraphie = false;
+            this._gifImgElement = null;
             this.setState({
                 imageLoaded: false,
                 dataLoaded: false,
@@ -282,7 +284,7 @@ class SvgImage extends React.Component<Props, State> {
 
         // When transitioning to paused, capture the current frame.
         if (this.props.isGifPaused && !prevProps.isGifPaused) {
-            this.captureGifFrame();
+            this.setGifFrame();
         }
 
         // When transitioning to playing, restart the GIF from the beginning
@@ -328,7 +330,7 @@ class SvgImage extends React.Component<Props, State> {
     setCanvasRef: (canvas: HTMLCanvasElement | null) => void = (canvas) => {
         this._canvasElement = canvas;
         if (canvas) {
-            this.captureGifFrame();
+            this.setGifFrame();
         }
     };
 
@@ -362,21 +364,28 @@ class SvgImage extends React.Component<Props, State> {
         }
     };
 
-    captureGifFrame: () => void = () => {
-        const container = this.gifContainerRef.current;
+    setGifFrame: () => void = () => {
         const canvas = this._canvasElement;
-        if (!container || !canvas) {
+        if (!canvas) {
             return;
         }
-        const img =
-            container.querySelector<HTMLImageElement>(".image-loader-img");
-        if (!img || img.naturalWidth === 0) {
-            return;
+
+        if (!this._gifImgElement) {
+            const container = this.gifContainerRef.current;
+            if (!container) {
+                return;
+            }
+            const img =
+                container.querySelector<HTMLImageElement>(".image-loader-img");
+            if (!img || img.naturalWidth === 0) {
+                return;
+            }
+            this._gifImgElement = img;
         }
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        ctx?.drawImage(img, 0, 0);
+
+        canvas.width = this._gifImgElement.naturalWidth;
+        canvas.height = this._gifImgElement.naturalHeight;
+        canvas.getContext("2d")?.drawImage(this._gifImgElement, 0, 0);
     };
 
     // Check if all of the resources are loaded in a given state
@@ -611,7 +620,7 @@ class SvgImage extends React.Component<Props, State> {
                           ...imageProps,
                           onLoad: () => {
                               if (this.props.isGifPaused) {
-                                  this.captureGifFrame();
+                                  this.setGifFrame();
                               }
                           },
                       }
