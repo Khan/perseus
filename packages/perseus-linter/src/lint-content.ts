@@ -28,8 +28,7 @@ export function lintPerseusItem(
 }
 
 /**
- * Lint a Perseus article, which may be a single renderer or an array of
- * renderer sections.
+ * Lint a Perseus article.
  *
  * @param parsedPerseusArticle - A parsed PerseusArticle, typically the output
  *   of `parseAndMigratePerseusArticle`.
