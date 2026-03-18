@@ -10,7 +10,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 /**
- * Lint a full Perseus exercise item, including the question and all hints.
+ * Lint a full Perseus item, including the question and all hints.
  *
  * @param parsedPerseusItem - A parsed PerseusItem, typically the output of
  *   `parseAndMigratePerseusItem`.
