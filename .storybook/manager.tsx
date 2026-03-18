@@ -18,8 +18,6 @@ addons.register("api-docs-link", () => {
         render: () => (
             <a
                 href="/api-docs/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
             >
                 API Docs
             </a>
