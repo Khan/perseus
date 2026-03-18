@@ -520,10 +520,7 @@ const exponentialRubric: PerseusInteractiveGraphRubric = {
             [0, 5],
             [1, 11],
         ],
-        asymptote: [
-            [-10, 3],
-            [10, 3],
-        ],
+        asymptote: 3,
     },
 };
 
@@ -573,10 +570,7 @@ describe("InteractiveGraph scoring on an exponential question", () => {
                 [0, 5],
                 [1, 11],
             ],
-            asymptote: [
-                [-10, 3],
-                [10, 3],
-            ],
+            asymptote: 3,
         };
 
         // Act
@@ -594,10 +588,7 @@ describe("InteractiveGraph scoring on an exponential question", () => {
                 [0, 4],
                 [1, 1],
             ],
-            asymptote: [
-                [-10, 0],
-                [10, 0],
-            ],
+            asymptote: 0,
         };
 
         // Act
@@ -615,10 +606,7 @@ describe("InteractiveGraph scoring on an exponential question", () => {
                 [1, 11],
                 [0, 5],
             ],
-            asymptote: [
-                [-10, 3],
-                [10, 3],
-            ],
+            asymptote: 3,
         };
 
         // Act
