@@ -1,5 +1,12 @@
-import {Errors, PerseusError, GrapherUtil} from "@khanacademy/perseus-core";
+import {coefficients, geometry} from "@khanacademy/kmath";
+import {
+    approximateDeepEqual,
+    Errors,
+    PerseusError,
+    GrapherUtil,
+} from "@khanacademy/perseus-core";
 
+import type {TangentCoefficient} from "@khanacademy/kmath";
 import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
@@ -16,12 +23,13 @@ function getCoefficientsByType(
     if (data.type === "exponential" || data.type === "logarithm") {
         const grader = GrapherUtil.functionForType(data.type);
         return grader.getCoefficients(data.coords, data.asymptote);
+    } else if (data.type === "tangent") {
+        return coefficients.getTangentCoefficients(data.coords);
     } else if (
         data.type === "linear" ||
         data.type === "quadratic" ||
         data.type === "absolute_value" ||
-        data.type === "sinusoid" ||
-        data.type === "tangent"
+        data.type === "sinusoid"
     ) {
         const grader = GrapherUtil.functionForType(data.type);
         return grader.getCoefficients(data.coords);
@@ -60,8 +68,6 @@ function scoreGrapher(
         };
     }
 
-    // Get new function handler for grading
-    const grader = GrapherUtil.functionForType(userInput.type);
     const guessCoeffs = getCoefficientsByType(userInput);
     const correctCoeffs = getCoefficientsByType(rubric.correct);
 
@@ -71,7 +77,25 @@ function scoreGrapher(
             message: null,
         };
     }
-    if (grader.areEqual(guessCoeffs, correctCoeffs)) {
+
+    // For tangent, use kmath's canonicalTangentCoefficients for comparison.
+    // For all other types, use the grader's areEqual from grapher-util.
+    const isEqual =
+        userInput.type === "tangent"
+            ? approximateDeepEqual(
+                  geometry.canonicalTangentCoefficients(
+                      guessCoeffs as TangentCoefficient,
+                  ),
+                  geometry.canonicalTangentCoefficients(
+                      correctCoeffs as TangentCoefficient,
+                  ),
+              )
+            : GrapherUtil.functionForType(userInput.type).areEqual(
+                  guessCoeffs,
+                  correctCoeffs,
+              );
+
+    if (isEqual) {
         return {
             type: "points",
             earned: 1,
