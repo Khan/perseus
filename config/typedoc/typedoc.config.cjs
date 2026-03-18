@@ -20,6 +20,7 @@ const config = {
     cleanOutputDir: true,
     githubPages: true,
     includeVersion: true,
+    plugin: ["typedoc-plugin-missing-exports"],
     packageOptions: {
         excludePrivate: true,
         excludeInternal: true,
