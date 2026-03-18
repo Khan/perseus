@@ -18,7 +18,7 @@ import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus-core";
 const {getClockwiseAngle} = angles;
 
 export function getStartCoords(graph: PerseusGraphType): StartCoords {
-    if ("startCoords" in graph) {
+    if ("startCoords" in graph && graph.type !== "exponential") {
         return graph.startCoords;
     }
     return undefined;
