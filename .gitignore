@@ -15,3 +15,6 @@ storybook-static
 # Local development files
 CLAUDE.local.md
 .claude/settings.local.json
+
+# Typedoc generated files (we build these when needed instead of checking them in)
+/docs/*
