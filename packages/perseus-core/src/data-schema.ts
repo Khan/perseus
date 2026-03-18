@@ -1235,12 +1235,13 @@ export type PerseusGraphTypeExponential = {
     type: "exponential";
     // Two points along the exponential curve.
     coords?: Coord[] | null;
-    // Two points defining the horizontal asymptote line.
-    asymptote?: [Coord, Coord] | null;
+    // The y-value of the horizontal asymptote (the line y = asymptote).
+    // Corresponds to the coefficient c in f(x) = a·eᵇˣ + c.
+    asymptote?: number | null;
     // The initial graph position before the learner interacts.
     // Packs both curve points and the asymptote together, matching the
     // circle pattern where startCoords holds the full start state.
-    startCoords?: {coords: [Coord, Coord]; asymptote: [Coord, Coord]};
+    startCoords?: {coords: [Coord, Coord]; asymptote: number};
 };
 
 export type PerseusGraphTypeAbsoluteValue = {
@@ -1320,7 +1321,7 @@ type SinusoidGraphCorrect = {
 type ExponentialGraphCorrect = {
     type: "exponential";
     coords: CollinearTuple;
-    asymptote: [Coord, Coord];
+    asymptote: number;
 };
 
 type TangentGraphCorrect = {

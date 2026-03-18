@@ -123,7 +123,8 @@ export interface SinusoidGraphState extends InteractiveGraphStateCommon {
 export interface ExponentialGraphState extends InteractiveGraphStateCommon {
     type: "exponential";
     coords: [vec.Vector2, vec.Vector2];
-    asymptote: [vec.Vector2, vec.Vector2];
+    /** The y-value of the horizontal asymptote (y = asymptote). */
+    asymptote: number;
 }
 
 export interface AbsoluteValueGraphState extends InteractiveGraphStateCommon {
