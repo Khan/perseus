@@ -11,27 +11,28 @@ import styles from "../image-widget.module.css";
 import {isGif, isSvg} from "../utils";
 
 import {GifControlsButton} from "./gif-controls-button";
-
-import type {ImageInfoAreaProps} from "./image-info-area";
+import {useImageWidgetContext} from "./image-widget-context";
 
 const MODAL_HEIGHT = 568;
 
-export default function ExploreImageModalContent({
-    backgroundImage,
-    scale: contentScale,
-    caption,
-    alt,
-    longDescription,
-    linterContext,
-    apiOptions,
-    box,
-    labels,
-    range,
-    zoomSize,
-    isGifPlaying,
-    setIsGifPlaying,
-}: ImageInfoAreaProps) {
+export default function ExploreImageModalContent() {
     const context = React.useContext(PerseusI18nContext);
+
+    const {
+        backgroundImage,
+        scale: contentScale,
+        caption,
+        alt,
+        longDescription,
+        linterContext,
+        apiOptions,
+        box,
+        labels,
+        range,
+        zoomSize,
+        isGifPlaying,
+        setIsGifPlaying,
+    } = useImageWidgetContext();
 
     if (!backgroundImage.url) {
         return null;

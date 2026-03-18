@@ -10,6 +10,7 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 
 import {ImageInfoArea} from "./components/image-info-area";
+import {ImageWidgetContext} from "./components/image-widget-context";
 import styles from "./image-widget.module.css";
 import {isGif} from "./utils";
 
@@ -166,42 +167,48 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     }
 
     return (
-        <figure
-            className="perseus-image-widget"
-            style={{
-                // Set the max width of the image container to the
-                // width saved inside `backgroundImage` - this is the
-                // width intended to be used when rendering the image
-                // within the content item.
-                maxWidth: maxWidth,
+        <ImageWidgetContext.Provider
+            value={{
+                ...props,
+                zoomSize,
+                isGifPlaying,
+                setIsGifPlaying,
             }}
         >
-            {/* Title */}
-            {title && (
-                <div className={`perseus-image-title ${styles.titleContainer}`}>
-                    {/* The Renderer component is used here so that the title
+            <figure
+                className="perseus-image-widget"
+                style={{
+                    // Set the max width of the image container to the
+                    // width saved inside `backgroundImage` - this is the
+                    // width intended to be used when rendering the image
+                    // within the content item.
+                    maxWidth: maxWidth,
+                }}
+            >
+                {/* Title */}
+                {title && (
+                    <div
+                        className={`perseus-image-title ${styles.titleContainer}`}
+                    >
+                        {/* The Renderer component is used here so that the title
                         can support Markdown and TeX. */}
-                    <Renderer
-                        content={title}
-                        apiOptions={apiOptions}
-                        linterContext={linterContext}
-                        strings={context.strings}
-                    />
-                </div>
-            )}
+                        <Renderer
+                            content={title}
+                            apiOptions={apiOptions}
+                            linterContext={linterContext}
+                            strings={context.strings}
+                        />
+                    </div>
+                )}
 
-            {/* Image */}
-            {svgImage}
+                {/* Image */}
+                {svgImage}
 
-            {/* Description & Caption */}
-            {((gifControlsFF && imageIsGif) || caption || longDescription) && (
-                <ImageInfoArea
-                    zoomSize={zoomSize}
-                    isGifPlaying={isGifPlaying}
-                    setIsGifPlaying={setIsGifPlaying}
-                    {...props}
-                />
-            )}
-        </figure>
+                {/* Description & Caption */}
+                {((gifControlsFF && imageIsGif) ||
+                    caption ||
+                    longDescription) && <ImageInfoArea />}
+            </figure>
+        </ImageWidgetContext.Provider>
     );
 };

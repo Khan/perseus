@@ -7,13 +7,17 @@ import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
 
 import ExploreImageModalContent from "./explore-image-modal-content";
+import {useImageWidgetContext} from "./image-widget-context";
 
-import type {ImageInfoAreaProps} from "./image-info-area";
-
-export const ExploreImageModal = (props: ImageInfoAreaProps) => {
+export const ExploreImageModal = () => {
     const context = React.useContext(PerseusI18nContext);
+    const {
+        title: titleProp,
+        apiOptions,
+        linterContext,
+    } = useImageWidgetContext();
 
-    const titleText = props.title || context.strings.imageAlternativeTitle;
+    const titleText = titleProp || context.strings.imageAlternativeTitle;
     const title = (
         <h1
             className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
@@ -21,8 +25,8 @@ export const ExploreImageModal = (props: ImageInfoAreaProps) => {
             {/* Use Renderer so that the title can support markdown and TeX. */}
             <Renderer
                 content={titleText}
-                apiOptions={props.apiOptions}
-                linterContext={props.linterContext}
+                apiOptions={apiOptions}
+                linterContext={linterContext}
                 strings={context.strings}
             />
         </h1>
@@ -37,7 +41,7 @@ export const ExploreImageModal = (props: ImageInfoAreaProps) => {
         >
             <FlexibleDialog
                 title={title}
-                content={<ExploreImageModalContent {...props} />}
+                content={<ExploreImageModalContent />}
                 styles={{
                     root: wbStyles.root,
                 }}

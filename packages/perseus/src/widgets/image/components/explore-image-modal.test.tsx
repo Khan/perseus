@@ -14,15 +14,19 @@ import {
 import {earthMoonImage, gifImage} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
+import {ImageWidgetContext} from "./image-widget-context";
 
+import type {ImageWidgetContextType} from "./image-widget-context";
 import type {Interval, Size} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-function renderModal(props: React.ComponentProps<typeof ExploreImageModal>) {
+function renderModal(props: ImageWidgetContextType) {
     return render(
-        <DependenciesContext.Provider value={testDependenciesV2}>
-            <ExploreImageModal {...props} />
-        </DependenciesContext.Provider>,
+        <ImageWidgetContext.Provider value={props}>
+            <DependenciesContext.Provider value={testDependenciesV2}>
+                <ExploreImageModal />
+            </DependenciesContext.Provider>
+        </ImageWidgetContext.Provider>,
     );
 }
 

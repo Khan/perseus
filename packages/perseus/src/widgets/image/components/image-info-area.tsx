@@ -1,10 +1,4 @@
-import {
-    isFeatureOn,
-    type Interval,
-    type PerseusImageBackground,
-    type PerseusImageLabel,
-    type Size,
-} from "@khanacademy/perseus-core";
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import * as React from "react";
 
@@ -16,41 +10,14 @@ import {isGif} from "../utils";
 import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
 import {GifControlsIcon} from "./gif-controls-icon";
-
-import type {APIOptions} from "../../../types";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
-
-export interface ImageInfoAreaProps {
-    backgroundImage: PerseusImageBackground;
-    scale: number;
-    title: string;
-    caption: string;
-    alt: string;
-    longDescription: string;
-    box: Size;
-    labels: Array<PerseusImageLabel>;
-    range: [Interval, Interval];
-    linterContext: LinterContextProps;
-    apiOptions: APIOptions;
-    /**
-     * zoomSize represents the larger of the image’s natural size (calculated on load)
-     * and the saved backgroundImage size (specified when the content is written). This
-     * ensures that zooming is enabled only if the image is sufficiently large.
-     * image (calculated on load) and the saved backgroundImage size (specified
-     * when the content is written). This larger image size is used to
-     * determine if the image is large enough to allow zooming.
-     */
-    zoomSize: Size;
-    isGifPlaying: boolean;
-    setIsGifPlaying: (isPaused: boolean) => void;
-}
+import {useImageWidgetContext} from "./image-widget-context";
 
 /**
  * The ImageInfoArea component includes the GIF controls, description modal
  * launcher, and caption for the image. This is displayed underneath the image
  * in the Image widget.
  */
-export const ImageInfoArea = (props: ImageInfoAreaProps) => {
+export const ImageInfoArea = () => {
     const {
         backgroundImage,
         caption,
@@ -60,7 +27,7 @@ export const ImageInfoArea = (props: ImageInfoAreaProps) => {
         zoomSize,
         isGifPlaying,
         setIsGifPlaying,
-    } = props;
+    } = useImageWidgetContext();
 
     const [zoomWidth, _] = zoomSize;
 
@@ -96,7 +63,7 @@ export const ImageInfoArea = (props: ImageInfoAreaProps) => {
 
             {/* Description */}
             {longDescription && (
-                <ModalLauncher modal={<ExploreImageModal {...props} />}>
+                <ModalLauncher modal={<ExploreImageModal />}>
                     {({openModal}) => (
                         <ExploreImageButton
                             hasCaption={!!caption}
