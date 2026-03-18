@@ -24,6 +24,32 @@ function isImageProbablyPhotograph(imageUrl) {
     return /\.(jpg|jpeg)$/i.test(imageUrl);
 }
 
+/**
+ * Fetches a GIF and parses its binary data to compute the total duration of
+ * one animation loop by summing the delay values from each frame's Graphic
+ * Control Extension block.
+ */
+async function getGifLoopDuration(src: string): Promise<number> {
+    const res = await fetch(src);
+    const buffer = await res.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+    let totalMs = 0;
+    for (let i = 0; i < bytes.length - 7; i++) {
+        // Graphic Control Extension marker: 0x21 0xF9 0x04
+        if (
+            bytes[i] === 0x21 &&
+            bytes[i + 1] === 0xf9 &&
+            bytes[i + 2] === 0x04
+        ) {
+            // Delay is stored as a little-endian uint16 at bytes i+4 and i+5,
+            // in units of 1/100th of a second (centiseconds).
+            const delay = (bytes[i + 4] | (bytes[i + 5] << 8)) * 10;
+            totalMs += delay;
+        }
+    }
+    return totalMs;
+}
+
 function defaultPreloader(dimensions: Dimensions) {
     return (
         <span
@@ -108,6 +134,12 @@ type Props = {
      * - `true`: GIF is paused — canvas overlay is shown
      */
     isGifPaused?: boolean;
+    /**
+     * Called each time the GIF completes one full animation loop.
+     * Loop duration is determined by fetching the GIF and summing the
+     * per-frame delays from its Graphic Control Extension blocks.
+     */
+    onGifLoop?: () => void;
 };
 
 type DefaultProps = {
@@ -161,6 +193,10 @@ class SvgImage extends React.Component<Props, State> {
         React.createRef<HTMLDivElement>();
     _canvasElement: HTMLCanvasElement | null = null;
 
+    // GIF loop detection
+    _gifLoopInterval: ReturnType<typeof setInterval> | null = null;
+    _gifLoopDurationMs: number | null = null;
+
     static defaultProps: DefaultProps = {
         constrainHeight: false,
         onUpdate: () => {},
@@ -196,6 +232,10 @@ class SvgImage extends React.Component<Props, State> {
 
         if (Util.isLabeledSVG(this.props.src)) {
             this.loadResources();
+        }
+
+        if (this.props.onGifLoop) {
+            this._loadGifLoopDuration();
         }
     }
 
@@ -259,10 +299,27 @@ class SvgImage extends React.Component<Props, State> {
                 img.src = src;
             }
         }
+
+        // When src changes, re-fetch the loop duration for the new GIF.
+        if (prevProps.src !== this.props.src && this.props.onGifLoop) {
+            this._stopGifLoopDetection();
+            this._gifLoopDurationMs = null;
+            this._loadGifLoopDuration();
+        }
+
+        // Sync the loop interval with play/pause state.
+        if (prevProps.isGifPaused !== this.props.isGifPaused) {
+            if (this.props.isGifPaused) {
+                this._stopGifLoopDetection();
+            } else if (this._gifLoopDurationMs !== null) {
+                this._startGifLoopDetection();
+            }
+        }
     }
 
     componentWillUnmount() {
         this._isMounted = false;
+        this._stopGifLoopDetection();
     }
 
     // Callback ref for the canvas overlay element. Draws the current GIF
@@ -272,6 +329,36 @@ class SvgImage extends React.Component<Props, State> {
         this._canvasElement = canvas;
         if (canvas) {
             this.captureGifFrame();
+        }
+    };
+
+    _loadGifLoopDuration: () => void = () => {
+        getGifLoopDuration(this.props.src).then((duration) => {
+            if (!this._isMounted) {
+                return;
+            }
+            this._gifLoopDurationMs = duration;
+            if (this.props.isGifPaused !== true) {
+                this._startGifLoopDetection();
+            }
+        });
+    };
+
+    _startGifLoopDetection: () => void = () => {
+        if (!this.props.onGifLoop || this._gifLoopDurationMs === null) {
+            return;
+        }
+        this._stopGifLoopDetection();
+        this._gifLoopInterval = setInterval(
+            this.props.onGifLoop,
+            this._gifLoopDurationMs,
+        );
+    };
+
+    _stopGifLoopDetection: () => void = () => {
+        if (this._gifLoopInterval !== null) {
+            clearInterval(this._gifLoopInterval);
+            this._gifLoopInterval = null;
         }
     };
 

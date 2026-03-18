@@ -28,6 +28,13 @@ export const mockImageLoading = (options?: {
         global.fetch = jest.fn((url) => {
             return Promise.resolve({
                 text: () => Promise.resolve(""),
+                // Minimal GCE block (100 ms loop) for getGifLoopDuration in svg-image.tsx
+                arrayBuffer: () =>
+                    Promise.resolve(
+                        new Uint8Array([
+                            0x21, 0xf9, 0x04, 0x00, 0x0a, 0x00, 0x00, 0x00,
+                        ]).buffer,
+                    ),
                 ok: true,
             });
         }) as jest.Mock;
