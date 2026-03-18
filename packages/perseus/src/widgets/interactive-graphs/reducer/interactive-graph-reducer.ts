@@ -743,7 +743,10 @@ function doMoveCenter(
                 const bottomMost = Math.min(coords[0][Y], coords[1][Y]);
                 const midpoint = (topMost + bottomMost) / 2;
 
-                newY =fety: asymptote must not land exactly on either point
+                newY = newY >= midpoint ? topMost + stepY : bottomMost - stepY;
+            }
+
+            // Final safety: asymptote must not land exactly on either point
             if (newY === coords[0][Y] || newY === coords[1][Y]) {
                 return state;
             }
