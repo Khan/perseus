@@ -4,43 +4,20 @@ import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import FixedToResponsive from "./fixed-to-responsive";
 import {usePerseusI18n} from "./i18n-context";
+import SvgImage from "./svg-image";
 import styles from "./zoomed-image-view.module.css";
 
-// 32px on each side of the modal panel
-const WB_MODAL_PADDING_TOTAL = 64;
+import type {Props as SvgImageProps} from "./svg-image";
 
-type Props = {
-    imgElement: React.ReactNode;
-    width: number;
-    height: number;
+interface Props extends SvgImageProps {
     onClose: () => void;
-};
+}
 
-export const ZoomedImageView = ({
-    imgElement,
-    width,
-    height,
-    onClose,
-}: Props) => {
+export const ZoomedImageView = (props: Props) => {
     const i18n = usePerseusI18n();
 
-    // Calculate the maximum available space (account for the modal panel padding).
-    const maxWidth = window.innerWidth - WB_MODAL_PADDING_TOTAL;
-    const maxHeight = window.innerHeight - WB_MODAL_PADDING_TOTAL;
-
-    // Figure out the scale for the width and height, and use it to determine
-    // which dimension to use for the final size.
-    const scaleWidth = maxWidth / width;
-    const scaleHeight = maxHeight / height;
-    // Choose the smaller of the two so that the image fits inside
-    // the window - no scrolling.
-    const scale = Math.min(scaleWidth, scaleHeight, 1);
-
-    // Calculate the final dimensions, constraine by the window size.
-    const constrainedWidth = width * scale;
-    const constrainedHeight = height * scale;
+    const {onClose, ...svgProps} = props;
 
     return (
         <ModalDialog
@@ -69,13 +46,12 @@ export const ZoomedImageView = ({
                                     // labels may not be in the correct positions.
                                     className="framework-perseus"
                                 >
-                                    <FixedToResponsive
-                                        className="svg-image"
-                                        width={constrainedWidth}
-                                        height={constrainedHeight}
-                                    >
-                                        {imgElement}
-                                    </FixedToResponsive>
+                                    <SvgImage
+                                        {...svgProps}
+                                        // Don't allow zooming inside the
+                                        // zoom view.
+                                        allowZoom={false}
+                                    />
                                 </div>
                             )}
                         </Clickable>
