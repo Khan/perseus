@@ -247,7 +247,6 @@ export const shouldShowStartCoordsUI = (
         case "segment":
         case "sinusoid":
         case "absolute-value":
-        case "exponential":
             return true;
         default:
             throw new UnreachableCaseError(graph);
