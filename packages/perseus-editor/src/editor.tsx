@@ -192,6 +192,7 @@ class Editor extends React.Component<Props, State> {
 
     static getDerivedStateFromProps(props, state): Partial<State> {
         return {
+            textAreaValue: props.content,
             rememberedWidgetsForUndo: {
                 ...state.rememberedWidgetsForUndo,
                 ...props.widgets,
@@ -217,14 +218,6 @@ class Editor extends React.Component<Props, State> {
             .on("copy cut", this._maybeCopyWidgets)
             // @ts-expect-error - TS2769 - No overload matches this call.
             .on("paste", this._maybePasteWidgets);
-    }
-
-    // TODO(arun): This is a deprecated method, use the appropriate replacement
-    // eslint-disable-next-line react/no-unsafe
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (this.props.content !== nextProps.content) {
-            this.setState({textAreaValue: nextProps.content});
-        }
     }
 
     componentDidUpdate(prevProps: Props) {
