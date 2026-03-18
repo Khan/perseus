@@ -1575,6 +1575,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                   style="width: 400px; height: 400px;"
                 >
                   <span
+                    data-testid="loading-spinner"
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
@@ -2027,6 +2028,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                   style="width: 425px; height: 425px;"
                 >
                   <span
+                    data-testid="loading-spinner"
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
@@ -2279,6 +2281,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                   style="width: 425px; height: 425px;"
                 >
                   <span
+                    data-testid="loading-spinner"
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
@@ -2941,6 +2944,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="width: 400px; height: 400px;"
                 >
                   <span
+                    data-testid="loading-spinner"
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
@@ -3393,6 +3397,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="width: 425px; height: 425px;"
                 >
                   <span
+                    data-testid="loading-spinner"
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
@@ -3760,6 +3765,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="width: 425px; height: 425px;"
                 >
                   <span
+                    data-testid="loading-spinner"
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
