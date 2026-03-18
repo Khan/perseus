@@ -116,33 +116,39 @@ type WidgetState = {
 };
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
+    content: PerseusRenderer["content"];
+    widgets: PerseusRenderer["widgets"];
+    images: PerseusRenderer["images"];
+
+    apiOptions?: APIOptions;
     userInput?: UserInputMap;
+
     handleUserInput?: HandleUserInputCallback;
     initializeUserInput?: InitializeUserInputCallback;
-    apiOptions?: APIOptions;
+
     alwaysUpdate?: boolean;
-    findExternalWidgets: any;
-    images: PerseusRenderer["images"];
+    findExternalWidgets: (criterion: FilterCriterion) => any;
     keypadElement?: KeypadAPI | null;
     onRender: (node?: any) => void;
     problemNum?: number;
     reviewMode?: boolean | null | undefined;
     highlightEmptyWidgets?: boolean;
+
     /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
      * "none", solutions will not be shown-- equivalent to `undefined`.
      */
     showSolutions?: ShowSolutions;
-    content: PerseusRenderer["content"];
 
     /**
      * If linterContext.highlightLint is true, then content will be passed to
      * the linter and any warnings will be highlighted in the rendered output.
      */
     linterContext: LinterContextProps;
+
     legacyPerseusLint?: ReadonlyArray<string>;
-    widgets: PerseusRenderer["widgets"];
+
     /**
      *  Skip adding paragraph class
      */
