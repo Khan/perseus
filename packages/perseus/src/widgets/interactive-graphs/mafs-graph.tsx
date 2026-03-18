@@ -35,6 +35,7 @@ import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {SvgDefs} from "./graphs/components/text-label";
+import {renderExponentialGraph} from "./graphs/exponential";
 import {renderLinearGraph} from "./graphs/linear";
 import {renderLinearSystemGraph} from "./graphs/linear-system";
 import {renderPointGraph} from "./graphs/point";
@@ -42,7 +43,6 @@ import {renderPolygonGraph} from "./graphs/polygon";
 import {renderQuadraticGraph} from "./graphs/quadratic";
 import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
-import {renderExponentialGraph} from "./graphs/exponential";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
 import {renderTangentGraph} from "./graphs/tangent";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
@@ -777,8 +777,6 @@ const renderGraphElements = (props: {
             return renderAbsoluteValueGraph(state, dispatch, i18n);
         case "tangent":
             return renderTangentGraph(state, dispatch, i18n);
-        case "exponential":
-            throw new Error("Not implemented: exponential graph type");
         default:
             throw new UnreachableCaseError(type);
     }
