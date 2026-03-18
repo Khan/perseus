@@ -414,3 +414,5 @@ function scoreInteractiveGraph(
         message: null,
     };
 }
+
+export default scoreInteractiveGraph;
