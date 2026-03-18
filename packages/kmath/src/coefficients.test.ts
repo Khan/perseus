@@ -8,10 +8,7 @@ describe("getExponentialCoefficients", () => {
                 [0, 5],
                 [1, 11],
             ],
-            [
-                [-10, 3],
-                [10, 3],
-            ],
+            3,
         );
 
         // ratio = (5-3)/(11-3) = 0.25, denom = -1 → b = ln(0.25)/-1 = ln(4)
@@ -27,10 +24,7 @@ describe("getExponentialCoefficients", () => {
                 [0, 4],
                 [1, 1],
             ],
-            [
-                [-10, 0],
-                [10, 0],
-            ],
+            0,
         );
 
         // ratio = (4-0)/(1-0) = 4, denom = -1 → b = ln(4)/-1 = -ln(4)
@@ -46,10 +40,7 @@ describe("getExponentialCoefficients", () => {
                 [0, -3],
                 [1, -6],
             ],
-            [
-                [-10, 0],
-                [10, 0],
-            ],
+            0,
         );
 
         // ratio = (-3-0)/(-6-0) = 0.5, denom = -1 → b = ln(0.5)/-1 = ln(2)
@@ -65,10 +56,7 @@ describe("getExponentialCoefficients", () => {
                     [2, 3],
                     [2, 7],
                 ],
-                [
-                    [-10, 0],
-                    [10, 0],
-                ],
+                0,
             ),
         ).toBeUndefined();
     });
@@ -80,10 +68,7 @@ describe("getExponentialCoefficients", () => {
                     [0, 0], // y === asymptote y
                     [1, 4],
                 ],
-                [
-                    [-10, 0],
-                    [10, 0],
-                ],
+                0,
             ),
         ).toBeUndefined();
     });
@@ -95,10 +80,7 @@ describe("getExponentialCoefficients", () => {
                     [0, 2],
                     [1, -1],
                 ],
-                [
-                    [-10, 0],
-                    [10, 0],
-                ],
+                0,
             ),
         ).toBeUndefined();
     });

@@ -39,11 +39,11 @@ export type ExponentialCoefficient = {
  */
 export function getExponentialCoefficients(
     coords: ReadonlyArray<Coord>,
-    asymptote: ReadonlyArray<Coord>,
+    asymptote: number,
 ): ExponentialCoefficient | undefined {
     const p1 = coords[0];
     const p2 = coords[1];
-    const c = asymptote[0][1];
+    const c = asymptote;
 
     if (p1[0] === p2[0]) {
         return;
