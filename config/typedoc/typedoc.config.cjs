@@ -19,10 +19,11 @@ const config = {
     out: "docs",
     cleanOutputDir: true,
     githubPages: true,
-    theme: "perseus",
+    includeVersion: true,
     packageOptions: {
         excludePrivate: true,
         excludeInternal: true,
+        excludeProtected: true,
         readme: "README.md",
         entryPoints: ["./src/index.ts"],
     },
