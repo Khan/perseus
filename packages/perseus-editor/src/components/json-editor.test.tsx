@@ -1,3 +1,4 @@
+import {parseAndMigratePerseusItem} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -17,14 +18,17 @@ describe("JsonEditor", () => {
     it("should render with initial value", () => {
         // Arrange
         const initialValue = {
-            content: "Test content",
-            widgets: {},
+            question: {
+                content: "Test content",
+                widgets: {},
+            },
         };
 
         // Act
         render(
             <JsonEditor
                 multiLine={true}
+                parser={parseAndMigratePerseusItem}
                 value={initialValue}
                 onChange={() => {}}
                 editingDisabled={false}
@@ -38,19 +42,24 @@ describe("JsonEditor", () => {
     it("should update when value prop changes", () => {
         // Arrange
         const initialValue = {
-            content: "Initial content",
-            widgets: {},
+            question: {
+                content: "Test content",
+                widgets: {},
+            },
         };
 
         const updatedValue = {
-            content: "Updated content",
-            widgets: {},
+            question: {
+                content: "Updated content",
+                widgets: {},
+            },
         };
 
         const {rerender} = render(
             <JsonEditor
                 multiLine={true}
                 value={initialValue}
+                parser={parseAndMigratePerseusItem}
                 onChange={() => {}}
                 editingDisabled={false}
             />,
@@ -61,6 +70,7 @@ describe("JsonEditor", () => {
             <JsonEditor
                 multiLine={true}
                 value={updatedValue}
+                parser={parseAndMigratePerseusItem}
                 onChange={() => {}}
                 editingDisabled={false}
             />,
@@ -76,12 +86,13 @@ describe("JsonEditor", () => {
     it("should call onChange when valid JSON is entered", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        const initialValue = {content: "test"};
+        const initialValue = {question: {content: "test"}};
 
         render(
             <JsonEditor
                 multiLine={true}
                 value={initialValue}
+                parser={parseAndMigratePerseusItem}
                 onChange={onChangeMock}
                 editingDisabled={false}
             />,
@@ -92,21 +103,58 @@ describe("JsonEditor", () => {
         // Act
         await userEvent.clear(textarea);
         textarea.focus();
-        await userEvent.paste('{"content": "new content"}');
+        await userEvent.paste('{"question": {"content": "new content"}}');
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({content: "new content"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                question: {content: "new content", images: {}, widgets: {}},
+            }),
+        );
     });
 
-    it("should not call onChange for invalid JSON", async () => {
+    it("should call onChange when a quoted string containing valid JSON is entered", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        const initialValue = {content: "test"};
+        const initialValue = {question: {content: "test"}};
 
         render(
             <JsonEditor
                 multiLine={true}
                 value={initialValue}
+                parser={parseAndMigratePerseusItem}
+                onChange={onChangeMock}
+                editingDisabled={false}
+            />,
+        );
+
+        const textarea = screen.getByRole("textbox");
+
+        // Act
+        await userEvent.clear(textarea);
+        textarea.focus();
+        await userEvent.paste(
+            '"{\\"question\\": {\\"content\\": \\"new content\\"}}"',
+        );
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                question: {content: "new content", images: {}, widgets: {}},
+            }),
+        );
+    });
+
+    it("should not call onChange for malformed JSON", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        const initialValue = {question: {content: "test"}};
+
+        render(
+            <JsonEditor
+                multiLine={true}
+                value={initialValue}
+                parser={parseAndMigratePerseusItem}
                 onChange={onChangeMock}
                 editingDisabled={false}
             />,
@@ -123,15 +171,42 @@ describe("JsonEditor", () => {
         expect(onChangeMock).not.toHaveBeenCalled();
     });
 
+    it("should not call onChange for well-formed JSON that fails the given parser", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        const initialValue = {question: {content: "test"}};
+
+        render(
+            <JsonEditor
+                multiLine={true}
+                value={initialValue}
+                parser={parseAndMigratePerseusItem}
+                onChange={onChangeMock}
+                editingDisabled={false}
+            />,
+        );
+
+        const textarea = screen.getByRole("textbox");
+
+        // Act: paste JSON where 'content' has the wrong type
+        await userEvent.clear(textarea);
+        textarea.focus();
+        await userEvent.paste('{"question": {"content": 999}}');
+
+        // Assert
+        expect(onChangeMock).not.toHaveBeenCalled();
+    });
+
     it("should be disabled when editingDisabled is true", () => {
         // Arrange
-        const initialValue = {content: "test"};
+        const initialValue = {question: {content: "test"}};
 
         // Act
         render(
             <JsonEditor
                 multiLine={true}
                 value={initialValue}
+                parser={parseAndMigratePerseusItem}
                 onChange={() => {}}
                 editingDisabled={true}
             />,
@@ -143,13 +218,14 @@ describe("JsonEditor", () => {
 
     it("should replace valid user input when parent updates value", async () => {
         // Arrange
-        const initialValue = {content: "Initial"};
-        const updatedValue = {content: "Updated from parent"};
+        const initialValue = {question: {content: "Initial"}};
+        const updatedValue = {question: {content: "Updated from parent"}};
 
         const {rerender} = render(
             <JsonEditor
                 multiLine={true}
                 value={initialValue}
+                parser={parseAndMigratePerseusItem}
                 onChange={() => {}}
                 editingDisabled={false}
             />,
@@ -160,12 +236,13 @@ describe("JsonEditor", () => {
         // Act
         await userEvent.clear(textarea);
         textarea.focus();
-        await userEvent.paste('{"content": "Valid user input"}');
+        await userEvent.paste('{"question": {"content": "Valid user input"}}');
 
         rerender(
             <JsonEditor
                 multiLine={true}
                 value={updatedValue}
+                parser={parseAndMigratePerseusItem}
                 onChange={() => {}}
                 editingDisabled={false}
             />,
@@ -177,13 +254,14 @@ describe("JsonEditor", () => {
 
     it("should replace invalid user input when parent updates value", async () => {
         // Arrange
-        const initialValue = {content: "Initial"};
-        const updatedValue = {content: "Updated from parent"};
+        const initialValue = {question: {content: "Initial"}};
+        const updatedValue = {question: {content: "Updated from parent"}};
 
         const {rerender} = render(
             <JsonEditor
                 multiLine={true}
                 value={initialValue}
+                parser={parseAndMigratePerseusItem}
                 onChange={() => {}}
                 editingDisabled={false}
             />,
@@ -194,12 +272,13 @@ describe("JsonEditor", () => {
         // Act
         await userEvent.clear(textarea);
         textarea.focus();
-        await userEvent.paste('{"content": "User is typing');
+        await userEvent.paste('{"question": {"content": "User is typing');
 
         rerender(
             <JsonEditor
                 multiLine={true}
                 value={updatedValue}
+                parser={parseAndMigratePerseusItem}
                 onChange={() => {}}
                 editingDisabled={false}
             />,

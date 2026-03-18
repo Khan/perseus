@@ -1,29 +1,43 @@
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import * as Dependencies from "../../../dependencies";
+import {DependenciesContext} from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {mockImageLoading} from "../../../testing/image-loader-utils";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../testing/test-dependencies";
 import {earthMoonImage, gifImage} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
-import type {
-    Interval,
-    PerseusImageBackground,
-    Size,
-} from "@khanacademy/perseus-core";
+import type {Interval, Size} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+function renderModal(props: React.ComponentProps<typeof ExploreImageModal>) {
+    return render(
+        <DependenciesContext.Provider value={testDependenciesV2}>
+            <ExploreImageModal {...props} />
+        </DependenciesContext.Provider>,
+    );
+}
 
 const defaultProps = {
     backgroundImage: {},
     title: "",
     caption: "",
-    alt: "",
-    longDescription: "",
-    zoomSize: [0, 0] satisfies Size,
+    // Images should have alt text, and need alt text to be detectable
+    // by the testing library.
+    alt: "widget alt text",
+    // Explore image modal is only showing up because there is
+    // a long description.
+    longDescription: "widget long description",
+    // Zoom size would not be 0 for a legitimate image
+    zoomSize: [100, 100] satisfies Size,
     box: [400, 400] satisfies Size,
     labels: [],
     range: [
@@ -50,6 +64,8 @@ const apiOptionsWithGifControls = {
 
 describe("ExploreImageModal", () => {
     let userEvent: UserEvent;
+    let unmockImageLoading: () => void;
+
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -57,72 +73,107 @@ describe("ExploreImageModal", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        unmockImageLoading = mockImageLoading();
+    });
+
+    afterEach(() => {
+        unmockImageLoading();
     });
 
     it("should render the modal", () => {
         // Arrange
 
         // act
-        render(<ExploreImageModal {...defaultProps} />);
+        renderModal(defaultProps);
 
         // Assert
         expect(screen.getByRole("dialog")).toBeInTheDocument();
     });
 
-    it.each([
-        {
-            case: "background image URL",
+    it("should have null content if there is no background image URL", () => {
+        // Arrange
+        const props = {
+            ...defaultProps,
             backgroundImage: {
                 url: undefined,
                 width: 100,
                 height: 100,
             },
-        },
-        {
-            case: "background image height",
+        };
+
+        // Act
+        renderModal(props);
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        const title = screen.getByRole("heading", {level: 1});
+
+        // Assert
+        expect(title).toBeInTheDocument();
+        expect(title).toHaveTextContent("Explore image and description");
+        expect(screen.queryByRole("img")).not.toBeInTheDocument();
+        expect(screen.queryByText("Description")).not.toBeInTheDocument();
+    });
+
+    it("should still render the modal content if the width is not provided", () => {
+        // Arrange
+        const props = {
+            ...defaultProps,
             backgroundImage: {
-                url: "image.png",
-                width: 100,
-                height: undefined,
-            },
-        },
-        {
-            case: "background image width",
-            backgroundImage: {
-                url: "image.png",
+                url: earthMoonImage.url,
                 width: undefined,
                 height: 100,
             },
-        },
-    ] satisfies Array<{
-        case: string;
-        backgroundImage: PerseusImageBackground;
-    }>)(
-        "should have null content if there is no $case",
-        ({backgroundImage}) => {
-            // Arrange
-            const props = {
-                ...defaultProps,
-                backgroundImage,
-            };
+        };
 
-            // Act
-            render(<ExploreImageModal {...props} />);
-            const title = screen.getByRole("heading", {level: 1});
+        // Act
+        renderModal(props);
+        act(() => {
+            jest.runAllTimers();
+        });
 
-            // Assert
-            expect(title).toBeInTheDocument();
-            expect(title).toHaveTextContent("Explore image and description");
-            expect(screen.queryByRole("img")).not.toBeInTheDocument();
-            expect(screen.queryByText("Description")).not.toBeInTheDocument();
-        },
-    );
+        // Assert
+        const image = screen.getByRole("img");
+        expect(image).toBeVisible();
+        expect(screen.getByText("Description")).toBeInTheDocument();
+        // Make sure image size is not 0
+        expect(image).not.toHaveStyle("width: 0px");
+        expect(image).not.toHaveStyle("height: 0px");
+    });
+
+    it("should still render the modal content if the height is not provided", () => {
+        // Arrange
+        const props = {
+            ...defaultProps,
+            backgroundImage: {
+                url: earthMoonImage.url,
+                width: 100,
+                height: undefined,
+            },
+        };
+
+        // Act
+        renderModal(props);
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        // Assert
+        const image = screen.getByRole("img");
+        expect(image).toBeVisible();
+        expect(screen.getByText("Description")).toBeInTheDocument();
+        // Make sure image size is not 0
+        expect(image).not.toHaveStyle("width: 0px");
+        expect(image).not.toHaveStyle("height: 0px");
+    });
 
     it("renders the default title when no title is provided", () => {
         // Arrange
 
         // Act
-        render(<ExploreImageModal {...defaultProps} />);
+        renderModal(defaultProps);
 
         // Assert
         const title = screen.getByRole("heading", {level: 1});
@@ -134,7 +185,7 @@ describe("ExploreImageModal", () => {
         // Arrange
 
         // Act
-        render(<ExploreImageModal {...defaultProps} title="widget title" />);
+        renderModal({...defaultProps, title: "widget title"});
 
         // Assert
         const title = screen.getByRole("heading", {level: 1});
@@ -146,13 +197,11 @@ describe("ExploreImageModal", () => {
         // Arrange
 
         // Act
-        render(
-            <ExploreImageModal
-                {...defaultProps}
-                backgroundImage={earthMoonImage}
-                caption="widget caption"
-            />,
-        );
+        renderModal({
+            ...defaultProps,
+            backgroundImage: earthMoonImage,
+            caption: "widget caption",
+        });
 
         // Assert
         expect(screen.getByText("widget caption")).toBeInTheDocument();
@@ -162,13 +211,11 @@ describe("ExploreImageModal", () => {
         // Arrange
 
         // Act
-        render(
-            <ExploreImageModal
-                {...defaultProps}
-                backgroundImage={earthMoonImage}
-                longDescription="widget long description"
-            />,
-        );
+        renderModal({
+            ...defaultProps,
+            backgroundImage: earthMoonImage,
+            longDescription: "widget long description",
+        });
 
         // Assert
         const descriptionLabel = screen.getByText("Description");
@@ -179,13 +226,11 @@ describe("ExploreImageModal", () => {
     describe("gif controls", () => {
         it("should render gif controls if the image is a gif", () => {
             // Arrange, Act
-            render(
-                <ExploreImageModal
-                    {...defaultProps}
-                    backgroundImage={gifImage}
-                    apiOptions={apiOptionsWithGifControls}
-                />,
-            );
+            renderModal({
+                ...defaultProps,
+                backgroundImage: gifImage,
+                apiOptions: apiOptionsWithGifControls,
+            });
 
             // Assert
             const playButton = screen.getByRole("button", {
@@ -196,13 +241,11 @@ describe("ExploreImageModal", () => {
 
         it("should not render gif controls if the image is not a gif", () => {
             // Arrange, Act
-            render(
-                <ExploreImageModal
-                    {...defaultProps}
-                    backgroundImage={earthMoonImage}
-                    apiOptions={ApiOptions.defaults}
-                />,
-            );
+            renderModal({
+                ...defaultProps,
+                backgroundImage: earthMoonImage,
+                apiOptions: ApiOptions.defaults,
+            });
 
             // Assert
             const playButton = screen.queryByRole("button", {
@@ -217,14 +260,12 @@ describe("ExploreImageModal", () => {
 
         it("should show the pause icon when the gif is playing", async () => {
             // Arrange
-            render(
-                <ExploreImageModal
-                    {...defaultProps}
-                    backgroundImage={gifImage}
-                    isGifPlaying={true}
-                    apiOptions={apiOptionsWithGifControls}
-                />,
-            );
+            renderModal({
+                ...defaultProps,
+                backgroundImage: gifImage,
+                isGifPlaying: true,
+                apiOptions: apiOptionsWithGifControls,
+            });
 
             // Act
             const pauseButton = screen.getByRole("button", {
@@ -237,14 +278,12 @@ describe("ExploreImageModal", () => {
 
         it("should show the play icon when the gif is paused", async () => {
             // Arrange
-            render(
-                <ExploreImageModal
-                    {...defaultProps}
-                    backgroundImage={gifImage}
-                    isGifPlaying={false}
-                    apiOptions={apiOptionsWithGifControls}
-                />,
-            );
+            renderModal({
+                ...defaultProps,
+                backgroundImage: gifImage,
+                isGifPlaying: false,
+                apiOptions: apiOptionsWithGifControls,
+            });
 
             // Act
             const playButton = screen.getByRole("button", {
@@ -258,15 +297,13 @@ describe("ExploreImageModal", () => {
         it("should toggle the gif playing state when the play button is clicked", async () => {
             // Arrange
             const toggleGifPlaying = jest.fn();
-            render(
-                <ExploreImageModal
-                    {...defaultProps}
-                    backgroundImage={gifImage}
-                    isGifPlaying={false}
-                    setIsGifPlaying={toggleGifPlaying}
-                    apiOptions={apiOptionsWithGifControls}
-                />,
-            );
+            renderModal({
+                ...defaultProps,
+                backgroundImage: gifImage,
+                isGifPlaying: false,
+                setIsGifPlaying: toggleGifPlaying,
+                apiOptions: apiOptionsWithGifControls,
+            });
 
             // Act
             const playButton = screen.getByRole("button", {
@@ -281,15 +318,13 @@ describe("ExploreImageModal", () => {
         it("should toggle the gif playing state when the pause button is clicked", async () => {
             // Arrange
             const toggleGifPlaying = jest.fn();
-            render(
-                <ExploreImageModal
-                    {...defaultProps}
-                    backgroundImage={gifImage}
-                    isGifPlaying={true}
-                    setIsGifPlaying={toggleGifPlaying}
-                    apiOptions={apiOptionsWithGifControls}
-                />,
-            );
+            renderModal({
+                ...defaultProps,
+                backgroundImage: gifImage,
+                isGifPlaying: true,
+                setIsGifPlaying: toggleGifPlaying,
+                apiOptions: apiOptionsWithGifControls,
+            });
 
             // Act
             const pauseButton = screen.getByRole("button", {
@@ -313,13 +348,11 @@ describe("ExploreImageModal", () => {
                 }),
             };
 
-            render(
-                <ExploreImageModal
-                    {...defaultProps}
-                    backgroundImage={gifImage}
-                    apiOptions={apiOptionsWithFeatureFlag}
-                />,
-            );
+            renderModal({
+                ...defaultProps,
+                backgroundImage: gifImage,
+                apiOptions: apiOptionsWithFeatureFlag,
+            });
 
             // Assert
             const playButton = screen.getByRole("button", {
@@ -338,13 +371,11 @@ describe("ExploreImageModal", () => {
                 }),
             };
 
-            render(
-                <ExploreImageModal
-                    {...defaultProps}
-                    backgroundImage={gifImage}
-                    apiOptions={apiOptionsWithFeatureFlag}
-                />,
-            );
+            renderModal({
+                ...defaultProps,
+                backgroundImage: gifImage,
+                apiOptions: apiOptionsWithFeatureFlag,
+            });
 
             // Assert
             const playButton = screen.queryByRole("button", {
@@ -355,6 +386,105 @@ describe("ExploreImageModal", () => {
             });
             expect(playButton).not.toBeInTheDocument();
             expect(pauseButton).not.toBeInTheDocument();
+        });
+
+        it("should have null content if there is no background image URL with scale flag enabled", () => {
+            // Arrange
+            const props = {
+                ...defaultProps,
+                backgroundImage: {
+                    url: undefined,
+                    width: 100,
+                    height: 100,
+                },
+            };
+
+            const apiOptionsWithFeatureFlag = {
+                ...ApiOptions.defaults,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-scale": true,
+                }),
+            };
+
+            // Act
+            renderModal({...props, apiOptions: apiOptionsWithFeatureFlag});
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            const title = screen.getByRole("heading", {level: 1});
+
+            // Assert
+            expect(title).toBeInTheDocument();
+            expect(title).toHaveTextContent("Explore image and description");
+            expect(screen.queryByRole("img")).not.toBeInTheDocument();
+            expect(screen.queryByText("Description")).not.toBeInTheDocument();
+        });
+
+        it("should still render the modal content if the width is not provided with scale flag enabled", () => {
+            // Arrange
+            const props = {
+                ...defaultProps,
+                backgroundImage: {
+                    url: earthMoonImage.url,
+                    width: undefined,
+                    height: 100,
+                },
+            };
+
+            const apiOptionsWithFeatureFlag = {
+                ...ApiOptions.defaults,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-scale": true,
+                }),
+            };
+
+            // Act
+            renderModal({...props, apiOptions: apiOptionsWithFeatureFlag});
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            const image = screen.getByRole("img");
+            expect(image).toBeVisible();
+            expect(screen.getByText("Description")).toBeInTheDocument();
+            // Make sure image size is not 0
+            expect(image).not.toHaveStyle("width: 0px");
+            expect(image).not.toHaveStyle("height: 0px");
+        });
+
+        it("should still render the modal content if the height is not provided with scale flag enabled", () => {
+            // Arrange
+            const props = {
+                ...defaultProps,
+                backgroundImage: {
+                    url: earthMoonImage.url,
+                    width: 100,
+                    height: undefined,
+                },
+            };
+
+            const apiOptionsWithFeatureFlag = {
+                ...ApiOptions.defaults,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-scale": true,
+                }),
+            };
+
+            // Act
+            renderModal({...props, apiOptions: apiOptionsWithFeatureFlag});
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            const image = screen.getByRole("img");
+            expect(image).toBeVisible();
+            expect(screen.getByText("Description")).toBeInTheDocument();
+            // Make sure image size is not 0
+            expect(image).not.toHaveStyle("width: 0px");
+            expect(image).not.toHaveStyle("height: 0px");
         });
     });
 });

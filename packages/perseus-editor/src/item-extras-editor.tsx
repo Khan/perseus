@@ -1,5 +1,5 @@
 import {components} from "@khanacademy/perseus";
-import {ItemExtras} from "@khanacademy/perseus-core";
+import {ItemExtras, getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -18,14 +18,7 @@ type Props = PerseusAnswerArea & {
 };
 
 class ItemExtrasEditor extends React.Component<Props> {
-    static defaultProps: PerseusAnswerArea = {
-        calculator: false,
-        financialCalculatorMonthlyPayment: false,
-        financialCalculatorTotalAmount: false,
-        financialCalculatorTimeToPayOff: false,
-        periodicTable: false,
-        periodicTableWithKey: false,
-    };
+    static defaultProps: PerseusAnswerArea = getDefaultAnswerArea();
 
     shouldShowFinancialCalculatorOptions() {
         return (

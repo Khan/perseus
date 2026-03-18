@@ -913,7 +913,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert
             const playButton = screen.getByRole("button", {
-                name: "Play animation.",
+                name: "Play Animation",
             });
             expect(playButton).toBeVisible();
         });
@@ -934,10 +934,10 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert
             const playButton = screen.queryByRole("button", {
-                name: "Play animation.",
+                name: "Play Animation",
             });
             const pauseButton = screen.queryByRole("button", {
-                name: "Pause animation.",
+                name: "Pause Animation",
             });
             expect(playButton).not.toBeInTheDocument();
             expect(pauseButton).not.toBeInTheDocument();
@@ -959,13 +959,13 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act - gif is paused by default, click play button
             const playButton = screen.getByRole("button", {
-                name: "Play animation.",
+                name: "Play Animation",
             });
             await userEvent.click(playButton);
 
             // Assert - gif is playing, button has changed to pause icon
             const pauseButton = screen.getByRole("button", {
-                name: "Pause animation.",
+                name: "Pause Animation",
             });
             expect(pauseButton).toBeVisible();
         });
@@ -986,13 +986,13 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act - gif is paused by default, click play button
             const playButton = screen.getByRole("button", {
-                name: "Play animation.",
+                name: "Play Animation",
             });
             await userEvent.click(playButton);
 
             // Assert - button has changed to pause icon
             const pauseButton = screen.getByRole("button", {
-                name: "Pause animation.",
+                name: "Pause Animation",
             });
             expect(pauseButton).toBeVisible();
 
@@ -1001,7 +1001,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert - button has changed to play icon
             const playButtonAgain = screen.getByRole("button", {
-                name: "Play animation.",
+                name: "Play Animation",
             });
             expect(playButtonAgain).toBeVisible();
         });
@@ -1032,7 +1032,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert
             const playButton = screen.getByRole("button", {
-                name: "Play animation.",
+                name: "Play Animation",
             });
             expect(playButton).toBeVisible();
         });
@@ -1061,10 +1061,10 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert
             const playButton = screen.queryByRole("button", {
-                name: "Play animation.",
+                name: "Play Animation",
             });
             const pauseButton = screen.queryByRole("button", {
-                name: "Pause animation.",
+                name: "Pause Animation",
             });
             expect(playButton).not.toBeInTheDocument();
             expect(pauseButton).not.toBeInTheDocument();

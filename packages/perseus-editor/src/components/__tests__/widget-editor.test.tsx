@@ -152,13 +152,6 @@ describe("WidgetEditor", () => {
                     apiOptions={{
                         ...ApiOptions.defaults,
                         showAlignmentOptions: true,
-                        // Enable feature flag to use getSupportedAlignments instead of hardcoded values
-                        flags: {
-                            "new-radio-widget": false,
-                            "image-widget-upgrade-alignment": true,
-                            "image-widget-upgrade-gif-controls": false,
-                            "image-widget-upgrade-scale": false,
-                        },
                     }}
                 />,
             );
@@ -193,13 +186,6 @@ describe("WidgetEditor", () => {
                     apiOptions={{
                         ...ApiOptions.defaults,
                         showAlignmentOptions: true,
-                        // Enable feature flag to use getSupportedAlignments instead of hardcoded values
-                        flags: {
-                            "new-radio-widget": false,
-                            "image-widget-upgrade-alignment": true,
-                            "image-widget-upgrade-gif-controls": false,
-                            "image-widget-upgrade-scale": false,
-                        },
                     }}
                 />,
             );

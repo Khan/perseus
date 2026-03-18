@@ -10,7 +10,11 @@ import {
     Dependencies,
     PerseusMarkdown,
 } from "@khanacademy/perseus";
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {
+    Errors,
+    parseAndMigratePerseusArticle,
+    PerseusError,
+} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
@@ -54,7 +58,6 @@ type DefaultProps = {
     sectionImageUploadGenerator: (
         i: number,
     ) => React.ReactElement<React.ComponentProps<"span">>;
-    useNewStyles: boolean;
 };
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
@@ -78,7 +81,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
-        useNewStyles: false,
     };
 
     state: State = {
@@ -192,7 +194,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 isArticle: true,
             },
             json: section,
-            useNewStyles: this.props.useNewStyles,
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
@@ -524,6 +525,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                 multiLine={true}
                                 onChange={this._handleJsonChange}
                                 value={this.props.json}
+                                parser={parseAndMigratePerseusArticle}
                                 editingDisabled={editingDisabled}
                             />
                         </div>

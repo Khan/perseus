@@ -1,5 +1,54 @@
 # @khanacademy/math-input
 
+## 26.4.9
+
+### Patch Changes
+
+-   [#3339](https://github.com/Khan/perseus/pull/3339) [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229) Thanks [@Myranae](https://github.com/Myranae)! - Upgrade pnpm from 10.22.0 to 10.32.1.
+
+-   Updated dependencies [[`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229)]:
+    -   @khanacademy/keypad-context@3.2.39
+    -   @khanacademy/perseus-core@23.6.1
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 26.4.8
+
+### Patch Changes
+
+-   [#3361](https://github.com/Khan/perseus/pull/3361) [`277769c002`](https://github.com/Khan/perseus/commit/277769c00233988c782e140c63e7326c0c87ed3f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Sync deps
+
+## 26.4.7
+
+### Patch Changes
+
+-   Updated dependencies [[`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a), [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c)]:
+    -   @khanacademy/perseus-core@23.6.0
+    -   @khanacademy/keypad-context@3.2.38
+
+## 26.4.6
+
+### Patch Changes
+
+-   Updated dependencies [[`75d06c5a69`](https://github.com/Khan/perseus/commit/75d06c5a69d70d9783df34f26d5d5575f0068602), [`a325571174`](https://github.com/Khan/perseus/commit/a325571174c4421963a17411930d18014851dba0)]:
+    -   @khanacademy/perseus-core@23.5.0
+    -   @khanacademy/keypad-context@3.2.37
+
+## 26.4.5
+
+### Patch Changes
+
+-   Updated dependencies [[`1ed915b32b`](https://github.com/Khan/perseus/commit/1ed915b32b279518d35de9517ed33b497ebc5468)]:
+    -   @khanacademy/perseus-core@23.4.0
+    -   @khanacademy/keypad-context@3.2.36
+
+## 26.4.4
+
+### Patch Changes
+
+-   Updated dependencies [[`83402a8bf5`](https://github.com/Khan/perseus/commit/83402a8bf5e89153e7681ea03adb77b50e6c8975)]:
+    -   @khanacademy/perseus-core@23.3.0
+    -   @khanacademy/keypad-context@3.2.35
+
 ## 26.4.3
 
 ### Patch Changes

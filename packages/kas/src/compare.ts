@@ -25,29 +25,6 @@ export const compare = function (
         ...options,
     };
 
-    // TODO(CP-1614): Figure out how to make these messages translatable
-
-    // Variable check
-    const vars = expr1.sameVars(expr2);
-    if (!vars.equal) {
-        let message;
-        if (vars.equalIgnoringCase) {
-            message =
-                "Check your variables; one or more are using " +
-                "the wrong case (upper or lower).";
-        } else {
-            message =
-                "Check your variables; you may have used the wrong " +
-                "letter for one or more of them.";
-        }
-        return {
-            equal: false,
-            wrongVariableCase: vars.equalIgnoringCase,
-            wrongVariableNames: !vars.equalIgnoringCase,
-            message: message,
-        };
-    }
-
     // Semantic check
     if (!expr1.compare(expr2)) {
         return {equal: false, message: null};

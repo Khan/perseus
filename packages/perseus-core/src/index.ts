@@ -43,6 +43,7 @@ export {
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
     parseAndMigrateUserInputMap,
+    parseAndMigratePerseusRenderer,
     type ParseFailureDetail,
 } from "./parse-perseus-json";
 
@@ -247,6 +248,7 @@ export {
     generateIGRayGraph,
     generateIGSegmentGraph,
     generateIGSinusoidGraph,
+    generateIGTangentGraph,
     generateIGLockedPoint,
     generateIGLockedLine,
     generateIGLockedVector,

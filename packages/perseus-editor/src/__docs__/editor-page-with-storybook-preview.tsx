@@ -4,6 +4,7 @@ import {
     type DeviceType,
 } from "@khanacademy/perseus";
 import {
+    getDefaultAnswerArea,
     type Hint,
     type PerseusAnswerArea,
     type PerseusRenderer,
@@ -19,7 +20,7 @@ import {usePreviewUrl} from "./use-preview-url";
 type Props = {
     apiOptions?: APIOptions;
     question?: PerseusRenderer;
-    hints?: ReadonlyArray<Hint>;
+    hints?: Hint[];
 };
 
 const testDependenciesV2: PerseusDependenciesV2 = {
@@ -42,18 +43,19 @@ const testDependenciesV2: PerseusDependenciesV2 = {
 const onChangeAction = action("onChange");
 
 function EditorPageWithStorybookPreview(props: Props) {
+    const {
+        hints: initialHints = [],
+        question: initialQuestion = {content: "", widgets: {}, images: {}},
+    } = props;
+
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");
     const [jsonMode, setJsonMode] = React.useState<boolean | undefined>(false);
-    const [answerArea, setAnswerArea] = React.useState<
-        PerseusAnswerArea | undefined | null
-    >();
-    const [question, setQuestion] = React.useState<PerseusRenderer | undefined>(
-        props.question,
-    );
-    const [hints, setHints] = React.useState<ReadonlyArray<Hint> | undefined>(
-        props.hints,
-    );
+    const [answerArea, setAnswerArea] =
+        React.useState<PerseusAnswerArea>(getDefaultAnswerArea);
+    const [question, setQuestion] =
+        React.useState<PerseusRenderer>(initialQuestion);
+    const [hints, setHints] = React.useState<Hint[]>(initialHints);
 
     const apiOptions = props.apiOptions ?? {
         isMobile: false,
@@ -77,20 +79,20 @@ function EditorPageWithStorybookPreview(props: Props) {
                 hints={hints}
                 previewURL={storybookPreviewUrl}
                 itemId="1"
-                onChange={(props) => {
-                    onChangeAction(props);
+                onChange={(changed) => {
+                    onChangeAction(changed);
 
-                    if ("jsonMode" in props) {
-                        setJsonMode(props.jsonMode);
+                    if (changed.jsonMode != null) {
+                        setJsonMode(changed.jsonMode);
                     }
-                    if ("answerArea" in props) {
-                        setAnswerArea(props.answerArea);
+                    if (changed.answerArea != null) {
+                        setAnswerArea(changed.answerArea);
                     }
-                    if ("question" in props) {
-                        setQuestion(props.question);
+                    if (changed.question != null) {
+                        setQuestion(changed.question);
                     }
-                    if ("hints" in props) {
-                        setHints(props.hints);
+                    if (changed.hints != null) {
+                        setHints(changed.hints);
                     }
                 }}
                 additionalTemplates={{

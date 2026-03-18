@@ -19,7 +19,9 @@ export const GifControlsIcon = ({
             icon={isPlaying ? pauseIcon : playIcon}
             kind="secondary"
             aria-label={
-                isPlaying ? strings.gifPauseAriaLabel : strings.gifPlayAriaLabel
+                isPlaying
+                    ? strings.gifPauseButtonLabel
+                    : strings.gifPlayButtonLabel
             }
             onClick={onToggle}
             // Stop the icon button from getting squished.

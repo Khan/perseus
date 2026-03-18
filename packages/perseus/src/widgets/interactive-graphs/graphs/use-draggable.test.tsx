@@ -15,12 +15,14 @@ import type {vec, Interval} from "mafs";
 function TestDraggable(props: {
     point: vec.Vector2;
     constrainKeyboardMovement?: KeyboardMovementConstraint;
+    onDragStart?: () => unknown;
     onMove?: (point: vec.Vector2) => unknown;
 }) {
     const {onMove = () => {}, constrainKeyboardMovement = (p) => p} = props;
     const gestureTarget = useRef<HTMLButtonElement>(null);
     const {dragging} = useDraggable({
         point: props.point,
+        onDragStart: props.onDragStart,
         onMove,
         constrainKeyboardMovement,
         gestureTarget,
@@ -218,6 +220,59 @@ describe("useDraggable", () => {
         // - (21, 19), the inverse user transform was not applied to the move.
         // - (11, 9), neither userTransform nor the inverse was applied.
         expect(onMoveSpy).toHaveBeenCalledWith([10.5, 9.5]);
+    });
+
+    it("calls onDragStart when a mouse drag begins", () => {
+        const onDragStartSpy = jest.fn();
+        render(
+            <Mafs width={200} height={200}>
+                <TestDraggable point={[0, 0]} onDragStart={onDragStartSpy} />
+            </Mafs>,
+        );
+        const dragHandle = screen.getByRole("button");
+
+        // Act
+        mouseDownAt(dragHandle, 0, 0);
+        moveMouseTo(dragHandle, 10, 10);
+
+        // Assert
+        expect(onDragStartSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not call onDragStart on a click with no mouse movement", async () => {
+        const onDragStartSpy = jest.fn();
+        render(
+            <Mafs width={200} height={200}>
+                <TestDraggable point={[0, 0]} onDragStart={onDragStartSpy} />
+            </Mafs>,
+        );
+        const dragHandle = screen.getByRole("button");
+
+        // Act: click with no mousemove
+        await userEvent.click(dragHandle);
+
+        // Assert
+        expect(onDragStartSpy).not.toHaveBeenCalled();
+    });
+
+    it("does not call onDragStart when moving via keyboard", async () => {
+        const onDragStartSpy = jest.fn();
+        render(
+            <Mafs width={200} height={200}>
+                <TestDraggable
+                    point={[0, 0]}
+                    onDragStart={onDragStartSpy}
+                    constrainKeyboardMovement={(p) => snap([1, 1], p)}
+                />
+            </Mafs>,
+        );
+
+        // Act
+        await userEvent.tab();
+        await userEvent.keyboard("{arrowright}");
+
+        // Assert
+        expect(onDragStartSpy).not.toHaveBeenCalled();
     });
 
     it("moves a draggable element with the keyboard", async () => {

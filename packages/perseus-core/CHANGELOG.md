@@ -1,5 +1,51 @@
 # @khanacademy/perseus-core
 
+## 23.6.1
+
+### Patch Changes
+
+-   [#3339](https://github.com/Khan/perseus/pull/3339) [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229) Thanks [@Myranae](https://github.com/Myranae)! - Upgrade pnpm from 10.22.0 to 10.32.1.
+
+-   Updated dependencies [[`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229)]:
+    -   @khanacademy/kas@2.2.1
+    -   @khanacademy/perseus-utils@2.1.5
+    -   @khanacademy/pure-markdown@2.2.7
+
+## 23.6.0
+
+### Minor Changes
+
+-   [#3292](https://github.com/Khan/perseus/pull/3292) [`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that extra keys are considered when determining whether an Expression Widget answer is invalid.
+
+### Patch Changes
+
+-   [#3344](https://github.com/Khan/perseus/pull/3344) [`3289699e70`](https://github.com/Khan/perseus/commit/3289699e70f33bb2c27c6b2f6109c678c40e157c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add feature flags for Interactive Graph phase 2 project
+
+-   Updated dependencies [[`21c516936a`](https://github.com/Khan/perseus/commit/21c516936a927a1fba1e29c12b54547ad7b5e85a)]:
+    -   @khanacademy/kas@2.2.0
+
+## 23.5.0
+
+### Minor Changes
+
+-   [#3321](https://github.com/Khan/perseus/pull/3321) [`75d06c5a69`](https://github.com/Khan/perseus/commit/75d06c5a69d70d9783df34f26d5d5575f0068602) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes perseus renderer parser available outside of perseus
+
+### Patch Changes
+
+-   [#3313](https://github.com/Khan/perseus/pull/3313) [`a325571174`](https://github.com/Khan/perseus/commit/a325571174c4421963a17411930d18014851dba0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix Grapher edtior tangent type 'correct answer' string label from sin to tan.
+
+## 23.4.0
+
+### Minor Changes
+
+-   [#3310](https://github.com/Khan/perseus/pull/3310) [`1ed915b32b`](https://github.com/Khan/perseus/commit/1ed915b32b279518d35de9517ed33b497ebc5468) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove image-widget-upgrade-alignment feature flag
+
+## 23.3.0
+
+### Minor Changes
+
+-   [#3303](https://github.com/Khan/perseus/pull/3303) [`83402a8bf5`](https://github.com/Khan/perseus/commit/83402a8bf5e89153e7681ea03adb77b50e6c8975) Thanks [@benchristel](https://github.com/benchristel)! - When parsing Perseus JSON (articles, items, and user input), discard unrecognized object properties.
+
 ## 23.2.0
 
 ### Minor Changes

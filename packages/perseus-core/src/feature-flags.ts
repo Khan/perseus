@@ -11,9 +11,13 @@
  */
 const PerseusFeatureFlags = [
     "new-radio-widget", // TODO(LEMS-2994): clean up feature flag
-    "image-widget-upgrade-alignment", // TODO(LEMS-3909): clean up feature flag
     "image-widget-upgrade-gif-controls", // TODO(LEMS-3914): clean up feature flag
     "image-widget-upgrade-scale", // TODO(LEMS-3912): clean up feature flag
+    "interactive-graph-absolute-value", // TODO(LEMS-3976): clean up feature flag
+    "interactive-graph-tangent", // TODO(LEMS-3976): clean up feature flag
+    "interactive-graph-logarithm", // TODO(LEMS-3976): clean up feature flag
+    "interactive-graph-exponent", // TODO(LEMS-3976): clean up feature flag
+    "interactive-graph-vector", // TODO(LEMS-3976): clean up feature flag
 ] as const;
 
 export default PerseusFeatureFlags;
