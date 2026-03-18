@@ -415,10 +415,7 @@ describe("initializeGraphState for exponential graphs", () => {
                     [0, 3],
                     [2, 6],
                 ],
-                asymptote: [
-                    [-10, 1],
-                    [10, 1],
-                ],
+                asymptote: 1,
             },
         });
 
@@ -428,10 +425,7 @@ describe("initializeGraphState for exponential graphs", () => {
             [0, 3],
             [2, 6],
         ]);
-        expect(graph.asymptote).toEqual([
-            [-10, 1],
-            [10, 1],
-        ]);
+        expect(graph.asymptote).toBe(1);
     });
 
     it("uses startCoords if given and explicit coords are absent", () => {
@@ -445,10 +439,7 @@ describe("initializeGraphState for exponential graphs", () => {
                         [1, 4],
                         [3, 8],
                     ],
-                    asymptote: [
-                        [-10, 2],
-                        [10, 2],
-                    ],
+                    asymptote: 2,
                 },
             },
         });
@@ -459,10 +450,7 @@ describe("initializeGraphState for exponential graphs", () => {
             [1, 4],
             [3, 8],
         ]);
-        expect(graph.asymptote).toEqual([
-            [-10, 2],
-            [10, 2],
-        ]);
+        expect(graph.asymptote).toBe(2);
     });
 
     it("uses default coords and asymptote if neither coords nor startCoords are given", () => {
@@ -478,9 +466,6 @@ describe("initializeGraphState for exponential graphs", () => {
             [0, 1],
             [5, 5],
         ]);
-        expect(graph.asymptote).toEqual([
-            [-10, 0],
-            [10, 0],
-        ]);
+        expect(graph.asymptote).toBe(0);
     });
 });

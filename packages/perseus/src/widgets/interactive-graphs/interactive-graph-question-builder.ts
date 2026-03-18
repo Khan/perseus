@@ -295,9 +295,9 @@ class InteractiveGraphQuestionBuilder {
 
     withExponential(options?: {
         coords?: [Coord, Coord];
-        asymptote?: [Coord, Coord];
+        asymptote?: number;
         startCoords?: [Coord, Coord];
-        startAsymptote?: [Coord, Coord];
+        startAsymptote?: number;
     }): InteractiveGraphQuestionBuilder {
         this.interactiveFigureConfig = new ExponentialGraphConfig(options);
         return this;
@@ -808,15 +808,15 @@ class SinusoidGraphConfig implements InteractiveFigureConfig {
 
 class ExponentialGraphConfig implements InteractiveFigureConfig {
     private coords?: [Coord, Coord];
-    private asymptote?: [Coord, Coord];
+    private asymptote?: number;
     private startCoords?: [Coord, Coord];
-    private startAsymptote?: [Coord, Coord];
+    private startAsymptote?: number;
 
     constructor(options?: {
         coords?: [Coord, Coord];
-        asymptote?: [Coord, Coord];
+        asymptote?: number;
         startCoords?: [Coord, Coord];
-        startAsymptote?: [Coord, Coord];
+        startAsymptote?: number;
     }) {
         this.coords = options?.coords;
         this.asymptote = options?.asymptote;

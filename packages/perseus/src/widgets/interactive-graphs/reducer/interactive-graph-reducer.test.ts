@@ -1754,10 +1754,7 @@ const baseExponentialGraphState: InteractiveGraphState = {
         [0, 3],
         [2, 6],
     ],
-    asymptote: [
-        [-10, 1],
-        [10, 1],
-    ],
+    asymptote: 1,
 };
 
 describe("movePoint on an exponential graph", () => {
@@ -1836,7 +1833,7 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
         ) as ExponentialGraphState;
 
         // Assert — y=-2 is below both curve points (y=3 and y=6), so it's valid
-        expect(updated.asymptote[0][1]).toBe(-2);
+        expect(updated.asymptote).toBe(-2);
     });
 
     it("rejects the move when the asymptote would land between the curve points", () => {
@@ -1856,7 +1853,7 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
         ) as ExponentialGraphState;
 
         // Assert — y=4 < midpoint(4.5), so snaps to bottomMost - stepY = 3 - 1 = 2
-        expect(updated.asymptote[0][1]).toBe(2);
+        expect(updated.asymptote).toBe(2);
     });
 
     it("ignores the x component and only moves the asymptote vertically", () => {
@@ -1870,7 +1867,6 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
         ) as ExponentialGraphState;
 
         // Assert — asymptote moves to y=-2 regardless of the x passed
-        expect(updated.asymptote[0][1]).toBe(-2);
-        expect(updated.asymptote[1][1]).toBe(-2);
+        expect(updated.asymptote).toBe(-2);
     });
 });
