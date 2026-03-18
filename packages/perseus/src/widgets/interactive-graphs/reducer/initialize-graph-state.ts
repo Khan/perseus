@@ -138,8 +138,6 @@ export function initializeGraphState(
                 ...shared,
                 type: "none",
             };
-        case "exponential":
-            throw new Error("Not implemented: exponential graph type");
         default:
             throw new UnreachableCaseError(graph);
     }

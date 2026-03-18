@@ -98,8 +98,6 @@ export function mafsStateToInteractiveGraph(
         case "none":
             invariant(originalGraph.type === "none");
             return {...originalGraph};
-        case "exponential":
-            throw new Error("Not implemented: exponential graph type");
         default:
             throw new UnreachableCaseError(state);
     }
