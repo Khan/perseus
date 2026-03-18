@@ -22,12 +22,18 @@ const config = {
     // placeholder, which then dirties the repo, which is annoying.
     cleanOutputDir: false,
     githubPages: true,
-    includeVersion: true,
     plugin: ["typedoc-plugin-missing-exports"],
     packageOptions: {
         excludePrivate: true,
         excludeInternal: true,
         excludeProtected: true,
+        includeVersion: true,
+        // Suppress warnings about React internal symbols (e.g. lifecycle
+        // methods from @types/react) that TypeDoc resolves but can't link to
+        // because they aren't part of our documentation.
+        externalSymbolLinkMappings: {
+            "@types/react": {"*": "#"},
+        },
         readme: "README.md",
         entryPoints: ["./src/index.ts"],
     },
