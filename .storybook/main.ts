@@ -37,6 +37,7 @@ const cssWrapper = {
 configureSort({
     storyOrder: {
         introduction: null,
+        "getting started": null,
         widgetGallery: null,
         theming: null,
         renderers: {
