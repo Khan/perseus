@@ -268,27 +268,37 @@ const asymptote: [Coord, Coord] = [
    to exponential with the asymptote axis swapped (vertical ↔ horizontal). New decisions are
    documented below; otherwise, the logarithm decisions apply.
 
-2. **Adapt `AsymptoteDragHandle` for horizontal orientation** — The component is
-   orientation-specific (tall narrow pill, 2×3 vertical dot grid). Rather than duplicating it,
-   add an `orientation: "horizontal" | "vertical"` prop that swaps the width/height constants
-   and rotates the dot layout to a 3×2 grid. This keeps a single shared component and makes
-   the orientation intent explicit.
+2. **`AsymptoteDragHandle` as a shared orientation-aware component** — Extracted to
+   `graphs/components/asymptote-drag-handle.tsx` with `orientation: "horizontal" | "vertical"`
+   prop that swaps the width/height constants and rotates the 3×2/2×3 grip dot layout. Consumed
+   by `MovableAsymptote`. CSS styling via `mafs-styles.css` classes (`.movable-asymptote-handle*`).
 
-3. **Reuse `moveCenter` action for asymptote** — The existing `moveCenter` action (used by
+3. **`MovableAsymptote` shared component** — The full asymptote interaction (transparent hit
+   target, visible line, drag handle, focus/hover state, `useDraggable`) is extracted to
+   `graphs/components/movable-asymptote.tsx`. Accepts pixel-space `start/end/mid`, graph-space
+   `point`, `onMove`, `constrainKeyboardMovement?`, `orientation`, and `ariaLabel`. Logarithm
+   can use the same component with `orientation="vertical"`.
+
+4. **Reuse `moveCenter` action for asymptote** — The existing `moveCenter` action (used by
    logarithm) carries a `destination: vec.Vector2`. The exponential reducer ignores the x
    component and uses only y, mirroring how the logarithm reducer ignores y and uses only x.
    No new action type is needed.
 
-4. **Local coefficient helper** — `getExponentialCoefficients()` is defined locally in
-   `score-interactive-graph.ts`, matching the logarithm POC pattern. (The tangent implementation
-   used `kmath/coefficients.ts` instead; the logarithm pattern is preferred here for consistency
-   with the graph type we're most closely following.)
+5. **Coefficient helper in kmath** — `getExponentialCoefficients()` lives in
+   `packages/kmath/src/coefficients.ts` (not locally in `score-interactive-graph.ts`). This
+   eliminates duplication between rendering and scoring, follows the tangent precedent, and makes
+   the function available for the editor. Signature: `getExponentialCoefficients(coords, asymptote: number)`.
 
-5. **No canonical normalization for scoring** — Unlike sinusoid/tangent, the exponential
+6. **`asymptote` stored as a scalar `number`** — The asymptote is the y-value `c` in
+   `f(x) = a·eᵇˣ + c`. Storing it as `number` (not `[Coord, Coord]`) is semantically correct,
+   eliminates stale x-coordinates, and simplifies every read site to `state.asymptote` instead
+   of `state.asymptote[0][1]`. Logarithm uses the same pattern for its x-value.
+
+7. **No canonical normalization for scoring** — Unlike sinusoid/tangent, the exponential
    `[a, b, c]` coefficients uniquely describe the curve (no periodicity). `approximateDeepEqual`
    on the raw coefficient triple is sufficient.
 
-6. **Single `<Plot.OfX>` for rendering** — Exponential is continuous everywhere. There are no
+8. **Single `<Plot.OfX>` for rendering** — Exponential is continuous everywhere. There are no
    asymptote discontinuities in the rendered curve (the horizontal asymptote is a visual guide
    only), so the tangent workaround of splitting into multiple `<Plot.OfX>` segments is not needed.
 
@@ -316,7 +326,7 @@ to kmath, defines all type shapes, and adds placeholder stubs so the type can en
 `PerseusGraphType` union without breaking exhaustiveness checks or silently failing if an
 exponential widget is somehow encountered before PR 3 renders.
 
-**Branch:** `LEMS-3711/exponential-types-kmath`
+**Branch:** `LEMS-3711/exponential-pr1`
 
 **New files:**
 
@@ -343,7 +353,7 @@ exponential widget is somehow encountered before PR 3 renders.
 Actions, reducer, initializer, and serialization. The graph is stateful and interactive but
 not yet visible (rendering still throws "Not implemented" from PR 1's stub).
 
-**Branch:** `LEMS-3711/exponential-pr2-state`
+**Branch:** `LEMS-3711/exponential-pr2`
 
 **New files:** *(none)*
 
@@ -359,6 +369,8 @@ not yet visible (rendering still throws "Not implemented" from PR 1's stub).
 | `packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata.ts` | Test fixture |
 | `packages/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder.ts` | `withExponential()` builder method |
 | `packages/perseus/src/index.ts` | Re-export `getExponentialCoords` |
+| `packages/perseus/src/widgets/interactive-graphs/reducer/initialize-graph-state.test.ts` | Exponential initialization tests (3 cases) |
+| `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-reducer.test.ts` | Exponential movePoint and moveCenter tests (7 cases) |
 
 ---
 
@@ -367,11 +379,15 @@ not yet visible (rendering still throws "Not implemented" from PR 1's stub).
 The visual component and all strings. Replaces PR 1's stubs with real implementations.
 The graph is now fully visible and interactive for learners.
 
-**Branch:** `LEMS-3711/exponential-pr3-rendering`
+**Branch:** `LEMS-3711/exponential-pr3`
 
 **New files:**
 
-- `packages/perseus/src/widgets/interactive-graphs/graphs/exponential.tsx` — rendering component (468 lines)
+- `packages/perseus/src/widgets/interactive-graphs/graphs/exponential.tsx` — rendering component
+- `packages/perseus/src/widgets/interactive-graphs/graphs/exponential.test.tsx` — 16 tests (SR, keyboard constraints, asymptote constraint)
+- `packages/perseus/src/widgets/interactive-graphs/graphs/components/asymptote-drag-handle.tsx` — shared pill handle, `orientation: "horizontal" | "vertical"`
+- `packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-asymptote.tsx` — shared interactive asymptote line
+- `packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-asymptote.test.tsx` — 5 tests
 
 **Modified files:**
 
@@ -382,11 +398,7 @@ The graph is now fully visible and interactive for learners.
 | `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx` | Replace stub with real `getEquationString()` case |
 | `packages/perseus/src/widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts` | `ExponentialUserInput` type and case handlers |
 | `packages/perseus/src/widgets/interactive-graphs/__docs__/interactive-graph.stories.tsx` | Storybook story |
-
-**Notes:**
-
-- `AsymptoteDragHandle` horizontal variant is inlined in `exponential.tsx`. Extract to a shared
-  component when LEMS-3950 merges and its `AsymptoteDragHandle` is available on main.
+| `packages/perseus/src/widgets/interactive-graphs/mafs-styles.css` | CSS classes for `.movable-asymptote-handle*` |
 
 ---
 
@@ -395,7 +407,7 @@ The graph is now fully visible and interactive for learners.
 Scoring branch in `perseus-score`. Imports `getExponentialCoefficients` from kmath (available
 since PR 1). The graph is now gradeable.
 
-**Branch:** `LEMS-3711/exponential-pr4-scoring`
+**Branch:** `LEMS-3711/exponential-pr4`
 
 **New files:** *(none)*
 
@@ -413,7 +425,7 @@ since PR 1). The graph is now gradeable.
 Surfaces the exponential type in the content-creator UI. The "on switch" — once landed,
 content creators can author exponential graph exercises. Stacks on PR 1.
 
-**Branch:** `LEMS-3711/exponential-pr5-editor`
+**Branch:** `LEMS-3711/exponential-pr5`
 
 **New files:**
 
