@@ -9,7 +9,7 @@ import {
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
-    Errors,
+    Errors, getWidgetIdsFromContent,
     PerseusError,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
@@ -148,6 +148,10 @@ type DefaultProps = {
 
 type State = {
     textAreaValue: string;
+    // Stores the last-seen version of each widget passed to the `widgets`
+    // prop. This allows widgets to be recreated when the user deletes a
+    // widget from the content string and then hits ctrl+Z / "undo".
+    rememberedWidgetsForUndo: PerseusWidgetsMap;
 };
 
 // Contextual information that widgets can use,
@@ -182,6 +186,7 @@ class Editor extends React.Component<Props, State> {
 
     state: State = {
         textAreaValue: this.props.content,
+        rememberedWidgetsForUndo: {},
     };
 
     componentDidMount() {
@@ -209,6 +214,15 @@ class Editor extends React.Component<Props, State> {
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         if (this.props.content !== nextProps.content) {
             this.setState({textAreaValue: nextProps.content});
+        }
+    }
+
+    static getDerivedStateFromProps(props, state): Partial<State> {
+        return {
+            rememberedWidgetsForUndo: {
+                ...state.rememberedWidgetsForUndo,
+                ...props.widgets,
+            }
         }
     }
 
@@ -431,8 +445,9 @@ class Editor extends React.Component<Props, State> {
     ) => {
         const newValue = e.currentTarget.value;
         this.setState({textAreaValue: newValue});
+        const widgets = this.getWidgetsReferencedIn(newValue)
         if (newValue !== this.props.content) {
-            this.props.onChange({content: newValue});
+            this.props.onChange({content: newValue, widgets});
         }
     };
 
@@ -813,6 +828,23 @@ class Editor extends React.Component<Props, State> {
 
         return warnings;
     };
+
+    private getWidgetsReferencedIn(content: string): PerseusWidgetsMap {
+        const referencedWidgetIds = getWidgetIdsFromContent(content);
+        const allWidgets = {
+            // We include `rememberedWidgetsForUndo` here to handle the case
+            // where the user deletes a widget and then restores it. Deleting
+            // the widget will remove it from `this.props.widgets`, but
+            // `rememberedWidgetsForUndo` will still have it.
+            ...this.state.rememberedWidgetsForUndo,
+            ...this.props.widgets,
+        }
+        const referencedWidgets: PerseusWidgetsMap = {}
+        for (const id of referencedWidgetIds) {
+            referencedWidgets[id] = allWidgets[id]
+        }
+        return referencedWidgets;
+    }
 
     focus: () => void = () => {
         const textarea = this.textarea.current;
