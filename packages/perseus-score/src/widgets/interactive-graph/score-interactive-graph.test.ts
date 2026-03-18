@@ -661,7 +661,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
-    
+
     it("does not award points when p2 shares the same x as the vertex", () => {
         // Arrange
         const guess: PerseusGraphType = {
@@ -681,13 +681,13 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                 ],
             },
         };
-        
+
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
-        
+
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
-  }); 
+    });
 });
 
 describe("InteractiveGraph scoring on a tangent question", () => {
