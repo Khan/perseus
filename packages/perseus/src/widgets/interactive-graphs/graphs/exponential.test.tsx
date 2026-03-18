@@ -23,10 +23,7 @@ const baseExponentialState: InteractiveGraphState = {
         [0, 3],
         [1, 6],
     ],
-    asymptote: [
-        [-10, 1],
-        [10, 1],
-    ],
+    asymptote: 1,
     hasBeenInteractedWith: false,
     range: [
         [-10, 10],
@@ -151,10 +148,7 @@ describe("Exponential graph screen reader", () => {
                 {...baseMafsGraphProps}
                 state={{
                     ...baseExponentialState,
-                    asymptote: [
-                        [-10, -3],
-                        [10, -3],
-                    ],
+                    asymptote: -3,
                 }}
             />,
         );
@@ -195,10 +189,7 @@ describe("Exponential graph screen reader", () => {
                         [3, 5],
                         [4, 7],
                     ],
-                    asymptote: [
-                        [-10, 2],
-                        [10, 2],
-                    ],
+                    asymptote: 2,
                 }}
             />,
         );
@@ -217,10 +208,7 @@ describe("getExponentialKeyboardConstraint", () => {
         [0, 3],
         [2, 6],
     ];
-    const asymptote: [vec.Vector2, vec.Vector2] = [
-        [-10, 1],
-        [10, 1],
-    ];
+    const asymptote = 1;
     const snapStep: vec.Vector2 = [1, 1];
 
     it("moves point up by one snap step when valid", () => {

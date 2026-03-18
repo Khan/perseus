@@ -64,7 +64,7 @@ function ExponentialGraph(props: ExponentialGraphProps) {
         coeffRef.current = coeffs;
     }
 
-    const asymptoteY = asymptote[0][Y];
+    const asymptoteY = asymptote;
     const yMin = range[1][0];
     const yMax = range[1][1];
     const yPadding = (yMax - yMin) * 2;
@@ -191,7 +191,7 @@ export const constrainAsymptoteKeyboard = (
 
 export const getExponentialKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
-    asymptote: ReadonlyArray<Coord>,
+    asymptote: number,
     snapStep: vec.Vector2,
     pointIndex: number,
 ): {
@@ -202,7 +202,7 @@ export const getExponentialKeyboardConstraint = (
 } => {
     const coordToBeMoved = coords[pointIndex];
     const otherPoint = coords[1 - pointIndex];
-    const asymptoteY = asymptote[0][Y];
+    const asymptoteY = asymptote;
 
     const isValidPosition = (coord: vec.Vector2): boolean => {
         if (coord[Y] === asymptoteY) return false;
@@ -276,7 +276,7 @@ function describeExponentialGraph(
         x: srFormatNumber(point2[X], locale),
         y: srFormatNumber(point2[Y], locale),
     };
-    const asymptoteYFormatted = srFormatNumber(asymptote[0][Y], locale);
+    const asymptoteYFormatted = srFormatNumber(asymptote, locale);
 
     return {
         srExponentialGraph: strings.srExponentialGraph,
