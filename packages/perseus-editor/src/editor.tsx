@@ -835,7 +835,9 @@ class Editor extends React.Component<Props, State> {
         };
         const referencedWidgets: PerseusWidgetsMap = {};
         for (const id of referencedWidgetIds) {
-            referencedWidgets[id] = allWidgets[id];
+            if (allWidgets[id] != null) {
+                referencedWidgets[id] = allWidgets[id];
+            }
         }
         return referencedWidgets;
     }
