@@ -27,6 +27,7 @@ function isImageProbablyPhotograph(imageUrl) {
 function defaultPreloader(dimensions: Dimensions) {
     return (
         <span
+            data-testid="loading-spinner"
             style={{
                 top: 0,
                 left: 0,
@@ -545,7 +546,10 @@ class SvgImage extends React.Component<Props, State> {
                         )}
                         {extraGraphie}
                         {this.props.isGifPaused && (
-                            <canvas ref={this.setCanvasRef} />
+                            <canvas
+                                ref={this.setCanvasRef}
+                                data-testid="gif-pause-canvas"
+                            />
                         )}
                     </>
                 );
