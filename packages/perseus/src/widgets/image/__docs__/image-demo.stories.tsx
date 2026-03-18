@@ -176,6 +176,34 @@ export const GifImage: Story = {
     },
 };
 
+export const LargeImageWithNoSizeSaved: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: {url: frescoImage.url},
+        alt: "Fresco painting",
+        longDescription:
+            "This is a *very* long description of the fresco painting.",
+    },
+};
+
+export const LargeImageWithNoSizeSavedScaleFlag: Story = {
+    decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-scale": true,
+            }),
+        },
+    },
+    args: {
+        backgroundImage: {url: frescoImage.url},
+        alt: "Fresco painting",
+        longDescription:
+            "This is a *very* long description of the fresco painting.",
+    },
+};
+
 // TODO(LEMS-3912): Remove this story after we turn on and remove the
 // image-widget-upgrade-scale feature flag.
 /**
