@@ -315,10 +315,7 @@ export const exponentialQuestion: PerseusRenderer =
                 [0, 3],
                 [1, -1],
             ],
-            asymptote: [
-                [-10, 5],
-                [10, 5],
-            ],
+            asymptote: 5,
         })
         .build();
 

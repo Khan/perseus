@@ -486,8 +486,8 @@ export function getExponentialCoords(
     graph: PerseusGraphTypeExponential,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
-): {coords: [Coord, Coord]; asymptote: [Coord, Coord]} {
-    if (graph.coords && graph.asymptote) {
+): {coords: [Coord, Coord]; asymptote: number} {
+    if (graph.coords && graph.asymptote != null) {
         return {
             coords: [graph.coords[0], graph.coords[1]],
             asymptote: graph.asymptote,
@@ -502,18 +502,13 @@ export function getExponentialCoords(
     ];
     defaultCoords = normalizePoints(range, step, defaultCoords, true);
 
-    // Default asymptote at y=0 (the x-axis), so the curve visually approaches zero.
-    const defaultAsymptote: [Coord, Coord] = [
-        [range[0][0], 0],
-        [range[0][1], 0],
-    ];
-
     const coords: [Coord, Coord] = graph.startCoords
         ? graph.startCoords.coords
         : defaultCoords;
-    const asymptote: [Coord, Coord] = graph.startCoords
+    // Default asymptote at y=0 (the x-axis), so the curve visually approaches zero.
+    const asymptote: number = graph.startCoords
         ? graph.startCoords.asymptote
-        : defaultAsymptote;
+        : 0;
 
     return {coords, asymptote};
 }

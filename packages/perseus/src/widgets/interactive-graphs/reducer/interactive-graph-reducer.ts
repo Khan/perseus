@@ -556,7 +556,7 @@ function doMovePoint(
             const newCoords: vec.Vector2[] = [...state.coords];
             newCoords[action.index] = boundDestination;
 
-            const asymptoteY = state.asymptote[0][Y];
+            const asymptoteY = state.asymptote;
 
             // Point cannot land on the asymptote
             if (boundDestination[Y] === asymptoteY) {
@@ -751,10 +751,7 @@ function doMoveCenter(
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                asymptote: [
-                    [state.range[X][0], newY],
-                    [state.range[X][1], newY],
-                ],
+                asymptote: newY,
             };
         }
         default:
