@@ -437,6 +437,32 @@ Add an `<OptionItem>` for the new type (~line 18):
 <OptionItem value="vector-sum" label="Vector Sum" />
 ```
 
+#### Optional: Gate the option behind a feature flag
+
+If your graph type is not yet ready for all content creators, you can hide it behind a feature flag. The component already receives `apiOptions` as a prop, which carries feature flag data from the host application.
+
+1. Import `isFeatureOn` from `@khanacademy/perseus-core`.
+2. Call it at the top of the component body, passing `apiOptions` and your flag name:
+
+```tsx
+import {isFeatureOn} from "@khanacademy/perseus-core";
+
+const showVectorSum = isFeatureOn(
+    {apiOptions: props.apiOptions},
+    "interactive-graph-vector-sum",
+);
+```
+
+3. Render the `<OptionItem>` conditionally:
+
+```tsx
+{showVectorSum && (
+    <OptionItem value="vector-sum" label="Vector Sum" />
+)}
+```
+
+Remove the flag and render the `<OptionItem>` unconditionally once the graph type is fully launched.
+
 ---
 
 ### 11. Add start-coords support in the editor
@@ -554,7 +580,7 @@ Both functions have `UnreachableCaseError` on the default branch, so TypeScript 
 | Graph component | `graphs/xxx.tsx` (new file) | Implement `renderXxxGraph()` and graph React component |
 | Render dispatch | `mafs-graph.tsx` | Import and add `case` in `renderGraphElements()` switch |
 | Scoring | `perseus-score/.../score-interactive-graph.ts` | Add `else if` branch in `scoreInteractiveGraph()` |
-| Editor selector | `interactive-graph-editor/components/graph-type-selector.tsx` | Add `<OptionItem>` |
+| Editor selector | `interactive-graph-editor/components/graph-type-selector.tsx` | Add `<OptionItem>`; optionally gate with `isFeatureOn()` |
 | Editor start coords | `interactive-graph-editor/start-coords/start-coords-settings.tsx` | Add `case` in switch |
 | Editor answer options | `interactive-graph-editor/components/xxx-answer-options.tsx` | New file if type-specific controls needed |
 | AI utils | `widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts` | Add types, `getGraphOptionsForProps()` case, `getUserInput()` case |
