@@ -132,10 +132,10 @@ describe("canonicalTangentCoefficients", () => {
         const coeffs: TangentCoefficient = [2, 3, 1, 0];
         const result = canonicalTangentCoefficients(coeffs);
 
-        expect(result[0]).toBeCloseTo(2);
-        expect(result[1]).toBeCloseTo(3);
-        expect(result[2]).toBeCloseTo(1);
-        expect(result[3]).toBeCloseTo(0);
+        expect(result[0]).toBe(2);
+        expect(result[1]).toBe(3);
+        expect(result[2]).toBe(1);
+        expect(result[3]).toBe(0);
     });
 
     it("flips signs of a and c when b is negative", () => {
