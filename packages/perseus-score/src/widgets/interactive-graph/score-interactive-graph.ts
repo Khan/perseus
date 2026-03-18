@@ -158,7 +158,7 @@ function scoreInteractiveGraph(
         } else if (
             userInput.type === "absolute-value" &&
             rubric.correct.type === "absolute-value" &&
-            userInput.coords != null &&
+            userInput.coords != null
         ) {
             const userCoeffs = getAbsoluteValueCoefficients(userInput.coords);
             const rubricCoeffs = getAbsoluteValueCoefficients(
