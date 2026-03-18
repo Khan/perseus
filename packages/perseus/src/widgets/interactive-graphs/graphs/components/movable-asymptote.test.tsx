@@ -13,7 +13,8 @@ const defaultProps = {
     point: [-10, 0] as [number, number],
     onMove: jest.fn(),
     orientation: "horizontal" as const,
-    ariaLabel: "Horizontal asymptote at y equals 0. Use up and down arrow keys to move.",
+    ariaLabel:
+        "Horizontal asymptote at y equals 0. Use up and down arrow keys to move.",
 };
 
 describe("MovableAsymptote", () => {
@@ -48,9 +49,7 @@ describe("MovableAsymptote", () => {
         );
 
         // Assert
-        expect(
-            screen.getByTestId("movable-asymptote"),
-        ).toBeInTheDocument();
+        expect(screen.getByTestId("movable-asymptote")).toBeInTheDocument();
     });
 
     it("adds movable-dragging class to the visible line when dragging", () => {
@@ -65,9 +64,9 @@ describe("MovableAsymptote", () => {
         );
 
         // Assert
-        expect(
-            screen.getByTestId("movable-asymptote__line"),
-        ).toHaveClass("movable-dragging");
+        expect(screen.getByTestId("movable-asymptote__line")).toHaveClass(
+            "movable-dragging",
+        );
     });
 
     it("does not add movable-dragging class when not dragging", () => {
@@ -79,9 +78,9 @@ describe("MovableAsymptote", () => {
         );
 
         // Assert
-        expect(
-            screen.getByTestId("movable-asymptote__line"),
-        ).not.toHaveClass("movable-dragging");
+        expect(screen.getByTestId("movable-asymptote__line")).not.toHaveClass(
+            "movable-dragging",
+        );
     });
 
     it("renders the same structure for vertical orientation", () => {
@@ -104,6 +103,8 @@ describe("MovableAsymptote", () => {
                 name: "Vertical asymptote at x equals 0.",
             }),
         ).toBeInTheDocument();
-        expect(screen.getByTestId("movable-asymptote__line")).toBeInTheDocument();
+        expect(
+            screen.getByTestId("movable-asymptote__line"),
+        ).toBeInTheDocument();
     });
 });

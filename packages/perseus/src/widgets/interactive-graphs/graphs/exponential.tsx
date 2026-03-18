@@ -29,7 +29,6 @@ import type {Coord} from "@khanacademy/perseus-core";
 
 const {getExponentialCoefficients} = kmathCoefficients;
 
-
 export function renderExponentialGraph(
     state: ExponentialGraphState,
     dispatch: Dispatch,
@@ -134,9 +133,7 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                         i,
                     )}
                     onMove={(destination) =>
-                        dispatch(
-                            actions.exponential.movePoint(i, destination),
-                        )
+                        dispatch(actions.exponential.movePoint(i, destination))
                     }
                 />
             ))}
@@ -205,8 +202,12 @@ export const getExponentialKeyboardConstraint = (
     const asymptoteY = asymptote;
 
     const isValidPosition = (coord: vec.Vector2): boolean => {
-        if (coord[Y] === asymptoteY) return false;
-        if (coord[X] === otherPoint[X]) return false;
+        if (coord[Y] === asymptoteY) {
+            return false;
+        }
+        if (coord[X] === otherPoint[X]) {
+            return false;
+        }
         // Crossing the asymptote is allowed — the reducer reflects
         // the other point so both end up on the same side.
         return true;
@@ -249,8 +250,6 @@ const computeExponential = function (
     const {a, b, c} = coefficients;
     return a * Math.exp(b * x) + c;
 };
-
-
 
 function getExponentialDescription(
     state: ExponentialGraphState,

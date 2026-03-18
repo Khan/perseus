@@ -11,7 +11,7 @@ import {
     getExponentialKeyboardConstraint,
 } from "./exponential";
 
-import type {ExponentialGraphState, InteractiveGraphState} from "../types";
+import type {InteractiveGraphState} from "../types";
 import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
@@ -42,25 +42,21 @@ describe("Exponential graph screen reader", () => {
     it("has the correct aria-label on the graph element", () => {
         // Arrange, Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={baseExponentialState}
-            />,
+            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
         );
 
         // Assert
         expect(
-            screen.getByLabelText("An exponential curve on a coordinate plane."),
+            screen.getByLabelText(
+                "An exponential curve on a coordinate plane.",
+            ),
         ).toBeInTheDocument();
     });
 
     it("labels point 1 with its coordinates", () => {
         // Arrange, Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={baseExponentialState}
-            />,
+            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
         );
 
         // Assert
@@ -72,10 +68,7 @@ describe("Exponential graph screen reader", () => {
     it("labels point 2 with its coordinates", () => {
         // Arrange, Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={baseExponentialState}
-            />,
+            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
         );
 
         // Assert
@@ -87,10 +80,7 @@ describe("Exponential graph screen reader", () => {
     it("labels the asymptote with its y-value and keyboard instructions", () => {
         // Arrange, Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={baseExponentialState}
-            />,
+            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
         );
 
         // Assert
@@ -104,15 +94,14 @@ describe("Exponential graph screen reader", () => {
     it("describes the graph with point positions and asymptote", () => {
         // Arrange, Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={baseExponentialState}
-            />,
+            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
         );
 
         // Assert
         expect(
-            screen.getByLabelText("An exponential curve on a coordinate plane."),
+            screen.getByLabelText(
+                "An exponential curve on a coordinate plane.",
+            ),
         ).toHaveAccessibleDescription(
             "The graph shows an exponential curve passing through point 0 comma 3 and point 1 comma 6 with a horizontal asymptote at y equals 1.",
         );
@@ -135,7 +124,9 @@ describe("Exponential graph screen reader", () => {
 
         // Assert
         expect(
-            screen.getByLabelText("An exponential curve on a coordinate plane."),
+            screen.getByLabelText(
+                "An exponential curve on a coordinate plane.",
+            ),
         ).toHaveAccessibleDescription(
             "The graph shows an exponential curve passing through point -2 comma 4 and point 2 comma 8 with a horizontal asymptote at y equals 1.",
         );
@@ -155,7 +146,9 @@ describe("Exponential graph screen reader", () => {
 
         // Assert
         expect(
-            screen.getByLabelText("An exponential curve on a coordinate plane."),
+            screen.getByLabelText(
+                "An exponential curve on a coordinate plane.",
+            ),
         ).toHaveAccessibleDescription(
             "The graph shows an exponential curve passing through point 0 comma 3 and point 1 comma 6 with a horizontal asymptote at y equals -3.",
         );
@@ -164,10 +157,7 @@ describe("Exponential graph screen reader", () => {
     it("describes the interactive elements for the graph", () => {
         // Arrange, Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={baseExponentialState}
-            />,
+            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
         );
 
         // Assert
