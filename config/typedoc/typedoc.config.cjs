@@ -17,9 +17,10 @@ const config = {
     entryPointStrategy: "packages",
     entryPoints,
     out: "docs/",
-    // This is disabled for now. If we enable it, typedoc actually deletes the
-    // entire output folder (docs/) which then blows away our .gitkeep
-    // placeholder, which then dirties the repo, which is annoying.
+    // This is disabled because it ends up also deleting the `.gitkeep`
+    // placeholder file in the docs/ directory that ensures the folder exists
+    // in git. Instead, we have a custom package.json script (clean:docs) that
+    // deletes all files in this folder but retains the `.gitkeep` file.
     cleanOutputDir: false,
     githubPages: true,
     plugin: ["typedoc-plugin-missing-exports"],
