@@ -19,7 +19,6 @@ const config = {
     out: "docs",
     cleanOutputDir: true,
     githubPages: true,
-    plugin: [path.join(__dirname, "typedoc-theme.cjs")],
     theme: "perseus",
     packageOptions: {
         excludePrivate: true,
