@@ -152,6 +152,9 @@ type State = {
     // Stores the last-seen version of each widget passed to the `widgets`
     // prop. This allows widgets to be recreated when the user deletes a
     // widget from the content string and then hits ctrl+Z / "undo".
+    // NOTE: This is technically a memory leak, since
+    // `rememberedWidgetsForUndo` is not cleared during the lifetime of the
+    // component instance.
     rememberedWidgetsForUndo: PerseusWidgetsMap;
 };
 
@@ -858,6 +861,7 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
+    // TODO(benchristel): Make this a normal method, not an arrow function.
     serialize: () => {
         content: string;
         images: any;
