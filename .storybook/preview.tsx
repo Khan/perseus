@@ -130,11 +130,7 @@ const preview: Preview = {
             },
         },
         backgrounds: {
-            // Add WB colors as background options. :)
-            values: Object.entries(color).map(([name, value]) => ({
-                name,
-                value,
-            })),
+            options: {},
         },
         docs: {
             toc: {
