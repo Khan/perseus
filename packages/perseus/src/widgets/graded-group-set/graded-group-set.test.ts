@@ -1,4 +1,8 @@
-import {type PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    type PerseusRenderer,
+    generateGradedGroupOptions,
+    generateGradedGroupSetWidget,
+} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -195,6 +199,44 @@ describe("graded group set widget", () => {
 
             expect(screen.getByText("Problem 1c")).toBeVisible();
         });
+
+    });
+
+    it("renders one pip per group even when groups share the same title", () => {
+        // Arrange
+        const consoleSpy = jest
+            .spyOn(console, "error")
+            .mockImplementation(() => {});
+        const articleWithDuplicateTitles: PerseusRenderer = {
+            ...article1,
+            widgets: {
+                "graded-group-set 1": generateGradedGroupSetWidget({
+                    options: {
+                        gradedGroups: [
+                            generateGradedGroupOptions({title: "Problem"}),
+                            generateGradedGroupOptions({title: "Problem"}),
+                            generateGradedGroupOptions({title: "Problem"}),
+                        ],
+                    },
+                }),
+            },
+        };
+
+        try {
+            // Act
+            renderQuestion(articleWithDuplicateTitles);
+
+            // Assert
+            expect(consoleSpy).not.toHaveBeenCalledWith(
+                expect.stringContaining(
+                    "Encountered two children with the same key",
+                ),
+                expect.anything(),
+                expect.anything(),
+            );
+        } finally {
+            consoleSpy.mockRestore();
+        }
     });
 
     it("should return input paths", async () => {
