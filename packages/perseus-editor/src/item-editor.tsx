@@ -1,6 +1,7 @@
 import {PerseusMarkdown} from "@khanacademy/perseus";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
@@ -55,6 +56,8 @@ type State = {
     showAxeCoreIssues: boolean;
 };
 
+// NOTE: ItemEditor does not actually produce an entire PerseusItem. Hints are
+// edited separately.
 class ItemEditor extends React.Component<Props, State> {
     static defaultProps: {
         answerArea: Record<any, any>;
@@ -166,15 +169,23 @@ class ItemEditor extends React.Component<Props, State> {
         return this.questionEditor.current?.getSaveWarnings();
     };
 
-    serialize: () => {
-        answerArea: PerseusAnswerArea | undefined;
-        question: any;
-    } = () => {
+    serialize(): {
+        answerArea: PerseusAnswerArea;
+        question: PerseusRenderer;
+    } {
+        invariant(
+            this.questionEditor.current,
+            "cannot serialize ItemEditor without Editor",
+        );
+        invariant(
+            this.itemExtrasEditor.current,
+            "cannot serialize ItemEditor without ItemExtrasEditor",
+        );
         return {
-            question: this.questionEditor.current?.serialize(),
-            answerArea: this.itemExtrasEditor.current?.serialize(),
+            question: this.questionEditor.current.serialize(),
+            answerArea: this.itemExtrasEditor.current.serialize(),
         };
-    };
+    }
 
     render(): React.ReactNode {
         const isMobile =
