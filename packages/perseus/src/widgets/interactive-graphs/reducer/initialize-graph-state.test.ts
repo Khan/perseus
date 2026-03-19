@@ -403,3 +403,56 @@ describe("initializeGraphState for sinusoid graphs", () => {
         ]);
     });
 });
+
+describe("initializeGraphState for tangent graphs", () => {
+    it("uses the given coords, if present", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "tangent",
+                coords: [
+                    [0, 1],
+                    [2, 3],
+                ],
+            },
+        });
+
+        invariant(graph.type === "tangent");
+        expect(graph.coords).toEqual([
+            [0, 1],
+            [2, 3],
+        ]);
+    });
+
+    it("uses startCoords if coords are not given", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "tangent",
+                startCoords: [
+                    [1, 2],
+                    [3, 4],
+                ],
+            },
+        });
+
+        invariant(graph.type === "tangent");
+        expect(graph.coords).toEqual([
+            [1, 2],
+            [3, 4],
+        ]);
+    });
+
+    it("uses default coords if none are given", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "tangent"},
+        });
+
+        invariant(graph.type === "tangent");
+        expect(graph.coords).toEqual([
+            [0, 0],
+            [5, 5],
+        ]);
+    });
+});

@@ -9,6 +9,7 @@ import type {
     PointGraphState,
     InteractiveGraphState,
     PolygonGraphState,
+    TangentGraphState,
 } from "../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 
@@ -96,6 +97,25 @@ const baseSinusoidGraphState: InteractiveGraphState = {
         [1, 1],
     ],
 };
+
+function generateTangentGraphState(
+    overrides?: Partial<Omit<TangentGraphState, "type">>,
+): TangentGraphState {
+    return {
+        hasBeenInteractedWith: false,
+        type: "tangent",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        snapStep: [1, 1],
+        coords: [
+            [0, 0],
+            [1, 1],
+        ],
+        ...overrides,
+    };
+}
 
 const baseQuadraticGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
@@ -244,25 +264,96 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("does not allow moving an endpoint of a sinusoid if the bounding logic would result in an invalid graph", () => {
+    it("rejects a sinusoid move when bounding clamps the point to the same x as the other point", () => {
+        // coords: point 0 at x=8, point 1 at x=9.
+        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
+        // snap 1 → effective max 9), which matches point 1's x.
+        // The same-x guard should reject this move entirely.
         const state: InteractiveGraphState = {
             ...baseSinusoidGraphState,
             coords: [
-                [9, 1],
-                [10, 2],
+                [8, 1],
+                [9, 2],
             ],
         };
 
         const updated = interactiveGraphReducer(
             state,
-            actions.sinusoid.movePoint(0, [15, 1]),
+            actions.sinusoid.movePoint(0, [15, 5]),
         );
 
         invariant(updated.type === "sinusoid");
+        expect(updated.hasBeenInteractedWith).toBe(false);
+        expect(updated.coords).toEqual([
+            [8, 1],
+            [9, 2],
+        ]);
+    });
+
+    it("does not allow moving the endpoints of a tangent to the same x location", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [1, 1],
+                [2, 2],
+            ],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [2, 1]),
+        );
+
+        invariant(updated.type === "tangent");
         // Assert: the move was canceled
         expect(updated.coords).toEqual([
-            [9, 1],
-            [10, 2],
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
+    it("rejects a tangent move when bounding clamps the point to the same x as the other point", () => {
+        // coords: point 0 at x=8, point 1 at x=9.
+        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
+        // snap 1 → effective max 9), which matches point 1's x.
+        // The same-x guard should reject this move entirely.
+        const state = generateTangentGraphState({
+            coords: [
+                [8, 1],
+                [9, 2],
+            ],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [15, 5]),
+        );
+
+        invariant(updated.type === "tangent");
+        expect(updated.hasBeenInteractedWith).toBe(false);
+        expect(updated.coords).toEqual([
+            [8, 1],
+            [9, 2],
+        ]);
+    });
+
+    it("allows moving a tangent endpoint to a valid position", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(1, [3, 4]),
+        );
+
+        invariant(updated.type === "tangent");
+        expect(updated.hasBeenInteractedWith).toBe(true);
+        expect(updated.coords).toEqual([
+            [0, 0],
+            [3, 4],
         ]);
     });
 
