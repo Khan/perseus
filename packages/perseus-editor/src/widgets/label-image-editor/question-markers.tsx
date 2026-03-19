@@ -29,7 +29,9 @@ type QuestionMarkersProps = {
     editingDisabled: boolean;
 };
 
-export default class QuestionMarkers extends React.Component<QuestionMarkersProps> {
+type State = Empty;
+
+class QuestionMarkers extends React.Component<QuestionMarkersProps, State> {
     private _markers: Array<Marker | null | undefined> = [];
 
     openDropdownForMarkerIndices(indices: ReadonlyArray<number>) {
@@ -182,3 +184,5 @@ const styles = StyleSheet.create({
         maxWidth: "100%",
     },
 });
+
+export default QuestionMarkers;
