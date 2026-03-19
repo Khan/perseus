@@ -11,8 +11,8 @@ export default {
         backgrounds: {
             options: {
                 // We want a slightly darker default bg so that we can
+                // see the top of the keypad when it is open
                 light_background:
-                    // see the top of the keypad when it is open
                     {
                         name: "light background",
                         value: "lightgrey",
