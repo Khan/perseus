@@ -760,6 +760,22 @@ describe("image editor", () => {
         ).not.toBeInTheDocument();
     });
 
+    it("should show character counter for alt text", () => {
+        // Arrange
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                onChange={() => {}}
+                backgroundImage={earthMoonImage}
+                alt="123456789"
+            />,
+        );
+
+        // Assert
+        expect(screen.getByText("123456789")).toBeInTheDocument();
+        expect(screen.getByText("10 characters")).toBeInTheDocument();
+    });
+
     describe("decorative toggle", () => {
         it("should render when decorative is true", () => {
             // Arrange & Act
