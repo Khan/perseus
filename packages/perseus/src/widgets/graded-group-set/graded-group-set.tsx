@@ -60,6 +60,9 @@ class Indicators extends React.Component<IndicatorsProps> {
                 )}
             >
                 {this.props.gradedGroups.map(({title}, i) => (
+                    // Note: Use index as key — titles are user-authored and not
+                    // guaranteed unique. Groups are never reordered at runtime,
+                    // so index keys are stable.
                     <li className={css(styles.indicator)} key={i}>
                         <Clickable
                             role="button"
