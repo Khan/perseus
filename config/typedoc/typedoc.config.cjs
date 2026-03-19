@@ -24,8 +24,9 @@ const config = {
     githubPages: true,
     plugin: ["typedoc-plugin-missing-exports"],
     packageOptions: {
-        excludePrivate: true,
+        excludeExternals: true,
         excludeInternal: true,
+        excludePrivate: true,
         excludeProtected: true,
         includeVersion: true,
         // Suppress warnings about React internal symbols (e.g. lifecycle
