@@ -138,7 +138,12 @@ module.exports = {
             },
         },
         {
-            files: ["config/**", "utils/**", "packages/*/src/testing/*"],
+            files: [
+                "config/**",
+                "utils/**",
+                "packages/*/src/testing/*",
+                "typedoc.config.cjs",
+            ],
             rules: {
                 "@typescript-eslint/no-require-imports": "off",
                 "import/no-commonjs": "off",

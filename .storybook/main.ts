@@ -38,6 +38,7 @@ configureSort({
     storyOrder: {
         introduction: null,
         "getting started": null,
+        "api documentation": null,
         widgetGallery: null,
         theming: null,
         renderers: {
@@ -143,7 +144,7 @@ const config: StorybookConfig = {
             plugins: [cssWrapper],
         });
     },
-    staticDirs: ["../static"],
+    staticDirs: ["../static", {from: "../docs", to: "/api-docs"}],
 };
 
 export default config;

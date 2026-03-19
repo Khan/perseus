@@ -10,6 +10,7 @@ import {
 import {
     CoreWidgetRegistry,
     Errors,
+    getWidgetIdsFromContent,
     PerseusError,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
@@ -148,6 +149,13 @@ type DefaultProps = {
 
 type State = {
     textAreaValue: string;
+    // Stores the last-seen version of each widget passed to the `widgets`
+    // prop. This allows widgets to be recreated when the user deletes a
+    // widget from the content string and then hits ctrl+Z / "undo".
+    // NOTE: This is technically a memory leak, since
+    // `rememberedWidgetsForUndo` is not cleared during the lifetime of the
+    // component instance.
+    rememberedWidgetsForUndo: PerseusWidgetsMap;
 };
 
 // Contextual information that widgets can use,
@@ -182,7 +190,18 @@ class Editor extends React.Component<Props, State> {
 
     state: State = {
         textAreaValue: this.props.content,
+        rememberedWidgetsForUndo: {},
     };
+
+    static getDerivedStateFromProps(props, state): Partial<State> {
+        return {
+            textAreaValue: props.content,
+            rememberedWidgetsForUndo: {
+                ...state.rememberedWidgetsForUndo,
+                ...props.widgets,
+            },
+        };
+    }
 
     componentDidMount() {
         // See componentDidUpdate() for how this flag is used
@@ -202,14 +221,6 @@ class Editor extends React.Component<Props, State> {
             .on("copy cut", this._maybeCopyWidgets)
             // @ts-expect-error - TS2769 - No overload matches this call.
             .on("paste", this._maybePasteWidgets);
-    }
-
-    // TODO(arun): This is a deprecated method, use the appropriate replacement
-    // eslint-disable-next-line react/no-unsafe
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (this.props.content !== nextProps.content) {
-            this.setState({textAreaValue: nextProps.content});
-        }
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -431,8 +442,9 @@ class Editor extends React.Component<Props, State> {
     ) => {
         const newValue = e.currentTarget.value;
         this.setState({textAreaValue: newValue});
+        const widgets = this.getWidgetsReferencedIn(newValue);
         if (newValue !== this.props.content) {
-            this.props.onChange({content: newValue});
+            this.props.onChange({content: newValue, widgets});
         }
     };
 
@@ -814,6 +826,25 @@ class Editor extends React.Component<Props, State> {
         return warnings;
     };
 
+    private getWidgetsReferencedIn(content: string): PerseusWidgetsMap {
+        const referencedWidgetIds = getWidgetIdsFromContent(content);
+        const allWidgets = {
+            // We include `rememberedWidgetsForUndo` here to handle the case
+            // where the user deletes a widget and then restores it. Deleting
+            // the widget will remove it from `this.props.widgets`, but
+            // `rememberedWidgetsForUndo` will still have it.
+            ...this.state.rememberedWidgetsForUndo,
+            ...this.props.widgets,
+        };
+        const referencedWidgets: PerseusWidgetsMap = {};
+        for (const id of referencedWidgetIds) {
+            if (allWidgets[id] != null) {
+                referencedWidgets[id] = allWidgets[id];
+            }
+        }
+        return referencedWidgets;
+    }
+
     focus: () => void = () => {
         const textarea = this.textarea.current;
         if (textarea) {
@@ -830,12 +861,13 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
-    serialize: (options?: any) => {
+    // TODO(benchristel): Make this a normal method, not an arrow function.
+    serialize: () => {
         content: string;
         images: any;
         replace: any | undefined;
         widgets: Record<any, any>;
-    } = (options: any) => {
+    } = () => {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
@@ -847,22 +879,6 @@ class Editor extends React.Component<Props, State> {
             // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             widgets[id] = this.refs[id].serialize();
         });
-
-        // Preserve the data associated with deleted widgets in their last
-        // modified form. This is only intended to be useful in the context of
-        // immediate cut and paste operations if Editor.serialize() is called
-        // in between the two (which ideally should not be happening).
-        // TODO(alex): Remove this once all widget.serialize() methods
-        //             have been fixed to only return props,
-        //             and the above no longer applies.
-        if (options && options.keepDeletedWidgets) {
-            _.chain(this.props.widgets)
-                .keys()
-                .reject((id) => _.contains(widgetIds, id))
-                .each((id) => {
-                    widgets[id] = this.props.widgets[id];
-                });
-        }
 
         return {
             replace: this.props.replace,
@@ -1000,6 +1016,7 @@ class Editor extends React.Component<Props, State> {
             <textarea
                 ref={this.textarea}
                 key="textarea"
+                aria-label="Markdown content"
                 onChange={this.handleChange}
                 onKeyDown={this._handleKeyDown}
                 placeholder={this.props.placeholder}
