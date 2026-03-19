@@ -37,7 +37,7 @@ describe("Tangent graph screen reader", () => {
         );
     });
 
-    test("should have aria label and describedby for tangent graph", () => {
+    it("should have aria label and describedby for tangent graph", () => {
         // Arrange, Act
         render(<MafsGraph {...baseMafsGraphProps} state={baseTangentState} />);
         const graph = screen.getByLabelText(
@@ -51,7 +51,7 @@ describe("Tangent graph screen reader", () => {
         );
     });
 
-    test("should have aria labels for tangent graph points", () => {
+    it("should have aria labels for tangent graph points", () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseTangentState} />);
 
@@ -66,7 +66,7 @@ describe("Tangent graph screen reader", () => {
         expect(control).toHaveAccessibleName("Control point at 2 comma 2.");
     });
 
-    test("overall graph description should include interactive elements", () => {
+    it("overall graph description should include interactive elements", () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseTangentState} />);
 

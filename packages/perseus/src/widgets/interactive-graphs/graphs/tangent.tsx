@@ -295,8 +295,7 @@ function getTangentDescription(
     state: TangentGraphState,
     i18n: I18nContextType,
 ): string {
-    const strings = describeTangentGraph(state, i18n);
-    return strings.srTangentInteractiveElements;
+    return describeTangentGraph(state, i18n).srTangentInteractiveElements;
 }
 
 function describeTangentGraph(
