@@ -308,7 +308,7 @@ export const sinusoidQuestionWithDefaultCorrect: PerseusRenderer =
 export const exponentialQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(
-            "**Graph $f(x) = -2e^x + 5$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
+            "**Graph $f(x) = -2 \\cdot 3^x + 5$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
         )
         .withExponential({
             coords: [

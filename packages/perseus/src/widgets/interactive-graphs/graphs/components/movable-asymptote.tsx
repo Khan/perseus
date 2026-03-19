@@ -43,7 +43,7 @@ export function MovableAsymptote(props: Props) {
         orientation,
         ariaLabel,
     } = props;
-    const {interactiveColor} = useGraphConfig();
+    const {interactiveColor, disableKeyboardInteraction} = useGraphConfig();
 
     const [focused, setFocused] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
@@ -59,7 +59,8 @@ export function MovableAsymptote(props: Props) {
     return (
         <g
             ref={groupRef}
-            tabIndex={0}
+            tabIndex={disableKeyboardInteraction ? -1 : 0}
+            aria-disabled={disableKeyboardInteraction}
             aria-label={ariaLabel}
             aria-live="polite"
             className="movable-line"

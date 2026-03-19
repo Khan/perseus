@@ -732,10 +732,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             InteractiveGraph.defaultExponentialCoords(props);
         const asymptote =
             // @ts-expect-error - TS2339 - Property 'asymptote' does not exist on type 'PerseusGraphType'.
-            props.userInput.asymptote || [
-                [-10, 0],
-                [10, 0],
-            ];
+            props.userInput.asymptote ?? 0;
         const coeffs = getExponentialCoefficients(coords, asymptote);
         if (coeffs == null) {
             return "y = e^x";
