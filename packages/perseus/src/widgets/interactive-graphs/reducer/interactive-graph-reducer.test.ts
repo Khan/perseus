@@ -9,6 +9,7 @@ import type {
     PointGraphState,
     InteractiveGraphState,
     PolygonGraphState,
+    TangentGraphState,
 } from "../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 
@@ -97,19 +98,24 @@ const baseSinusoidGraphState: InteractiveGraphState = {
     ],
 };
 
-const baseTangentGraphState: InteractiveGraphState = {
-    hasBeenInteractedWith: false,
-    type: "tangent",
-    range: [
-        [-10, 10],
-        [-10, 10],
-    ],
-    snapStep: [1, 1],
-    coords: [
-        [0, 0],
-        [1, 1],
-    ],
-};
+function generateTangentGraphState(
+    overrides?: Partial<Omit<TangentGraphState, "type">>,
+): TangentGraphState {
+    return {
+        hasBeenInteractedWith: false,
+        type: "tangent",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        snapStep: [1, 1],
+        coords: [
+            [0, 0],
+            [1, 1],
+        ],
+        ...overrides,
+    };
+}
 
 const baseQuadraticGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
@@ -285,13 +291,12 @@ describe("movePointInFigure", () => {
     });
 
     it("does not allow moving the endpoints of a tangent to the same x location", () => {
-        const state: InteractiveGraphState = {
-            ...baseTangentGraphState,
+        const state = generateTangentGraphState({
             coords: [
                 [1, 1],
                 [2, 2],
             ],
-        };
+        });
 
         const updated = interactiveGraphReducer(
             state,
@@ -311,13 +316,12 @@ describe("movePointInFigure", () => {
         // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
         // snap 1 → effective max 9), which matches point 1's x.
         // The same-x guard should reject this move entirely.
-        const state: InteractiveGraphState = {
-            ...baseTangentGraphState,
+        const state = generateTangentGraphState({
             coords: [
                 [8, 1],
                 [9, 2],
             ],
-        };
+        });
 
         const updated = interactiveGraphReducer(
             state,
@@ -333,13 +337,12 @@ describe("movePointInFigure", () => {
     });
 
     it("allows moving a tangent endpoint to a valid position", () => {
-        const state: InteractiveGraphState = {
-            ...baseTangentGraphState,
+        const state = generateTangentGraphState({
             coords: [
                 [0, 0],
                 [1, 1],
             ],
-        };
+        });
 
         const updated = interactiveGraphReducer(
             state,
