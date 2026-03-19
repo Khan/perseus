@@ -854,8 +854,11 @@ class ExponentialGraphConfig implements InteractiveFigureConfig {
         return {
             type: "exponential",
             startCoords:
-                this.startCoords != null && this.startAsymptote != null
-                    ? {coords: this.startCoords, asymptote: this.startAsymptote}
+                this.startCoords != null
+                    ? {
+                          coords: this.startCoords,
+                          asymptote: this.startAsymptote ?? 0,
+                      }
                     : undefined,
         };
     }

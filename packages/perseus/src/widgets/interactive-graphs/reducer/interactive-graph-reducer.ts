@@ -583,7 +583,10 @@ function doMovePoint(
                     ...state.coords,
                 ];
                 updatedCoords[action.index] = boundDestination;
-                updatedCoords[otherIndex] = [otherPoint[X], reflectedY];
+                updatedCoords[otherIndex] = boundAndSnapToGrid(
+                    [otherPoint[X], reflectedY],
+                    state,
+                );
                 return {
                     ...state,
                     hasBeenInteractedWith: true,
@@ -728,9 +731,10 @@ function doMoveCenter(
         }
         case "exponential": {
             // Move the asymptote vertically only
-            let newY = snap(state.snapStep, action.destination)[Y];
+            let newY = boundAndSnapToGrid(action.destination, state)[Y];
             const coords = state.coords;
             const stepY = state.snapStep[Y];
+            const [, yRange] = state.range;
 
             // Both points must stay on the same side of the new asymptote position
             const allAbove = coords[0][Y] > newY && coords[1][Y] > newY;
@@ -744,6 +748,7 @@ function doMoveCenter(
                 const midpoint = (topMost + bottomMost) / 2;
 
                 newY = newY >= midpoint ? topMost + stepY : bottomMost - stepY;
+                newY = clamp(newY, yRange[0], yRange[1]);
             }
 
             // Final safety: asymptote must not land exactly on either point
