@@ -718,7 +718,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static defaultExponentialCoords(props: Props): Coord[] {
         const coords = [
-            [0.55, 0.5],
+            [0.5, 0.55],
             [0.75, 0.75],
         ];
         // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
