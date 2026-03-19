@@ -98,8 +98,8 @@ export type MakeWidgetMap<TRegistry> = {
  * There should be one key/value pair for each supported widget. If you create
  * a new widget, an entry should be added to this interface. Note that this
  * only registers the widget options type, you'll also need to register the
- * widget so that it's available at runtime (@see
- * {@link file://./widgets.ts#registerWidget}).
+ * widget so that it's available at runtime (@see @khanacademy/perseus'
+ * `registerWidget()` function).
  *
  * Importantly, the key should be the name that is used in widget IDs. For most
  * widgets that is the same as the widget option's `type` field. In cases where
