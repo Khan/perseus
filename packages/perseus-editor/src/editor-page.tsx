@@ -258,9 +258,10 @@ class EditorPage extends React.Component<Props, State> {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-        return _.extend(this.itemEditor.current?.serialize(), {
+        return {
+            ...this.itemEditor.current?.serialize(),
             hints: this.hintsEditor.current?.serialize(),
-        });
+        };
     }
 
     handleChange = (toChange: OnChangeParams) => {
