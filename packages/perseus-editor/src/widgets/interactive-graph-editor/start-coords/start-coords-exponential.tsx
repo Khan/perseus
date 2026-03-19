@@ -1,12 +1,13 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
+
+import styles from "./start-coords-exponential.module.css";
 
 import type {Coord} from "@khanacademy/perseus";
 
@@ -58,9 +59,9 @@ const StartCoordsExponential = (props: Props) => {
     }
 
     return (
-        <View style={styles.tile}>
+        <View className={styles.tile}>
             {/* Point 1 */}
-            <View style={styles.row}>
+            <View className={styles.row}>
                 <LabelLarge>Point 1:</LabelLarge>
                 <Strut size={spacing.small_12} />
                 <CoordinatePairInput
@@ -74,7 +75,7 @@ const StartCoordsExponential = (props: Props) => {
             <Strut size={spacing.small_12} />
 
             {/* Point 2 */}
-            <View style={styles.row}>
+            <View className={styles.row}>
                 <LabelLarge>Point 2:</LabelLarge>
                 <Strut size={spacing.small_12} />
                 <CoordinatePairInput
@@ -88,34 +89,18 @@ const StartCoordsExponential = (props: Props) => {
             <Strut size={spacing.small_12} />
 
             {/* Asymptote y-value — single number, mirroring radius in StartCoordsCircle */}
-            <LabelLarge tag="label" style={styles.row}>
+            <LabelLarge tag="label" className={styles.row}>
                 Asymptote y =
                 <Strut size={spacing.small_12} />
-                <ScrolllessNumberTextField
-                    value={asymptoteYState}
-                    onChange={handleAsymptoteYChange}
-                    style={styles.textField}
-                />
+                <View className={styles.textFieldWrapper}>
+                    <ScrolllessNumberTextField
+                        value={asymptoteYState}
+                        onChange={handleAsymptoteYChange}
+                    />
+                </View>
             </LabelLarge>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    tile: {
-        backgroundColor: semanticColor.core.background.instructive.subtle,
-        marginTop: spacing.xSmall_8,
-        padding: spacing.small_12,
-        borderRadius: spacing.xSmall_8,
-    },
-    row: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    textField: {
-        width: spacing.xxxLarge_64,
-    },
-});
 
 export default StartCoordsExponential;
