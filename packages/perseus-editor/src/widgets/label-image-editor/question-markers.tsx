@@ -13,7 +13,7 @@ import Marker from "./marker";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-export type QuestionMarkersProps = {
+type QuestionMarkersProps = {
     // The list of possible answers in a specific order.
     choices: string[];
     // The question image properties.
@@ -30,7 +30,7 @@ export type QuestionMarkersProps = {
 };
 
 export default class QuestionMarkers extends React.Component<QuestionMarkersProps> {
-    _markers: Array<Marker | null | undefined> = [];
+    private _markers: Array<Marker | null | undefined> = [];
 
     openDropdownForMarkerIndices(indices: ReadonlyArray<number>) {
         // Open answer selection dropdown for each of the specified markers.

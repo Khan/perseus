@@ -46,7 +46,7 @@ type Props = {
  * knowledge by directly interacting with the image.
  */
 class LabelImageEditor extends React.Component<Props> {
-    _questionMarkers: QuestionMarkers | null | undefined;
+    private _questionMarkers: QuestionMarkers | null | undefined;
 
     static defaultProps: LabelImageDefaultWidgetOptions =
         labelImageLogic.defaultWidgetOptions;

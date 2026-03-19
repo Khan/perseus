@@ -3,9 +3,9 @@ import * as React from "react";
 
 import QuestionMarkers from "../question-markers";
 
-import type {QuestionMarkersProps} from "../question-markers";
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
+type QuestionMarkersProps = React.ComponentProps<typeof QuestionMarkers>;
 type StoryArgs = Record<string, QuestionMarkersProps>;
 
 type Story = {
