@@ -179,6 +179,22 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({graph: graph});
     };
 
+    changePointNames = (pointNames: string[]) => {
+        if (this.props.graph?.type !== "point") {
+            return;
+        }
+
+        const graph = {
+            ...this.props.graph,
+            pointNames,
+        };
+        const correct = {
+            ...this.props.correct,
+            pointNames,
+        };
+        this.props.onChange({graph, correct});
+    };
+
     // serialize() is what makes copy/paste work. All the properties included
     // in the serialization json are included when, for example, a graph
     // is copied from the question editor and pasted into the hint editor
@@ -214,6 +230,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     type: correct.type,
                     startCoords:
                         this.props.graph && getStartCoords(this.props.graph),
+                    // Preserve custom point names from editor config
+                    ...(this.props.graph?.type === "point" &&
+                        this.props.graph.pointNames && {
+                            pointNames: this.props.graph.pointNames,
+                        }),
                 },
                 correct: correct,
             });
@@ -225,6 +246,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     "numPoints",
                     "numSides",
                     "numSegments",
+                    "pointNames",
                     "showAngles",
                     "showSides",
                     "snapTo",
@@ -435,6 +457,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     range={this.props.range}
                                     step={this.props.step}
                                     onChange={this.changeStartCoords}
+                                    onChangePointNames={this.changePointNames}
                                 />
                             )}
                         <InteractiveGraphSRTree

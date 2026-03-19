@@ -1173,6 +1173,13 @@ export type PerseusGraphTypePoint = {
     startCoords?: Coord[];
     /** Used instead of `coords` in some old graphs that have only one point. */
     coord?: Coord;
+    /**
+     * Custom display names for each point, used in screen reader labels.
+     * If provided, pointNames[i] replaces the default "Point {i+1}" label.
+     * Example: ["A", "T"] → "Point A at 3 comma 4" instead of
+     * "Point 1 at 3 comma 4"
+     */
+    pointNames?: string[];
 };
 
 export type PerseusGraphTypePolygon = {

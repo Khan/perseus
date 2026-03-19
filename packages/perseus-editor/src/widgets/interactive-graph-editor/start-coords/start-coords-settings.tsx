@@ -36,10 +36,12 @@ type Props = PerseusGraphType & {
     step: [x: number, y: number];
     allowReflexAngles?: boolean;
     onChange: (startCoords: StartCoords) => void;
+    onChangePointNames?: (pointNames: string[]) => void;
 };
 
 const StartCoordsSettingsInner = (props: Props) => {
-    const {type, range, step, allowReflexAngles, onChange} = props;
+    const {type, range, step, allowReflexAngles, onChange, onChangePointNames} =
+        props;
 
     switch (type) {
         // Graphs with startCoords of type CollinearTuple
@@ -107,7 +109,11 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsPoint
                     startCoords={pointCoords}
+                    pointNames={type === "point" ? props.pointNames : undefined}
                     onChange={onChange}
+                    onChangePointNames={
+                        type === "point" ? onChangePointNames : undefined
+                    }
                 />
             );
         case "angle":

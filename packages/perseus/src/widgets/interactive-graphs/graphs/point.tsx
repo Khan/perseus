@@ -1,6 +1,7 @@
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 
+import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {getCSSZoomFactor} from "../utils";
@@ -23,14 +24,27 @@ export function renderPointGraph(
     state: PointGraphState,
     dispatch: Dispatch,
     i18n: I18nContextType,
+    pointNames?: string[],
 ): InteractiveGraphElementSuite {
     return {
-        graph: <PointGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getPointGraphDescription(state, i18n),
+        graph: (
+            <PointGraph
+                graphState={state}
+                dispatch={dispatch}
+                pointNames={pointNames}
+            />
+        ),
+        interactiveElementsDescription: getPointGraphDescription(
+            state,
+            i18n,
+            pointNames,
+        ),
     };
 }
 
-type Props = MafsGraphProps<PointGraphState>;
+type Props = MafsGraphProps<PointGraphState> & {
+    pointNames?: string[];
+};
 type StatefulProps = Props & {
     graphConfig: GraphConfig;
     pointsRef: React.MutableRefObject<(SVGElement | null)[]>;
@@ -78,27 +92,43 @@ function PointGraph(props: Props) {
 }
 
 function LimitedPointGraph(statefulProps: StatefulProps) {
-    const {dispatch} = statefulProps;
+    const {dispatch, pointNames} = statefulProps;
+    const {strings, locale} = usePerseusI18n();
 
     return (
         <>
-            {statefulProps.graphState.coords.map((point, i) => (
-                <MovablePoint
-                    key={i}
-                    point={point}
-                    sequenceNumber={i + 1}
-                    onMove={(destination) =>
-                        dispatch(actions.pointGraph.movePoint(i, destination))
-                    }
-                />
-            ))}
+            {statefulProps.graphState.coords.map((point, i) => {
+                const customName = pointNames?.[i];
+                const ariaLabel = customName
+                    ? strings.srPointAtCoordinates({
+                          num: customName,
+                          x: srFormatNumber(point[0], locale),
+                          y: srFormatNumber(point[1], locale),
+                      })
+                    : undefined;
+                return (
+                    <MovablePoint
+                        key={i}
+                        point={point}
+                        sequenceNumber={i + 1}
+                        ariaLabel={ariaLabel}
+                        onMove={(destination) =>
+                            dispatch(
+                                actions.pointGraph.movePoint(i, destination),
+                            )
+                        }
+                    />
+                );
+            })}
         </>
     );
 }
 
 function UnlimitedPointGraph(statefulProps: StatefulProps) {
-    const {dispatch, graphConfig, pointsRef, top, left} = statefulProps;
+    const {dispatch, graphConfig, pointsRef, top, left, pointNames} =
+        statefulProps;
     const {coords} = statefulProps.graphState;
+    const {strings, locale} = usePerseusI18n();
 
     // When users drag a point on iOS Safari, the browser fires a click event after the mouseup
     // at the original click location, which would add an unwanted new point. We track drag
@@ -149,33 +179,46 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                     dispatch(actions.pointGraph.addPoint(graphCoordinates[0]));
                 }}
             />
-            {coords.map((point, i) => (
-                <MovablePoint
-                    key={i}
-                    point={point}
-                    sequenceNumber={i + 1}
-                    onDragStart={() => {
-                        dragEndCallbackTimer.clear();
-                        setIsCurrentlyDragging(true);
-                    }}
-                    onMove={(destination) => {
-                        dispatch(actions.pointGraph.movePoint(i, destination));
-                    }}
-                    onDragEnd={() => {
-                        // Start timer to reset drag state after delay
-                        dragEndCallbackTimer.set();
-                    }}
-                    ref={(ref) => {
-                        pointsRef.current[i] = ref;
-                    }}
-                    onFocus={() => {
-                        dispatch(actions.pointGraph.focusPoint(i));
-                    }}
-                    onClick={() => {
-                        dispatch(actions.pointGraph.clickPoint(i));
-                    }}
-                />
-            ))}
+            {coords.map((point, i) => {
+                const customName = pointNames?.[i];
+                const ariaLabel = customName
+                    ? strings.srPointAtCoordinates({
+                          num: customName,
+                          x: srFormatNumber(point[0], locale),
+                          y: srFormatNumber(point[1], locale),
+                      })
+                    : undefined;
+                return (
+                    <MovablePoint
+                        key={i}
+                        point={point}
+                        sequenceNumber={i + 1}
+                        ariaLabel={ariaLabel}
+                        onDragStart={() => {
+                            dragEndCallbackTimer.clear();
+                            setIsCurrentlyDragging(true);
+                        }}
+                        onMove={(destination) => {
+                            dispatch(
+                                actions.pointGraph.movePoint(i, destination),
+                            );
+                        }}
+                        onDragEnd={() => {
+                            // Start timer to reset drag state after delay
+                            dragEndCallbackTimer.set();
+                        }}
+                        ref={(ref) => {
+                            pointsRef.current[i] = ref;
+                        }}
+                        onFocus={() => {
+                            dispatch(actions.pointGraph.focusPoint(i));
+                        }}
+                        onClick={() => {
+                            dispatch(actions.pointGraph.clickPoint(i));
+                        }}
+                    />
+                );
+            })}
         </>
     );
 }
@@ -184,6 +227,7 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
 export function getPointGraphDescription(
     state: PointGraphState,
     i18n: {strings: PerseusStrings; locale: string},
+    pointNames?: string[],
 ): string {
     const {strings, locale} = i18n;
 
@@ -193,7 +237,7 @@ export function getPointGraphDescription(
 
     const pointDescriptions = state.coords.map(([x, y], index) =>
         strings.srPointAtCoordinates({
-            num: index + 1,
+            num: pointNames?.[index] || index + 1,
             x: srFormatNumber(x, locale),
             y: srFormatNumber(y, locale),
         }),
