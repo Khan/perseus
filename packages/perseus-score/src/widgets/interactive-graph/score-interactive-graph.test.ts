@@ -510,3 +510,140 @@ describe("InteractiveGraph scoring on an angle question", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 });
+
+describe("InteractiveGraph scoring on a tangent question", () => {
+    it("marks the answer invalid if guess is undefined", () => {
+        const guess = undefined;
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0.5, 0.5],
+                    [0.75, 0.75],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer invalid if guess has no coords", () => {
+        const guess: PerseusGraphType = {type: "tangent"};
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0.5, 0.5],
+                    [0.75, 0.75],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("scores correct answer as correct", () => {
+        const guess: PerseusGraphType = {
+            type: "tangent",
+            coords: [
+                [0.5, 0.5],
+                [0.75, 0.75],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0.5, 0.5],
+                    [0.75, 0.75],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores incorrect answer as incorrect", () => {
+        const guess: PerseusGraphType = {
+            type: "tangent",
+            coords: [
+                [1, 1],
+                [2, 3],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0.5, 0.5],
+                    [0.75, 0.75],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("scores equivalent tangent curves as correct (different control points, same curve)", () => {
+        // Both sets of coords produce the same canonical tangent curve
+        // f(x) = tan(π/4 * x) — just shifted by one full period
+        const guess: PerseusGraphType = {
+            type: "tangent",
+            coords: [
+                [4, 0],
+                [5, 1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores tangent with negative amplitude correctly", () => {
+        // Guess has coords that produce a negative amplitude tangent
+        const guess: PerseusGraphType = {
+            type: "tangent",
+            coords: [
+                [0, 0],
+                [1, -2],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0, 0],
+                    [1, -2],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+});
