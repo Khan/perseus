@@ -279,3 +279,28 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer =
             }),
         },
     });
+
+export const groupSetDuplicateTitlesQuestion: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "[[☃ graded-group-set 1]]",
+        widgets: {
+            "graded-group-set 1": generateGradedGroupSetWidget({
+                options: {
+                    gradedGroups: [
+                        generateGradedGroupOptions({
+                            title: "Question",
+                            content: "Group 1",
+                        }),
+                        generateGradedGroupOptions({
+                            title: "Question",
+                            content: "Group 2",
+                        }),
+                        generateGradedGroupOptions({
+                            title: "Question",
+                            content: "Group 3",
+                        }),
+                    ],
+                },
+            }),
+        },
+    });
