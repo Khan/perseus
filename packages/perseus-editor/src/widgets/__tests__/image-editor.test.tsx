@@ -24,7 +24,7 @@ import type {UserEvent} from "@testing-library/user-event";
 const nonKhanImageWarning =
     "Images must be from sites hosted by Khan Academy. Please input a Khan Academy-owned address, or use the Add Image tool to rehost an existing image";
 const altTextTooLongError =
-    "Alt text should not exceed 125 characters. Please pair your alt with a long description below if you need significantly more text to sufficiently describe the image.";
+    "Keep alt succinct at roughly 125 characters in length. Please pair the alt with a long description if you need significantly more text to sufficiently describe the image.";
 const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
 
