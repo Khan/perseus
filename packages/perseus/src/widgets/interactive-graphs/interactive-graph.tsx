@@ -22,6 +22,7 @@ import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupporte
 import type {
     QuadraticCoefficient,
     SineCoefficient,
+    TangentCoefficient,
     Range,
 } from "@khanacademy/kmath";
 import type {
@@ -45,7 +46,11 @@ import {StatefulMafsGraph} from "./index";
 
 const {getClockwiseAngle} = angles;
 
-const {getSinusoidCoefficients, getQuadraticCoefficients} = coefficients;
+const {
+    getSinusoidCoefficients,
+    getTangentCoefficients,
+    getQuadraticCoefficients,
+} = coefficients;
 
 const {getLineEquation, getLineIntersectionString, magnitude, vector} =
     geometry;
@@ -600,8 +605,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             case "angle":
                 return InteractiveGraph.getAngleEquationString(props);
             case "tangent":
-                // TODO(LEMS-3955): implement tangent equation string
-                return "";
+                return InteractiveGraph.getTangentEquationString(props);
             default:
                 throw new UnreachableCaseError(type);
         }
@@ -697,6 +701,37 @@ class InteractiveGraph extends React.Component<Props, State> {
             "y = " +
             coeffs[0].toFixed(3) +
             "sin(" +
+            coeffs[1].toFixed(3) +
+            "x - " +
+            coeffs[2].toFixed(3) +
+            ") + " +
+            coeffs[3].toFixed(3)
+        );
+    }
+
+    static getCurrentTangentCoefficients(props: Props): TangentCoefficient {
+        const coords =
+            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
+            props.userInput.coords ||
+            InteractiveGraph.defaultTangentCoords(props);
+        return getTangentCoefficients(coords);
+    }
+
+    static defaultTangentCoords(props: Props): Coord[] {
+        const coords = [
+            [0.5, 0.5],
+            [0.75, 0.75],
+        ];
+        // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
+        return InteractiveGraph.pointsFromNormalized(props, coords);
+    }
+
+    static getTangentEquationString(props: Props): string {
+        const coeffs = InteractiveGraph.getCurrentTangentCoefficients(props);
+        return (
+            "y = " +
+            coeffs[0].toFixed(3) +
+            "tan(" +
             coeffs[1].toFixed(3) +
             "x - " +
             coeffs[2].toFixed(3) +
