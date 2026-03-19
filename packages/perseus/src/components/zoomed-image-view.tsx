@@ -18,6 +18,10 @@ export const ZoomedImageView = (props: Props) => {
     const i18n = usePerseusI18n();
 
     const {onClose, ...svgProps} = props;
+    const width = props.width;
+
+    // Don't use a scale less than 1 for the zoomed image.
+    const largerScale = Math.max(svgProps.scale, 1);
 
     return (
         <ModalDialog
@@ -39,19 +43,34 @@ export const ZoomedImageView = (props: Props) => {
                             }}
                         >
                             {() => (
+                                // This wrapper's explicit width tells
+                                // the image how big it should be.
+                                // Without it, the auto-width modal
+                                // causes the image to collapse to its
+                                // natural pixel size, ignoring scale.
                                 <div
-                                    // We need to include the framework-perseus
-                                    // class here to ensure that the image is
-                                    // styled correctly. Otherwise the Graphie
-                                    // labels may not be in the correct positions.
-                                    className="framework-perseus"
+                                    className={styles.imageContainer}
+                                    style={{
+                                        width: width
+                                            ? width * largerScale
+                                            : undefined,
+                                    }}
                                 >
-                                    <SvgImage
-                                        {...svgProps}
-                                        // Don't allow zooming inside the
-                                        // zoom view.
-                                        allowZoom={false}
-                                    />
+                                    <div
+                                        // We need to include the framework-perseus
+                                        // class here to ensure that the image is
+                                        // styled correctly. Otherwise the Graphie
+                                        // labels may not be in the correct positions.
+                                        className="framework-perseus"
+                                    >
+                                        <SvgImage
+                                            {...svgProps}
+                                            // Don't allow zooming inside the
+                                            // zoom view.
+                                            allowZoom={false}
+                                            scale={largerScale}
+                                        />
+                                    </div>
                                 </div>
                             )}
                         </Clickable>

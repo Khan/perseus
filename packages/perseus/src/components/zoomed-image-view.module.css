@@ -6,6 +6,11 @@
     line-height: 0;
 }
 
+.imageContainer {
+    /* Don't let large images overflow out of the viewport. */
+    max-width: calc(100vw - var(--wb-sizing-size_640));
+}
+
 @media (max-width: 767px) {
     .contentWrapper {
         /* Smaller screens have a smaller inline gap */
@@ -13,5 +18,10 @@
         /* On mobile, allow the image to fill the entire viewport */
         max-width: 100vw;
         max-height: 100vh;
+    }
+
+    .imageContainer {
+        /* On mobile, dialog margin is 0 so the full viewport is available. */
+        max-width: 100vw;
     }
 }
