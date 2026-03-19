@@ -1233,14 +1233,14 @@ export type PerseusGraphTypeTangent = {
 
 export type PerseusGraphTypeExponential = {
     type: "exponential";
-    // Two points along the exponential curve.
+    /** Two points along the exponential curve. */
     coords?: Coord[] | null;
-    // The y-value of the horizontal asymptote (the line y = asymptote).
-    // Corresponds to the coefficient c in f(x) = a·eᵇˣ + c.
+    /**
+     * The y-value of the horizontal asymptote (the line y = asymptote).
+     * Corresponds to the coefficient c in f(x) = a·eᵇˣ + c.
+     */
     asymptote?: number | null;
-    // The initial graph position before the learner interacts.
-    // Packs both curve points and the asymptote together, matching the
-    // circle pattern where startCoords holds the full start state.
+    /** The initial coordinates the graph renders with. */
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
 };
 
