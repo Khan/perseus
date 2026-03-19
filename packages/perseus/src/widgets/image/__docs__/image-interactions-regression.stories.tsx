@@ -11,7 +11,7 @@ import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import UserInputManager from "../../../user-input-manager";
-import {earthMoonImage, frescoImage} from "../utils";
+import {earthMoonImage, frescoImage, graphieImage} from "../utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
@@ -65,6 +65,24 @@ export const LongDescriptionClickedState = {
             "This is a *very* long description of the earth and moon.",
         title: "Earth and Moon",
         caption: earthMoonImageCaption,
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const imageTrigger = canvas.getByRole("button", {
+            name: "Explore image",
+        });
+        await userEvent.click(imageTrigger);
+    },
+};
+
+export const LongDescriptionClickedStateWithGraphieImage = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: "Graphie image",
+        longDescription:
+            "This is a *very* long description of the graphie image.",
+        title: "Graphie image",
     },
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
