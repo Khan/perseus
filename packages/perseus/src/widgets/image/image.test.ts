@@ -512,6 +512,30 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(button).not.toBeInTheDocument();
         });
 
+        it("does not render a zoom image button for images without sizes", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: {
+                                url: earthMoonImage.url,
+                            },
+                            decorative: true,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Assert
+            const button = screen.queryByRole("button");
+            expect(button).not.toBeInTheDocument();
+        });
+
         it("opens a modal when the zoom image button is clicked", async () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
