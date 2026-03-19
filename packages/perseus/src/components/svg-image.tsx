@@ -485,10 +485,7 @@ class SvgImage extends React.Component<Props, State> {
                         {this.props.allowZoom && (
                             <ZoomImageButton
                                 {...this.props}
-                                // imgElement={imageContent}
                                 imgSrc={imageSrc}
-                                // width={width}
-                                // height={height}
                             />
                         )}
                     </FixedToResponsive>
@@ -580,14 +577,7 @@ class SvgImage extends React.Component<Props, State> {
                 >
                     {imageContent}
                     {this.props.allowZoom && (
-                        <ZoomImageButton
-                            {...this.props}
-                            // imgElement={imageContent}
-                            imgSrc={imageUrl}
-                            // width={this.props.width}
-                            // height={this.props.height}
-                            // scale={this.props.scale}
-                        />
+                        <ZoomImageButton {...this.props} imgSrc={imageUrl} />
                     )}
                 </FixedToResponsive>
             );
