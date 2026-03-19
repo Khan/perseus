@@ -8,6 +8,13 @@ export type NamedSineCoefficient = {
     verticalOffset: number;
 };
 
+export type NamedTangentCoefficient = {
+    amplitude: number;
+    angularFrequency: number;
+    phase: number;
+    verticalOffset: number;
+};
+
 export function getSinusoidCoefficients(
     coords: ReadonlyArray<Coord>,
 ): SineCoefficient {
