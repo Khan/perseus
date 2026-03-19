@@ -141,7 +141,26 @@ const config: StorybookConfig = {
                     return !file.endsWith(".svg");
                 },
             },
-            plugins: [cssWrapper],
+            plugins: [
+                // Workaround for Storybook v10 + pnpm + Vite issue where the
+                // MDX React shim is resolved as a file:// URL that Rollup can't
+                // handle. Converts it to a regular path.
+                // https://github.com/storybookjs/storybook/issues/33118
+                {
+                    name: "fix-mdx-react-shim",
+                    enforce: "pre" as const,
+                    resolveId(source: string) {
+                        if (
+                            source.startsWith("file://") &&
+                            source.includes("mdx-react-shim.js")
+                        ) {
+                            return new URL(source).pathname;
+                        }
+                        return null;
+                    },
+                },
+                cssWrapper,
+            ],
         });
     },
     staticDirs: ["../static", {from: "../docs", to: "/api-docs"}],
