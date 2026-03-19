@@ -295,6 +295,45 @@ export function canonicalSineCoefficients([
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
+export type TangentCoefficient = [
+    number, // amplitude
+    number, // angularFrequency
+    number, // phase
+    number, // verticalOffset
+];
+
+export function canonicalTangentCoefficients([
+    amplitude,
+    angularFrequency,
+    phase,
+    verticalOffset,
+]: TangentCoefficient): TangentCoefficient {
+    // For a curve of the form f(x) = a * tan(b * x - c) + d,
+    // this function ensures that b > 0, and c is its smallest
+    // non-negative value in [0, π).
+    //
+    // Unlike sine, tangent has no half-period phase shift identity
+    // (sin(x + π) = -sin(x)) so we cannot guarantee a > 0.
+    // We can only guarantee b > 0 using the odd function identity:
+    // a * tan(-|b|x - c) = (-a) * tan(|b|x - (-c))
+
+    // Guarantee b > 0
+    if (angularFrequency < 0) {
+        amplitude *= -1;
+        angularFrequency *= -1;
+        phase *= -1;
+    }
+
+    // Guarantee c is smallest non-negative value in [0, π).
+    // Uses modular arithmetic instead of while loops to avoid infinite
+    // loops when phase is Infinity (from same-x control points) and
+    // to handle IEEE 754 edge cases at the period boundary.
+    const period = Math.PI;
+    phase = ((phase % period) + period) % period;
+
+    return [amplitude, angularFrequency, phase, verticalOffset];
+}
+
 // e.g. rotate([1, 2, 3]) -> [2, 3, 1]
 export function rotate<T>(
     array: ReadonlyArray<T>,
