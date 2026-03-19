@@ -366,6 +366,134 @@ describe("SvgImage", () => {
             expect(mockDrawImage).toHaveBeenCalledWith(img, 0, 0);
         });
 
+        it("queries the DOM for the img element again after src changes", () => {
+            // Arrange
+            const querySelectorSpy = jest.spyOn(
+                HTMLDivElement.prototype,
+                "querySelector",
+            );
+            const {rerender} = render(
+                <SvgImage
+                    src={GIF_SRC}
+                    alt="test gif"
+                    allowZoom={false}
+                    width={500}
+                    height={285}
+                    isGifPaused={true}
+                />,
+            );
+
+            // Initial render should query for the img element.
+            expect(querySelectorSpy).toHaveBeenCalledTimes(1);
+
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            const img = screen.getByRole<HTMLImageElement>("img", {
+                name: "test gif",
+            });
+            Object.defineProperty(img, "naturalWidth", {
+                value: 500,
+                configurable: true,
+            });
+            Object.defineProperty(img, "naturalHeight", {
+                value: 285,
+                configurable: true,
+            });
+            fireEvent.load(img);
+
+            // Act - change src and pause again
+            rerender(
+                <SvgImage
+                    src="https://cdn.kastatic.org/other.gif"
+                    alt="test gif"
+                    allowZoom={false}
+                    width={500}
+                    height={285}
+                    isGifPaused={true}
+                />,
+            );
+
+            // Assert
+            // After the src changes, the component should query for the new img element again to capture its frame.
+            expect(querySelectorSpy).toHaveBeenCalledTimes(2);
+        });
+
+        describe("gif loop detection", () => {
+            const LOOP_DURATION_MS = 100;
+
+            it("calls onGifLoop after one loop duration elapses", async () => {
+                // Arrange
+                const onGifLoop = jest.fn();
+                render(
+                    <SvgImage
+                        src={GIF_SRC}
+                        alt="test gif"
+                        allowZoom={false}
+                        width={500}
+                        height={285}
+                        isGifPaused={false}
+                        onGifLoop={onGifLoop}
+                    />,
+                );
+
+                // Flush the fetch promise so _gifLoopDurationMs is set
+                // eslint-disable-next-line testing-library/no-unnecessary-act
+                await act(async () => {});
+
+                // Act
+                act(() => {
+                    jest.advanceTimersByTime(LOOP_DURATION_MS);
+                });
+
+                // Assert
+                expect(onGifLoop).toHaveBeenCalledTimes(1);
+            });
+
+            it("stops calling onGifLoop when isGifPaused becomes true", async () => {
+                // Arrange
+                const onGifLoop = jest.fn();
+                const {rerender} = render(
+                    <SvgImage
+                        src={GIF_SRC}
+                        alt="test gif"
+                        allowZoom={false}
+                        width={500}
+                        height={285}
+                        isGifPaused={false}
+                        onGifLoop={onGifLoop}
+                    />,
+                );
+
+                // eslint-disable-next-line testing-library/no-unnecessary-act
+                await act(async () => {});
+                act(() => {
+                    jest.advanceTimersByTime(LOOP_DURATION_MS);
+                });
+                expect(onGifLoop).toHaveBeenCalledTimes(1);
+
+                // Act - pause the GIF
+                rerender(
+                    <SvgImage
+                        src={GIF_SRC}
+                        alt="test gif"
+                        allowZoom={false}
+                        width={500}
+                        height={285}
+                        isGifPaused={true}
+                        onGifLoop={onGifLoop}
+                    />,
+                );
+                act(() => {
+                    jest.advanceTimersByTime(LOOP_DURATION_MS);
+                });
+
+                // Assert - onGifLoop should not have been called again
+                expect(onGifLoop).toHaveBeenCalledTimes(1);
+            });
+        });
+
         it("does not call drawImage when the img fires onLoad while playing", () => {
             // Arrange
             render(
