@@ -60,7 +60,7 @@ class Indicators extends React.Component<IndicatorsProps> {
                 )}
             >
                 {this.props.gradedGroups.map(({title}, i) => (
-                    <li className={css(styles.indicator)} key={title}>
+                    <li className={css(styles.indicator)} key={i}>
                         <Clickable
                             role="button"
                             aria-label={this.context.strings.skipToTitle({
