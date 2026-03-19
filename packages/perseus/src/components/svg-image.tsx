@@ -17,7 +17,7 @@ import {ZoomImageButton} from "./zoom-image-button";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
-import type {Dimensions} from "../types";
+import type {APIOptions, Dimensions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
 
 function isImageProbablyPhotograph(imageUrl) {
@@ -45,6 +45,7 @@ function defaultPreloader(dimensions: Dimensions) {
 }
 
 export type Props = {
+    apiOptions?: APIOptions;
     allowFullBleed?: boolean;
     allowZoom: boolean;
     alt: string;

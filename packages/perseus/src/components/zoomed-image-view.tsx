@@ -1,8 +1,11 @@
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {ModalDialog, ModalPanel} from "@khanacademy/wonder-blocks-modal";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import {isSvg} from "../widgets/image/utils";
 
 import {usePerseusI18n} from "./i18n-context";
 import SvgImage from "./svg-image";
@@ -16,12 +19,26 @@ interface Props extends SvgImageProps {
 
 export const ZoomedImageView = (props: Props) => {
     const i18n = usePerseusI18n();
+    const scaleFF = isFeatureOn(
+        {apiOptions: props.apiOptions},
+        "image-widget-upgrade-scale",
+    );
 
     const {onClose, ...svgProps} = props;
     const width = props.width;
+    const contentScale = props.scale;
 
-    // Don't use a scale less than 1 for the zoomed image.
-    const largerScale = Math.max(svgProps.scale, 1);
+    const imageIsSvg = isSvg(props.src);
+
+    // Use larger sizes for the zoomed image view:
+    // - For SVG images, use 2x or greater for the scale since they can
+    //   be expanded without losing quality.
+    // - For regular non-SVG images, use 1 (original size). Or use the
+    //   saved scale if it's greater than 1, so that the zoomed image view
+    //   won't be smaller than the original.
+    const scale = imageIsSvg
+        ? Math.max(contentScale, 2)
+        : Math.max(contentScale, 1);
 
     return (
         <ModalDialog
@@ -51,9 +68,10 @@ export const ZoomedImageView = (props: Props) => {
                                 <div
                                     className={styles.imageContainer}
                                     style={{
-                                        width: width
-                                            ? width * largerScale
-                                            : undefined,
+                                        width:
+                                            width && scaleFF
+                                                ? width * scale
+                                                : undefined,
                                     }}
                                 >
                                     <div
@@ -68,7 +86,7 @@ export const ZoomedImageView = (props: Props) => {
                                             // Don't allow zooming inside the
                                             // zoom view.
                                             allowZoom={false}
-                                            scale={largerScale}
+                                            scale={scaleFF ? scale : 1}
                                         />
                                     </div>
                                 </div>
