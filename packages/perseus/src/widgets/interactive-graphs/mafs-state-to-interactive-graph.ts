@@ -91,6 +91,12 @@ export function mafsStateToInteractiveGraph(
         case "none":
             invariant(originalGraph.type === "none");
             return {...originalGraph};
+        case "tangent":
+            invariant(originalGraph.type === "tangent");
+            return {
+                ...originalGraph,
+                coords: state.coords,
+            };
         default:
             throw new UnreachableCaseError(state);
     }

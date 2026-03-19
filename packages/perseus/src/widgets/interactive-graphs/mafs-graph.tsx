@@ -768,6 +768,9 @@ const renderGraphElements = (props: {
             return renderSinusoidGraph(state, dispatch, i18n);
         case "none":
             return {graph: null, interactiveElementsDescription: null};
+        case "tangent":
+            // TODO(LEMS-3955): Replace with real tangent rendering in PR 4
+            return {graph: null, interactiveElementsDescription: null};
         default:
             throw new UnreachableCaseError(type);
     }
