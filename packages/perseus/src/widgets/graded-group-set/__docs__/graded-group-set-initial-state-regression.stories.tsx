@@ -1,8 +1,8 @@
-import type {Meta, StoryObj} from "@storybook/react-vite";
-
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ArticleRendererWithDebugUI} from "../../../testing/article-renderer-with-debug-ui";
 import {groupSetDuplicateTitlesQuestion} from "../graded-group-set.testdata";
+
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 /**
  * This is a visual regression story for the Graded Group Set widget.

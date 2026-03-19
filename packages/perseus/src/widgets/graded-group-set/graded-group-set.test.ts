@@ -195,7 +195,6 @@ describe("graded group set widget", () => {
 
             expect(screen.getByText("Problem 1c")).toBeVisible();
         });
-
     });
 
     it("should return input paths", async () => {
