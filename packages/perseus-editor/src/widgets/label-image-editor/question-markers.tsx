@@ -29,9 +29,7 @@ type QuestionMarkersProps = {
     editingDisabled: boolean;
 };
 
-type State = Empty;
-
-class QuestionMarkers extends React.Component<QuestionMarkersProps, State> {
+class QuestionMarkers extends React.Component<QuestionMarkersProps> {
     private _markers: Array<Marker | null | undefined> = [];
 
     openDropdownForMarkerIndices(indices: ReadonlyArray<number>) {
