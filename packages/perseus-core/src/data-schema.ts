@@ -676,7 +676,7 @@ export type GraphRange = [
 
 /**
  * The state of the grapher widget's plotted function, discriminated by
- * function type {@link GrapherAnswerTypes.type}. Used as both the learner's
+ * the `type` field. Used as both the learner's
  * user input and the rubric's correct answer.
  */
 export type GrapherAnswerTypes =
