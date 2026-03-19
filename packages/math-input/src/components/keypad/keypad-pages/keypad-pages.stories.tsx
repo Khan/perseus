@@ -12,7 +12,11 @@ export default {
     parameters: {
         backgrounds: {
             options: {
-                light_background: {name: "light background", value: "white", default: true}
+                light_background: {
+                    name: "light background",
+                    value: "white",
+                    default: true,
+                },
             },
         },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},

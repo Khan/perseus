@@ -13,10 +13,15 @@ export default {
     parameters: {
         backgrounds: {
             options: {
-                light_background: // We want a slightly darker default bg so that we can
-                // see the top of the keypad when it is open
-                {name: "light background", value: "lightgrey", default: true}
-            }
+                // We want a slightly darker default bg so that we can
+                light_background:
+                    // see the top of the keypad when it is open
+                    {
+                        name: "light background",
+                        value: "lightgrey",
+                        default: true,
+                    },
+            },
         },
         docs: {
             description: {
@@ -30,9 +35,9 @@ export default {
 
     globals: {
         backgrounds: {
-            value: "light_background"
-        }
-    }
+            value: "light_background",
+        },
+    },
 };
 
 const Basic = ({keypadElement, setKeypadElement}) => {

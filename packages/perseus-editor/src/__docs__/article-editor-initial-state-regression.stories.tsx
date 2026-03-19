@@ -1,6 +1,6 @@
 import {ApiOptions} from "@khanacademy/perseus";
-import {expect, within} from "storybook/test";
 import * as React from "react";
+import {expect, within} from "storybook/test";
 
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
