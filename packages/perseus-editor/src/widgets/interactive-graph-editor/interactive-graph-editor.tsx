@@ -400,6 +400,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         });
                                     }) as any
                                 }
+                                // TODO(LEMS-3976): clean up feature flag
+                                apiOptions={this.props.apiOptions}
                             />
                         </LabeledRow>
                         <InteractiveGraphDescription

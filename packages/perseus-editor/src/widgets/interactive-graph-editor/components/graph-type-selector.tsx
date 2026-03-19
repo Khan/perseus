@@ -3,15 +3,22 @@ import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
 type GraphTypeSelectorProps = {
     graphType: string;
     onChange: (newGraphType: string) => void;
-    apiOptions?: APIOptions;
+    // TODO(LEMS-3976): clean up feature flag
+    apiOptions: APIOptionsWithDefaults;
 };
 
 const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
+    // TODO(LEMS-3976): clean up feature flag
+    const showExponential = isFeatureOn(
+        {apiOptions: props.apiOptions},
+        "interactive-graph-exponent",
+    );
+
     const showAbsoluteValue = isFeatureOn(
         {apiOptions: props.apiOptions},
         "interactive-graph-absolute-value",
@@ -36,7 +43,9 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             <OptionItem value="linear" label="Linear function" />
             <OptionItem value="quadratic" label="Quadratic function" />
             <OptionItem value="sinusoid" label="Sinusoid function" />
-            <OptionItem value="exponential" label="Exponential function" />
+            {showExponential && (
+                <OptionItem value="exponential" label="Exponential function" />
+            )}
             {showTangent && (
                 <OptionItem value="tangent" label="Tangent function" />
             )}
