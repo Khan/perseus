@@ -11,13 +11,9 @@ export default {
     tags: ["!dev"],
     parameters: {
         backgrounds: {
-            options: {
-                light_background: {
-                    name: "light background",
-                    value: "white",
-                    default: true,
-                },
-            },
+            // We want a slightly darker default bg so that we can
+            // see the edges of the keypad pages
+            value: "baseSubtle",
         },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
     },

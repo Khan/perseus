@@ -1,5 +1,5 @@
 import * as React from "react";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {color, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
@@ -130,7 +130,25 @@ const preview: Preview = {
             },
         },
         backgrounds: {
-            options: {},
+            default: "baseDefault",
+            options: {
+                baseDefault: {
+                    name: "baseDefault",
+                    value: semanticColor.core.background.base.default,
+                },
+                neutralStrong: {
+                    name: "neutralStrong",
+                    value: semanticColor.core.background.neutral.strong,
+                },
+                baseSubtle: {
+                    name: "baseSubtle",
+                    value: semanticColor.core.background.base.subtle,
+                },
+            },
+        },
+        initialGlobals: {
+            // 👇 Set the initial background color
+            backgrounds: {value: "baseDefault"},
         },
         docs: {
             toc: {

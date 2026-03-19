@@ -12,15 +12,6 @@ const fracPage = "Fractions Page";
 export default {
     title: "Math Input/Full Keypad",
     parameters: {
-        backgrounds: {
-            options: {
-                light_background: {
-                    name: "light background",
-                    value: "white",
-                    default: true,
-                },
-            },
-        },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
         docs: {
             description: {
@@ -30,6 +21,13 @@ export default {
         },
     },
     tags: ["!dev"],
+    globals: {
+        backgrounds: {
+            // We want a slightly darker default bg so that we can
+            // see the top of the keypad when it is open
+            value: "baseSubtle",
+        },
+    },
     component: Keypad,
     args: {
         advancedRelations: false,

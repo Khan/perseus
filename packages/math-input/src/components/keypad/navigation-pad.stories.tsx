@@ -7,24 +7,11 @@ export default {
     title: "Math Input/Components/MathInput v2 Navigation Pad",
     tags: ["!dev"],
 
-    parameters: {
-        backgrounds: {
-            options: {
-                // We want a slightly darker default bg so that we can
-                // see the top of the keypad when it is open
-                light_background:
-                    {
-                        name: "light background",
-                        value: "lightgrey",
-                        default: true,
-                    },
-            },
-        },
-    },
-
     globals: {
         backgrounds: {
-            value: "light_background",
+            // We want a slightly darker default bg so that we can
+            // see the edges of the navigation pad.
+            value: "baseSubtle",
         },
     },
 };

@@ -11,18 +11,6 @@ export default {
     title: "Math Input/Full Mobile Math Input",
 
     parameters: {
-        backgrounds: {
-            options: {
-                // We want a slightly darker default bg so that we can
-                // see the top of the keypad when it is open
-                light_background:
-                    {
-                        name: "light background",
-                        value: "lightgrey",
-                        default: true,
-                    },
-            },
-        },
         docs: {
             description: {
                 component:
@@ -35,7 +23,9 @@ export default {
 
     globals: {
         backgrounds: {
-            value: "light_background",
+            // We want a slightly darker default bg so that we can
+            // see the top of the keypad when it is open
+            value: "baseSubtle",
         },
     },
 };
