@@ -548,6 +548,62 @@ function doMovePoint(
                 }),
             };
         }
+        case "exponential": {
+            const boundDestination = boundAndSnapToGrid(
+                action.destination,
+                state,
+            );
+            const newCoords: vec.Vector2[] = [...state.coords];
+            newCoords[action.index] = boundDestination;
+
+            const asymptoteY = state.asymptote;
+
+            // Point cannot land on the asymptote
+            if (boundDestination[Y] === asymptoteY) {
+                return state;
+            }
+
+            // Both points must have different x-values (makes b undefined if same)
+            if (newCoords[0][X] === newCoords[1][X]) {
+                return state;
+            }
+
+            // If the moved point crosses the asymptote, reflect the other
+            // point across it so the entire curve moves to the new side.
+            // This matches Grapher behavior where dragging past the asymptote
+            // relocates the whole curve. Mirrors the logarithm reducer.
+            const otherIndex = 1 - action.index;
+            const otherPoint = state.coords[otherIndex];
+            const movedSide = boundDestination[Y] > asymptoteY;
+            const otherSide = otherPoint[Y] > asymptoteY;
+
+            if (movedSide !== otherSide) {
+                const reflectedY = 2 * asymptoteY - otherPoint[Y];
+                const updatedCoords: [vec.Vector2, vec.Vector2] = [
+                    ...state.coords,
+                ];
+                updatedCoords[action.index] = boundDestination;
+                updatedCoords[otherIndex] = boundAndSnapToGrid(
+                    [otherPoint[X], reflectedY],
+                    state,
+                );
+                return {
+                    ...state,
+                    hasBeenInteractedWith: true,
+                    coords: updatedCoords,
+                };
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: boundDestination,
+                }),
+            };
+        }
         case "absolute-value": {
             const boundDestination = boundAndSnapToGrid(
                 action.destination,
@@ -673,9 +729,42 @@ function doMoveCenter(
                 radiusPoint: newRadiusPoint,
             };
         }
+        case "exponential": {
+            // Move the asymptote vertically only
+            let newY = boundAndSnapToGrid(action.destination, state)[Y];
+            const coords = state.coords;
+            const stepY = state.snapStep[Y];
+            const [, yRange] = state.range;
+
+            // Both points must stay on the same side of the new asymptote position
+            const allAbove = coords[0][Y] > newY && coords[1][Y] > newY;
+            const allBelow = coords[0][Y] < newY && coords[1][Y] < newY;
+
+            if (!allAbove && !allBelow) {
+                // Asymptote would end up between or on the points.
+                // Snap to whichever valid side the user is dragging toward.
+                const topMost = Math.max(coords[0][Y], coords[1][Y]);
+                const bottomMost = Math.min(coords[0][Y], coords[1][Y]);
+                const midpoint = (topMost + bottomMost) / 2;
+
+                newY = newY >= midpoint ? topMost + stepY : bottomMost - stepY;
+                newY = clamp(newY, yRange[0], yRange[1]);
+            }
+
+            // Final safety: asymptote must not land exactly on either point
+            if (newY === coords[0][Y] || newY === coords[1][Y]) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                asymptote: newY,
+            };
+        }
         default:
             throw new Error(
-                "The doMoveCenter action is only for circle graphs",
+                "The doMoveCenter action is only for circle or exponential graphs",
             );
     }
 }

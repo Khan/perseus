@@ -88,6 +88,13 @@ export function mafsStateToInteractiveGraph(
                 ...originalGraph,
                 coords: state.coords,
             };
+        case "exponential":
+            invariant(originalGraph.type === "exponential");
+            return {
+                ...originalGraph,
+                coords: state.coords,
+                asymptote: state.asymptote,
+            };
         case "none":
             invariant(originalGraph.type === "none");
             return {...originalGraph};
@@ -103,8 +110,6 @@ export function mafsStateToInteractiveGraph(
                 ...originalGraph,
                 coords: state.coords,
             };
-        case "exponential":
-            throw new Error("Not implemented: exponential graph type");
         default:
             throw new UnreachableCaseError(state);
     }
