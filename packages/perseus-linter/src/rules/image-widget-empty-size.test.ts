@@ -2,7 +2,7 @@ import {expectWarning, expectPass} from "../__tests__/test-utils";
 
 import imageWidgetEmptySizeRule from "./image-widget-empty-size";
 
-describe("image-widget", () => {
+describe("image-widget-empty-size", () => {
     // Warn for image widget with undefined width
     expectWarning(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
         widgets: {
