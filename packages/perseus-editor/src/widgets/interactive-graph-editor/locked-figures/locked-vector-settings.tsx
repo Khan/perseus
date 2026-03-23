@@ -14,7 +14,7 @@ import {
     spacing,
     semanticColor,
 } from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import {vec} from "mafs";
@@ -157,7 +157,9 @@ const LockedVectorSettings = (props: Props) => {
             onToggle={props.onToggle}
             header={
                 <View style={styles.row}>
-                    <LabelLarge>{lineLabel}</LabelLarge>
+                    <BodyText size="medium" weight="bold" tag="span">
+                        {lineLabel}
+                    </BodyText>
                     <Strut size={spacing.xSmall_8} />
                     <LineSwatch color={lineColor} lineStyle="solid" />
                 </View>
@@ -180,9 +182,9 @@ const LockedVectorSettings = (props: Props) => {
 
             {/* Zero length error message */}
             {isInvalid && (
-                <LabelMedium style={styles.errorText}>
+                <BodyText style={styles.errorText}>
                     {lengthErrorMessage}
-                </LabelMedium>
+                </BodyText>
             )}
 
             {/* Coordinates */}
@@ -192,7 +194,10 @@ const LockedVectorSettings = (props: Props) => {
                 panelStyle={styles.accordionPanel}
                 header={
                     <View style={styles.row}>
-                        <LabelLarge>{`Tail (${tail[0]}, ${tail[1]})`}</LabelLarge>
+                        <BodyText
+                            size="medium"
+                            weight="bold"
+                        >{`Tail (${tail[0]}, ${tail[1]})`}</BodyText>
                     </View>
                 }
             >
@@ -211,7 +216,10 @@ const LockedVectorSettings = (props: Props) => {
                 panelStyle={styles.accordionPanel}
                 header={
                     <View style={styles.row}>
-                        <LabelLarge>{`Tip (${tip[0]}, ${tip[1]})`}</LabelLarge>
+                        <BodyText
+                            size="medium"
+                            weight="bold"
+                        >{`Tip (${tip[0]}, ${tip[1]})`}</BodyText>
                     </View>
                 }
             >
@@ -239,7 +247,7 @@ const LockedVectorSettings = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
-            <LabelMedium>Visible labels</LabelMedium>
+            <BodyText>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}

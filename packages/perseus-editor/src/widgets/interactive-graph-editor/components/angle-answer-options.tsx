@@ -2,7 +2,7 @@ import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
@@ -28,7 +28,11 @@ export default function AngleAnswerOptions({correct, graph, onChange}: Props) {
         <>
             <View className={styles.row}>
                 <Checkbox
-                    label={<LabelSmall>Show angle measures</LabelSmall>}
+                    label={
+                        <BodyText size="small" tag="span">
+                            Show angle measures
+                        </BodyText>
+                    }
                     checked={
                         // Don't show indeterminate checkbox state
                         !!correct?.showAngles
@@ -58,7 +62,11 @@ export default function AngleAnswerOptions({correct, graph, onChange}: Props) {
             </View>
             <View className={styles.row}>
                 <Checkbox
-                    label={<LabelSmall>Allow reflex angles</LabelSmall>}
+                    label={
+                        <BodyText size="small" tag="span">
+                            Allow reflex angles
+                        </BodyText>
+                    }
                     checked={
                         // Don't show indeterminate checkbox state
                         !!correct?.allowReflexAngles

@@ -2,14 +2,12 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium, LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-
-const typographyMap = {small: LabelSmall, medium: LabelMedium};
 
 type Props = {
     label: string;
@@ -31,13 +29,16 @@ const LabeledSwitch = (props: Props) => {
         disabled = false,
         onChange,
     } = props;
-    const Typography = typographyMap[size];
     const switchId = useId();
 
     const labelElement = (
-        <Typography tag="label" htmlFor={switchId}>
+        <BodyText
+            size={size === "small" ? "small" : undefined}
+            tag="label"
+            htmlFor={switchId}
+        >
             {label}
-        </Typography>
+        </BodyText>
     );
 
     const strut = <Strut size={spacing.xSmall_8} />;

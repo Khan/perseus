@@ -3,7 +3,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -25,7 +25,7 @@ const ColorSelect = (props: Props) => {
 
     return (
         <View style={[styles.row, style]}>
-            <LabelMedium tag="label" style={styles.row}>
+            <BodyText tag="label" style={styles.row}>
                 color
                 <Strut size={spacing.xxSmall_6} />
                 <SingleSelect
@@ -49,7 +49,7 @@ const ColorSelect = (props: Props) => {
                         />
                     ))}
                 </SingleSelect>
-            </LabelMedium>
+            </BodyText>
         </View>
     );
 };

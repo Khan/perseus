@@ -2,7 +2,7 @@ import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
@@ -141,7 +141,11 @@ export default function PolygonAnswerOptions({
             </LabeledRow>
             <View className={styles.row}>
                 <Checkbox
-                    label={<LabelSmall>Show angle measures</LabelSmall>}
+                    label={
+                        <BodyText size="small" tag="span">
+                            Show angle measures
+                        </BodyText>
+                    }
                     checked={
                         // Don't show indeterminate checkbox state
                         !!correct?.showAngles
@@ -171,7 +175,7 @@ export default function PolygonAnswerOptions({
             </View>
             <View className={styles.row}>
                 <Checkbox
-                    label={<LabelSmall>Show side measures</LabelSmall>}
+                    label={<BodyText size="small">Show side measures</BodyText>}
                     checked={
                         // Don't show indeterminate checkbox state
                         !!correct?.showSides

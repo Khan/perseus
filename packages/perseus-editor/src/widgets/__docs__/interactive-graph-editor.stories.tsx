@@ -6,7 +6,7 @@ import {
     sizing,
     spacing,
 } from "@khanacademy/wonder-blocks-tokens";
-import {Body, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
@@ -249,12 +249,14 @@ export const WithSaveWarnings = (): React.ReactElement => {
                 }}
             />
             <View style={styles.errorContainer}>
-                <LabelLarge>Save Warnings:</LabelLarge>
+                <BodyText size="medium" weight="bold">
+                    Save Warnings:
+                </BodyText>
                 <Strut size={spacing.small_12} />
                 {saveWarnings.map((warning, index) => (
-                    <Body key={index} style={styles.errorMessage}>
+                    <BodyText key={index} style={styles.errorMessage}>
                         {warning}
-                    </Body>
+                    </BodyText>
                 ))}
             </View>
         </View>

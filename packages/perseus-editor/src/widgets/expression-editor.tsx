@@ -14,11 +14,7 @@ import {
     sizing,
     spacing,
 } from "@khanacademy/wonder-blocks-tokens";
-import {
-    HeadingSmall,
-    HeadingXSmall,
-    Caption,
-} from "@khanacademy/wonder-blocks-typography";
+import {Heading, BodyText} from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -363,7 +359,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
         return (
             <View>
-                <HeadingSmall>Global Options</HeadingSmall>
+                <Heading size="medium">Global Options</Heading>
 
                 <div className={css(styles.paddedY)}>
                     <LabeledTextField
@@ -448,16 +444,16 @@ class ExpressionEditor extends React.Component<Props, State> {
                 </div>
 
                 <div className={css(styles.paddedY)}>
-                    <HeadingXSmall>Button Sets</HeadingXSmall>
+                    <Heading size="small">Button Sets</Heading>
                     {buttonSetChoices}
                 </div>
 
-                <HeadingSmall>Answers</HeadingSmall>
+                <Heading size="medium">Answers</Heading>
 
-                <Caption style={styles.answersSubtitle}>
+                <BodyText size="xsmall" style={styles.answersSubtitle}>
                     student responses area matched against these from top to
                     bottom
-                </Caption>
+                </BodyText>
 
                 <View style={{gap: spacing.xSmall_8}}>{answerOptions}</View>
 
