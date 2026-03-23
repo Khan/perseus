@@ -35,6 +35,7 @@ const cssWrapper = {
 // Workaround for Storybook v10 + pnpm + Vite issue where the
 // MDX React shim is resolved as a file:// URL that Rollup can't
 // handle. Converts it to a regular path.
+// See: https://github.com/storybookjs/storybook/issues/21716 and
 // https://github.com/storybookjs/storybook/issues/33118
 const fixMdxReactShim = {
     name: "fix-mdx-react-shim",
