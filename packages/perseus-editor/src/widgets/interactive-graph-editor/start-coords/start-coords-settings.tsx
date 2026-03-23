@@ -23,6 +23,7 @@ import Heading from "../../../components/heading";
 
 import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
+import StartCoordsExponential from "./start-coords-exponential";
 import StartCoordsLine from "./start-coords-line";
 import StartCoordsMultiline from "./start-coords-multiline";
 import StartCoordsPoint from "./start-coords-point";
@@ -32,6 +33,7 @@ import StartCoordsTangent from "./start-coords-tangent";
 import {getDefaultGraphStartCoords} from "./util";
 
 import type {StartCoords} from "./types";
+import type {Coord} from "@khanacademy/perseus";
 import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
 
 type Props = PerseusGraphType & {
@@ -104,6 +106,24 @@ const StartCoordsSettingsInner = (props: Props) => {
                     onChange={onChange}
                 />
             );
+        case "exponential": {
+            // startCoords is a combined {coords, asymptote} object, mirroring
+            // how circle's startCoords packs {center, radius} together. This
+            // lets the standard onChange → changeStartCoords path handle
+            // everything with no special-casing needed.
+            const defaultStartCoords = getDefaultGraphStartCoords(
+                props,
+                range,
+                step,
+            ) as {coords: [Coord, Coord]; asymptote: number};
+            const currentStartCoords = props.startCoords ?? defaultStartCoords;
+            return (
+                <StartCoordsExponential
+                    startCoords={currentStartCoords}
+                    onChange={onChange}
+                />
+            );
+        }
         case "tangent":
             const tangentCoords = getTangentCoords(props, range, step);
             return (
