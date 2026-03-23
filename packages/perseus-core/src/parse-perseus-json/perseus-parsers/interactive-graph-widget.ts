@@ -113,6 +113,18 @@ const parsePerseusGraphTypeSinusoid = object({
     startCoords: optional(array(pairOfNumbers)),
 });
 
+const parsePerseusGraphTypeExponential = object({
+    type: constant("exponential"),
+    coords: optional(nullable(array(pairOfNumbers))),
+    asymptote: optional(nullable(number)),
+    startCoords: optional(
+        object({
+            coords: pair(pairOfNumbers, pairOfNumbers),
+            asymptote: number,
+        }),
+    ),
+});
+
 const parsePerseusGraphTypeAbsoluteValue = object({
     type: constant("absolute-value"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
@@ -129,6 +141,7 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("absolute-value", parsePerseusGraphTypeAbsoluteValue)
     .withBranch("angle", parsePerseusGraphTypeAngle)
     .withBranch("circle", parsePerseusGraphTypeCircle)
+    .withBranch("exponential", parsePerseusGraphTypeExponential)
     .withBranch("linear", parsePerseusGraphTypeLinear)
     .withBranch("linear-system", parsePerseusGraphTypeLinearSystem)
     .withBranch("none", parsePerseusGraphTypeNone)
