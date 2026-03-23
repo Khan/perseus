@@ -23,6 +23,10 @@ jobs:
               with:
                   node-version: 24.x
 
+            # We need to generate docs (we don't auto-generate docs in
+            # Storybook scripts). Once they exist, our Storybook config will
+            # "pull in" these API docs into the storybook-static/ directory and
+            # get uploaded when we do `actions/upload-pages-artifact`
             - name: Generate API docs
               run: pnpm build:docs
 
