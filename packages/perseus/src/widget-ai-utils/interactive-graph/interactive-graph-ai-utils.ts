@@ -68,12 +68,17 @@ type TangentGraphOptions = BaseGraphOptions & {
     startCoords?: readonly Coord[];
 };
 
+type ExponentialGraphOptions = BaseGraphOptions & {
+    startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
+};
+
 type NoneGraphOptions = Record<string, never>;
 
 type GraphOptions =
     | AbsoluteValueGraphOptions
     | AngleGraphOptions
     | CircleGraphOptions
+    | ExponentialGraphOptions
     | LinearGraphOptions
     | LinearSystemGraphOptions
     | NoneGraphOptions
@@ -131,6 +136,11 @@ type AbsoluteValueUserInput = {
     coords?: readonly [Coord, Coord] | null;
 };
 
+type ExponentialUserInput = {
+    coords?: readonly Coord[] | null;
+    asymptote?: number | null;
+};
+
 type TangentUserInput = {
     coords?: readonly Coord[] | null;
 };
@@ -139,6 +149,7 @@ type UserInput =
     | AbsoluteValueUserInput
     | AngleUserInput
     | CircleUserInput
+    | ExponentialUserInput
     | LinearUserInput
     | LinearSystemInput
     | PointUserInput
@@ -252,6 +263,11 @@ const getGraphOptionsForProps = (
                 type: props.userInput.type,
                 startCoords: props.userInput.startCoords,
             };
+        case "exponential":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         default:
             throw new UnreachableCaseError(type);
     }
@@ -312,6 +328,11 @@ const getUserInput = (userInput: PerseusGraphType): UserInput => {
         case "absolute-value":
             return {
                 coords: userInput.coords,
+            };
+        case "exponential":
+            return {
+                coords: userInput.coords,
+                asymptote: userInput.asymptote,
             };
         default:
             throw new UnreachableCaseError(type);

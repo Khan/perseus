@@ -20,7 +20,7 @@ import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus-core";
 const {getClockwiseAngle} = angles;
 
 export function getStartCoords(graph: PerseusGraphType): StartCoords {
-    if ("startCoords" in graph) {
+    if ("startCoords" in graph && graph.type !== "exponential") {
         return graph.startCoords;
     }
     return undefined;
@@ -237,6 +237,7 @@ export const shouldShowStartCoordsUI = (
         case "segment":
         case "sinusoid":
         case "absolute-value":
+        case "exponential":
             return true;
         default:
             throw new UnreachableCaseError(graph);

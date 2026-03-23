@@ -774,6 +774,8 @@ const renderGraphElements = (props: {
             return renderAbsoluteValueGraph(state, dispatch, i18n);
         case "tangent":
             return renderTangentGraph(state, dispatch, i18n);
+        case "exponential":
+            throw new Error("Not implemented: exponential graph type");
         default:
             throw new UnreachableCaseError(type);
     }

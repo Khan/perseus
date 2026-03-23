@@ -1105,6 +1105,7 @@ export type PerseusGraphType =
     | PerseusGraphTypeRay
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid
+    | PerseusGraphTypeExponential
     | PerseusGraphTypeTangent;
 
 export type PerseusGraphTypeAngle = {
@@ -1230,6 +1231,19 @@ export type PerseusGraphTypeTangent = {
     startCoords?: Coord[];
 };
 
+export type PerseusGraphTypeExponential = {
+    type: "exponential";
+    /** Two points along the exponential curve. */
+    coords?: Coord[] | null;
+    /**
+     * The y-value of the horizontal asymptote (the line y = asymptote).
+     * Corresponds to the coefficient c in f(x) = a·eᵇˣ + c.
+     */
+    asymptote?: number | null;
+    /** The initial coordinates the graph renders with. */
+    startCoords?: {coords: [Coord, Coord]; asymptote: number};
+};
+
 export type PerseusGraphTypeAbsoluteValue = {
     type: "absolute-value";
     // Expects [vertex, secondPoint]
@@ -1304,6 +1318,12 @@ type SinusoidGraphCorrect = {
     coords: CollinearTuple;
 };
 
+type ExponentialGraphCorrect = {
+    type: "exponential";
+    coords: CollinearTuple;
+    asymptote: number;
+};
+
 type TangentGraphCorrect = {
     type: "tangent";
     coords: CollinearTuple;
@@ -1327,6 +1347,7 @@ export type PerseusGraphCorrectType =
     | RayGraphCorrect
     | SegmentGraphCorrect
     | SinusoidGraphCorrect
+    | ExponentialGraphCorrect
     | TangentGraphCorrect;
 
 /** Options for the label-image widget. Asks learners to label image parts. */

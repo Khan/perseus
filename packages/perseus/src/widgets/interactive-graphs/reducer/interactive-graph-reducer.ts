@@ -314,6 +314,7 @@ function doMovePointInFigure(
         case "sinusoid":
         case "absolute-value":
         case "tangent":
+        case "exponential":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );
