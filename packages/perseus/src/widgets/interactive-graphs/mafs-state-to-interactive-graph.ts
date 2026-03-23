@@ -92,7 +92,11 @@ export function mafsStateToInteractiveGraph(
             invariant(originalGraph.type === "none");
             return {...originalGraph};
         case "absolute-value":
-            throw new Error("Not implemented: absolute-value graph type");
+            invariant(originalGraph.type === "absolute-value");
+            return {
+                ...originalGraph,
+                coords: state.coords,
+            };
         case "tangent":
             invariant(originalGraph.type === "tangent");
             return {

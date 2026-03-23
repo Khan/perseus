@@ -79,6 +79,9 @@ export const actions = {
     sinusoid: {
         movePoint,
     },
+    absoluteValue: {
+        movePoint,
+    },
     tangent: {
         movePoint,
     },

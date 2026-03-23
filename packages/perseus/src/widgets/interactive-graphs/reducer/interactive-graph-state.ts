@@ -111,6 +111,16 @@ export function getGradableGraph(
         return {type: "none"};
     }
 
+    if (
+        state.type === "absolute-value" &&
+        initialGraph.type === "absolute-value"
+    ) {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
+    }
+
     throw new Error(
         "Mafs is not yet implemented for graph type: " + initialGraph.type,
     );
