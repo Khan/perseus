@@ -19,6 +19,7 @@ import type {
     PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
+    PerseusGraphTypeExponential,
     PerseusGraphTypeTangent,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
@@ -112,6 +113,12 @@ export function initializeGraphState(
                 type: graph.type,
                 coords: getSinusoidCoords(graph, range, step),
             };
+        case "exponential":
+            return {
+                ...shared,
+                type: graph.type,
+                ...getExponentialCoords(graph, range, step),
+            };
         case "angle":
             return {
                 ...shared,
@@ -139,8 +146,6 @@ export function initializeGraphState(
                 type: graph.type,
                 coords: getTangentCoords(graph, range, step),
             };
-        case "exponential":
-            throw new Error("Not implemented: exponential graph type");
         default:
             throw new UnreachableCaseError(graph);
     }
@@ -473,6 +478,37 @@ export function getCircleCoords(graph: PerseusGraphTypeCircle): {
         center: [0, 0],
         radiusPoint: [2, 0],
     };
+}
+
+export function getExponentialCoords(
+    graph: PerseusGraphTypeExponential,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): {coords: [Coord, Coord]; asymptote: number} {
+    if (graph.coords && graph.asymptote != null) {
+        return {
+            coords: [graph.coords[0], graph.coords[1]],
+            asymptote: graph.asymptote,
+        };
+    }
+
+    // Default: two points above the x-axis, matching the Grapher widget defaults.
+    // [0.5, 0.55] normalizes to just above y=0 (≈1 step up in a [-10,10] range).
+    let defaultCoords: [Coord, Coord] = [
+        [0.5, 0.55],
+        [0.75, 0.75],
+    ];
+    defaultCoords = normalizePoints(range, step, defaultCoords, true);
+
+    const coords: [Coord, Coord] = graph.startCoords
+        ? graph.startCoords.coords
+        : defaultCoords;
+    // Default asymptote at y=0 (the x-axis), so the curve visually approaches zero.
+    const asymptote: number = graph.startCoords
+        ? graph.startCoords.asymptote
+        : 0;
+
+    return {coords, asymptote};
 }
 
 export const getAngleCoords = (params: {
