@@ -39,10 +39,6 @@
 minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
     - "@khanacademy/*"
-    # STOPSHIP: Remove the storybook entries below once they've cleared 72h
-    - "@storybook/*"
-    - "storybook"
-    - "eslint-plugin-storybook"
 packages:
     - config/build
     - dev
