@@ -22,7 +22,6 @@
         "@khanacademy/wonder-blocks-accordion": "catalog:devDeps",
         "@khanacademy/wonder-blocks-core": "catalog:devDeps",
         "@khanacademy/wonder-blocks-theming": "catalog:devDeps",
-        "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
         "@phosphor-icons/core": "catalog:devDeps",
         "@rollup/plugin-alias": "^5.1.1",
         "@rollup/plugin-commonjs": "^28.0.3",
