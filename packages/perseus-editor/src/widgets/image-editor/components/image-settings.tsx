@@ -154,6 +154,14 @@ export default function ImageSettings({
                 />
             )}
 
+            {altFieldWarning && (
+                <Banner
+                    kind="warning"
+                    text={altFieldWarning}
+                    styles={{root: {marginBottom: sizing.size_080}}}
+                />
+            )}
+
             {/* Long Description */}
             <LabeledField
                 label="Long description"

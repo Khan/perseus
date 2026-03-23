@@ -109,13 +109,16 @@ export {
 } from "./widget-type-utils";
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
 export {
+    getAbsoluteValueCoords,
     getCircleCoords,
+    getExponentialCoords,
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
     getPolygonCoords,
     getSegmentCoords,
     getSinusoidCoords,
+    getTangentCoords,
     getQuadraticCoords,
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
