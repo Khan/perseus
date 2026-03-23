@@ -166,12 +166,12 @@ class ItemEditor extends React.Component<Props, State> {
         return this.questionEditor.current?.getSaveWarnings();
     };
 
-    serialize: (options?: any) => {
+    serialize: () => {
         answerArea: PerseusAnswerArea | undefined;
         question: any;
-    } = (options: any) => {
+    } = () => {
         return {
-            question: this.questionEditor.current?.serialize(options),
+            question: this.questionEditor.current?.serialize(),
             answerArea: this.itemExtrasEditor.current?.serialize(),
         };
     };

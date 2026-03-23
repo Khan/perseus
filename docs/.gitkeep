@@ -1,0 +1,1 @@
+This directory is used when we build the API documentation (using typedoc). This file serves to ensure the folder exists in git (see also the .gitignore).

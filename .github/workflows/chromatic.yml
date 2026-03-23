@@ -42,6 +42,7 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
+                  buildScriptName: "build:storybook"
                   autoAcceptChanges: "main"
                   onlyStoryFiles: "**/*-regression.stories.tsx"
                   # NOTE: We cannot enable `onlyChanged` because it is
