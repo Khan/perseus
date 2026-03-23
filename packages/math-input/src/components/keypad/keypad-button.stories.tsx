@@ -15,7 +15,7 @@ const keyConfigs = KeyConfigs(mockStrings);
 export default {
     title: "Math Input/Components/Keypad Button",
     args: {
-        keyConfig: keyConfigs["PLUS"],
+        keyConfig: "PLUS",
         coord: [0, 0],
     },
     argTypes: {
