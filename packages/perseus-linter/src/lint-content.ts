@@ -9,6 +9,9 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
+type LinterWarningWithPath = LinterWarning & {
+    path: string;
+}
 /**
  * Lint a full Perseus item, including the question and all hints.
  *
@@ -18,10 +21,10 @@ import type {
  */
 export function lintPerseusItem(
     parsedPerseusItem: PerseusItem,
-): ReadonlyArray<LinterWarning> {
-    const questionLint = lintPerseusRenderer(parsedPerseusItem.question);
-    const hintLint = parsedPerseusItem.hints.flatMap((hint) =>
-        lintPerseusRenderer(hint, "exercise"),
+): ReadonlyArray<LinterWarningWithPath> {
+    const questionLint = lintPerseusRenderer(parsedPerseusItem.question, "exercise").map(item => ({...item, path: "question"}));
+    const hintLint = parsedPerseusItem.hints.flatMap((hint, index) =>
+        lintPerseusRenderer(hint, "exercise").map(hint => ({...hint, path: `hints[${index}]`})),
     );
 
     return [...questionLint, ...hintLint];
@@ -36,13 +39,13 @@ export function lintPerseusItem(
  */
 export function lintPerseusArticle(
     parsedPerseusArticle: PerseusArticle,
-): ReadonlyArray<LinterWarning> {
+): ReadonlyArray<LinterWarningWithPath> {
     const articleSections = Array.isArray(parsedPerseusArticle)
         ? parsedPerseusArticle
         : [parsedPerseusArticle];
 
-    return articleSections.flatMap((section) =>
-        lintPerseusRenderer(section, "article"),
+    return articleSections.flatMap((section, index) =>
+        lintPerseusRenderer(section, "article").map(section => ({...section, path: `sections[${index}]`})),
     );
 }
 
@@ -57,7 +60,7 @@ export function lintPerseusArticle(
  */
 export function lintPerseusRenderer(
     parsedPerseusRenderer: PerseusRenderer,
-    contentType?: "article" | "exercise",
+    contentType: "article" | "exercise" | "renderer",
 ): ReadonlyArray<LinterWarning> {
     const tree = parse(parsedPerseusRenderer.content);
     const context = {

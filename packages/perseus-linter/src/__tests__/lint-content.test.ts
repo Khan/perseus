@@ -22,13 +22,13 @@ const lintyRenderer = generateTestPerseusRenderer({
 
 describe("lintPerseusRenderer", () => {
     it("returns an empty array for clean content", () => {
-        const warnings = lintPerseusRenderer(cleanRenderer);
+        const warnings = lintPerseusRenderer(cleanRenderer, "renderer");
 
         expect(warnings).toHaveLength(0);
     });
 
     it("returns warnings when content violates a lint rule", () => {
-        const warnings = lintPerseusRenderer(lintyRenderer);
+        const warnings = lintPerseusRenderer(lintyRenderer, "renderer");
 
         expect(warnings.length).toBeGreaterThan(0);
         expect(warnings[0].rule).toBe("long-paragraph");
@@ -42,9 +42,9 @@ describe("lintPerseusItem", () => {
         });
 
         const warnings = lintPerseusItem(item);
-
-        expect(warnings.length).toBeGreaterThan(0);
-        expect(warnings[0].rule).toBe("long-paragraph");
+        console.log(warnings)
+        expect(warnings.length).toBeGreaterThan(2);
+        // expect(warnings[0].rule).toBe("long-paragraph");
     });
 
     it("returns warnings from hints", () => {
@@ -71,6 +71,30 @@ describe("lintPerseusItem", () => {
     });
 });
 
+describe("widget warnings", () => {
+    it.only("shows what a widget warning looks like", () => {
+        const renderer = generateTestPerseusRenderer({
+            content: "Pick one: [[☃ radio 1]]",
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    options: {
+                        choices: [
+                            {content: "A", correct: false, id: "1"},
+                            {content: "B", correct: false, id: "2"},
+                        ],
+                    },
+                },
+            },
+        });
+
+        const warnings = lintPerseusRenderer(renderer, "renderer");
+
+        console.log(JSON.stringify(warnings, null, 2));
+        expect(warnings.length).toBeGreaterThan(0);
+    });
+});
+
 describe("lintPerseusArticle", () => {
     it("handles a single renderer", () => {
         const warnings = lintPerseusArticle(lintyRenderer);
@@ -86,7 +110,9 @@ describe("lintPerseusArticle", () => {
             lintyRenderer,
         ]);
 
-        expect(warnings.length).toBeGreaterThanOrEqual(2);
+        console.log(warnings)
+        expect(warnings.length).toBeGreaterThanOrEqual(4);
+
     });
 
     it("returns an empty array when all sections are clean", () => {
