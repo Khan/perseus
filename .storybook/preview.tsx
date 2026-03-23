@@ -94,6 +94,10 @@ const preview: Preview = {
         // themes, that will allow the user to select a theme from the toolbar.
         theme: supportedThemes,
     },
+    initialGlobals: {
+        // 👇 Set the initial background color
+        backgrounds: {value: "baseDefault"},
+    },
     // These parameters apply to all stories, both inside and outside the fixture
     // framework.
     parameters: {
@@ -145,10 +149,6 @@ const preview: Preview = {
                     value: semanticColor.core.background.base.subtle,
                 },
             },
-        },
-        initialGlobals: {
-            // 👇 Set the initial background color
-            backgrounds: {value: "baseDefault"},
         },
         docs: {
             toc: {
