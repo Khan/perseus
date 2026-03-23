@@ -13,6 +13,8 @@ import Util from "../../util";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 
+import {getAbsoluteValueCoefficients} from "./graphs/absolute-value";
+
 import type {StatefulMafsGraphType} from "./stateful-mafs-graph";
 import type {QuadraticGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
@@ -605,7 +607,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             case "angle":
                 return InteractiveGraph.getAngleEquationString(props);
             case "absolute-value":
-                return "";
+                return InteractiveGraph.getAbsoluteValueEquationString(props);
             case "tangent":
                 return InteractiveGraph.getTangentEquationString(props);
             default:
@@ -708,6 +710,26 @@ class InteractiveGraph extends React.Component<Props, State> {
             coeffs[2].toFixed(3) +
             ") + " +
             coeffs[3].toFixed(3)
+        );
+    }
+
+    static getAbsoluteValueEquationString(props: Props): string {
+        const userInput = props.userInput;
+        if (userInput.type !== "absolute-value" || !userInput.coords) {
+            return "";
+        }
+        const coeffs = getAbsoluteValueCoefficients(userInput.coords);
+        if (coeffs === undefined) {
+            return "";
+        }
+        const {m, h, v} = coeffs;
+        return (
+            "y = " +
+            m.toFixed(3) +
+            "|x - " +
+            h.toFixed(3) +
+            "| + " +
+            v.toFixed(3)
         );
     }
 
