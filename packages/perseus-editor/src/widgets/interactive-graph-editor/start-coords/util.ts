@@ -3,6 +3,7 @@ import {
     getAbsoluteValueCoords,
     getAngleCoords,
     getCircleCoords,
+    getExponentialCoords,
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
@@ -20,7 +21,7 @@ import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus-core";
 const {getClockwiseAngle} = angles;
 
 export function getStartCoords(graph: PerseusGraphType): StartCoords {
-    if ("startCoords" in graph && graph.type !== "exponential") {
+    if ("startCoords" in graph) {
         return graph.startCoords;
     }
     return undefined;
@@ -72,6 +73,14 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "exponential": {
+            const {coords, asymptote} = getExponentialCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+            return {coords, asymptote};
+        }
         case "tangent":
             return getTangentCoords(
                 {...graph, startCoords: undefined},
@@ -229,6 +238,7 @@ export const shouldShowStartCoordsUI = (
             return false;
         case "angle":
         case "circle":
+        case "exponential":
         case "linear":
         case "linear-system":
         case "tangent":
@@ -237,7 +247,6 @@ export const shouldShowStartCoordsUI = (
         case "segment":
         case "sinusoid":
         case "absolute-value":
-        case "exponential":
             return true;
         default:
             throw new UnreachableCaseError(graph);
