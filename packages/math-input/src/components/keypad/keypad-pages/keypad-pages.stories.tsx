@@ -7,7 +7,7 @@ import {RenderKeyPadPanel} from "../render-keypad-panel";
 
 import GeometryInputPage from "./geometry-page";
 import NumbersPage from "./numbers-page";
-import PrealgebraInputPage from "./operators-page";
+import OperatorsPage from "./operators-page";
 
 import type {Meta} from "@storybook/react-vite";
 
@@ -27,8 +27,8 @@ export const NumericInput = (): React.ReactElement => (
 );
 
 export const PreAlgebraInput = (): React.ReactElement => (
-    <RenderKeyPadPanel selectedPage="Extras" onClickKey={() => {}}>
-        <PrealgebraInputPage
+    <RenderKeyPadPanel selectedPage="Operators" onClickKey={() => {}}>
+        <OperatorsPage
             onClickKey={action("onClickKey")}
             preAlgebra={true}
             logarithms={true}

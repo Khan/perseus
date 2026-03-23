@@ -1,4 +1,3 @@
-import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 import * as React from "react";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
@@ -14,6 +13,8 @@ import {
     storybookTestDependencies,
     storybookDependenciesV2,
 } from "../packages/perseus/src/testing/test-dependencies";
+
+import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 
 // This will bring in the shared styles from prod so that the components can
 // have the same styles as prod when viewed within Storybook.
