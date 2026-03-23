@@ -492,6 +492,36 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    srExponentialGraph: string;
+    srExponentialPoint1: ({x, y}: {x: string; y: string}) => string;
+    srExponentialPoint2: ({x, y}: {x: string; y: string}) => string;
+    srExponentialDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteY: string;
+    }) => string;
+    srExponentialInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteY: string;
+    }) => string;
+    srExponentialAsymptote: ({asymptoteY}: {asymptoteY: string}) => string;
     srAbsoluteValueGraph: string;
     srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
     srAbsoluteValueSecondPoint: ({x, y}: {x: string; y: string}) => string;
@@ -1139,6 +1169,39 @@ export const strings = {
         message:
             "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
     },
+    srExponentialGraph: {
+        context:
+            "Aria label for the container containing an Exponential function in the interactive graph widget.",
+        message: "An exponential curve on a coordinate plane.",
+    },
+    srExponentialPoint1: {
+        context:
+            "Aria label for the first Point on the Exponential function in the interactive graph widget.",
+        message: "Point 1 at %(x)s comma %(y)s.",
+    },
+    srExponentialPoint2: {
+        context:
+            "Aria label for the second Point on the Exponential function in the interactive graph widget.",
+        message: "Point 2 at %(x)s comma %(y)s.",
+    },
+    srExponentialDescription: {
+        context:
+            "Screen reader description of the Exponential function in the interactive graph widget.",
+        message:
+            "The graph shows an exponential curve passing through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s with a horizontal asymptote at y equals %(asymptoteY)s.",
+    },
+    srExponentialInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Exponential function in the interactive graph widget.",
+        message:
+            "Exponential graph with point 1 at %(point1X)s comma %(point1Y)s, point 2 at %(point2X)s comma %(point2Y)s, and horizontal asymptote at y equals %(asymptoteY)s.",
+    },
+    srExponentialAsymptote: {
+        context:
+            "Aria label for the draggable horizontal asymptote line in the Exponential function in the interactive graph widget.",
+        message:
+            "Horizontal asymptote at y equals %(asymptoteY)s. Use up and down arrow keys to move.",
+    },
     srAbsoluteValueGraph: {
         context:
             "Aria label for the container containing an Absolute Value function in the interactive graph widget.",
@@ -1528,6 +1591,27 @@ export const mockStrings: PerseusStrings = {
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
+    srExponentialGraph: "An exponential curve on a coordinate plane.",
+    srExponentialPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
+    srExponentialPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
+    srExponentialDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }) =>
+        `The graph shows an exponential curve passing through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y} with a horizontal asymptote at y equals ${asymptoteY}.`,
+    srExponentialInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }) =>
+        `Exponential graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and horizontal asymptote at y equals ${asymptoteY}.`,
+    srExponentialAsymptote: ({asymptoteY}) =>
+        `Horizontal asymptote at y equals ${asymptoteY}. Use up and down arrow keys to move.`,
     srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
     srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
     srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
