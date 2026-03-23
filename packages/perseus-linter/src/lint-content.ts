@@ -11,7 +11,7 @@ import type {
 
 type LinterWarningWithPath = LinterWarning & {
     path: string;
-}
+};
 /**
  * Lint a full Perseus item, including the question and all hints.
  *
@@ -22,9 +22,15 @@ type LinterWarningWithPath = LinterWarning & {
 export function lintPerseusItem(
     parsedPerseusItem: PerseusItem,
 ): ReadonlyArray<LinterWarningWithPath> {
-    const questionLint = lintPerseusRenderer(parsedPerseusItem.question, "exercise").map(item => ({...item, path: "question"}));
+    const questionLint = lintPerseusRenderer(
+        parsedPerseusItem.question,
+        "exercise",
+    ).map((item) => ({...item, path: "question"}));
     const hintLint = parsedPerseusItem.hints.flatMap((hint, index) =>
-        lintPerseusRenderer(hint, "exercise").map(hint => ({...hint, path: `hints[${index}]`})),
+        lintPerseusRenderer(hint, "exercise").map((hint) => ({
+            ...hint,
+            path: `hints[${index}]`,
+        })),
     );
 
     return [...questionLint, ...hintLint];
@@ -45,7 +51,10 @@ export function lintPerseusArticle(
         : [parsedPerseusArticle];
 
     return articleSections.flatMap((section, index) =>
-        lintPerseusRenderer(section, "article").map(section => ({...section, path: `sections[${index}]`})),
+        lintPerseusRenderer(section, "article").map((section) => ({
+            ...section,
+            path: `sections[${index}]`,
+        })),
     );
 }
 

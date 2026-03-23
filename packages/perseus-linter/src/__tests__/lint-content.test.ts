@@ -42,9 +42,8 @@ describe("lintPerseusItem", () => {
         });
 
         const warnings = lintPerseusItem(item);
-        console.log(warnings)
         expect(warnings.length).toBeGreaterThan(2);
-        // expect(warnings[0].rule).toBe("long-paragraph");
+        expect(warnings[0].rule).toBe("long-paragraph");
     });
 
     it("returns warnings from hints", () => {
@@ -72,7 +71,7 @@ describe("lintPerseusItem", () => {
 });
 
 describe("widget warnings", () => {
-    it.only("shows what a widget warning looks like", () => {
+    it("shows what a widget warning looks like", () => {
         const renderer = generateTestPerseusRenderer({
             content: "Pick one: [[☃ radio 1]]",
             widgets: {
@@ -90,7 +89,6 @@ describe("widget warnings", () => {
 
         const warnings = lintPerseusRenderer(renderer, "renderer");
 
-        console.log(JSON.stringify(warnings, null, 2));
         expect(warnings.length).toBeGreaterThan(0);
     });
 });
@@ -110,9 +108,7 @@ describe("lintPerseusArticle", () => {
             lintyRenderer,
         ]);
 
-        console.log(warnings)
         expect(warnings.length).toBeGreaterThanOrEqual(4);
-
     });
 
     it("returns an empty array when all sections are clean", () => {
