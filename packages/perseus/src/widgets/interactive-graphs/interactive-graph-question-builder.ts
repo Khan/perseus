@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+// (LEMS-4008) TODO: Cleanup eslint override.
 import {vec} from "mafs";
 
 import type {SnapTo} from "./types";
