@@ -11,7 +11,6 @@ import {
  * @param userInput - The user's input corresponding to an array of indices that
  * represent the selected category for each row/item.
  * @param validationData - An array of strings corresponding to each row/item
- * @param strings - Used to provide a validation message
  */
 function validateCategorizer(
     // NOTE(benchristel): userInput can be undefined if the widget has never
