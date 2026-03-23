@@ -31,6 +31,7 @@ import {
 } from "./backgrounds/utils";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
+import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {SvgDefs} from "./graphs/components/text-label";
@@ -770,7 +771,7 @@ const renderGraphElements = (props: {
         case "none":
             return {graph: null, interactiveElementsDescription: null};
         case "absolute-value":
-            throw new Error("Not implemented: absolute-value graph type");
+            return renderAbsoluteValueGraph(state, dispatch, i18n);
         case "tangent":
             return renderTangentGraph(state, dispatch, i18n);
         default:
