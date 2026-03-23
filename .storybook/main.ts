@@ -166,7 +166,12 @@ const config: StorybookConfig = {
             plugins: [fixMdxReactShim, cssWrapper],
         });
     },
-    staticDirs: ["../static", {from: "../docs", to: "/api-docs"}],
+    staticDirs: [
+        "../static",
+        // This pulls in the API docs built by typedoc (`pnpm build:docs`) so
+        // that we can serve them through the Storybook setup.
+        {from: "../docs", to: "/api-docs"},
+    ],
 };
 
 export default config;
