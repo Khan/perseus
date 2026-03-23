@@ -93,7 +93,7 @@ describe("lintPerseusItem", () => {
 });
 
 describe("widget warnings", () => {
-    it("returns warnings for invalid widget options in content", () => {
+    it("returns radio-widget-error when no radio choice is marked correct", () => {
         const renderer = generateTestPerseusRenderer({
             content: "Pick one: [[☃ radio 1]]",
             widgets: {
@@ -111,7 +111,12 @@ describe("widget warnings", () => {
 
         const warnings = lintPerseusRenderer(renderer, "renderer");
 
-        expect(warnings.length).toBeGreaterThan(0);
+        expect(warnings).toContainEqual(
+            expect.objectContaining({
+                rule: "radio-widget-error",
+                message: "No choice is marked as correct.",
+            }),
+        );
     });
 });
 
