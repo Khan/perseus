@@ -38,6 +38,7 @@ export {
 export {itemHasRationales} from "./utils/item-has-rationales";
 export {itemHasHints} from "./utils/item-has-hints";
 export {makeSafeUrl} from "./utils/make-safe-url";
+export {removeOrphanedWidgets} from "./utils/remove-orphaned-widgets";
 
 export {
     parseAndMigratePerseusItem,
