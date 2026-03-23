@@ -306,9 +306,9 @@ const builtParser = SimpleMarkdown.parserFor(pureMarkdownRules);
  * @param state The state object to pass to the parser.
  * @returns The Abstract Syntax Tree (AST) of the parsed Markdown.
  *
- * @todo The return type should be Array<SingleASTNode> but that breaks the
- * perseus-linter's types, so leaving it as `any` for now.
  */
+// TODO: The return type should be Array<SingleASTNode> but that breaks the
+// perseus-linter's types, so leaving it as `any` for now.
 export function parse(source: string, state?: any): any {
     const paragraphedSource = source + "\n\n";
 
