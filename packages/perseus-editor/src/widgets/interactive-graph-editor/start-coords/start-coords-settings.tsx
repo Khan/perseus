@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
+    getAbsoluteValueCoords,
     getAngleCoords,
     getCircleCoords,
     getLineCoords,
@@ -44,6 +45,18 @@ const StartCoordsSettingsInner = (props: Props) => {
     const {type, range, step, allowReflexAngles, onChange} = props;
 
     switch (type) {
+        case "absolute-value":
+            const absoluteValueCoords = getAbsoluteValueCoords(
+                props,
+                range,
+                step,
+            );
+            return (
+                <StartCoordsPoint
+                    startCoords={absoluteValueCoords}
+                    onChange={onChange}
+                />
+            );
         // Graphs with startCoords of type CollinearTuple
         case "linear":
         case "ray":

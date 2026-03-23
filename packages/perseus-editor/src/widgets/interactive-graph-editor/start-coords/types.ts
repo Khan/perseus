@@ -1,6 +1,7 @@
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 type GraphTypesThatHaveStartCoords =
+    | {type: "absolute-value"}
     | {type: "angle"}
     | {type: "circle"}
     | {type: "linear"}

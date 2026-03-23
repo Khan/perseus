@@ -12,6 +12,11 @@ type GraphTypeSelectorProps = {
 };
 
 const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
+    const showAbsoluteValue = isFeatureOn(
+        {apiOptions: props.apiOptions},
+        "interactive-graph-absolute-value",
+    );
+
     const showTangent = isFeatureOn(
         {apiOptions: props.apiOptions},
         "interactive-graph-tangent",
@@ -24,6 +29,9 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             placeholder="Select an answer type"
             style={styles.singleSelectShort}
         >
+            {showAbsoluteValue && (
+                <OptionItem value="absolute-value" label="Absolute value" />
+            )}
             <OptionItem value="none" label="None" />
             <OptionItem value="linear" label="Linear function" />
             <OptionItem value="quadratic" label="Quadratic function" />
