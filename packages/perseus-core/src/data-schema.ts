@@ -1246,6 +1246,11 @@ export type PerseusGraphTypeRay = {
     startCoords?: CollinearTuple;
 };
 
+type AbsoluteValueGraphCorrect = {
+    type: "absolute-value";
+    coords: [Coord, Coord];
+};
+
 type AngleGraphCorrect = {
     type: "angle";
     allowReflexAngles: boolean;
@@ -1310,6 +1315,7 @@ type RayGraphCorrect = {
 };
 
 export type PerseusGraphCorrectType =
+    | AbsoluteValueGraphCorrect
     | AngleGraphCorrect
     | CircleGraphCorrect
     | LinearGraphCorrect
