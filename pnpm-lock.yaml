@@ -183,6 +183,9 @@ importers:
       '@khanacademy/wonder-blocks-theming':
         specifier: catalog:devDeps
         version: 4.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-tokens':
+        specifier: catalog:devDeps
+        version: 16.1.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@phosphor-icons/core':
         specifier: catalog:devDeps
         version: 2.0.2
