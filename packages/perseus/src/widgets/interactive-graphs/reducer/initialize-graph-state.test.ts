@@ -370,6 +370,59 @@ describe("initializeGraphState for quadratic graphs", () => {
     });
 });
 
+describe("initializeGraphState for absolute-value graphs", () => {
+    it("uses the given coords, if present", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "absolute-value",
+                coords: [
+                    [0, 1],
+                    [2, 3],
+                ],
+            },
+        });
+
+        invariant(graph.type === "absolute-value");
+        expect(graph.coords).toEqual([
+            [0, 1],
+            [2, 3],
+        ]);
+    });
+
+    it("uses startCoords if no coords are given", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "absolute-value",
+                startCoords: [
+                    [4, 5],
+                    [6, 7],
+                ],
+            },
+        });
+
+        invariant(graph.type === "absolute-value");
+        expect(graph.coords).toEqual([
+            [4, 5],
+            [6, 7],
+        ]);
+    });
+
+    it("uses default coords if neither coords nor startCoords are given", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "absolute-value"},
+        });
+
+        invariant(graph.type === "absolute-value");
+        expect(graph.coords).toEqual([
+            [0, 0],
+            [5, 5],
+        ]);
+    });
+});
+
 describe("initializeGraphState for sinusoid graphs", () => {
     it("uses the given coords, if present", () => {
         const graph = initializeGraphState({
