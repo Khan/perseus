@@ -9,7 +9,7 @@ import {
     lintPerseusRenderer,
 } from "../lint-content";
 
-// 501+ characters to trigger the long-paragraph rule
+// Long paragraph triggers the `long-paragraph` rule (see long-paragraph.test.ts).
 const longParagraph = new Array(50).fill("lorem ipsum").join(" ");
 
 const cleanRenderer = generateTestPerseusRenderer({
@@ -41,9 +41,11 @@ describe("lintPerseusItem", () => {
             question: lintyRenderer,
         });
 
-        const warnings = lintPerseusItem(item);
-        expect(warnings.length).toBeGreaterThan(2);
-        expect(warnings[0].rule).toBe("long-paragraph");
+        const {question, hints} = lintPerseusItem(item);
+
+        expect(question.length).toBeGreaterThan(0);
+        expect(question[0].rule).toBe("long-paragraph");
+        expect(hints).toHaveLength(0);
     });
 
     it("returns warnings from hints", () => {
@@ -52,26 +54,46 @@ describe("lintPerseusItem", () => {
             hints: [lintyRenderer],
         });
 
-        const warnings = lintPerseusItem(item);
+        const {question, hints} = lintPerseusItem(item);
 
-        expect(warnings.length).toBeGreaterThan(0);
-        expect(warnings[0].rule).toBe("long-paragraph");
+        expect(question).toHaveLength(0);
+        expect(hints).toHaveLength(1);
+        expect(hints[0].length).toBeGreaterThan(0);
+        expect(hints[0][0].rule).toBe("long-paragraph");
     });
 
-    it("combines warnings from question and hints", () => {
+    it("returns separate warning lists for question and each hint", () => {
         const item = generateTestPerseusItem({
             question: lintyRenderer,
             hints: [lintyRenderer],
         });
 
-        const warnings = lintPerseusItem(item);
+        const {question, hints} = lintPerseusItem(item);
 
-        expect(warnings.length).toBeGreaterThanOrEqual(2);
+        expect(question.length).toBeGreaterThan(0);
+        expect(question[0].rule).toBe("long-paragraph");
+        expect(hints).toHaveLength(1);
+        expect(hints[0].length).toBeGreaterThan(0);
+        expect(hints[0][0].rule).toBe("long-paragraph");
+    });
+
+    it("aligns hint warning arrays with item.hints", () => {
+        const item = generateTestPerseusItem({
+            question: cleanRenderer,
+            hints: [cleanRenderer, lintyRenderer],
+        });
+
+        const {hints} = lintPerseusItem(item);
+
+        expect(hints).toHaveLength(2);
+        expect(hints[0]).toHaveLength(0);
+        expect(hints[1].length).toBeGreaterThan(0);
+        expect(hints[1][0].rule).toBe("long-paragraph");
     });
 });
 
 describe("widget warnings", () => {
-    it("shows what a widget warning looks like", () => {
+    it("returns warnings for invalid widget options in content", () => {
         const renderer = generateTestPerseusRenderer({
             content: "Pick one: [[☃ radio 1]]",
             widgets: {
@@ -95,25 +117,36 @@ describe("widget warnings", () => {
 
 describe("lintPerseusArticle", () => {
     it("handles a single renderer", () => {
-        const warnings = lintPerseusArticle(lintyRenderer);
+        const warningsBySection = lintPerseusArticle(lintyRenderer);
 
-        expect(warnings.length).toBeGreaterThan(0);
-        expect(warnings[0].rule).toBe("long-paragraph");
+        expect(warningsBySection).toHaveLength(1);
+        expect(warningsBySection[0].length).toBeGreaterThan(0);
+        expect(warningsBySection[0][0].rule).toBe("long-paragraph");
     });
 
     it("handles an array of renderer sections", () => {
-        const warnings = lintPerseusArticle([
+        const warningsBySection = lintPerseusArticle([
             lintyRenderer,
             cleanRenderer,
             lintyRenderer,
         ]);
 
-        expect(warnings.length).toBeGreaterThanOrEqual(4);
+        expect(warningsBySection).toHaveLength(3);
+        expect(warningsBySection[0].length).toBeGreaterThan(0);
+        expect(warningsBySection[0][0].rule).toBe("long-paragraph");
+        expect(warningsBySection[1]).toHaveLength(0);
+        expect(warningsBySection[2].length).toBeGreaterThan(0);
+        expect(warningsBySection[2][0].rule).toBe("long-paragraph");
     });
 
-    it("returns an empty array when all sections are clean", () => {
-        const warnings = lintPerseusArticle([cleanRenderer, cleanRenderer]);
+    it("returns one empty inner array per section when all sections are clean", () => {
+        const warningsBySection = lintPerseusArticle([
+            cleanRenderer,
+            cleanRenderer,
+        ]);
 
-        expect(warnings).toHaveLength(0);
+        expect(warningsBySection).toHaveLength(2);
+        expect(warningsBySection[0]).toHaveLength(0);
+        expect(warningsBySection[1]).toHaveLength(0);
     });
 });
