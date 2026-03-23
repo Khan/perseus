@@ -126,6 +126,8 @@ export function initializeGraphState(
                 ...shared,
                 type: "none",
             };
+        case "absolute-value":
+            throw new Error("Not implemented: absolute-value graph type");
         case "tangent":
             return {
                 ...shared,

@@ -91,6 +91,8 @@ export function mafsStateToInteractiveGraph(
         case "none":
             invariant(originalGraph.type === "none");
             return {...originalGraph};
+        case "absolute-value":
+            throw new Error("Not implemented: absolute-value graph type");
         case "tangent":
             invariant(originalGraph.type === "tangent");
             return {

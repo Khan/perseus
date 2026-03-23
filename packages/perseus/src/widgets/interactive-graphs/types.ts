@@ -29,6 +29,7 @@ export type InteractiveGraphElementSuite = {
 };
 
 export type InteractiveGraphState =
+    | AbsoluteValueGraphState
     | AngleGraphState
     | SegmentGraphState
     | LinearSystemGraphState
@@ -115,6 +116,11 @@ export interface QuadraticGraphState extends InteractiveGraphStateCommon {
 
 export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     type: "sinusoid";
+    coords: [vec.Vector2, vec.Vector2];
+}
+
+interface AbsoluteValueGraphState extends InteractiveGraphStateCommon {
+    type: "absolute-value";
     coords: [vec.Vector2, vec.Vector2];
 }
 

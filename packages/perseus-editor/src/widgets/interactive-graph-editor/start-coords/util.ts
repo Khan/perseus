@@ -229,6 +229,7 @@ export const shouldShowStartCoordsUI = (
         case "ray":
         case "segment":
         case "sinusoid":
+        case "absolute-value":
             return true;
         default:
             throw new UnreachableCaseError(graph);

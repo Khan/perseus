@@ -769,6 +769,8 @@ const renderGraphElements = (props: {
             return renderSinusoidGraph(state, dispatch, i18n);
         case "none":
             return {graph: null, interactiveElementsDescription: null};
+        case "absolute-value":
+            throw new Error("Not implemented: absolute-value graph type");
         case "tangent":
             return renderTangentGraph(state, dispatch, i18n);
         default:

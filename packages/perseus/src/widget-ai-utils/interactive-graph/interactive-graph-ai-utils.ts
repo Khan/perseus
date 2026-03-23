@@ -60,6 +60,10 @@ type SinusoidGraphOptions = BaseGraphOptions & {
     startCoords?: readonly Coord[];
 };
 
+type AbsoluteValueGraphOptions = BaseGraphOptions & {
+    startCoords?: readonly [Coord, Coord];
+};
+
 type TangentGraphOptions = BaseGraphOptions & {
     startCoords?: readonly Coord[];
 };
@@ -67,6 +71,7 @@ type TangentGraphOptions = BaseGraphOptions & {
 type NoneGraphOptions = Record<string, never>;
 
 type GraphOptions =
+    | AbsoluteValueGraphOptions
     | AngleGraphOptions
     | CircleGraphOptions
     | LinearGraphOptions
@@ -122,11 +127,16 @@ type SinusoidUserInput = {
     coords?: readonly Coord[] | null;
 };
 
+type AbsoluteValueUserInput = {
+    coords?: readonly [Coord, Coord] | null;
+};
+
 type TangentUserInput = {
     coords?: readonly Coord[] | null;
 };
 
 type UserInput =
+    | AbsoluteValueUserInput
     | AngleUserInput
     | CircleUserInput
     | LinearUserInput
@@ -237,6 +247,11 @@ const getGraphOptionsForProps = (
             };
         case "none":
             return {};
+        case "absolute-value":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         default:
             throw new UnreachableCaseError(type);
     }
@@ -294,6 +309,10 @@ const getUserInput = (userInput: PerseusGraphType): UserInput => {
             };
         case "none":
             return {};
+        case "absolute-value":
+            return {
+                coords: userInput.coords,
+            };
         default:
             throw new UnreachableCaseError(type);
     }
