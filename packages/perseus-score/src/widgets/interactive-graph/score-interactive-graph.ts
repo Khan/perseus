@@ -18,9 +18,19 @@ import type {
     Coord,
 } from "@khanacademy/perseus-core";
 
-const {collinear, canonicalSineCoefficients, similar, clockwise} = geometry;
+const {
+    collinear,
+    canonicalSineCoefficients,
+    canonicalTangentCoefficients,
+    similar,
+    clockwise,
+} = geometry;
 const {getClockwiseAngle} = angles;
-const {getSinusoidCoefficients, getQuadraticCoefficients} = coefficients;
+const {
+    getSinusoidCoefficients,
+    getQuadraticCoefficients,
+    getTangentCoefficients,
+} = coefficients;
 
 function scoreInteractiveGraph(
     // NOTE(benchristel): userInput can be undefined if the widget has never
@@ -130,6 +140,32 @@ function scoreInteractiveGraph(
             const canonicalGuessCoeffs = canonicalSineCoefficients(guessCoeffs);
             const canonicalCorrectCoeffs =
                 canonicalSineCoefficients(correctCoeffs);
+            // If the canonical coefficients match, it's correct.
+            if (
+                approximateDeepEqual(
+                    canonicalGuessCoeffs,
+                    canonicalCorrectCoeffs,
+                )
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
+            userInput.type === "tangent" &&
+            rubric.correct.type === "tangent" &&
+            userInput.coords != null
+        ) {
+            const guessCoeffs = getTangentCoefficients(userInput.coords);
+            const correctCoeffs = getTangentCoefficients(rubric.correct.coords);
+
+            const canonicalGuessCoeffs =
+                canonicalTangentCoefficients(guessCoeffs);
+            const canonicalCorrectCoeffs =
+                canonicalTangentCoefficients(correctCoeffs);
             // If the canonical coefficients match, it's correct.
             if (
                 approximateDeepEqual(

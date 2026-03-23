@@ -9,6 +9,7 @@ import {
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
+    getTangentCoords,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -26,6 +27,7 @@ import StartCoordsMultiline from "./start-coords-multiline";
 import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
+import StartCoordsTangent from "./start-coords-tangent";
 import {getDefaultGraphStartCoords} from "./util";
 
 import type {StartCoords} from "./types";
@@ -86,6 +88,14 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsSinusoid
                     startCoords={sinusoidCoords}
+                    onChange={onChange}
+                />
+            );
+        case "tangent":
+            const tangentCoords = getTangentCoords(props, range, step);
+            return (
+                <StartCoordsTangent
+                    startCoords={tangentCoords}
                     onChange={onChange}
                 />
             );

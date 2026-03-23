@@ -92,6 +92,13 @@ export function getGradableGraph(
         };
     }
 
+    if (state.type === "tangent" && initialGraph.type === "tangent") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
+    }
+
     if (state.type === "angle" && initialGraph.type === "angle") {
         return {
             ...initialGraph,

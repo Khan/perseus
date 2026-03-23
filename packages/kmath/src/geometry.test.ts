@@ -1,4 +1,11 @@
-import {clockwise, polygonSidesIntersect, reverseVector} from "./geometry";
+import {
+    canonicalTangentCoefficients,
+    clockwise,
+    polygonSidesIntersect,
+    reverseVector,
+} from "./geometry";
+
+import type {TangentCoefficient} from "./geometry";
 
 describe("reverseVector", () => {
     it("flips the sign of zero", () => {
@@ -115,5 +122,128 @@ describe("polygonSidesIntersect", () => {
                 [0, 2],
             ]),
         ).toBe(false);
+    });
+});
+
+describe("canonicalTangentCoefficients", () => {
+    it("returns unchanged coefficients when b > 0 and c in [0, π)", () => {
+        // Already canonical — no normalization needed. This is the common
+        // case when the learner places p2 to the right of p1.
+        const coeffs: TangentCoefficient = [2, 3, 1, 0];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[0]).toBe(2);
+        expect(result[1]).toBe(3);
+        expect(result[2]).toBe(1);
+        expect(result[3]).toBe(0);
+    });
+
+    it("flips signs of a and c when b is negative", () => {
+        // Happens when the learner drags p2 to the left of p1, producing
+        // a negative angular frequency. Uses the odd function identity:
+        // a * tan(-|b|x - c) = (-a) * tan(|b|x - (-c))
+        const coeffs: TangentCoefficient = [2, -3, 1, 0];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[0]).toBeCloseTo(-2); // a flipped
+        expect(result[1]).toBeCloseTo(3); // b now positive
+        expect(result[2]).toBeCloseTo(Math.PI - 1); // -c normalized to [0, π)
+        expect(result[3]).toBeCloseTo(0);
+    });
+
+    it("normalizes phase to [0, π) when phase exceeds π", () => {
+        // Happens when the inflection point is far to the right, producing
+        // a large phase value that wraps around the tangent period.
+        const coeffs: TangentCoefficient = [1, 2, Math.PI + 0.5, 0];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[0]).toBeCloseTo(1);
+        expect(result[1]).toBeCloseTo(2);
+        expect(result[2]).toBeCloseTo(0.5);
+        expect(result[3]).toBeCloseTo(0);
+    });
+
+    it("normalizes negative phase to [0, π)", () => {
+        // Happens after the b-flip produces a negative phase, or when the
+        // inflection point is to the left of the origin.
+        const coeffs: TangentCoefficient = [1, 2, -0.5, 0];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[0]).toBeCloseTo(1);
+        expect(result[1]).toBeCloseTo(2);
+        expect(result[2]).toBeCloseTo(Math.PI - 0.5);
+        expect(result[3]).toBeCloseTo(0);
+    });
+
+    it("preserves negative amplitude (cannot guarantee a > 0)", () => {
+        // Happens when the learner drags p2 below p1. Unlike sine
+        // (where sin(x+π) = -sin(x) allows flipping a), tangent has no
+        // such identity, so negative amplitude must be preserved.
+        const coeffs: TangentCoefficient = [-3, 2, 1, 5];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[0]).toBeCloseTo(-3); // a stays negative
+        expect(result[1]).toBeCloseTo(2);
+        expect(result[2]).toBeCloseTo(1);
+        expect(result[3]).toBeCloseTo(5);
+    });
+
+    it("preserves vertical offset", () => {
+        // Vertical offset (d) is never modified by canonicalization.
+        // Happens when the learner drags p1 above/below the x-axis.
+        const coeffs: TangentCoefficient = [1, 1, 0, 7];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[3]).toBeCloseTo(7);
+    });
+
+    it("produces equal results for equivalent curves with opposite signs", () => {
+        // Critical for scoring: two learners can drag points to different
+        // positions that produce the same curve with flipped signs.
+        // Canonicalization must produce identical results for both.
+        const coeffs1: TangentCoefficient = [2, 3, 1, 0];
+        // f(x) = -2 * tan(-3x + 1) + 0 (same curve, different representation)
+        const coeffs2: TangentCoefficient = [-2, -3, -1, 0];
+
+        const result1 = canonicalTangentCoefficients(coeffs1);
+        const result2 = canonicalTangentCoefficients(coeffs2);
+
+        expect(result1[0]).toBeCloseTo(result2[0]);
+        expect(result1[1]).toBeCloseTo(result2[1]);
+        expect(result1[2]).toBeCloseTo(result2[2]);
+        expect(result1[3]).toBeCloseTo(result2[3]);
+    });
+
+    it("normalizes phase of zero correctly", () => {
+        // Edge case: inflection point at x=0 gives phase=0, which is
+        // already in [0, π) and should not be shifted.
+        const coeffs: TangentCoefficient = [1, 1, 0, 0];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[2]).toBeCloseTo(0);
+    });
+
+    it("returns NaN instead of infinite-looping when phase is Infinity", () => {
+        // Happens if getTangentCoefficients receives same-x control points
+        // (e.g., [[1,0],[1,2]]), producing Infinity for angularFrequency
+        // and phase. The UI prevents this, but the function should not hang.
+        const coeffs: TangentCoefficient = [2, Infinity, Infinity, 0];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[0]).toBe(2);
+        expect(result[1]).toBe(Infinity);
+        expect(result[2]).toBeNaN();
+        expect(result[3]).toBe(0);
+    });
+
+    it("keeps phase strictly less than π for tiny negative values", () => {
+        // IEEE 754 edge case: -1e-16 + Math.PI rounds to exactly Math.PI
+        // in double precision. The modular arithmetic avoids this, keeping
+        // phase in the documented [0, π) range.
+        const coeffs: TangentCoefficient = [1, 1, -1e-16, 0];
+        const result = canonicalTangentCoefficients(coeffs);
+
+        expect(result[2]).toBeGreaterThanOrEqual(0);
+        expect(result[2]).toBeLessThan(Math.PI);
     });
 });

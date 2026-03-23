@@ -1,13 +1,22 @@
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {APIOptions} from "@khanacademy/perseus";
+
 type GraphTypeSelectorProps = {
     graphType: string;
     onChange: (newGraphType: string) => void;
+    apiOptions?: APIOptions;
 };
 
 const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
+    const showTangent = isFeatureOn(
+        {apiOptions: props.apiOptions},
+        "interactive-graph-tangent",
+    );
+
     return (
         <SingleSelect
             selectedValue={props.graphType}
@@ -19,6 +28,9 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             <OptionItem value="linear" label="Linear function" />
             <OptionItem value="quadratic" label="Quadratic function" />
             <OptionItem value="sinusoid" label="Sinusoid function" />
+            {showTangent && (
+                <OptionItem value="tangent" label="Tangent function" />
+            )}
             <OptionItem value="circle" label="Circle" />
             <OptionItem value="point" label="Point(s)" />
             <OptionItem value="linear-system" label="Linear System" />
