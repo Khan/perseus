@@ -388,7 +388,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     this.props.graph?.type ??
                                     InteractiveGraph.defaultProps.userInput.type
                                 }
-                                apiOptions={this.props.apiOptions}
                                 // TODO(LEMS-2656): remove TS suppression
                                 onChange={
                                     ((
