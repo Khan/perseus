@@ -33,9 +33,13 @@ export function getSinusoidCoefficients(
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
+/** Coefficients for f(x) = a·eᵇˣ + c. */
 export type ExponentialCoefficient = {
+    /** Vertical scale factor (amplitude). */
     a: number;
+    /** Growth/decay rate (exponent coefficient). */
     b: number;
+    /** Vertical shift (horizontal asymptote y-value). */
     c: number;
 };
 
