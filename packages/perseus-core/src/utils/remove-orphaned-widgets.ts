@@ -1,6 +1,10 @@
 import {getWidgetIdsFromContent} from "./widget-id-utils";
 
-import type {PerseusItem, PerseusRenderer, PerseusWidgetsMap} from "../data-schema";
+import type {
+    PerseusItem,
+    PerseusRenderer,
+    PerseusWidgetsMap,
+} from "../data-schema";
 
 /**
  * Returns a new PerseusItem whose question and hints contain only widgets
@@ -8,13 +12,13 @@ import type {PerseusItem, PerseusRenderer, PerseusWidgetsMap} from "../data-sche
  * mutate its argument.
  */
 export function removeOrphanedWidgetsFromPerseusItem(
-    item: PerseusItem
+    item: PerseusItem,
 ): PerseusItem {
     return {
         ...item,
         question: removeOrphanedWidgets(item.question),
         hints: item.hints.map(removeOrphanedWidgets),
-    }
+    };
 }
 
 /**

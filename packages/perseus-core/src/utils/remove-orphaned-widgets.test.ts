@@ -1,4 +1,7 @@
-import {removeOrphanedWidgets, removeOrphanedWidgetsFromPerseusItem} from "./remove-orphaned-widgets";
+import {
+    removeOrphanedWidgets,
+    removeOrphanedWidgetsFromPerseusItem,
+} from "./remove-orphaned-widgets";
 
 import type {PerseusRenderer, PerseusItem} from "../data-schema";
 
@@ -27,16 +30,16 @@ describe("removeOrphanedWidgetsFromPerseusItem", () => {
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
                 periodicTable: false,
-                periodicTableWithKey: false
+                periodicTableWithKey: false,
             },
         };
 
         const result = removeOrphanedWidgetsFromPerseusItem(item);
 
-        expect(result.question.widgets).toEqual({})
-        expect(result.hints[0].widgets).toEqual({})
+        expect(result.question.widgets).toEqual({});
+        expect(result.hints[0].widgets).toEqual({});
     });
-})
+});
 
 describe("removeOrphanedWidgets", () => {
     it("removes an orphaned widget", () => {
