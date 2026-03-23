@@ -171,7 +171,7 @@ describe("graded group set widget", () => {
 
             // Act
             await userEvent.click(
-                screen.getByRole("button", {name: "Skip to Problem 1c"}),
+                screen.getByRole("button", {name: "Problem 1c"}),
             );
 
             // Assert

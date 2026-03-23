@@ -39,7 +39,6 @@ export type PerseusStrings = {
     nextQuestion: string;
     skipToTitle: ({title}: {title: string}) => string;
     current: string;
-    problemN: ({n}: {n: number}) => string;
     correct: string;
     correctSelected: string;
     incorrect: string;
@@ -584,7 +583,6 @@ export const strings = {
     nextQuestion: "Next question",
     skipToTitle: "Skip to %(title)s",
     current: "Current",
-    problemN: "Problem %(n)s",
     correct: "Correct",
     correctSelected: "Correct (selected)",
     incorrect: "Incorrect",
@@ -1216,7 +1214,6 @@ export const mockStrings: PerseusStrings = {
     nextQuestion: "Next question",
     skipToTitle: ({title}) => `Skip to ${title}`,
     current: "Current",
-    problemN: ({n}) => `Problem ${n}`,
     correct: "Correct",
     correctSelected: "Correct (selected)",
     incorrect: "Incorrect",

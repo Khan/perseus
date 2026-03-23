@@ -58,19 +58,15 @@ class Indicators extends React.Component<IndicatorsProps> {
                     "indicatorContainer",
                 )}
             >
-                {this.props.gradedGroups.map((_group, i) => (
+                {this.props.gradedGroups.map(({title}, i) => (
                     // Note: Use index as key — titles are user-authored and not
                     // guaranteed unique. Groups are never reordered at runtime,
                     // so index keys are stable.
                     <li className={css(styles.indicator)} key={i}>
                         <Clickable
                             role="button"
-                            aria-label={this.context.strings.problemN({
-                                n: i + 1,
-                            })}
-                            aria-current={
-                                i === this.props.currentGroup
-                            }
+                            aria-label={title}
+                            aria-current={i === this.props.currentGroup}
                             style={styles.indicatorButton}
                             onClick={() => this.props.onChangeCurrentGroup(i)}
                             onKeyDown={(e) => this.handleKeyDown(e, i)}
@@ -84,7 +80,9 @@ class Indicators extends React.Component<IndicatorsProps> {
                                     ]}
                                 >
                                     {i === this.props.currentGroup && (
-                                        <View style={styles.indicatorDotActive} />
+                                        <View
+                                            style={styles.indicatorDotActive}
+                                        />
                                     )}
                                 </View>
                             )}
