@@ -435,6 +435,9 @@ importers:
       typedoc:
         specifier: ^0.28.17
         version: 0.28.17(typescript@5.9.3)
+      typedoc-plugin-missing-exports:
+        specifier: ^4.1.2
+        version: 4.1.2(typedoc@0.28.17(typescript@5.9.3))
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -8887,6 +8890,11 @@ packages:
 
   typedarray-to-buffer@3.1.5:
     resolution: {integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==}
+
+  typedoc-plugin-missing-exports@4.1.2:
+    resolution: {integrity: sha512-WNoeWX9+8X3E3riuYPduilUTFefl1K+Z+5bmYqNeH5qcWjtnTRMbRzGdEQ4XXn1WEO4WCIlU0vf46Ca2y/mspg==}
+    peerDependencies:
+      typedoc: ^0.28.1
 
   typedoc@0.28.17:
     resolution: {integrity: sha512-ZkJ2G7mZrbxrKxinTQMjFqsCoYY6a5Luwv2GKbTnBCEgV2ihYm5CflA9JnJAwH0pZWavqfYxmDkFHPt4yx2oDQ==}
@@ -19152,6 +19160,10 @@ snapshots:
   typedarray-to-buffer@3.1.5:
     dependencies:
       is-typedarray: 1.0.0
+
+  typedoc-plugin-missing-exports@4.1.2(typedoc@0.28.17(typescript@5.9.3)):
+    dependencies:
+      typedoc: 0.28.17(typescript@5.9.3)
 
   typedoc@0.28.17(typescript@5.9.3):
     dependencies:
