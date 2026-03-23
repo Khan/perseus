@@ -1,6 +1,8 @@
 import type {SineCoefficient, TangentCoefficient} from "./geometry";
 import type {Coord} from "@khanacademy/perseus-core";
 
+export type AbsoluteValueCoefficient = [m: number, h: number, v: number];
+
 export type NamedSineCoefficient = {
     amplitude: number;
     angularFrequency: number;
@@ -79,4 +81,27 @@ export function getQuadraticCoefficients(
             p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) /
         denom;
     return [a, b, c];
+}
+
+/**
+ * Compute the coefficients [m, h, v] for f(x) = m * |x - h| + v from two
+ * control points: p1 (vertex) and p2 (a point on one arm).
+ *
+ * Returns undefined if p1 and p2 share the same x-coordinate (slope undefined).
+ */
+export function getAbsoluteValueCoefficients(
+    coords: ReadonlyArray<Coord>,
+): AbsoluteValueCoefficient | undefined {
+    const p1 = coords[0];
+    const p2 = coords[1];
+
+    const denom = p2[0] - p1[0];
+    if (denom === 0) {
+        return undefined;
+    }
+
+    const num = p2[1] - p1[1];
+    const m = num / Math.abs(denom);
+
+    return [m, p1[0], p1[1]];
 }
