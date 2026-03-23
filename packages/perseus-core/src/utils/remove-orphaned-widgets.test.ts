@@ -1,6 +1,42 @@
-import {removeOrphanedWidgets} from "./remove-orphaned-widgets";
+import {removeOrphanedWidgets, removeOrphanedWidgetsFromPerseusItem} from "./remove-orphaned-widgets";
 
-import type {PerseusRenderer} from "../data-schema";
+import type {PerseusRenderer, PerseusItem} from "../data-schema";
+
+describe("removeOrphanedWidgetsFromPerseusItem", () => {
+    it("removes orphaned widgets from the question and hints", () => {
+        const renderer: PerseusRenderer = {
+            content: "",
+            images: {},
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    version: {major: 3, minor: 0},
+                    options: {
+                        choices: [],
+                    },
+                },
+            },
+        };
+
+        const item: PerseusItem = {
+            question: renderer,
+            hints: [renderer],
+            answerArea: {
+                calculator: false,
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTotalAmount: false,
+                financialCalculatorTimeToPayOff: false,
+                periodicTable: false,
+                periodicTableWithKey: false
+            },
+        };
+
+        const result = removeOrphanedWidgetsFromPerseusItem(item);
+
+        expect(result.question.widgets).toEqual({})
+        expect(result.hints[0].widgets).toEqual({})
+    });
+})
 
 describe("removeOrphanedWidgets", () => {
     it("removes an orphaned widget", () => {
