@@ -6,6 +6,7 @@ yarn-error.log
 coverage
 coverage-ts
 storybook-static
+debug-storybook.log
 .nyc_output
 *.tsbuildinfo
 /cypress/
