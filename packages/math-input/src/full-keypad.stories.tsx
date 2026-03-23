@@ -2,7 +2,7 @@ import {INITIAL_VIEWPORTS} from "storybook/viewport";
 
 import Keypad from "./components/keypad";
 
-import type {StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const opsPage = "Operators Page";
 const numsPage = "Numbers Page";
@@ -84,7 +84,7 @@ export default {
             },
         },
     },
-};
+} satisfies Meta;
 
 type Story = StoryObj<typeof Keypad>;
 

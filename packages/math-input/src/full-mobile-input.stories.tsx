@@ -5,6 +5,8 @@ import {
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import type {Meta} from "@storybook/react-vite";
+
 import {KeypadInput, MobileKeypad} from "./index";
 
 export default {
@@ -20,7 +22,7 @@ export default {
     },
 
     tags: ["!dev"],
-};
+} satisfies Meta;
 
 const Basic = ({keypadElement, setKeypadElement}) => {
     const [value, setValue] = React.useState("");

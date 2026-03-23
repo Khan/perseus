@@ -1,5 +1,5 @@
+import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 import * as React from "react";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
@@ -18,8 +18,6 @@ import {
 // This will bring in the shared styles from prod so that the components can
 // have the same styles as prod when viewed within Storybook.
 import "./styles/shared.css";
-
-import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
