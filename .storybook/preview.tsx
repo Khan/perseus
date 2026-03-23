@@ -1,5 +1,5 @@
 import * as React from "react";
-import {color, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
