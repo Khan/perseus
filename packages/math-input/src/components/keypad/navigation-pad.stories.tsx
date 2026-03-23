@@ -6,15 +6,10 @@ import NavigationPad from "./navigation-pad";
 export default {
     title: "Math Input/Components/MathInput v2 Navigation Pad",
     tags: ["!dev"],
-
-    globals: {
-        backgrounds: {
-            // We want a slightly darker default bg so that we can
-            // see the edges of the navigation pad.
-            value: "baseSubtle",
-        },
+    args: {
+        onClickKey: action("onClickKey"),
     },
-};
+    tags: ["!dev"],
 
 export function basic() {
     return (

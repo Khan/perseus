@@ -10,11 +10,6 @@ export default {
     title: "Math Input/Components/Keypad pages",
     tags: ["!dev"],
     parameters: {
-        backgrounds: {
-            // We want a slightly darker default bg so that we can
-            // see the edges of the keypad pages
-            value: "baseSubtle",
-        },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
     },
 };

@@ -21,13 +21,6 @@ export default {
         },
     },
     tags: ["!dev"],
-    globals: {
-        backgrounds: {
-            // We want a slightly darker default bg so that we can
-            // see the top of the keypad when it is open
-            value: "baseSubtle",
-        },
-    },
     component: Keypad,
     args: {
         advancedRelations: false,
