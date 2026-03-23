@@ -72,6 +72,7 @@ export function AsymptoteDragHandle(props: Props) {
             {focused && (
                 <rect
                     className="movable-asymptote-handle-focus-ring"
+                    data-testid="asymptote-handle-focus-ring"
                     x={x - focusRingW / 2}
                     y={y - focusRingH / 2}
                     width={focusRingW}
@@ -105,6 +106,7 @@ export function AsymptoteDragHandle(props: Props) {
             {/* Center — filled with interactive color */}
             <rect
                 className="movable-asymptote-handle"
+                data-testid="asymptote-handle-pill"
                 x={x - centerW / 2}
                 y={y - centerH / 2}
                 width={centerW}
@@ -119,6 +121,7 @@ export function AsymptoteDragHandle(props: Props) {
                     dotXOffsets.map((dx) => (
                         <circle
                             className="movable-asymptote-handle-dot"
+                            data-testid="asymptote-handle-dot"
                             key={`${dx},${dy}`}
                             cx={x + dx}
                             cy={y + dy}

@@ -214,6 +214,7 @@
     r: 1.25px;
 }
 
+/* Styles for Asymptote component used in Exponential / Log Graphs */
 .MafsView .movable-asymptote-handle-focus-ring {
     fill: none;
     stroke-width: 2px;
@@ -225,12 +226,12 @@
 }
 
 .MafsView .movable-asymptote-handle-ring {
-    fill: #fff;
+    fill: var(--wb-semanticColor-core-border-knockout-default);
 }
 
 .MafsView .movable-asymptote-handle-dot {
-    fill: #fff;
-    r: 1px;
+    fill: var(--wb-semanticColor-core-border-knockout-default);
+    r: var(--wb-sizing-size_010);
 }
 
 @font-face {

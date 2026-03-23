@@ -144,8 +144,6 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     );
 }
 
-// Horizontal drag handle — wide pill with horizontal dot grid.
-
 // Keyboard constraint for the asymptote. When the next snapped position
 // would land between or on the curve points, snap past all of them in the
 // direction of travel. Mirrors logarithm's constrainAsymptoteKeyboard with
