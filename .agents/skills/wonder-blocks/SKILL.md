@@ -258,7 +258,7 @@ import {Card} from "@khanacademy/wonder-blocks-card";
 
 ## Motion
 
-- For WB components that support animations, pass the user's reduced motion preference into the `animated` prop. Use the `usePrefersReducedMotion` hook from `@khan/data-prefers-reduced-motion` to get the user's setting.
+- For WB components that support animations, pass the user's reduced motion preference into the `animated` prop.
 
 ## Responsiveness
 
