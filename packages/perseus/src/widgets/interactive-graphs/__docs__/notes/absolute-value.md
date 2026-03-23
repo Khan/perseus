@@ -165,37 +165,25 @@ No canonical normalization is needed (vertex is uniquely defined).
 - Two points **cannot share the same x-coordinate** — keyboard movement skips positions
   where `p2[x] === p1[x]` (same guard as sinusoid)
 
-## Files to Create / Modify
+## PR Breakdown
 
-### New files
+The implementation is split into five stacked PRs. Each PR can pass all checks independently (types, lint, tests). They are intended to land together.
 
-- `packages/perseus/src/widgets/interactive-graphs/graphs/absolute-value.tsx` — Main component
+### PR 1 — Type definitions & schema
 
-### Modified files
+Pure additive type changes. No runtime behavior. All existing tests continue to pass unmodified.
+
+**New files:** _(none)_
+
+**Modified files:**
 
 | File | Change |
 |------|--------|
 | `packages/perseus-core/src/data-schema.ts` | Add `PerseusGraphTypeAbsoluteValue` type, add to `PerseusGraphType` union |
-| `packages/perseus-core/.../interactive-graph-widget.ts` | Add parser for `"absolute-value"` type |
+| `packages/perseus-core/.../interactive-graph-widget.ts` | Add `.withBranch("absolute-value", ...)` to `parsePerseusGraphType` |
 | `packages/perseus/src/widgets/interactive-graphs/types.ts` | Add `AbsoluteValueGraphState`, add to `InteractiveGraphState` union |
-| `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-action.ts` | Add action(s) for moving absolute value points |
-| `packages/perseus/src/widgets/interactive-graphs/reducer/initialize-graph-state.ts` | Add `case "absolute-value"`, implement `getAbsoluteValueCoords()` |
-| `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-reducer.ts` | Add case for absolute value move action |
-| `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-state.ts` | Add branch in `getGradableGraph()` |
-| `packages/perseus/src/widgets/interactive-graphs/mafs-state-to-interactive-graph.ts` | Add case in `mafsStateToInteractiveGraph()` |
-| `packages/perseus/src/widgets/interactive-graphs/mafs-graph.tsx` | Import and add `case "absolute-value"` in `renderGraphElements()` |
-| `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx` | Add case in `getEquationString()` |
-| `packages/perseus/src/strings.ts` | Add screen reader strings (`srAbsoluteValueGraph`, etc.) |
-| `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.ts` | Add scoring branch |
-| `packages/perseus-editor/.../graph-type-selector.tsx` | Add `<OptionItem value="absolute-value" label="Absolute value" />` |
-| `packages/perseus-editor/.../interactive-graph-editor.tsx` | Add editor support |
-| `packages/perseus-editor/.../start-coords/start-coords-settings.tsx` | Add `case "absolute-value"` |
-| `packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata.ts` | Add test fixture |
-| `packages/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder.ts` | Add builder method |
 
-## Implementation Checklist
-
-### Data layer
+**Checklist:**
 
 - [ ] **`data-schema.ts`** — Add `PerseusGraphTypeAbsoluteValue`:
   ```ts
@@ -207,9 +195,6 @@ No canonical normalization is needed (vertex is uniquely defined).
   ```
   Add to `PerseusGraphType` union.
 - [ ] **`interactive-graph-widget.ts`** — Add `.withBranch("absolute-value", ...)` to `parsePerseusGraphType`.
-
-### State layer
-
 - [ ] **`types.ts`** — Add `AbsoluteValueGraphState`:
   ```ts
   export interface AbsoluteValueGraphState extends InteractiveGraphStateCommon {
@@ -219,34 +204,72 @@ No canonical normalization is needed (vertex is uniquely defined).
   ```
   Add to `InteractiveGraphState` union.
 
-### Actions
+---
+
+### PR 2 — State management
+
+Actions, initialization, reducer, and serialization. Adds test data and builder so other test suites can reference the new type.
+
+**New files:** _(none)_
+
+**Modified files:**
+
+| File | Change |
+|------|--------|
+| `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-action.ts` | Add action(s) for moving absolute value points |
+| `packages/perseus/src/widgets/interactive-graphs/reducer/initialize-graph-state.ts` | Add `case "absolute-value"`, implement `getAbsoluteValueCoords()` |
+| `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-reducer.ts` | Add case for absolute value move action |
+| `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-state.ts` | Add branch in `getGradableGraph()` |
+| `packages/perseus/src/widgets/interactive-graphs/mafs-state-to-interactive-graph.ts` | Add case in `mafsStateToInteractiveGraph()` |
+| `packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata.ts` | Add test fixture |
+| `packages/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder.ts` | Add builder method |
+
+**Checklist:**
 
 - [ ] **`interactive-graph-action.ts`** — Reuse the existing `MOVE_POINT` action pattern (same as sinusoid),
   or add a dedicated `actions.absoluteValue.movePoint` entry. Follow the sinusoid pattern.
-
-### Initialization
-
 - [ ] **`initialize-graph-state.ts`** — Add `case "absolute-value"` calling `getAbsoluteValueCoords()`.
   Implement `getAbsoluteValueCoords(graph, range, step)`:
   - Return `graph.coords` if set
   - Return `graph.startCoords` if set
   - Return `normalizePoints(range, step, [[0.5, 0.5], [0.75, 0.75]], true)` as default
   - Export the function (needed by start-coords editor UI)
-
-### Reducer
-
 - [ ] **`interactive-graph-reducer.ts`** — Add case handling absolute value point movement with
   the same-x constraint (reject move if `p2[x]` would equal `p1[x]`).
-
-### Serialization
-
 - [ ] **`interactive-graph-state.ts`** — Add branch in `getGradableGraph()` mapping
   `AbsoluteValueGraphState` → `PerseusGraphTypeAbsoluteValue`.
 - [ ] **`mafs-state-to-interactive-graph.ts`** — Add `case "absolute-value"` in
   `mafsStateToInteractiveGraph()` for live equation display.
+- [ ] **`interactive-graph.testdata.ts`** — Add a fixture for the `"absolute-value"` graph type.
+- [ ] **`interactive-graph-question-builder.ts`** — Add builder method for the new type.
 
-### Rendering
+---
 
+### PR 3 — Rendering & accessibility
+
+The visual component and all strings. Depends on PR 1 + PR 2.
+
+**New files:**
+
+- `packages/perseus/src/widgets/interactive-graphs/graphs/absolute-value.tsx` — Main component
+- `packages/perseus/src/widgets/interactive-graphs/graphs/absolute-value.test.tsx` — Unit tests
+
+**Modified files:**
+
+| File | Change |
+|------|--------|
+| `packages/perseus/src/strings.ts` | Add screen reader strings (`srAbsoluteValueGraph`, etc.) |
+| `packages/perseus/src/widgets/interactive-graphs/mafs-graph.tsx` | Import and add `case "absolute-value"` in `renderGraphElements()` |
+| `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx` | Add case in `getEquationString()` |
+
+**Checklist:**
+
+- [ ] **`strings.ts`** — Add:
+  - `srAbsoluteValueGraph: string` — short label for the graph element
+  - `srAbsoluteValueVertexPoint: ({x, y}: ...) => string` — aria label for the vertex point
+  - `srAbsoluteValueSecondPoint: ({x, y}: ...) => string` — aria label for the second point
+  - `srAbsoluteValueDescription: ({vertex, slope}: ...) => string` — description of the graph shape
+  - `srAbsoluteValueInteractiveElements: ({point1X, point1Y, point2X, point2Y}: ...) => string`
 - [ ] **`graphs/absolute-value.tsx`** (new file) — Implement `renderAbsoluteValueGraph()` and
   `AbsoluteValueGraph` component:
   - `coeffRef` fallback for transient invalid state
@@ -256,22 +279,27 @@ No canonical normalization is needed (vertex is uniquely defined).
   - `<SRDescInSVG>` for accessibility
 - [ ] **`mafs-graph.tsx`** — Import `renderAbsoluteValueGraph`, add `case "absolute-value"` in
   `renderGraphElements()` switch.
-
-### Equation string (editor display)
-
 - [ ] **`interactive-graph.tsx`** — Add `case "absolute-value"` in `getEquationString()`, returning
   a string like `y = 1.000|x - 0.000| + 0.000`.
+- [ ] **`graphs/absolute-value.test.tsx`** (new file) — Unit tests for the component and coefficient
+  extraction logic.
 
-### Screen reader strings
+---
 
-- [ ] **`strings.ts`** — Add:
-  - `srAbsoluteValueGraph: string` — short label for the graph element
-  - `srAbsoluteValueVertexPoint: ({x, y}: ...) => string` — aria label for the vertex point
-  - `srAbsoluteValueSecondPoint: ({x, y}: ...) => string` — aria label for the second point
-  - `srAbsoluteValueDescription: ({vertex, slope}: ...) => string` — description of the graph shape
-  - `srAbsoluteValueInteractiveElements: ({point1X, point1Y, point2X, point2Y}: ...) => string`
+### PR 4 — Scoring
 
-### Scoring
+Isolated from rendering. Can be developed in parallel with PR 3 but must stack after PR 1.
+
+**New files:** _(none)_
+
+**Modified files:**
+
+| File | Change |
+|------|--------|
+| `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.ts` | Add scoring branch |
+| `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.test.ts` | Add scoring unit tests |
+
+**Checklist:**
 
 - [ ] **`score-interactive-graph.ts`** — Add `else if` branch:
   ```ts
@@ -286,21 +314,30 @@ No canonical normalization is needed (vertex is uniquely defined).
       const correct = approximateDeepEqual(userCoeffs, rubricCoeffs);
       return { type: "points", earned: correct ? 1 : 0, total: 1, message: null };
   ```
+- [ ] **`score-interactive-graph.test.ts`** — Unit tests for the scoring branch.
 
-### Editor
+---
+
+### PR 5 — Editor support
+
+Surfaces the new type in the content-creator UI. Depends on PR 1 + PR 2 (for `getAbsoluteValueCoords`).
+
+**New files:** _(none)_
+
+**Modified files:**
+
+| File | Change |
+|------|--------|
+| `packages/perseus-editor/.../graph-type-selector.tsx` | Add `<OptionItem value="absolute-value" label="Absolute value" />` |
+| `packages/perseus-editor/.../interactive-graph-editor.tsx` | Add editor support |
+| `packages/perseus-editor/.../start-coords/start-coords-settings.tsx` | Add `case "absolute-value"` using `StartCoordsPoint` with `getAbsoluteValueCoords` |
+
+**Checklist:**
 
 - [ ] **`graph-type-selector.tsx`** — Add `<OptionItem value="absolute-value" label="Absolute value" />`.
 - [ ] **`interactive-graph-editor.tsx`** — Add editor support for absolute value type.
 - [ ] **`start-coords/start-coords-settings.tsx`** — Add `case "absolute-value"` using
   `StartCoordsPoint` with `getAbsoluteValueCoords`.
-
-### Tests and test data
-
-- [ ] **`interactive-graph.testdata.ts`** — Add a fixture for the `"absolute-value"` graph type.
-- [ ] **`interactive-graph-question-builder.ts`** — Add builder method for the new type.
-- [ ] **`graphs/absolute-value.test.tsx`** (new file) — Unit tests for the component and coefficient
-  extraction logic.
-- [ ] **`score-interactive-graph.test.ts`** — Unit tests for the scoring branch.
 
 ## Decisions
 
