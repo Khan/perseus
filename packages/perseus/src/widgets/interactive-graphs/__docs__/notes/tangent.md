@@ -23,7 +23,7 @@ allowing content creators to define tangent function exercises using two movable
 - No vertical lines are drawn across asymptotes (discontinuities are handled correctly)
 - Keyboard navigation works on both control points (arrow keys move the point by snap step)
 - If both points share the same x-coordinate, the move is rejected gracefully (no crash, no invalid state)
-- The graph is scorable — the correct answer is compared using canonical coefficient normalization (amplitude > 0, angular frequency > 0, phase in [0, π))
+- The graph is scorable — the correct answer is compared using canonical coefficient normalization (angular frequency > 0, phase in [0, π))
 - Screen reader announces the graph label and point positions correctly
 - The widget renders correctly on mobile
 
@@ -47,7 +47,7 @@ allowing content creators to define tangent function exercises using two movable
 
 The Grapher widget already has a tangent graph type that served as the mathematical reference:
 
-- `packages/perseus-core/src/utils/grapher-util.ts` — Tangent coefficient computation (`getTangentCoefficients`) and equation string generation. Uses the same `f(x) = a * tan(b*x - c) + d` model. Also contains the `"sin("` → `"tan("` label bug (see [Related: Grapher Widget Bug](#related-grapher-widget-bug)).
+- `packages/perseus-core/src/utils/grapher-util.ts` — Tangent coefficient computation (`getTangentCoefficients`), equation string generation, and its own copy of `canonicalTangentCoefficients()` that uses a different normalization strategy than the kmath version: it guarantees both `a > 0` and `b > 0` by using a `phase += period/2` step, whereas the kmath version only guarantees `b > 0` via the odd function identity (see [Canonical Normalization](#canonical-normalization) for details). Uses the same `f(x) = a * tan(b*x - c) + d` model. Also contains the `"sin("` → `"tan("` label bug (see [Related: Grapher Widget Bug](#related-grapher-widget-bug)).
 - `packages/perseus-core/src/utils/grapher-types.ts` — `TangentPlotDefaults` type with default coords and asymptote config
 - `packages/perseus-core/src/data-schema.ts` — Existing `PerseusGrapherWidgetOptions` already includes `"tangent"` as a valid plot type
 - `packages/perseus-score/src/widgets/grapher/score-grapher.ts` — Grapher scoring uses `coefficients.getTangentCoefficients()` and `geometry.canonicalTangentCoefficients()` for comparison
@@ -61,7 +61,7 @@ The sinusoid graph type was the primary pattern reference for the tangent implem
 - `packages/perseus/src/widgets/interactive-graphs/reducer/initialize-graph-state.ts` — Sinusoid state initialization pattern (default coords, snap step). Tangent follows the same approach.
 - `packages/perseus/src/widgets/interactive-graphs/types.ts` — `SinusoidGraphState` type. `TangentGraphState` follows the same shape.
 - `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.ts` — Sinusoid scoring block (canonical coefficient comparison with `approximateDeepEqual`). Tangent scoring is modeled after this.
-- `packages/kmath/src/geometry.ts` — `canonicalSineCoefficients()`. The tangent equivalent normalizes with period `π` instead of `2π`.
+- `packages/kmath/src/geometry.ts` — `canonicalSineCoefficients()`. The tangent equivalent normalizes with period `π` instead of `2π`, and can only guarantee `b > 0` (not both `a > 0` and `b > 0` like sine).
 - `packages/kmath/src/coefficients.ts` — `getSinusoidCoefficients()`. `getTangentCoefficients()` was added alongside it.
 
 ### Mafs Graphing Library
@@ -83,7 +83,9 @@ Where:
 - `c` = phase = `p1[x] * b`
 - `d` = vertical offset = `p1[y]`
 
-Two movable points define the curve (same pattern as sinusoid).
+Two movable points define the curve (same pattern as sinusoid):
+- `p1` is the inflection point (where `tan = 0`, i.e. the curve crosses through its vertical offset)
+- `p2` is a quarter-period away and determines the amplitude and period
 
 ### Key Differences from Sinusoid
 
@@ -97,7 +99,7 @@ The implementation follows the same patterns established by the sinusoid graph t
 
 ### Rendering (`tangent.tsx`)
 
-1. Compute coefficients from the two movable point coordinates
+1. Compute coefficients from the two movable point coordinates (delegates to `@khanacademy/kmath`'s `getTangentCoefficients()` to keep the formula in one place)
 2. Determine asymptote positions within the visible x-range
 3. Split the curve into segments between asymptotes
 4. Render each segment as a separate `<Plot.OfX>` with its own domain
@@ -106,15 +108,15 @@ The implementation follows the same patterns established by the sinusoid graph t
 ### Scoring (`score-interactive-graph.ts`)
 
 1. Extract tangent coefficients from both user and rubric coordinates
-2. Normalize to canonical form (ensure `a > 0`, `b > 0`, phase minimized)
+2. Normalize to canonical form (ensure `b > 0`, phase minimized)
 3. Use `approximateDeepEqual` to compare canonical coefficients
 
 ### Canonical Form Normalization (`geometry.ts`)
 
 Ensures equivalent curves compare as equal:
-- Guarantee `a > 0` (flip sign of `b` and `c` if needed)
-- Guarantee `b > 0` (flip sign of `c` and shift phase by `period/2`)
+- Guarantee `b > 0` using the odd function identity: `a * tan(-|b|x - c) = (-a) * tan(|b|x - (-c))`, which flips the signs of `a` and `c`
 - Normalize `c` to smallest positive value within period `π`
+- Note: unlike sine (where `sin(x + π) = -sin(x)` allows guaranteeing both `a > 0` and `b > 0`), tangent has no such half-period identity, so only `b > 0` can be guaranteed
 
 ### Constraints
 
@@ -169,7 +171,8 @@ Once Mafs fixes path generation to use `M` (moveTo) after non-finite gaps instea
 
 ### Modified files
 - `packages/kmath/src/geometry.ts` — `TangentCoefficient` type, `canonicalTangentCoefficients()`
-- `packages/kmath/src/coefficients.ts` — `getTangentCoefficients()`
+- `packages/kmath/src/coefficients.ts` — `getTangentCoefficients()`, `NamedTangentCoefficient` type
+- `packages/kmath/src/index.ts` — Re-exports `NamedTangentCoefficient`
 - `packages/perseus-core/src/data-schema.ts` — `PerseusGraphTypeTangent`, `TangentGraphCorrect`
 - `packages/perseus-core/.../interactive-graph-widget.ts` — Parser for tangent type
 - `packages/perseus-score/.../score-interactive-graph.ts` — Tangent scoring logic
@@ -208,3 +211,5 @@ in the equation label. This was fixed in a separate PR on branch
 
 5. **Canonical form for scoring** — Normalization ensures equivalent tangent curves
    (which can be expressed with different coefficient signs) are scored correctly.
+   Unlike sine, tangent has no half-period phase shift identity (`sin(x + π) = -sin(x)`),
+   so the canonical form can only guarantee `b > 0`, not both `a > 0` and `b > 0`.
