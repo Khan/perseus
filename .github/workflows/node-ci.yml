@@ -134,7 +134,7 @@ jobs:
             # We build the docs in this job so that typedoc can check any
             # comment changes to ensure they are valid.
             - name: Build docs
-              run: pnpm build:docs
+              run: pnpm build:docs --treatWarningsAsErrors
 
             # Run tests for our target matrix
             - id: jest-reset
