@@ -25,7 +25,7 @@ function getCoefficientsByType(
         return grader.getCoefficients(data.coords, data.asymptote);
     } else if (data.type === "tangent") {
         const coeffs = coefficients.getTangentCoefficients(data.coords);
-        if (coeffs?.some((c) => !isFinite(c))) {
+        if (coeffs.some((c) => !isFinite(c))) {
             return undefined;
         }
         return coeffs;
