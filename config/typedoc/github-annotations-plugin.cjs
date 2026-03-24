@@ -5,6 +5,7 @@
 //
 // Only intended for use in CI.
 //
+const util = require("node:util");
 
 const {ConsoleLogger, LogLevel} = require("typedoc");
 
@@ -76,6 +77,10 @@ class GitHubActionsLogger extends ConsoleLogger {
      * @returns {void}
      */
     _writeAnnotation(level, text, nodeOrPos, file) {
+        console.log(text);
+        console.log(util.inspect(nodeOrPos, true, 3, true));
+        console.log(util.inspect(file, true, 3, true));
+
         const loc = this._resolveLocation(nodeOrPos, file);
         const locationParams = loc
             ? ` file=${loc.fileName},line=${loc.line},col=${loc.col}`

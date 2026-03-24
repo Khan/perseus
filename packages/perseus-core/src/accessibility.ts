@@ -18,8 +18,6 @@ import type {PerseusItem, PerseusWidgetsMap} from "./data-schema";
  * in the item data, but in the future we may specify accessibility on
  * each widget with higher granularity.
  *
- * @param wrongParamName - THIS IS A TEST: intentionally wrong param name
- *
  * @deprecated This function returns a list of widget _types_ that violate our
  * accessibility requirements which is not very accurate given that some
  * instances _could_ be accessible and some not based on their widget options.
