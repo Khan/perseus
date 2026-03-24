@@ -6,6 +6,7 @@
  */
 import {components, iconTrash} from "@khanacademy/perseus";
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
@@ -82,7 +83,7 @@ class HintEditor extends React.Component<HintEditorProps> {
 
     editor = React.createRef<Editor>();
 
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (
+    handleReplaceChanged: (e: React.ChangeEvent<HTMLInputElement>) => void = (
         e: React.ChangeEvent<HTMLInputElement>,
     ) => {
         this.props.onChange({replace: e.target.checked});
@@ -96,10 +97,16 @@ class HintEditor extends React.Component<HintEditorProps> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    // TODO(benchristel): give `serialize` a real return type.
-    serialize: () => any = () => {
-        return this.editor.current?.serialize();
-    };
+    serialize(): Hint {
+        invariant(
+            this.editor.current,
+            "cannot serialize HintEditor with no Editor",
+        );
+        return {
+            ...this.editor.current.serialize(),
+            replace: this.props.replace ?? undefined,
+        };
+    }
 
     render(): React.ReactNode {
         return (
@@ -116,7 +123,6 @@ class HintEditor extends React.Component<HintEditorProps> {
                     widgets={this.props.widgets || undefined}
                     content={this.props.content || undefined}
                     images={this.props.images}
-                    replace={this.props.replace}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange}
@@ -152,7 +158,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                         type="checkbox"
                         // @ts-expect-error - TS2322 - Type 'boolean | null | undefined' is not assignable to type 'boolean | undefined'.
                         checked={this.props.replace}
-                        onChange={this.handleChange}
+                        onChange={this.handleReplaceChanged}
                     />
                     Replace previous hint
                     {this.props.showRemoveButton && (
@@ -232,9 +238,13 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize = () => {
-        return this.editor.current?.serialize();
-    };
+    serialize(): Hint {
+        invariant(
+            this.editor.current,
+            "cannot serialize CombinedHintEditor with no HintEditor",
+        );
+        return this.editor.current.serialize();
+    }
 
     focus = () => {
         this.editor.current?.focus();
@@ -322,24 +332,14 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         highlightLint: false,
     };
 
-    handleHintChange: (
-        i: number,
-        newProps: CombinedHintsEditorProps,
-        cb: () => unknown,
-        silent: boolean,
-    ) => void = (
-        i: number,
-        newProps: CombinedHintsEditorProps,
-        cb: () => unknown,
-        silent: boolean,
-    ) => {
+    handleHintChange(i: number, newProps: CombinedHintsEditorProps): void {
         const hints = [...this.props.hints];
         hints[i] = _.extend({}, this.serializeHint(i), newProps);
 
         this.props.onChange({hints: hints});
-    };
+    }
 
-    handleHintRemove: (i: number) => void = (i: number) => {
+    handleHintRemove(i: number): void {
         // eslint-disable-next-line no-alert
         if (!confirm("Are you sure you want to delete this hint?")) {
             return;
@@ -348,17 +348,14 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         const hints = [...this.props.hints];
         hints.splice(i, 1);
         this.props.onChange({hints: hints});
-    };
+    }
 
-    handleHintMove: (i: number, dir: number) => void = (
-        i: number,
-        dir: number,
-    ) => {
+    handleHintMove(i: number, dir: number): void {
         const hints = [...this.props.hints];
         const hint = hints.splice(i, 1)[0];
         hints.splice(i + dir, 0, hint);
         this.props.onChange({hints: hints});
-    };
+    }
 
     addHint: () => void = () => {
         const hint: PerseusRenderer = {content: "", images: {}, widgets: {}};
@@ -380,18 +377,15 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .value();
     };
 
-    serialize: () => ReadonlyArray<string> = () => {
-        return this.props.hints.map((_, i) => {
-            return this.serializeHint(i);
-        });
-    };
+    serialize(): Hint[] {
+        return this.props.hints.map((_, i) => this.serializeHint(i));
+    }
 
-    // TODO(benchristel): the return type of serializeHint should be Hint, not string.
-    serializeHint: (index: number) => string = (index: number): string => {
+    serializeHint(index: number): Hint {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs["hintEditor" + index].serialize();
-    };
+    }
 
     render(): React.ReactNode {
         const {itemId, hints} = this.props;

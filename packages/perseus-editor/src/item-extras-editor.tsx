@@ -28,13 +28,13 @@ class ItemExtrasEditor extends React.Component<Props> {
         );
     }
 
-    serialize: () => PerseusAnswerArea = () => {
+    serialize(): PerseusAnswerArea {
         const data = {...ItemExtrasEditor.defaultProps};
         for (const key of ItemExtras) {
             data[key] = !!this.props[key];
         }
         return data;
-    };
+    }
 
     render(): React.ReactNode {
         const {editingDisabled} = this.props;

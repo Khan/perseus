@@ -27,7 +27,11 @@ import type {
     ChangeHandler,
     ImageUploader,
 } from "@khanacademy/perseus";
-import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {
+    PerseusWidget,
+    PerseusWidgetsMap,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -114,7 +118,6 @@ type Props = Readonly<{
     apiOptions: any;
     className?: string;
     content: string;
-    replace?: any;
     placeholder: string;
     widgets: PerseusWidgetsMap;
     images: any;
@@ -861,13 +864,7 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
-    // TODO(benchristel): Make this a normal method, not an arrow function.
-    serialize: () => {
-        content: string;
-        images: any;
-        replace: any | undefined;
-        widgets: Record<any, any>;
-    } = () => {
+    serialize(): PerseusRenderer {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
@@ -881,12 +878,11 @@ class Editor extends React.Component<Props, State> {
         });
 
         return {
-            replace: this.props.replace,
             content: this.props.content,
             images: this.props.images,
-            widgets: widgets,
+            widgets,
         };
-    };
+    }
 
     render(): React.ReactNode {
         let pieces;
