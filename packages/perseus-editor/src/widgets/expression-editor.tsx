@@ -450,7 +450,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 <Heading size="medium">Answers</Heading>
 
-                <BodyText size="xsmall" style={styles.answersSubtitle}>
+                <BodyText size="small" style={styles.answersSubtitle}>
                     student responses area matched against these from top to
                     bottom
                 </BodyText>
