@@ -1,5 +1,21 @@
 # @khanacademy/perseus-linter
 
+## 4.9.0
+
+### Minor Changes
+
+-   [#3381](https://github.com/Khan/perseus/pull/3381) [`f18c0d9b6f`](https://github.com/Khan/perseus/commit/f18c0d9b6fabaca207aebbee8e82053aa0251ad4) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds new linters for parsed objects
+
+*   [#3395](https://github.com/Khan/perseus/pull/3395) [`97223334ea`](https://github.com/Khan/perseus/commit/97223334ea25199bb0f7ed21ed66ed6b710c550c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of Editor support for Exponential Graph
+
+### Patch Changes
+
+-   [#3396](https://github.com/Khan/perseus/pull/3396) [`35fa9133db`](https://github.com/Khan/perseus/commit/35fa9133db344d2f291b483e82744171218c570b) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add a linter warning for images with no size
+
+-   Updated dependencies [[`54db3fd4bd`](https://github.com/Khan/perseus/commit/54db3fd4bd1d43b3d06a7ab82c0cae8a075255fe), [`ae0538d0a7`](https://github.com/Khan/perseus/commit/ae0538d0a7c20f854d7084e72cf95f0bf37ca438), [`005e13d784`](https://github.com/Khan/perseus/commit/005e13d784ff62573f7128febbbc38bcb39608e5), [`d99f1c0259`](https://github.com/Khan/perseus/commit/d99f1c0259ef916ea3187a3f8ef0c73d017eaed3), [`b1557c2a73`](https://github.com/Khan/perseus/commit/b1557c2a73f7e8d1910d01ba9c6b9a4dd5b04b0b), [`dde985f3b5`](https://github.com/Khan/perseus/commit/dde985f3b56e3b8647f56006e0fe9624e8a5b7d0), [`8aa0a77886`](https://github.com/Khan/perseus/commit/8aa0a7788611d2b55f10d5eb868735805dd07603)]:
+    -   @khanacademy/perseus-core@23.7.0
+    -   @khanacademy/kmath@2.3.0
+
 ## 4.8.7
 
 ### Patch Changes
