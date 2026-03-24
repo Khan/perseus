@@ -183,6 +183,59 @@ describe("scoreGrapher", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
+    it("scores tangent correctly using kmath getTangentCoefficients", () => {
+        // Arrange
+        const coords: [Coord, Coord] = [
+            [0, 0],
+            [1, 1],
+        ];
+
+        const userInput: PerseusGrapherUserInput = {
+            type: "tangent",
+            coords,
+        };
+
+        const rubric: PerseusGrapherRubric = {
+            correct: {
+                type: "tangent",
+                coords,
+            },
+        };
+
+        // Act
+        const result = scoreGrapher(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores tangent incorrectly when coords don't match", () => {
+        // Arrange
+        const userInput: PerseusGrapherUserInput = {
+            type: "tangent",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        const rubric: PerseusGrapherRubric = {
+            correct: {
+                type: "tangent",
+                coords: [
+                    [2, 2],
+                    [3, 3],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreGrapher(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
     it("can be answered incorrectly when user input and scoring data coords don't match", () => {
         // Arrange
         const userInput: PerseusGrapherUserInput = {
