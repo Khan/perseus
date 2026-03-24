@@ -94,8 +94,6 @@ export type MakeWidgetMap<TRegistry> = {
 /**
  * Our core set of Perseus widgets.
  *
- * {@link}
- *
  * This interface is the basis for "registering" all Perseus widget types.
  *
  * There should be one key/value pair for each supported widget. If you create
