@@ -119,6 +119,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {({setAssetStatus}) => (
                 <SvgImage
                     src={backgroundImage.url!}
+                    apiOptions={apiOptions}
                     // Between the original image size and the saved background
                     // image size, use the larger size to determine if the
                     // image is large enough to allow zooming.
