@@ -3,9 +3,12 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {Footnote} from "@khanacademy/wonder-blocks-typography";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ImagePreview from "../../../components/image-preview";
+import styles from "../image-editor.module.css";
 import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
 import DecorativeToggle from "./decorative-toggle";
@@ -123,20 +126,25 @@ export default function ImageSettings({
             />
 
             {/* Alt text */}
-            <LabeledField
-                label="Alt text"
-                description="Summarize the image using up to 125 characters."
-                field={
-                    <TextArea
-                        value={alt ?? ""}
-                        onBlur={(e) => handleAltFieldBlur(e.target.value)}
-                        onChange={handleAltFieldChange}
-                        disabled={decorative}
-                        autoResize={true}
-                    />
-                }
-                styles={wbFieldStylesWithDescription}
-            />
+            <div className={styles.altTextFieldContainer}>
+                <LabeledField
+                    label="Alt text"
+                    description="Summarize the image using up to 125 characters."
+                    field={
+                        <TextArea
+                            value={alt ?? ""}
+                            onBlur={(e) => handleAltFieldBlur(e.target.value)}
+                            onChange={handleAltFieldChange}
+                            disabled={decorative}
+                            autoResize={true}
+                        />
+                    }
+                    styles={wbFieldStylesWithDescription}
+                />
+                <Footnote style={wbStyles.characterCounter}>
+                    {alt?.length ?? 0} characters
+                </Footnote>
+            </div>
 
             {altFieldWarning && (
                 <Banner
@@ -176,3 +184,13 @@ export default function ImageSettings({
         </>
     );
 }
+
+// TODO(LEMS-3686): Use CSS modules after Wonder Blocks styles
+// are moved to a different layer.
+const wbStyles = StyleSheet.create({
+    characterCounter: {
+        position: "absolute",
+        bottom: 0,
+        right: 8,
+    },
+});

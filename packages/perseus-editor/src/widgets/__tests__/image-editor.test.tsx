@@ -760,6 +760,36 @@ describe("image editor", () => {
         ).not.toBeInTheDocument();
     });
 
+    it("should show character counter for alt text", () => {
+        // Arrange, Act
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                onChange={() => {}}
+                backgroundImage={earthMoonImage}
+                alt="123456789"
+            />,
+        );
+
+        // Assert
+        expect(screen.getByText("123456789")).toBeInTheDocument();
+        expect(screen.getByText("9 characters")).toBeInTheDocument();
+    });
+
+    it("should show character count = 0 when alt text is undefined", () => {
+        // Arrange, Act
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={apiOptions}
+                backgroundImage={earthMoonImage}
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByText("0 characters")).toBeInTheDocument();
+    });
+
     describe("decorative toggle", () => {
         it("should render when decorative is true", () => {
             // Arrange & Act

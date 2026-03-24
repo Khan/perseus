@@ -29,3 +29,11 @@
     background-color: var(--wb-semanticColor-core-background-neutral-default);
     margin-block: var(--wb-sizing-size_080);
 }
+
+.alt-text-field-container {
+    /* Relative position so that the character counter child element
+       can be positioned absolutely. */
+    position: relative;
+    /* Padding to make space for the character counter. */
+    padding-bottom: var(--wb-sizing-size_120);
+}
