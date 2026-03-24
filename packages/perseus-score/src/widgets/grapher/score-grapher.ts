@@ -24,7 +24,11 @@ function getCoefficientsByType(
         const grader = GrapherUtil.functionForType(data.type);
         return grader.getCoefficients(data.coords, data.asymptote);
     } else if (data.type === "tangent") {
-        return coefficients.getTangentCoefficients(data.coords);
+        const coeffs = coefficients.getTangentCoefficients(data.coords);
+        if (coeffs?.some((c) => !isFinite(c))) {
+            return undefined;
+        }
+        return coeffs;
     } else if (
         data.type === "linear" ||
         data.type === "quadratic" ||

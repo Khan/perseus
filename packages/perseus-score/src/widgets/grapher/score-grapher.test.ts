@@ -183,7 +183,7 @@ describe("scoreGrapher", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it("scores tangent correctly using kmath getTangentCoefficients", () => {
+    it("scores tangent as correct when user coords match rubric coords", () => {
         // Arrange
         const coords: [Coord, Coord] = [
             [0, 0],
@@ -207,6 +207,35 @@ describe("scoreGrapher", () => {
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("returns invalid for tangent with same x-coordinate control points", () => {
+        // When both control points share the same x-coordinate, getTangentCoefficients
+        // produces Infinity/NaN. We guard against this to return 'invalid' rather
+        // than 'incorrect'.
+        const coords: [Coord, Coord] = [
+            [1, 0],
+            [1, 2],
+        ];
+
+        // Arrange
+        const userInput: PerseusGrapherUserInput = {
+            type: "tangent",
+            coords,
+        };
+
+        const rubric: PerseusGrapherRubric = {
+            correct: {
+                type: "tangent",
+                coords,
+            },
+        };
+
+        // Act
+        const result = scoreGrapher(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
     });
 
     it("scores tangent incorrectly when coords don't match", () => {
