@@ -9,6 +9,7 @@ import {
     parseAndMigratePerseusItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import JsonEditor from "./components/json-editor";
@@ -253,14 +254,21 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
-    // TODO(benchristel): get rid of `any` type here
-    serialize(): any | PerseusItem {
+    serialize(): PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
         }
+        invariant(
+            this.itemEditor.current,
+            "cannot serialize EditorPage without ItemEditor",
+        );
+        invariant(
+            this.hintsEditor.current,
+            "cannot serialize EditorPage without HintsEditor",
+        );
         return {
-            ...this.itemEditor.current?.serialize(),
-            hints: this.hintsEditor.current?.serialize(),
+            ...this.itemEditor.current.serialize(),
+            hints: this.hintsEditor.current.serialize(),
         };
     }
 

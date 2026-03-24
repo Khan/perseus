@@ -1,15 +1,17 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
 import {ApiOptions} from "@khanacademy/perseus";
-import {
-    groupLogic,
-    type GroupDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {groupLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
+import invariant from "tiny-invariant";
 
 import Editor from "../editor";
+
+import type {
+    GroupDefaultWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 type Props = any;
 
@@ -32,9 +34,13 @@ class GroupEditor extends React.Component<Props> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize: () => any = () => {
-        return _.extend({}, this.editor.current?.serialize());
-    };
+    serialize(): PerseusRenderer {
+        invariant(
+            this.editor.current,
+            "cannot serialize GroupEditor without Editor",
+        );
+        return {...this.editor.current.serialize()};
+    }
 
     render(): React.ReactNode {
         return (
