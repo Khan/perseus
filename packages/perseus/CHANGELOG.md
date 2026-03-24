@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 76.1.1
+
+### Patch Changes
+
+-   [#3408](https://github.com/Khan/perseus/pull/3408) [`5eed3f0ed7`](https://github.com/Khan/perseus/commit/5eed3f0ed76502c9a862f7aee12e798d852ee86d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Unifying Absolute Graph string
+
 ## 76.1.0
 
 ### Minor Changes
