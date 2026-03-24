@@ -1221,7 +1221,7 @@ export const strings = {
         context:
             "Screen reader description of the Absolute Value function in the interactive graph widget.",
         message:
-            "The graph shows an absolute value function with vertex at %(vertex)s and slope %(slope)s.",
+            "The graph shows an absolute value function with vertex at %(x)s comma %(y)s and slope %(slope)s.",
     },
     srAbsoluteValueInteractiveElements: {
         context:
