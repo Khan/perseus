@@ -7,7 +7,7 @@ import Rule from "../rule";
 // than one problem with an image widget, the user will only see one
 // problem at a time.
 export default Rule.makeRule({
-    name: "image-widget",
+    name: "image-widget-alt-text",
     severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: function (state, content, nodes, match, context) {

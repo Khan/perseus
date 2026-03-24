@@ -129,6 +129,17 @@ export const GraphieImageWithScaleFlag: Story = {
 };
 
 /**
+ * This Image widget editor has a zero-sized image.
+ */
+export const ImageWithEmptySize: Story = {
+    name: "Image With Empty Size (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+    },
+};
+
+/**
  * Only the markdown image in the main content should be flagged with a linter
  * warning. The Image widget and Radio widget containing a markdown image
  * should not be flagged.
