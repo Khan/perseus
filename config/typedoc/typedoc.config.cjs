@@ -16,14 +16,25 @@ const config = {
     name: "Perseus",
     entryPointStrategy: "packages",
     entryPoints,
-    out: "docs",
-    cleanOutputDir: true,
+    out: "docs/",
+    // This is disabled for now. If we enable it, typedoc actually deletes the
+    // entire output folder (docs/) which then blows away our .gitkeep
+    // placeholder, which then dirties the repo, which is annoying.
+    cleanOutputDir: false,
     githubPages: true,
-    includeVersion: true,
+    plugin: ["typedoc-plugin-missing-exports"],
     packageOptions: {
-        excludePrivate: true,
+        excludeExternals: true,
         excludeInternal: true,
+        excludePrivate: true,
         excludeProtected: true,
+        includeVersion: true,
+        // Suppress warnings about React internal symbols (e.g. lifecycle
+        // methods from @types/react) that TypeDoc resolves but can't link to
+        // because they aren't part of our documentation.
+        externalSymbolLinkMappings: {
+            "@types/react": {"*": "#"},
+        },
         readme: "README.md",
         entryPoints: ["./src/index.ts"],
     },

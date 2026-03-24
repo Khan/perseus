@@ -16,6 +16,7 @@ import {
     segmentWithAllLockedLineSegmentVariations,
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
+    exponentialQuestion,
     sinusoidQuestion,
     tangentQuestion,
     segmentWithLockedEllipses,
@@ -101,6 +102,12 @@ export const Ray: Story = {
 export const Segment: Story = {
     args: {
         item: generateTestPerseusItem({question: segmentQuestion}),
+    },
+};
+
+export const Exponential: Story = {
+    args: {
+        item: generateTestPerseusItem({question: exponentialQuestion}),
     },
 };
 

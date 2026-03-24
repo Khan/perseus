@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+// (LEMS-4008) TODO: Cleanup eslint override.
 import {vec} from "mafs";
 
 import type {SnapTo} from "./types";
@@ -293,6 +295,16 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withExponential(options?: {
+        coords?: [Coord, Coord];
+        asymptote?: number;
+        startCoords?: [Coord, Coord];
+        startAsymptote?: number;
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new ExponentialGraphConfig(options);
+        return this;
+    }
+
     withTangent(options?: {
         coords?: [Coord, Coord];
         startCoords?: [Coord, Coord];
@@ -340,6 +352,14 @@ class InteractiveGraphQuestionBuilder {
         match?: "congruent";
     }): InteractiveGraphQuestionBuilder {
         this.interactiveFigureConfig = new AngleGraphConfig(options);
+        return this;
+    }
+
+    withAbsoluteValue(options?: {
+        coords?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new AbsoluteValueGraphConfig(options);
         return this;
     }
 
@@ -804,6 +824,46 @@ class SinusoidGraphConfig implements InteractiveFigureConfig {
     }
 }
 
+class ExponentialGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord];
+    private asymptote?: number;
+    private startCoords?: [Coord, Coord];
+    private startAsymptote?: number;
+
+    constructor(options?: {
+        coords?: [Coord, Coord];
+        asymptote?: number;
+        startCoords?: [Coord, Coord];
+        startAsymptote?: number;
+    }) {
+        this.coords = options?.coords;
+        this.asymptote = options?.asymptote;
+        this.startCoords = options?.startCoords;
+        this.startAsymptote = options?.startAsymptote;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "exponential",
+            coords: this.coords,
+            asymptote: this.asymptote,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {
+            type: "exponential",
+            startCoords:
+                this.startCoords != null
+                    ? {
+                          coords: this.startCoords,
+                          asymptote: this.startAsymptote ?? 0,
+                      }
+                    : undefined,
+        };
+    }
+}
+
 class TangentGraphConfig implements InteractiveFigureConfig {
     private coords?: [Coord, Coord];
     private startCoords?: [Coord, Coord];
@@ -967,5 +1027,29 @@ class AngleGraphConfig implements InteractiveFigureConfig {
             snapDegrees: this.snapDegrees,
             match: this.match,
         };
+    }
+}
+
+class AbsoluteValueGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord];
+    private startCoords?: [Coord, Coord];
+
+    constructor(options?: {
+        coords?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "absolute-value",
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "absolute-value", startCoords: this.startCoords};
     }
 }

@@ -1,5 +1,4 @@
 import * as React from "react";
-import {color} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
@@ -15,11 +14,11 @@ import {
     storybookDependenciesV2,
 } from "../packages/perseus/src/testing/test-dependencies";
 
+import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
+
 // This will bring in the shared styles from prod so that the components can
 // have the same styles as prod when viewed within Storybook.
 import "./styles/shared.css";
-
-import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
@@ -128,13 +127,6 @@ const preview: Preview = {
                 color: /(background|color)$/i,
                 date: /Date$/,
             },
-        },
-        backgrounds: {
-            // Add WB colors as background options. :)
-            values: Object.entries(color).map(([name, value]) => ({
-                name,
-                value,
-            })),
         },
         docs: {
             toc: {

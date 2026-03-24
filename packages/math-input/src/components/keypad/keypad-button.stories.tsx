@@ -1,29 +1,33 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import TintedBackgroundDecorator from "../../__docs__/tinted-background-decorator";
 import KeyConfigs from "../../data/key-configs";
 import {mockStrings} from "../../strings";
 
 import {KeypadButton} from "./keypad-button";
 
 import type {KeypadButtonProps} from "./keypad-button";
+import type {Meta} from "@storybook/react-vite";
 
 const keyConfigs = KeyConfigs(mockStrings);
 
 export default {
     title: "Math Input/Components/Keypad Button",
     args: {
-        keyConfig: keyConfigs["PLUS"],
+        keyConfig: "PLUS",
         coord: [0, 0],
     },
     argTypes: {
         keyConfig: {
             control: "select",
-            options: {...keyConfigs},
+            options: Object.keys(keyConfigs),
+            mapping: keyConfigs,
         },
     },
     tags: ["!dev"],
-};
+    decorators: [TintedBackgroundDecorator],
+} satisfies Meta;
 
 export const Default = ({
     keyConfig = KeyConfigs["PLUS"],
@@ -33,7 +37,6 @@ export const Default = ({
         style={{
             width: 200,
             height: 200,
-            backgroundColor: "#DBDCDD",
             display: "flex",
         }}
     >
@@ -57,7 +60,6 @@ export const AllButtons = ({
 }: KeypadButtonProps): React.ReactElement => (
     <div
         style={{
-            backgroundColor: "#DBDCDD",
             display: "grid",
             gridTemplateColumns: "repeat(6, 1fr)",
             gap: "25px",

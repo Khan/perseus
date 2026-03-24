@@ -370,6 +370,59 @@ describe("initializeGraphState for quadratic graphs", () => {
     });
 });
 
+describe("initializeGraphState for absolute-value graphs", () => {
+    it("uses the given coords, if present", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "absolute-value",
+                coords: [
+                    [0, 1],
+                    [2, 3],
+                ],
+            },
+        });
+
+        invariant(graph.type === "absolute-value");
+        expect(graph.coords).toEqual([
+            [0, 1],
+            [2, 3],
+        ]);
+    });
+
+    it("uses startCoords if no coords are given", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "absolute-value",
+                startCoords: [
+                    [4, 5],
+                    [6, 7],
+                ],
+            },
+        });
+
+        invariant(graph.type === "absolute-value");
+        expect(graph.coords).toEqual([
+            [4, 5],
+            [6, 7],
+        ]);
+    });
+
+    it("uses default coords if neither coords nor startCoords are given", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "absolute-value"},
+        });
+
+        invariant(graph.type === "absolute-value");
+        expect(graph.coords).toEqual([
+            [0, 0],
+            [5, 5],
+        ]);
+    });
+});
+
 describe("initializeGraphState for sinusoid graphs", () => {
     it("uses the given coords, if present", () => {
         const graph = initializeGraphState({
@@ -401,6 +454,72 @@ describe("initializeGraphState for sinusoid graphs", () => {
             [0, 0],
             [3, 2],
         ]);
+    });
+});
+
+describe("initializeGraphState for exponential graphs", () => {
+    it("uses the given coords and asymptote if present", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "exponential",
+                coords: [
+                    [0, 3],
+                    [2, 6],
+                ],
+                asymptote: 1,
+            },
+        });
+
+        // Assert
+        invariant(graph.type === "exponential");
+        expect(graph.coords).toEqual([
+            [0, 3],
+            [2, 6],
+        ]);
+        expect(graph.asymptote).toBe(1);
+    });
+
+    it("uses startCoords if given and explicit coords are absent", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "exponential",
+                startCoords: {
+                    coords: [
+                        [1, 4],
+                        [3, 8],
+                    ],
+                    asymptote: 2,
+                },
+            },
+        });
+
+        // Assert
+        invariant(graph.type === "exponential");
+        expect(graph.coords).toEqual([
+            [1, 4],
+            [3, 8],
+        ]);
+        expect(graph.asymptote).toBe(2);
+    });
+
+    it("uses default coords and asymptote if neither coords nor startCoords are given", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "exponential"},
+        });
+
+        // Assert
+        invariant(graph.type === "exponential");
+        expect(graph.coords).toEqual([
+            [0, 1],
+            [5, 5],
+        ]);
+        expect(graph.asymptote).toBe(0);
     });
 });
 

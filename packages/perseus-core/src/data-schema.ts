@@ -1093,6 +1093,7 @@ export type LockedLabelType = {
 };
 
 export type PerseusGraphType =
+    | PerseusGraphTypeAbsoluteValue
     | PerseusGraphTypeAngle
     | PerseusGraphTypeCircle
     | PerseusGraphTypeLinear
@@ -1104,6 +1105,7 @@ export type PerseusGraphType =
     | PerseusGraphTypeRay
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid
+    | PerseusGraphTypeExponential
     | PerseusGraphTypeTangent;
 
 export type PerseusGraphTypeAngle = {
@@ -1229,12 +1231,38 @@ export type PerseusGraphTypeTangent = {
     startCoords?: Coord[];
 };
 
+export type PerseusGraphTypeExponential = {
+    type: "exponential";
+    /** Two points along the exponential curve. */
+    coords?: Coord[] | null;
+    /**
+     * The y-value of the horizontal asymptote (the line y = asymptote).
+     * Corresponds to the coefficient c in f(x) = a·eᵇˣ + c.
+     */
+    asymptote?: number | null;
+    /** The initial coordinates the graph renders with. */
+    startCoords?: {coords: [Coord, Coord]; asymptote: number};
+};
+
+export type PerseusGraphTypeAbsoluteValue = {
+    type: "absolute-value";
+    // Expects [vertex, secondPoint]
+    coords?: [Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord];
+};
+
 export type PerseusGraphTypeRay = {
     type: "ray";
     /** Expects a list of 2 Coords */
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+};
+
+type AbsoluteValueGraphCorrect = {
+    type: "absolute-value";
+    coords: [Coord, Coord];
 };
 
 type AngleGraphCorrect = {
@@ -1290,6 +1318,12 @@ type SinusoidGraphCorrect = {
     coords: CollinearTuple;
 };
 
+type ExponentialGraphCorrect = {
+    type: "exponential";
+    coords: CollinearTuple;
+    asymptote: number;
+};
+
 type TangentGraphCorrect = {
     type: "tangent";
     coords: CollinearTuple;
@@ -1301,6 +1335,7 @@ type RayGraphCorrect = {
 };
 
 export type PerseusGraphCorrectType =
+    | AbsoluteValueGraphCorrect
     | AngleGraphCorrect
     | CircleGraphCorrect
     | LinearGraphCorrect
@@ -1312,6 +1347,7 @@ export type PerseusGraphCorrectType =
     | RayGraphCorrect
     | SegmentGraphCorrect
     | SinusoidGraphCorrect
+    | ExponentialGraphCorrect
     | TangentGraphCorrect;
 
 /** Options for the label-image widget. Asks learners to label image parts. */
