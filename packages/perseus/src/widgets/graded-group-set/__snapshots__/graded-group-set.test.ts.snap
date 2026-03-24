@@ -38,12 +38,13 @@ exports[`graded group set widget should snapshot 1`] = `
                 class="spacer_bc4egv"
               />
               <ul
-                class="indicatorContainer_2pd7o4 indicatorContainer"
+                class="indicatorContainer_1qvfx9i indicatorContainer"
               >
                 <li
                   class="indicator_7k5kza"
                 >
                   <button
+                    aria-current="true"
                     aria-label="Skip to Problem 1a"
                     class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
                     role="button"
@@ -54,13 +55,7 @@ exports[`graded group set widget should snapshot 1`] = `
                     >
                       <div
                         class="default_xu2jcg-o_O-indicatorDotActive_xgych8"
-                      >
-                        <span
-                          class="srOnly_19bpjuy"
-                        >
-                          Current
-                        </span>
-                      </div>
+                      />
                     </div>
                   </button>
                 </li>
@@ -68,6 +63,7 @@ exports[`graded group set widget should snapshot 1`] = `
                   class="indicator_7k5kza"
                 >
                   <button
+                    aria-current="false"
                     aria-label="Skip to Problem 1b"
                     class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
                     role="button"
@@ -82,6 +78,7 @@ exports[`graded group set widget should snapshot 1`] = `
                   class="indicator_7k5kza"
                 >
                   <button
+                    aria-current="false"
                     aria-label="Skip to Problem 1c"
                     class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
                     role="button"
