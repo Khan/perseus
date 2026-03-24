@@ -16,7 +16,7 @@ import {gray17, gray85, gray98} from "../../styles/global-colors";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-export type MarkerProps = PerseusLabelImageWidgetOptions["markers"][number] & {
+type MarkerProps = PerseusLabelImageWidgetOptions["markers"][number] & {
     // The list of possible answer choices.
     choices: PerseusLabelImageWidgetOptions["choices"];
     // Callback for when any of the marker props are changed.
@@ -33,16 +33,9 @@ type State = {
     showDropdown: boolean;
 };
 
-export default class Marker extends React.Component<MarkerProps, State> {
+class Marker extends React.Component<MarkerProps, State> {
     _marker: HTMLElement | null | undefined;
-
-    constructor(props: MarkerProps) {
-        super(props);
-
-        this.state = {
-            showDropdown: false,
-        };
-    }
+    state: State = {showDropdown: false};
 
     componentDidMount() {
         document.addEventListener("click", this.handleClick, true);
@@ -297,3 +290,5 @@ const styles = StyleSheet.create({
         cursor: "pointer",
     },
 });
+
+export default Marker;
