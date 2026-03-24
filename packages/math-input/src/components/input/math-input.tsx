@@ -267,7 +267,7 @@ class MathInput extends React.Component<Props, State> {
         return null;
     }
 
-    _updateCursorHandle(animateIntoPosition?: boolean) {
+    _updateCursorHandle: (arg1?: boolean) => void = (animateIntoPosition) => {
         const containerBounds = this._container.getBoundingClientRect();
         const cursor: any = this._container.querySelector(".mq-cursor");
         const cursorBounds = cursor.getBoundingClientRect();
@@ -303,7 +303,7 @@ class MathInput extends React.Component<Props, State> {
                 y: cursorBounds.bottom + gapBelowCursor - containerBounds.top,
             },
         });
-    }
+    };
 
     _hideCursorHandle: () => void = () => {
         this.setState({
