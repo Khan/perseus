@@ -66,7 +66,9 @@ class Indicators extends React.Component<IndicatorsProps> {
                         <Clickable
                             role="button"
                             aria-label={title}
-                            aria-current={i === this.props.currentGroup || undefined}
+                            aria-current={
+                                i === this.props.currentGroup || undefined
+                            }
                             style={styles.indicatorButton}
                             onClick={() => this.props.onChangeCurrentGroup(i)}
                             onKeyDown={(e) => this.handleKeyDown(e, i)}
