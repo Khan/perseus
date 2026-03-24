@@ -204,6 +204,18 @@ export const LargeImageWithNoSizeSavedScaleFlag: Story = {
     },
 };
 
+export const SmallImageWithNoSizeSaved: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+        alt: "Earth and Moon",
+        title: "Hello world. Testing this with a super duper extra long, longest title",
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
 export const SmallImageWithNoSizeSavedScaleFlag: Story = {
     decorators: [imageRendererDecorator],
     parameters: {
@@ -217,6 +229,8 @@ export const SmallImageWithNoSizeSavedScaleFlag: Story = {
     args: {
         backgroundImage: {url: earthMoonImage.url},
         alt: "Earth and Moon",
+        title: "Hello world. Testing this with a super duper extra long, longest title",
+        caption: earthMoonImageCaption,
         longDescription:
             "This is a *very* long description of the earth and moon.",
     },

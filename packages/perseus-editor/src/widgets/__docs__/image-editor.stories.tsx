@@ -136,6 +136,8 @@ export const ImageWithEmptySize: Story = {
     decorators: [withinEditorPageDecorator],
     args: {
         backgroundImage: {url: earthMoonImage.url},
+        caption:
+            "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)",
     },
 };
 

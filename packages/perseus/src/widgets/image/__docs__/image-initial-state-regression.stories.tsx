@@ -304,3 +304,17 @@ export const ImageWithoutWidthOrHeightWithCaption: Story = {
         caption: earthMoonImageCaption,
     },
 };
+
+// Regression: caption should not snap to the left.
+export const ImageWithoutWidthOrHeightWithCaptionTitleAndLongDescription: Story =
+    {
+        decorators: [imageRendererDecorator],
+        args: {
+            backgroundImage: {url: earthMoonImage.url},
+            alt: "Earth and Moon",
+            title: "Hello world. Testing this with a super duper extra long, longest title",
+            caption: earthMoonImageCaption,
+            longDescription:
+                "This is a *very* long description of the earth and moon.",
+        },
+    };
