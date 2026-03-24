@@ -132,6 +132,51 @@ export const LongDescriptionClickedStateWithNoSizeLargeImage = {
     },
 };
 
+export const ZoomClickedState = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const zoomTrigger = canvas.getByRole("button", {
+            name: "Zoom image.",
+        });
+        await userEvent.click(zoomTrigger);
+    },
+};
+
+export const ZoomClickedWithGraphieImage = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: "Graphie image",
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const zoomTrigger = canvas.getByRole("button", {
+            name: "Zoom image.",
+        });
+        await userEvent.click(zoomTrigger);
+    },
+};
+
+export const ZoomClickedLargeImage = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: frescoImage,
+        alt: "Fresco painting",
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const zoomTrigger = canvas.getByRole("button", {
+            name: "Zoom image.",
+        });
+        await userEvent.click(zoomTrigger);
+    },
+};
+
 function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (

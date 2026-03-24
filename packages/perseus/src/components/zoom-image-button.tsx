@@ -5,14 +5,15 @@ import * as React from "react";
 import {usePerseusI18n} from "./i18n-context";
 import {ZoomedImageView} from "./zoomed-image-view";
 
-type Props = {
-    imgElement: React.ReactNode;
-    imgSrc: string;
-    width: number;
-    height: number;
-};
+import type {Props as SvgImageProps} from "./svg-image";
 
-export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
+interface Props extends SvgImageProps {
+    imgSrc: string;
+}
+
+export const ZoomImageButton = (props: Props) => {
+    const {imgSrc} = props;
+
     const i18n = usePerseusI18n();
 
     // Check for "Command + Click" or "Control + Click" to open the image
@@ -33,12 +34,7 @@ export const ZoomImageButton = ({imgElement, imgSrc, width, height}: Props) => {
     return (
         <ModalLauncher
             modal={({closeModal}) => (
-                <ZoomedImageView
-                    imgElement={imgElement}
-                    width={width}
-                    height={height}
-                    onClose={closeModal}
-                />
+                <ZoomedImageView {...props} onClose={closeModal} />
             )}
         >
             {({openModal}) => (

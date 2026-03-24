@@ -1,46 +1,44 @@
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {ModalDialog, ModalPanel} from "@khanacademy/wonder-blocks-modal";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import FixedToResponsive from "./fixed-to-responsive";
+import {isSvg} from "../widgets/image/utils";
+
 import {usePerseusI18n} from "./i18n-context";
+import SvgImage from "./svg-image";
 import styles from "./zoomed-image-view.module.css";
 
-// 32px on each side of the modal panel
-const WB_MODAL_PADDING_TOTAL = 64;
+import type {Props as SvgImageProps} from "./svg-image";
 
-type Props = {
-    imgElement: React.ReactNode;
-    width: number;
-    height: number;
+interface Props extends SvgImageProps {
     onClose: () => void;
-};
+}
 
-export const ZoomedImageView = ({
-    imgElement,
-    width,
-    height,
-    onClose,
-}: Props) => {
+export const ZoomedImageView = (props: Props) => {
     const i18n = usePerseusI18n();
+    const scaleFF = isFeatureOn(
+        {apiOptions: props.apiOptions},
+        "image-widget-upgrade-scale",
+    );
 
-    // Calculate the maximum available space (account for the modal panel padding).
-    const maxWidth = window.innerWidth - WB_MODAL_PADDING_TOTAL;
-    const maxHeight = window.innerHeight - WB_MODAL_PADDING_TOTAL;
+    const {onClose, ...svgProps} = props;
+    const width = props.width;
+    const contentScale = props.scale;
 
-    // Figure out the scale for the width and height, and use it to determine
-    // which dimension to use for the final size.
-    const scaleWidth = maxWidth / width;
-    const scaleHeight = maxHeight / height;
-    // Choose the smaller of the two so that the image fits inside
-    // the window - no scrolling.
-    const scale = Math.min(scaleWidth, scaleHeight, 1);
+    const imageIsSvg = isSvg(props.src);
 
-    // Calculate the final dimensions, constraine by the window size.
-    const constrainedWidth = width * scale;
-    const constrainedHeight = height * scale;
+    // Use larger sizes for the zoomed image view:
+    // - For SVG images, use 2x or greater for the scale since they can
+    //   be expanded without losing quality.
+    // - For regular non-SVG images, use 1 (original size). Or use the
+    //   saved scale if it's greater than 1, so that the zoomed image view
+    //   won't be smaller than the original.
+    const scale = imageIsSvg
+        ? Math.max(contentScale, 2)
+        : Math.max(contentScale, 1);
 
     return (
         <ModalDialog
@@ -62,20 +60,35 @@ export const ZoomedImageView = ({
                             }}
                         >
                             {() => (
+                                // This wrapper's explicit width tells
+                                // the image how big it should be.
+                                // Without it, the auto-width modal
+                                // causes the image to collapse to its
+                                // natural pixel size, ignoring scale.
                                 <div
-                                    // We need to include the framework-perseus
-                                    // class here to ensure that the image is
-                                    // styled correctly. Otherwise the Graphie
-                                    // labels may not be in the correct positions.
-                                    className="framework-perseus"
+                                    className={styles.imageContainer}
+                                    style={{
+                                        width:
+                                            width && scaleFF
+                                                ? width * scale
+                                                : undefined,
+                                    }}
                                 >
-                                    <FixedToResponsive
-                                        className="svg-image"
-                                        width={constrainedWidth}
-                                        height={constrainedHeight}
+                                    <div
+                                        // We need to include the framework-perseus
+                                        // class here to ensure that the image is
+                                        // styled correctly. Otherwise the Graphie
+                                        // labels may not be in the correct positions.
+                                        className="framework-perseus"
                                     >
-                                        {imgElement}
-                                    </FixedToResponsive>
+                                        <SvgImage
+                                            {...svgProps}
+                                            // Don't allow zooming inside the
+                                            // zoom view.
+                                            allowZoom={false}
+                                            scale={scaleFF ? scale : 1}
+                                        />
+                                    </div>
                                 </div>
                             )}
                         </Clickable>
