@@ -1,5 +1,53 @@
 # @khanacademy/perseus
 
+## 76.1.0
+
+### Minor Changes
+
+-   [#3350](https://github.com/Khan/perseus/pull/3350) [`75f184e5a7`](https://github.com/Khan/perseus/commit/75f184e5a7780a085ec527e123603d52c2de2040) Thanks [@handeyeco](https://github.com/handeyeco)! - Implement AbsoluteValue rendering
+
+*   [#3354](https://github.com/Khan/perseus/pull/3354) [`4b2a7c85db`](https://github.com/Khan/perseus/commit/4b2a7c85db5336a7c3f817c5ee6086b559ea135e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Created the tangent graph visual component, add Storybook coverage, SR strings, and equation string for supporting Tangent graph in Interactive Graph
+
+-   [#3353](https://github.com/Khan/perseus/pull/3353) [`5e1acd01f8`](https://github.com/Khan/perseus/commit/5e1acd01f8367874a0d73d91d615651612027e39) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add tangent graph state management and reducer for supporting Tangent graph in Interactive Graph
+
+*   [#3352](https://github.com/Khan/perseus/pull/3352) [`b681e00a4f`](https://github.com/Khan/perseus/commit/b681e00a4fddf9455ceb0ad0f1f0a1a0705193b6) Thanks [@handeyeco](https://github.com/handeyeco)! - Add editor support for AbsoluteValue
+
+-   [#3348](https://github.com/Khan/perseus/pull/3348) [`b1557c2a73`](https://github.com/Khan/perseus/commit/b1557c2a73f7e8d1910d01ba9c6b9a4dd5b04b0b) Thanks [@handeyeco](https://github.com/handeyeco)! - Add schema for AbsoluteValue graph
+
+*   [#3345](https://github.com/Khan/perseus/pull/3345) [`dde985f3b5`](https://github.com/Khan/perseus/commit/dde985f3b56e3b8647f56006e0fe9624e8a5b7d0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add tangent type definitions, this is the initial implementation for supporting Tangent graph in Interactive Graph
+
+-   [#3349](https://github.com/Khan/perseus/pull/3349) [`56e7dbe9a2`](https://github.com/Khan/perseus/commit/56e7dbe9a2252be7e2e9cb9f5f9346fe0e2bde57) Thanks [@handeyeco](https://github.com/handeyeco)! - Add state management for AbsoluteValue
+
+*   [#3377](https://github.com/Khan/perseus/pull/3377) [`85f9cd46fc`](https://github.com/Khan/perseus/commit/85f9cd46fc0866f91b1bb095fea5d3c48d1ba52d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of state management logic for new Exponential graph
+
+-   [#3358](https://github.com/Khan/perseus/pull/3358) [`8c503171b1`](https://github.com/Khan/perseus/commit/8c503171b17f4654d08858450ec571d560eb6890) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add tangent graph option in the Interactive Graph Editor
+
+*   [#3393](https://github.com/Khan/perseus/pull/3393) [`9f29bc7161`](https://github.com/Khan/perseus/commit/9f29bc716122cf9bf603a17915f01a8159226143) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Rendering logic for new Exponential Graph
+
+-   [#3376](https://github.com/Khan/perseus/pull/3376) [`8aa0a77886`](https://github.com/Khan/perseus/commit/8aa0a7788611d2b55f10d5eb868735805dd07603) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Types, Schema, and Kmath utilities for Exponential Graph
+
+### Patch Changes
+
+-   [#3329](https://github.com/Khan/perseus/pull/3329) [`027a5edbda`](https://github.com/Khan/perseus/commit/027a5edbda027ae729afcb3051e0d290c36b9272) Thanks [@Myranae](https://github.com/Myranae)! - Fix image bug by batching setState calls in setupGraphie
+
+*   [#3372](https://github.com/Khan/perseus/pull/3372) [`3cdb09813d`](https://github.com/Khan/perseus/commit/3cdb09813d71925d2978530d12f6b21356367c2c) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Upscale Graphies within Explore Image Modal
+
+-   [#3365](https://github.com/Khan/perseus/pull/3365) [`afcff9f96f`](https://github.com/Khan/perseus/commit/afcff9f96faf1b5f02a6915bbb83965874809838) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve ordering of Props type for `Renderer` component
+
+*   [#3367](https://github.com/Khan/perseus/pull/3367) [`54eee35d65`](https://github.com/Khan/perseus/commit/54eee35d65a995195a8d1c914606a3188df925d3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Show image in explore modal even when size is undefined
+
+-   [#3407](https://github.com/Khan/perseus/pull/3407) [`3aca3dcdf4`](https://github.com/Khan/perseus/commit/3aca3dcdf49ca5af8d69a14b8043ffe5bbc2ff6d) Thanks [@Myranae](https://github.com/Myranae)! - Improve a11y with graded group set
+
+*   [#3385](https://github.com/Khan/perseus/pull/3385) [`003aca7612`](https://github.com/Khan/perseus/commit/003aca7612aa305b0d4e7b085d8f22729a214896) Thanks [@Myranae](https://github.com/Myranae)! - Small fix to prevent pip duplication in Graded Group Sets
+
+*   Updated dependencies [[`f18c0d9b6f`](https://github.com/Khan/perseus/commit/f18c0d9b6fabaca207aebbee8e82053aa0251ad4), [`a022e751d6`](https://github.com/Khan/perseus/commit/a022e751d6051e436560bb15a4a4706df5b9feb0), [`35fa9133db`](https://github.com/Khan/perseus/commit/35fa9133db344d2f291b483e82744171218c570b), [`54db3fd4bd`](https://github.com/Khan/perseus/commit/54db3fd4bd1d43b3d06a7ab82c0cae8a075255fe), [`97223334ea`](https://github.com/Khan/perseus/commit/97223334ea25199bb0f7ed21ed66ed6b710c550c), [`ae0538d0a7`](https://github.com/Khan/perseus/commit/ae0538d0a7c20f854d7084e72cf95f0bf37ca438), [`005e13d784`](https://github.com/Khan/perseus/commit/005e13d784ff62573f7128febbbc38bcb39608e5), [`d99f1c0259`](https://github.com/Khan/perseus/commit/d99f1c0259ef916ea3187a3f8ef0c73d017eaed3), [`b1557c2a73`](https://github.com/Khan/perseus/commit/b1557c2a73f7e8d1910d01ba9c6b9a4dd5b04b0b), [`dde985f3b5`](https://github.com/Khan/perseus/commit/dde985f3b56e3b8647f56006e0fe9624e8a5b7d0), [`7034844845`](https://github.com/Khan/perseus/commit/703484484599609d88965030b22494d77387b712), [`8aa0a77886`](https://github.com/Khan/perseus/commit/8aa0a7788611d2b55f10d5eb868735805dd07603)]:
+    -   @khanacademy/perseus-linter@4.9.0
+    -   @khanacademy/perseus-score@8.4.0
+    -   @khanacademy/perseus-core@23.7.0
+    -   @khanacademy/kmath@2.3.0
+    -   @khanacademy/keypad-context@3.2.40
+    -   @khanacademy/math-input@26.4.10
+
 ## 76.0.3
 
 ### Patch Changes
