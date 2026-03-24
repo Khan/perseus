@@ -65,7 +65,9 @@ class Indicators extends React.Component<IndicatorsProps> {
                     <li className={css(styles.indicator)} key={i}>
                         <Clickable
                             role="button"
-                            aria-label={title}
+                            aria-label={this.context.strings.skipToTitle({
+                                title,
+                            })}
                             aria-current={i === this.props.currentGroup}
                             style={styles.indicatorButton}
                             onClick={() => this.props.onChangeCurrentGroup(i)}
