@@ -60,11 +60,25 @@ type SinusoidGraphOptions = BaseGraphOptions & {
     startCoords?: readonly Coord[];
 };
 
+type AbsoluteValueGraphOptions = BaseGraphOptions & {
+    startCoords?: readonly [Coord, Coord];
+};
+
+type TangentGraphOptions = BaseGraphOptions & {
+    startCoords?: readonly Coord[];
+};
+
+type ExponentialGraphOptions = BaseGraphOptions & {
+    startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
+};
+
 type NoneGraphOptions = Record<string, never>;
 
 type GraphOptions =
+    | AbsoluteValueGraphOptions
     | AngleGraphOptions
     | CircleGraphOptions
+    | ExponentialGraphOptions
     | LinearGraphOptions
     | LinearSystemGraphOptions
     | NoneGraphOptions
@@ -73,7 +87,8 @@ type GraphOptions =
     | QuadraticGraphOptions
     | RayGraphOptions
     | SegmentGraphOptions
-    | SinusoidGraphOptions;
+    | SinusoidGraphOptions
+    | TangentGraphOptions;
 
 type AngleUserInput = {
     coords?: readonly [Coord, Coord, Coord];
@@ -117,9 +132,24 @@ type SinusoidUserInput = {
     coords?: readonly Coord[] | null;
 };
 
+type AbsoluteValueUserInput = {
+    coords?: readonly [Coord, Coord] | null;
+};
+
+type ExponentialUserInput = {
+    coords?: readonly Coord[] | null;
+    asymptote?: number | null;
+};
+
+type TangentUserInput = {
+    coords?: readonly Coord[] | null;
+};
+
 type UserInput =
+    | AbsoluteValueUserInput
     | AngleUserInput
     | CircleUserInput
+    | ExponentialUserInput
     | LinearUserInput
     | LinearSystemInput
     | PointUserInput
@@ -127,7 +157,8 @@ type UserInput =
     | QuadraticUserInput
     | RayUserInput
     | SegmentUserInput
-    | SinusoidUserInput;
+    | SinusoidUserInput
+    | TangentUserInput;
 
 export type InteractiveGraphPromptJSON = {
     type: "interactive-graph";
@@ -220,8 +251,23 @@ const getGraphOptionsForProps = (
                 type: props.userInput.type,
                 startCoords: props.userInput.startCoords,
             };
+        case "tangent":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         case "none":
             return {};
+        case "absolute-value":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
+        case "exponential":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         default:
             throw new UnreachableCaseError(type);
     }
@@ -273,8 +319,21 @@ const getUserInput = (userInput: PerseusGraphType): UserInput => {
             return {
                 coords: userInput.coords,
             };
+        case "tangent":
+            return {
+                coords: userInput.coords,
+            };
         case "none":
             return {};
+        case "absolute-value":
+            return {
+                coords: userInput.coords,
+            };
+        case "exponential":
+            return {
+                coords: userInput.coords,
+                asymptote: userInput.asymptote,
+            };
         default:
             throw new UnreachableCaseError(type);
     }

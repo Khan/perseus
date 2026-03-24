@@ -8,16 +8,19 @@ import {SvgImage} from "../../../components";
 import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
-import {isGif} from "../utils";
+import {isGif, isSvg} from "../utils";
 
 import {GifControlsButton} from "./gif-controls-button";
 
-import type {ImageInfoAreaProps} from "./image-info-area";
+import type {CommonImageProps, ZoomProps, GifProps} from "./image-info-area";
 
 const MODAL_HEIGHT = 568;
 
+type Props = CommonImageProps & ZoomProps & GifProps;
+
 export default function ExploreImageModalContent({
     backgroundImage,
+    scale: contentScale,
     caption,
     alt,
     longDescription,
@@ -29,45 +32,62 @@ export default function ExploreImageModalContent({
     zoomSize,
     isGifPlaying,
     setIsGifPlaying,
-}: ImageInfoAreaProps) {
+}: Props) {
     const context = React.useContext(PerseusI18nContext);
-    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
 
-    const [zoomWidth, zoomHeight] = zoomSize;
+    if (!backgroundImage.url) {
+        return null;
+    }
+
+    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
     const gifControlsFF = isFeatureOn(
         {apiOptions},
         "image-widget-upgrade-gif-controls",
     );
 
-    if (
-        !backgroundImage.height ||
-        !backgroundImage.width ||
-        !backgroundImage.url
-    ) {
-        return null;
-    }
+    const [zoomWidth, zoomHeight] = zoomSize;
 
     const imageIsGif = isGif(backgroundImage.url);
+    const imageIsSvg = isSvg(backgroundImage.url);
+
+    // Use larger sizes for the "explore image" modal:
+    // - For SVG images, use 2x or greater for the scale since they can
+    //   be expanded without losing quality.
+    // - For regular non-SVG images, use 1 (original size). Use the
+    //   saved scale if it's greater than 1, so that the exploration
+    //   modal won't have a smaller image than the original.
+    const scale = imageIsSvg
+        ? Math.max(contentScale, 2)
+        : Math.max(contentScale, 1);
+
+    // Note: backgroundImage.height and backgroundImage.width may be undefined.
+    let height: number | undefined = backgroundImage.height;
+    let width: number | undefined = backgroundImage.width;
 
     // Contain the image to the modal dimensions:
     // - Shrink image to the modal height if it's taller than the modal.
     // - Keep image its original size if it's shorter than the modal.
     // - Maintain the image's aspect ratio.
-    let modalImageHeight = Math.min(MODAL_HEIGHT, zoomHeight);
-    // bgWidth / bgHeight = X / modalImageHeight
-    // => X = (bgWidth / bgHeight) * modalImageHeight
-    let width = (zoomWidth / zoomHeight) * modalImageHeight;
+    height = Math.min(MODAL_HEIGHT, zoomHeight);
+    // bgWidth / bgHeight = X / height
+    // => X = (bgWidth / bgHeight) * height
+    width = (zoomWidth / zoomHeight) * height;
 
     if (scaleFF) {
-        // Contain the image to the modal dimensions:
-        // - Shrink image to the modal height if it's taller than the modal.
-        // - Keep image its original size if it's shorter than the modal.
-        // - Maintain the image's aspect ratio.
-        modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
-        // bgWidth / bgHeight = X / modalImageHeight
-        // => X = (bgWidth / bgHeight) * modalImageHeight
-        width =
-            (backgroundImage.width / backgroundImage.height) * modalImageHeight;
+        // If we know what the original image size is, use it to compute the
+        // image size for the modal with the scale applied.
+        if (backgroundImage.height && backgroundImage.width) {
+            // SvgImage will multiply the dimensions we pass by `scale`,
+            // so we work in unscaled space here. We cap the unscaled
+            // height at MODAL_HEIGHT / scale so the final displayed
+            // height (after SvgImage applies `scale`) won't exceed
+            // MODAL_HEIGHT, and we also cap at the image's natural
+            // height to avoid upscaling beyond the original.
+            height = Math.min(MODAL_HEIGHT / scale, backgroundImage.height);
+            // bgWidth / bgHeight = X / height
+            // => X = (bgWidth / bgHeight) * height
+            width = (backgroundImage.width / backgroundImage.height) * height;
+        }
     }
 
     return (
@@ -82,7 +102,8 @@ export default function ExploreImageModalContent({
                             allowZoom={false}
                             alt={caption === alt ? "" : alt}
                             width={width}
-                            height={modalImageHeight}
+                            height={height}
+                            scale={scaleFF ? scale : 1}
                             preloader={apiOptions.imagePreloader}
                             extraGraphie={{
                                 box: box,

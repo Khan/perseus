@@ -449,6 +449,7 @@ class SvgImage extends React.Component<Props, State> {
         graphie: any,
         options: any,
     ) => {
+        const newLabelsRendered: LabelsRenderedMap = {};
         _.map(options.labels, (labelData) => {
             const {JIPT} = getDependencies();
             if (JIPT.useJIPT && this.state.labelDataIsLocalized) {
@@ -517,13 +518,17 @@ class SvgImage extends React.Component<Props, State> {
                     label.css(styleName, styleValue);
                 });
             }
-            this.setState({
-                labelsRendered: {
-                    ...this.state.labelsRendered,
-                    [labelData.content]: true,
-                },
-            });
+            newLabelsRendered[labelData.content] = true;
         });
+        // Note: Using a function is the preferred method of combining previous
+        // state with the new update
+        // (docs: https://react.dev/reference/react/Component#setstate-parameters)
+        this.setState((prev) => ({
+            labelsRendered: {
+                ...prev.labelsRendered,
+                ...newLabelsRendered,
+            },
+        }));
     };
 
     // Try to parse a CSS value as pixels. Returns null if the parameter string
@@ -660,6 +665,7 @@ class SvgImage extends React.Component<Props, State> {
                             this.props.allowFullBleed &&
                             isImageProbablyPhotograph(imageSrc)
                         }
+                        scale={this.props.scale}
                     >
                         {imageContent}
                         {this.props.allowZoom && (
@@ -749,6 +755,7 @@ class SvgImage extends React.Component<Props, State> {
                     width={width}
                     height={height}
                     constrainHeight={this.props.constrainHeight}
+                    scale={this.props.scale}
                 >
                     {imageContent}
                     {this.props.allowZoom && (

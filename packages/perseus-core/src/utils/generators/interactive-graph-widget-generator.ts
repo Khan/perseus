@@ -21,6 +21,7 @@ import type {
     PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
+    PerseusGraphTypeTangent,
     PerseusInteractiveGraphWidgetOptions,
 } from "../../data-schema";
 
@@ -141,6 +142,15 @@ export function generateIGSinusoidGraph(
 ): PerseusGraphTypeSinusoid {
     return {
         type: "sinusoid",
+        ...options,
+    };
+}
+
+export function generateIGTangentGraph(
+    options?: Partial<Omit<PerseusGraphTypeTangent, "type">>,
+): PerseusGraphTypeTangent {
+    return {
+        type: "tangent",
         ...options,
     };
 }

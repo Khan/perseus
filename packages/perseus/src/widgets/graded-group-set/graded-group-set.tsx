@@ -16,7 +16,6 @@ import {
     phoneMargin,
     negativePhoneMargin,
 } from "../../styles/constants";
-import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
@@ -60,12 +59,14 @@ class Indicators extends React.Component<IndicatorsProps> {
                 )}
             >
                 {this.props.gradedGroups.map(({title}, i) => (
-                    <li className={css(styles.indicator)} key={title}>
+                    // Note: Use index as key — titles are user-authored and not
+                    // guaranteed unique. Groups are never reordered at runtime,
+                    // so index keys are stable.
+                    <li className={css(styles.indicator)} key={i}>
                         <Clickable
                             role="button"
-                            aria-label={this.context.strings.skipToTitle({
-                                title,
-                            })}
+                            aria-label={title}
+                            aria-current={i === this.props.currentGroup}
                             style={styles.indicatorButton}
                             onClick={() => this.props.onChangeCurrentGroup(i)}
                             onKeyDown={(e) => this.handleKeyDown(e, i)}
@@ -79,11 +80,9 @@ class Indicators extends React.Component<IndicatorsProps> {
                                     ]}
                                 >
                                     {i === this.props.currentGroup && (
-                                        <View style={styles.indicatorDotActive}>
-                                            <span className={css(a11y.srOnly)}>
-                                                {this.context.strings.current}
-                                            </span>
-                                        </View>
+                                        <View
+                                            style={styles.indicatorDotActive}
+                                        />
                                     )}
                                 </View>
                             )}
@@ -272,7 +271,7 @@ const styles = StyleSheet.create({
     indicatorContainer: {
         display: "flex",
         flexDirection: "row",
-        listStyle: "none",
+        listStyleType: '""',
         margin: "unset",
         paddingInlineStart: "unset",
         flexWrap: "wrap",

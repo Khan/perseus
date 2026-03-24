@@ -154,6 +154,9 @@ export const sinusoidWithStartingCoordsAndPiTicksQuestion: PerseusRenderer =
 export const sinusoidMinimalQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder().withSinusoid().build();
 
+export const exponentialMinimalQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder().withExponential().build();
+
 export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7, {labels: [{text: "A"}], ariaLabel: "Point A"})

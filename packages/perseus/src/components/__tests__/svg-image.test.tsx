@@ -9,6 +9,7 @@ import {
 } from "../../testing/test-dependencies";
 import * as GraphieUtils from "../../util/graphie-utils";
 import {typicalCase} from "../../util/graphie-utils.testdata";
+import {graphieImage} from "../../widgets/image/utils";
 import SvgImage from "../svg-image";
 
 describe("SvgImage", () => {
@@ -144,6 +145,203 @@ describe("SvgImage", () => {
         expect(
             screen.getByRole<HTMLImageElement>("img", {name: "png image"}).src,
         ).toEqual("https://www.khanacademy.org/my-test-img.png");
+    });
+
+    describe("Graphie label scaling", () => {
+        const mockLabels = [
+            {
+                content: "A",
+                coordinates: [1, 1],
+                alignment: "center" as const,
+                typesetAsMath: false,
+                style: {},
+            },
+        ];
+
+        it("should have default label size when no scale is provided", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            jest.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
+                (url, onDataLoaded) => {
+                    onDataLoaded(
+                        {
+                            labels: mockLabels,
+                            range: [
+                                [-10, 10],
+                                [-10, 10],
+                            ],
+                        },
+                        false,
+                    );
+                },
+            );
+
+            const {container} = render(
+                <SvgImage
+                    src={graphieImage.url}
+                    alt="svg image"
+                    allowZoom={false}
+                    width={graphieImage.width}
+                    height={graphieImage.height}
+                />,
+            );
+
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const labels = container.querySelectorAll(".graphie-label");
+            const label = labels[0];
+            expect(label).toHaveStyle({
+                fontSize: "100%",
+            });
+        });
+
+        it.each([
+            [1, "100%"],
+            [2, "200%"],
+            [0.5, "50%"],
+        ])(
+            "should have scaled label size when scale is %s",
+            (scale, expectedFontSize) => {
+                // Arrange
+                jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                    testDependencies,
+                );
+                jest.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
+                    (url, onDataLoaded) => {
+                        onDataLoaded(
+                            {
+                                labels: mockLabels,
+                                range: [
+                                    [-10, 10],
+                                    [-10, 10],
+                                ],
+                            },
+                            false,
+                        );
+                    },
+                );
+
+                const {container} = render(
+                    <SvgImage
+                        src={graphieImage.url}
+                        alt="svg image"
+                        allowZoom={false}
+                        scale={scale}
+                        width={graphieImage.width}
+                        height={graphieImage.height}
+                    />,
+                );
+
+                act(() => {
+                    jest.runAllTimers();
+                });
+
+                // Assert
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const label = container.querySelectorAll(".graphie-label")[0];
+                expect(label).toHaveStyle({
+                    fontSize: expectedFontSize,
+                });
+            },
+        );
+
+        it("should have default label padding when no scale is provided", () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            jest.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
+                (url, onDataLoaded) => {
+                    onDataLoaded(
+                        {
+                            labels: mockLabels,
+                            range: [
+                                [-10, 10],
+                                [-10, 10],
+                            ],
+                        },
+                        false,
+                    );
+                },
+            );
+
+            const {container} = render(
+                <SvgImage
+                    src={graphieImage.url}
+                    alt="svg image"
+                    allowZoom={false}
+                    width={graphieImage.width}
+                    height={graphieImage.height}
+                />,
+            );
+
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const label = container.querySelectorAll(".graphie-label")[0];
+            expect(label).toHaveStyle({
+                padding: "7px", // default padding
+            });
+        });
+
+        it.each([
+            [1, "7px"], // default padding
+            [2, "14px"],
+            [0.5, "3.5px"],
+        ])(
+            "should have scaled label padding when scale is %s",
+            (scale, expectedPadding) => {
+                // Arrange
+                jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                    testDependencies,
+                );
+                jest.spyOn(GraphieUtils, "loadGraphie").mockImplementation(
+                    (url, onDataLoaded) => {
+                        onDataLoaded(
+                            {
+                                labels: mockLabels,
+                                range: [
+                                    [-10, 10],
+                                    [-10, 10],
+                                ],
+                            },
+                            false,
+                        );
+                    },
+                );
+
+                const {container} = render(
+                    <SvgImage
+                        src={graphieImage.url}
+                        alt="svg image"
+                        allowZoom={false}
+                        scale={scale}
+                        width={graphieImage.width}
+                        height={graphieImage.height}
+                    />,
+                );
+
+                act(() => {
+                    jest.runAllTimers();
+                });
+
+                // Assert
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const label = container.querySelectorAll(".graphie-label")[0];
+                expect(label).toHaveStyle({
+                    padding: expectedPadding,
+                });
+            },
+        );
     });
 
     describe("infinite loop prevention", () => {

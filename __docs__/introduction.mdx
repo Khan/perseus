@@ -1,4 +1,6 @@
 import {Markdown, Meta} from "@storybook/addon-docs/blocks";
+import {Renderer} from "@khanacademy/perseus";
+import {graphExample} from "./sample-data";
 
 <Meta
     title="Introduction"
@@ -16,11 +18,33 @@ and as a separate open-source repository.
 At its core, Perseus is a specialized Markdown to React/HTML renderer with powerful educational features. It extends
 standard Markdown with two key capabilities:
 
-**1. Interactive Widgets,** Perseus can render custom React components called "widgets" that allow learners to interact with content and provide answers in various formats.
+**1. Beautiful Math Rendering,** Perseus seamlessly integrates with [MathJax](https://www.mathjax.org/) to display mathematical expressions and equations with high fidelity.
 
-**2. Beautiful Math Rendering,** Perseus seamlessly integrates with [MathJax](https://www.mathjax.org/) to display mathematical expressions and equations with high fidelity.
+<div style={{display: "flex", justifyContent: "center"}}>
+    <Renderer content="$\sum_{n} \frac {1} {n^s} = \prod_{p} \frac {1} {1 - \frac{1} {p^s}}$" />
+</div>
+
+**2. Interactive Widgets,** Perseus can render custom React components called "widgets" that allow learners to interact with content and provide answers in various formats.
+
+<div style={{display: "flex", justifyContent: "center"}}>
+    <Renderer {...graphExample} />
+</div>
 
 These capabilities make Perseus ideal for creating interactive educational content that combines explanatory text, rich media, and assessment tools.
+
+## Getting Started
+
+If you're looking for help integrating Perseus into your application? See the
+[Getting Started guide](?path=/docs/getting-started--docs) for a step-by-step
+walkthrough covering installation, dependencies, and rendering your first
+exercise.
+
+The best way to understand Perseus is to explore the components in this
+Storybook. You can:
+
+-   Browse the Widget Gallery to see the available widgets
+-   Read the renderer documentation
+-   Browse the available reusable components
 
 ## How Perseus Works
 
@@ -82,7 +106,7 @@ A high-level overview:
 
 ### A More Detailed Look at Data Flow at Khan Academy
 
-Perseus defines around 30 types of "widgets" for content that can't be represented by vanilla Markdown. Widgets are used e.g. for the interactive parts of exercises. Widgets get embedded into Markdown documents via a "snowman placeholder" like [[☃ radio 1]].
+Perseus defines around 30 types of "widgets" for content that can't be represented by vanilla Markdown. Widgets are used e.g. for the interactive parts of exercises. Widgets get embedded into Markdown documents via a "snowman placeholder" like `[[☃ radio 1]]`.
 
 As much as possible, we decouple widget logic from shared logic:
 
@@ -202,10 +226,26 @@ The Perseus content editing flow follows these steps:
 
 This editing flow ensures that content creators can interact with widgets and preview content as it will appear to learners.
 
-## Getting Started
+## Project History
 
-The best way to understand Perseus is to explore the components in this Storybook. You can:
+The Perseus project officially started on January 25, 2013 with the [first
+commit](https://github.com/Khan/perseus/commit/651b5e946e4cd5a3e4cac89ed6c75da0a3b4e3b6)
+from @sophiebits. It was also one of the first projects outside of Facebook to
+use React.
 
--   Browse the Widget Gallery to see the available widgets
--   Read the renderer documentation
--   Browse the available reusable components
+Over time, the Perseus source code has moved around. Originally it was hosted
+in [this repository](https://github.com/Khan/perseus). At one point, a decision
+was made to [move Perseus](https://github.com/Khan/perseus/commit/1f2d7a62ae46925ff2332a5525ca8c6c9c7c5c34)
+into Khan Academy's main monorepo (tagged as `old-master` for posterity).
+
+As Khan Academy's frontend and mobile apps evolved, Perseus became difficult to
+maintain within the monorepo and so this decision was re-evaluated. Perseus
+began moving back into this repository on [April 20,
+2020](https://github.com/Khan/perseus/commit/cb841024029e99726ba1a5a60f00c555a9aa420b).
+
+Perseus has older roots, though. Originally, Khan Academy was fully open source
+and all exercises were bespoke JS creations. The predecessor project,
+[khan-exercises](https://github.com/Khan/khan-exercises), had its first commit
+on May 9, 2011 — authored by John Resig (yes, that [John
+Resig](https://jquery.com)!), who designed and built it before joining Khan
+Academy. The team loved it, and John was soon hired!

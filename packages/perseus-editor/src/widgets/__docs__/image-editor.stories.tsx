@@ -116,13 +116,7 @@ export const GraphieImageWithScaleFlag: Story = {
     name: "Graphie Image with Scale Flag (Within Editor Page)",
     decorators: [withinEditorPageDecorator],
     args: {
-        backgroundImage: {
-            url: graphieImage.url,
-            // Use smaller size so we can test the
-            // "Recalculate original size" button.
-            width: graphieImage.width / 2,
-            height: graphieImage.height / 2,
-        },
+        backgroundImage: graphieImage,
     },
     parameters: {
         apiOptions: {
@@ -131,6 +125,17 @@ export const GraphieImageWithScaleFlag: Story = {
                 "image-widget-upgrade-scale": true,
             }),
         },
+    },
+};
+
+/**
+ * This Image widget editor has a zero-sized image.
+ */
+export const ImageWithEmptySize: Story = {
+    name: "Image With Empty Size (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
     },
 };
 

@@ -1,7 +1,9 @@
 import {angles, vector as kvector} from "@khanacademy/kmath";
 import {
+    getAbsoluteValueCoords,
     getAngleCoords,
     getCircleCoords,
+    getExponentialCoords,
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
@@ -9,6 +11,7 @@ import {
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
+    getTangentCoords,
 } from "@khanacademy/perseus";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
@@ -30,6 +33,12 @@ export function getDefaultGraphStartCoords(
     step: [x: number, y: number],
 ): StartCoords {
     switch (graph.type) {
+        case "absolute-value":
+            return getAbsoluteValueCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
         case "linear":
         case "ray":
             return getLineCoords(
@@ -64,6 +73,20 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "exponential": {
+            const {coords, asymptote} = getExponentialCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+            return {coords, asymptote};
+        }
+        case "tangent":
+            return getTangentCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
         case "quadratic":
             return getQuadraticCoords(
                 {...graph, startCoords: undefined},
@@ -93,6 +116,11 @@ export function getDefaultGraphStartCoords(
     }
 }
 
+// TODO(LEMS-3956): Both getSinusoidEquation and getTangentEquation have two
+// formatting quirks: (1) hardcoded "x - " and ") + " produce ugly strings
+// like "x - -0.785" and "+ -1.000" when phase/offset are negative, and
+// (2) no division-by-zero guard when both points share the same x-coordinate.
+// These should be cleaned up together for consistency.
 export const getSinusoidEquation = (startCoords: [Coord, Coord]) => {
     // Get coefficients
     // It's assumed that p1 is the root and p2 is the first peak
@@ -109,6 +137,30 @@ export const getSinusoidEquation = (startCoords: [Coord, Coord]) => {
         "y = " +
         amplitude.toFixed(3) +
         "sin(" +
+        angularFrequency.toFixed(3) +
+        "x - " +
+        phase.toFixed(3) +
+        ") + " +
+        verticalOffset.toFixed(3)
+    );
+};
+
+export const getTangentEquation = (startCoords: [Coord, Coord]) => {
+    // Get coefficients
+    // It's assumed that p1 is the inflection point and p2 is a quarter-period away
+    const p1 = startCoords[0];
+    const p2 = startCoords[1];
+
+    // Resulting coefficients are canonical for this tangent curve
+    const amplitude = p2[1] - p1[1];
+    const angularFrequency = Math.PI / (4 * (p2[0] - p1[0]));
+    const phase = p1[0] * angularFrequency;
+    const verticalOffset = p1[1];
+
+    return (
+        "y = " +
+        amplitude.toFixed(3) +
+        "tan(" +
         angularFrequency.toFixed(3) +
         "x - " +
         phase.toFixed(3) +
@@ -186,12 +238,15 @@ export const shouldShowStartCoordsUI = (
             return false;
         case "angle":
         case "circle":
+        case "exponential":
         case "linear":
         case "linear-system":
+        case "tangent":
         case "quadratic":
         case "ray":
         case "segment":
         case "sinusoid":
+        case "absolute-value":
             return true;
         default:
             throw new UnreachableCaseError(graph);

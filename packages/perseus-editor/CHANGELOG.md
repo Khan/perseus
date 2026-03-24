@@ -1,5 +1,76 @@
 # @khanacademy/perseus-editor
 
+## 30.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`5eed3f0ed7`](https://github.com/Khan/perseus/commit/5eed3f0ed76502c9a862f7aee12e798d852ee86d)]:
+    -   @khanacademy/perseus@76.1.1
+
+## 30.0.0
+
+### Major Changes
+
+-   [#3332](https://github.com/Khan/perseus/pull/3332) [`604b3a6c25`](https://github.com/Khan/perseus/commit/604b3a6c257349cdb8ecfe1f2ab1663464b5eba7) Thanks [@benchristel](https://github.com/benchristel)! - The `options` parameter of the `serialize` method of `EditorPage` and `Editor` has been removed.
+
+*   [#3386](https://github.com/Khan/perseus/pull/3386) [`7e76fbbc2f`](https://github.com/Khan/perseus/commit/7e76fbbc2fe3aeeede6ccce90cfff8fc5ca90782) Thanks [@benchristel](https://github.com/benchristel)! - The `serialize` methods of classes in `@khanacademy/perseus-editor` no longer use arrow function syntax. Callers should not unbind them from the class instance.
+
+    Additionally, the `Editor` component no longer accepts a `replace` prop (used for hints), and its serialize method no longer returns `replace`. The `replace` prop was only used in `serialize`. Users of the `Editor` component should manage hints' `replace` setting themselves.
+
+### Minor Changes
+
+-   [#3395](https://github.com/Khan/perseus/pull/3395) [`97223334ea`](https://github.com/Khan/perseus/commit/97223334ea25199bb0f7ed21ed66ed6b710c550c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of Editor support for Exponential Graph
+
+*   [#3352](https://github.com/Khan/perseus/pull/3352) [`b681e00a4f`](https://github.com/Khan/perseus/commit/b681e00a4fddf9455ceb0ad0f1f0a1a0705193b6) Thanks [@handeyeco](https://github.com/handeyeco)! - Add editor support for AbsoluteValue
+
+-   [#3348](https://github.com/Khan/perseus/pull/3348) [`b1557c2a73`](https://github.com/Khan/perseus/commit/b1557c2a73f7e8d1910d01ba9c6b9a4dd5b04b0b) Thanks [@handeyeco](https://github.com/handeyeco)! - Add schema for AbsoluteValue graph
+
+*   [#3345](https://github.com/Khan/perseus/pull/3345) [`dde985f3b5`](https://github.com/Khan/perseus/commit/dde985f3b56e3b8647f56006e0fe9624e8a5b7d0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add tangent type definitions, this is the initial implementation for supporting Tangent graph in Interactive Graph
+
+-   [#3358](https://github.com/Khan/perseus/pull/3358) [`8c503171b1`](https://github.com/Khan/perseus/commit/8c503171b17f4654d08858450ec571d560eb6890) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add tangent graph option in the Interactive Graph Editor
+
+*   [#3376](https://github.com/Khan/perseus/pull/3376) [`8aa0a77886`](https://github.com/Khan/perseus/commit/8aa0a7788611d2b55f10d5eb868735805dd07603) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Types, Schema, and Kmath utilities for Exponential Graph
+
+### Patch Changes
+
+-   [#3396](https://github.com/Khan/perseus/pull/3396) [`35fa9133db`](https://github.com/Khan/perseus/commit/35fa9133db344d2f291b483e82744171218c570b) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add a linter warning for images with no size
+
+*   [#3390](https://github.com/Khan/perseus/pull/3390) [`d22c50dc2a`](https://github.com/Khan/perseus/commit/d22c50dc2ad3f9c30318337813612bf71a7bdf3a) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Make the 125 character alt text warning less aggressive
+
+-   [#3372](https://github.com/Khan/perseus/pull/3372) [`3cdb09813d`](https://github.com/Khan/perseus/commit/3cdb09813d71925d2978530d12f6b21356367c2c) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Upscale Graphies within Explore Image Modal
+
+*   [#3391](https://github.com/Khan/perseus/pull/3391) [`2f285ee161`](https://github.com/Khan/perseus/commit/2f285ee161860858ca63612d3cc252c4370a2380) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add character counter to alt text field
+
+-   [#3374](https://github.com/Khan/perseus/pull/3374) [`cd73c99ba3`](https://github.com/Khan/perseus/commit/cd73c99ba30a58177bee75b44822478f5975d372) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove incorrect usage of the feature flag setting in one of the test
+
+-   Updated dependencies [[`f18c0d9b6f`](https://github.com/Khan/perseus/commit/f18c0d9b6fabaca207aebbee8e82053aa0251ad4), [`a022e751d6`](https://github.com/Khan/perseus/commit/a022e751d6051e436560bb15a4a4706df5b9feb0), [`35fa9133db`](https://github.com/Khan/perseus/commit/35fa9133db344d2f291b483e82744171218c570b), [`54db3fd4bd`](https://github.com/Khan/perseus/commit/54db3fd4bd1d43b3d06a7ab82c0cae8a075255fe), [`97223334ea`](https://github.com/Khan/perseus/commit/97223334ea25199bb0f7ed21ed66ed6b710c550c), [`027a5edbda`](https://github.com/Khan/perseus/commit/027a5edbda027ae729afcb3051e0d290c36b9272), [`ae0538d0a7`](https://github.com/Khan/perseus/commit/ae0538d0a7c20f854d7084e72cf95f0bf37ca438), [`005e13d784`](https://github.com/Khan/perseus/commit/005e13d784ff62573f7128febbbc38bcb39608e5), [`3cdb09813d`](https://github.com/Khan/perseus/commit/3cdb09813d71925d2978530d12f6b21356367c2c), [`afcff9f96f`](https://github.com/Khan/perseus/commit/afcff9f96faf1b5f02a6915bbb83965874809838), [`75f184e5a7`](https://github.com/Khan/perseus/commit/75f184e5a7780a085ec527e123603d52c2de2040), [`4b2a7c85db`](https://github.com/Khan/perseus/commit/4b2a7c85db5336a7c3f817c5ee6086b559ea135e), [`5e1acd01f8`](https://github.com/Khan/perseus/commit/5e1acd01f8367874a0d73d91d615651612027e39), [`b681e00a4f`](https://github.com/Khan/perseus/commit/b681e00a4fddf9455ceb0ad0f1f0a1a0705193b6), [`d99f1c0259`](https://github.com/Khan/perseus/commit/d99f1c0259ef916ea3187a3f8ef0c73d017eaed3), [`54eee35d65`](https://github.com/Khan/perseus/commit/54eee35d65a995195a8d1c914606a3188df925d3), [`b1557c2a73`](https://github.com/Khan/perseus/commit/b1557c2a73f7e8d1910d01ba9c6b9a4dd5b04b0b), [`dde985f3b5`](https://github.com/Khan/perseus/commit/dde985f3b56e3b8647f56006e0fe9624e8a5b7d0), [`56e7dbe9a2`](https://github.com/Khan/perseus/commit/56e7dbe9a2252be7e2e9cb9f5f9346fe0e2bde57), [`85f9cd46fc`](https://github.com/Khan/perseus/commit/85f9cd46fc0866f91b1bb095fea5d3c48d1ba52d), [`8c503171b1`](https://github.com/Khan/perseus/commit/8c503171b17f4654d08858450ec571d560eb6890), [`3aca3dcdf4`](https://github.com/Khan/perseus/commit/3aca3dcdf49ca5af8d69a14b8043ffe5bbc2ff6d), [`9f29bc7161`](https://github.com/Khan/perseus/commit/9f29bc716122cf9bf603a17915f01a8159226143), [`7034844845`](https://github.com/Khan/perseus/commit/703484484599609d88965030b22494d77387b712), [`8aa0a77886`](https://github.com/Khan/perseus/commit/8aa0a7788611d2b55f10d5eb868735805dd07603), [`003aca7612`](https://github.com/Khan/perseus/commit/003aca7612aa305b0d4e7b085d8f22729a214896)]:
+    -   @khanacademy/perseus-linter@4.9.0
+    -   @khanacademy/perseus-score@8.4.0
+    -   @khanacademy/perseus-core@23.7.0
+    -   @khanacademy/perseus@76.1.0
+    -   @khanacademy/kmath@2.3.0
+    -   @khanacademy/keypad-context@3.2.40
+    -   @khanacademy/math-input@26.4.10
+
+## 29.0.3
+
+### Patch Changes
+
+-   [#3301](https://github.com/Khan/perseus/pull/3301) [`5ad8750cdf`](https://github.com/Khan/perseus/commit/5ad8750cdf591fd8cd7157019e7a1d3566071722) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix Graphie label scaling for scaled images
+
+*   [#3339](https://github.com/Khan/perseus/pull/3339) [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229) Thanks [@Myranae](https://github.com/Myranae)! - Upgrade pnpm from 10.22.0 to 10.32.1.
+
+*   Updated dependencies [[`5ad8750cdf`](https://github.com/Khan/perseus/commit/5ad8750cdf591fd8cd7157019e7a1d3566071722), [`55267b7fc8`](https://github.com/Khan/perseus/commit/55267b7fc816cc48695931f1994852198e6c8229)]:
+    -   @khanacademy/perseus@76.0.3
+    -   @khanacademy/kas@2.2.1
+    -   @khanacademy/keypad-context@3.2.39
+    -   @khanacademy/kmath@2.2.39
+    -   @khanacademy/math-input@26.4.9
+    -   @khanacademy/perseus-core@23.6.1
+    -   @khanacademy/perseus-linter@4.8.7
+    -   @khanacademy/perseus-score@8.3.1
+    -   @khanacademy/perseus-utils@2.1.5
+
 ## 29.0.2
 
 ### Patch Changes

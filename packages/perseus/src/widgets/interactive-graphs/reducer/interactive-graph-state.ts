@@ -92,6 +92,21 @@ export function getGradableGraph(
         };
     }
 
+    if (state.type === "exponential" && initialGraph.type === "exponential") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+            asymptote: state.asymptote,
+        };
+    }
+
+    if (state.type === "tangent" && initialGraph.type === "tangent") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
+    }
+
     if (state.type === "angle" && initialGraph.type === "angle") {
         return {
             ...initialGraph,
@@ -102,6 +117,16 @@ export function getGradableGraph(
 
     if (state.type === "none" && initialGraph.type === "none") {
         return {type: "none"};
+    }
+
+    if (
+        state.type === "absolute-value" &&
+        initialGraph.type === "absolute-value"
+    ) {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
     }
 
     throw new Error(

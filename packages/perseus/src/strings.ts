@@ -492,6 +492,80 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    srExponentialGraph: string;
+    srExponentialPoint1: ({x, y}: {x: string; y: string}) => string;
+    srExponentialPoint2: ({x, y}: {x: string; y: string}) => string;
+    srExponentialDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteY: string;
+    }) => string;
+    srExponentialInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteY: string;
+    }) => string;
+    srExponentialAsymptote: ({asymptoteY}: {asymptoteY: string}) => string;
+    srAbsoluteValueGraph: string;
+    srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
+    srAbsoluteValueSecondPoint: ({x, y}: {x: string; y: string}) => string;
+    srAbsoluteValueDescription: ({
+        x,
+        y,
+        slope,
+    }: {
+        x: string;
+        y: string;
+        slope: string;
+    }) => string;
+    srAbsoluteValueInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srTangentGraph: string;
+    srTangentInflectionPoint: ({x, y}: {x: string; y: string}) => string;
+    srTangentSecondPoint: ({x, y}: {x: string; y: string}) => string;
+    srTangentDescription: ({
+        inflectionX,
+        inflectionY,
+    }: {
+        inflectionX: string;
+        inflectionY: string;
+    }) => string;
+    srTangentInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     imageExploreButton: string;
     imageAlternativeTitle: string;
     imageDescriptionLabel: string;
@@ -1095,6 +1169,93 @@ export const strings = {
         message:
             "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
     },
+    srExponentialGraph: {
+        context:
+            "Aria label for the container containing an Exponential function in the interactive graph widget.",
+        message: "An exponential curve on a coordinate plane.",
+    },
+    srExponentialPoint1: {
+        context:
+            "Aria label for the first Point on the Exponential function in the interactive graph widget.",
+        message: "Point 1 at %(x)s comma %(y)s.",
+    },
+    srExponentialPoint2: {
+        context:
+            "Aria label for the second Point on the Exponential function in the interactive graph widget.",
+        message: "Point 2 at %(x)s comma %(y)s.",
+    },
+    srExponentialDescription: {
+        context:
+            "Screen reader description of the Exponential function in the interactive graph widget.",
+        message:
+            "The graph shows an exponential curve passing through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s with a horizontal asymptote at y equals %(asymptoteY)s.",
+    },
+    srExponentialInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Exponential function in the interactive graph widget.",
+        message:
+            "Exponential graph with point 1 at %(point1X)s comma %(point1Y)s, point 2 at %(point2X)s comma %(point2Y)s, and horizontal asymptote at y equals %(asymptoteY)s.",
+    },
+    srExponentialAsymptote: {
+        context:
+            "Aria label for the draggable horizontal asymptote line in the Exponential function in the interactive graph widget.",
+        message:
+            "Horizontal asymptote at y equals %(asymptoteY)s. Use up and down arrow keys to move.",
+    },
+    srAbsoluteValueGraph: {
+        context:
+            "Aria label for the container containing an Absolute Value function in the interactive graph widget.",
+        message: "An absolute value function on a coordinate plane.",
+    },
+    srAbsoluteValueVertexPoint: {
+        context:
+            "Aria label for the Point defining the vertex of the Absolute Value function in the interactive graph widget.",
+        message: "Vertex point at %(x)s comma %(y)s.",
+    },
+    srAbsoluteValueSecondPoint: {
+        context:
+            "Aria label for the second Point defining the slope of the Absolute Value function in the interactive graph widget.",
+        message: "Point on arm at %(x)s comma %(y)s.",
+    },
+    srAbsoluteValueDescription: {
+        context:
+            "Screen reader description of the Absolute Value function in the interactive graph widget.",
+        message:
+            "The graph shows an absolute value function with vertex at %(x)s comma %(y)s and slope %(slope)s.",
+    },
+    srAbsoluteValueInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Absolute Value function in the interactive graph widget.",
+        message:
+            "Absolute value graph with vertex point at %(point1X)s comma %(point1Y)s and arm point at %(point2X)s comma %(point2Y)s.",
+    },
+    srTangentGraph: {
+        context:
+            "Aria label for the container containing a Tangent function in the interactive graph widget.",
+        message: "A tangent function on a coordinate plane.",
+    },
+    srTangentInflectionPoint: {
+        context:
+            "Aria label for the Point defining the inflection point of the Tangent function in the interactive graph widget.",
+        message: "Inflection point at %(x)s comma %(y)s.",
+    },
+    srTangentSecondPoint: {
+        context:
+            "Aria label for the second control point of the Tangent function in the interactive graph widget.",
+        message: "Control point at %(x)s comma %(y)s.",
+    },
+    srTangentDescription: {
+        context:
+            "Screen reader description of the Tangent function in the interactive graph widget.",
+        message:
+            "The graph shows a tangent function with an inflection point at %(inflectionX)s comma %(inflectionY)s.",
+    },
+    srTangentInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Tangent function in the interactive graph widget.",
+        message:
+            "Tangent graph with inflection point at %(point1X)s comma %(point1Y)s and control point at %(point2X)s comma %(point2Y)s.",
+    },
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
@@ -1430,6 +1591,47 @@ export const mockStrings: PerseusStrings = {
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
+    srExponentialGraph: "An exponential curve on a coordinate plane.",
+    srExponentialPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
+    srExponentialPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
+    srExponentialDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }) =>
+        `The graph shows an exponential curve passing through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y} with a horizontal asymptote at y equals ${asymptoteY}.`,
+    srExponentialInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }) =>
+        `Exponential graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and horizontal asymptote at y equals ${asymptoteY}.`,
+    srExponentialAsymptote: ({asymptoteY}) =>
+        `Horizontal asymptote at y equals ${asymptoteY}. Use up and down arrow keys to move.`,
+    srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
+    srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
+    srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
+    srAbsoluteValueDescription: ({x, y, slope}) =>
+        `The graph shows an absolute value function with vertex at ${x} comma ${y} and slope ${slope}.`,
+    srAbsoluteValueInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }) =>
+        `Absolute value graph with vertex point at ${point1X} comma ${point1Y} and arm point at ${point2X} comma ${point2Y}.`,
+    srTangentGraph: "A tangent function on a coordinate plane.",
+    srTangentInflectionPoint: ({x, y}) =>
+        `Inflection point at ${x} comma ${y}.`,
+    srTangentSecondPoint: ({x, y}) => `Control point at ${x} comma ${y}.`,
+    srTangentDescription: ({inflectionX, inflectionY}) =>
+        `The graph shows a tangent function with an inflection point at ${inflectionX} comma ${inflectionY}.`,
+    srTangentInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
+        `Tangent graph with inflection point at ${point1X} comma ${point1Y} and control point at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
