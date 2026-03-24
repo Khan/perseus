@@ -95,11 +95,14 @@ export type MakeWidgetMap<TRegistry> = {
  * Our core set of Perseus widgets.
  *
  * This interface is the basis for "registering" all Perseus widget types.
+ *
  * There should be one key/value pair for each supported widget. If you create
  * a new widget, an entry should be added to this interface. Note that this
  * only registers the widget options type, you'll also need to register the
- * widget so that it's available at runtime (@see @khanacademy/perseus'
- * `registerWidget()` function).
+ * widget so that it's available at runtime using `registerWidget` in this
+ * library  (as well as equivalent `registerWidget` functions in
+ * `@khanacademy/perseus` (for UI support) and `@khanacademy/perseus-score`
+ * (for scoring support)).
  *
  * Importantly, the key should be the name that is used in widget IDs. For most
  * widgets that is the same as the widget option's `type` field. In cases where
