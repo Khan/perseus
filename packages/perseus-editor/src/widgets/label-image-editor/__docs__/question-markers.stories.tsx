@@ -4,8 +4,9 @@ import * as React from "react";
 import QuestionMarkers from "../question-markers";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type QuestionMarkersProps = React.ComponentProps<typeof QuestionMarkers>;
+type QuestionMarkersProps = PropsFor<typeof QuestionMarkers>;
 type StoryArgs = Record<string, QuestionMarkersProps>;
 
 type Story = {
