@@ -632,6 +632,11 @@ class SvgImage extends React.Component<Props, State> {
                         {extraGraphie}
                         {isGifControlled && !this.props.isGifPlaying && (
                             <canvas
+                                // Hiding the canvas as it's redundant for screen readers.
+                                aria-hidden={true}
+                                // Removing the canvas from the tab order as it's non
+                                // interactive and purely decorative.
+                                tabIndex={-1}
                                 ref={this.setCanvasRef}
                                 data-testid="gif-pause-canvas"
                             />
