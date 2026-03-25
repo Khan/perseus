@@ -131,8 +131,7 @@ export type Props = {
     /**
      * When provided, enables GIF start/stop support. A canvas overlay
      * captures and displays the first static frame while the GIF is
-     * stopped, keeping the underlying <img> in the DOM so animation
-     * resumes mid-stream when play is clicked.
+     * stopped, keeping the underlying <img> in the DOM.
      *
      * - `undefined`: no GIF controls (default, no extra DOM)
      * - `true`: GIF is playing
