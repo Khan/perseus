@@ -170,6 +170,96 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
 </div>
 `;
 
+exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="1"
+  style="max-width: 400px; max-height: 225px;"
+>
+  <img
+    alt="earth moon alt"
+    class="image-loader-img"
+    src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="2"
+  style="max-width: 200px; max-height: 200px;"
+>
+  <img
+    alt="graphie alt"
+    class="image-loader-img"
+    src="https://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138.svg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="2"
+  style="max-width: 800px; max-height: 450px;"
+>
+  <img
+    alt="earth moon alt"
+    class="image-loader-img"
+    src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="2.5"
+  style="max-width: 250px; max-height: 250px;"
+>
+  <img
+    alt="graphie alt"
+    class="image-loader-img"
+    src="https://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138.svg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="1"
+  style="max-width: 400px; max-height: 225px;"
+>
+  <img
+    alt="earth moon alt"
+    class="image-loader-img"
+    src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="2"
+  style="max-width: 200px; max-height: 200px;"
+>
+  <img
+    alt="graphie alt"
+    class="image-loader-img"
+    src="https://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138.svg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
 exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
 <div>
   <div
@@ -522,6 +612,96 @@ exports[`image widget - isMobile(true) custom alignment should render image with
       </div>
     </div>
   </div>
+</div>
+`;
+
+exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="1"
+  style="max-width: 400px; max-height: 225px;"
+>
+  <img
+    alt="earth moon alt"
+    class="image-loader-img"
+    src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="2"
+  style="max-width: 200px; max-height: 200px;"
+>
+  <img
+    alt="graphie alt"
+    class="image-loader-img"
+    src="https://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138.svg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="2"
+  style="max-width: 800px; max-height: 450px;"
+>
+  <img
+    alt="earth moon alt"
+    class="image-loader-img"
+    src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="2.5"
+  style="max-width: 250px; max-height: 250px;"
+>
+  <img
+    alt="graphie alt"
+    class="image-loader-img"
+    src="https://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138.svg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="1"
+  style="max-width: 400px; max-height: 225px;"
+>
+  <img
+    alt="earth moon alt"
+    class="image-loader-img"
+    src="https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg"
+    style="display: block; width: 100%;"
+  />
+</div>
+`;
+
+exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
+<div
+  class="fixed-to-responsive svg-image"
+  data-scale="2"
+  style="max-width: 200px; max-height: 200px;"
+>
+  <img
+    alt="graphie alt"
+    class="image-loader-img"
+    src="https://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138.svg"
+    style="display: block; width: 100%;"
+  />
 </div>
 `;
 

@@ -512,6 +512,30 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(button).not.toBeInTheDocument();
         });
 
+        it("does not render a zoom image button for images without sizes", () => {
+            // Arrange
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: {
+                                url: earthMoonImage.url,
+                            },
+                            decorative: true,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Assert
+            const button = screen.queryByRole("button");
+            expect(button).not.toBeInTheDocument();
+        });
+
         it("opens a modal when the zoom image button is clicked", async () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
@@ -1194,36 +1218,6 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(pauseButton).not.toBeInTheDocument();
         });
 
-        it("should scale image when the scale flag is enabled", () => {
-            // Arrange
-            const imageQuestion = generateTestPerseusRenderer({
-                content: "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            backgroundImage: earthMoonImage,
-                            scale: 2,
-                        }),
-                    }),
-                },
-            });
-
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({
-                    "image-widget-upgrade-scale": true,
-                }),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-
-            // Assert
-            const image = screen.getByRole("figure");
-            expect(image).toHaveStyle(
-                `max-width: ${earthMoonImage.width * 2}px`,
-            );
-        });
-
         it("should not scale image when the scale flag is disabled", () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
@@ -1250,6 +1244,143 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Assert
             const image = screen.getByRole("figure");
             expect(image).toHaveStyle(`max-width: ${earthMoonImage.width}px`);
+        });
+
+        describe("when scale flag is enabled", () => {
+            const apiOptionsWithFeatureFlag = {
+                ...apiOptions,
+                flags: getFeatureFlags({
+                    "image-widget-upgrade-scale": true,
+                }),
+            };
+
+            it("should scale image when the scale flag is enabled", () => {
+                // Arrange
+                const imageQuestion = generateTestPerseusRenderer({
+                    content: "[[☃ image 1]]",
+                    widgets: {
+                        "image 1": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: earthMoonImage,
+                                scale: 2,
+                            }),
+                        }),
+                    },
+                });
+
+                renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+
+                // Assert
+                const image = screen.getByRole("figure");
+                expect(image).toHaveStyle(
+                    `max-width: ${earthMoonImage.width * 2}px`,
+                );
+            });
+
+            it.each`
+                caseExpectation         | case                | scale  | expectedScale
+                ${"scale up to 1"}      | ${"less than 1"}    | ${0.5} | ${1}
+                ${"keep scale at 1"}    | ${"equal to 1"}     | ${1}   | ${1}
+                ${"keep scale above 1"} | ${"greater than 1"} | ${2}   | ${2}
+            `(
+                "zoom view should $case when image scale is $caseExpectation (scale: $scale)",
+                async ({
+                    scale,
+                    expectedScale,
+                }: {
+                    scale: number;
+                    expectedScale: number;
+                }) => {
+                    // Arrange
+                    const imageQuestion = generateTestPerseusRenderer({
+                        content: "[[☃ image 1]]",
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "earth moon alt",
+                                    scale,
+                                }),
+                            }),
+                        },
+                    });
+
+                    // Act
+                    renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+                    const zoomButton = screen.getByRole("button", {
+                        name: "Zoom image.",
+                    });
+                    await userEvent.click(zoomButton);
+
+                    // Assert
+                    // Need container query to get the image inside the zoom view,
+                    // separate from the original image in the content area.
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    const image = document.querySelector(
+                        "[role='dialog'] .fixed-to-responsive.svg-image",
+                    );
+                    expect(image).toHaveStyle(
+                        `max-width: ${earthMoonImage.width * expectedScale}px`,
+                    );
+                    expect(image).toMatchSnapshot();
+                },
+            );
+
+            it.each`
+                caseExpectation         | case                | scale  | expectedScale
+                ${"scale up to 2"}      | ${"less than 2"}    | ${0.5} | ${2}
+                ${"keep scale at 2"}    | ${"equal to 2"}     | ${2}   | ${2}
+                ${"keep scale above 2"} | ${"greater than 2"} | ${2.5} | ${2.5}
+            `(
+                "zoom view should $case when SVG scale is $caseExpectation (scale: $scale)",
+                async ({
+                    scale,
+                    expectedScale,
+                }: {
+                    scale: number;
+                    expectedScale: number;
+                }) => {
+                    // Arrange
+                    const SMALLER_DIMENSION = 100;
+                    const imageQuestion = generateTestPerseusRenderer({
+                        content: "[[☃ image 1]]",
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: {
+                                        url: graphieImage.url,
+                                        // Using smaller dimensions to avoid
+                                        // reaching the viewport limit on mobile.
+                                        width: SMALLER_DIMENSION,
+                                        height: SMALLER_DIMENSION,
+                                    },
+                                    alt: "graphie alt",
+                                    scale,
+                                }),
+                            }),
+                        },
+                    });
+
+                    // Act
+                    renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
+                    const zoomButton = screen.getByRole("button", {
+                        name: "Zoom image.",
+                    });
+                    await userEvent.click(zoomButton);
+
+                    // Assert
+                    // Need container query to get the image inside the zoom view,
+                    // separate from the original image in the content area.
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    const image = document.querySelector(
+                        "[role='dialog'] .fixed-to-responsive.svg-image",
+                    );
+                    expect(image).toHaveStyle(
+                        `max-width: ${SMALLER_DIMENSION * expectedScale}px`,
+                    );
+                    expect(image).toMatchSnapshot();
+                },
+            );
         });
     });
 });
