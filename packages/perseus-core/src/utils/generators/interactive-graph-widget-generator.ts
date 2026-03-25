@@ -57,7 +57,7 @@ export function generateInteractiveGraphOptions(
 }
 
 export function generateIGAngleGraph(
-    options?: Partial<PerseusGraphTypeAngle>,
+    options?: Partial<Omit<PerseusGraphTypeAngle, "type">>,
 ): PerseusGraphTypeAngle {
     return {
         type: "angle",
@@ -66,7 +66,7 @@ export function generateIGAngleGraph(
 }
 
 export function generateIGCircleGraph(
-    options?: Partial<PerseusGraphTypeCircle>,
+    options?: Partial<Omit<PerseusGraphTypeCircle, "type">>,
 ): PerseusGraphTypeCircle {
     return {
         type: "circle",
@@ -75,7 +75,7 @@ export function generateIGCircleGraph(
 }
 
 export function generateIGLinearGraph(
-    options?: Partial<PerseusGraphTypeLinear>,
+    options?: Partial<Omit<PerseusGraphTypeLinear, "type">>,
 ): PerseusGraphTypeLinear {
     return {
         type: "linear",
@@ -84,7 +84,7 @@ export function generateIGLinearGraph(
 }
 
 export function generateIGLinearSystemGraph(
-    options?: Partial<PerseusGraphTypeLinearSystem>,
+    options?: Partial<Omit<PerseusGraphTypeLinearSystem, "type">>,
 ): PerseusGraphTypeLinearSystem {
     return {
         type: "linear-system",
