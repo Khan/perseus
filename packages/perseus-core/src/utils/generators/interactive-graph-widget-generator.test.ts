@@ -1430,9 +1430,9 @@ describe("generateInteractiveGraphQuestion", () => {
         // Assert
         expect(question.content).toBe("[[☃ interactive-graph 1]]");
         expect(question.widgets["interactive-graph 1"]).toBeDefined();
-        expect(
-            question.widgets["interactive-graph 1"].type,
-        ).toBe("interactive-graph");
+        expect(question.widgets["interactive-graph 1"].type).toBe(
+            "interactive-graph",
+        );
     });
 
     it("infers graph type from correct answer type", () => {
@@ -1466,9 +1466,7 @@ describe("generateInteractiveGraphQuestion", () => {
         });
 
         // Assert
-        expect(
-            question.widgets["interactive-graph 1"].static,
-        ).toBe(true);
+        expect(question.widgets["interactive-graph 1"].static).toBe(true);
     });
 
     it("uses custom content when provided", () => {
