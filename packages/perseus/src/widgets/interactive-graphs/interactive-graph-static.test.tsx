@@ -21,17 +21,60 @@ import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
-const questionGenerators: Record<string, (isStatic: boolean) => PerseusRenderer> = {
-    point: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGPointGraph({numPoints: 1})}),
-    segment: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGSegmentGraph({numSegments: 1})}),
-    linear: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGLinearGraph()}),
-    linearSystem: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGLinearSystemGraph()}),
-    ray: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGRayGraph()}),
-    circle: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGCircleGraph()}),
-    quadratic: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGQuadraticGraph()}),
-    sinusoid: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGSinusoidGraph()}),
-    polygon: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGPolygonGraph()}),
-    angle: (isStatic) => generateInteractiveGraphQuestion({isStatic, correct: generateIGAngleGraph()}),
+const questionGenerators: Record<
+    string,
+    (isStatic: boolean) => PerseusRenderer
+> = {
+    point: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGPointGraph({numPoints: 1}),
+        }),
+    segment: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGSegmentGraph({numSegments: 1}),
+        }),
+    linear: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGLinearGraph(),
+        }),
+    linearSystem: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGLinearSystemGraph(),
+        }),
+    ray: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGRayGraph(),
+        }),
+    circle: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGCircleGraph(),
+        }),
+    quadratic: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGQuadraticGraph(),
+        }),
+    sinusoid: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGSinusoidGraph(),
+        }),
+    polygon: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGPolygonGraph(),
+        }),
+    angle: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGAngleGraph(),
+        }),
 };
 
 describe.each`
@@ -123,11 +166,10 @@ describe.each`
 
     test("Ray graph", () => {
         // Arrange
-        const rayQuestion: PerseusRenderer =
-            generateInteractiveGraphQuestion({
-                isStatic: staticMode,
-                correct: generateIGRayGraph(),
-            });
+        const rayQuestion: PerseusRenderer = generateInteractiveGraphQuestion({
+            isStatic: staticMode,
+            correct: generateIGRayGraph(),
+        });
         renderQuestion(rayQuestion, blankOptions);
 
         // Act
@@ -220,11 +262,12 @@ describe.each`
 
     test("Point", () => {
         // Arrange
-        const pointQuestion: PerseusRenderer =
-            generateInteractiveGraphQuestion({
+        const pointQuestion: PerseusRenderer = generateInteractiveGraphQuestion(
+            {
                 isStatic: staticMode,
                 correct: generateIGPointGraph({numPoints: 1}),
-            });
+            },
+        );
         renderQuestion(pointQuestion, blankOptions);
 
         // Act
@@ -263,12 +306,13 @@ describe.each`
 
     test("Angle (angle arc)", () => {
         // Arrange
-        const angleQuestion: PerseusRenderer =
-            generateInteractiveGraphQuestion({
+        const angleQuestion: PerseusRenderer = generateInteractiveGraphQuestion(
+            {
                 isStatic: staticMode,
                 // Defaults to 53 degree angle
                 correct: generateIGAngleGraph(),
-            });
+            },
+        );
         renderQuestion(angleQuestion, blankOptions);
 
         // Act
@@ -297,8 +341,8 @@ describe.each`
 
     test("Angle (right angle)", () => {
         // Arrange
-        const angleQuestion: PerseusRenderer =
-            generateInteractiveGraphQuestion({
+        const angleQuestion: PerseusRenderer = generateInteractiveGraphQuestion(
+            {
                 isStatic: staticMode,
                 // Right angle
                 graph: generateIGAngleGraph({
@@ -315,7 +359,8 @@ describe.each`
                         [5, 0],
                     ],
                 }),
-            });
+            },
+        );
         renderQuestion(angleQuestion, blankOptions);
 
         // Act

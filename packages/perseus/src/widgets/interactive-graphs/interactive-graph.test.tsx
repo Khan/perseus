@@ -588,9 +588,6 @@ describe("Interactive Graph", function () {
                 generateInteractiveGraphQuestion({
                     lockedFigures: [
                         generateIGLockedPoint({
-
-                           ,
-
                             coord: [0, 0],
                             ariaLabel: "Point A",
                         }),
@@ -609,7 +606,9 @@ describe("Interactive Graph", function () {
             expect(point).toHaveAttribute("aria-label", "Point A");
         });
 
-        it("should render lockedget simpleLockedPointQuestion = generateInteractiveGraphQuestion({
+        it("should render locked points without aria label by default", () => {
+            // Arrange
+            const simpleLockedPointQuestion = generateInteractiveGraphQuestion({
                 lockedFigures: [generateIGLockedPoint({coord: [0, 0]})],
             });
             const {container} = renderQuestion(
@@ -679,13 +678,6 @@ describe("Interactive Graph", function () {
                         markings: "none",
                         correct: generateIGSegmentGraph(),
                         lockedFigures: [
-
-
-
-
-                                   ,
-                                ,
-
                             generateIGLockedLine({
                                 kind: "line",
                                 weight,
@@ -736,14 +728,7 @@ describe("Interactive Graph", function () {
             weight: StrokeWeight;
             expectedStrokeWidth: number;
         }[])(
-            "Line (kind: segment) should render wi
-                                th specific weig
-h                               t",
-
-
-                                   ,
-                                ,
-
+            "Line (kind: segment) should render with specific weight",
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
@@ -777,13 +762,6 @@ h                               t",
                 );
             },
         );
-
-
-
-
-
-                                   ,
-                                ,
 
         it.each([
             {weight: "thin", expectedStrokeWidth: 1},
@@ -848,13 +826,7 @@ h                               t",
                 stroke: lockedFigureColors.green,
             });
             expect(linePoints[1]).toHaveStyle({
-                fill: semanticColor.core.backg
-                            round.base.default,
-
-
-                               ,
-                            ,
-
+                fill: semanticColor.core.background.base.default,
                 stroke: lockedFigureColors.green,
             });
             expect(linePoints[2]).toHaveStyle({
@@ -874,12 +846,7 @@ h                               t",
         it("should render locked line with aria label when one is provided", () => {
             // Arrange
             const lockedLineWithAriaLabelQuestion =
-                generateInteractiveGraphQu
-                        estion({
-
-                           ,
-                        ,
-
+                generateInteractiveGraphQuestion({
                     lockedFigures: [
                         generateIGLockedLine({
                             ariaLabel: "Line A",
@@ -958,13 +925,7 @@ h                               t",
                 "translate(40 -40) rotate(-45)",
             );
 
-            // eslint-disable-next-line testing-libr
-                                ary/no-co
-                                    ntainer
-                                   , testi,
-                                ng
-                               -librar,
-                            y/no-node-access
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
             vector = vectors[1].children[0];
             expect(vector).toHaveStyle({
                 "stroke-width": "2",
@@ -1000,12 +961,6 @@ h                               t",
                             generateIGLockedVector({
                                 points: [
                                     [0, 0],
-
-
-                               ,
-
-                           ,
-
                                     [0, 1],
                                 ],
                                 weight,
@@ -1024,17 +979,10 @@ h                               t",
                     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
                     container.querySelectorAll(
                         `.interactive-graph-arrowhead path`,
+                    );
 
-                        );
-
-
-
-                               ,
-                            ,
-
-                    // Assert
-                 ,
-               expect(lines).toHaveLength(1);
+                // Assert
+                expect(lines).toHaveLength(1);
                 expect(arrowheads).toHaveLength(1);
                 expect(lines[0]).toHaveStyle({
                     "stroke-width": expectedStrokeWidth,
@@ -1117,10 +1065,6 @@ h                               t",
                 "fill-opacity": "0",
                 stroke: lockedFigureColors["grayH"],
             });
-
-
-                               ,
-
             expect(circles[1]).toHaveStyle({
                 "fill-opacity": "1",
                 stroke: lockedFigureColors["green"],
@@ -1145,10 +1089,6 @@ h                               t",
             const translucentCircle = circles[1];
 
             // Assert
-
-
-                           ,
-
             expect(whiteCircle).toHaveStyle({
                 "fill-opacity": 1,
                 fill: semanticColor.core.background.base.default,
@@ -1169,10 +1109,7 @@ h                               t",
             weight: StrokeWeight;
             expectedStrokeWidth: number;
         }[])(
-            "Locked ellipse should render with sp
-                            ecific weight",
-                           ,
-
+            "Locked ellipse should render with specific weight",
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
