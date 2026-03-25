@@ -63,7 +63,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         });
     });
 
-    // TODO(LEMS-3912): Remove this effect afte we turn on and remove the
+    // TODO(LEMS-3912): Remove this effect after we turn on and remove the
     // image-widget-upgrade-scale feature flag.
     React.useEffect(() => {
         // Reset the flag for this effect run
@@ -101,6 +101,12 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             ignoreResultsRef.current = true;
         };
     }, [backgroundImage.url, backgroundImage.width, backgroundImage.height]);
+
+    // If the backgroundImage.url changes (likely in the editor preview)
+    // we will stop any gif from playing.
+    React.useEffect(() => {
+        setIsGifPlaying(false);
+    }, [backgroundImage.url]);
 
     if (!backgroundImage.url) {
         return null;

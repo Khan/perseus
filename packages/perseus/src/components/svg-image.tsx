@@ -31,6 +31,10 @@ function isImageProbablyPhotograph(imageUrl) {
  */
 async function getGifLoopDuration(src: string): Promise<number> {
     const res = await fetch(src);
+    if (!res.ok) {
+        return 0;
+    }
+
     const buffer = await res.arrayBuffer();
     const bytes = new Uint8Array(buffer);
     let totalMs = 0;
@@ -281,7 +285,7 @@ class SvgImage extends React.Component<Props, State> {
             this.props.setAssetStatus(this.props.src, true);
         }
 
-        // When transitioning to paused, set the gif frame..
+        // When transitioning to paused, set the gif frame.
         if (!this.props.isGifPlaying && prevProps.isGifPlaying) {
             this.setGifFrame();
         }
@@ -332,25 +336,31 @@ class SvgImage extends React.Component<Props, State> {
 
     _loadGifLoopDuration: () => void = () => {
         const fetchedSrc = this.props.src;
-        getGifLoopDuration(this.props.src).then((duration) => {
-            if (!this._isMounted) {
-                return;
-            }
-            // If the src changed while we were fetching, don't update the
-            // loop duration or start the loop detection, since it would
-            // be for the wrong GIF.
-            if (this.props.src !== fetchedSrc) {
-                return;
-            }
-            this._gifLoopDurationMs = duration;
-            if (this.props.isGifPlaying) {
-                this._startGifLoopDetection();
-            }
-        });
+        getGifLoopDuration(this.props.src)
+            .then((duration) => {
+                if (!this._isMounted) {
+                    return;
+                }
+                // If the src changed while we were fetching, don't update the
+                // loop duration or start the loop detection, since it would
+                // be for the wrong GIF.
+                if (this.props.src !== fetchedSrc) {
+                    return;
+                }
+                this._gifLoopDurationMs = duration;
+                if (this.props.isGifPlaying) {
+                    this._startGifLoopDetection();
+                }
+            })
+            .catch(() => {});
     };
 
     _startGifLoopDetection: () => void = () => {
-        if (!this.props.onGifLoop || this._gifLoopDurationMs === null) {
+        if (
+            !this.props.onGifLoop ||
+            this._gifLoopDurationMs === null ||
+            this._gifLoopDurationMs <= 0
+        ) {
             return;
         }
         this._stopGifLoopDetection();
@@ -654,21 +664,6 @@ class SvgImage extends React.Component<Props, State> {
                     </>
                 );
 
-                // A ref-free copy of the image content for the
-                // zoom modal to avoid sharing refs with the main
-                // render tree.
-                const zoomImageContent = (
-                    <>
-                        <ImageLoader
-                            src={imageSrc}
-                            imgProps={imageProps}
-                            preloader={preloader}
-                            onUpdate={this.handleUpdate}
-                        />
-                        {extraGraphie}
-                    </>
-                );
-
                 return (
                     <FixedToResponsive
                         className="svg-image"
@@ -685,7 +680,6 @@ class SvgImage extends React.Component<Props, State> {
                         {this.props.allowZoom && (
                             <ZoomImageButton
                                 {...this.props}
-                                imgElement={zoomImageContent}
                                 imgSrc={imageSrc}
                             />
                         )}
