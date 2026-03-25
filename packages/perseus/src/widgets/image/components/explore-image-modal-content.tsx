@@ -114,9 +114,17 @@ export default function ExploreImageModalContent({
                             constrainHeight={apiOptions.isMobile}
                             allowFullBleed={apiOptions.isMobile}
                             setAssetStatus={setAssetStatus}
-                            isGifPaused={
+                            isGifPlaying={
                                 gifControlsFF && imageIsGif
-                                    ? !isGifPlaying
+                                    ? isGifPlaying
+                                    : undefined
+                            }
+                            onGifLoop={
+                                gifControlsFF && imageIsGif
+                                    ? () => {
+                                          // Pause the GIF at the end of each loop
+                                          setIsGifPlaying(false);
+                                      }
                                     : undefined
                             }
                         />

@@ -463,10 +463,12 @@ describe("SvgImage", () => {
             jest.spyOn(
                 HTMLCanvasElement.prototype,
                 "getContext",
-            ).mockReturnValue({drawImage: mockDrawImage} as any);
+            ).mockReturnValue({
+                drawImage: mockDrawImage,
+            } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D);
         });
 
-        it("renders a canvas overlay when isGifPaused is true", () => {
+        it("renders a canvas overlay when isGifPlaying is false", () => {
             // Arrange, Act
             render(
                 <SvgImage
@@ -475,7 +477,7 @@ describe("SvgImage", () => {
                     allowZoom={false}
                     width={500}
                     height={285}
-                    isGifPaused={true}
+                    isGifPlaying={false}
                 />,
             );
             act(() => {
@@ -486,7 +488,7 @@ describe("SvgImage", () => {
             expect(screen.getByTestId("gif-pause-canvas")).toBeInTheDocument();
         });
 
-        it("does not render a canvas overlay when isGifPaused is false", () => {
+        it("does not render a canvas overlay when isGifPlaying is true", () => {
             // Arrange, Act
             render(
                 <SvgImage
@@ -495,7 +497,7 @@ describe("SvgImage", () => {
                     allowZoom={false}
                     width={500}
                     height={285}
-                    isGifPaused={false}
+                    isGifPlaying={true}
                 />,
             );
             act(() => {
@@ -508,7 +510,7 @@ describe("SvgImage", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("does not render a canvas overlay when isGifPaused is undefined", () => {
+        it("does not render a canvas overlay when isGifPlaying is undefined", () => {
             // Arrange, Act
             render(
                 <SvgImage
@@ -538,7 +540,7 @@ describe("SvgImage", () => {
                     allowZoom={false}
                     width={500}
                     height={285}
-                    isGifPaused={true}
+                    isGifPlaying={false}
                 />,
             );
             act(() => {
@@ -564,60 +566,6 @@ describe("SvgImage", () => {
             expect(mockDrawImage).toHaveBeenCalledWith(img, 0, 0);
         });
 
-        it("queries the DOM for the img element again after src changes", () => {
-            // Arrange
-            const querySelectorSpy = jest.spyOn(
-                HTMLDivElement.prototype,
-                "querySelector",
-            );
-            const {rerender} = render(
-                <SvgImage
-                    src={GIF_SRC}
-                    alt="test gif"
-                    allowZoom={false}
-                    width={500}
-                    height={285}
-                    isGifPaused={true}
-                />,
-            );
-
-            // Initial render should query for the img element.
-            expect(querySelectorSpy).toHaveBeenCalledTimes(1);
-
-            act(() => {
-                jest.runAllTimers();
-            });
-
-            const img = screen.getByRole<HTMLImageElement>("img", {
-                name: "test gif",
-            });
-            Object.defineProperty(img, "naturalWidth", {
-                value: 500,
-                configurable: true,
-            });
-            Object.defineProperty(img, "naturalHeight", {
-                value: 285,
-                configurable: true,
-            });
-            fireEvent.load(img);
-
-            // Act - change src and pause again
-            rerender(
-                <SvgImage
-                    src="https://cdn.kastatic.org/other.gif"
-                    alt="test gif"
-                    allowZoom={false}
-                    width={500}
-                    height={285}
-                    isGifPaused={true}
-                />,
-            );
-
-            // Assert
-            // After the src changes, the component should query for the new img element again to capture its frame.
-            expect(querySelectorSpy).toHaveBeenCalledTimes(2);
-        });
-
         describe("gif loop detection", () => {
             const LOOP_DURATION_MS = 100;
 
@@ -631,7 +579,7 @@ describe("SvgImage", () => {
                         allowZoom={false}
                         width={500}
                         height={285}
-                        isGifPaused={false}
+                        isGifPlaying={true}
                         onGifLoop={onGifLoop}
                     />,
                 );
@@ -649,7 +597,7 @@ describe("SvgImage", () => {
                 expect(onGifLoop).toHaveBeenCalledTimes(1);
             });
 
-            it("stops calling onGifLoop when isGifPaused becomes true", async () => {
+            it("stops calling onGifLoop when isGifPlaying becomes false", async () => {
                 // Arrange
                 const onGifLoop = jest.fn();
                 const {rerender} = render(
@@ -659,7 +607,7 @@ describe("SvgImage", () => {
                         allowZoom={false}
                         width={500}
                         height={285}
-                        isGifPaused={false}
+                        isGifPlaying={true}
                         onGifLoop={onGifLoop}
                     />,
                 );
@@ -679,7 +627,7 @@ describe("SvgImage", () => {
                         allowZoom={false}
                         width={500}
                         height={285}
-                        isGifPaused={true}
+                        isGifPlaying={false}
                         onGifLoop={onGifLoop}
                     />,
                 );
@@ -701,7 +649,7 @@ describe("SvgImage", () => {
                     allowZoom={false}
                     width={500}
                     height={285}
-                    isGifPaused={false}
+                    isGifPlaying={true}
                 />,
             );
             act(() => {

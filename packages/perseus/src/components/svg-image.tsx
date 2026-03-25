@@ -124,16 +124,16 @@ type Props = {
      */
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
     /**
-     * When provided, enables GIF pause/play support. A canvas overlay
-     * captures and displays a static frame while the GIF is paused,
-     * keeping the underlying <img> in the DOM so animation resumes
-     * mid-stream when play is clicked.
+     * When provided, enables GIF start/stop support. A canvas overlay
+     * captures and displays the first static frame while the GIF is
+     * stopped, keeping the underlying <img> in the DOM so animation
+     * resumes mid-stream when play is clicked.
      *
      * - `undefined`: no GIF controls (default, no extra DOM)
-     * - `false`: GIF is playing
-     * - `true`: GIF is paused — canvas overlay is shown
+     * - `true`: GIF is playing
+     * - `false`: GIF is stopped — canvas overlay is shown
      */
-    isGifPaused?: boolean;
+    isGifPlaying?: boolean;
     /**
      * Called each time the GIF completes one full animation loop.
      * Loop duration is determined by fetching the GIF and summing the
@@ -189,10 +189,9 @@ class SvgImage extends React.Component<Props, State> {
     _isLoadingGraphie: boolean;
 
     // Refs used for GIF pause/play canvas overlay
-    gifContainerRef: React.RefObject<HTMLDivElement> =
-        React.createRef<HTMLDivElement>();
+    gifImgRef: React.RefObject<HTMLImageElement> =
+        React.createRef<HTMLImageElement>();
     _canvasElement: HTMLCanvasElement | null = null;
-    _gifImgElement: HTMLImageElement | null = null;
 
     // GIF loop detection
     _gifLoopInterval: ReturnType<typeof setInterval> | null = null;
@@ -244,7 +243,6 @@ class SvgImage extends React.Component<Props, State> {
         if (this.props.src !== nextProps.src) {
             // Reset loading state when src changes
             this._isLoadingGraphie = false;
-            this._gifImgElement = null;
             this.setState({
                 imageLoaded: false,
                 dataLoaded: false,
@@ -282,19 +280,16 @@ class SvgImage extends React.Component<Props, State> {
             this.props.setAssetStatus(this.props.src, true);
         }
 
-        // When transitioning to paused, capture the current frame.
-        if (this.props.isGifPaused && !prevProps.isGifPaused) {
+        // When transitioning to paused, set the gif frame..
+        if (!this.props.isGifPlaying && prevProps.isGifPlaying) {
             this.setGifFrame();
         }
 
         // When transitioning to playing, restart the GIF from the beginning
         // by briefly clearing the img src. The browser restarts the animation
         // from frame 1 when the src is restored.
-        if (!this.props.isGifPaused && prevProps.isGifPaused) {
-            const img =
-                this.gifContainerRef.current?.querySelector<HTMLImageElement>(
-                    ".image-loader-img",
-                );
+        if (this.props.isGifPlaying && !prevProps.isGifPlaying) {
+            const img = this.gifImgRef.current;
             if (img) {
                 const src = img.src;
                 img.src = "";
@@ -310,8 +305,8 @@ class SvgImage extends React.Component<Props, State> {
         }
 
         // Sync the loop interval with play/pause state.
-        if (prevProps.isGifPaused !== this.props.isGifPaused) {
-            if (this.props.isGifPaused) {
+        if (prevProps.isGifPlaying !== this.props.isGifPlaying) {
+            if (!this.props.isGifPlaying) {
                 this._stopGifLoopDetection();
             } else if (this._gifLoopDurationMs !== null) {
                 this._startGifLoopDetection();
@@ -340,7 +335,7 @@ class SvgImage extends React.Component<Props, State> {
                 return;
             }
             this._gifLoopDurationMs = duration;
-            if (this.props.isGifPaused !== true) {
+            if (this.props.isGifPlaying) {
                 this._startGifLoopDetection();
             }
         });
@@ -370,22 +365,14 @@ class SvgImage extends React.Component<Props, State> {
             return;
         }
 
-        if (!this._gifImgElement) {
-            const container = this.gifContainerRef.current;
-            if (!container) {
-                return;
-            }
-            const img =
-                container.querySelector<HTMLImageElement>(".image-loader-img");
-            if (!img || img.naturalWidth === 0) {
-                return;
-            }
-            this._gifImgElement = img;
+        const img = this.gifImgRef.current;
+        if (!img || img.naturalWidth === 0) {
+            return;
         }
 
-        canvas.width = this._gifImgElement.naturalWidth;
-        canvas.height = this._gifImgElement.naturalHeight;
-        canvas.getContext("2d")?.drawImage(this._gifImgElement, 0, 0);
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        canvas.getContext("2d")?.drawImage(img, 0, 0);
     };
 
     // Check if all of the resources are loaded in a given state
@@ -614,17 +601,17 @@ class SvgImage extends React.Component<Props, State> {
         // Just use a normal image if a normal image is provided
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
-                // When gif controls are active (isGifPaused is defined), wrap
+                // When gif controls are active (isGifPlaying is defined), wrap
                 // ImageLoader in a div so we can querySelector the <img> for
                 // canvas capture. The canvas is a non-first child of
                 // FixedToResponsive, so it gets position:absolute coverage via
                 // the .fixed-to-responsive > :not(:first-child) CSS rule.
-                const isGifControlled = this.props.isGifPaused !== undefined;
+                const isGifControlled = this.props.isGifPlaying !== undefined;
                 const gifImageProps = isGifControlled
                     ? {
                           ...imageProps,
                           onLoad: () => {
-                              if (this.props.isGifPaused) {
+                              if (!this.props.isGifPlaying) {
                                   this.setGifFrame();
                               }
                           },
@@ -634,24 +621,36 @@ class SvgImage extends React.Component<Props, State> {
                     <ImageLoader
                         src={imageSrc}
                         imgProps={gifImageProps}
+                        imgRef={isGifControlled ? this.gifImgRef : undefined}
                         preloader={preloader}
                         onUpdate={this.handleUpdate}
                     />
                 );
                 const imageContent = (
                     <>
-                        {isGifControlled ? (
-                            <div ref={this.gifContainerRef}>{imageLoader}</div>
-                        ) : (
-                            imageLoader
-                        )}
+                        {imageLoader}
                         {extraGraphie}
-                        {this.props.isGifPaused && (
+                        {isGifControlled && !this.props.isGifPlaying && (
                             <canvas
                                 ref={this.setCanvasRef}
                                 data-testid="gif-pause-canvas"
                             />
                         )}
+                    </>
+                );
+
+                // A ref-free copy of the image content for the
+                // zoom modal to avoid sharing refs with the main
+                // render tree.
+                const zoomImageContent = (
+                    <>
+                        <ImageLoader
+                            src={imageSrc}
+                            imgProps={imageProps}
+                            preloader={preloader}
+                            onUpdate={this.handleUpdate}
+                        />
+                        {extraGraphie}
                     </>
                 );
 
@@ -670,7 +669,7 @@ class SvgImage extends React.Component<Props, State> {
                         {imageContent}
                         {this.props.allowZoom && (
                             <ZoomImageButton
-                                imgElement={imageContent}
+                                imgElement={zoomImageContent}
                                 imgSrc={imageSrc}
                                 width={width}
                                 height={height}
