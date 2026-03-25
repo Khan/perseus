@@ -1,4 +1,15 @@
 import {
+    generateInteractiveGraphQuestion,
+    generateIGAngleGraph,
+    generateIGCircleGraph,
+    generateIGLockedEllipse,
+    generateIGLockedFunction,
+    generateIGLockedLine,
+    generateIGLockedPoint,
+    generateIGLockedPolygon,
+    generateIGLockedVector,
+    generateIGNoneGraph,
+    generateIGSegmentGraph,
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
@@ -9,7 +20,6 @@ import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
-import {interactiveGraphQuestionBuilder} from "../interactive-graph-question-builder";
 import {sinusoidWithPiTicks} from "../interactive-graph.testdata";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -44,294 +54,274 @@ function MobileContainerDecorator(Story) {
 
 export const MafsWithCustomAxisLabels: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withAxisLabels(
-                "\\text{Custom $x$ label}",
-                "\\text{Custom $y$ label}",
-            )
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            labels: ["\\text{Custom $x$ label}", "\\text{Custom $y$ label}"],
+        }),
     },
 };
 
 export const MafsWithFractionalGridStep: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withGridStep(2.571, 3.123)
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            gridStep: [2.571, 3.123],
+        }),
     },
 };
 
 export const MafsWithFractionalAxisTicks: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withTickStep(1.5, 1.5)
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            step: [1.5, 1.5],
+        }),
     },
 };
 
 export const MafsWithAxesMarkings: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withMarkings("axes")
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            markings: "axes",
+        }),
     },
 };
 
 export const MafsWithGridMarkings: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withMarkings("grid")
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            markings: "grid",
+        }),
     },
 };
 
 export const MafsWithNoMarkings: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withMarkings("none")
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            markings: "none",
+        }),
     },
 };
 
 export const MafsWithSmallRange: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(-2, 2)
-            .withYRange(-2, 2)
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[-2, 2], [-2, 2]],
+        }),
     },
 };
 
 export const MafsWithLargeRange: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(-50, 50)
-            .withYRange(-50, 50)
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[-50, 50], [-50, 50]],
+        }),
     },
 };
 
 export const MafsWithYAxisAtLeft: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(0, 20)
-            .addLockedLine([1, 1], [5, 2])
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[0, 20], [-10, 10]],
+            lockedFigures: [
+                generateIGLockedLine({points: [generateIGLockedPoint({coord: [1, 1]}), generateIGLockedPoint({coord: [5, 2]})]}),
+            ],
+        }),
     },
 };
 
 export const MafsWithYAxisNearLeft: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(-1, 20)
-            .addLockedLine([1, 1], [5, 2])
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[-1, 20], [-10, 10]],
+            lockedFigures: [
+                generateIGLockedLine({points: [generateIGLockedPoint({coord: [1, 1]}), generateIGLockedPoint({coord: [5, 2]})]}),
+            ],
+        }),
     },
 };
 
 export const MafsWithYAxisJustOverLeft: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(-3, 20)
-            .addLockedLine([1, 1], [5, 2])
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[-3, 20], [-10, 10]],
+            lockedFigures: [
+                generateIGLockedLine({points: [generateIGLockedPoint({coord: [1, 1]}), generateIGLockedPoint({coord: [5, 2]})]}),
+            ],
+        }),
     },
 };
 
 export const MafsWithYAxisOffLeft: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withXRange(1, 20).build(),
+        question: generateInteractiveGraphQuestion({range: [[1, 20], [-10, 10]]}),
     },
 };
 
 export const MafsWithYAxisOffFarLeft: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withXRange(6, 20).build(),
+        question: generateInteractiveGraphQuestion({range: [[6, 20], [-10, 10]]}),
     },
 };
 
 export const MafsWithYAxisAtRight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withXRange(-20, 0).build(),
+        question: generateInteractiveGraphQuestion({range: [[-20, 0], [-10, 10]]}),
     },
 };
 
 export const MafsWithYAxisOffRight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withXRange(-20, -1).build(),
+        question: generateInteractiveGraphQuestion({range: [[-20, -1], [-10, 10]]}),
     },
 };
 
 export const MafsWithYAxisOffFarRight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withXRange(-20, -6).build(),
+        question: generateInteractiveGraphQuestion({range: [[-20, -6], [-10, 10]]}),
     },
 };
 
 export const MafsWithXAxisAtBottom: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withYRange(0, 20).build(),
+        question: generateInteractiveGraphQuestion({range: [[-10, 10], [0, 20]]}),
     },
 };
 
 export const MafsWithXAxisNearBottom: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withYRange(-1, 20).build(),
+        question: generateInteractiveGraphQuestion({range: [[-10, 10], [-1, 20]]}),
     },
 };
 
 export const MafsWithXAxisOffBottom: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withYRange(1, 20).build(),
+        question: generateInteractiveGraphQuestion({range: [[-10, 10], [1, 20]]}),
     },
 };
 
 export const MafsWithXAxisJustOverBottom: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withYRange(-3, 20)
-            .addLockedLine([-3, 2], [5, 16])
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[-10, 10], [-3, 20]],
+            lockedFigures: [
+                generateIGLockedLine({points: [generateIGLockedPoint({coord: [-3, 2]}), generateIGLockedPoint({coord: [5, 16]})]}),
+            ],
+        }),
     },
 };
 
 export const MafsWithXAxisAtTop: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withYRange(-20, 0).build(),
+        question: generateInteractiveGraphQuestion({range: [[-10, 10], [-20, 0]]}),
     },
 };
 
 export const MafsWithXAxisOffTop: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withYRange(-20, -1).build(),
+        question: generateInteractiveGraphQuestion({range: [[-10, 10], [-20, -1]]}),
     },
 };
 
 export const MafsWithLabelsAlongEdge: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(-10, 10)
-            .withYRange(-10, 10)
-            .withAxisLabels(
-                "Video Game Hours per Week",
-                "Reaction Time (milliseconds)",
-            )
-            .withLabelLocation("alongEdge")
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[-10, 10], [-10, 10]],
+            labels: ["Video Game Hours per Week", "Reaction Time (milliseconds)"],
+            labelLocation: "alongEdge",
+        }),
     },
 };
 
 export const MafsWithLabelsAlongEdgeAtLeft: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(0, 10)
-            .withYRange(0, 10)
-            .withAxisLabels(
-                "Video Game Hours per Week",
-                "Reaction Time (milliseconds)",
-            )
-            .withLabelLocation("alongEdge")
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[0, 10], [0, 10]],
+            labels: ["Video Game Hours per Week", "Reaction Time (milliseconds)"],
+            labelLocation: "alongEdge",
+        }),
     },
 };
 
 export const MafsWithLabelsAlongEdgeJustOverLeft: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(-1, 10)
-            .withYRange(-1, 10)
-            .withAxisLabels(
-                "Video Game Hours per Week",
-                "Reaction Time (milliseconds)",
-            )
-            .withLabelLocation("alongEdge")
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[-1, 10], [-1, 10]],
+            labels: ["Video Game Hours per Week", "Reaction Time (milliseconds)"],
+            labelLocation: "alongEdge",
+        }),
     },
 };
 
 export const MafsWithLabelsAlongEdgeAtRight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(0, 0.01)
-            .withYRange(0, 0.01)
-            .withTickStep(0.001, 0.001)
-            .withGridStep(0.001, 0.001)
-            .withAxisLabels(
-                "Video Game Hours per Week",
-                "Reaction Time (milliseconds)",
-            )
-            .withLabelLocation("alongEdge")
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[0, 0.01], [0, 0.01]],
+            step: [0.001, 0.001],
+            gridStep: [0.001, 0.001],
+            labels: ["Video Game Hours per Week", "Reaction Time (milliseconds)"],
+            labelLocation: "alongEdge",
+        }),
     },
 };
 
 export const MafsWithLabelsAlongEdgeWithCloseToZeroXMin: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(-0.03, 0.84)
-            .withYRange(-2.8, 63)
-            .withTickStep(0.2, 10)
-            .withGridStep(0.05, 5)
-            .withSnapStep(0.025, 2)
-            .withAxisLabels("Time (seconds)", "Distance (meters)")
-            .withLabelLocation("alongEdge")
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[-0.03, 0.84], [-2.8, 63]],
+            step: [0.2, 10],
+            gridStep: [0.05, 5],
+            snapStep: [0.025, 2],
+            labels: ["Time (seconds)", "Distance (meters)"],
+            labelLocation: "alongEdge",
+        }),
     },
 };
 
 export const MafsWithLabelsAlongEdgeWithCloseToZeroXMinMultipliedBy1000: Story =
     {
         args: {
-            question: interactiveGraphQuestionBuilder()
-                .withXRange(-30, 840)
-                .withYRange(-2.8, 63)
-                .withTickStep(200, 10)
-                .withGridStep(50, 5)
-                .withSnapStep(25, 2)
-                .withAxisLabels("Time (seconds)", "Distance (meters)")
-                .withLabelLocation("alongEdge")
-                .build(),
+            question: generateInteractiveGraphQuestion({
+                range: [[-30, 840], [-2.8, 63]],
+                step: [200, 10],
+                gridStep: [50, 5],
+                snapStep: [25, 2],
+                labels: ["Time (seconds)", "Distance (meters)"],
+                labelLocation: "alongEdge",
+            }),
         },
     };
 
 export const MafsWithLabelsAlongEdgeZoomed: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withXRange(0, 0.5)
-            .withYRange(0, 0.5)
-            .withTickStep(0.1, 0.1)
-            .withGridStep(0.1, 0.1)
-            .withAxisLabels(
-                "Video Game Hours per Week",
-                "Reaction Time (milliseconds)",
-            )
-            .withLabelLocation("alongEdge")
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[0, 0.5], [0, 0.5]],
+            step: [0.1, 0.1],
+            gridStep: [0.1, 0.1],
+            labels: ["Video Game Hours per Week", "Reaction Time (milliseconds)"],
+            labelLocation: "alongEdge",
+        }),
     },
 };
 
 export const MafsInMobileContainer: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().build(),
+        question: generateInteractiveGraphQuestion(),
     },
     decorators: [MobileContainerDecorator],
 };
 
 export const MafsWithMultipleSegments: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withSegments({numSegments: 3})
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGSegmentGraph({numSegments: 3}),
+        }),
     },
 };
 
 export const MafsCircleGraphWithNonsquareRange: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withCircle()
-            .withXRange(-10, 10)
-            .withYRange(-5, 5)
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGCircleGraph(),
+            range: [[-10, 10], [-5, 5]],
+        }),
     },
     // NOTE(jeremy): I migrated these stories to the v3 CSF story format, but
     // I'm unclear why this one story forces mobile when none of the others do,
@@ -341,38 +331,43 @@ export const MafsCircleGraphWithNonsquareRange: Story = {
 
 export const MafsLineGraphWithNonsquareRange: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .addLockedLine([-3, -3], [3, 3])
-            .withXRange(-5, 5)
-            .withYRange(-10, 10)
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            range: [[-5, 5], [-10, 10]],
+            lockedFigures: [
+                generateIGLockedLine({points: [generateIGLockedPoint({coord: [-3, -3]}), generateIGLockedPoint({coord: [3, 3]})]}),
+            ],
+        }),
     },
 };
 
 export const MafsWithLockedPoints: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .addLockedPointAt(3, 2)
-            .addLockedPointAt(-1, 1)
-            .addLockedPointAt(0, -4)
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            lockedFigures: [
+                generateIGLockedPoint({coord: [3, 2]}),
+                generateIGLockedPoint({coord: [-1, 1]}),
+                generateIGLockedPoint({coord: [0, -4]}),
+            ],
+        }),
     },
 };
 
 export const MafsWithLockedLine: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .addLockedLine([-1, 1], [2, 3])
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            lockedFigures: [
+                generateIGLockedLine({points: [generateIGLockedPoint({coord: [-1, 1]}), generateIGLockedPoint({coord: [2, 3]})]}),
+            ],
+        }),
     },
 };
 
 export const MafsWithProtractor: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withAngle()
-            .withProtractor()
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGAngleGraph(),
+            showProtractor: true,
+        }),
     },
 };
 
@@ -385,7 +380,7 @@ export const MafsWithPiTicks: Story = {
 export const MafsWithAnswerlessData: Story = {
     args: {
         question: (() => {
-            const question = interactiveGraphQuestionBuilder().build();
+            const question = generateInteractiveGraphQuestion();
             const answerfulItem = generateTestPerseusItem({question});
             const answerlessItem = splitPerseusItem(answerfulItem);
             return answerlessItem.question;
@@ -396,24 +391,27 @@ export const MafsWithAnswerlessData: Story = {
 /* Locked figure weight regression tests */
 
 function lockedFiguresQuestionWithWeight(weight: "thin" | "medium" | "thick") {
-    return interactiveGraphQuestionBuilder()
-        .withNoInteractiveFigure()
-        .addLockedLine([2, 2], [9, 9], {kind: "segment", weight})
-        .addLockedLine([2, 1], [9, 8], {kind: "ray", weight})
-        .addLockedLine([2, 0], [9, 7], {kind: "line", weight})
-        .addLockedVector([4, -7], [7, -4], {weight, color: "green"})
-        .addLockedEllipse([-5, 5], [1, 1], {weight, color: "blue"})
-        .addLockedPolygon(
-            [
-                [-7.5, -3.5],
-                [-6.5, -2.5],
-                [-5.5, -3.5],
-                [-6.5, -4.5],
-            ],
-            {weight, color: "pink"},
-        )
-        .addLockedFunction("x^2", {weight, color: "red"})
-        .build();
+    return generateInteractiveGraphQuestion({
+        correct: generateIGNoneGraph(),
+        lockedFigures: [
+            generateIGLockedLine({kind: "segment", weight, points: [generateIGLockedPoint({coord: [2, 2]}), generateIGLockedPoint({coord: [9, 9]})]}),
+            generateIGLockedLine({kind: "ray", weight, points: [generateIGLockedPoint({coord: [2, 1]}), generateIGLockedPoint({coord: [9, 8]})]}),
+            generateIGLockedLine({kind: "line", weight, points: [generateIGLockedPoint({coord: [2, 0]}), generateIGLockedPoint({coord: [9, 7]})]}),
+            generateIGLockedVector({points: [[4, -7], [7, -4]], weight, color: "green"}),
+            generateIGLockedEllipse({center: [-5, 5], radius: [1, 1], weight, color: "blue"}),
+            generateIGLockedPolygon({
+                points: [
+                    [-7.5, -3.5],
+                    [-6.5, -2.5],
+                    [-5.5, -3.5],
+                    [-6.5, -4.5],
+                ],
+                weight,
+                color: "pink",
+            }),
+            generateIGLockedFunction({equation: "x^2", weight, color: "red"}),
+        ],
+    });
 }
 
 export const LockedFiguresWithThinWeight: Story = {
@@ -436,97 +434,67 @@ export const LockedFiguresWithThickWeight: Story = {
 
 export const ShowXMinArrow: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withNoInteractiveFigure()
-            .withXRange(-10, 10)
-            .withYRange(-10, 10)
-            .withShowAxisArrows({
-                xMin: true,
-                xMax: false,
-                yMin: false,
-                yMax: false,
-            })
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGNoneGraph(),
+            graph: generateIGNoneGraph(),
+            range: [[-10, 10], [-10, 10]],
+            showAxisArrows: {xMin: true, xMax: false, yMin: false, yMax: false},
+        }),
     },
 };
 
 export const ShowXMaxArrow: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withNoInteractiveFigure()
-            .withXRange(-10, 10)
-            .withYRange(-10, 10)
-            .withShowAxisArrows({
-                xMin: false,
-                xMax: true,
-                yMin: false,
-                yMax: false,
-            })
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGNoneGraph(),
+            graph: generateIGNoneGraph(),
+            range: [[-10, 10], [-10, 10]],
+            showAxisArrows: {xMin: false, xMax: true, yMin: false, yMax: false},
+        }),
     },
 };
 
 export const ShowYMinArrow: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withNoInteractiveFigure()
-            .withXRange(-10, 10)
-            .withYRange(-10, 10)
-            .withShowAxisArrows({
-                xMin: false,
-                xMax: false,
-                yMin: true,
-                yMax: false,
-            })
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGNoneGraph(),
+            graph: generateIGNoneGraph(),
+            range: [[-10, 10], [-10, 10]],
+            showAxisArrows: {xMin: false, xMax: false, yMin: true, yMax: false},
+        }),
     },
 };
 
 export const ShowYMaxArrow: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withNoInteractiveFigure()
-            .withXRange(-10, 10)
-            .withYRange(-10, 10)
-            .withShowAxisArrows({
-                xMin: false,
-                xMax: false,
-                yMin: false,
-                yMax: true,
-            })
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGNoneGraph(),
+            graph: generateIGNoneGraph(),
+            range: [[-10, 10], [-10, 10]],
+            showAxisArrows: {xMin: false, xMax: false, yMin: false, yMax: true},
+        }),
     },
 };
 
 export const ShowAllArrows: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withNoInteractiveFigure()
-            .withXRange(-10, 10)
-            .withYRange(-10, 10)
-            .withShowAxisArrows({
-                xMin: true,
-                xMax: true,
-                yMin: true,
-                yMax: true,
-            })
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGNoneGraph(),
+            graph: generateIGNoneGraph(),
+            range: [[-10, 10], [-10, 10]],
+            showAxisArrows: {xMin: true, xMax: true, yMin: true, yMax: true},
+        }),
     },
 };
 
 export const ShowNoArrows: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withNoInteractiveFigure()
-            .withXRange(-10, 10)
-            .withYRange(-10, 10)
-            .withShowAxisArrows({
-                xMin: false,
-                xMax: false,
-                yMin: false,
-                yMax: false,
-            })
-            .build(),
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGNoneGraph(),
+            graph: generateIGNoneGraph(),
+            range: [[-10, 10], [-10, 10]],
+            showAxisArrows: {xMin: false, xMax: false, yMin: false, yMax: false},
+        }),
     },
 };
 

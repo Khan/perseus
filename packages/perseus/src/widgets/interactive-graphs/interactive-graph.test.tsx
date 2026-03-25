@@ -1,6 +1,16 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {
     generateTestPerseusItem,
+    generateInteractiveGraphQuestion,
+    generateIGAngleGraph,
+    generateIGLockedEllipse,
+    generateIGLockedFunction,
+    generateIGLockedLine,
+    generateIGLockedPoint,
+    generateIGLockedPolygon,
+    generateIGLockedVector,
+    generateIGNoneGraph,
+    generateIGSegmentGraph,
     lockedFigureColors,
     splitPerseusItem,
     getDefaultFigureForType,
@@ -20,7 +30,6 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
 import InteractiveGraphExports from "./interactive-graph";
-import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,
@@ -206,18 +215,18 @@ describe("Interactive Graph", function () {
 
     describe("A none-type graph", () => {
         it("renders predictably", () => {
-            const question = interactiveGraphQuestionBuilder()
-                .withNoInteractiveFigure()
-                .build();
+            const question = generateInteractiveGraphQuestion({
+                correct: generateIGNoneGraph(),
+            });
             const {container} = renderQuestion(question, blankOptions);
 
             expect(container).toMatchSnapshot("first render");
         });
 
         it("treats no interaction as a correct answer", async () => {
-            const question = interactiveGraphQuestionBuilder()
-                .withNoInteractiveFigure()
-                .build();
+            const question = generateInteractiveGraphQuestion({
+                correct: generateIGNoneGraph(),
+            });
             const {renderer} = renderQuestion(question, blankOptions);
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItemTesting(question, userInput);
@@ -576,11 +585,17 @@ describe("Interactive Graph", function () {
         it("should render locked point with aria label when one is provided", () => {
             // Arrange
             const lockedPointWithAriaLabelQuestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedPointAt(0, 0, {
-                        ariaLabel: "Point A",
-                    })
-                    .build();
+                generateInteractiveGraphQuestion({
+                    lockedFigures: [
+                        generateIGLockedPoint({
+
+                           ,
+
+                            coord: [0, 0],
+                            ariaLabel: "Point A",
+                        }),
+                    ],
+                });
             const {container} = renderQuestion(
                 lockedPointWithAriaLabelQuestion,
                 blankOptions,
@@ -594,11 +609,9 @@ describe("Interactive Graph", function () {
             expect(point).toHaveAttribute("aria-label", "Point A");
         });
 
-        it("should render locked points without aria label by default", () => {
-            // Arrange
-            const simpleLockedPointQuestion = interactiveGraphQuestionBuilder()
-                .addLockedPointAt(0, 0)
-                .build();
+        it("should render lockedget simpleLockedPointQuestion = generateInteractiveGraphQuestion({
+                lockedFigures: [generateIGLockedPoint({coord: [0, 0]})],
+            });
             const {container} = renderQuestion(
                 simpleLockedPointQuestion,
                 blankOptions,
@@ -662,13 +675,27 @@ describe("Interactive Graph", function () {
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
-                    interactiveGraphQuestionBuilder()
-                        .withMarkings("none")
-                        .addLockedLine([0, 0], [0, 1], {
-                            weight,
-                            kind: "line",
-                        })
-                        .build(),
+                    generateInteractiveGraphQuestion({
+                        markings: "none",
+                        correct: generateIGSegmentGraph(),
+                        lockedFigures: [
+
+
+
+
+                                   ,
+                                ,
+
+                            generateIGLockedLine({
+                                kind: "line",
+                                weight,
+                                points: [
+                                    generateIGLockedPoint({coord: [0, 0]}),
+                                    generateIGLockedPoint({coord: [0, 1]}),
+                                ],
+                            }),
+                        ],
+                    }),
                     blankOptions,
                 );
 
@@ -709,17 +736,31 @@ describe("Interactive Graph", function () {
             weight: StrokeWeight;
             expectedStrokeWidth: number;
         }[])(
-            "Line (kind: segment) should render with specific weight",
+            "Line (kind: segment) should render wi
+                                th specific weig
+h                               t",
+
+
+                                   ,
+                                ,
+
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
-                    interactiveGraphQuestionBuilder()
-                        .withMarkings("none")
-                        .addLockedLine([0, 0], [0, 1], {
-                            weight,
-                            kind: "segment",
-                        })
-                        .build(),
+                    generateInteractiveGraphQuestion({
+                        markings: "none",
+                        correct: generateIGSegmentGraph(),
+                        lockedFigures: [
+                            generateIGLockedLine({
+                                kind: "segment",
+                                weight,
+                                points: [
+                                    generateIGLockedPoint({coord: [0, 0]}),
+                                    generateIGLockedPoint({coord: [0, 1]}),
+                                ],
+                            }),
+                        ],
+                    }),
                     blankOptions,
                 );
 
@@ -737,6 +778,13 @@ describe("Interactive Graph", function () {
             },
         );
 
+
+
+
+
+                                   ,
+                                ,
+
         it.each([
             {weight: "thin", expectedStrokeWidth: 1},
             {weight: "medium", expectedStrokeWidth: 2},
@@ -749,12 +797,18 @@ describe("Interactive Graph", function () {
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
-                    interactiveGraphQuestionBuilder()
-                        .addLockedLine([0, 0], [0, 1], {
-                            weight,
-                            kind: "ray",
-                        })
-                        .build(),
+                    generateInteractiveGraphQuestion({
+                        lockedFigures: [
+                            generateIGLockedLine({
+                                kind: "ray",
+                                weight,
+                                points: [
+                                    generateIGLockedPoint({coord: [0, 0]}),
+                                    generateIGLockedPoint({coord: [0, 1]}),
+                                ],
+                            }),
+                        ],
+                    }),
                     blankOptions,
                 );
 
@@ -794,7 +848,13 @@ describe("Interactive Graph", function () {
                 stroke: lockedFigureColors.green,
             });
             expect(linePoints[1]).toHaveStyle({
-                fill: semanticColor.core.background.base.default,
+                fill: semanticColor.core.backg
+                            round.base.default,
+
+
+                               ,
+                            ,
+
                 stroke: lockedFigureColors.green,
             });
             expect(linePoints[2]).toHaveStyle({
@@ -814,11 +874,22 @@ describe("Interactive Graph", function () {
         it("should render locked line with aria label when one is provided", () => {
             // Arrange
             const lockedLineWithAriaLabelQuestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedLine([0, 0], [2, 2], {
-                        ariaLabel: "Line A",
-                    })
-                    .build();
+                generateInteractiveGraphQu
+                        estion({
+
+                           ,
+                        ,
+
+                    lockedFigures: [
+                        generateIGLockedLine({
+                            ariaLabel: "Line A",
+                            points: [
+                                generateIGLockedPoint({coord: [0, 0]}),
+                                generateIGLockedPoint({coord: [2, 2]}),
+                            ],
+                        }),
+                    ],
+                });
             const {container} = renderQuestion(
                 lockedLineWithAriaLabelQuestion,
                 blankOptions,
@@ -834,9 +905,16 @@ describe("Interactive Graph", function () {
 
         it("should render locked line without aria label by default", () => {
             // Arrange
-            const simpleLockedLinequestion = interactiveGraphQuestionBuilder()
-                .addLockedLine([0, 0], [2, 2])
-                .build();
+            const simpleLockedLinequestion = generateInteractiveGraphQuestion({
+                lockedFigures: [
+                    generateIGLockedLine({
+                        points: [
+                            generateIGLockedPoint({coord: [0, 0]}),
+                            generateIGLockedPoint({coord: [2, 2]}),
+                        ],
+                    }),
+                ],
+            });
             const {container} = renderQuestion(
                 simpleLockedLinequestion,
                 blankOptions,
@@ -880,7 +958,13 @@ describe("Interactive Graph", function () {
                 "translate(40 -40) rotate(-45)",
             );
 
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            // eslint-disable-next-line testing-libr
+                                ary/no-co
+                                    ntainer
+                                   , testi,
+                                ng
+                               -librar,
+                            y/no-node-access
             vector = vectors[1].children[0];
             expect(vector).toHaveStyle({
                 "stroke-width": "2",
@@ -909,12 +993,25 @@ describe("Interactive Graph", function () {
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
-                    interactiveGraphQuestionBuilder()
-                        .withMarkings("none")
-                        .addLockedVector([0, 0], [0, 1], {
-                            weight,
-                        })
-                        .build(),
+                    generateInteractiveGraphQuestion({
+                        markings: "none",
+                        correct: generateIGSegmentGraph(),
+                        lockedFigures: [
+                            generateIGLockedVector({
+                                points: [
+                                    [0, 0],
+
+
+                               ,
+
+                           ,
+
+                                    [0, 1],
+                                ],
+                                weight,
+                            }),
+                        ],
+                    }),
                     blankOptions,
                 );
 
@@ -927,10 +1024,17 @@ describe("Interactive Graph", function () {
                     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
                     container.querySelectorAll(
                         `.interactive-graph-arrowhead path`,
-                    );
 
-                // Assert
-                expect(lines).toHaveLength(1);
+                        );
+
+
+
+                               ,
+                            ,
+
+                    // Assert
+                 ,
+               expect(lines).toHaveLength(1);
                 expect(arrowheads).toHaveLength(1);
                 expect(lines[0]).toHaveStyle({
                     "stroke-width": expectedStrokeWidth,
@@ -945,11 +1049,17 @@ describe("Interactive Graph", function () {
         it("should render locked vector with aria label when one is provided", () => {
             // Arrange
             const lockedVectorWithAriaLabelQuestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedVector([0, 0], [2, 2], {
-                        ariaLabel: "Vector A",
-                    })
-                    .build();
+                generateInteractiveGraphQuestion({
+                    lockedFigures: [
+                        generateIGLockedVector({
+                            points: [
+                                [0, 0],
+                                [2, 2],
+                            ],
+                            ariaLabel: "Vector A",
+                        }),
+                    ],
+                });
             const {container} = renderQuestion(
                 lockedVectorWithAriaLabelQuestion,
                 blankOptions,
@@ -965,9 +1075,18 @@ describe("Interactive Graph", function () {
 
         it("should render locked vector without aria label by default", () => {
             // Arrange
-            const simpleLockedVectorquestion = interactiveGraphQuestionBuilder()
-                .addLockedVector([0, 0], [2, 2])
-                .build();
+            const simpleLockedVectorquestion = generateInteractiveGraphQuestion(
+                {
+                    lockedFigures: [
+                        generateIGLockedVector({
+                            points: [
+                                [0, 0],
+                                [2, 2],
+                            ],
+                        }),
+                    ],
+                },
+            );
             const {container} = renderQuestion(
                 simpleLockedVectorquestion,
                 blankOptions,
@@ -998,6 +1117,10 @@ describe("Interactive Graph", function () {
                 "fill-opacity": "0",
                 stroke: lockedFigureColors["grayH"],
             });
+
+
+                               ,
+
             expect(circles[1]).toHaveStyle({
                 "fill-opacity": "1",
                 stroke: lockedFigureColors["green"],
@@ -1022,6 +1145,10 @@ describe("Interactive Graph", function () {
             const translucentCircle = circles[1];
 
             // Assert
+
+
+                           ,
+
             expect(whiteCircle).toHaveStyle({
                 "fill-opacity": 1,
                 fill: semanticColor.core.background.base.default,
@@ -1042,16 +1169,23 @@ describe("Interactive Graph", function () {
             weight: StrokeWeight;
             expectedStrokeWidth: number;
         }[])(
-            "Locked ellipse should render with specific weight",
+            "Locked ellipse should render with sp
+                            ecific weight",
+                           ,
+
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
-                    interactiveGraphQuestionBuilder()
-                        .withMarkings("none")
-                        .addLockedEllipse([0, 0], [1, 1], {
-                            weight,
-                        })
-                        .build(),
+                    generateInteractiveGraphQuestion({
+                        markings: "none",
+                        lockedFigures: [
+                            generateIGLockedEllipse({
+                                center: [0, 0],
+                                radius: [1, 1],
+                                weight,
+                            }),
+                        ],
+                    }),
                     blankOptions,
                 );
 
@@ -1071,11 +1205,15 @@ describe("Interactive Graph", function () {
         it("should render locked ellipse with aria label when one is provided", () => {
             // Arrange
             const lockedEllipseWithAriaLabelQuestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedEllipse([0, 0], [2, 2], {
-                        ariaLabel: "Ellipse A",
-                    })
-                    .build();
+                generateInteractiveGraphQuestion({
+                    lockedFigures: [
+                        generateIGLockedEllipse({
+                            center: [0, 0],
+                            radius: [2, 2],
+                            ariaLabel: "Ellipse A",
+                        }),
+                    ],
+                });
             const {container} = renderQuestion(
                 lockedEllipseWithAriaLabelQuestion,
                 blankOptions,
@@ -1092,9 +1230,14 @@ describe("Interactive Graph", function () {
         it("should render locked ellipse without aria label by default", () => {
             // Arrange
             const simpleLockedEllipsequestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedEllipse([0, 0], [2, 2])
-                    .build();
+                generateInteractiveGraphQuestion({
+                    lockedFigures: [
+                        generateIGLockedEllipse({
+                            center: [0, 0],
+                            radius: [2, 2],
+                        }),
+                    ],
+                });
             const {container} = renderQuestion(
                 simpleLockedEllipsequestion,
                 blankOptions,
@@ -1149,16 +1292,18 @@ describe("Interactive Graph", function () {
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
-                    interactiveGraphQuestionBuilder()
-                        .addLockedPolygon(
-                            [
-                                [0, 0],
-                                [0, 1],
-                                [1, 1],
-                            ],
-                            {weight: weight},
-                        )
-                        .build(),
+                    generateInteractiveGraphQuestion({
+                        lockedFigures: [
+                            generateIGLockedPolygon({
+                                points: [
+                                    [0, 0],
+                                    [0, 1],
+                                    [1, 1],
+                                ],
+                                weight: weight,
+                            }),
+                        ],
+                    }),
                     blankOptions,
                 );
 
@@ -1263,18 +1408,18 @@ describe("Interactive Graph", function () {
         it("should render locked polygon with aria label when one is provided", () => {
             // Arrange
             const lockedPolygonWithAriaLabelQuestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedPolygon(
-                        [
-                            [0, 0],
-                            [0, 1],
-                            [1, 1],
-                        ],
-                        {
+                generateInteractiveGraphQuestion({
+                    lockedFigures: [
+                        generateIGLockedPolygon({
+                            points: [
+                                [0, 0],
+                                [0, 1],
+                                [1, 1],
+                            ],
                             ariaLabel: "Polygon A",
-                        },
-                    )
-                    .build();
+                        }),
+                    ],
+                });
             const {container} = renderQuestion(
                 lockedPolygonWithAriaLabelQuestion,
                 blankOptions,
@@ -1291,13 +1436,17 @@ describe("Interactive Graph", function () {
         it("should render locked polygon without aria label by default", () => {
             // Arrange
             const simpleLockedPolygonQuestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedPolygon([
-                        [0, 0],
-                        [0, 1],
-                        [1, 1],
-                    ])
-                    .build();
+                generateInteractiveGraphQuestion({
+                    lockedFigures: [
+                        generateIGLockedPolygon({
+                            points: [
+                                [0, 0],
+                                [0, 1],
+                                [1, 1],
+                            ],
+                        }),
+                    ],
+                });
             const {container} = renderQuestion(
                 simpleLockedPolygonQuestion,
                 blankOptions,
@@ -1422,12 +1571,15 @@ describe("Interactive Graph", function () {
                 ({weight, expectedStrokeWidth}) => {
                     // Arrange
                     const {container} = renderQuestion(
-                        interactiveGraphQuestionBuilder()
-                            .withMarkings("none")
-                            .addLockedFunction("x^2", {
-                                weight,
-                            })
-                            .build(),
+                        generateInteractiveGraphQuestion({
+                            markings: "none",
+                            lockedFigures: [
+                                generateIGLockedFunction({
+                                    equation: "x^2",
+                                    weight,
+                                }),
+                            ],
+                        }),
                         blankOptions,
                     );
 
@@ -1448,11 +1600,14 @@ describe("Interactive Graph", function () {
             it("should render locked function with aria label when one is provided", () => {
                 // Arrange
                 const lockedFunctionWithAriaLabelQuestion =
-                    interactiveGraphQuestionBuilder()
-                        .addLockedFunction("x^2", {
-                            ariaLabel: "Function A",
-                        })
-                        .build();
+                    generateInteractiveGraphQuestion({
+                        lockedFigures: [
+                            generateIGLockedFunction({
+                                equation: "x^2",
+                                ariaLabel: "Function A",
+                            }),
+                        ],
+                    });
                 const {container} = renderQuestion(
                     lockedFunctionWithAriaLabelQuestion,
                     blankOptions,
@@ -1469,9 +1624,11 @@ describe("Interactive Graph", function () {
             it("should render locked function without aria label by default", () => {
                 // Arrange
                 const simpleLockedFunctionquestion =
-                    interactiveGraphQuestionBuilder()
-                        .addLockedFunction("x^2")
-                        .build();
+                    generateInteractiveGraphQuestion({
+                        lockedFigures: [
+                            generateIGLockedFunction({equation: "x^2"}),
+                        ],
+                    });
                 const {container} = renderQuestion(
                     simpleLockedFunctionquestion,
                     blankOptions,
@@ -1844,9 +2001,9 @@ describe("Interactive Graph", function () {
         it("should render all four axis arrows by default", () => {
             // Arrange
             const {container} = renderQuestion(
-                interactiveGraphQuestionBuilder()
-                    .withNoInteractiveFigure()
-                    .build(),
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                }),
                 blankOptions,
             );
 
@@ -1863,15 +2020,15 @@ describe("Interactive Graph", function () {
         it("should render none four axis arrows by default when specified", () => {
             // Arrange
             const {container} = renderQuestion(
-                interactiveGraphQuestionBuilder()
-                    .withNoInteractiveFigure()
-                    .withShowAxisArrows({
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                    showAxisArrows: {
                         xMin: false,
                         xMax: false,
                         yMin: false,
                         yMax: false,
-                    })
-                    .build(),
+                    },
+                }),
                 blankOptions,
             );
 
@@ -1918,10 +2075,10 @@ describe("Interactive Graph", function () {
                 showAxisArrows[arrowSide] = true;
 
                 const {container} = renderQuestion(
-                    interactiveGraphQuestionBuilder()
-                        .withNoInteractiveFigure()
-                        .withShowAxisArrows(showAxisArrows)
-                        .build(),
+                    generateInteractiveGraphQuestion({
+                        correct: generateIGNoneGraph(),
+                        showAxisArrows,
+                    }),
                     blankOptions,
                 );
 
