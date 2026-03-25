@@ -289,16 +289,9 @@ class SvgImage extends React.Component<Props, State> {
             this.setGifFrame();
         }
 
-        // When transitioning to playing, restart the GIF from the beginning
-        // by briefly clearing the img src. The browser restarts the animation
-        // from frame 1 when the src is restored.
+        // When transitioning to playing, restart the GIF from the beginning.
         if (this.props.isGifPlaying && !prevProps.isGifPlaying) {
-            const img = this._gifImgRef.current;
-            if (img) {
-                const src = img.src;
-                img.src = "";
-                img.src = src;
-            }
+            this._restartGif();
         }
 
         // When src changes, re-fetch the loop duration for the new GIF.
@@ -322,6 +315,22 @@ class SvgImage extends React.Component<Props, State> {
         this._isMounted = false;
         this._stopGifLoopDetection();
     }
+
+    // Restart the GIF animation from frame 1 by briefly clearing the
+    // img src. The browser restarts the animation when the src is restored.
+    _restartGif: () => void = () => {
+        const img = this._gifImgRef.current;
+        if (img) {
+            const src = img.src;
+            img.src = "";
+            img.src = src;
+        }
+        // Reset the loop detection timer so it stays in sync with
+        // the restarted animation.
+        if (this._gifLoopDurationMs !== null) {
+            this._startGifLoopDetection();
+        }
+    };
 
     // Callback ref for the canvas overlay element. Draws the first GIF
     // frame immediately when the canvas is mounted in the DOM so there is
@@ -680,6 +689,7 @@ class SvgImage extends React.Component<Props, State> {
                             <ZoomImageButton
                                 {...this.props}
                                 imgSrc={imageSrc}
+                                onOpen={this._restartGif}
                             />
                         )}
                     </FixedToResponsive>

@@ -9,10 +9,11 @@ import type {Props as SvgImageProps} from "./svg-image";
 
 interface Props extends SvgImageProps {
     imgSrc: string;
+    onOpen?: () => void;
 }
 
 export const ZoomImageButton = (props: Props) => {
-    const {imgSrc} = props;
+    const {imgSrc, onOpen} = props;
 
     const i18n = usePerseusI18n();
 
@@ -27,6 +28,7 @@ export const ZoomImageButton = (props: Props) => {
         if (mouseEvent.metaKey || mouseEvent.ctrlKey) {
             window.open(imgSrc, "_blank");
         } else {
+            onOpen?.();
             openModal();
         }
     };
