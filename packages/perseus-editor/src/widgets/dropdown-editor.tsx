@@ -121,7 +121,7 @@ class DropdownEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div className="dropdown-field">
-                    <BodyText>
+                    <BodyText tag="label">
                         Visible label
                         <TextField
                             value={this.props.visibleLabel}
@@ -133,7 +133,7 @@ class DropdownEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div className="dropdown-field">
-                    <BodyText>
+                    <BodyText tag="label">
                         Aria label
                         <TextField
                             value={this.props.ariaLabel}
@@ -160,7 +160,7 @@ class DropdownEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div className="dropdown-field">
-                    <BodyText>
+                    <BodyText tag="label">
                         Placeholder
                         <TextField
                             value={this.props.placeholder}

@@ -169,8 +169,8 @@ class FreeResponseEditor extends React.Component<Props> {
                     />
                 )}
                 <View>
-                    <BodyText tag="span">Scoring criteria</BodyText>
-                    <View style={styles.criteriaList}>
+                    <View style={styles.criteriaList} tag="fieldset">
+                        <BodyText tag="legend">Scoring criteria</BodyText>
                         {this.renderCriteriaList()}
                     </View>
                     <View>

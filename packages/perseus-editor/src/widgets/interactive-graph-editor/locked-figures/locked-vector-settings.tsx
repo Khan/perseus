@@ -197,6 +197,7 @@ const LockedVectorSettings = (props: Props) => {
                         <BodyText
                             size="medium"
                             weight="bold"
+                            tag="span"
                         >{`Tail (${tail[0]}, ${tail[1]})`}</BodyText>
                     </View>
                 }
@@ -219,6 +220,7 @@ const LockedVectorSettings = (props: Props) => {
                         <BodyText
                             size="medium"
                             weight="bold"
+                            tag="span"
                         >{`Tip (${tip[0]}, ${tip[1]})`}</BodyText>
                     </View>
                 }
