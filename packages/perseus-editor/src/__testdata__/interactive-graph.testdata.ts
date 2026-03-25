@@ -219,13 +219,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
             generateIGLockedPoint({
                 coord: [-7, -7],
                 labels: [
-                    {
-                        type: "label",
-                        text: "A",
-                        coord: [-6.5, -7],
-                        color: "grayH",
-                        size: "medium",
-                    },
+                    generateIGLockedLabel({text: "A", coord: [-6.5, -7]}),
                 ],
                 ariaLabel: "Point A",
             }),
@@ -237,13 +231,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
                     generateIGLockedPoint({coord: [2, -3]}),
                 ],
                 labels: [
-                    {
-                        type: "label",
-                        text: "B",
-                        coord: [-2.5, -4],
-                        color: "grayH",
-                        size: "medium",
-                    },
+                    generateIGLockedLabel({text: "B", coord: [-2.5, -4]}),
                 ],
                 ariaLabel: "Line B",
             }),
@@ -254,13 +242,11 @@ export const segmentWithLockedFigures: PerseusRenderer =
                 ],
                 color: "purple",
                 labels: [
-                    {
-                        type: "label",
+                    generateIGLockedLabel({
                         text: "C",
                         coord: [4, 1],
                         color: "purple",
-                        size: "medium",
-                    },
+                    }),
                 ],
                 ariaLabel: "Vector C",
             }),
@@ -270,13 +256,11 @@ export const segmentWithLockedFigures: PerseusRenderer =
                 angle: Math.PI / 4,
                 color: "blue",
                 labels: [
-                    {
-                        type: "label",
+                    generateIGLockedLabel({
                         text: "D",
                         coord: [0, 5],
                         color: "blue",
-                        size: "medium",
-                    },
+                    }),
                 ],
                 ariaLabel: "Ellipse D",
             }),
@@ -289,13 +273,11 @@ export const segmentWithLockedFigures: PerseusRenderer =
                 ],
                 color: "pink",
                 labels: [
-                    {
-                        type: "label",
+                    generateIGLockedLabel({
                         text: "E",
                         coord: [-9, 4],
                         color: "pink",
-                        size: "medium",
-                    },
+                    }),
                 ],
                 ariaLabel: "Polygon E",
             }),
@@ -303,13 +285,11 @@ export const segmentWithLockedFigures: PerseusRenderer =
                 equation: "sin(x)",
                 color: "red",
                 labels: [
-                    {
-                        type: "label",
+                    generateIGLockedLabel({
                         text: "F",
                         coord: [0, 0],
                         color: "red",
-                        size: "medium",
-                    },
+                    }),
                 ],
                 ariaLabel: "Function F",
             }),
