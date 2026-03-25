@@ -193,7 +193,7 @@ class SvgImage extends React.Component<Props, State> {
     _isLoadingGraphie: boolean;
 
     // Refs used for GIF pause/play canvas overlay
-    gifImgRef: React.RefObject<HTMLImageElement> =
+    _gifImgRef: React.RefObject<HTMLImageElement> =
         React.createRef<HTMLImageElement>();
     _canvasElement: HTMLCanvasElement | null = null;
 
@@ -293,7 +293,7 @@ class SvgImage extends React.Component<Props, State> {
         // by briefly clearing the img src. The browser restarts the animation
         // from frame 1 when the src is restored.
         if (this.props.isGifPlaying && !prevProps.isGifPlaying) {
-            const img = this.gifImgRef.current;
+            const img = this._gifImgRef.current;
             if (img) {
                 const src = img.src;
                 img.src = "";
@@ -382,7 +382,7 @@ class SvgImage extends React.Component<Props, State> {
             return;
         }
 
-        const img = this.gifImgRef.current;
+        const img = this._gifImgRef.current;
         if (!img || img.naturalWidth === 0) {
             return;
         }
@@ -640,7 +640,7 @@ class SvgImage extends React.Component<Props, State> {
                     <ImageLoader
                         src={imageSrc}
                         imgProps={gifImageProps}
-                        imgRef={isGifControlled ? this.gifImgRef : undefined}
+                        imgRef={isGifControlled ? this._gifImgRef : undefined}
                         preloader={preloader}
                         onUpdate={this.handleUpdate}
                     />
