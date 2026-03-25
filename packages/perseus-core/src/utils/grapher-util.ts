@@ -55,41 +55,6 @@ function canonicalSineCoefficients(coeffs: any) {
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
-function canonicalTangentCoefficients(coeffs: any) {
-    // For a curve of the form f(x) = a * Tan(b * x - c) + d,
-    // this function ensures that a, b > 0, and c is its
-    // smallest possible positive value.
-    let amplitude = coeffs[0];
-    let angularFrequency = coeffs[1];
-    let phase = coeffs[2];
-    const verticalOffset = coeffs[3];
-
-    // Guarantee a > 0
-    if (amplitude < 0) {
-        amplitude *= -1;
-        angularFrequency *= -1;
-        phase *= -1;
-    }
-
-    const period = Math.PI;
-    // Guarantee b > 0
-    if (angularFrequency < 0) {
-        angularFrequency *= -1;
-        phase *= -1;
-        phase += period / 2;
-    }
-
-    // Guarantee c is smallest possible positive value
-    while (phase > 0) {
-        phase -= period;
-    }
-    while (phase < 0) {
-        phase += period;
-    }
-
-    return [amplitude, angularFrequency, phase, verticalOffset];
-}
-
 const PlotDefaults = {
     areEqual: function (
         coeffs1: ReadonlyArray<number>,
@@ -319,16 +284,6 @@ const Tangent: TangentType = _.extend({}, PlotDefaults, {
             c.toFixed(3) +
             ") + " +
             d.toFixed(3)
-        );
-    },
-
-    areEqual: function (
-        coeffs1: ReadonlyArray<number>,
-        coeffs2: ReadonlyArray<number>,
-    ) {
-        return approximateDeepEqual(
-            canonicalTangentCoefficients(coeffs1),
-            canonicalTangentCoefficients(coeffs2),
         );
     },
 });

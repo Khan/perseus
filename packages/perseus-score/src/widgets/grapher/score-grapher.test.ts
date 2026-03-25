@@ -183,6 +183,88 @@ describe("scoreGrapher", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
+    it("scores tangent as correct when user coords match rubric coords", () => {
+        // Arrange
+        const coords: [Coord, Coord] = [
+            [0, 0],
+            [1, 1],
+        ];
+
+        const userInput: PerseusGrapherUserInput = {
+            type: "tangent",
+            coords,
+        };
+
+        const rubric: PerseusGrapherRubric = {
+            correct: {
+                type: "tangent",
+                coords,
+            },
+        };
+
+        // Act
+        const result = scoreGrapher(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("returns invalid for tangent with same x-coordinate control points", () => {
+        // When both control points share the same x-coordinate, getTangentCoefficients
+        // produces Infinity/NaN. We guard against this to return 'invalid' rather
+        // than 'incorrect'.
+        const coords: [Coord, Coord] = [
+            [1, 0],
+            [1, 2],
+        ];
+
+        // Arrange
+        const userInput: PerseusGrapherUserInput = {
+            type: "tangent",
+            coords,
+        };
+
+        const rubric: PerseusGrapherRubric = {
+            correct: {
+                type: "tangent",
+                coords,
+            },
+        };
+
+        // Act
+        const result = scoreGrapher(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("scores tangent incorrectly when coords don't match", () => {
+        // Arrange
+        const userInput: PerseusGrapherUserInput = {
+            type: "tangent",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        const rubric: PerseusGrapherRubric = {
+            correct: {
+                type: "tangent",
+                coords: [
+                    [2, 2],
+                    [3, 3],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreGrapher(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
     it("can be answered incorrectly when user input and scoring data coords don't match", () => {
         // Arrange
         const userInput: PerseusGrapherUserInput = {
