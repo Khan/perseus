@@ -201,7 +201,10 @@ export const InteractiveGraphZeroBounds = (): React.ReactElement => {
         <EditorPageWithStorybookPreview
             question={generateInteractiveGraphQuestion({
                 correct: generateIGNoneGraph(),
-                range: [[0, 10], [0, 10]],
+                range: [
+                    [0, 10],
+                    [0, 10],
+                ],
                 showAxisArrows: {
                     xMin: false,
                     xMax: true,

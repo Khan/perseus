@@ -78,43 +78,63 @@ export const WithAllInteractiveGraphs: Story = {
         dependencies: storybookDependenciesV2,
         hints: [
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGAngleGraph()}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGAngleGraph(),
+                }),
                 replace: false,
             },
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGCircleGraph()}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGCircleGraph(),
+                }),
                 replace: false,
             },
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGLinearGraph()}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGLinearGraph(),
+                }),
                 replace: false,
             },
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGLinearSystemGraph()}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGLinearSystemGraph(),
+                }),
                 replace: false,
             },
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGPointGraph({numPoints: 3})}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGPointGraph({numPoints: 3}),
+                }),
                 replace: false,
             },
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGPolygonGraph()}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGPolygonGraph(),
+                }),
                 replace: false,
             },
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGRayGraph()}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGRayGraph(),
+                }),
                 replace: false,
             },
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGSegmentGraph()}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGSegmentGraph(),
+                }),
                 replace: false,
             },
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGQuadraticGraph()}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGQuadraticGraph(),
+                }),
                 replace: false,
             },
             {
-                ...generateInteractiveGraphQuestion({correct: generateIGSinusoidGraph()}),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGSinusoidGraph(),
+                }),
                 replace: false,
             },
         ],

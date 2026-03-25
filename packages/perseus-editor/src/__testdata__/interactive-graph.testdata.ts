@@ -184,7 +184,10 @@ export const quadraticWithStartingCoordsQuestion: PerseusRenderer =
 
 export const sinusoidWithStartingCoordsAndPiTicksQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
-        range: [[-5 * Math.PI, 5 * Math.PI], [-10, 10]],
+        range: [
+            [-5 * Math.PI, 5 * Math.PI],
+            [-10, 10],
+        ],
         step: [Math.PI, 1],
         gridStep: [Math.PI / 2, 1],
         snapStep: [Math.PI / 4, 1],
