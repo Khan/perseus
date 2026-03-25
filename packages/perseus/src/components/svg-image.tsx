@@ -330,8 +330,15 @@ class SvgImage extends React.Component<Props, State> {
     };
 
     _loadGifLoopDuration: () => void = () => {
+        const fetchedSrc = this.props.src;
         getGifLoopDuration(this.props.src).then((duration) => {
             if (!this._isMounted) {
+                return;
+            }
+            // If the src changed while we were fetching, don't update the
+            // loop duration or start the loop detection, since it would
+            // be for the wrong GIF.
+            if (this.props.src !== fetchedSrc) {
                 return;
             }
             this._gifLoopDurationMs = duration;
