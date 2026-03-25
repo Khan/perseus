@@ -85,7 +85,7 @@ export default function LockedLabelSettings(props: Props) {
             onToggle={onToggle}
             header={
                 <View style={[styles.row, styles.accordionHeaderContainer]}>
-                    <BodyText size="medium" weight="bold">
+                    <BodyText size="medium" weight="bold" tag="span">
                         Label ({coord[0]}, {coord[1]})
                     </BodyText>
                     <Strut size={spacing.xSmall_8} />
@@ -93,6 +93,7 @@ export default function LockedLabelSettings(props: Props) {
                         <BodyText
                             size="medium"
                             weight="bold"
+                            tag="span"
                             style={[
                                 {
                                     backgroundColor:

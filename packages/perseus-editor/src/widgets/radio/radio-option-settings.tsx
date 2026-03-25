@@ -129,6 +129,7 @@ export const RadioOptionSettings = React.forwardRef<
 
             <BodyText
                 size="small"
+                weight="bold"
                 tag="label"
                 htmlFor={rationaleTextAreaId}
                 style={{

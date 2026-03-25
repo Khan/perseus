@@ -170,6 +170,7 @@ const LockedEllipseSettings = (props: Props) => {
                 <View style={styles.row}>
                     <BodyText
                         size="medium"
+                        tag="span"
                         weight="bold"
                     >{`Ellipse (${center[0]}, ${center[1]}), radius ${radius[0]}, ${radius[1]}`}</BodyText>
                     <Strut size={spacing.xSmall_8} />
