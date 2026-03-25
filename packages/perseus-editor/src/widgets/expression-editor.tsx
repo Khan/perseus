@@ -444,7 +444,9 @@ class ExpressionEditor extends React.Component<Props, State> {
                 </div>
 
                 <div className={css(styles.paddedY)}>
-                    <Heading size="small">Button Sets</Heading>
+                    <Heading size="small" style={styles.buttonSets}>
+                        Button Sets
+                    </Heading>
                     {buttonSetChoices}
                 </div>
 
@@ -648,6 +650,9 @@ const styles = StyleSheet.create({
     },
     deleteButton: {
         paddingInline: sizing.size_160,
+    },
+    buttonSets: {
+        textTransform: "uppercase",
     },
 });
 
