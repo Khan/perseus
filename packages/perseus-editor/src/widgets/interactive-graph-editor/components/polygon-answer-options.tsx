@@ -175,7 +175,11 @@ export default function PolygonAnswerOptions({
             </View>
             <View className={styles.row}>
                 <Checkbox
-                    label={<BodyText size="small">Show side measures</BodyText>}
+                    label={
+                        <BodyText size="small" tag="span">
+                            Show side measures
+                        </BodyText>
+                    }
                     checked={
                         // Don't show indeterminate checkbox state
                         !!correct?.showSides
