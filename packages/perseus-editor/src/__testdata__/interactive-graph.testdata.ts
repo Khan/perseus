@@ -215,9 +215,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
         lockedFigures: [
             generateIGLockedPoint({
                 coord: [-7, -7],
-                labels: [
-                    generateIGLockedLabel({text: "A", coord: [-6.5, -7]}),
-                ],
+                labels: [generateIGLockedLabel({text: "A", coord: [-6.5, -7]})],
                 ariaLabel: "Point A",
             }),
             generateIGLockedLine({
@@ -227,9 +225,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
                     generateIGLockedPoint({coord: [-7, -5]}),
                     generateIGLockedPoint({coord: [2, -3]}),
                 ],
-                labels: [
-                    generateIGLockedLabel({text: "B", coord: [-2.5, -4]}),
-                ],
+                labels: [generateIGLockedLabel({text: "B", coord: [-2.5, -4]})],
                 ariaLabel: "Line B",
             }),
             generateIGLockedVector({
