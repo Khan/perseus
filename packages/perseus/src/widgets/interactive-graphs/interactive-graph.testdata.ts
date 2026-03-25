@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import {
     generateInteractiveGraphQuestion,
     generateIGAngleGraph,
@@ -964,7 +963,13 @@ export const segmentWithLockedLabels: PerseusRenderer =
 
 export const quadraticQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
-        correct: generateIGQuadraticGraph(),
+        correct: generateIGQuadraticGraph({
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+        }),
     });
 
 export const quadraticQuestionWithDefaultCorrect: PerseusRenderer =
@@ -1103,13 +1108,7 @@ export const graphWithLabeledPoint: PerseusRenderer =
             generateIGLockedPoint({
                 coord: [0, 0],
                 labels: [
-                    {
-                        type: "label",
-                        text: "A",
-                        coord: [0.5, 0],
-                        color: "grayH",
-                        size: "medium",
-                    },
+                    generateIGLockedLabel({text: "A", coord: [0.5, 0]}),
                 ],
             }),
         ],
@@ -1124,13 +1123,7 @@ export const graphWithLabeledLine: PerseusRenderer =
                     generateIGLockedPoint({coord: [2, -3]}),
                 ],
                 labels: [
-                    {
-                        type: "label",
-                        text: "B",
-                        coord: [-2.5, -4],
-                        color: "grayH",
-                        size: "medium",
-                    },
+                    generateIGLockedLabel({text: "B", coord: [-2.5, -4]}),
                 ],
             }),
         ],
@@ -1145,13 +1138,7 @@ export const graphWithLabeledVector: PerseusRenderer =
                     [8, 2],
                 ],
                 labels: [
-                    {
-                        type: "label",
-                        text: "C",
-                        coord: [4, 1],
-                        color: "grayH",
-                        size: "medium",
-                    },
+                    generateIGLockedLabel({text: "C", coord: [4, 1]}),
                 ],
             }),
         ],
@@ -1164,13 +1151,7 @@ export const graphWithLabeledEllipse: PerseusRenderer =
                 center: [0, 0],
                 radius: [4, 2],
                 labels: [
-                    {
-                        type: "label",
-                        text: "D",
-                        coord: [0, 0],
-                        color: "grayH",
-                        size: "medium",
-                    },
+                    generateIGLockedLabel({text: "D", coord: [0, 0]}),
                 ],
             }),
         ],
@@ -1186,13 +1167,7 @@ export const graphWithLabeledPolygon: PerseusRenderer =
                     [2, 4],
                 ],
                 labels: [
-                    {
-                        type: "label",
-                        text: "E",
-                        coord: [0, 0],
-                        color: "grayH",
-                        size: "medium",
-                    },
+                    generateIGLockedLabel({text: "E", coord: [0, 0]}),
                 ],
             }),
         ],
@@ -1204,13 +1179,7 @@ export const graphWithLabeledFunction: PerseusRenderer =
             generateIGLockedFunction({
                 equation: "sin(x)",
                 labels: [
-                    {
-                        type: "label",
-                        text: "F",
-                        coord: [0, 0],
-                        color: "grayH",
-                        size: "medium",
-                    },
+                    generateIGLockedLabel({text: "F", coord: [0, 0]}),
                 ],
             }),
         ],
