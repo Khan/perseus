@@ -14,6 +14,6 @@ export default {
             },
         },
     },
-    answerArea: null,
+
     hints: [],
 } satisfies PerseusItem;
