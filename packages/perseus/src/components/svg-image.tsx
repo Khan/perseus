@@ -319,7 +319,7 @@ class SvgImage extends React.Component<Props, State> {
         this._stopGifLoopDetection();
     }
 
-    // Callback ref for the canvas overlay element. Draws the current GIF
+    // Callback ref for the canvas overlay element. Draws the first GIF
     // frame immediately when the canvas is mounted in the DOM so there is
     // no visible flash of an empty canvas.
     setCanvasRef: (canvas: HTMLCanvasElement | null) => void = (canvas) => {
