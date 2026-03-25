@@ -258,7 +258,10 @@ export {
     generateIGLockedPolygon,
     generateIGLockedFunction,
     generateIGLockedLabel,
+    generateIGExponentialGraph,
+    generateIGAbsoluteValueGraph,
     generateInteractiveGraphWidget,
+    generateInteractiveGraphQuestion,
 } from "./utils/generators/interactive-graph-widget-generator";
 export {
     generateNumericInputOptions,

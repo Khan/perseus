@@ -1,5 +1,6 @@
 import interactiveGraphWidgetLogic from "../../widgets/interactive-graph";
 import {getDefaultFigureForType} from "../get-default-figure-for-type";
+import {generateTestPerseusRenderer} from "../test-utils";
 
 import type {
     InteractiveGraphWidget,
@@ -10,8 +11,10 @@ import type {
     LockedPointType,
     LockedPolygonType,
     LockedVectorType,
+    PerseusGraphTypeAbsoluteValue,
     PerseusGraphTypeAngle,
     PerseusGraphTypeCircle,
+    PerseusGraphTypeExponential,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
     PerseusGraphTypeLogarithm,
@@ -24,6 +27,7 @@ import type {
     PerseusGraphTypeSinusoid,
     PerseusGraphTypeTangent,
     PerseusInteractiveGraphWidgetOptions,
+    PerseusRenderer,
 } from "../../data-schema";
 
 export function generateInteractiveGraphWidget(
@@ -226,4 +230,49 @@ export function generateIGLockedLabel(
         ...getDefaultFigureForType("label"),
         ...options,
     };
+}
+
+export function generateIGExponentialGraph(
+    options?: Partial<Omit<PerseusGraphTypeExponential, "type">>,
+): PerseusGraphTypeExponential {
+    return {
+        type: "exponential",
+        ...options,
+    };
+}
+
+export function generateIGAbsoluteValueGraph(
+    options?: Partial<Omit<PerseusGraphTypeAbsoluteValue, "type">>,
+): PerseusGraphTypeAbsoluteValue {
+    return {
+        type: "absolute-value",
+        ...options,
+    };
+}
+
+export function generateInteractiveGraphQuestion(
+    options?: Partial<PerseusInteractiveGraphWidgetOptions> & {
+        content?: string;
+        isStatic?: boolean;
+    },
+): PerseusRenderer {
+    const {content, isStatic, ...widgetOptions} = options ?? {};
+
+    // If `correct` is set but `graph` is not, default `graph` to match
+    // the correct answer's type. For graph types that need shared config
+    // (like numSides, numPoints, snapTo), callers should pass `graph`
+    // explicitly.
+    if (widgetOptions.correct && !widgetOptions.graph) {
+        widgetOptions.graph = {type: widgetOptions.correct.type};
+    }
+
+    return generateTestPerseusRenderer({
+        content: content ?? "[[☃ interactive-graph 1]]",
+        widgets: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                static: isStatic,
+                options: generateInteractiveGraphOptions(widgetOptions),
+            }),
+        },
+    });
 }
