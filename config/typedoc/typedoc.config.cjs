@@ -23,12 +23,8 @@ const config = {
     // deletes all files in this folder but retains the `.gitkeep` file.
     cleanOutputDir: false,
     githubPages: true,
-    plugin: [
-        "typedoc-plugin-missing-exports",
-        ...(process.env.GITHUB_ACTIONS
-            ? [path.join(__dirname, "github-annotations-plugin.cjs")]
-            : []),
-    ],
+    treatWarningsAsErrors: true,
+    plugin: ["typedoc-plugin-missing-exports"],
     packageOptions: {
         excludeExternals: true,
         excludeInternal: true,
