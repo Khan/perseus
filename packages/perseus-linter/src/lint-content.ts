@@ -9,9 +9,9 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-type LinterWarningItem = {
-    question: ReadonlyArray<LinterWarning>;
-    hints: ReadonlyArray<ReadonlyArray<LinterWarning>>;
+export type LinterWarningItem = {
+    question: LinterWarning[];
+    hints: LinterWarning[][];
 };
 /**
  * Lint a full Perseus item, including the question and all hints.
@@ -48,7 +48,7 @@ export function lintPerseusItem(
  */
 export function lintPerseusArticle(
     parsedPerseusArticle: PerseusArticle,
-): ReadonlyArray<ReadonlyArray<LinterWarning>> {
+): LinterWarning[][] {
     const articleSections = Array.isArray(parsedPerseusArticle)
         ? parsedPerseusArticle
         : [parsedPerseusArticle];
@@ -69,7 +69,7 @@ export function lintPerseusArticle(
 export function lintPerseusRenderer(
     parsedPerseusRenderer: PerseusRenderer,
     contentType: "article" | "exercise" | "renderer",
-): ReadonlyArray<LinterWarning> {
+): LinterWarning[] {
     const tree = parse(parsedPerseusRenderer.content);
     const context = {
         content: parsedPerseusRenderer.content,
@@ -78,5 +78,5 @@ export function lintPerseusRenderer(
         contentType,
     };
 
-    return runLinter(tree, context, false);
+    return [...runLinter(tree, context, false)];
 }
