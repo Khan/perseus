@@ -162,7 +162,6 @@ describe("isItemAccessible", () => {
                     images: {},
                 },
                 hints: [],
-                answerArea: null,
             };
 
             expect(isItemAccessible(itemData)).toBe(true);
@@ -176,7 +175,6 @@ describe("isItemAccessible", () => {
                     images: {},
                 },
                 hints: [],
-                answerArea: null,
             };
 
             expect(isItemAccessible(itemData)).toBe(true);
@@ -233,7 +231,6 @@ describe("isItemAccessible", () => {
                     images: {},
                 },
                 hints: [],
-                answerArea: null,
             };
 
             expect(isItemAccessible(itemData)).toBe(false);
@@ -248,7 +245,6 @@ describe("isItemAccessible", () => {
                     images: {},
                 },
                 hints: [],
-                answerArea: null,
             };
 
             expect(isItemAccessible(itemData)).toBe(true);
@@ -274,7 +270,6 @@ describe("isItemAccessible", () => {
                     images: {},
                 },
                 hints: [],
-                answerArea: null,
             };
 
             expect(isItemAccessible(itemData)).toBe(false);
@@ -288,7 +283,6 @@ describe("isItemAccessible", () => {
                     images: {},
                 },
                 hints: [],
-                answerArea: null,
             };
 
             expect(isItemAccessible(itemData)).toBe(true);

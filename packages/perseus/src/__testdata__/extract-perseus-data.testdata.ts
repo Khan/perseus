@@ -71,7 +71,6 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
         {content: "Hint #2", images: {}, widgets: {}},
         {content: "Hint #3", images: {}, widgets: {}},
     ],
-    answerArea: null,
 });
 
 export const PerseusItemWithInputNumber = generateTestPerseusItem({
