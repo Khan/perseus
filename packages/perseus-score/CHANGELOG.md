@@ -1,5 +1,17 @@
 # @khanacademy/perseus-score
 
+## 8.5.0
+
+### Minor Changes
+
+-   [#3406](https://github.com/Khan/perseus/pull/3406) [`6267d162b4`](https://github.com/Khan/perseus/commit/6267d162b45244628df7f40cb2fa0532a8d40b7d) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Use kmath canonicalTangentCoefficients for both Grapher and Interactive Graph widgets and then remove the duplicate code in grapher-util
+
+### Patch Changes
+
+-   Updated dependencies [[`6267d162b4`](https://github.com/Khan/perseus/commit/6267d162b45244628df7f40cb2fa0532a8d40b7d), [`669ed4e6b1`](https://github.com/Khan/perseus/commit/669ed4e6b13729373678964b341df2427f038085)]:
+    -   @khanacademy/perseus-core@24.0.0
+    -   @khanacademy/kmath@2.3.1
+
 ## 8.4.0
 
 ### Minor Changes
