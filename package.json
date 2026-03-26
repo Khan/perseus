@@ -104,6 +104,7 @@
         "storybook-multilevel-sort": "^2.1.0",
         "swc_mut_cjs_exports": "^8.0.1",
         "tiny-invariant": "catalog:devDeps",
+        "ts-json-schema-generator": "^2.9.0",
         "typedoc": "^0.28.17",
         "typedoc-plugin-missing-exports": "^4.1.2",
         "typescript": "5.9.3",
@@ -115,6 +116,7 @@
     },
     "scripts": {
         "gen:parsers": "pnpm --filter ./packages/kas gen:parsers",
+        "gen:schema": "node scripts/generate-schemas.mjs",
         "prebuild": "pnpm gen:parsers",
         "build": "rollup --bundleConfigAsCjs --config config/build/rollup.config.js",
         "prebuild:docs": "pnpm clean:docs",

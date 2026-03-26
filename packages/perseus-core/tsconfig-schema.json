@@ -1,0 +1,19 @@
+{
+    // Dedicated tsconfig for ts-json-schema-generator.
+    // ts-json-schema-generator does not support moduleResolution: bundler,
+    // so this config overrides that while keeping all other strict settings.
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "strict": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true
+    },
+    "include": [
+        "src/data-schema.ts",
+        "src/keypad.ts"
+    ]
+}
