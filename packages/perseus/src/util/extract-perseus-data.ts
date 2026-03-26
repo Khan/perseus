@@ -117,7 +117,7 @@ export const getCorrectAnswerForWidgetId = (
     itemData: PerseusItem,
 ): string | null | undefined => {
     const rubric = itemData.question.widgets[widgetId].options;
-    const widgetMap = getWidgetsMapFromItemData(itemData);
+    const widgetMap = itemData.question.widgets;
     const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap) as string;
 
     const widget = Widgets.getWidgetExport(widgetType);
