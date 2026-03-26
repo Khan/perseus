@@ -125,13 +125,15 @@ runs:
               body: |
                   # ${{ inputs.comment-title }}: Changes Detected ⚠️
 
-                  **Usually this means you need to update the Go parser
-                  that Content Platform maintains!!!**
+                  **Usually this means you need to update the Go parser that Content Platform maintains!!!**
+                  Follow these [steps](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4161831001/Releasing+and+deploying+a+data-schema+change+in+Perseus#tl%3Bdr) on how to release.
                   [See this list of post-mortems for more information.](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/4504322159/Content+Platform+Breaks)
 
-                  This PR contains critical changes to Perseus. Please review
-                  the changes and note that you may need to coordinate
-                  deployment of these changes with other teams at Khan Academy.
+                  This PR contains critical changes to Perseus.
+                  Please review the changes and note that you may need to
+                  coordinate deployment of these changes with other teams
+                  at Khan Academy, especially with #cp-eng to publish a
+                  content update.
 
                   ```diff
                   ${{ steps.compare-artifacts.outputs.diff-content }}
