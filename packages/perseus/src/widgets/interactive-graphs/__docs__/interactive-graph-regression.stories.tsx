@@ -435,6 +435,7 @@ export const MafsInMobileContainer: Story = {
 export const MafsWithMultipleSegments: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
+            graph: generateIGSegmentGraph({numSegments: 3}),
             correct: generateIGSegmentGraph({numSegments: 3}),
         }),
     },

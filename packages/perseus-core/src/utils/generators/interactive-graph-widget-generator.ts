@@ -280,7 +280,7 @@ export function generateInteractiveGraphQuestion(
         content: content ?? "[[☃ interactive-graph 1]]",
         widgets: {
             "interactive-graph 1": generateInteractiveGraphWidget({
-                static: isStatic,
+                static: isStatic ?? false,
                 options: generateInteractiveGraphOptions(widgetOptions),
             }),
         },
