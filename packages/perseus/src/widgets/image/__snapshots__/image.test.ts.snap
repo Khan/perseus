@@ -59,7 +59,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
             >
               <figcaption
                 class="perseus-image-caption"
-                style="max-width: 400px;"
+                style="flex: 1; min-width: 0;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -144,7 +144,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
             >
               <figcaption
                 class="perseus-image-caption"
-                style="max-width: 400px;"
+                style="flex: 1; min-width: 0;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -252,7 +252,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                   >
                     <figcaption
                       class="perseus-image-caption"
-                      style="max-width: 420px;"
+                      style="flex: 1; min-width: 0;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -413,7 +413,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
             >
               <figcaption
                 class="perseus-image-caption"
-                style="max-width: 400px;"
+                style="flex: 1; min-width: 0;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -498,7 +498,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
             >
               <figcaption
                 class="perseus-image-caption"
-                style="max-width: 400px;"
+                style="flex: 1; min-width: 0;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -606,7 +606,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                   >
                     <figcaption
                       class="perseus-image-caption"
-                      style="max-width: 420px;"
+                      style="flex: 1; min-width: 0;"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
