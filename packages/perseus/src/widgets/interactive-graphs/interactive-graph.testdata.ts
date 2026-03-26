@@ -42,11 +42,6 @@ export const angleQuestion: PerseusRenderer = generateInteractiveGraphQuestion({
         scale: 1,
     },
     markings: "none",
-    graph: generateIGAngleGraph({
-        allowReflexAngles: false,
-        angleOffsetDeg: 1,
-        snapDegrees: 4,
-    }),
     correct: generateIGAngleGraph({
         allowReflexAngles: false,
         angleOffsetDeg: 1,
@@ -128,7 +123,6 @@ export const pointQuestion: PerseusRenderer = generateInteractiveGraphQuestion({
         [-4, 4],
         [-4, 4],
     ],
-    graph: generateIGPointGraph({numPoints: "unlimited"}),
     correct: generateIGPointGraph({
         numPoints: "unlimited",
         coords: [
@@ -141,7 +135,6 @@ export const pointQuestion: PerseusRenderer = generateInteractiveGraphQuestion({
 
 export const floatingPointIssueQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
-        graph: generateIGPointGraph({numPoints: 5}),
         correct: generateIGPointGraph({numPoints: 5}),
         showTooltips: true,
         range: [
@@ -155,7 +148,6 @@ export const floatingPointIssueQuestion: PerseusRenderer =
 
 export const pointQuestionWithDefaultCorrect: PerseusRenderer =
     generateInteractiveGraphQuestion({
-        graph: generateIGPointGraph({numPoints: 1}),
         correct: generateIGPointGraph({numPoints: 1}),
     });
 
@@ -176,7 +168,6 @@ export const finitePointQuestion: PerseusRenderer =
             [-8, 8],
             [-8, 8],
         ],
-        graph: generateIGPointGraph({numPoints: 1}),
         correct: generateIGPointGraph({
             numPoints: 1,
             coords: [[0, 0]],
@@ -185,7 +176,6 @@ export const finitePointQuestion: PerseusRenderer =
 
 export const unlimitedPointQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
-        graph: generateIGPointGraph({numPoints: "unlimited"}),
         correct: generateIGPointGraph({numPoints: "unlimited"}),
     });
 
@@ -201,11 +191,6 @@ export const polygonQuestion: PerseusRenderer =
             [-1, 6],
             [-1, 6],
         ],
-        graph: generateIGPolygonGraph({
-            snapTo: "grid",
-            numSides: 3,
-            showSides: true,
-        }),
         correct: generateIGPolygonGraph({
             snapTo: "grid",
             match: "congruent",
@@ -230,12 +215,6 @@ export const unlimitedPolygonQuestion: PerseusRenderer =
             [-10, 10],
             [-10, 10],
         ],
-        graph: generateIGPolygonGraph({
-            snapTo: "grid",
-            numSides: "unlimited",
-            showSides: true,
-            showAngles: true,
-        }),
         correct: generateIGPolygonGraph({
             snapTo: "grid",
             match: "congruent",
@@ -248,7 +227,6 @@ export const unlimitedPolygonQuestion: PerseusRenderer =
 
 export const polygonQuestionDefaultCorrect: PerseusRenderer =
     generateInteractiveGraphQuestion({
-        graph: generateIGPolygonGraph({snapTo: "grid"}),
         correct: generateIGPolygonGraph({snapTo: "grid"}),
     });
 
@@ -288,7 +266,6 @@ export const segmentQuestion: PerseusRenderer =
                 ],
             }),
         ],
-        graph: generateIGSegmentGraph({numSegments: 1}),
         correct: generateIGSegmentGraph({
             numSegments: 1,
             coords: [
@@ -314,24 +291,25 @@ export const segmentQuestionDefaultCorrect: PerseusRenderer =
 
 export const segmentWithLockedPointsQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPoint({coord: [-7, -7], filled: true}),
             generateIGLockedPoint({coord: [2, -5], filled: false}),
         ],
-        correct: generateIGSegmentGraph(),
     });
 
 export const segmentWithLockedPointsWithColorQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPoint({coord: [-7, -7], color: "green"}),
             generateIGLockedPoint({coord: [2, -5], color: "green"}),
         ],
-        correct: generateIGSegmentGraph(),
     });
 
 export const segmentWithLockedLineQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedLine({
                 kind: "line",
@@ -388,7 +366,6 @@ export const segmentWithLockedLineQuestion: PerseusRenderer =
                 ],
             }),
         ],
-        correct: generateIGSegmentGraph(),
     });
 
 export const sinusoidQuestion: PerseusRenderer =
@@ -512,7 +489,6 @@ export const questionsAndAnswers: ReadonlyArray<
                 [-8, 8],
                 [-8, 8],
             ],
-            graph: generateIGPolygonGraph({snapTo: "grid"}),
             correct: generateIGPolygonGraph({
                 snapTo: "grid",
                 coords: [
@@ -572,10 +548,6 @@ export const questionsAndAnswers: ReadonlyArray<
                 [-12, 12],
                 [-8, 16],
             ],
-            graph: generateIGPolygonGraph({
-                snapTo: "grid",
-                numSides: "unlimited",
-            }),
             correct: generateIGPolygonGraph({
                 snapTo: "grid",
                 numSides: "unlimited",
@@ -606,6 +578,7 @@ export const questionsAndAnswers: ReadonlyArray<
 
 export const segmentWithAllLockedLineSegmentVariations: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedLine({
                 kind: "segment",
@@ -669,6 +642,7 @@ export const segmentWithAllLockedLineSegmentVariations: PerseusRenderer =
 
 export const segmentWithAllLockedLineVariations: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedLine({
                 kind: "line",
@@ -732,6 +706,7 @@ export const segmentWithAllLockedLineVariations: PerseusRenderer =
 
 export const segmentWithAllLockedRayVariations: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedLine({
                 kind: "ray",
@@ -795,6 +770,7 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer =
 
 export const segmentWithLockedVectors: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedVector({
                 points: [
@@ -814,6 +790,7 @@ export const segmentWithLockedVectors: PerseusRenderer =
 
 export const segmentWithLockedEllipses: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedEllipse({center: [0, 0], radius: [5, 5]}),
             generateIGLockedEllipse({
@@ -837,6 +814,7 @@ export const segmentWithLockedEllipses: PerseusRenderer =
 
 export const segmentWithLockedEllipseWhite: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedEllipse({
                 center: [0, 0],
@@ -855,6 +833,7 @@ export const segmentWithLockedEllipseWhite: PerseusRenderer =
 
 export const segmentWithLockedPolygons: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPolygon({
                 points: [
@@ -893,6 +872,7 @@ export const segmentWithLockedPolygons: PerseusRenderer =
 
 export const segmentWithLockedPolygonWhite: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPolygon({
                 points: [
@@ -929,6 +909,7 @@ export const segmentWithLockedFunctionAndAsymmetricRange = (
     options?: Partial<Omit<LockedFunctionType, "type">>,
 ): PerseusRenderer => {
     return generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         range: [
             [-5, 5],
             [-10, 10],
@@ -939,6 +920,7 @@ export const segmentWithLockedFunctionAndAsymmetricRange = (
 
 export const segmentWithLockedLabels: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedLabel({
                 text: "small $\\frac{1}{2}$",
@@ -980,6 +962,7 @@ export const quadraticQuestionWithDefaultCorrect: PerseusRenderer =
 export const staticGraphQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
         isStatic: true,
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPoint({coord: [-7, -7]}),
             generateIGLockedLine({
@@ -1017,6 +1000,7 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
     () => {
         const igQuestion = generateInteractiveGraphQuestion({
             isStatic: true,
+            correct: generateIGSegmentGraph(),
             lockedFigures: [
                 generateIGLockedPoint({coord: [-7, -7]}),
                 generateIGLockedLine({
@@ -1104,6 +1088,7 @@ export const interactiveGraphWithAriaLabel: PerseusRenderer =
 
 export const graphWithLabeledPoint: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPoint({
                 coord: [0, 0],
@@ -1114,6 +1099,7 @@ export const graphWithLabeledPoint: PerseusRenderer =
 
 export const graphWithLabeledLine: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedLine({
                 points: [
@@ -1127,6 +1113,7 @@ export const graphWithLabeledLine: PerseusRenderer =
 
 export const graphWithLabeledVector: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedVector({
                 points: [
@@ -1140,6 +1127,7 @@ export const graphWithLabeledVector: PerseusRenderer =
 
 export const graphWithLabeledEllipse: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedEllipse({
                 center: [0, 0],
@@ -1151,6 +1139,7 @@ export const graphWithLabeledEllipse: PerseusRenderer =
 
 export const graphWithLabeledPolygon: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPolygon({
                 points: [
@@ -1165,6 +1154,7 @@ export const graphWithLabeledPolygon: PerseusRenderer =
 
 export const graphWithLabeledFunction: PerseusRenderer =
     generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedFunction({
                 equation: "sin(x)",

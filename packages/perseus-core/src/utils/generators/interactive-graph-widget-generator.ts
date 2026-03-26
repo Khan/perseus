@@ -11,6 +11,7 @@ import type {
     LockedPointType,
     LockedPolygonType,
     LockedVectorType,
+    PerseusGraphType,
     PerseusGraphTypeAbsoluteValue,
     PerseusGraphTypeAngle,
     PerseusGraphTypeCircle,
@@ -258,12 +259,21 @@ export function generateInteractiveGraphQuestion(
 ): PerseusRenderer {
     const {content, isStatic, ...widgetOptions} = options ?? {};
 
-    // If `correct` is set but `graph` is not, default `graph` to match
-    // the correct answer's type. For graph types that need shared config
-    // (like numSides, numPoints, snapTo), callers should pass `graph`
-    // explicitly.
+    // The `graph` and `correct` fields share config like numSides,
+    // numPoints, and snapTo — only the answer (coords, center, etc.)
+    // differs. When only `correct` is provided, derive `graph` from
+    // it by stripping the answer-specific fields.
+    // This allows us to keep our test data more succinct.
     if (widgetOptions.correct && !widgetOptions.graph) {
-        widgetOptions.graph = {type: widgetOptions.correct.type};
+        const {
+            coords: _,
+            coord: __,
+            center: ___,
+            radius: ____,
+            asymptote: _____,
+            ...graphConfig
+        } = widgetOptions.correct as Record<string, unknown>;
+        widgetOptions.graph = graphConfig as PerseusGraphType;
     }
 
     return generateTestPerseusRenderer({

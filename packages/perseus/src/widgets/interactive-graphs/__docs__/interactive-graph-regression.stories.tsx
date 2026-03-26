@@ -435,7 +435,6 @@ export const MafsInMobileContainer: Story = {
 export const MafsWithMultipleSegments: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
-            graph: generateIGSegmentGraph({numSegments: 3}),
             correct: generateIGSegmentGraph({numSegments: 3}),
         }),
     },
@@ -610,7 +609,6 @@ export const ShowXMinArrow: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             correct: generateIGNoneGraph(),
-            graph: generateIGNoneGraph(),
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -624,7 +622,6 @@ export const ShowXMaxArrow: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             correct: generateIGNoneGraph(),
-            graph: generateIGNoneGraph(),
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -638,7 +635,6 @@ export const ShowYMinArrow: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             correct: generateIGNoneGraph(),
-            graph: generateIGNoneGraph(),
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -652,7 +648,6 @@ export const ShowYMaxArrow: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             correct: generateIGNoneGraph(),
-            graph: generateIGNoneGraph(),
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -666,7 +661,6 @@ export const ShowAllArrows: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             correct: generateIGNoneGraph(),
-            graph: generateIGNoneGraph(),
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -680,7 +674,6 @@ export const ShowNoArrows: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             correct: generateIGNoneGraph(),
-            graph: generateIGNoneGraph(),
             range: [
                 [-10, 10],
                 [-10, 10],
