@@ -58,7 +58,7 @@ export function contentHasWidgetType(
 /**
  * Pull the widget map out of ItemData
  *
- * @param {PerseusItem} PerseusItem containing a widgetMap
+ * @param {PerseusItem} itemData containing a widgetMap
  * @returns {WidgetMap} the widget map in the PerseusItem
  */
 export function getWidgetsMapFromItemData(
