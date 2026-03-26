@@ -61,9 +61,9 @@ class MathInput extends React.Component<Props, State> {
     didTouchOutside: boolean | null | undefined;
     didScroll: boolean | null | undefined;
     mathField: any;
-    recordTouchStartOutside!: (arg1: any) => void;
-    blurOnTouchEndOutside!: (arg1: any) => void;
-    blurOnClickOutside!: (arg1: any) => void;
+    recordTouchStartOutside!: (e: any) => void;
+    blurOnTouchEndOutside!: (e: any) => void;
+    blurOnClickOutside!: (e: any) => void;
     dragListener: any;
     inputRef: HTMLDivElement | null | undefined;
     _isMounted: boolean | null | undefined;
@@ -267,7 +267,9 @@ class MathInput extends React.Component<Props, State> {
         return null;
     }
 
-    _updateCursorHandle: (arg1?: boolean) => void = (animateIntoPosition) => {
+    _updateCursorHandle: (animateIntoPosition?: boolean) => void = (
+        animateIntoPosition,
+    ) => {
         const containerBounds = this._container.getBoundingClientRect();
         const cursor: any = this._container.querySelector(".mq-cursor");
         const cursorBounds = cursor.getBoundingClientRect();
@@ -673,7 +675,7 @@ class MathInput extends React.Component<Props, State> {
         this.inputRef?.focus();
     };
 
-    handleTouchMove: (arg1: React.TouchEvent<Element>) => void = (e) => {
+    handleTouchMove: (e: React.TouchEvent<Element>) => void = (e) => {
         e.stopPropagation();
 
         // Update the handle-less cursor's location on move, if there's any
@@ -688,7 +690,7 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    handleTouchEnd: (arg1: React.TouchEvent<Element>) => void = (e) => {
+    handleTouchEnd: (e: React.TouchEvent<Element>) => void = (e) => {
         e.stopPropagation();
 
         // And on touch-end, reveal the cursor, unless the input is empty. Note
