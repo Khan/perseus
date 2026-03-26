@@ -1,7 +1,6 @@
 import {
     generateInteractiveGraphWidget,
     generateRadioWidget,
-    generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 
 import {generateTestCategorizerWidget} from "./util/test-utils";
