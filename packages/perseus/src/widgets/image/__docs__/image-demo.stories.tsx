@@ -206,6 +206,24 @@ export const LargeImageWithNoSizeSavedScaleFlag: Story = {
     },
 };
 
+export const LargeSVGImageWithNoSizeSavedScaleFlag: Story = {
+    decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-scale": true,
+            }),
+        },
+    },
+    args: {
+        backgroundImage: {url: svgImage.url},
+        alt: "Fresco painting",
+        longDescription:
+            "This is a *very* long description of the fresco painting.",
+    },
+};
+
 export const SmallImageWithNoSizeSavedScaleFlag: Story = {
     decorators: [imageRendererDecorator],
     parameters: {
