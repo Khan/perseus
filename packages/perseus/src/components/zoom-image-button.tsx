@@ -33,6 +33,7 @@ export const ZoomImageButton = (props: Props) => {
 
     return (
         <ModalLauncher
+            initialFocusId="zoomed-image-container"
             modal={({closeModal}) => (
                 <ZoomedImageView {...props} onClose={closeModal} />
             )}

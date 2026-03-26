@@ -1,7 +1,9 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {ModalDialog, ModalPanel} from "@khanacademy/wonder-blocks-modal";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import closeIcon from "@phosphor-icons/core/bold/x-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -54,44 +56,62 @@ export const ZoomedImageView = (props: Props) => {
                     <div className={styles.contentWrapper}>
                         <Clickable
                             onClick={onClose}
+                            style={wbStyles.closeButtonContainer}
+                            className={styles.closeButtonWrapper}
                             aria-label={i18n.strings.imageResetZoomAriaLabel}
-                            style={{
-                                cursor: "zoom-out",
-                            }}
                         >
                             {() => (
-                                // This wrapper's explicit width tells
-                                // the image how big it should be.
-                                // Without it, the auto-width modal
-                                // causes the image to collapse to its
-                                // natural pixel size, ignoring scale.
-                                <div
-                                    className={styles.imageContainer}
-                                    style={{
-                                        width:
-                                            width && scaleFF
-                                                ? width * scale
-                                                : undefined,
-                                    }}
-                                >
-                                    <div
-                                        // We need to include the framework-perseus
-                                        // class here to ensure that the image is
-                                        // styled correctly. Otherwise the Graphie
-                                        // labels may not be in the correct positions.
-                                        className="framework-perseus"
-                                    >
-                                        <SvgImage
-                                            {...svgProps}
-                                            // Don't allow zooming inside the
-                                            // zoom view.
-                                            allowZoom={false}
-                                            scale={scaleFF ? scale : 1}
-                                        />
-                                    </div>
+                                <div className={styles.closeButtonIcon}>
+                                    <PhosphorIcon
+                                        icon={closeIcon}
+                                        size="medium"
+                                        color={
+                                            semanticColor.core.foreground
+                                                .instructive.default
+                                        }
+                                    />
                                 </div>
                             )}
                         </Clickable>
+                        <div
+                            className={styles.imageContainer}
+                            // This wrapper's explicit width tells
+                            // the image how big it should be.
+                            // Without it, the auto-width modal
+                            // causes the image to collapse to its
+                            // natural pixel size, ignoring scale.
+                            style={{
+                                width:
+                                    width && scaleFF
+                                        ? width * scale
+                                        : undefined,
+                            }}
+                        >
+                            <div
+                                // We need to include the framework-perseus
+                                // class here to ensure that the image is
+                                // styled correctly. Otherwise the Graphie
+                                // labels may not be in the correct positions.
+                                className="framework-perseus"
+                                // tabIndex={0} makes this a focus target so that:
+                                // 1. ModalLauncher's initialFocusId can focus it on
+                                //    open, keeping the close button hidden initially.
+                                // 2. Tab can move focus here from the close button,
+                                //    causing the button to hide without closing the
+                                //    modal.
+                                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                                tabIndex={0}
+                                id="zoomed-image-container"
+                            >
+                                <SvgImage
+                                    {...svgProps}
+                                    // Don't allow zooming inside the
+                                    // zoom view.
+                                    allowZoom={false}
+                                    scale={scaleFF ? scale : 1}
+                                />
+                            </div>
+                        </div>
                     </div>
                 }
             />
@@ -113,5 +133,14 @@ const wbStyles = StyleSheet.create({
         "@media (max-width: 767px)": {
             margin: 0,
         },
+    },
+    closeButtonContainer: {
+        position: "absolute",
+        // Slight offset for the close button outline to be visible.
+        top: border.width.medium,
+        right: border.width.medium,
+        height: sizing.size_400,
+        width: sizing.size_400,
+        zIndex: 1,
     },
 });
