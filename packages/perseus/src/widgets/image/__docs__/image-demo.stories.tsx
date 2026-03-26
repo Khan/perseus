@@ -219,8 +219,7 @@ export const LargeSVGImageWithNoSizeSavedScaleFlag: Story = {
     args: {
         backgroundImage: {url: svgImage.url},
         alt: "Fresco painting",
-        longDescription:
-            "This is a *very* long description of the fresco painting.",
+        longDescription: extremelyLongDescription,
     },
 };
 
@@ -331,14 +330,14 @@ export const ImageWithScaledSizes: Story = {
                 }}
                 question={generateTestPerseusRenderer({
                     content:
-                        "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]\n\n[[☃ image 7]]\n\n[[☃ image 8]]\n\n[[☃ image 9]]",
+                        "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]",
                     widgets: {
                         "image 1": generateImageWidget({
                             options: generateImageOptions({
                                 backgroundImage: earthMoonImage,
                                 scale: 1,
                                 alt: "Fresco painting",
-                                longDescription: extremelyLongDescription,
+                                longDescription: "long description",
                             }),
                         }),
                         "image 2": generateImageWidget({
@@ -346,7 +345,7 @@ export const ImageWithScaledSizes: Story = {
                                 backgroundImage: earthMoonImage,
                                 scale: 0.5,
                                 alt: "Fresco painting",
-                                longDescription: extremelyLongDescription,
+                                longDescription: "long description",
                             }),
                         }),
                         "image 3": generateImageWidget({
@@ -354,14 +353,14 @@ export const ImageWithScaledSizes: Story = {
                                 backgroundImage: earthMoonImage,
                                 scale: 2,
                                 alt: "Fresco painting",
-                                longDescription: extremelyLongDescription,
+                                longDescription: "long description",
                             }),
                         }),
                         "image 4": generateImageWidget({
                             options: generateImageOptions({
                                 backgroundImage: graphieImage,
                                 alt: graphieImageAlt,
-                                longDescription: extremelyLongDescription,
+                                longDescription: "long description",
                             }),
                         }),
                         "image 5": generateImageWidget({
@@ -369,7 +368,7 @@ export const ImageWithScaledSizes: Story = {
                                 backgroundImage: graphieImage,
                                 scale: 0.5,
                                 alt: graphieImageAlt,
-                                longDescription: extremelyLongDescription,
+                                longDescription: "long description",
                             }),
                         }),
                         "image 6": generateImageWidget({
@@ -377,30 +376,7 @@ export const ImageWithScaledSizes: Story = {
                                 backgroundImage: graphieImage,
                                 scale: 2,
                                 alt: graphieImageAlt,
-                                longDescription: extremelyLongDescription,
-                            }),
-                        }),
-                        "image 7": generateImageWidget({
-                            options: generateImageOptions({
-                                backgroundImage: svgImage,
-                                alt: "a",
-                                longDescription: extremelyLongDescription,
-                            }),
-                        }),
-                        "image 8": generateImageWidget({
-                            options: generateImageOptions({
-                                backgroundImage: svgImage,
-                                scale: 0.5,
-                                alt: "a",
-                                longDescription: extremelyLongDescription,
-                            }),
-                        }),
-                        "image 9": generateImageWidget({
-                            options: generateImageOptions({
-                                backgroundImage: svgImage,
-                                scale: 2,
-                                alt: "a",
-                                longDescription: extremelyLongDescription,
+                                longDescription: "long description",
                             }),
                         }),
                     },
