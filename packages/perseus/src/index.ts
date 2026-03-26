@@ -103,7 +103,6 @@ export {
     getWidgetTypeByWidgetId,
     getWidgetSubTypeByWidgetId,
     contentHasWidgetType,
-    getWidgetsMapFromItemData,
     getWidgetFromWidgetMap,
     getWidgetsFromWidgetMap,
 } from "./widget-type-utils";
