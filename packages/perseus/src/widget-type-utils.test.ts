@@ -8,7 +8,6 @@ import {generateTestCategorizerWidget} from "./util/test-utils";
 import {
     getWidgetTypeByWidgetId,
     contentHasWidgetType,
-    getWidgetsMapFromItemData,
     getWidgetFromWidgetMap,
     getWidgetsFromWidgetMap,
     getWidgetSubTypeByWidgetId,
@@ -119,24 +118,6 @@ describe("widget-type-utils", () => {
 
             // Assert
             expect(result).toBe(false);
-        });
-    });
-
-    describe("getWidgetsMapFromItemData", () => {
-        it("returns the widgets map from itemData", () => {
-            // Assemble
-            const itemData = generateTestPerseusItem();
-            const widgetId = "dont-look-for-type-in-id";
-            const widgetMap = {
-                [widgetId]: generateRadioWidget(),
-            };
-            itemData.question.widgets = widgetMap;
-
-            // Act
-            const result = getWidgetsMapFromItemData(itemData);
-
-            // Assert
-            expect(result?.[widgetId].type).toBe("radio");
         });
     });
 

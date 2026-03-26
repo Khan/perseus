@@ -1,9 +1,6 @@
 import {keys} from "@khanacademy/wonder-stuff-core";
 
-import {
-    getWidgetTypeByWidgetId,
-    getWidgetsMapFromItemData,
-} from "../widget-type-utils";
+import {getWidgetTypeByWidgetId} from "../widget-type-utils";
 import * as Widgets from "../widgets";
 
 import type {
