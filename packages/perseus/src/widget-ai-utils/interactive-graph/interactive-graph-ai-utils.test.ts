@@ -856,7 +856,7 @@ describe("InteractiveGraph AI utils", () => {
                     options: {
                         graph: {
                             type: "polygon",
-                            match: undefined,
+                            match: "congruent",
                             numSides: 3,
                             startCoords: undefined,
                         },
