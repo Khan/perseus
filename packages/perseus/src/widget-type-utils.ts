@@ -1,6 +1,5 @@
 import {
     getWidgetIdsFromContentByType,
-    type PerseusItem,
     type PerseusWidget,
     type PerseusWidgetsMap,
     type PerseusGraphType,
@@ -53,18 +52,6 @@ export function contentHasWidgetType(
     widgetMap: PerseusWidgetsMap,
 ): boolean {
     return getWidgetIdsFromContentByType(type, content, widgetMap).length > 0;
-}
-
-/**
- * Pull the widget map out of ItemData
- *
- * @param {PerseusItem} itemData containing a widgetMap
- * @returns {WidgetMap} the widget map in the PerseusItem
- */
-export function getWidgetsMapFromItemData(
-    itemData: PerseusItem,
-): PerseusWidgetsMap {
-    return itemData.question.widgets;
 }
 
 /**
