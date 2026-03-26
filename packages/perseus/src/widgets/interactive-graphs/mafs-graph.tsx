@@ -11,7 +11,7 @@
  */
 import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
@@ -435,9 +435,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 transform: "translateY(-50%)",
                             }}
                         >
-                            <LabelMedium id={unlimitedGraphKeyboardPromptId}>
+                            <BodyText id={unlimitedGraphKeyboardPromptId}>
                                 {strings.graphKeyboardPrompt}
-                            </LabelMedium>
+                            </BodyText>
                         </View>
                     )}
                 </View>

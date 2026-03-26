@@ -12,7 +12,7 @@ import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
+import {Heading} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import $ from "jquery";
@@ -367,12 +367,13 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onClose={() => this.closeKeypad()}
                         content={() => (
                             <>
-                                <HeadingMedium
+                                <Heading
+                                    size="large"
                                     id={`popover-content-${popoverContentUniqueId}`}
                                     style={a11y.srOnly}
                                 >
                                     {this.context.strings.mathInputDescription}
-                                </HeadingMedium>
+                                </Heading>
                                 <PopoverContentCore
                                     style={styles.popoverContent}
                                 >

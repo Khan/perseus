@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import React, {
     forwardRef,
     useEffect,
@@ -166,9 +166,14 @@ const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
             }}
         >
             {visibleLabel && (
-                <LabelLarge tag="label" htmlFor={dropdownId}>
+                <BodyText
+                    size="medium"
+                    weight="bold"
+                    tag="label"
+                    htmlFor={dropdownId}
+                >
                     {visibleLabel}
-                </LabelLarge>
+                </BodyText>
             )}
             <SingleSelect
                 id={dropdownId}

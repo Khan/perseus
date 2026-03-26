@@ -1,6 +1,6 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
+import {Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import AssetContext from "../../../asset-context";
@@ -143,9 +143,13 @@ export default function ExploreImageModalContent({
                     </div>
                 )}
 
-                <HeadingMedium tag="h2" style={wbStyles.descriptionHeading}>
+                <Heading
+                    size="large"
+                    tag="h2"
+                    style={wbStyles.descriptionHeading}
+                >
                     {context.strings.imageDescriptionLabel}
-                </HeadingMedium>
+                </Heading>
                 {/* Use Renderer so that the description can support markdown and TeX. */}
                 <Renderer
                     content={longDescription}

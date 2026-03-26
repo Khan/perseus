@@ -1,5 +1,5 @@
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import caretLeftIcon from "@phosphor-icons/core/regular/caret-left.svg";
 import caretRightIcon from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
@@ -311,7 +311,7 @@ function ScrollControls({
                 aria-label={strings.scrollEnd}
                 disabled={!scrollState.canScrollEnd}
             />
-            <LabelSmall>{description}</LabelSmall>
+            <BodyText size="small">{description}</BodyText>
         </div>
     );
 }
