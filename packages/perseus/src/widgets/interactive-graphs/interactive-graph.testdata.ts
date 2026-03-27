@@ -900,6 +900,7 @@ export const segmentWithLockedFunction = (
     options?: Partial<Omit<LockedFunctionType, "type">>,
 ): PerseusRenderer => {
     return generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph(),
         lockedFigures: [generateIGLockedFunction({equation, ...options})],
     });
 };
