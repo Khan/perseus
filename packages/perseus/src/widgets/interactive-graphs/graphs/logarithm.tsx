@@ -183,15 +183,6 @@ export const constrainAsymptoteKeyboard = (
         }
     }
 
-    // Can't land exactly on a point — skip one more step
-    if (newX === coords[0][X] || newX === coords[1][X]) {
-        if (newX >= (rightMost + leftMost) / 2) {
-            newX += stepX;
-        } else {
-            newX -= stepX;
-        }
-    }
-
     return [newX, snapped[Y]];
 };
 
