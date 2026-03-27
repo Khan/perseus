@@ -33,6 +33,16 @@ export function getSinusoidCoefficients(
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
+/** Coefficients for f(x) = a·ln(b·x + c). */
+export type LogarithmCoefficient = {
+    /** Vertical scale factor. */
+    a: number;
+    /** Horizontal scale factor. */
+    b: number;
+    /** Horizontal shift (determines vertical asymptote at x = −c/b). */
+    c: number;
+};
+
 /** Coefficients for f(x) = a·eᵇˣ + c. */
 export type ExponentialCoefficient = {
     /** Vertical scale factor (amplitude). */
@@ -77,6 +87,55 @@ export function getExponentialCoefficients(
     if (!isFinite(a) || !isFinite(b) || a === 0) {
         return;
     }
+
+    return {a, b, c};
+}
+
+/**
+ * Returns the coefficients {a, b, c} for f(x) = a·ln(b·x + c) given two
+ * points on the curve and the x-value of the vertical asymptote.
+ *
+ * Uses the inverse exponential approach: flip each coordinate (x, y) → (y, x),
+ * compute exponential coefficients from the flipped points, then invert.
+ *
+ * Returns undefined if the inputs are geometrically invalid (same y, a point
+ * on the asymptote, or points on opposite sides of the asymptote).
+ */
+export function getLogarithmCoefficients(
+    coords: ReadonlyArray<Coord>,
+    asymptote: number,
+): LogarithmCoefficient | undefined {
+    const p1 = coords[0];
+    const p2 = coords[1];
+
+    if (p1[1] === p2[1]) {
+        return;
+    } // same y makes bExp undefined
+    if (p1[0] === asymptote || p2[0] === asymptote) {
+        return;
+    } // point on asymptote
+
+    // Flip coordinates: treat logarithm as inverse exponential
+    const p1Flipped: Coord = [p1[1], p1[0]];
+    const p2Flipped: Coord = [p2[1], p2[0]];
+    const cExp = asymptote;
+
+    const ratio = (p1Flipped[1] - cExp) / (p2Flipped[1] - cExp);
+    if (ratio <= 0) {
+        return;
+    } // points on opposite sides of asymptote
+
+    const bExp = Math.log(ratio) / (p1Flipped[0] - p2Flipped[0]);
+    const aExp = (p1Flipped[1] - cExp) / Math.exp(bExp * p1Flipped[0]);
+
+    if (!isFinite(bExp) || !isFinite(aExp) || aExp === 0 || bExp === 0) {
+        return;
+    }
+
+    // Invert exponential coefficients to get logarithm coefficients
+    const a = 1 / bExp;
+    const b = 1 / aExp;
+    const c = -cExp / aExp;
 
     return {a, b, c};
 }
