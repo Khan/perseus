@@ -2,7 +2,7 @@ import {
     coefficients as kmathCoefficients,
     type LogarithmCoefficient,
 } from "@khanacademy/kmath";
-import {Plot, vec} from "mafs";
+import {Plot} from "mafs";
 import * as React from "react";
 
 import {
@@ -13,6 +13,7 @@ import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {getAsymptoteGraphKeyboardConstraint} from "./components/asymptote-graph-keyboard-constraint";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -26,6 +27,7 @@ import type {
     InteractiveGraphElementSuite,
 } from "../types";
 import type {Coord} from "@khanacademy/perseus-core";
+import type {vec} from "mafs";
 
 const {getLogarithmCoefficients} = kmathCoefficients;
 
@@ -197,49 +199,25 @@ export const getLogarithmKeyboardConstraint = (
     left: vec.Vector2;
     right: vec.Vector2;
 } => {
-    const coordToBeMoved = coords[pointIndex];
     const otherPoint = coords[1 - pointIndex];
     const asymptoteX = asymptote;
 
-    const isValidPosition = (coord: vec.Vector2): boolean => {
-        if (coord[X] === asymptoteX) {
-            return false;
-        }
-        if (coord[Y] === otherPoint[Y]) {
-            return false;
-        }
-        // Crossing the asymptote is allowed — the reducer reflects
-        // the other point so both end up on the same side.
-        return true;
-    };
-
-    const movePointWithConstraint = (
-        moveFunc: (coord: vec.Vector2) => vec.Vector2,
-    ): vec.Vector2 => {
-        let movedCoord = moveFunc(coordToBeMoved);
-        for (let i = 0; i < 3 && !isValidPosition(movedCoord); i++) {
-            movedCoord = moveFunc(movedCoord);
-        }
-        if (!isValidPosition(movedCoord)) {
-            return coordToBeMoved;
-        }
-        return movedCoord;
-    };
-
-    return {
-        up: movePointWithConstraint((coord) =>
-            vec.add(coord, [0, snapStep[Y]]),
-        ),
-        down: movePointWithConstraint((coord) =>
-            vec.sub(coord, [0, snapStep[Y]]),
-        ),
-        left: movePointWithConstraint((coord) =>
-            vec.sub(coord, [snapStep[X], 0]),
-        ),
-        right: movePointWithConstraint((coord) =>
-            vec.add(coord, [snapStep[X], 0]),
-        ),
-    };
+    return getAsymptoteGraphKeyboardConstraint(
+        coords,
+        snapStep,
+        pointIndex,
+        (coord) => {
+            // Point cannot land on the vertical asymptote
+            if (coord[X] === asymptoteX) {
+                return false;
+            }
+            // Both points must have different y-values
+            if (coord[Y] === otherPoint[Y]) {
+                return false;
+            }
+            return true;
+        },
+    );
 };
 
 // Plot a logarithm of the form: f(x) = a * ln(b * x + c)
