@@ -643,6 +643,12 @@ function doMovePoint(
                     [reflectedX, otherPoint[Y]],
                     state,
                 );
+
+                // Both points at the same x is invalid for a logarithm
+                if (updatedCoords[0][X] === updatedCoords[1][X]) {
+                    return state;
+                }
+
                 return {
                     ...state,
                     hasBeenInteractedWith: true,

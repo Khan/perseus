@@ -2075,6 +2075,25 @@ describe("movePoint on a logarithm graph", () => {
         invariant(updated.type === "logarithm");
         expect(updated.coords[0]).toEqual([-3, -2]);
     });
+
+    it("rejects cross-asymptote move when reflection would cause same-x collision", () => {
+        // Arrange — asymptote=-6, coords=[(-4,-3), (-5,-7)], snapStep=[1,1]
+        // Moving point 0 to (-7,-3) crosses the asymptote.
+        // reflectedX = 2*(-6) - (-5) = -7, so both points would be at x=-7.
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-7, -3]),
+        );
+
+        // Assert — move was rejected; state is unchanged
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -3]);
+        expect(updated.coords[1]).toEqual([-5, -7]);
+        expect(updated.hasBeenInteractedWith).toBe(false);
+    });
 });
 
 describe("moveCenter on a logarithm graph (asymptote)", () => {
