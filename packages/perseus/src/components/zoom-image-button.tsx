@@ -43,7 +43,7 @@ export const ZoomImageButton = (props: Props) => {
             modal={({closeModal}) => (
                 <ZoomedImageView
                     {...props}
-                    id={zoomedImageUniqueId}
+                    initialFocusId={zoomedImageUniqueId}
                     onClose={closeModal}
                 />
             )}
