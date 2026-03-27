@@ -4,6 +4,7 @@ import {
     getAngleCoords,
     getCircleCoords,
     getExponentialCoords,
+    getLogarithmCoords,
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
@@ -111,8 +112,14 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             });
-        case "logarithm":
-            return undefined;
+        case "logarithm": {
+            const {coords, asymptote} = getLogarithmCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+            return {coords, asymptote};
+        }
         default:
             return undefined;
     }
@@ -249,9 +256,8 @@ export const shouldShowStartCoordsUI = (
         case "segment":
         case "sinusoid":
         case "absolute-value":
-            return true;
         case "logarithm":
-            return false;
+            return true;
         default:
             throw new UnreachableCaseError(graph);
     }
