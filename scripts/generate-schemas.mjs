@@ -15,10 +15,18 @@
  *
  * Instead, we use the TypeScript compiler API (typeToTypeNode with
  * NodeBuilderFlags.NoTruncation | InTypeAlias) to expand PerseusWidgetsMap to
- * its concrete per-widget index signatures, then convert those to JSON Schema
- * `patternProperties`. Any generated schema that references PerseusWidgetsMap
- * is post-processed to swap in the correct definition and pull in all the
- * widget type definitions it needs.
+ * its concrete per-widget index signatures, then convert those to a JSON Schema
+ * `additionalProperties` + `anyOf` union discriminated by the widget `type`
+ * field. Any generated schema that references PerseusWidgetsMap is
+ * post-processed to swap in the correct definition and pull in all the widget
+ * type definitions it needs.
+ *
+ * Widget schema files
+ * ───────────────────
+ * Each widget file is generated from the full wrapper type (e.g.
+ * `InteractiveGraphWidget`) rather than just the options bag. The options type
+ * is kept as a `$ref` within the file (not inlined) so the file stays readable
+ * while remaining self-contained. All other $refs are inlined.
  *
  * Usage: node scripts/generate-schemas.mjs
  */
@@ -50,55 +58,136 @@ const TOP_LEVEL_TYPES = [
     {typeName: "PerseusRenderer", outFile: "perseus-renderer.schema.json"},
 ];
 
-// Active widget options types (deprecated widgets are omitted — they share
-// DeprecatedStandinWidget and carry no useful schema information)
+// Active widget types. optionsTypeName is the options bag (e.g.
+// PerseusInteractiveGraphWidgetOptions); the wrapper type (e.g.
+// InteractiveGraphWidget) is resolved at runtime from the expanded
+// PerseusWidgetsMap. Deprecated widgets are omitted — they share
+// DeprecatedStandinWidget and carry no useful schema information.
 const WIDGET_TYPES = [
-    {widgetName: "categorizer", typeName: "PerseusCategorizerWidgetOptions"},
-    {widgetName: "cs-program", typeName: "PerseusCSProgramWidgetOptions"},
-    {widgetName: "definition", typeName: "PerseusDefinitionWidgetOptions"},
-    {widgetName: "dropdown", typeName: "PerseusDropdownWidgetOptions"},
-    {widgetName: "explanation", typeName: "PerseusExplanationWidgetOptions"},
-    {widgetName: "expression", typeName: "PerseusExpressionWidgetOptions"},
-    {widgetName: "free-response", typeName: "PerseusFreeResponseWidgetOptions"},
-    {widgetName: "grapher", typeName: "PerseusGrapherWidgetOptions"},
-    {widgetName: "graded-group", typeName: "PerseusGradedGroupWidgetOptions"},
+    {
+        widgetName: "categorizer",
+        optionsTypeName: "PerseusCategorizerWidgetOptions",
+    },
+    {
+        widgetName: "cs-program",
+        optionsTypeName: "PerseusCSProgramWidgetOptions",
+    },
+    {
+        widgetName: "definition",
+        optionsTypeName: "PerseusDefinitionWidgetOptions",
+    },
+    {
+        widgetName: "dropdown",
+        optionsTypeName: "PerseusDropdownWidgetOptions",
+    },
+    {
+        widgetName: "explanation",
+        optionsTypeName: "PerseusExplanationWidgetOptions",
+    },
+    {
+        widgetName: "expression",
+        optionsTypeName: "PerseusExpressionWidgetOptions",
+    },
+    {
+        widgetName: "free-response",
+        optionsTypeName: "PerseusFreeResponseWidgetOptions",
+    },
+    {
+        widgetName: "grapher",
+        optionsTypeName: "PerseusGrapherWidgetOptions",
+    },
+    {
+        widgetName: "graded-group",
+        optionsTypeName: "PerseusGradedGroupWidgetOptions",
+    },
     {
         widgetName: "graded-group-set",
-        typeName: "PerseusGradedGroupSetWidgetOptions",
+        optionsTypeName: "PerseusGradedGroupSetWidgetOptions",
     },
-    {widgetName: "group", typeName: "PerseusGroupWidgetOptions"},
-    {widgetName: "iframe", typeName: "PerseusIFrameWidgetOptions"},
-    {widgetName: "image", typeName: "PerseusImageWidgetOptions"},
-    {widgetName: "input-number", typeName: "PerseusInputNumberWidgetOptions"},
-    {widgetName: "interaction", typeName: "PerseusInteractionWidgetOptions"},
+    {
+        widgetName: "group",
+        optionsTypeName: "PerseusGroupWidgetOptions",
+    },
+    {
+        widgetName: "iframe",
+        optionsTypeName: "PerseusIFrameWidgetOptions",
+    },
+    {
+        widgetName: "image",
+        optionsTypeName: "PerseusImageWidgetOptions",
+    },
+    {
+        widgetName: "input-number",
+        optionsTypeName: "PerseusInputNumberWidgetOptions",
+    },
+    {
+        widgetName: "interaction",
+        optionsTypeName: "PerseusInteractionWidgetOptions",
+    },
     {
         widgetName: "interactive-graph",
-        typeName: "PerseusInteractiveGraphWidgetOptions",
+        optionsTypeName: "PerseusInteractiveGraphWidgetOptions",
     },
-    {widgetName: "label-image", typeName: "PerseusLabelImageWidgetOptions"},
-    {widgetName: "matcher", typeName: "PerseusMatcherWidgetOptions"},
-    {widgetName: "matrix", typeName: "PerseusMatrixWidgetOptions"},
-    {widgetName: "measurer", typeName: "PerseusMeasurerWidgetOptions"},
+    {
+        widgetName: "label-image",
+        optionsTypeName: "PerseusLabelImageWidgetOptions",
+    },
+    {
+        widgetName: "matcher",
+        optionsTypeName: "PerseusMatcherWidgetOptions",
+    },
+    {
+        widgetName: "matrix",
+        optionsTypeName: "PerseusMatrixWidgetOptions",
+    },
+    {
+        widgetName: "measurer",
+        optionsTypeName: "PerseusMeasurerWidgetOptions",
+    },
     {
         widgetName: "molecule-renderer",
-        typeName: "PerseusMoleculeRendererWidgetOptions",
+        optionsTypeName: "PerseusMoleculeRendererWidgetOptions",
     },
-    {widgetName: "number-line", typeName: "PerseusNumberLineWidgetOptions"},
-    {widgetName: "numeric-input", typeName: "PerseusNumericInputWidgetOptions"},
-    {widgetName: "orderer", typeName: "PerseusOrdererWidgetOptions"},
+    {
+        widgetName: "number-line",
+        optionsTypeName: "PerseusNumberLineWidgetOptions",
+    },
+    {
+        widgetName: "numeric-input",
+        optionsTypeName: "PerseusNumericInputWidgetOptions",
+    },
+    {
+        widgetName: "orderer",
+        optionsTypeName: "PerseusOrdererWidgetOptions",
+    },
     {
         widgetName: "phet-simulation",
-        typeName: "PerseusPhetSimulationWidgetOptions",
+        optionsTypeName: "PerseusPhetSimulationWidgetOptions",
     },
-    {widgetName: "plotter", typeName: "PerseusPlotterWidgetOptions"},
+    {
+        widgetName: "plotter",
+        optionsTypeName: "PerseusPlotterWidgetOptions",
+    },
     {
         widgetName: "python-program",
-        typeName: "PerseusPythonProgramWidgetOptions",
+        optionsTypeName: "PerseusPythonProgramWidgetOptions",
     },
-    {widgetName: "radio", typeName: "PerseusRadioWidgetOptions"},
-    {widgetName: "sorter", typeName: "PerseusSorterWidgetOptions"},
-    {widgetName: "table", typeName: "PerseusTableWidgetOptions"},
-    {widgetName: "video", typeName: "PerseusVideoWidgetOptions"},
+    {
+        widgetName: "radio",
+        optionsTypeName: "PerseusRadioWidgetOptions",
+    },
+    {
+        widgetName: "sorter",
+        optionsTypeName: "PerseusSorterWidgetOptions",
+    },
+    {
+        widgetName: "table",
+        optionsTypeName: "PerseusTableWidgetOptions",
+    },
+    {
+        widgetName: "video",
+        optionsTypeName: "PerseusVideoWidgetOptions",
+    },
 ];
 
 // ─── PerseusWidgetsMap expansion via TypeScript compiler API ─────────────────
@@ -106,10 +195,10 @@ const WIDGET_TYPES = [
 /**
  * Uses the TypeScript compiler API to expand PerseusWidgetsMap into its
  * concrete per-widget index signatures, then extracts the widget key prefix
- * (e.g. "categorizer") and value type name (e.g. "CategorizerWidget") from
+ * (e.g. "categorizer") and wrapper type name (e.g. "CategorizerWidget") from
  * each entry.
  *
- * @returns {Array<{keyPrefix: string, typeName: string}>}
+ * @returns {Array<{keyPrefix: string, wrapperTypeName: string}>}
  */
 function expandWidgetsMap() {
     const program = ts.createProgram([DATA_SCHEMA_PATH], {
@@ -162,7 +251,7 @@ function expandWidgetsMap() {
                     entries.push({
                         // Trim trailing space: "categorizer " → "categorizer"
                         keyPrefix: keyNode.head.text.trimEnd(),
-                        typeName: valueNode.typeName.text,
+                        wrapperTypeName: valueNode.typeName.text,
                     });
                 }
             }
@@ -175,29 +264,24 @@ function expandWidgetsMap() {
 }
 
 /**
- * Converts a list of widget map entries into a JSON Schema `patternProperties`
- * definition for PerseusWidgetsMap.
+ * Converts a list of widget map entries into a JSON Schema
+ * `additionalProperties` + `anyOf` definition for PerseusWidgetsMap.
  *
- * Each entry `{ keyPrefix: "categorizer", typeName: "CategorizerWidget" }`
- * becomes a pattern `"^categorizer \\d+$"` mapping to the widget's $ref.
+ * The widget key (e.g. "interactive-graph 1") is an opaque ID; the `type`
+ * field inside each widget entry is the real discriminator.
  */
 function buildWidgetsMapSchema(entries) {
-    const patternProperties = {};
-    for (const {keyPrefix, typeName} of entries) {
-        // Escape any regex metacharacters in the widget name (e.g. hyphens are
-        // safe outside character classes, but escape to be explicit)
-        const escaped = keyPrefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        patternProperties[`^${escaped} \\d+$`] = {
-            $ref: `#/definitions/${typeName}`,
-        };
-    }
     return {
         type: "object",
         description:
-            "A map of widget IDs to widget data. Keys are of the form" +
-            ' "{widget-type} {number}" (e.g. "radio 1", "interactive-graph 3").' +
-            " The widget\u2019s `type` field is the real discriminant \u2014 not the key.",
-        patternProperties,
+            "Maps widget IDs (e.g. 'interactive-graph 1') to widget entries. " +
+            "The ID must match the [[☃ widget-id]] placeholder in the content field. " +
+            "The 'type' field inside each entry is the discriminator — not the key.",
+        additionalProperties: {
+            anyOf: entries.map(({wrapperTypeName}) => ({
+                $ref: `#/definitions/${wrapperTypeName}`,
+            })),
+        },
     };
 }
 
@@ -209,17 +293,17 @@ function buildWidgetsMapSchema(entries) {
 function buildWidgetDefinitions(entries, generator) {
     const allDefs = {};
     const seen = new Set();
-    for (const {typeName} of entries) {
-        if (seen.has(typeName)) {
+    for (const {wrapperTypeName} of entries) {
+        if (seen.has(wrapperTypeName)) {
             continue;
         }
-        seen.add(typeName);
+        seen.add(wrapperTypeName);
         try {
-            const schema = generator.createSchema(typeName);
+            const schema = generator.createSchema(wrapperTypeName);
             Object.assign(allDefs, schema.definitions ?? {});
         } catch (e) {
             console.warn(
-                `  Warning: could not generate schema for ${typeName}: ${e.message}`,
+                `  Warning: could not generate schema for ${wrapperTypeName}: ${e.message}`,
             );
         }
     }
@@ -229,10 +313,10 @@ function buildWidgetDefinitions(entries, generator) {
 /**
  * Post-processes a generated schema to fix the PerseusWidgetsMap definition:
  *   1. Replaces the broken MakeWidgetMap<PerseusWidgetTypes> definition with
- *      the correct patternProperties schema.
+ *      the correct additionalProperties/anyOf schema.
  *   2. Removes the unreachable MakeWidgetMap<...> stub.
  *   3. Merges in all widget type definitions (CategorizerWidget, etc.) so that
- *      the patternProperties $refs resolve within the schema.
+ *      the anyOf $refs resolve within the schema.
  *
  * Is a no-op for schemas that don't reference PerseusWidgetsMap.
  */
@@ -242,8 +326,8 @@ function fixWidgetsMap(schema, widgetsMapSchema, widgetDefs) {
         return schema;
     }
 
-    // Replace PerseusWidgetsMap with the patternProperties schema, preserving
-    // any description that the generator wrote
+    // Replace PerseusWidgetsMap with the anyOf schema, preserving any
+    // description that the generator wrote
     const existing = defs["PerseusWidgetsMap"];
     defs["PerseusWidgetsMap"] = {
         ...widgetsMapSchema,
@@ -281,8 +365,22 @@ function fixWidgetsMap(schema, widgetsMapSchema, widgetDefs) {
  * in the output; all others are dropped.
  */
 function inlineRefs(schema) {
+    return inlineRefsExcept(schema, new Set());
+}
+
+/**
+ * Inlines all $ref chains except those whose target name is in `keepRefs`.
+ * Kept refs remain as `$ref` and their definitions are preserved in the output.
+ *
+ * Useful for widget schema files: inline everything except the options type so
+ * the file remains readable (the options definition lives in `definitions`).
+ *
+ * @param {object} schema
+ * @param {Set<string>} keepRefs - definition names to keep as $ref
+ */
+function inlineRefsExcept(schema, keepRefs) {
     const defs = schema.definitions ?? {};
-    const circularRefs = new Set();
+    const retainedRefs = new Set(keepRefs);
 
     function decodeRef(ref) {
         // "$ref": "#/definitions/Foo%3CBar%3E" → "Foo<Bar>"
@@ -300,21 +398,27 @@ function inlineRefs(schema) {
         if ("$ref" in node && typeof node.$ref === "string") {
             const name = decodeRef(node.$ref);
 
+            // Explicitly kept refs stay as-is
+            if (keepRefs.has(name)) {
+                retainedRefs.add(name);
+                return node;
+            }
+
             if (stack.has(name)) {
                 // Circular: keep the $ref to break the cycle
-                circularRefs.add(name);
+                retainedRefs.add(name);
                 return node;
             }
 
             const def = defs[name];
             if (!def) {
                 // Unknown ref — keep as-is
-                circularRefs.add(name);
+                retainedRefs.add(name);
                 return node;
             }
 
             // Any siblings alongside $ref (e.g. a description annotation)
-            // are merged onto top of the inlined definition
+            // are merged on top of the inlined definition
             const siblings = Object.fromEntries(
                 Object.entries(node).filter(([k]) => k !== "$ref"),
             );
@@ -334,10 +438,10 @@ function inlineRefs(schema) {
 
     const result = inline(schema, new Set());
 
-    // Re-attach only the definitions that are still referenced (circular types)
-    if (circularRefs.size > 0) {
+    // Re-attach only the definitions that are still referenced
+    if (retainedRefs.size > 0) {
         result.definitions = {};
-        for (const name of circularRefs) {
+        for (const name of retainedRefs) {
             if (defs[name]) {
                 // Inline within the retained definition too, seeding the stack
                 // with its own name so it doesn't recurse into itself
@@ -347,6 +451,33 @@ function inlineRefs(schema) {
     }
 
     return result;
+}
+
+// ─── Widget schema helpers ────────────────────────────────────────────────────
+
+/**
+ * Generates a schema for a widget from its full wrapper type (e.g.
+ * InteractiveGraphWidget), keeping the options type as a $ref rather than
+ * inlining it. All other $refs are inlined.
+ */
+function generateWidgetSchema(generator, wrapperTypeName, optionsTypeName) {
+    const schema = generator.createSchema(wrapperTypeName);
+    return inlineRefsExcept(schema, new Set([optionsTypeName]));
+}
+
+/**
+ * Removes deprecated field names from the `required` array of a named type
+ * definition within a schema (or the schema root if the type is not in
+ * definitions).
+ */
+function removeDeprecatedRequired(schema, typeName, fieldsToRemove) {
+    const target = schema.definitions?.[typeName] ?? schema;
+    if (Array.isArray(target.required)) {
+        target.required = target.required.filter(
+            (f) => !fieldsToRemove.includes(f),
+        );
+    }
+    return schema;
 }
 
 // ─── Schema generation ───────────────────────────────────────────────────────
@@ -378,13 +509,21 @@ function main() {
     const widgetMapEntries = expandWidgetsMap();
     console.log(`  Found ${widgetMapEntries.length} widget map entries.`);
 
+    // Build a lookup from widgetName → wrapperTypeName
+    const wrapperTypeByWidgetName = new Map(
+        widgetMapEntries.map(({keyPrefix, wrapperTypeName}) => [
+            keyPrefix,
+            wrapperTypeName,
+        ]),
+    );
+
     const widgetsMapSchema = buildWidgetsMapSchema(widgetMapEntries);
 
     console.log("Creating ts-json-schema-generator program...");
     const generator = createSchemaGenerator();
 
     console.log(
-        "Generating widget wrapper type definitions for patternProperties...",
+        "Generating widget wrapper type definitions for anyOf entries...",
     );
     const widgetDefs = buildWidgetDefinitions(widgetMapEntries, generator);
     console.log(`  Collected ${Object.keys(widgetDefs).length} definitions.`);
@@ -407,16 +546,37 @@ function main() {
 
     console.log("Generating widget schemas...");
     const widgetOutDir = join(OUT_DIR, "widgets");
-    for (const {widgetName, typeName} of WIDGET_TYPES) {
+    for (const {widgetName, optionsTypeName} of WIDGET_TYPES) {
         const outFile = `${widgetName}.schema.json`;
         const outPath = join(widgetOutDir, outFile);
-        process.stdout.write(`  ${typeName} → widgets/${outFile} ... `);
-        const schema = fixWidgetsMap(
-            generator.createSchema(typeName),
-            widgetsMapSchema,
-            widgetDefs,
+        const wrapperTypeName = wrapperTypeByWidgetName.get(widgetName);
+
+        if (!wrapperTypeName) {
+            console.warn(
+                `  Warning: no wrapper type found for widget "${widgetName}", skipping.`,
+            );
+            continue;
+        }
+
+        process.stdout.write(
+            `  ${wrapperTypeName} → widgets/${outFile} ... `,
         );
-        writeSchema(inlineRefs(schema), outPath);
+        let schema = generateWidgetSchema(
+            generator,
+            wrapperTypeName,
+            optionsTypeName,
+        );
+
+        // Remove deprecated fields from required arrays
+        if (widgetName === "plotter") {
+            schema = removeDeprecatedRequired(schema, optionsTypeName, [
+                "plotDimensions",
+                "picSize",
+                "picBoxHeight",
+            ]);
+        }
+
+        writeSchema(schema, outPath);
         console.log("done");
         count++;
     }
