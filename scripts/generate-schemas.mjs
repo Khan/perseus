@@ -23,11 +23,12 @@
  * Usage: node scripts/generate-schemas.mjs
  */
 
-import ts from "typescript";
-import {createGenerator} from "ts-json-schema-generator";
 import {mkdirSync, writeFileSync} from "fs";
 import {dirname, join} from "path";
 import {fileURLToPath} from "url";
+
+import {createGenerator} from "ts-json-schema-generator";
+import ts from "typescript";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(__dirname, "..");
@@ -40,10 +41,7 @@ const TSCONFIG_PATH = join(
     repoRoot,
     "packages/perseus-core/tsconfig-schema.json",
 );
-const OUT_DIR = join(
-    repoRoot,
-    "packages/perseus-core/__genfiles__/schema",
-);
+const OUT_DIR = join(repoRoot, "packages/perseus-core/__genfiles__/schema");
 
 // Top-level content types
 const TOP_LEVEL_TYPES = [
@@ -93,7 +91,10 @@ const WIDGET_TYPES = [
         typeName: "PerseusPhetSimulationWidgetOptions",
     },
     {widgetName: "plotter", typeName: "PerseusPlotterWidgetOptions"},
-    {widgetName: "python-program", typeName: "PerseusPythonProgramWidgetOptions"},
+    {
+        widgetName: "python-program",
+        typeName: "PerseusPythonProgramWidgetOptions",
+    },
     {widgetName: "radio", typeName: "PerseusRadioWidgetOptions"},
     {widgetName: "sorter", typeName: "PerseusSorterWidgetOptions"},
     {widgetName: "table", typeName: "PerseusTableWidgetOptions"},
@@ -139,7 +140,9 @@ function expandWidgetsMap() {
             //   [x: `categorizer ${number}`]: CategorizerWidget
             if (ts.isTypeLiteralNode(expanded)) {
                 for (const member of expanded.members) {
-                    if (!ts.isIndexSignatureDeclaration(member)) continue;
+                    if (!ts.isIndexSignatureDeclaration(member)) {
+                        continue;
+                    }
 
                     const keyNode = member.parameters[0]?.type;
                     const valueNode = member.type;
@@ -152,7 +155,9 @@ function expandWidgetsMap() {
                     if (!valueNode || !ts.isTypeReferenceNode(valueNode)) {
                         continue;
                     }
-                    if (!ts.isIdentifier(valueNode.typeName)) continue;
+                    if (!ts.isIdentifier(valueNode.typeName)) {
+                        continue;
+                    }
 
                     entries.push({
                         // Trim trailing space: "categorizer " → "categorizer"
@@ -189,7 +194,7 @@ function buildWidgetsMapSchema(entries) {
     return {
         type: "object",
         description:
-            'A map of widget IDs to widget data. Keys are of the form' +
+            "A map of widget IDs to widget data. Keys are of the form" +
             ' "{widget-type} {number}" (e.g. "radio 1", "interactive-graph 3").' +
             " The widget\u2019s `type` field is the real discriminant \u2014 not the key.",
         patternProperties,
@@ -205,7 +210,9 @@ function buildWidgetDefinitions(entries, generator) {
     const allDefs = {};
     const seen = new Set();
     for (const {typeName} of entries) {
-        if (seen.has(typeName)) continue;
+        if (seen.has(typeName)) {
+            continue;
+        }
         seen.add(typeName);
         try {
             const schema = generator.createSchema(typeName);
@@ -231,7 +238,9 @@ function buildWidgetDefinitions(entries, generator) {
  */
 function fixWidgetsMap(schema, widgetsMapSchema, widgetDefs) {
     const defs = schema.definitions;
-    if (!defs || !("PerseusWidgetsMap" in defs)) return schema;
+    if (!defs || !("PerseusWidgetsMap" in defs)) {
+        return schema;
+    }
 
     // Replace PerseusWidgetsMap with the patternProperties schema, preserving
     // any description that the generator wrote
@@ -258,6 +267,86 @@ function fixWidgetsMap(schema, widgetsMapSchema, widgetDefs) {
     }
 
     return schema;
+}
+
+// ─── $ref inlining ───────────────────────────────────────────────────────────
+
+/**
+ * Inlines all $ref chains in a JSON Schema, producing a flat schema with no
+ * reference indirection. Designed for LLM consumption where following $ref
+ * chains is a cognitive burden.
+ *
+ * Circular references are detected via an expansion stack and kept as $ref to
+ * break the cycle. Any definitions still needed for circular refs are retained
+ * in the output; all others are dropped.
+ */
+function inlineRefs(schema) {
+    const defs = schema.definitions ?? {};
+    const circularRefs = new Set();
+
+    function decodeRef(ref) {
+        // "$ref": "#/definitions/Foo%3CBar%3E" → "Foo<Bar>"
+        return decodeURIComponent(ref.replace("#/definitions/", ""));
+    }
+
+    function inline(node, stack) {
+        if (node === null || typeof node !== "object") {
+            return node;
+        }
+        if (Array.isArray(node)) {
+            return node.map((n) => inline(n, stack));
+        }
+
+        if ("$ref" in node && typeof node.$ref === "string") {
+            const name = decodeRef(node.$ref);
+
+            if (stack.has(name)) {
+                // Circular: keep the $ref to break the cycle
+                circularRefs.add(name);
+                return node;
+            }
+
+            const def = defs[name];
+            if (!def) {
+                // Unknown ref — keep as-is
+                circularRefs.add(name);
+                return node;
+            }
+
+            // Any siblings alongside $ref (e.g. a description annotation)
+            // are merged onto top of the inlined definition
+            const siblings = Object.fromEntries(
+                Object.entries(node).filter(([k]) => k !== "$ref"),
+            );
+            const expanded = inline(def, new Set([...stack, name]));
+            return Object.keys(siblings).length
+                ? {...expanded, ...siblings}
+                : expanded;
+        }
+
+        return Object.fromEntries(
+            Object.entries(node)
+                // Drop the definitions block — it will be rebuilt below if needed
+                .filter(([k]) => k !== "definitions")
+                .map(([k, v]) => [k, inline(v, stack)]),
+        );
+    }
+
+    const result = inline(schema, new Set());
+
+    // Re-attach only the definitions that are still referenced (circular types)
+    if (circularRefs.size > 0) {
+        result.definitions = {};
+        for (const name of circularRefs) {
+            if (defs[name]) {
+                // Inline within the retained definition too, seeding the stack
+                // with its own name so it doesn't recurse into itself
+                result.definitions[name] = inline(defs[name], new Set([name]));
+            }
+        }
+    }
+
+    return result;
 }
 
 // ─── Schema generation ───────────────────────────────────────────────────────
@@ -294,7 +383,9 @@ function main() {
     console.log("Creating ts-json-schema-generator program...");
     const generator = createSchemaGenerator();
 
-    console.log("Generating widget wrapper type definitions for patternProperties...");
+    console.log(
+        "Generating widget wrapper type definitions for patternProperties...",
+    );
     const widgetDefs = buildWidgetDefinitions(widgetMapEntries, generator);
     console.log(`  Collected ${Object.keys(widgetDefs).length} definitions.`);
 
@@ -309,7 +400,7 @@ function main() {
             widgetsMapSchema,
             widgetDefs,
         );
-        writeSchema(schema, outPath);
+        writeSchema(inlineRefs(schema), outPath);
         console.log("done");
         count++;
     }
@@ -325,7 +416,7 @@ function main() {
             widgetsMapSchema,
             widgetDefs,
         );
-        writeSchema(schema, outPath);
+        writeSchema(inlineRefs(schema), outPath);
         console.log("done");
         count++;
     }
