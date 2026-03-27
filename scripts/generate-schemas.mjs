@@ -519,6 +519,13 @@ function main() {
 
     const widgetsMapSchema = buildWidgetsMapSchema(widgetMapEntries);
 
+    // The set of widget wrapper type names (e.g. "InteractiveGraphWidget") that
+    // should remain as $refs in top-level schemas so the anyOf entries don't get
+    // flattened away by inlineRefs.
+    const wrapperTypeNames = new Set(
+        widgetMapEntries.map(({wrapperTypeName}) => wrapperTypeName),
+    );
+
     console.log("Creating ts-json-schema-generator program...");
     const generator = createSchemaGenerator();
 
@@ -539,7 +546,9 @@ function main() {
             widgetsMapSchema,
             widgetDefs,
         );
-        writeSchema(inlineRefs(schema), outPath);
+        // Inline everything except widget wrapper types so the anyOf $refs in
+        // PerseusWidgetsMap remain as refs with their definitions intact.
+        writeSchema(inlineRefsExcept(schema, wrapperTypeNames), outPath);
         console.log("done");
         count++;
     }
