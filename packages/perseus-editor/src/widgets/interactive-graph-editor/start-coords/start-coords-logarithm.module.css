@@ -18,3 +18,19 @@
 .textFieldWrapper {
     width: var(--wb-sizing-size_800) !important;
 }
+
+.equationSection {
+    margin-top: var(--wb-sizing-size_120) !important;
+}
+
+.equationBody {
+    background-color: var(
+        --wb-semanticColor-core-background-neutral-subtle
+    ) !important;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle) !important;
+    margin-top: var(--wb-sizing-size_080) !important;
+    padding-left: var(--wb-sizing-size_080) !important;
+    padding-right: var(--wb-sizing-size_080) !important;
+    font-size: var(--wb-font-size-xSmall) !important;
+}

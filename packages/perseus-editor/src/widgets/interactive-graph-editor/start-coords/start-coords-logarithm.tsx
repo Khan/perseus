@@ -1,13 +1,18 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {
+    BodyMonospace,
+    LabelLarge,
+    LabelMedium,
+} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
 
 import styles from "./start-coords-logarithm.module.css";
+import {getLogarithmEquation} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
 
@@ -59,47 +64,58 @@ const StartCoordsLogarithm = (props: Props) => {
     }
 
     return (
-        <View className={styles.tile}>
-            {/* Point 1 */}
-            <View className={styles.row}>
-                <LabelLarge>Point 1:</LabelLarge>
-                <Strut size={spacing.small_12} />
-                <CoordinatePairInput
-                    coord={coords[0]}
-                    labels={["x", "y"]}
-                    onChange={(value) =>
-                        onChange({coords: [value, coords[1]], asymptote})
-                    }
-                />
+        <>
+            {/* Current equation */}
+            <View className={styles.equationSection}>
+                <LabelMedium>Starting equation:</LabelMedium>
+                <BodyMonospace className={styles.equationBody}>
+                    {getLogarithmEquation(coords, asymptote)}
+                </BodyMonospace>
             </View>
-            <Strut size={spacing.small_12} />
 
-            {/* Point 2 */}
-            <View className={styles.row}>
-                <LabelLarge>Point 2:</LabelLarge>
-                <Strut size={spacing.small_12} />
-                <CoordinatePairInput
-                    coord={coords[1]}
-                    labels={["x", "y"]}
-                    onChange={(value) =>
-                        onChange({coords: [coords[0], value], asymptote})
-                    }
-                />
-            </View>
-            <Strut size={spacing.small_12} />
-
-            {/* Asymptote x-value — single number, mirroring radius in StartCoordsCircle */}
-            <LabelLarge tag="label" className={styles.row}>
-                Asymptote x =
-                <Strut size={spacing.small_12} />
-                <View className={styles.textFieldWrapper}>
-                    <ScrolllessNumberTextField
-                        value={asymptoteXState}
-                        onChange={handleAsymptoteXChange}
+            {/* Points UI */}
+            <View className={styles.tile}>
+                {/* Point 1 */}
+                <View className={styles.row}>
+                    <LabelLarge>Point 1:</LabelLarge>
+                    <Strut size={spacing.small_12} />
+                    <CoordinatePairInput
+                        coord={coords[0]}
+                        labels={["x", "y"]}
+                        onChange={(value) =>
+                            onChange({coords: [value, coords[1]], asymptote})
+                        }
                     />
                 </View>
-            </LabelLarge>
-        </View>
+                <Strut size={spacing.small_12} />
+
+                {/* Point 2 */}
+                <View className={styles.row}>
+                    <LabelLarge>Point 2:</LabelLarge>
+                    <Strut size={spacing.small_12} />
+                    <CoordinatePairInput
+                        coord={coords[1]}
+                        labels={["x", "y"]}
+                        onChange={(value) =>
+                            onChange({coords: [coords[0], value], asymptote})
+                        }
+                    />
+                </View>
+                <Strut size={spacing.small_12} />
+
+                {/* Asymptote x-value — single number, mirroring radius in StartCoordsCircle */}
+                <LabelLarge tag="label" className={styles.row}>
+                    Asymptote x =
+                    <Strut size={spacing.small_12} />
+                    <View className={styles.textFieldWrapper}>
+                        <ScrolllessNumberTextField
+                            value={asymptoteXState}
+                            onChange={handleAsymptoteXChange}
+                        />
+                    </View>
+                </LabelLarge>
+            </View>
+        </>
     );
 };
 
