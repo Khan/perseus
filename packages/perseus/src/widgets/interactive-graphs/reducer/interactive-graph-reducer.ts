@@ -588,6 +588,12 @@ function doMovePoint(
                     [otherPoint[X], reflectedY],
                     state,
                 );
+
+                // Both points at the same x is invalid for an exponential
+                if (updatedCoords[0][X] === updatedCoords[1][X]) {
+                    return state;
+                }
+
                 return {
                     ...state,
                     hasBeenInteractedWith: true,
@@ -620,6 +626,12 @@ function doMovePoint(
                 return state;
             }
 
+            // Both points must have different x-values
+            // (same x makes the logarithm coefficient computation degenerate)
+            if (newCoords[0][X] === newCoords[1][X]) {
+                return state;
+            }
+
             // Both points must have different y-values
             // (same y makes the logarithm coefficient computation degenerate)
             if (newCoords[0][Y] === newCoords[1][Y]) {
@@ -644,8 +656,11 @@ function doMovePoint(
                     state,
                 );
 
-                // Both points at the same x is invalid for a logarithm
-                if (updatedCoords[0][X] === updatedCoords[1][X]) {
+                // Both points at the same x or y is invalid for a logarithm
+                if (
+                    updatedCoords[0][X] === updatedCoords[1][X] ||
+                    updatedCoords[0][Y] === updatedCoords[1][Y]
+                ) {
                     return state;
                 }
 
@@ -796,7 +811,6 @@ function doMoveCenter(
             let newY = boundAndSnapToGrid(action.destination, state)[Y];
             const coords = state.coords;
             const stepY = state.snapStep[Y];
-            const [, yRange] = state.range;
 
             // Both points must stay on the same side of the new asymptote position
             const allAbove = coords[0][Y] > newY && coords[1][Y] > newY;
@@ -810,7 +824,21 @@ function doMoveCenter(
                 const midpoint = (topMost + bottomMost) / 2;
 
                 newY = newY >= midpoint ? topMost + stepY : bottomMost - stepY;
-                newY = clamp(newY, yRange[0], yRange[1]);
+                // Clamp to the snap-inset bounds (not raw range) so the
+                // asymptote can't be pushed to the graph edge where no
+                // point can be placed on the other side.
+                const insetY = inset(state.snapStep, state.range)[1];
+                newY = clamp(newY, insetY[0], insetY[1]);
+
+                // After clamping, the asymptote may have ended up back
+                // between or on the points. If so, reject the move.
+                const stillAllAbove =
+                    coords[0][Y] > newY && coords[1][Y] > newY;
+                const stillAllBelow =
+                    coords[0][Y] < newY && coords[1][Y] < newY;
+                if (!stillAllAbove && !stillAllBelow) {
+                    return state;
+                }
             }
 
             // Final safety: asymptote must not land exactly on either point
@@ -829,7 +857,6 @@ function doMoveCenter(
             let newX = boundAndSnapToGrid(action.destination, state)[X];
             const coords = state.coords;
             const stepX = state.snapStep[X];
-            const [xRange] = state.range;
 
             // Both points must stay on the same side of the new asymptote position
             const allRight = coords[0][X] > newX && coords[1][X] > newX;
@@ -843,7 +870,20 @@ function doMoveCenter(
                 const midpoint = (rightMost + leftMost) / 2;
 
                 newX = newX >= midpoint ? rightMost + stepX : leftMost - stepX;
-                newX = clamp(newX, xRange[0], xRange[1]);
+                // Clamp to the snap-inset bounds (not raw range) so the
+                // asymptote can't be pushed to the graph edge where no
+                // point can be placed on the other side.
+                const insetX = inset(state.snapStep, state.range)[0];
+                newX = clamp(newX, insetX[0], insetX[1]);
+
+                // After clamping, the asymptote may have ended up back
+                // between or on the points. If so, reject the move.
+                const stillAllRight =
+                    coords[0][X] > newX && coords[1][X] > newX;
+                const stillAllLeft = coords[0][X] < newX && coords[1][X] < newX;
+                if (!stillAllRight && !stillAllLeft) {
+                    return state;
+                }
             }
 
             // Final safety: asymptote must not land exactly on either point
