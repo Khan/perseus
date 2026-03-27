@@ -67,7 +67,7 @@ export const circleQuestion: PerseusRenderer = generateInteractiveGraphQuestion(
 
 export const circleQuestionWithDefaultCorrect: PerseusRenderer =
     generateInteractiveGraphQuestion({
-        correct: generateIGCircleGraph(),
+        correct: generateIGCircleGraph({center: [0, 0], radius: 2}),
     });
 
 export const linearQuestion: PerseusRenderer = generateInteractiveGraphQuestion(
