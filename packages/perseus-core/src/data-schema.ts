@@ -946,14 +946,36 @@ export type PerseusInteractiveGraphWidgetOptions = {
      * default: [[-10, 10], [-10, 10]]
      */
     range: GraphRange;
-    /** The type of graph */
+    /**
+     * Specifies the type and initial state of the interactive element shown to
+     * the learner.
+     *
+     * The `startCoords` field within each graph type controls the initial
+     * placement of interactive elements; if absent, sensible per-type defaults
+     * are used (e.g. a line segment at 75% of graph height, a point at the
+     * origin).
+     *
+     * For display-only diagrams, prefer setting this to `{type: "none"}` over
+     * using the widget-level `static: true` flag. With `{type: "none"}`, all
+     * visible geometry is defined in `lockedFigures`.
+     */
     graph: PerseusGraphType;
-    /** The correct kind of graph, if being used to select function type */
+    /**
+     * The expected answer for this — the graph state the
+     * student must produce to be marked correct.
+     *
+     * For static display diagrams, set this to `{type: "none"}` (matching
+     * `graph`). It has no effect when `graph` is `{type: "none"}`.
+     */
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphType;
     /**
-     * Shapes (points, chords, etc) displayed on the graph that cannot be moved
-     * by the user.
+     * Shapes displayed on the graph that cannot be moved by the user.
+     *
+     * This is the primary drawing surface for static display diagrams. When
+     * `graph` is `{type: "none"}`, all visible geometry must be defined here —
+     * an empty array produces a blank graph. Supported figure types: `point`,
+     * `line`, `vector`, `ellipse`, `polygon`, `function`, `label`.
      */
     lockedFigures: LockedFigure[];
     /** Aria label that applies to the entire graph. */
