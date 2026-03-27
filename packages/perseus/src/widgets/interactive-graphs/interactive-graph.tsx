@@ -613,6 +613,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return InteractiveGraph.getExponentialEquationString(props);
             case "tangent":
                 return InteractiveGraph.getTangentEquationString(props);
+            case "logarithm":
+                throw new Error("Logarithm graph not implemented");
             default:
                 throw new UnreachableCaseError(type);
         }

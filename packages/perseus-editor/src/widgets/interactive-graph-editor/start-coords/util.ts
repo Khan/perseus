@@ -111,6 +111,8 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             });
+        case "logarithm":
+            return undefined;
         default:
             return undefined;
     }
@@ -248,6 +250,8 @@ export const shouldShowStartCoordsUI = (
         case "sinusoid":
         case "absolute-value":
             return true;
+        case "logarithm":
+            return false;
         default:
             throw new UnreachableCaseError(graph);
     }

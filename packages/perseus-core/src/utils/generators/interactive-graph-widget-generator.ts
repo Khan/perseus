@@ -14,6 +14,7 @@ import type {
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
+    PerseusGraphTypeLogarithm,
     PerseusGraphTypeNone,
     PerseusGraphTypePoint,
     PerseusGraphTypePolygon,
@@ -82,6 +83,15 @@ export function generateIGLinearSystemGraph(
 ): PerseusGraphTypeLinearSystem {
     return {
         type: "linear-system",
+        ...options,
+    };
+}
+
+export function generateIGLogarithmGraph(
+    options?: Partial<Omit<PerseusGraphTypeLogarithm, "type">>,
+): PerseusGraphTypeLogarithm {
+    return {
+        type: "logarithm",
         ...options,
     };
 }
