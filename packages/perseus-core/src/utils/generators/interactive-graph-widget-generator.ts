@@ -286,12 +286,18 @@ export function generateInteractiveGraphQuestion(
         widgetOptions.graph = graphConfig as PerseusGraphType;
     }
 
+    const optionsWithDefaults = {
+        gridStep: [1, 1] as [number, number],
+        snapStep: [0.5, 0.5] as [number, number],
+        ...widgetOptions,
+    };
+
     return generateTestPerseusRenderer({
         content: content ?? "[[☃ interactive-graph 1]]",
         widgets: {
             "interactive-graph 1": generateInteractiveGraphWidget({
                 static: isStatic ?? false,
-                options: generateInteractiveGraphOptions(widgetOptions),
+                options: generateInteractiveGraphOptions(optionsWithDefaults),
             }),
         },
     });
