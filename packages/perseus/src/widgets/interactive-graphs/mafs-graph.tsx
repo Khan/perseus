@@ -777,6 +777,8 @@ const renderGraphElements = (props: {
             return renderAbsoluteValueGraph(state, dispatch, i18n);
         case "tangent":
             return renderTangentGraph(state, dispatch, i18n);
+        case "logarithm":
+            return {graph: null, interactiveElementsDescription: null};
         default:
             throw new UnreachableCaseError(type);
     }

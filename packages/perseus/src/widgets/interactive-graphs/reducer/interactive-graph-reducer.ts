@@ -315,6 +315,7 @@ function doMovePointInFigure(
         case "absolute-value":
         case "tangent":
         case "exponential":
+        case "logarithm":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -604,6 +605,61 @@ function doMovePoint(
                 }),
             };
         }
+        case "logarithm": {
+            const boundDestination = boundAndSnapToGrid(
+                action.destination,
+                state,
+            );
+            const newCoords: vec.Vector2[] = [...state.coords];
+            newCoords[action.index] = boundDestination;
+
+            const asymptoteX = state.asymptote;
+
+            // Point cannot land on the asymptote
+            if (boundDestination[X] === asymptoteX) {
+                return state;
+            }
+
+            // Both points must have different y-values
+            // (same y makes the logarithm coefficient computation degenerate)
+            if (newCoords[0][Y] === newCoords[1][Y]) {
+                return state;
+            }
+
+            // If the moved point crosses the asymptote, reflect the other
+            // point across it so the entire curve moves to the new side.
+            const otherIndex = 1 - action.index;
+            const otherPoint = state.coords[otherIndex];
+            const movedSide = boundDestination[X] > asymptoteX;
+            const otherSide = otherPoint[X] > asymptoteX;
+
+            if (movedSide !== otherSide) {
+                const reflectedX = 2 * asymptoteX - otherPoint[X];
+                const updatedCoords: [vec.Vector2, vec.Vector2] = [
+                    ...state.coords,
+                ];
+                updatedCoords[action.index] = boundDestination;
+                updatedCoords[otherIndex] = boundAndSnapToGrid(
+                    [reflectedX, otherPoint[Y]],
+                    state,
+                );
+                return {
+                    ...state,
+                    hasBeenInteractedWith: true,
+                    coords: updatedCoords,
+                };
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: boundDestination,
+                }),
+            };
+        }
         case "absolute-value": {
             const boundDestination = boundAndSnapToGrid(
                 action.destination,
@@ -762,9 +818,42 @@ function doMoveCenter(
                 asymptote: newY,
             };
         }
+        case "logarithm": {
+            // Move the asymptote horizontally only
+            let newX = boundAndSnapToGrid(action.destination, state)[X];
+            const coords = state.coords;
+            const stepX = state.snapStep[X];
+            const [xRange] = state.range;
+
+            // Both points must stay on the same side of the new asymptote position
+            const allRight = coords[0][X] > newX && coords[1][X] > newX;
+            const allLeft = coords[0][X] < newX && coords[1][X] < newX;
+
+            if (!allRight && !allLeft) {
+                // Asymptote would end up between or on the points.
+                // Snap to whichever valid side the user is dragging toward.
+                const rightMost = Math.max(coords[0][X], coords[1][X]);
+                const leftMost = Math.min(coords[0][X], coords[1][X]);
+                const midpoint = (rightMost + leftMost) / 2;
+
+                newX = newX >= midpoint ? rightMost + stepX : leftMost - stepX;
+                newX = clamp(newX, xRange[0], xRange[1]);
+            }
+
+            // Final safety: asymptote must not land exactly on either point
+            if (newX === coords[0][X] || newX === coords[1][X]) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                asymptote: newX,
+            };
+        }
         default:
             throw new Error(
-                "The doMoveCenter action is only for circle or exponential graphs",
+                "The doMoveCenter action is only for circle, exponential, or logarithm graphs",
             );
     }
 }

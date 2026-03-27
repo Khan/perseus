@@ -62,6 +62,8 @@ import {
     sinusoidQuestionWithDefaultCorrect,
     tangentQuestion,
     tangentQuestionWithDefaultCorrect,
+    logarithmQuestion,
+    logarithmQuestionWithDefaultCorrect,
     sinusoidWithPiTicks,
     unlimitedPointQuestion,
     unlimitedPolygonQuestion,
@@ -239,6 +241,7 @@ describe("Interactive Graph", function () {
         quadratic: quadraticQuestion,
         sinusoid: sinusoidQuestion,
         tangent: tangentQuestion,
+        logarithm: logarithmQuestion,
         "unlimited-point": pointQuestion,
         "unlimited-polygon": polygonQuestion,
     };
@@ -257,6 +260,7 @@ describe("Interactive Graph", function () {
         quadratic: quadraticQuestionWithDefaultCorrect,
         sinusoid: sinusoidQuestionWithDefaultCorrect,
         tangent: tangentQuestionWithDefaultCorrect,
+        logarithm: logarithmQuestionWithDefaultCorrect,
         "unlimited-point": pointQuestionWithDefaultCorrect,
         "unlimited-polygon": polygonQuestionDefaultCorrect,
     };

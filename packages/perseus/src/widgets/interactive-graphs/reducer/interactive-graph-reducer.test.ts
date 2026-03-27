@@ -11,6 +11,7 @@ import type {
     InteractiveGraphState,
     PolygonGraphState,
     TangentGraphState,
+    LogarithmGraphState,
 } from "../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 
@@ -1965,5 +1966,192 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
 
         // Assert — asymptote moves to y=-2 regardless of the x passed
         expect(updated.asymptote).toBe(-2);
+    });
+});
+
+function generateLogarithmGraphState(
+    overrides?: Partial<Omit<LogarithmGraphState, "type">>,
+): LogarithmGraphState {
+    return {
+        hasBeenInteractedWith: false,
+        type: "logarithm",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        snapStep: [1, 1],
+        coords: [
+            [-4, -3],
+            [-5, -7],
+        ],
+        asymptote: -6,
+        ...overrides,
+    };
+}
+
+describe("movePoint on a logarithm graph", () => {
+    it("rejects the move when both points would share the same y-coordinate", () => {
+        // Arrange — point 0 at y=-3, point 1 at y=-7; trying to move point 0 to y=-7
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-4, -7]),
+        );
+
+        // Assert — move was rejected; point 0 stays at original position
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -3]);
+    });
+
+    it("rejects the move when bounding causes same-y collision", () => {
+        // Arrange — point 0 at (-4, -7), point 1 at (-5, 9); moving point 0
+        // far beyond the graph range so bounding clamps y to 9, same as point 1
+        const state = generateLogarithmGraphState({
+            coords: [
+                [-4, -7],
+                [-5, 9],
+            ],
+        });
+
+        // Act — destination y=15 is clamped to 9 by bounding, colliding with point 1
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-4, 15]),
+        );
+
+        // Assert — rejected; point 0 stays at original position
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -7]);
+        expect(updated.hasBeenInteractedWith).toBe(false);
+    });
+
+    it("rejects the move when point would land on the asymptote", () => {
+        // Arrange — asymptote at x=-6; trying to move point 0 to x=-6
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-6, -2]),
+        );
+
+        // Assert — move was rejected
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -3]);
+        expect(updated.hasBeenInteractedWith).toBe(false);
+    });
+
+    it("reflects the other point when a point crosses the asymptote", () => {
+        // Arrange — asymptote at x=-6, points at (-4, -3) and (-5, -7)
+        // Both points are to the right of the asymptote.
+        const state = generateLogarithmGraphState();
+
+        // Act — move point 0 to x=-8 (left of asymptote at x=-6)
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-8, -3]),
+        );
+
+        // Assert — point 0 moved, point 1 reflected across asymptote:
+        // reflectedX = 2 * (-6) - (-5) = -12 + 5 = -7
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-8, -3]);
+        expect(updated.coords[1]).toEqual([-7, -7]);
+    });
+
+    it("allows a valid move", () => {
+        // Arrange
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-3, -2]),
+        );
+
+        // Assert
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-3, -2]);
+    });
+});
+
+describe("moveCenter on a logarithm graph (asymptote)", () => {
+    it("moves the asymptote to a new x-value", () => {
+        // Arrange
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([-8, 99]),
+        );
+        invariant(updated.type === "logarithm");
+
+        // Assert — x=-8 is to the left of both curve points (x=-4 and x=-5), so it's valid
+        expect(updated.asymptote).toBe(-8);
+    });
+
+    it("snaps past the curve points when the asymptote is dragged between them", () => {
+        // Arrange — curve points at x=-4 and x=-5; trying to move asymptote
+        // between them. boundAndSnapToGrid snaps destination to x=-4.
+        const state = generateLogarithmGraphState({
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+        });
+
+        // Act — destination snaps to x=-4, which is on a point. Since
+        // -4 >= midpoint(-4.5), snap-through pushes to rightMost + step = -3.
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([-4.4, 0]),
+        );
+        invariant(updated.type === "logarithm");
+
+        // Assert
+        expect(updated.asymptote).toBe(-3);
+    });
+
+    it("ignores the y component and only moves the asymptote horizontally", () => {
+        // Arrange
+        const state = generateLogarithmGraphState();
+
+        // Act — pass an arbitrary y value; only x should matter
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([-8, 99]),
+        );
+        invariant(updated.type === "logarithm");
+
+        // Assert — asymptote moves to x=-8 regardless of the y passed
+        expect(updated.asymptote).toBe(-8);
+    });
+
+    it("rejects the move when asymptote lands exactly on a point's x-coordinate", () => {
+        // Arrange — points at x=8 and x=10 (x=10 is at the range edge,
+        // placed programmatically). When the asymptote is dragged to x=9
+        // (between them), midpoint=(8+10)/2=9. Since 9 >= 9, snap-through
+        // pushes to rightMost + step = 10 + 1 = 11. Clamping to range
+        // [-10, 10] gives 10, which is exactly on point 1's x-coordinate.
+        const state = generateLogarithmGraphState({
+            coords: [
+                [8, -3],
+                [10, -7],
+            ],
+            asymptote: 0,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([9, 0]),
+        );
+        invariant(updated.type === "logarithm");
+
+        // Assert — rejected; asymptote stays at 0
+        expect(updated.asymptote).toBe(0);
     });
 });
