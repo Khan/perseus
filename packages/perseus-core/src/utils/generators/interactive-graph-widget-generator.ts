@@ -259,10 +259,9 @@ export function generateInteractiveGraphQuestion(
 ): PerseusRenderer {
     const {content, isStatic, ...widgetOptions} = options ?? {};
 
-    // The `graph` and `correct` fields share config like numSides,
-    // numPoints, and snapTo — only the answer (coords, center, etc.)
-    // differs. When only `correct` is provided, derive `graph` from
-    // it by stripping the answer-specific fields.
+    // The `graph` and `correct` fields share all fields except for
+    // the answers (coords, center, etc.) When only `correct` is provided,
+    // derive `graph` from it by stripping the answer-specific fields.
     // This allows us to keep our test data more succinct.
     if (widgetOptions.correct && !widgetOptions.graph) {
         const {
@@ -271,6 +270,7 @@ export function generateInteractiveGraphQuestion(
             center: ___,
             radius: ____,
             asymptote: _____,
+            match: ______,
             ...graphConfig
         } = widgetOptions.correct as Record<string, unknown>;
         widgetOptions.graph = graphConfig as PerseusGraphType;
