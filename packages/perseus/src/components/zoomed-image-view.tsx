@@ -15,6 +15,7 @@ import styles from "./zoomed-image-view.module.css";
 import type {Props as SvgImageProps} from "./svg-image";
 
 interface Props extends SvgImageProps {
+    id: string;
     onClose: () => void;
 }
 
@@ -25,7 +26,7 @@ export const ZoomedImageView = (props: Props) => {
         "image-widget-upgrade-scale",
     );
 
-    const {onClose, ...svgProps} = props;
+    const {id, onClose, ...svgProps} = props;
     const width = props.width;
     const contentScale = props.scale;
 
@@ -81,7 +82,7 @@ export const ZoomedImageView = (props: Props) => {
                                 //    modal.
                                 // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
                                 tabIndex={0}
-                                id="zoomed-image-container"
+                                id={id}
                             >
                                 <SvgImage
                                     {...svgProps}
