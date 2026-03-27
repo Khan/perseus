@@ -9,16 +9,19 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
-import {snap, X, Y} from "../math";
+import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {getAsymptoteGraphKeyboardConstraint} from "./components/asymptote-graph-keyboard-constraint";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
+import {
+    getAsymptoteGraphKeyboardConstraint,
+    constrainAsymptoteKeyboardMovement,
+} from "./utils";
 
 import type {
     ExponentialGraphState,
@@ -146,45 +149,12 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     );
 }
 
-// Keyboard constraint for the asymptote. When the next snapped position
-// would land between or on the curve points, snap past all of them in the
-// direction of travel. Mirrors logarithm's constrainAsymptoteKeyboard with
-// Y-axis instead of X.
 export const constrainAsymptoteKeyboard = (
     p: vec.Vector2,
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
-): vec.Vector2 => {
-    const snapped = snap(snapStep, p);
-    let newY = snapped[Y];
-    const stepY = snapStep[Y];
-
-    const topMost = Math.max(coords[0][Y], coords[1][Y]);
-    const bottomMost = Math.min(coords[0][Y], coords[1][Y]);
-
-    const allAbove = coords[0][Y] > newY && coords[1][Y] > newY;
-    const allBelow = coords[0][Y] < newY && coords[1][Y] < newY;
-
-    if (!allAbove && !allBelow) {
-        const midpoint = (topMost + bottomMost) / 2;
-        if (newY >= midpoint) {
-            newY = topMost + stepY;
-        } else {
-            newY = bottomMost - stepY;
-        }
-    }
-
-    // Can't land exactly on a point — skip one more step
-    if (newY === coords[0][Y] || newY === coords[1][Y]) {
-        if (newY >= (topMost + bottomMost) / 2) {
-            newY += stepY;
-        } else {
-            newY -= stepY;
-        }
-    }
-
-    return [snapped[X], newY];
-};
+): vec.Vector2 =>
+    constrainAsymptoteKeyboardMovement(p, coords, snapStep, "horizontal");
 
 export const getExponentialKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,

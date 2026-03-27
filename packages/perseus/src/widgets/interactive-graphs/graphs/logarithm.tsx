@@ -9,16 +9,19 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
-import {snap, X, Y} from "../math";
+import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {getAsymptoteGraphKeyboardConstraint} from "./components/asymptote-graph-keyboard-constraint";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
+import {
+    getAsymptoteGraphKeyboardConstraint,
+    constrainAsymptoteKeyboardMovement,
+} from "./utils";
 
 import type {
     LogarithmGraphState,
@@ -157,36 +160,12 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     );
 }
 
-// Keyboard constraint for the asymptote. When the next snapped position
-// would land between or on the curve points, snap past all of them in the
-// direction of travel. Mirrors exponential's constrainAsymptoteKeyboard with
-// X-axis instead of Y.
 export const constrainAsymptoteKeyboard = (
     p: vec.Vector2,
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
-): vec.Vector2 => {
-    const snapped = snap(snapStep, p);
-    let newX = snapped[X];
-    const stepX = snapStep[X];
-
-    const rightMost = Math.max(coords[0][X], coords[1][X]);
-    const leftMost = Math.min(coords[0][X], coords[1][X]);
-
-    const allRight = coords[0][X] > newX && coords[1][X] > newX;
-    const allLeft = coords[0][X] < newX && coords[1][X] < newX;
-
-    if (!allRight && !allLeft) {
-        const midpoint = (rightMost + leftMost) / 2;
-        if (newX >= midpoint) {
-            newX = rightMost + stepX;
-        } else {
-            newX = leftMost - stepX;
-        }
-    }
-
-    return [newX, snapped[Y]];
-};
+): vec.Vector2 =>
+    constrainAsymptoteKeyboardMovement(p, coords, snapStep, "vertical");
 
 export const getLogarithmKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
@@ -209,6 +188,11 @@ export const getLogarithmKeyboardConstraint = (
         (coord) => {
             // Point cannot land on the vertical asymptote
             if (coord[X] === asymptoteX) {
+                return false;
+            }
+            // Both points must have different x-values
+            // (same x makes the coefficient computation degenerate)
+            if (coord[X] === otherPoint[X]) {
                 return false;
             }
             // Both points must have different y-values

@@ -251,6 +251,25 @@ describe("getLogarithmKeyboardConstraint", () => {
         // Assert — skips y=-7 and lands on y=-8
         expect(constraint.down).toEqual([-4, -8]);
     });
+
+    it("skips positions that share x-coordinate with the other point when moving left", () => {
+        // Arrange — point 0 at x=-4, moving left would hit x=-5 which is point 1's x
+        const coords: [vec.Vector2, vec.Vector2] = [
+            [-4, -3],
+            [-5, -7],
+        ];
+
+        // Act
+        const constraint = getLogarithmKeyboardConstraint(
+            coords,
+            asymptote,
+            snapStep,
+            0,
+        );
+
+        // Assert — skips x=-5 (same x as point 1) and x=-6 (asymptote), lands on x=-7
+        expect(constraint.left).toEqual([-7, -3]);
+    });
 });
 
 describe("constrainAsymptoteKeyboard", () => {
