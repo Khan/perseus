@@ -772,9 +772,11 @@ class InteractiveGraph extends React.Component<Props, State> {
             return "y = ln(x)";
         }
         const cStr =
-            coeffs.c < 0
-                ? "x - " + Math.abs(coeffs.c).toFixed(3)
-                : "x + " + coeffs.c.toFixed(3);
+            coeffs.c === 0
+                ? "x"
+                : coeffs.c < 0
+                  ? "x - " + Math.abs(coeffs.c).toFixed(3)
+                  : "x + " + coeffs.c.toFixed(3);
         return (
             "y = " +
             coeffs.a.toFixed(3) +

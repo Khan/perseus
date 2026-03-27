@@ -200,6 +200,10 @@ describe("getLogarithmKeyboardConstraint", () => {
     ];
     const asymptote = -6;
     const snapStep: vec.Vector2 = [1, 1];
+    const range: [vec.Vector2, vec.Vector2] = [
+        [-10, 10],
+        [-10, 10],
+    ];
 
     it("moves point up by one snap step when valid", () => {
         // Arrange, Act
@@ -208,6 +212,7 @@ describe("getLogarithmKeyboardConstraint", () => {
             asymptote,
             snapStep,
             0,
+            range,
         );
 
         // Assert
@@ -227,6 +232,7 @@ describe("getLogarithmKeyboardConstraint", () => {
             asymptote,
             snapStep,
             0,
+            range,
         );
 
         // Assert — skips x=-6 (asymptote) and lands on x=-7
@@ -246,6 +252,7 @@ describe("getLogarithmKeyboardConstraint", () => {
             asymptote,
             snapStep,
             0,
+            range,
         );
 
         // Assert — skips y=-7 and lands on y=-8
@@ -265,10 +272,67 @@ describe("getLogarithmKeyboardConstraint", () => {
             asymptote,
             snapStep,
             0,
+            range,
         );
 
-        // Assert — skips x=-5 (same x as point 1) and x=-6 (asymptote), lands on x=-7
-        expect(constraint.left).toEqual([-7, -3]);
+        // Assert — skips x=-5 (same x as point 1), x=-6 (asymptote),
+        // and x=-7 (reflected other point would collide), lands on x=-8
+        expect(constraint.left).toEqual([-8, -3]);
+    });
+
+    it("stays put when all rightward positions would cause a clamped collision", () => {
+        // Arrange — asymptote at x=8, points at [7,3] and [4,1].
+        // Moving point 0 right: x=8 is the asymptote, x=9 crosses the
+        // asymptote so reflectedX = 2*8-4 = 12 which clamps to 9
+        // (same as clamped coord), and x>=10 all clamp to 9 as well.
+        // No valid rightward position exists, so the point stays put.
+        const edgeCoords: [vec.Vector2, vec.Vector2] = [
+            [7, 3],
+            [4, 1],
+        ];
+        const edgeRange: [vec.Vector2, vec.Vector2] = [
+            [-10, 10],
+            [-10, 10],
+        ];
+
+        // Act
+        const constraint = getLogarithmKeyboardConstraint(
+            edgeCoords,
+            8,
+            snapStep,
+            0,
+            edgeRange,
+        );
+
+        // Assert — no valid right move, falls back to original position
+        expect(constraint.right).toEqual([7, 3]);
+    });
+
+    it("rejects positions where the clamped coord collides with the other point", () => {
+        // Arrange — points at [8,3] and [9,1], asymptote at -5.
+        // Moving point 0 right: x=9 shares x with otherPoint (skip).
+        // x=10 clamps to 9 (inset max), which also equals otherPoint[X].
+        // All further attempts clamp to 9 too. Point stays put.
+        const edgeCoords: [vec.Vector2, vec.Vector2] = [
+            [8, 3],
+            [9, 1],
+        ];
+        const edgeRange: [vec.Vector2, vec.Vector2] = [
+            [-10, 10],
+            [-10, 10],
+        ];
+
+        // Act
+        const constraint = getLogarithmKeyboardConstraint(
+            edgeCoords,
+            -5,
+            snapStep,
+            0,
+            edgeRange,
+        );
+
+        // Assert — no valid right move, falls back to original position
+        expect(constraint.right).toEqual([8, 3]);
     });
 });
 

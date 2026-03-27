@@ -9,9 +9,10 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
-import {X, Y} from "../math";
+import {X, Y, snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
+import {bound} from "../utils";
 
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
@@ -30,7 +31,7 @@ import type {
     InteractiveGraphElementSuite,
 } from "../types";
 import type {Coord} from "@khanacademy/perseus-core";
-import type {vec} from "mafs";
+import type {Interval, vec} from "mafs";
 
 const {getLogarithmCoefficients} = kmathCoefficients;
 
@@ -147,6 +148,7 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                         asymptote,
                         snapStep,
                         i,
+                        range,
                     )}
                     onMove={(destination) =>
                         dispatch(actions.logarithm.movePoint(i, destination))
@@ -172,6 +174,7 @@ export const getLogarithmKeyboardConstraint = (
     asymptote: number,
     snapStep: vec.Vector2,
     pointIndex: number,
+    range: [Interval, Interval],
 ): {
     up: vec.Vector2;
     down: vec.Vector2;
@@ -186,18 +189,49 @@ export const getLogarithmKeyboardConstraint = (
         snapStep,
         pointIndex,
         (coord) => {
+            // The reducer clamps the destination via boundAndSnapToGrid
+            // before applying its own collision checks. We must predict
+            // the clamped position to avoid accepting coords that the
+            // reducer will silently reject.
+            const clamped = snap(
+                snapStep,
+                bound({snapStep, range, point: coord}),
+            );
+            const clampedX = clamped[X];
+            const clampedY = clamped[Y];
+
             // Point cannot land on the vertical asymptote
-            if (coord[X] === asymptoteX) {
+            if (coord[X] === asymptoteX || clampedX === asymptoteX) {
                 return false;
             }
             // Both points must have different x-values
             // (same x makes the coefficient computation degenerate)
-            if (coord[X] === otherPoint[X]) {
+            if (coord[X] === otherPoint[X] || clampedX === otherPoint[X]) {
                 return false;
             }
             // Both points must have different y-values
-            if (coord[Y] === otherPoint[Y]) {
+            if (coord[Y] === otherPoint[Y] || clampedY === otherPoint[Y]) {
                 return false;
+            }
+            // When the move crosses the asymptote, the reducer will
+            // reflect the other point. Check that the reflected X
+            // doesn't collide with the proposed coord's X.
+            const currentPoint = coords[pointIndex];
+            const currentSide = currentPoint[X] > asymptoteX;
+            const proposedSide = coord[X] > asymptoteX;
+            if (currentSide !== proposedSide) {
+                const reflectedX = 2 * asymptoteX - otherPoint[X];
+                const clampedReflectedX = snap(
+                    snapStep,
+                    bound({snapStep, range, point: [reflectedX, 0]}),
+                )[X];
+                if (
+                    reflectedX === coord[X] ||
+                    clampedReflectedX === coord[X] ||
+                    clampedReflectedX === clampedX
+                ) {
+                    return false;
+                }
             }
             return true;
         },
