@@ -1,8 +1,7 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {ModalDialog, ModalPanel} from "@khanacademy/wonder-blocks-modal";
-import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, sizing} from "@khanacademy/wonder-blocks-tokens";
 import closeIcon from "@phosphor-icons/core/bold/x-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -54,25 +53,6 @@ export const ZoomedImageView = (props: Props) => {
                 closeButtonVisible={false}
                 content={
                     <div className={styles.contentWrapper}>
-                        <Clickable
-                            onClick={onClose}
-                            style={wbStyles.closeButtonContainer}
-                            className={styles.closeButtonWrapper}
-                            aria-label={i18n.strings.imageResetZoomAriaLabel}
-                        >
-                            {() => (
-                                <div className={styles.closeButtonIcon}>
-                                    <PhosphorIcon
-                                        icon={closeIcon}
-                                        size="medium"
-                                        color={
-                                            semanticColor.core.foreground
-                                                .instructive.default
-                                        }
-                                    />
-                                </div>
-                            )}
-                        </Clickable>
                         <div
                             className={styles.imageContainer}
                             // This wrapper's explicit width tells
@@ -112,6 +92,13 @@ export const ZoomedImageView = (props: Props) => {
                                 />
                             </div>
                         </div>
+                        <IconButton
+                            icon={closeIcon}
+                            onClick={onClose}
+                            aria-label={i18n.strings.imageResetZoomAriaLabel}
+                            kind="primary"
+                            style={wbStyles.closeButton}
+                        />
                     </div>
                 }
             />
@@ -134,13 +121,16 @@ const wbStyles = StyleSheet.create({
             margin: 0,
         },
     },
-    closeButtonContainer: {
+    closeButton: {
         position: "absolute",
-        // Slight offset for the close button outline to be visible.
         top: border.width.medium,
         right: border.width.medium,
-        height: sizing.size_400,
-        width: sizing.size_400,
-        zIndex: 1,
+        opacity: 0,
+        ":hover": {
+            opacity: 1,
+        },
+        ":focus": {
+            opacity: 1,
+        },
     },
 });

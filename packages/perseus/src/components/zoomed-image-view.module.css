@@ -8,24 +8,6 @@
     position: relative;
 }
 
-.closeButtonIcon {
-    visibility: hidden;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--wb-semanticColor-core-background-base-default);
-    outline: var(--wb-border-width-medium) solid
-        var(--wb-semanticColor-core-foreground-instructive-default);
-}
-
-/* Show the close button when hovering or focusing the button area. */
-.closeButtonWrapper:hover .closeButtonIcon,
-.closeButtonWrapper:focus .closeButtonIcon {
-    visibility: visible;
-}
-
 .imageContainer {
     /* Don't let large images overflow out of the viewport. */
     max-width: calc(100vw - var(--wb-sizing-size_640));

@@ -585,7 +585,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act - close the modal
             const resetZoomButton = screen.getByRole("button", {
-                name: "Reset zoom.",
+                name: "Close image.",
             });
             await userEvent.click(resetZoomButton);
 
