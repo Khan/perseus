@@ -725,7 +725,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             [0.75, 0.75],
         ];
         // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
-        return InteractiveGraph.pointsFromNormalized(props, coords);
+        return InteractiveGraph.pointsFromNormalized(props, coords, true);
     }
 
     static getExponentialEquationString(props: Props): string {
@@ -751,12 +751,11 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static defaultLogarithmCoords(props: Props): Coord[] {
-        const coords = [
+        const coords: Coord[] = [
             [0.55, 0.55],
             [0.75, 0.75],
         ];
-        // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
-        return InteractiveGraph.pointsFromNormalized(props, coords);
+        return InteractiveGraph.pointsFromNormalized(props, coords, true);
     }
 
     static getLogarithmEquationString(props: Props): string {
