@@ -656,6 +656,11 @@ function doMovePoint(
                     state,
                 );
 
+                // Reflected point cannot land on the asymptote
+                if (updatedCoords[otherIndex][X] === asymptoteX) {
+                    return state;
+                }
+
                 // Both points at the same x or y is invalid for a logarithm
                 if (
                     updatedCoords[0][X] === updatedCoords[1][X] ||

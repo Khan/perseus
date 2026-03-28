@@ -2094,6 +2094,31 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.coords[1]).toEqual([-5, -7]);
         expect(updated.hasBeenInteractedWith).toBe(false);
     });
+
+    it("rejects cross-asymptote move when reflected point snaps to the asymptote x-coordinate", () => {
+        // Arrange — asymptote=-6, non-grid-aligned point at x=-5.6.
+        // Moving point 0 to (-8,-3) crosses the asymptote.
+        // reflectedX = 2*(-6) - (-5.6) = -6.4, which snaps to -6
+        // (the asymptote). This must be rejected.
+        const state = generateLogarithmGraphState({
+            coords: [
+                [-4, -3],
+                [-5.6, -7],
+            ],
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-8, -3]),
+        );
+
+        // Assert — move was rejected; state is unchanged
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -3]);
+        expect(updated.coords[1]).toEqual([-5.6, -7]);
+        expect(updated.hasBeenInteractedWith).toBe(false);
+    });
 });
 
 describe("moveCenter on a logarithm graph (asymptote)", () => {
@@ -2149,12 +2174,13 @@ describe("moveCenter on a logarithm graph (asymptote)", () => {
         expect(updated.asymptote).toBe(-8);
     });
 
-    it("rejects the move when asymptote lands exactly on a point's x-coordinate", () => {
-        // Arrange — points at x=8 and x=10 (x=10 is at the range edge,
-        // placed programmatically). When the asymptote is dragged to x=9
-        // (between them), midpoint=(8+10)/2=9. Since 9 >= 9, snap-through
-        // pushes to rightMost + step = 10 + 1 = 11. Clamping to range
-        // [-10, 10] gives 10, which is exactly on point 1's x-coordinate.
+    it("rejects the move when asymptote would still be between the two points after snap-through", () => {
+        // Arrange — points at x=8 and x=10. When the asymptote is dragged
+        // to x=9 (between them), midpoint=(8+10)/2=9. Since 9 >= 9,
+        // snap-through pushes to rightMost + step = 10 + 1 = 11. Clamping
+        // to inset bounds [-9, 9] gives 9. The stillAllRight/stillAllLeft
+        // check rejects because 8 < 9 < 10 — the asymptote would still
+        // be between the two points.
         const state = generateLogarithmGraphState({
             coords: [
                 [8, -3],
