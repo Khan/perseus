@@ -395,11 +395,11 @@ class ExpressionEditor extends React.Component<Props, State> {
                                     For more information on writting accessible
                                     labels, please see{" "}
                                     <a
-                                        href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                                        href="https://khanacademy.atlassian.net/wiki/spaces/A11Y/pages/3967615350/General+Guidance+for+Labeling+Dropdowns"
                                         target="_blank"
                                         rel="noreferrer"
                                     >
-                                        this article.
+                                        this internal article.
                                     </a>
                                 </InfoTip>
                             </>
