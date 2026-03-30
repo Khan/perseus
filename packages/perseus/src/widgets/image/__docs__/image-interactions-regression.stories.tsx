@@ -11,7 +11,13 @@ import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import UserInputManager from "../../../user-input-manager";
-import {earthMoonImage, frescoImage, graphieImage} from "../utils";
+import {
+    earthMoonImage,
+    extremelyLongDescription,
+    frescoImage,
+    graphieImage,
+    svgImage,
+} from "../utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
@@ -122,6 +128,22 @@ export const LongDescriptionClickedStateWithNoSizeLargeImage = {
         title: "*The Offer of the Casa Madre to Victory*, 1932",
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, *The Offer of the Casa Madre to Victory*, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const imageTrigger = canvas.getByRole("button", {
+            name: "Explore image",
+        });
+        await userEvent.click(imageTrigger);
+    },
+};
+
+export const LongDescriptionClickedStateWithNoSizeLargeSvgImage = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: {url: svgImage.url},
+        alt: "SVG image",
+        longDescription: extremelyLongDescription,
     },
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
