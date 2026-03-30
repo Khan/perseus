@@ -9,8 +9,6 @@
 import {scoreLabelImageMarker} from "@khanacademy/perseus-score";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -20,12 +18,12 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
-import {bodyXsmallBold} from "../../styles/global-styles";
 import mediaQueries from "../../styles/media-queries";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 
 import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
+import styles from "./label-image.module.css";
 import Marker from "./marker";
 
 import type {DependencyProps} from "../../dependencies";
@@ -662,18 +660,18 @@ export class LabelImage
             <div
                 className={classNames(
                     "perseus-label-image-widget-instructions",
-                    css(styles.instructions),
+                    styles.instructions,
                 )}
             >
-                <div className={css(styles.instructionsCaption)}>
+                <div className={styles.instructionsCaption}>
                     {promptString} {!hideChoices && choicesString}
                 </div>
 
                 {!hideChoices && (
-                    <div className={css(styles.instructionsChoices)}>
+                    <div className={styles.instructionsChoices}>
                         {choices.map((choice, index) => (
                             <div
-                                className={css(styles.instructionsChoice)}
+                                className={styles.instructionsChoice}
                                 key={index}
                             >
                                 <Renderer content={choice} strings={strings} />
@@ -709,14 +707,14 @@ export class LabelImage
             <div>
                 {this.renderInstructions()}
                 <div
-                    className={css(styles.markersCanvas)}
+                    className={styles.markersCanvas}
                     style={{
                         maxWidth: imageWidth,
                         maxHeight: imageHeight,
                     }}
                 >
                     <div
-                        className={css(
+                        className={classNames(
                             styles.imageContainer,
                             // Ensure image interaction is disabled while answer
                             // choices popup is visible. This addresses specific
@@ -826,61 +824,3 @@ export default {
     getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;
-
-const styles = StyleSheet.create({
-    instructions: {
-        paddingBottom: 16,
-    },
-
-    instructionsCaption: {
-        ...bodyXsmallBold,
-
-        paddingBottom: 16,
-    },
-
-    instructionsChoices: {
-        display: "flex",
-        flexWrap: "wrap",
-
-        margin: "-8px 0",
-    },
-
-    instructionsChoice: {
-        display: "flex",
-        alignItems: "center",
-
-        margin: "8px 0",
-
-        ":not(:last-child)": {
-            "::after": {
-                content: "''",
-                display: "inline-block",
-                position: "relative",
-
-                width: 2,
-                height: 2,
-
-                marginLeft: 5,
-                marginRight: 5,
-
-                background: semanticColor.core.border.neutral.subtle,
-
-                borderRadius: 2,
-            },
-        },
-    },
-
-    markersCanvas: {
-        position: "relative",
-    },
-
-    imageContainer: {
-        // Remove the additional height added due to white-spacing, this ensures
-        // markers canvas will have the same height as the question image.
-        display: "flex",
-    },
-
-    imageInteractionDisabled: {
-        pointerEvents: "none",
-    },
-});
