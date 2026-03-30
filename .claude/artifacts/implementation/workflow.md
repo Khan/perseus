@@ -87,9 +87,9 @@ pnpm test
 ### Step 18 — Deviation Check
 - Follow the instructions in deviation-check.md to compare the completed work against the workflow instructions and identify any deviations
 
-### Step 19 — Create PR
+### Step 19 — Finalize PR
 - Write a PR summary of the changes that occurred during this workflow. Keep it as short as possible.
 - Write a test plan for the PR
 - Add the PR summary and test plan to the progress report
-- Share this with the user with the below prompt
-> **User action required:** Open a draft pull-request with `git pull-request` / `git pr`
+- Update the existing PR description with the summary and test plan
+> **User action required:** Copy the summary and test plan from the progress report into the open PR description
