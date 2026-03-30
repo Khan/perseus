@@ -22,9 +22,8 @@ import type {PerseusItem, PerseusWidgetsMap} from "./data-schema";
  * accessibility requirements which is not very accurate given that some
  * instances _could_ be accessible and some not based on their widget options.
  * In most cases, you should use {@link isItemAccessible} instead.
- *
- * @todo Inline this into {@link isItemAccessible}!
  */
+// TODO: Inline this into isItemAccessible()
 export function violatingWidgets(itemData: PerseusItem): Array<string> {
     // TODO(jordan): Hints as well
     const widgetTypes: Array<string> = [];

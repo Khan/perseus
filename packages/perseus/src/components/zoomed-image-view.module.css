@@ -4,6 +4,13 @@
     margin-inline: calc(-1 * var(--wb-c-modal-panel-layout-gap-default));
     /* Remove inline spacing that creates a 1px gap below images */
     line-height: 0;
+    /* Add relative position so that the close button child can be absolutely positioned. */
+    position: relative;
+}
+
+.imageContainer {
+    /* Don't let large images overflow out of the viewport. */
+    max-width: calc(100vw - var(--wb-sizing-size_640));
 }
 
 @media (max-width: 767px) {
@@ -13,5 +20,10 @@
         /* On mobile, allow the image to fill the entire viewport */
         max-width: 100vw;
         max-height: 100vh;
+    }
+
+    .imageContainer {
+        /* On mobile, dialog margin is 0 so the full viewport is available. */
+        max-width: 100vw;
     }
 }

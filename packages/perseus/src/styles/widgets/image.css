@@ -3,6 +3,11 @@
 .perseus-image-widget {
     margin-inline: auto;
 }
+/* Stop large images from overflowing out of their container. */
+.perseus-image-widget .image-loader-img {
+    max-width: 100%;
+    height: auto;
+}
 .perseus-image-widget .perseus-image-title {
     text-align: center;
 }

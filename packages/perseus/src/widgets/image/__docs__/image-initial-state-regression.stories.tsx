@@ -314,3 +314,11 @@ export const ImageWithoutWidthOrHeightWithCaptionTitleAndLongDescription: Story 
                 "This is a *very* long description of the earth and moon.",
         },
     };
+
+export const ImageWithoutWidthOrHeightLarge: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: {url: frescoImage.url},
+        alt: "Fresco painting",
+    },
+};

@@ -11,7 +11,13 @@ import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import UserInputManager from "../../../user-input-manager";
-import {earthMoonImage, frescoImage, graphieImage} from "../utils";
+import {
+    earthMoonImage,
+    extremelyLongDescription,
+    frescoImage,
+    graphieImage,
+    svgImage,
+} from "../utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
@@ -129,6 +135,67 @@ export const LongDescriptionClickedStateWithNoSizeLargeImage = {
             name: "Explore image",
         });
         await userEvent.click(imageTrigger);
+    },
+};
+
+export const LongDescriptionClickedStateWithNoSizeLargeSvgImage = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: {url: svgImage.url},
+        alt: "SVG image",
+        longDescription: extremelyLongDescription,
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const imageTrigger = canvas.getByRole("button", {
+            name: "Explore image",
+        });
+        await userEvent.click(imageTrigger);
+    },
+};
+
+export const ZoomClickedState = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const zoomTrigger = canvas.getByRole("button", {
+            name: "Make image bigger.",
+        });
+        await userEvent.click(zoomTrigger);
+    },
+};
+
+export const ZoomClickedWithGraphieImage = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: "Graphie image",
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const zoomTrigger = canvas.getByRole("button", {
+            name: "Make image bigger.",
+        });
+        await userEvent.click(zoomTrigger);
+    },
+};
+
+export const ZoomClickedLargeImage = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: frescoImage,
+        alt: "Fresco painting",
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const zoomTrigger = canvas.getByRole("button", {
+            name: "Make image bigger.",
+        });
+        await userEvent.click(zoomTrigger);
     },
 };
 

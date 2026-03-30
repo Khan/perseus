@@ -50,15 +50,18 @@ export default function ExploreImageModalContent({
     const imageIsGif = isGif(backgroundImage.url);
     const imageIsSvg = isSvg(backgroundImage.url);
 
-    // Use larger sizes for the "explore image" modal:
+    let scale = 1;
+    // If we know the original image size, attempt to upscale the image.
     // - For SVG images, use 2x or greater for the scale since they can
     //   be expanded without losing quality.
     // - For regular non-SVG images, use 1 (original size). Use the
     //   saved scale if it's greater than 1, so that the exploration
     //   modal won't have a smaller image than the original.
-    const scale = imageIsSvg
-        ? Math.max(contentScale, 2)
-        : Math.max(contentScale, 1);
+    if (backgroundImage.width && backgroundImage.height) {
+        scale = imageIsSvg
+            ? Math.max(contentScale, 2)
+            : Math.max(contentScale, 1);
+    }
 
     // Note: backgroundImage.height and backgroundImage.width may be undefined.
     let height: number | undefined = backgroundImage.height;
