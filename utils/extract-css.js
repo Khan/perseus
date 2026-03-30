@@ -84,6 +84,7 @@ const mediaQueries = {
  *****************/
 const codeBlocksToDelete = [];
 const importedModules = {};
+const styleObjects = {};
 
 /********************
  * Helper Functions *
@@ -336,12 +337,13 @@ const getClassName = (node) => {
 };
 
 const getCssPropertyInfo = (property) => {
+    const propertyType = property.value?.type ?? property.type ?? "unknownType";
     const cssProperty =
-        property.key.name ?? property.key.value ?? "unknownProperty";
+        property.key?.name ?? property.key?.value ?? "unknownProperty";
     let cssPropertyName = camelToKabob(cssProperty);
     let nestedRuleSet = null;
-    let propertyValue = property.value.value;
-    switch (property.value.type) {
+    let propertyValue = property.value?.value ?? "";
+    switch (propertyType) {
         case "Identifier":
             propertyValue = literalVariables[property.value.name];
             if (
@@ -424,15 +426,41 @@ const getCssPropertyInfo = (property) => {
                 }
             }, "");
             break;
+        case "SpreadElement":
+            cssPropertyName = "";
+            if (styleObjects[property.argument.name]) {
+                nestedRuleSet = styleObjects[property.argument.name];
+            } else {
+                const externalStyle = getImportedValues(property.argument.name);
+                if (externalStyle !== null) {
+                    delete externalStyle.importPath;
+                    nestedRuleSet = Object.entries(externalStyle).map(
+                        ([propertyName, propertyValue]) => {
+                            return {
+                                property: propertyName,
+                                value: propertyValue,
+                                line: null,
+                                leadingComments: [],
+                                trailingComments: [],
+                                nestedRuleSet: null,
+                            };
+                        },
+                    );
+                    styleObjects[property.argument.name] = nestedRuleSet;
+                }
+            }
+            break;
     }
 
     propertyValue = replacePxWithRem(cssPropertyName, `${propertyValue}`);
     propertyValue = convertToWbColor(cssPropertyName, propertyValue);
+    const propertyLine =
+        property.key?.loc.start.line ?? property.loc.start.line;
 
     return {
         property: cssPropertyName,
         value: propertyValue,
-        line: property.key.loc.start.line,
+        line: propertyLine,
         leadingComments: property.leadingComments ?? [],
         trailingComments: [],
         nestedRuleSet,
@@ -633,8 +661,17 @@ const stringifyCssRuleset = (selector, ruleset, indentationCount = 0) => {
     const conditionalInitialStates = conditionalRulesets.map((property) => {
         return {...property, nestedRuleSet: null};
     });
+    // Additional CSS properties not nested or conditional
+    const supplementalRulesets = ruleset
+        .filter(
+            (property) =>
+                Array.isArray(property.nestedRuleSet) &&
+                property.property === "",
+        )
+        .flatMap((property) => property.nestedRuleSet);
     let stringifiedRuleset = ruleset
         .concat(conditionalInitialStates)
+        .concat(supplementalRulesets)
         .filter((property) => property.nestedRuleSet === null)
         .sort((propertyA, propertyB) =>
             propertyA.property < propertyB.property ? -1 : 1,
@@ -713,6 +750,7 @@ parsedCode.program.body
 // Objects within function components that use StyleSheet.create
 parsedCode.program.body
     .filter((node) => node.type === "ExportNamedDeclaration")
+    .filter((node) => node.declaration?.type === "VariableDeclaration")
     .flatMap((node) => node.declaration.declarations)
     .filter(
         (declaration) =>
