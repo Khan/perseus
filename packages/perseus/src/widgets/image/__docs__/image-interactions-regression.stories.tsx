@@ -163,7 +163,7 @@ export const ZoomClickedState = {
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
         const zoomTrigger = canvas.getByRole("button", {
-            name: "Zoom image.",
+            name: "Make image bigger.",
         });
         await userEvent.click(zoomTrigger);
     },
@@ -178,7 +178,7 @@ export const ZoomClickedWithGraphieImage = {
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
         const zoomTrigger = canvas.getByRole("button", {
-            name: "Zoom image.",
+            name: "Make image bigger.",
         });
         await userEvent.click(zoomTrigger);
     },
@@ -193,7 +193,7 @@ export const ZoomClickedLargeImage = {
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
         const zoomTrigger = canvas.getByRole("button", {
-            name: "Zoom image.",
+            name: "Make image bigger.",
         });
         await userEvent.click(zoomTrigger);
     },
