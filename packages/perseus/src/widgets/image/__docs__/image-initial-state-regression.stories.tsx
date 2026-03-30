@@ -304,3 +304,11 @@ export const ImageWithoutWidthOrHeightWithCaption: Story = {
         caption: earthMoonImageCaption,
     },
 };
+
+export const ImageWithoutWidthOrHeightLarge: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: {url: frescoImage.url},
+        alt: "Fresco painting",
+    },
+};
