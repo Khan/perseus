@@ -144,12 +144,11 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     );
 
     // Set the max width of the image container to the width saved inside
-    // `backgroundImage` - this is the width intended to be used when rendering
-    // the image within the content item.
-    const maxWidth =
-        backgroundImage.width && backgroundImage.height
-            ? backgroundImage.width * scale
-            : undefined;
+    // `backgroundImage` (if it is set at all) - this is the width intended
+    // to be used when rendering the image within the content item.
+    const maxWidth = backgroundImage.width
+        ? backgroundImage.width * scale
+        : undefined;
     // Only set the width if we're not setting maxWidth.
     // We need `width: fit-content` to handle the case where background.width
     // and background.height are undefined, so that the container sets the
