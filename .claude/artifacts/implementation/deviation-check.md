@@ -14,6 +14,7 @@ Use this structure for each step:
 - **Followed as instructed:** Yes / No / Partially
 - **Deviations:** [description, or "None"]
 - **Type:** Intentional / Unintentional / N/A
+- **Recommended Action:** Fix before PR / Document in PR / No action needed — [brief rationale]
 ```
 
 ## Actions to Take
@@ -28,3 +29,4 @@ Use this structure for each step:
    - Steps skipped (note whether user directed or not)
    - Ordering violations (e.g. GATE CHECK not honored before files were created)
 5. Record all findings in the progress report — including steps with no deviations
+6. After recording all findings, present a summary of any deviations and their recommended actions to the user and ask how they would like to proceed with each one
