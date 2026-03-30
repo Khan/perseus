@@ -511,6 +511,10 @@ export type WidgetExports<
     ) => TUserInput;
 }>;
 
+export type FindWidgetsFunction = (
+    filterFunc: FilterCriterion,
+) => ReadonlyArray<Widget | null | undefined>;
+
 export type FilterCriterion =
     | string
     | ((
@@ -551,7 +555,7 @@ type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     keypadElement?: any;
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
-    findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
+    findWidgets: FindWidgetsFunction;
     reviewMode: boolean;
     showSolutions?: ShowSolutions;
     handleUserInput: (

@@ -49,6 +49,7 @@ import type {
     APIOptions,
     APIOptionsWithDefaults,
     FilterCriterion,
+    FindWidgetsFunction,
     FocusPath,
     Widget,
     WidgetProps,
@@ -127,7 +128,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     initializeUserInput?: InitializeUserInputCallback;
 
     alwaysUpdate?: boolean;
-    findExternalWidgets: (criterion: FilterCriterion) => any;
+    findExternalWidgets: FindWidgetsFunction;
     keypadElement?: KeypadAPI | null;
     onRender: (node?: any) => void;
     problemNum?: number;
