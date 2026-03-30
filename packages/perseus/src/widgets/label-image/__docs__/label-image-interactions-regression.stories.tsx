@@ -1,5 +1,5 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import {within} from "@testing-library/dom";
+import {within} from "@storybook/testing-library";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
@@ -32,6 +32,7 @@ export const MarkerPopoverOpen = {
         item: generateTestPerseusItem({question: textQuestion}),
     },
     play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
         const marker = await canvas.findByLabelText(
             "The fourth unlabeled bar line.",
         );
@@ -46,6 +47,7 @@ export const AnswerSelected = {
         item: generateTestPerseusItem({question: textQuestion}),
     },
     play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
         const marker = await canvas.findByLabelText(
             "The fourth unlabeled bar line.",
         );
