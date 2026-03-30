@@ -21,13 +21,11 @@ export type ImageProps = {
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
     style?: Dimensions;
-    onLoad?: () => void;
 };
 
 type Props = {
     children?: React.ReactNode;
     imgProps: ImageProps;
-    imgRef?: React.Ref<HTMLImageElement>;
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
     // When the DOM updates to replace the preloader with the image, or
@@ -140,7 +138,6 @@ class ImageLoader extends React.Component<Props, State> {
 
         return (
             <img
-                ref={this.props.imgRef}
                 // Class name makes this img findable in Cypress tests.
                 className="image-loader-img"
                 src={this.props.dependencies.generateUrl({
