@@ -30,9 +30,8 @@ export default function ExploreImageModalContent({
     labels,
     range,
     zoomSize,
-    isGifPlaying,
-    setIsGifPlaying,
 }: Props) {
+    const [isGifPlaying, setIsGifPlaying] = React.useState(false);
     const context = React.useContext(PerseusI18nContext);
 
     if (!backgroundImage.url) {

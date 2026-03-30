@@ -803,7 +803,6 @@ class SvgImage extends React.Component<Props, State> {
                             <ZoomImageButton
                                 {...this.props}
                                 imgSrc={imageSrc}
-                                onOpen={this._restartGif}
                             />
                         )}
                     </FixedToResponsive>
