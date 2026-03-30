@@ -1914,6 +1914,33 @@ describe("movePoint on an exponential graph", () => {
         invariant(updated.type === "exponential");
         expect(updated.coords[0]).toEqual([0, 3]);
     });
+
+    it("rejects the move when the reflected point snaps onto the asymptote", () => {
+        // Arrange — asymptote at y=0, snapStep=2, point 1 at y=1.
+        // Moving point 0 below the asymptote reflects point 1:
+        // reflectedY = 2*0 - 1 = -1, which snaps to 0 (= asymptote).
+        const state = generateExponentialGraphState({
+            asymptote: 0,
+            snapStep: [2, 2],
+            coords: [
+                [-2, 3],
+                [2, 1],
+            ],
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-2, -3]),
+        );
+
+        // Assert — move rejected; coords unchanged
+        invariant(updated.type === "exponential");
+        expect(updated.coords).toEqual([
+            [-2, 3],
+            [2, 1],
+        ]);
+    });
 });
 
 describe("moveCenter on an exponential graph (asymptote)", () => {
@@ -1965,5 +1992,48 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
 
         // Assert — asymptote moves to y=-2 regardless of the x passed
         expect(updated.asymptote).toBe(-2);
+    });
+
+    it("clamps the asymptote to inset bounds when jumping over both points", () => {
+        // Arrange — snapStep=2 so inset bounds are [-8, 8]
+        const state = generateExponentialGraphState({
+            coords: [
+                [0, 5],
+                [2, 7],
+            ],
+            asymptote: 2,
+            snapStep: [2, 2],
+        });
+
+        // Act — drag above both points; snaps to 7+2=9, clamped to 8
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([0, 6]),
+        );
+        invariant(updated.type === "exponential");
+
+        // Assert
+        expect(updated.asymptote).toBe(8);
+    });
+
+    it("rejects the move when the clamped asymptote lands on a point", () => {
+        // Arrange — point at y=9 near the inset bound (also 9)
+        const state = generateExponentialGraphState({
+            coords: [
+                [0, 8],
+                [2, 9],
+            ],
+            asymptote: 2,
+        });
+
+        // Act — drag above both points; snaps to 9+1=10, clamped to 9 = on point
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([0, 9]),
+        );
+        invariant(updated.type === "exponential");
+
+        // Assert — move rejected
+        expect(updated.asymptote).toBe(2);
     });
 });
