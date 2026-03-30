@@ -28,7 +28,6 @@ export const mockImageLoading = (options?: {
         global.fetch = jest.fn((url) => {
             return Promise.resolve({
                 text: () => Promise.resolve(""),
-                arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
                 ok: true,
             });
         }) as jest.Mock;
