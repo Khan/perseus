@@ -22,7 +22,6 @@ import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.sv
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
-import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import IssuesPanel from "./components/issues-panel";
@@ -34,21 +33,15 @@ import {WARNINGS} from "./messages";
 import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
+import type {IframeContentRendererRef} from "./iframe-content-renderer";
 import type {
     APIOptions,
-    Changeable,
     ImageUploader,
     PerseusDependenciesV2,
 } from "@khanacademy/perseus";
-import type {PerseusArticle} from "@khanacademy/perseus-core";
+import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
-
-type RendererProps = {
-    content?: string;
-    widgets?: any;
-    images?: any;
-};
 
 type DefaultProps = {
     json: PerseusArticle;
@@ -58,6 +51,7 @@ type DefaultProps = {
         i: number,
     ) => React.ReactElement<React.ComponentProps<"span">>;
 };
+
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
     dependencies: PerseusDependenciesV2;
@@ -66,7 +60,8 @@ type Props = DefaultProps & {
     previewURL: string;
     /** @deprecated `issues` has no effect. */
     issues?: Issue[];
-} & Changeable.ChangeableProps;
+    onChange: (changes: {json: PerseusArticle}) => void;
+};
 
 type State = {
     highlightLint: boolean;
@@ -76,8 +71,7 @@ type State = {
 
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        // NOTE(Jeremy):
-        json: [{} as any],
+        json: [{content: "", widgets: {}, images: {}}],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
@@ -88,9 +82,17 @@ export default class ArticleEditor extends React.Component<Props, State> {
         issues: [],
     };
 
+    // Store refs for preview iframes (keyed by section index or "all")
+    private frameRefs: Record<string, IframeContentRendererRef | null> = {};
+
     componentDidMount() {
         this._updateIssues();
-        this._updatePreviewFrames();
+        // Defer updatePreviewFrames to ensure refs are set
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
+        // eslint-disable-next-line no-restricted-syntax
+        setTimeout(() => {
+            this._updatePreviewFrames();
+        }, 0);
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -99,7 +101,12 @@ export default class ArticleEditor extends React.Component<Props, State> {
             this._updateIssues();
         }
 
-        this._updatePreviewFrames();
+        // Defer updatePreviewFrames to allow for child renders
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
+        // eslint-disable-next-line no-restricted-syntax
+        setTimeout(() => {
+            this._updatePreviewFrames();
+        }, 0);
     }
 
     /**
@@ -108,7 +115,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      */
     _updateIssues() {
         // Get sections array
-        const sections: ReadonlyArray<RendererProps> =
+        const sections: PerseusArticle =
             this.props.json instanceof Array
                 ? this.props.json
                 : [this.props.json];
@@ -151,52 +158,66 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _updatePreviewFrames() {
+        const previewApiOptions = this._apiOptionsForPreview();
         if (this.props.mode === "preview") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-            this.refs["frame-all"].sendNewData({
-                type: "article-all",
-                data: this._sections().map((section, i) => {
-                    return this._apiOptionsForSection(section, i);
-                }),
-            });
+            const frameAll = this.frameRefs["all"];
+            if (frameAll) {
+                frameAll.sendNewData({
+                    type: "article-all",
+                    data: {
+                        article: this._sections(),
+                        apiOptions: previewApiOptions,
+                    },
+                });
+            }
         } else if (this.props.mode === "edit") {
             this._sections().forEach((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-                this.refs["frame-" + i].sendNewData({
-                    type: "article",
-                    data: this._apiOptionsForSection(section, i),
-                });
+                const frame = this.frameRefs[String(i)];
+                if (frame) {
+                    const sectionData = this._previewDataForSection(section, i);
+                    frame.sendNewData({
+                        type: "article",
+                        data: {
+                            article: section,
+                            linterContext: sectionData.linterContext,
+                            legacyPerseusLint: sectionData.legacyPerseusLint,
+                            apiOptions: previewApiOptions,
+                        },
+                    });
+                }
             });
         }
     }
 
-    _apiOptionsForSection(section: RendererProps, sectionIndex: number): any {
+    _previewDataForSection(section: PerseusRenderer, sectionIndex: number) {
         // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
-        return {
-            apiOptions: {
-                ...ApiOptions.defaults,
-                ...this.props.apiOptions,
 
-                // Alignment options are always available in article
-                // editors
-                showAlignmentOptions: true,
-                isArticle: true,
-            },
-            json: section,
+        return {
+            section,
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
+                stack: [],
             },
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
+            legacyPerseusLint: editor?.getSaveWarnings() ?? [],
         };
     }
 
-    _sections(): ReadonlyArray<RendererProps> {
+    _apiOptionsForPreview(): APIOptions {
+        return {
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+
+            // Alignment options are always available in article
+            // editors
+            showAlignmentOptions: true,
+            isArticle: true,
+        };
+    }
+
+    _sections(): ReadonlyArray<PerseusRenderer> {
         const json = this.props.json;
         return json instanceof Array ? json : [json];
     }
@@ -368,10 +389,11 @@ export default class ArticleEditor extends React.Component<Props, State> {
         return (
             <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
                 <IframeContentRenderer
-                    ref={"frame-" + i}
+                    ref={(node) => {
+                        this.frameRefs[String(i)] = node;
+                    }}
                     key={this.props.screen}
-                    datasetKey="mobile"
-                    datasetValue={isMobile}
+                    isMobile={isMobile}
                     seamless={nochrome}
                     url={this.props.previewURL}
                 />
@@ -391,10 +413,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.props.onChange({json: newJson});
     };
 
-    _handleEditorChange: (i: number, newProps: RendererProps) => void = (
-        i,
-        newProps,
-    ) => {
+    _handleEditorChange: (
+        i: number,
+        newProps: Partial<PerseusRenderer>,
+    ) => void = (i, newProps) => {
         const sections = [...this._sections()];
         sections[i] = {...sections[i], ...newProps};
         this.props.onChange({json: sections});
@@ -429,7 +451,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     _handleAddSectionAfter(i: number) {
         // We do a full serialization here because we
         // might be copying widgets:
-        const sections = _.clone(this.serialize());
+        const sections = {...this.serialize()};
         // Here we do magic to allow you to copy-paste
         // things from the previous section into the new
         // section while preserving widgets.
@@ -480,7 +502,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      *
      * This function can currently only be called in edit mode.
      */
-    getSaveWarnings(): ReadonlyArray<RendererProps> {
+    getSaveWarnings(): ReadonlyArray<PerseusRenderer> {
         if (this.props.mode !== "edit") {
             throw new PerseusError(
                 "Can only get save warnings in edit mode.",
