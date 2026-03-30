@@ -26,7 +26,12 @@ type Props = {
     height?: number;
     scale: number;
     isPlaying: boolean;
-    onLoop?: () => void;
+    /**
+     * Called when the GIF finishes one full loop and auto-pauses.
+     * The parent should set isPlaying to false in response so
+     * that props stay in sync with the internal paused state.
+     */
+    onPause: () => void;
 };
 
 /**
@@ -38,7 +43,7 @@ type Props = {
  *   drawable source for proper alpha compositing via drawImage
  */
 const GifImage = (props: Props) => {
-    const {src, alt, width, height, scale, isPlaying, onLoop} = props;
+    const {src, alt, width, height, scale, isPlaying, onPause} = props;
 
     // Decoded GIF frames from gifuct-js
     const framesRef = React.useRef<ParsedFrame[]>([]);
@@ -58,8 +63,8 @@ const GifImage = (props: Props) => {
     // Keep a ref to the latest props so the animation loop (which runs
     // outside of React's render cycle) can read current values without
     // stale closures.
-    const latestPropsRef = React.useRef({isPlaying, onLoop});
-    latestPropsRef.current = {isPlaying, onLoop};
+    const latestPropsRef = React.useRef({isPlaying, onPause});
+    latestPropsRef.current = {isPlaying, onPause};
 
     // Draw a single frame's patch directly onto the display canvas,
     // using the patch canvas to convert raw pixel data into a
@@ -189,16 +194,11 @@ const GifImage = (props: Props) => {
                 currentFrameIndexRef.current++;
 
                 if (currentFrameIndexRef.current >= frames.length) {
-                    // Exact loop completion.
+                    // Loop complete — auto-pause and notify parent.
                     currentFrameIndexRef.current = 0;
-                    latestPropsRef.current.onLoop?.();
-
-                    // onLoop may have paused us (e.g. auto-pause after
-                    // one loop). Check before scheduling the next frame.
-                    if (!latestPropsRef.current.isPlaying) {
-                        animationIdRef.current = null;
-                        return;
-                    }
+                    animationIdRef.current = null;
+                    latestPropsRef.current.onPause();
+                    return;
                 }
             }
 

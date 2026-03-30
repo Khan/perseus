@@ -574,10 +574,10 @@ describe("SvgImage", () => {
             expect(screen.queryByTestId("gif-canvas")).not.toBeInTheDocument();
         });
 
-        describe("gif loop detection", () => {
-            it("calls onGifLoop after all frames have been rendered", async () => {
+        describe("gif auto-pause", () => {
+            it("calls onGifPause after all frames have been rendered", async () => {
                 // Arrange
-                const onGifLoop = jest.fn();
+                const onGifPause = jest.fn();
                 render(
                     <SvgImage
                         src={GIF_SRC}
@@ -586,12 +586,12 @@ describe("SvgImage", () => {
                         width={500}
                         height={285}
                         isGifPlaying={true}
-                        onGifLoop={onGifLoop}
+                        onGifPause={onGifPause}
                     />,
                 );
 
                 // Flush the fetch → arrayBuffer → decodeGifFrames → .then()
-                // promise chain so _playGif is called.
+                // promise chain so playback starts.
                 // eslint-disable-next-line testing-library/no-unnecessary-act
                 await act(async () => {
                     // Need enough microtask ticks for the full async chain:
@@ -609,12 +609,12 @@ describe("SvgImage", () => {
                 });
 
                 // Assert
-                expect(onGifLoop).toHaveBeenCalledTimes(1);
+                expect(onGifPause).toHaveBeenCalledTimes(1);
             });
 
-            it("stops calling onGifLoop when isGifPlaying becomes false", async () => {
+            it("does not call onGifPause again after pausing", async () => {
                 // Arrange
-                const onGifLoop = jest.fn();
+                const onGifPause = jest.fn();
                 const {rerender} = render(
                     <SvgImage
                         src={GIF_SRC}
@@ -623,7 +623,7 @@ describe("SvgImage", () => {
                         width={500}
                         height={285}
                         isGifPlaying={true}
-                        onGifLoop={onGifLoop}
+                        onGifPause={onGifPause}
                     />,
                 );
 
@@ -636,7 +636,7 @@ describe("SvgImage", () => {
                 act(() => {
                     jest.advanceTimersByTime(200);
                 });
-                expect(onGifLoop).toHaveBeenCalledTimes(1);
+                expect(onGifPause).toHaveBeenCalledTimes(1);
 
                 // Act - pause the GIF
                 rerender(
@@ -647,15 +647,15 @@ describe("SvgImage", () => {
                         width={500}
                         height={285}
                         isGifPlaying={false}
-                        onGifLoop={onGifLoop}
+                        onGifPause={onGifPause}
                     />,
                 );
                 act(() => {
                     jest.advanceTimersByTime(200);
                 });
 
-                // Assert - onGifLoop should not have been called again
-                expect(onGifLoop).toHaveBeenCalledTimes(1);
+                // Assert - onGifPause should not have been called again
+                expect(onGifPause).toHaveBeenCalledTimes(1);
             });
         });
     });
