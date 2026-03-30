@@ -1,4 +1,5 @@
-import {act, fireEvent, render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
+import {parseGIF, decompressFrames} from "gifuct-js";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
@@ -11,6 +12,8 @@ import * as GraphieUtils from "../../util/graphie-utils";
 import {typicalCase} from "../../util/graphie-utils.testdata";
 import {graphieImage} from "../../widgets/image/utils";
 import SvgImage from "../svg-image";
+
+jest.mock("gifuct-js");
 
 describe("SvgImage", () => {
     let unmockImageLoading: () => void;
@@ -453,22 +456,63 @@ describe("SvgImage", () => {
 
     describe("gif pause/play", () => {
         const GIF_SRC = "https://cdn.kastatic.org/test.gif";
-        let mockDrawImage: jest.Mock;
+
+        // A minimal fake frame from gifuct-js with a 50ms delay.
+        const fakeFrame = {
+            patch: new Uint8ClampedArray(4), // 1x1 RGBA
+            delay: 50,
+            dims: {width: 1, height: 1, top: 0, left: 0},
+            disposalType: 0,
+        };
 
         beforeEach(() => {
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
-            mockDrawImage = jest.fn();
+            // Make gifuct-js return two fake frames (100ms total loop).
+            (parseGIF as jest.Mock).mockReturnValue({});
+            (decompressFrames as jest.Mock).mockReturnValue([
+                fakeFrame,
+                fakeFrame,
+            ]);
+            // jsdom doesn't implement canvas getContext or ImageData.
             jest.spyOn(
                 HTMLCanvasElement.prototype,
                 "getContext",
             ).mockReturnValue({
-                drawImage: mockDrawImage,
+                putImageData: jest.fn(),
+                clearRect: jest.fn(),
+                drawImage: jest.fn(),
+                imageSmoothingEnabled: true,
             } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D);
+            // decodeGifFrames calls fetch() in componentDidMount,
+            // before any Image is constructed, so we need fetch
+            // available immediately (the image-loader-utils mock
+            // only sets it up inside the Image constructor).
+            global.fetch = jest.fn(() =>
+                Promise.resolve({
+                    ok: true,
+                    arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+                }),
+            ) as jest.Mock;
+            // @ts-expect-error - jsdom doesn't have ImageData
+            global.ImageData = class ImageData {
+                data: Uint8ClampedArray;
+                width: number;
+                height: number;
+                constructor(
+                    data: Uint8ClampedArray,
+                    width: number,
+                    height: number,
+                ) {
+                    this.data = data;
+                    this.width = width;
+                    this.height = height;
+                }
+            };
         });
 
-        it("renders a canvas overlay when isGifPlaying is false", () => {
+        it("renders a canvas when isGifPlaying is false", () => {
             // Arrange, Act
             render(
                 <SvgImage
@@ -485,10 +529,10 @@ describe("SvgImage", () => {
             });
 
             // Assert
-            expect(screen.getByTestId("gif-pause-canvas")).toBeInTheDocument();
+            expect(screen.getByTestId("gif-canvas")).toBeInTheDocument();
         });
 
-        it("does not render a canvas overlay when isGifPlaying is true", () => {
+        it("renders a canvas when isGifPlaying is true", () => {
             // Arrange, Act
             render(
                 <SvgImage
@@ -505,12 +549,10 @@ describe("SvgImage", () => {
             });
 
             // Assert
-            expect(
-                screen.queryByTestId("gif-pause-canvas"),
-            ).not.toBeInTheDocument();
+            expect(screen.getByTestId("gif-canvas")).toBeInTheDocument();
         });
 
-        it("does not render a canvas overlay when isGifPlaying is undefined", () => {
+        it("does not render a canvas when isGifPlaying is undefined", () => {
             // Arrange, Act
             render(
                 <SvgImage
@@ -526,50 +568,11 @@ describe("SvgImage", () => {
             });
 
             // Assert
-            expect(
-                screen.queryByTestId("gif-pause-canvas"),
-            ).not.toBeInTheDocument();
-        });
-
-        it("calls drawImage on the canvas when the img fires onLoad while paused", () => {
-            // Arrange
-            render(
-                <SvgImage
-                    src={GIF_SRC}
-                    alt="test gif"
-                    allowZoom={false}
-                    width={500}
-                    height={285}
-                    isGifPlaying={false}
-                />,
-            );
-            act(() => {
-                jest.runAllTimers();
-            });
-
-            const img = screen.getByRole<HTMLImageElement>("img", {
-                name: "test gif",
-            });
-            Object.defineProperty(img, "naturalWidth", {
-                value: 500,
-                configurable: true,
-            });
-            Object.defineProperty(img, "naturalHeight", {
-                value: 285,
-                configurable: true,
-            });
-
-            // Act - simulate the img element's own load event (the hook for captureGifFrame)
-            fireEvent.load(img!);
-
-            // Assert
-            expect(mockDrawImage).toHaveBeenCalledWith(img, 0, 0);
+            expect(screen.queryByTestId("gif-canvas")).not.toBeInTheDocument();
         });
 
         describe("gif loop detection", () => {
-            const LOOP_DURATION_MS = 100;
-
-            it("calls onGifLoop after one loop duration elapses", async () => {
+            it("calls onGifLoop after all frames have been rendered", async () => {
                 // Arrange
                 const onGifLoop = jest.fn();
                 render(
@@ -584,13 +587,22 @@ describe("SvgImage", () => {
                     />,
                 );
 
-                // Flush the fetch promise so _gifLoopDurationMs is set
+                // Flush the fetch → arrayBuffer → decodeGifFrames → .then()
+                // promise chain so _playGif is called.
                 // eslint-disable-next-line testing-library/no-unnecessary-act
-                await act(async () => {});
+                await act(async () => {
+                    // Need enough microtask ticks for the full async chain:
+                    // fetch() → arrayBuffer() → async return → .then()
+                    for (let i = 0; i < 10; i++) {
+                        await Promise.resolve();
+                    }
+                });
 
-                // Act
+                // Act — advance enough for both 50ms frames to render.
+                // RAF fires at ~16ms intervals, so we need enough ticks
+                // for two frames plus the initial timestamp capture.
                 act(() => {
-                    jest.advanceTimersByTime(LOOP_DURATION_MS);
+                    jest.advanceTimersByTime(200);
                 });
 
                 // Assert
@@ -613,9 +625,13 @@ describe("SvgImage", () => {
                 );
 
                 // eslint-disable-next-line testing-library/no-unnecessary-act
-                await act(async () => {});
+                await act(async () => {
+                    for (let i = 0; i < 10; i++) {
+                        await Promise.resolve();
+                    }
+                });
                 act(() => {
-                    jest.advanceTimersByTime(LOOP_DURATION_MS);
+                    jest.advanceTimersByTime(200);
                 });
                 expect(onGifLoop).toHaveBeenCalledTimes(1);
 
@@ -632,43 +648,12 @@ describe("SvgImage", () => {
                     />,
                 );
                 act(() => {
-                    jest.advanceTimersByTime(LOOP_DURATION_MS);
+                    jest.advanceTimersByTime(200);
                 });
 
                 // Assert - onGifLoop should not have been called again
                 expect(onGifLoop).toHaveBeenCalledTimes(1);
             });
-        });
-
-        it("does not call drawImage when the img fires onLoad while playing", () => {
-            // Arrange
-            render(
-                <SvgImage
-                    src={GIF_SRC}
-                    alt="test gif"
-                    allowZoom={false}
-                    width={500}
-                    height={285}
-                    isGifPlaying={true}
-                />,
-            );
-            act(() => {
-                jest.runAllTimers();
-            });
-
-            const img = screen.getByRole<HTMLImageElement>("img", {
-                name: "test gif",
-            });
-            Object.defineProperty(img, "naturalWidth", {
-                value: 500,
-                configurable: true,
-            });
-
-            // Act
-            fireEvent.load(img!);
-
-            // Assert
-            expect(mockDrawImage).not.toHaveBeenCalled();
         });
     });
 });

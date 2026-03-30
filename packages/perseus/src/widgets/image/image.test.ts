@@ -1048,10 +1048,10 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert - canvas overlay should be present since gif starts paused
-            expect(screen.getByTestId("gif-pause-canvas")).toBeInTheDocument();
+            expect(screen.getByTestId("gif-canvas")).toBeInTheDocument();
         });
 
-        it("removes the canvas overlay when the gif is playing", async () => {
+        it("keeps the canvas when the gif is playing", async () => {
             // Arrange
             const gifImageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -1073,10 +1073,8 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 screen.getByRole("button", {name: "Play Animation"}),
             );
 
-            // Assert
-            expect(
-                screen.queryByTestId("gif-pause-canvas"),
-            ).not.toBeInTheDocument();
+            // Assert - canvas is always present for controlled GIFs
+            expect(screen.getByTestId("gif-canvas")).toBeInTheDocument();
         });
 
         it("re-renders the canvas overlay when gif is paused after playing", async () => {
@@ -1105,7 +1103,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             );
 
             // Assert
-            expect(screen.getByTestId("gif-pause-canvas")).toBeInTheDocument();
+            expect(screen.getByTestId("gif-canvas")).toBeInTheDocument();
         });
 
         it("does not render a canvas overlay for non-gif images", () => {
@@ -1126,9 +1124,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            expect(
-                screen.queryByTestId("gif-pause-canvas"),
-            ).not.toBeInTheDocument();
+            expect(screen.queryByTestId("gif-canvas")).not.toBeInTheDocument();
         });
 
         it("does not render a canvas overlay when the feature flag is disabled", () => {
@@ -1149,9 +1145,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Assert
-            expect(
-                screen.queryByTestId("gif-pause-canvas"),
-            ).not.toBeInTheDocument();
+            expect(screen.queryByTestId("gif-canvas")).not.toBeInTheDocument();
         });
     });
 

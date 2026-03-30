@@ -603,6 +603,9 @@ importers:
       '@use-gesture/react':
         specifier: ^10.2.27
         version: 10.3.0(react@18.2.0)
+      gifuct-js:
+        specifier: ^2.1.2
+        version: 2.1.2
       mafs:
         specifier: 0.19.0
         version: 0.19.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -5649,6 +5652,9 @@ packages:
   getpass@0.1.7:
     resolution: {integrity: sha512-0fzj9JxOLfJ+XGLhR8ze3unN0KZCgZwiSSDz168VERjK8Wl8kVSdcu2kspd4s4wtAa1y/qrVRiAA0WclVsu0ng==}
 
+  gifuct-js@2.1.2:
+    resolution: {integrity: sha512-rI2asw77u0mGgwhV3qA+OEgYqaDn5UNqgs+Bx0FGwSpuqfYn+Ir6RQY5ENNQ8SbIiG/m5gVa7CD5RriO4f4Lsg==}
+
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -6549,6 +6555,9 @@ packages:
 
   jquery@3.6.0:
     resolution: {integrity: sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==}
+
+  js-binary-schema-parser@2.0.3:
+    resolution: {integrity: sha512-xezGJmOb4lk/M1ZZLTR/jaBHQ4gG/lqQnJqdIv4721DMggsa1bDVlHXNeHYogaIEHD9vCRv0fcL4hMA+Coarkg==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -15255,6 +15264,10 @@ snapshots:
     dependencies:
       assert-plus: 1.0.0
 
+  gifuct-js@2.1.2:
+    dependencies:
+      js-binary-schema-parser: 2.0.3
+
   glob-parent@5.1.2:
     dependencies:
       is-glob: 4.0.3
@@ -16441,6 +16454,8 @@ snapshots:
   jquery@2.1.1: {}
 
   jquery@3.6.0: {}
+
+  js-binary-schema-parser@2.0.3: {}
 
   js-tokens@4.0.0: {}
 

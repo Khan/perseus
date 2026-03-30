@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unsafe */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
+import {parseGIF, decompressFrames} from "gifuct-js";
 import * as React from "react";
 import _ from "underscore";
 
@@ -19,39 +20,26 @@ import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
 import type {APIOptions, Dimensions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
+import type {ParsedFrame} from "gifuct-js";
 
 function isImageProbablyPhotograph(imageUrl) {
     return /\.(jpg|jpeg)$/i.test(imageUrl);
 }
 
 /**
- * Fetches a GIF and parses its binary data to compute the total duration of
- * one animation loop by summing the delay values from each frame's Graphic
- * Control Extension block.
+ * Fetches a GIF and decodes it into individual frames using gifuct-js.
+ * Returns the parsed frames array, which includes per-frame pixel data,
+ * delay, dimensions, and disposal type.
  */
-async function getGifLoopDuration(src: string): Promise<number> {
+async function decodeGifFrames(src: string): Promise<ParsedFrame[]> {
     const res = await fetch(src);
     if (!res.ok) {
-        return 0;
+        return [];
     }
 
     const buffer = await res.arrayBuffer();
-    const bytes = new Uint8Array(buffer);
-    let totalMs = 0;
-    for (let i = 0; i < bytes.length - 7; i++) {
-        // Graphic Control Extension marker: 0x21 0xF9 0x04
-        if (
-            bytes[i] === 0x21 &&
-            bytes[i + 1] === 0xf9 &&
-            bytes[i + 2] === 0x04
-        ) {
-            // Delay is stored as a little-endian uint16 at bytes i+4 and i+5,
-            // in units of 1/100th of a second (centiseconds).
-            const delay = (bytes[i + 4] | (bytes[i + 5] << 8)) * 10;
-            totalMs += delay;
-        }
-    }
-    return totalMs;
+    const gif = parseGIF(buffer);
+    return decompressFrames(gif, true);
 }
 
 function defaultPreloader(dimensions: Dimensions) {
@@ -140,8 +128,8 @@ export type Props = {
     isGifPlaying?: boolean;
     /**
      * Called each time the GIF completes one full animation loop.
-     * Loop duration is determined by fetching the GIF and summing the
-     * per-frame delays from its Graphic Control Extension blocks.
+     * Loop completion is detected exactly when the last decoded frame
+     * has been rendered.
      */
     onGifLoop?: () => void;
 };
@@ -192,14 +180,20 @@ class SvgImage extends React.Component<Props, State> {
     _isMounted: boolean;
     _isLoadingGraphie: boolean;
 
-    // Refs used for GIF pause/play canvas overlay
-    _gifImgRef: React.RefObject<HTMLImageElement> =
-        React.createRef<HTMLImageElement>();
-    _canvasElement: HTMLCanvasElement | null = null;
-
-    // GIF loop detection
-    _gifLoopInterval: ReturnType<typeof setInterval> | null = null;
-    _gifLoopDurationMs: number | null = null;
+    // Decoded GIF frames from gifuct-js
+    _gifFrames: ParsedFrame[] = [];
+    // The display canvas shown to the user (composited and scaled)
+    _gifCanvas: HTMLCanvasElement | null = null;
+    // A hidden canvas used to convert per-frame patch ImageData into
+    // a drawable source for compositing onto the display canvas
+    _gifPatchCanvas: HTMLCanvasElement | null = null;
+    // Playback state
+    // The ID for the gif animation
+    _gifAnimationId: number | null = null;
+    _gifCurrentFrameIndex = 0;
+    // It tracks when the last frame was drawn so we can compare against the current timestamp to know if enough time has passed for the
+    // current frame's delay. GIF frames have variable delays (e.g., frame 1 might be 50ms, frame 2 might be 100ms).
+    _gifLastFrameTime = 0;
 
     static defaultProps: DefaultProps = {
         constrainHeight: false,
@@ -238,8 +232,8 @@ class SvgImage extends React.Component<Props, State> {
             this.loadResources();
         }
 
-        if (this.props.onGifLoop) {
-            this._loadGifLoopDuration();
+        if (this.props.isGifPlaying !== undefined) {
+            this._loadGifFrames();
         }
     }
 
@@ -284,122 +278,248 @@ class SvgImage extends React.Component<Props, State> {
             this.props.setAssetStatus(this.props.src, true);
         }
 
-        // When transitioning to paused, set the gif frame.
-        if (!this.props.isGifPlaying && prevProps.isGifPlaying) {
-            this.setGifFrame();
-        }
-
-        // When transitioning to playing, restart the GIF from the beginning.
+        // When transitioning to playing: if the loop had completed
+        // (frame index is 0), restart from the beginning. Otherwise
+        // resume from the current frame.
         if (this.props.isGifPlaying && !prevProps.isGifPlaying) {
-            this._restartGif();
-        }
-
-        // When src changes, re-fetch the loop duration for the new GIF.
-        if (prevProps.src !== this.props.src && this.props.onGifLoop) {
-            this._stopGifLoopDetection();
-            this._gifLoopDurationMs = null;
-            this._loadGifLoopDuration();
-        }
-
-        // Sync the loop interval with play/pause state.
-        if (prevProps.isGifPlaying !== this.props.isGifPlaying) {
-            if (!this.props.isGifPlaying) {
-                this._stopGifLoopDetection();
-            } else if (this._gifLoopDurationMs !== null) {
-                this._startGifLoopDetection();
+            if (this._gifCurrentFrameIndex === 0) {
+                this._restartGif();
+            } else {
+                this._playGif();
             }
+        }
+
+        // When transitioning to paused, stop the animation loop.
+        // If the loop completed (frame index reset to 0), show frame 0.
+        // Otherwise it was a manual pause — keep the current frame.
+        if (!this.props.isGifPlaying && prevProps.isGifPlaying) {
+            this._pauseGif();
+            if (this._gifCurrentFrameIndex === 0) {
+                this._renderGifFrame(0);
+            }
+        }
+
+        // When src changes, re-decode frames for the new GIF.
+        if (
+            prevProps.src !== this.props.src &&
+            this.props.isGifPlaying !== undefined
+        ) {
+            this._pauseGif();
+            this._gifFrames = [];
+            this._loadGifFrames();
         }
     }
 
     componentWillUnmount() {
         this._isMounted = false;
-        this._stopGifLoopDetection();
+        this._pauseGif();
     }
 
-    // Restart the GIF animation from frame 1 by briefly clearing the
-    // img src. The browser restarts the animation when the src is restored.
+    // Reset to frame 0 and start playing.
     _restartGif: () => void = () => {
-        const img = this._gifImgRef.current;
-        if (img) {
-            const src = img.src;
-            img.src = "";
-            img.src = src;
+        this._pauseGif();
+        this._gifCurrentFrameIndex = 0;
+        // Clear the display canvas so frame 0 draws from a clean state.
+        const ctx = this._gifCanvas?.getContext("2d");
+        if (ctx && this._gifCanvas) {
+            ctx.clearRect(0, 0, this._gifCanvas.width, this._gifCanvas.height);
         }
-        // Reset the loop detection timer so it stays in sync with
-        // the restarted animation.
-        if (this._gifLoopDurationMs !== null) {
-            this._startGifLoopDetection();
-        }
+        this._playGif();
     };
 
-    // Callback ref for the canvas overlay element. Draws the first GIF
-    // frame immediately when the canvas is mounted in the DOM so there is
-    // no visible flash of an empty canvas.
+    // Callback ref for the display canvas. Renders the first frame
+    // immediately when mounted so there's no flash of empty canvas.
     setCanvasRef: (canvas: HTMLCanvasElement | null) => void = (canvas) => {
-        this._canvasElement = canvas;
-        if (canvas) {
-            this.setGifFrame();
+        this._gifCanvas = canvas;
+        if (canvas && this._gifFrames.length > 0) {
+            this._renderGifFrame(0);
         }
     };
 
-    _loadGifLoopDuration: () => void = () => {
+    // Callback ref for the hidden patch canvas.
+    setPatchCanvasRef: (canvas: HTMLCanvasElement | null) => void = (
+        canvas,
+    ) => {
+        this._gifPatchCanvas = canvas;
+    };
+
+    // Fetch and decode the GIF into frames. Once loaded, renders the
+    // first frame to the canvas and starts playback if isGifPlaying.
+    _loadGifFrames: () => void = () => {
         const fetchedSrc = this.props.src;
-        getGifLoopDuration(this.props.src)
-            .then((duration) => {
+        decodeGifFrames(this.props.src)
+            .then((frames) => {
                 if (!this._isMounted) {
                     return;
                 }
-                // If the src changed while we were fetching, don't update the
-                // loop duration or start the loop detection, since it would
-                // be for the wrong GIF.
+                // If the src changed while we were fetching, discard.
                 if (this.props.src !== fetchedSrc) {
                     return;
                 }
-                this._gifLoopDurationMs = duration;
+                this._gifFrames = frames;
+
+                // Show the first frame on the canvas.
+                this._renderGifFrame(0);
+
                 if (this.props.isGifPlaying) {
-                    this._startGifLoopDetection();
+                    this._playGif();
                 }
             })
             .catch(() => {});
     };
 
-    _startGifLoopDetection: () => void = () => {
+    // Start the requestAnimationFrame loop from the current frame.
+    _playGif: () => void = () => {
+        if (this._gifFrames.length === 0) {
+            return;
+        }
+        // Set to -1 so the first RAF callback always draws immediately,
+        // since we don't know the RAF timestamp in advance.
+        this._gifLastFrameTime = -1;
+        this._gifAnimationId = requestAnimationFrame(this._animateGif);
+    };
+
+    // Cancel the animation loop. The canvas retains the last drawn frame.
+    _pauseGif: () => void = () => {
+        if (this._gifAnimationId !== null) {
+            cancelAnimationFrame(this._gifAnimationId);
+            this._gifAnimationId = null;
+        }
+    };
+
+    // The requestAnimationFrame callback that drives GIF playback.
+    // Uses the RAF-provided timestamp for timing so playback stays in
+    // sync with the browser's animation clock.
+    _animateGif: (timestamp: number) => void = (timestamp) => {
+        if (this._gifFrames.length === 0) {
+            return;
+        }
+
+        // On the first callback, just record the timestamp.
+        if (this._gifLastFrameTime < 0) {
+            this._gifLastFrameTime = timestamp;
+        }
+
+        const frame = this._gifFrames[this._gifCurrentFrameIndex];
+        // GIF spec: delay of 0 is treated as 10ms by most decoders.
+        const delay = frame.delay <= 0 ? 10 : frame.delay;
+
+        if (timestamp - this._gifLastFrameTime >= delay) {
+            this._drawGifFrame(this._gifCurrentFrameIndex);
+            this._gifLastFrameTime = timestamp;
+            this._gifCurrentFrameIndex++;
+
+            if (this._gifCurrentFrameIndex >= this._gifFrames.length) {
+                // Exact loop completion.
+                this._gifCurrentFrameIndex = 0;
+                this.props.onGifLoop?.();
+
+                // onGifLoop may have paused us (e.g. auto-pause after
+                // one loop). componentDidUpdate handles showing
+                // frame 0 when it sees the pause transition.
+                if (!this.props.isGifPlaying) {
+                    this._gifAnimationId = null;
+                    return;
+                }
+            }
+        }
+
+        this._gifAnimationId = requestAnimationFrame(this._animateGif);
+    };
+
+    // Draw a single frame's patch directly onto the display canvas,
+    // using the patch canvas to convert raw pixel data into a
+    // drawable source with proper alpha compositing.
+    _drawGifFrame(index: number): void {
+        const patchCtx = this._gifPatchCanvas?.getContext("2d");
+        const displayCtx = this._gifCanvas?.getContext("2d");
         if (
-            !this.props.onGifLoop ||
-            this._gifLoopDurationMs === null ||
-            this._gifLoopDurationMs <= 0
+            !patchCtx ||
+            !this._gifPatchCanvas ||
+            !displayCtx ||
+            !this._gifCanvas
         ) {
             return;
         }
-        this._stopGifLoopDetection();
-        this._gifLoopInterval = setInterval(
-            this.props.onGifLoop,
-            this._gifLoopDurationMs,
+
+        const frame = this._gifFrames[index];
+        const {dims} = frame;
+
+        // Compute the scale from native GIF resolution to display size.
+        const nativeWidth = this._gifFrames[0].dims.width;
+        const nativeHeight = this._gifFrames[0].dims.height;
+        const scaleX = this._gifCanvas.width / nativeWidth;
+        const scaleY = this._gifCanvas.height / nativeHeight;
+
+        // Handle disposal of the previous frame.
+        if (index > 0) {
+            const prev = this._gifFrames[index - 1];
+            if (prev.disposalType === 2) {
+                // Restore to background — clear the previous frame's
+                // area, scaled to display coordinates.
+                displayCtx.clearRect(
+                    prev.dims.left * scaleX,
+                    prev.dims.top * scaleY,
+                    prev.dims.width * scaleX,
+                    prev.dims.height * scaleY,
+                );
+            }
+        }
+
+        // Write the raw patch pixels onto the patch canvas, then
+        // composite onto the display canvas using drawImage (which
+        // respects alpha blending, unlike putImageData which
+        // overwrites pixels — including transparent ones).
+        this._gifPatchCanvas.width = dims.width;
+        this._gifPatchCanvas.height = dims.height;
+        const imageData = new ImageData(
+            new Uint8ClampedArray(frame.patch),
+            dims.width,
+            dims.height,
         );
-    };
+        patchCtx.putImageData(imageData, 0, 0);
 
-    _stopGifLoopDetection: () => void = () => {
-        if (this._gifLoopInterval !== null) {
-            clearInterval(this._gifLoopInterval);
-            this._gifLoopInterval = null;
-        }
-    };
+        displayCtx.imageSmoothingEnabled = true;
+        displayCtx.drawImage(
+            this._gifPatchCanvas,
+            dims.left * scaleX,
+            dims.top * scaleY,
+            dims.width * scaleX,
+            dims.height * scaleY,
+        );
+    }
 
-    setGifFrame: () => void = () => {
-        const canvas = this._canvasElement;
-        if (!canvas) {
+    // Draw a specific frame without starting playback. Draws frames
+    // 0 through the target index so partial patches build up correctly.
+    _renderGifFrame(index = 0): void {
+        if (
+            this._gifFrames.length === 0 ||
+            !this._gifCanvas ||
+            !this._gifPatchCanvas
+        ) {
             return;
         }
+        const targetIndex = Math.min(index, this._gifFrames.length - 1);
+        this._gifCurrentFrameIndex = targetIndex;
 
-        const img = this._gifImgRef.current;
-        if (!img || img.naturalWidth === 0) {
-            return;
+        // Size the display canvas to the intended display dimensions
+        // (props width/height × scale). Using props rather than
+        // clientWidth/clientHeight avoids layout-timing issues where
+        // the canvas hasn't been laid out yet.
+        const {width: nativeWidth, height: nativeHeight} =
+            this._gifFrames[0].dims;
+        const displayWidth =
+            (this.props.width ?? nativeWidth) * this.props.scale;
+        const displayHeight =
+            (this.props.height ?? nativeHeight) * this.props.scale;
+        this._gifCanvas.width = displayWidth;
+        this._gifCanvas.height = displayHeight;
+
+        // Draw frames 0 through target so partial patches composite.
+        for (let i = 0; i <= targetIndex; i++) {
+            this._drawGifFrame(i);
         }
-
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        canvas.getContext("2d")?.drawImage(img, 0, 0);
-    };
+    }
 
     // Check if all of the resources are loaded in a given state
     isLoadedInState(state: State): boolean {
@@ -635,39 +755,34 @@ class SvgImage extends React.Component<Props, State> {
                 // FixedToResponsive, so it gets position:absolute coverage via
                 // the .fixed-to-responsive > :not(:first-child) CSS rule.
                 const isGifControlled = this.props.isGifPlaying !== undefined;
-                const gifImageProps = isGifControlled
-                    ? {
-                          ...imageProps,
-                          onLoad: () => {
-                              if (!this.props.isGifPlaying) {
-                                  this.setGifFrame();
-                              }
-                          },
-                      }
-                    : imageProps;
-                const imageLoader = (
-                    <ImageLoader
-                        src={imageSrc}
-                        imgProps={gifImageProps}
-                        imgRef={isGifControlled ? this._gifImgRef : undefined}
-                        preloader={preloader}
-                        onUpdate={this.handleUpdate}
-                    />
-                );
+
                 const imageContent = (
                     <>
-                        {imageLoader}
-                        {extraGraphie}
-                        {isGifControlled && !this.props.isGifPlaying && (
-                            <canvas
-                                // Hiding the canvas as it's redundant for screen readers.
-                                aria-hidden={true}
-                                // Removing the canvas from the tab order as it's non
-                                // interactive and purely decorative.
-                                tabIndex={-1}
-                                ref={this.setCanvasRef}
-                                data-testid="gif-pause-canvas"
+                        {!isGifControlled && (
+                            <ImageLoader
+                                src={imageSrc}
+                                imgProps={imageProps}
+                                preloader={preloader}
+                                onUpdate={this.handleUpdate}
                             />
+                        )}
+                        {extraGraphie}
+                        {isGifControlled && (
+                            <>
+                                <canvas
+                                    aria-hidden={true}
+                                    tabIndex={-1}
+                                    ref={this.setCanvasRef}
+                                    data-testid="gif-canvas"
+                                />
+                                <canvas
+                                    aria-hidden={true}
+                                    tabIndex={-1}
+                                    ref={this.setPatchCanvasRef}
+                                    data-testid="gif-patch-canvas"
+                                    style={{display: "none"}}
+                                />
+                            </>
                         )}
                     </>
                 );
