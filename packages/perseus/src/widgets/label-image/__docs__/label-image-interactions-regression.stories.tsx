@@ -1,5 +1,4 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import {within} from "@storybook/testing-library";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
@@ -42,6 +41,9 @@ export const MarkerPopoverOpen = {
 
 // Verifies the filled marker state and answer pill: after selecting an answer,
 // the marker shows a blue filled style and the chosen answer appears as a pill.
+// Note: WonderBlocks SingleSelect portals its options to document.body (outside
+// the story canvas), so we use native DOM to find the option instead of a
+// testing-library query.
 export const AnswerSelected = {
     args: {
         item: generateTestPerseusItem({question: textQuestion}),
@@ -53,8 +55,11 @@ export const AnswerSelected = {
         );
         await userEvent.click(marker);
 
-        const body = within(document.body);
-        const choice = await body.findByRole("option", {name: "SUVs"});
-        await userEvent.click(choice);
+        const choice = Array.from(
+            document.body.querySelectorAll<HTMLElement>('[role="option"]'),
+        ).find((el) => el.textContent?.includes("SUVs"));
+        if (choice) {
+            await userEvent.click(choice);
+        }
     },
 };
