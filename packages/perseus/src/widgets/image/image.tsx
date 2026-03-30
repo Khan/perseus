@@ -142,7 +142,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     zoomToFullSizeOnMobile={apiOptions.isMobile}
                     constrainHeight={apiOptions.isMobile}
                     allowFullBleed={apiOptions.isMobile}
-                    allowZoom={!decorative}
+                    // Only allow zooming if the image is not decorative and not a GIF.
+                    allowZoom={!decorative && !imageIsGif}
                     alt={decorative || caption === alt ? "" : alt}
                     setAssetStatus={setAssetStatus}
                     isGifPlaying={
