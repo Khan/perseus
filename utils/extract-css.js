@@ -336,6 +336,10 @@ const getClassName = (node) => {
 };
 
 const getCssPropertyInfo = (property) => {
+    if (!property.key) {
+        // SpreadElement or other non-keyed AST node — cannot convert automatically
+        return null;
+    }
     const cssProperty =
         property.key.name ?? property.key.value ?? "unknownProperty";
     let cssPropertyName = camelToKabob(cssProperty);
@@ -713,6 +717,7 @@ parsedCode.program.body
 // Objects within function components that use StyleSheet.create
 parsedCode.program.body
     .filter((node) => node.type === "ExportNamedDeclaration")
+    .filter((node) => node.declaration?.type === "VariableDeclaration")
     .flatMap((node) => node.declaration.declarations)
     .filter(
         (declaration) =>
