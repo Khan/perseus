@@ -48,7 +48,10 @@ describe("SvgImage", () => {
         );
 
         // Assert
-        expect(screen.getByTestId("loading-spinner")).toBeVisible();
+        expect(
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            container.querySelector("div[class*=spinnerContainer]"),
+        ).toBeVisible();
         expect(container).toMatchSnapshot();
     });
 

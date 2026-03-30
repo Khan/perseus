@@ -128,7 +128,6 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
               class="image image-removed"
             >
               <span
-                data-testid="loading-spinner"
                 style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
               >
                 <div
@@ -158,7 +157,6 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
                 class="unresponsive-svg-image"
               >
                 <span
-                  data-testid="loading-spinner"
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                 >
                   <div
@@ -189,7 +187,6 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
                 class="unresponsive-svg-image"
               >
                 <span
-                  data-testid="loading-spinner"
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                 >
                   <div
@@ -250,7 +247,6 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
                 class="unresponsive-svg-image"
               >
                 <span
-                  data-testid="loading-spinner"
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                 >
                   <div
@@ -281,7 +277,6 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
                 class="unresponsive-svg-image"
               >
                 <span
-                  data-testid="loading-spinner"
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                 >
                   <div
@@ -309,7 +304,6 @@ exports[`TextDiff renders text with images in the diff view 1`] = `
               class="image image-added"
             >
               <span
-                data-testid="loading-spinner"
                 style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
               >
                 <div

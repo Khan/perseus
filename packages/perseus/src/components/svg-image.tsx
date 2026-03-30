@@ -45,7 +45,6 @@ async function decodeGifFrames(src: string): Promise<ParsedFrame[]> {
 function defaultPreloader(dimensions: Dimensions) {
     return (
         <span
-            data-testid="loading-spinner"
             style={{
                 top: 0,
                 left: 0,
