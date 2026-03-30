@@ -47,7 +47,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                   </div>
                 </span>
                 <button
-                  aria-label="Zoom image."
+                  aria-label="Make image bigger."
                   class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                   type="button"
                 />
@@ -113,17 +113,17 @@ exports[`group widget should snapshot: initial render 1`] = `
                             <legend
                               aria-hidden="true"
                               class="instructions"
-                              id=":r0:"
+                              id=":r1:"
                             >
                               Choose 1 answer:
                             </legend>
                             <div
-                              id=":r1:-scroll"
+                              id=":r2:-scroll"
                               role="group"
                               style="overflow-x: auto;"
                             >
                               <ul
-                                aria-labelledby=":r0:"
+                                aria-labelledby=":r1:"
                                 class="choice-list"
                                 data-widget="radio"
                                 role="list"
@@ -135,10 +135,10 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   <button
                                     aria-disabled="false"
                                     aria-label="(Choice A)"
-                                    aria-labelledby=":r4: :r3:-choice-1"
+                                    aria-labelledby=":r5: :r4:-choice-1"
                                     aria-pressed="false"
                                     class="base circle-shape"
-                                    id=":r4:"
+                                    id=":r5:"
                                     type="button"
                                   >
                                     <span>
@@ -149,7 +149,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     class="content"
                                   >
                                     <div
-                                      id=":r3:-choice-1"
+                                      id=":r4:-choice-1"
                                     >
                                       <div
                                         class="perseus-renderer perseus-renderer-responsive"
@@ -184,10 +184,10 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   <button
                                     aria-disabled="false"
                                     aria-label="(Choice B)"
-                                    aria-labelledby=":r5: :r3:-choice-2"
+                                    aria-labelledby=":r6: :r4:-choice-2"
                                     aria-pressed="false"
                                     class="base circle-shape"
-                                    id=":r5:"
+                                    id=":r6:"
                                     type="button"
                                   >
                                     <span>
@@ -198,7 +198,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     class="content"
                                   >
                                     <div
-                                      id=":r3:-choice-2"
+                                      id=":r4:-choice-2"
                                     >
                                       <div
                                         class="perseus-renderer perseus-renderer-responsive"
@@ -233,10 +233,10 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   <button
                                     aria-disabled="false"
                                     aria-label="(Choice C)"
-                                    aria-labelledby=":r6: :r3:-choice-3"
+                                    aria-labelledby=":r7: :r4:-choice-3"
                                     aria-pressed="false"
                                     class="base circle-shape"
-                                    id=":r6:"
+                                    id=":r7:"
                                     type="button"
                                   >
                                     <span>
@@ -247,7 +247,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     class="content"
                                   >
                                     <div
-                                      id=":r3:-choice-3"
+                                      id=":r4:-choice-3"
                                     >
                                       <div
                                         class="perseus-renderer perseus-renderer-responsive"
@@ -282,10 +282,10 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   <button
                                     aria-disabled="false"
                                     aria-label="(Choice D)"
-                                    aria-labelledby=":r7: :r3:-choice-4"
+                                    aria-labelledby=":r8: :r4:-choice-4"
                                     aria-pressed="false"
                                     class="base circle-shape"
-                                    id=":r7:"
+                                    id=":r8:"
                                     type="button"
                                   >
                                     <span>
@@ -296,7 +296,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     class="content"
                                   >
                                     <div
-                                      id=":r3:-choice-4"
+                                      id=":r4:-choice-4"
                                     >
                                       <div
                                         class="perseus-renderer perseus-renderer-responsive"
@@ -331,10 +331,10 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   <button
                                     aria-disabled="false"
                                     aria-label="(Choice E)"
-                                    aria-labelledby=":r8: :r3:-choice-5"
+                                    aria-labelledby=":r9: :r4:-choice-5"
                                     aria-pressed="false"
                                     class="base circle-shape"
-                                    id=":r8:"
+                                    id=":r9:"
                                     type="button"
                                   >
                                     <span>
@@ -345,7 +345,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     class="content"
                                   >
                                     <div
-                                      id=":r3:-choice-5"
+                                      id=":r4:-choice-5"
                                     >
                                       <div
                                         class="perseus-renderer perseus-renderer-responsive"
@@ -440,13 +440,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocorrect="off"
                             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                             data-testid="input-with-examples"
-                            id=":r9:"
+                            id=":ra:"
                             tabindex="0"
                             type="text"
                             value=""
                           />
                           <span
-                            id="aria-for-:r9:"
+                            id="aria-for-:ra:"
                             style="display: none;"
                           />
                         </div>
@@ -497,13 +497,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocorrect="off"
                             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                             data-testid="input-with-examples"
-                            id=":rc:"
+                            id=":rd:"
                             tabindex="0"
                             type="text"
                             value=""
                           />
                           <span
-                            id="aria-for-:rc:"
+                            id="aria-for-:rd:"
                             style="display: none;"
                           />
                         </div>
@@ -549,7 +549,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </div>
                               </span>
                               <button
-                                aria-label="Zoom image."
+                                aria-label="Make image bigger."
                                 class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
                                 type="button"
                               />

@@ -358,7 +358,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
             </div>
           </span>
           <button
-            aria-label="Zoom image."
+            aria-label="Make image bigger."
             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
             type="button"
           />
@@ -410,7 +410,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
             </div>
           </span>
           <button
-            aria-label="Zoom image."
+            aria-label="Make image bigger."
             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
             type="button"
           />
@@ -871,7 +871,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
             </div>
           </span>
           <button
-            aria-label="Zoom image."
+            aria-label="Make image bigger."
             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
             type="button"
           />
@@ -923,7 +923,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
             </div>
           </span>
           <button
-            aria-label="Zoom image."
+            aria-label="Make image bigger."
             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
             type="button"
           />

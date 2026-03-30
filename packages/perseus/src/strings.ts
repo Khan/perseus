@@ -1259,8 +1259,8 @@ export const strings = {
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
-    imageZoomAriaLabel: "Zoom image.",
-    imageResetZoomAriaLabel: "Reset zoom.",
+    imageZoomAriaLabel: "Make image bigger.",
+    imageResetZoomAriaLabel: "Close image.",
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
 } satisfies {
@@ -1635,8 +1635,8 @@ export const mockStrings: PerseusStrings = {
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
-    imageZoomAriaLabel: "Zoom image.",
-    imageResetZoomAriaLabel: "Reset zoom.",
+    imageZoomAriaLabel: "Make image bigger.",
+    imageResetZoomAriaLabel: "Close image.",
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
 };
