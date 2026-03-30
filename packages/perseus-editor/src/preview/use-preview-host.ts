@@ -1,0 +1,159 @@
+import {Log} from "@khanacademy/perseus";
+import * as React from "react";
+
+import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
+import {isIframeToParentMessage} from "./message-validators";
+import {sanitizePreviewData} from "./preview-data-sanitizer";
+
+import type {ParentToIframeMessage, PreviewContent} from "./message-types";
+
+type UsePreviewHostResult = {
+    /**
+     * Send preview content data to the iframe
+     */
+    sendData: (data: PreviewContent) => void;
+    /**
+     * Current height of the iframe content (null if not yet reported)
+     */
+    height: number | null;
+};
+
+/**
+ * Hook for parent/editor to send data to preview iframe and receive updates.
+ *
+ * This hook:
+ * - Sends preview content data to iframe via postMessage
+ * - Listens for height updates from iframe
+ * - Listens for lint reports from iframe
+ * - Automatically sanitizes apiOptions before sending (removes non-serializable functions)
+ *
+ * @param iframeRef - Reference to the iframe element
+ * @returns Object with sendData function and current height
+ *
+ * @example
+ * ```tsx
+ * function Editor() {
+ *   const iframeRef = React.useRef<HTMLIFrameElement>(null);
+ *   const { sendData, height } = usePreviewHost(iframeRef);
+ *
+ *   React.useEffect(() => {
+ *     sendData({
+ *       type: "question",
+ *       data: { item, apiOptions, ... }
+ *     });
+ *   }, [item, apiOptions]);
+ *
+ *   return <iframe ref={iframeRef} style={{ height }} />;
+ * }
+ * ```
+ */
+export function usePreviewHost(
+    iframeRef: React.RefObject<HTMLIFrameElement>,
+): UsePreviewHostResult {
+    const [height, setHeight] = React.useState<number | null>(null);
+    const pendingDataRef = React.useRef<PreviewContent | null>(null);
+    const iframeIdRef = React.useRef<string | null>(null);
+
+    // Listen for messages from iframe
+    React.useEffect(() => {
+        const handleMessage = (event: MessageEvent) => {
+            // Filter by source window - only messages from OUR iframe
+            if (event.source !== iframeRef.current?.contentWindow) {
+                return;
+            }
+
+            const message = event.data;
+
+            // Check if it's a Perseus preview message
+            if (!isIframeToParentMessage(message)) {
+                return;
+            }
+
+            // Handle the message
+            switch (message.type) {
+                case "request-data": {
+                    // Store the iframe ID (used for debugging/logging, not routing)
+                    iframeIdRef.current = String(message.id);
+
+                    // Send the pending message (if any)
+                    if (pendingDataRef.current) {
+                        const iframe = iframeRef.current;
+                        const contentWindow = iframe?.contentWindow;
+                        if (contentWindow && iframeIdRef.current) {
+                            const sanitizedData = sanitizePreviewData(
+                                pendingDataRef.current,
+                            );
+
+                            const msg: ParentToIframeMessage = {
+                                source: PREVIEW_MESSAGE_SOURCE,
+                                type: "content-data",
+                                id: iframeIdRef.current,
+                                content: sanitizedData,
+                            };
+                            contentWindow.postMessage(msg, "*");
+                        }
+                        // Clear the pending data
+                        pendingDataRef.current = null;
+                    }
+                    break;
+                }
+
+                case "height-update":
+                    setHeight(message.height);
+                    break;
+
+                case "lint-report":
+                    Log.log("LINTER REPORT", {
+                        lintWarnings: JSON.stringify(message.lintWarnings),
+                    });
+                    break;
+            }
+        };
+
+        window.addEventListener("message", handleMessage);
+
+        return () => {
+            window.removeEventListener("message", handleMessage);
+        };
+        // iframeRef is intentionally excluded - it's a stable ref that shouldn't trigger re-runs
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    // Memoized function to send data to iframe
+    const sendData = React.useCallback(
+        (data: PreviewContent) => {
+            const iframe = iframeRef.current;
+            const contentWindow = iframe?.contentWindow;
+
+            if (!contentWindow) {
+                return;
+            }
+
+            // If iframe hasn't sent request-data yet, store the data
+            if (!iframeIdRef.current) {
+                pendingDataRef.current = data;
+                return;
+            }
+
+            // Iframe is ready, send immediately
+            const sanitizedData = sanitizePreviewData(data);
+
+            const message: ParentToIframeMessage = {
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: "content-data",
+                id: iframeIdRef.current,
+                content: sanitizedData,
+            };
+
+            contentWindow.postMessage(message, "*");
+        },
+        // iframeRef is intentionally excluded - it's a stable ref that shouldn't trigger re-runs
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [],
+    );
+
+    return {
+        sendData,
+        height,
+    };
+}
