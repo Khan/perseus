@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
 
     // The learner has made a selection
     markerFilled: {
-        backgroundColor: semanticColor.core.background.instructive.default,
+        backgroundColor: "#ECF3FE",
         border: `4px solid ${semanticColor.core.border.instructive.default}`,
     },
 
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
     },
 
     markerCorrect: {
-        background: semanticColor.core.background.success.strong,
+        background: "#00880b", // WB green darkened by 18%
     },
 
     markerIncorrect: {

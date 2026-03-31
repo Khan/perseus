@@ -85,7 +85,8 @@ export const AnswerPill = (props: {
 
 const styles = StyleSheet.create({
     correct: {
-        backgroundColor: semanticColor.core.background.success.strong,
+        // WB green darkened by 18%
+        backgroundColor: "#00880b",
     },
     incorrect: {
         backgroundColor: semanticColor.core.background.neutral.default,

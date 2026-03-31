@@ -9,7 +9,6 @@
 import {scoreLabelImageMarker} from "@khanacademy/perseus-score";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -863,7 +862,7 @@ const styles = StyleSheet.create({
                 marginLeft: 5,
                 marginRight: 5,
 
-                background: semanticColor.core.border.neutral.subtle,
+                background: "rgba(33, 36, 44, 0.32)",
 
                 borderRadius: 2,
             },
