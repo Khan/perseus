@@ -1,4 +1,7 @@
 .title-container {
+    /* Same reasoning as .info-area-container: prevent long title text from
+       expanding the figure's fit-content width beyond the image. */
+    contain: inline-size;
     text-align: center;
     border-top: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
@@ -7,6 +10,12 @@
 }
 
 .info-area-container {
+    /* Prevent this element from expanding the figure's fit-content width
+       beyond the image. With contain: inline-size, this element's content
+       does not contribute to the parent's intrinsic inline size, so the
+       figure sizes to the image alone. The element then fills 100% of that
+       figure width via the normal block width: auto. */
+    contain: inline-size;
     display: flex;
     flex-direction: row;
     margin-block-start: var(--wb-sizing-size_160);
