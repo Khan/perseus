@@ -9,6 +9,11 @@ import type {Props as SvgImageProps} from "./svg-image";
 
 interface Props extends SvgImageProps {
     imgSrc: string;
+
+    // width and height are optional in SVGImageProps,
+    // but they are required here.
+    width: number;
+    height: number;
 }
 
 export const ZoomImageButton = (props: Props) => {
