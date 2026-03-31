@@ -12,6 +12,7 @@ import type {
     PolygonGraphState,
     TangentGraphState,
     LogarithmGraphState,
+    VectorGraphState,
 } from "../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 
@@ -1990,6 +1991,25 @@ function generateLogarithmGraphState(
     };
 }
 
+function generateVectorGraphState(
+    overrides?: Partial<Omit<VectorGraphState, "type">>,
+): VectorGraphState {
+    return {
+        hasBeenInteractedWith: false,
+        type: "vector",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        snapStep: [1, 1],
+        coords: [
+            [0, 0],
+            [3, 4],
+        ],
+        ...overrides,
+    };
+}
+
 describe("movePoint on a logarithm graph", () => {
     it("rejects the move when both points would share the same y-coordinate", () => {
         // Arrange — point 0 at y=-3, point 1 at y=-7; trying to move point 0 to y=-7
@@ -2199,5 +2219,113 @@ describe("moveCenter on a logarithm graph (asymptote)", () => {
 
         // Assert — rejected; asymptote stays at 0
         expect(updated.asymptote).toBe(0);
+    });
+});
+
+describe("moveTip on a vector graph", () => {
+    it("moves the tip to the new coordinates", () => {
+        // Arrange
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([5, 6]),
+        );
+
+        // Assert
+        invariant(updated.type === "vector");
+        expect(updated.coords[1]).toEqual([5, 6]);
+        // Tail should remain unchanged
+        expect(updated.coords[0]).toEqual([0, 0]);
+    });
+
+    it("sets hasBeenInteractedWith after a move", () => {
+        // Arrange
+        const state = generateVectorGraphState({
+            hasBeenInteractedWith: false,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([5, 6]),
+        );
+
+        // Assert
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("rejects the move when tip would overlap with tail", () => {
+        // Arrange — tail at [0, 0]; trying to move tip to [0, 0]
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([0, 0]),
+        );
+
+        // Assert — move was rejected; tip stays at original position
+        invariant(updated.type === "vector");
+        expect(updated.coords[1]).toEqual([3, 4]);
+    });
+});
+
+describe("moveVector on a vector graph (body translation)", () => {
+    it("translates both tail and tip by the same delta", () => {
+        // Arrange — default tail [0,0], tip [3,4]; delta [2,1]
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([2, 1], [5, 5]),
+        );
+
+        // Assert
+        invariant(updated.type === "vector");
+        expect(updated.coords[0]).toEqual([2, 1]);
+        expect(updated.coords[1]).toEqual([5, 5]);
+    });
+
+    it("sets hasBeenInteractedWith after a body drag", () => {
+        // Arrange — default tail [0,0], tip [3,4]; delta [1,1]
+        const state = generateVectorGraphState({
+            hasBeenInteractedWith: false,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([1, 1], [4, 5]),
+        );
+
+        // Assert
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("constrains the translation so neither point leaves the graph bounds", () => {
+        // Arrange — tail at [0,0], tip at [3,4], range [-10,10]
+        // Try to move by [8, 8] — tip would go to [11, 12] which is out of bounds
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([8, 8], [11, 12]),
+        );
+
+        // Assert — both points should be within bounds
+        invariant(updated.type === "vector");
+        const [tail, tip] = updated.coords;
+        expect(tail[0]).toBeGreaterThanOrEqual(-10);
+        expect(tail[0]).toBeLessThanOrEqual(10);
+        expect(tail[1]).toBeGreaterThanOrEqual(-10);
+        expect(tail[1]).toBeLessThanOrEqual(10);
+        expect(tip[0]).toBeGreaterThanOrEqual(-10);
+        expect(tip[0]).toBeLessThanOrEqual(10);
+        expect(tip[1]).toBeGreaterThanOrEqual(-10);
+        expect(tip[1]).toBeLessThanOrEqual(10);
     });
 });
