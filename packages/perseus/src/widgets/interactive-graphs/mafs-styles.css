@@ -229,22 +229,29 @@
     r: 1.25px;
 }
 
-/* Styles for Asymptote component used in Exponential / Log Graphs */
-.MafsView .movable-asymptote-handle-focus-ring {
+/* Vector graph line styling */
+.MafsView .movable-vector-line {
+    stroke: var(--mafs-blue);
+    stroke-width: var(--movable-line-stroke-weight);
+    stroke-linecap: round;
+}
+
+/* Shared pill-shaped drag handle (used by vector, exponential, logarithm) */
+.MafsView .pill-drag-handle-focus-ring {
     fill: none;
     stroke-width: 2px;
 }
 
-.MafsView .movable-asymptote-handle-halo {
+.MafsView .pill-drag-handle-halo {
     opacity: 0.25;
     filter: drop-shadow(0 5px 5px #0008);
 }
 
-.MafsView .movable-asymptote-handle-ring {
+.MafsView .pill-drag-handle-ring {
     fill: var(--wb-semanticColor-core-border-knockout-default);
 }
 
-.MafsView .movable-asymptote-handle-dot {
+.MafsView .pill-drag-handle-dot {
     fill: var(--wb-semanticColor-core-border-knockout-default);
     r: var(--wb-sizing-size_010);
 }
