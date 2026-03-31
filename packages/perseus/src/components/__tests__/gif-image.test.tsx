@@ -231,7 +231,7 @@ describe("GifImage", () => {
         expect(onPause).toHaveBeenCalledTimes(2);
     });
 
-    it("renders the hidden patch canvas", () => {
+    it("renders the hidden base canvas", () => {
         // Arrange, Act
         render(
             <GifImage
@@ -246,7 +246,7 @@ describe("GifImage", () => {
         );
 
         // Assert
-        const patchCanvas = screen.getByTestId("gif-patch-canvas");
+        const patchCanvas = screen.getByTestId("gif-base-canvas");
         expect(patchCanvas).toBeInTheDocument();
         expect(patchCanvas).not.toBeVisible();
     });

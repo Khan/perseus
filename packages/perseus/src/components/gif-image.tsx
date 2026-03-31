@@ -39,7 +39,7 @@ type Props = {
  *
  * Uses two canvases:
  * - A display canvas (visible) composited and scaled to the display size
- * - A patch canvas (hidden) used to convert per-frame ImageData into a
+ * - A base canvas (hidden) used to convert per-frame ImageData into a
  *   drawable source for proper alpha compositing via drawImage
  */
 const GifImage = (props: Props) => {
@@ -49,9 +49,9 @@ const GifImage = (props: Props) => {
     const framesRef = React.useRef<ParsedFrame[]>([]);
     // The display canvas shown to the user (composited and scaled)
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
-    // A hidden canvas used to convert per-frame patch ImageData into
+    // A hidden canvas used to convert per-frame ImageData into
     // a drawable source for compositing onto the display canvas
-    const patchCanvasRef = React.useRef<HTMLCanvasElement | null>(null);
+    const baseCanvasRef = React.useRef<HTMLCanvasElement | null>(null);
     // The ID for the gif animation
     const animationIdRef = React.useRef<number | null>(null);
     const currentFrameIndexRef = React.useRef(0);
@@ -67,15 +67,15 @@ const GifImage = (props: Props) => {
     latestPropsRef.current = {isPlaying, onPause};
 
     // Draw a single frame's patch directly onto the display canvas,
-    // using the patch canvas to convert raw pixel data into a
+    // using the base canvas to convert raw pixel data into a
     // drawable source with proper alpha compositing.
     const drawFrame = React.useCallback((index: number) => {
         const frames = framesRef.current;
-        const patchCtx = patchCanvasRef.current?.getContext("2d");
+        const baseCtx = baseCanvasRef.current?.getContext("2d");
         const displayCtx = canvasRef.current?.getContext("2d");
         if (
-            !patchCtx ||
-            !patchCanvasRef.current ||
+            !baseCtx ||
+            !baseCanvasRef.current ||
             !displayCtx ||
             !canvasRef.current ||
             frames.length === 0
@@ -107,22 +107,22 @@ const GifImage = (props: Props) => {
             }
         }
 
-        // Write the raw patch pixels onto the patch canvas, then
+        // Write the raw patch pixels onto the base canvas, then
         // composite onto the display canvas using drawImage (which
         // respects alpha blending, unlike putImageData which
         // overwrites pixels — including transparent ones).
-        patchCanvasRef.current.width = dims.width;
-        patchCanvasRef.current.height = dims.height;
+        baseCanvasRef.current.width = dims.width;
+        baseCanvasRef.current.height = dims.height;
         const imageData = new ImageData(
             new Uint8ClampedArray(frame.patch),
             dims.width,
             dims.height,
         );
-        patchCtx.putImageData(imageData, 0, 0);
+        baseCtx.putImageData(imageData, 0, 0);
 
         displayCtx.imageSmoothingEnabled = true;
         displayCtx.drawImage(
-            patchCanvasRef.current,
+            baseCanvasRef.current,
             dims.left * scaleX,
             dims.top * scaleY,
             dims.width * scaleX,
@@ -138,7 +138,7 @@ const GifImage = (props: Props) => {
             if (
                 frames.length === 0 ||
                 !canvasRef.current ||
-                !patchCanvasRef.current
+                !baseCanvasRef.current
             ) {
                 return;
             }
@@ -314,6 +314,16 @@ const GifImage = (props: Props) => {
 
     return (
         <>
+            {/* Two canvases are needed because there is no canvas API
+                that writes raw pixel data (ImageData) with alpha
+                compositing. putImageData overwrites pixels directly
+                (including transparent ones), while drawImage composites
+                properly. So we putImageData onto the hidden base
+                canvas, then drawImage it onto this display canvas. */}
+
+            {/* Display canvas: the visible, composited GIF output
+                scaled to the display dimensions. Each frame is drawn
+                here via drawImage, which respects alpha blending. */}
             <canvas
                 aria-label={alt}
                 // eslint-disable-next-line jsx-a11y/no-interactive-element-to-noninteractive-role
@@ -321,11 +331,16 @@ const GifImage = (props: Props) => {
                 ref={setCanvasRef}
                 data-testid="gif-canvas"
             />
+            {/* Base canvas: a hidden canvas that acts as a bridge
+                between putImageData (the only way to write raw RGBA
+                frame data) and drawImage (which composites with alpha).
+                Each frame's pixel data is written here first, then
+                drawn onto the display canvas above. */}
             <canvas
                 aria-hidden={true}
                 tabIndex={-1}
-                ref={patchCanvasRef}
-                data-testid="gif-patch-canvas"
+                ref={baseCanvasRef}
+                data-testid="gif-base-canvas"
                 style={{display: "none"}}
             />
         </>
