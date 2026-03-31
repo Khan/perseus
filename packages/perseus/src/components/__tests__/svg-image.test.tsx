@@ -453,5 +453,4 @@ describe("SvgImage", () => {
             expect(loadGraphieSpy).toHaveBeenCalledTimes(2);
         });
     });
-
 });

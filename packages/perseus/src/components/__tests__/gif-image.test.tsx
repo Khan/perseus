@@ -171,4 +171,156 @@ describe("GifImage", () => {
             expect(onPause).toHaveBeenCalledTimes(1);
         });
     });
+
+    it("resets to frame 0 after loop completes and is replayed", async () => {
+        // Arrange — play through one full loop
+        const onPause = jest.fn();
+        const {rerender} = render(
+            <GifImage
+                src={GIF_SRC}
+                alt="test gif"
+                width={500}
+                height={285}
+                scale={1}
+                isPlaying={true}
+                onPause={onPause}
+            />,
+        );
+
+        // eslint-disable-next-line testing-library/no-unnecessary-act
+        await act(async () => {
+            for (let i = 0; i < 10; i++) {
+                await Promise.resolve();
+            }
+        });
+        act(() => {
+            jest.advanceTimersByTime(200);
+        });
+        expect(onPause).toHaveBeenCalledTimes(1);
+
+        // Act — sync parent state to paused, then play again
+        rerender(
+            <GifImage
+                src={GIF_SRC}
+                alt="test gif"
+                width={500}
+                height={285}
+                scale={1}
+                isPlaying={false}
+                onPause={onPause}
+            />,
+        );
+        rerender(
+            <GifImage
+                src={GIF_SRC}
+                alt="test gif"
+                width={500}
+                height={285}
+                scale={1}
+                isPlaying={true}
+                onPause={onPause}
+            />,
+        );
+
+        // Advance enough for both frames to render from frame 0.
+        act(() => {
+            jest.advanceTimersByTime(200);
+        });
+        // The loop completed a second time — onPause fires again,
+        // confirming it played through both frames from the start.
+        expect(onPause).toHaveBeenCalledTimes(2);
+    });
+
+    it("renders the hidden patch canvas", () => {
+        // Arrange, Act
+        render(
+            <GifImage
+                src={GIF_SRC}
+                alt="test gif"
+                width={500}
+                height={285}
+                scale={1}
+                isPlaying={false}
+                onPause={jest.fn()}
+            />,
+        );
+
+        // Assert
+        const patchCanvas = screen.getByTestId("gif-patch-canvas");
+        expect(patchCanvas).toBeInTheDocument();
+        expect(patchCanvas).not.toBeVisible();
+    });
+
+    it("decodes gif frames on mount", async () => {
+        // Arrange, Act
+        render(
+            <GifImage
+                src={GIF_SRC}
+                alt="test gif"
+                width={500}
+                height={285}
+                scale={1}
+                isPlaying={false}
+                onPause={jest.fn()}
+            />,
+        );
+
+        // eslint-disable-next-line testing-library/no-unnecessary-act
+        await act(async () => {
+            for (let i = 0; i < 10; i++) {
+                await Promise.resolve();
+            }
+        });
+
+        // Assert
+        expect(global.fetch).toHaveBeenCalledWith(GIF_SRC);
+        expect(parseGIF).toHaveBeenCalled();
+        expect(decompressFrames).toHaveBeenCalled();
+    });
+
+    it("re-decodes frames when src changes", async () => {
+        // Arrange
+        const {rerender} = render(
+            <GifImage
+                src={GIF_SRC}
+                alt="test gif"
+                width={500}
+                height={285}
+                scale={1}
+                isPlaying={false}
+                onPause={jest.fn()}
+            />,
+        );
+
+        // eslint-disable-next-line testing-library/no-unnecessary-act
+        await act(async () => {
+            for (let i = 0; i < 10; i++) {
+                await Promise.resolve();
+            }
+        });
+
+        // Act — change the src
+        const newSrc = "https://cdn.kastatic.org/other.gif";
+        rerender(
+            <GifImage
+                src={newSrc}
+                alt="test gif"
+                width={500}
+                height={285}
+                scale={1}
+                isPlaying={false}
+                onPause={jest.fn()}
+            />,
+        );
+
+        // eslint-disable-next-line testing-library/no-unnecessary-act
+        await act(async () => {
+            for (let i = 0; i < 10; i++) {
+                await Promise.resolve();
+            }
+        });
+
+        // Assert
+        expect(global.fetch).toHaveBeenCalledWith(newSrc);
+    });
 });

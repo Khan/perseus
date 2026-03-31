@@ -512,6 +512,29 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(button).not.toBeInTheDocument();
         });
 
+        it("does not render a zoom image button for gif images", () => {
+            // Arrange
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+
+            // Assert
+            const zoomButton = screen.queryByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(zoomButton).not.toBeInTheDocument();
+        });
+
         it("does not render a zoom image button for images without sizes", () => {
             // Arrange
             const imageQuestion = generateTestPerseusRenderer({
