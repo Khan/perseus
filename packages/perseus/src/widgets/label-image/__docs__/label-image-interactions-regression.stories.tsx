@@ -1,8 +1,12 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {textQuestion} from "../__tests__/label-image.testdata";
+import {
+    mathQuestion,
+    textQuestion,
+} from "../__tests__/label-image.testdata";
 
 import type {Meta} from "@storybook/react-vite";
 
@@ -23,8 +27,43 @@ export const MarkerOpened = {
     args: {
         item: generateTestPerseusItem({question: textQuestion}),
     },
-    play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
+    play: async ({canvasElement, userEvent}) => {
+        const canvas = within(canvasElement);
+        const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
+        await userEvent.click(marker);
+    },
+};
+
+// Verifies the post-interaction marker state: after selecting an answer and
+// closing the dropdown, all markers render as white circles (not the default
+// pulsing blue).
+export const AnswerSelected = {
+    args: {
+        item: generateTestPerseusItem({question: textQuestion}),
+    },
+    play: async ({canvasElement, userEvent}) => {
+        const canvas = within(canvasElement);
+        const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
+        await userEvent.click(marker);
+
+        // WonderBlocks SingleSelect renders options into a React portal outside
+        // the canvas, so we scope to document.body.
+        const suvsChoice = within(document.body).getByRole("option", {
+            name: "SUVs",
+        });
+        await userEvent.click(suvsChoice);
+    },
+};
+
+// Verifies that math choices render correctly inside an open marker dropdown.
+// The math choices are only visible after opening a marker, so we capture
+// the open state here.
+export const MathChoicesVisible = {
+    args: {
+        item: generateTestPerseusItem({question: mathQuestion}),
+    },
+    play: async ({canvasElement, userEvent}) => {
+        const canvas = within(canvasElement);
         const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
         await userEvent.click(marker);
     },

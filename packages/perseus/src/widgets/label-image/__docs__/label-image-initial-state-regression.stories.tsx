@@ -4,7 +4,6 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {
     textQuestion,
-    mathQuestion,
     numberline,
 } from "../__tests__/label-image.testdata";
 
@@ -34,14 +33,6 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 export const DefaultUnanswered: Story = {
     args: {
         item: generateTestPerseusItem({question: textQuestion}),
-    },
-};
-
-// Verifies TeX content in choice labels — math fractions render correctly
-// inside the answer choices area.
-export const WithMathChoices: Story = {
-    args: {
-        item: generateTestPerseusItem({question: mathQuestion}),
     },
 };
 
