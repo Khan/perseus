@@ -863,7 +863,7 @@ const styles = StyleSheet.create({
                 marginLeft: 5,
                 marginRight: 5,
 
-                background: semanticColor.core.border.neutral.subtle,
+                background: semanticColor.core.border.neutral.default,
 
                 borderRadius: 2,
             },
