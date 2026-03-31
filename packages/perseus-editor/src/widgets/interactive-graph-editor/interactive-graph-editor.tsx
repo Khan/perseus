@@ -551,6 +551,9 @@ function mergeGraphs(
         case "tangent":
             invariant(b.type === "tangent");
             return {...a, ...b};
+        case "vector":
+            invariant(b.type === "vector");
+            return {...a, ...b};
         default:
             throw new UnreachableCaseError(a);
     }
