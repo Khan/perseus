@@ -153,6 +153,8 @@ export function initializeGraphState(
                 type: graph.type,
                 ...getLogarithmCoords(graph, range, step),
             };
+        case "vector":
+            throw new Error("Not implemented");
         default:
             throw new UnreachableCaseError(graph);
     }

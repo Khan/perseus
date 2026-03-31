@@ -43,7 +43,8 @@ export type InteractiveGraphState =
     | SinusoidGraphState
     | ExponentialGraphState
     | TangentGraphState
-    | LogarithmGraphState;
+    | LogarithmGraphState
+    | VectorGraphState;
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
@@ -88,6 +89,11 @@ export interface PointGraphState extends InteractiveGraphStateCommon {
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
     type: "ray";
+    coords: PairOfPoints;
+}
+
+export interface VectorGraphState extends InteractiveGraphStateCommon {
+    type: "vector";
     coords: PairOfPoints;
 }
 

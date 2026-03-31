@@ -616,6 +616,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return InteractiveGraph.getTangentEquationString(props);
             case "logarithm":
                 return InteractiveGraph.getLogarithmEquationString(props);
+            case "vector":
+                return "";
             default:
                 throw new UnreachableCaseError(type);
         }

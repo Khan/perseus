@@ -780,6 +780,8 @@ const renderGraphElements = (props: {
             return renderTangentGraph(state, dispatch, i18n);
         case "logarithm":
             return renderLogarithmGraph(state, dispatch, i18n);
+        case "vector":
+            throw new Error("Not implemented");
         default:
             throw new UnreachableCaseError(type);
     }

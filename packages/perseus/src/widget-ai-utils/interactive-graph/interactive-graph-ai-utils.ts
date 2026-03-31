@@ -328,6 +328,11 @@ const getGraphOptionsForProps = (
                 type: props.userInput.type,
                 startCoords: props.userInput.startCoords,
             };
+        case "vector":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         default:
             throw new UnreachableCaseError(type);
     }
@@ -398,6 +403,10 @@ const getUserInput = (userInput: PerseusGraphType): UserInput => {
             return {
                 coords: userInput.coords,
                 asymptote: userInput.asymptote,
+            };
+        case "vector":
+            return {
+                coords: userInput.coords,
             };
         default:
             throw new UnreachableCaseError(type);

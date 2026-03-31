@@ -1110,7 +1110,8 @@ export type PerseusGraphType =
     | PerseusGraphTypeSinusoid
     | PerseusGraphTypeExponential
     | PerseusGraphTypeTangent
-    | PerseusGraphTypeLogarithm;
+    | PerseusGraphTypeLogarithm
+    | PerseusGraphTypeVector;
 
 export type PerseusGraphTypeAngle = {
     type: "angle";
@@ -1277,6 +1278,14 @@ export type PerseusGraphTypeRay = {
     startCoords?: CollinearTuple;
 };
 
+export type PerseusGraphTypeVector = {
+    type: "vector";
+    /** The tail and tip coordinates of the vector: [tail, tip] */
+    coords?: CollinearTuple | null;
+    /** The initial coordinates the graph renders with. */
+    startCoords?: CollinearTuple;
+};
+
 type AbsoluteValueGraphCorrect = {
     type: "absolute-value";
     coords: [Coord, Coord];
@@ -1357,6 +1366,11 @@ type RayGraphCorrect = {
     coords: CollinearTuple;
 };
 
+type VectorGraphCorrect = {
+    type: "vector";
+    coords: CollinearTuple;
+};
+
 export type PerseusGraphCorrectType =
     | AbsoluteValueGraphCorrect
     | AngleGraphCorrect
@@ -1372,7 +1386,8 @@ export type PerseusGraphCorrectType =
     | SinusoidGraphCorrect
     | ExponentialGraphCorrect
     | TangentGraphCorrect
-    | LogarithmGraphCorrect;
+    | LogarithmGraphCorrect
+    | VectorGraphCorrect;
 
 /** Options for the label-image widget. Asks learners to label image parts. */
 export type PerseusLabelImageWidgetOptions = {
