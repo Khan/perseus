@@ -1,12 +1,6 @@
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    Log,
-    PerseusMarkdown,
-    Util,
-    Widgets,
-    ApiOptions,
-} from "@khanacademy/perseus";
+import {PerseusMarkdown, Util, Widgets, ApiOptions} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     Errors,
@@ -20,8 +14,12 @@ import _ from "underscore";
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
-
 // eslint-disable-next-line import/no-deprecated
+import {
+    getPerseusClipboardData,
+    setPerseusClipboardData,
+} from "./util/clipboard";
+
 import type {
     APIOptions,
     ChangeHandler,
@@ -32,7 +30,6 @@ import type {
     PerseusWidgetsMap,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {getPerseusClipboardData, setPerseusClipboardData} from "./util/clipboard";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -508,17 +505,21 @@ class Editor extends React.Component<Props, State> {
             );
 
             const widgetData = _.pick(this.serialize().widgets, widgetNames);
-            setPerseusClipboardData({text: selectedText, widgets: widgetData}).catch(console.error);
+            setPerseusClipboardData({
+                text: selectedText,
+                widgets: widgetData,
+                // eslint-disable-next-line no-console
+            }).catch(console.error);
         };
 
     _maybePasteWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void =
         async (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
             e.preventDefault();
 
-            const {widgets, text: textToBePasted} = await getPerseusClipboardData();
+            const {widgets, text: textToBePasted} =
+                await getPerseusClipboardData();
 
-            const safeWidgetMapping =
-                this._safeWidgetNameMapping(widgets);
+            const safeWidgetMapping = this._safeWidgetNameMapping(widgets);
 
             // Use safe widget name map to construct the new widget data
             const safeWidgetData: Record<string, any> = {};
@@ -528,20 +529,17 @@ class Editor extends React.Component<Props, State> {
             const newWidgets = _.extend(safeWidgetData, this.props.widgets);
 
             // Use safe widget name map to construct new text
-            const safeText = textToBePasted.replace(
-                rWidgetSplit,
-                (syntax) => {
-                    const match = Util.rWidgetParts.exec(syntax);
-                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                    const completeWidget = match[0];
-                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                    const widget = match[1];
-                    return completeWidget.replace(
-                        widget,
-                        safeWidgetMapping[widget],
-                    );
-                },
-            );
+            const safeText = textToBePasted.replace(rWidgetSplit, (syntax) => {
+                const match = Util.rWidgetParts.exec(syntax);
+                // @ts-expect-error - TS2531 - Object is possibly 'null'.
+                const completeWidget = match[0];
+                // @ts-expect-error - TS2531 - Object is possibly 'null'.
+                const widget = match[1];
+                return completeWidget.replace(
+                    widget,
+                    safeWidgetMapping[widget],
+                );
+            });
 
             // Add pasted text to previous content, replacing selected text to
             // replicate normal paste behavior.
@@ -559,10 +557,7 @@ class Editor extends React.Component<Props, State> {
                 () => {
                     const expectedCursorPosition =
                         selectionStart + safeText.length;
-                    Util.textarea.moveCursor(
-                        textarea,
-                        expectedCursorPosition,
-                    );
+                    Util.textarea.moveCursor(textarea, expectedCursorPosition);
                 },
             );
         };
