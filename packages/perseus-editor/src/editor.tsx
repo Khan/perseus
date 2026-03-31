@@ -32,6 +32,7 @@ import type {
     PerseusWidgetsMap,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import {getPerseusClipboardData, setPerseusClipboardData} from "./util/clipboard";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -491,18 +492,13 @@ class Editor extends React.Component<Props, State> {
 
     _maybeCopyWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void =
         (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
-            // If there are widgets being cut/copied, put the widget JSON in
-            // localStorage.perseusLastCopiedWidgets to allow copy-pasting of
-            // widgets between Editors. Also store the text to be pasted in
-            // localStorage.perseusLastCopiedText since we want to know if the user
-            // is actually pasting something originally from Perseus later.
             const textarea = e.currentTarget;
             const selectedText = textarea.value.substring(
                 textarea.selectionStart,
                 textarea.selectionEnd,
             );
 
-            const widgetNames = _.map(
+            const widgetNames: Array<keyof PerseusWidgetsMap> = _.map(
                 // @ts-expect-error - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
                 selectedText.match(rWidgetSplit),
                 (syntax) => {
@@ -512,81 +508,63 @@ class Editor extends React.Component<Props, State> {
             );
 
             const widgetData = _.pick(this.serialize().widgets, widgetNames);
-
-            localStorage.perseusLastCopiedText = selectedText;
-            localStorage.perseusLastCopiedWidgets = JSON.stringify(widgetData);
-
-            Log.log(`Widgets copied: ${localStorage.perseusLastCopiedWidgets}`);
+            setPerseusClipboardData({text: selectedText, widgets: widgetData}).catch(console.error);
         };
 
     _maybePasteWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void =
-        (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
-            // Use the data from localStorage to paste any widgets we copied
-            // before. Avoid name conflicts by renumbering pasted widgets so that
-            // their numbers are always higher than the highest numbered widget of
-            // their type.
+        async (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+            e.preventDefault();
 
-            const widgetJSON = localStorage.perseusLastCopiedWidgets;
-            const lastCopiedText = localStorage.perseusLastCopiedText;
-            const textToBePasted =
-                // @ts-expect-error - TS2339 - Property 'originalEvent' does not exist on type 'SyntheticEvent<HTMLTextAreaElement, Event>'.
-                e.originalEvent.clipboardData.getData("text");
+            const {widgets, text: textToBePasted} = await getPerseusClipboardData();
 
-            // Only intercept if we have widget data to paste and the user is
-            // pasting something originally from Perseus.
-            if (widgetJSON && lastCopiedText === textToBePasted) {
-                e.preventDefault();
+            const safeWidgetMapping =
+                this._safeWidgetNameMapping(widgets);
 
-                const widgetData = JSON.parse(widgetJSON);
-                const safeWidgetMapping =
-                    this._safeWidgetNameMapping(widgetData);
-
-                // Use safe widget name map to construct the new widget data
-                const safeWidgetData: Record<string, any> = {};
-                for (const [key, data] of Object.entries(widgetData)) {
-                    safeWidgetData[safeWidgetMapping[key]] = data;
-                }
-                const newWidgets = _.extend(safeWidgetData, this.props.widgets);
-
-                // Use safe widget name map to construct new text
-                const safeText = lastCopiedText.replace(
-                    rWidgetSplit,
-                    (syntax) => {
-                        const match = Util.rWidgetParts.exec(syntax);
-                        // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                        const completeWidget = match[0];
-                        // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                        const widget = match[1];
-                        return completeWidget.replace(
-                            widget,
-                            safeWidgetMapping[widget],
-                        );
-                    },
-                );
-
-                // Add pasted text to previous content, replacing selected text to
-                // replicate normal paste behavior.
-                const textarea = e.currentTarget;
-                const selectionStart = textarea.selectionStart;
-                const newContent =
-                    this.state.textAreaValue.substr(0, selectionStart) +
-                    safeText +
-                    this.state.textAreaValue.substr(textarea.selectionEnd);
-
-                // See componentDidUpdate() for how this flag is used
-                this.lastUserValue = this.state.textAreaValue;
-                this.props.onChange(
-                    {content: newContent, widgets: newWidgets},
-                    () => {
-                        const expectedCursorPosition =
-                            selectionStart + safeText.length;
-                        Util.textarea.moveCursor(
-                            textarea,
-                            expectedCursorPosition,
-                        );
-                    },
-                );
+            // Use safe widget name map to construct the new widget data
+            const safeWidgetData: Record<string, any> = {};
+            for (const [key, data] of Object.entries(widgets)) {
+                safeWidgetData[safeWidgetMapping[key]] = data;
             }
+            const newWidgets = _.extend(safeWidgetData, this.props.widgets);
+
+            // Use safe widget name map to construct new text
+            const safeText = textToBePasted.replace(
+                rWidgetSplit,
+                (syntax) => {
+                    const match = Util.rWidgetParts.exec(syntax);
+                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
+                    const completeWidget = match[0];
+                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
+                    const widget = match[1];
+                    return completeWidget.replace(
+                        widget,
+                        safeWidgetMapping[widget],
+                    );
+                },
+            );
+
+            // Add pasted text to previous content, replacing selected text to
+            // replicate normal paste behavior.
+            const textarea = e.currentTarget;
+            const selectionStart = textarea.selectionStart;
+            const newContent =
+                this.state.textAreaValue.substr(0, selectionStart) +
+                safeText +
+                this.state.textAreaValue.substr(textarea.selectionEnd);
+
+            // See componentDidUpdate() for how this flag is used
+            this.lastUserValue = this.state.textAreaValue;
+            this.props.onChange(
+                {content: newContent, widgets: newWidgets},
+                () => {
+                    const expectedCursorPosition =
+                        selectionStart + safeText.length;
+                    Util.textarea.moveCursor(
+                        textarea,
+                        expectedCursorPosition,
+                    );
+                },
+            );
         };
 
     _safeWidgetNameMapping: (widgetData: {
