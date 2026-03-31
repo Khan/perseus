@@ -149,7 +149,7 @@
     --perseus-multiple-choice-correctness-outline-color: var(
         --wb-semanticColor-core-border-success-default
     );
-    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    color: var(--wb-semanticColor-core-foreground-success-strong);
 }
 
 .is-wrong {
