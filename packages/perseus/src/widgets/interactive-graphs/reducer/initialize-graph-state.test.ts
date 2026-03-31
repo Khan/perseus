@@ -628,10 +628,10 @@ describe("initializeGraphState for vector graphs", () => {
 
         // Assert
         invariant(graph.type === "vector");
-        // Default: tail at ~25% of range, tip at ~75% (horizontal vector)
+        // Default: diagonal vector offset from axes
         expect(graph.coords).toEqual([
-            [-5, 0],
-            [5, 0],
+            [-5, 1],
+            [5, 5],
         ]);
     });
 });
