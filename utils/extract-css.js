@@ -320,7 +320,7 @@ const convertToWbMeasurement = (cssProperty, propertyValue) => {
 
 const cssPropertyIsOnLine = (allProperties, lineToCheck) => {
     return allProperties.some(
-        (property) => property.key.loc.start.line === lineToCheck,
+        (property) => property.key?.loc.start.line === lineToCheck,
     );
 };
 
@@ -432,9 +432,9 @@ const getCssPropertyInfo = (property) => {
                 nestedRuleSet = styleObjects[property.argument.name];
             } else {
                 const externalStyle = getImportedValues(property.argument.name);
-                if (externalStyle !== null) {
-                    delete externalStyle.importPath;
-                    nestedRuleSet = Object.entries(externalStyle).map(
+                if (externalStyle !== undefined) {
+                    const {importPath: _, ...styleProperties} = externalStyle;
+                    nestedRuleSet = Object.entries(styleProperties).map(
                         ([propertyName, propertyValue]) => {
                             return {
                                 property: propertyName,
@@ -697,6 +697,7 @@ const stringifyCssRuleset = (selector, ruleset, indentationCount = 0) => {
         .filter(
             (property) =>
                 Array.isArray(property.nestedRuleSet) &&
+                property.property !== "" &&
                 !property.nestedRuleSet.some((ruleset) =>
                     ruleset.property.startsWith("."),
                 ),
