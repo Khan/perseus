@@ -1,4 +1,4 @@
-import {act, render, screen} from "@testing-library/react";
+import {act, render, screen, waitFor} from "@testing-library/react";
 import {parseGIF, decompressFrames} from "gifuct-js";
 import * as React from "react";
 
@@ -103,15 +103,9 @@ describe("GifImage", () => {
                 />,
             );
 
-            // Flush the fetch → arrayBuffer → decodeGifFrames → .then()
-            // promise chain so playback starts.
-            // eslint-disable-next-line testing-library/no-unnecessary-act
-            await act(async () => {
-                // Need enough microtask ticks for the full async chain:
-                // fetch() → arrayBuffer() → async return → .then()
-                for (let i = 0; i < 10; i++) {
-                    await Promise.resolve();
-                }
+            // Wait for the fetch → decode promise chain to complete.
+            await waitFor(() => {
+                expect(decompressFrames).toHaveBeenCalled();
             });
 
             // Act — advance enough for both 50ms frames to render.
@@ -140,11 +134,8 @@ describe("GifImage", () => {
                 />,
             );
 
-            // eslint-disable-next-line testing-library/no-unnecessary-act
-            await act(async () => {
-                for (let i = 0; i < 10; i++) {
-                    await Promise.resolve();
-                }
+            await waitFor(() => {
+                expect(decompressFrames).toHaveBeenCalled();
             });
             act(() => {
                 jest.advanceTimersByTime(200);
@@ -187,11 +178,8 @@ describe("GifImage", () => {
             />,
         );
 
-        // eslint-disable-next-line testing-library/no-unnecessary-act
-        await act(async () => {
-            for (let i = 0; i < 10; i++) {
-                await Promise.resolve();
-            }
+        await waitFor(() => {
+            expect(decompressFrames).toHaveBeenCalled();
         });
         act(() => {
             jest.advanceTimersByTime(200);
@@ -265,15 +253,10 @@ describe("GifImage", () => {
             />,
         );
 
-        // eslint-disable-next-line testing-library/no-unnecessary-act
-        await act(async () => {
-            for (let i = 0; i < 10; i++) {
-                await Promise.resolve();
-            }
+        // Assert — wait for the async decode chain to complete.
+        await waitFor(() => {
+            expect(global.fetch).toHaveBeenCalledWith(GIF_SRC);
         });
-
-        // Assert
-        expect(global.fetch).toHaveBeenCalledWith(GIF_SRC);
         expect(parseGIF).toHaveBeenCalled();
         expect(decompressFrames).toHaveBeenCalled();
     });
@@ -292,11 +275,8 @@ describe("GifImage", () => {
             />,
         );
 
-        // eslint-disable-next-line testing-library/no-unnecessary-act
-        await act(async () => {
-            for (let i = 0; i < 10; i++) {
-                await Promise.resolve();
-            }
+        await waitFor(() => {
+            expect(decompressFrames).toHaveBeenCalled();
         });
 
         // Act — change the src
@@ -313,14 +293,9 @@ describe("GifImage", () => {
             />,
         );
 
-        // eslint-disable-next-line testing-library/no-unnecessary-act
-        await act(async () => {
-            for (let i = 0; i < 10; i++) {
-                await Promise.resolve();
-            }
+        // Assert — wait for the second decode to complete.
+        await waitFor(() => {
+            expect(global.fetch).toHaveBeenCalledWith(newSrc);
         });
-
-        // Assert
-        expect(global.fetch).toHaveBeenCalledWith(newSrc);
     });
 });
