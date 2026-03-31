@@ -25,9 +25,7 @@ export const MarkerOpened = {
     },
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
-        const marker = canvas.getByRole("button", {
-            name: "The fourth unlabeled bar line.",
-        });
+        const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
         await userEvent.click(marker);
     },
 };
