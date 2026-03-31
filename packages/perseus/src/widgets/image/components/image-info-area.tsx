@@ -65,12 +65,9 @@ export const ImageInfoArea = (props: Props) => {
         longDescription,
         apiOptions,
         linterContext,
-        zoomSize,
         isGifPlaying,
         setIsGifPlaying,
     } = props;
-
-    const [zoomWidth, _] = zoomSize;
 
     const context = React.useContext(PerseusI18nContext);
 
@@ -78,8 +75,6 @@ export const ImageInfoArea = (props: Props) => {
         {apiOptions},
         "image-widget-upgrade-gif-controls",
     );
-
-    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
 
     if (!backgroundImage.url) {
         return null;
@@ -116,12 +111,7 @@ export const ImageInfoArea = (props: Props) => {
 
             {/* Caption */}
             {caption && (
-                <figcaption
-                    className="perseus-image-caption"
-                    style={{
-                        maxWidth: scaleFF ? backgroundImage.width : zoomWidth,
-                    }}
-                >
+                <figcaption className="perseus-image-caption">
                     {/* The Renderer component is used here so that the caption
                         can support markdown and TeX. */}
                     <Renderer
