@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 77.0.1
+
+### Patch Changes
+
+-   [#3429](https://github.com/Khan/perseus/pull/3429) [`41bea5fd10`](https://github.com/Khan/perseus/commit/41bea5fd10c32ce5579addf9843b134d119461c6) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Stop large images from overflowing
+
+*   [#3413](https://github.com/Khan/perseus/pull/3413) [`06ac0a160d`](https://github.com/Khan/perseus/commit/06ac0a160d507af6e5a59a86a1bc231541f2d5cb) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Don't upscale images within explore modal if size is unknown
+
+-   [#3426](https://github.com/Khan/perseus/pull/3426) [`dae8b1d931`](https://github.com/Khan/perseus/commit/dae8b1d931035db56414c0088c69964a89aeb088) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Update zoom view SRUX
+
 ## 77.0.0
 
 ### Major Changes
