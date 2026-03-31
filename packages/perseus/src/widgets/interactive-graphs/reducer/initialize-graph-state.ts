@@ -21,6 +21,7 @@ import type {
     PerseusGraphTypeSinusoid,
     PerseusGraphTypeExponential,
     PerseusGraphTypeTangent,
+    PerseusGraphTypeVector,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -147,7 +148,11 @@ export function initializeGraphState(
                 coords: getTangentCoords(graph, range, step),
             };
         case "vector":
-            throw new Error("Not implemented");
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getVectorCoords(graph, range, step),
+            };
         default:
             throw new UnreachableCaseError(graph);
     }
@@ -301,6 +306,30 @@ export function getLineCoords(
     }
 
     return normalizePoints(range, step, defaultLinearCoords[0]);
+}
+
+export function getVectorCoords(
+    graph: PerseusGraphTypeVector,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): PairOfPoints {
+    if (graph.coords) {
+        return graph.coords;
+    }
+
+    if (graph.startCoords) {
+        return graph.startCoords;
+    }
+
+    // Default: tail at ~25% of range, tip at ~75% (horizontal vector)
+    return normalizePoints(
+        range,
+        step,
+        [
+            [0.25, 0.5],
+            [0.75, 0.5],
+        ],
+    );
 }
 
 export function getLinearSystemCoords(
