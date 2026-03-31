@@ -86,23 +86,16 @@ const GifImage = (props: Props) => {
         const frame = frames[index];
         const {dims} = frame;
 
-        // Compute the scale from native GIF resolution to display size.
-        const nativeWidth = frames[0].dims.width;
-        const nativeHeight = frames[0].dims.height;
-        const scaleX = canvasRef.current.width / nativeWidth;
-        const scaleY = canvasRef.current.height / nativeHeight;
-
         // Handle disposal of the previous frame.
         if (index > 0) {
             const prev = frames[index - 1];
             if (prev.disposalType === 2) {
-                // Restore to background — clear the previous frame's
-                // area, scaled to display coordinates.
+                // Restore to background — clear the previous frame's area.
                 displayCtx.clearRect(
-                    prev.dims.left * scaleX,
-                    prev.dims.top * scaleY,
-                    prev.dims.width * scaleX,
-                    prev.dims.height * scaleY,
+                    prev.dims.left,
+                    prev.dims.top,
+                    prev.dims.width,
+                    prev.dims.height,
                 );
             }
         }
@@ -120,14 +113,7 @@ const GifImage = (props: Props) => {
         );
         baseCtx.putImageData(imageData, 0, 0);
 
-        displayCtx.imageSmoothingEnabled = true;
-        displayCtx.drawImage(
-            baseCanvasRef.current,
-            dims.left * scaleX,
-            dims.top * scaleY,
-            dims.width * scaleX,
-            dims.height * scaleY,
-        );
+        displayCtx.drawImage(baseCanvasRef.current, dims.left, dims.top);
     }, []);
 
     // Draw a specific frame without starting playback. Draws frames
@@ -145,22 +131,19 @@ const GifImage = (props: Props) => {
             const targetIndex = Math.min(index, frames.length - 1);
             currentFrameIndexRef.current = targetIndex;
 
-            // Size the display canvas to the intended display dimensions
-            // (props width/height × scale). Using props rather than
-            // clientWidth/clientHeight avoids layout-timing issues where
-            // the canvas hasn't been laid out yet.
+            // Size the canvas buffer to the native GIF resolution.
+            // Display scaling is handled by CSS width/height on the
+            // canvas element, so no manual scaling is needed here.
             const {width: nativeWidth, height: nativeHeight} = frames[0].dims;
-            const displayWidth = (width ?? nativeWidth) * scale;
-            const displayHeight = (height ?? nativeHeight) * scale;
-            canvasRef.current.width = displayWidth;
-            canvasRef.current.height = displayHeight;
+            canvasRef.current.width = nativeWidth;
+            canvasRef.current.height = nativeHeight;
 
             // Draw frames 0 through target so partial patches composite.
             for (let i = 0; i <= targetIndex; i++) {
                 drawFrame(i);
             }
         },
-        [width, height, scale, drawFrame],
+        [drawFrame],
     );
 
     // Cancel the animation loop. The canvas retains the last drawn frame.
@@ -330,6 +313,10 @@ const GifImage = (props: Props) => {
                 role="img"
                 ref={setCanvasRef}
                 data-testid="gif-canvas"
+                style={{
+                    width: width ? width * scale : undefined,
+                    height: height ? height * scale : undefined,
+                }}
             />
             {/* Base canvas: a hidden canvas that acts as a bridge
                 between putImageData (the only way to write raw RGBA
