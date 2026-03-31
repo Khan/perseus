@@ -3,7 +3,11 @@ import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {mathQuestion, textQuestion} from "../__tests__/label-image.testdata";
+import {
+    mathQuestion,
+    shortTextQuestion,
+    textQuestion,
+} from "../__tests__/label-image.testdata";
 
 import type {Meta} from "@storybook/react-vite";
 
@@ -49,6 +53,34 @@ export const AnswerSelected = {
             name: "SUVs",
         });
         await userEvent.click(suvsChoice);
+    },
+};
+
+// Verifies the correct answer state: after selecting the right answer and
+// clicking Check, the marker and answer pill render in green (success.strong).
+// Uses shortTextQuestion (single marker) to avoid needing to fill all markers.
+// Check is clicked twice due to a server-side scoring quirk in Storybook.
+export const CorrectAnswerGraded = {
+    args: {
+        item: generateTestPerseusItem({question: shortTextQuestion}),
+    },
+    play: async ({canvasElement, userEvent}) => {
+        const canvas = within(canvasElement);
+
+        const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
+        await userEvent.click(marker);
+
+        // WonderBlocks SingleSelect renders options into a React portal outside
+        // the canvas, so we scope to document.body.
+        const suvsChoice = within(document.body).getByRole("option", {
+            name: "SUVs",
+        });
+        await userEvent.click(suvsChoice);
+
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const checkButton = canvas.getByRole("button", {name: "Check answer"});
+        await userEvent.click(checkButton);
+        await userEvent.click(checkButton);
     },
 };
 
