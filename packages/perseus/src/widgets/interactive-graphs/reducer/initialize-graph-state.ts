@@ -328,15 +328,12 @@ export function getVectorCoords(
         return graph.startCoords;
     }
 
-    // Default: tail at ~25% of range, tip at ~75% (horizontal vector)
-    return normalizePoints(
-        range,
-        step,
-        [
-            [0.25, 0.5],
-            [0.75, 0.5],
-        ],
-    );
+    // Default: diagonal vector in the upper portion of the graph,
+    // offset from axes so it's clearly visible.
+    return normalizePoints(range, step, [
+        [0.25, 0.55],
+        [0.75, 0.75],
+    ]);
 }
 
 export function getLinearSystemCoords(
