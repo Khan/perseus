@@ -2,10 +2,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {
-    textQuestion,
-    numberline,
-} from "../__tests__/label-image.testdata";
+import {textQuestion, numberline} from "../__tests__/label-image.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

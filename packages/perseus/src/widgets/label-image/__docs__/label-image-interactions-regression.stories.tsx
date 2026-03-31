@@ -3,10 +3,7 @@ import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {
-    mathQuestion,
-    textQuestion,
-} from "../__tests__/label-image.testdata";
+import {mathQuestion, textQuestion} from "../__tests__/label-image.testdata";
 
 import type {Meta} from "@storybook/react-vite";
 
