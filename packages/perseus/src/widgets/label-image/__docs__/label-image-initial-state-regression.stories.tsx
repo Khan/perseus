@@ -2,7 +2,11 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {textQuestion, numberline} from "../__tests__/label-image.testdata";
+import {
+    incorrectAnswerQuestion,
+    textQuestion,
+    numberline,
+} from "../__tests__/label-image.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -39,5 +43,14 @@ export const DefaultUnanswered: Story = {
 export const WithChoicesInInstructions: Story = {
     args: {
         item: generateTestPerseusItem({question: numberline}),
+    },
+};
+
+// Verifies the incorrect marker state: marker dot renders with neutral
+// background (background.neutral.default) when showCorrectness is "incorrect".
+// No answer pill is shown because no answer is selected in this static state.
+export const IncorrectMarker: Story = {
+    args: {
+        item: generateTestPerseusItem({question: incorrectAnswerQuestion}),
     },
 };

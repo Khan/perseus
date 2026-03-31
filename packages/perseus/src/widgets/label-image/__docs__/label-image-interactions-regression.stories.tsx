@@ -4,6 +4,7 @@ import {within} from "storybook/test";
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {
+    incorrectAnswerQuestion,
     mathQuestion,
     shortTextQuestion,
     textQuestion,
@@ -81,6 +82,31 @@ export const CorrectAnswerGraded = {
         const checkButton = canvas.getByRole("button", {name: "Check answer"});
         await userEvent.click(checkButton);
         await userEvent.click(checkButton);
+    },
+};
+
+// Verifies the incorrect answer state: marker dot renders with neutral
+// background (background.neutral.default) and the answer pill shows the wrong
+// selection with the same neutral styling. Uses incorrectAnswerQuestion, which
+// has showCorrectness "incorrect" pre-set on the marker in the question data,
+// matching how this state is passed in from review/show-solutions contexts.
+// The play function selects an answer so the pill becomes visible.
+export const IncorrectAnswerWithPill = {
+    args: {
+        item: generateTestPerseusItem({question: incorrectAnswerQuestion}),
+    },
+    play: async ({canvasElement, userEvent}) => {
+        const canvas = within(canvasElement);
+
+        const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
+        await userEvent.click(marker);
+
+        // WonderBlocks SingleSelect renders options into a React portal outside
+        // the canvas, so we scope to document.body.
+        const trucksChoice = within(document.body).getByRole("option", {
+            name: "Trucks",
+        });
+        await userEvent.click(trucksChoice);
     },
 };
 
