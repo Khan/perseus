@@ -16,6 +16,7 @@ import {
     extremelyLongDescription,
     frescoImage,
     graphieImage,
+    portraitImage,
     svgImage,
 } from "../utils";
 
@@ -189,6 +190,21 @@ export const ZoomClickedLargeImage = {
     args: {
         backgroundImage: frescoImage,
         alt: "Fresco painting",
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const zoomTrigger = canvas.getByRole("button", {
+            name: "Make image bigger.",
+        });
+        await userEvent.click(zoomTrigger);
+    },
+};
+
+export const ZoomClickedLargePortraitImage = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: portraitImage,
+        alt: "Portrait image",
     },
     play: async ({canvas, userEvent}) => {
         // eslint-disable-next-line testing-library/prefer-screen-queries
