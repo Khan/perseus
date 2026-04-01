@@ -345,16 +345,7 @@ const getCssPropertyInfo = (property) => {
     let propertyValue = property.value?.value ?? "";
     switch (propertyType) {
         case "Identifier":
-            propertyValue = literalVariables[property.value.name];
-            if (
-                !(
-                    isNaN(propertyValue) ||
-                    propertyRejectsPx(cssProperty) ||
-                    propertyValue === 0
-                )
-            ) {
-                propertyValue = `${propertyValue}px`;
-            }
+            propertyValue = getIdentifierValue(property.value, cssProperty);
             break;
         case "BinaryExpression":
             propertyValue = getBinaryExpressionValue(property.value);
@@ -435,9 +426,20 @@ const getCssPropertyInfo = (property) => {
                 if (externalStyle !== undefined) {
                     const {importPath: _, ...styleProperties} = externalStyle;
                     nestedRuleSet = Object.entries(styleProperties).map(
-                        ([propertyName, propertyValue]) => {
+                        ([propertyName, value]) => {
+                            const cssProperty = camelToKabob(propertyName);
+                            let propertyValue =
+                                value === 0 ||
+                                isNaN(value) ||
+                                propertyRejectsPx(cssProperty)
+                                    ? `${value}`
+                                    : `${value}px`;
+                            propertyValue = replacePxWithRem(
+                                cssProperty,
+                                propertyValue,
+                            );
                             return {
-                                property: propertyName,
+                                property: cssProperty,
                                 value: propertyValue,
                                 line: null,
                                 leadingComments: [],
@@ -507,12 +509,69 @@ const getImportedValues = (sourceName) => {
     return importedModules[sourceName];
 };
 
-const getBinaryExpressionValue = (expressionNode) => {
+const getIdentifierValue = (node, cssProperty, excludeUnit = false) => {
+    let identifierValue = literalVariables[node.name];
+    if (
+        !(
+            excludeUnit ||
+            isNaN(identifierValue) ||
+            propertyRejectsPx(cssProperty) ||
+            identifierValue === 0
+        )
+    ) {
+        identifierValue = `${identifierValue}px`;
+    }
+    return identifierValue;
+};
+
+const getBinaryExpressionValue = (expressionNode, cssProperty) => {
+    let unhandledExceptionFound = false;
+    let expressionValue = "";
     if (
         expressionNode.left.type === "StringLiteral" ||
         expressionNode.right.type === "StringLiteral"
     ) {
-        return `${expressionNode.left.value}${expressionNode.right.value}`;
+        expressionValue = `${expressionNode.left.value}${expressionNode.right.value}`;
+    } else if ("+-*/".includes(expressionNode.operator)) {
+        let leftValue = NaN;
+        let rightValue = NaN;
+        if (expressionNode.left.type === "Identifier") {
+            leftValue = Number(
+                getIdentifierValue(expressionNode.left, cssProperty, true),
+            );
+        }
+        if (expressionNode.right.type === "UnaryExpression") {
+            if (expressionNode.right.argument.type === "NumericLiteral") {
+                rightValue = `${expressionNode.right.operator}${expressionNode.right.argument.value}`;
+            }
+        }
+        if (isNaN(leftValue) || isNaN(rightValue)) {
+            unhandledExceptionFound = true;
+        } else {
+            let numericValue;
+            switch (expressionNode.operator) {
+                case "+":
+                    numericValue = leftValue + rightValue;
+                    break;
+                case "-":
+                    numericValue = leftValue - rightValue;
+                    break;
+                case "*":
+                    numericValue = leftValue * rightValue;
+                    break;
+                case "/":
+                    numericValue = leftValue / rightValue;
+                    break;
+            }
+            if (numericValue !== 0 && !propertyRejectsPx(cssProperty)) {
+                expressionValue = `${numericValue}px`;
+            }
+        }
+    } else {
+        unhandledExceptionFound = true;
+    }
+    if (!unhandledExceptionFound) {
+        return expressionValue;
     } else {
         return `/* Unable to handle binary expression: ${expressionNode.left.type} ${expressionNode.operator} ${expressionNode.right.type}  */`;
     }
