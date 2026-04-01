@@ -7,7 +7,6 @@
 
 import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import styles from "./marker.module.css";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -15,6 +14,7 @@ import Icon from "../../components/icon";
 import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import {AnswerPill} from "./answer-pill";
+import styles from "./marker.module.css";
 
 import type {IconType} from "../../components/icon";
 import type {CSSProperties} from "aphrodite";

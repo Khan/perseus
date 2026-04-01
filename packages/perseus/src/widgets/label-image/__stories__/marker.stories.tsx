@@ -16,7 +16,7 @@ export default {
 } as Story;
 
 const Wrapper = (props) => (
-    <div className={css(styles.wrapper)}>
+    <div className={styles.wrapper}>
         <Marker {...props} />
     </div>
 );
