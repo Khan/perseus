@@ -28,9 +28,8 @@ export async function getPerseusClipboardData(): Promise<PerseusClipboardData> {
     for (const item of clipboardItems) {
         if (item.types.includes("text/html")) {
             const dummyDiv = document.createElement("span");
-            dummyDiv.innerHTML = await item
-                .getType("text/html")
-                .then((blob) => blob.text());
+            const htmlBlob = await item.getType("text/html");
+            dummyDiv.innerHTML = await htmlBlob.text();
             const widgetsJson = dummyDiv
                 .querySelector("[data-perseus-widgets]")
                 ?.getAttribute("data-perseus-widgets");
@@ -39,7 +38,8 @@ export async function getPerseusClipboardData(): Promise<PerseusClipboardData> {
             }
         }
         if (item.types.includes("text/plain")) {
-            text = await item.getType("text/plain").then((blob) => blob.text());
+            const plainTextBlob = await item.getType("text/plain");
+            text = await plainTextBlob.text();
         }
     }
 
