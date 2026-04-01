@@ -39,6 +39,9 @@ type Props = {
  * - A display canvas (visible) composited and scaled to the display size
  * - A base canvas (hidden) used to convert per-frame ImageData into a
  *   drawable source for proper alpha compositing via drawImage
+ *
+ * This is similar to the approach taken by gifuct-js's own demo:
+ * https://github.com/matt-way/gifuct-js/blob/master/demo/demo.js
  */
 const GifImage = (props: Props) => {
     const {src, alt, width, height, scale, isPlaying, onLoop} = props;
