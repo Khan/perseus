@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
 
     // The learner has made a selection
     markerFilled: {
-        backgroundColor: semanticColor.core.background.instructive.default,
+        backgroundColor: semanticColor.core.background.instructive.subtle,
         border: `4px solid ${semanticColor.core.border.instructive.default}`,
     },
 
