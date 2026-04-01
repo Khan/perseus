@@ -1,32 +1,32 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import LockedPolygonSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-polygon-settings";
+import LockedVectorSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-vector-settings";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 export default {
-    title: "PerseusEditor/Components/Locked Polygon Settings",
-    component: LockedPolygonSettings,
-} as Meta<typeof LockedPolygonSettings>;
+    title: "Editors/Components/Locked Vector Settings",
+    component: LockedVectorSettings,
+} as Meta<typeof LockedVectorSettings>;
 
 export const Default = (args): React.ReactElement => {
-    return <LockedPolygonSettings {...args} />;
+    return <LockedVectorSettings {...args} />;
 };
 
 const defaultProps = {
-    ...getDefaultFigureForType("polygon"),
+    ...getDefaultFigureForType("vector"),
     onChangeProps: () => {},
     onMove: () => {},
     onRemove: () => {},
 };
 
-type StoryComponentType = StoryObj<typeof LockedPolygonSettings>;
+type StoryComponentType = StoryObj<typeof LockedVectorSettings>;
 
 // Set the default values in the control panel.
 Default.args = defaultProps;
 
-export const Controlled: StoryComponentType = {
+export const Expanded: StoryComponentType = {
     render: function Render() {
         const [props, setProps] = React.useState(defaultProps);
 
@@ -38,25 +38,22 @@ export const Controlled: StoryComponentType = {
         };
 
         return (
-            <LockedPolygonSettings
+            <LockedVectorSettings
                 {...props}
+                expanded={true}
                 onChangeProps={handlePropsUpdate}
             />
         );
     },
 };
 
-Controlled.parameters = {
-    chromatic: {
-        // Disabling because this is testing behavior, not visuals.
-        disableSnapshot: true,
-    },
-};
-
-// Fully expanded view of the locked ellipse settings to allow snapshot testing.
-export const Expanded: StoryComponentType = {
+/**
+ * If the two points defining the vector are the same, the vector is invalid
+ * as that would give it a length of 0. An error message is displayed
+ * in this case.
+ */
+export const WithInvalidPoints: StoryComponentType = {
     render: function Render() {
-        const [expanded, setExpanded] = React.useState(true);
         const [props, setProps] = React.useState(defaultProps);
 
         const handlePropsUpdate = (newProps) => {
@@ -67,10 +64,13 @@ export const Expanded: StoryComponentType = {
         };
 
         return (
-            <LockedPolygonSettings
+            <LockedVectorSettings
                 {...props}
-                expanded={expanded}
-                onToggle={setExpanded}
+                points={[
+                    [0, 0],
+                    [0, 0],
+                ]}
+                expanded={true}
                 onChangeProps={handlePropsUpdate}
             />
         );

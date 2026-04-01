@@ -4,7 +4,7 @@ import {action} from "storybook/actions";
 import BlurInput from "../blur-input";
 
 export default {
-    title: "PerseusEditor/Components/Blur Input",
+    title: "Editors/Components/Blur Input",
 };
 
 export const Default = (): React.ReactElement => {

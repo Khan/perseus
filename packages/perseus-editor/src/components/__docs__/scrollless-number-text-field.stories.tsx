@@ -7,7 +7,7 @@ import ScrolllessNumberTextField from "../scrollless-number-text-field";
 import type {StoryObj, Meta} from "@storybook/react-vite";
 
 export default {
-    title: "PerseusEditor/Components/Scrollless Number Text Field",
+    title: "Editors/Components/Scrollless Number Text Field",
     component: ScrolllessNumberTextField,
 } as Meta<typeof ScrolllessNumberTextField>;
 

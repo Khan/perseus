@@ -7,7 +7,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof DeviceFramer> = {
     component: DeviceFramer,
-    title: "PerseusEditor/Components/Device Framer",
+    title: "Editors/Components/Device Framer",
 };
 
 export default meta;
