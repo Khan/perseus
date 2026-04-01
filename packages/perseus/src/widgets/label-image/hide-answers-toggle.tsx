@@ -6,7 +6,7 @@ import {useId} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
-import styles from "./hide-answers-toggle_legacy-styles.js";
+import styles from "./hide-answers-toggle_legacy-styles";
 
 export const HideAnswersToggle = (props: {
     areAnswersHidden: boolean;
