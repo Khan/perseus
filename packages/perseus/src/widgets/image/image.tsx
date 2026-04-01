@@ -149,7 +149,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     isGifPlaying={
                         gifControlsFF && imageIsGif ? isGifPlaying : undefined
                     }
-                    onGifPause={
+                    onGifLoop={
                         gifControlsFF && imageIsGif
                             ? () => setIsGifPlaying(false)
                             : undefined

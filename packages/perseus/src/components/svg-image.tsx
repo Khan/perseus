@@ -109,9 +109,9 @@ export type Props = {
      */
     isGifPlaying?: boolean;
     /**
-     * Called when the GIF auto-pauses after completing one loop.
+     * Called when the GIF completes one full loop.
      */
-    onGifPause?: () => void;
+    onGifLoop?: () => void;
 };
 
 type DefaultProps = {
@@ -498,7 +498,7 @@ class SvgImage extends React.Component<Props, State> {
                                 height={this.props.height}
                                 scale={this.props.scale}
                                 isPlaying={!!this.props.isGifPlaying}
-                                onPause={this.props.onGifPause ?? (() => {})}
+                                onLoop={this.props.onGifLoop ?? (() => {})}
                             />
                         )}
                     </>

@@ -118,7 +118,7 @@ export default function ExploreImageModalContent({
                                     ? isGifPlaying
                                     : undefined
                             }
-                            onGifPause={
+                            onGifLoop={
                                 gifControlsFF && imageIsGif
                                     ? () => setIsGifPlaying(false)
                                     : undefined

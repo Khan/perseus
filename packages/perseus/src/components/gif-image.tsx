@@ -27,11 +27,9 @@ type Props = {
     scale: number;
     isPlaying: boolean;
     /**
-     * Called when the GIF finishes one full loop and auto-pauses.
-     * The parent should set isPlaying to false in response so
-     * that props stay in sync with the internal paused state.
+     * Called when the GIF finishes one full loop.
      */
-    onPause: () => void;
+    onLoop: () => void;
 };
 
 /**
@@ -43,7 +41,7 @@ type Props = {
  *   drawable source for proper alpha compositing via drawImage
  */
 const GifImage = (props: Props) => {
-    const {src, alt, width, height, scale, isPlaying, onPause} = props;
+    const {src, alt, width, height, scale, isPlaying, onLoop} = props;
 
     // Decoded GIF frames from gifuct-js
     const framesRef = React.useRef<ParsedFrame[]>([]);
@@ -63,8 +61,8 @@ const GifImage = (props: Props) => {
     // Keep a ref to the latest props so the animation loop (which runs
     // outside of React's render cycle) can read current values without
     // stale closures.
-    const latestPropsRef = React.useRef({isPlaying, onPause});
-    latestPropsRef.current = {isPlaying, onPause};
+    const latestPropsRef = React.useRef({isPlaying, onLoop});
+    latestPropsRef.current = {isPlaying, onLoop};
 
     // Draw a single frame's patch directly onto the display canvas,
     // using the base canvas to convert raw pixel data into a
@@ -177,10 +175,10 @@ const GifImage = (props: Props) => {
                 currentFrameIndexRef.current++;
 
                 if (currentFrameIndexRef.current >= frames.length) {
-                    // Loop complete — auto-pause and notify parent.
+                    // Loop complete — notify parent.
                     currentFrameIndexRef.current = 0;
                     animationIdRef.current = null;
-                    latestPropsRef.current.onPause();
+                    latestPropsRef.current.onLoop();
                     return;
                 }
             }

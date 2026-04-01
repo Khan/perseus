@@ -61,7 +61,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={false}
-                onPause={jest.fn()}
+                onLoop={jest.fn()}
             />,
         );
 
@@ -79,7 +79,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={true}
-                onPause={jest.fn()}
+                onLoop={jest.fn()}
             />,
         );
 
@@ -87,10 +87,10 @@ describe("GifImage", () => {
         expect(screen.getByTestId("gif-canvas")).toBeInTheDocument();
     });
 
-    describe("auto-pause", () => {
-        it("calls onPause after all frames have been rendered", async () => {
+    describe("loop completion", () => {
+        it("calls onLoop after all frames have been rendered", async () => {
             // Arrange
-            const onPause = jest.fn();
+            const onLoop = jest.fn();
             render(
                 <GifImage
                     src={GIF_SRC}
@@ -99,7 +99,7 @@ describe("GifImage", () => {
                     height={285}
                     scale={1}
                     isPlaying={true}
-                    onPause={onPause}
+                    onLoop={onLoop}
                 />,
             );
 
@@ -116,12 +116,12 @@ describe("GifImage", () => {
             });
 
             // Assert
-            expect(onPause).toHaveBeenCalledTimes(1);
+            expect(onLoop).toHaveBeenCalledTimes(1);
         });
 
-        it("does not call onPause again after pausing", async () => {
+        it("does not call onLoop again after pausing", async () => {
             // Arrange
-            const onPause = jest.fn();
+            const onLoop = jest.fn();
             const {rerender} = render(
                 <GifImage
                     src={GIF_SRC}
@@ -130,7 +130,7 @@ describe("GifImage", () => {
                     height={285}
                     scale={1}
                     isPlaying={true}
-                    onPause={onPause}
+                    onLoop={onLoop}
                 />,
             );
 
@@ -140,7 +140,7 @@ describe("GifImage", () => {
             act(() => {
                 jest.advanceTimersByTime(200);
             });
-            expect(onPause).toHaveBeenCalledTimes(1);
+            expect(onLoop).toHaveBeenCalledTimes(1);
 
             // Act - pause the GIF
             rerender(
@@ -151,21 +151,21 @@ describe("GifImage", () => {
                     height={285}
                     scale={1}
                     isPlaying={false}
-                    onPause={onPause}
+                    onLoop={onLoop}
                 />,
             );
             act(() => {
                 jest.advanceTimersByTime(200);
             });
 
-            // Assert - onPause should not have been called again
-            expect(onPause).toHaveBeenCalledTimes(1);
+            // Assert - onLoop should not have been called again
+            expect(onLoop).toHaveBeenCalledTimes(1);
         });
     });
 
     it("resets to frame 0 after loop completes and is replayed", async () => {
         // Arrange — play through one full loop
-        const onPause = jest.fn();
+        const onLoop = jest.fn();
         const {rerender} = render(
             <GifImage
                 src={GIF_SRC}
@@ -174,7 +174,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={true}
-                onPause={onPause}
+                onLoop={onLoop}
             />,
         );
 
@@ -184,7 +184,7 @@ describe("GifImage", () => {
         act(() => {
             jest.advanceTimersByTime(200);
         });
-        expect(onPause).toHaveBeenCalledTimes(1);
+        expect(onLoop).toHaveBeenCalledTimes(1);
 
         // Act — sync parent state to paused, then play again
         rerender(
@@ -195,7 +195,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={false}
-                onPause={onPause}
+                onLoop={onLoop}
             />,
         );
         rerender(
@@ -206,7 +206,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={true}
-                onPause={onPause}
+                onLoop={onLoop}
             />,
         );
 
@@ -214,9 +214,9 @@ describe("GifImage", () => {
         act(() => {
             jest.advanceTimersByTime(200);
         });
-        // The loop completed a second time — onPause fires again,
+        // The loop completed a second time — onLoop fires again,
         // confirming it played through both frames from the start.
-        expect(onPause).toHaveBeenCalledTimes(2);
+        expect(onLoop).toHaveBeenCalledTimes(2);
     });
 
     it("renders the hidden base canvas", () => {
@@ -229,7 +229,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={false}
-                onPause={jest.fn()}
+                onLoop={jest.fn()}
             />,
         );
 
@@ -249,7 +249,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={false}
-                onPause={jest.fn()}
+                onLoop={jest.fn()}
             />,
         );
 
@@ -271,7 +271,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={false}
-                onPause={jest.fn()}
+                onLoop={jest.fn()}
             />,
         );
 
@@ -289,7 +289,7 @@ describe("GifImage", () => {
                 height={285}
                 scale={1}
                 isPlaying={false}
-                onPause={jest.fn()}
+                onLoop={jest.fn()}
             />,
         );
 
