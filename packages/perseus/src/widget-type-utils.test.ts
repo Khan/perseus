@@ -10,6 +10,7 @@ import {
     getWidgetFromWidgetMap,
     getWidgetsFromWidgetMap,
     getWidgetSubTypeByWidgetId,
+    getWidgetSubType,
 } from "./widget-type-utils";
 
 describe("widget-type-utils", () => {
@@ -41,6 +42,32 @@ describe("widget-type-utils", () => {
         });
     });
 
+    describe("getWidgetSubType", () => {
+        it("returns graph type for interactive-graph", () => {
+            const subType = getWidgetSubType("interactive-graph", {
+                graph: {type: "segment"},
+            });
+            expect(subType).toBe("segment");
+        });
+
+        it("returns 'single-select' for radio without multipleSelect", () => {
+            const subType = getWidgetSubType("radio", {});
+            expect(subType).toBe("single-select");
+        });
+
+        it("returns 'multiple-select' for radio with multipleSelect", () => {
+            const subType = getWidgetSubType("radio", {
+                multipleSelect: true,
+            });
+            expect(subType).toBe("multiple-select");
+        });
+
+        it("returns null for widget without a subtype", () => {
+            const subType = getWidgetSubType("categorizer", {});
+            expect(subType).toBeNull();
+        });
+    });
+
     describe("getWidgetSubTypeByWidgetId", () => {
         it("returns widget subtype when found", () => {
             // Assemble
@@ -59,7 +86,7 @@ describe("widget-type-utils", () => {
             expect(widgetSubType).toBe("linear");
         });
 
-        it("returns null when widget does not have a subtype", () => {
+        it("returns 'single-select' for radio widget without multipleSelect", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
             const widgetMap = {
@@ -67,10 +94,52 @@ describe("widget-type-utils", () => {
             };
 
             // Act
-            const widgetType = getWidgetSubTypeByWidgetId(widgetId, widgetMap);
+            const widgetSubType = getWidgetSubTypeByWidgetId(
+                widgetId,
+                widgetMap,
+            );
 
             // Assert
-            expect(widgetType).toBeNull();
+            expect(widgetSubType).toBe("single-select");
+        });
+
+        it("returns 'multiple-select' for radio widget with multipleSelect", () => {
+            // Assemble
+            const widgetId = "dont-look-for-type-in-id";
+            const widgetMap = {
+                [widgetId]: generateRadioWidget({
+                    options: {
+                        choices: [],
+                        multipleSelect: true,
+                    },
+                }),
+            };
+
+            // Act
+            const widgetSubType = getWidgetSubTypeByWidgetId(
+                widgetId,
+                widgetMap,
+            );
+
+            // Assert
+            expect(widgetSubType).toBe("multiple-select");
+        });
+
+        it("returns null when widget does not have a subtype", () => {
+            // Assemble
+            const widgetId = "dont-look-for-type-in-id";
+            const widgetMap = {
+                [widgetId]: generateTestCategorizerWidget(),
+            };
+
+            // Act
+            const widgetSubType = getWidgetSubTypeByWidgetId(
+                widgetId,
+                widgetMap,
+            );
+
+            // Assert
+            expect(widgetSubType).toBeNull();
         });
 
         it("returns null when not found", () => {

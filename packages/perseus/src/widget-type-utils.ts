@@ -21,21 +21,41 @@ export function getWidgetTypeByWidgetId(
     return widget?.type ?? null;
 }
 
+/**
+ * Get the subtype of a widget based on its type and options.
+ *
+ * @param {string} widgetType the type of the widget (ie "radio", "interactive-graph")
+ * @param {Record<string, unknown>} widgetOptions the widget's options/props
+ * @returns {string | null} the widget subtype, or null if the widget type has no subtypes
+ */
+export function getWidgetSubType(
+    widgetType: string,
+    widgetOptions: Record<string, unknown>,
+): string | null {
+    switch (widgetType) {
+        case "interactive-graph":
+            const graph = widgetOptions.graph as
+                | PerseusGraphType
+                | undefined;
+            return graph?.type ?? null;
+        case "radio":
+            return widgetOptions.multipleSelect
+                ? "multiple-select"
+                : "single-select";
+        default:
+            return null;
+    }
+}
+
 export function getWidgetSubTypeByWidgetId(
     widgetId: string,
     widgetMap: PerseusWidgetsMap,
 ): string | null {
     const widget = widgetMap[widgetId];
-    const widgetType = widget?.type ?? null;
-
-    switch (widgetType) {
-        case "interactive-graph":
-            const graph: PerseusGraphType = widget.options.graph;
-
-            return graph?.type ?? null;
-        default:
-            return null;
+    if (!widget) {
+        return null;
     }
+    return getWidgetSubType(widget.type, widget.options);
 }
 
 /**
