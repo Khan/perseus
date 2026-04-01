@@ -95,6 +95,7 @@ export class Graphie {
     el: Element;
     #bounds?: GraphBounds;
     #drawingTransform?: DrawingTransform;
+    #labelElements: Set<HTMLElement> = new Set();
     #resizeObserver: ResizeObserver | null = null;
 
     // The primary drawing layer
@@ -1002,6 +1003,7 @@ export class Graphie {
             $span.setPosition(point);
 
             const span = $span[0];
+            this.#labelElements.add(span);
 
             $span.processMath = function (math, force) {
                 processMath(span, math, force, function () {
@@ -1601,13 +1603,10 @@ export class Graphie {
     }
 
     private _recalculateLabels(): void {
-        const labels = this.el.querySelectorAll(".graphie-label");
-        labels.forEach((span) => {
-            if (span instanceof HTMLElement) {
-                const originalSize = $(span).data("originalLabelSize");
-                if (originalSize != null) {
-                    setLabelMargins(span, originalSize);
-                }
+        this.#labelElements.forEach((span) => {
+            const originalSize = $(span).data("originalLabelSize");
+            if (originalSize != null) {
+                setLabelMargins(span, originalSize);
             }
         });
     }
@@ -1615,6 +1614,7 @@ export class Graphie {
     cleanup(): void {
         this.#resizeObserver?.disconnect();
         this.#resizeObserver = null;
+        this.#labelElements.clear();
     }
 }
 
