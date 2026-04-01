@@ -526,7 +526,6 @@ class Editor extends React.Component<Props, State> {
             for (const [key, data] of Object.entries(widgets)) {
                 safeWidgetData[safeWidgetMapping[key]] = data;
             }
-            const newWidgets = _.extend(safeWidgetData, this.props.widgets);
 
             // Use safe widget name map to construct new text
             const safeText = textToBePasted.replace(rWidgetSplit, (syntax) => {
@@ -553,7 +552,7 @@ class Editor extends React.Component<Props, State> {
             // See componentDidUpdate() for how this flag is used
             this.lastUserValue = this.state.textAreaValue;
             this.props.onChange(
-                {content: newContent, widgets: newWidgets},
+                {content: newContent, widgets: {...safeWidgetData, ...this.getWidgetsReferencedIn(newContent)}},
                 () => {
                     const expectedCursorPosition =
                         selectionStart + safeText.length;
