@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
+import styles from "./hide-answers-toggle.module.css";
 import * as React from "react";
 import {useId} from "react";
 
@@ -28,14 +28,3 @@ export const HideAnswersToggle = (props: {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    switchWrapper: {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap-reverse",
-        alignItems: "center",
-        gap: "0.5em",
-        marginTop: "1em",
-    },
-});

@@ -10,7 +10,8 @@ import {scoreLabelImageMarker} from "@khanacademy/perseus-score";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
+import styles from "./label-image.module.css";
+import stylesLegacy from "./label-image_legacy-styles.js";
 import classNames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -826,61 +827,3 @@ export default {
     getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;
-
-const styles = StyleSheet.create({
-    instructions: {
-        paddingBottom: 16,
-    },
-
-    instructionsCaption: {
-        ...bodyXsmallBold,
-
-        paddingBottom: 16,
-    },
-
-    instructionsChoices: {
-        display: "flex",
-        flexWrap: "wrap",
-
-        margin: "-8px 0",
-    },
-
-    instructionsChoice: {
-        display: "flex",
-        alignItems: "center",
-
-        margin: "8px 0",
-
-        ":not(:last-child)": {
-            "::after": {
-                content: "''",
-                display: "inline-block",
-                position: "relative",
-
-                width: 2,
-                height: 2,
-
-                marginLeft: 5,
-                marginRight: 5,
-
-                background: semanticColor.core.border.neutral.default,
-
-                borderRadius: 2,
-            },
-        },
-    },
-
-    markersCanvas: {
-        position: "relative",
-    },
-
-    imageContainer: {
-        // Remove the additional height added due to white-spacing, this ensures
-        // markers canvas will have the same height as the question image.
-        display: "flex",
-    },
-
-    imageInteractionDisabled: {
-        pointerEvents: "none",
-    },
-});
