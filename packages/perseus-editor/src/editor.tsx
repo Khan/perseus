@@ -552,7 +552,13 @@ class Editor extends React.Component<Props, State> {
             // See componentDidUpdate() for how this flag is used
             this.lastUserValue = this.state.textAreaValue;
             this.props.onChange(
-                {content: newContent, widgets: {...safeWidgetData, ...this.getWidgetsReferencedIn(newContent)}},
+                {
+                    content: newContent,
+                    widgets: {
+                        ...safeWidgetData,
+                        ...this.getWidgetsReferencedIn(newContent),
+                    },
+                },
                 () => {
                     const expectedCursorPosition =
                         selectionStart + safeText.length;
