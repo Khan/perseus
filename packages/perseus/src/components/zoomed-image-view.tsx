@@ -14,10 +14,18 @@ import styles from "./zoomed-image-view.module.css";
 
 import type {Props as SvgImageProps} from "./svg-image";
 
+// 32px on each side of the modal panel
+const WB_MODAL_PADDING_TOTAL = 64;
+
 interface Props extends SvgImageProps {
     // ID to use for the
     initialFocusId: string;
     onClose: () => void;
+
+    // width and height are optional in SVGImageProps,
+    // but they are required here.
+    width: number;
+    height: number;
 }
 
 export const ZoomedImageView = (props: Props) => {
@@ -29,6 +37,7 @@ export const ZoomedImageView = (props: Props) => {
 
     const {initialFocusId, onClose, ...svgProps} = props;
     const width = props.width;
+    const height = props.height;
     const contentScale = props.scale;
 
     const imageIsSvg = isSvg(props.src);
@@ -42,6 +51,24 @@ export const ZoomedImageView = (props: Props) => {
     const scale = imageIsSvg
         ? Math.max(contentScale, 2)
         : Math.max(contentScale, 1);
+
+    // The scale that SvgImage will actually multiply dimensions by.
+    const effectiveScale = scaleFF ? scale : 1;
+
+    // Calculate the maximum available space (account for the modal panel padding).
+    const maxAvailableWidth = window.innerWidth - WB_MODAL_PADDING_TOTAL;
+    const maxAvailableHeight = window.innerHeight - WB_MODAL_PADDING_TOTAL;
+
+    // Calculate the ratio between the available space and the image size.
+    const scaleWidth = maxAvailableWidth / (width * effectiveScale);
+    const scaleHeight = maxAvailableHeight / (height * effectiveScale);
+    // Use the smaller ratio to ensure the image fits within the available space,
+    // with no scrolling.
+    const fitRatio = Math.min(scaleWidth, scaleHeight, 1);
+
+    // Calculate the final dimensions, constrained by the window size.
+    const constrainedWidth = width * fitRatio;
+    const constrainedHeight = height * fitRatio;
 
     return (
         <ModalDialog
@@ -63,10 +90,7 @@ export const ZoomedImageView = (props: Props) => {
                             // causes the image to collapse to its
                             // natural pixel size, ignoring scale.
                             style={{
-                                width:
-                                    width && scaleFF
-                                        ? width * scale
-                                        : undefined,
+                                width: constrainedWidth * effectiveScale,
                             }}
                         >
                             <div
@@ -90,7 +114,13 @@ export const ZoomedImageView = (props: Props) => {
                                     // Don't allow zooming inside the
                                     // zoom view.
                                     allowZoom={false}
-                                    scale={scaleFF ? scale : 1}
+                                    // Need to pass in the unscaled dimensions
+                                    // into `width` and `height`, so that
+                                    // Graphie labels can be rendered correctly
+                                    // based on the `scale` prop.
+                                    width={constrainedWidth}
+                                    height={constrainedHeight}
+                                    scale={effectiveScale}
                                 />
                             </div>
                         </div>
