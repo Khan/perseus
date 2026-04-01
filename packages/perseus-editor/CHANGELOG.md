@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 30.0.4
+
+### Patch Changes
+
+-   [#3411](https://github.com/Khan/perseus/pull/3411) [`94ad54eb43`](https://github.com/Khan/perseus/commit/94ad54eb4340b2a14b1c3d6e89d65d6897722446) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Align caption to image in case where image has no size
+
+-   Updated dependencies [[`94ad54eb43`](https://github.com/Khan/perseus/commit/94ad54eb4340b2a14b1c3d6e89d65d6897722446), [`468910ec63`](https://github.com/Khan/perseus/commit/468910ec637c7e9ffa3611693455090498fd0c1f), [`634e65efab`](https://github.com/Khan/perseus/commit/634e65efab034f638304902f9ad2f113c9e11e56)]:
+    -   @khanacademy/perseus@77.0.2
+
 ## 30.0.3
 
 ### Patch Changes
