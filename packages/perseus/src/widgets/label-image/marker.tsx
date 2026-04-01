@@ -279,10 +279,10 @@ const styles = StyleSheet.create({
     },
 
     markerCorrect: {
-        background: semanticColor.core.foreground.success.strong,
+        background: semanticColor.core.background.success.strong,
     },
 
     markerIncorrect: {
-        background: semanticColor.core.foreground.neutral.default,
+        background: semanticColor.core.background.neutral.default,
     },
 });
