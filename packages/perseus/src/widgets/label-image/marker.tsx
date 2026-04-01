@@ -283,6 +283,6 @@ const styles = StyleSheet.create({
     },
 
     markerIncorrect: {
-        background: semanticColor.core.background.neutral.default,
+        background: semanticColor.core.foreground.neutral.default,
     },
 });
