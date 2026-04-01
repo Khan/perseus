@@ -7,7 +7,7 @@ import {Popper} from "react-popper";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
-import styles from "./answer-pill.module.css";
+import styles from "./answer-pill_legacy-styles";
 
 const BringToFront: React.CSSProperties = {
     boxShadow: `0 8px 8px ${semanticColor.core.border.neutral.default}`,

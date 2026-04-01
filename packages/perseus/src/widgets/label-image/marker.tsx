@@ -14,7 +14,7 @@ import Icon from "../../components/icon";
 import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import {AnswerPill} from "./answer-pill";
-import styles from "./marker.module.css";
+import styles from "./marker_legacy-styles";
 
 import type {IconType} from "../../components/icon";
 import type {CSSProperties} from "aphrodite";
