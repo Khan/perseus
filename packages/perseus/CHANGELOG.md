@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 77.0.2
+
+### Patch Changes
+
+-   [#3411](https://github.com/Khan/perseus/pull/3411) [`94ad54eb43`](https://github.com/Khan/perseus/commit/94ad54eb4340b2a14b1c3d6e89d65d6897722446) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Align caption to image in case where image has no size
+
+*   [#3439](https://github.com/Khan/perseus/pull/3439) [`468910ec63`](https://github.com/Khan/perseus/commit/468910ec637c7e9ffa3611693455090498fd0c1f) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Stop large portrait images from overflowing in zoom view
+
+-   [#3436](https://github.com/Khan/perseus/pull/3436) [`634e65efab`](https://github.com/Khan/perseus/commit/634e65efab034f638304902f9ad2f113c9e11e56) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Fix color of text in correct option choice to match specs (theme-based green)
+
+## 77.0.1
+
+### Patch Changes
+
+-   [#3429](https://github.com/Khan/perseus/pull/3429) [`41bea5fd10`](https://github.com/Khan/perseus/commit/41bea5fd10c32ce5579addf9843b134d119461c6) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Stop large images from overflowing
+
+*   [#3413](https://github.com/Khan/perseus/pull/3413) [`06ac0a160d`](https://github.com/Khan/perseus/commit/06ac0a160d507af6e5a59a86a1bc231541f2d5cb) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Don't upscale images within explore modal if size is unknown
+
+-   [#3426](https://github.com/Khan/perseus/pull/3426) [`dae8b1d931`](https://github.com/Khan/perseus/commit/dae8b1d931035db56414c0088c69964a89aeb088) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Update zoom view SRUX
+
 ## 77.0.0
 
 ### Major Changes
