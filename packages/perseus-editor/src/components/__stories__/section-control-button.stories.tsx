@@ -3,7 +3,7 @@ import * as React from "react";
 
 import SectionControlButton from "../section-control-button";
 
-type StoryArgs = Record<any, any>;
+type StoryArgs = Record<string, unknown>;
 
 type Story = {
     title: string;

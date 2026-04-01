@@ -42,7 +42,7 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = excludeDenylistKeys(props);
-    return applyDefaultsToWidget(filteredProps as any);
+    return applyDefaultsToWidget(filteredProps as PerseusWidget);
 };
 
 // This component handles upgading widget editor props via prop
@@ -87,10 +87,6 @@ class WidgetEditor extends React.Component<
         cb: () => unknown,
         silent: boolean,
     ) => {
-        // Casting to any is necessary because typescript
-        // seems confused about the type of WidgetOptions
-        // TODO (LC-1794): Fix this type so that we don't
-        // require the cast to any.
         const newWidgetInfo = {
             ...this.state.widgetInfo,
             options: {
@@ -98,7 +94,7 @@ class WidgetEditor extends React.Component<
                 ...(this.widget.current?.serialize() ?? {}),
                 ...newProps,
             },
-        } as any;
+        } as PerseusWidget;
         this.props.onChange(newWidgetInfo, cb, silent);
     };
 
