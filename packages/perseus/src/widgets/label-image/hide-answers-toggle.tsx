@@ -1,12 +1,12 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
-import styles from "./hide-answers-toggle.module.css";
-import stylesLegacy from "./hide-answers-toggle_legacy-styles.js";
 import * as React from "react";
 import {useId} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+
+import styles from "./hide-answers-toggle.module.css";
 
 export const HideAnswersToggle = (props: {
     areAnswersHidden: boolean;
