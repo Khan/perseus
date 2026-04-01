@@ -1,8 +1,10 @@
 import {
     getWidgetIdsFromContentByType,
+    type PerseusInteractiveGraphWidgetOptions,
+    type PerseusRadioWidgetOptions,
     type PerseusWidget,
+    type PerseusWidgetOptions,
     type PerseusWidgetsMap,
-    type PerseusGraphType,
 } from "@khanacademy/perseus-core";
 
 /**
@@ -30,14 +32,16 @@ export function getWidgetTypeByWidgetId(
  */
 export function getWidgetSubType(
     widgetType: string,
-    widgetOptions: Record<string, unknown>,
+    widgetOptions: PerseusWidgetOptions,
 ): string | null {
     switch (widgetType) {
         case "interactive-graph":
-            const graph = widgetOptions.graph as PerseusGraphType | undefined;
-            return graph?.type ?? null;
+            const graphOptions =
+                widgetOptions as PerseusInteractiveGraphWidgetOptions;
+            return graphOptions.graph?.type ?? null;
         case "radio":
-            return widgetOptions.multipleSelect
+            const radioOptions = widgetOptions as PerseusRadioWidgetOptions;
+            return radioOptions.multipleSelect
                 ? "multiple-select"
                 : "single-select";
         default:

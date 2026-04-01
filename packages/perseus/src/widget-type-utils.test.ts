@@ -1,4 +1,5 @@
 import {
+    generateInteractiveGraphOptions,
     generateInteractiveGraphWidget,
     generateRadioWidget,
 } from "@khanacademy/perseus-core";
@@ -44,26 +45,32 @@ describe("widget-type-utils", () => {
 
     describe("getWidgetSubType", () => {
         it("returns graph type for interactive-graph", () => {
-            const subType = getWidgetSubType("interactive-graph", {
-                graph: {type: "segment"},
+            const widget = generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    graph: {type: "segment"},
+                }),
             });
+            const subType = getWidgetSubType(widget.type, widget.options);
             expect(subType).toBe("segment");
         });
 
         it("returns 'single-select' for radio without multipleSelect", () => {
-            const subType = getWidgetSubType("radio", {});
+            const widget = generateRadioWidget();
+            const subType = getWidgetSubType(widget.type, widget.options);
             expect(subType).toBe("single-select");
         });
 
         it("returns 'multiple-select' for radio with multipleSelect", () => {
-            const subType = getWidgetSubType("radio", {
-                multipleSelect: true,
+            const widget = generateRadioWidget({
+                options: {choices: [], multipleSelect: true},
             });
+            const subType = getWidgetSubType(widget.type, widget.options);
             expect(subType).toBe("multiple-select");
         });
 
         it("returns null for widget without a subtype", () => {
-            const subType = getWidgetSubType("categorizer", {});
+            const widget = generateTestCategorizerWidget();
+            const subType = getWidgetSubType(widget.type, widget.options);
             expect(subType).toBeNull();
         });
     });
