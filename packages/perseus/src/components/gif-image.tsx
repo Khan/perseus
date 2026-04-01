@@ -205,19 +205,11 @@ const GifImage = (props: Props) => {
     // Reset to frame 0 and start playing.
     const restart = React.useCallback(() => {
         pause();
-        currentFrameIndexRef.current = 0;
-        // Clear the display canvas so frame 0 draws from a clean state.
-        const ctx = canvasRef.current?.getContext("2d");
-        if (ctx && canvasRef.current) {
-            ctx.clearRect(
-                0,
-                0,
-                canvasRef.current.width,
-                canvasRef.current.height,
-            );
-        }
+        // Render frame 0 immediately so the canvas is never blank
+        // between clearing and the first RAF callback.
+        renderFrame(0);
         play();
-    }, [pause, play]);
+    }, [pause, renderFrame, play]);
 
     // Load and decode GIF frames on mount and when src changes.
     React.useEffect(() => {
