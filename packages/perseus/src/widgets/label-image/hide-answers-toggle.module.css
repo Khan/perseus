@@ -1,0 +1,8 @@
+.switch-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    gap: 0.5em;
+    margin-top: 1em;
+}

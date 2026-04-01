@@ -1,7 +1,8 @@
-import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Marker from "../marker";
+
+import styles from "./marker.module.css";
 
 type StoryArgs = Record<any, any>;
 
@@ -13,15 +14,6 @@ export default {
     title: "Widgets/Label Image/Widget Internal Components/Marker",
     tags: ["!dev"],
 } as Story;
-
-const styles = StyleSheet.create({
-    wrapper: {
-        position: "relative",
-
-        width: 32,
-        height: 32,
-    },
-});
 
 const Wrapper = (props) => (
     <div className={css(styles.wrapper)}>
