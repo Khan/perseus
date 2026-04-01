@@ -365,7 +365,7 @@ class Editor extends React.Component<Props, State> {
         let content = this.state.textAreaValue || "";
         const dataTransfer = e.dataTransfer;
 
-        if (!dataTransfer || !imageUploader) {
+        if (!imageUploader) {
             return;
         }
 

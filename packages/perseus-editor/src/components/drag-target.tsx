@@ -80,6 +80,7 @@ class DragTarget extends React.Component<Props, State> {
         } = this.props;
 
         return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
                 {...forwardProps}
                 style={Object.assign({}, this.props.style, opacity)}
