@@ -1,0 +1,456 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap');
+
+.gameContainer {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    margin: 20px auto;
+    border: 2px solid #333;
+    background: #87ceeb;
+    overflow: hidden;
+    font-family: 'Quantico', sans-serif;
+}
+
+.gameCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.muteButton {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 100;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+}
+
+.muteButton:hover {
+    transform: scale(1.1);
+}
+
+.hudBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.4) 70%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    z-index: 4;
+    pointer-events: none;
+}
+
+.questionOverlay {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.92);
+    border: 3px solid #00ffff;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 255, 0.4);
+    max-width: 400px;
+    z-index: 10;
+    color: #fff;
+    pointer-events: all;
+}
+
+.questionOverlay :global(.perseus-widget-container),
+.questionOverlay :global(p),
+.questionOverlay :global(div),
+.questionOverlay :global(label),
+.questionOverlay :global(span),
+.questionOverlay :global(.katex),
+.questionOverlay :global(.katex *) {
+    color: #fff !important;
+}
+
+.hud {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.score {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #00ffff;
+    font-family: 'Quantico', sans-serif;
+    text-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff;
+    border: 2px solid #00ffff;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 255, 255, 0.4);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.gameTime {
+    background: #1a1a1a;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff0000;
+    font-family: "Courier New", "Lucida Console", monospace;
+    letter-spacing: 3px;
+    text-shadow: 0 0 8px #ff0000, 0 0 16px #ff0000;
+    border: 2px solid #333;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 8px rgba(255, 0, 0, 0.3);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.lives {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 10px 16px;
+    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-family: 'Quantico', sans-serif;
+    color: #ff00ff;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 0 0 8px #ff00ff, 0 0 16px #ff00ff;
+    border: 2px solid #ff00ff;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 0, 255, 0.4);
+    min-height: 44px;
+}
+
+.alien {
+    font-size: 18px;
+}
+
+.alienLost {
+    opacity: 0.3;
+    text-decoration: line-through;
+}
+
+.gameOver {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: white !important;
+    text-align: center;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameOverButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    animation: buttonShine 2s ease-in-out infinite;
+}
+
+.gameOverButton:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
+}
+
+.startScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: white !important;
+    text-align: center;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.startScreen h1 {
+    font-size: 48px;
+    margin: 0 0 20px 0;
+    color: white !important;
+    font-family: 'Quantico', sans-serif;
+}
+
+.startScreen p {
+    font-size: 18px;
+    margin: 10px 0;
+    line-height: 1.5;
+    color: white !important;
+    font-family: 'Quantico', sans-serif;
+}
+
+.startScreen button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 18px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    pointer-events: all;
+    font-family: 'Quantico', sans-serif;
+}
+
+.startScreen button:hover {
+    background: #357abd;
+}
+
+.startButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    animation: buttonShine 2s ease-in-out infinite;
+}
+
+.startButton:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
+}
+
+@keyframes buttonShine {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+    }
+}
+
+.checkButton {
+    margin-top: 12px;
+    padding: 8px 16px;
+    font-size: 16px;
+    background: #00ffff;
+    color: #000;
+    border: 2px solid #00ffff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Quantico', sans-serif;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    transition: all 0.2s ease;
+}
+
+.checkButton:hover {
+    background: #00cccc;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+    transform: translateY(-1px);
+}
+
+.checkButton:disabled {
+    background: #333;
+    color: #666;
+    border-color: #333;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Quantico', sans-serif;
+}
+
+.feedbackCorrect {
+    background: rgba(0, 255, 100, 0.15);
+    color: #00ff66;
+    border: 2px solid #00ff66;
+    text-shadow: 0 0 8px rgba(0, 255, 100, 0.8);
+    box-shadow: 0 0 15px rgba(0, 255, 100, 0.4);
+}
+
+.feedbackIncorrect {
+    background: rgba(255, 0, 100, 0.15);
+    color: #ff0066;
+    border: 2px solid #ff0066;
+    text-shadow: 0 0 8px rgba(255, 0, 100, 0.8);
+    box-shadow: 0 0 15px rgba(255, 0, 100, 0.4);
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.debugInfo {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #0f0;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+    max-width: 400px;
+    z-index: 15;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.timerContainer {
+    position: relative;
+    width: 100%;
+    height: 24px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.timerBar {
+    height: 100%;
+    transition: width 0.1s linear, background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+.timerText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+    z-index: 1;
+    font-family: 'Quantico', sans-serif;
+}
+
+.benevolenceMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 72px;
+    font-weight: bold;
+    color: #ff00ff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px
+            rgba(255, 0, 255, 0.6);
+    z-index: 30;
+    animation: benevolencePulse 2s ease-in-out;
+    pointer-events: none;
+    font-family: 'Quantico', sans-serif;
+}
+
+@keyframes benevolencePulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+.storyScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.storyNextButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    animation: buttonShine 2s ease-in-out infinite;
+}
+
+.storyNextButton:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
+}
+
+.victoryScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.victoryButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+    animation: buttonShine 2s ease-in-out infinite;
+}
+
+.victoryButton:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
+}
+
