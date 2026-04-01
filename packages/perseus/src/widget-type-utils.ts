@@ -34,9 +34,7 @@ export function getWidgetSubType(
 ): string | null {
     switch (widgetType) {
         case "interactive-graph":
-            const graph = widgetOptions.graph as
-                | PerseusGraphType
-                | undefined;
+            const graph = widgetOptions.graph as PerseusGraphType | undefined;
             return graph?.type ?? null;
         case "radio":
             return widgetOptions.multipleSelect
