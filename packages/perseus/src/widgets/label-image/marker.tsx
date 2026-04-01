@@ -6,8 +6,7 @@
  */
 
 import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
-import {boxShadow, semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -15,6 +14,7 @@ import Icon from "../../components/icon";
 import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import {AnswerPill} from "./answer-pill";
+import styles from "./marker_legacy-styles";
 
 import type {IconType} from "../../components/icon";
 import type {CSSProperties} from "aphrodite";
@@ -181,108 +181,3 @@ export default class Marker extends React.Component<Props> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    marker: {
-        position: "absolute",
-
-        backgroundColor: semanticColor.core.background.base.default,
-        borderRadius: MARKER_SIZE,
-
-        // Center marker position based on its maximum size.
-        width: MARKER_SIZE,
-        height: MARKER_SIZE,
-        marginLeft: MARKER_SIZE / -2,
-        marginTop: MARKER_SIZE / -2,
-
-        // Add a shadow to the marker to make it stand out from the image.
-        boxShadow: boxShadow.mid,
-    },
-
-    // The base and unfilled marker style.
-    markerIcon: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-
-        boxSizing: "border-box",
-
-        width: MARKER_SIZE,
-        height: MARKER_SIZE,
-
-        border: `2px solid ${semanticColor.core.border.neutral.default}`,
-        borderRadius: MARKER_SIZE,
-    },
-
-    // The animation that presents the marker to the learner
-    markerPulsateBase: {
-        animationName: {
-            "0%": {
-                transform: "scale(1)",
-                backgroundColor:
-                    semanticColor.core.background.instructive.default,
-            },
-
-            "100%": {
-                transform: "scale(1.3)",
-                backgroundColor:
-                    semanticColor.core.background.instructive.default,
-            },
-        },
-
-        animationDirection: "alternate",
-        animationDuration: "0.8s",
-        animationTimingFunction: "ease-in",
-
-        transformOrigin: "50% 50%",
-
-        animationIterationCount: "0",
-    },
-
-    markerUnfilledPulsateInfinite: {
-        animationIterationCount: "infinite",
-    },
-
-    markerUnfilledPulsateOnce: {
-        // Doing the animation twice lets it ease-in and ease-out
-        animationIterationCount: "2",
-    },
-
-    markerActive: {
-        outline: `2px solid ${semanticColor.core.border.instructive.default}`,
-        outlineOffset: 2,
-    },
-
-    // The learner is making an initial selection
-    markerSelected: {
-        boxShadow: boxShadow.mid,
-
-        border: `solid 4px ${semanticColor.core.border.knockout.default}`,
-        backgroundColor: semanticColor.core.background.instructive.default,
-        borderRadius: MARKER_SIZE,
-        transform: "rotate(180deg)",
-    },
-
-    // The learner has made a selection
-    markerFilled: {
-        backgroundColor: semanticColor.core.background.instructive.subtle,
-        border: `4px solid ${semanticColor.core.border.instructive.default}`,
-    },
-
-    markerGraded: {
-        width: MARKER_SIZE,
-        height: MARKER_SIZE,
-
-        justifyContent: "center",
-        alignItems: "center",
-        border: `2px solid ${semanticColor.core.border.knockout.default}`,
-    },
-
-    markerCorrect: {
-        background: semanticColor.core.background.success.strong,
-    },
-
-    markerIncorrect: {
-        background: semanticColor.core.background.neutral.default,
-    },
-});
