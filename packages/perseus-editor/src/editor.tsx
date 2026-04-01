@@ -360,7 +360,7 @@ class Editor extends React.Component<Props, State> {
         });
     };
 
-    handleDrop: (e: DragEvent) => void = (e: DragEvent) => {
+    handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
         const {imageUploader} = this.props;
         let content = this.state.textAreaValue || "";
         const dataTransfer = e.dataTransfer;
