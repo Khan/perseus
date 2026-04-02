@@ -26,7 +26,7 @@ export default function LockedLabel(props: LockedLabelType) {
                 left: x,
                 top: y,
                 color: lockedFigureColors[color],
-                fontSize: font.body.size[size],
+                fontSize: font.size[size],
                 backgroundColor: "rgba(255, 255, 255, 0.8)",
             }}
             aria-hidden={true}
