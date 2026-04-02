@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {PerseusMarkdown, Util, Widgets, ApiOptions} from "@khanacademy/perseus";
+import {PerseusMarkdown, Util, Widgets, ApiOptions, Log} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     Errors,
@@ -495,7 +495,7 @@ class Editor extends React.Component<Props, State> {
                 textarea.selectionEnd,
             );
 
-            const widgetNames: Array<keyof PerseusWidgetsMap> = _.map(
+            const widgetIds: Array<keyof PerseusWidgetsMap> = _.map(
                 // @ts-expect-error - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
                 selectedText.match(rWidgetSplit),
                 (syntax) => {
@@ -504,12 +504,11 @@ class Editor extends React.Component<Props, State> {
                 },
             );
 
-            const widgetData = _.pick(this.serialize().widgets, widgetNames);
+            const widgetData = _.pick(this.serialize().widgets, widgetIds);
             setPerseusClipboardData({
                 text: selectedText,
                 widgets: widgetData,
-                // eslint-disable-next-line no-console
-            }).catch(console.error);
+            }).catch(err => Log.error("failed to copy data to clipboard", "Internal", {cause: err}));
         };
 
     _maybePasteWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void =
