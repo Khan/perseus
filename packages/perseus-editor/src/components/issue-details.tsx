@@ -1,6 +1,6 @@
 // WidgetIssueDetails.tsx
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import IssueCta from "./issue-cta";
@@ -41,7 +41,10 @@ const IssueDetails = ({issue}: IssueProps) => {
             containerStyle={{backgroundColor: accordionColor}}
             panelStyle={{backgroundColor: "white"}}
             header={
-                <LabelLarge
+                <BodyText
+                    size="medium"
+                    weight="bold"
+                    tag="span"
                     style={{
                         textOverflow: "ellipsis",
                         maxWidth: "100%",
@@ -50,21 +53,33 @@ const IssueDetails = ({issue}: IssueProps) => {
                     }}
                 >
                     {`${impactStringMap[issue.impact]}: ${issue.id}`}
-                </LabelLarge>
+                </BodyText>
             }
         >
-            <LabelSmall style={{fontWeight: "bold"}}>Description:</LabelSmall>
+            <BodyText size="small" tag="span" weight="bold">
+                Description:
+            </BodyText>
             <span>{issue.description}</span>
             <a href={issue.helpUrl} target="_blank" rel="noreferrer">
                 {issue.help}
             </a>
-            <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>
+            <BodyText
+                size="small"
+                tag="span"
+                weight="bold"
+                style={{marginTop: "1em"}}
+            >
                 Impact:
-            </LabelSmall>
+            </BodyText>
             <span style={{fontWeight: "initial"}}> {issue.impact}</span>
-            <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>
+            <BodyText
+                size="small"
+                tag="span"
+                weight="bold"
+                style={{marginTop: "1em"}}
+            >
                 Issue:
-            </LabelSmall>
+            </BodyText>
             <span style={messageStyling}>{issue.message}</span>
             <ShowMe elements={issue.elements} />
             <IssueCta issue={issue} />

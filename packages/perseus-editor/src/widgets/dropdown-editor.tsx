@@ -8,7 +8,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import PropTypes from "prop-types";
@@ -107,7 +107,9 @@ class DropdownEditor extends React.Component<Props> {
         return (
             <div className="perseus-widget-dropdown">
                 <div className="dropdown-info">
-                    <LabelLarge>Dropdown</LabelLarge>
+                    <BodyText size="medium" weight="bold" tag="span">
+                        Dropdown
+                    </BodyText>
                     <InfoTip>
                         <p>
                             The drop down is useful for making inequalities in a
@@ -119,26 +121,26 @@ class DropdownEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div className="dropdown-field">
-                    <LabelMedium>
+                    <BodyText tag="label">
                         Visible label
                         <TextField
                             value={this.props.visibleLabel}
                             onChange={this.onVisibleLabelChange}
                         />
-                    </LabelMedium>
+                    </BodyText>
                     <InfoTip>
                         <p>Optional visible label</p>
                     </InfoTip>
                 </div>
                 <div className="dropdown-field">
-                    <LabelMedium>
+                    <BodyText tag="label">
                         Aria label
                         <TextField
                             value={this.props.ariaLabel}
                             onChange={this.onAriaLabelChange}
                             type={"text"}
                         />
-                    </LabelMedium>
+                    </BodyText>
                     <InfoTip>
                         <p>
                             Label text that&apos;s read by screen readers.
@@ -158,14 +160,14 @@ class DropdownEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div className="dropdown-field">
-                    <LabelMedium>
+                    <BodyText tag="label">
                         Placeholder
                         <TextField
                             value={this.props.placeholder}
                             onChange={this.onPlaceholderChange}
                             placeholder={"Placeholder value"}
                         />
-                    </LabelMedium>
+                    </BodyText>
                     <InfoTip>
                         <p>
                             This value will appear as the drop down default. It
@@ -176,7 +178,7 @@ class DropdownEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div className="clearfix" />
-                <LabelMedium>Choices</LabelMedium>
+                <BodyText>Choices</BodyText>
                 <ul className="dropdown-choices">
                     {this.props.choices.map((choice, i) => {
                         const choiceBackgroundColor = choice.correct

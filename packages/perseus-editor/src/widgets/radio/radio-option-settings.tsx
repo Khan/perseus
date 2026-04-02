@@ -1,7 +1,7 @@
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import styles from "./radio-editor.module.css";
@@ -73,14 +73,17 @@ export const RadioOptionSettings = React.forwardRef<
                         onStatusChange(index, !correct);
                     }}
                 />
-                <HeadingXSmall
+                <BodyText
+                    size="small"
+                    weight="bold"
+                    tag="span"
                     style={{
                         display: "inline",
                         marginInlineEnd: sizing.size_080,
                     }}
                 >
                     Status
-                </HeadingXSmall>
+                </BodyText>
                 <Pill
                     kind={correct ? "accent" : "transparent"}
                     onClick={() => {
@@ -124,7 +127,9 @@ export const RadioOptionSettings = React.forwardRef<
                 onContentChange={onContentChange}
             />
 
-            <HeadingXSmall
+            <BodyText
+                size="small"
+                weight="bold"
                 tag="label"
                 htmlFor={rationaleTextAreaId}
                 style={{
@@ -133,7 +138,7 @@ export const RadioOptionSettings = React.forwardRef<
                 }}
             >
                 Rationale
-            </HeadingXSmall>
+            </BodyText>
             <TextArea
                 id={rationaleTextAreaId}
                 value={rationale ?? ""}
