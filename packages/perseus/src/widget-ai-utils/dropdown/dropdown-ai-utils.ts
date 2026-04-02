@@ -3,9 +3,19 @@ import type React from "react";
 
 export type DropdownPromptJSON = {
     type: "dropdown";
+
+    /**
+     * The configuration of the widget, set by the content creator.
+     */
     options: {
+        /** The choices present in the dropdown */
         items: ReadonlyArray<string>;
     };
+
+    /**
+     * The current state of the widget user interface. Usually represents a
+     * learner's attempt to answer a question.
+     */
     userInput: {
         selectedIndex: number;
     };
