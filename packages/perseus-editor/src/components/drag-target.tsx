@@ -13,11 +13,12 @@
  * it's a target.
  */
 
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 type Props = {
-    onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
-    shouldDragHighlight: (e: React.DragEvent) => boolean;
+    onDrop: (e: React.MouseEvent) => unknown;
+    shouldDragHighlight: (e: React.MouseEvent) => boolean;
     style?: React.CSSProperties;
     children?: React.ReactNode;
     className?: string;
@@ -48,7 +49,7 @@ class DragTarget extends React.Component<Props, State> {
         this.handleDragEnter = this.handleDragEnter.bind(this);
     }
 
-    handleDrop(e: React.DragEvent<HTMLDivElement>) {
+    handleDrop(e: React.MouseEvent) {
         e.stopPropagation();
         e.preventDefault();
         this.setState({dragHover: false});
@@ -59,7 +60,7 @@ class DragTarget extends React.Component<Props, State> {
         this.setState({dragHover: false});
     }
 
-    handleDragOver(e: React.DragEvent) {
+    handleDragOver(e: React.MouseEvent) {
         e.preventDefault();
     }
 
@@ -67,7 +68,7 @@ class DragTarget extends React.Component<Props, State> {
         this.setState({dragHover: false});
     }
 
-    handleDragEnter(e: React.DragEvent) {
+    handleDragEnter(e: React.MouseEvent) {
         this.setState({dragHover: this.props.shouldDragHighlight(e)});
     }
 
@@ -80,8 +81,7 @@ class DragTarget extends React.Component<Props, State> {
         } = this.props;
 
         return (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-            <div
+            <View
                 {...forwardProps}
                 style={Object.assign({}, this.props.style, opacity)}
                 onDrop={this.handleDrop}
