@@ -1002,6 +1002,17 @@ export class Graphie {
 
             $span.setPosition(point);
 
+            // Apply text-affecting styles (e.g. font-size) before
+            // measuring dimensions in processText/processMath, so that
+            // setLabelMargins receives correctly-sized measurements.
+            // Without this, processText (synchronous) would measure at
+            // the default font size, since postprocessDrawingResult
+            // only applies styles after this callback returns.
+            $span.css({
+                ...this.currentStyle,
+                ...SVG_SPECIFIC_STYLE_MASK,
+            });
+
             const span = $span[0];
             this.#labelElements.add(span);
 
