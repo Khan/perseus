@@ -11,6 +11,7 @@ import ReactDOM from "react-dom";
 import {DependenciesContext} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
+import {getWidgetSubType} from "./widget-type-utils";
 import * as Widgets from "./widgets";
 
 import type {WidgetProps} from "./types";
@@ -99,12 +100,8 @@ class WidgetContainer extends React.Component<Props, State> {
             return <div className={className} />;
         }
 
-        let subType = "null";
-        if (type === "interactive-graph") {
-            const props = this.props.widgetProps;
-
-            subType = props.graph?.type ?? "null";
-        }
+        const subType =
+            getWidgetSubType(type, this.props.widgetProps) ?? "null";
 
         let alignment = this.props.widgetProps.alignment;
         if (alignment === "default") {

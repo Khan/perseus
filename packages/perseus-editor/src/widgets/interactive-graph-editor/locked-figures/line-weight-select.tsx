@@ -1,7 +1,7 @@
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import type {StrokeWeight} from "@khanacademy/perseus-core";
@@ -17,7 +17,7 @@ const LineWeightSelect = (props: Props) => {
     const {selectedValue, containerStyle, onChange} = props;
 
     return (
-        <LabelMedium
+        <BodyText
             tag="label"
             style={[
                 {
@@ -42,7 +42,7 @@ const LineWeightSelect = (props: Props) => {
                 <OptionItem value="medium" label="medium" />
                 <OptionItem value="thick" label="thick" />
             </SingleSelect>
-        </LabelMedium>
+        </BodyText>
     );
 };
 

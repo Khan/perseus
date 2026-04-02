@@ -15,7 +15,7 @@ import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -85,12 +85,15 @@ export default function LockedLabelSettings(props: Props) {
             onToggle={onToggle}
             header={
                 <View style={[styles.row, styles.accordionHeaderContainer]}>
-                    <LabelLarge>
+                    <BodyText size="medium" weight="bold" tag="span">
                         Label ({coord[0]}, {coord[1]})
-                    </LabelLarge>
+                    </BodyText>
                     <Strut size={spacing.xSmall_8} />
                     {text !== "" && (
-                        <LabelLarge
+                        <BodyText
+                            size="medium"
+                            weight="bold"
+                            tag="span"
                             style={[
                                 {
                                     backgroundColor:
@@ -102,7 +105,7 @@ export default function LockedLabelSettings(props: Props) {
                             ]}
                         >
                             {text}
-                        </LabelLarge>
+                        </BodyText>
                     )}
                 </View>
             }
@@ -119,7 +122,7 @@ export default function LockedLabelSettings(props: Props) {
 
             {/* Text settings */}
             <View style={styles.row}>
-                <LabelMedium
+                <BodyText
                     tag="label"
                     style={[styles.row, styles.spaceUnder, {flexGrow: 1}]}
                 >
@@ -134,7 +137,7 @@ export default function LockedLabelSettings(props: Props) {
                             })
                         }
                     />
-                </LabelMedium>
+                </BodyText>
                 <InfoTip>
                     Surround your text with $ for TeX.
                     <br />
@@ -158,7 +161,7 @@ export default function LockedLabelSettings(props: Props) {
                 <Strut size={spacing.medium_16} />
 
                 {/* Size settings */}
-                <LabelMedium tag="label" style={styles.row}>
+                <BodyText tag="label" style={styles.row}>
                     size
                     <Strut size={spacing.xSmall_8} />
                     <SingleSelect
@@ -178,7 +181,7 @@ export default function LockedLabelSettings(props: Props) {
                         <OptionItem value="medium" label="medium" />
                         <OptionItem value="large" label="large" />
                     </SingleSelect>
-                </LabelMedium>
+                </BodyText>
             </View>
 
             {/* Actions */}

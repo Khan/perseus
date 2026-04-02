@@ -1,7 +1,7 @@
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -18,10 +18,7 @@ const LineStrokeSelect = (props: Props) => {
     const {selectedValue, containerStyle, onChange} = props;
 
     return (
-        <LabelMedium
-            tag="label"
-            style={[styles.lineStrokeSelect, containerStyle]}
-        >
+        <BodyText tag="label" style={[styles.lineStrokeSelect, containerStyle]}>
             stroke
             <Strut size={spacing.xxxSmall_4} />
             <SingleSelect
@@ -33,7 +30,7 @@ const LineStrokeSelect = (props: Props) => {
                 <OptionItem value="solid" label="solid" />
                 <OptionItem value="dashed" label="dashed" />
             </SingleSelect>
-        </LabelMedium>
+        </BodyText>
     );
 };
 

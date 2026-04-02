@@ -1,5 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import ScrolllessNumberTextField from "../scrollless-number-text-field";
@@ -60,12 +60,14 @@ export const LongPageScroll: StoryComponentType = {
 
         return (
             <>
-                <LabelLarge>Scroll down to see the input.</LabelLarge>
+                <BodyText size="medium" weight="bold">
+                    Scroll down to see the input.
+                </BodyText>
                 <View style={{height: "100vh"}} />
-                <LabelLarge>
+                <BodyText size="medium" weight="bold">
                     Observe that scrolling on the input field with a mouse wheel
                     changes the number, but does not scroll the page.
-                </LabelLarge>
+                </BodyText>
                 <ScrolllessNumberTextField value={value} onChange={setValue} />
                 <View style={{height: "100vh"}} />
             </>
