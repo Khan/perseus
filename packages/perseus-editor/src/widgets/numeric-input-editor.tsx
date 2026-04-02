@@ -14,7 +14,7 @@ import {
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import Pill from "@khanacademy/wonder-blocks-pill";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import _ from "underscore";
@@ -582,7 +582,15 @@ class NumericInputEditor extends React.Component<Props, State> {
                             onToggle={() => {
                                 this.onToggleAnswers(i);
                             }}
-                            header={<LabelLarge>{answerHeading}</LabelLarge>}
+                            header={
+                                <BodyText
+                                    size="medium"
+                                    weight="bold"
+                                    tag="span"
+                                >
+                                    {answerHeading}
+                                </BodyText>
+                            }
                         >
                             <div
                                 className={

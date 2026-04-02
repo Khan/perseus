@@ -11,7 +11,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
@@ -221,14 +221,16 @@ const LockedLineSettings = (props: Props) => {
             onToggle={props.onToggle}
             header={
                 <View style={styles.row}>
-                    <LabelLarge>{lineLabel}</LabelLarge>
+                    <BodyText size="medium" weight="bold" tag="span">
+                        {lineLabel}
+                    </BodyText>
                     <Strut size={spacing.xSmall_8} />
                     <LineSwatch color={lineColor} lineStyle={lineStyle} />
                 </View>
             }
         >
             {/* Line kind settings */}
-            <LabelMedium tag="label" style={[styles.row, styles.spaceUnder]}>
+            <BodyText tag="label" style={[styles.row, styles.spaceUnder]}>
                 kind
                 <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
@@ -245,7 +247,7 @@ const LockedLineSettings = (props: Props) => {
                     <OptionItem value="ray" label="ray" />
                     <OptionItem value="segment" label="segment" />
                 </SingleSelect>
-            </LabelMedium>
+            </BodyText>
 
             <View style={[styles.row, styles.spaceUnder]}>
                 {/* Line color settings */}
@@ -273,9 +275,7 @@ const LockedLineSettings = (props: Props) => {
 
             {/* Points error message */}
             {isInvalid && (
-                <LabelMedium style={styles.errorText}>
-                    {lengthZeroStr}
-                </LabelMedium>
+                <BodyText style={styles.errorText}>{lengthZeroStr}</BodyText>
             )}
 
             {/* Defining points settings */}
@@ -317,7 +317,7 @@ const LockedLineSettings = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
-            <LabelMedium>Visible labels</LabelMedium>
+            <BodyText>Visible labels</BodyText>
 
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings

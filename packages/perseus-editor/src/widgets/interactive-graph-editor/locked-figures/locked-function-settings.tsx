@@ -16,7 +16,7 @@ import {
     sizing,
     spacing,
 } from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
 import autoPasteIcon from "@phosphor-icons/core/assets/regular/note-pencil.svg";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
@@ -192,9 +192,14 @@ const LockedFunctionSettings = (props: Props) => {
             onToggle={props.onToggle}
             header={
                 <View style={styles.row}>
-                    <LabelLarge style={styles.accordionHeader}>
+                    <BodyText
+                        size="medium"
+                        weight="bold"
+                        tag="span"
+                        style={styles.accordionHeader}
+                    >
                         {lineLabel}
-                    </LabelLarge>
+                    </BodyText>
                     <Strut size={spacing.xSmall_8} />
                     <LineSwatch color={lineColor} lineStyle={strokeStyle} />
                 </View>
@@ -253,7 +258,7 @@ const LockedFunctionSettings = (props: Props) => {
 
             {/* Domain/Range restrictions */}
             <View style={[styles.row, styles.rowSpace]}>
-                <LabelMedium
+                <BodyText
                     tag="label"
                     style={[styles.dropdownLabel, styles.domainMin]}
                 >
@@ -268,9 +273,9 @@ const LockedFunctionSettings = (props: Props) => {
                             handleDomainChange(0, newValue);
                         }}
                     />
-                </LabelMedium>
+                </BodyText>
                 <Strut size={spacing.medium_16} />
-                <LabelMedium
+                <BodyText
                     tag="label"
                     aria-label="domain max"
                     style={[styles.dropdownLabel, styles.domainMax]}
@@ -286,17 +291,21 @@ const LockedFunctionSettings = (props: Props) => {
                             handleDomainChange(1, newValue);
                         }}
                     />
-                </LabelMedium>
+                </BodyText>
             </View>
 
             {/* Examples */}
             <PerseusEditorAccordion
-                header={<LabelLarge>Example Functions</LabelLarge>}
+                header={
+                    <BodyText size="medium" weight="bold" tag="span">
+                        Example Functions
+                    </BodyText>
+                }
                 expanded={false}
                 containerStyle={styles.exampleWorkspace}
                 panelStyle={styles.exampleAccordionPanel}
             >
-                <LabelMedium tag="label" style={styles.dropdownLabel}>
+                <BodyText tag="label" style={styles.dropdownLabel}>
                     {"Choose a category"}
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
@@ -314,7 +323,7 @@ const LockedFunctionSettings = (props: Props) => {
                             );
                         })}
                     </SingleSelect>
-                </LabelMedium>
+                </BodyText>
                 {exampleCategorySelected && (
                     <ul className={css(styles.exampleContainer)}>
                         {exampleContent.map((example, index) => (
@@ -345,7 +354,7 @@ const LockedFunctionSettings = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
-            <LabelMedium>Visible labels</LabelMedium>
+            <BodyText>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     key={labelIndex}

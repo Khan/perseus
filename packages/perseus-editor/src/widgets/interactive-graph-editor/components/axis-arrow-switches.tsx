@@ -1,5 +1,5 @@
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import React from "react";
 
 import LabeledSwitch from "../../../components/labeled-switch";
@@ -17,7 +17,7 @@ export default function AxisArrowSwitches(props: AxisArrowSwitchesProps) {
 
     return (
         <>
-            <LabelSmall>Arrows</LabelSmall>
+            <BodyText size="small">Arrows</BodyText>
             <div
                 className="perseus-widget-row"
                 style={{

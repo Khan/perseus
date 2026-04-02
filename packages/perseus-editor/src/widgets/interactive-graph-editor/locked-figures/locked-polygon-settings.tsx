@@ -13,7 +13,7 @@ import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowFatDown from "@phosphor-icons/core/regular/arrow-fat-down.svg";
 import arrowFatLeft from "@phosphor-icons/core/regular/arrow-fat-left.svg";
 import arrowFatRight from "@phosphor-icons/core/regular/arrow-fat-right.svg";
@@ -178,7 +178,11 @@ const LockedPolygonSettings = (props: Props) => {
             header={
                 // Summary: Polygon, number of sides, style swatch
                 <View style={styles.row}>
-                    <LabelLarge>{`Polygon, ${points.length} sides`}</LabelLarge>
+                    <BodyText
+                        size="medium"
+                        weight="bold"
+                        tag="span"
+                    >{`Polygon, ${points.length} sides`}</BodyText>
                     <Strut size={spacing.xSmall_8} />
                     <PolygonSwatch
                         color={color}
@@ -197,7 +201,7 @@ const LockedPolygonSettings = (props: Props) => {
                 <Strut size={spacing.medium_16} />
 
                 {/* Fill opacity */}
-                <LabelMedium
+                <BodyText
                     tag="label"
                     style={[styles.row, styles.truncatedWidth]}
                 >
@@ -221,7 +225,7 @@ const LockedPolygonSettings = (props: Props) => {
                             />
                         ))}
                     </SingleSelect>
-                </LabelMedium>
+                </BodyText>
             </View>
 
             {/* Stroke style */}
@@ -253,7 +257,11 @@ const LockedPolygonSettings = (props: Props) => {
             />
 
             <PerseusEditorAccordion
-                header={<LabelLarge>Points</LabelLarge>}
+                header={
+                    <BodyText size="medium" weight="bold" tag="span">
+                        Points
+                    </BodyText>
+                }
                 expanded={true}
                 containerStyle={styles.pointAccordionContainer}
                 panelStyle={styles.pointAccordionPanel}
@@ -267,7 +275,10 @@ const LockedPolygonSettings = (props: Props) => {
                             style={[styles.row, styles.spaceUnder]}
                         >
                             {/* Give the points alphabet labels */}
-                            <LabelLarge>{`${pointLabel}:`}</LabelLarge>
+                            <BodyText
+                                size="medium"
+                                weight="bold"
+                            >{`${pointLabel}:`}</BodyText>
                             <Strut size={spacing.medium_16} />
                             <CoordinatePairInput
                                 coord={point}
@@ -368,7 +379,7 @@ const LockedPolygonSettings = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
-            <LabelMedium>Visible labels</LabelMedium>
+            <BodyText>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}
