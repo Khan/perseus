@@ -142,7 +142,7 @@ export default function ImageSettings({
                     styles={wbFieldStylesWithDescription}
                 />
                 <BodyText
-                    size="small"
+                    size="xsmall"
                     tag="span"
                     style={wbStyles.characterCounter}
                 >
