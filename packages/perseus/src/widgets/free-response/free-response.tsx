@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     },
     characterCountText: {
         color: semanticColor.core.foreground.neutral.default,
-        fontSize: font.size.small,
+        fontSize: font.body.size.small,
     },
     overCharacterLimit: {
         color: semanticColor.core.foreground.critical.default,

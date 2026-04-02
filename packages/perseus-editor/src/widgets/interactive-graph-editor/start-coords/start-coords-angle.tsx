@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         marginTop: spacing.xSmall_8,
         paddingLeft: spacing.xSmall_8,
         paddingRight: spacing.xSmall_8,
-        fontSize: font.size.xSmall,
+        fontSize: font.body.size.xsmall,
     },
 });
 

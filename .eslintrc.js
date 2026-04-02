@@ -301,6 +301,19 @@ module.exports = {
                 message:
                     "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
             },
+            /** Wonder Blocks Tokens: Deprecated font tokens */
+            {
+                selector:
+                    "MemberExpression[object.name='font'][property.name='size']",
+                message:
+                    "font.size.* tokens are deprecated. Use font.body.size.* or font.heading.size.* instead, or prefer <Heading> / <BodyText> components. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography--docs and https://khan.github.io/wonder-blocks/?path=/docs/packages-tokens-typography--docs&globals=theme:thunderblocks",
+            },
+            {
+                selector:
+                    "MemberExpression[object.name='font'][property.name='lineHeight']",
+                message:
+                    "font.lineHeight.* tokens are deprecated. Use font.body.lineHeight.* or font.heading.lineHeight.* instead, or prefer <Heading> / <BodyText> components. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography--docs and https://khan.github.io/wonder-blocks/?path=/docs/packages-tokens-typography--docs&globals=theme:thunderblocks",
+            },
         ],
         "no-restricted-properties": [
             "error",
