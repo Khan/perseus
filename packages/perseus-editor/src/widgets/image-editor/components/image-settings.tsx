@@ -3,7 +3,7 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {Footnote} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -141,9 +141,13 @@ export default function ImageSettings({
                     }
                     styles={wbFieldStylesWithDescription}
                 />
-                <Footnote style={wbStyles.characterCounter}>
+                <BodyText
+                    size="small"
+                    tag="span"
+                    style={wbStyles.characterCounter}
+                >
                     {alt?.length ?? 0} characters
-                </Footnote>
+                </BodyText>
             </div>
 
             {altFieldWarning && (
