@@ -1,11 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
-import {
-    Changeable,
-    Dependencies,
-    EditorJsonify,
-    Util,
-} from "@khanacademy/perseus";
+import {Dependencies, EditorJsonify, Util} from "@khanacademy/perseus";
 import {
     interactionLogic,
     type Coords,
@@ -40,7 +35,8 @@ type Graph = {
     valid?: boolean;
 };
 
-type Props = Changeable.ChangeableProps & {
+type Props = {
+    onChange: (newProps: Record<string, unknown>) => void;
     elements: ReadonlyArray<any>;
     graph: Graph;
 };
@@ -99,9 +95,8 @@ class InteractionEditor extends React.Component<Props, State> {
         );
     }
 
-    _updateGraphProps: (arg1: any) => any = (newProps) => {
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-        this.change({
+    _updateGraphProps = (newProps: Record<string, unknown>) => {
+        this.props.onChange({
             graph: _.extend(_.omit(newProps, "step"), {
                 tickStep: newProps.step,
             }),
@@ -170,36 +165,30 @@ class InteractionEditor extends React.Component<Props, State> {
             // @ts-expect-error - TS2339 - Property 'funcName' does not exist on type '{}'.
             newElement.options.funcName = nextLetter;
         }
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-        this.change({
+        this.props.onChange({
             elements: this.props.elements.concat(newElement),
         });
     };
 
     _deleteElement: (arg1: number) => void = (index) => {
         const element = this.props.elements[index];
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-        this.change({elements: _.without(this.props.elements, element)});
+        this.props.onChange({
+            elements: _.without(this.props.elements, element),
+        });
     };
 
     _moveElementUp: (arg1: number) => void = (index) => {
         const element = this.props.elements[index];
         const newElements = _.without(this.props.elements, element);
         newElements.splice(index - 1, 0, element);
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-        this.change({elements: newElements});
+        this.props.onChange({elements: newElements});
     };
 
     _moveElementDown: (arg1: number) => void = (index) => {
         const element = this.props.elements[index];
         const newElements = _.without(this.props.elements, element);
         newElements.splice(index + 1, 0, element);
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-        this.change({elements: newElements});
-    };
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        this.props.onChange({elements: newElements});
     };
 
     serialize: () => any = () => {
@@ -286,7 +275,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                                 newProps,
                                             );
                                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.change({elements: elements});
+                                            this.props.onChange({
+                                                elements: elements,
+                                            });
                                         }}
                                     />
                                 </ElementContainer>
@@ -357,7 +348,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                                 newProps,
                                             );
                                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.change({elements: elements});
+                                            this.props.onChange({
+                                                elements: elements,
+                                            });
                                         }}
                                     />
                                 </ElementContainer>
@@ -416,7 +409,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                                 newProps,
                                             );
                                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.change({elements: elements});
+                                            this.props.onChange({
+                                                elements: elements,
+                                            });
                                         }}
                                     />
                                 </ElementContainer>
@@ -483,7 +478,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                                 newProps,
                                             );
                                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.change({elements: elements});
+                                            this.props.onChange({
+                                                elements: elements,
+                                            });
                                         }}
                                     />
                                 </ElementContainer>
@@ -539,7 +536,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                                 newProps,
                                             );
                                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.change({elements: elements});
+                                            this.props.onChange({
+                                                elements: elements,
+                                            });
                                         }}
                                     />
                                 </ElementContainer>
@@ -586,7 +585,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                                 newProps,
                                             );
                                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.change({elements: elements});
+                                            this.props.onChange({
+                                                elements: elements,
+                                            });
                                         }}
                                     />
                                 </ElementContainer>
@@ -642,7 +643,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                                 newProps,
                                             );
                                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.change({elements: elements});
+                                            this.props.onChange({
+                                                elements: elements,
+                                            });
                                         }}
                                     />
                                 </ElementContainer>
@@ -706,7 +709,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                                 newProps,
                                             );
                                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.change({elements: elements});
+                                            this.props.onChange({
+                                                elements: elements,
+                                            });
                                         }}
                                     />
                                 </ElementContainer>
