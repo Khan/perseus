@@ -256,8 +256,16 @@ describe("Editor", () => {
         rerender(<Harnessed onChange={handleChange} {...renderer} />);
 
         // Act: restore the widget
-        await userEvent.click(contentTextarea);
-        await userEvent.paste("[[☃ image 1]]");
+        for (const char of "[[☃ image 1]]") {
+            // Note: userEvent treats square brackets as special characters.
+            // Doubling the bracket escapes it.
+            await userEvent.type(contentTextarea, char.replace(/\[/, "[["));
+            // We have to re-render after every keystroke because the textarea
+            // is controlled. Its value doesn't update otherwise.
+            rerender(<Harnessed onChange={handleChange} {...renderer} />);
+        }
+
+        expect(renderer.content).toEqual("[[☃ image 1]]");
 
         // Assert:
         expect(renderer.widgets).toEqual({

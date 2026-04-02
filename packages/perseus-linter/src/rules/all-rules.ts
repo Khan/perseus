@@ -13,7 +13,8 @@ import ImageInTable from "./image-in-table";
 import ImageMarkdown from "./image-markdown";
 import ImageSpacesAroundUrls from "./image-spaces-around-urls";
 import ImageUrlEmpty from "./image-url-empty";
-import ImageWidget from "./image-widget";
+import ImageWidgetAltText from "./image-widget-alt-text";
+import ImageWidgetEmptySize from "./image-widget-empty-size";
 import InaccessibleWidget from "./inaccessible-widget";
 import InteractiveGraphWidgetError from "./interactive-graph-widget-error";
 import LabelImageWidgetError from "./label-image-widget-error";
@@ -71,7 +72,8 @@ export default [
     MathWithoutDollars,
     UnbalancedCodeDelimiters,
     ImageSpacesAroundUrls,
-    ImageWidget,
+    ImageWidgetAltText,
+    ImageWidgetEmptySize,
     InaccessibleWidget,
     RadioWidgetError,
     ExpressionWidgetError,

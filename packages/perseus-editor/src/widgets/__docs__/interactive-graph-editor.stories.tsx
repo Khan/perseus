@@ -26,6 +26,7 @@ import {
     segmentsWithStartingCoordsQuestion,
     segmentWithLockedFigures,
     segmentWithStartingCoordsQuestion,
+    exponentialMinimalQuestion,
     sinusoidMinimalQuestion,
     sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
@@ -111,6 +112,12 @@ export const InteractiveGraphQuadratic = (): React.ReactElement => {
         <EditorPageWithStorybookPreview
             question={quadraticWithStartingCoordsQuestion}
         />
+    );
+};
+
+export const InteractiveGraphExponential = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview question={exponentialMinimalQuestion} />
     );
 };
 

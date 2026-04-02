@@ -95,11 +95,14 @@ export type MakeWidgetMap<TRegistry> = {
  * Our core set of Perseus widgets.
  *
  * This interface is the basis for "registering" all Perseus widget types.
+ *
  * There should be one key/value pair for each supported widget. If you create
  * a new widget, an entry should be added to this interface. Note that this
  * only registers the widget options type, you'll also need to register the
- * widget so that it's available at runtime (@see
- * {@link file://./widgets.ts#registerWidget}).
+ * widget so that it's available at runtime using `registerWidget` in this
+ * library  (as well as equivalent `registerWidget` functions in
+ * `@khanacademy/perseus` (for UI support) and `@khanacademy/perseus-score`
+ * (for scoring support)).
  *
  * Importantly, the key should be the name that is used in widget IDs. For most
  * widgets that is the same as the widget option's `type` field. In cases where
@@ -220,10 +223,10 @@ export type PerseusItem = {
      * itself does not ship with any of these tools, they are strictly hints to
      * the host application.
      */
-    // TODO(benchristel): The parser for PerseusAnswerArea never returns null
-    //     or undefined. We could remove `| null | undefined` here, but we'd
+    // TODO(benchristel): The parser for PerseusAnswerArea never returns
+    //     undefined. We could remove `| undefined` here, but we'd
     //     have to update a bunch of test data in both this repo and frontend.
-    answerArea: PerseusAnswerArea | null | undefined;
+    answerArea?: PerseusAnswerArea | undefined;
 };
 
 /**
@@ -676,7 +679,7 @@ export type GraphRange = [
 
 /**
  * The state of the grapher widget's plotted function, discriminated by
- * function type {@link GrapherAnswerTypes.type}. Used as both the learner's
+ * the `type` field. Used as both the learner's
  * user input and the rubric's correct answer.
  */
 export type GrapherAnswerTypes =
@@ -1093,6 +1096,7 @@ export type LockedLabelType = {
 };
 
 export type PerseusGraphType =
+    | PerseusGraphTypeAbsoluteValue
     | PerseusGraphTypeAngle
     | PerseusGraphTypeCircle
     | PerseusGraphTypeLinear
@@ -1104,6 +1108,7 @@ export type PerseusGraphType =
     | PerseusGraphTypeRay
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid
+    | PerseusGraphTypeExponential
     | PerseusGraphTypeTangent;
 
 export type PerseusGraphTypeAngle = {
@@ -1229,12 +1234,38 @@ export type PerseusGraphTypeTangent = {
     startCoords?: Coord[];
 };
 
+export type PerseusGraphTypeExponential = {
+    type: "exponential";
+    /** Two points along the exponential curve. */
+    coords?: Coord[] | null;
+    /**
+     * The y-value of the horizontal asymptote (the line y = asymptote).
+     * Corresponds to the coefficient c in f(x) = a·eᵇˣ + c.
+     */
+    asymptote?: number | null;
+    /** The initial coordinates the graph renders with. */
+    startCoords?: {coords: [Coord, Coord]; asymptote: number};
+};
+
+export type PerseusGraphTypeAbsoluteValue = {
+    type: "absolute-value";
+    // Expects [vertex, secondPoint]
+    coords?: [Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord];
+};
+
 export type PerseusGraphTypeRay = {
     type: "ray";
     /** Expects a list of 2 Coords */
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+};
+
+type AbsoluteValueGraphCorrect = {
+    type: "absolute-value";
+    coords: [Coord, Coord];
 };
 
 type AngleGraphCorrect = {
@@ -1290,6 +1321,12 @@ type SinusoidGraphCorrect = {
     coords: CollinearTuple;
 };
 
+type ExponentialGraphCorrect = {
+    type: "exponential";
+    coords: CollinearTuple;
+    asymptote: number;
+};
+
 type TangentGraphCorrect = {
     type: "tangent";
     coords: CollinearTuple;
@@ -1301,6 +1338,7 @@ type RayGraphCorrect = {
 };
 
 export type PerseusGraphCorrectType =
+    | AbsoluteValueGraphCorrect
     | AngleGraphCorrect
     | CircleGraphCorrect
     | LinearGraphCorrect
@@ -1312,6 +1350,7 @@ export type PerseusGraphCorrectType =
     | RayGraphCorrect
     | SegmentGraphCorrect
     | SinusoidGraphCorrect
+    | ExponentialGraphCorrect
     | TangentGraphCorrect;
 
 /** Options for the label-image widget. Asks learners to label image parts. */

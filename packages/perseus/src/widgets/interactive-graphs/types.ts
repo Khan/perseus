@@ -29,6 +29,7 @@ export type InteractiveGraphElementSuite = {
 };
 
 export type InteractiveGraphState =
+    | AbsoluteValueGraphState
     | AngleGraphState
     | SegmentGraphState
     | LinearSystemGraphState
@@ -40,6 +41,7 @@ export type InteractiveGraphState =
     | CircleGraphState
     | QuadraticGraphState
     | SinusoidGraphState
+    | ExponentialGraphState
     | TangentGraphState;
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
@@ -115,6 +117,18 @@ export interface QuadraticGraphState extends InteractiveGraphStateCommon {
 
 export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     type: "sinusoid";
+    coords: [vec.Vector2, vec.Vector2];
+}
+
+export interface ExponentialGraphState extends InteractiveGraphStateCommon {
+    type: "exponential";
+    coords: [vec.Vector2, vec.Vector2];
+    /** The y-value of the horizontal asymptote (y = asymptote). */
+    asymptote: number;
+}
+
+export interface AbsoluteValueGraphState extends InteractiveGraphStateCommon {
+    type: "absolute-value";
     coords: [vec.Vector2, vec.Vector2];
 }
 

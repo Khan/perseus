@@ -16,14 +16,27 @@ const config = {
     name: "Perseus",
     entryPointStrategy: "packages",
     entryPoints,
-    out: "docs",
-    cleanOutputDir: true,
+    out: "docs/",
+    // This is disabled because it ends up also deleting the `.gitkeep`
+    // placeholder file in the docs/ directory that ensures the folder exists
+    // in git. Instead, we have a custom package.json script (clean:docs) that
+    // deletes all files in this folder but retains the `.gitkeep` file.
+    cleanOutputDir: false,
     githubPages: true,
-    includeVersion: true,
+    treatWarningsAsErrors: true,
+    plugin: ["typedoc-plugin-missing-exports"],
     packageOptions: {
-        excludePrivate: true,
+        excludeExternals: true,
         excludeInternal: true,
+        excludePrivate: true,
         excludeProtected: true,
+        includeVersion: true,
+        // Suppress warnings about React internal symbols (e.g. lifecycle
+        // methods from @types/react) that TypeDoc resolves but can't link to
+        // because they aren't part of our documentation.
+        externalSymbolLinkMappings: {
+            "@types/react": {"*": "#"},
+        },
         readme: "README.md",
         entryPoints: ["./src/index.ts"],
     },

@@ -95,6 +95,8 @@ export class Graphie {
     el: Element;
     #bounds?: GraphBounds;
     #drawingTransform?: DrawingTransform;
+    #labelElements: Set<HTMLElement> = new Set();
+    #resizeObserver: ResizeObserver | null = null;
 
     // The primary drawing layer
     raphael?: any;
@@ -1001,6 +1003,7 @@ export class Graphie {
             $span.setPosition(point);
 
             const span = $span[0];
+            this.#labelElements.add(span);
 
             $span.processMath = function (math, force) {
                 processMath(span, math, force, function () {
@@ -1022,6 +1025,8 @@ export class Graphie {
             } else {
                 $span.processText(text);
             }
+
+            this._ensureResizeObserver();
 
             return $span;
         });
@@ -1577,6 +1582,40 @@ export class Graphie {
     getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
         return this.unscalePoint(this.getMousePx(event));
     }
+
+    /**
+     * Lazily create a ResizeObserver on this.el so that when the container
+     * resizes (e.g. responsive images on window resize) the label margins,
+     * padding, and font-size are recalculated.
+     */
+    private _ensureResizeObserver(): void {
+        if (
+            this.#resizeObserver != null ||
+            typeof ResizeObserver === "undefined"
+        ) {
+            return;
+        }
+
+        this.#resizeObserver = new ResizeObserver(() => {
+            this._recalculateLabels();
+        });
+        this.#resizeObserver.observe(this.el);
+    }
+
+    private _recalculateLabels(): void {
+        this.#labelElements.forEach((span) => {
+            const originalSize = $(span).data("originalLabelSize");
+            if (originalSize != null) {
+                setLabelMargins(span, originalSize);
+            }
+        });
+    }
+
+    cleanup(): void {
+        this.#resizeObserver?.disconnect();
+        this.#resizeObserver = null;
+        this.#labelElements.clear();
+    }
 }
 
 const labelDirections = {
@@ -1662,6 +1701,13 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     const $span = $(span);
     const direction = $span.data("labelDirection");
     let [width, height] = size;
+
+    // Store the original (pre-scaling) label size on first call so that
+    // we can recalculate margins correctly when the container resizes.
+    if ($span.data("originalLabelSize") == null) {
+        $span.data("originalLabelSize", [width, height]);
+    }
+
     // This can happen when a span
     // is invisible but we still want to update the CSS. At worst, we will
     // be off by a few pixels instead of in a different position entirely.
@@ -1739,10 +1785,18 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             scale = 1;
         }
 
-        // Any padding needs to be scaled accordingly.
-        const padding = $span.css("padding") ?? "0px";
-        const currentPadding = padding !== "none" ? padding : "0px";
-        const rawPadding = parseInt(currentPadding.replace(/px$/, ""));
+        // Use the original (pre-scaling) padding so that recalculations
+        // during resize don't compound previously scaled values.
+        let rawPadding: number;
+        const storedPadding = $span.data("originalPadding");
+        if (storedPadding != null) {
+            rawPadding = storedPadding;
+        } else {
+            const padding = $span.css("padding") ?? "0px";
+            const currentPadding = padding !== "none" ? padding : "0px";
+            rawPadding = parseInt(currentPadding.replace(/px$/, ""));
+            $span.data("originalPadding", rawPadding);
+        }
 
         // Make a new variable for the recalculated width and height
         // so that we don't mutate the original width and height later.

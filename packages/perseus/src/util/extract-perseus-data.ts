@@ -1,9 +1,6 @@
 import {keys} from "@khanacademy/wonder-stuff-core";
 
-import {
-    getWidgetTypeByWidgetId,
-    getWidgetsMapFromItemData,
-} from "../widget-type-utils";
+import {getWidgetTypeByWidgetId} from "../widget-type-utils";
 import * as Widgets from "../widgets";
 
 import type {
@@ -117,7 +114,7 @@ export const getCorrectAnswerForWidgetId = (
     itemData: PerseusItem,
 ): string | null | undefined => {
     const rubric = itemData.question.widgets[widgetId].options;
-    const widgetMap = getWidgetsMapFromItemData(itemData);
+    const widgetMap = itemData.question.widgets;
     const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap) as string;
 
     const widget = Widgets.getWidgetExport(widgetType);

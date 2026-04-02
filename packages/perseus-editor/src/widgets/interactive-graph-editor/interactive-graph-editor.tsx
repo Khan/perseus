@@ -266,6 +266,25 @@ class InteractiveGraphEditor extends React.Component<Props> {
             issues.push("Polygon must be closed.");
         }
 
+        // Exponential: the start asymptote must not fall between or on the
+        // curve's start points — that configuration produces an invalid
+        // exponential (the coefficient formula requires all points to be
+        // strictly on one side of the asymptote).
+        if (
+            this.props.graph?.type === "exponential" &&
+            this.props.graph.startCoords != null
+        ) {
+            const {coords, asymptote} = this.props.graph.startCoords;
+            const asymptoteY = asymptote;
+            const minY = Math.min(coords[0][1], coords[1][1]);
+            const maxY = Math.max(coords[0][1], coords[1][1]);
+            if (asymptoteY >= minY && asymptoteY <= maxY) {
+                issues.push(
+                    "The exponential start asymptote must not fall between or on the curve's start points.",
+                );
+            }
+        }
+
         return issues;
     };
 
@@ -369,7 +388,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     this.props.graph?.type ??
                                     InteractiveGraph.defaultProps.userInput.type
                                 }
-                                apiOptions={this.props.apiOptions}
                                 // TODO(LEMS-2656): remove TS suppression
                                 onChange={
                                     ((
@@ -381,6 +399,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         });
                                     }) as any
                                 }
+                                // TODO(LEMS-3976): clean up feature flag
+                                apiOptions={this.props.apiOptions}
                             />
                         </LabeledRow>
                         <InteractiveGraphDescription
@@ -521,6 +541,12 @@ function mergeGraphs(
             return {...a, ...b};
         case "sinusoid":
             invariant(b.type === "sinusoid");
+            return {...a, ...b};
+        case "absolute-value":
+            invariant(b.type === "absolute-value");
+            return {...a, ...b};
+        case "exponential":
+            invariant(b.type === "exponential");
             return {...a, ...b};
         case "tangent":
             invariant(b.type === "tangent");

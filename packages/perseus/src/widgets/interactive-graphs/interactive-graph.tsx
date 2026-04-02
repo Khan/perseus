@@ -13,6 +13,8 @@ import Util from "../../util";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 
+import {getAbsoluteValueCoefficients} from "./graphs/absolute-value";
+
 import type {StatefulMafsGraphType} from "./stateful-mafs-graph";
 import type {QuadraticGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
@@ -50,6 +52,7 @@ const {
     getSinusoidCoefficients,
     getTangentCoefficients,
     getQuadraticCoefficients,
+    getExponentialCoefficients,
 } = coefficients;
 
 const {getLineEquation, getLineIntersectionString, magnitude, vector} =
@@ -604,6 +607,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return InteractiveGraph.getPolygonEquationString(props);
             case "angle":
                 return InteractiveGraph.getAngleEquationString(props);
+            case "absolute-value":
+                return InteractiveGraph.getAbsoluteValueEquationString(props);
+            case "exponential":
+                return InteractiveGraph.getExponentialEquationString(props);
             case "tangent":
                 return InteractiveGraph.getTangentEquationString(props);
             default:
@@ -706,6 +713,57 @@ class InteractiveGraph extends React.Component<Props, State> {
             coeffs[2].toFixed(3) +
             ") + " +
             coeffs[3].toFixed(3)
+        );
+    }
+
+    static defaultExponentialCoords(props: Props): Coord[] {
+        const coords = [
+            [0.5, 0.55],
+            [0.75, 0.75],
+        ];
+        // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
+        return InteractiveGraph.pointsFromNormalized(props, coords);
+    }
+
+    static getExponentialEquationString(props: Props): string {
+        const coords =
+            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
+            props.userInput.coords ||
+            InteractiveGraph.defaultExponentialCoords(props);
+        const asymptote =
+            // @ts-expect-error - TS2339 - Property 'asymptote' does not exist on type 'PerseusGraphType'.
+            props.userInput.asymptote ?? 0;
+        const coeffs = getExponentialCoefficients(coords, asymptote);
+        if (coeffs == null) {
+            return "y = e^x";
+        }
+        return (
+            "y = " +
+            coeffs.a.toFixed(3) +
+            "e^(" +
+            coeffs.b.toFixed(3) +
+            "x) + " +
+            coeffs.c.toFixed(3)
+        );
+    }
+
+    static getAbsoluteValueEquationString(props: Props): string {
+        const userInput = props.userInput;
+        if (userInput.type !== "absolute-value" || !userInput.coords) {
+            return "";
+        }
+        const coeffs = getAbsoluteValueCoefficients(userInput.coords);
+        if (coeffs === undefined) {
+            return "";
+        }
+        const {m, h, v} = coeffs;
+        return (
+            "y = " +
+            m.toFixed(3) +
+            "|x - " +
+            h.toFixed(3) +
+            "| + " +
+            v.toFixed(3)
         );
     }
 

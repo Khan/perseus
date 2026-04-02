@@ -1,9 +1,14 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {Footnote} from "@khanacademy/wonder-blocks-typography";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ImagePreview from "../../../components/image-preview";
+import styles from "../image-editor.module.css";
 import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
 import DecorativeToggle from "./decorative-toggle";
@@ -15,7 +20,7 @@ import type {Props} from "../image-editor";
 const MIN_ALT_TEXT_LENGTH = 8;
 const MAX_ALT_TEXT_LENGTH = 125;
 const altTextTooLongError =
-    "Alt text should not exceed 125 characters. Please pair your alt with a long description below if you need significantly more text to sufficiently describe the image.";
+    "Keep alt succinct at roughly 125 characters in length. Please pair the alt with a long description if you need significantly more text to sufficiently describe the image.";
 const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
 
@@ -30,7 +35,7 @@ export default function ImageSettings({
     title,
     onChange,
 }: Props) {
-    const [altFieldError, setAltFieldError] = React.useState<string | null>(
+    const [altFieldWarning, setAltFieldWarning] = React.useState<string | null>(
         null,
     );
 
@@ -49,11 +54,11 @@ export default function ImageSettings({
     function handleAltFieldChange(value: string) {
         if (value.length === 0) {
             // If the user clears the alt text, clear the error
-            setAltFieldError(null);
+            setAltFieldWarning(null);
         } else if (value.length > MAX_ALT_TEXT_LENGTH) {
-            setAltFieldError(altTextTooLongError);
+            setAltFieldWarning(altTextTooLongError);
         } else if (value.length >= MIN_ALT_TEXT_LENGTH) {
-            setAltFieldError(null);
+            setAltFieldWarning(null);
         }
         onChange({alt: value});
     }
@@ -63,7 +68,7 @@ export default function ImageSettings({
     // starts typing, which would be disruptive.
     function handleAltFieldBlur(value: string) {
         if (value.length > 0 && value.length < MIN_ALT_TEXT_LENGTH) {
-            setAltFieldError(altTextTooShortError);
+            setAltFieldWarning(altTextTooShortError);
         }
     }
 
@@ -121,21 +126,33 @@ export default function ImageSettings({
             />
 
             {/* Alt text */}
-            <LabeledField
-                label="Alt text"
-                description="Summarize the image using up to 125 characters."
-                field={
-                    <TextArea
-                        value={alt ?? ""}
-                        onBlur={(e) => handleAltFieldBlur(e.target.value)}
-                        onChange={handleAltFieldChange}
-                        disabled={decorative}
-                        autoResize={true}
-                    />
-                }
-                errorMessage={altFieldError}
-                styles={wbFieldStylesWithDescription}
-            />
+            <div className={styles.altTextFieldContainer}>
+                <LabeledField
+                    label="Alt text"
+                    description="Summarize the image using up to 125 characters."
+                    field={
+                        <TextArea
+                            value={alt ?? ""}
+                            onBlur={(e) => handleAltFieldBlur(e.target.value)}
+                            onChange={handleAltFieldChange}
+                            disabled={decorative}
+                            autoResize={true}
+                        />
+                    }
+                    styles={wbFieldStylesWithDescription}
+                />
+                <Footnote style={wbStyles.characterCounter}>
+                    {alt?.length ?? 0} characters
+                </Footnote>
+            </div>
+
+            {altFieldWarning && (
+                <Banner
+                    kind="warning"
+                    text={altFieldWarning}
+                    styles={{root: {marginBottom: sizing.size_080}}}
+                />
+            )}
 
             {/* Long Description */}
             <LabeledField
@@ -167,3 +184,13 @@ export default function ImageSettings({
         </>
     );
 }
+
+// TODO(LEMS-3686): Use CSS modules after Wonder Blocks styles
+// are moved to a different layer.
+const wbStyles = StyleSheet.create({
+    characterCounter: {
+        position: "absolute",
+        bottom: 0,
+        right: 8,
+    },
+});
