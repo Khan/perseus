@@ -155,6 +155,7 @@ export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
         box: [400, 400],
         step: [1, 1],
         gridStep: [1, 1],
+        graph: {type: "segment"},
         markings: "graph",
         containerSizeClass: "small",
         showTooltips: false,

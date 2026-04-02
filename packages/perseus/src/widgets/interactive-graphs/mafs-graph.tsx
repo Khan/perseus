@@ -67,6 +67,7 @@ import type {
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -77,6 +78,7 @@ const GRAPH_LEFT_MARGIN = 20;
 export type MafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
+    graph: PerseusGraphType;
     lockedFigures: InteractiveGraphProps["lockedFigures"];
     step: InteractiveGraphProps["step"];
     gridStep: [x: number, y: number];
@@ -158,6 +160,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         dispatch,
         i18n,
         markings: props.markings,
+        graphOptions: props.graph,
     });
 
     const disableInteraction = readOnly || !!props.static;
@@ -745,8 +748,10 @@ const renderGraphElements = (props: {
     // coordinates of the graph elements. We don't want to mention the
     // coordinates if the graph is not on a coordinate plane (no axes).
     markings: InteractiveGraphProps["markings"];
+    // The original graph options from the widget config.
+    graphOptions: PerseusGraphType;
 }): InteractiveGraphElementSuite => {
-    const {state, dispatch, i18n, markings} = props;
+    const {state, dispatch, i18n, markings, graphOptions} = props;
     const {type} = state;
     switch (type) {
         case "angle":
@@ -761,8 +766,13 @@ const renderGraphElements = (props: {
             return renderRayGraph(state, dispatch, i18n);
         case "polygon":
             return renderPolygonGraph(state, dispatch, i18n, markings);
-        case "point":
-            return renderPointGraph(state, dispatch, i18n);
+        case "point": {
+            const pointNames =
+                graphOptions.type === "point"
+                    ? graphOptions.pointNames
+                    : undefined;
+            return renderPointGraph(state, dispatch, i18n, pointNames);
+        }
         case "circle":
             return renderCircleGraph(state, dispatch, i18n);
         case "quadratic":

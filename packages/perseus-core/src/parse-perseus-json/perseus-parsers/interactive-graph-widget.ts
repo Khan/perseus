@@ -72,6 +72,7 @@ const parsePerseusGraphTypePoint = object({
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
     coord: optional(pairOfNumbers),
+    pointNames: optional(array(string)),
 });
 
 const parsePerseusGraphTypePolygon = object({
