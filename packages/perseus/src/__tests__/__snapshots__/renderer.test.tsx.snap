@@ -349,7 +349,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_16mkhxv"
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
               for=":r3:"
             >
               Test visible label
@@ -434,7 +434,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_16mkhxv"
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
               for=":r6:"
             >
               Test visible label
@@ -519,7 +519,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_16mkhxv"
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
               for=":r0:"
             >
               Test visible label
