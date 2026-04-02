@@ -175,3 +175,5 @@ export type {
     RendererPromptJSON,
     WidgetPromptJSON,
 } from "./widget-ai-utils/prompt-types";
+export type {CategorizerPromptJSON} from "./widget-ai-utils/categorizer/categorizer-ai-utils";
+export type {UnsupportedWidgetPromptJSON} from "./widget-ai-utils/unsupported-widget";
