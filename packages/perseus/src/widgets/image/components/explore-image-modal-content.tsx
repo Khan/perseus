@@ -80,16 +80,18 @@ export default function ExploreImageModalContent({
         // If we know what the original image size is, use it to compute the
         // image size for the modal with the scale applied.
         if (backgroundImage.height && backgroundImage.width) {
-            // SvgImage will multiply the dimensions we pass by `scale`,
-            // so we work in unscaled space here. We cap the unscaled
-            // height at MODAL_HEIGHT / scale so the final displayed
-            // height (after SvgImage applies `scale`) won't exceed
-            // MODAL_HEIGHT, and we also cap at the image's natural
-            // height to avoid upscaling beyond the original.
-            height = Math.min(MODAL_HEIGHT / scale, backgroundImage.height);
-            // bgWidth / bgHeight = X / height
-            // => X = (bgWidth / bgHeight) * height
-            width = (backgroundImage.width / backgroundImage.height) * height;
+            // Use the image's natural dimensions as the base. SvgImage
+            // multiplies these by `scale`, so we cap the scale so the
+            // final height (naturalHeight * scale) doesn't exceed
+            // MODAL_HEIGHT. Using the natural dimensions (rather than
+            // shrinking them and compensating with a higher scale)
+            // keeps the FixedToResponsive data-scale aligned with the
+            // actual display ratio, which ensures Graphie HTML labels
+            // scale proportionally with the SVG content.
+            const maxScale = MODAL_HEIGHT / backgroundImage.height;
+            scale = Math.min(scale, maxScale);
+            width = backgroundImage.width;
+            height = backgroundImage.height;
         }
     }
 
