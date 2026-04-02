@@ -1,6 +1,12 @@
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {PerseusMarkdown, Util, Widgets, ApiOptions, Log} from "@khanacademy/perseus";
+import {
+    PerseusMarkdown,
+    Util,
+    Widgets,
+    ApiOptions,
+    Log,
+} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     Errors,
@@ -508,7 +514,11 @@ class Editor extends React.Component<Props, State> {
             setPerseusClipboardData({
                 text: selectedText,
                 widgets: widgetData,
-            }).catch(err => Log.error("failed to copy data to clipboard", "Internal", {cause: err}));
+            }).catch((err) =>
+                Log.error("failed to copy data to clipboard", "Internal", {
+                    cause: err,
+                }),
+            );
         };
 
     _maybePasteWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void =
