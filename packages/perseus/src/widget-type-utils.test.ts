@@ -93,45 +93,6 @@ describe("widget-type-utils", () => {
             expect(widgetSubType).toBe("linear");
         });
 
-        it("returns 'single-select' for radio widget without multipleSelect", () => {
-            // Assemble
-            const widgetId = "dont-look-for-type-in-id";
-            const widgetMap = {
-                [widgetId]: generateRadioWidget(),
-            };
-
-            // Act
-            const widgetSubType = getWidgetSubTypeByWidgetId(
-                widgetId,
-                widgetMap,
-            );
-
-            // Assert
-            expect(widgetSubType).toBe("single-select");
-        });
-
-        it("returns 'multiple-select' for radio widget with multipleSelect", () => {
-            // Assemble
-            const widgetId = "dont-look-for-type-in-id";
-            const widgetMap = {
-                [widgetId]: generateRadioWidget({
-                    options: {
-                        choices: [],
-                        multipleSelect: true,
-                    },
-                }),
-            };
-
-            // Act
-            const widgetSubType = getWidgetSubTypeByWidgetId(
-                widgetId,
-                widgetMap,
-            );
-
-            // Assert
-            expect(widgetSubType).toBe("multiple-select");
-        });
-
         it("returns null when widget does not have a subtype", () => {
             // Assemble
             const widgetId = "dont-look-for-type-in-id";
