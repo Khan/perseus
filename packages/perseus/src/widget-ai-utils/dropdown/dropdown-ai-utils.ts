@@ -1,6 +1,10 @@
 import type dropdown from "../../widgets/dropdown/dropdown";
 import type React from "react";
 
+/**
+ * JSON describing a dropdown widget. Intended for consumption by AI tools.
+ * The dropdown widget displays a menu of options.
+ */
 export type DropdownPromptJSON = {
     type: "dropdown";
 
