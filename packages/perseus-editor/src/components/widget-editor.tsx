@@ -102,7 +102,7 @@ class WidgetEditor extends React.Component<
         const newWidgetInfo = {
             ...this.state.widgetInfo,
             static: value,
-        } as PerseusWidget;
+        } satisfies PerseusWidget;
         this.props.onChange(newWidgetInfo);
     };
 
