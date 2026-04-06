@@ -5,7 +5,11 @@ import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import type React from "react";
 
+// TODO(LEMS-4033): use more self-explanatory types, e.g.
+//  `{x: number, y: number}`.
 type Coord = [x: number, y: number];
+// TODO(LEMS-4033): use more self-explanatory types, e.g.
+//  `{point1: {x, y}, point2: {x, y}}`.
 type CollinearTuple = readonly [Coord, Coord];
 
 type AngleGraphOptions = {
