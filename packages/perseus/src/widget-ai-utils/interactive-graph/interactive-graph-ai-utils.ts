@@ -167,6 +167,10 @@ type LogarithmUserInput = {
 };
 
 type TangentUserInput = {
+    // TODO(LEMS-4033): change to a more self-explanatory format. These points
+    //  are special (one is at the midline of the graph, the other determines
+    //  the period and vertical scaling) but I am not sure of their exact
+    //  mathematical significance.
     coords?: readonly Coord[] | null;
 };
 
