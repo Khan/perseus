@@ -216,7 +216,7 @@ export type InteractiveGraphPromptJSON = {
 
         backgroundImageUrl: string | null | undefined;
 
-        // TODO(benchristel): add locked figures to the prompt JSON
+        // TODO(LEMS-4033): add locked figures to the prompt JSON
     };
     userInput: UserInput;
 };
