@@ -99,13 +99,11 @@ export type Props = {
      */
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
     /**
-     * When provided, enables GIF start/stop support. A canvas overlay
-     * captures and displays the first static frame while the GIF is
-     * stopped, keeping the underlying <img> in the DOM.
+     * When provided, enables GIF play/pause support.
      *
      * - `undefined`: no GIF controls (default, no extra DOM)
-     * - `true`: GIF is playing
-     * - `false`: GIF is stopped — canvas overlay is shown
+     * - `true`: GIF is playing.
+     * - `false`: GIF is paused.
      */
     isGifPlaying?: boolean;
     /**
@@ -482,14 +480,16 @@ class SvgImage extends React.Component<Props, State> {
                 const imageContent = (
                     <>
                         {!isGifControlled && (
-                            <ImageLoader
-                                src={imageSrc}
-                                imgProps={imageProps}
-                                preloader={preloader}
-                                onUpdate={this.handleUpdate}
-                            />
+                            <>
+                                <ImageLoader
+                                    src={imageSrc}
+                                    imgProps={imageProps}
+                                    preloader={preloader}
+                                    onUpdate={this.handleUpdate}
+                                />
+                                {extraGraphie}
+                            </>
                         )}
-                        {extraGraphie}
                         {isGifControlled && (
                             <GifImage
                                 src={imageSrc}
