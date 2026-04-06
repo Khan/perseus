@@ -135,7 +135,9 @@ class GrapherEditor extends React.Component<Props> {
                     rulerTicks={this.props.graph.rulerTicks}
                     showTooltips={this.props.graph.showTooltips}
                     onChange={(newProps) =>
-                        this.props.onChange({graph: newProps})
+                        this.props.onChange({
+                            graph: {...this.props.graph, ...newProps},
+                        })
                     }
                 />
                 <div className="perseus-widget-row">
