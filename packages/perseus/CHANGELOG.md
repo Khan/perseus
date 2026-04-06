@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 77.0.3
+
+### Patch Changes
+
+-   [#3449](https://github.com/Khan/perseus/pull/3449) [`76a38ce406`](https://github.com/Khan/perseus/commit/76a38ce406c8b445ab9265a504f4d92614a64ba1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Remove unnecessary component stories
+
+*   [#3450](https://github.com/Khan/perseus/pull/3450) [`fa37a1e7e5`](https://github.com/Khan/perseus/commit/fa37a1e7e5343f011e9e3987ee95efdd02021fd8) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing missing subtype for radio widget error event.
+
+-   [#3440](https://github.com/Khan/perseus/pull/3440) [`8538fd2fec`](https://github.com/Khan/perseus/commit/8538fd2fec3e60b367d41aa2c985d7680cd741b2) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Resize Graphie labels when window is resized
+
 ## 77.0.2
 
 ### Patch Changes

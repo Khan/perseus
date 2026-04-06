@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import Switch from "@khanacademy/wonder-blocks-switch";
-import {Title} from "@khanacademy/wonder-blocks-typography";
+import {Heading} from "@khanacademy/wonder-blocks-typography";
 import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import textAlignLeft from "@phosphor-icons/core/regular/text-align-left.svg";
 import textAlignRight from "@phosphor-icons/core/regular/text-align-right.svg";
@@ -33,7 +33,7 @@ export const DebugHeader = ({
                 width: "100%",
             }}
         >
-            <Title>{title}</Title>
+            <Heading size="xxlarge">{title}</Heading>
             <View
                 style={{marginLeft: "auto", flexDirection: "row", gap: "8px"}}
             >

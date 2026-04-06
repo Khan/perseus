@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import Switch from "@khanacademy/wonder-blocks-switch";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
@@ -22,9 +22,9 @@ export const HideAnswersToggle = (props: {
                 onChange={props.onChange}
                 aria-labelledby={labelId}
             />
-            <LabelMedium id={labelId} htmlFor={switchId} tag="label">
+            <BodyText id={labelId} htmlFor={switchId} tag="label">
                 {strings.hideAnswersToggleLabel}
-            </LabelMedium>
+            </BodyText>
         </View>
     );
 };

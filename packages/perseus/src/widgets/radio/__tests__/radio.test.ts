@@ -43,7 +43,7 @@ const selectOption = async (
     await userEvent.click(options[index]);
 };
 
-describe("Multiple Choice Widget", () => {
+describe("Radio Widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({

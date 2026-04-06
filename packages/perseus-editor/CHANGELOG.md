@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 30.1.0
+
+### Minor Changes
+
+-   [#3438](https://github.com/Khan/perseus/pull/3438) [`d19e327d8a`](https://github.com/Khan/perseus/commit/d19e327d8a49932ddb54a8989e25ca216269f8cd) Thanks [@benchristel](https://github.com/benchristel)! - Use the clipboard API instead of localStorage for copy-pasting widget data.
+
+### Patch Changes
+
+-   [#3403](https://github.com/Khan/perseus/pull/3403) [`9d0a86792b`](https://github.com/Khan/perseus/commit/9d0a86792b6aa94be7aa42e3350a86fc65d2b667) Thanks [@jandrade](https://github.com/jandrade)! - Updates perseus-editor to replace legacy typography components (HeadingLarge/Medium/Small, Body, LabelLarge/Medium/Small) with the new WB versions: Heading and BodyText
+
+-   Updated dependencies [[`76a38ce406`](https://github.com/Khan/perseus/commit/76a38ce406c8b445ab9265a504f4d92614a64ba1), [`fa37a1e7e5`](https://github.com/Khan/perseus/commit/fa37a1e7e5343f011e9e3987ee95efdd02021fd8), [`8538fd2fec`](https://github.com/Khan/perseus/commit/8538fd2fec3e60b367d41aa2c985d7680cd741b2)]:
+    -   @khanacademy/perseus@77.0.3
+
 ## 30.0.4
 
 ### Patch Changes

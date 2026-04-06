@@ -11,13 +11,10 @@ import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {containerSizeClass} from "../../../util/sizing-utils";
-import Radio from "../multiple-choice-widget";
+import Radio from "../radio-widget";
 
 import type {WidgetProps} from "../../../types";
-import type {
-    RadioChoiceWithMetadata,
-    RadioProps,
-} from "../multiple-choice-widget";
+import type {RadioChoiceWithMetadata, RadioProps} from "../radio-widget";
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
@@ -42,19 +39,9 @@ const baseChoices: RadioChoiceWithMetadata[] = baseOptions.choices.map(
 const baseChoiceStates = [
     {
         selected: false,
-        highlighted: false,
-        rationaleShown: false,
-        correctnessShown: false,
-        previouslyAnswered: false,
-        readOnly: false,
     },
     {
         selected: false,
-        highlighted: false,
-        rationaleShown: false,
-        correctnessShown: false,
-        previouslyAnswered: false,
-        readOnly: false,
     },
 ];
 
@@ -77,8 +64,6 @@ const getBaseProps = (
     deselectEnabled: baseOptions.deselectEnabled,
     choices: baseChoices,
     choiceStates: baseChoiceStates,
-    editMode: false,
-    labelWrap: false,
     randomize: false,
     trackInteraction: jest.fn(),
     widgetId: "radio-1",
@@ -99,7 +84,7 @@ const getBaseProps = (
     ...overrides,
 });
 
-describe("multiple choice widget", () => {
+describe("Radio widget", () => {
     let userEvent: ReturnType<typeof userEventLib.setup>;
 
     beforeEach(() => {

@@ -9,7 +9,7 @@ import {
     sizing,
     spacing,
 } from "@khanacademy/wonder-blocks-tokens";
-import {Body, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import checkCircle from "@phosphor-icons/core/regular/check-circle.svg";
 import * as React from "react";
 
@@ -62,8 +62,14 @@ export const DebugCheckAnswerFooter = ({
 
             return (
                 <View>
-                    <LabelLarge style={styles.errorLabel}>{title}</LabelLarge>
-                    <Body>{errorMessage}</Body>
+                    <BodyText
+                        size="medium"
+                        weight="bold"
+                        style={styles.errorLabel}
+                    >
+                        {title}
+                    </BodyText>
+                    <BodyText>{errorMessage}</BodyText>
                 </View>
             );
         }
@@ -78,8 +84,10 @@ export const DebugCheckAnswerFooter = ({
                         aria-hidden="true"
                     />
                     <View>
-                        <LabelLarge>{mockStrings.correctExcited}</LabelLarge>
-                        <Body>{mockStrings.nextQuestion}</Body>
+                        <BodyText size="medium" weight="bold">
+                            {mockStrings.correctExcited}
+                        </BodyText>
+                        <BodyText>{mockStrings.nextQuestion}</BodyText>
                     </View>
                 </>
             );
@@ -89,9 +97,13 @@ export const DebugCheckAnswerFooter = ({
         {
             return (
                 <View>
-                    <LabelLarge style={styles.incorrectLabel}>
+                    <BodyText
+                        size="medium"
+                        weight="bold"
+                        style={styles.incorrectLabel}
+                    >
                         {mockStrings.incorrect}
-                    </LabelLarge>
+                    </BodyText>
                     <View>{mockStrings.tryAgain}</View>
                 </View>
             );

@@ -1,4 +1,4 @@
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import AnswerChoices from "../answer-choices";
@@ -72,7 +72,9 @@ const WithState = ({multipleSelect = false}) => {
                 {choices
                     .filter(({checked}) => checked)
                     .map(({content}) => (
-                        <LabelLarge key={content}>{content}</LabelLarge>
+                        <BodyText size="medium" weight="bold" key={content}>
+                            {content}
+                        </BodyText>
                     ))}
             </>
         </>
