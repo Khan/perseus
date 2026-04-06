@@ -1002,6 +1002,17 @@ export class Graphie {
 
             $span.setPosition(point);
 
+            // Apply CSS from currentStyle (e.g. font-size) before
+            // processing text content. processText is synchronous and
+            // calls setLabelMargins, which measures scrollWidth/Height
+            // to compute margin offsets. Without this, the measurement
+            // happens before postprocessDrawingResult applies styling,
+            // causing incorrect offsets at non-1x image scales.
+            $span.css({
+                ...this.currentStyle,
+                ...SVG_SPECIFIC_STYLE_MASK,
+            });
+
             const span = $span[0];
             this.#labelElements.add(span);
 
