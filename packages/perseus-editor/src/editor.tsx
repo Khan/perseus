@@ -1,15 +1,16 @@
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
-    Log,
     PerseusMarkdown,
     Util,
     Widgets,
     ApiOptions,
+    Log,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     Errors,
+    getWidgetIdsFromContent,
     PerseusError,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
@@ -19,14 +20,22 @@ import _ from "underscore";
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
-
 // eslint-disable-next-line import/no-deprecated
+import {
+    getPerseusClipboardData,
+    setPerseusClipboardData,
+} from "./util/clipboard";
+
 import type {
     APIOptions,
     ChangeHandler,
     ImageUploader,
 } from "@khanacademy/perseus";
-import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {
+    PerseusWidget,
+    PerseusWidgetsMap,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -113,7 +122,6 @@ type Props = Readonly<{
     apiOptions: any;
     className?: string;
     content: string;
-    replace?: any;
     placeholder: string;
     widgets: PerseusWidgetsMap;
     images: any;
@@ -148,6 +156,13 @@ type DefaultProps = {
 
 type State = {
     textAreaValue: string;
+    // Stores the last-seen version of each widget passed to the `widgets`
+    // prop. This allows widgets to be recreated when the user deletes a
+    // widget from the content string and then hits ctrl+Z / "undo".
+    // NOTE: This is technically a memory leak, since
+    // `rememberedWidgetsForUndo` is not cleared during the lifetime of the
+    // component instance.
+    rememberedWidgetsForUndo: PerseusWidgetsMap;
 };
 
 // Contextual information that widgets can use,
@@ -182,7 +197,18 @@ class Editor extends React.Component<Props, State> {
 
     state: State = {
         textAreaValue: this.props.content,
+        rememberedWidgetsForUndo: {},
     };
+
+    static getDerivedStateFromProps(props, state): Partial<State> {
+        return {
+            textAreaValue: props.content,
+            rememberedWidgetsForUndo: {
+                ...state.rememberedWidgetsForUndo,
+                ...props.widgets,
+            },
+        };
+    }
 
     componentDidMount() {
         // See componentDidUpdate() for how this flag is used
@@ -202,14 +228,6 @@ class Editor extends React.Component<Props, State> {
             .on("copy cut", this._maybeCopyWidgets)
             // @ts-expect-error - TS2769 - No overload matches this call.
             .on("paste", this._maybePasteWidgets);
-    }
-
-    // TODO(arun): This is a deprecated method, use the appropriate replacement
-    // eslint-disable-next-line react/no-unsafe
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (this.props.content !== nextProps.content) {
-            this.setState({textAreaValue: nextProps.content});
-        }
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -431,8 +449,9 @@ class Editor extends React.Component<Props, State> {
     ) => {
         const newValue = e.currentTarget.value;
         this.setState({textAreaValue: newValue});
+        const widgets = this.getWidgetsReferencedIn(newValue);
         if (newValue !== this.props.content) {
-            this.props.onChange({content: newValue});
+            this.props.onChange({content: newValue, widgets});
         }
     };
 
@@ -476,18 +495,13 @@ class Editor extends React.Component<Props, State> {
 
     _maybeCopyWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void =
         (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
-            // If there are widgets being cut/copied, put the widget JSON in
-            // localStorage.perseusLastCopiedWidgets to allow copy-pasting of
-            // widgets between Editors. Also store the text to be pasted in
-            // localStorage.perseusLastCopiedText since we want to know if the user
-            // is actually pasting something originally from Perseus later.
             const textarea = e.currentTarget;
             const selectedText = textarea.value.substring(
                 textarea.selectionStart,
                 textarea.selectionEnd,
             );
 
-            const widgetNames = _.map(
+            const widgetIds: Array<keyof PerseusWidgetsMap> = _.map(
                 // @ts-expect-error - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
                 selectedText.match(rWidgetSplit),
                 (syntax) => {
@@ -496,82 +510,70 @@ class Editor extends React.Component<Props, State> {
                 },
             );
 
-            const widgetData = _.pick(this.serialize().widgets, widgetNames);
-
-            localStorage.perseusLastCopiedText = selectedText;
-            localStorage.perseusLastCopiedWidgets = JSON.stringify(widgetData);
-
-            Log.log(`Widgets copied: ${localStorage.perseusLastCopiedWidgets}`);
+            const widgetData = _.pick(this.serialize().widgets, widgetIds);
+            setPerseusClipboardData({
+                text: selectedText,
+                widgets: widgetData,
+            }).catch((err) =>
+                Log.error("failed to copy data to clipboard", "Internal", {
+                    cause: err,
+                }),
+            );
         };
 
     _maybePasteWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void =
-        (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
-            // Use the data from localStorage to paste any widgets we copied
-            // before. Avoid name conflicts by renumbering pasted widgets so that
-            // their numbers are always higher than the highest numbered widget of
-            // their type.
+        async (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+            e.preventDefault();
 
-            const widgetJSON = localStorage.perseusLastCopiedWidgets;
-            const lastCopiedText = localStorage.perseusLastCopiedText;
-            const textToBePasted =
-                // @ts-expect-error - TS2339 - Property 'originalEvent' does not exist on type 'SyntheticEvent<HTMLTextAreaElement, Event>'.
-                e.originalEvent.clipboardData.getData("text");
+            const {widgets, text: textToBePasted} =
+                await getPerseusClipboardData();
 
-            // Only intercept if we have widget data to paste and the user is
-            // pasting something originally from Perseus.
-            if (widgetJSON && lastCopiedText === textToBePasted) {
-                e.preventDefault();
+            const safeWidgetMapping = this._safeWidgetNameMapping(widgets);
 
-                const widgetData = JSON.parse(widgetJSON);
-                const safeWidgetMapping =
-                    this._safeWidgetNameMapping(widgetData);
-
-                // Use safe widget name map to construct the new widget data
-                const safeWidgetData: Record<string, any> = {};
-                for (const [key, data] of Object.entries(widgetData)) {
-                    safeWidgetData[safeWidgetMapping[key]] = data;
-                }
-                const newWidgets = _.extend(safeWidgetData, this.props.widgets);
-
-                // Use safe widget name map to construct new text
-                const safeText = lastCopiedText.replace(
-                    rWidgetSplit,
-                    (syntax) => {
-                        const match = Util.rWidgetParts.exec(syntax);
-                        // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                        const completeWidget = match[0];
-                        // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                        const widget = match[1];
-                        return completeWidget.replace(
-                            widget,
-                            safeWidgetMapping[widget],
-                        );
-                    },
-                );
-
-                // Add pasted text to previous content, replacing selected text to
-                // replicate normal paste behavior.
-                const textarea = e.currentTarget;
-                const selectionStart = textarea.selectionStart;
-                const newContent =
-                    this.state.textAreaValue.substr(0, selectionStart) +
-                    safeText +
-                    this.state.textAreaValue.substr(textarea.selectionEnd);
-
-                // See componentDidUpdate() for how this flag is used
-                this.lastUserValue = this.state.textAreaValue;
-                this.props.onChange(
-                    {content: newContent, widgets: newWidgets},
-                    () => {
-                        const expectedCursorPosition =
-                            selectionStart + safeText.length;
-                        Util.textarea.moveCursor(
-                            textarea,
-                            expectedCursorPosition,
-                        );
-                    },
-                );
+            // Use safe widget name map to construct the new widget data
+            const safeWidgetData: Record<string, any> = {};
+            for (const [key, data] of Object.entries(widgets)) {
+                safeWidgetData[safeWidgetMapping[key]] = data;
             }
+
+            // Use safe widget name map to construct new text
+            const safeText = textToBePasted.replace(rWidgetSplit, (syntax) => {
+                const match = Util.rWidgetParts.exec(syntax);
+                // @ts-expect-error - TS2531 - Object is possibly 'null'.
+                const completeWidget = match[0];
+                // @ts-expect-error - TS2531 - Object is possibly 'null'.
+                const widget = match[1];
+                return completeWidget.replace(
+                    widget,
+                    safeWidgetMapping[widget],
+                );
+            });
+
+            // Add pasted text to previous content, replacing selected text to
+            // replicate normal paste behavior.
+            const textarea = e.currentTarget;
+            const selectionStart = textarea.selectionStart;
+            const newContent =
+                this.state.textAreaValue.substr(0, selectionStart) +
+                safeText +
+                this.state.textAreaValue.substr(textarea.selectionEnd);
+
+            // See componentDidUpdate() for how this flag is used
+            this.lastUserValue = this.state.textAreaValue;
+            this.props.onChange(
+                {
+                    content: newContent,
+                    widgets: {
+                        ...safeWidgetData,
+                        ...this.getWidgetsReferencedIn(newContent),
+                    },
+                },
+                () => {
+                    const expectedCursorPosition =
+                        selectionStart + safeText.length;
+                    Util.textarea.moveCursor(textarea, expectedCursorPosition);
+                },
+            );
         };
 
     _safeWidgetNameMapping: (widgetData: {
@@ -814,6 +816,25 @@ class Editor extends React.Component<Props, State> {
         return warnings;
     };
 
+    private getWidgetsReferencedIn(content: string): PerseusWidgetsMap {
+        const referencedWidgetIds = getWidgetIdsFromContent(content);
+        const allWidgets = {
+            // We include `rememberedWidgetsForUndo` here to handle the case
+            // where the user deletes a widget and then restores it. Deleting
+            // the widget will remove it from `this.props.widgets`, but
+            // `rememberedWidgetsForUndo` will still have it.
+            ...this.state.rememberedWidgetsForUndo,
+            ...this.props.widgets,
+        };
+        const referencedWidgets: PerseusWidgetsMap = {};
+        for (const id of referencedWidgetIds) {
+            if (allWidgets[id] != null) {
+                referencedWidgets[id] = allWidgets[id];
+            }
+        }
+        return referencedWidgets;
+    }
+
     focus: () => void = () => {
         const textarea = this.textarea.current;
         if (textarea) {
@@ -830,12 +851,7 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
-    serialize: (options?: any) => {
-        content: string;
-        images: any;
-        replace: any | undefined;
-        widgets: Record<any, any>;
-    } = (options: any) => {
+    serialize(): PerseusRenderer {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
@@ -848,29 +864,12 @@ class Editor extends React.Component<Props, State> {
             widgets[id] = this.refs[id].serialize();
         });
 
-        // Preserve the data associated with deleted widgets in their last
-        // modified form. This is only intended to be useful in the context of
-        // immediate cut and paste operations if Editor.serialize() is called
-        // in between the two (which ideally should not be happening).
-        // TODO(alex): Remove this once all widget.serialize() methods
-        //             have been fixed to only return props,
-        //             and the above no longer applies.
-        if (options && options.keepDeletedWidgets) {
-            _.chain(this.props.widgets)
-                .keys()
-                .reject((id) => _.contains(widgetIds, id))
-                .each((id) => {
-                    widgets[id] = this.props.widgets[id];
-                });
-        }
-
         return {
-            replace: this.props.replace,
             content: this.props.content,
             images: this.props.images,
-            widgets: widgets,
+            widgets,
         };
-    };
+    }
 
     render(): React.ReactNode {
         let pieces;
@@ -1000,6 +999,7 @@ class Editor extends React.Component<Props, State> {
             <textarea
                 ref={this.textarea}
                 key="textarea"
+                aria-label="Markdown content"
                 onChange={this.handleChange}
                 onKeyDown={this._handleKeyDown}
                 placeholder={this.props.placeholder}

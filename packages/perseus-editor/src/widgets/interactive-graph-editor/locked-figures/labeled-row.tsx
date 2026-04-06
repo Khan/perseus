@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -20,11 +20,15 @@ const LabeledRow = (props: {
         <label className={css(styles.label)}>
             <View style={[styles.row, style]}>
                 {labelSide === "start" || (
-                    <LabelSmall style={styles.spaceEnd}>{label}</LabelSmall>
+                    <BodyText size="small" tag="span" style={styles.spaceEnd}>
+                        {label}
+                    </BodyText>
                 )}
                 {children}
                 {labelSide === "end" && (
-                    <LabelSmall style={styles.spaceStart}>{label}</LabelSmall>
+                    <BodyText size="small" tag="span" style={styles.spaceStart}>
+                        {label}
+                    </BodyText>
                 )}
             </View>
         </label>

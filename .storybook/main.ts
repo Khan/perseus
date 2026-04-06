@@ -32,12 +32,32 @@ const cssWrapper = {
     },
 };
 
+// Workaround for Storybook v10 + pnpm + Vite issue where the
+// MDX React shim is resolved as a file:// URL that Rollup can't
+// handle. Converts it to a regular path.
+// See: https://github.com/storybookjs/storybook/issues/21716 and
+// https://github.com/storybookjs/storybook/issues/33118
+const fixMdxReactShim = {
+    name: "fix-mdx-react-shim",
+    enforce: "pre" as const,
+    resolveId(source: string) {
+        if (
+            source.startsWith("file://") &&
+            source.includes("mdx-react-shim.js")
+        ) {
+            return new URL(source).pathname;
+        }
+        return null;
+    },
+};
+
 // This is used to sort the stories in the Storybook sidebar navigation.
 // See https://storybook.js.org/addons/storybook-multilevel-sort
 configureSort({
     storyOrder: {
         introduction: null,
         "getting started": null,
+        "api documentation": null,
         widgetGallery: null,
         theming: null,
         renderers: {
@@ -99,6 +119,10 @@ const config: StorybookConfig = {
     // https://www.npmjs.com/package/@storybook/builder-vite#customize-vite-config
     framework: "@storybook/react-vite",
 
+    features: {
+        backgrounds: false, // 👈 disable the backgrounds feature
+    },
+
     // NOTE(kevinb): We customize the padding a bit so that stories using the
     // on-screen keypad render correctly.  Storybook adds its own padding
     // as a class to <body> so we use !important to override that.
@@ -140,10 +164,15 @@ const config: StorybookConfig = {
                     return !file.endsWith(".svg");
                 },
             },
-            plugins: [cssWrapper],
+            plugins: [fixMdxReactShim, cssWrapper],
         });
     },
-    staticDirs: ["../static"],
+    staticDirs: [
+        "../static",
+        // This pulls in the API docs built by typedoc (`pnpm build:docs`) so
+        // that we can serve them through the Storybook setup.
+        {from: "../docs", to: "/api-docs"},
+    ],
 };
 
 export default config;

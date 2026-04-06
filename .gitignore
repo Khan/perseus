@@ -6,6 +6,7 @@ yarn-error.log
 coverage
 coverage-ts
 storybook-static
+debug-storybook.log
 .nyc_output
 *.tsbuildinfo
 /cypress/
@@ -15,3 +16,9 @@ storybook-static
 # Local development files
 CLAUDE.local.md
 .claude/settings.local.json
+
+# Claude worktrees are created here - we don't want these checked in!
+.claude/worktrees/
+
+# Typedoc generated files (we build these when needed instead of checking them in)
+/docs/*

@@ -13,6 +13,7 @@ import type {
     RayGraphState,
     SegmentGraphState,
     SinusoidGraphState,
+    TangentGraphState,
 } from "./types";
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
@@ -418,6 +419,76 @@ describe("mafsStateToInteractiveGraph", () => {
 
         expect(result).toEqual({
             type: "none",
+        });
+    });
+
+    it("converts the state of an absolute-value graph", () => {
+        const graph: PerseusGraphType = {
+            type: "absolute-value",
+            startCoords: [
+                [5, 6],
+                [7, 8],
+            ],
+        };
+        const state = {
+            ...commonGraphState,
+            type: "absolute-value" as const,
+            coords: [
+                [1, 2],
+                [3, 4],
+            ] as [[number, number], [number, number]],
+        };
+
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(
+            state,
+            graph,
+        );
+
+        expect(result).toEqual({
+            type: "absolute-value",
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+            startCoords: [
+                [5, 6],
+                [7, 8],
+            ],
+        });
+    });
+
+    it("converts the state of a tangent graph", () => {
+        const graph: PerseusGraphType = {
+            type: "tangent",
+            startCoords: [
+                [5, 6],
+                [7, 8],
+            ],
+        };
+        const state: TangentGraphState = {
+            ...commonGraphState,
+            type: "tangent",
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+        };
+
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(
+            state,
+            graph,
+        );
+
+        expect(result).toEqual({
+            type: "tangent",
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+            startCoords: [
+                [5, 6],
+                [7, 8],
+            ],
         });
     });
 });

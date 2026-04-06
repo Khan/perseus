@@ -6,6 +6,16 @@ const {promisify} = require("util");
 const {parse} = require("@babel/parser");
 
 const {objectifyCSS} = require("./extract-aphrodite");
+const {
+    camelToKabob,
+    convertToWbColor,
+    getWbTokenValue,
+    isExportNamedDeclaration,
+    isVariableDeclaration,
+    propertyRejectsPx,
+    replacePxWithRem,
+    getFilePath,
+} = require("./extract-css-helper-functions");
 
 const execAsync = promisify(exec);
 
@@ -42,26 +52,6 @@ const keepAphrodite = process.argv.includes("--keep-aphrodite");
 const cssFileName = `${fileNameParts[0]}.module.css`;
 const cssFilePath = path.join(fileDirectory, cssFileName);
 const indentation = "    ";
-const wbColorValues = {
-    // from node_modules/@khanacademy/wonder-blocks-tokens/dist/css/index.css
-    "#21242c": "--wb-semanticColor-core-foreground-neutral-strong",
-    "#5f6167": "--wb-semanticColor-core-foreground-neutral-default",
-    "#b8b9bb": "--wb-semanticColor-core-foreground-disabled-default",
-    "#ffffff": "--wb-semanticColor-core-foreground-knockout-default",
-};
-const wbBorderWidths = {
-    "1px": "--wb-border-width-thin",
-    "2px": "--wb-border-width-medium",
-    "4px": "--wb-border-width-thick",
-};
-const wbBorderRadii = {
-    "1px": "--wb-border-radius-radius_010",
-    "4px": "--wb-border-radius-radius_040",
-    "8px": "--wb-border-radius-radius_080",
-    "12px": "--wb-border-radius-radius_120",
-    "24px": "--wb-border-radius-radius_240",
-    "50%": "--wb-border-radius-full",
-};
 const mediaQueries = {
     // from packages/perseus/src/styles/media-queries.ts
     xs: `@media screen and (max-width: 567px)`,
@@ -84,89 +74,7 @@ const mediaQueries = {
  *****************/
 const codeBlocksToDelete = [];
 const importedModules = {};
-
-/********************
- * Helper Functions *
- ********************/
-const isExportNamedDeclaration = (node) =>
-    node.type === "ExportNamedDeclaration";
-const isVariableDeclaration = (node) => node.type === "VariableDeclaration";
-
-const camelToKabob = (camel) => {
-    // Keeps consecutive capital letters together as a word
-    // i.e. externalHREFLocation => external-href-location
-    return camel.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
-};
-
-const getWbTokenValue = (tokenName) => {
-    const tokenParts = tokenName.split(".");
-    const tokenValue = `--wb-${tokenParts.join("-")}`;
-    return `var(${tokenValue})`;
-};
-
-const propertyRejectsPx = (propertyName, testForLineHeight = true) => {
-    return (
-        propertyName === "zIndex" ||
-        propertyName === "z-index" ||
-        propertyName === "opacity" ||
-        (testForLineHeight && propertyName === "lineHeight") ||
-        (testForLineHeight && propertyName === "line-height")
-    );
-};
-
-const propertyKeepsPx = (propertyName) => {
-    return propertyName.includes("border");
-};
-
-const pxToRem = (px) => {
-    return parseFloat(px) / 10;
-};
-
-const replacePxWithRem = (property, value) => {
-    const tokenizedValue = convertToWbMeasurement(property, value);
-    const convertToRem = !(
-        propertyRejectsPx(property, false) ||
-        propertyKeepsPx(property) ||
-        tokenizedValue === 0
-    );
-    if (convertToRem) {
-        return tokenizedValue.replace(/(\d+)px/g, (match, p1) => {
-            const remValue = pxToRem(parseFloat(p1));
-            return `${remValue}rem`;
-        });
-    }
-    return value;
-};
-
-const validFileExtensions = ["js", "jsx", "ts", "tsx"];
-const getFilePath = (rawFilePath) => {
-    let filePath = path.join(fileDirectory, rawFilePath);
-    if (rawFilePath.startsWith("@")) {
-        filePath = path.join(
-            process.cwd(),
-            "node_modules",
-            rawFilePath,
-            "dist",
-            "index",
-        );
-    }
-    if (!fs.existsSync(filePath)) {
-        filePath = validFileExtensions.reduce(
-            (matchedExtension, possibleExtension) => {
-                if (matchedExtension) {
-                    return matchedExtension;
-                } else {
-                    const possibleFilePath = `${filePath}.${possibleExtension}`;
-                    return fs.existsSync(possibleFilePath)
-                        ? possibleFilePath
-                        : null;
-                }
-            },
-            "",
-        );
-    }
-    return filePath;
-};
+const styleObjects = {};
 
 /****************
  * Code Parsing *
@@ -291,35 +199,9 @@ const associateCommentsToCssProperty = (property, index, allProperties) => {
     );
 };
 
-const convertToWbColor = (cssProperty, propertyValue) => {
-    if (
-        cssProperty === "color" &&
-        Object.keys(wbColorValues).includes(propertyValue)
-    ) {
-        return `var(${wbColorValues[propertyValue]})`;
-    }
-    return propertyValue;
-};
-
-const convertToWbMeasurement = (cssProperty, propertyValue) => {
-    if (cssProperty === "borderWidth" || cssProperty === "border-width") {
-        if (Object.keys(wbBorderWidths).includes(propertyValue)) {
-            return `var(${wbBorderWidths[propertyValue]})`;
-        }
-    } else if (
-        cssProperty === "borderRadius" ||
-        cssProperty === "border-radius"
-    ) {
-        if (Object.keys(wbBorderRadii).includes(propertyValue)) {
-            return `var(${wbBorderRadii[propertyValue]})`;
-        }
-    }
-    return propertyValue;
-};
-
 const cssPropertyIsOnLine = (allProperties, lineToCheck) => {
     return allProperties.some(
-        (property) => property.key.loc.start.line === lineToCheck,
+        (property) => property.key?.loc.start.line === lineToCheck,
     );
 };
 
@@ -336,23 +218,15 @@ const getClassName = (node) => {
 };
 
 const getCssPropertyInfo = (property) => {
+    const propertyType = property.value?.type ?? property.type ?? "unknownType";
     const cssProperty =
-        property.key.name ?? property.key.value ?? "unknownProperty";
+        property.key?.name ?? property.key?.value ?? "unknownProperty";
     let cssPropertyName = camelToKabob(cssProperty);
     let nestedRuleSet = null;
-    let propertyValue = property.value.value;
-    switch (property.value.type) {
+    let propertyValue = property.value?.value ?? "";
+    switch (propertyType) {
         case "Identifier":
-            propertyValue = literalVariables[property.value.name];
-            if (
-                !(
-                    isNaN(propertyValue) ||
-                    propertyRejectsPx(cssProperty) ||
-                    propertyValue === 0
-                )
-            ) {
-                propertyValue = `${propertyValue}px`;
-            }
+            propertyValue = getIdentifierValue(property.value, cssProperty);
             break;
         case "BinaryExpression":
             propertyValue = getBinaryExpressionValue(property.value);
@@ -424,15 +298,52 @@ const getCssPropertyInfo = (property) => {
                 }
             }, "");
             break;
+        case "SpreadElement":
+            cssPropertyName = "";
+            if (styleObjects[property.argument.name]) {
+                nestedRuleSet = styleObjects[property.argument.name];
+            } else {
+                const externalStyle = getImportedValues(property.argument.name);
+                if (externalStyle !== undefined) {
+                    const {importPath: _, ...styleProperties} = externalStyle;
+                    nestedRuleSet = Object.entries(styleProperties).map(
+                        ([propertyName, value]) => {
+                            const cssProperty = camelToKabob(propertyName);
+                            let propertyValue =
+                                value === 0 ||
+                                isNaN(value) ||
+                                propertyRejectsPx(cssProperty)
+                                    ? `${value}`
+                                    : `${value}px`;
+                            propertyValue = replacePxWithRem(
+                                cssProperty,
+                                propertyValue,
+                            );
+                            return {
+                                property: cssProperty,
+                                value: propertyValue,
+                                line: null,
+                                leadingComments: [],
+                                trailingComments: [],
+                                nestedRuleSet: null,
+                            };
+                        },
+                    );
+                    styleObjects[property.argument.name] = nestedRuleSet;
+                }
+            }
+            break;
     }
 
     propertyValue = replacePxWithRem(cssPropertyName, `${propertyValue}`);
     propertyValue = convertToWbColor(cssPropertyName, propertyValue);
+    const propertyLine =
+        property.key?.loc.start.line ?? property.loc.start.line;
 
     return {
         property: cssPropertyName,
         value: propertyValue,
-        line: property.key.loc.start.line,
+        line: propertyLine,
         leadingComments: property.leadingComments ?? [],
         trailingComments: [],
         nestedRuleSet,
@@ -465,7 +376,7 @@ const getImportedValues = (sourceName) => {
                 ),
             )
             .forEach((node) => {
-                const filePath = getFilePath(node.source.value);
+                const filePath = getFilePath(node.source.value, fileDirectory);
                 const {_, parsedCode} = getCode(filePath);
                 const variablesFromCode = mapVariables(parsedCode);
                 if (variablesFromCode[sourceName] === undefined) {
@@ -479,12 +390,69 @@ const getImportedValues = (sourceName) => {
     return importedModules[sourceName];
 };
 
-const getBinaryExpressionValue = (expressionNode) => {
+const getIdentifierValue = (node, cssProperty, excludeUnit = false) => {
+    let identifierValue = literalVariables[node.name];
+    if (
+        !(
+            excludeUnit ||
+            isNaN(identifierValue) ||
+            propertyRejectsPx(cssProperty) ||
+            identifierValue === 0
+        )
+    ) {
+        identifierValue = `${identifierValue}px`;
+    }
+    return identifierValue;
+};
+
+const getBinaryExpressionValue = (expressionNode, cssProperty) => {
+    let unhandledExceptionFound = false;
+    let expressionValue = "";
     if (
         expressionNode.left.type === "StringLiteral" ||
         expressionNode.right.type === "StringLiteral"
     ) {
-        return `${expressionNode.left.value}${expressionNode.right.value}`;
+        expressionValue = `${expressionNode.left.value}${expressionNode.right.value}`;
+    } else if ("+-*/".includes(expressionNode.operator)) {
+        let leftValue = NaN;
+        let rightValue = NaN;
+        if (expressionNode.left.type === "Identifier") {
+            leftValue = Number(
+                getIdentifierValue(expressionNode.left, cssProperty, true),
+            );
+        }
+        if (expressionNode.right.type === "UnaryExpression") {
+            if (expressionNode.right.argument.type === "NumericLiteral") {
+                rightValue = `${expressionNode.right.operator}${expressionNode.right.argument.value}`;
+            }
+        }
+        if (isNaN(leftValue) || isNaN(rightValue)) {
+            unhandledExceptionFound = true;
+        } else {
+            let numericValue;
+            switch (expressionNode.operator) {
+                case "+":
+                    numericValue = leftValue + rightValue;
+                    break;
+                case "-":
+                    numericValue = leftValue - rightValue;
+                    break;
+                case "*":
+                    numericValue = leftValue * rightValue;
+                    break;
+                case "/":
+                    numericValue = leftValue / rightValue;
+                    break;
+            }
+            if (numericValue !== 0 && !propertyRejectsPx(cssProperty)) {
+                expressionValue = `${numericValue}px`;
+            }
+        }
+    } else {
+        unhandledExceptionFound = true;
+    }
+    if (!unhandledExceptionFound) {
+        return expressionValue;
     } else {
         return `/* Unable to handle binary expression: ${expressionNode.left.type} ${expressionNode.operator} ${expressionNode.right.type}  */`;
     }
@@ -633,8 +601,17 @@ const stringifyCssRuleset = (selector, ruleset, indentationCount = 0) => {
     const conditionalInitialStates = conditionalRulesets.map((property) => {
         return {...property, nestedRuleSet: null};
     });
+    // Additional CSS properties not nested or conditional
+    const supplementalRulesets = ruleset
+        .filter(
+            (property) =>
+                Array.isArray(property.nestedRuleSet) &&
+                property.property === "",
+        )
+        .flatMap((property) => property.nestedRuleSet);
     let stringifiedRuleset = ruleset
         .concat(conditionalInitialStates)
+        .concat(supplementalRulesets)
         .filter((property) => property.nestedRuleSet === null)
         .sort((propertyA, propertyB) =>
             propertyA.property < propertyB.property ? -1 : 1,
@@ -660,6 +637,7 @@ const stringifyCssRuleset = (selector, ruleset, indentationCount = 0) => {
         .filter(
             (property) =>
                 Array.isArray(property.nestedRuleSet) &&
+                property.property !== "" &&
                 !property.nestedRuleSet.some((ruleset) =>
                     ruleset.property.startsWith("."),
                 ),
@@ -713,6 +691,7 @@ parsedCode.program.body
 // Objects within function components that use StyleSheet.create
 parsedCode.program.body
     .filter((node) => node.type === "ExportNamedDeclaration")
+    .filter((node) => node.declaration?.type === "VariableDeclaration")
     .flatMap((node) => node.declaration.declarations)
     .filter(
         (declaration) =>

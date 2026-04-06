@@ -122,6 +122,10 @@ class Graphie extends React.Component<Props> {
         this._updateMovables();
     }
 
+    componentWillUnmount() {
+        this._graphie.cleanup();
+    }
+
     /**
      * Allow parents of the <Graphie> component to grab a reference to the
      * underlying graphie object using
@@ -172,6 +176,9 @@ class Graphie extends React.Component<Props> {
     };
 
     _setupGraphie: () => void = () => {
+        // Disconnect the old instance's ResizeObserver before we clear the
+        // DOM and create a new Graphie instance below.
+        this._graphie.cleanup();
         this._removeMovables();
 
         const graphieDiv = this.graphieDivRef.current;

@@ -1,6 +1,7 @@
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 type GraphTypesThatHaveStartCoords =
+    | {type: "absolute-value"}
     | {type: "angle"}
     | {type: "circle"}
     | {type: "linear"}
@@ -10,7 +11,9 @@ type GraphTypesThatHaveStartCoords =
     | {type: "quadratic"}
     | {type: "ray"}
     | {type: "segment"}
-    | {type: "sinusoid"};
+    | {type: "sinusoid"}
+    | {type: "exponential"}
+    | {type: "tangent"};
 
 export type StartCoords = Extract<
     PerseusGraphType,

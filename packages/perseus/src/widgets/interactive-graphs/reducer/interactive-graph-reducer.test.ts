@@ -6,9 +6,11 @@ import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {
     CircleGraphState,
+    ExponentialGraphState,
     PointGraphState,
     InteractiveGraphState,
     PolygonGraphState,
+    TangentGraphState,
 } from "../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 
@@ -96,6 +98,25 @@ const baseSinusoidGraphState: InteractiveGraphState = {
         [1, 1],
     ],
 };
+
+function generateTangentGraphState(
+    overrides?: Partial<Omit<TangentGraphState, "type">>,
+): TangentGraphState {
+    return {
+        hasBeenInteractedWith: false,
+        type: "tangent",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        snapStep: [1, 1],
+        coords: [
+            [0, 0],
+            [1, 1],
+        ],
+        ...overrides,
+    };
+}
 
 const baseQuadraticGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
@@ -244,25 +265,96 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("does not allow moving an endpoint of a sinusoid if the bounding logic would result in an invalid graph", () => {
+    it("rejects a sinusoid move when bounding clamps the point to the same x as the other point", () => {
+        // coords: point 0 at x=8, point 1 at x=9.
+        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
+        // snap 1 → effective max 9), which matches point 1's x.
+        // The same-x guard should reject this move entirely.
         const state: InteractiveGraphState = {
             ...baseSinusoidGraphState,
             coords: [
-                [9, 1],
-                [10, 2],
+                [8, 1],
+                [9, 2],
             ],
         };
 
         const updated = interactiveGraphReducer(
             state,
-            actions.sinusoid.movePoint(0, [15, 1]),
+            actions.sinusoid.movePoint(0, [15, 5]),
         );
 
         invariant(updated.type === "sinusoid");
+        expect(updated.hasBeenInteractedWith).toBe(false);
+        expect(updated.coords).toEqual([
+            [8, 1],
+            [9, 2],
+        ]);
+    });
+
+    it("does not allow moving the endpoints of a tangent to the same x location", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [1, 1],
+                [2, 2],
+            ],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [2, 1]),
+        );
+
+        invariant(updated.type === "tangent");
         // Assert: the move was canceled
         expect(updated.coords).toEqual([
-            [9, 1],
-            [10, 2],
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
+    it("rejects a tangent move when bounding clamps the point to the same x as the other point", () => {
+        // coords: point 0 at x=8, point 1 at x=9.
+        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
+        // snap 1 → effective max 9), which matches point 1's x.
+        // The same-x guard should reject this move entirely.
+        const state = generateTangentGraphState({
+            coords: [
+                [8, 1],
+                [9, 2],
+            ],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [15, 5]),
+        );
+
+        invariant(updated.type === "tangent");
+        expect(updated.hasBeenInteractedWith).toBe(false);
+        expect(updated.coords).toEqual([
+            [8, 1],
+            [9, 2],
+        ]);
+    });
+
+    it("allows moving a tangent endpoint to a valid position", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(1, [3, 4]),
+        );
+
+        invariant(updated.type === "tangent");
+        expect(updated.hasBeenInteractedWith).toBe(true);
+        expect(updated.coords).toEqual([
+            [0, 0],
+            [3, 4],
         ]);
     });
 
@@ -1738,5 +1830,140 @@ describe("unlimited polygon", () => {
             [1, 1],
             [3, 3],
         ]);
+    });
+});
+
+function generateExponentialGraphState(
+    overrides?: Partial<Omit<ExponentialGraphState, "type">>,
+): ExponentialGraphState {
+    return {
+        hasBeenInteractedWith: false,
+        type: "exponential",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        snapStep: [1, 1],
+        coords: [
+            [0, 3],
+            [2, 6],
+        ],
+        asymptote: 1,
+        ...overrides,
+    };
+}
+
+describe("movePoint on an exponential graph", () => {
+    it("moves a point to the new coordinates", () => {
+        // Arrange
+        const state = generateExponentialGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, 4]),
+        );
+
+        // Assert
+        invariant(updated.type === "exponential");
+        expect(updated.coords[0]).toEqual([-1, 4]);
+    });
+
+    it("sets hasBeenInteractedWith after a move", () => {
+        // Arrange
+        const state = generateExponentialGraphState({
+            hasBeenInteractedWith: false,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, 4]),
+        );
+
+        // Assert
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("rejects the move when both points would share the same x-coordinate", () => {
+        // Arrange — point 0 at x=0, point 1 at x=2; trying to move point 0 to x=2
+        const state = generateExponentialGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [2, 4]),
+        );
+
+        // Assert — move was rejected; point 0 stays at original position
+        invariant(updated.type === "exponential");
+        expect(updated.coords[0]).toEqual([0, 3]);
+    });
+
+    it("rejects the move when the point would land on the asymptote", () => {
+        // Arrange — asymptote at y=1; trying to move point 0 to y=1
+        const state = generateExponentialGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, 1]),
+        );
+
+        // Assert — move was rejected
+        invariant(updated.type === "exponential");
+        expect(updated.coords[0]).toEqual([0, 3]);
+    });
+});
+
+describe("moveCenter on an exponential graph (asymptote)", () => {
+    it("moves the asymptote to a new y-value", () => {
+        // Arrange
+        const state = generateExponentialGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([-10, -2]),
+        );
+        invariant(updated.type === "exponential");
+
+        // Assert — y=-2 is below both curve points (y=3 and y=6), so it's valid
+        expect(updated.asymptote).toBe(-2);
+    });
+
+    it("rejects the move when the asymptote would land between the curve points", () => {
+        // Arrange — curve points at y=3 and y=6; trying to move asymptote to y=4 (between them)
+        const state = generateExponentialGraphState({
+            coords: [
+                [0, 3],
+                [2, 6],
+            ],
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([0, 4]),
+        );
+        invariant(updated.type === "exponential");
+
+        // Assert — y=4 < midpoint(4.5), so snaps to bottomMost - stepY = 3 - 1 = 2
+        expect(updated.asymptote).toBe(2);
+    });
+
+    it("ignores the x component and only moves the asymptote vertically", () => {
+        // Arrange
+        const state = generateExponentialGraphState();
+
+        // Act — pass an arbitrary x value; only y should matter
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([99, -2]),
+        );
+        invariant(updated.type === "exponential");
+
+        // Assert — asymptote moves to y=-2 regardless of the x passed
+        expect(updated.asymptote).toBe(-2);
     });
 });

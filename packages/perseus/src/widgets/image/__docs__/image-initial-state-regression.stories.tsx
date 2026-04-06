@@ -283,8 +283,6 @@ export const FloatRightImageWithinArticleMobile: Story = {
     },
 };
 
-// Regression: image container should not collapse (max-width: 0) when
-// backgroundImage.width and backgroundImage.height are not set.
 export const ImageWithoutWidthOrHeight: Story = {
     decorators: [imageRendererDecorator],
     args: {
@@ -294,7 +292,6 @@ export const ImageWithoutWidthOrHeight: Story = {
     },
 };
 
-// Regression: caption should not snap to the left.
 export const ImageWithoutWidthOrHeightWithCaption: Story = {
     decorators: [imageRendererDecorator],
     args: {
@@ -302,5 +299,26 @@ export const ImageWithoutWidthOrHeightWithCaption: Story = {
         alt: "Earth and Moon",
         title: "Earth and Moon",
         caption: earthMoonImageCaption,
+    },
+};
+
+export const ImageWithoutWidthOrHeightWithCaptionTitleAndLongDescription: Story =
+    {
+        decorators: [imageRendererDecorator],
+        args: {
+            backgroundImage: {url: earthMoonImage.url},
+            alt: "Earth and Moon",
+            title: "Hello world. Testing this with a super duper extra long, longest title",
+            caption: earthMoonImageCaption,
+            longDescription:
+                "This is a *very* long description of the earth and moon.",
+        },
+    };
+
+export const ImageWithoutWidthOrHeightLarge: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: {url: frescoImage.url},
+        alt: "Fresco painting",
     },
 };

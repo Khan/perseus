@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
+import {Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
@@ -24,11 +24,11 @@ const SplitView = ({
     return (
         <View style={styles.sideBySide}>
             <View className="framework-perseus">
-                <HeadingMedium>{rendererTitle}</HeadingMedium>
+                <Heading size="large">{rendererTitle}</Heading>
                 {renderer}
             </View>
             <View>
-                <HeadingMedium>{JSONTitle}</HeadingMedium>
+                <Heading size="large">{JSONTitle}</Heading>
                 <ReactJson
                     style={{marginTop: "10px"}}
                     quotesOnKeys={false}

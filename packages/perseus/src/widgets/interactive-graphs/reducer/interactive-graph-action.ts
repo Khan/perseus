@@ -79,6 +79,16 @@ export const actions = {
     sinusoid: {
         movePoint,
     },
+    exponential: {
+        movePoint,
+        moveCenter,
+    },
+    absoluteValue: {
+        movePoint,
+    },
+    tangent: {
+        movePoint,
+    },
 };
 
 export const DELETE_INTENT = "delete-intent";

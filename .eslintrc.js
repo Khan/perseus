@@ -138,7 +138,12 @@ module.exports = {
             },
         },
         {
-            files: ["config/**", "utils/**", "packages/*/src/testing/*"],
+            files: [
+                "config/**",
+                "utils/**",
+                "packages/*/src/testing/*",
+                "typedoc.config.cjs",
+            ],
             rules: {
                 "@typescript-eslint/no-require-imports": "off",
                 "import/no-commonjs": "off",
@@ -322,6 +327,33 @@ module.exports = {
                         importNames: ["NavigationTabs", "Tabs"],
                         message:
                             "Use WB ResponsiveNavigationTabs or ResponsiveTabs for responsive behaviour. They render NavigationTabs or Tabs by default and switch to a dropdown when space is limited - test both layouts. See https://khan.github.io/wonder-blocks/?path=/docs/packages-tabs-overview--docs. \n\nIf responsiveness isn't needed, ignore this rule for that import.",
+                    },
+                    {
+                        name: "@khanacademy/wonder-blocks-typography",
+                        importNames: [
+                            "Title",
+                            "HeadingLarge",
+                            "HeadingMedium",
+                            "HeadingSmall",
+                            "HeadingXSmall",
+                            "Tagline",
+                        ],
+                        message:
+                            "Please use the WB Heading component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-heading-new--docs",
+                    },
+                    {
+                        name: "@khanacademy/wonder-blocks-typography",
+                        importNames: [
+                            "Body",
+                            "LabelLarge",
+                            "LabelMedium",
+                            "LabelSmall",
+                            "LabelXSmall",
+                            "Caption",
+                            "Footnote",
+                        ],
+                        message:
+                            "Please use the WB BodyText component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-bodytext-new--docs",
                     },
                 ],
             },

@@ -11,7 +11,7 @@
  */
 import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
@@ -31,9 +31,11 @@ import {
 } from "./backgrounds/utils";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
+import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {SvgDefs} from "./graphs/components/text-label";
+import {renderExponentialGraph} from "./graphs/exponential";
 import {renderLinearGraph} from "./graphs/linear";
 import {renderLinearSystemGraph} from "./graphs/linear-system";
 import {renderPointGraph} from "./graphs/point";
@@ -42,6 +44,7 @@ import {renderQuadraticGraph} from "./graphs/quadratic";
 import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
+import {renderTangentGraph} from "./graphs/tangent";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
 import {X, Y} from "./math";
 import {Protractor} from "./protractor";
@@ -434,9 +437,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 transform: "translateY(-50%)",
                             }}
                         >
-                            <LabelMedium id={unlimitedGraphKeyboardPromptId}>
+                            <BodyText id={unlimitedGraphKeyboardPromptId}>
                                 {strings.graphKeyboardPrompt}
-                            </LabelMedium>
+                            </BodyText>
                         </View>
                     )}
                 </View>
@@ -766,8 +769,14 @@ const renderGraphElements = (props: {
             return renderQuadraticGraph(state, dispatch, i18n);
         case "sinusoid":
             return renderSinusoidGraph(state, dispatch, i18n);
+        case "exponential":
+            return renderExponentialGraph(state, dispatch, i18n);
         case "none":
             return {graph: null, interactiveElementsDescription: null};
+        case "absolute-value":
+            return renderAbsoluteValueGraph(state, dispatch, i18n);
+        case "tangent":
+            return renderTangentGraph(state, dispatch, i18n);
         default:
             throw new UnreachableCaseError(type);
     }

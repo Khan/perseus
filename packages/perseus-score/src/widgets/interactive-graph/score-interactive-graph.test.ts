@@ -510,3 +510,425 @@ describe("InteractiveGraph scoring on an angle question", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 });
+
+// Test data: f(x) = 2·4^x + 3  →  f(0)=5, f(1)=11, asymptote y=3
+const exponentialRubric: PerseusInteractiveGraphRubric = {
+    graph: {type: "exponential"},
+    correct: {
+        type: "exponential",
+        coords: [
+            [0, 5],
+            [1, 11],
+        ],
+        asymptote: 3,
+    },
+};
+
+describe("InteractiveGraph scoring on an exponential question", () => {
+    it("marks the answer invalid if guess is undefined", () => {
+        // Arrange, Act
+        const result = scoreInteractiveGraph(undefined, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer invalid if coords are missing", () => {
+        // Arrange
+        const guess: PerseusGraphType = {type: "exponential"};
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer incorrect if asymptote is missing", () => {
+        // Arrange — coords present (hasValue=true) but no asymptote,
+        // so the exponential scoring block is skipped and falls through to incorrect
+        const guess: PerseusGraphType = {
+            type: "exponential",
+            coords: [
+                [0, 5],
+                [1, 11],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks a correct answer as correct", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "exponential",
+            coords: [
+                [0, 5],
+                [1, 11],
+            ],
+            asymptote: 3,
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks a wrong answer as incorrect", () => {
+        // Arrange — different curve: f(x) = 4·(1/4)^x, asymptote y=0
+        const guess: PerseusGraphType = {
+            type: "exponential",
+            coords: [
+                [0, 4],
+                [1, 1],
+            ],
+            asymptote: 0,
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks a correct answer as correct when coords are in reverse order", () => {
+        // Arrange — same curve, points swapped
+        const guess: PerseusGraphType = {
+            type: "exponential",
+            coords: [
+                [1, 11],
+                [0, 5],
+            ],
+            asymptote: 3,
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, exponentialRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+});
+
+describe("InteractiveGraph scoring on an absolute-value question", () => {
+    it("marks the answer invalid if guess is undefined", () => {
+        // Arrange
+        const guess = undefined;
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer invalid if guess.coords is missing", () => {
+        // Arrange
+        const guess: PerseusGraphType = {type: "absolute-value"};
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("does not award points if guess.coords is wrong", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [1, 2],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("awards points if guess.coords produce the same coefficients as the rubric", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("awards points when p2 is on the other arm but slope is the same", () => {
+        // Arrange — vertex at (0,0), slope=1 regardless of which side p2 is on
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [-1, 1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("does not award points for a downward-opening graph when upward is correct", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [1, -1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("does not award points when p2 shares the same x as the vertex", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [0, 2], // same x as vertex → getAbsoluteValueCoefficients returns undefined
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "absolute-value"},
+            correct: {
+                type: "absolute-value",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+});
+
+describe("InteractiveGraph scoring on a tangent question", () => {
+    it("marks the answer invalid if guess is undefined", () => {
+        const guess = undefined;
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0.5, 0.5],
+                    [0.75, 0.75],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer invalid if guess has no coords", () => {
+        const guess: PerseusGraphType = {type: "tangent"};
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0.5, 0.5],
+                    [0.75, 0.75],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("scores correct answer as correct", () => {
+        const guess: PerseusGraphType = {
+            type: "tangent",
+            coords: [
+                [0.5, 0.5],
+                [0.75, 0.75],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0.5, 0.5],
+                    [0.75, 0.75],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores incorrect answer as incorrect", () => {
+        const guess: PerseusGraphType = {
+            type: "tangent",
+            coords: [
+                [1, 1],
+                [2, 3],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0.5, 0.5],
+                    [0.75, 0.75],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("scores equivalent tangent curves as correct (different control points, same curve)", () => {
+        // Both sets of coords produce the same canonical tangent curve
+        // f(x) = tan(π/4 * x) — just shifted by one full period
+        const guess: PerseusGraphType = {
+            type: "tangent",
+            coords: [
+                [4, 0],
+                [5, 1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores tangent with negative amplitude correctly", () => {
+        // Guess has coords that produce a negative amplitude tangent
+        const guess: PerseusGraphType = {
+            type: "tangent",
+            coords: [
+                [0, 0],
+                [1, -2],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "tangent"},
+            correct: {
+                type: "tangent",
+                coords: [
+                    [0, 0],
+                    [1, -2],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+});

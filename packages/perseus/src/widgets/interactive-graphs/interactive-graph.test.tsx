@@ -60,6 +60,8 @@ import {
     segmentWithLockedPolygonWhite,
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
+    tangentQuestion,
+    tangentQuestionWithDefaultCorrect,
     sinusoidWithPiTicks,
     unlimitedPointQuestion,
     unlimitedPolygonQuestion,
@@ -236,6 +238,7 @@ describe("Interactive Graph", function () {
         circle: circleQuestion,
         quadratic: quadraticQuestion,
         sinusoid: sinusoidQuestion,
+        tangent: tangentQuestion,
         "unlimited-point": pointQuestion,
         "unlimited-polygon": polygonQuestion,
     };
@@ -253,6 +256,7 @@ describe("Interactive Graph", function () {
         circle: circleQuestionWithDefaultCorrect,
         quadratic: quadraticQuestionWithDefaultCorrect,
         sinusoid: sinusoidQuestionWithDefaultCorrect,
+        tangent: tangentQuestionWithDefaultCorrect,
         "unlimited-point": pointQuestionWithDefaultCorrect,
         "unlimited-polygon": polygonQuestionDefaultCorrect,
     };

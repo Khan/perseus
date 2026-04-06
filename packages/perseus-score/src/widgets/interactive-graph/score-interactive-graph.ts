@@ -18,9 +18,21 @@ import type {
     Coord,
 } from "@khanacademy/perseus-core";
 
-const {collinear, canonicalSineCoefficients, similar, clockwise} = geometry;
+const {
+    collinear,
+    canonicalSineCoefficients,
+    canonicalTangentCoefficients,
+    similar,
+    clockwise,
+} = geometry;
 const {getClockwiseAngle} = angles;
-const {getSinusoidCoefficients, getQuadraticCoefficients} = coefficients;
+const {
+    getAbsoluteValueCoefficients,
+    getSinusoidCoefficients,
+    getQuadraticCoefficients,
+    getExponentialCoefficients,
+    getTangentCoefficients,
+} = coefficients;
 
 function scoreInteractiveGraph(
     // NOTE(benchristel): userInput can be undefined if the widget has never
@@ -130,6 +142,82 @@ function scoreInteractiveGraph(
             const canonicalGuessCoeffs = canonicalSineCoefficients(guessCoeffs);
             const canonicalCorrectCoeffs =
                 canonicalSineCoefficients(correctCoeffs);
+            // If the canonical coefficients match, it's correct.
+            if (
+                approximateDeepEqual(
+                    canonicalGuessCoeffs,
+                    canonicalCorrectCoeffs,
+                )
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
+            userInput.type === "exponential" &&
+            rubric.correct.type === "exponential" &&
+            userInput.coords != null &&
+            userInput.asymptote != null
+        ) {
+            const guessCoeffs = getExponentialCoefficients(
+                userInput.coords,
+                userInput.asymptote,
+            );
+            const correctCoeffs = getExponentialCoefficients(
+                rubric.correct.coords,
+                rubric.correct.asymptote,
+            );
+            if (
+                guessCoeffs != null &&
+                correctCoeffs != null &&
+                approximateDeepEqual(
+                    [guessCoeffs.a, guessCoeffs.b, guessCoeffs.c],
+                    [correctCoeffs.a, correctCoeffs.b, correctCoeffs.c],
+                )
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
+            userInput.type === "absolute-value" &&
+            rubric.correct.type === "absolute-value" &&
+            userInput.coords != null
+        ) {
+            const userCoeffs = getAbsoluteValueCoefficients(userInput.coords);
+            const rubricCoeffs = getAbsoluteValueCoefficients(
+                rubric.correct.coords,
+            );
+            if (
+                userCoeffs !== undefined &&
+                rubricCoeffs !== undefined &&
+                approximateDeepEqual(userCoeffs, rubricCoeffs)
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
+            userInput.type === "tangent" &&
+            rubric.correct.type === "tangent" &&
+            userInput.coords != null
+        ) {
+            const guessCoeffs = getTangentCoefficients(userInput.coords);
+            const correctCoeffs = getTangentCoefficients(rubric.correct.coords);
+
+            const canonicalGuessCoeffs =
+                canonicalTangentCoefficients(guessCoeffs);
+            const canonicalCorrectCoeffs =
+                canonicalTangentCoefficients(correctCoeffs);
             // If the canonical coefficients match, it's correct.
             if (
                 approximateDeepEqual(

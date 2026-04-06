@@ -88,9 +88,28 @@ export function mafsStateToInteractiveGraph(
                 ...originalGraph,
                 coords: state.coords,
             };
+        case "exponential":
+            invariant(originalGraph.type === "exponential");
+            return {
+                ...originalGraph,
+                coords: state.coords,
+                asymptote: state.asymptote,
+            };
         case "none":
             invariant(originalGraph.type === "none");
             return {...originalGraph};
+        case "absolute-value":
+            invariant(originalGraph.type === "absolute-value");
+            return {
+                ...originalGraph,
+                coords: state.coords,
+            };
+        case "tangent":
+            invariant(originalGraph.type === "tangent");
+            return {
+                ...originalGraph,
+                coords: state.coords,
+            };
         default:
             throw new UnreachableCaseError(state);
     }

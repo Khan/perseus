@@ -4,7 +4,9 @@ import {action} from "storybook/actions";
 
 import Marker from "../marker";
 
-import type {MarkerProps} from "../marker";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+type MarkerProps = PropsFor<typeof Marker>;
 
 type StoryArgs = Record<string, MarkerProps>;
 

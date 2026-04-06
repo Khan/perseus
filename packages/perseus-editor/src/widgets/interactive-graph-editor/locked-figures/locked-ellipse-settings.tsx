@@ -13,7 +13,7 @@ import {
     spacing,
     semanticColor,
 } from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -168,7 +168,11 @@ const LockedEllipseSettings = (props: Props) => {
             header={
                 // Summary: Ellipse, center, radius, color (opacity, dashed)
                 <View style={styles.row}>
-                    <LabelLarge>{`Ellipse (${center[0]}, ${center[1]}), radius ${radius[0]}, ${radius[1]}`}</LabelLarge>
+                    <BodyText
+                        size="medium"
+                        tag="span"
+                        weight="bold"
+                    >{`Ellipse (${center[0]}, ${center[1]}), radius ${radius[0]}, ${radius[1]}`}</BodyText>
                     <Strut size={spacing.xSmall_8} />
                     <EllipseSwatch
                         color={props.color}
@@ -220,7 +224,7 @@ const LockedEllipseSettings = (props: Props) => {
                 <Strut size={spacing.medium_16} />
 
                 {/* Fill opacity */}
-                <LabelMedium
+                <BodyText
                     tag="label"
                     style={[styles.row, styles.truncatedWidth]}
                 >
@@ -244,7 +248,7 @@ const LockedEllipseSettings = (props: Props) => {
                             />
                         ))}
                     </SingleSelect>
-                </LabelMedium>
+                </BodyText>
             </View>
 
             {/* Stroke style */}
@@ -275,7 +279,7 @@ const LockedEllipseSettings = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
-            <LabelMedium>Visible labels</LabelMedium>
+            <BodyText>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}

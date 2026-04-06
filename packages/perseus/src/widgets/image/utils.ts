@@ -1,8 +1,16 @@
+import {isLabeledSVG} from "@khanacademy/perseus-core";
+
 export function isGif(url: string): boolean {
     // Trying to do this the "right way" by loading in the image and counting
     // frames would ad more complexity than we need here. With our CDN's filename
     // structure, we can assume that all .gif images will have a URL ending in .gif.
     return url.endsWith(".gif");
+}
+
+export function isSvg(url: string): boolean {
+    const hasSvgExtension = url.endsWith(".svg");
+    const hasGraphieUrl = isLabeledSVG(url);
+    return hasSvgExtension || hasGraphieUrl;
 }
 
 export const earthMoonImage = {
@@ -53,3 +61,21 @@ export const gifImage = {
 
 export const gifImageAlt =
     "A person on a skateboard moves back and forth across a concrete structure that forms the shape of a U.";
+
+export const svgImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/419d654792bb1d6a33236538178ba2ed82db4560.svg",
+    width: 600,
+    height: 382,
+};
+
+export const extremelyLongDescription = `
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+`;

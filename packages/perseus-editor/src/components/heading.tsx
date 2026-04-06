@@ -1,7 +1,7 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -26,14 +26,9 @@ function Heading({
         >
             {() => (
                 <View style={styles.heading}>
-                    <LabelLarge
-                        style={{
-                            fontSize: 14,
-                            fontWeight: 600,
-                        }}
-                    >
+                    <BodyText size="small" weight="bold" tag="span">
                         {title}
-                    </LabelLarge>
+                    </BodyText>
                     {isCollapsible && <ToggleableCaret isExpanded={isOpen} />}
                 </View>
             )}

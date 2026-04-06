@@ -32,6 +32,8 @@ import {
     scienceImage,
     scienceImageAlt,
     scienceImageCaption,
+    svgImage,
+    extremelyLongDescription,
 } from "../utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -201,6 +203,55 @@ export const LargeImageWithNoSizeSavedScaleFlag: Story = {
         alt: "Fresco painting",
         longDescription:
             "This is a *very* long description of the fresco painting.",
+    },
+};
+
+export const SmallImageWithNoSizeSaved: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+        alt: "Earth and Moon",
+        title: "Hello world. Testing this with a super duper extra long, longest title",
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const SmallImageWithNoSizeSavedScaleFlag: Story = {
+    decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-scale": true,
+            }),
+        },
+    },
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+        alt: "Earth and Moon",
+        title: "Hello world. Testing this with a super duper extra long, longest title",
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const LargeSVGImageWithNoSizeSavedScaleFlag: Story = {
+    decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-scale": true,
+            }),
+        },
+    },
+    args: {
+        backgroundImage: {url: svgImage.url},
+        alt: "Fresco painting",
+        longDescription: extremelyLongDescription,
     },
 };
 

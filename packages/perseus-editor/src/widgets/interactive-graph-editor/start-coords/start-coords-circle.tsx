@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -54,7 +54,9 @@ const StartCoordsCircle = (props: Props) => {
         <View style={styles.tile}>
             {/* Center */}
             <View style={styles.row}>
-                <LabelLarge>Center:</LabelLarge>
+                <BodyText size="medium" weight="bold" tag="span">
+                    Center:
+                </BodyText>
                 <Strut size={spacing.small_12} />
                 <CoordinatePairInput
                     coord={startCoords.center}
@@ -67,7 +69,12 @@ const StartCoordsCircle = (props: Props) => {
             <Strut size={spacing.small_12} />
 
             {/* Radius */}
-            <LabelLarge tag="label" style={styles.row}>
+            <BodyText
+                size="medium"
+                weight="bold"
+                tag="label"
+                style={styles.row}
+            >
                 Radius:
                 <Strut size={spacing.small_12} />
                 <ScrolllessNumberTextField
@@ -75,7 +82,7 @@ const StartCoordsCircle = (props: Props) => {
                     onChange={handleRadiuschange}
                     style={styles.textField}
                 />
-            </LabelLarge>
+            </BodyText>
         </View>
     );
 };

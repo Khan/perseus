@@ -2,7 +2,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {TextArea, TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -34,12 +34,12 @@ export default function InteractiveGraphDescription(props: Props) {
             />
             {isOpen && (
                 <View>
-                    <LabelXSmall style={styles.caption}>
+                    <BodyText size="xsmall" style={styles.caption}>
                         Use these fields to describe the graph as a whole. These
                         are used by screen readers to describe content to users
                         who may be visually impaired.
-                    </LabelXSmall>
-                    <LabelLarge tag="label">
+                    </BodyText>
+                    <BodyText size="medium" weight="bold" tag="label">
                         Title
                         <TextField
                             value={ariaLabelValue}
@@ -53,11 +53,16 @@ export default function InteractiveGraphDescription(props: Props) {
                             }
                             style={styles.spaceAbove}
                         />
-                    </LabelLarge>
+                    </BodyText>
                     <Strut size={spacing.small_12} />
-                    <LabelLarge tag="label" htmlFor={descriptionTextAreaId}>
+                    <BodyText
+                        size="medium"
+                        weight="bold"
+                        tag="label"
+                        htmlFor={descriptionTextAreaId}
+                    >
                         Description
-                    </LabelLarge>
+                    </BodyText>
                     <TextArea
                         id={descriptionTextAreaId}
                         value={ariaDescriptionValue}

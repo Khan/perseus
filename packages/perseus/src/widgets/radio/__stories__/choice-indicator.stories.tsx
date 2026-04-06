@@ -1,4 +1,4 @@
-import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
+import {Heading} from "@khanacademy/wonder-blocks-typography";
 import React, {useRef} from "react";
 
 import Indicator from "../choice-indicator";
@@ -36,7 +36,9 @@ export const AllSettings = (): React.ReactElement => {
     return (
         <>
             <Container>
-                <HeadingMedium tag="h2">Single Select</HeadingMedium>
+                <Heading size="large" tag="h2">
+                    Single Select
+                </Heading>
                 <div>
                     <Indicator
                         buttonRef={buttonRef}
@@ -103,7 +105,9 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
             </Container>
             <Container>
-                <HeadingMedium tag="h2">Multiple Select</HeadingMedium>
+                <Heading size="large" tag="h2">
+                    Multiple Select
+                </Heading>
                 <div>
                     <Indicator
                         buttonRef={buttonRef}

@@ -16,6 +16,7 @@ import {
 } from "../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -214,6 +215,70 @@ describe("Editor", () => {
         expect(cbData?.widgets?.["radio 1"]?.version).toEqual({
             major: 3,
             minor: 0,
+        });
+    });
+
+    it("remembers the configuration of widgets that are removed from the content and then restored", async () => {
+        // This test verifies that ctrl+Z / undo will fully restore any
+        // deleted widgets.
+
+        let renderer: PerseusRenderer = {
+            content: "[[☃ image 1]]",
+            images: {},
+            widgets: {
+                "image 1": {
+                    type: "image",
+                    options: {
+                        backgroundImage: {
+                            url: "http://placekitten.com/200/300",
+                            width: 200,
+                            height: 300,
+                        },
+                    },
+                },
+            },
+        };
+
+        const handleChange = (changes: any) => {
+            renderer = {...renderer, ...changes};
+        };
+
+        const {rerender} = render(
+            <Harnessed onChange={handleChange} {...renderer} />,
+        );
+
+        const contentTextarea = screen.getByLabelText("Markdown content");
+        await userEvent.clear(contentTextarea);
+
+        // Pre-assert: clearing the textarea should also delete the image widget
+        expect(renderer.widgets).toEqual({});
+
+        rerender(<Harnessed onChange={handleChange} {...renderer} />);
+
+        // Act: restore the widget
+        for (const char of "[[☃ image 1]]") {
+            // Note: userEvent treats square brackets as special characters.
+            // Doubling the bracket escapes it.
+            await userEvent.type(contentTextarea, char.replace(/\[/, "[["));
+            // We have to re-render after every keystroke because the textarea
+            // is controlled. Its value doesn't update otherwise.
+            rerender(<Harnessed onChange={handleChange} {...renderer} />);
+        }
+
+        expect(renderer.content).toEqual("[[☃ image 1]]");
+
+        // Assert:
+        expect(renderer.widgets).toEqual({
+            "image 1": {
+                type: "image",
+                options: {
+                    backgroundImage: {
+                        url: "http://placekitten.com/200/300",
+                        width: 200,
+                        height: 300,
+                    },
+                },
+            },
         });
     });
 

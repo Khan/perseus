@@ -15,3 +15,10 @@ export function pushContextStack(context: any, name: string): any {
         stack: stack.concat(name),
     };
 }
+
+export {
+    lintPerseusArticle,
+    lintPerseusItem,
+    lintPerseusRenderer,
+    type LinterWarningItem,
+} from "./lint-content";

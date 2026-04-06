@@ -17,7 +17,7 @@ import {ZoomImageButton} from "./zoom-image-button";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
-import type {Dimensions} from "../types";
+import type {APIOptions, Dimensions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
 
 function isImageProbablyPhotograph(imageUrl) {
@@ -44,7 +44,8 @@ function defaultPreloader(dimensions: Dimensions) {
     );
 }
 
-type Props = {
+export type Props = {
+    apiOptions?: APIOptions;
     allowFullBleed?: boolean;
     allowZoom: boolean;
     alt: string;
@@ -451,8 +452,10 @@ class SvgImage extends React.Component<Props, State> {
             ? () => preloaderBaseFunc(dimensions)
             : null;
 
-        // Just use a normal image if a normal image is provided
+        // *********** Normal/Non-Graphie images ***********
+
         if (!Util.isLabeledSVG(imageSrc)) {
+            // Responsive non-Graphie images
             if (responsive) {
                 const imageContent = (
                     <>
@@ -481,16 +484,19 @@ class SvgImage extends React.Component<Props, State> {
                         {imageContent}
                         {this.props.allowZoom && (
                             <ZoomImageButton
-                                imgElement={imageContent}
+                                {...this.props}
                                 imgSrc={imageSrc}
-                                width={width}
-                                height={height}
+                                width={this.props.width}
+                                height={this.props.height}
                             />
                         )}
                     </FixedToResponsive>
                 );
             }
 
+            // Unresponsive non-graphie images
+            // (i.e. markdown images inside tables or widgets, or
+            // Image widgets with no size saved)
             imageProps.style = dimensions;
             return (
                 <ImageLoader
@@ -501,6 +507,8 @@ class SvgImage extends React.Component<Props, State> {
                 />
             );
         }
+
+        // *********** Graphie images ***********
 
         const imageUrl = Util.getSvgUrl(imageSrc);
 
@@ -545,6 +553,7 @@ class SvgImage extends React.Component<Props, State> {
             );
         }
 
+        // Responsive Graphie images
         if (responsive) {
             const imageContent = (
                 <>
@@ -571,15 +580,17 @@ class SvgImage extends React.Component<Props, State> {
                     {imageContent}
                     {this.props.allowZoom && (
                         <ZoomImageButton
-                            imgElement={imageContent}
+                            {...this.props}
                             imgSrc={imageUrl}
-                            width={width}
-                            height={height}
+                            width={this.props.width}
+                            height={this.props.height}
                         />
                     )}
                 </FixedToResponsive>
             );
         }
+
+        // Unresponsive Graphie images (i.e. markdown Graphie images in tables)
         imageProps.style = dimensions;
         return (
             <div className="unresponsive-svg-image" style={dimensions}>

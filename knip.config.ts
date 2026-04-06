@@ -52,6 +52,10 @@ const config: KnipConfig = {
         // versions will get automatically bumped when there is a change to
         // our build tooling.
         "perseus-build-settings",
+        // WB Themeing support comes via CSS variables that are imported from
+        // this tokens package and are included from
+        // .storybook/styles/shared.css
+        "@khanacademy/wonder-blocks-tokens",
         // @swc-node/register is used in the shabang of executable TypeScript
         // files.
         "@swc-node/register",

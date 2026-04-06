@@ -9,6 +9,7 @@ import {
     parseAndMigratePerseusItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import JsonEditor from "./components/json-editor";
@@ -135,12 +136,8 @@ class EditorPage extends React.Component<Props, State> {
     getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
         if (!prevProps.jsonMode && this.props.jsonMode) {
             return {
-                ...(this.itemEditor.current?.serialize({
-                    keepDeletedWidgets: true,
-                }) ?? {}),
-                hints: this.hintsEditor.current?.serialize({
-                    keepDeletedWidgets: true,
-                }),
+                ...(this.itemEditor.current?.serialize() ?? {}),
+                hints: this.hintsEditor.current?.serialize(),
             };
         }
         return null;
@@ -197,7 +194,7 @@ class EditorPage extends React.Component<Props, State> {
     toggleJsonMode: () => void = () => {
         this.setState(
             {
-                json: this.serialize({keepDeletedWidgets: true}),
+                json: this.serialize(),
             },
             () => {
                 this.props.onChange({
@@ -257,13 +254,22 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
-    serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
+    serialize(): PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-        return _.extend(this.itemEditor.current?.serialize(options), {
-            hints: this.hintsEditor.current?.serialize(options),
-        });
+        invariant(
+            this.itemEditor.current,
+            "cannot serialize EditorPage without ItemEditor",
+        );
+        invariant(
+            this.hintsEditor.current,
+            "cannot serialize EditorPage without HintsEditor",
+        );
+        return {
+            ...this.itemEditor.current.serialize(),
+            hints: this.hintsEditor.current.serialize(),
+        };
     }
 
     handleChange = (toChange: OnChangeParams) => {

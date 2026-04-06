@@ -3,7 +3,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 
@@ -166,9 +166,14 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
     if (isNoneOfTheAbove) {
         return (
             <>
-                <HeadingXSmall tag="label" htmlFor={contentTextAreaId}>
+                <BodyText
+                    size="small"
+                    weight="bold"
+                    tag="label"
+                    htmlFor={contentTextAreaId}
+                >
                     Content
-                </HeadingXSmall>
+                </BodyText>
                 <TextArea
                     id={contentTextAreaId}
                     value="None of the above"
@@ -183,13 +188,15 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
     return (
         <>
             {/* Content textarea */}
-            <HeadingXSmall
+            <BodyText
+                weight="bold"
+                size="small"
                 tag="label"
                 htmlFor={contentTextAreaId}
                 style={{marginBlockEnd: sizing.size_040}}
             >
                 Content
-            </HeadingXSmall>
+            </BodyText>
             <TextArea
                 id={contentTextAreaId}
                 ref={textAreaRef}

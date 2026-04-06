@@ -29,6 +29,7 @@ export type InteractiveGraphElementSuite = {
 };
 
 export type InteractiveGraphState =
+    | AbsoluteValueGraphState
     | AngleGraphState
     | SegmentGraphState
     | LinearSystemGraphState
@@ -39,7 +40,9 @@ export type InteractiveGraphState =
     | PointGraphState
     | CircleGraphState
     | QuadraticGraphState
-    | SinusoidGraphState;
+    | SinusoidGraphState
+    | ExponentialGraphState
+    | TangentGraphState;
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
@@ -117,10 +120,19 @@ export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     coords: [vec.Vector2, vec.Vector2];
 }
 
-// TODO(LEMS-3955): Export and add to InteractiveGraphState union in PR 3
-// when reducer handlers are implemented.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface TangentGraphState extends InteractiveGraphStateCommon {
+export interface ExponentialGraphState extends InteractiveGraphStateCommon {
+    type: "exponential";
+    coords: [vec.Vector2, vec.Vector2];
+    /** The y-value of the horizontal asymptote (y = asymptote). */
+    asymptote: number;
+}
+
+export interface AbsoluteValueGraphState extends InteractiveGraphStateCommon {
+    type: "absolute-value";
+    coords: [vec.Vector2, vec.Vector2];
+}
+
+export interface TangentGraphState extends InteractiveGraphStateCommon {
     type: "tangent";
     coords: [vec.Vector2, vec.Vector2];
 }

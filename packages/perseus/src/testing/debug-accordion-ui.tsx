@@ -4,7 +4,7 @@ import {
 } from "@khanacademy/wonder-blocks-accordion";
 import Button from "@khanacademy/wonder-blocks-button";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import {isCorrect} from "../util/scoring";
@@ -42,8 +42,9 @@ const ScoreHeader = ({score}: {score: PerseusScore}): React.ReactElement => {
         <div
             className={`${styles["status-badge"]} ${success ? styles["status-badge-success"] : styles["status-badge-error"]}`}
         >
-            <LabelSmall>{label}:</LabelSmall>
-            <LabelSmall
+            <BodyText size="small">{label}:</BodyText>
+            <BodyText
+                size="small"
                 style={{
                     color: success
                         ? semanticColor.core.foreground.success.subtle
@@ -52,7 +53,7 @@ const ScoreHeader = ({score}: {score: PerseusScore}): React.ReactElement => {
                 }}
             >
                 {value.toString()}
-            </LabelSmall>
+            </BodyText>
         </div>
     );
 

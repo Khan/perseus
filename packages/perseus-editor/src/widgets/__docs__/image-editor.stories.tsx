@@ -129,6 +129,19 @@ export const GraphieImageWithScaleFlag: Story = {
 };
 
 /**
+ * This Image widget editor has a zero-sized image.
+ */
+export const ImageWithEmptySize: Story = {
+    name: "Image With Empty Size (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+        caption:
+            "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)",
+    },
+};
+
+/**
  * Only the markdown image in the main content should be flagged with a linter
  * warning. The Image widget and Radio widget containing a markdown image
  * should not be flagged.
