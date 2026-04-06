@@ -1,7 +1,8 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {ModalDialog, ModalPanel} from "@khanacademy/wonder-blocks-modal";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, sizing} from "@khanacademy/wonder-blocks-tokens";
+import closeIcon from "@phosphor-icons/core/bold/x-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -13,8 +14,18 @@ import styles from "./zoomed-image-view.module.css";
 
 import type {Props as SvgImageProps} from "./svg-image";
 
+// 32px on each side of the modal panel
+const WB_MODAL_PADDING_TOTAL = 64;
+
 interface Props extends SvgImageProps {
+    // ID to use for the
+    initialFocusId: string;
     onClose: () => void;
+
+    // width and height are optional in SVGImageProps,
+    // but they are required here.
+    width: number;
+    height: number;
 }
 
 export const ZoomedImageView = (props: Props) => {
@@ -24,8 +35,9 @@ export const ZoomedImageView = (props: Props) => {
         "image-widget-upgrade-scale",
     );
 
-    const {onClose, ...svgProps} = props;
+    const {initialFocusId, onClose, ...svgProps} = props;
     const width = props.width;
+    const height = props.height;
     const contentScale = props.scale;
 
     const imageIsSvg = isSvg(props.src);
@@ -40,6 +52,24 @@ export const ZoomedImageView = (props: Props) => {
         ? Math.max(contentScale, 2)
         : Math.max(contentScale, 1);
 
+    // The scale that SvgImage will actually multiply dimensions by.
+    const effectiveScale = scaleFF ? scale : 1;
+
+    // Calculate the maximum available space (account for the modal panel padding).
+    const maxAvailableWidth = window.innerWidth - WB_MODAL_PADDING_TOTAL;
+    const maxAvailableHeight = window.innerHeight - WB_MODAL_PADDING_TOTAL;
+
+    // Calculate the ratio between the available space and the image size.
+    const scaleWidth = maxAvailableWidth / (width * effectiveScale);
+    const scaleHeight = maxAvailableHeight / (height * effectiveScale);
+    // Use the smaller ratio to ensure the image fits within the available space,
+    // with no scrolling.
+    const fitRatio = Math.min(scaleWidth, scaleHeight, 1);
+
+    // Calculate the final dimensions, constrained by the window size.
+    const constrainedWidth = width * fitRatio;
+    const constrainedHeight = height * fitRatio;
+
     return (
         <ModalDialog
             // aria-labelledby is a required prop for ModalDialog, but there
@@ -52,46 +82,55 @@ export const ZoomedImageView = (props: Props) => {
                 closeButtonVisible={false}
                 content={
                     <div className={styles.contentWrapper}>
-                        <Clickable
-                            onClick={onClose}
-                            aria-label={i18n.strings.imageResetZoomAriaLabel}
+                        <div
+                            className={styles.imageContainer}
+                            // This wrapper's explicit width tells
+                            // the image how big it should be.
+                            // Without it, the auto-width modal
+                            // causes the image to collapse to its
+                            // natural pixel size, ignoring scale.
                             style={{
-                                cursor: "zoom-out",
+                                width: constrainedWidth * effectiveScale,
                             }}
                         >
-                            {() => (
-                                // This wrapper's explicit width tells
-                                // the image how big it should be.
-                                // Without it, the auto-width modal
-                                // causes the image to collapse to its
-                                // natural pixel size, ignoring scale.
-                                <div
-                                    className={styles.imageContainer}
-                                    style={{
-                                        width:
-                                            width && scaleFF
-                                                ? width * scale
-                                                : undefined,
-                                    }}
-                                >
-                                    <div
-                                        // We need to include the framework-perseus
-                                        // class here to ensure that the image is
-                                        // styled correctly. Otherwise the Graphie
-                                        // labels may not be in the correct positions.
-                                        className="framework-perseus"
-                                    >
-                                        <SvgImage
-                                            {...svgProps}
-                                            // Don't allow zooming inside the
-                                            // zoom view.
-                                            allowZoom={false}
-                                            scale={scaleFF ? scale : 1}
-                                        />
-                                    </div>
-                                </div>
-                            )}
-                        </Clickable>
+                            <div
+                                // We need to include the framework-perseus
+                                // class here to ensure that the image is
+                                // styled correctly. Otherwise the Graphie
+                                // labels may not be in the correct positions.
+                                className="framework-perseus"
+                                // tabIndex={0} makes this a focus target so that:
+                                // 1. ModalLauncher's initialFocusId can focus it on
+                                //    open, keeping the close button hidden initially.
+                                // 2. Tab can move focus here from the close button,
+                                //    causing the button to hide without closing the
+                                //    modal.
+                                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                                tabIndex={0}
+                                id={initialFocusId}
+                            >
+                                <SvgImage
+                                    {...svgProps}
+                                    // Don't allow zooming inside the
+                                    // zoom view.
+                                    allowZoom={false}
+                                    // Need to pass in the unscaled dimensions
+                                    // into `width` and `height`, so that
+                                    // Graphie labels can be rendered correctly
+                                    // based on the `scale` prop.
+                                    width={constrainedWidth}
+                                    height={constrainedHeight}
+                                    scale={effectiveScale}
+                                />
+                            </div>
+                        </div>
+                        <IconButton
+                            icon={closeIcon}
+                            onClick={onClose}
+                            aria-label={i18n.strings.imageResetZoomAriaLabel}
+                            kind="primary"
+                            style={wbStyles.closeButton}
+                        />
                     </div>
                 }
             />
@@ -112,6 +151,18 @@ const wbStyles = StyleSheet.create({
         // Allow the image to touch the edges of the screen on mobile.
         "@media (max-width: 767px)": {
             margin: 0,
+        },
+    },
+    closeButton: {
+        position: "absolute",
+        top: border.width.medium,
+        right: border.width.medium,
+        opacity: 0,
+        ":hover": {
+            opacity: 1,
+        },
+        ":focus": {
+            opacity: 1,
         },
     },
 });

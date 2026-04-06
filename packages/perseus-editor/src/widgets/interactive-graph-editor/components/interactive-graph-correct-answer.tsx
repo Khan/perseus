@@ -1,9 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {
-    BodyMonospace,
-    LabelXSmall,
-} from "@khanacademy/wonder-blocks-typography";
+import {BodyMonospace, BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import Heading from "../../../components/heading";
@@ -23,7 +20,8 @@ export function InteractiveGraphCorrectAnswer(props: Props) {
             />
             <View id={props.id}>
                 <View>
-                    <LabelXSmall
+                    <BodyText
+                        size="xsmall"
                         style={{
                             paddingTop: spacing.xxSmall_6,
                             paddingBottom: spacing.xxSmall_6,
@@ -33,7 +31,7 @@ export function InteractiveGraphCorrectAnswer(props: Props) {
                         Graph the correct answer in the graph below and ensure
                         the equation or point coordinates displayed represent
                         the correct answer.
-                    </LabelXSmall>
+                    </BodyText>
 
                     <BodyMonospace
                         style={{

@@ -28,9 +28,7 @@ type Props = DefaultProps & {
     // component as its base link class.
     className?: string;
     // Additional direct styles to add.
-    inlineStyles?: {
-        [key: string]: any;
-    };
+    inlineStyles?: React.CSSProperties;
     // Optional referrer query parameter to add to the end of the URL, used
     // for analytics purposes.
     referrer?: string;

@@ -1,7 +1,7 @@
 import {angles} from "@khanacademy/kmath";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -36,7 +36,7 @@ const AngleInput = (props: Props) => {
     }
 
     return (
-        <LabelMedium tag="label" style={styles.row}>
+        <BodyText tag="label" style={styles.row}>
             angle (degrees)
             <Strut size={spacing.xxSmall_6} />
             <ScrolllessNumberTextField
@@ -45,7 +45,7 @@ const AngleInput = (props: Props) => {
                 style={styles.textField}
             />
             <Strut size={spacing.xxSmall_6} />
-        </LabelMedium>
+        </BodyText>
     );
 };
 

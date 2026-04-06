@@ -61,9 +61,9 @@ class MathInput extends React.Component<Props, State> {
     didTouchOutside: boolean | null | undefined;
     didScroll: boolean | null | undefined;
     mathField: any;
-    recordTouchStartOutside!: (arg1: any) => void;
-    blurOnTouchEndOutside!: (arg1: any) => void;
-    blurOnClickOutside!: (arg1: any) => void;
+    recordTouchStartOutside!: (e: any) => void;
+    blurOnTouchEndOutside!: (e: any) => void;
+    blurOnClickOutside!: (e: any) => void;
     dragListener: any;
     inputRef: HTMLDivElement | null | undefined;
     _isMounted: boolean | null | undefined;
@@ -267,7 +267,9 @@ class MathInput extends React.Component<Props, State> {
         return null;
     }
 
-    _updateCursorHandle: (arg1?: boolean) => void = (animateIntoPosition) => {
+    _updateCursorHandle: (animateIntoPosition?: boolean) => void = (
+        animateIntoPosition,
+    ) => {
         const containerBounds = this._container.getBoundingClientRect();
         const cursor: any = this._container.querySelector(".mq-cursor");
         const cursorBounds = cursor.getBoundingClientRect();
@@ -413,13 +415,13 @@ class MathInput extends React.Component<Props, State> {
      *                      sign determines direction.
      * @returns {boolean} - true if a node was hit, false otherwise.
      */
-    _findHitNode: (
-        arg1: ClientRect,
-        arg2: number,
-        arg3: number,
-        arg4: number,
-        arg5: number,
-    ) => boolean = (containerBounds, x, y, dx, dy) => {
+    _findHitNode(
+        containerBounds: ClientRect,
+        x: number,
+        y: number,
+        dx: number,
+        dy: number,
+    ): boolean {
         while (y >= containerBounds.top && y <= containerBounds.bottom) {
             y += dy;
 
@@ -512,7 +514,7 @@ class MathInput extends React.Component<Props, State> {
         }
 
         return false;
-    };
+    }
 
     /**
      * Inserts the cursor at the DOM node closest to the given coordinates,
@@ -521,10 +523,7 @@ class MathInput extends React.Component<Props, State> {
      * @param {number} x - the x coordinate in the viewport
      * @param {number} y - the y coordinate in the viewport
      */
-    _insertCursorAtClosestNode: (arg1: number, arg2: number) => void = (
-        x,
-        y,
-    ) => {
+    _insertCursorAtClosestNode(x: number, y: number) {
         const cursor = this.mathField.getCursor();
 
         // Pre-emptively check if the input has any child nodes; if not, the
@@ -591,7 +590,7 @@ class MathInput extends React.Component<Props, State> {
         this.props.keypadElement?.setCursor({
             context: this.mathField.contextForCursor(),
         });
-    };
+    }
 
     handleTouchStart = (
         e: React.TouchEvent<Element>,
@@ -676,7 +675,7 @@ class MathInput extends React.Component<Props, State> {
         this.inputRef?.focus();
     };
 
-    handleTouchMove: (arg1: React.TouchEvent<Element>) => void = (e) => {
+    handleTouchMove: (e: React.TouchEvent<Element>) => void = (e) => {
         e.stopPropagation();
 
         // Update the handle-less cursor's location on move, if there's any
@@ -691,7 +690,7 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    handleTouchEnd: (arg1: React.TouchEvent<Element>) => void = (e) => {
+    handleTouchEnd: (e: React.TouchEvent<Element>) => void = (e) => {
         e.stopPropagation();
 
         // And on touch-end, reveal the cursor, unless the input is empty. Note
@@ -710,9 +709,9 @@ class MathInput extends React.Component<Props, State> {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchStart: (
-        arg1: React.TouchEvent<HTMLSpanElement>,
-    ) => void = (e) => {
+    onCursorHandleTouchStart: (e: React.TouchEvent<HTMLSpanElement>) => void = (
+        e,
+    ) => {
         // NOTE(charlie): The cursor handle is a child of this view, so whenever
         // it receives a touch event, that event would also typically be bubbled
         // up to our own handlers. However, we want the cursor to handle its own
@@ -728,12 +727,12 @@ class MathInput extends React.Component<Props, State> {
         this._containerBounds = this._container.getBoundingClientRect();
     };
 
-    _constrainToBound: (
-        arg1: number,
-        arg2: number,
-        arg3: number,
-        arg4: number,
-    ) => number = (value, min, max, friction) => {
+    _constrainToBound(
+        value: number,
+        min: number,
+        max: number,
+        friction: number,
+    ): number {
         if (value < min) {
             return min + (value - min) * friction;
         } else if (value > max) {
@@ -741,7 +740,7 @@ class MathInput extends React.Component<Props, State> {
         } else {
             return value;
         }
-    };
+    }
 
     /**
      * When the user moves the cursor handle update the position of the cursor
@@ -749,78 +748,79 @@ class MathInput extends React.Component<Props, State> {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchMove: (arg1: React.TouchEvent<HTMLSpanElement>) => void =
-        (e) => {
-            e.stopPropagation();
+    onCursorHandleTouchMove: (e: React.TouchEvent<HTMLSpanElement>) => void = (
+        e,
+    ) => {
+        e.stopPropagation();
 
-            const x = e.changedTouches[0].clientX;
-            const y = e.changedTouches[0].clientY;
+        const x = e.changedTouches[0].clientX;
+        const y = e.changedTouches[0].clientY;
 
-            const relativeX = x - this._containerBounds.left;
-            const relativeY =
-                y -
-                2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier -
-                this._containerBounds.top;
+        const relativeX = x - this._containerBounds.left;
+        const relativeY =
+            y -
+            2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier -
+            this._containerBounds.top;
 
-            // We subtract the containerBounds left/top to correct for the
-            // MathInput's position on the page. On top of that, we subtract an
-            // additional 2 x {height of the cursor} so that the bottom of the
-            // cursor tracks the user's finger, to make it visible under their
-            // touch.
-            this.setState({
-                handle: {
-                    animateIntoPosition: false,
-                    visible: true,
-                    x: this._constrainToBound(
-                        relativeX,
-                        0,
-                        this._containerBounds.width,
-                        constrainingFrictionFactor,
-                    ),
-                    y: this._constrainToBound(
-                        relativeY,
-                        0,
-                        this._containerBounds.height,
-                        constrainingFrictionFactor,
-                    ),
-                },
-            });
+        // We subtract the containerBounds left/top to correct for the
+        // MathInput's position on the page. On top of that, we subtract an
+        // additional 2 x {height of the cursor} so that the bottom of the
+        // cursor tracks the user's finger, to make it visible under their
+        // touch.
+        this.setState({
+            handle: {
+                animateIntoPosition: false,
+                visible: true,
+                x: this._constrainToBound(
+                    relativeX,
+                    0,
+                    this._containerBounds.width,
+                    constrainingFrictionFactor,
+                ),
+                y: this._constrainToBound(
+                    relativeY,
+                    0,
+                    this._containerBounds.height,
+                    constrainingFrictionFactor,
+                ),
+            },
+        });
 
-            // Use a y-coordinate that's just above where the user is actually
-            // touching because they're dragging the handle which is a little
-            // below where the cursor actually is.
-            const distanceAboveFingerToTrySelecting = 22;
-            const adjustedY = y - distanceAboveFingerToTrySelecting;
+        // Use a y-coordinate that's just above where the user is actually
+        // touching because they're dragging the handle which is a little
+        // below where the cursor actually is.
+        const distanceAboveFingerToTrySelecting = 22;
+        const adjustedY = y - distanceAboveFingerToTrySelecting;
 
-            this._insertCursorAtClosestNode(x, adjustedY);
-        };
+        this._insertCursorAtClosestNode(x, adjustedY);
+    };
 
     /**
      * When the user releases the cursor handle, animate it back into place.
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchEnd: (arg1: React.TouchEvent<HTMLSpanElement>) => void =
-        (e) => {
-            e.stopPropagation();
+    onCursorHandleTouchEnd: (e: React.TouchEvent<HTMLSpanElement>) => void = (
+        e,
+    ) => {
+        e.stopPropagation();
 
-            this._updateCursorHandle(true);
-        };
+        this._updateCursorHandle(true);
+    };
 
     /**
      * If the gesture is cancelled mid-drag, simply hide it.
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchCancel: (
-        arg1: React.TouchEvent<HTMLSpanElement>,
-    ) => void = (e) => {
-        e.stopPropagation();
+    onCursorHandleTouchCancel: (e: React.TouchEvent<HTMLSpanElement>) => void =
+        (e) => {
+            e.stopPropagation();
 
-        this._updateCursorHandle(true);
-    };
+            this._updateCursorHandle(true);
+        };
 
-    domKeyToMathQuillKey: (arg1: string) => string | null | undefined = (
+    domKeyToMathQuillKey: (key: string) => string | null | undefined = (
         key,
     ) => {
         const keyMap = {
@@ -855,10 +855,8 @@ class MathInput extends React.Component<Props, State> {
         return null;
     };
 
-    handleKeyUp: (arg1: React.KeyboardEvent<HTMLDivElement>) => void = (
-        event,
-    ) => {
-        const mathQuillKey = this.domKeyToMathQuillKey(event.key);
+    handleKeyUp: (e: React.KeyboardEvent<HTMLDivElement>) => void = (e) => {
+        const mathQuillKey = this.domKeyToMathQuillKey(e.key);
 
         if (mathQuillKey) {
             this.mathField.pressKey(mathQuillKey);

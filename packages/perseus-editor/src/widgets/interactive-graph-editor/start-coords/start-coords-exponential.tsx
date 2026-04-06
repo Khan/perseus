@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
@@ -62,7 +62,7 @@ const StartCoordsExponential = (props: Props) => {
         <View className={styles.tile}>
             {/* Point 1 */}
             <View className={styles.row}>
-                <LabelLarge>Point 1:</LabelLarge>
+                <BodyText weight="bold">Point 1:</BodyText>
                 <Strut size={spacing.small_12} />
                 <CoordinatePairInput
                     coord={coords[0]}
@@ -76,7 +76,7 @@ const StartCoordsExponential = (props: Props) => {
 
             {/* Point 2 */}
             <View className={styles.row}>
-                <LabelLarge>Point 2:</LabelLarge>
+                <BodyText weight="bold">Point 2:</BodyText>
                 <Strut size={spacing.small_12} />
                 <CoordinatePairInput
                     coord={coords[1]}
@@ -89,7 +89,7 @@ const StartCoordsExponential = (props: Props) => {
             <Strut size={spacing.small_12} />
 
             {/* Asymptote y-value — single number, mirroring radius in StartCoordsCircle */}
-            <LabelLarge tag="label" className={styles.row}>
+            <BodyText weight="bold" tag="label" className={styles.row}>
                 Asymptote y =
                 <Strut size={spacing.small_12} />
                 <View className={styles.textFieldWrapper}>
@@ -98,7 +98,7 @@ const StartCoordsExponential = (props: Props) => {
                         onChange={handleAsymptoteYChange}
                     />
                 </View>
-            </LabelLarge>
+            </BodyText>
         </View>
     );
 };

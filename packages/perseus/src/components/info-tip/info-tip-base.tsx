@@ -1,7 +1,7 @@
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
-import {Body} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import questionIcon from "@phosphor-icons/core/regular/question.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -13,7 +13,7 @@ type Props = {
 const InfoTipBase = (props: Props) => {
     return (
         <Tooltip
-            content={<Body style={styles.body}>{props.children}</Body>}
+            content={<BodyText style={styles.body}>{props.children}</BodyText>}
             placement="right"
         >
             <PhosphorIcon

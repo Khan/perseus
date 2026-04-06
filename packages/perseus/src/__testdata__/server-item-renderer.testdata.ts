@@ -53,7 +53,6 @@ export const itemWithMockWidget: PerseusItem = {
         {content: "Hint #2", images: {}, widgets: {}},
         {content: "Hint #3", images: {}, widgets: {}},
     ],
-    answerArea: null,
 };
 
 // Used for storybook
@@ -111,7 +110,6 @@ export const itemWithTwoMockWidgets: PerseusItem = {
         {content: "Hint #2", images: {}, widgets: {}},
         {content: "Hint #3", images: {}, widgets: {}},
     ],
-    answerArea: null,
 };
 
 export const itemWithRadioAndExpressionWidgets: PerseusItem =
@@ -250,7 +248,6 @@ export const itemWithLintingError: PerseusItem = {
         widgets: {},
     },
     hints: [],
-    answerArea: null,
 };
 
 export const itemWithImages: PerseusItem = {
@@ -440,5 +437,4 @@ And what follows are _hints_...
             widgets: {},
         },
     ],
-    answerArea: null,
 };

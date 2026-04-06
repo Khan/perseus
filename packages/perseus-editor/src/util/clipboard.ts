@@ -1,0 +1,47 @@
+import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
+
+export interface PerseusClipboardData {
+    text: string;
+    widgets: PerseusWidgetsMap;
+}
+
+export function setPerseusClipboardData({
+    text,
+    widgets,
+}: PerseusClipboardData): Promise<void> {
+    const dummyElement = document.createElement("span");
+    dummyElement.setAttribute("data-perseus-widgets", JSON.stringify(widgets));
+
+    return navigator.clipboard.write([
+        new ClipboardItem({
+            "text/plain": text,
+            "text/html": dummyElement.outerHTML,
+        }),
+    ]);
+}
+
+export async function getPerseusClipboardData(): Promise<PerseusClipboardData> {
+    const clipboardItems = await navigator.clipboard.read();
+
+    let widgets: PerseusWidgetsMap = {};
+    let text: string = "";
+    for (const item of clipboardItems) {
+        if (item.types.includes("text/html")) {
+            const dummyDiv = document.createElement("span");
+            const htmlBlob = await item.getType("text/html");
+            dummyDiv.innerHTML = await htmlBlob.text();
+            const widgetsJson = dummyDiv
+                .querySelector("[data-perseus-widgets]")
+                ?.getAttribute("data-perseus-widgets");
+            if (widgetsJson) {
+                widgets = JSON.parse(widgetsJson);
+            }
+        }
+        if (item.types.includes("text/plain")) {
+            const plainTextBlob = await item.getType("text/plain");
+            text = await plainTextBlob.text();
+        }
+    }
+
+    return {widgets, text};
+}

@@ -1,5 +1,47 @@
 # @khanacademy/perseus-editor
 
+## 30.1.0
+
+### Minor Changes
+
+-   [#3438](https://github.com/Khan/perseus/pull/3438) [`d19e327d8a`](https://github.com/Khan/perseus/commit/d19e327d8a49932ddb54a8989e25ca216269f8cd) Thanks [@benchristel](https://github.com/benchristel)! - Use the clipboard API instead of localStorage for copy-pasting widget data.
+
+### Patch Changes
+
+-   [#3403](https://github.com/Khan/perseus/pull/3403) [`9d0a86792b`](https://github.com/Khan/perseus/commit/9d0a86792b6aa94be7aa42e3350a86fc65d2b667) Thanks [@jandrade](https://github.com/jandrade)! - Updates perseus-editor to replace legacy typography components (HeadingLarge/Medium/Small, Body, LabelLarge/Medium/Small) with the new WB versions: Heading and BodyText
+
+-   Updated dependencies [[`76a38ce406`](https://github.com/Khan/perseus/commit/76a38ce406c8b445ab9265a504f4d92614a64ba1), [`fa37a1e7e5`](https://github.com/Khan/perseus/commit/fa37a1e7e5343f011e9e3987ee95efdd02021fd8), [`8538fd2fec`](https://github.com/Khan/perseus/commit/8538fd2fec3e60b367d41aa2c985d7680cd741b2)]:
+    -   @khanacademy/perseus@77.0.3
+
+## 30.0.4
+
+### Patch Changes
+
+-   [#3411](https://github.com/Khan/perseus/pull/3411) [`94ad54eb43`](https://github.com/Khan/perseus/commit/94ad54eb4340b2a14b1c3d6e89d65d6897722446) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Align caption to image in case where image has no size
+
+-   Updated dependencies [[`94ad54eb43`](https://github.com/Khan/perseus/commit/94ad54eb4340b2a14b1c3d6e89d65d6897722446), [`468910ec63`](https://github.com/Khan/perseus/commit/468910ec637c7e9ffa3611693455090498fd0c1f), [`634e65efab`](https://github.com/Khan/perseus/commit/634e65efab034f638304902f9ad2f113c9e11e56)]:
+    -   @khanacademy/perseus@77.0.2
+
+## 30.0.3
+
+### Patch Changes
+
+-   Updated dependencies [[`41bea5fd10`](https://github.com/Khan/perseus/commit/41bea5fd10c32ce5579addf9843b134d119461c6), [`06ac0a160d`](https://github.com/Khan/perseus/commit/06ac0a160d507af6e5a59a86a1bc231541f2d5cb), [`dae8b1d931`](https://github.com/Khan/perseus/commit/dae8b1d931035db56414c0088c69964a89aeb088)]:
+    -   @khanacademy/perseus@77.0.1
+
+## 30.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`6267d162b4`](https://github.com/Khan/perseus/commit/6267d162b45244628df7f40cb2fa0532a8d40b7d), [`669ed4e6b1`](https://github.com/Khan/perseus/commit/669ed4e6b13729373678964b341df2427f038085), [`2d8df47440`](https://github.com/Khan/perseus/commit/2d8df474405e7d1bfe00d35affba06f17ebac9ce), [`3f091b70cb`](https://github.com/Khan/perseus/commit/3f091b70cbeb65679e52e494fbb25bea0587811d), [`3e1e498bf5`](https://github.com/Khan/perseus/commit/3e1e498bf5e9b1e289f1ed43f75b0a087b0d3192)]:
+    -   @khanacademy/perseus-core@24.0.0
+    -   @khanacademy/perseus-score@8.5.0
+    -   @khanacademy/perseus-linter@4.9.1
+    -   @khanacademy/perseus@77.0.0
+    -   @khanacademy/keypad-context@3.2.41
+    -   @khanacademy/kmath@2.3.1
+    -   @khanacademy/math-input@26.4.11
+
 ## 30.0.1
 
 ### Patch Changes

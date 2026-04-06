@@ -9,12 +9,23 @@ import type {Props as SvgImageProps} from "./svg-image";
 
 interface Props extends SvgImageProps {
     imgSrc: string;
+
+    // width and height are optional in SVGImageProps,
+    // but they are required here.
+    width: number;
+    height: number;
 }
 
 export const ZoomImageButton = (props: Props) => {
     const {imgSrc} = props;
 
     const i18n = usePerseusI18n();
+    // Remove the colons from the React-generated unique ID so that it
+    // can be used as ModalLauncher's initialFocusId. ModalLauncher uses
+    // querySelector to find the element to focus, and unescaped colons
+    // are treated as pseudo-class selectors in CSS, causing an error.
+    const uniqueId = React.useId().replace(/:/g, "");
+    const zoomedImageUniqueId = `zoomed-image-${uniqueId}`;
 
     // Check for "Command + Click" or "Control + Click" to open the image
     // in a new tab. This feature was part of the old zoom service, so
@@ -33,8 +44,13 @@ export const ZoomImageButton = (props: Props) => {
 
     return (
         <ModalLauncher
+            initialFocusId={zoomedImageUniqueId}
             modal={({closeModal}) => (
-                <ZoomedImageView {...props} onClose={closeModal} />
+                <ZoomedImageView
+                    {...props}
+                    initialFocusId={zoomedImageUniqueId}
+                    onClose={closeModal}
+                />
             )}
         >
             {({openModal}) => (

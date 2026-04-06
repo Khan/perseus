@@ -131,6 +131,11 @@ jobs:
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
               run: pnpm build:types
 
+            # We build the docs in this job so that typedoc can check any
+            # comment changes to ensure they are valid.
+            - name: Build docs
+              run: pnpm build:docs
+
             # Run tests for our target matrix
             - id: jest-reset
               uses: Khan/actions@70e6afa0077187462838d024a1773adf217fb2b8 # filter-files-v2

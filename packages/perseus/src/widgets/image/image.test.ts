@@ -436,7 +436,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         await userEvent.click(button);
         const withinDialog = within(screen.getByRole("dialog"));
         const zoomButton = withinDialog.queryByRole("button", {
-            name: "Zoom image.",
+            name: "Make image bigger.",
         });
 
         // Assert
@@ -464,7 +464,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Can't use `getByRole` here because we need to wait
             // for the image to load for the button to be appear.
             const button = await screen.findByRole("button", {
-                name: "Zoom image.",
+                name: "Make image bigger.",
             });
             expect(button).toBeVisible();
         });
@@ -575,7 +575,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act
             const button = await screen.findByRole("button", {
-                name: "Zoom image.",
+                name: "Make image bigger.",
             });
             await userEvent.click(button);
 
@@ -599,7 +599,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act - open the modal
             const button = await screen.findByRole("button", {
-                name: "Zoom image.",
+                name: "Make image bigger.",
             });
             await userEvent.click(button);
 
@@ -608,7 +608,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Act - close the modal
             const resetZoomButton = screen.getByRole("button", {
-                name: "Reset zoom.",
+                name: "Close image.",
             });
             await userEvent.click(resetZoomButton);
 
@@ -1228,7 +1228,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     // Act
                     renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
                     const zoomButton = screen.getByRole("button", {
-                        name: "Zoom image.",
+                        name: "Make image bigger.",
                     });
                     await userEvent.click(zoomButton);
 
@@ -1284,7 +1284,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     // Act
                     renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
                     const zoomButton = screen.getByRole("button", {
-                        name: "Zoom image.",
+                        name: "Make image bigger.",
                     });
                     await userEvent.click(zoomButton);
 

@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -22,7 +22,11 @@ const StartCoordsPoint = (props: Props) => {
             {startCoords.map((coord, index) => {
                 return (
                     <View key={index} style={styles.tile}>
-                        <LabelLarge>{`Point ${index + 1}:`}</LabelLarge>
+                        <BodyText
+                            size="medium"
+                            weight="bold"
+                            tag="span"
+                        >{`Point ${index + 1}:`}</BodyText>
                         <Strut size={spacing.small_12} />
                         <CoordinatePairInput
                             coord={coord}

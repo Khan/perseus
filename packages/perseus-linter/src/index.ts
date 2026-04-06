@@ -20,4 +20,5 @@ export {
     lintPerseusArticle,
     lintPerseusItem,
     lintPerseusRenderer,
+    type LinterWarningItem,
 } from "./lint-content";

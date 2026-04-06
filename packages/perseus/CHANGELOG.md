@@ -1,5 +1,53 @@
 # @khanacademy/perseus
 
+## 77.0.3
+
+### Patch Changes
+
+-   [#3449](https://github.com/Khan/perseus/pull/3449) [`76a38ce406`](https://github.com/Khan/perseus/commit/76a38ce406c8b445ab9265a504f4d92614a64ba1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Remove unnecessary component stories
+
+*   [#3450](https://github.com/Khan/perseus/pull/3450) [`fa37a1e7e5`](https://github.com/Khan/perseus/commit/fa37a1e7e5343f011e9e3987ee95efdd02021fd8) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing missing subtype for radio widget error event.
+
+-   [#3440](https://github.com/Khan/perseus/pull/3440) [`8538fd2fec`](https://github.com/Khan/perseus/commit/8538fd2fec3e60b367d41aa2c985d7680cd741b2) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Resize Graphie labels when window is resized
+
+## 77.0.2
+
+### Patch Changes
+
+-   [#3411](https://github.com/Khan/perseus/pull/3411) [`94ad54eb43`](https://github.com/Khan/perseus/commit/94ad54eb4340b2a14b1c3d6e89d65d6897722446) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Align caption to image in case where image has no size
+
+*   [#3439](https://github.com/Khan/perseus/pull/3439) [`468910ec63`](https://github.com/Khan/perseus/commit/468910ec637c7e9ffa3611693455090498fd0c1f) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Stop large portrait images from overflowing in zoom view
+
+-   [#3436](https://github.com/Khan/perseus/pull/3436) [`634e65efab`](https://github.com/Khan/perseus/commit/634e65efab034f638304902f9ad2f113c9e11e56) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Fix color of text in correct option choice to match specs (theme-based green)
+
+## 77.0.1
+
+### Patch Changes
+
+-   [#3429](https://github.com/Khan/perseus/pull/3429) [`41bea5fd10`](https://github.com/Khan/perseus/commit/41bea5fd10c32ce5579addf9843b134d119461c6) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Stop large images from overflowing
+
+*   [#3413](https://github.com/Khan/perseus/pull/3413) [`06ac0a160d`](https://github.com/Khan/perseus/commit/06ac0a160d507af6e5a59a86a1bc231541f2d5cb) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Don't upscale images within explore modal if size is unknown
+
+-   [#3426](https://github.com/Khan/perseus/pull/3426) [`dae8b1d931`](https://github.com/Khan/perseus/commit/dae8b1d931035db56414c0088c69964a89aeb088) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Update zoom view SRUX
+
+## 77.0.0
+
+### Major Changes
+
+-   [#3416](https://github.com/Khan/perseus/pull/3416) [`3e1e498bf5`](https://github.com/Khan/perseus/commit/3e1e498bf5e9b1e289f1ed43f75b0a087b0d3192) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove trivial function `getWidgetsMapFromItemData` - access widgets via `.question.widgets` instead.
+
+### Patch Changes
+
+-   [#3388](https://github.com/Khan/perseus/pull/3388) [`3f091b70cb`](https://github.com/Khan/perseus/commit/3f091b70cbeb65679e52e494fbb25bea0587811d) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Upscale Graphies within image zoom view
+
+-   Updated dependencies [[`6267d162b4`](https://github.com/Khan/perseus/commit/6267d162b45244628df7f40cb2fa0532a8d40b7d), [`669ed4e6b1`](https://github.com/Khan/perseus/commit/669ed4e6b13729373678964b341df2427f038085), [`2d8df47440`](https://github.com/Khan/perseus/commit/2d8df474405e7d1bfe00d35affba06f17ebac9ce)]:
+    -   @khanacademy/perseus-core@24.0.0
+    -   @khanacademy/perseus-score@8.5.0
+    -   @khanacademy/perseus-linter@4.9.1
+    -   @khanacademy/keypad-context@3.2.41
+    -   @khanacademy/kmath@2.3.1
+    -   @khanacademy/math-input@26.4.11
+
 ## 76.1.1
 
 ### Patch Changes

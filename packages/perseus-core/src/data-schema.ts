@@ -223,10 +223,10 @@ export type PerseusItem = {
      * itself does not ship with any of these tools, they are strictly hints to
      * the host application.
      */
-    // TODO(benchristel): The parser for PerseusAnswerArea never returns null
-    //     or undefined. We could remove `| null | undefined` here, but we'd
+    // TODO(benchristel): The parser for PerseusAnswerArea never returns
+    //     undefined. We could remove `| undefined` here, but we'd
     //     have to update a bunch of test data in both this repo and frontend.
-    answerArea: PerseusAnswerArea | null | undefined;
+    answerArea?: PerseusAnswerArea | undefined;
 };
 
 /**

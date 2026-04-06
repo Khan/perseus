@@ -4,7 +4,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import pencilCircle from "@phosphor-icons/core/regular/pencil-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -32,9 +32,9 @@ function LockedFigureAria(props: Props) {
         <View>
             <Strut size={spacing.xSmall_8} />
             <View style={styles.row}>
-                <LabelMedium tag="label" htmlFor={ariaLabelId}>
+                <BodyText tag="label" htmlFor={ariaLabelId}>
                     Aria label
-                </LabelMedium>
+                </BodyText>
                 <Spring />
                 <InfoTip>
                     Aria label is used by screen readers to describe content to
@@ -51,10 +51,10 @@ function LockedFigureAria(props: Props) {
                 </InfoTip>
             </View>
             <Strut size={spacing.xxSmall_6} />
-            <LabelXSmall style={styles.caption}>
+            <BodyText size="xsmall" style={styles.caption}>
                 The figure is hidden from screen readers if this field is left
                 blank.
-            </LabelXSmall>
+            </BodyText>
             <Strut size={spacing.xxSmall_6} />
             <TextArea
                 id={ariaLabelId}

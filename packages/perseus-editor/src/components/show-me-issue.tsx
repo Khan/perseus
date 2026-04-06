@@ -1,5 +1,5 @@
 import Switch from "@khanacademy/wonder-blocks-switch";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import {useState} from "react";
 
@@ -31,7 +31,6 @@ const ShowMe = ({elements}: {elements?: Element[]}) => {
     };
     const showMeStyle = {
         marginTop: "1em",
-        fontWeight: "bold",
         display: "flex",
         alignItems: "center",
     };
@@ -56,11 +55,11 @@ const ShowMe = ({elements}: {elements?: Element[]}) => {
     });
 
     const showMeToggle = (
-        <LabelSmall style={showMeStyle}>
+        <BodyText size="small" tag="span" weight="bold" style={showMeStyle}>
             <span style={{marginInlineEnd: "1em"}}>Show Me</span>
             <Switch checked={showMe} onChange={setShowMe} />
             {elementOutlines}
-        </LabelSmall>
+        </BodyText>
     );
     const showMeUnavailable = (
         <div>

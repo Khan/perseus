@@ -1,11 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, font, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {
-    BodyMonospace,
-    LabelLarge,
-    LabelMedium,
-} from "@khanacademy/wonder-blocks-typography";
+import {BodyMonospace, BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -29,7 +25,7 @@ const StartCoordsSinusoid = (props: Props) => {
         <>
             {/* Current equation */}
             <View style={styles.equationSection}>
-                <LabelMedium>Starting equation:</LabelMedium>
+                <BodyText>Starting equation:</BodyText>
                 <BodyMonospace style={styles.equationBody}>
                     {getSinusoidEquation(startCoords)}
                 </BodyMonospace>
@@ -37,7 +33,9 @@ const StartCoordsSinusoid = (props: Props) => {
 
             {/* Points UI */}
             <View style={styles.tile}>
-                <LabelLarge>Point 1:</LabelLarge>
+                <BodyText size="medium" weight="bold" tag="span">
+                    Point 1:
+                </BodyText>
                 <Strut size={spacing.small_12} />
                 <CoordinatePairInput
                     coord={startCoords[0]}
@@ -46,7 +44,9 @@ const StartCoordsSinusoid = (props: Props) => {
                 />
             </View>
             <View style={styles.tile}>
-                <LabelLarge>Point 2:</LabelLarge>
+                <BodyText size="medium" weight="bold" tag="span">
+                    Point 2:
+                </BodyText>
                 <Strut size={spacing.small_12} />
                 <CoordinatePairInput
                     coord={startCoords[1]}

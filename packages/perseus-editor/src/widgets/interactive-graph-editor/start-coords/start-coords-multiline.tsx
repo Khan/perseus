@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -26,11 +26,19 @@ const StartCoordsMultiline = (props: Props) => {
             {startCoords.map((coordPair, i) => (
                 <PerseusEditorAccordion
                     key={`segment-${i}-start-coords`}
-                    header={<LabelLarge>{`${graphName} ${i + 1}`}</LabelLarge>}
+                    header={
+                        <BodyText
+                            size="medium"
+                            weight="bold"
+                            tag="span"
+                        >{`${graphName} ${i + 1}`}</BodyText>
+                    }
                     expanded={true}
                 >
                     <View style={styles.nestedTile}>
-                        <LabelLarge>Point 1:</LabelLarge>
+                        <BodyText size="medium" weight="bold" tag="span">
+                            Point 1:
+                        </BodyText>
                         <Strut size={spacing.small_12} />
                         <CoordinatePairInput
                             coord={coordPair[0]}
@@ -43,7 +51,9 @@ const StartCoordsMultiline = (props: Props) => {
                         />
                     </View>
                     <View style={styles.nestedTile}>
-                        <LabelLarge>Point 2:</LabelLarge>
+                        <BodyText size="medium" weight="bold" tag="span">
+                            Point 2:
+                        </BodyText>
                         <Strut size={spacing.small_12} />
                         <CoordinatePairInput
                             coord={coordPair[1]}

@@ -159,9 +159,18 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         </AssetContext.Consumer>
     );
 
+    // Set the max width of the image container to the width saved inside
+    // `backgroundImage` (if it is set at all) - this is the width intended
+    // to be used when rendering the image within the content item.
     const maxWidth = backgroundImage.width
         ? backgroundImage.width * scale
         : undefined;
+    // Only set the width if we're not setting maxWidth.
+    // We need `width: fit-content` to handle the case where background.width
+    // and background.height are undefined, so that the container sets the
+    // bounds based on the natural image size, and the caption aligns
+    // properly with the image.
+    const width = maxWidth ? undefined : "fit-content";
 
     // Early return for decorative images
     if (decorative) {
@@ -169,11 +178,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             <figure
                 className="perseus-image-widget"
                 style={{
-                    // Set the max width of the image container to the
-                    // width saved inside `backgroundImage` - this is the
-                    // width intended to be used when rendering the image
-                    // within the content item.
                     maxWidth: maxWidth,
+                    width: width,
                 }}
             >
                 {svgImage}
@@ -185,11 +191,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         <figure
             className="perseus-image-widget"
             style={{
-                // Set the max width of the image container to the
-                // width saved inside `backgroundImage` - this is the
-                // width intended to be used when rendering the image
-                // within the content item.
                 maxWidth: maxWidth,
+                width: width,
             }}
         >
             {/* Title */}

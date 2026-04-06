@@ -9,7 +9,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -187,7 +187,9 @@ const LockedPointSettings = (props: Props) => {
             header={
                 // Summary: Point, coords, color (filled/open)
                 <View style={styles.row}>
-                    <LabelLarge>{`${headerLabel || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
+                    <BodyText size="medium" weight="bold" tag="span">
+                        {`${headerLabel || "Point"} (${coord[0]}, ${coord[1]})`}
+                    </BodyText>
                     <Strut size={spacing.xSmall_8} />
                     <ColorSwatch color={pointColor} filled={filled} />
                 </View>
@@ -247,7 +249,7 @@ const LockedPointSettings = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
-            <LabelMedium>Visible labels</LabelMedium>
+            <BodyText>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}
