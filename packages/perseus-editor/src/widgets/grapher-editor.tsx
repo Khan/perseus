@@ -135,6 +135,8 @@ class GrapherEditor extends React.Component<Props> {
                     rulerTicks={this.props.graph.rulerTicks}
                     showTooltips={this.props.graph.showTooltips}
                     onChange={(newProps) =>
+                        // Spread existing graph props to preserve properties not included
+                        // in the GraphSettings onChange payload (e.g. box, markings).
                         this.props.onChange({
                             graph: {...this.props.graph, ...newProps},
                         })

@@ -95,11 +95,15 @@ class InteractionEditor extends React.Component<Props, State> {
         );
     }
 
+    // Spread existing graph props to preserve properties not included
+    // in the GraphSettings onChange payload (e.g. box, markings).
     _updateGraphProps = (newProps: Record<string, unknown>) => {
         this.props.onChange({
-            graph: _.extend(_.omit(newProps, "step"), {
+            graph: {
+                ...this.props.graph,
+                ..._.omit(newProps, "step"),
                 tickStep: newProps.step,
-            }),
+            },
         });
     };
 
