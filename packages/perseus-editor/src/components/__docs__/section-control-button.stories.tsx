@@ -3,14 +3,14 @@ import * as React from "react";
 
 import SectionControlButton from "../section-control-button";
 
-type StoryArgs = Record<any, any>;
+type StoryArgs = Record<string, unknown>;
 
 type Story = {
     title: string;
 };
 
 export default {
-    title: "PerseusEditor/Components/Section Control Button",
+    title: "Editors/Components/Section Control Button",
 } as Story;
 
 export const ButtonForEditingSectionsOfContentWithInArticleEditor = (

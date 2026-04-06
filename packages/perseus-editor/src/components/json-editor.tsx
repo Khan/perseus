@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-invalid-this */
 import {isSuccess} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
@@ -21,7 +20,7 @@ type State = {
 class JsonEditor<TData> extends React.Component<Props<TData>, State> {
     static displayName: "JsonEditor";
 
-    constructor(props) {
+    constructor(props: Props<TData>) {
         super(props);
         this.state = this.getInitialState();
 
@@ -62,25 +61,29 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
         }
     }
 
-    handleKeyDown(e) {
+    handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
         // This handler allows the tab character to be entered by pressing
         // tab, instead of jumping to the next (non-existant) field
         if (e.key === "Tab") {
-            const cursorPos = e.target.selectionStart;
-            const v = e.target.value;
+            const textarea = e.currentTarget;
+            const cursorPos = textarea.selectionStart;
+            const v = textarea.value;
             const textBefore = v.substring(0, cursorPos);
             const textAfter = v.substring(cursorPos, v.length);
-            e.target.value = textBefore + "    " + textAfter;
-            e.target.selectionStart = textBefore.length + 4;
-            e.target.selectionEnd = textBefore.length + 4;
+            textarea.value = textBefore + "    " + textAfter;
+            textarea.selectionStart = textBefore.length + 4;
+            textarea.selectionEnd = textBefore.length + 4;
 
             e.preventDefault();
-            this.handleChange(e);
+            this.processChange(textarea.value);
         }
     }
 
-    handleChange(e) {
-        const nextString = e.target.value;
+    handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+        this.processChange(e.target.value);
+    }
+
+    processChange(nextString: string) {
         try {
             const json = this.typesafeParseOrThrow(nextString);
             // This callback unfortunately causes multiple renders,
@@ -91,8 +94,7 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
                     currentValue: nextString,
                     valid: true,
                 },
-                function () {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                () => {
                     this.props.onChange(json);
                 },
             );
@@ -106,7 +108,7 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
 
     // You can type whatever you want as you're typing, but if it's not valid
     // when you blur, it will revert to the last valid value.
-    handleBlur(e) {
+    handleBlur(e: React.FocusEvent<HTMLTextAreaElement>) {
         const nextString = e.target.value;
         try {
             const json = this.typesafeParseOrThrow(nextString);
@@ -118,8 +120,7 @@ class JsonEditor<TData> extends React.Component<Props<TData>, State> {
                     currentValue: JSON.stringify(json, null, 4),
                     valid: true,
                 },
-                function () {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                () => {
                     this.props.onChange(json);
                 },
             );

@@ -8,7 +8,7 @@ import type {StoryObj, Meta} from "@storybook/react-vite";
 type Story = StoryObj<typeof ToggleableCaret>;
 
 export default {
-    title: "PerseusEditor/Components/Toggleable Caret",
+    title: "Editors/Components/Toggleable Caret",
     component: ToggleableCaret,
 } satisfies Meta;
 

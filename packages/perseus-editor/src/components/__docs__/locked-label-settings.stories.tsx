@@ -1,27 +1,27 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import LockedFunctionSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-function-settings";
+import LockedLabelSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-label-settings";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 export default {
-    title: "PerseusEditor/Components/Locked Function Settings",
-    component: LockedFunctionSettings,
-} as Meta<typeof LockedFunctionSettings>;
+    title: "Editors/Components/Locked Label Settings",
+    component: LockedLabelSettings,
+} as Meta<typeof LockedLabelSettings>;
 
 export const Default = (args): React.ReactElement => {
-    return <LockedFunctionSettings {...args} />;
+    return <LockedLabelSettings {...args} />;
 };
 
 const defaultProps = {
-    ...getDefaultFigureForType("function"),
+    ...getDefaultFigureForType("label"),
     onChangeProps: () => {},
     onMove: () => {},
     onRemove: () => {},
 };
 
-type StoryComponentType = StoryObj<typeof LockedFunctionSettings>;
+type StoryComponentType = StoryObj<typeof LockedLabelSettings>;
 
 // Set the default values in the control panel.
 Default.args = defaultProps;
@@ -38,7 +38,7 @@ export const Expanded: StoryComponentType = {
         };
 
         return (
-            <LockedFunctionSettings
+            <LockedLabelSettings
                 {...props}
                 expanded={true}
                 onChangeProps={handlePropsUpdate}

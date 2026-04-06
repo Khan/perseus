@@ -169,7 +169,6 @@ describe("GraphSettings", () => {
         // Assert
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({markings: "grid"}),
-            undefined,
         );
     });
 
@@ -192,7 +191,6 @@ describe("GraphSettings", () => {
         // Assert
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({rulerLabel: "cm"}),
-            undefined,
         );
     });
 
@@ -214,7 +212,6 @@ describe("GraphSettings", () => {
         // Assert
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({rulerTicks: 4}),
-            undefined,
         );
     });
 
@@ -245,7 +242,6 @@ describe("GraphSettings", () => {
                         url: "https://example.com/image.png",
                     }),
                 }),
-                undefined,
             ),
         );
     });
@@ -276,7 +272,6 @@ describe("GraphSettings", () => {
                 expect.objectContaining({
                     valid: "Image must be smaller than 450px x 450px.",
                 }),
-                undefined,
             ),
         );
     });
@@ -306,7 +301,6 @@ describe("GraphSettings", () => {
                         url: null,
                     }),
                 }),
-                undefined,
             ),
         );
     });
@@ -353,7 +347,6 @@ describe("GraphSettings", () => {
         // Assert
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({showProtractor: false}),
-            undefined,
         );
     });
 
@@ -381,7 +374,6 @@ describe("GraphSettings", () => {
                     ],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -410,7 +402,6 @@ describe("GraphSettings", () => {
                     ],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -433,13 +424,8 @@ describe("GraphSettings", () => {
         await waitFor(() =>
             expect(onChange).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
                     valid: "Range must have a higher number on the right",
                 }),
-                undefined,
             ),
         );
     });
@@ -465,7 +451,6 @@ describe("GraphSettings", () => {
                     step: [2, 1],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -488,10 +473,8 @@ describe("GraphSettings", () => {
         await waitFor(() =>
             expect(onChange).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    step: [1, 1],
                     valid: "Step is too large, there must be at least 3 ticks.",
                 }),
-                undefined,
             ),
         );
     });
@@ -521,10 +504,8 @@ describe("GraphSettings", () => {
         await waitFor(() =>
             expect(onChange).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    step: [1, 1],
                     valid: "Step is too small, there can be at most 20 ticks.",
                 }),
-                undefined,
             ),
         );
     });
@@ -554,7 +535,6 @@ describe("GraphSettings", () => {
                     snapStep: [2, 1],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -581,10 +561,8 @@ describe("GraphSettings", () => {
         await waitFor(() =>
             expect(onChange).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    snapStep: [1, 1],
                     valid: "Snap step is too large, there must be at least 5 ticks.",
                 }),
-                undefined,
             ),
         );
     });
@@ -611,7 +589,6 @@ describe("GraphSettings", () => {
                     gridStep: [2, 1],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -635,10 +612,8 @@ describe("GraphSettings", () => {
         await waitFor(() =>
             expect(onChange).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    gridStep: [1, 1],
                     valid: "Grid step is too large, there must be at least 3 ticks.",
                 }),
-                undefined,
             ),
         );
     });
@@ -664,7 +639,6 @@ describe("GraphSettings", () => {
                 expect.objectContaining({
                     labels: ["time", "y"],
                 }),
-                undefined,
             ),
         );
     });
@@ -690,7 +664,6 @@ describe("GraphSettings", () => {
                 expect.objectContaining({
                     labels: ["x", "count"],
                 }),
-                undefined,
             ),
         );
     });
@@ -719,7 +692,6 @@ describe("GraphSettings", () => {
                 expect.objectContaining({
                     box: [300, 288],
                 }),
-                undefined,
             ),
         );
     });

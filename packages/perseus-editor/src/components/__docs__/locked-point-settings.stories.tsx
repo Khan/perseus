@@ -1,27 +1,27 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import LockedLineSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-line-settings";
+import LockedPointSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-point-settings";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 export default {
-    title: "PerseusEditor/Components/Locked Line Settings",
-    component: LockedLineSettings,
-} as Meta<typeof LockedLineSettings>;
+    title: "Editors/Components/Locked Point Settings",
+    component: LockedPointSettings,
+} as Meta<typeof LockedPointSettings>;
 
 export const Default = (args): React.ReactElement => {
-    return <LockedLineSettings {...args} />;
+    return <LockedPointSettings {...args} />;
 };
 
 const defaultProps = {
-    ...getDefaultFigureForType("line"),
+    ...getDefaultFigureForType("point"),
     onChangeProps: () => {},
     onMove: () => {},
     onRemove: () => {},
 };
 
-type StoryComponentType = StoryObj<typeof LockedLineSettings>;
+type StoryComponentType = StoryObj<typeof LockedPointSettings>;
 
 // Set the default values in the control panel.
 Default.args = defaultProps;
@@ -38,45 +38,15 @@ export const Controlled: StoryComponentType = {
         };
 
         return (
-            <LockedLineSettings {...props} onChangeProps={handlePropsUpdate} />
+            <LockedPointSettings {...props} onChangeProps={handlePropsUpdate} />
         );
     },
 };
 
 Controlled.parameters = {
     chromatic: {
-        // Disabling because this is testing behavior, not visuals.
+        // Disabling because this doesn't test anything visual, just behavior.
         disableSnapshot: true,
-    },
-};
-
-/**
- * If the two points defining the line are the same, the line is invalid
- * as that would give it a length of 0. An error message is displayed
- * in this case.
- */
-export const WithInvalidPoints: StoryComponentType = {
-    render: function Render() {
-        const [props, setProps] = React.useState(defaultProps);
-
-        const handlePropsUpdate = (newProps) => {
-            setProps({
-                ...props,
-                ...newProps,
-            });
-        };
-
-        return (
-            <LockedLineSettings
-                {...props}
-                points={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("point"),
-                ]}
-                expanded={true}
-                onChangeProps={handlePropsUpdate}
-            />
-        );
     },
 };
 
@@ -94,7 +64,7 @@ export const Expanded: StoryComponentType = {
         };
 
         return (
-            <LockedLineSettings
+            <LockedPointSettings
                 {...props}
                 expanded={expanded}
                 onToggle={setExpanded}
@@ -108,12 +78,7 @@ export const Expanded: StoryComponentType = {
 export const ExpandedNondefaultProps: StoryComponentType = {
     render: function Render() {
         const [expanded, setExpanded] = React.useState(true);
-        const [props, setProps] = React.useState({
-            ...defaultProps,
-            kind: "segment" as const,
-            color: "green" as const,
-            lineStyle: "dashed" as const,
-        });
+        const [props, setProps] = React.useState(defaultProps);
 
         const handlePropsUpdate = (newProps) => {
             setProps({
@@ -123,7 +88,7 @@ export const ExpandedNondefaultProps: StoryComponentType = {
         };
 
         return (
-            <LockedLineSettings
+            <LockedPointSettings
                 {...props}
                 expanded={expanded}
                 onToggle={setExpanded}

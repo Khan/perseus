@@ -6,7 +6,7 @@ import ColorSwatch from "../../widgets/interactive-graph-editor/locked-figures/c
 import type {Meta} from "@storybook/react-vite";
 
 export default {
-    title: "PerseusEditor/Components/Color Swatch",
+    title: "Editors/Components/Color Swatch",
     component: ColorSwatch,
 } as Meta<typeof ColorSwatch>;
 
