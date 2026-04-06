@@ -37,11 +37,19 @@ type Props = {
  *
  * Uses two canvases:
  * - A display canvas (visible) composited and scaled to the display size
- * - A base canvas (hidden) used to convert per-frame ImageData into a
+ * - A hidden canvas (hidden) used to convert per-frame ImageData into a
  *   drawable source for proper alpha compositing via drawImage
  *
  * This is similar to the approach taken by gifuct-js's own demo:
  * https://github.com/matt-way/gifuct-js/blob/master/demo/demo.js
+ *
+ * Why are we taking this approach? Because browsers don't natively
+ * support pausing/resuming GIF animations, and we need that for our GIF
+ * images. By decoding the GIF into frames and controlling the playback
+ * via requestAnimationFrame, we can:
+ * - "Pause" GIFs (i.e. show a static image).
+ * - "Play" GIFs (i.e. animate).
+ * - Detect when we have looped the animation.
  */
 const GifImage = (props: Props) => {
     const {src, alt, width, height, scale, isPlaying, onLoop} = props;
@@ -52,7 +60,7 @@ const GifImage = (props: Props) => {
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
     // A hidden canvas used to convert per-frame ImageData into
     // a drawable source for compositing onto the display canvas
-    const baseCanvasRef = React.useRef<HTMLCanvasElement | null>(null);
+    const hiddenCanvasRef = React.useRef<HTMLCanvasElement | null>(null);
     // The ID for the gif animation
     const animationIdRef = React.useRef<number | null>(null);
     const currentFrameIndexRef = React.useRef(0);
@@ -68,15 +76,15 @@ const GifImage = (props: Props) => {
     latestPropsRef.current = {isPlaying, onLoop};
 
     // Draw a single frame's patch directly onto the display canvas,
-    // using the base canvas to convert raw pixel data into a
+    // using the hidden canvas to convert raw pixel data into a
     // drawable source with proper alpha compositing.
     const drawFrame = React.useCallback((index: number) => {
         const frames = framesRef.current;
-        const baseCtx = baseCanvasRef.current?.getContext("2d");
+        const hiddenCtx = hiddenCanvasRef.current?.getContext("2d");
         const displayCtx = canvasRef.current?.getContext("2d");
         if (
-            !baseCtx ||
-            !baseCanvasRef.current ||
+            !hiddenCtx ||
+            !hiddenCanvasRef.current ||
             !displayCtx ||
             !canvasRef.current ||
             frames.length === 0
@@ -101,20 +109,20 @@ const GifImage = (props: Props) => {
             }
         }
 
-        // Write the raw patch pixels onto the base canvas, then
+        // Write the raw patch pixels onto the hidden canvas, then
         // composite onto the display canvas using drawImage (which
         // respects alpha blending, unlike putImageData which
         // overwrites pixels — including transparent ones).
-        baseCanvasRef.current.width = dims.width;
-        baseCanvasRef.current.height = dims.height;
+        hiddenCanvasRef.current.width = dims.width;
+        hiddenCanvasRef.current.height = dims.height;
         const imageData = new ImageData(
             new Uint8ClampedArray(frame.patch),
             dims.width,
             dims.height,
         );
-        baseCtx.putImageData(imageData, 0, 0);
+        hiddenCtx.putImageData(imageData, 0, 0);
 
-        displayCtx.drawImage(baseCanvasRef.current, dims.left, dims.top);
+        displayCtx.drawImage(hiddenCanvasRef.current, dims.left, dims.top);
     }, []);
 
     // Draw a specific frame without starting playback. Draws frames
@@ -125,7 +133,7 @@ const GifImage = (props: Props) => {
             if (
                 frames.length === 0 ||
                 !canvasRef.current ||
-                !baseCanvasRef.current
+                !hiddenCanvasRef.current
             ) {
                 return;
             }
@@ -294,7 +302,7 @@ const GifImage = (props: Props) => {
                 that writes raw pixel data (ImageData) with alpha
                 compositing. putImageData overwrites pixels directly
                 (including transparent ones), while drawImage composites
-                properly. So we putImageData onto the hidden base
+                properly. So we putImageData onto the hidden
                 canvas, then drawImage it onto this display canvas. */}
 
             {/* Display canvas: the visible, composited GIF output
@@ -319,8 +327,8 @@ const GifImage = (props: Props) => {
             <canvas
                 aria-hidden={true}
                 tabIndex={-1}
-                ref={baseCanvasRef}
-                data-testid="gif-base-canvas"
+                ref={hiddenCanvasRef}
+                data-testid="gif-hidden-canvas"
                 style={{display: "none"}}
             />
         </>

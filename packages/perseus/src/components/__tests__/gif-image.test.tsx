@@ -234,7 +234,7 @@ describe("GifImage", () => {
         );
 
         // Assert
-        const patchCanvas = screen.getByTestId("gif-base-canvas");
+        const patchCanvas = screen.getByTestId("gif-hidden-canvas");
         expect(patchCanvas).toBeInTheDocument();
         expect(patchCanvas).not.toBeVisible();
     });
