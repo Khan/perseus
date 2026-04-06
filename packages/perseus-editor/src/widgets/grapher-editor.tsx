@@ -28,10 +28,7 @@ const {chooseType, defaultPlotProps, getEquationString, typeToButton} =
     GrapherUtil;
 
 type Props = {
-    onChange: (
-        newProps: Record<string, unknown>,
-        callback?: () => unknown,
-    ) => void;
+    onChange: (newProps: Record<string, unknown>) => void;
     graph: PerseusGrapherWidgetOptions["graph"];
     correct: GrapherAnswerTypes;
     availableTypes: PerseusGrapherWidgetOptions["availableTypes"];
@@ -78,7 +75,7 @@ class GrapherEditor extends React.Component<Props> {
                 graph: this.props.graph,
                 userInput: this.props.correct,
                 correct: this.props.correct,
-                handleUserInput: (userInput, cb) => {
+                handleUserInput: (userInput) => {
                     let correct = this.props.correct;
                     if (correct.type === userInput?.type) {
                         correct = _.extend({}, correct, userInput);
@@ -86,7 +83,7 @@ class GrapherEditor extends React.Component<Props> {
                         // Clear options from previous graph
                         correct = userInput;
                     }
-                    this.props.onChange({correct: correct}, cb);
+                    this.props.onChange({correct: correct});
                 },
                 availableTypes: [...this.props.availableTypes],
                 trackInteraction: function () {},
