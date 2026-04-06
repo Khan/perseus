@@ -68,7 +68,7 @@ const GifImage = (props: Props) => {
     // the current timestamp to know if enough time has passed for the
     // current frame's delay. GIF frames have variable delays (e.g.,
     // frame 1 might be 50ms, frame 2 might be 100ms).
-    const lastFrameTimeRef = React.useRef(0);
+    const lastFrameTimeRef = React.useRef<number | null>(null);
     // Keep a ref to the latest props so the animation loop (which runs
     // outside of React's render cycle) can read current values without
     // stale closures.
@@ -171,9 +171,12 @@ const GifImage = (props: Props) => {
                 return;
             }
 
-            // On the first callback, just record the timestamp.
-            if (lastFrameTimeRef.current < 0) {
+            // On the first callback, record the baseline timestamp and
+            // draw the current frame immediately so there's no delay
+            // before the first visible frame.
+            if (lastFrameTimeRef.current === null) {
                 lastFrameTimeRef.current = timestamp;
+                drawFrame(currentFrameIndexRef.current);
             }
 
             const frame = frames[currentFrameIndexRef.current];
@@ -181,8 +184,7 @@ const GifImage = (props: Props) => {
             const delay = frame.delay <= 0 ? 10 : frame.delay;
 
             if (timestamp - lastFrameTimeRef.current >= delay) {
-                drawFrame(currentFrameIndexRef.current);
-                lastFrameTimeRef.current = timestamp;
+                // Advance to the next frame.
                 currentFrameIndexRef.current++;
 
                 if (currentFrameIndexRef.current >= frames.length) {
@@ -192,6 +194,12 @@ const GifImage = (props: Props) => {
                     latestPropsRef.current.onLoop();
                     return;
                 }
+
+                drawFrame(currentFrameIndexRef.current);
+                // Advance by the scheduled delay rather than snapping to
+                // the current timestamp. This prevents timing drift when
+                // RAF callbacks fire late.
+                lastFrameTimeRef.current = lastFrameTimeRef.current + delay;
             }
 
             animationIdRef.current = requestAnimationFrame(animate);
@@ -204,9 +212,9 @@ const GifImage = (props: Props) => {
         if (framesRef.current.length === 0) {
             return;
         }
-        // Set to -1 so the first RAF callback always draws immediately,
-        // since we don't know the RAF timestamp in advance.
-        lastFrameTimeRef.current = -1;
+        // Reset to null so the first RAF callback records the baseline
+        // timestamp and draws the current frame immediately.
+        lastFrameTimeRef.current = null;
         animationIdRef.current = requestAnimationFrame(animate);
     }, [animate]);
 
