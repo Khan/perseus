@@ -8,67 +8,76 @@ import type React from "react";
 type Coord = [x: number, y: number];
 type CollinearTuple = readonly [Coord, Coord];
 
-type BaseGraphOptions = {
-    type: string;
-};
-
-type AngleGraphOptions = BaseGraphOptions & {
-    angleOffsetDegrees: number;
+type AngleGraphOptions = {
+    type: "angle";
+    angleOffsetDegrees: number | undefined;
     startCoords?: readonly [Coord, Coord, Coord];
 };
 
-type CircleGraphOptions = BaseGraphOptions & {
+type CircleGraphOptions = {
+    type: "circle";
     startParams: {
         center?: Coord;
         radius?: number;
     };
 };
 
-type LinearGraphOptions = BaseGraphOptions & {
+type LinearGraphOptions = {
+    type: "linear";
     startCoords?: CollinearTuple;
 };
 
-type LinearSystemGraphOptions = BaseGraphOptions & {
+type LinearSystemGraphOptions = {
+    type: "linear-system";
     startCoords?: readonly CollinearTuple[];
 };
 
-type PointGraphOptions = BaseGraphOptions & {
+type PointGraphOptions = {
+    type: "point";
     numPoints?: number | "unlimited";
     startCoords?: readonly Coord[];
 };
 
-type PolygonGraphOptions = BaseGraphOptions & {
+type PolygonGraphOptions = {
+    type: "polygon";
     match?: string;
     numSides?: number | "unlimited";
     startCoords?: readonly Coord[];
 };
 
-type QuadraticGraphOptions = BaseGraphOptions & {
+type QuadraticGraphOptions = {
+    type: "quadratic";
     startCoords?: readonly [Coord, Coord, Coord];
 };
 
-type RayGraphOptions = BaseGraphOptions & {
+type RayGraphOptions = {
+    type: "ray";
     startCoords?: CollinearTuple;
 };
 
-type SegmentGraphOptions = BaseGraphOptions & {
+type SegmentGraphOptions = {
+    type: "segment";
     numSegments?: number;
-    startCoords?: CollinearTuple;
+    startCoords?: CollinearTuple[];
 };
 
-type SinusoidGraphOptions = BaseGraphOptions & {
+type SinusoidGraphOptions = {
+    type: "sinusoid";
     startCoords?: readonly Coord[];
 };
 
-type AbsoluteValueGraphOptions = BaseGraphOptions & {
+type AbsoluteValueGraphOptions = {
+    type: "absolute-value";
     startCoords?: readonly [Coord, Coord];
 };
 
-type TangentGraphOptions = BaseGraphOptions & {
+type TangentGraphOptions = {
+    type: "tangent";
     startCoords?: readonly Coord[];
 };
 
-type ExponentialGraphOptions = BaseGraphOptions & {
+type ExponentialGraphOptions = {
+    type: "exponential";
     startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
 };
 
