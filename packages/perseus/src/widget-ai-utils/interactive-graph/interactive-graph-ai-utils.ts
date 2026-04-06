@@ -10,6 +10,8 @@ type CollinearTuple = readonly [Coord, Coord];
 
 type AngleGraphOptions = {
     type: "angle";
+    // TODO(LEMS-4033): angleOffsetDegrees should never be undefined.
+    // Communicate the default value explicitly here.
     angleOffsetDegrees: number | undefined;
     startCoords?: readonly [Coord, Coord, Coord];
 };
