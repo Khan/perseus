@@ -180,13 +180,40 @@ type UserInput =
     | TangentUserInput
     | LogarithmUserInput;
 
+/**
+ * JSON describing an interactive graph widget. Intended for consumption by AI tools.
+ * An interactive graph plots equations and draws geometric figures on a
+ * Cartesian plane. The user can move and reshape these elements by dragging
+ * control points.
+ */
 export type InteractiveGraphPromptJSON = {
     type: "interactive-graph";
+
+    /**
+     * The configuration of the widget, set by the content creator.
+     */
     options: {
+        /**
+         * Configuration of the plotted equation or geometric figure.
+         */
         graph: GraphOptions;
+
+        /**
+         * The bounds of the graph. Format: `[[xMin, xMax], [yMin, yMax]]`
+         */
+        range: [
+            x: [min: number, max: number],
+            y: [min: number, max: number],
+        ];
+
+        /**
+         * Labels on the graph axes. Format: `[xLabel, yLabel]`.
+         */
+        labels: string[];
+
         backgroundImageUrl: string | null | undefined;
-        range: [min: number, max: number][];
-        labels: ReadonlyArray<string>;
+
+        // TODO(benchristel): add locked figures to the prompt JSON
     };
     userInput: UserInput;
 };
