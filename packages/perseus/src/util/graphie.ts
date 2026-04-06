@@ -974,81 +974,62 @@ export class Graphie {
     ): GraphieLabelElement => {
         const style = typeof arg4 === "object" ? arg4 : arg5;
         const latex = typeof arg4 === "boolean" ? arg4 : true;
+        return this.withStyle(style, () => {
+            // We cast to GraphieLabelElement because we're augmenting the jQuery
+            // element with custom methods (setPosition, processMath, processText)
+            const $span = $("<span>").addClass(
+                "graphie-label",
+            ) as GraphieLabelElement;
 
-        // Labels bypass withStyle/postprocessDrawingResult intentionally.
-        // setLabelMargins computes the final fontSize, margins, and padding
-        // based on the container's rendered size. If postprocessDrawingResult
-        // ran afterward, it would overwrite fontSize with the raw style value
-        // (e.g. "200%"), breaking the responsive scaling that setLabelMargins
-        // calculated (e.g. "126.8%" when the container is constrained).
-        const oldStyle = this.currentStyle;
-        this.currentStyle = {
-            ...this.currentStyle,
-            ...this.processAttributes(style),
-        };
+            const pad = this.currentStyle["label-distance"];
 
-        // We cast to GraphieLabelElement because we're augmenting the jQuery
-        // element with custom methods (setPosition, processMath, processText)
-        const $span = $("<span>").addClass(
-            "graphie-label",
-        ) as GraphieLabelElement;
+            $span
+                .css({
+                    position: "absolute",
+                    padding: (pad != null ? pad : 7) + "px",
+                    color: "black",
+                })
+                .data("labelDirection", direction)
+                .appendTo(this.el);
 
-        const pad = this.currentStyle["label-distance"];
+            $span.setPosition = (point) => {
+                const scaledPoint = this.scalePoint(point);
+                $span.css({
+                    left: scaledPoint[0],
+                    top: scaledPoint[1],
+                });
+            };
 
-        $span
-            .css({
-                position: "absolute",
-                padding: (pad != null ? pad : 7) + "px",
-                color: "black",
-            })
-            .data("labelDirection", direction)
-            .appendTo(this.el);
+            $span.setPosition(point);
 
-        $span.setPosition = (point) => {
-            const scaledPoint = this.scalePoint(point);
-            $span.css({
-                left: scaledPoint[0],
-                top: scaledPoint[1],
-            });
-        };
+            const span = $span[0];
+            this.#labelElements.add(span);
 
-        $span.setPosition(point);
+            $span.processMath = function (math, force) {
+                processMath(span, math, force, function () {
+                    const width = span.scrollWidth;
+                    const height = span.scrollHeight;
+                    setLabelMargins(span, [width, height]);
+                });
+            };
 
-        // Apply text-affecting styles (e.g. font-size) before measuring
-        // so that processText/processMath measure at the correct size.
-        $span.css({
-            ...this.currentStyle,
-            ...SVG_SPECIFIC_STYLE_MASK,
-        });
-
-        const span = $span[0];
-        this.#labelElements.add(span);
-
-        $span.processMath = function (math, force) {
-            processMath(span, math, force, function () {
+            $span.processText = function (text: string) {
+                $span.html(text);
                 const width = span.scrollWidth;
                 const height = span.scrollHeight;
                 setLabelMargins(span, [width, height]);
-            });
-        };
+            };
 
-        $span.processText = function (text: string) {
-            $span.html(text);
-            const width = span.scrollWidth;
-            const height = span.scrollHeight;
-            setLabelMargins(span, [width, height]);
-        };
+            if (latex) {
+                $span.processMath(text, /* force */ false);
+            } else {
+                $span.processText(text);
+            }
 
-        if (latex) {
-            $span.processMath(text, /* force */ false);
-        } else {
-            $span.processText(text);
-        }
+            this._ensureResizeObserver();
 
-        this._ensureResizeObserver();
-
-        this.currentStyle = oldStyle;
-        return $span;
+            return $span;
+        });
     };
 
     plotParametric(
