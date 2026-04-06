@@ -207,10 +207,7 @@ export type InteractiveGraphPromptJSON = {
         /**
          * The bounds of the graph. Format: `[[xMin, xMax], [yMin, yMax]]`
          */
-        range: [
-            x: [min: number, max: number],
-            y: [min: number, max: number],
-        ];
+        range: [x: [min: number, max: number], y: [min: number, max: number]];
 
         /**
          * Labels on the graph axes. Format: `[xLabel, yLabel]`.
