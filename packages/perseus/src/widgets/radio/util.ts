@@ -5,10 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import type {
-    ChoiceType,
-    RadioChoiceWithMetadata,
-} from "./multiple-choice-widget";
+import type {ChoiceType, RadioChoiceWithMetadata} from "./radio-widget";
 import type {PerseusStrings} from "../../strings";
 import type {ChoiceState} from "../../types";
 

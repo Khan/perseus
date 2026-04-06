@@ -6,18 +6,18 @@ import ScrollableView from "../../components/scrollable-view";
 import {getBackgroundColor} from "../../util/colors";
 
 import Choice from "./choice";
-import styles from "./multiple-choice.module.css";
+import styles from "./radio-component.module.css";
 import {getChoiceLetter} from "./util";
 import {getInstructionsText} from "./utils/string-utils";
 
 import type {IndicatorContent} from "./choice-indicator";
-import type {ChoiceType} from "./multiple-choice-widget";
+import type {ChoiceType} from "./radio-widget";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 /**
- * Props for the MultipleChoiceComponent
+ * Props for the RadioComponent
  */
-export interface MultipleChoiceComponentProps {
+export interface RadioComponentProps {
     choices: ReadonlyArray<ChoiceType>;
     countChoices: boolean | null | undefined;
     multipleSelect?: boolean;
@@ -29,10 +29,10 @@ export interface MultipleChoiceComponentProps {
 }
 
 /**
- * The MultipleChoiceComponent renders the UI for multiple choice questions.
+ * The RadioComponent renders the UI for multiple choice questions.
  *
  * This component handles the presentation of choices, user interactions,
- * and accessibility features, while the MultipleChoiceWidget manages the
+ * and accessibility features, while the RadioWidget manages the
  * underlying logic and state.
  *
  * Supports both radio button (single select) and checkbox (multiple select) modes.
@@ -66,14 +66,14 @@ export interface MultipleChoiceComponentProps {
  *
  * Created as part of the Radio Revitalization Project (LEMS-2933).
  */
-const MultipleChoiceComponent = ({
+const RadioComponent = ({
     choices,
     countChoices,
     multipleSelect = false,
     numCorrect,
     onChoiceChange,
     reviewMode,
-}: MultipleChoiceComponentProps): React.ReactElement => {
+}: RadioComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
     const legendId = useId();
     const containerRef = useRef<HTMLFieldSetElement>(null);
@@ -229,4 +229,4 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
     return <>{items}</>;
 };
 
-export default MultipleChoiceComponent;
+export default RadioComponent;
