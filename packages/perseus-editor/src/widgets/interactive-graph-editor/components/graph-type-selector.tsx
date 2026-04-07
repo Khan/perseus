@@ -68,9 +68,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             <OptionItem value="polygon" label="Polygon" />
             <OptionItem value="segment" label="Line Segment(s)" />
             <OptionItem value="ray" label="Ray" />
-            {showVector && (
-                <OptionItem value="vector" label="Vector" />
-            )}
+            {showVector && <OptionItem value="vector" label="Vector" />}
             <OptionItem value="angle" label="Angle" />
         </SingleSelect>
     );
