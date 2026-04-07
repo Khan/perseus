@@ -56,8 +56,12 @@ export const GrapherUtil = {
 /**
  * Misc
  */
+
+/** @hidden */
 export * as components from "./components";
+/** @hidden */
 export {iconChevronDown, iconTrash} from "./icon-paths";
+/** @hidden */
 export {bodyXsmallBold} from "./styles/global-styles";
 export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
@@ -65,7 +69,9 @@ export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as LoadingContext} from "./loading-context";
 export {default as MathRenderingContext} from "./math-rendering-context";
 export {default as PerseusMarkdown} from "./perseus-markdown";
+/** @hidden */
 export {interactiveSizes} from "./styles/constants";
+/** @hidden */
 export {displaySigFigs} from "./sigfigs";
 export {DependenciesContext} from "./dependencies";
 
@@ -128,10 +134,14 @@ export {
 } from "./user-input-manager";
 
 // These exports are to support shared functionality between Perseus and Graphie2000
+/** @hidden */
 export {parseDataFromJSONP} from "./util/graphie-utils";
 export type {
+    /** @hidden */
     GraphieData,
+    /** @hidden */
     GraphieLabel,
+    /** @hidden */
     GraphieRange,
 } from "./util/graphie-utils";
 export {extractWidgetIds} from "./util/extract-widget-ids";
@@ -139,8 +149,12 @@ export {extractWidgetIds} from "./util/extract-widget-ids";
 /**
  * Mixins
  */
+
+/** @hidden */
 export * as Changeable from "./mixins/changeable";
+/** @hidden */
 export {default as EditorJsonify} from "./mixins/editor-jsonify";
+/** @hidden */
 export {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 
 /**
