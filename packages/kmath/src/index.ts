@@ -14,6 +14,7 @@ export {default as KhanMath, sum} from "./math";
 export type {Range, SineCoefficient, TangentCoefficient} from "./geometry";
 export type {
     ExponentialCoefficient,
+    LogarithmCoefficient,
     AbsoluteValueCoefficient,
     NamedSineCoefficient,
     NamedTangentCoefficient,
