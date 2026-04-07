@@ -45,11 +45,6 @@ packages:
     - packages/*
     - vendor/*
 overrides:
-    # Newer versions of jsdom break our tests. Examples of the problems:
-    # - The `window` property of `window` is non-configurable, so we can't
-    #   mock it. (21.0.0)
-    # - window.getComputedStyle() returns bizarre results for background
-    #   color, e.g. `rgb(255, 0, 0)` instead of `green`. (21.1.0)
     jest-environment-jsdom>jsdom: 20.0.3
 catalogs:
     peerDeps:
@@ -64,31 +59,31 @@ catalogs:
         "@popperjs/core": ^2.10.2
         "@khanacademy/mathjax-renderer": ^3.0.0
         "@khanacademy/wonder-blocks-accordion": ^3.1.53
-        "@khanacademy/wonder-blocks-announcer": ^1.0.6
+        "@khanacademy/wonder-blocks-announcer": ^1.1.0
         "@khanacademy/wonder-blocks-banner": ^5.0.18
         "@khanacademy/wonder-blocks-button": ^11.4.2
         "@khanacademy/wonder-blocks-clickable": ^8.1.5
         "@khanacademy/wonder-blocks-core": ^12.4.3
         "@khanacademy/wonder-blocks-data": ^15.0.1
-        "@khanacademy/wonder-blocks-dropdown": ^10.8.2
+        "@khanacademy/wonder-blocks-dropdown": ^10.8.3
         "@khanacademy/wonder-blocks-form": ^7.5.6
         "@khanacademy/wonder-blocks-icon-button": ^11.1.6
         "@khanacademy/wonder-blocks-icon": ^5.3.9
         "@khanacademy/wonder-blocks-labeled-field": ^4.0.16
         "@khanacademy/wonder-blocks-layout": ^3.1.46
         "@khanacademy/wonder-blocks-link": ^10.1.7
-        "@khanacademy/wonder-blocks-modal": ^8.5.17
+        "@khanacademy/wonder-blocks-modal": ^8.6.0
         "@khanacademy/wonder-blocks-pill": ^3.1.57
-        "@khanacademy/wonder-blocks-popover": ^6.1.55
+        "@khanacademy/wonder-blocks-popover": ^6.1.56
         "@khanacademy/wonder-blocks-progress-spinner": ^3.1.46
         "@khanacademy/wonder-blocks-search-field": ^5.1.63
         "@khanacademy/wonder-blocks-switch": ^3.3.30
-        "@khanacademy/wonder-blocks-tabs": ^0.5.5
+        "@khanacademy/wonder-blocks-tabs": ^0.5.6
         "@khanacademy/wonder-blocks-theming": ^4.0.2
         "@khanacademy/wonder-blocks-timing": ^7.0.4
         "@khanacademy/wonder-blocks-tokens": ^16.1.0
         "@khanacademy/wonder-blocks-toolbar": ^5.1.48
-        "@khanacademy/wonder-blocks-tooltip": ^4.1.68
+        "@khanacademy/wonder-blocks-tooltip": ^4.1.69
         "@khanacademy/wonder-blocks-typography": ^4.2.31
         "@khanacademy/wonder-stuff-core": ^3.0.0
     devDeps:
@@ -105,31 +100,31 @@ catalogs:
         "@popperjs/core": 2.10.2
         "@khanacademy/mathjax-renderer": 3.0.0
         "@khanacademy/wonder-blocks-accordion": 3.1.53
-        "@khanacademy/wonder-blocks-announcer": 1.0.6
+        "@khanacademy/wonder-blocks-announcer": 1.1.0
         "@khanacademy/wonder-blocks-banner": 5.0.18
         "@khanacademy/wonder-blocks-button": 11.4.2
         "@khanacademy/wonder-blocks-clickable": 8.1.5
         "@khanacademy/wonder-blocks-core": 12.4.3
         "@khanacademy/wonder-blocks-data": 15.0.1
-        "@khanacademy/wonder-blocks-dropdown": 10.8.2
+        "@khanacademy/wonder-blocks-dropdown": 10.8.3
         "@khanacademy/wonder-blocks-form": 7.5.6
         "@khanacademy/wonder-blocks-icon-button": 11.1.6
         "@khanacademy/wonder-blocks-icon": 5.3.9
         "@khanacademy/wonder-blocks-labeled-field": 4.0.16
         "@khanacademy/wonder-blocks-layout": 3.1.46
         "@khanacademy/wonder-blocks-link": 10.1.7
-        "@khanacademy/wonder-blocks-modal": 8.5.17
+        "@khanacademy/wonder-blocks-modal": 8.6.0
         "@khanacademy/wonder-blocks-pill": 3.1.57
-        "@khanacademy/wonder-blocks-popover": 6.1.55
+        "@khanacademy/wonder-blocks-popover": 6.1.56
         "@khanacademy/wonder-blocks-progress-spinner": 3.1.46
         "@khanacademy/wonder-blocks-search-field": 5.1.63
         "@khanacademy/wonder-blocks-switch": 3.3.30
-        "@khanacademy/wonder-blocks-tabs": 0.5.5
+        "@khanacademy/wonder-blocks-tabs": 0.5.6
         "@khanacademy/wonder-blocks-theming": 4.0.2
         "@khanacademy/wonder-blocks-timing": 7.0.4
         "@khanacademy/wonder-blocks-tokens": 16.1.0
         "@khanacademy/wonder-blocks-toolbar": 5.1.48
-        "@khanacademy/wonder-blocks-tooltip": 4.1.68
+        "@khanacademy/wonder-blocks-tooltip": 4.1.69
         "@khanacademy/wonder-blocks-typography": 4.2.31
         "@khanacademy/wonder-stuff-core": 3.0.0
     prodDeps:
