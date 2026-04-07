@@ -200,6 +200,16 @@ export const rayQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const rayQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withRay().build();
 
+export const vectorQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withVector({
+            coords: [
+                [0, 0],
+                [3, 4],
+            ],
+        })
+        .build();
+
 export const segmentQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(
