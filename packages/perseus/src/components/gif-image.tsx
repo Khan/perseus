@@ -234,22 +234,20 @@ const GifImage = (props: Props) => {
     React.useEffect(() => {
         let mounted = true;
 
-        decodeGifFrames(src)
-            .then((frames) => {
-                if (!mounted) {
-                    return;
-                }
-                framesRef.current = frames;
+        decodeGifFrames(src).then((frames) => {
+            if (!mounted) {
+                return;
+            }
+            framesRef.current = frames;
 
-                // Show the first frame on the canvas.
-                drawFrame(0);
-                latestPropsRef.current.onLoad?.();
+            // Show the first frame on the canvas.
+            drawFrame(0);
+            latestPropsRef.current.onLoad?.();
 
-                if (latestPropsRef.current.isPlaying) {
-                    play();
-                }
-            })
-            .catch(() => {});
+            if (latestPropsRef.current.isPlaying) {
+                play();
+            }
+        });
 
         return () => {
             mounted = false;
