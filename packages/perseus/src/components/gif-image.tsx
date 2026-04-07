@@ -82,7 +82,7 @@ const GifImage = (props: Props) => {
     // Draw a single frame's patch directly onto the display canvas,
     // using the hidden canvas to convert raw pixel data into a
     // drawable source with proper alpha compositing.
-    const drawFrame = React.useCallback((index: number) => {
+    const drawPatch = React.useCallback((index: number) => {
         const frames = framesRef.current;
         const hiddenCtx = hiddenCanvasRef.current?.getContext("2d");
         const displayCtx = canvasRef.current?.getContext("2d");
@@ -131,7 +131,7 @@ const GifImage = (props: Props) => {
 
     // Draw a specific frame without starting playback. Draws frames
     // 0 through the target index so partial patches build up correctly.
-    const renderFrame = React.useCallback(
+    const drawFrame = React.useCallback(
         (index = 0) => {
             const frames = framesRef.current;
             if (
@@ -153,10 +153,10 @@ const GifImage = (props: Props) => {
 
             // Draw frames 0 through target so partial patches composite.
             for (let i = 0; i <= targetIndex; i++) {
-                drawFrame(i);
+                drawPatch(i);
             }
         },
-        [drawFrame],
+        [drawPatch],
     );
 
     // Cancel the animation loop. The canvas retains the last drawn frame.
@@ -180,7 +180,7 @@ const GifImage = (props: Props) => {
             // before the first visible frame.
             if (lastFrameTimeRef.current === null) {
                 lastFrameTimeRef.current = timestamp;
-                drawFrame(currentFrameIndexRef.current);
+                drawPatch(currentFrameIndexRef.current);
             }
 
             const frame = frames[currentFrameIndexRef.current];
@@ -199,7 +199,7 @@ const GifImage = (props: Props) => {
                     return;
                 }
 
-                drawFrame(currentFrameIndexRef.current);
+                drawPatch(currentFrameIndexRef.current);
                 // Advance by the scheduled delay rather than snapping to
                 // the current timestamp. This prevents timing drift when
                 // RAF callbacks fire late.
@@ -208,7 +208,7 @@ const GifImage = (props: Props) => {
 
             animationIdRef.current = requestAnimationFrame(animate);
         },
-        [drawFrame],
+        [drawPatch],
     );
 
     // Start the requestAnimationFrame loop from the current frame.
@@ -222,14 +222,13 @@ const GifImage = (props: Props) => {
         animationIdRef.current = requestAnimationFrame(animate);
     }, [animate]);
 
-    // Reset to frame 0 and start playing.
+    // Reset to frame 0.
     const restart = React.useCallback(() => {
         pause();
         // Render frame 0 immediately so the canvas is never blank
         // between clearing and the first RAF callback.
-        renderFrame(0);
-        play();
-    }, [pause, renderFrame, play]);
+        drawFrame(0);
+    }, [pause, drawFrame]);
 
     // Load and decode GIF frames on mount and when src changes.
     React.useEffect(() => {
@@ -243,7 +242,7 @@ const GifImage = (props: Props) => {
                 framesRef.current = frames;
 
                 // Show the first frame on the canvas.
-                renderFrame(0);
+                drawFrame(0);
                 latestPropsRef.current.onLoad?.();
 
                 if (latestPropsRef.current.isPlaying) {
@@ -268,14 +267,8 @@ const GifImage = (props: Props) => {
         prevIsPlayingRef.current = isPlaying;
 
         if (isPlaying && !wasPlaying) {
-            // When transitioning to playing: if the loop had completed
-            // (frame index is 0), restart from the beginning. Otherwise
-            // resume from the current frame.
-            if (currentFrameIndexRef.current === 0) {
-                restart();
-            } else {
-                play();
-            }
+            // Resume playback from the current frame.
+            play();
         }
 
         if (!isPlaying && wasPlaying) {
@@ -283,19 +276,13 @@ const GifImage = (props: Props) => {
             // If the loop completed (frame index reset to 0), show
             // frame 0. Otherwise it was a manual pause — keep the
             // current frame.
-            pause();
             if (currentFrameIndexRef.current === 0) {
-                renderFrame(0);
+                restart();
+            } else {
+                pause();
             }
         }
-    }, [isPlaying, restart, play, pause, renderFrame]);
-
-    // Cleanup on unmount.
-    React.useEffect(() => {
-        return () => {
-            pause();
-        };
-    }, [pause]);
+    }, [isPlaying, restart, play, pause, drawFrame]);
 
     // Callback ref for the display canvas. Renders the first frame
     // immediately when mounted so there's no flash of empty canvas.
@@ -303,10 +290,10 @@ const GifImage = (props: Props) => {
         (canvas: HTMLCanvasElement | null) => {
             canvasRef.current = canvas;
             if (canvas && framesRef.current.length > 0) {
-                renderFrame(0);
+                drawFrame(0);
             }
         },
-        [renderFrame],
+        [drawFrame],
     );
 
     return (
