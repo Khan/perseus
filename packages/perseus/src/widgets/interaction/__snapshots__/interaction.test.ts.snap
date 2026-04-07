@@ -716,7 +716,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{10}"
-                style="position: absolute; padding: 7px; color: black; left: 109.0909090909091px; top: 363.6363636363636px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 109.0909090909091px; top: 363.6363636363636px; stroke-width: 2px; fill: none; stroke: #000000; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -725,7 +725,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{20}"
-                style="position: absolute; padding: 7px; color: black; left: 181.8181818181818px; top: 363.6363636363636px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 181.8181818181818px; top: 363.6363636363636px; stroke-width: 2px; fill: none; stroke: #000000; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -734,7 +734,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{30}"
-                style="position: absolute; padding: 7px; color: black; left: 254.54545454545453px; top: 363.6363636363636px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 254.54545454545453px; top: 363.6363636363636px; stroke-width: 2px; fill: none; stroke: #000000; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -743,7 +743,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{40}"
-                style="position: absolute; padding: 7px; color: black; left: 327.27272727272725px; top: 363.6363636363636px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 327.27272727272725px; top: 363.6363636363636px; stroke-width: 2px; fill: none; stroke: #000000; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -752,7 +752,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{10}"
-                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 290.9090909090909px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 290.9090909090909px; stroke-width: 2px; fill: none; stroke: #000000; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -761,7 +761,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{20}"
-                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 218.1818181818182px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 218.1818181818182px; stroke-width: 2px; fill: none; stroke: #000000; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -770,7 +770,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{30}"
-                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 145.45454545454544px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 145.45454545454544px; stroke-width: 2px; fill: none; stroke: #000000; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -779,7 +779,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{40}"
-                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 72.72727272727272px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 72.72727272727272px; stroke-width: 2px; fill: none; stroke: #000000; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -788,7 +788,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="y"
-                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 0px; fill: none;"
+                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 0px; stroke-width: 2px; fill: none;"
               >
                 <span
                   class="tex-holder"
@@ -797,7 +797,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="x"
-                style="position: absolute; padding: 7px; color: black; left: 400px; top: 363.6363636363636px; fill: none;"
+                style="position: absolute; padding: 7px; color: black; left: 400px; top: 363.6363636363636px; stroke-width: 2px; fill: none;"
               >
                 <span
                   class="tex-holder"
@@ -1040,7 +1040,7 @@ exports[`interaction widget should render 1`] = `
               <span
                 class="graphie-label"
                 data-math-formula="\\Huge 2"
-                style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 116.59637038983988px; top: 88.69565217391305px; fill: none;"
+                style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 116.59637038983988px; top: 88.69565217391305px; stroke-width: 2px; fill: none;"
               >
                 <span
                   class="tex-holder"
@@ -1049,7 +1049,7 @@ exports[`interaction widget should render 1`] = `
               <span
                 class="graphie-label"
                 data-math-formula="\\Huge 5"
-                style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 181.46123525470475px; top: 88.69565217391305px; fill: none;"
+                style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 181.46123525470475px; top: 88.69565217391305px; stroke-width: 2px; fill: none;"
               >
                 <span
                   class="tex-holder"
@@ -1058,7 +1058,7 @@ exports[`interaction widget should render 1`] = `
               <span
                 class="graphie-label"
                 data-math-formula="\\Huge 9"
-                style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 246.3261001195696px; top: 88.69565217391305px; fill: none;"
+                style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 246.3261001195696px; top: 88.69565217391305px; stroke-width: 2px; fill: none;"
               >
                 <span
                   class="tex-holder"
@@ -1067,7 +1067,7 @@ exports[`interaction widget should render 1`] = `
               <span
                 class="graphie-label"
                 data-math-formula="\\small 259"
-                style="position: absolute; padding: 7px; color: gray; left: 19.459459459459445px; top: 26.08695652173914px; fill: none;"
+                style="position: absolute; padding: 7px; color: gray; left: 19.459459459459445px; top: 26.08695652173914px; stroke-width: 2px; fill: none;"
               >
                 <span
                   class="tex-holder"
@@ -1076,7 +1076,7 @@ exports[`interaction widget should render 1`] = `
               <span
                 class="graphie-label"
                 data-math-formula="\\small 259 \\times 10"
-                style="position: absolute; padding: 7px; color: gray; left: 149.18918918918916px; top: 26.08695652173914px; fill: none;"
+                style="position: absolute; padding: 7px; color: gray; left: 149.18918918918916px; top: 26.08695652173914px; stroke-width: 2px; fill: none;"
               >
                 <span
                   class="tex-holder"
