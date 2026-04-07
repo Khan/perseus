@@ -15,7 +15,7 @@
 
 /* This `overflow: hidden` is for cases in which there is a Graphie
    label toward the bottom of a Graphie image, and this label has padding
-   that overflows past the specified image bounds, causing a an
+   that overflows past the specified image bounds, causing an
    unnecessary scrollbar to appear in the modal.
 */
 .imageContainer :global(.svg-image) {
