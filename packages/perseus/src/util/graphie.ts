@@ -1005,7 +1005,7 @@ export class Graphie {
             // A band-aid for a race condition involving the
             // setting and reading of the font size.
             $span.css({
-                ...this.currentStyle,
+                "font-size": this.currentStyle["font-size"],
             });
 
             const span = $span[0];
