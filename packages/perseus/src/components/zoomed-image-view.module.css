@@ -13,9 +13,11 @@
     max-width: calc(100vw - var(--wb-sizing-size_640));
 }
 
-/* Graphie labels are absolutely positioned and can extend slightly
-   beyond the image bounds, which causes a tiny scrollbar on the
-   ModalPanel's overflow:auto wrapper. Clip that overflow here. */
+/* This `overflow: hidden` is for cases in which there is a Graphie
+   label toward the bottom of a Graphie image, and this label has padding
+   that overflows past the specified image bounds, causing a an
+   unnecessary scrollbar to appear in the modal.
+*/
 .imageContainer :global(.svg-image) {
     overflow: hidden;
 }
