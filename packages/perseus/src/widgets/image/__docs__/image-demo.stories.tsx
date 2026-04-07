@@ -34,6 +34,8 @@ import {
     scienceImageCaption,
     svgImage,
     extremelyLongDescription,
+    graphieImage2,
+    graphieImage2Alt,
 } from "../utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -344,7 +346,7 @@ export const ImageWithScaledSizes: Story = {
                 }}
                 question={generateTestPerseusRenderer({
                     content:
-                        "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]",
+                        "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]\n\n[[☃ image 7]]\n\n[[☃ image 8]]\n\n[[☃ image 9]]",
                     widgets: {
                         "image 1": generateImageWidget({
                             options: generateImageOptions({
@@ -390,6 +392,29 @@ export const ImageWithScaledSizes: Story = {
                                 backgroundImage: graphieImage,
                                 scale: 2,
                                 alt: graphieImageAlt,
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 7": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: graphieImage2,
+                                alt: graphieImage2Alt,
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 8": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: graphieImage2,
+                                scale: 0.5,
+                                alt: graphieImage2Alt,
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 9": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: graphieImage2,
+                                scale: 2,
+                                alt: graphieImage2Alt,
                                 longDescription: "long description",
                             }),
                         }),

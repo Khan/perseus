@@ -13,6 +13,15 @@
     max-width: calc(100vw - var(--wb-sizing-size_640));
 }
 
+/* This `overflow: hidden` is for cases in which there is a Graphie
+   label toward the bottom of a Graphie image, and this label has padding
+   that overflows past the specified image bounds, causing an
+   unnecessary scrollbar to appear in the modal.
+*/
+.imageContainer :global(.svg-image) {
+    overflow: hidden;
+}
+
 @media (max-width: 767px) {
     .contentWrapper {
         /* Smaller screens have a smaller inline gap */
