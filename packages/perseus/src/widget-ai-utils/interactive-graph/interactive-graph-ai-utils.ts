@@ -72,6 +72,10 @@ type ExponentialGraphOptions = BaseGraphOptions & {
     startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
 };
 
+type LogarithmGraphOptions = BaseGraphOptions & {
+    startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
+};
+
 type NoneGraphOptions = Record<string, never>;
 
 type GraphOptions =
@@ -88,7 +92,8 @@ type GraphOptions =
     | RayGraphOptions
     | SegmentGraphOptions
     | SinusoidGraphOptions
-    | TangentGraphOptions;
+    | TangentGraphOptions
+    | LogarithmGraphOptions;
 
 type AngleUserInput = {
     coords?: readonly [Coord, Coord, Coord];
@@ -141,6 +146,11 @@ type ExponentialUserInput = {
     asymptote?: number | null;
 };
 
+type LogarithmUserInput = {
+    coords?: readonly Coord[] | null;
+    asymptote?: number | null;
+};
+
 type TangentUserInput = {
     coords?: readonly Coord[] | null;
 };
@@ -158,7 +168,8 @@ type UserInput =
     | RayUserInput
     | SegmentUserInput
     | SinusoidUserInput
-    | TangentUserInput;
+    | TangentUserInput
+    | LogarithmUserInput;
 
 export type InteractiveGraphPromptJSON = {
     type: "interactive-graph";
@@ -268,6 +279,11 @@ const getGraphOptionsForProps = (
                 type: props.userInput.type,
                 startCoords: props.userInput.startCoords,
             };
+        case "logarithm":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         default:
             throw new UnreachableCaseError(type);
     }
@@ -330,6 +346,11 @@ const getUserInput = (userInput: PerseusGraphType): UserInput => {
                 coords: userInput.coords,
             };
         case "exponential":
+            return {
+                coords: userInput.coords,
+                asymptote: userInput.asymptote,
+            };
+        case "logarithm":
             return {
                 coords: userInput.coords,
                 asymptote: userInput.asymptote,

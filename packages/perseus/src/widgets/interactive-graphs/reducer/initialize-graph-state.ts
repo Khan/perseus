@@ -146,6 +146,11 @@ export function initializeGraphState(
                 type: graph.type,
                 coords: getTangentCoords(graph, range, step),
             };
+        case "logarithm":
+            return {
+                ...shared,
+                type: "none",
+            };
         default:
             throw new UnreachableCaseError(graph);
     }
