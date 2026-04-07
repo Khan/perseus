@@ -16,6 +16,8 @@
 - When using `TextArea`, set `autoResize` to `true` so that it resizes based on
   content. If needed, the `rows` and `maxRows` props can be used to configure
   the starting and maximum number of rows.
+- Only use `RadioGroup`/`CheckboxGroup` and `Choice` when working on forms. Use
+  `perseus` components when working on UI related to exercises or widgets.
 
 ## Always wrap fields with LabeledField
 
