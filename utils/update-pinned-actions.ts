@@ -1,10 +1,11 @@
+#!/usr/bin/env -S node -r @swc-node/register
 /**
  * Scan all workflow and action YAML files for GitHub Action references and
  * ensure they are pinned to commit SHAs. Handles two cases:
  *   1. Already pinned (`uses: owner/repo@<sha> # <tag>`) — updates stale SHAs
  *   2. Unpinned (`uses: owner/repo@<tag>`) — replaces with `@<sha> # <tag>`
  *
- * Usage: node utils/update-pinned-actions.js
+ * Usage: node utils/update-pinned-actions.ts
  */
 import {execSync} from "node:child_process";
 import fs from "node:fs";
@@ -38,7 +39,7 @@ const UNPINNED_RE =
  * Resolve a tag or branch to its commit SHA via git ls-remote.
  * For annotated tags the dereferenced (^{}) commit SHA is returned.
  */
-const resolveRef = (action, ref) => {
+const resolveRef = (action: string, ref: string): string | null => {
     // Extract just owner/repo (ignore sub-paths like /restore, /save)
     const repo = action.split("/").slice(0, 2).join("/");
     const url = `https://github.com/${repo}.git`;
@@ -83,13 +84,13 @@ const files = fg.sync([
 
 // Collect unique action+ref pairs across all files
 
-const seen = new Map(); // key: "action@ref" → resolved SHA (filled later)
+const seen = new Map<string, string | null>(); // key: "action@ref" → resolved SHA (filled later)
 
-const allRepos = new Set(); // all unique owner/repo names (for listing)
+const allRepos = new Set<string>(); // all unique owner/repo names (for listing)
 
 for (const file of files) {
     const content = fs.readFileSync(file, "utf-8");
-    let m;
+    let m: RegExpExecArray | null;
 
     // Collect already-pinned refs
     // Groups: action(1), sha(2), quote(3), ref(4)
@@ -147,7 +148,7 @@ for (const key of seen.keys()) {
             seen.set(key, sha);
             console.log(`    → ${sha}`);
         }
-    } catch (err) {
+    } catch (err: any) {
         console.log(`    ⚠  Error resolving ${action}@${ref}: ${err.message}`);
         failures++;
     }
