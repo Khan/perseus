@@ -137,6 +137,10 @@ export function getLogarithmCoefficients(
     const b = 1 / aExp;
     const c = -cExp / aExp;
 
+    if (!isFinite(a) || !isFinite(b) || !isFinite(c)) {
+        return;
+    }
+
     return {a, b, c};
 }
 
