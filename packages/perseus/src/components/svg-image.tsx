@@ -499,6 +499,7 @@ class SvgImage extends React.Component<Props, State> {
                                 scale={this.props.scale}
                                 isPlaying={!!this.props.isGifPlaying}
                                 onLoop={this.props.onGifLoop ?? (() => {})}
+                                onLoad={this.onImageLoad}
                             />
                         )}
                     </>

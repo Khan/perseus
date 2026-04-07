@@ -30,6 +30,10 @@ type Props = {
      * Called when the GIF finishes one full loop.
      */
     onLoop: () => void;
+    /**
+     * Called once GIF frames are decoded and the first frame is drawn.
+     */
+    onLoad?: () => void;
 };
 
 /**
@@ -52,7 +56,7 @@ type Props = {
  * - Detect when we have looped the animation.
  */
 const GifImage = (props: Props) => {
-    const {src, alt, width, height, scale, isPlaying, onLoop} = props;
+    const {src, alt, width, height, scale, isPlaying, onLoop, onLoad} = props;
 
     // Decoded GIF frames from gifuct-js
     const framesRef = React.useRef<ParsedFrame[]>([]);
@@ -72,8 +76,8 @@ const GifImage = (props: Props) => {
     // Keep a ref to the latest props so the animation loop (which runs
     // outside of React's render cycle) can read current values without
     // stale closures.
-    const latestPropsRef = React.useRef({isPlaying, onLoop});
-    latestPropsRef.current = {isPlaying, onLoop};
+    const latestPropsRef = React.useRef({isPlaying, onLoop, onLoad});
+    latestPropsRef.current = {isPlaying, onLoop, onLoad};
 
     // Draw a single frame's patch directly onto the display canvas,
     // using the hidden canvas to convert raw pixel data into a
@@ -240,6 +244,7 @@ const GifImage = (props: Props) => {
 
                 // Show the first frame on the canvas.
                 renderFrame(0);
+                latestPropsRef.current.onLoad?.();
 
                 if (latestPropsRef.current.isPlaying) {
                     play();
