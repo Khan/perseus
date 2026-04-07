@@ -315,6 +315,7 @@ function doMovePointInFigure(
         case "absolute-value":
         case "tangent":
         case "exponential":
+        case "vector":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );

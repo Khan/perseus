@@ -146,6 +146,8 @@ export function initializeGraphState(
                 type: graph.type,
                 coords: getTangentCoords(graph, range, step),
             };
+        case "vector":
+            throw new Error("Not implemented");
         default:
             throw new UnreachableCaseError(graph);
     }
