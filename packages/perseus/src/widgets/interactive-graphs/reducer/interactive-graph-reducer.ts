@@ -891,11 +891,6 @@ function doMoveCenter(
                 }
             }
 
-            // Final safety: asymptote must not land exactly on either point
-            if (newX === coords[0][X] || newX === coords[1][X]) {
-                return state;
-            }
-
             return {
                 ...state,
                 hasBeenInteractedWith: true,

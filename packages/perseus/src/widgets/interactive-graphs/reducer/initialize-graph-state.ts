@@ -518,7 +518,7 @@ export function getExponentialCoords(
     return {coords, asymptote};
 }
 
-function getLogarithmCoords(
+export function getLogarithmCoords(
     graph: PerseusGraphTypeLogarithm,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
