@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 77.1.0
+
+### Minor Changes
+
+-   [#3273](https://github.com/Khan/perseus/pull/3273) [`1f532f29c0`](https://github.com/Khan/perseus/commit/1f532f29c0a45f63e7badf3fe8da81b2855ab618) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Merge top-level widget files into one, and refactor to remove legacy code
+
+### Patch Changes
+
+-   [#3457](https://github.com/Khan/perseus/pull/3457) [`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   [#3417](https://github.com/Khan/perseus/pull/3417) [`732cfab8fc`](https://github.com/Khan/perseus/commit/732cfab8fce00908d5fde297b5b8e5d52c596af9) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB typography instances to use `Heading` and `BodyText`.
+
+*   Updated dependencies [[`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc)]:
+    -   @khanacademy/math-input@26.4.12
+
 ## 77.0.3
 
 ### Patch Changes
