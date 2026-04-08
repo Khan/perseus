@@ -21,6 +21,7 @@ import type {
     PerseusGraphTypeSinusoid,
     PerseusGraphTypeExponential,
     PerseusGraphTypeTangent,
+    PerseusGraphTypeLogarithm,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -149,7 +150,8 @@ export function initializeGraphState(
         case "logarithm":
             return {
                 ...shared,
-                type: "none",
+                type: graph.type,
+                ...getLogarithmCoords(graph, range, step),
             };
         default:
             throw new UnreachableCaseError(graph);
@@ -509,6 +511,37 @@ export function getExponentialCoords(
         ? graph.startCoords.coords
         : defaultCoords;
     // Default asymptote at y=0 (the x-axis), so the curve visually approaches zero.
+    const asymptote: number = graph.startCoords
+        ? graph.startCoords.asymptote
+        : 0;
+
+    return {coords, asymptote};
+}
+
+export function getLogarithmCoords(
+    graph: PerseusGraphTypeLogarithm,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): {coords: [Coord, Coord]; asymptote: number} {
+    if (graph.coords && graph.asymptote != null) {
+        return {
+            coords: [graph.coords[0], graph.coords[1]],
+            asymptote: graph.asymptote,
+        };
+    }
+
+    // Default coords as normalized fractions of the graph range. After
+    // normalization with the default asymptote at x=0, both points will
+    // be to the right of the asymptote.
+    let defaultCoords: [Coord, Coord] = [
+        [0.55, 0.55],
+        [0.75, 0.75],
+    ];
+    defaultCoords = normalizePoints(range, step, defaultCoords, true);
+
+    const coords: [Coord, Coord] = graph.startCoords
+        ? graph.startCoords.coords
+        : defaultCoords;
     const asymptote: number = graph.startCoords
         ? graph.startCoords.asymptote
         : 0;
