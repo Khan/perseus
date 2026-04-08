@@ -891,6 +891,10 @@ function doMoveCenter(
                 }
             }
 
+            if (newX === state.asymptote) {
+                return state;
+            }
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,

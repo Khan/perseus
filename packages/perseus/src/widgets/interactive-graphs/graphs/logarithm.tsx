@@ -1,6 +1,6 @@
 import {
     coefficients as kmathCoefficients,
-    type ExponentialCoefficient,
+    type LogarithmCoefficient,
 } from "@khanacademy/kmath";
 import {Plot} from "mafs";
 import * as React from "react";
@@ -25,7 +25,7 @@ import {
 } from "./utils";
 
 import type {
-    ExponentialGraphState,
+    LogarithmGraphState,
     MafsGraphProps,
     Dispatch,
     InteractiveGraphElementSuite,
@@ -33,22 +33,22 @@ import type {
 import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
-const {getExponentialCoefficients} = kmathCoefficients;
+const {getLogarithmCoefficients} = kmathCoefficients;
 
-export function renderExponentialGraph(
-    state: ExponentialGraphState,
+export function renderLogarithmGraph(
+    state: LogarithmGraphState,
     dispatch: Dispatch,
     i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
-        graph: <ExponentialGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getExponentialDescription(state, i18n),
+        graph: <LogarithmGraph graphState={state} dispatch={dispatch} />,
+        interactiveElementsDescription: getLogarithmDescription(state, i18n),
     };
 }
 
-type ExponentialGraphProps = MafsGraphProps<ExponentialGraphState>;
+type LogarithmGraphProps = MafsGraphProps<LogarithmGraphState>;
 
-function ExponentialGraph(props: ExponentialGraphProps) {
+function LogarithmGraph(props: LogarithmGraphProps) {
     const {dispatch, graphState} = props;
     const {interactiveColor, range} = useGraphConfig();
     const i18n = usePerseusI18n();
@@ -58,62 +58,70 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     const {coords, asymptote, snapStep} = graphState;
 
     // Cache last valid coefficients so the graph doesn't break during
-    // transient invalid states (e.g. mid-drag where points share an x-value).
-    const coeffRef = React.useRef<ExponentialCoefficient>({
+    // transient invalid states (e.g. mid-drag where points share a y-value).
+    const coeffRef = React.useRef<LogarithmCoefficient>({
         a: 1,
         b: 1,
         c: 0,
     });
-    const coeffs = getExponentialCoefficients(coords, asymptote);
+    const coeffs = getLogarithmCoefficients(coords, asymptote);
     if (coeffs !== undefined) {
         coeffRef.current = coeffs;
     }
 
-    const asymptoteY = asymptote;
+    const asymptoteX = asymptote;
+    const xMin = range[0][0];
+    const xMax = range[0][1];
     const yMin = range[1][0];
     const yMax = range[1][1];
     const yPadding = (yMax - yMin) * 2;
 
+    // Determine which side of the asymptote the points are on
+    const pointsRightOfAsymptote = coords[0][X] > asymptoteX;
+
     // Aria strings
     const {
-        srExponentialGraph,
-        srExponentialDescription,
-        srExponentialPoint1,
-        srExponentialPoint2,
-        srExponentialAsymptote,
-    } = describeExponentialGraph(graphState, i18n);
+        srLogarithmGraph,
+        srLogarithmDescription,
+        srLogarithmPoint1,
+        srLogarithmPoint2,
+        srLogarithmAsymptote,
+    } = describeLogarithmGraph(graphState, i18n);
 
-    // The asymptote is a full-width horizontal line.
-    const asymptoteLeft: vec.Vector2 = [range[0][0], asymptoteY];
-    const asymptoteRight: vec.Vector2 = [range[0][1], asymptoteY];
-    const asymptoteMidX = (range[0][0] + range[0][1]) / 2;
-    const asymptoteMid: vec.Vector2 = [asymptoteMidX, asymptoteY];
+    // The asymptote is a full-height vertical line.
+    const asymptoteBottom: vec.Vector2 = [asymptoteX, yMin];
+    const asymptoteTop: vec.Vector2 = [asymptoteX, yMax];
+    const asymptoteMidY = (yMin + yMax) / 2;
+    const asymptoteMid: vec.Vector2 = [asymptoteX, asymptoteMidY];
 
-    const [leftPx, rightPx, midPx] = useTransformVectorsToPixels(
-        asymptoteLeft,
-        asymptoteRight,
+    const [bottomPx, topPx, midPx] = useTransformVectorsToPixels(
+        asymptoteBottom,
+        asymptoteTop,
         asymptoteMid,
     );
 
     return (
-        <g aria-label={srExponentialGraph} aria-describedby={descriptionId}>
+        <g aria-label={srLogarithmGraph} aria-describedby={descriptionId}>
             <MovableAsymptote
-                start={leftPx}
-                end={rightPx}
+                start={bottomPx}
+                end={topPx}
                 mid={midPx}
-                point={asymptoteLeft}
+                point={asymptoteMid}
                 onMove={(newPoint) =>
-                    dispatch(actions.exponential.moveCenter(newPoint))
+                    dispatch(actions.logarithm.moveCenter(newPoint))
                 }
                 constrainKeyboardMovement={(p) =>
                     constrainAsymptoteKeyboard(p, coords, snapStep)
                 }
-                orientation="horizontal"
-                ariaLabel={srExponentialAsymptote}
+                orientation="vertical"
+                ariaLabel={srLogarithmAsymptote}
             />
             <Plot.OfX
                 y={(x) => {
-                    const y = computeExponential(x, coeffRef.current);
+                    const y = computeLogarithm(coeffRef.current, x);
+                    if (isNaN(y)) {
+                        return NaN;
+                    }
                     if (y < yMin - yPadding || y > yMax + yPadding) {
                         return NaN;
                     }
@@ -123,16 +131,19 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                 svgPathProps={{
                     "aria-hidden": true,
                 }}
+                domain={
+                    pointsRightOfAsymptote
+                        ? [asymptoteX + 0.001, xMax]
+                        : [xMin, asymptoteX - 0.001]
+                }
             />
             {coords.map((coord, i) => (
                 <MovablePoint
-                    ariaLabel={
-                        i === 0 ? srExponentialPoint1 : srExponentialPoint2
-                    }
+                    ariaLabel={i === 0 ? srLogarithmPoint1 : srLogarithmPoint2}
                     key={"point-" + i}
                     point={coord}
                     sequenceNumber={i + 1}
-                    constrain={getExponentialKeyboardConstraint(
+                    constrain={getLogarithmKeyboardConstraint(
                         coords,
                         asymptote,
                         snapStep,
@@ -140,12 +151,12 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                         range,
                     )}
                     onMove={(destination) =>
-                        dispatch(actions.exponential.movePoint(i, destination))
+                        dispatch(actions.logarithm.movePoint(i, destination))
                     }
                 />
             ))}
             <SRDescInSVG id={descriptionId}>
-                {srExponentialDescription}
+                {srLogarithmDescription}
             </SRDescInSVG>
         </g>
     );
@@ -156,9 +167,9 @@ export const constrainAsymptoteKeyboard = (
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
 ): vec.Vector2 =>
-    constrainAsymptoteKeyboardMovement(p, coords, snapStep, "horizontal");
+    constrainAsymptoteKeyboardMovement(p, coords, snapStep, "vertical");
 
-export const getExponentialKeyboardConstraint = (
+export const getLogarithmKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     asymptote: number,
     snapStep: vec.Vector2,
@@ -171,7 +182,7 @@ export const getExponentialKeyboardConstraint = (
     right: vec.Vector2;
 } => {
     const otherPoint = coords[1 - pointIndex];
-    const asymptoteY = asymptote;
+    const asymptoteX = asymptote;
 
     return getAsymptoteGraphKeyboardConstraint(
         coords,
@@ -189,30 +200,35 @@ export const getExponentialKeyboardConstraint = (
             const clampedX = clamped[X];
             const clampedY = clamped[Y];
 
-            // Point cannot land on the horizontal asymptote
-            if (coord[Y] === asymptoteY || clampedY === asymptoteY) {
+            // Point cannot land on the vertical asymptote
+            if (coord[X] === asymptoteX || clampedX === asymptoteX) {
                 return false;
             }
             // Both points must have different x-values
+            // (same x makes the coefficient computation degenerate)
             if (coord[X] === otherPoint[X] || clampedX === otherPoint[X]) {
                 return false;
             }
+            // Both points must have different y-values
+            if (coord[Y] === otherPoint[Y] || clampedY === otherPoint[Y]) {
+                return false;
+            }
             // When the move crosses the asymptote, the reducer will
-            // reflect the other point. Check that the reflected Y
-            // doesn't collide with the proposed coord's Y.
+            // reflect the other point. Check that the reflected X
+            // doesn't collide with the proposed coord's X.
             const currentPoint = coords[pointIndex];
-            const currentSide = currentPoint[Y] > asymptoteY;
-            const proposedSide = coord[Y] > asymptoteY;
+            const currentSide = currentPoint[X] > asymptoteX;
+            const proposedSide = coord[X] > asymptoteX;
             if (currentSide !== proposedSide) {
-                const reflectedY = 2 * asymptoteY - otherPoint[Y];
-                const clampedReflectedY = snap(
+                const reflectedX = 2 * asymptoteX - otherPoint[X];
+                const clampedReflectedX = snap(
                     snapStep,
-                    bound({snapStep, range, point: [0, reflectedY]}),
-                )[Y];
+                    bound({snapStep, range, point: [reflectedX, 0]}),
+                )[X];
                 if (
-                    reflectedY === coord[Y] ||
-                    clampedReflectedY === coord[Y] ||
-                    clampedReflectedY === clampedY
+                    reflectedX === coord[X] ||
+                    clampedReflectedX === coord[X] ||
+                    clampedReflectedX === clampedX
                 ) {
                     return false;
                 }
@@ -222,25 +238,29 @@ export const getExponentialKeyboardConstraint = (
     );
 };
 
-// Plot an exponential of the form: f(x) = a * e^(b * x) + c
-const computeExponential = function (
+// Plot a logarithm of the form: f(x) = a * ln(b * x + c)
+const computeLogarithm = function (
+    coefficients: LogarithmCoefficient,
     x: number,
-    coefficients: ExponentialCoefficient,
 ) {
     const {a, b, c} = coefficients;
-    return a * Math.exp(b * x) + c;
+    const arg = b * x + c;
+    if (arg <= 0) {
+        return NaN;
+    }
+    return a * Math.log(arg);
 };
 
-function getExponentialDescription(
-    state: ExponentialGraphState,
+function getLogarithmDescription(
+    state: LogarithmGraphState,
     i18n: I18nContextType,
 ): string {
-    const strings = describeExponentialGraph(state, i18n);
-    return strings.srExponentialInteractiveElements;
+    const strings = describeLogarithmGraph(state, i18n);
+    return strings.srLogarithmInteractiveElements;
 }
 
-function describeExponentialGraph(
-    state: ExponentialGraphState,
+function describeLogarithmGraph(
+    state: LogarithmGraphState,
     i18n: I18nContextType,
 ): Record<string, string> {
     const {strings, locale} = i18n;
@@ -255,29 +275,29 @@ function describeExponentialGraph(
         x: srFormatNumber(point2[X], locale),
         y: srFormatNumber(point2[Y], locale),
     };
-    const asymptoteYFormatted = srFormatNumber(asymptote, locale);
+    const asymptoteXFormatted = srFormatNumber(asymptote, locale);
 
     return {
-        srExponentialGraph: strings.srExponentialGraph,
-        srExponentialDescription: strings.srExponentialDescription({
+        srLogarithmGraph: strings.srLogarithmGraph,
+        srLogarithmDescription: strings.srLogarithmDescription({
             point1X: formattedPoint1.x,
             point1Y: formattedPoint1.y,
             point2X: formattedPoint2.x,
             point2Y: formattedPoint2.y,
-            asymptoteY: asymptoteYFormatted,
+            asymptoteX: asymptoteXFormatted,
         }),
-        srExponentialAsymptote: strings.srExponentialAsymptote({
-            asymptoteY: asymptoteYFormatted,
+        srLogarithmAsymptote: strings.srLogarithmAsymptote({
+            asymptoteX: asymptoteXFormatted,
         }),
-        srExponentialPoint1: strings.srExponentialPoint1(formattedPoint1),
-        srExponentialPoint2: strings.srExponentialPoint2(formattedPoint2),
-        srExponentialInteractiveElements: strings.srInteractiveElements({
-            elements: strings.srExponentialInteractiveElements({
+        srLogarithmPoint1: strings.srLogarithmPoint1(formattedPoint1),
+        srLogarithmPoint2: strings.srLogarithmPoint2(formattedPoint2),
+        srLogarithmInteractiveElements: strings.srInteractiveElements({
+            elements: strings.srLogarithmInteractiveElements({
                 point1X: srFormatNumber(point1[X], locale),
                 point1Y: srFormatNumber(point1[Y], locale),
                 point2X: srFormatNumber(point2[X], locale),
                 point2Y: srFormatNumber(point2[Y], locale),
-                asymptoteY: asymptoteYFormatted,
+                asymptoteX: asymptoteXFormatted,
             }),
         }),
     };
