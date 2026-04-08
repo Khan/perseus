@@ -18,16 +18,12 @@ export function parseFailureWith(
     return failure([expect.objectContaining(expected)]);
 }
 
-// Summons a successfully parsed value out of thin air!*
-// *Terms and conditions apply. Value will not actually be returned.
-// For use in typetests only.
-export function summonParsedValue<P extends Parser<any>>(): ParsedValue<P> {
-    return "fake summoned value" as any;
-}
-
-// Summons a value of type T out of thin air!*
-// *Terms and conditions apply. Value will not actually be returned.
-// For use in typetests only.
+/**
+ * Summons a value of type T out of thin air!
+ *
+ * (Terms and conditions apply. Value will not actually be returned.
+ * For use in typetests only.)
+ */
 export function summon<T>(): T {
     return "fake summoned value" as any;
 }
