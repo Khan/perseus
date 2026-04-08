@@ -144,6 +144,10 @@ jobs:
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
               run: pnpm typecheck
 
+            - name: Typetest
+              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+              run: pnpm tstyche
+
             - name: Build types
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
               run: pnpm build:types
