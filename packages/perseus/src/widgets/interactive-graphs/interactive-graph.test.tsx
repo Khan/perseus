@@ -2,7 +2,6 @@ import {describe, beforeEach, it} from "@jest/globals";
 import {
     generateTestPerseusItem,
     generateInteractiveGraphQuestion,
-    generateIGAngleGraph,
     generateIGLockedEllipse,
     generateIGLockedFunction,
     generateIGLockedLine,
