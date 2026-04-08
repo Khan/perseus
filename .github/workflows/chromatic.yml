@@ -37,8 +37,8 @@ jobs:
               timeout-minutes: 5
               with:
                   # registry.npmjs.org: npm package registry for pnpm install
-                  # index.chromatic.com: Chromatic service for uploading and comparing Storybook snapshots
-                  extra-domains: registry.npmjs.org index.chromatic.com
+                  # *.chromatic.com: Chromatic service for uploading and comparing Storybook snapshots
+                  extra-domains: registry.npmjs.org index.chromatic.com notify.dev-chromatic.com notify.staging-chromatic.com notify.chromatic.com
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache

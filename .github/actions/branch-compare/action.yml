@@ -45,12 +45,6 @@ runs:
               # is targeting)
               ref: ${{ github.event.pull_request.base.ref }}
 
-        - name: Secure Network
-          uses: Khan/actions@secure-network-v1
-          with:
-              # registry.npmjs.org: npm package registry for pnpm install in build-command
-              extra-domains: registry.npmjs.org
-
         - name: Build for base
           shell: bash
           run: ${{ inputs.build-command }}
