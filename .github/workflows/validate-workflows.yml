@@ -30,6 +30,8 @@ jobs:
             - name: Secure Network
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
+              with:
+                  extra-domains: registry.npmjs.org
 
             - name: Fix checkout-followed-by-setup
               uses: Khan/actions@fix-workflows-v2

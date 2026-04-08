@@ -47,7 +47,6 @@ runs:
 
         - name: Secure Network
           uses: Khan/actions@secure-network-v1
-          timeout-minutes: 5
           with:
               # registry.npmjs.org: npm package registry for pnpm install in build-command
               extra-domains: registry.npmjs.org
