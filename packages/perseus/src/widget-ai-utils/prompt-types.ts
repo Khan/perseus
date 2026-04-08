@@ -54,12 +54,27 @@ export type WidgetPromptJSON =
     | SorterPromptJSON
     | UnsupportedWidgetPromptJSON;
 
-export type RendererPromptJSON = {
+/**
+ * JSON describing a Perseus renderer. Intended for consumption by AI tools.
+ * A "renderer" is essentially a Markdown document with embedded interactive
+ * widgets.
+ */
+export interface RendererPromptJSON {
+    /**
+     * Markdown content of the document. Widgets are represented by
+     * placeholders containing a Unicode snowman symbol, e.g.
+     * `[[☃ radio 1]]`. May contain TeX delimited by dollar signs, e.g.
+     * `$\dfrac{1}{2}$`. Literal dollar signs are escaped by backslashes.
+     */
     content: string;
+
+    /**
+     * Information about the configuration and UI state of each widget.
+     */
     widgets: {
         [widgetId: string]: WidgetPromptJSON;
     };
-};
+}
 
 export interface GetPromptJSONInterface {
     getPromptJSON(): RendererPromptJSON;
