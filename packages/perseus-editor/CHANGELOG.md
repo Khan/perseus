@@ -1,5 +1,26 @@
 # @khanacademy/perseus-editor
 
+## 30.2.0
+
+### Minor Changes
+
+-   [#3425](https://github.com/Khan/perseus/pull/3425) [`2c36b8a4c3`](https://github.com/Khan/perseus/commit/2c36b8a4c3a35b0edf432e9b69a7b73b04a75e52) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm graph option in the Interactive Graph Editor
+
+*   [#3420](https://github.com/Khan/perseus/pull/3420) [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm type definitions, this is the initial implementation for supporting Logarithm graph in Interactive Graph widget.
+
+### Patch Changes
+
+-   [#3461](https://github.com/Khan/perseus/pull/3461) [`0481b4238d`](https://github.com/Khan/perseus/commit/0481b4238d74c76ea2e2182cde3d1146da9d7a38) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Update CSS modules to kabab case
+
+-   Updated dependencies [[`a4eaa5a1f8`](https://github.com/Khan/perseus/commit/a4eaa5a1f8a32ce74ce38ea443419b94d53a72b4), [`2c36b8a4c3`](https://github.com/Khan/perseus/commit/2c36b8a4c3a35b0edf432e9b69a7b73b04a75e52), [`3cc56f60dd`](https://github.com/Khan/perseus/commit/3cc56f60dd66fb00a961d0ec6661d4e11a1aed83), [`08b1218b62`](https://github.com/Khan/perseus/commit/08b1218b62287d25149f087ee53d02c092ba15a1), [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79), [`9099a40a4e`](https://github.com/Khan/perseus/commit/9099a40a4e101f6fe3fa51771409577bbe7161de), [`0481b4238d`](https://github.com/Khan/perseus/commit/0481b4238d74c76ea2e2182cde3d1146da9d7a38), [`0d6cf3c3ce`](https://github.com/Khan/perseus/commit/0d6cf3c3cef7cf160e0262d68cd9761e498189ed)]:
+    -   @khanacademy/perseus@77.2.0
+    -   @khanacademy/perseus-score@8.6.0
+    -   @khanacademy/perseus-core@24.1.0
+    -   @khanacademy/kmath@2.4.0
+    -   @khanacademy/keypad-context@3.2.42
+    -   @khanacademy/math-input@26.4.13
+    -   @khanacademy/perseus-linter@4.9.2
+
 ## 30.1.1
 
 ### Patch Changes

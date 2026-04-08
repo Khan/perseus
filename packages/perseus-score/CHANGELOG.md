@@ -1,5 +1,17 @@
 # @khanacademy/perseus-score
 
+## 8.6.0
+
+### Minor Changes
+
+-   [#3424](https://github.com/Khan/perseus/pull/3424) [`08b1218b62`](https://github.com/Khan/perseus/commit/08b1218b62287d25149f087ee53d02c092ba15a1) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm graph scoring to support the Logarithm graph in Interactive Graph
+
+### Patch Changes
+
+-   Updated dependencies [[`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79), [`9099a40a4e`](https://github.com/Khan/perseus/commit/9099a40a4e101f6fe3fa51771409577bbe7161de)]:
+    -   @khanacademy/perseus-core@24.1.0
+    -   @khanacademy/kmath@2.4.0
+
 ## 8.5.0
 
 ### Minor Changes
