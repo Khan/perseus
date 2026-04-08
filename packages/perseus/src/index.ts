@@ -92,8 +92,9 @@ export {DependenciesContext} from "./dependencies";
 export {
     PerseusI18nContextProvider,
     PerseusI18nContext,
-    usePerseusI18n,
 } from "./components/i18n-context";
+/** @hidden */
+export {usePerseusI18n} from "./components/i18n-context";
 
 /**
  * Util
@@ -114,13 +115,14 @@ export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
-    /** @hidden */
-    isWidgetIdInContent,
-    /** @hidden */
-    getValidWidgetIds,
     getCorrectAnswerForWidgetId,
     getAnswerFromUserInput,
     getImagesWithoutAltData,
+} from "./util/extract-perseus-data";
+/** @hidden */
+export {
+    isWidgetIdInContent,
+    getValidWidgetIds,
 } from "./util/extract-perseus-data";
 
 export {generateTestCategorizerWidget} from "./util/test-utils";
@@ -188,26 +190,43 @@ export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
 export type {
     APIOptions,
+    /** @hidden */
     APIOptionsWithDefaults,
+    /** @hidden */
     ChangeHandler,
+    /** @hidden */
     DeviceType,
+    /** @hidden */
     DomInsertCheckFn,
+    /** @hidden */
     EditorMode,
+    /** @hidden */
     FocusPath,
     GenerateUrlArgs,
+    /** @hidden */
     GraphieLabelElement,
+    /** @hidden */
     ImageDict,
+    /** @hidden */
     ImageUploader,
+    /** @hidden */
     JiptLabelStore,
+    /** @hidden */
     JiptRenderer,
     PerseusDependencies,
     PerseusDependenciesV2,
+    /** @hidden */
     VideoData,
+    /** @hidden */
     VideoKind,
+    /** @hidden */
     WidgetExports,
+    /** @hidden */
     SharedRendererProps,
 } from "./types";
+/** @hidden */
 export type {ParsedValue} from "./util";
+/** @hidden */
 export type {Coord} from "./interactive2/types";
 export type {
     RendererPromptJSON,
