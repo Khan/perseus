@@ -2,6 +2,7 @@ import {describe, it, test, expect} from "tstyche";
 
 import {enumeration} from "./enumeration";
 import {ctx} from "./test-helpers";
+
 import type {ParseResult} from "../parser-types";
 
 describe("the enumeration parser combinator", () => {
