@@ -87,7 +87,8 @@ type ExponentialGraphOptions = {
     startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
 };
 
-type LogarithmGraphOptions = BaseGraphOptions & {
+type LogarithmGraphOptions = {
+    type: "logarithm";
     startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
 };
 
