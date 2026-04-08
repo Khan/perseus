@@ -1,9 +1,12 @@
+import {describe, it, expect} from "tstyche";
+
 import {constant} from "./constant";
 import {discriminatedUnionOn} from "./discriminated-union";
 import {number} from "./number";
 import {object} from "./object";
+import {ctx} from "./test-helpers";
 
-import type {Parser} from "../parser-types";
+import type {Parser, ParseResult} from "../parser-types";
 
 type Figure =
     | {shape: "circle"; radius: number}
@@ -24,6 +27,19 @@ const parseRectangle = object({
 const parseSquare = object({
     shape: constant("square"),
     sideLength: number,
+});
+
+describe("the discriminatedUnionOn parser combinator", () => {
+    it("parses a union with the given discriminant and branches", () => {
+        const figureParser = discriminatedUnionOn("shape")
+            .withBranch("circle", parseCircle)
+            .withBranch("rectangle", parseRectangle)
+            .withBranch("square", parseSquare).parser;
+
+        const parsed = figureParser({}, ctx());
+
+        expect(parsed).type.toBe<ParseResult<Figure>>();
+    });
 });
 
 // Test: parsed result is assignable to the union type
