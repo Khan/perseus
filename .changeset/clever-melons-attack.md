@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Hide unused exports from doc comments
+Remove unused exports from generated documentation
