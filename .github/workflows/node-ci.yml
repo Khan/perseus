@@ -191,7 +191,8 @@ jobs:
               with:
                   # registry.npmjs.org: npm package registry for pnpm install
                   # cdn.cypress.io: Cypress binary download for pnpm exec cypress install
-                  extra-domains: registry.npmjs.org cdn.cypress.io
+                  # ka-perseus-graphie.s3.amazonaws.com: some tests load images from here
+                  extra-domains: registry.npmjs.org cdn.cypress.io ka-perseus-graphie.s3.amazonaws.com
 
             # MUST be before we install node_modules as that depends on finding
             # Cypress binaries in this cache!
