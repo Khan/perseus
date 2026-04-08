@@ -16,24 +16,24 @@ import fg from "fast-glob";
 // - Lookbehind ensures no `#` before `uses:` on the same line (skips YAML comments)
 // - Supports optional quotes: `uses: "owner/repo@<sha>" # <tag>`
 // - Uses [^\S\n]+ instead of \s+ to prevent matching across lines
-// Groups: action(1), sha(2), quote(3), ref(4)
+// Named groups: action, sha, quote, ref
 const PINNED_RE =
-    /(?<=^[^#\n]*uses:\s+"?)([^@\s"]+)@([a-f0-9]{40})("?)[^\S\n]+#[^\S\n]*(\S+)/gm;
+    /(?<=^[^#\n]*uses:\s+"?)(?<action>[^@\s"]+)@(?<sha>[a-f0-9]{40})(?<quote>"?)[^\S\n]+#[^\S\n]*(?<ref>\S+)/gm;
 
 // Matches pinned-without-tag: `uses: owner/repo@<sha>` (no `# <tag>` comment)
 // Used only for collecting action names, not for updates.
-// Groups: action(1)
+// Named groups: action
 const PINNED_NO_TAG_RE =
-    /(?<=^[^#\n]*uses:\s+"?)([^\s@"]+\/[^\s@"]+)@[a-f0-9]{40}"?\s*$/gm;
+    /(?<=^[^#\n]*uses:\s+"?)(?<action>[^\s@"]+\/[^\s@"]+)@[a-f0-9]{40}"?\s*$/gm;
 
 // Matches unpinned: `uses: owner/repo@<tag>` (where tag is NOT a 40-char hex SHA)
 // - Excludes local actions (starting with ./)
 // - Lookbehind ensures no `#` before `uses:` on the same line (skips YAML comments)
 // - Supports optional quotes: `uses: "owner/repo@<tag>"`
 // - Action name uses [^\s@"] to avoid capturing quotes
-// Groups: action(1), unused(2), ref(3), quote(4)
+// Named groups: action, ref, quote
 const UNPINNED_RE =
-    /(?<=^[^#\n]*uses:\s+"?)([^\s@"]+\/[^\s@"]+)@(?!([a-f0-9]{40})(?:\s|"))([^\s"]+)("?)/gm;
+    /(?<=^[^#\n]*uses:\s+"?)(?<action>[^\s@"]+\/[^\s@"]+)@(?!(?:[a-f0-9]{40})(?:\s|"))(?<ref>[^\s"]+)(?<quote>"?)/gm;
 
 /**
  * Resolve a tag or branch to its commit SHA via git ls-remote.
@@ -78,7 +78,7 @@ const resolveRef = (action: string, ref: string): string | null => {
  * Scan all YAML files and collect unique action+ref pairs to resolve,
  * plus all unique repo names (for the allowed-actions listing).
  */
-const collectActionRefs = (
+export const collectActionRefs = (
     files: string[],
 ): {
     seen: Map<string, string | null>;
@@ -92,10 +92,9 @@ const collectActionRefs = (
         let m: RegExpExecArray | null;
 
         // Collect already-pinned refs
-        // Groups: action(1), sha(2), quote(3), ref(4)
         PINNED_RE.lastIndex = 0;
         while ((m = PINNED_RE.exec(content)) !== null) {
-            const [, action, , , ref] = m;
+            const {action, ref} = m.groups!;
             seen.set(`${action}@${ref}`, null);
             allRepos.add(action.split("/").slice(0, 2).join("/"));
         }
@@ -103,14 +102,14 @@ const collectActionRefs = (
         // Collect pinned-without-tag refs (for listing only)
         PINNED_NO_TAG_RE.lastIndex = 0;
         while ((m = PINNED_NO_TAG_RE.exec(content)) !== null) {
-            const [, action] = m;
+            const {action} = m.groups!;
             allRepos.add(action.split("/").slice(0, 2).join("/"));
         }
 
         // Collect unpinned refs (tag/branch directly after @)
         UNPINNED_RE.lastIndex = 0;
         while ((m = UNPINNED_RE.exec(content)) !== null) {
-            const [, action, , ref] = m;
+            const {action, ref} = m.groups!;
             seen.set(`${action}@${ref}`, null);
             allRepos.add(action.split("/").slice(0, 2).join("/"));
         }
@@ -166,43 +165,51 @@ const updateFiles = (
         let fileChanged = false;
 
         // Update already-pinned refs with stale SHAs
-        // Groups: action(1), sha(2), quote(3), ref(4)
         PINNED_RE.lastIndex = 0;
-        content = content.replace(
-            PINNED_RE,
-            (match, action, oldSha, quote, ref) => {
-                const newSha = seen.get(`${action}@${ref}`);
-                if (!newSha || newSha === oldSha) {
-                    if (newSha === oldSha) {
-                        alreadyCurrent++;
-                    }
-                    return match;
+        content = content.replace(PINNED_RE, (match, ...args) => {
+            const {
+                action,
+                sha: oldSha,
+                quote,
+                ref,
+            } = args.at(-1) as {
+                action: string;
+                sha: string;
+                quote: string;
+                ref: string;
+            };
+            const newSha = seen.get(`${action}@${ref}`);
+            if (!newSha || newSha === oldSha) {
+                if (newSha === oldSha) {
+                    alreadyCurrent++;
                 }
-                console.log(`  ${file}: ${action}@${ref}`);
-                console.log(`    ${oldSha} → ${newSha}`);
-                fileChanged = true;
-                updatedRefs++;
-                return `${action}@${newSha}${quote} # ${ref}`;
-            },
-        );
+                return match;
+            }
+            console.log(`  ${file}: ${action}@${ref}`);
+            console.log(`    ${oldSha} → ${newSha}`);
+            fileChanged = true;
+            updatedRefs++;
+            return `${action}@${newSha}${quote} # ${ref}`;
+        });
 
         // Pin unpinned refs (tag/branch → sha # tag)
-        // Groups: action(1), unused(2), ref(3), quote(4)
         UNPINNED_RE.lastIndex = 0;
-        content = content.replace(
-            UNPINNED_RE,
-            (match, action, _unused, ref, quote) => {
-                const newSha = seen.get(`${action}@${ref}`);
-                if (!newSha) {
-                    return match;
-                }
-                console.log(`  ${file}: ${action}@${ref} (unpinned)`);
-                console.log(`    → ${newSha} # ${ref}`);
-                fileChanged = true;
-                updatedRefs++;
-                return `${action}@${newSha}${quote} # ${ref}`;
-            },
-        );
+        content = content.replace(UNPINNED_RE, (match, ...args) => {
+            const {action, ref, quote} = args.at(-1) as {
+                action: string;
+                ref: string;
+                quote: string;
+            };
+            const newSha = seen.get(`${action}@${ref}`);
+            if (!newSha) {
+                return match;
+            }
+            console.log(`  ${file}: ${action}@${ref} (unpinned)`);
+            console.log(`    → ${newSha} # ${ref}`);
+            fileChanged = true;
+            updatedRefs++;
+            return `${action}@${newSha}${quote} # ${ref}`;
+        });
 
         if (fileChanged) {
             fs.writeFileSync(file, content);
@@ -268,4 +275,6 @@ const main = () => {
     }
 };
 
-main();
+if (require.main === module) {
+    main();
+}
