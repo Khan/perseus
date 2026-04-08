@@ -30,7 +30,6 @@ export const ClickedState = {
         }),
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const explanationTrigger = canvas.getByRole("button", {
             name: "Explanation",
         });

@@ -138,6 +138,12 @@ module.exports = {
             },
         },
         {
+            files: ["**/*.stories.@(js|jsx|ts|tsx)"],
+            rules: {
+                "testing-library/prefer-screen-queries": "off",
+            },
+        },
+        {
             files: [
                 "config/**",
                 "utils/**",
