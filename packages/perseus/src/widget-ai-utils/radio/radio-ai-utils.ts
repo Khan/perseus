@@ -45,7 +45,9 @@ export type RadioPromptJSON = {
     hasNoneOfTheAbove: boolean;
 
     /**
-     * The answer choices presented to the learner.
+     * The answer choices presented to the learner, in the order they appear
+     * on screen. The first choice is labeled "A", the second is "B", and so
+     * on.
      */
     options: BasicOption[];
 

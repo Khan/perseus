@@ -36,8 +36,9 @@ export type CategorizerPromptJSON = {
          * The category indices for each item. Elements in this array
          * correspond to elements of `options.items`, and refer to indices of
          * the `categories` array. For example, a value of `[2, null, 0]` means
-         * that the first item is in category 2, the second item has not been
-         * assigned to a category, and the third item is in category 0.
+         * that the first item is in the category at index 2, the second item
+         * has not been assigned to a category, and the third item is in the
+         * category at index 0.
          */
         itemToCategoryMapping: ReadonlyArray<number | null | undefined>;
     };
