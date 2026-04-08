@@ -4,10 +4,15 @@
 
 export {default as init} from "./init";
 
-export {ApiOptions, ClassNames} from "./perseus-api";
+export {ApiOptions} from "./perseus-api";
+/** @hidden */
+export {ClassNames} from "./perseus-api";
 
+/** @hidden */
 export {libVersion} from "./version";
+/** @hidden */
 export {apiVersion} from "./perseus-version";
+/** @hidden */
 export {default as itemVersion} from "./item-version";
 
 /**
@@ -23,16 +28,22 @@ export {default as Renderer} from "./renderer";
  * Widgets
  */
 export * as Widgets from "./widgets";
+/** @hidden */
 export {default as widgets} from "./all-widgets";
 export {Expression} from "./widgets/expression";
 export {default as InputNumber} from "./widgets/input-number";
 export {default as NumericInput} from "./widgets/numeric-input";
 export {default as Radio} from "./widgets/radio";
 export {default as Categorizer} from "./widgets/categorizer";
+/** @hidden */
 export {default as InteractiveGraphWidget} from "./widgets/interactive-graphs/interactive-graph";
+/** @hidden */
 export {default as MatrixWidget} from "./widgets/matrix";
+/** @hidden */
 export {default as TableWidget} from "./widgets/table";
+/** @hidden */
 export {default as PlotterWidget} from "./widgets/plotter";
+/** @hidden */
 export {default as GrapherWidget} from "./widgets/grapher";
 
 // Some utils in grapher/utils and scoring don't need to be used outside of
@@ -45,6 +56,7 @@ import {
     typeToButton,
 } from "./widgets/grapher/util";
 
+/** @hidden */
 export const GrapherUtil = {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -64,6 +76,7 @@ export {iconChevronDown, iconTrash} from "./icon-paths";
 /** @hidden */
 export {bodyXsmallBold} from "./styles/global-styles";
 export * as Dependencies from "./dependencies";
+/** @hidden */
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as LoadingContext} from "./loading-context";
@@ -86,18 +99,24 @@ export {
  * Util
  */
 export {default as Util} from "./util";
+/** @hidden */
 export {default as KhanColors} from "./util/colors";
+/** @hidden */
 export {default as preprocessTex} from "./util/tex-preprocess";
 export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
+/** @hidden */
 export {
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "./util/sizing-utils";
+/** @hidden */
 export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
+    /** @hidden */
     isWidgetIdInContent,
+    /** @hidden */
     getValidWidgetIds,
     getCorrectAnswerForWidgetId,
     getAnswerFromUserInput,
@@ -108,11 +127,15 @@ export {generateTestCategorizerWidget} from "./util/test-utils";
 export {
     getWidgetTypeByWidgetId,
     getWidgetSubTypeByWidgetId,
+} from "./widget-type-utils";
+/** @hidden */
+export {
     contentHasWidgetType,
     getWidgetFromWidgetMap,
     getWidgetsFromWidgetMap,
 } from "./widget-type-utils";
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
+/** @hidden */
 export {
     getAbsoluteValueCoords,
     getCircleCoords,
@@ -144,6 +167,7 @@ export type {
     /** @hidden */
     GraphieRange,
 } from "./util/graphie-utils";
+/** @hidden */
 export {extractWidgetIds} from "./util/extract-widget-ids";
 
 /**
