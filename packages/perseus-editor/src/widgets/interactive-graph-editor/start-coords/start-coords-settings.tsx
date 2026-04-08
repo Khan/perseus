@@ -25,6 +25,7 @@ import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsExponential from "./start-coords-exponential";
 import StartCoordsLine from "./start-coords-line";
+import StartCoordsLogarithm from "./start-coords-logarithm";
 import StartCoordsMultiline from "./start-coords-multiline";
 import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
@@ -120,6 +121,21 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsExponential
                     startCoords={currentStartCoords}
+                    onChange={onChange}
+                />
+            );
+        }
+        case "logarithm": {
+            const defaultLogarithmCoords = getDefaultGraphStartCoords(
+                props,
+                range,
+                step,
+            ) as {coords: [Coord, Coord]; asymptote: number};
+            const currentLogarithmCoords =
+                props.startCoords ?? defaultLogarithmCoords;
+            return (
+                <StartCoordsLogarithm
+                    startCoords={currentLogarithmCoords}
                     onChange={onChange}
                 />
             );
