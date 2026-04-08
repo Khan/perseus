@@ -1,5 +1,4 @@
 {
-    "reporters": ["dot"],
     "testFileMatch": [
         "**/*.typetest.ts"
     ]
