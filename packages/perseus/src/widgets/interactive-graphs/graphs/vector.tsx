@@ -9,10 +9,10 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {TARGET_SIZE} from "../utils";
 
-import {Arrowhead} from "./components/arrowhead";
 import {PillDragHandle} from "./components/pill-drag-handle";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
+import {useControlArrowhead} from "./components/use-control-arrowhead";
 import {useControlPoint} from "./components/use-control-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
@@ -28,13 +28,9 @@ import type {
 
 const {calculateAngleInDegrees} = angles;
 
-// The arrowhead extends past the tip by this many grid steps along
-// the vector direction, so it's clearly visible beyond the draggable dot.
-const ARROW_EXTENSION_GRID_STEPS = 1.5;
-
-// The extension line is pulled back by this many pixels from the arrowhead
-// tip so the line stroke doesn't poke past the arrowhead shape.
-const ARROW_LINE_PULLBACK_PX = 3;
+// The visible line is pulled back slightly from the tip so its stroke
+// doesn't poke past the arrowhead shape.
+const LINE_PULLBACK_PX = 2;
 
 export function renderVectorGraph(
     state: VectorGraphState,
@@ -55,25 +51,8 @@ const VectorGraph = (props: Props) => {
     const [tail, tip] = coords;
 
     const {strings, locale} = usePerseusI18n();
-    const {gridStep, interactiveColor} = useGraphConfig();
     const id = React.useId();
     const pointsDescriptionId = id + "-points";
-
-    // Compute arrowhead position past the tip along the vector direction
-    const graphDir = vec.sub(tip, tail);
-    const arrowTip: vec.Vector2 =
-        vec.mag(graphDir) > 0
-            ? vec.add(
-                  tip,
-                  vec.scale(
-                      vec.normalize(graphDir),
-                      gridStep[X] * ARROW_EXTENSION_GRID_STEPS,
-                  ),
-              )
-            : tip;
-    const [tailPx, tipPx] = useTransformVectorsToPixels(tail, tip);
-    const direction = vec.sub(tipPx, tailPx);
-    const angleDeg = calculateAngleInDegrees(direction);
 
     // Aria label strings
     const {
@@ -89,14 +68,23 @@ const VectorGraph = (props: Props) => {
             <VectorBody
                 tail={tail}
                 tip={tip}
-                arrowTip={arrowTip}
                 ariaLabel={srVectorGrabHandle}
                 ariaDescribedBy={pointsDescriptionId}
                 onMove={(delta) => dispatch(actions.vector.moveVector(delta))}
             />
 
-            {/* Tip point — draggable, changes direction and magnitude */}
-            <TipPoint
+            {/* Tail point — draggable, changes origin of the vector */}
+            <TailPoint
+                tail={tail}
+                tip={tip}
+                ariaDescribedBy={pointsDescriptionId}
+                onMove={(destination) =>
+                    dispatch(actions.vector.moveTail(destination))
+                }
+            />
+
+            {/* Tip arrowhead — draggable, changes direction and magnitude */}
+            <TipArrowhead
                 tail={tail}
                 tip={tip}
                 ariaLabel={srVectorTipPoint}
@@ -104,15 +92,6 @@ const VectorGraph = (props: Props) => {
                 onMove={(destination) =>
                     dispatch(actions.vector.moveTip(destination))
                 }
-            />
-
-            {/* Arrowhead — rendered last so it paints on top of the
-                thickened line and tip point dot */}
-            <Arrowhead
-                angle={angleDeg}
-                tip={arrowTip}
-                color={interactiveColor}
-                strokeWidth={2}
             />
 
             {/* Hidden SR description */}
@@ -124,7 +103,6 @@ const VectorGraph = (props: Props) => {
 type VectorBodyProps = {
     tail: vec.Vector2;
     tip: vec.Vector2;
-    arrowTip: vec.Vector2;
     ariaLabel: string;
     ariaDescribedBy: string;
     onMove: (delta: vec.Vector2) => unknown;
@@ -132,19 +110,15 @@ type VectorBodyProps = {
 
 // The vector body is the grab handle for translating the entire vector.
 // Dragging it moves both the tail and tip by the same delta, preserving
-// the vector's length and direction. It renders the visible line, the
-// extension line to the arrowhead, and the pill-shaped drag handle.
+// the vector's length and direction. It renders the visible line and the
+// pill-shaped drag handle.
 const VectorBody = (props: VectorBodyProps) => {
-    const {tail, tip, arrowTip, ariaLabel, ariaDescribedBy, onMove} = props;
+    const {tail, tip, ariaLabel, ariaDescribedBy, onMove} = props;
     const {snapStep, disableKeyboardInteraction} = useGraphConfig();
     const [hovered, setHovered] = useState(false);
     const [focused, setFocused] = useState(false);
 
-    const [tailPx, tipPx, arrowTipPx] = useTransformVectorsToPixels(
-        tail,
-        tip,
-        arrowTip,
-    );
+    const [tailPx, tipPx] = useTransformVectorsToPixels(tail, tip);
 
     const bodyRef = useRef<SVGGElement>(null);
     const {dragging} = useDraggable({
@@ -161,10 +135,18 @@ const VectorBody = (props: VectorBodyProps) => {
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
-    // Calculate angle for arrowhead and drag handle rotation
+    // Calculate angle for drag handle rotation
     const direction = vec.sub(tipPx, tailPx);
     const dirMag = vec.mag(direction);
     const angleDeg = calculateAngleInDegrees(direction);
+
+    const lineEndPx: vec.Vector2 =
+        dirMag > 0
+            ? [
+                  tipPx[X] - (direction[X] / dirMag) * LINE_PULLBACK_PX,
+                  tipPx[Y] - (direction[Y] / dirMag) * LINE_PULLBACK_PX,
+              ]
+            : tipPx;
 
     // Drag handle position: ~1/3 along the line from tail to tip,
     // giving more room near the tip point (matches design mockup).
@@ -173,19 +155,6 @@ const VectorBody = (props: VectorBodyProps) => {
         tailPx[X] + (tipPx[X] - tailPx[X]) * handleT,
         tailPx[Y] + (tipPx[Y] - tailPx[Y]) * handleT,
     ];
-
-    // Pull the extension line back slightly from the arrowhead tip
-    // so the line stroke doesn't poke past the arrowhead shape,
-    // particularly while in the bolder focused state.
-    const extensionEndPx: vec.Vector2 =
-        dirMag > 0
-            ? [
-                  arrowTipPx[X] -
-                      (direction[X] / dirMag) * ARROW_LINE_PULLBACK_PX,
-                  arrowTipPx[Y] -
-                      (direction[Y] / dirMag) * ARROW_LINE_PULLBACK_PX,
-              ]
-            : arrowTipPx;
 
     const active = hovered || dragging || focused;
 
@@ -212,32 +181,85 @@ const VectorBody = (props: VectorBodyProps) => {
                 end={tipPx}
                 style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
             />
-            {/* Visible line — stops at tip point */}
+            {/* Visible line from tail to tip, pulled back slightly */}
             <SVGLine
                 start={tailPx}
-                end={tipPx}
+                end={lineEndPx}
                 className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
                 testId="movable-vector__line"
             />
-            {/* Extension line from tip toward arrowhead — pulled back
-                slightly so the line doesn't poke past the arrowhead */}
-            <SVGLine
-                start={tipPx}
-                end={extensionEndPx}
-                className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
-            />
-            {/* Drag handle pill, rotated to align with vector */}
-            <PillDragHandle
-                center={handlePx}
-                rotation={angleDeg}
-                active={active}
-                focused={focused}
-            />
+            {/* Drag handle pill — only visible on hover / focus / drag */}
+            {active && (
+                <PillDragHandle
+                    center={handlePx}
+                    rotation={angleDeg}
+                    active={active}
+                    focused={focused}
+                />
+            )}
         </g>
     );
 };
 
-type TipPointProps = {
+type TailPointProps = {
+    tail: vec.Vector2;
+    tip: vec.Vector2;
+    ariaDescribedBy: string;
+    onMove: (destination: vec.Vector2) => unknown;
+};
+
+// The tail is a draggable point at the origin of the vector. Moving it
+// changes the vector's origin while the tip stays fixed.
+const TailPoint = (props: TailPointProps) => {
+    const {tail, tip, ariaDescribedBy, onMove} = props;
+    const {snapStep} = useGraphConfig();
+
+    const {focusableHandle, visiblePoint} = useControlPoint({
+        ariaDescribedBy,
+        point: tail,
+        sequenceNumber: 1,
+        onMove,
+        constrain: getVectorTailKeyboardConstraint(tail, tip, snapStep),
+    });
+
+    return (
+        <>
+            {focusableHandle}
+            {visiblePoint}
+        </>
+    );
+};
+
+// Keyboard constraint for the tail point: prevents overlap with the tip.
+export const getVectorTailKeyboardConstraint = (
+    tail: vec.Vector2,
+    tip: vec.Vector2,
+    snapStep: vec.Vector2,
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} => {
+    const moveWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        let moved = moveFunc(tail);
+        if (vec.dist(moved, tip) === 0) {
+            moved = moveFunc(moved);
+        }
+        return moved;
+    };
+
+    return {
+        up: moveWithConstraint((coord) => vec.add(coord, [0, snapStep[Y]])),
+        down: moveWithConstraint((coord) => vec.sub(coord, [0, snapStep[Y]])),
+        left: moveWithConstraint((coord) => vec.sub(coord, [snapStep[X], 0])),
+        right: moveWithConstraint((coord) => vec.add(coord, [snapStep[X], 0])),
+    };
+};
+
+type TipArrowheadProps = {
     tail: vec.Vector2;
     tip: vec.Vector2;
     ariaLabel: string;
@@ -245,16 +267,24 @@ type TipPointProps = {
     onMove: (destination: vec.Vector2) => unknown;
 };
 
-// The tip is the only draggable point on the vector. Moving it changes
-// the vector's direction and magnitude while the tail stays fixed.
-const TipPoint = (props: TipPointProps) => {
+// The tip arrowhead is the draggable control at the end of the vector.
+// Moving it changes the vector's direction and magnitude while the tail
+// stays fixed. It renders as an arrowhead with the same halo / ring /
+// focus-outline treatment as a movable point.
+const TipArrowhead = (props: TipArrowheadProps) => {
     const {tail, tip, ariaLabel, ariaDescribedBy, onMove} = props;
     const {snapStep} = useGraphConfig();
 
-    const {focusableHandle, visiblePoint} = useControlPoint({
+    // Compute the angle so the arrowhead points along the vector
+    const [tailPx, tipPx] = useTransformVectorsToPixels(tail, tip);
+    const direction = vec.sub(tipPx, tailPx);
+    const angleDeg = calculateAngleInDegrees(direction);
+
+    const {focusableHandle, visibleArrowhead} = useControlArrowhead({
         ariaLabel,
         ariaDescribedBy,
         point: tip,
+        angle: angleDeg,
         sequenceNumber: 1,
         onMove,
         constrain: getVectorTipKeyboardConstraint(tail, tip, snapStep),
@@ -263,7 +293,7 @@ const TipPoint = (props: TipPointProps) => {
     return (
         <>
             {focusableHandle}
-            {visiblePoint}
+            {visibleArrowhead}
         </>
     );
 };

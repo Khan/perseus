@@ -90,6 +90,7 @@ export const actions = {
         movePoint,
     },
     vector: {
+        moveTail: (destination: vec.Vector2) => movePoint(0, destination),
         moveTip: (destination: vec.Vector2) => movePoint(1, destination),
         moveVector: (delta: vec.Vector2) => moveLine(0, delta),
     },

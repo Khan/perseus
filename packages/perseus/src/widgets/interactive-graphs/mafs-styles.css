@@ -214,6 +214,94 @@
     r: 1.25px;
 }
 
+/* Movable arrowhead — the vector tip control.
+   Centre / ring / halo are the same chevron path at increasing stroke
+   widths (2 → 5 → 12 px).  The focus outline is a separate rounded-
+   triangle path that encloses the arrowhead and scales up on hover. */
+.MafsView .movable-arrowhead {
+    cursor: grab;
+    touch-action: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.MafsView .movable-arrowhead.movable-arrowhead--dragging {
+    cursor: grabbing;
+}
+
+.MafsView .movable-arrowhead-hitbox {
+    fill: transparent;
+}
+
+.MafsView
+    :is(
+        .movable-arrowhead-center,
+        .movable-arrowhead-ring,
+        .movable-arrowhead-halo,
+        .movable-arrowhead-focus-outline
+    ) {
+    transition:
+        stroke-width 0.15s ease-out,
+        opacity 0.15s ease-out,
+        transform 0.15s ease-out;
+}
+
+.MafsView .movable-arrowhead-center {
+    stroke: var(--movable-arrowhead-color);
+    stroke-width: 2px;
+}
+
+.MafsView .movable-arrowhead-ring {
+    stroke: #fff;
+    stroke-width: 5px;
+}
+
+.MafsView .movable-arrowhead-halo {
+    stroke: var(--movable-arrowhead-color);
+    stroke-width: 12px;
+    opacity: 0.25;
+    filter: drop-shadow(0 5px 5px #0008);
+}
+
+.MafsView .movable-arrowhead.movable-arrowhead--dragging .movable-arrowhead-halo {
+    opacity: 0;
+}
+
+.MafsView .movable-arrowhead-focus-outline {
+    visibility: hidden;
+    stroke: var(--mafs-blue);
+    stroke-width: 2px;
+    vector-effect: non-scaling-stroke;
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(1);
+}
+
+/* Hover: expand centre / ring / halo by 2px stroke-width */
+.MafsView .movable-arrowhead:hover .movable-arrowhead-center {
+    stroke-width: 4px;
+}
+
+.MafsView .movable-arrowhead:hover .movable-arrowhead-ring {
+    stroke-width: 7px;
+}
+
+.MafsView .movable-arrowhead:hover .movable-arrowhead-halo {
+    stroke-width: 14px;
+}
+
+/* On hover, expand the focus outline smoothly */
+.MafsView .movable-arrowhead:hover .movable-arrowhead-focus-outline {
+    transform: scale(1.15);
+}
+
+/* Focus: reveal the outline */
+.MafsView
+    .movable-arrowhead:is(:focus, .movable-arrowhead--focus)
+    .movable-arrowhead-focus-outline {
+    visibility: visible;
+}
+
 /* Vector graph line styling */
 .MafsView .movable-vector-line {
     stroke: var(--mafs-blue);
