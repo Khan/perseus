@@ -6,7 +6,7 @@ import {
     getDefaultFigureForType,
 } from "@khanacademy/perseus-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {waitFor} from "@testing-library/react";
+import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
@@ -1931,5 +1931,44 @@ describe("Interactive Graph", function () {
                 expect(axisArrows[0]).toHaveAttribute("transform", transform);
             },
         );
+    });
+});
+
+describe("ungraded interactive graph", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("renders a 'not graded' message when graded is false", () => {
+        // Arrange, Act
+        const question = interactiveGraphQuestionBuilder()
+            .withSegments({numSegments: 1})
+            .build();
+        question.widgets["interactive-graph 1"].graded = false;
+        renderQuestion(question, blankOptions);
+
+        // Assert
+        expect(
+            screen.getByText(
+                "This graph is for your use only and will not be graded.",
+            ),
+        ).toBeInTheDocument();
+    });
+
+    it("does not render a 'not graded' message when graded is true", () => {
+        // Arrange, Act
+        const question = interactiveGraphQuestionBuilder()
+            .withSegments({numSegments: 1})
+            .build();
+        renderQuestion(question, blankOptions);
+
+        // Assert
+        expect(
+            screen.queryByText(
+                "This graph is for your use only and will not be graded.",
+            ),
+        ).not.toBeInTheDocument();
     });
 });

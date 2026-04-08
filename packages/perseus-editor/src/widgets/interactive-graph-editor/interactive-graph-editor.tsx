@@ -145,6 +145,12 @@ export type Props = {
     // Graphs in static mode are not interactive, and their coords are
     // set to those of the "correct" graph in the editor.
     static?: boolean;
+    /**
+     * Whether this widget is graded. When false, the answer-configuration
+     * sections are hidden (but the stored answer data is preserved so toggling
+     * back on restores it).
+     */
+    graded?: boolean;
 };
 
 // JSDoc will be shown in Storybook widget editor description
@@ -410,54 +416,58 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             }
                             onChange={this.props.onChange}
                         />
-                        <InteractiveGraphCorrectAnswer
-                            id={graphId}
-                            equationString={equationString}
-                        >
-                            {graph}
-                        </InteractiveGraphCorrectAnswer>
+                        {(this.props.graded ?? true) && (
+                            <>
+                                <InteractiveGraphCorrectAnswer
+                                    id={graphId}
+                                    equationString={equationString}
+                                >
+                                    {graph}
+                                </InteractiveGraphCorrectAnswer>
 
-                        {this.props.correct?.type === "angle" && (
-                            <AngleAnswerOptions
-                                correct={this.props.correct}
-                                graph={this.props.graph}
-                                onChange={this.props.onChange}
-                            />
-                        )}
-                        {this.props.correct?.type === "point" && (
-                            <GraphPointsCountSelector
-                                correct={this.props.correct}
-                                graph={this.props.graph}
-                                onChange={this.props.onChange}
-                            />
-                        )}
-                        {this.props.correct?.type === "polygon" && (
-                            <PolygonAnswerOptions
-                                correct={this.props.correct}
-                                graph={this.props.graph}
-                                onChange={this.props.onChange}
-                            />
-                        )}
-                        {this.props.correct?.type === "segment" && (
-                            <SegmentCountSelector
-                                correct={this.props.correct}
-                                graph={this.props.graph}
-                                onChange={this.props.onChange}
-                            />
-                        )}
+                                {this.props.correct?.type === "angle" && (
+                                    <AngleAnswerOptions
+                                        correct={this.props.correct}
+                                        graph={this.props.graph}
+                                        onChange={this.props.onChange}
+                                    />
+                                )}
+                                {this.props.correct?.type === "point" && (
+                                    <GraphPointsCountSelector
+                                        correct={this.props.correct}
+                                        graph={this.props.graph}
+                                        onChange={this.props.onChange}
+                                    />
+                                )}
+                                {this.props.correct?.type === "polygon" && (
+                                    <PolygonAnswerOptions
+                                        correct={this.props.correct}
+                                        graph={this.props.graph}
+                                        onChange={this.props.onChange}
+                                    />
+                                )}
+                                {this.props.correct?.type === "segment" && (
+                                    <SegmentCountSelector
+                                        correct={this.props.correct}
+                                        graph={this.props.graph}
+                                        onChange={this.props.onChange}
+                                    />
+                                )}
 
-                        {this.props.graph?.type &&
-                            shouldShowStartCoordsUI(
-                                this.props.graph,
-                                this.props.static,
-                            ) && (
-                                <StartCoordsSettings
-                                    {...this.props.graph}
-                                    range={this.props.range}
-                                    step={this.props.step}
-                                    onChange={this.changeStartCoords}
-                                />
-                            )}
+                                {this.props.graph?.type &&
+                                    shouldShowStartCoordsUI(
+                                        this.props.graph,
+                                        this.props.static,
+                                    ) && (
+                                        <StartCoordsSettings
+                                            {...this.props.graph}
+                                            range={this.props.range}
+                                            step={this.props.step}
+                                            onChange={this.changeStartCoords}
+                                        />
+                                    )}
+                            </>
+                        )}
                         <InteractiveGraphSRTree
                             graphId={graphId}
                             correct={this.props.correct}

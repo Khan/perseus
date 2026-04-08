@@ -42,6 +42,8 @@ const denylist = [
     "showSolutions",
     "reviewMode",
     "widgetIndex",
+    // added by src/renderer.jsx (widget-level metadata, not widget state)
+    "graded",
 ];
 
 export function excludeDenylistKeys(obj: Record<any, any>) {

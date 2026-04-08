@@ -183,6 +183,15 @@ export const supportsStaticMode = (type: string): boolean | undefined => {
 };
 
 /**
+ * Returns true if the widget supports the "Graded" toggle in the editor.
+ * A widget opts in by setting supportsGradedToggle: true in its export object.
+ */
+export const supportsGradedToggle = (type: string): boolean => {
+    const widgetInfo = widgets.get(type);
+    return widgetInfo?.supportsGradedToggle === true;
+};
+
+/**
  * Returns the tracking option for the widget. The default is "",
  * which means simply to track interactions once. The other available
  * option is "all" which means to track all interactions.

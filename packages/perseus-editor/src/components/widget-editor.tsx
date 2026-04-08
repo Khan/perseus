@@ -106,6 +106,14 @@ class WidgetEditor extends React.Component<
         this.props.onChange(newWidgetInfo);
     };
 
+    _setGraded = (value: boolean) => {
+        const newWidgetInfo = {
+            ...this.state.widgetInfo,
+            graded: value,
+        } satisfies PerseusWidget;
+        this.props.onChange(newWidgetInfo);
+    };
+
     _handleAlignmentChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
         const newAlignment = e.currentTarget.value as Alignment;
         const newWidgetInfo = Object.assign(
@@ -153,6 +161,9 @@ class WidgetEditor extends React.Component<
         }
 
         const supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
+        const supportsGradedToggle = Widgets.supportsGradedToggle(
+            widgetInfo.type,
+        );
 
         return (
             <div className="perseus-widget-editor">
@@ -187,6 +198,14 @@ class WidgetEditor extends React.Component<
                             onChange={this._setStatic}
                         />
                     )}
+                    {supportsGradedToggle && (
+                        <LabeledSwitch
+                            label="Graded"
+                            checked={widgetInfo.graded !== false}
+                            disabled={isEditingDisabled}
+                            onChange={this._setGraded}
+                        />
+                    )}
                     {supportedAlignments.length > 1 && (
                         <AlignmentSelect
                             supportedAlignments={supportedAlignments}
@@ -215,6 +234,7 @@ class WidgetEditor extends React.Component<
                             ref={this.widget}
                             onChange={this._handleWidgetChange}
                             static={widgetInfo.static}
+                            graded={widgetInfo.graded}
                             apiOptions={this.props.apiOptions}
                             {...widgetInfo.options}
                         />

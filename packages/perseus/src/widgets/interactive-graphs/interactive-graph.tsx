@@ -301,16 +301,24 @@ class InteractiveGraph extends React.Component<Props, State> {
         };
 
         return (
-            <StatefulMafsGraph
-                {...mafsProps}
-                ref={this.mafsRef}
-                gridStep={gridStep}
-                snapStep={snapStep}
-                box={box}
-                showTooltips={!!this.props.showTooltips}
-                readOnly={this.props.apiOptions?.readOnly}
-                widgetId={this.props.widgetId}
-            />
+            <>
+                {this.props.graded === false && (
+                    <p>
+                        This graph is for your use only and will not be graded.
+                    </p>
+                )}
+                <StatefulMafsGraph
+                    {...mafsProps}
+                    ref={this.mafsRef}
+                    gridStep={gridStep}
+                    snapStep={snapStep}
+                    box={box}
+                    showTooltips={!!this.props.showTooltips}
+                    readOnly={this.props.apiOptions?.readOnly}
+                    widgetId={this.props.widgetId}
+                    graded={this.props.graded}
+                />
+            </>
         );
     }
 
@@ -938,4 +946,5 @@ export default {
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
+    supportsGradedToggle: true,
 } satisfies WidgetExports<typeof InteractiveGraph>;
