@@ -75,6 +75,14 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  # registry.npmjs.org: npm package registry for pnpm install, npm upgrade, and publishing packages
+                  # hooks.slack.com: Slack webhook for publish success/failure notifications
+                  extra-domains: registry.npmjs.org hooks.slack.com
+
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
@@ -159,6 +167,13 @@ jobs:
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
                   fetch-depth: "0"
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  # registry.npmjs.org: npm package registry for pnpm install, npm upgrade, and publishing snapshot packages
+                  extra-domains: registry.npmjs.org
 
             - name: Ensure main branch is available
               run: |

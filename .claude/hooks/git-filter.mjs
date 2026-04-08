@@ -227,7 +227,13 @@ for (const invocation of invocations) {
 
     // Skip git global flags (e.g. `git -C /path status`) to find the subcommand.
     // Some global flags consume the next token as their value.
-    const GIT_GLOBAL_FLAGS_WITH_VALUE = new Set(["-C", "-c", "--git-dir", "--work-tree", "--namespace"]);
+    const GIT_GLOBAL_FLAGS_WITH_VALUE = new Set([
+        "-C",
+        "-c",
+        "--git-dir",
+        "--work-tree",
+        "--namespace",
+    ]);
     let subCmdIndex = 0;
     while (subCmdIndex < rawTokens.length && rawTokens[subCmdIndex].startsWith("-")) {
         if (GIT_GLOBAL_FLAGS_WITH_VALUE.has(rawTokens[subCmdIndex])) {

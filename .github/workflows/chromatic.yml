@@ -32,6 +32,14 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  # registry.npmjs.org: npm package registry for pnpm install
+                  # www.chromatic.com: Chromatic service for uploading and comparing Storybook snapshots
+                  extra-domains: registry.npmjs.org www.chromatic.com
+
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
