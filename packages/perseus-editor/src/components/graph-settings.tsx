@@ -6,7 +6,6 @@ import {KhanMath} from "@khanacademy/kmath";
 import {
     components,
     interactiveSizes,
-    Changeable,
     Dependencies,
     Util,
 } from "@khanacademy/perseus";
@@ -15,7 +14,11 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import type {Coords, MarkingsType} from "@khanacademy/perseus-core";
+import type {
+    Coords,
+    MarkingsType,
+    PerseusImageBackground,
+} from "@khanacademy/perseus-core";
 
 const {ButtonGroup, InfoTip, RangeInput} = components;
 
@@ -25,7 +28,7 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-function numSteps(range: any, step: any) {
+function numSteps(range: [number, number], step: number) {
     return Math.floor((range[1] - range[0]) / step);
 }
 type Props = {
@@ -39,14 +42,15 @@ type Props = {
     gridStep: [number, number];
     snapStep: [number, number];
     valid: boolean;
-    backgroundImage: any;
+    backgroundImage: PerseusImageBackground;
     markings: MarkingsType;
     showProtractor?: boolean;
     showRuler?: boolean;
     showTooltips?: boolean;
     rulerLabel: string;
     rulerTicks: number;
-} & Changeable.ChangeableProps;
+    onChange: (values: Record<string, unknown>) => void;
+};
 
 type DefaultProps = {
     editableSettings: Props["editableSettings"];
@@ -67,12 +71,12 @@ type DefaultProps = {
 };
 
 type State = {
-    labelsTextbox: string[];
+    labelsTextbox: readonly string[];
     gridStepTextbox: number[];
     snapStepTextbox: number[];
     stepTextbox: number[];
-    rangeTextbox: any[];
-    backgroundImage: any;
+    rangeTextbox: [number, number][];
+    backgroundImage: PerseusImageBackground;
 };
 
 class GraphSettings extends React.Component<Props, State> {
@@ -104,11 +108,10 @@ class GraphSettings extends React.Component<Props, State> {
 
     _isMounted = false;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.state = this.getInitialState();
 
-        this.change = this.change.bind(this);
         this.changeBackgroundUrl = this.changeBackgroundUrl.bind(this);
         this.changeGraph = this.changeGraph.bind(this);
         this.changeGridStep = this.changeGridStep.bind(this);
@@ -132,7 +135,7 @@ class GraphSettings extends React.Component<Props, State> {
         this.changeGraph = _.debounce(this.changeGraph, 300);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         if (
             !_.isEqual(this.props.labels, nextProps.labels) ||
             !_.isEqual(this.props.gridStep, nextProps.gridStep) ||
@@ -149,7 +152,7 @@ class GraphSettings extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    stateFromProps(props) {
+    stateFromProps(props: Props): State {
         return {
             labelsTextbox: props.labels,
             gridStepTextbox: props.gridStep,
@@ -160,29 +163,25 @@ class GraphSettings extends React.Component<Props, State> {
         };
     }
 
-    // TODO(benchristel): Refactor this component to be an ES6 class, so we can
-    // type change as ChangeFn.
-    change(...args) {
-        // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: Argument of type 'any[]' is not assignable to parameter of type '[newPropsOrSinglePropName: string | { [key: string]: any; }, propValue?: any, callback?: (() => unknown) | undefined]'. Target requires 1 element(s) but source may have fewer.
-        return Changeable.change.apply(this, args);
+    changeRulerLabel(e: React.ChangeEvent<HTMLSelectElement>) {
+        this.props.onChange({rulerLabel: e.target.value});
     }
 
-    changeRulerLabel(e) {
-        this.change({rulerLabel: e.target.value});
+    changeRulerTicks(e: React.ChangeEvent<HTMLSelectElement>) {
+        this.props.onChange({rulerTicks: +e.target.value});
     }
 
-    changeRulerTicks(e) {
-        this.change({rulerTicks: +e.target.value});
-    }
-
-    changeBackgroundUrl(e) {
+    changeBackgroundUrl(
+        e:
+            | React.FocusEvent<HTMLInputElement>
+            | React.KeyboardEvent<HTMLInputElement>,
+    ) {
         // Only continue on blur or "enter"
-        if (e.type === "keypress" && e.key !== "Enter") {
+        if (e.type === "keypress" && "key" in e && e.key !== "Enter") {
             return;
         }
 
-        const setUrl = (url, width: number, height: number) => {
+        const setUrl = (url: string | null, width: number, height: number) => {
             const image = _.clone(this.props.backgroundImage);
             image.url = url;
             image.width = width;
@@ -208,7 +207,7 @@ class GraphSettings extends React.Component<Props, State> {
         }
     }
 
-    renderLabelChoices(choices) {
+    renderLabelChoices(choices: ReadonlyArray<[string, string]>) {
         return _.map(choices, function ([name, value]) {
             return (
                 <option key={value} value={value}>
@@ -218,7 +217,7 @@ class GraphSettings extends React.Component<Props, State> {
         });
     }
 
-    validRange(range) {
+    validRange(range: [number, number]): string | true {
         const numbers = _.every(range, function (num) {
             return _.isFinite(num);
         });
@@ -231,7 +230,13 @@ class GraphSettings extends React.Component<Props, State> {
         return true;
     }
 
-    validateStepValue(settings) {
+    validateStepValue(settings: {
+        step: number;
+        range: [number, number];
+        name: string;
+        minTicks: number;
+        maxTicks: number;
+    }): string | true {
         const {step, range, name, minTicks, maxTicks} = settings;
 
         if (!_.isFinite(step)) {
@@ -257,7 +262,7 @@ class GraphSettings extends React.Component<Props, State> {
         return true;
     }
 
-    validSnapStep(step, range) {
+    validSnapStep(step: number, range: [number, number]) {
         return this.validateStepValue({
             step: step,
             range: range,
@@ -267,7 +272,7 @@ class GraphSettings extends React.Component<Props, State> {
         });
     }
 
-    validGridStep(step, range) {
+    validGridStep(step: number, range: [number, number]) {
         return this.validateStepValue({
             step: step,
             range: range,
@@ -277,7 +282,7 @@ class GraphSettings extends React.Component<Props, State> {
         });
     }
 
-    validStep(step, range) {
+    validStep(step: number, range: [number, number]) {
         return this.validateStepValue({
             step: step,
             range: range,
@@ -287,13 +292,14 @@ class GraphSettings extends React.Component<Props, State> {
         });
     }
 
-    validBackgroundImageSize(image) {
+    validBackgroundImageSize(image: PerseusImageBackground) {
         // Ignore empty images
         if (!image.url) {
             return true;
         }
 
-        const validSize = image.width <= 450 && image.height <= 450;
+        const validSize =
+            (image.width ?? 0) <= 450 && (image.height ?? 0) <= 450;
 
         if (!validSize) {
             return "Image must be smaller than 450px x 450px.";
@@ -301,7 +307,13 @@ class GraphSettings extends React.Component<Props, State> {
         return true;
     }
 
-    validateGraphSettings(range, step, gridStep, snapStep, image) {
+    validateGraphSettings(
+        range: Coords,
+        step: number[],
+        gridStep: number[],
+        snapStep: number[],
+        image: PerseusImageBackground,
+    ) {
         const self = this;
         let msg;
         const goodRange = _.every(range, function (range) {
@@ -340,14 +352,14 @@ class GraphSettings extends React.Component<Props, State> {
         return true;
     }
 
-    changeLabel(i, e) {
+    changeLabel(i: number, e: React.ChangeEvent<HTMLInputElement>) {
         const val = e.target.value;
         const labels = this.state.labelsTextbox.slice();
         labels[i] = val;
         this.setState({labelsTextbox: labels}, this.changeGraph);
     }
 
-    changeRange(i, values) {
+    changeRange(i: number, values: [number, number]) {
         const ranges = this.state.rangeTextbox.slice();
         ranges[i] = values;
         const step = this.state.stepTextbox.slice();
@@ -373,15 +385,15 @@ class GraphSettings extends React.Component<Props, State> {
         );
     }
 
-    changeStep(step) {
+    changeStep(step: number[]) {
         this.setState({stepTextbox: step}, this.changeGraph);
     }
 
-    changeSnapStep(snapStep) {
+    changeSnapStep(snapStep: number[]) {
         this.setState({snapStepTextbox: snapStep}, this.changeGraph);
     }
 
-    changeGridStep(gridStep) {
+    changeGridStep(gridStep: number[]) {
         this.setState(
             {
                 gridStepTextbox: gridStep,
@@ -395,9 +407,9 @@ class GraphSettings extends React.Component<Props, State> {
 
     changeGraph() {
         const labels = this.state.labelsTextbox;
-        const range = _.map(this.state.rangeTextbox, function (range) {
-            return _.map(range, Number);
-        });
+        const range = this.state.rangeTextbox.map(
+            (range) => range.map(Number) as [number, number],
+        ) as Coords;
         const step = _.map(this.state.stepTextbox, Number);
         const gridStep = this.state.gridStepTextbox;
         const snapStep = this.state.snapStepTextbox;
@@ -417,7 +429,7 @@ class GraphSettings extends React.Component<Props, State> {
 
         if (validationResult === true) {
             // either true or a string
-            this.change({
+            this.props.onChange({
                 valid: true,
                 labels: labels,
                 range: range,
@@ -427,7 +439,7 @@ class GraphSettings extends React.Component<Props, State> {
                 backgroundImage: image,
             });
         } else {
-            this.change({
+            this.props.onChange({
                 valid: validationResult, // a string message, not false
             });
         }
@@ -458,7 +470,7 @@ class GraphSettings extends React.Component<Props, State> {
                                 id="canvas-size"
                                 value={this.props.box}
                                 onChange={(box) => {
-                                    this.change({box: box});
+                                    this.props.onChange({box: box});
                                 }}
                             />
                         </div>
@@ -561,7 +573,9 @@ class GraphSettings extends React.Component<Props, State> {
                                     {value: "grid", content: "Grid"},
                                     {value: "none", content: "None"},
                                 ]}
-                                onChange={this.change("markings")}
+                                onChange={(value) =>
+                                    this.props.onChange({markings: value})
+                                }
                             />
                         </div>
                         <div className="perseus-widget-left-col">
@@ -569,7 +583,7 @@ class GraphSettings extends React.Component<Props, State> {
                                 label="Show tooltips"
                                 checked={this.props.showTooltips}
                                 onChange={(value) => {
-                                    this.change({showTooltips: value});
+                                    this.props.onChange({showTooltips: value});
                                 }}
                             />
                         </div>
@@ -617,7 +631,7 @@ class GraphSettings extends React.Component<Props, State> {
                                     label="Show ruler"
                                     checked={this.props.showRuler}
                                     onChange={(value) => {
-                                        this.change({showRuler: value});
+                                        this.props.onChange({showRuler: value});
                                     }}
                                 />
                             </div>
@@ -626,7 +640,9 @@ class GraphSettings extends React.Component<Props, State> {
                                     label="Show protractor"
                                     checked={this.props.showProtractor}
                                     onChange={(value) => {
-                                        this.change({showProtractor: value});
+                                        this.props.onChange({
+                                            showProtractor: value,
+                                        });
                                     }}
                                 />
                             </div>

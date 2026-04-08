@@ -242,6 +242,7 @@ export {
     generateIGCircleGraph,
     generateIGLinearGraph,
     generateIGLinearSystemGraph,
+    generateIGLogarithmGraph,
     generateIGNoneGraph,
     generateIGPointGraph,
     generateIGPolygonGraph,

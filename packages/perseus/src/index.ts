@@ -111,6 +111,7 @@ export {
     getAbsoluteValueCoords,
     getCircleCoords,
     getExponentialCoords,
+    getLogarithmCoords,
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,

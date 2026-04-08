@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 24.1.0
+
+### Minor Changes
+
+-   [#3420](https://github.com/Khan/perseus/pull/3420) [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm type definitions, this is the initial implementation for supporting Logarithm graph in Interactive Graph widget.
+
 ## 24.0.0
 
 ### Major Changes

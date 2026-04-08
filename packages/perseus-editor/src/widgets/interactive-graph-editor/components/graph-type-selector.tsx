@@ -29,6 +29,11 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
         "interactive-graph-tangent",
     );
 
+    const showLogarithm = isFeatureOn(
+        {apiOptions: props.apiOptions},
+        "interactive-graph-logarithm",
+    );
+
     return (
         <SingleSelect
             selectedValue={props.graphType}
@@ -48,6 +53,9 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             )}
             {showTangent && (
                 <OptionItem value="tangent" label="Tangent function" />
+            )}
+            {showLogarithm && (
+                <OptionItem value="logarithm" label="Logarithm function" />
             )}
             <OptionItem value="circle" label="Circle" />
             <OptionItem value="point" label="Point(s)" />

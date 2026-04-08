@@ -617,6 +617,122 @@ describe("InteractiveGraph scoring on an exponential question", () => {
     });
 });
 
+const logarithmRubric: PerseusInteractiveGraphRubric = {
+    graph: {type: "logarithm"},
+    correct: {
+        type: "logarithm",
+        coords: [
+            [-4, -3],
+            [-5, -7],
+        ],
+        asymptote: -6,
+    },
+};
+
+describe("InteractiveGraph scoring on a logarithm question", () => {
+    it("marks the answer invalid if guess is undefined", () => {
+        // Arrange, Act
+        const result = scoreInteractiveGraph(undefined, logarithmRubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer invalid if coords are missing", () => {
+        // Arrange
+        const guess: PerseusGraphType = {type: "logarithm"};
+
+        // Act
+        const result = scoreInteractiveGraph(guess, logarithmRubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer incorrect if asymptote is missing", () => {
+        // Arrange — coords present (hasValue=true) but no asymptote,
+        // so the logarithm scoring block is skipped and falls through to incorrect
+        const guess: PerseusGraphType = {
+            type: "logarithm",
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, logarithmRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks a correct answer as correct", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "logarithm",
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+            asymptote: -6,
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, logarithmRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks a wrong answer as incorrect", () => {
+        // Arrange — different curve
+        const guess: PerseusGraphType = {
+            type: "logarithm",
+            coords: [
+                [2, 1],
+                [3, 2],
+            ],
+            asymptote: 0,
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, logarithmRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks equivalent curves with different control points as correct", () => {
+        // Arrange — y = ln(x): both sets of points produce a=1, b=1, c=0
+        const lnRubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "logarithm"},
+            correct: {
+                type: "logarithm",
+                coords: [
+                    [1, 0],
+                    [Math.E, 1],
+                ],
+                asymptote: 0,
+            },
+        };
+        const guess: PerseusGraphType = {
+            type: "logarithm",
+            coords: [
+                [Math.E * Math.E, 2],
+                [Math.E * Math.E * Math.E, 3],
+            ],
+            asymptote: 0,
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, lnRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+});
+
 describe("InteractiveGraph scoring on an absolute-value question", () => {
     it("marks the answer invalid if guess is undefined", () => {
         // Arrange

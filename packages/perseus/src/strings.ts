@@ -522,6 +522,36 @@ export type PerseusStrings = {
         asymptoteY: string;
     }) => string;
     srExponentialAsymptote: ({asymptoteY}: {asymptoteY: string}) => string;
+    srLogarithmGraph: string;
+    srLogarithmPoint1: ({x, y}: {x: string; y: string}) => string;
+    srLogarithmPoint2: ({x, y}: {x: string; y: string}) => string;
+    srLogarithmDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmAsymptote: ({asymptoteX}: {asymptoteX: string}) => string;
     srAbsoluteValueGraph: string;
     srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
     srAbsoluteValueSecondPoint: ({x, y}: {x: string; y: string}) => string;
@@ -1202,6 +1232,39 @@ export const strings = {
         message:
             "Horizontal asymptote at y equals %(asymptoteY)s. Use up and down arrow keys to move.",
     },
+    srLogarithmGraph: {
+        context:
+            "Aria label for the container containing a Logarithm function in the interactive graph widget.",
+        message: "A logarithm function on a coordinate plane.",
+    },
+    srLogarithmPoint1: {
+        context:
+            "Aria label for the first Point on the Logarithm function in the interactive graph widget.",
+        message: "Point 1 at %(x)s comma %(y)s.",
+    },
+    srLogarithmPoint2: {
+        context:
+            "Aria label for the second Point on the Logarithm function in the interactive graph widget.",
+        message: "Point 2 at %(x)s comma %(y)s.",
+    },
+    srLogarithmDescription: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget.",
+        message:
+            "The graph shows a logarithm curve passing through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s with a vertical asymptote at x equals %(asymptoteX)s.",
+    },
+    srLogarithmInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Logarithm function in the interactive graph widget.",
+        message:
+            "Logarithm graph with point 1 at %(point1X)s comma %(point1Y)s, point 2 at %(point2X)s comma %(point2Y)s, and vertical asymptote at x equals %(asymptoteX)s.",
+    },
+    srLogarithmAsymptote: {
+        context:
+            "Aria label for the draggable vertical asymptote line in the Logarithm function in the interactive graph widget.",
+        message:
+            "Vertical asymptote at x equals %(asymptoteX)s. Use left and right arrow keys to move.",
+    },
     srAbsoluteValueGraph: {
         context:
             "Aria label for the container containing an Absolute Value function in the interactive graph widget.",
@@ -1612,6 +1675,27 @@ export const mockStrings: PerseusStrings = {
         `Exponential graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and horizontal asymptote at y equals ${asymptoteY}.`,
     srExponentialAsymptote: ({asymptoteY}) =>
         `Horizontal asymptote at y equals ${asymptoteY}. Use up and down arrow keys to move.`,
+    srLogarithmGraph: "A logarithm function on a coordinate plane.",
+    srLogarithmPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
+    srLogarithmPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
+    srLogarithmDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `The graph shows a logarithm curve passing through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y} with a vertical asymptote at x equals ${asymptoteX}.`,
+    srLogarithmInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `Logarithm graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and vertical asymptote at x equals ${asymptoteX}.`,
+    srLogarithmAsymptote: ({asymptoteX}) =>
+        `Vertical asymptote at x equals ${asymptoteX}. Use left and right arrow keys to move.`,
     srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
     srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
     srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,

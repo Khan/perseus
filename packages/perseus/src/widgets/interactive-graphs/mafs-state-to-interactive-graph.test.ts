@@ -14,6 +14,7 @@ import type {
     SegmentGraphState,
     SinusoidGraphState,
     TangentGraphState,
+    LogarithmGraphState,
 } from "./types";
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
@@ -489,6 +490,49 @@ describe("mafsStateToInteractiveGraph", () => {
                 [5, 6],
                 [7, 8],
             ],
+        });
+    });
+
+    it("converts the state of a logarithm graph", () => {
+        const graph: PerseusGraphType = {
+            type: "logarithm",
+            startCoords: {
+                coords: [
+                    [5, 6],
+                    [7, 8],
+                ],
+                asymptote: 3,
+            },
+        };
+        const state: LogarithmGraphState = {
+            ...commonGraphState,
+            type: "logarithm",
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+            asymptote: -1,
+        };
+
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(
+            state,
+            graph,
+        );
+
+        expect(result).toEqual({
+            type: "logarithm",
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+            asymptote: -1,
+            startCoords: {
+                coords: [
+                    [5, 6],
+                    [7, 8],
+                ],
+                asymptote: 3,
+            },
         });
     });
 });
