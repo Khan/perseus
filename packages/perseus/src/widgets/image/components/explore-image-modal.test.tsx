@@ -76,6 +76,16 @@ describe("ExploreImageModal", () => {
         );
 
         unmockImageLoading = mockImageLoading();
+
+        // GifImage (rendered via SvgImage when gif controls are active)
+        // calls fetch() to decode GIF frames. jsdom doesn't provide
+        // fetch, so we stub it here.
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+            }),
+        ) as jest.Mock;
     });
 
     afterEach(() => {
