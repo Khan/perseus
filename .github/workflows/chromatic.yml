@@ -38,7 +38,7 @@ jobs:
               with:
                   # registry.npmjs.org: npm package registry for pnpm install
                   # *.chromatic.com: Chromatic service for uploading and comparing Storybook snapshots
-                  extra-domains: registry.npmjs.org index.chromatic.com notify.dev-chromatic.com notify.staging-chromatic.com notify.chromatic.com
+                  extra-domains: registry.npmjs.org index.chromatic.com notify.dev-chromatic.com notify.staging-chromatic.com notify.chromatic.com chromatic.com
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
