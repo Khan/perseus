@@ -395,6 +395,31 @@ function scoreInteractiveGraph(
                     message: null,
                 };
             }
+        } else if (
+            userInput.type === "vector" &&
+            rubric.correct.type === "vector" &&
+            userInput.coords != null &&
+            rubric.correct.coords != null
+        ) {
+            // Vector scoring: both tail and tip must match exactly.
+            // Order matters — coords[0] is tail, coords[1] is tip.
+            if (
+                approximateDeepEqual(
+                    userInput.coords[0],
+                    rubric.correct.coords[0],
+                ) &&
+                approximateDeepEqual(
+                    userInput.coords[1],
+                    rubric.correct.coords[1],
+                )
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
         }
     }
 

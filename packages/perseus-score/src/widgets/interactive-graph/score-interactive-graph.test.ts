@@ -932,3 +932,104 @@ describe("InteractiveGraph scoring on a tangent question", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 });
+
+const vectorRubric: PerseusInteractiveGraphRubric = {
+    graph: {type: "vector"},
+    correct: {
+        type: "vector",
+        coords: [
+            [0, 0],
+            [3, 4],
+        ],
+    },
+};
+
+describe("InteractiveGraph scoring on a vector question", () => {
+    it("marks the answer invalid if guess is undefined", () => {
+        // Arrange, Act
+        const result = scoreInteractiveGraph(undefined, vectorRubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks the answer invalid if coords are missing", () => {
+        // Arrange
+        const guess: PerseusGraphType = {type: "vector"};
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorRubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("marks a correct answer as correct", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "vector",
+            coords: [
+                [0, 0],
+                [3, 4],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks a wrong tail as incorrect", () => {
+        // Arrange — correct tip but wrong tail
+        const guess: PerseusGraphType = {
+            type: "vector",
+            coords: [
+                [1, 1],
+                [3, 4],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks a wrong tip as incorrect", () => {
+        // Arrange — correct tail but wrong tip
+        const guess: PerseusGraphType = {
+            type: "vector",
+            coords: [
+                [0, 0],
+                [4, 5],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks swapped tail and tip as incorrect", () => {
+        // Arrange — coords are reversed (tip at tail position, tail at tip)
+        // Unlike ray, vector scoring is order-sensitive
+        const guess: PerseusGraphType = {
+            type: "vector",
+            coords: [
+                [3, 4],
+                [0, 0],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+});
