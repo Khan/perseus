@@ -678,7 +678,7 @@ class Renderer
      * Includes both widgets internal to this Renderer, and external widgets
      * exposed by the `findExternalWidgets` prop.
      *
-     * See `findInteralWidgets` for more information.
+     * See `findInternalWidgets` for more information.
      */
     findWidgets: (filterCriterion: FilterCriterion) => any = (
         filterCriterion: FilterCriterion,
