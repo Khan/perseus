@@ -13,7 +13,8 @@ type GraphTypesThatHaveStartCoords =
     | {type: "segment"}
     | {type: "sinusoid"}
     | {type: "exponential"}
-    | {type: "tangent"};
+    | {type: "tangent"}
+    | {type: "vector"};
 
 export type StartCoords = Extract<
     PerseusGraphType,

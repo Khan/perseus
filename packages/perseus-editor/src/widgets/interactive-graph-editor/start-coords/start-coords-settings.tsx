@@ -11,6 +11,7 @@ import {
     getSegmentCoords,
     getSinusoidCoords,
     getTangentCoords,
+    getVectorCoords,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -120,6 +121,15 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsExponential
                     startCoords={currentStartCoords}
+                    onChange={onChange}
+                />
+            );
+        }
+        case "vector": {
+            const vectorCoords = getVectorCoords(props, range, step);
+            return (
+                <StartCoordsLine
+                    startCoords={vectorCoords}
                     onChange={onChange}
                 />
             );

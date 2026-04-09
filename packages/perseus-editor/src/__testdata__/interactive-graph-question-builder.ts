@@ -302,6 +302,14 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withVector(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new VectorGraphConfig(options);
+        return this;
+    }
+
     withPolygon(
         snapTo?: SnapTo,
         options?: {
@@ -839,6 +847,30 @@ class ExponentialGraphConfig implements InteractiveFigureConfig {
                     ? {coords: this.startCoords, asymptote: this.startAsymptote}
                     : undefined,
         };
+    }
+}
+
+class VectorGraphConfig implements InteractiveFigureConfig {
+    private coords?: CollinearTuple;
+    private startCoords?: CollinearTuple;
+
+    constructor(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "vector",
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "vector", startCoords: this.startCoords};
     }
 }
 

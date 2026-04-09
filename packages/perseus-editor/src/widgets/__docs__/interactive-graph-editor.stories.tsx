@@ -27,6 +27,7 @@ import {
     segmentWithLockedFigures,
     segmentWithStartingCoordsQuestion,
     exponentialMinimalQuestion,
+    vectorMinimalQuestion,
     sinusoidMinimalQuestion,
     sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
@@ -119,6 +120,10 @@ export const InteractiveGraphExponential = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview question={exponentialMinimalQuestion} />
     );
+};
+
+export const InteractiveGraphVector = (): React.ReactElement => {
+    return <EditorPageWithStorybookPreview question={vectorMinimalQuestion} />;
 };
 
 export const InteractiveGraphSinusoid = (): React.ReactElement => {
