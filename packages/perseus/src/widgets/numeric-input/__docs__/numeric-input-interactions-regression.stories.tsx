@@ -49,7 +49,6 @@ export const Focus = {
         }),
     },
     play: async ({canvas}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const inputToFocus = canvas.getByRole("textbox");
         inputToFocus.focus();
     },
@@ -77,7 +76,6 @@ export const With1Tooltip = {
         }),
     },
     play: async ({canvas}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const inputToFocus = canvas.getByRole("textbox");
         inputToFocus.focus();
     },
@@ -105,7 +103,6 @@ export const WithMultipleTooltips = {
         }),
     },
     play: async ({canvas}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const inputToFocus = canvas.getByRole("textbox");
         inputToFocus.focus();
     },

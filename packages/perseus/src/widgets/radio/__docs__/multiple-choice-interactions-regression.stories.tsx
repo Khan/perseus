@@ -86,12 +86,10 @@ export const GradedGroupWrapper = {
         }),
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const choiceToClick = canvas.getByRole("button", {
             name: "(Choice C) Correct",
         });
         await userEvent.click(choiceToClick);
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const checkAnswerButton = canvas.getAllByRole("button", {
             name: "Check",
         })[0];
@@ -107,7 +105,6 @@ export const ChoiceTextColorInSingleSelect = {
         }),
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const choiceToClick = canvas.getByRole("button", {
             name: /^\(Choice A\)/,
         });
@@ -123,12 +120,10 @@ export const ChoiceTextColorInMultipleSelect = {
         }),
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         let choiceToClick = canvas.getByRole("button", {
             name: /^\(Choice A\)/,
         });
         await userEvent.click(choiceToClick);
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         choiceToClick = canvas.getByRole("button", {
             name: /^\(Choice D\)/,
         });
@@ -166,7 +161,6 @@ export const ChoiceTextColorInArticle = (): React.ReactNode => {
     );
 };
 ChoiceTextColorInArticle.play = async ({canvas}) => {
-    // eslint-disable-next-line testing-library/prefer-screen-queries
     const choiceToToggle = canvas.getByRole("button", {
         name: /Warp drive$/,
     });
@@ -187,7 +181,6 @@ export const FocusSingleSelect = {
         }),
     },
     play: async ({canvas}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const choiceToFocus = canvas.getByRole("button", {
             name: /^\(Choice A\)/,
         });
@@ -208,7 +201,6 @@ export const FocusMultiSelect = {
         }),
     },
     play: async ({canvas}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const choiceToFocus = canvas.getByRole("button", {
             name: /^\(Choice B\)/,
         });

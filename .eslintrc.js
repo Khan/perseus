@@ -139,6 +139,17 @@ module.exports = {
             },
         },
         {
+            // Storybook has an API for interaction tests that is similar
+            // to React Testing Library's `screen`, which causes the
+            // `testing-library/prefer-screen-queries` rule to trigger.
+            // Disabling this rule for stories files so that we can use
+            // `canvas.getBy...` without having to suppress this everywhere.
+            files: ["**/*.stories.@(js|jsx|ts|tsx)"],
+            rules: {
+                "testing-library/prefer-screen-queries": "off",
+            },
+        },
+        {
             files: [
                 "config/**",
                 "utils/**",
