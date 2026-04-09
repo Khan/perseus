@@ -96,7 +96,6 @@ export const actions = {
         movePoint,
     },
     vector: {
-        moveTail: (destination: vec.Vector2) => movePoint(0, destination),
         moveTip: (destination: vec.Vector2) => movePoint(1, destination),
         moveVector: (newStart: vec.Vector2, newEnd: vec.Vector2) =>
             moveLine(0, newStart, newEnd),
