@@ -13,7 +13,6 @@ import {PillDragHandle} from "./components/pill-drag-handle";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
 import {useControlArrowhead} from "./components/use-control-arrowhead";
-import {useControlPoint} from "./components/use-control-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
 import {useTransformVectorsToPixels} from "./use-transform";
@@ -73,15 +72,8 @@ const VectorGraph = (props: Props) => {
                 onMove={(delta) => dispatch(actions.vector.moveVector(delta))}
             />
 
-            {/* Tail point — draggable, changes origin of the vector */}
-            <TailPoint
-                tail={tail}
-                tip={tip}
-                ariaDescribedBy={pointsDescriptionId}
-                onMove={(destination) =>
-                    dispatch(actions.vector.moveTail(destination))
-                }
-            />
+            {/* Tail dot — static, not interactive */}
+            <TailDot tail={tail} />
 
             {/* Tip arrowhead — draggable, changes direction and magnitude */}
             <TipArrowhead
@@ -201,62 +193,23 @@ const VectorBody = (props: VectorBodyProps) => {
     );
 };
 
-type TailPointProps = {
-    tail: vec.Vector2;
-    tip: vec.Vector2;
-    ariaDescribedBy: string;
-    onMove: (destination: vec.Vector2) => unknown;
-};
-
-// The tail is a draggable point at the origin of the vector. Moving it
-// changes the vector's origin while the tip stays fixed.
-const TailPoint = (props: TailPointProps) => {
-    const {tail, tip, ariaDescribedBy, onMove} = props;
-    const {snapStep} = useGraphConfig();
-
-    const {focusableHandle, visiblePoint} = useControlPoint({
-        ariaDescribedBy,
-        point: tail,
-        sequenceNumber: 1,
-        onMove,
-        constrain: getVectorTailKeyboardConstraint(tail, tip, snapStep),
-    });
+// Static dot at the tail of the vector. Not interactive — the tail
+// position is controlled by the body grab handle.
+const TAIL_DOT_RADIUS = 6;
+const TailDot = ({tail}: {tail: vec.Vector2}) => {
+    const {interactiveColor} = useGraphConfig();
+    const [[cx, cy]] = useTransformVectorsToPixels(tail);
 
     return (
-        <>
-            {focusableHandle}
-            {visiblePoint}
-        </>
+        <circle
+            aria-hidden={true}
+            cx={cx}
+            cy={cy}
+            r={TAIL_DOT_RADIUS}
+            fill={interactiveColor}
+            data-testid="vector-tail-dot"
+        />
     );
-};
-
-// Keyboard constraint for the tail point: prevents overlap with the tip.
-export const getVectorTailKeyboardConstraint = (
-    tail: vec.Vector2,
-    tip: vec.Vector2,
-    snapStep: vec.Vector2,
-): {
-    up: vec.Vector2;
-    down: vec.Vector2;
-    left: vec.Vector2;
-    right: vec.Vector2;
-} => {
-    const moveWithConstraint = (
-        moveFunc: (coord: vec.Vector2) => vec.Vector2,
-    ): vec.Vector2 => {
-        let moved = moveFunc(tail);
-        if (vec.dist(moved, tip) === 0) {
-            moved = moveFunc(moved);
-        }
-        return moved;
-    };
-
-    return {
-        up: moveWithConstraint((coord) => vec.add(coord, [0, snapStep[Y]])),
-        down: moveWithConstraint((coord) => vec.sub(coord, [0, snapStep[Y]])),
-        left: moveWithConstraint((coord) => vec.sub(coord, [snapStep[X], 0])),
-        right: moveWithConstraint((coord) => vec.add(coord, [snapStep[X], 0])),
-    };
 };
 
 type TipArrowheadProps = {
