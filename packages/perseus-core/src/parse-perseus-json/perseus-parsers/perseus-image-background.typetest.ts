@@ -1,3 +1,6 @@
+// FIXME: update these tests to use tstyche. Follow the example of other tests
+// in this directory that import tstyche.
+
 import {summon} from "../general-purpose-parsers/test-helpers";
 
 import type {parsePerseusImageBackground} from "./perseus-image-background";
