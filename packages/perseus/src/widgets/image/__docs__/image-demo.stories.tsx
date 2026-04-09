@@ -8,10 +8,8 @@ import * as React from "react";
 import {ApiOptions} from "../../../perseus-api";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {getWidget} from "../../../widgets";
-import {
-    ImageQuestionRenderer,
-    imageRendererDecorator,
-} from "../../__testutils__/image-renderer-decorator";
+import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
     mobileDecorator,
     articleDecorator,
@@ -275,7 +273,7 @@ export const ImageWithDifferentSizes: Story = {
         return (
             // Limit width so zoom becomes possible.
             <div style={{width: 600}}>
-                <ImageQuestionRenderer
+                <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content:
                             "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]",
@@ -337,7 +335,7 @@ export const ImageWithDifferentSizes: Story = {
 export const ImageWithScaledSizes: Story = {
     render: function Render() {
         return (
-            <ImageQuestionRenderer
+            <QuestionRendererForStories
                 apiOptions={{
                     ...ApiOptions.defaults,
                     flags: getFeatureFlags({
@@ -433,7 +431,7 @@ export const ImagesWithMarkdownTable: Story = {
         return (
             // Limit width so zoom becomes possible.
             <div style={{width: 600}}>
-                <ImageQuestionRenderer
+                <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content:
                             "| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |",
