@@ -1,0 +1,41 @@
+name: Validate Workflows and Actions
+
+on:
+    pull_request:
+        paths:
+            - ".github/**/*.yml"
+            - ".github/**/*.yaml"
+
+jobs:
+    validate-workflows:
+        timeout-minutes: 15
+        runs-on: ubuntu-latest
+        # pull-requests & issues write permissions are required to post comments.
+        permissions:
+            contents: write
+            pull-requests: write
+            issues: write
+            packages: read
+        steps:
+            # We need to use the bot token here to be able to push fixes back.
+            # We also need to explicitly set the ref to ensure we are checking
+            # out the correct branch. See:
+            # https://github.com/EndBug/add-and-commit?tab=readme-ov-file#working-with-prs
+            - name: Checking out latest commit
+              uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+              with:
+                  ref: ${{ github.event.pull_request.head.ref }}
+                  token: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  extra-domains: registry.npmjs.org
+
+            - name: Fix checkout-followed-by-setup
+              uses: Khan/actions@fix-workflows-v2
+
+            - name: Push Autofixes
+              shell: bash
+              run: git push

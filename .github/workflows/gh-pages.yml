@@ -18,6 +18,13 @@ jobs:
                   ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
                   fetch-depth: 0
 
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  # registry.npmjs.org: npm package registry for pnpm install
+                  extra-domains: registry.npmjs.org
+
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
