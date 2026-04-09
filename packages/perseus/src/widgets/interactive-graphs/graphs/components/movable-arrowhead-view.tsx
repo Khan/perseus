@@ -62,7 +62,6 @@ const pathAttrs = {
     strokeLinecap: "round" as const,
 };
 
-
 // MovableArrowheadView is a presentational component that renders the SVG
 // for a draggable arrowhead.  The centre chevron, white ring, and halo are
 // the same path at increasing stroke widths.  The focus outline is a
