@@ -89,6 +89,10 @@ export const actions = {
     tangent: {
         movePoint,
     },
+    vector: {
+        moveTip: (destination: vec.Vector2) => movePoint(1, destination),
+        moveVector: (delta: vec.Vector2) => moveLine(0, delta),
+    },
 };
 
 export const DELETE_INTENT = "delete-intent";
