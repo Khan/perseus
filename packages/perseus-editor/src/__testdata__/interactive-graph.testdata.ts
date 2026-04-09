@@ -167,7 +167,7 @@ export const circleWithStartingCoordsQuestion: PerseusRenderer =
         graph: generateIGCircleGraph({
             startCoords: {center: [9, 9], radius: 5},
         }),
-        correct: generateIGCircleGraph(),
+        correct: generateIGCircleGraph({center: [0, 0], radius: 2}),
     });
 
 export const quadraticWithStartingCoordsQuestion: PerseusRenderer =
