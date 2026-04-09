@@ -328,11 +328,11 @@ export function getVectorCoords(
         return graph.startCoords;
     }
 
-    // Default: diagonal vector in the upper portion of the graph,
-    // offset from axes so it's clearly visible.
+    // Default: 45° diagonal vector in the upper-right area of the graph.
+    // Equal x/y offsets ensure a true 45° angle on a square grid.
     return normalizePoints(range, step, [
-        [0.25, 0.55],
-        [0.75, 0.75],
+        [0.6, 0.6],
+        [0.85, 0.85],
     ]);
 }
 
