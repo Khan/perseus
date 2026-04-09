@@ -28,7 +28,7 @@ import {
 
 import type {Coord} from "../../interactive2/types";
 
-// Data for the interactive graph widget
+// Data for the Interactive Graph widget
 
 export const angleQuestion: PerseusRenderer = generateInteractiveGraphQuestion({
     content:
