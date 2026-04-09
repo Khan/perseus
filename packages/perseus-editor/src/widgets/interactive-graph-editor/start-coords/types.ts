@@ -13,6 +13,7 @@ type GraphTypesThatHaveStartCoords =
     | {type: "segment"}
     | {type: "sinusoid"}
     | {type: "exponential"}
+    | {type: "logarithm"}
     | {type: "tangent"};
 
 export type StartCoords = Extract<

@@ -1,5 +1,7 @@
 import {vec} from "mafs";
 
+import {snap} from "../math";
+
 import {srFormatNumber} from "./screenreader-text";
 
 import type {PerseusStrings} from "../../../strings";
@@ -378,4 +380,99 @@ export function calculateScaledRadius(range: [Interval, Interval]): number {
     //   center, and may risk them overlapping in the default state.
     // - Setting this lower would make the arc too small to be visible.
     return minSpan * 0.06;
+}
+
+/**
+ * Shared keyboard constraint logic for asymptote-based graph points
+ * (exponential, logarithm). Computes the next valid position for each
+ * arrow-key direction, skipping up to 3 snap steps to avoid positions
+ * rejected by the caller's `isValidPosition` predicate.
+ *
+ * The per-graph validity rules differ (exponential checks Y vs asymptote and
+ * X vs other point; logarithm checks X vs asymptote and Y vs other point),
+ * so they are injected via the callback.
+ */
+export function getAsymptoteGraphKeyboardConstraint(
+    coords: ReadonlyArray<Coord>,
+    snapStep: vec.Vector2,
+    pointIndex: number,
+    isValidPosition: (coord: vec.Vector2) => boolean,
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} {
+    const coordToBeMoved = coords[pointIndex];
+
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        let movedCoord = moveFunc(coordToBeMoved);
+        for (let i = 0; i < 3 && !isValidPosition(movedCoord); i++) {
+            movedCoord = moveFunc(movedCoord);
+        }
+        if (!isValidPosition(movedCoord)) {
+            return coordToBeMoved;
+        }
+        return movedCoord;
+    };
+
+    return {
+        up: movePointWithConstraint((coord) =>
+            vec.add(coord, [0, snapStep[1]]),
+        ),
+        down: movePointWithConstraint((coord) =>
+            vec.sub(coord, [0, snapStep[1]]),
+        ),
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
+        ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
+        ),
+    };
+}
+
+/**
+ * Shared keyboard constraint for asymptote movement (exponential, logarithm).
+ * When the next snapped position would land between or on the curve points,
+ * snaps past all of them in the direction of travel using a midpoint heuristic.
+ *
+ * @param orientation - "horizontal" for exponential (asymptote moves on Y-axis),
+ *   "vertical" for logarithm (asymptote moves on X-axis).
+ */
+export function constrainAsymptoteKeyboardMovement(
+    p: vec.Vector2,
+    coords: ReadonlyArray<Coord>,
+    snapStep: vec.Vector2,
+    orientation: "horizontal" | "vertical",
+): vec.Vector2 {
+    const snapped = snap(snapStep, p);
+
+    // Select the axis: horizontal asymptote constrains on Y, vertical on X
+    const axis = orientation === "horizontal" ? 1 : 0;
+    const otherAxis = orientation === "horizontal" ? 0 : 1;
+    let newVal = snapped[axis];
+    const step = snapStep[axis];
+
+    const maxVal = Math.max(coords[0][axis], coords[1][axis]);
+    const minVal = Math.min(coords[0][axis], coords[1][axis]);
+
+    const allGreater = coords[0][axis] > newVal && coords[1][axis] > newVal;
+    const allLesser = coords[0][axis] < newVal && coords[1][axis] < newVal;
+
+    if (!allGreater && !allLesser) {
+        const midpoint = (maxVal + minVal) / 2;
+        if (newVal >= midpoint) {
+            newVal = maxVal + step;
+        } else {
+            newVal = minVal - step;
+        }
+    }
+
+    const result: vec.Vector2 = [0, 0];
+    result[axis] = newVal;
+    result[otherAxis] = snapped[otherAxis];
+    return result;
 }

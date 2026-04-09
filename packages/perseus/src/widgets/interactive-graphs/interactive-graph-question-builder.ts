@@ -355,6 +355,16 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withLogarithm(options?: {
+        coords?: [Coord, Coord];
+        asymptote?: number;
+        startCoords?: [Coord, Coord];
+        startAsymptote?: number;
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new LogarithmGraphConfig(options);
+        return this;
+    }
+
     withAbsoluteValue(options?: {
         coords?: [Coord, Coord];
         startCoords?: [Coord, Coord];
@@ -853,6 +863,46 @@ class ExponentialGraphConfig implements InteractiveFigureConfig {
     graph(): PerseusGraphType {
         return {
             type: "exponential",
+            startCoords:
+                this.startCoords != null
+                    ? {
+                          coords: this.startCoords,
+                          asymptote: this.startAsymptote ?? 0,
+                      }
+                    : undefined,
+        };
+    }
+}
+
+class LogarithmGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord];
+    private asymptote?: number;
+    private startCoords?: [Coord, Coord];
+    private startAsymptote?: number;
+
+    constructor(options?: {
+        coords?: [Coord, Coord];
+        asymptote?: number;
+        startCoords?: [Coord, Coord];
+        startAsymptote?: number;
+    }) {
+        this.coords = options?.coords;
+        this.asymptote = options?.asymptote;
+        this.startCoords = options?.startCoords;
+        this.startAsymptote = options?.startAsymptote;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "logarithm",
+            coords: this.coords,
+            asymptote: this.asymptote,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {
+            type: "logarithm",
             startCoords:
                 this.startCoords != null
                     ? {

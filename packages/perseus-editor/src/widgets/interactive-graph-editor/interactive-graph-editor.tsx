@@ -285,6 +285,25 @@ class InteractiveGraphEditor extends React.Component<Props> {
             }
         }
 
+        // Logarithm: the start asymptote must not fall between or on the
+        // curve's start points — that configuration produces an invalid
+        // logarithm (the coefficient formula requires all points to be
+        // strictly on one side of the asymptote).
+        if (
+            this.props.graph?.type === "logarithm" &&
+            this.props.graph.startCoords != null
+        ) {
+            const {coords, asymptote} = this.props.graph.startCoords;
+            const asymptoteX = asymptote;
+            const minX = Math.min(coords[0][0], coords[1][0]);
+            const maxX = Math.max(coords[0][0], coords[1][0]);
+            if (asymptoteX >= minX && asymptoteX <= maxX) {
+                issues.push(
+                    "The logarithm start asymptote must not fall between or on the curve's start points.",
+                );
+            }
+        }
+
         return issues;
     };
 

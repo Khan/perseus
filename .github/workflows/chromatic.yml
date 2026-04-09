@@ -32,13 +32,22 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  # registry.npmjs.org: npm package registry for pnpm install
+                  # *.chromatic.com: Chromatic service for uploading and comparing Storybook snapshots
+                  # chromatic-builds.s3.us-west-2.amazonaws.com: S3 bucket for Storybook file uploads (presigned URLs returned by index.chromatic.com GraphQL API)
+                  extra-domains: registry.npmjs.org index.chromatic.com notify.dev-chromatic.com notify.staging-chromatic.com notify.chromatic.com chromatic.com chromatic-builds.s3.us-west-2.amazonaws.com
+
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
             - name: Publish to Chromatic for visual testing
-              uses: chromaui/action@f1f9e3277eb1eaa8cba4c6bcebc9809291ee29ea # v15.0.0
+              uses: chromaui/action@f191a0224b10e1a38b2091cefb7b7a2337009116 # v16.0.0
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}

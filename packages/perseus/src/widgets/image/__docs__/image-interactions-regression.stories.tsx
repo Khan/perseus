@@ -1,16 +1,6 @@
-import {
-    generateImageOptions,
-    generateImageWidget,
-    generateTestPerseusRenderer,
-} from "@khanacademy/perseus-core";
-import * as React from "react";
-
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ApiOptions} from "../../../perseus-api";
-import Renderer from "../../../renderer";
-import {mockStrings} from "../../../strings";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import UserInputManager from "../../../user-input-manager";
+import {getWidget} from "../../../widgets";
+import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
     earthMoonImage,
     extremelyLongDescription,
@@ -20,35 +10,18 @@ import {
     svgImage,
 } from "../utils";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {Meta} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
+
+const ImageWidget = getWidget("image")!;
+
+type Story = StoryObj<typeof ImageWidget>;
 
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
 
-// Breaking this out instead of using it globally, so that the
-// right-to-left story can wrap the ImageQuestionRenderer with the
-// right-to-left wrapper.
-const rendererDecorator = (_, {args, parameters}) => {
-    return (
-        <ImageQuestionRenderer
-            question={generateTestPerseusRenderer({
-                content: parameters?.content ?? "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            ...args,
-                        }),
-                    }),
-                },
-            })}
-        />
-    );
-};
-
 const meta: Meta = {
     title: "Widgets/Image/Visual Regression Tests/Interactions",
-    component: ServerItemRendererWithDebugUI,
+    component: ImageWidget,
     tags: ["!autodocs"],
     parameters: {
         docs: {
@@ -63,8 +36,8 @@ const meta: Meta = {
 
 export default meta;
 
-export const LongDescriptionClickedState = {
-    decorators: [rendererDecorator],
+export const LongDescriptionClickedState: Story = {
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
@@ -74,7 +47,6 @@ export const LongDescriptionClickedState = {
         caption: earthMoonImageCaption,
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const imageTrigger = canvas.getByRole("button", {
             name: "Explore image",
         });
@@ -82,8 +54,8 @@ export const LongDescriptionClickedState = {
     },
 };
 
-export const LongDescriptionClickedStateWithGraphieImage = {
-    decorators: [rendererDecorator],
+export const LongDescriptionClickedStateWithGraphieImage: Story = {
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: graphieImage,
         alt: "Graphie image",
@@ -92,7 +64,6 @@ export const LongDescriptionClickedStateWithGraphieImage = {
         title: "Graphie image",
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const imageTrigger = canvas.getByRole("button", {
             name: "Explore image",
         });
@@ -100,8 +71,8 @@ export const LongDescriptionClickedStateWithGraphieImage = {
     },
 };
 
-export const LongDescriptionClickedStateWithNoSize = {
-    decorators: [rendererDecorator],
+export const LongDescriptionClickedStateWithNoSize: Story = {
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: {url: earthMoonImage.url},
         alt: "Earth and Moon",
@@ -111,7 +82,6 @@ export const LongDescriptionClickedStateWithNoSize = {
         caption: earthMoonImageCaption,
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const imageTrigger = canvas.getByRole("button", {
             name: "Explore image",
         });
@@ -119,8 +89,8 @@ export const LongDescriptionClickedStateWithNoSize = {
     },
 };
 
-export const LongDescriptionClickedStateWithNoSizeLargeImage = {
-    decorators: [rendererDecorator],
+export const LongDescriptionClickedStateWithNoSizeLargeImage: Story = {
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: {url: frescoImage.url},
         alt: "Fresco painting",
@@ -131,7 +101,6 @@ export const LongDescriptionClickedStateWithNoSizeLargeImage = {
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, *The Offer of the Casa Madre to Victory*, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const imageTrigger = canvas.getByRole("button", {
             name: "Explore image",
         });
@@ -139,15 +108,14 @@ export const LongDescriptionClickedStateWithNoSizeLargeImage = {
     },
 };
 
-export const LongDescriptionClickedStateWithNoSizeLargeSvgImage = {
-    decorators: [rendererDecorator],
+export const LongDescriptionClickedStateWithNoSizeLargeSvgImage: Story = {
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: {url: svgImage.url},
         alt: "SVG image",
         longDescription: extremelyLongDescription,
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const imageTrigger = canvas.getByRole("button", {
             name: "Explore image",
         });
@@ -155,14 +123,13 @@ export const LongDescriptionClickedStateWithNoSizeLargeSvgImage = {
     },
 };
 
-export const ZoomClickedState = {
-    decorators: [rendererDecorator],
+export const ZoomClickedState: Story = {
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const zoomTrigger = canvas.getByRole("button", {
             name: "Make image bigger.",
         });
@@ -170,14 +137,13 @@ export const ZoomClickedState = {
     },
 };
 
-export const ZoomClickedWithGraphieImage = {
-    decorators: [rendererDecorator],
+export const ZoomClickedWithGraphieImage: Story = {
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: graphieImage,
         alt: "Graphie image",
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const zoomTrigger = canvas.getByRole("button", {
             name: "Make image bigger.",
         });
@@ -185,14 +151,13 @@ export const ZoomClickedWithGraphieImage = {
     },
 };
 
-export const ZoomClickedLargeImage = {
-    decorators: [rendererDecorator],
+export const ZoomClickedLargeImage: Story = {
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: frescoImage,
         alt: "Fresco painting",
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const zoomTrigger = canvas.getByRole("button", {
             name: "Make image bigger.",
         });
@@ -200,37 +165,16 @@ export const ZoomClickedLargeImage = {
     },
 };
 
-export const ZoomClickedLargePortraitImage = {
-    decorators: [rendererDecorator],
+export const ZoomClickedLargePortraitImage: Story = {
+    decorators: [imageRendererDecorator],
     args: {
         backgroundImage: portraitImage,
         alt: "Portrait image",
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const zoomTrigger = canvas.getByRole("button", {
             name: "Make image bigger.",
         });
         await userEvent.click(zoomTrigger);
     },
 };
-
-function ImageQuestionRenderer(props: {question: PerseusRenderer}) {
-    const {question} = props;
-    return (
-        <UserInputManager widgets={question.widgets} problemNum={0}>
-            {({userInput, handleUserInput, initializeUserInput}) => (
-                <Renderer
-                    userInput={userInput}
-                    handleUserInput={handleUserInput}
-                    initializeUserInput={initializeUserInput}
-                    strings={mockStrings}
-                    content={question.content}
-                    widgets={question.widgets}
-                    images={question.images}
-                    apiOptions={ApiOptions.defaults}
-                />
-            )}
-        </UserInputManager>
-    );
-}

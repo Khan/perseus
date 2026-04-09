@@ -30,7 +30,6 @@ export const FocusedState = {
         }),
     },
     play: async ({canvas}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const definitionTrigger = canvas.getByRole("button", {
             name: "the Pequots",
         });
@@ -45,7 +44,6 @@ export const ClickedState = {
         }),
     },
     play: async ({canvas, userEvent}) => {
-        // eslint-disable-next-line testing-library/prefer-screen-queries
         const definitionTrigger = canvas.getByRole("button", {
             name: "the Pequots",
         });
