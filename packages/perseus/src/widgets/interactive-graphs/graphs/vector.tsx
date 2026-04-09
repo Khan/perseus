@@ -9,6 +9,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {TARGET_SIZE} from "../utils";
 
+import Hairlines from "./components/hairlines";
 import {PillDragHandle} from "./components/pill-drag-handle";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
@@ -50,6 +51,7 @@ const VectorGraph = (props: Props) => {
     const [tail, tip] = coords;
 
     const {strings, locale} = usePerseusI18n();
+    const {markings} = useGraphConfig();
     const id = React.useId();
     const pointsDescriptionId = id + "-points";
 
@@ -61,8 +63,26 @@ const VectorGraph = (props: Props) => {
         srVectorGrabHandle,
     } = describeVectorGraph(props.graphState, {strings, locale});
 
+    // The tip arrowhead's drag/focus state drives the hairlines,
+    // which must render before everything else (behind the line
+    // and drag handle in SVG paint order).
+    const tipArrowhead = useTipArrowhead({
+        tail,
+        tip,
+        ariaLabel: srVectorTipPoint,
+        ariaDescribedBy: pointsDescriptionId,
+        onMove: (destination) => dispatch(actions.vector.moveTip(destination)),
+    });
+
+    const showHairlines =
+        (tipArrowhead.dragging || tipArrowhead.focused) &&
+        markings !== "none";
+
     return (
         <g aria-label={srVectorGraph} aria-describedby={pointsDescriptionId}>
+            {/* Hairlines render first so they paint behind everything */}
+            {showHairlines && <Hairlines point={tip} />}
+
             {/* Body grab handle — translates the entire vector */}
             <VectorBody
                 tail={tail}
@@ -76,15 +96,8 @@ const VectorGraph = (props: Props) => {
             <TailDot tail={tail} />
 
             {/* Tip arrowhead — draggable, changes direction and magnitude */}
-            <TipArrowhead
-                tail={tail}
-                tip={tip}
-                ariaLabel={srVectorTipPoint}
-                ariaDescribedBy={pointsDescriptionId}
-                onMove={(destination) =>
-                    dispatch(actions.vector.moveTip(destination))
-                }
-            />
+            {tipArrowhead.focusableHandle}
+            {tipArrowhead.visibleArrowhead}
 
             {/* Hidden SR description */}
             <SRDescInSVG id={pointsDescriptionId}>{srVectorPoints}</SRDescInSVG>
@@ -140,9 +153,8 @@ const VectorBody = (props: VectorBodyProps) => {
               ]
             : tipPx;
 
-    // Drag handle position: ~1/3 along the line from tail to tip,
-    // giving more room near the tip point (matches design mockup).
-    const handleT = 1 / 3;
+    // Drag handle position: centered on the line.
+    const handleT = 1 / 2;
     const handlePx: vec.Vector2 = [
         tailPx[X] + (tipPx[X] - tailPx[X]) * handleT,
         tailPx[Y] + (tipPx[Y] - tailPx[Y]) * handleT,
@@ -212,7 +224,7 @@ const TailDot = ({tail}: {tail: vec.Vector2}) => {
     );
 };
 
-type TipArrowheadProps = {
+type TipArrowheadParams = {
     tail: vec.Vector2;
     tip: vec.Vector2;
     ariaLabel: string;
@@ -220,12 +232,11 @@ type TipArrowheadProps = {
     onMove: (destination: vec.Vector2) => unknown;
 };
 
-// The tip arrowhead is the draggable control at the end of the vector.
-// Moving it changes the vector's direction and magnitude while the tail
-// stays fixed. It renders as an arrowhead with the same halo / ring /
-// focus-outline treatment as a movable point.
-const TipArrowhead = (props: TipArrowheadProps) => {
-    const {tail, tip, ariaLabel, ariaDescribedBy, onMove} = props;
+// Hook that sets up the draggable arrowhead control at the tip of the
+// vector. Returns the rendered elements plus drag/focus state (used by
+// VectorGraph to render hairlines at the correct SVG paint order).
+function useTipArrowhead(params: TipArrowheadParams) {
+    const {tail, tip, ariaLabel, ariaDescribedBy, onMove} = params;
     const {snapStep} = useGraphConfig();
 
     // Compute the angle so the arrowhead points along the vector
@@ -233,7 +244,7 @@ const TipArrowhead = (props: TipArrowheadProps) => {
     const direction = vec.sub(tipPx, tailPx);
     const angleDeg = calculateAngleInDegrees(direction);
 
-    const {focusableHandle, visibleArrowhead} = useControlArrowhead({
+    return useControlArrowhead({
         ariaLabel,
         ariaDescribedBy,
         point: tip,
@@ -242,14 +253,7 @@ const TipArrowhead = (props: TipArrowheadProps) => {
         onMove,
         constrain: getVectorTipKeyboardConstraint(tail, tip, snapStep),
     });
-
-    return (
-        <>
-            {focusableHandle}
-            {visibleArrowhead}
-        </>
-    );
-};
+}
 
 // Keyboard constraint for the tip point: prevents overlap with the tail.
 // If a move would place the tip on the tail, skip to the next snap step.

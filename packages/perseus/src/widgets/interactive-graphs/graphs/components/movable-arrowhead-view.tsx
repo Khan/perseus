@@ -8,8 +8,6 @@ import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
 
-import Hairlines from "./hairlines";
-
 import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 import type {ForwardedRef} from "react";
@@ -72,7 +70,6 @@ export const MovableArrowheadView = forwardRef(
         hitboxRef: ForwardedRef<SVGGElement>,
     ) {
         const {
-            markings,
             showTooltips,
             interactiveColor,
             disableKeyboardInteraction,
@@ -82,7 +79,6 @@ export const MovableArrowheadView = forwardRef(
             point,
             angle,
             dragging,
-            focused,
             cursor,
             showFocusRing,
             onClick = () => {},
@@ -99,8 +95,6 @@ export const MovableArrowheadView = forwardRef(
         );
 
         const [[x, y]] = useTransformVectorsToPixels(point);
-
-        const showHairlines = (dragging || focused) && markings !== "none";
 
         const xSigFigs = countSignificantDecimals(snapStep[X]);
         const ySigFigs = countSignificantDecimals(snapStep[Y]);
@@ -131,9 +125,9 @@ export const MovableArrowheadView = forwardRef(
                 />
 
                 {/* All path layers share the same rotation / position.
-                    The inner translate(-1.5) nudges the chevron slightly
-                    behind the graph coordinate so the tip doesn't
-                    overshoot the point. */}
+                    The inner translate(-3) nudges the chevron behind
+                    the graph coordinate so the tip doesn't overshoot
+                    the point. */}
                 <g transform={`translate(${x} ${y}) rotate(${angle})`}>
                     <g transform="translate(-3)">
                         {/* Focus outline — expands on hover via CSS scale */}
@@ -166,7 +160,6 @@ export const MovableArrowheadView = forwardRef(
 
         return (
             <>
-                {showHairlines && <Hairlines point={point} />}
                 {showTooltips ? (
                     <Tooltip
                         autoUpdate={true}

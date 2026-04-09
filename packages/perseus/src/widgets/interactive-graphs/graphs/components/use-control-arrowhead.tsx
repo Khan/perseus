@@ -28,6 +28,8 @@ type Params = {
 type Return = {
     focusableHandle: React.ReactNode;
     visibleArrowhead: React.ReactNode;
+    dragging: boolean;
+    focused: boolean;
 };
 
 // useControlArrowhead mirrors useControlPoint but renders a
@@ -120,6 +122,8 @@ export function useControlArrowhead(params: Params): Return {
     return {
         focusableHandle,
         visibleArrowhead,
+        dragging,
+        focused,
     };
 }
 
