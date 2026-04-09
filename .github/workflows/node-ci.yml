@@ -96,7 +96,8 @@ jobs:
               timeout-minutes: 5
               with:
                   # registry.npmjs.org: npm package registry for pnpm install
-                  extra-domains: registry.npmjs.org
+                  # cdn.jsdelivr.net: speech-engine-rules files are hosted here
+                  extra-domains: registry.npmjs.org cdn.jsdelivr.net
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
