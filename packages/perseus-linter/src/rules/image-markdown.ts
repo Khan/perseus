@@ -11,7 +11,7 @@ import Rule from "../rule";
  */
 export default Rule.makeRule({
     name: "image-markdown",
-    severity: Rule.Severity.ERROR,
+    severity: Rule.Severity.WARNING,
     selector: "image",
     lint: function (state, content, nodes, match, context) {
         // Check if we're inside a widget - if so, allow markdown images.
