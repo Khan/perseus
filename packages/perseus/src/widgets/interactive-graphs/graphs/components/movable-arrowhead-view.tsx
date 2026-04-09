@@ -135,7 +135,7 @@ export const MovableArrowheadView = forwardRef(
                     behind the graph coordinate so the tip doesn't
                     overshoot the point. */}
                 <g transform={`translate(${x} ${y}) rotate(${angle})`}>
-                    <g transform="translate(-1.5)">
+                    <g transform="translate(-3)">
                         {/* Focus outline — expands on hover via CSS scale */}
                         <path
                             d={arrowPathFocus}

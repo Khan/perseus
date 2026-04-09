@@ -29,7 +29,7 @@ const {calculateAngleInDegrees} = angles;
 
 // The visible line is pulled back slightly from the tip so its stroke
 // doesn't poke past the arrowhead shape.
-const LINE_PULLBACK_PX = 2;
+const LINE_PULLBACK_PX = 4;
 
 export function renderVectorGraph(
     state: VectorGraphState,
