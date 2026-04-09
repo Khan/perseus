@@ -173,7 +173,8 @@ jobs:
               timeout-minutes: 5
               with:
                   # registry.npmjs.org: npm package registry for pnpm install, npm upgrade, and publishing snapshot packages
-                  extra-domains: registry.npmjs.org
+                  # fulcio.sigstore.dev,rekor.sigstore.dev: signing certificates are stored here
+                  extra-domains: registry.npmjs.org fulcio.sigstore.dev rekor.sigstore.dev
 
             - name: Ensure main branch is available
               run: |
