@@ -66,9 +66,10 @@ export const ZoomedImageView = (props: Props) => {
     // with no scrolling.
     const fitRatio = Math.min(scaleWidth, scaleHeight, 1);
 
-    // Calculate the final dimensions, constrained by the window size.
-    const constrainedWidth = width * fitRatio;
-    const constrainedHeight = height * fitRatio;
+    // Calculate the display width, constrained by the window size.
+    // This is used to set the wrapper div's explicit width so the modal
+    // doesn't collapse the image.
+    const constrainedDisplayWidth = width * fitRatio * effectiveScale;
 
     return (
         <ModalDialog
@@ -90,7 +91,7 @@ export const ZoomedImageView = (props: Props) => {
                             // causes the image to collapse to its
                             // natural pixel size, ignoring scale.
                             style={{
-                                width: constrainedWidth * effectiveScale,
+                                width: constrainedDisplayWidth,
                             }}
                         >
                             <div
@@ -114,12 +115,12 @@ export const ZoomedImageView = (props: Props) => {
                                     // Don't allow zooming inside the
                                     // zoom view.
                                     allowZoom={false}
-                                    // Need to pass in the unscaled dimensions
-                                    // into `width` and `height`, so that
-                                    // Graphie labels can be rendered correctly
-                                    // based on the `scale` prop.
-                                    width={constrainedWidth}
-                                    height={constrainedHeight}
+                                    // SvgImage needs to know the original
+                                    // dimensions of the image in order to
+                                    // properly scale Graphie labels so they
+                                    // stay the same size relative to the image.
+                                    width={width}
+                                    height={height}
                                     scale={effectiveScale}
                                 />
                             </div>
