@@ -55,6 +55,7 @@ const LockedPolygonSettings = (props: Props) => {
         points,
         color,
         showVertices,
+        showAngles,
         fillStyle,
         strokeStyle,
         weight,
@@ -252,6 +253,16 @@ const LockedPolygonSettings = (props: Props) => {
                 checked={showVertices}
                 onChange={(newValue: boolean) =>
                     onChangeProps({showVertices: newValue})
+                }
+                style={styles.spaceUnder}
+            />
+
+            {/* Show angle measures switch */}
+            <LabeledSwitch
+                label="show angle measures"
+                checked={showAngles}
+                onChange={(newValue: boolean) =>
+                    onChangeProps({showAngles: newValue})
                 }
                 style={styles.spaceUnder}
             />
