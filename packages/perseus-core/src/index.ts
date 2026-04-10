@@ -8,9 +8,7 @@ export type {
     Alignment,
     RecursiveReadonly,
 } from "./types";
-export type {
-    KeypadKey,
-} from "./keypad";
+export type {KeypadKey} from "./keypad";
 /** @hidden */
 export type {
     KeypadConfiguration,
@@ -35,10 +33,7 @@ export {getDivideSymbol} from "./utils/get-divide-symbol";
 export {getDivideSymbolForTex} from "./utils/get-divide-symbol";
 /** @hidden */
 export {approximateEqual, approximateDeepEqual} from "./utils/equality";
-export {
-    addWidget,
-    getWidgetIdsFromContent,
-} from "./utils/widget-id-utils";
+export {addWidget, getWidgetIdsFromContent} from "./utils/widget-id-utils";
 /** @hidden */
 export {getWidgetIdsFromContentByType} from "./utils/widget-id-utils";
 
@@ -68,10 +63,7 @@ export {
     type ParseFailureDetail,
 } from "./parse-perseus-json";
 
-export {
-    isSuccess,
-    isFailure,
-} from "./parse-perseus-json/result";
+export {isSuccess, isFailure} from "./parse-perseus-json/result";
 /** @hidden */
 export {
     type Result,
@@ -225,9 +217,7 @@ export {
 export {default as getDefaultAnswerArea} from "./utils/get-default-answer-area";
 /** @hidden */
 export {getDefaultFigureForType} from "./utils/get-default-figure-for-type";
-export {
-    default as splitPerseusItem,
-} from "./utils/split-perseus-item";
+export {default as splitPerseusItem} from "./utils/split-perseus-item";
 /** @hidden */
 export {splitPerseusItemJSON} from "./utils/split-perseus-item";
 /** @hidden */
@@ -403,17 +393,13 @@ export {
     generateIGLockedLabel,
     generateInteractiveGraphWidget,
 } from "./utils/generators/interactive-graph-widget-generator";
-export {
-    generateNumericInputWidget,
-} from "./utils/generators/numeric-input-widget-generator";
+export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
 export {
     generateNumericInputOptions,
     generateNumericInputAnswer,
 } from "./utils/generators/numeric-input-widget-generator";
-export {
-    generateRadioWidget,
-} from "./utils/generators/radio-widget-generator";
+export {generateRadioWidget} from "./utils/generators/radio-widget-generator";
 /** @hidden */
 export {
     generateRadioOptions,
