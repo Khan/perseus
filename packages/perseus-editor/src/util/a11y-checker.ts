@@ -150,13 +150,16 @@ const runAxeCore = (
             return;
         }
     }
+    const log = (...args: any[]): void => {
+        if (logToConsole) {
+            // eslint-disable-next-line no-console
+            console.log(...args);
+        }
+    };
     const options = isInStorybook
         ? axeCoreStorybookOptions
         : axeCoreEditorOptions;
-    if (logToConsole) {
-        // eslint-disable-next-line no-console
-        console.log("Axe Core options: ", options);
-    }
+    log("Axe Core options: ", options);
     const previewWindow = document.querySelector(
         previewIframeSelector,
     ) as HTMLIFrameElement | null;
@@ -167,10 +170,7 @@ const runAxeCore = (
     axeCoreProper.configure({reporter: "v2"});
     axeCoreProper.run(options).then(
         (results) => {
-            if (logToConsole) {
-                // eslint-disable-next-line no-console
-                console.log(`Accessibility Results: `, results);
-            }
+            log(`Accessibility Results: `, results);
             const violations = mapResultsToIssues(
                 results.violations,
                 "Alert",
@@ -182,10 +182,7 @@ const runAxeCore = (
                 isInStorybook ? null : previewWindow,
             );
             const issues = violations.concat(incompletes);
-            if (logToConsole) {
-                // eslint-disable-next-line no-console
-                console.log(`  Issues: `, issues);
-            }
+            log(`  Issues: `, issues);
             if (
                 violations.length === 0 &&
                 incompletes.length === 0 &&
@@ -197,10 +194,7 @@ const runAxeCore = (
             }
         },
         (error) => {
-            if (logToConsole) {
-                // eslint-disable-next-line no-console
-                console.log(`*** Error: `, error);
-            }
+            log(`*** Error: `, error);
         },
     );
 };
