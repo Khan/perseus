@@ -62,7 +62,7 @@ jobs:
         if: |
             (github.event_name == 'workflow_dispatch' && inputs.run_type == 'release') ||
             (github.event_name == 'push' && github.ref == 'refs/heads/main')
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         permissions:
             id-token: write # For trusted publishing to npm (includes provenance)
             contents: write # For GitHub pages and creating release PRs
@@ -127,10 +127,7 @@ jobs:
                   SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
                   SLACK_USERNAME: GithubGoose
                   SLACK_ICON_EMOJI: ":goose:"
-                  SLACK_MESSAGE:
-                      "Something went wrong with the release of ${{ github.event.repository.name }}.\
-
-                      Please check the logs → https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  SLACK_MESSAGE: "Something went wrong with the release of ${{ github.event.repository.name }}. Please check the logs → https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                   SLACK_TITLE: "Oops! I'm the Bad News Goose!"
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true
@@ -144,10 +141,7 @@ jobs:
                   SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
                   SLACK_USERNAME: GithubGoose
                   SLACK_ICON_EMOJI: ":goose:"
-                  SLACK_MESSAGE:
-                      "A new version of ${{ github.event.repository.name }} was published!\
-
-                      Release notes → https://github.com/${{ github.repository }}/releases/"
+                  SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! Release notes → https://github.com/${{ github.repository }}/releases/"
                   SLACK_TITLE: "New Perseus release!"
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true
@@ -158,7 +152,7 @@ jobs:
         if: |
             (github.event_name == 'workflow_dispatch' && inputs.run_type == 'snapshot') ||
             (github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/'))
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         permissions:
             id-token: write # For trusted publishing to npm (includes provenance)
             pull-requests: write # For creating/updating "snapshot created/updated" comment
