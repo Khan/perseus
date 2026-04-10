@@ -25,7 +25,7 @@ concurrency:
 jobs:
     prime_cache_primary:
         name: Prime node_modules cache for primary configuration
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             # Use a matrix as it means we get the version info in the job name
             # which is very helpful.
@@ -47,5 +47,4 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-
     # Add other jobs here that we want to run anytime a PR is landed

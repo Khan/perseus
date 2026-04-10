@@ -17,7 +17,7 @@ on:
 jobs:
     update-browserslist:
         name: Update the browserslist database (used by caniuse-lite)
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]

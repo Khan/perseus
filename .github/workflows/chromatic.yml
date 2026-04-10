@@ -2,8 +2,8 @@ name: Publish Storybook to Chromatic
 
 # See: https://www.chromatic.com/docs/setup-turbosnap/#github-pull_request-triggers
 on:
-    workflow_dispatch:
-    # Other Khan Academy repositories use this trigger for the chromaui/action
+    workflow_dispatch: # Other Khan Academy repositories use this trigger for the chromaui/action
+
     # and it appears to work-ish, so we'll use the same. If it starts to break,
     # review the above URL to see how to fix it.
     pull_request:
@@ -19,7 +19,7 @@ concurrency:
 jobs:
     chromatic:
         name: Publish Storybook to Chromatic
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
