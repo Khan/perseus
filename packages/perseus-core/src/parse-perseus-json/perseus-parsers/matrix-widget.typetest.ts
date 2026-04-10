@@ -1,15 +1,16 @@
-import {summon} from "../general-purpose-parsers/test-helpers";
+import {describe, it, expect} from "tstyche";
 
-import type {parseMatrixWidget} from "./matrix-widget";
+import {ctx} from "../general-purpose-parsers/test-helpers";
+
+import {parseMatrixWidget} from "./matrix-widget";
+
 import type {MatrixWidget} from "../../data-schema";
-import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
-import type {ParsedValue} from "../parser-types";
+import type {ParseResult} from "../parser-types";
 
-type Parsed = ParsedValue<typeof parseMatrixWidget>;
-
-summon<Parsed>() satisfies MatrixWidget;
-summon<MatrixWidget>() satisfies Parsed;
-
-// The `RecursiveRequired` test ensures that any new optional properties added
-// to the types in data-schema.ts are also added to the parser.
-summon<RecursiveRequired<Parsed>>() satisfies RecursiveRequired<MatrixWidget>;
+describe("the MatrixWidget parser", () => {
+    it("should return the widget type defined in data-schema.ts", () => {
+        expect(parseMatrixWidget({}, ctx())).type.toBe<
+            ParseResult<MatrixWidget>
+        >();
+    });
+});

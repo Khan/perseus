@@ -1,17 +1,16 @@
-import {summon} from "../general-purpose-parsers/test-helpers";
+import {describe, it, expect} from "tstyche";
 
-import type {parseDropdownUserInput} from "./dropdown-user-input";
+import {ctx} from "../general-purpose-parsers/test-helpers";
+
+import {parseDropdownUserInput} from "./dropdown-user-input";
+
 import type {PerseusDropdownUserInput} from "../../validation.types";
-import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
-import type {ParsedValue} from "../parser-types";
+import type {ParseResult} from "../parser-types";
 
-type Parsed = ParsedValue<typeof parseDropdownUserInput>;
-
-summon<Parsed>() satisfies PerseusDropdownUserInput;
-summon<PerseusDropdownUserInput>() satisfies Parsed;
-
-// The `RecursiveRequired` test ensures that any new optional properties added
-// to the types in data-schema.ts are also added to the parser.
-summon<
-    RecursiveRequired<Parsed>
->() satisfies RecursiveRequired<PerseusDropdownUserInput>;
+describe("the DropdownUserInput parser", () => {
+    it("should return the type defined in validation.types.ts", () => {
+        expect(parseDropdownUserInput({}, ctx())).type.toBe<
+            ParseResult<PerseusDropdownUserInput>
+        >();
+    });
+});

@@ -92,13 +92,5 @@ export const parseNumericInputWidget = parseWidget(
         coefficient: defaulted(boolean, () => false),
         rightAlign: optional(boolean),
         static: defaulted(boolean, () => false),
-        answerForms: optional(
-            array(
-                object({
-                    name: parseMathFormat,
-                    simplify: parseSimplify,
-                }),
-            ),
-        ),
     }),
 );
