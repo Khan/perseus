@@ -102,20 +102,6 @@ function LogarithmGraph(props: LogarithmGraphProps) {
 
     return (
         <g aria-label={srLogarithmGraph} aria-describedby={descriptionId}>
-            <MovableAsymptote
-                start={bottomPx}
-                end={topPx}
-                mid={midPx}
-                point={asymptoteMid}
-                onMove={(newPoint) =>
-                    dispatch(actions.logarithm.moveCenter(newPoint))
-                }
-                constrainKeyboardMovement={(p) =>
-                    constrainAsymptoteKeyboard(p, coords, snapStep)
-                }
-                orientation="vertical"
-                ariaLabel={srLogarithmAsymptote}
-            />
             <Plot.OfX
                 y={(x) => {
                     const y = computeLogarithm(coeffRef.current, x);
@@ -136,6 +122,20 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                         ? [asymptoteX + 0.001, xMax]
                         : [xMin, asymptoteX - 0.001]
                 }
+            />
+            <MovableAsymptote
+                start={bottomPx}
+                end={topPx}
+                mid={midPx}
+                point={asymptoteMid}
+                onMove={(newPoint) =>
+                    dispatch(actions.logarithm.moveCenter(newPoint))
+                }
+                constrainKeyboardMovement={(p) =>
+                    constrainAsymptoteKeyboard(p, coords, snapStep)
+                }
+                orientation="vertical"
+                ariaLabel={srLogarithmAsymptote}
             />
             {coords.map((coord, i) => (
                 <MovablePoint
