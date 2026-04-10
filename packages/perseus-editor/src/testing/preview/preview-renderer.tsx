@@ -108,20 +108,14 @@ export function PreviewRenderer({data}: Props) {
     }
 
     if (data.type === "hint") {
-        const {hint, bold, apiOptions, linterContext} = data.data;
-
-        // Apply bold styling if needed
-        const content =
-            bold && !/\*\*/.test(hint.content)
-                ? `**${hint.content}**`
-                : hint.content;
+        const {hint, apiOptions, linterContext} = data.data;
 
         return (
             <PreviewWithKeypad>
                 {({keypadElement, isMobile}) => (
                     <Renderer
                         strings={i18n.strings}
-                        content={content}
+                        content={hint.content}
                         widgets={hint.widgets}
                         images={hint.images}
                         apiOptions={{...apiOptions, isMobile}}

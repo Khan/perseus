@@ -6,7 +6,7 @@
     "license": "MIT",
     "private": true,
     "engines": {
-        "node": ">=20.20 <25"
+        "node": ">=24.13 <25"
     },
     "devDependencies": {
         "@babel/core": "^7.23.2",
@@ -104,6 +104,7 @@
         "storybook-multilevel-sort": "^2.1.0",
         "swc_mut_cjs_exports": "^8.0.1",
         "tiny-invariant": "catalog:devDeps",
+        "tstyche": "^7.0.0",
         "typedoc": "^0.28.17",
         "typedoc-plugin-missing-exports": "^4.1.2",
         "typescript": "5.9.3",

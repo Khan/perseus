@@ -1,29 +1,26 @@
+import {describe, it, expect} from "tstyche";
+
 import {array} from "./array";
 import {number} from "./number";
 import {string} from "./string";
-import {summonParsedValue} from "./test-helpers";
+import {ctx} from "./test-helpers";
 
-// Test: return type is correctly assignable
-{
-    const arrayOfStrings = array(string);
-    const parsed = summonParsedValue<typeof arrayOfStrings>();
+import type {ParseResult} from "../parser-types";
 
-    parsed satisfies string[];
+describe("the array parser combinator", () => {
+    it("parses an array of the correct type", () => {
+        const arrayOfStrings = array(string);
 
-    // @ts-expect-error - parsed is string[]
-    parsed satisfies number[];
-    // @ts-expect-error - parsed is string[]
-    parsed satisfies string;
-}
+        const parsed = arrayOfStrings([], ctx());
 
-// Test: nested array parsers
-{
-    const arrayOfArraysOfNumbers = array(array(number));
-    const parsed = summonParsedValue<typeof arrayOfArraysOfNumbers>();
-    parsed satisfies number[][];
+        expect(parsed).type.toBe<ParseResult<string[]>>();
+    });
 
-    // @ts-expect-error - parsed is number[][]
-    parsed satisfies number[];
-    // @ts-expect-error - parsed is number[][]
-    parsed satisfies string[][];
-}
+    it("composes with itself", () => {
+        const arrayOfArraysOfNumbers = array(array(number));
+
+        const parsed = arrayOfArraysOfNumbers([], ctx());
+
+        expect(parsed).type.toBe<ParseResult<number[][]>>();
+    });
+});

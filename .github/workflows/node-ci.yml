@@ -25,7 +25,7 @@ jobs:
     changeset:
         name: Check for .changeset entries for all changed files
         if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -40,8 +40,7 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for downloading pnpm via pnpm/action-setup
-                  extra-domains: registry.npmjs.org
+                  conf-files: .github/npm-extra-domains.conf
 
             - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5
               name: Install pnpm
@@ -82,7 +81,7 @@ jobs:
 
     lint:
         name: Lint, Typecheck, Format, and Test
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -95,8 +94,9 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  extra-domains: registry.npmjs.org
+                  conf-files: .github/npm-extra-domains.conf
+                  # cdn.jsdelivr.net: speech-engine-rules files are hosted here
+                  extra-domains: cdn.jsdelivr.net
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -143,6 +143,10 @@ jobs:
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
               run: pnpm typecheck
 
+            - name: Typetest
+              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+              run: pnpm tstyche
+
             - name: Build types
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
               run: pnpm build:types
@@ -176,7 +180,7 @@ jobs:
 
     cypress:
         name: Cypress
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -189,10 +193,9 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  # cdn.cypress.io: Cypress binary download for pnpm exec cypress install
+                  conf-files: .github/npm-extra-domains.conf
                   # ka-perseus-graphie.s3.amazonaws.com: some tests load images from here
-                  extra-domains: registry.npmjs.org cdn.cypress.io ka-perseus-graphie.s3.amazonaws.com
+                  extra-domains: ka-perseus-graphie.s3.amazonaws.com
 
             # MUST be before we install node_modules as that depends on finding
             # Cypress binaries in this cache!
@@ -230,7 +233,7 @@ jobs:
 
     check_builds:
         name: Check builds for changes in size
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -243,8 +246,7 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  extra-domains: registry.npmjs.org
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -266,19 +268,23 @@ jobs:
                   clean-script: "clean"
                   # Build production
                   build-script: "build:prodsizecheck"
-
             #
             # Do not place any steps after "Check Builds"
             #
 
     check_schema:
         name: Check for schema changes
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [24.x]
         steps:
+            - name: Install uuidgen
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install uuid-runtime
+
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -286,8 +292,7 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  extra-domains: registry.npmjs.org
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -310,12 +315,17 @@ jobs:
 
     check_item_splitting:
         name: Check for item splitting changes
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [24.x]
         steps:
+            - name: Install uuidgen
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install uuid-runtime
+
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -323,8 +333,7 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  extra-domains: registry.npmjs.org
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache

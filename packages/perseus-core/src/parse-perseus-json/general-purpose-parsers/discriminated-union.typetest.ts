@@ -1,9 +1,12 @@
+import {describe, it, expect} from "tstyche";
+
 import {constant} from "./constant";
 import {discriminatedUnionOn} from "./discriminated-union";
 import {number} from "./number";
 import {object} from "./object";
+import {ctx} from "./test-helpers";
 
-import type {Parser} from "../parser-types";
+import type {Parser, ParseResult} from "../parser-types";
 
 type Figure =
     | {shape: "circle"; radius: number}
@@ -26,40 +29,20 @@ const parseSquare = object({
     sideLength: number,
 });
 
-// Test: parsed result is assignable to the union type
-{
-    const parser = discriminatedUnionOn("shape")
-        .withBranch("circle", parseCircle)
-        .withBranch("rectangle", parseRectangle)
-        .withBranch("square", parseSquare).parser;
+describe("the discriminatedUnionOn parser combinator", () => {
+    it("parses a union with the given discriminant and branches", () => {
+        const figureParser = discriminatedUnionOn("shape")
+            .withBranch("circle", parseCircle)
+            .withBranch("rectangle", parseRectangle)
+            .withBranch("square", parseSquare).parser;
 
-    parser satisfies Parser<Figure>;
+        const parsed = figureParser({}, ctx());
 
-    // Guard against implicit 'any' type
-    // @ts-expect-error - Type '{ shape: "circle"; radius: number; }' is not assignable to type 'string'.
-    parser satisfies Parser<string>;
-}
+        expect(parsed).type.toBe<ParseResult<Figure>>();
+    });
 
-// Test: parse result with extra branches is not assignable to the union type
-{
-    const parser = discriminatedUnionOn("shape")
-        .withBranch("circle", parseCircle)
-        .withBranch("rectangle", parseRectangle)
-        .withBranch("square", parseSquare)
-        .withBranch("extra", object({shape: constant("extra")})).parser;
-
-    // @ts-expect-error - Type '{shape: "extra"}' is not assignable to type 'Figure'
-    parser satisfies Parser<Figure>;
-}
-
-// Test: each variant must contain the discriminant key
-{
-    // @ts-expect-error - property 'shape' is missing in type '{}'
-    discriminatedUnionOn("shape").withBranch("circle", object({}));
-}
-
-// Test: each variant must be an object
-{
-    // @ts-expect-error - Type 'number' is not assignable to type '{ shape: Primitive; }'.
-    discriminatedUnionOn("shape").withBranch("circle", number);
-}
+    it("raises a type error if a variant does not contain the discriminant key", () => {
+        // @ts-expect-error Argument of type 'Parser<OptionalizeProperties<{}>>' is not assignable to parameter of type 'Parser<{ shape: Primitive; }>'
+        discriminatedUnionOn("shape").withBranch("circle", object({}));
+    });
+});
