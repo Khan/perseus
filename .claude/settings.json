@@ -77,7 +77,8 @@
                 "api.github.com",
                 "registry.npmjs.org",
                 "npm.pkg.github.com",
-                "download.cypress.io"
+                "download.cypress.io",
+                "cdn.cypress.io"
             ]
         },
         "enableWeakerNetworkIsolation": true,

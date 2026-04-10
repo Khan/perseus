@@ -40,9 +40,7 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for downloading pnpm via pnpm/action-setup
-                  # download.cypress.io: Cypress binary download during pnpm install
-                  extra-domains: registry.npmjs.org download.cypress.io
+                  conf-files: .github/npm-extra-domains.conf
 
             - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5
               name: Install pnpm
@@ -96,10 +94,9 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  # download.cypress.io: Cypress binary download during pnpm install
+                  conf-files: .github/npm-extra-domains.conf
                   # cdn.jsdelivr.net: speech-engine-rules files are hosted here
-                  extra-domains: registry.npmjs.org download.cypress.io cdn.jsdelivr.net
+                  extra-domains: cdn.jsdelivr.net
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -196,11 +193,9 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  # cdn.cypress.io: Cypress binary download for pnpm exec cypress install
-                  # download.cypress.io: Cypress binary download during pnpm install
+                  conf-files: .github/npm-extra-domains.conf
                   # ka-perseus-graphie.s3.amazonaws.com: some tests load images from here
-                  extra-domains: registry.npmjs.org cdn.cypress.io download.cypress.io ka-perseus-graphie.s3.amazonaws.com
+                  extra-domains: ka-perseus-graphie.s3.amazonaws.com
 
             # MUST be before we install node_modules as that depends on finding
             # Cypress binaries in this cache!
@@ -251,9 +246,7 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  # download.cypress.io: Cypress binary download during pnpm install
-                  extra-domains: registry.npmjs.org download.cypress.io
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -294,9 +287,7 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  # download.cypress.io: Cypress binary download during pnpm install
-                  extra-domains: registry.npmjs.org download.cypress.io
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -332,9 +323,7 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  # download.cypress.io: Cypress binary download during pnpm install
-                  extra-domains: registry.npmjs.org download.cypress.io
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache

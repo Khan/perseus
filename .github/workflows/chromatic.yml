@@ -36,11 +36,10 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  # download.cypress.io: Cypress binary download during pnpm install
+                  conf-files: .github/npm-extra-domains.conf
                   # *.chromatic.com: Chromatic service for uploading and comparing Storybook snapshots
                   # chromatic-builds.s3.us-west-2.amazonaws.com: S3 bucket for Storybook file uploads (presigned URLs returned by index.chromatic.com GraphQL API)
-                  extra-domains: registry.npmjs.org download.cypress.io index.chromatic.com notify.dev-chromatic.com notify.staging-chromatic.com notify.chromatic.com chromatic.com chromatic-builds.s3.us-west-2.amazonaws.com
+                  extra-domains: index.chromatic.com notify.dev-chromatic.com notify.staging-chromatic.com notify.chromatic.com chromatic.com chromatic-builds.s3.us-west-2.amazonaws.com
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
