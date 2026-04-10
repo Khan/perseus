@@ -80,8 +80,9 @@ jobs:
               timeout-minutes: 5
               with:
                   # registry.npmjs.org: npm package registry for pnpm install, npm upgrade, and publishing packages
+                  # download.cypress.io: Cypress binary download during pnpm install
                   # hooks.slack.com: Slack webhook for publish success/failure notifications
-                  extra-domains: registry.npmjs.org hooks.slack.com
+                  extra-domains: registry.npmjs.org download.cypress.io hooks.slack.com
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -173,8 +174,9 @@ jobs:
               timeout-minutes: 5
               with:
                   # registry.npmjs.org: npm package registry for pnpm install, npm upgrade, and publishing snapshot packages
+                  # download.cypress.io: Cypress binary download during pnpm install
                   # fulcio.sigstore.dev,rekor.sigstore.dev: signing certificates are stored here
-                  extra-domains: registry.npmjs.org fulcio.sigstore.dev rekor.sigstore.dev
+                  extra-domains: registry.npmjs.org download.cypress.io fulcio.sigstore.dev rekor.sigstore.dev
 
             - name: Ensure main branch is available
               run: |

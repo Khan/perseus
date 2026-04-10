@@ -30,7 +30,8 @@ jobs:
               timeout-minutes: 5
               with:
                   # registry.npmjs.org: npm package registry for pnpm install and updating caniuse-lite via update-browserslist-db
-                  extra-domains: registry.npmjs.org
+                  # download.cypress.io: Cypress binary download during pnpm install
+                  extra-domains: registry.npmjs.org download.cypress.io
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache

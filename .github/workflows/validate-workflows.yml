@@ -9,7 +9,10 @@ on:
 jobs:
     validate-workflows:
         timeout-minutes: 15
-        runs-on: ubuntu-latest
+        # Set the org var or repo var USE_GITHUB_RUNNERS to 'true'
+        # to use github-hosted runners instead of ephemeral runners
+        # without needing to deploy workflow changes.
+        runs-on: "${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}"
         # pull-requests & issues write permissions are required to post comments.
         permissions:
             contents: write
@@ -31,10 +34,12 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  extra-domains: registry.npmjs.org
+                  extra-domains: "registry.npmjs.org"
 
             - name: Fix checkout-followed-by-setup
-              uses: Khan/actions@fix-workflows-v2
+              uses: Khan/actions@fix-workflows-v3
+              with:
+                  fix-runs-on: true
 
             - name: Push Autofixes
               shell: bash
