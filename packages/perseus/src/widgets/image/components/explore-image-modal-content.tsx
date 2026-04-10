@@ -1,6 +1,6 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
+import {Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import AssetContext from "../../../asset-context";
@@ -80,16 +80,18 @@ export default function ExploreImageModalContent({
         // If we know what the original image size is, use it to compute the
         // image size for the modal with the scale applied.
         if (backgroundImage.height && backgroundImage.width) {
-            // SvgImage will multiply the dimensions we pass by `scale`,
-            // so we work in unscaled space here. We cap the unscaled
-            // height at MODAL_HEIGHT / scale so the final displayed
-            // height (after SvgImage applies `scale`) won't exceed
-            // MODAL_HEIGHT, and we also cap at the image's natural
-            // height to avoid upscaling beyond the original.
-            height = Math.min(MODAL_HEIGHT / scale, backgroundImage.height);
-            // bgWidth / bgHeight = X / height
-            // => X = (bgWidth / bgHeight) * height
-            width = (backgroundImage.width / backgroundImage.height) * height;
+            // Pass in the original width and height into SVGImage so that
+            // it calculates graphie label sizes correctly.
+            width = backgroundImage.width;
+            height = backgroundImage.height;
+
+            // The part that we need to calculate is the scale that we want
+            // to pass into SVGImage alongside the original dimensions in order
+            // to get our image to the size it should be within the modal.
+            // We don't want the scale to cause the image to be larger
+            // than the modal height, so we cap it here.
+            const maxScale = MODAL_HEIGHT / backgroundImage.height;
+            scale = Math.min(scale, maxScale);
         }
     }
 
@@ -146,9 +148,13 @@ export default function ExploreImageModalContent({
                     </div>
                 )}
 
-                <HeadingMedium tag="h2" style={wbStyles.descriptionHeading}>
+                <Heading
+                    size="large"
+                    tag="h2"
+                    style={wbStyles.descriptionHeading}
+                >
                     {context.strings.imageDescriptionLabel}
-                </HeadingMedium>
+                </Heading>
                 {/* Use Renderer so that the description can support markdown and TeX. */}
                 <Renderer
                     content={longDescription}

@@ -125,6 +125,8 @@ module.exports = {
                 "*.cypress.ts",
                 "*.test.ts",
                 "*.test.tsx",
+                "*.typetest.ts",
+                "*.typetest.tsx",
                 "*.stories.ts",
                 "*.stories.tsx",
                 "**/__testutils__/**",
@@ -135,6 +137,17 @@ module.exports = {
                 "max-lines": "off",
                 "import/no-extraneous-dependencies": "off",
                 "import/no-relative-packages": "off",
+            },
+        },
+        {
+            // Storybook has an API for interaction tests that is similar
+            // to React Testing Library's `screen`, which causes the
+            // `testing-library/prefer-screen-queries` rule to trigger.
+            // Disabling this rule for stories files so that we can use
+            // `canvas.getBy...` without having to suppress this everywhere.
+            files: ["**/*.stories.@(js|jsx|ts|tsx)"],
+            rules: {
+                "testing-library/prefer-screen-queries": "off",
             },
         },
         {
@@ -327,6 +340,33 @@ module.exports = {
                         importNames: ["NavigationTabs", "Tabs"],
                         message:
                             "Use WB ResponsiveNavigationTabs or ResponsiveTabs for responsive behaviour. They render NavigationTabs or Tabs by default and switch to a dropdown when space is limited - test both layouts. See https://khan.github.io/wonder-blocks/?path=/docs/packages-tabs-overview--docs. \n\nIf responsiveness isn't needed, ignore this rule for that import.",
+                    },
+                    {
+                        name: "@khanacademy/wonder-blocks-typography",
+                        importNames: [
+                            "Title",
+                            "HeadingLarge",
+                            "HeadingMedium",
+                            "HeadingSmall",
+                            "HeadingXSmall",
+                            "Tagline",
+                        ],
+                        message:
+                            "Please use the WB Heading component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-heading-new--docs",
+                    },
+                    {
+                        name: "@khanacademy/wonder-blocks-typography",
+                        importNames: [
+                            "Body",
+                            "LabelLarge",
+                            "LabelMedium",
+                            "LabelSmall",
+                            "LabelXSmall",
+                            "Caption",
+                            "Footnote",
+                        ],
+                        message:
+                            "Please use the WB BodyText component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-bodytext-new--docs",
                     },
                 ],
             },

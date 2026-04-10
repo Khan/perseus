@@ -5,7 +5,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircleIcon from "@phosphor-icons/core/regular/plus-circle.svg";
 import trashIcon from "@phosphor-icons/core/regular/trash.svg";
 import {StyleSheet} from "aphrodite";
@@ -115,7 +115,7 @@ class FreeResponseEditor extends React.Component<Props> {
         return (
             <View>
                 <LabeledField
-                    label={<HeadingSmall>Question</HeadingSmall>}
+                    label="Question"
                     field={
                         <textarea
                             value={this.props.question}
@@ -127,7 +127,7 @@ class FreeResponseEditor extends React.Component<Props> {
                     styles={{root: styles.labeledInputField}}
                 />
                 <LabeledField
-                    label={<HeadingSmall>Placeholder</HeadingSmall>}
+                    label="Placeholder"
                     field={
                         <textarea
                             value={this.props.placeholder}
@@ -141,9 +141,7 @@ class FreeResponseEditor extends React.Component<Props> {
                     styles={{root: styles.labeledInputField}}
                 />
                 <LabeledField
-                    label={
-                        <HeadingSmall>Allow unlimited characters</HeadingSmall>
-                    }
+                    label="Allow unlimited characters"
                     field={
                         <Checkbox
                             checked={this.props.allowUnlimitedCharacters}
@@ -158,7 +156,7 @@ class FreeResponseEditor extends React.Component<Props> {
                 />
                 {!this.props.allowUnlimitedCharacters && (
                     <LabeledField
-                        label={<HeadingSmall>Character limit</HeadingSmall>}
+                        label="Character limit"
                         field={
                             <input
                                 type="number"
@@ -171,8 +169,8 @@ class FreeResponseEditor extends React.Component<Props> {
                     />
                 )}
                 <View>
-                    <HeadingSmall>Scoring criteria</HeadingSmall>
-                    <View style={styles.criteriaList}>
+                    <View style={styles.criteriaList} tag="fieldset">
+                        <BodyText tag="legend">Scoring criteria</BodyText>
                         {this.renderCriteriaList()}
                     </View>
                     <View>

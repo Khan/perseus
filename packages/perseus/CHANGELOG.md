@@ -1,5 +1,56 @@
 # @khanacademy/perseus
 
+## 77.2.0
+
+### Minor Changes
+
+-   [#3422](https://github.com/Khan/perseus/pull/3422) [`a4eaa5a1f8`](https://github.com/Khan/perseus/commit/a4eaa5a1f8a32ce74ce38ea443419b94d53a72b4) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm graph state management and reducer for supporting Logarithm graph in Interactive Graph
+
+*   [#3425](https://github.com/Khan/perseus/pull/3425) [`2c36b8a4c3`](https://github.com/Khan/perseus/commit/2c36b8a4c3a35b0edf432e9b69a7b73b04a75e52) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm graph option in the Interactive Graph Editor
+
+-   [#3423](https://github.com/Khan/perseus/pull/3423) [`3cc56f60dd`](https://github.com/Khan/perseus/commit/3cc56f60dd66fb00a961d0ec6661d4e11a1aed83) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Create the logarithm graph visual component, add Storybook coverage, SR strings, and equation string for supporting Logarithm graph in Interactive Graph
+
+*   [#3420](https://github.com/Khan/perseus/pull/3420) [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm type definitions, this is the initial implementation for supporting Logarithm graph in Interactive Graph widget.
+
+### Patch Changes
+
+-   [#3461](https://github.com/Khan/perseus/pull/3461) [`0481b4238d`](https://github.com/Khan/perseus/commit/0481b4238d74c76ea2e2182cde3d1146da9d7a38) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Update CSS modules to kabab case
+
+*   [#3455](https://github.com/Khan/perseus/pull/3455) [`0d6cf3c3ce`](https://github.com/Khan/perseus/commit/0d6cf3c3cef7cf160e0262d68cd9761e498189ed) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix messed up Graphie labels behind scale feature flag
+
+*   Updated dependencies [[`08b1218b62`](https://github.com/Khan/perseus/commit/08b1218b62287d25149f087ee53d02c092ba15a1), [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79), [`9099a40a4e`](https://github.com/Khan/perseus/commit/9099a40a4e101f6fe3fa51771409577bbe7161de)]:
+    -   @khanacademy/perseus-score@8.6.0
+    -   @khanacademy/perseus-core@24.1.0
+    -   @khanacademy/kmath@2.4.0
+    -   @khanacademy/keypad-context@3.2.42
+    -   @khanacademy/math-input@26.4.13
+    -   @khanacademy/perseus-linter@4.9.2
+
+## 77.1.0
+
+### Minor Changes
+
+-   [#3273](https://github.com/Khan/perseus/pull/3273) [`1f532f29c0`](https://github.com/Khan/perseus/commit/1f532f29c0a45f63e7badf3fe8da81b2855ab618) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Merge top-level widget files into one, and refactor to remove legacy code
+
+### Patch Changes
+
+-   [#3457](https://github.com/Khan/perseus/pull/3457) [`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   [#3417](https://github.com/Khan/perseus/pull/3417) [`732cfab8fc`](https://github.com/Khan/perseus/commit/732cfab8fce00908d5fde297b5b8e5d52c596af9) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB typography instances to use `Heading` and `BodyText`.
+
+*   Updated dependencies [[`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc)]:
+    -   @khanacademy/math-input@26.4.12
+
+## 77.0.3
+
+### Patch Changes
+
+-   [#3449](https://github.com/Khan/perseus/pull/3449) [`76a38ce406`](https://github.com/Khan/perseus/commit/76a38ce406c8b445ab9265a504f4d92614a64ba1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Remove unnecessary component stories
+
+*   [#3450](https://github.com/Khan/perseus/pull/3450) [`fa37a1e7e5`](https://github.com/Khan/perseus/commit/fa37a1e7e5343f011e9e3987ee95efdd02021fd8) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing missing subtype for radio widget error event.
+
+-   [#3440](https://github.com/Khan/perseus/pull/3440) [`8538fd2fec`](https://github.com/Khan/perseus/commit/8538fd2fec3e60b367d41aa2c985d7680cd741b2) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Resize Graphie labels when window is resized
+
 ## 77.0.2
 
 ### Patch Changes

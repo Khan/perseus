@@ -19,6 +19,7 @@ import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
+import InteractiveGraphExports from "./interactive-graph";
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {
     angleQuestion,
@@ -62,6 +63,8 @@ import {
     sinusoidQuestionWithDefaultCorrect,
     tangentQuestion,
     tangentQuestionWithDefaultCorrect,
+    logarithmQuestion,
+    logarithmQuestionWithDefaultCorrect,
     sinusoidWithPiTicks,
     unlimitedPointQuestion,
     unlimitedPolygonQuestion,
@@ -239,6 +242,7 @@ describe("Interactive Graph", function () {
         quadratic: quadraticQuestion,
         sinusoid: sinusoidQuestion,
         tangent: tangentQuestion,
+        logarithm: logarithmQuestion,
         "unlimited-point": pointQuestion,
         "unlimited-polygon": polygonQuestion,
     };
@@ -257,6 +261,7 @@ describe("Interactive Graph", function () {
         quadratic: quadraticQuestionWithDefaultCorrect,
         sinusoid: sinusoidQuestionWithDefaultCorrect,
         tangent: tangentQuestionWithDefaultCorrect,
+        logarithm: logarithmQuestionWithDefaultCorrect,
         "unlimited-point": pointQuestionWithDefaultCorrect,
         "unlimited-polygon": polygonQuestionDefaultCorrect,
     };
@@ -1931,5 +1936,74 @@ describe("Interactive Graph", function () {
                 expect(axisArrows[0]).toHaveAttribute("transform", transform);
             },
         );
+    });
+});
+
+describe("getLogarithmEquationString", () => {
+    const InteractiveGraph = InteractiveGraphExports.widget;
+
+    function makeProps(coords: [Coord, Coord], asymptote: number) {
+        return {
+            userInput: {
+                type: "logarithm",
+                coords,
+                asymptote,
+            },
+        } as unknown as Parameters<
+            typeof InteractiveGraph.getLogarithmEquationString
+        >[0];
+    }
+
+    it("omits the constant term when asymptote is 0 (c === 0)", () => {
+        // Arrange — asymptote=0 produces c=0
+        const props = makeProps(
+            [
+                [3, 2],
+                [5, 4],
+            ],
+            0,
+        );
+
+        // Act
+        const equation = InteractiveGraph.getLogarithmEquationString(props);
+
+        // Assert — should NOT contain "+ 0.000"
+        expect(equation).not.toContain("+ 0.000");
+        expect(equation).toMatch(/ln\(\d+\.\d+x\)/);
+    });
+
+    it("shows subtracted constant when c < 0", () => {
+        // Arrange — asymptote=2 produces a negative c
+        const props = makeProps(
+            [
+                [3, 2],
+                [5, 4],
+            ],
+            2,
+        );
+
+        // Act
+        const equation = InteractiveGraph.getLogarithmEquationString(props);
+
+        // Assert — should contain "x - " for negative c
+        expect(equation).toContain("x - ");
+        expect(equation).not.toContain("x + -");
+    });
+
+    it("shows added constant when c > 0", () => {
+        // Arrange — asymptote=-2 produces a positive c
+        const props = makeProps(
+            [
+                [3, 2],
+                [5, 4],
+            ],
+            -2,
+        );
+
+        // Act
+        const equation = InteractiveGraph.getLogarithmEquationString(props);
+
+        // Assert — should contain "x + " for positive c
+        expect(equation).toContain("x + ");
     });
 });

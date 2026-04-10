@@ -10,11 +10,19 @@ import {
     DependenciesContext,
 } from "../packages/perseus/src/dependencies";
 import {
-    storybookTestDependencies,
+    testDependencies,
     storybookDependenciesV2,
 } from "../packages/perseus/src/testing/test-dependencies";
+import {TestMathjax} from "../packages/perseus/src/testing/test-mathjax";
 
 import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
+import type {PerseusDependencies} from "../packages/perseus/src/types";
+
+const storybookTestDependencies: PerseusDependencies = {
+    ...testDependencies,
+    TeX: TestMathjax,
+    staticUrl: (str) => str,
+};
 
 // This will bring in the shared styles from prod so that the components can
 // have the same styles as prod when viewed within Storybook.

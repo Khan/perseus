@@ -1,5 +1,16 @@
 # @khanacademy/kmath
 
+## 2.4.0
+
+### Minor Changes
+
+-   [#3421](https://github.com/Khan/perseus/pull/3421) [`9099a40a4e`](https://github.com/Khan/perseus/commit/9099a40a4e101f6fe3fa51771409577bbe7161de) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add the logarithm math utilities to kmath for supporting Logarithm graph in Interactive Graph
+
+### Patch Changes
+
+-   Updated dependencies [[`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79)]:
+    -   @khanacademy/perseus-core@24.1.0
+
 ## 2.3.1
 
 ### Patch Changes

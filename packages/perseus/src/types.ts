@@ -100,13 +100,6 @@ export type EditorMode = "edit" | "preview" | "json";
 
 export type ChoiceState = {
     selected: boolean;
-    // Deprecated; never implemented
-    // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
-    highlighted: boolean;
-    rationaleShown: boolean;
-    correctnessShown: boolean;
-    previouslyAnswered: boolean;
-    readOnly: boolean;
 };
 
 /**
@@ -518,6 +511,10 @@ export type WidgetExports<
     ) => TUserInput;
 }>;
 
+export type FindWidgetsFunction = (
+    filterFunc: FilterCriterion,
+) => ReadonlyArray<Widget | null | undefined>;
+
 export type FilterCriterion =
     | string
     | ((
@@ -556,11 +553,9 @@ type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;
     keypadElement?: any;
-    // TODO(LEMS-3783): remove uses of `questionCompleted`
-    questionCompleted?: boolean;
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
-    findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
+    findWidgets: FindWidgetsFunction;
     reviewMode: boolean;
     showSolutions?: ShowSolutions;
     handleUserInput: (

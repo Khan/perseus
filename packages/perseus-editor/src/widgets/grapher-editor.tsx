@@ -1,7 +1,5 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     components,
-    Changeable,
     GrapherUtil,
     GrapherWidget,
     containerSizeClass,
@@ -16,9 +14,11 @@ import _ from "underscore";
 
 import GraphSettings from "../components/graph-settings";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     GrapherAnswerTypes,
     GrapherDefaultWidgetOptions,
+    PerseusGrapherWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -27,21 +27,19 @@ const Grapher = GrapherWidget.widget;
 const {chooseType, defaultPlotProps, getEquationString, typeToButton} =
     GrapherUtil;
 
-type Props = any;
+type Props = {
+    onChange: (newProps: Record<string, unknown>) => void;
+    graph: PerseusGrapherWidgetOptions["graph"];
+    correct: GrapherAnswerTypes;
+    availableTypes: PerseusGrapherWidgetOptions["availableTypes"];
+    apiOptions: APIOptionsWithDefaults;
+};
 
 class GrapherEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-    };
-
     static widgetName = "grapher" as const;
 
     static defaultProps: GrapherDefaultWidgetOptions =
         grapherLogic.defaultWidgetOptions;
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
 
     handleAvailableTypesChange = (newAvailableTypes: Array<any>) => {
         let correct = this.props.correct;
@@ -77,7 +75,7 @@ class GrapherEditor extends React.Component<Props> {
                 graph: this.props.graph,
                 userInput: this.props.correct,
                 correct: this.props.correct,
-                handleUserInput: (userInput, cb) => {
+                handleUserInput: (userInput) => {
                     let correct = this.props.correct;
                     if (correct.type === userInput?.type) {
                         correct = _.extend({}, correct, userInput);
@@ -85,9 +83,9 @@ class GrapherEditor extends React.Component<Props> {
                         // Clear options from previous graph
                         correct = userInput;
                     }
-                    this.props.onChange({correct: correct}, cb);
+                    this.props.onChange({correct: correct});
                 },
-                availableTypes: this.props.availableTypes,
+                availableTypes: [...this.props.availableTypes],
                 trackInteraction: function () {},
                 // Set the "correct answer" graph to static when editing is disabled
                 static: this.props.apiOptions.editingDisabled,
@@ -130,14 +128,19 @@ class GrapherEditor extends React.Component<Props> {
                     step={this.props.graph.step}
                     gridStep={this.props.graph.gridStep}
                     snapStep={this.props.graph.snapStep}
-                    valid={this.props.graph.valid}
+                    valid={this.props.graph.valid === true}
                     backgroundImage={this.props.graph.backgroundImage}
                     markings={this.props.graph.markings}
                     rulerLabel={this.props.graph.rulerLabel}
                     rulerTicks={this.props.graph.rulerTicks}
                     showTooltips={this.props.graph.showTooltips}
-                    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                    onChange={this.change("graph")}
+                    onChange={(newProps) =>
+                        // Spread existing graph props to preserve properties not included
+                        // in the GraphSettings onChange payload (e.g. box, markings).
+                        this.props.onChange({
+                            graph: {...this.props.graph, ...newProps},
+                        })
+                    }
                 />
                 <div className="perseus-widget-row">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}

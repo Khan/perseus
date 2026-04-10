@@ -100,6 +100,14 @@ export function getGradableGraph(
         };
     }
 
+    if (state.type === "logarithm" && initialGraph.type === "logarithm") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+            asymptote: state.asymptote,
+        };
+    }
+
     if (state.type === "tangent" && initialGraph.type === "tangent") {
         return {
             ...initialGraph,

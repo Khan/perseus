@@ -120,7 +120,7 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
         } = this.props;
         const {focused} = this.state;
 
-        const extraStyles: any = {};
+        const extraStyles: React.CSSProperties = {};
         const spanStyle = [styles.input, styles.container];
 
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

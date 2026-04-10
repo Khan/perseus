@@ -3,7 +3,7 @@ import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import Link from "@khanacademy/wonder-blocks-link";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {Footnote} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 import _ from "underscore";
@@ -364,9 +364,9 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                 }}
                                 style={{marginBlockEnd: sizing.size_060}}
                             />
-                            <Footnote>
+                            <BodyText size="xsmall" tag="span">
                                 Current number correct: {numCorrect}
-                            </Footnote>
+                            </BodyText>
                         </>
                     )}
                 </div>

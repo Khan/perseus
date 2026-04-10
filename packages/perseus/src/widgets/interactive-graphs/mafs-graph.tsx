@@ -11,7 +11,7 @@
  */
 import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
@@ -38,6 +38,7 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {renderExponentialGraph} from "./graphs/exponential";
 import {renderLinearGraph} from "./graphs/linear";
 import {renderLinearSystemGraph} from "./graphs/linear-system";
+import {renderLogarithmGraph} from "./graphs/logarithm";
 import {renderPointGraph} from "./graphs/point";
 import {renderPolygonGraph} from "./graphs/polygon";
 import {renderQuadraticGraph} from "./graphs/quadratic";
@@ -437,9 +438,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 transform: "translateY(-50%)",
                             }}
                         >
-                            <LabelMedium id={unlimitedGraphKeyboardPromptId}>
+                            <BodyText id={unlimitedGraphKeyboardPromptId}>
                                 {strings.graphKeyboardPrompt}
-                            </LabelMedium>
+                            </BodyText>
                         </View>
                     )}
                 </View>
@@ -777,6 +778,8 @@ const renderGraphElements = (props: {
             return renderAbsoluteValueGraph(state, dispatch, i18n);
         case "tangent":
             return renderTangentGraph(state, dispatch, i18n);
+        case "logarithm":
+            return renderLogarithmGraph(state, dispatch, i18n);
         default:
             throw new UnreachableCaseError(type);
     }

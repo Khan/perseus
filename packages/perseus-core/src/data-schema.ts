@@ -1109,7 +1109,8 @@ export type PerseusGraphType =
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid
     | PerseusGraphTypeExponential
-    | PerseusGraphTypeTangent;
+    | PerseusGraphTypeTangent
+    | PerseusGraphTypeLogarithm;
 
 export type PerseusGraphTypeAngle = {
     type: "angle";
@@ -1247,6 +1248,19 @@ export type PerseusGraphTypeExponential = {
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
 };
 
+export type PerseusGraphTypeLogarithm = {
+    type: "logarithm";
+    /** Two points along the logarithmic curve. */
+    coords?: Coord[] | null;
+    /**
+     * The x-value of the vertical asymptote (the line x = asymptote).
+     * The curve is defined on only one side of this line.
+     */
+    asymptote?: number | null;
+    /** The initial coordinates the graph renders with. */
+    startCoords?: {coords: [Coord, Coord]; asymptote: number};
+};
+
 export type PerseusGraphTypeAbsoluteValue = {
     type: "absolute-value";
     // Expects [vertex, secondPoint]
@@ -1332,6 +1346,12 @@ type TangentGraphCorrect = {
     coords: CollinearTuple;
 };
 
+type LogarithmGraphCorrect = {
+    type: "logarithm";
+    coords: CollinearTuple;
+    asymptote: number;
+};
+
 type RayGraphCorrect = {
     type: "ray";
     coords: CollinearTuple;
@@ -1351,7 +1371,8 @@ export type PerseusGraphCorrectType =
     | SegmentGraphCorrect
     | SinusoidGraphCorrect
     | ExponentialGraphCorrect
-    | TangentGraphCorrect;
+    | TangentGraphCorrect
+    | LogarithmGraphCorrect;
 
 /** Options for the label-image widget. Asks learners to label image parts. */
 export type PerseusLabelImageWidgetOptions = {

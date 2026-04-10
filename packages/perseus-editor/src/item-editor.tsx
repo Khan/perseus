@@ -114,6 +114,7 @@ class ItemEditor extends React.Component<Props, State> {
                     axeCoreIssues: issues,
                 });
             },
+            this.state.showAxeCoreIssues,
         );
 
         const gatherIssues = () => {

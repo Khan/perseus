@@ -63,22 +63,22 @@ class Option extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property 'node' has no initializer and is not definitely assigned in the constructor.
     node: HTMLDivElement;
 
-    handleKeyDown(event: any): void {
+    handleKeyDown(event: React.KeyboardEvent<HTMLButtonElement>): void {
         const {onDropdownClose} = this.props;
         const pressedKey = event.key;
-        const focusedElement = event.target;
+        const focusedElement = event.currentTarget;
 
-        if (pressedKey === "ArrowDown" && focusedElement.nextSibling) {
+        if (pressedKey === "ArrowDown" && focusedElement.nextElementSibling) {
             event.preventDefault();
-            focusedElement.nextSibling.focus();
+            (focusedElement.nextElementSibling as HTMLElement).focus();
         }
-        if (pressedKey === "ArrowUp" && focusedElement.previousSibling) {
+        if (pressedKey === "ArrowUp" && focusedElement.previousElementSibling) {
             event.preventDefault();
-            focusedElement.previousSibling.focus();
+            (focusedElement.previousElementSibling as HTMLElement).focus();
         }
         if (
             pressedKey === "ArrowUp" &&
-            !focusedElement.previousSibling &&
+            !focusedElement.previousElementSibling &&
             onDropdownClose
         ) {
             event.preventDefault();

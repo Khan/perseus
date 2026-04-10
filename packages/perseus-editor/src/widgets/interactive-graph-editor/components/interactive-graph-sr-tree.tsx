@@ -4,7 +4,7 @@ import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -182,9 +182,9 @@ function InteractiveGraphSRTree({
                             onChange={setShowTags}
                         />
                         <Strut size={spacing.xSmall_8} />
-                        <LabelSmall tag="label" htmlFor={switchId}>
+                        <BodyText size="small" tag="label" htmlFor={switchId}>
                             Show HTML roles/tags
-                        </LabelSmall>
+                        </BodyText>
                         <Spring />
                         <InfoTip>
                             This screen reader tree shows the ARIA labels and

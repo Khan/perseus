@@ -3,7 +3,8 @@ name: wonder-blocks
 description: >
   Implements user interfaces using the Wonder Blocks (WB) design system — Khan Academy's
   React component library. Use this skill whenever the user asks you to build, modify,
-  or review UI components in a project that uses Wonder Blocks; mentions any WB package
+  or review UI components in a project that uses Wonder Blocks, even when similar
+  usage patterns already exist in the codebase; mentions any WB package
   (e.g. wonder-blocks-button, wonder-blocks-modal, wonder-blocks-tokens); wants to use
   or map WB tokens for colors/spacing/typography (including translating Figma designs to
   WB components and tokens); or asks how to do something "the Wonder Blocks way".
@@ -30,6 +31,9 @@ If the Figma MCP or WB Storybook MCP is used, use each for its purpose:
 
 If the WB Storybook MCP is not available, refer to the type definitions for WB components
 to learn more about the API.
+
+> **IMPORTANT:** This skill is required even when similar patterns already exist in the
+> codebase. Do not skip it because you found a nearby file to copy from.
 
 ---
 
@@ -283,3 +287,9 @@ import {Card} from "@khanacademy/wonder-blocks-card";
   | `width` / `height` (when directional) | `inlineSize` / `blockSize` |
 
 - Pass translated strings into the `labels` prop for components that support it.
+
+## Patterns
+
+- Forms and error validation: When implementing form elements (text inputs, textareas, checkboxes, radio groups,
+selects, or a submit action), read the reference file before writing any form code:
+`./references/forms.md`

@@ -2,7 +2,7 @@ import {KeypadContext} from "@khanacademy/keypad-context";
 import {KeypadInput} from "@khanacademy/math-input";
 import {expressionLogic} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import {
     forwardRef,
@@ -325,9 +325,9 @@ export const Expression = forwardRef<Widget, Props>(function Expression(
         return (
             <View ref={rootRef} style={styles.mobileLabelInputWrapper}>
                 {!!visibleLabel && (
-                    <LabelSmall htmlFor={textareaId} tag="label">
+                    <BodyText size="small" htmlFor={textareaId} tag="label">
                         {visibleLabel}
-                    </LabelSmall>
+                    </BodyText>
                 )}
                 <KeypadInputWithInterface
                     ref={inputRef}
@@ -345,9 +345,9 @@ export const Expression = forwardRef<Widget, Props>(function Expression(
     return (
         <View ref={rootRef} style={styles.desktopLabelInputWrapper}>
             {!!visibleLabel && (
-                <LabelSmall htmlFor={textareaId} tag="label">
+                <BodyText size="small" htmlFor={textareaId} tag="label">
                     {visibleLabel}
-                </LabelSmall>
+                </BodyText>
             )}
             <div className="perseus-widget-expression">
                 <MathInput

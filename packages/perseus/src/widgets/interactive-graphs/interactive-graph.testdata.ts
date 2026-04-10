@@ -825,6 +825,23 @@ export const graphWithLabeledFunction: PerseusRenderer =
         })
         .build();
 
+export const logarithmQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Graph $f(x) = \\log(x + 6)$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
+        )
+        .withLogarithm({
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+            asymptote: -6,
+        })
+        .build();
+
+export const logarithmQuestionWithDefaultCorrect: PerseusRenderer =
+    interactiveGraphQuestionBuilder().withLogarithm().build();
+
 export const sinusoidWithPiTicks: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withXRange(-6 * Math.PI, 6 * Math.PI)

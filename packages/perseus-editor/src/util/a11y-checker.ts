@@ -131,7 +131,10 @@ const mapResultsToIssues = (
     });
 };
 
-const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
+const runAxeCore = (
+    updateIssuesFn: (issues: Issue[]) => void,
+    logToConsole = false,
+): void => {
     const isInStorybook = !!document.getElementById("storybook-root");
     if (!isInStorybook) {
         let frameHasLoaded = false;
@@ -147,11 +150,16 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
             return;
         }
     }
+    const log = (...args: any[]): void => {
+        if (logToConsole) {
+            // eslint-disable-next-line no-console
+            console.log(...args);
+        }
+    };
     const options = isInStorybook
         ? axeCoreStorybookOptions
         : axeCoreEditorOptions;
-    // eslint-disable-next-line no-console
-    console.log("Axe Core options: ", options);
+    log("Axe Core options: ", options);
     const previewWindow = document.querySelector(
         previewIframeSelector,
     ) as HTMLIFrameElement | null;
@@ -162,8 +170,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
     axeCoreProper.configure({reporter: "v2"});
     axeCoreProper.run(options).then(
         (results) => {
-            // eslint-disable-next-line no-console
-            console.log(`Accessibility Results: `, results);
+            log(`Accessibility Results: `, results);
             const violations = mapResultsToIssues(
                 results.violations,
                 "Alert",
@@ -175,26 +182,28 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
                 isInStorybook ? null : previewWindow,
             );
             const issues = violations.concat(incompletes);
-            // eslint-disable-next-line no-console
-            console.log(`  Issues: `, issues);
+            log(`  Issues: `, issues);
             if (
                 violations.length === 0 &&
                 incompletes.length === 0 &&
                 results.passes.length === 0
             ) {
-                setTimeout(runAxeCore, 1500, updateIssuesFn); // No valid results indicates that content may not be fully loaded yet
+                setTimeout(runAxeCore, 1500, updateIssuesFn, logToConsole); // No valid results indicates that content may not be fully loaded yet
             } else {
                 updateIssuesFn(issues);
             }
         },
         (error) => {
-            // eslint-disable-next-line no-console
-            console.log(`*** Error: `, error);
+            log(`*** Error: `, error);
         },
     );
 };
 
-export const runAxeCoreOnUpdate = (priorTimeoutId, setState): any => {
+export const runAxeCoreOnUpdate = (
+    priorTimeoutId,
+    setState,
+    logToConsole: boolean,
+): any => {
     clearTimeout(priorTimeoutId);
-    return setTimeout(runAxeCore, 1500, setState);
+    return setTimeout(runAxeCore, 1500, setState, logToConsole);
 };

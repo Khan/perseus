@@ -1,5 +1,51 @@
 # @khanacademy/perseus-editor
 
+## 30.2.0
+
+### Minor Changes
+
+-   [#3425](https://github.com/Khan/perseus/pull/3425) [`2c36b8a4c3`](https://github.com/Khan/perseus/commit/2c36b8a4c3a35b0edf432e9b69a7b73b04a75e52) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm graph option in the Interactive Graph Editor
+
+*   [#3420](https://github.com/Khan/perseus/pull/3420) [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm type definitions, this is the initial implementation for supporting Logarithm graph in Interactive Graph widget.
+
+### Patch Changes
+
+-   [#3461](https://github.com/Khan/perseus/pull/3461) [`0481b4238d`](https://github.com/Khan/perseus/commit/0481b4238d74c76ea2e2182cde3d1146da9d7a38) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Update CSS modules to kabab case
+
+-   Updated dependencies [[`a4eaa5a1f8`](https://github.com/Khan/perseus/commit/a4eaa5a1f8a32ce74ce38ea443419b94d53a72b4), [`2c36b8a4c3`](https://github.com/Khan/perseus/commit/2c36b8a4c3a35b0edf432e9b69a7b73b04a75e52), [`3cc56f60dd`](https://github.com/Khan/perseus/commit/3cc56f60dd66fb00a961d0ec6661d4e11a1aed83), [`08b1218b62`](https://github.com/Khan/perseus/commit/08b1218b62287d25149f087ee53d02c092ba15a1), [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79), [`9099a40a4e`](https://github.com/Khan/perseus/commit/9099a40a4e101f6fe3fa51771409577bbe7161de), [`0481b4238d`](https://github.com/Khan/perseus/commit/0481b4238d74c76ea2e2182cde3d1146da9d7a38), [`0d6cf3c3ce`](https://github.com/Khan/perseus/commit/0d6cf3c3cef7cf160e0262d68cd9761e498189ed)]:
+    -   @khanacademy/perseus@77.2.0
+    -   @khanacademy/perseus-score@8.6.0
+    -   @khanacademy/perseus-core@24.1.0
+    -   @khanacademy/kmath@2.4.0
+    -   @khanacademy/keypad-context@3.2.42
+    -   @khanacademy/math-input@26.4.13
+    -   @khanacademy/perseus-linter@4.9.2
+
+## 30.1.1
+
+### Patch Changes
+
+-   [#3457](https://github.com/Khan/perseus/pull/3457) [`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   [#3448](https://github.com/Khan/perseus/pull/3448) [`0e30752302`](https://github.com/Khan/perseus/commit/0e307523021f458fa1f81ba3736a0354ef190fec) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding improved type safeguards to components folder in perseus-editor.
+
+*   Updated dependencies [[`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc), [`1f532f29c0`](https://github.com/Khan/perseus/commit/1f532f29c0a45f63e7badf3fe8da81b2855ab618), [`732cfab8fc`](https://github.com/Khan/perseus/commit/732cfab8fce00908d5fde297b5b8e5d52c596af9)]:
+    -   @khanacademy/math-input@26.4.12
+    -   @khanacademy/perseus@77.1.0
+
+## 30.1.0
+
+### Minor Changes
+
+-   [#3438](https://github.com/Khan/perseus/pull/3438) [`d19e327d8a`](https://github.com/Khan/perseus/commit/d19e327d8a49932ddb54a8989e25ca216269f8cd) Thanks [@benchristel](https://github.com/benchristel)! - Use the clipboard API instead of localStorage for copy-pasting widget data.
+
+### Patch Changes
+
+-   [#3403](https://github.com/Khan/perseus/pull/3403) [`9d0a86792b`](https://github.com/Khan/perseus/commit/9d0a86792b6aa94be7aa42e3350a86fc65d2b667) Thanks [@jandrade](https://github.com/jandrade)! - Updates perseus-editor to replace legacy typography components (HeadingLarge/Medium/Small, Body, LabelLarge/Medium/Small) with the new WB versions: Heading and BodyText
+
+-   Updated dependencies [[`76a38ce406`](https://github.com/Khan/perseus/commit/76a38ce406c8b445ab9265a504f4d92614a64ba1), [`fa37a1e7e5`](https://github.com/Khan/perseus/commit/fa37a1e7e5343f011e9e3987ee95efdd02021fd8), [`8538fd2fec`](https://github.com/Khan/perseus/commit/8538fd2fec3e60b367d41aa2c985d7680cd741b2)]:
+    -   @khanacademy/perseus@77.0.3
+
 ## 30.0.4
 
 ### Patch Changes

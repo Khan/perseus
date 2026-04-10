@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
+import {Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
@@ -17,9 +17,9 @@ export default function UserInputUI({userInput}: Props) {
                 padding: `0 ${sizing.size_160} ${sizing.size_160}`,
             }}
         >
-            <HeadingSmall style={{marginTop: sizing.size_100}}>
+            <Heading size="medium" style={{marginTop: sizing.size_100}}>
                 User Input
-            </HeadingSmall>
+            </Heading>
             <ReactJson
                 quotesOnKeys={false}
                 enableClipboard={false}

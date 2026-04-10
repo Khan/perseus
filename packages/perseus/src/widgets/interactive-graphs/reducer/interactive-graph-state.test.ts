@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 
 import {getGradableGraph} from "./interactive-graph-state";
 
-import type {InteractiveGraphState} from "../types";
+import type {InteractiveGraphState, LogarithmGraphState} from "../types";
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 const defaultUnlimitedPointState: InteractiveGraphState = {
@@ -117,5 +117,32 @@ describe("getGradableGraph", () => {
         const result = getGradableGraph(state, initialGraph);
         invariant(result.type === "polygon");
         expect(result.coords).toEqual([[5, 0]]);
+    });
+
+    it("returns correct logarithm state with coords and asymptote", () => {
+        const state: LogarithmGraphState = {
+            type: "logarithm",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+            asymptote: -6,
+        };
+        const initialGraph: PerseusGraphType = {
+            type: "logarithm",
+        };
+        const result = getGradableGraph(state, initialGraph);
+        invariant(result.type === "logarithm");
+        expect(result.coords).toEqual([
+            [-4, -3],
+            [-5, -7],
+        ]);
+        expect(result.asymptote).toBe(-6);
     });
 });
