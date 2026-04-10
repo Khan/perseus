@@ -1,5 +1,17 @@
 # @khanacademy/perseus-editor
 
+## 30.2.1
+
+### Patch Changes
+
+-   [#3467](https://github.com/Khan/perseus/pull/3467) [`73de96cde3`](https://github.com/Khan/perseus/commit/73de96cde358e701f4ba4d5124e7a161f0632bcd) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused bold support from hint editor preview
+
+*   [#3475](https://github.com/Khan/perseus/pull/3475) [`4d1e0af9b5`](https://github.com/Khan/perseus/commit/4d1e0af9b550a0a0a2380f0ab199398a4b09d45c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Editor] Only show axe-core console logs when toggle button is "on"
+
+*   Updated dependencies [[`b03bd4b11b`](https://github.com/Khan/perseus/commit/b03bd4b11b58468be220ca0c4aafa09aa7a54677), [`2b02d27760`](https://github.com/Khan/perseus/commit/2b02d27760c0ae959100a80fae2a9c7dc009c858), [`d467d38886`](https://github.com/Khan/perseus/commit/d467d38886cfc950827e02b9e81527988d50b3c0), [`4827549d92`](https://github.com/Khan/perseus/commit/4827549d921c6c7d44931495758c3fe2edac7b65), [`ef4cf73a8e`](https://github.com/Khan/perseus/commit/ef4cf73a8e513eec1dbf8feb3003b1b58bbe295a), [`81dee14e58`](https://github.com/Khan/perseus/commit/81dee14e5827d6fbaa71fdafd7cc897973007e4b)]:
+    -   @khanacademy/perseus@77.2.1
+    -   @khanacademy/perseus-linter@4.9.3
+
 ## 30.2.0
 
 ### Minor Changes
