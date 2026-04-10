@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Convert font and colors to semantic tokens for label image
+Convert hardcoded color values to semantic tokens for label image
