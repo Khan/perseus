@@ -530,6 +530,36 @@ export const ShowNoArrows: Story = {
     },
 };
 
+/* Asymptote drag handle regression tests */
+
+export const ExponentialAsymptoteFocused: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withExponential({asymptote: 3})
+            .build(),
+    },
+    play: async ({canvas}) => {
+        const asymptote = canvas.getByRole("button", {
+            name: /^Horizontal asymptote/,
+        });
+        asymptote.focus();
+    },
+};
+
+export const LogarithmAsymptoteFocused: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withLogarithm({asymptote: -3})
+            .build(),
+    },
+    play: async ({canvas}) => {
+        const asymptote = canvas.getByRole("button", {
+            name: /^Vertical asymptote/,
+        });
+        asymptote.focus();
+    },
+};
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (

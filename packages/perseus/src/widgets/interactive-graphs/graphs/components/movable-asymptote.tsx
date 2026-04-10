@@ -56,16 +56,6 @@ export function MovableAsymptote(props: Props) {
         constrainKeyboardMovement: constrainKeyboardMovement ?? ((p) => p),
     });
 
-    // When a mouse drag ends, blur the element so the focus ring doesn't
-    // persist after the user releases the mouse and moves away.
-    const wasDragging = React.useRef(false);
-    React.useEffect(() => {
-        if (wasDragging.current && !dragging) {
-            groupRef.current?.blur();
-        }
-        wasDragging.current = dragging;
-    }, [dragging]);
-
     return (
         <g
             ref={groupRef}
