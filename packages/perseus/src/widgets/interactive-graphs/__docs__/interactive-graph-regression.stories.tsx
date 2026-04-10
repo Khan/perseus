@@ -532,10 +532,19 @@ export const ShowNoArrows: Story = {
 
 /* Asymptote drag handle regression tests */
 
+// Asymptote drag handle regression tests: verifies both the focus state
+// and that the drag handle renders visually above the curve line.
+// Coords are chosen so the curve passes through the drag handle area.
 export const ExponentialAsymptoteFocused: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
-            .withExponential({asymptote: 3})
+            .withExponential({
+                coords: [
+                    [3, 1],
+                    [5, 2],
+                ],
+                asymptote: 0,
+            })
             .build(),
     },
     play: async ({canvas}) => {
@@ -549,7 +558,13 @@ export const ExponentialAsymptoteFocused: Story = {
 export const LogarithmAsymptoteFocused: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
-            .withLogarithm({asymptote: -3})
+            .withLogarithm({
+                coords: [
+                    [3, 1],
+                    [5, 3],
+                ],
+                asymptote: 0,
+            })
             .build(),
     },
     play: async ({canvas}) => {
