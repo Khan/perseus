@@ -29,5 +29,14 @@ export function isFeatureOn(
     props: {apiOptions?: {flags?: Record<string, boolean>}},
     flag: string,
 ): boolean {
+    if (
+        flag === "interactive-graph-absolute-value" ||
+        flag === "interactive-graph-tangent" ||
+        flag === "interactive-graph-exponent" ||
+        flag === "interactive-graph-logarithm"
+    ) {
+        return true;
+    }
+
     return props.apiOptions?.flags?.[flag] ?? false;
 }
