@@ -30,9 +30,8 @@ export default function ExploreImageModalContent({
     labels,
     range,
     zoomSize,
-    isGifPlaying,
-    setIsGifPlaying,
 }: Props) {
+    const [isGifPlaying, setIsGifPlaying] = React.useState(false);
     const context = React.useContext(PerseusI18nContext);
 
     if (!backgroundImage.url) {
@@ -119,6 +118,16 @@ export default function ExploreImageModalContent({
                             constrainHeight={apiOptions.isMobile}
                             allowFullBleed={apiOptions.isMobile}
                             setAssetStatus={setAssetStatus}
+                            isGifPlaying={
+                                gifControlsFF && imageIsGif
+                                    ? isGifPlaying
+                                    : undefined
+                            }
+                            onGifLoop={
+                                gifControlsFF && imageIsGif
+                                    ? () => setIsGifPlaying(false)
+                                    : undefined
+                            }
                         />
                     )}
                 </AssetContext.Consumer>
