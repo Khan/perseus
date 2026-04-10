@@ -7,11 +7,11 @@ on:
     # Allows us to run this workflow manually from the Actions tab
     workflow_dispatch:
 
-# This workflow will deploy the Storybook static files to GitHub Pages.
+        # This workflow will deploy the Storybook static files to GitHub Pages.
 jobs:
     build:
         name: Build Storybook
-        runs-on: ubuntu-latest
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
@@ -22,8 +22,7 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install
-                  extra-domains: registry.npmjs.org
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -46,7 +45,7 @@ jobs:
     deploy:
         name: Deploy Storybook to GitHub Pages
         needs: build
-        runs-on: ubuntu-latest
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
         permissions:
             pages: write # to deploy to Pages

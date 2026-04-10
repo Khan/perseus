@@ -79,9 +79,9 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install, npm upgrade, and publishing packages
+                  conf-files: .github/npm-extra-domains.conf
                   # hooks.slack.com: Slack webhook for publish success/failure notifications
-                  extra-domains: registry.npmjs.org hooks.slack.com
+                  extra-domains: hooks.slack.com
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -172,9 +172,9 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  # registry.npmjs.org: npm package registry for pnpm install, npm upgrade, and publishing snapshot packages
+                  conf-files: .github/npm-extra-domains.conf
                   # fulcio.sigstore.dev,rekor.sigstore.dev: signing certificates are stored here
-                  extra-domains: registry.npmjs.org fulcio.sigstore.dev rekor.sigstore.dev
+                  extra-domains: fulcio.sigstore.dev rekor.sigstore.dev
 
             - name: Ensure main branch is available
               run: |

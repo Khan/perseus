@@ -31,10 +31,10 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  extra-domains: registry.npmjs.org
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Fix checkout-followed-by-setup
-              uses: Khan/actions@fix-workflows-v2
+              uses: Khan/actions@fix-workflows-v3
 
             - name: Push Autofixes
               shell: bash
