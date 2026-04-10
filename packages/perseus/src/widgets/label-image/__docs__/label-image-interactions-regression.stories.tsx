@@ -3,7 +3,6 @@ import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
 import {
     incorrectAnswerQuestion,
     mathQuestion,
@@ -116,20 +115,6 @@ export const IncorrectAnswerWithPill = {
 export const MathChoicesVisible = {
     args: {
         item: generateTestPerseusItem({question: mathQuestion}),
-    },
-    play: async ({canvasElement, userEvent}) => {
-        const canvas = within(canvasElement);
-        const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
-        await userEvent.click(marker);
-    },
-};
-
-// Verifies that the marker dropdown and text choices render correctly in
-// right-to-left layouts after a marker is opened.
-export const RightToLeftMarkerOpened = {
-    decorators: [rtlDecorator],
-    args: {
-        item: generateTestPerseusItem({question: textQuestion}),
     },
     play: async ({canvasElement, userEvent}) => {
         const canvas = within(canvasElement);

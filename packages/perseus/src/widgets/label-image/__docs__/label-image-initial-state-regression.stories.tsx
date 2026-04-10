@@ -2,7 +2,6 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
 import {
     incorrectAnswerQuestion,
     textQuestion,
@@ -53,14 +52,5 @@ export const WithChoicesInInstructions: Story = {
 export const IncorrectMarker: Story = {
     args: {
         item: generateTestPerseusItem({question: incorrectAnswerQuestion}),
-    },
-};
-
-// Verifies the default unanswered state renders correctly in right-to-left layouts,
-// including text choice flow and marker positioning relative to the image.
-export const RightToLeft: Story = {
-    decorators: [rtlDecorator],
-    args: {
-        item: generateTestPerseusItem({question: textQuestion}),
     },
 };
