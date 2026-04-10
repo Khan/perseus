@@ -84,6 +84,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 ],
                 color: DEFAULT_COLOR,
                 showVertices: false,
+                showAngles: false,
                 fillStyle: "none",
                 strokeStyle: "solid",
                 weight: "medium",

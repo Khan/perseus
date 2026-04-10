@@ -6752,6 +6752,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
                   -3,
                 ],
               ],
+              "showAngles": false,
               "showVertices": false,
               "strokeStyle": "solid",
               "type": "polygon",
@@ -7024,6 +7025,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
                   -3,
                 ],
               ],
+              "showAngles": false,
               "showVertices": false,
               "strokeStyle": "solid",
               "type": "polygon",
@@ -20239,6 +20241,14 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
 }
 `;
 
+exports[`parseAndMigratePerseusRenderer given basic-renderer.ts returns the same result as before 1`] = `
+{
+  "content": "Hello from a renderer fixture.",
+  "images": {},
+  "widgets": {},
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given the data from categorizer.ts returns the same result as before 1`] = `
 {
   "categorizer 1": {
@@ -20820,13 +20830,5 @@ exports[`parseAndMigrateUserInputMap given the data from table.ts returns the sa
       "d",
     ],
   ],
-}
-`;
-
-exports[`parseAndMigratePerseusRenderer given basic-renderer.ts returns the same result as before 1`] = `
-{
-  "content": "Hello from a renderer fixture.",
-  "images": {},
-  "widgets": {},
 }
 `;

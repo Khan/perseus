@@ -146,6 +146,7 @@ export default {
                             ],
                             color: "pink",
                             showVertices: false,
+                            showAngles: false,
                             fillStyle: "none",
                             strokeStyle: "solid",
                             labels: [],

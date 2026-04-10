@@ -90,6 +90,7 @@ export const graphExample: PerseusRenderer = {
                             [2, -3],
                         ],
                         showVertices: false,
+                        showAngles: false,
                         strokeStyle: "solid",
                     },
                 ],
