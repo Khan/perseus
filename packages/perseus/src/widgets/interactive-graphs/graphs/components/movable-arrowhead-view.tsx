@@ -37,23 +37,41 @@ const arrowPath = pathBuilder()
     .scale(ARROW_SCALE)
     .build();
 
-// Focus outline: a rounded triangle enclosing the arrowhead.
-// Each corner has an explicit arc (R=3 at back, R=4 at tip).
-// Coordinates are in unscaled space (before the 1.5x scale).
-const arrowPathFocus = pathBuilder()
-    .move(3.5, 3) // top of rounded tip
-    .line(-4.5, 9) // top arm
-    .circularArc(3, -8.5, 7, {sweep: true}) // rounded back-top corner
-    .line(-8.5, -7) // straight back
-    .circularArc(3, -4.5, -9, {sweep: true}) // rounded back-bottom corner
-    .line(3.5, -3) // bottom arm
-    .circularArc(4, 3.5, 3, {sweep: true}) // rounded tip
-    .scale(ARROW_SCALE)
-    .build();
+// Builds a rounded triangle path used by the halo and focus outline.
+// All coordinates are in unscaled design-grid space.
+function buildRoundedTriangle(
+    tipX: number,
+    tipY: number,
+    armX: number,
+    armY: number,
+    backX: number,
+    backY: number,
+    backR: number,
+    tipR: number,
+): string {
+    return pathBuilder()
+        .move(tipX, tipY)
+        .line(armX, armY)
+        .circularArc(backR, backX, backY, {sweep: true})
+        .line(backX, -backY)
+        .circularArc(backR, armX, -armY, {sweep: true})
+        .line(tipX, -tipY)
+        .circularArc(tipR, tipX, tipY, {sweep: true})
+        .scale(ARROW_SCALE)
+        .build();
+}
 
-// Shared SVG attributes for the main arrowhead path layers
-// (centre, ring, halo — all use the same chevron path).
-const pathAttrs = {
+// Halo: a filled rounded triangle that matches the outline of the
+// closed chevron stroked at 15px with round joins.  The offset from
+// the chevron is 5 unscaled units (half of 15px / ARROW_SCALE).
+// On focus, a 2px stroke is added for the focus ring — matching the
+// Figma SVG which uses fill + stroke on one path.
+const arrowPathHalo = buildRoundedTriangle(
+    2.8, 2.8, -2.2, 7.8, -9, 5, 4, 4,
+);
+
+// Shared SVG attributes for the chevron centre and ring paths.
+const chevronPathAttrs = {
     d: arrowPath,
     fill: "none",
     strokeLinejoin: "round" as const,
@@ -130,27 +148,20 @@ export const MovableArrowheadView = forwardRef(
                     the point. */}
                 <g transform={`translate(${x} ${y}) rotate(${angle})`}>
                     <g transform="translate(-3)">
-                        {/* Focus outline — expands on hover via CSS scale */}
+                        {/* Halo — filled rounded triangle.  On focus,
+                            a 2px stroke is added for the focus ring. */}
                         <path
-                            d={arrowPathFocus}
-                            fill="none"
-                            strokeLinejoin="round"
-                            strokeLinecap="round"
-                            className="movable-arrowhead-focus-outline"
-                        />
-                        {/* Halo — semi-transparent colour with drop-shadow */}
-                        <path
-                            {...pathAttrs}
+                            d={arrowPathHalo}
                             className="movable-arrowhead-halo"
                         />
-                        {/* Ring — white background */}
+                        {/* Ring — white stroke on the chevron */}
                         <path
-                            {...pathAttrs}
+                            {...chevronPathAttrs}
                             className="movable-arrowhead-ring"
                         />
-                        {/* Centre — the visible arrowhead stroke */}
+                        {/* Centre — the visible arrowhead chevron stroke */}
                         <path
-                            {...pathAttrs}
+                            {...chevronPathAttrs}
                             className="movable-arrowhead-center"
                         />
                     </g>
