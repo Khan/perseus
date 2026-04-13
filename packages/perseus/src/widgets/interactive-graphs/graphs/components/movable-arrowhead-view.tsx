@@ -142,12 +142,7 @@ export const MovableArrowheadView = forwardRef(
                     cy={y}
                 />
 
-                {/* All path layers share the same rotation / position.
-                    The inner translate(-3) nudges the chevron behind
-                    the graph coordinate so the tip doesn't overshoot
-                    the point. */}
                 <g transform={`translate(${x} ${y}) rotate(${angle})`}>
-                    <g transform="translate(-3)">
                         {/* Halo — filled rounded triangle.  On focus,
                             a 2px stroke is added for the focus ring. */}
                         <path
@@ -164,7 +159,6 @@ export const MovableArrowheadView = forwardRef(
                             {...chevronPathAttrs}
                             className="movable-arrowhead-center"
                         />
-                    </g>
                 </g>
             </g>
         );

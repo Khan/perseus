@@ -32,6 +32,9 @@ const {calculateAngleInDegrees} = angles;
 // doesn't poke past the arrowhead shape.
 const LINE_PULLBACK_PX = 4;
 
+// Radius of the static tail dot.
+const TAIL_DOT_RADIUS = 6;
+
 export function renderVectorGraph(
     state: VectorGraphState,
     dispatch: Dispatch,
@@ -75,8 +78,7 @@ const VectorGraph = (props: Props) => {
     });
 
     const showHairlines =
-        (tipArrowhead.dragging || tipArrowhead.focused) &&
-        markings !== "none";
+        (tipArrowhead.dragging || tipArrowhead.focused) && markings !== "none";
 
     return (
         <g aria-label={srVectorGraph} aria-describedby={pointsDescriptionId}>
@@ -91,9 +93,6 @@ const VectorGraph = (props: Props) => {
                 ariaDescribedBy={pointsDescriptionId}
                 onMove={(delta) => dispatch(actions.vector.moveVector(delta))}
             />
-
-            {/* Tail dot — static, not interactive */}
-            <TailDot tail={tail} />
 
             {/* Tip arrowhead — draggable, changes direction and magnitude */}
             {tipArrowhead.focusableHandle}
@@ -119,7 +118,8 @@ type VectorBodyProps = {
 // pill-shaped drag handle.
 const VectorBody = (props: VectorBodyProps) => {
     const {tail, tip, ariaLabel, ariaDescribedBy, onMove} = props;
-    const {snapStep, disableKeyboardInteraction} = useGraphConfig();
+    const {snapStep, disableKeyboardInteraction, interactiveColor} =
+        useGraphConfig();
     const [hovered, setHovered] = useState(false);
     const [focused, setFocused] = useState(false);
 
@@ -179,10 +179,10 @@ const VectorBody = (props: VectorBodyProps) => {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
         >
-            {/* Transparent hit target */}
+            {/* Transparent hit target for dragging the whole vector */}
             <SVGLine
                 start={tailPx}
-                end={tipPx}
+                end={lineEndPx}
                 style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
             />
             {/* Visible line from tail to tip, pulled back slightly */}
@@ -191,6 +191,15 @@ const VectorBody = (props: VectorBodyProps) => {
                 end={lineEndPx}
                 className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
                 testId="movable-vector__line"
+            />
+            {/* Tail dot — inside the body group so hovering/dragging
+                it activates the line's hover state and drag behavior */}
+            <circle
+                cx={tailPx[X]}
+                cy={tailPx[Y]}
+                r={TAIL_DOT_RADIUS}
+                fill={interactiveColor}
+                data-testid="vector-tail-dot"
             />
             {/* Drag handle pill — only visible on hover / focus / drag */}
             {active && (
@@ -202,25 +211,6 @@ const VectorBody = (props: VectorBodyProps) => {
                 />
             )}
         </g>
-    );
-};
-
-// Static dot at the tail of the vector. Not interactive — the tail
-// position is controlled by the body grab handle.
-const TAIL_DOT_RADIUS = 6;
-const TailDot = ({tail}: {tail: vec.Vector2}) => {
-    const {interactiveColor} = useGraphConfig();
-    const [[cx, cy]] = useTransformVectorsToPixels(tail);
-
-    return (
-        <circle
-            aria-hidden={true}
-            cx={cx}
-            cy={cy}
-            r={TAIL_DOT_RADIUS}
-            fill={interactiveColor}
-            data-testid="vector-tail-dot"
-        />
     );
 };
 
