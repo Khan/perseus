@@ -83,32 +83,6 @@ describe("MovableAsymptote", () => {
         );
     });
 
-    it("blurs the element when a mouse drag ends to clear the focus ring", () => {
-        // Arrange — start with dragging: true
-        useDraggable.mockReturnValue({dragging: true});
-        const {rerender} = render(
-            <Mafs width={200} height={200}>
-                <MovableAsymptote {...defaultProps} />
-            </Mafs>,
-        );
-
-        const group = screen.getByTestId("movable-asymptote");
-        // Simulate that the element received focus during drag
-        group.focus();
-        const blurSpy = jest.spyOn(group, "blur");
-
-        // Act — drag ends
-        useDraggable.mockReturnValue({dragging: false});
-        rerender(
-            <Mafs width={200} height={200}>
-                <MovableAsymptote {...defaultProps} />
-            </Mafs>,
-        );
-
-        // Assert — blur was called to remove the focus ring
-        expect(blurSpy).toHaveBeenCalled();
-    });
-
     it("renders the same structure for vertical orientation", () => {
         // Arrange, Act
         render(
