@@ -49,12 +49,12 @@ export const ExponentialDragHandleDefault: Story = {
             .withExponential({
                 coords: [
                     [3, 1],
-                    [5, 2],
+                    [5, 5],
                 ],
                 asymptote: 0,
                 startCoords: [
                     [3, 1],
-                    [5, 2],
+                    [5, 5],
                 ],
                 startAsymptote: 0,
             })
@@ -70,12 +70,12 @@ export const ExponentialDragHandleFocused: Story = {
             .withExponential({
                 coords: [
                     [3, 1],
-                    [5, 2],
+                    [5, 5],
                 ],
                 asymptote: 0,
                 startCoords: [
                     [3, 1],
-                    [5, 2],
+                    [5, 5],
                 ],
                 startAsymptote: 0,
             })
@@ -97,12 +97,12 @@ export const ExponentialPointFocusedHandleInactive: Story = {
             .withExponential({
                 coords: [
                     [3, 1],
-                    [5, 2],
+                    [5, 5],
                 ],
                 asymptote: 0,
                 startCoords: [
                     [3, 1],
-                    [5, 2],
+                    [5, 5],
                 ],
                 startAsymptote: 0,
             })
@@ -125,12 +125,12 @@ export const ExponentialDragHandleNoOverlap: Story = {
             .withExponential({
                 coords: [
                     [3, 1],
-                    [5, 5],
+                    [5, 2],
                 ],
                 asymptote: 0,
                 startCoords: [
                     [3, 1],
-                    [5, 5],
+                    [5, 2],
                 ],
                 startAsymptote: 0,
             })
@@ -158,13 +158,13 @@ export const LogarithmDragHandleDefault: Story = {
         question: interactiveGraphQuestionBuilder()
             .withLogarithm({
                 coords: [
-                    [3, 1],
-                    [5, 3],
+                    [1, 3],
+                    [5, 5],
                 ],
                 asymptote: 0,
                 startCoords: [
-                    [3, 1],
-                    [5, 3],
+                    [1, 3],
+                    [5, 5],
                 ],
                 startAsymptote: 0,
             })
@@ -179,13 +179,13 @@ export const LogarithmDragHandleFocused: Story = {
         question: interactiveGraphQuestionBuilder()
             .withLogarithm({
                 coords: [
-                    [3, 1],
-                    [5, 3],
+                    [1, 3],
+                    [5, 5],
                 ],
                 asymptote: 0,
                 startCoords: [
-                    [3, 1],
-                    [5, 3],
+                    [1, 3],
+                    [5, 5],
                 ],
                 startAsymptote: 0,
             })
@@ -206,13 +206,13 @@ export const LogarithmPointFocusedHandleInactive: Story = {
         question: interactiveGraphQuestionBuilder()
             .withLogarithm({
                 coords: [
-                    [3, 1],
-                    [5, 3],
+                    [1, 3],
+                    [5, 5],
                 ],
                 asymptote: 0,
                 startCoords: [
-                    [3, 1],
-                    [5, 3],
+                    [1, 3],
+                    [5, 5],
                 ],
                 startAsymptote: 0,
             })
@@ -234,13 +234,13 @@ export const LogarithmDragHandleNoOverlap: Story = {
         question: interactiveGraphQuestionBuilder()
             .withLogarithm({
                 coords: [
-                    [1, 3],
-                    [5, 5],
+                    [3, 1],
+                    [5, 3],
                 ],
                 asymptote: 0,
                 startCoords: [
-                    [1, 3],
-                    [5, 5],
+                    [3, 1],
+                    [5, 3],
                 ],
                 startAsymptote: 0,
             })
