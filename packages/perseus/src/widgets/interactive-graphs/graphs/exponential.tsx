@@ -97,6 +97,19 @@ function ExponentialGraph(props: ExponentialGraphProps) {
 
     return (
         <g aria-label={srExponentialGraph} aria-describedby={descriptionId}>
+            <Plot.OfX
+                y={(x) => {
+                    const y = computeExponential(x, coeffRef.current);
+                    if (y < yMin - yPadding || y > yMax + yPadding) {
+                        return NaN;
+                    }
+                    return y;
+                }}
+                color={interactiveColor}
+                svgPathProps={{
+                    "aria-hidden": true,
+                }}
+            />
             <MovableAsymptote
                 start={leftPx}
                 end={rightPx}
@@ -110,19 +123,6 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                 }
                 orientation="horizontal"
                 ariaLabel={srExponentialAsymptote}
-            />
-            <Plot.OfX
-                y={(x) => {
-                    const y = computeExponential(x, coeffRef.current);
-                    if (y < yMin - yPadding || y > yMax + yPadding) {
-                        return NaN;
-                    }
-                    return y;
-                }}
-                color={interactiveColor}
-                svgPathProps={{
-                    "aria-hidden": true,
-                }}
             />
             {coords.map((coord, i) => (
                 <MovablePoint
