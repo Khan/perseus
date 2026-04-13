@@ -366,6 +366,14 @@ The drag handle retains focus after a mouse drag ends — it does not auto-blur.
 how movable points behave across all interactive graph types. Focus clears only when the user
 clicks elsewhere or navigates away via keyboard.
 
+### Asymptote line thickness on keyboard focus (LEMS-4038)
+
+The asymptote line must be thick (4px) when focused via keyboard, matching the hover and drag
+behavior. The CSS rule in `mafs-styles.css` uses `.MafsView .movable-line:focus-visible` to
+activate `--movable-line-stroke-weight-active`. Without this, keyboard users see the drag handle
+in its active state (larger pill with grip dots) but the line itself stays at the default 2px,
+creating an inconsistent visual state. This applies to both logarithm and exponential graphs.
+
 ### Visual regression stories for drag handle states
 
 A dedicated stories file (`interactive-graph-asymptote-regression.stories.tsx`) covers all drag
