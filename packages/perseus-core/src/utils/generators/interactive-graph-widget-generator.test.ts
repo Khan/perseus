@@ -3,6 +3,7 @@ import {
     generateIGCircleGraph,
     generateIGLinearGraph,
     generateIGLinearSystemGraph,
+    generateIGLogarithmGraph,
     generateIGLockedEllipse,
     generateIGLockedFunction,
     generateIGLockedLabel,
@@ -480,6 +481,53 @@ describe("generateIGLinearSystemGraph", () => {
                     [3, 3],
                 ],
             ],
+        });
+    });
+});
+
+describe("generateIGLogarithmGraph", () => {
+    it("builds a default logarithm graph", () => {
+        // Arrange, Act
+        const logarithmGraph = generateIGLogarithmGraph();
+
+        // Assert
+        expect(logarithmGraph).toEqual({
+            type: "logarithm",
+        });
+    });
+
+    it("builds a logarithm graph with all props", () => {
+        // Arrange, Act
+        const logarithmGraph = generateIGLogarithmGraph({
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+            asymptote: -6,
+            startCoords: {
+                coords: [
+                    [-4, -3],
+                    [-5, -7],
+                ],
+                asymptote: -6,
+            },
+        });
+
+        // Assert
+        expect(logarithmGraph).toEqual({
+            type: "logarithm",
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+            asymptote: -6,
+            startCoords: {
+                coords: [
+                    [-4, -3],
+                    [-5, -7],
+                ],
+                asymptote: -6,
+            },
         });
     });
 });

@@ -38,6 +38,7 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {renderExponentialGraph} from "./graphs/exponential";
 import {renderLinearGraph} from "./graphs/linear";
 import {renderLinearSystemGraph} from "./graphs/linear-system";
+import {renderLogarithmGraph} from "./graphs/logarithm";
 import {renderPointGraph} from "./graphs/point";
 import {renderPolygonGraph} from "./graphs/polygon";
 import {renderQuadraticGraph} from "./graphs/quadratic";
@@ -777,6 +778,8 @@ const renderGraphElements = (props: {
             return renderAbsoluteValueGraph(state, dispatch, i18n);
         case "tangent":
             return renderTangentGraph(state, dispatch, i18n);
+        case "logarithm":
+            return renderLogarithmGraph(state, dispatch, i18n);
         default:
             throw new UnreachableCaseError(type);
     }

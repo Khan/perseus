@@ -523,6 +523,72 @@ describe("initializeGraphState for exponential graphs", () => {
     });
 });
 
+describe("initializeGraphState for logarithm graphs", () => {
+    it("uses the given coords and asymptote if present", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "logarithm",
+                coords: [
+                    [-4, -3],
+                    [-5, -7],
+                ],
+                asymptote: -6,
+            },
+        });
+
+        // Assert
+        invariant(graph.type === "logarithm");
+        expect(graph.coords).toEqual([
+            [-4, -3],
+            [-5, -7],
+        ]);
+        expect(graph.asymptote).toBe(-6);
+    });
+
+    it("uses startCoords if given and explicit coords are absent", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "logarithm",
+                startCoords: {
+                    coords: [
+                        [1, 4],
+                        [3, 8],
+                    ],
+                    asymptote: 2,
+                },
+            },
+        });
+
+        // Assert
+        invariant(graph.type === "logarithm");
+        expect(graph.coords).toEqual([
+            [1, 4],
+            [3, 8],
+        ]);
+        expect(graph.asymptote).toBe(2);
+    });
+
+    it("uses default coords and asymptote if neither coords nor startCoords are given", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "logarithm"},
+        });
+
+        // Assert
+        invariant(graph.type === "logarithm");
+        expect(graph.coords).toEqual([
+            [1, 1],
+            [5, 5],
+        ]);
+        expect(graph.asymptote).toBe(0);
+    });
+});
+
 describe("initializeGraphState for tangent graphs", () => {
     it("uses the given coords, if present", () => {
         const graph = initializeGraphState({

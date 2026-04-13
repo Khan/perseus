@@ -27,9 +27,11 @@
 .modal-container {
     /* Variables */
     /* Undo the default padding for the top of the modal. */
-    --perseus-image-modal-padding-offset: calc(-1 * var(--wb-sizing-size_320));
+    --perseus-image-modal-padding-offset: calc(
+        -1 * var(--wb-c-modal-panel-layout-gap-default)
+    );
     --perseus-image-modal-padding-offset-mobile: calc(
-        -1 * var(--wb-sizing-size_160)
+        -1 * var(--wb-c-modal-panel-layout-gap-small)
     );
     /* Fixed px values from the design. */
     --perseus-image-modal-panel-height: 568px;

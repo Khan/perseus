@@ -364,10 +364,13 @@ class Editor extends React.Component<Props, State> {
         });
     };
 
-    handleDrop: (e: DragEvent) => void = (e: DragEvent) => {
+    handleDrop = (e: React.MouseEvent) => {
         const {imageUploader} = this.props;
         let content = this.state.textAreaValue || "";
-        const dataTransfer = e.dataTransfer;
+        const dataTransfer =
+            "dataTransfer" in e
+                ? (e.dataTransfer as DataTransfer | null)
+                : null;
 
         if (!dataTransfer || !imageUploader) {
             return;

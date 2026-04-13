@@ -83,6 +83,10 @@ export const actions = {
         movePoint,
         moveCenter,
     },
+    logarithm: {
+        movePoint,
+        moveCenter,
+    },
     absoluteValue: {
         movePoint,
     },

@@ -1,17 +1,16 @@
-import {summon} from "../general-purpose-parsers/test-helpers";
+import {describe, it, expect} from "tstyche";
 
-import type {parseInputNumberWidget} from "./input-number-widget";
+import {ctx} from "../general-purpose-parsers/test-helpers";
+
+import {parseInputNumberWidget} from "./input-number-widget";
+
 import type {InputNumberWidget} from "../../data-schema";
-import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
-import type {ParsedValue} from "../parser-types";
+import type {ParseResult} from "../parser-types";
 
-type Parsed = ParsedValue<typeof parseInputNumberWidget>;
-
-summon<Parsed>() satisfies InputNumberWidget;
-summon<InputNumberWidget>() satisfies Parsed;
-
-// The `RecursiveRequired` test ensures that any new optional properties added
-// to the types in data-schema.ts are also added to the parser.
-summon<
-    RecursiveRequired<Parsed>
->() satisfies RecursiveRequired<InputNumberWidget>;
+describe("the InputNumberWidget parser", () => {
+    it("should return the widget type defined in data-schema.ts", () => {
+        expect(parseInputNumberWidget({}, ctx())).type.toBe<
+            ParseResult<InputNumberWidget>
+        >();
+    });
+});

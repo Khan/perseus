@@ -53,6 +53,7 @@ const {
     getTangentCoefficients,
     getQuadraticCoefficients,
     getExponentialCoefficients,
+    getLogarithmCoefficients,
 } = coefficients;
 
 const {getLineEquation, getLineIntersectionString, magnitude, vector} =
@@ -613,6 +614,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return InteractiveGraph.getExponentialEquationString(props);
             case "tangent":
                 return InteractiveGraph.getTangentEquationString(props);
+            case "logarithm":
+                return InteractiveGraph.getLogarithmEquationString(props);
             default:
                 throw new UnreachableCaseError(type);
         }
@@ -722,7 +725,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             [0.75, 0.75],
         ];
         // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
-        return InteractiveGraph.pointsFromNormalized(props, coords);
+        return InteractiveGraph.pointsFromNormalized(props, coords, true);
     }
 
     static getExponentialEquationString(props: Props): string {
@@ -744,6 +747,42 @@ class InteractiveGraph extends React.Component<Props, State> {
             coeffs.b.toFixed(3) +
             "x) + " +
             coeffs.c.toFixed(3)
+        );
+    }
+
+    static defaultLogarithmCoords(props: Props): Coord[] {
+        const coords: Coord[] = [
+            [0.55, 0.55],
+            [0.75, 0.75],
+        ];
+        return InteractiveGraph.pointsFromNormalized(props, coords, true);
+    }
+
+    static getLogarithmEquationString(props: Props): string {
+        const coords =
+            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
+            props.userInput.coords ||
+            InteractiveGraph.defaultLogarithmCoords(props);
+        const asymptote =
+            // @ts-expect-error - TS2339 - Property 'asymptote' does not exist on type 'PerseusGraphType'.
+            props.userInput.asymptote ?? 0;
+        const coeffs = getLogarithmCoefficients(coords, asymptote);
+        if (coeffs == null) {
+            return "y = ln(x)";
+        }
+        const cStr =
+            coeffs.c === 0
+                ? "x"
+                : coeffs.c < 0
+                  ? "x - " + Math.abs(coeffs.c).toFixed(3)
+                  : "x + " + coeffs.c.toFixed(3);
+        return (
+            "y = " +
+            coeffs.a.toFixed(3) +
+            "ln(" +
+            coeffs.b.toFixed(3) +
+            cStr +
+            ")"
         );
     }
 

@@ -13,19 +13,18 @@
  * it's a target.
  */
 
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 type Props = {
-    onDrop: (e: DragEvent) => void;
-    component?: any;
-    shouldDragHighlight: (any) => boolean;
-    style?: any;
-    children?: any;
+    onDrop: (e: React.MouseEvent) => unknown;
+    shouldDragHighlight: (e: React.MouseEvent) => boolean;
+    style?: React.CSSProperties;
+    children?: React.ReactNode;
     className?: string;
 };
 
 type DefaultProps = {
-    component: Props["component"];
     shouldDragHighlight: Props["shouldDragHighlight"];
 };
 
@@ -34,11 +33,10 @@ type State = {
 };
 class DragTarget extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        component: "div",
         shouldDragHighlight: () => true,
     };
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             dragHover: false,
@@ -51,7 +49,7 @@ class DragTarget extends React.Component<Props, State> {
         this.handleDragEnter = this.handleDragEnter.bind(this);
     }
 
-    handleDrop(e: DragEvent) {
+    handleDrop(e: React.MouseEvent) {
         e.stopPropagation();
         e.preventDefault();
         this.setState({dragHover: false});
@@ -62,7 +60,7 @@ class DragTarget extends React.Component<Props, State> {
         this.setState({dragHover: false});
     }
 
-    handleDragOver(e) {
+    handleDragOver(e: React.MouseEvent) {
         e.preventDefault();
     }
 
@@ -70,21 +68,20 @@ class DragTarget extends React.Component<Props, State> {
         this.setState({dragHover: false});
     }
 
-    handleDragEnter(e) {
+    handleDragEnter(e: React.MouseEvent) {
         this.setState({dragHover: this.props.shouldDragHighlight(e)});
     }
 
     render() {
         const opacity = this.state.dragHover ? {opacity: 0.3} : {};
         const {
-            component: Component,
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             shouldDragHighlight,
             ...forwardProps
         } = this.props;
 
         return (
-            <Component
+            <View
                 {...forwardProps}
                 style={Object.assign({}, this.props.style, opacity)}
                 onDrop={this.handleDrop}

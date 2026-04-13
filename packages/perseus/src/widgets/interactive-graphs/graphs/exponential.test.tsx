@@ -200,6 +200,10 @@ describe("getExponentialKeyboardConstraint", () => {
     ];
     const asymptote = 1;
     const snapStep: vec.Vector2 = [1, 1];
+    const range: [vec.Vector2, vec.Vector2] = [
+        [-10, 10],
+        [-10, 10],
+    ];
 
     it("moves point up by one snap step when valid", () => {
         // Arrange, Act
@@ -208,6 +212,7 @@ describe("getExponentialKeyboardConstraint", () => {
             asymptote,
             snapStep,
             0,
+            range,
         );
 
         // Assert
@@ -227,6 +232,7 @@ describe("getExponentialKeyboardConstraint", () => {
             asymptote,
             snapStep,
             0,
+            range,
         );
 
         // Assert — skips y=1 (asymptote) and lands on y=0
@@ -246,10 +252,83 @@ describe("getExponentialKeyboardConstraint", () => {
             asymptote,
             snapStep,
             0,
+            range,
         );
 
         // Assert — skips x=2 and lands on x=3
         expect(constraint.right).toEqual([3, 3]);
+    });
+
+    it("rejects positions where the clamped coord collides with the other point's x", () => {
+        // Arrange — points at [9,3] and [8,6], asymptote at 1.
+        // Moving point 0 right: x=10 clamps to 9 (inset max),
+        // which equals otherPoint[X]=... wait, otherPoint is point 1.
+        // Actually let's use: point 0 at [8,3], point 1 at [9,6].
+        // Moving right: x=9 shares x with point 1 (skip).
+        // x=10 clamps to 9 (same as point 1). All further clamp to 9.
+        const edgeCoords: [vec.Vector2, vec.Vector2] = [
+            [8, 3],
+            [9, 6],
+        ];
+
+        // Act
+        const constraint = getExponentialKeyboardConstraint(
+            edgeCoords,
+            asymptote,
+            snapStep,
+            0,
+            range,
+        );
+
+        // Assert — no valid right move, falls back to original position
+        expect(constraint.right).toEqual([8, 3]);
+    });
+
+    it("stays put when all upward positions would cause a clamped reflection collision", () => {
+        // Arrange — asymptote at y=8, points at [3,7] and [1,4].
+        // Moving point 0 up: y=8 is the asymptote (skip), y=9 crosses
+        // the asymptote so reflectedY = 2*8-4 = 12, which clamps to 9
+        // (yMax - snapStep). clampedReflectedY(9) === clampedY(9). Skip.
+        // y=10 clamps to 9 too. No valid upward position.
+        const edgeCoords: [vec.Vector2, vec.Vector2] = [
+            [3, 7],
+            [1, 4],
+        ];
+
+        // Act
+        const constraint = getExponentialKeyboardConstraint(
+            edgeCoords,
+            8,
+            snapStep,
+            0,
+            range,
+        );
+
+        // Assert — no valid up move, falls back to original position
+        expect(constraint.up).toEqual([3, 7]);
+    });
+
+    it("skips positions where the clamped asymptote check catches out-of-bounds coord", () => {
+        // Arrange — asymptote at y=9 (one step from edge).
+        // Point 0 at [3,8], moving up: y=9 is asymptote (skip).
+        // y=10 clamps to 9 which also equals asymptote. Skip.
+        // No valid upward position.
+        const edgeCoords: [vec.Vector2, vec.Vector2] = [
+            [3, 8],
+            [1, 6],
+        ];
+
+        // Act
+        const constraint = getExponentialKeyboardConstraint(
+            edgeCoords,
+            9,
+            snapStep,
+            0,
+            range,
+        );
+
+        // Assert — no valid up move
+        expect(constraint.up).toEqual([3, 8]);
     });
 });
 

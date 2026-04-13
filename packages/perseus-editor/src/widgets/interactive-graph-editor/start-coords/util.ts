@@ -4,6 +4,7 @@ import {
     getAngleCoords,
     getCircleCoords,
     getExponentialCoords,
+    getLogarithmCoords,
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
@@ -111,6 +112,14 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             });
+        case "logarithm": {
+            const {coords, asymptote} = getLogarithmCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+            return {coords, asymptote};
+        }
         default:
             return undefined;
     }
@@ -200,6 +209,49 @@ export const getQuadraticEquation = (startCoords: [Coord, Coord, Coord]) => {
     );
 };
 
+export const getLogarithmEquation = (
+    coords: [Coord, Coord],
+    asymptote: number,
+) => {
+    const p1 = coords[0];
+    const p2 = coords[1];
+
+    // Guard: same y, point on asymptote, or points on opposite sides
+    if (p1[1] === p2[1]) {
+        return "undefined (points share the same y)";
+    }
+    if (p1[0] === asymptote || p2[0] === asymptote) {
+        return "undefined (point on asymptote)";
+    }
+
+    const ratio = (p1[0] - asymptote) / (p2[0] - asymptote);
+    if (ratio <= 0) {
+        return "undefined (points on opposite sides of asymptote)";
+    }
+
+    // Inverse exponential approach (mirrors getLogarithmCoefficients in kmath)
+    const bExp = Math.log(ratio) / (p1[1] - p2[1]);
+    const aExp = (p1[0] - asymptote) / Math.exp(bExp * p1[1]);
+
+    if (!isFinite(bExp) || !isFinite(aExp) || aExp === 0 || bExp === 0) {
+        return "undefined (invalid coefficients)";
+    }
+
+    const a = 1 / bExp;
+    const b = 1 / aExp;
+    const c = -asymptote / aExp;
+
+    return (
+        "y = " +
+        a.toFixed(3) +
+        "ln(" +
+        b.toFixed(3) +
+        "x + " +
+        c.toFixed(3) +
+        ")"
+    );
+};
+
 export const getAngleEquation = (
     startCoords: [Coord, Coord, Coord],
     allowReflexAngles: boolean = false,
@@ -247,6 +299,7 @@ export const shouldShowStartCoordsUI = (
         case "segment":
         case "sinusoid":
         case "absolute-value":
+        case "logarithm":
             return true;
         default:
             throw new UnreachableCaseError(graph);
