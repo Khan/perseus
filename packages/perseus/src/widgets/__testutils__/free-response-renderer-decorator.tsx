@@ -31,7 +31,7 @@ export const freeResponseRendererDecorator = (_, {args, parameters}) => {
     );
 };
 
-export function FreeResponseQuestionRenderer(props: {
+function FreeResponseQuestionRenderer(props: {
     question: PerseusRenderer;
     apiOptions?: APIOptions;
 }) {
