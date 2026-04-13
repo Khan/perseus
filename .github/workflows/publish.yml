@@ -82,7 +82,7 @@ jobs:
                   conf-files: .github/npm-extra-domains.conf
                   # hooks.slack.com: Slack webhook for publish success/failure notifications
                   # fulcio.sigstore.dev,rekor.sigstore.dev: signing certificates are stored here
-                  extra-domains: hooks.slack.com, fulcio.sigstore.dev rekor.sigstore.dev
+                  extra-domains: hooks.slack.com fulcio.sigstore.dev rekor.sigstore.dev
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
