@@ -64,6 +64,8 @@ export const ExponentialDragHandleDefault: Story = {
 
 // Focused state: the drag handle pill shows the focus ring and
 // active state (larger pill with grip dots) above the curve line.
+// The asymptote line itself should also be thick (4px) on keyboard
+// focus, matching the hover/drag behavior.
 export const ExponentialDragHandleFocused: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
@@ -174,6 +176,8 @@ export const LogarithmDragHandleDefault: Story = {
 
 // Focused state: the drag handle pill shows the focus ring and
 // active state (larger pill with grip dots) above the curve line.
+// The asymptote line itself should also be thick (4px) on keyboard
+// focus, matching the hover/drag behavior.
 export const LogarithmDragHandleFocused: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()

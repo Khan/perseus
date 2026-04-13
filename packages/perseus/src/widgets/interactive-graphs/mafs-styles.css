@@ -46,6 +46,7 @@
 }
 
 .MafsView .movable-line:hover,
+.MafsView .movable-line:focus-visible,
 .movable-dragging {
     --movable-line-stroke-weight: var(--movable-line-stroke-weight-active);
 }

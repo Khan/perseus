@@ -8,8 +8,7 @@ as context for future development and Claude Code sessions.
 
 - **Ticket:** [LEMS-3950](https://khanacademy.atlassian.net/browse/LEMS-3950)
 - **POC:** https://github.com/Khan/perseus/pull/3322
-- **POC branch:** `LEMS-3950/poc-logarithm-interactive-graph`
-- **Technical notes commit:** 7e377d631900c46f5d6d4b993d1d9238a942575a
+- **Technical research revision:** [7e377d631900c46f5d6d4b993d1d9238a942575a](https://github.com/Khan/perseus/blob/7e377d631900c46f5d6d4b993d1d9238a942575a/packages/perseus/src/widgets/interactive-graphs/__docs__/notes/logarithm.md)
 
 ## Architecture Overview
 
@@ -86,6 +85,11 @@ exponential graph.
   - **Focus ring** (keyboard focus only): rounded outline around the handle (not the full line)
 - The drag handle retains focus after a mouse drag ends, matching movable point behavior.
   Focus clears only when the user clicks elsewhere or navigates away via keyboard.
+- The asymptote line is thick (4px) when hovered, focused via keyboard, or being dragged.
+  This is driven by the CSS variable `--movable-line-stroke-weight` on the parent
+  `.movable-line` element, activated via `:hover`, `:focus-visible`, and `.movable-dragging`
+  selectors in `mafs-styles.css`. The same behavior applies to all `movable-line` elements
+  (including `MovableLine` in other graph types).
 
 ### Asymptote Drag Behavior
 
@@ -348,25 +352,7 @@ The Grapher widget has a complete logarithm implementation that served as the ma
 - `packages/perseus/src/widgets/grapher/grapher.testdata.ts` (lines 162–214) — `logarithmQuestion`
   test data (`y = 4 * log_2(x + 6) - 7`, asymptote `x = -6`).
 
-## Implementation Notes
-
-These notes capture non-obvious decisions made during implementation that are important
-context for future changes.
-
-### SVG rendering order matters for the drag handle (LEMS-4037)
-
-The curve (`Plot.OfX`) must render before `MovableAsymptote` in the JSX so the drag handle
-appears above the curve in SVG stacking order. If the order is reversed, the curve's SVG
-path will visually cover the drag handle, making it appear unclickable when the curve passes
-through the handle area. This applies to both logarithm and exponential graphs.
-
-### Drag handle focus behavior (LEMS-4016)
-
-The drag handle retains focus after a mouse drag ends — it does not auto-blur. This matches
-how movable points behave across all interactive graph types. Focus clears only when the user
-clicks elsewhere or navigates away via keyboard.
-
-### Visual regression stories for drag handle states
+## Visual Regression Testing
 
 A dedicated stories file (`interactive-graph-asymptote-regression.stories.tsx`) covers all drag
 handle visual states for both logarithm and exponential graphs. Located at
