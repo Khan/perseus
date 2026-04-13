@@ -1,4 +1,4 @@
-import {act, render} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
@@ -145,10 +145,9 @@ describe("SvgImage", () => {
         });
 
         // Assert
-        // eslint-disable-next-line testing-library/no-node-access
-        expect(document.getElementsByTagName("img")[0].src).toEqual(
-            "https://www.khanacademy.org/my-test-img.png",
-        );
+        expect(
+            screen.getByRole<HTMLImageElement>("img", {name: "png image"}).src,
+        ).toEqual("https://www.khanacademy.org/my-test-img.png");
     });
 
     describe("Graphie label scaling", () => {

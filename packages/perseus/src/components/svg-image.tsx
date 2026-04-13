@@ -10,6 +10,7 @@ import Util from "../util";
 import {loadGraphie} from "../util/graphie-utils";
 
 import FixedToResponsive from "./fixed-to-responsive";
+import GifImage from "./gif-image";
 import Graphie from "./graphie";
 import {PerseusI18nContext} from "./i18n-context";
 import ImageLoader from "./image-loader";
@@ -97,6 +98,18 @@ export type Props = {
      * If not, it defaults to a no-op.
      */
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
+    /**
+     * When provided, enables GIF play/pause support.
+     *
+     * - `undefined`: no GIF controls (default, no extra DOM)
+     * - `true`: GIF is playing.
+     * - `false`: GIF is paused.
+     */
+    isGifPlaying?: boolean;
+    /**
+     * Called when the GIF completes one full loop.
+     */
+    onGifLoop?: () => void;
 };
 
 type DefaultProps = {
@@ -457,15 +470,38 @@ class SvgImage extends React.Component<Props, State> {
         if (!Util.isLabeledSVG(imageSrc)) {
             // Responsive non-Graphie images
             if (responsive) {
+                // When gif controls are active (isGifPlaying is defined), wrap
+                // ImageLoader in a div so we can querySelector the <img> for
+                // canvas capture. The canvas is a non-first child of
+                // FixedToResponsive, so it gets position:absolute coverage via
+                // the .fixed-to-responsive > :not(:first-child) CSS rule.
+                const isGifControlled = this.props.isGifPlaying !== undefined;
+
                 const imageContent = (
                     <>
-                        <ImageLoader
-                            src={imageSrc}
-                            imgProps={imageProps}
-                            preloader={preloader}
-                            onUpdate={this.handleUpdate}
-                        />
-                        {extraGraphie}
+                        {!isGifControlled && (
+                            <>
+                                <ImageLoader
+                                    src={imageSrc}
+                                    imgProps={imageProps}
+                                    preloader={preloader}
+                                    onUpdate={this.handleUpdate}
+                                />
+                                {extraGraphie}
+                            </>
+                        )}
+                        {isGifControlled && (
+                            <GifImage
+                                src={imageSrc}
+                                alt={this.props.alt}
+                                width={this.props.width}
+                                height={this.props.height}
+                                scale={this.props.scale}
+                                isPlaying={!!this.props.isGifPlaying}
+                                onLoop={this.props.onGifLoop ?? (() => {})}
+                                onLoad={this.onImageLoad}
+                            />
+                        )}
                     </>
                 );
 

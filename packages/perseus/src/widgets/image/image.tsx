@@ -63,7 +63,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         });
     });
 
-    // TODO(LEMS-3912): Remove this effect afte we turn on and remove the
+    // TODO(LEMS-3912): Remove this effect after we turn on and remove the
     // image-widget-upgrade-scale feature flag.
     React.useEffect(() => {
         // Reset the flag for this effect run
@@ -102,6 +102,12 @@ export const ImageComponent = (props: ImageWidgetProps) => {
         };
     }, [backgroundImage.url, backgroundImage.width, backgroundImage.height]);
 
+    // If the backgroundImage.url changes (likely in the editor preview)
+    // we will stop any gif from playing.
+    React.useEffect(() => {
+        setIsGifPlaying(false);
+    }, [backgroundImage.url]);
+
     if (!backgroundImage.url) {
         return null;
     }
@@ -136,9 +142,18 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     zoomToFullSizeOnMobile={apiOptions.isMobile}
                     constrainHeight={apiOptions.isMobile}
                     allowFullBleed={apiOptions.isMobile}
-                    allowZoom={!decorative}
+                    // Only allow zooming if the image is not decorative and not a GIF.
+                    allowZoom={!decorative && !imageIsGif}
                     alt={decorative || caption === alt ? "" : alt}
                     setAssetStatus={setAssetStatus}
+                    isGifPlaying={
+                        gifControlsFF && imageIsGif ? isGifPlaying : undefined
+                    }
+                    onGifLoop={
+                        gifControlsFF && imageIsGif
+                            ? () => setIsGifPlaying(false)
+                            : undefined
+                    }
                 />
             )}
         </AssetContext.Consumer>

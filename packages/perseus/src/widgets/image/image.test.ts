@@ -54,6 +54,16 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         );
 
         unmockImageLoading = mockImageLoading();
+
+        // GifImage (rendered via SvgImage when gif controls are active)
+        // calls fetch() to decode GIF frames. jsdom doesn't provide
+        // fetch, so we stub it here.
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+            }),
+        ) as jest.Mock;
     });
 
     afterEach(() => {
@@ -510,6 +520,29 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Assert
             const button = screen.queryByRole("button");
             expect(button).not.toBeInTheDocument();
+        });
+
+        it("does not render a zoom image button for gif images", () => {
+            // Arrange
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+
+            // Assert
+            const zoomButton = screen.queryByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(zoomButton).not.toBeInTheDocument();
         });
 
         it("does not render a zoom image button for images without sizes", () => {
@@ -1028,6 +1061,27 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 name: "Play Animation",
             });
             expect(playButtonAgain).toBeVisible();
+        });
+
+        it("does not render a canvas overlay when the feature flag is disabled", () => {
+            // Arrange, Act
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(gifImageQuestion, apiOptions);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(screen.queryByTestId("gif-canvas")).not.toBeInTheDocument();
         });
     });
 
