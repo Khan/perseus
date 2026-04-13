@@ -1,5 +1,11 @@
 # @khanacademy/perseus-linter
 
+## 4.9.3
+
+### Patch Changes
+
+-   [#3477](https://github.com/Khan/perseus/pull/3477) [`4827549d92`](https://github.com/Khan/perseus/commit/4827549d921c6c7d44931495758c3fe2edac7b65) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Image] Downgrade linter severity for markdown images.
+
 ## 4.9.2
 
 ### Patch Changes

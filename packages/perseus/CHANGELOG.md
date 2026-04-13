@@ -1,5 +1,26 @@
 # @khanacademy/perseus
 
+## 77.2.1
+
+### Patch Changes
+
+-   [#3464](https://github.com/Khan/perseus/pull/3464) [`b03bd4b11b`](https://github.com/Khan/perseus/commit/b03bd4b11b58468be220ca0c4aafa09aa7a54677) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add FindWidgetsFunction type, improve typing in HintRenderer and Renderer, fix image widget ExternalProps type
+
+*   [#3462](https://github.com/Khan/perseus/pull/3462) [`2b02d27760`](https://github.com/Khan/perseus/commit/2b02d27760c0ae959100a80fae2a9c7dc009c858) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused exports from generated documentation
+
+-   [#3472](https://github.com/Khan/perseus/pull/3472) [`d467d38886`](https://github.com/Khan/perseus/commit/d467d38886cfc950827e02b9e81527988d50b3c0) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix label sizing for Graphies on mobile web behind feature flag
+
+*   [#3454](https://github.com/Khan/perseus/pull/3454) [`ef4cf73a8e`](https://github.com/Khan/perseus/commit/ef4cf73a8e513eec1dbf8feb3003b1b58bbe295a) Thanks [@benchristel](https://github.com/benchristel)! - Document the `*PromptJSON` types.
+
+-   [#3473](https://github.com/Khan/perseus/pull/3473) [`81dee14e58`](https://github.com/Khan/perseus/commit/81dee14e5827d6fbaa71fdafd7cc897973007e4b) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Image] Fixing double scroll bug in long description modals.
+
+*   [#3432](https://github.com/Khan/perseus/pull/3432) [`ec3f5eb80b`](https://github.com/Khan/perseus/commit/ec3f5eb80b3a91137cc317ee3f116b781e4d4f2b) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Image] New pause and play functionality for image gifs.
+
+-   [#3482](https://github.com/Khan/perseus/pull/3482) [`a33cba3baa`](https://github.com/Khan/perseus/commit/a33cba3baa8dee2c13188d1f40f74a0659d04b51) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Reverted Drag Handle Auto-Blur on Drag End for Logarithm and Exponential interactive graphs
+
+-   Updated dependencies [[`4827549d92`](https://github.com/Khan/perseus/commit/4827549d921c6c7d44931495758c3fe2edac7b65)]:
+    -   @khanacademy/perseus-linter@4.9.3
+
 ## 77.2.0
 
 ### Minor Changes
