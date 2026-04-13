@@ -1149,3 +1149,102 @@ describe("InteractiveGraph scoring on a vector question", () => {
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
 });
+
+const vectorCongruentRubric: PerseusInteractiveGraphRubric = {
+    graph: {type: "vector"},
+    correct: {
+        type: "vector",
+        coords: [
+            [0, 0],
+            [3, 4],
+        ],
+        match: "congruent",
+    },
+};
+
+describe("InteractiveGraph scoring on a vector question with congruent matching", () => {
+    it("marks a translated vector as correct when match is congruent", () => {
+        // Arrange — same direction ⟨3, 4⟩ but different position
+        const guess: PerseusGraphType = {
+            type: "vector",
+            coords: [
+                [2, 1],
+                [5, 5],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorCongruentRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks exact position as correct when match is congruent", () => {
+        // Arrange — same position as rubric
+        const guess: PerseusGraphType = {
+            type: "vector",
+            coords: [
+                [0, 0],
+                [3, 4],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorCongruentRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks wrong direction as incorrect when match is congruent", () => {
+        // Arrange — same magnitude but different direction
+        const guess: PerseusGraphType = {
+            type: "vector",
+            coords: [
+                [0, 0],
+                [4, 3],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorCongruentRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks opposite direction as incorrect when match is congruent", () => {
+        // Arrange — reversed direction ⟨-3, -4⟩
+        const guess: PerseusGraphType = {
+            type: "vector",
+            coords: [
+                [3, 4],
+                [0, 0],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorCongruentRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks wrong magnitude as incorrect when match is congruent", () => {
+        // Arrange — same direction but different length ⟨6, 8⟩
+        const guess: PerseusGraphType = {
+            type: "vector",
+            coords: [
+                [0, 0],
+                [6, 8],
+            ],
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, vectorCongruentRubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
+    });
+});

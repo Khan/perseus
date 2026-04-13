@@ -431,18 +431,30 @@ function scoreInteractiveGraph(
             userInput.coords != null &&
             rubric.correct.coords != null
         ) {
-            // Vector scoring: both tail and tip must match exactly.
-            // Order matters — coords[0] is tail, coords[1] is tip.
-            if (
-                approximateDeepEqual(
-                    userInput.coords[0],
-                    rubric.correct.coords[0],
-                ) &&
-                approximateDeepEqual(
-                    userInput.coords[1],
-                    rubric.correct.coords[1],
-                )
-            ) {
+            const guess = userInput.coords;
+            const correct = rubric.correct.coords;
+
+            let match: boolean;
+            if (rubric.correct.match === "congruent") {
+                // Congruent: same direction and magnitude, any position.
+                // Compare the component form ⟨dx, dy⟩ of each vector.
+                const guessDelta: Coord = [
+                    guess[1][0] - guess[0][0],
+                    guess[1][1] - guess[0][1],
+                ];
+                const correctDelta: Coord = [
+                    correct[1][0] - correct[0][0],
+                    correct[1][1] - correct[0][1],
+                ];
+                match = approximateDeepEqual(guessDelta, correctDelta);
+            } else {
+                // Exact (default): both tail and tip must match exactly.
+                match =
+                    approximateDeepEqual(guess[0], correct[0]) &&
+                    approximateDeepEqual(guess[1], correct[1]);
+            }
+
+            if (match) {
                 return {
                     type: "points",
                     earned: 1,
