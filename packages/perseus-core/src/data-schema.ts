@@ -1284,6 +1284,10 @@ export type PerseusGraphTypeVector = {
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+    /** How to match the answer.
+     *  "exact" (default) — both tail and tip must match exactly.
+     *  "congruent" — same direction and magnitude, any position. */
+    match?: "exact" | "congruent";
 };
 
 type AbsoluteValueGraphCorrect = {
@@ -1369,6 +1373,10 @@ type RayGraphCorrect = {
 type VectorGraphCorrect = {
     type: "vector";
     coords: CollinearTuple;
+    /** How to match the answer.
+     *  "exact" (default) — both tail and tip must match exactly.
+     *  "congruent" — same direction and magnitude, any position. */
+    match?: "exact" | "congruent";
 };
 
 export type PerseusGraphCorrectType =

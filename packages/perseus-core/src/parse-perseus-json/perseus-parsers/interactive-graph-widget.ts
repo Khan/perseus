@@ -153,6 +153,7 @@ const parsePerseusGraphTypeVector = object({
     type: constant("vector"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
+    match: optional(enumeration("exact", "congruent")),
 });
 
 export const parsePerseusGraphType = discriminatedUnionOn("type")
