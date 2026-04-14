@@ -5,16 +5,12 @@ import {
     applyDefaultsToWidget,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
-import {useId} from "react";
 
-import {AlignmentSelect} from "./alignment-select";
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
+import WidgetEditorSettings from "./widget-editor-settings";
 
 import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
@@ -42,6 +38,12 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = excludeDenylistKeys(props);
+    // `graded` and `static` are on the denylist (they're widget-level
+    // metadata, not widget options), so excludeDenylistKeys strips them.
+    // We need to preserve them so applyDefaultsToWidget doesn't reset
+    // them to their defaults.
+    filteredProps.graded = props.graded;
+    filteredProps.static = props.static;
     return applyDefaultsToWidget(filteredProps as PerseusWidget);
 };
 
@@ -190,30 +192,6 @@ class WidgetEditor extends React.Component<
                         </View>
                     </div>
 
-                    {supportsStaticMode && (
-                        <LabeledSwitch
-                            label="Static"
-                            checked={!!widgetInfo.static}
-                            disabled={isEditingDisabled}
-                            onChange={this._setStatic}
-                        />
-                    )}
-                    {supportsGradedToggle && (
-                        <LabeledSwitch
-                            label="Graded"
-                            checked={widgetInfo.graded !== false}
-                            disabled={isEditingDisabled}
-                            onChange={this._setGraded}
-                        />
-                    )}
-                    {supportedAlignments.length > 1 && (
-                        <AlignmentSelect
-                            supportedAlignments={supportedAlignments}
-                            widgetInfo={widgetInfo}
-                            isEditingDisabled={isEditingDisabled}
-                            onChange={this._handleAlignmentChange}
-                        />
-                    )}
                     <SectionControlButton
                         icon={trashIcon}
                         disabled={isEditingDisabled}
@@ -223,6 +201,21 @@ class WidgetEditor extends React.Component<
                         title="Remove image widget"
                     />
                 </div>
+                {this.state.showWidget && (
+                    <WidgetEditorSettings
+                        bestPractices={Ed?.bestPractices}
+                        supportsStaticMode={!!supportsStaticMode}
+                        isStatic={!!widgetInfo.static}
+                        onStaticChange={this._setStatic}
+                        supportsGradedToggle={supportsGradedToggle}
+                        isGraded={widgetInfo.graded !== false}
+                        onGradedChange={this._setGraded}
+                        supportedAlignments={supportedAlignments}
+                        widgetInfo={widgetInfo}
+                        onAlignmentChange={this._handleAlignmentChange}
+                        isEditingDisabled={isEditingDisabled}
+                    />
+                )}
                 <div
                     className={
                         "perseus-widget-editor-content " +
@@ -243,23 +236,6 @@ class WidgetEditor extends React.Component<
             </div>
         );
     }
-}
-
-function LabeledSwitch(props: {
-    label: string;
-    checked: boolean;
-    onChange: (value: boolean) => unknown;
-    disabled: boolean;
-}) {
-    const {label, disabled, ...switchProps} = props;
-    const id = useId();
-    return (
-        <>
-            <label htmlFor={id}>{label}</label>
-            <Strut size={spacing.xxSmall_6} />
-            <Switch id={id} {...switchProps} disabled={disabled} />
-        </>
-    );
 }
 
 export default WidgetEditor;

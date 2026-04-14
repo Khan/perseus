@@ -162,6 +162,10 @@ export type Props = {
  */
 class InteractiveGraphEditor extends React.Component<Props> {
     static widgetName = "interactive-graph";
+    static bestPractices = {
+        url: "https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems",
+        label: "Interactive Graph best practices",
+    };
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
 
@@ -388,7 +392,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             <Id>
                 {(graphId) => (
                     <View>
-                        <LabeledRow label="Answer type:">
+                        <LabeledRow label="Answer type" labelSize="medium">
                             <GraphTypeSelector
                                 graphType={
                                     this.props.graph?.type ??
