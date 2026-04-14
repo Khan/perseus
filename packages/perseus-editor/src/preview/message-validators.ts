@@ -11,18 +11,18 @@ import type {
  * This validates that the message has the correct structure and source
  * identifier to be from a Perseus preview iframe.
  *
- * @param msg - Unknown message to validate
+ * @param message - Unknown message to validate
  * @returns True if message is a valid IframeToParentMessage
  */
 export function isIframeToParentMessage(
-    msg: unknown,
-): msg is IframeToParentMessage {
+    message: unknown,
+): message is IframeToParentMessage {
     return (
-        typeof msg === "object" &&
-        msg !== null &&
-        "source" in msg &&
-        typeof msg.source === "string" &&
-        msg.source === PREVIEW_MESSAGE_SOURCE
+        typeof message === "object" &&
+        message !== null &&
+        "source" in message &&
+        typeof message.source === "string" &&
+        message.source === PREVIEW_MESSAGE_SOURCE
     );
 }
 
