@@ -64,7 +64,6 @@ export {
 } from "./parse-perseus-json";
 
 export {isSuccess, isFailure} from "./parse-perseus-json/result";
-/** @hidden */
 export {
     type Result,
     type Success,
