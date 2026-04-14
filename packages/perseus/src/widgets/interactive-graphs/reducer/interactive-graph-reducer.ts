@@ -331,27 +331,18 @@ function doMoveLine(
     action: MoveLine,
 ): InteractiveGraphState {
     const {snapStep, range} = state;
+    const [newStart, newEnd] = action.newPoints;
+    const newLine: PairOfPoints = [
+        boundAndSnapToGrid(newStart, {snapStep, range}),
+        boundAndSnapToGrid(newEnd, {snapStep, range}),
+    ];
+
     switch (state.type) {
         case "segment":
         case "linear-system": {
             if (action.itemIndex === undefined) {
                 throw new Error("Please provide index of line to move");
             }
-            const currentLine = state.coords[action.itemIndex];
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (!currentLine) {
-                throw new Error("No line to move");
-            }
-            const change = getChange(currentLine, action.delta, {
-                snapStep,
-                range,
-            });
-
-            const newLine: PairOfPoints = [
-                snap(snapStep, vec.add(currentLine[0], change)),
-                snap(snapStep, vec.add(currentLine[1], change)),
-            ];
-
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.itemIndex,
@@ -367,17 +358,6 @@ function doMoveLine(
         }
         case "linear":
         case "ray": {
-            const currentLine = state.coords;
-            const change = getChange(currentLine, action.delta, {
-                snapStep,
-                range,
-            });
-
-            const newLine: PairOfPoints = [
-                snap(snapStep, vec.add(currentLine[0], change)),
-                snap(snapStep, vec.add(currentLine[1], change)),
-            ];
-
             return {
                 ...state,
                 type: state.type,
@@ -386,8 +366,6 @@ function doMoveLine(
             };
         }
         default:
-            // The MoveLine action doesn't make sense for other graph types;
-            // ignore it if it somehow happens
             return state;
     }
 }
