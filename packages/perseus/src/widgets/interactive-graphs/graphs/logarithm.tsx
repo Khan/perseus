@@ -78,6 +78,27 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     // Determine which side of the asymptote the points are on
     const pointsRightOfAsymptote = coords[0][X] > asymptoteX;
 
+    // Compute the domain boundary dynamically so the curve always
+    // starts off-screen. Unlike exponential (which uses a y-padding
+    // NaN cutoff because the curve exits horizontally), the logarithm
+    // curve exits vertically — y → ±∞ as x → asymptote. A y-padding
+    // cutoff would end the SVG path near the asymptote, causing a
+    // visible discontinuity. Instead, we solve for the x where the
+    // curve reaches a y-value safely beyond the visible range, so the
+    // SVG path begins off-screen for any coefficient values.
+    //
+    // For f(x) = a * ln(b*x + c), solving y = targetY for x:
+    //   x = (e^(targetY / a) - c) / b
+    const offScreenMargin = 2; // graph units beyond visible edge
+    const {a, b, c} = coeffRef.current;
+    // Near the asymptote, y → -∞ if a > 0, or +∞ if a < 0
+    const targetY = a > 0 ? yMin - offScreenMargin : yMax + offScreenMargin;
+    const computedX = (Math.exp(targetY / a) - c) / b;
+    const computedOffset = Math.abs(computedX - asymptoteX);
+    // Use the computed offset if valid, otherwise fall back to 1e-8
+    const domainOffset =
+        isFinite(computedOffset) && computedOffset > 0 ? computedOffset : 1e-8;
+
     // Aria strings
     const {
         srLogarithmGraph,
@@ -115,20 +136,6 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                 orientation="vertical"
                 ariaLabel={srLogarithmAsymptote}
             >
-                {/* The domain offset (1e-8) controls how close to
-                    the asymptote Mafs starts sampling the curve.
-                    Unlike exponential (which uses a y-padding cutoff
-                    because the curve exits the visible area
-                    horizontally), the logarithm curve exits
-                    vertically — approaching ±∞ in y as x nears the
-                    asymptote. A y-padding cutoff would end the SVG
-                    path near the asymptote, causing a visible
-                    discontinuity for flatter curves (e.g. coords
-                    [[1,3],[5,5]] at offset 0.001 yields y ≈ -8.5,
-                    still inside a [-10,10] graph). Using 1e-8
-                    ensures the first sampled y is always far
-                    off-screen (≈ -20 or beyond), so the curve
-                    appears to enter continuously from the edge. */}
                 <Plot.OfX
                     y={(x) => computeLogarithm(coeffRef.current, x)}
                     color={interactiveColor}
@@ -138,8 +145,8 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                     }}
                     domain={
                         pointsRightOfAsymptote
-                            ? [asymptoteX + 1e-8, xMax]
-                            : [xMin, asymptoteX - 1e-8]
+                            ? [asymptoteX + domainOffset, xMax]
+                            : [xMin, asymptoteX - domainOffset]
                     }
                 />
             </MovableAsymptote>

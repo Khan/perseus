@@ -54,14 +54,16 @@ User interaction (drag/keyboard)
 
 - The curve renders `f(x) = a * ln(b * x + c)` using a single `<Plot.OfX>`.
 - The curve is only drawn on the side of the asymptote where the points are:
-  - Points right of asymptote → domain `[asymptoteX + 1e-8, xMax]`
-  - Points left of asymptote → domain `[xMin, asymptoteX - 1e-8]`
-- The curve never visually touches or intersects the asymptote — the domain offset (`1e-8`)
-  ensures the first sampled y-value is always far off-screen, so the curve appears to enter
-  continuously from the edge of the visible area. Unlike exponential (which uses a y-padding
-  NaN cutoff), logarithm relies on the domain offset because the curve exits the visible area
-  **vertically** — a y-padding cutoff would end the SVG path near the asymptote, causing a
-  visible discontinuity for flatter curves (see [Curve-Asymptote Visual Continuity](#curve-asymptote-visual-continuity)).
+  - Points right of asymptote → domain `[asymptoteX + offset, xMax]`
+  - Points left of asymptote → domain `[xMin, asymptoteX - offset]`
+  - The offset is **computed dynamically** from the current coefficients (see
+    [Curve-Asymptote Visual Continuity](#curve-asymptote-visual-continuity)).
+- The curve never visually touches or intersects the asymptote — the dynamic domain offset
+  ensures the first sampled y-value is always off-screen (`yMin - 2` or `yMax + 2`), so the
+  curve appears to enter continuously from the edge of the visible area. Unlike exponential
+  (which uses a y-padding NaN cutoff), logarithm relies on the domain offset because the
+  curve exits the visible area **vertically** — a y-padding cutoff would end the SVG path
+  near the asymptote, causing a visible discontinuity for flatter curves.
 - During transient invalid states (e.g. mid-drag), `coeffRef` provides the last valid
   coefficients so the curve doesn't break.
 - The curve updates in real time as points or asymptote are dragged.
@@ -199,26 +201,38 @@ Where `[a, b, c]` are 3 coefficients derived from 2 movable points and 1 vertica
 
 The vertical asymptote occurs where `b * x + c = 0`, i.e. `x = -c / b`. The curve is only
 defined on one side. The `domain` prop on `Plot.OfX` restricts rendering:
-- `[asymptoteX + 1e-8, xMax]` if points are right of asymptote
-- `[xMin, asymptoteX - 1e-8]` if points are left of asymptote
+- `[asymptoteX + offset, xMax]` if points are right of asymptote
+- `[xMin, asymptoteX - offset]` if points are left of asymptote
 
 ### Curve-Asymptote Visual Continuity
 
-The domain offset (`1e-8`) is what ensures the curve looks continuous as it approaches the
-asymptote. This is fundamentally different from exponential, which uses a y-padding NaN cutoff.
+The domain offset is **computed dynamically** from the current coefficients to ensure the
+curve always starts off-screen. This is fundamentally different from exponential, which uses
+a y-padding NaN cutoff.
+
+**How the dynamic offset is computed:**
+For `f(x) = a * ln(b*x + c)`, we solve for the x where the curve reaches a target y-value
+safely beyond the visible range (`yMin - 2` if a > 0, `yMax + 2` if a < 0):
+```
+x = (e^(targetY / a) - c) / b
+offset = |x - asymptoteX|
+```
+Falls back to `1e-8` if the computation produces a non-finite or non-positive result.
 
 **Why logarithm can't use a y-padding cutoff (like exponential does):**
 The logarithm curve approaches the asymptote **vertically** — y goes to ±∞ as x nears the
 asymptote. A y-padding cutoff ends the SVG path where y exceeds the threshold, which is
 *near the asymptote* — the exact area where continuity matters. Mafs samples x-values at
-regular intervals across the domain, so for a flat curve (e.g. coords `[[1,3],[5,5]]`),
-the first sampled x where y falls within the cutoff can be visibly far from the asymptote,
-creating a visible discontinuity. This was observed with multipliers `2×`, `4×`, and `10×`.
+regular intervals across the domain, so for a flat curve the first sampled x where y falls
+within the cutoff can be visibly far from the asymptote, creating a visible discontinuity.
 
-**Why the domain offset works:**
-By starting the domain extremely close to the asymptote (`1e-8` graph units away), the
-first sampled y-value is always far off-screen (e.g. ≈ -20 for a [-10,10] graph). The
-curve's SVG path begins well beyond the visible edge and enters the graph smoothly.
+**Why a fixed offset doesn't work:**
+The required offset depends on the curve's coefficients. For `y = a * ln(b*x + c)`, the
+y-value at a given x near the asymptote is `≈ a * (ln(b) + ln(offset))`. When `a` is small
+(flat curve), even a very small offset can yield a y-value inside the visible range. Examples:
+- coords `[[1,1],[9,2]]` (a≈0.455): at x=1e-8, y ≈ -7.38 — **visible** in [-10,10]
+- coords `[[1,3],[5,5]]` (a≈1.243): at x=0.0001, y ≈ -8.45 — **visible** in [-10,10]
+The dynamic computation handles all coefficient values correctly.
 
 **Why exponential doesn't need this:**
 The exponential curve approaches the asymptote **horizontally** — x goes to ±∞ while y
@@ -226,18 +240,11 @@ converges on the asymptote. The curve exits the visible area off the left/right 
 and the y-padding cutoff controls how far the curve extends vertically (away from the
 asymptote), which works well.
 
-**Why `1e-8` specifically:**
-The offset must be small enough that even the flattest reasonable logarithm curve produces
-a y-value well off-screen. Example: for coords `[[1,3],[5,5]]` with asymptote at x=0
-(a ≈ 1.243, b ≈ 11.18), at `x = 0.0001` y ≈ -8.45 (still visible in a [-10,10] graph),
-but at `x = 1e-8` y ≈ -19.9 (safely off-screen). The value `1e-8` is well within
-double-precision range and produces reasonable SVG coordinates.
-
 Alternatives evaluated and rejected:
 
 | Approach | Issue |
 |----------|-------|
-| Large domain offset (`0.1`, `0.001`, `0.0001`) | Flat curves start visibly inside the graph |
+| Fixed domain offset (`0.1`–`1e-8`) | Fails for sufficiently flat curves (small `a`) |
 | Y-padding NaN cutoff (`2×`–`10×`) | Ends SVG path near asymptote; visible for flat curves |
 | Y-value clamping (cap at yMin/yMax) | SVG stroke width causes visual overlap at boundary |
 | Pixel-to-graph-unit stroke calculation | Overly complex, didn't account for curve curvature |
@@ -311,9 +318,12 @@ Numbered decisions with rationale for future context.
 7. **Full-line draggable asymptote** — Uses `useDraggable` + `SVGLine` pattern from `MovableLine`,
    making the entire line interactive. A pill-shaped handle provides visual affordance.
 
-8. **NaN cutoff for curve-asymptote visual gap** — Returns `NaN` (not clamp) when y exceeds
-   visible range with padding. This causes Mafs to end the SVG path naturally. Chosen after
-   evaluating alternatives (see [Curve-Asymptote Visual Gap](#curve-asymptote-visual-gap)).
+8. **Dynamic domain offset for curve-asymptote visual continuity** — The domain offset is
+   computed from the current coefficients by solving for the x where y reaches a target
+   safely beyond the visible range. This ensures the SVG path always starts off-screen,
+   regardless of curve flatness. A y-padding NaN cutoff (used by exponential) was rejected
+   for logarithm because the curve exits vertically — the cutoff would end the path near
+   the asymptote. See [Curve-Asymptote Visual Continuity](#curve-asymptote-visual-continuity).
 
 9. **Localized focus ring on drag handle** — Focus ring appears around the drag handle pill
    (not the full asymptote line), consistent with how movable points display focus.
@@ -329,9 +339,12 @@ Numbered decisions with rationale for future context.
 12. **Drag handle retains focus after drag** — Matches movable point behavior. Auto-blur on drag
     end was implemented and reverted for consistency (see Post-Implementation Fixes).
 
-13. **Curve renders behind drag handle** — `Plot.OfX` is rendered before `MovableAsymptote` in
-    the SVG DOM so the drag handle is visually above the curve. This prevents the curve from
-    blocking interaction with or obscuring the drag handle.
+13. **Curve renders between asymptote lines and drag handle** — `Plot.OfX` is rendered as
+    `children` of `MovableAsymptote`, placing it between the asymptote lines (white backing +
+    dashed blue) and the drag handle in the SVG DOM. This ensures the curve is visible where
+    it approaches the asymptote (not hidden behind the white backing line) while keeping the
+    drag handle visually above the curve. The curve has `pointerEvents: "none"` so it does
+    not intercept events meant for the asymptote's hit target underneath.
 
 14. **CSS modules (not Aphrodite)** — All component styling uses `.module.css` files with class
     names, following the project convention.
