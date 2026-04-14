@@ -89,7 +89,7 @@ describe("message-validators", () => {
             expect(isIframeToParentMessage([])).toBe(false);
         });
 
-        it("returns false for message with correct source but missing required fields", () => {
+        it("returns true for message with correct source but missing required fields", () => {
             const message = {
                 source: PREVIEW_MESSAGE_SOURCE,
             };
