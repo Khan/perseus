@@ -410,7 +410,7 @@ describe("movePointInFigure", () => {
 });
 
 describe("moveSegment", () => {
-    it("moves an entire segment by the given delta vector", () => {
+    it("sets segment coords to the given positions", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             coords: [
@@ -423,7 +423,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [5, -3]),
+            actions.segment.moveLine(0, [6, -1], [8, 1]),
         );
 
         invariant(updated.type === "segment");
@@ -446,7 +446,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [0.5, 0.5]),
+            actions.segment.moveLine(0, [1.5, 2.5], [3.5, 4.5]),
         );
 
         invariant(updated.type === "segment");
@@ -456,7 +456,7 @@ describe("moveSegment", () => {
         ]);
     });
 
-    it("keeps the segment within the graph bounds", () => {
+    it("clamps points to the graph bounds", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             coords: [
@@ -469,12 +469,13 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [99, 99]),
+            actions.segment.moveLine(0, [99, 99], [99, 99]),
         );
 
         invariant(updated.type === "segment");
+        // Each point is clamped independently to the graph range
         expect(updated.coords[0]).toEqual([
-            [7, 7],
+            [9, 9],
             [9, 9],
         ]);
     });
@@ -492,7 +493,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [1, 1]),
+            actions.segment.moveLine(0, [2, 3], [4, 5]),
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
