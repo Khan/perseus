@@ -65,7 +65,11 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                 class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_1lvpu48-o_O-spacingAboveHelperText_gnlkey"
                 id=":r2:-labeled-field-additional-helper-message"
               >
-                0 / 500 Characters
+                <p
+                  class="characterCountText_10dqadd"
+                >
+                  0 / 500 Characters
+                </p>
               </div>
               <div
                 aria-atomic="true"
@@ -147,7 +151,11 @@ exports[`free-response widget should snapshot: first render 1`] = `
                 class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_1lvpu48-o_O-spacingAboveHelperText_gnlkey"
                 id=":r0:-labeled-field-additional-helper-message"
               >
-                0 / 500 Characters
+                <p
+                  class="characterCountText_10dqadd"
+                >
+                  0 / 500 Characters
+                </p>
               </div>
               <div
                 aria-atomic="true"
