@@ -9,7 +9,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const NumericInputWidget = getWidget("numeric-input")!;
 
-const meta: Meta = {
+const meta: Meta<typeof NumericInputWidget> = {
     title: "Widgets/Numeric Input/Visual Regression Tests/Interactions",
     component: NumericInputWidget,
     tags: ["!autodocs"],
@@ -28,7 +28,7 @@ export default meta;
 type Story = StoryObj<typeof NumericInputWidget>;
 
 /** Verifies the focused input state (medium border width) when no answer forms are set — no tooltip appears */
-export const FocusedInput: Story = {
+export const Focus: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
         initialUserInput: {"numeric-input 1": {currentValue: "5"}},
@@ -44,7 +44,7 @@ export const FocusedInput: Story = {
 };
 
 /** Verifies the focused state with one answer form (integer) — tooltip shows a single example */
-export const FocusedWith1Tooltip: Story = {
+export const With1Tooltip: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
         initialUserInput: {"numeric-input 1": {currentValue: "5"}},
@@ -71,7 +71,7 @@ export const FocusedWith1Tooltip: Story = {
 };
 
 /** Verifies the focused state with multiple answer forms (integer + decimal) — tooltip shows a list of examples */
-export const FocusedWithMultipleTooltips: Story = {
+export const WithMultipleTooltips: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
         initialUserInput: {"numeric-input 1": {currentValue: "5"}},
