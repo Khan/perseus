@@ -10,7 +10,7 @@ const FreeResponseWidget = getWidget("free-response")!;
 const meta: Meta<typeof FreeResponseWidget> = {
     title: "Widgets/Free Response/Visual Regression Tests/Initial State",
     component: FreeResponseWidget,
-    tags: ["!dev"],
+    tags: ["!autodocs"],
     parameters: {
         docs: {
             description: {

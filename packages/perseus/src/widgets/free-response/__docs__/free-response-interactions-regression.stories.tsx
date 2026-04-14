@@ -1,5 +1,3 @@
-import {within} from "storybook/test";
-
 import {themeModes} from "../../../../../../.storybook/modes";
 import {getWidget} from "../../../widgets";
 import {freeResponseRendererDecorator} from "../../__testutils__/free-response-renderer-decorator";
@@ -37,8 +35,7 @@ export const OverCharacterLimit = {
         placeholder: "Enter your answer here",
         question: "What is the theme of the essay?",
     },
-    play: async ({canvasElement, userEvent}) => {
-        const canvas = within(canvasElement);
+    play: async ({canvas, userEvent}) => {
         const textarea = canvas.getByRole("textbox");
         await userEvent.type(textarea, "This answer is way too long");
     },
@@ -54,8 +51,7 @@ export const RightToLeftOverCharacterLimit = {
         placeholder: "Enter your answer here",
         question: "What is the theme of the essay?",
     },
-    play: async ({canvasElement, userEvent}) => {
-        const canvas = within(canvasElement);
+    play: async ({canvas, userEvent}) => {
         const textarea = canvas.getByRole("textbox");
         await userEvent.type(textarea, "This answer is way too long");
     },
