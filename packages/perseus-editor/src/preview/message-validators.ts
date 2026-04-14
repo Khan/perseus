@@ -6,13 +6,13 @@ import type {
 } from "./message-types";
 
 /**
- * Type guard to check if an object is an {IframeToParentMessage} type.
+ * Type guard to check if an object is an {@link IframeToParentMessage} type.
  *
  * This validates that the message has the correct structure and source
  * identifier to be from a Perseus preview iframe.
  *
  * @param message - Unknown message to validate
- * @returns True if message is a valid IframeToParentMessage
+ * @returns True if message is a valid {@link IframeToParentMessage}
  */
 export function isIframeToParentMessage(
     message: unknown,
@@ -33,7 +33,7 @@ export function isIframeToParentMessage(
  * identifier to be from a Perseus preview host.
  *
  * @param message - Unknown message to validate
- * @returns True if message is a valid ParentToIframeMessage
+ * @returns True if message is a valid {@link ParentToIframeMessage}
  */
 export function isParentToIframeMessage(
     message: unknown,
