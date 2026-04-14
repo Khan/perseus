@@ -113,7 +113,9 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                     }}
                     ariaDescribedBy={`${linesAriaInfo[i].interceptDescriptionId} ${linesAriaInfo[i].slopeDescriptionId} ${intersectionId}`}
                     onMoveLine={(newStart, newEnd) => {
-                        dispatch(actions.linearSystem.moveLine(i, newStart, newEnd));
+                        dispatch(
+                            actions.linearSystem.moveLine(i, newStart, newEnd),
+                        );
                     }}
                     extend={{
                         start: true,

@@ -120,7 +120,9 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                         key={i}
                         points={segment}
                         onMoveLine={(newStart, newEnd) => {
-                            dispatch(actions.segment.moveLine(i, newStart, newEnd));
+                            dispatch(
+                                actions.segment.moveLine(i, newStart, newEnd),
+                            );
                         }}
                         onMovePoint={(
                             endpointIndex: number,
