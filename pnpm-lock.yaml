@@ -420,9 +420,6 @@ importers:
       storybook-multilevel-sort:
         specifier: ^2.1.0
         version: 2.1.0
-      style-loader:
-        specifier: ^3.3.3
-        version: 3.3.4(webpack@5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0))
       swc_mut_cjs_exports:
         specifier: ^8.0.1
         version: 8.0.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(@swc/jest@0.2.37(@swc/core@1.11.13(@swc/helpers@0.5.17)))
@@ -8593,12 +8590,6 @@ packages:
 
   style-inject@0.3.0:
     resolution: {integrity: sha512-IezA2qp+vcdlhJaVm5SOdPPTUu0FCEqfNSli2vRuSIBbu5Nq5UvygTk/VzeCqfLz2Atj3dVII5QBKGZRZ0edzw==}
-
-  style-loader@3.3.4:
-    resolution: {integrity: sha512-0WqXzrsMTyb8yjZJHDqwmnwRJvhALK9LfRtRc6B4UTWe8AijYLZYZ9thuJTZc2VfQWINADW/j+LiJnfy2RoC1w==}
-    engines: {node: '>= 12.13.0'}
-    peerDependencies:
-      webpack: ^5.0.0
 
   stylehacks@5.1.0:
     resolution: {integrity: sha512-SzLmvHQTrIWfSgljkQCw2++C9+Ne91d/6Sp92I8c5uHTcy/PgeHamwITIbBW9wnFTY/3ZfSXR9HIL6Ikqmcu6Q==}
@@ -18795,10 +18786,6 @@ snapshots:
   strip-json-comments@5.0.1: {}
 
   style-inject@0.3.0: {}
-
-  style-loader@3.3.4(webpack@5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0)):
-    dependencies:
-      webpack: 5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0)
 
   stylehacks@5.1.0(postcss@8.5.4):
     dependencies:

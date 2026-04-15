@@ -101,7 +101,6 @@
         "semver": "^7.7.2",
         "storybook": "10.3.1",
         "storybook-multilevel-sort": "^2.1.0",
-        "style-loader": "^3.3.3",
         "swc_mut_cjs_exports": "^8.0.1",
         "tiny-invariant": "catalog:devDeps",
         "tstyche": "^7.0.0",
