@@ -319,13 +319,13 @@ abstract class Expr {
     }
 
     // return the variables (function and non) within the expression
-    getVars(excludeFunc?: boolean) {
+    getVars(excludeFunc?: boolean): string[] {
         return _.uniq(
             this.exprArgs().flatMap((arg) => arg.getVars(excludeFunc)),
         ).sort();
     }
 
-    getConsts() {
+    getConsts(): string[] {
         return _.uniq(this.exprArgs().flatMap((arg) => arg.getConsts())).sort();
     }
 
