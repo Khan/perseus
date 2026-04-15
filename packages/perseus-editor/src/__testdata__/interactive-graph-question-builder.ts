@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 // Duplicated from packages/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder.ts
 // This is to have similar test data for packages/perseus-editor
 
