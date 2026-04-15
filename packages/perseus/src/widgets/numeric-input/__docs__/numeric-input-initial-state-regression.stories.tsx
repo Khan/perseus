@@ -31,7 +31,7 @@ type Story = StoryObj<typeof NumericInputWidget>;
 export const SizeNormal: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
-        initialUserInput: {"numeric-input 1": {currentValue: "5"}},
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
     },
     args: {
         size: "normal",
@@ -42,7 +42,7 @@ export const SizeNormal: Story = {
 export const SizeSmall: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
-        initialUserInput: {"numeric-input 1": {currentValue: "5"}},
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
     },
     args: {
         size: "small",
@@ -53,7 +53,7 @@ export const SizeSmall: Story = {
 export const RightAligned: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
-        initialUserInput: {"numeric-input 1": {currentValue: "5"}},
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
     },
     args: {
         size: "normal",

@@ -1,5 +1,3 @@
-import {within} from "storybook/test";
-
 import {themeModes} from "../../../../../../.storybook/modes";
 import {getWidget} from "../../../widgets";
 import {numericInputRendererDecorator} from "../../__testutils__/numeric-input-renderer-decorator";
@@ -36,8 +34,7 @@ export const Focus: Story = {
     args: {
         size: "normal",
     } satisfies Partial<PerseusNumericInputWidgetOptions>,
-    play: async ({canvasElement}) => {
-        const canvas = within(canvasElement);
+    play: async ({canvas}) => {
         const input = canvas.getByRole("textbox");
         input.focus();
     },
@@ -63,8 +60,7 @@ export const With1Tooltip: Story = {
             },
         ],
     } satisfies Partial<PerseusNumericInputWidgetOptions>,
-    play: async ({canvasElement}) => {
-        const canvas = within(canvasElement);
+    play: async ({canvas}) => {
         const input = canvas.getByRole("textbox");
         input.focus();
     },
@@ -90,8 +86,7 @@ export const WithMultipleTooltips: Story = {
             },
         ],
     } satisfies Partial<PerseusNumericInputWidgetOptions>,
-    play: async ({canvasElement}) => {
-        const canvas = within(canvasElement);
+    play: async ({canvas}) => {
         const input = canvas.getByRole("textbox");
         input.focus();
     },
