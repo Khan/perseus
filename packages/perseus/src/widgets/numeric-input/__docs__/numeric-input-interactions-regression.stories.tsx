@@ -1,129 +1,93 @@
-import {
-    generateNumericInputWidget,
-    generateNumericInputOptions,
-    generateTestPerseusItem,
-    generateTestPerseusRenderer,
-    generateNumericInputAnswer,
-} from "@khanacademy/perseus-core";
-import * as React from "react";
+import {themeModes} from "../../../../../../.storybook/modes";
+import {getWidget} from "../../../widgets";
+import {numericInputRendererDecorator} from "../../__testutils__/numeric-input-renderer-decorator";
 
-import {ApiOptions} from "../../../perseus-api";
-import {ServerItemRenderer} from "../../../server-item-renderer";
-import {testDependenciesV2} from "../../../testing/test-dependencies";
+import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-import type {PerseusItem} from "@khanacademy/perseus-core";
+const NumericInputWidget = getWidget("numeric-input")!;
 
-/**
- * This is a visual regression story for the numeric input widget.
- */
-
-export default {
+const meta: Meta<typeof NumericInputWidget> = {
     title: "Widgets/Numeric Input/Visual Regression Tests/Interactions",
-    component: NumericInputQuestionRenderer,
+    component: NumericInputWidget,
     tags: ["!autodocs"],
     parameters: {
         docs: {
             description: {
                 component:
-                    "Regression tests for the numeric input widget that DO need some sort of interaction to test, which will be used with Chromatic. Stories are displayed on their own page.",
+                    "Regression tests for the Numeric Input widget that DO need some sort of interaction to test, which will be used with Chromatic. Stories are displayed on their own page.",
             },
         },
-        chromatic: {disableSnapshot: false},
+        chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
+export default meta;
 
-export const Focus = {
+type Story = StoryObj<typeof NumericInputWidget>;
+
+/** Verifies the focused input state (medium border width) when no answer forms are set — no tooltip appears */
+export const Focus: Story = {
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content:
-                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
-                widgets: {
-                    "numeric-input 1": generateNumericInputWidget({
-                        options: generateNumericInputOptions({
-                            size: "normal",
-                        }),
-                    }),
-                },
-            }),
-        }),
-    },
+        size: "normal",
+    } satisfies Partial<PerseusNumericInputWidgetOptions>,
     play: async ({canvas}) => {
-        const inputToFocus = canvas.getByRole("textbox");
-        inputToFocus.focus();
+        const input = canvas.getByRole("textbox");
+        input.focus();
     },
 };
 
-export const With1Tooltip = {
+/** Verifies the focused state with one answer form (integer) — tooltip shows a single example */
+export const With1Tooltip: Story = {
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content:
-                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
-                widgets: {
-                    "numeric-input 1": generateNumericInputWidget({
-                        options: generateNumericInputOptions({
-                            size: "normal",
-                            answers: [
-                                generateNumericInputAnswer({
-                                    answerForms: ["integer"],
-                                }),
-                            ],
-                        }),
-                    }),
-                },
-            }),
-        }),
-    },
+        size: "normal",
+        answers: [
+            {
+                value: 5,
+                status: "correct",
+                message: "",
+                answerForms: ["integer"],
+                simplify: "required" as const,
+                strict: false,
+                maxError: 0,
+            },
+        ],
+    } satisfies Partial<PerseusNumericInputWidgetOptions>,
     play: async ({canvas}) => {
-        const inputToFocus = canvas.getByRole("textbox");
-        inputToFocus.focus();
+        const input = canvas.getByRole("textbox");
+        input.focus();
     },
 };
 
-export const WithMultipleTooltips = {
+/** Verifies the focused state with multiple answer forms (integer + decimal) — tooltip shows a list of examples */
+export const WithMultipleTooltips: Story = {
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
     args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content:
-                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
-                widgets: {
-                    "numeric-input 1": generateNumericInputWidget({
-                        options: generateNumericInputOptions({
-                            size: "normal",
-                            answers: [
-                                generateNumericInputAnswer({
-                                    answerForms: ["integer", "decimal"],
-                                }),
-                            ],
-                        }),
-                    }),
-                },
-            }),
-        }),
-    },
+        size: "normal",
+        answers: [
+            {
+                value: 5,
+                status: "correct",
+                message: "",
+                answerForms: ["integer", "decimal"],
+                simplify: "required" as const,
+                strict: false,
+                maxError: 0,
+            },
+        ],
+    } satisfies Partial<PerseusNumericInputWidgetOptions>,
     play: async ({canvas}) => {
-        const inputToFocus = canvas.getByRole("textbox");
-        inputToFocus.focus();
+        const input = canvas.getByRole("textbox");
+        input.focus();
     },
 };
-
-function NumericInputQuestionRenderer(props: {
-    item: PerseusItem;
-    rtl?: boolean;
-}) {
-    const {item, rtl} = props;
-    const style = {padding: 20};
-
-    return (
-        <div dir={rtl ? "rtl" : "ltr"} style={style}>
-            <ServerItemRenderer
-                item={item}
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                }}
-                dependencies={testDependenciesV2}
-            />
-        </div>
-    );
-}

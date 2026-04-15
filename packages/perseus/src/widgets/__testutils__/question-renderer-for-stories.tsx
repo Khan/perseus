@@ -6,15 +6,20 @@ import {mockStrings} from "../../strings";
 import UserInputManager from "../../user-input-manager";
 
 import type {APIOptions} from "../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
 
 export default function QuestionRendererForStories(props: {
     question: PerseusRenderer;
     apiOptions?: APIOptions;
+    initialUserInput?: UserInputMap;
 }) {
-    const {question, apiOptions} = props;
+    const {question, apiOptions, initialUserInput} = props;
     return (
-        <UserInputManager widgets={question.widgets} problemNum={0}>
+        <UserInputManager
+            widgets={question.widgets}
+            problemNum={0}
+            initialUserInput={initialUserInput}
+        >
             {({userInput, handleUserInput, initializeUserInput}) => (
                 <Renderer
                     userInput={userInput}
