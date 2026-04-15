@@ -92,6 +92,11 @@ type LogarithmGraphOptions = {
     startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
 };
 
+type VectorGraphOptions = {
+    type: "vector";
+    startCoords?: CollinearTuple;
+};
+
 type NoneGraphOptions = Record<string, never>;
 
 type GraphOptions =
@@ -109,7 +114,8 @@ type GraphOptions =
     | SegmentGraphOptions
     | SinusoidGraphOptions
     | TangentGraphOptions
-    | LogarithmGraphOptions;
+    | LogarithmGraphOptions
+    | VectorGraphOptions;
 
 type AngleUserInput = {
     coords?: readonly [Coord, Coord, Coord];
@@ -175,6 +181,10 @@ type TangentUserInput = {
     coords?: readonly Coord[] | null;
 };
 
+type VectorUserInput = {
+    coords?: CollinearTuple | null;
+};
+
 type UserInput =
     | AbsoluteValueUserInput
     | AngleUserInput
@@ -189,7 +199,8 @@ type UserInput =
     | SegmentUserInput
     | SinusoidUserInput
     | TangentUserInput
-    | LogarithmUserInput;
+    | LogarithmUserInput
+    | VectorUserInput;
 
 /**
  * JSON describing an interactive graph widget. Intended for consumption by AI tools.
