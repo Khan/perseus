@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 77.2.2
+
+### Patch Changes
+
+-   [#3491](https://github.com/Khan/perseus/pull/3491) [`27e66ce3a6`](https://github.com/Khan/perseus/commit/27e66ce3a65d6fae158197bc028a76abf3219d18) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: Fix Asymptote Line Thickness on Keyboard Focus for exponential and logarithm
+
+*   [#3489](https://github.com/Khan/perseus/pull/3489) [`b8ed10349d`](https://github.com/Khan/perseus/commit/b8ed10349d02ff90a7c5b7a23e6442b0c820ae1c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: Fix Asymptote Drag Handle Blocked by Curve Line for Logarithm and Exponential
+
+*   Updated dependencies [[`2f2724d244`](https://github.com/Khan/perseus/commit/2f2724d244d3d066608523598602f74012f1a0ff)]:
+    -   @khanacademy/perseus-core@24.1.1
+    -   @khanacademy/keypad-context@3.2.43
+    -   @khanacademy/kmath@2.4.1
+    -   @khanacademy/math-input@26.4.14
+    -   @khanacademy/perseus-linter@4.9.4
+    -   @khanacademy/perseus-score@8.6.1
+
 ## 77.2.1
 
 ### Patch Changes
