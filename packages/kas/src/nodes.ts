@@ -321,16 +321,16 @@ abstract class Expr {
     // return the variables (function and non) within the expression
     getVars(excludeFunc?: boolean) {
         return _.uniq(
-            _.flatten(_.invoke(this.exprArgs(), "getVars", excludeFunc)),
+            this.exprArgs().flatMap((arg) => arg.getVars(excludeFunc)),
         ).sort();
     }
 
     getConsts() {
-        return _.uniq(_.flatten(_.invoke(this.exprArgs(), "getConsts"))).sort();
+        return _.uniq(this.exprArgs().flatMap((arg) => arg.getConsts())).sort();
     }
 
     getUnits() {
-        return _.flatten(_.invoke(this.exprArgs(), "getUnits"));
+        return this.exprArgs().flatMap((arg) => arg.getUnits());
     }
 
     // check whether this expression node is of a particular type
@@ -343,9 +343,7 @@ abstract class Expr {
         if (this instanceof func) {
             return true;
         }
-        return _.any(this.exprArgs(), function (arg) {
-            return arg.has(func);
-        });
+        return this.exprArgs().some((arg) => arg.has(func));
     }
 
     // raise this expression to a given exponent
@@ -432,12 +430,14 @@ abstract class Expr {
         // where there are no variables / functions.
         // Ran into issues with it in LEMS-2777 and found that tests pass
         // with this removed, but keeping a modified version out of caution.
-        const varAndFuncList = _.union(
-            this.getVars(/* excludeFunc */ false),
-            other.getVars(/* excludeFunc */ false),
-        );
+        const hasFuncOrUnit =
+            this.has(Func) ||
+            other.has(Func) ||
+            this.has(Unit) ||
+            other.has(Unit);
+
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (!varAndFuncList.length && !this.has(Unit) && !other.has(Unit)) {
+        if (!varList.length && !hasFuncOrUnit) {
             return equalNumbers(this.eval(), other.eval());
         }
 
@@ -492,12 +492,7 @@ abstract class Expr {
             });
 
             let equal;
-            if (
-                expr1.has(Func) ||
-                expr2.has(Func) ||
-                expr1.has(Unit) ||
-                expr2.has(Unit)
-            ) {
+            if (hasFuncOrUnit) {
                 const result1 = expr1.partialEval(vars);
                 const result2 = expr2.partialEval(vars);
 
@@ -650,11 +645,9 @@ abstract class Seq extends Expr {
     // this is a shallow flattening and will return a non-Seq if terms.length <= 1
     flatten(): Expr {
         var type = this;
-        var terms = _.reject(this.terms, (term) => {
-            // @ts-expect-error: `identity` is defined on Add and Mul but doesn't
-            // exist on Seq itself.
-            return term.equals(type.identity);
-        });
+        // @ts-expect-error: `identity` is defined on Add and Mul but doesn't
+        // exist on Seq itself.
+        var terms = this.terms.filter((term) => !term.equals(type.identity));
 
         if (terms.length === 0) {
             // @ts-expect-error: `identity` is defined on Add and Mul but doesn't
@@ -671,7 +664,7 @@ abstract class Seq extends Expr {
         });
 
         var flattened = others.concat(
-            _.flatten(_.pluck(same, "terms"), /* shallow: */ true),
+            (same as Seq[]).flatMap((s) => s.terms),
         );
         return new type.func(flattened);
     }
@@ -742,7 +735,7 @@ export class Add extends Seq {
     }
 
     print(): string {
-        return _.invoke(this.terms, "print").join("+");
+        return this.terms.map((term) => term.print()).join("+");
     }
 
     tex(): string {
@@ -782,7 +775,7 @@ export class Add extends Seq {
         var collected = _.compact(
             _.map(grouped, (pairs) => {
                 var expr = pairs[0][0];
-                var sum = new Add(_.zip.apply(_, pairs)[1]);
+                var sum = new Add(pairs.map((p) => p[1]));
                 var coefficient = sum.reduce(options);
                 return new Mul(coefficient, expr).collect(options);
             }),
@@ -1152,7 +1145,7 @@ export class Mul extends Seq {
         var summed: [base: Expr, exp: Expr][] = _.compact(
             _.map(grouped, (pairs): [Expr, Expr] | null => {
                 var base = pairs[0][0];
-                var sum = new Add(_.zip.apply(_, pairs)[1]);
+                var sum = new Add(pairs.map((p) => p[1]));
                 var exp = sum.collect(options);
 
                 if (exp instanceof Num && exp.eval() === 0) {
