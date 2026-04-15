@@ -1,4 +1,8 @@
 import {render, screen} from "@testing-library/react";
+import {
+    type UserEvent,
+    userEvent as userEventLib,
+} from "@testing-library/user-event";
 import * as React from "react";
 
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
@@ -27,10 +31,19 @@ const baseVectorState: InteractiveGraphState = {
 };
 
 describe("Vector graph screen reader", () => {
+    let userEvent: UserEvent;
     beforeEach(() => {
+        jest.useFakeTimers();
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
     });
 
     it("renders the vector graph with an aria label", () => {
@@ -81,11 +94,13 @@ describe("Vector graph screen reader", () => {
         );
     });
 
-    it("renders a drag handle on the vector body", () => {
+    it("renders a drag handle on the vector body", async () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseVectorState} />);
 
-        // Act
+        // Act — hover the vector body to make the pill visible
+        const vectorBody = screen.getByTestId("movable-vector");
+        await userEvent.hover(vectorBody);
         const dragHandle = screen.getByTestId("pill-drag-handle");
 
         // Assert
