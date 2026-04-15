@@ -66,9 +66,7 @@ function buildRoundedTriangle(
 // the chevron is 5 unscaled units (half of 15px / ARROW_SCALE).
 // On focus, a 2px stroke is added for the focus ring — matching the
 // Figma SVG which uses fill + stroke on one path.
-const arrowPathHalo = buildRoundedTriangle(
-    2.8, 2.8, -2.2, 7.8, -9, 5, 4, 4,
-);
+const arrowPathHalo = buildRoundedTriangle(2.8, 2.8, -2.2, 7.8, -9, 5, 4, 4);
 
 // Shared SVG attributes for the chevron centre and ring paths.
 const chevronPathAttrs = {
@@ -143,22 +141,22 @@ export const MovableArrowheadView = forwardRef(
                 />
 
                 <g transform={`translate(${x} ${y}) rotate(${angle})`}>
-                        {/* Halo — filled rounded triangle.  On focus,
+                    {/* Halo — filled rounded triangle.  On focus,
                             a 2px stroke is added for the focus ring. */}
-                        <path
-                            d={arrowPathHalo}
-                            className="movable-arrowhead-halo"
-                        />
-                        {/* Ring — white stroke on the chevron */}
-                        <path
-                            {...chevronPathAttrs}
-                            className="movable-arrowhead-ring"
-                        />
-                        {/* Centre — the visible arrowhead chevron stroke */}
-                        <path
-                            {...chevronPathAttrs}
-                            className="movable-arrowhead-center"
-                        />
+                    <path
+                        d={arrowPathHalo}
+                        className="movable-arrowhead-halo"
+                    />
+                    {/* Ring — white stroke on the chevron */}
+                    <path
+                        {...chevronPathAttrs}
+                        className="movable-arrowhead-ring"
+                    />
+                    {/* Centre — the visible arrowhead chevron stroke */}
+                    <path
+                        {...chevronPathAttrs}
+                        className="movable-arrowhead-center"
+                    />
                 </g>
             </g>
         );

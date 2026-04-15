@@ -285,7 +285,9 @@
     transform-origin: 100% 50%;
 }
 
-.MafsView .movable-arrowhead.movable-arrowhead--dragging .movable-arrowhead-halo {
+.MafsView
+    .movable-arrowhead.movable-arrowhead--dragging
+    .movable-arrowhead-halo {
     fill-opacity: 0;
     stroke: none;
 }
