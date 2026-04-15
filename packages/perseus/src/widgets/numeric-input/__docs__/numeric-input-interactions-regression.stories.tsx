@@ -29,7 +29,7 @@ type Story = StoryObj<typeof NumericInputWidget>;
 export const Focus: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
-        initialUserInput: {"numeric-input 1": {currentValue: "5"}},
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
     },
     args: {
         size: "normal",
@@ -44,7 +44,7 @@ export const Focus: Story = {
 export const With1Tooltip: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
-        initialUserInput: {"numeric-input 1": {currentValue: "5"}},
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
     },
     args: {
         size: "normal",
@@ -70,7 +70,7 @@ export const With1Tooltip: Story = {
 export const WithMultipleTooltips: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
-        initialUserInput: {"numeric-input 1": {currentValue: "5"}},
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
     },
     args: {
         size: "normal",
