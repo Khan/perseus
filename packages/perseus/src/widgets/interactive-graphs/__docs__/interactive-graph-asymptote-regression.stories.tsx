@@ -238,13 +238,13 @@ export const LogarithmDragHandleNoOverlap: Story = {
         question: interactiveGraphQuestionBuilder()
             .withLogarithm({
                 coords: [
-                    [3, 1],
-                    [5, 3],
+                    [1, 3],
+                    [2, 5],
                 ],
                 asymptote: 0,
                 startCoords: [
-                    [3, 1],
-                    [5, 3],
+                    [1, 3],
+                    [2, 5],
                 ],
                 startAsymptote: 0,
             })
