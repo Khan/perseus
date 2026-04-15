@@ -43,9 +43,9 @@ export default function VectorAnswerOptions({correct, onChange}: Props) {
             <InfoTip>
                 <p>
                     Congruency requires only that the vector has the same
-                    direction and magnitude. An exact match implies
-                    congruency, but also requires that the tail and tip
-                    are in the same position on the grid.
+                    direction and magnitude. An exact match implies congruency,
+                    but also requires that the tail and tip are in the same
+                    position on the grid.
                 </p>
             </InfoTip>
         </LabeledRow>
