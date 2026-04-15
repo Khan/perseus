@@ -510,6 +510,7 @@ class InteractiveGraphQuestionBuilder {
         options?: {
             color?: LockedFigureColor;
             showVertices?: boolean;
+            showAngles?: boolean;
             fillStyle?: LockedFigureFillType;
             strokeStyle?: LockedLineStyle;
             weight?: StrokeWeight;
@@ -522,6 +523,7 @@ class InteractiveGraphQuestionBuilder {
             points: points,
             color: "grayH",
             showVertices: false,
+            showAngles: false,
             fillStyle: "none",
             strokeStyle: "solid",
             weight: options?.weight ?? "medium",

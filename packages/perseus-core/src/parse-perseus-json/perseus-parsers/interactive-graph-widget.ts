@@ -239,6 +239,7 @@ const parseLockedPolygonType = object({
     points: array(pairOfNumbers),
     color: parseLockedFigureColor,
     showVertices: boolean,
+    showAngles: defaulted(boolean, () => false),
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
     weight: parseStrokeWeight,

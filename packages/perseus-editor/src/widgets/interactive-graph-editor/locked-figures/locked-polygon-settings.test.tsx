@@ -742,4 +742,25 @@ describe("LockedPolygonSettings", () => {
             });
         });
     });
+
+    test("calls onChangeProps when show angle measures switch is toggled", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPolygonSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const toggle = screen.getByRole("switch", {
+            name: "show angle measures",
+        });
+        await userEvent.click(toggle);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({showAngles: true});
+    });
 });

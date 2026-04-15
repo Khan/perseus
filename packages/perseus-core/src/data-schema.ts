@@ -1055,6 +1055,7 @@ export type LockedPolygonType = {
     points: Coord[];
     color: LockedFigureColor;
     showVertices: boolean;
+    showAngles: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
     weight: StrokeWeight;

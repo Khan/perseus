@@ -82,6 +82,7 @@ describe("getDefaultFigureForType", () => {
             ],
             color: "grayH",
             showVertices: false,
+            showAngles: false,
             fillStyle: "none",
             strokeStyle: "solid",
             weight: "medium",
