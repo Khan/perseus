@@ -22,7 +22,8 @@ export default Rule.makeRule({
         }
 
         if (!widget.options.labelText) {
-            return "No aria label is set. Screen readers will use a default label. Consider adding a descriptive label for accessibility.";
+            return `Inputs should have an aria label:
+While screen readers will fallback to a default label of 'Your answer', a more descriptive label would improve accessibility.`;
         }
     },
 }) as Rule;
