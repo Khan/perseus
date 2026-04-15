@@ -305,13 +305,9 @@ describe("sanitizePreviewData", () => {
             if (result.type === "article-all") {
                 expect(result.data).toHaveLength(2);
                 expect(result.data[0].apiOptions.readOnly).toBe(true);
-                expect(
-                    result.data[0].apiOptions.onFocusChange,
-                ).toBeUndefined();
+                expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
                 expect(result.data[1].apiOptions.readOnly).toBe(false);
-                expect(
-                    result.data[1].apiOptions.onFocusChange,
-                ).toBeUndefined();
+                expect(result.data[1].apiOptions.onFocusChange).toBeUndefined();
             }
         });
 
@@ -385,9 +381,7 @@ describe("sanitizePreviewData", () => {
             expect(result.type).toBe("article-all");
             if (result.type === "article-all") {
                 expect(result.data).toHaveLength(2);
-                expect(
-                    result.data[0].apiOptions.onFocusChange,
-                ).toBeUndefined();
+                expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
                 // Section with null apiOptions should be unchanged
                 expect(result.data[1].apiOptions).toBeNull();
             }
