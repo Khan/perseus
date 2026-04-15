@@ -13,7 +13,8 @@ import {wbFieldStyles} from "../utils";
 import type {Props as ImageEditorProps} from "../image-editor";
 import type {PerseusImageBackground} from "@khanacademy/perseus-core";
 
-const LARGE_DIMENSION_THRESHOLD = 1024;
+// 1024 * 1024 = 1,048,576
+const LARGE_DIMENSION_THRESHOLD = 1048576;
 
 interface Props {
     backgroundImage: PerseusImageBackground;
@@ -96,8 +97,7 @@ export default function ImageScaleInput({
         });
     }
 
-    const hasLargeDimensions =
-        width > LARGE_DIMENSION_THRESHOLD || height > LARGE_DIMENSION_THRESHOLD;
+    const hasLargeDimensions = width * height > LARGE_DIMENSION_THRESHOLD;
 
     return (
         <div className={styles.dimensionsContainer}>
