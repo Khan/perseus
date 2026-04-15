@@ -694,10 +694,10 @@ describe("initializeGraphState for vector graphs", () => {
 
         // Assert
         invariant(graph.type === "vector");
-        // Default: diagonal vector offset from axes
+        // Default: 45° diagonal vector in the upper-right area of the graph
         expect(graph.coords).toEqual([
-            [-5, 1],
-            [5, 5],
+            [2, 2],
+            [7, 7],
         ]);
     });
 });
