@@ -1,4 +1,5 @@
 import {Util} from "@khanacademy/perseus";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {BodyMonospace} from "@khanacademy/wonder-blocks-typography";
@@ -11,6 +12,8 @@ import {wbFieldStyles} from "../utils";
 
 import type {Props as ImageEditorProps} from "../image-editor";
 import type {PerseusImageBackground} from "@khanacademy/perseus-core";
+
+const LARGE_DIMENSION_THRESHOLD = 1024;
 
 interface Props {
     backgroundImage: PerseusImageBackground;
@@ -93,6 +96,9 @@ export default function ImageScaleInput({
         });
     }
 
+    const hasLargeDimensions =
+        width > LARGE_DIMENSION_THRESHOLD || height > LARGE_DIMENSION_THRESHOLD;
+
     return (
         <div className={styles.dimensionsContainer}>
             <BodyMonospace>
@@ -106,6 +112,13 @@ export default function ImageScaleInput({
             >
                 Recalculate original size
             </Button>
+
+            {hasLargeDimensions && (
+                <Banner
+                    kind="warning"
+                    text="This image has large dimensions and may cause slowed performance."
+                />
+            )}
 
             <div className={styles.horizontalLine} />
 
