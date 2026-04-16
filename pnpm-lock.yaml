@@ -171,6 +171,9 @@ importers:
       '@khanacademy/eslint-plugin':
         specifier: ^3.1.2
         version: 3.1.2(eslint@8.57.1)(typescript@5.9.3)
+      '@khanacademy/eslint-plugin-wonder-blocks':
+        specifier: ^0.2.0
+        version: 0.2.0(eslint@8.57.1)(typescript@5.9.3)
       '@khanacademy/mathjax-renderer':
         specifier: catalog:devDeps
         version: 3.0.0
@@ -2297,6 +2300,11 @@ packages:
       eslint-plugin-jsx-a11y: ^6.10.2
       eslint-plugin-prettier: ^3.4.0
       eslint-plugin-react: ^7.24.0
+
+  '@khanacademy/eslint-plugin-wonder-blocks@0.2.0':
+    resolution: {integrity: sha512-qBLiopdwuAQTCn5YykClFjRhLpuVHxAshYMm2afZz9BNcNYKDziK8fyACeabwpQ6ilob/KCHElhHO38VUZdq7w==}
+    peerDependencies:
+      eslint: ^8.57.0
 
   '@khanacademy/eslint-plugin@3.1.2':
     resolution: {integrity: sha512-+9ohgHE6R0ox98rcfh28D4Hmue4acL3fUh8wZ7JwVBXE9JWBRWaehWRwYyKi71rUI9g2ierY4Gu5qbPx2LhOpQ==}
@@ -11181,6 +11189,14 @@ snapshots:
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.57.1)
       eslint-plugin-prettier: 5.1.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.2.5)
       eslint-plugin-react: 7.34.1(eslint@8.57.1)
+
+  '@khanacademy/eslint-plugin-wonder-blocks@0.2.0(eslint@8.57.1)(typescript@5.9.3)':
+    dependencies:
+      '@typescript-eslint/utils': 8.57.1(eslint@8.57.1)(typescript@5.9.3)
+      eslint: 8.57.1
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   '@khanacademy/eslint-plugin@3.1.2(eslint@8.57.1)(typescript@5.9.3)':
     dependencies:

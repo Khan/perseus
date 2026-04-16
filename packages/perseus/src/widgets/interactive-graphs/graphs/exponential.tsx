@@ -72,7 +72,7 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     const asymptoteY = asymptote;
     const yMin = range[1][0];
     const yMax = range[1][1];
-    const yPadding = (yMax - yMin) * 2;
+    const yPadding = (yMax - yMin) * 4;
 
     // Aria strings
     const {
@@ -110,20 +110,22 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                 }
                 orientation="horizontal"
                 ariaLabel={srExponentialAsymptote}
-            />
-            <Plot.OfX
-                y={(x) => {
-                    const y = computeExponential(x, coeffRef.current);
-                    if (y < yMin - yPadding || y > yMax + yPadding) {
-                        return NaN;
-                    }
-                    return y;
-                }}
-                color={interactiveColor}
-                svgPathProps={{
-                    "aria-hidden": true,
-                }}
-            />
+            >
+                <Plot.OfX
+                    y={(x) => {
+                        const y = computeExponential(x, coeffRef.current);
+                        if (y < yMin - yPadding || y > yMax + yPadding) {
+                            return NaN;
+                        }
+                        return y;
+                    }}
+                    color={interactiveColor}
+                    svgPathProps={{
+                        "aria-hidden": true,
+                        style: {pointerEvents: "none"},
+                    }}
+                />
+            </MovableAsymptote>
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={

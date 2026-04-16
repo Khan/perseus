@@ -50,6 +50,7 @@ module.exports = {
     extends: [
         "@khanacademy",
         "@khanacademy/eslint-config/a11y",
+        "plugin:@khanacademy/wonder-blocks/strict", // config from @khanacademy/eslint-plugin-wonder-blocks
         "plugin:react/recommended",
         // This config includes rules from storybook to enforce story best
         // practices

@@ -74,10 +74,30 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     const xMax = range[0][1];
     const yMin = range[1][0];
     const yMax = range[1][1];
-    const yPadding = (yMax - yMin) * 2;
 
     // Determine which side of the asymptote the points are on
     const pointsRightOfAsymptote = coords[0][X] > asymptoteX;
+
+    // Compute the domain boundary dynamically so the curve always
+    // starts off-screen. Unlike exponential (which uses a y-padding
+    // NaN cutoff because the curve exits horizontally), the logarithm
+    // curve exits vertically — y → ±∞ as x → asymptote. A y-padding
+    // cutoff would end the SVG path near the asymptote, causing a
+    // visible discontinuity. Instead, we solve for the x where the
+    // curve reaches a y-value safely beyond the visible range, so the
+    // SVG path begins off-screen for any coefficient values.
+    //
+    // For f(x) = a * ln(b*x + c), solving y = targetY for x:
+    //   x = (e^(targetY / a) - c) / b
+    const offScreenMargin = 2; // graph units beyond visible edge
+    const {a, b, c} = coeffRef.current;
+    // Near the asymptote, y → -∞ if a > 0, or +∞ if a < 0
+    const targetY = a > 0 ? yMin - offScreenMargin : yMax + offScreenMargin;
+    const computedX = (Math.exp(targetY / a) - c) / b;
+    const computedOffset = Math.abs(computedX - asymptoteX);
+    // Use the computed offset if valid, otherwise fall back to 1e-8
+    const domainOffset =
+        isFinite(computedOffset) && computedOffset > 0 ? computedOffset : 1e-8;
 
     // Aria strings
     const {
@@ -115,28 +135,21 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                 }
                 orientation="vertical"
                 ariaLabel={srLogarithmAsymptote}
-            />
-            <Plot.OfX
-                y={(x) => {
-                    const y = computeLogarithm(coeffRef.current, x);
-                    if (isNaN(y)) {
-                        return NaN;
+            >
+                <Plot.OfX
+                    y={(x) => computeLogarithm(coeffRef.current, x)}
+                    color={interactiveColor}
+                    svgPathProps={{
+                        "aria-hidden": true,
+                        style: {pointerEvents: "none"},
+                    }}
+                    domain={
+                        pointsRightOfAsymptote
+                            ? [asymptoteX + domainOffset, xMax]
+                            : [xMin, asymptoteX - domainOffset]
                     }
-                    if (y < yMin - yPadding || y > yMax + yPadding) {
-                        return NaN;
-                    }
-                    return y;
-                }}
-                color={interactiveColor}
-                svgPathProps={{
-                    "aria-hidden": true,
-                }}
-                domain={
-                    pointsRightOfAsymptote
-                        ? [asymptoteX + 0.001, xMax]
-                        : [xMin, asymptoteX - 0.001]
-                }
-            />
+                />
+            </MovableAsymptote>
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={i === 0 ? srLogarithmPoint1 : srLogarithmPoint2}

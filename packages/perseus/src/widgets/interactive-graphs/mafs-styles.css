@@ -36,6 +36,13 @@
 
     --movable-line-stroke-weight: 2px;
     --movable-line-stroke-weight-active: 4px;
+
+    --movable-asymptote-stroke-weight: 2px;
+    --movable-asymptote-stroke-weight-active: 4px;
+    --movable-asymptote-dash-length: 6;
+    --movable-asymptote-dash-gap: 8;
+    --movable-asymptote-dash-length-active: 8;
+    --movable-asymptote-dash-gap-active: 12;
     overflow: visible !important;
 }
 
@@ -46,8 +53,16 @@
 }
 
 .MafsView .movable-line:hover,
+.MafsView .movable-line:focus-visible,
 .movable-dragging {
     --movable-line-stroke-weight: var(--movable-line-stroke-weight-active);
+    --movable-asymptote-stroke-weight: var(
+        --movable-asymptote-stroke-weight-active
+    );
+    --movable-asymptote-dash-length: var(
+        --movable-asymptote-dash-length-active
+    );
+    --movable-asymptote-dash-gap: var(--movable-asymptote-dash-gap-active);
 }
 
 .MafsView .movable-line:focus,

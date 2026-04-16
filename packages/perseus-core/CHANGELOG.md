@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 24.1.1
+
+### Patch Changes
+
+-   [#3480](https://github.com/Khan/perseus/pull/3480) [`2f2724d244`](https://github.com/Khan/perseus/commit/2f2724d244d3d066608523598602f74012f1a0ff) Thanks [@benchristel](https://github.com/benchristel)! - Hide exports that aren't used in frontend from the documentation.
+
 ## 24.1.0
 
 ### Minor Changes

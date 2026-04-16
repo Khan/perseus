@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 30.3.0
+
+### Minor Changes
+
+-   [#3474](https://github.com/Khan/perseus/pull/3474) [`b78e2ce5c3`](https://github.com/Khan/perseus/commit/b78e2ce5c3fa87de891e33717e0b4c01f39a91e4) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add typed preview message protocol with message types, validators, and tests
+
+### Patch Changes
+
+-   Updated dependencies [[`2f2724d244`](https://github.com/Khan/perseus/commit/2f2724d244d3d066608523598602f74012f1a0ff), [`27e66ce3a6`](https://github.com/Khan/perseus/commit/27e66ce3a65d6fae158197bc028a76abf3219d18), [`b8ed10349d`](https://github.com/Khan/perseus/commit/b8ed10349d02ff90a7c5b7a23e6442b0c820ae1c)]:
+    -   @khanacademy/perseus-core@24.1.1
+    -   @khanacademy/perseus@77.2.2
+    -   @khanacademy/keypad-context@3.2.43
+    -   @khanacademy/kmath@2.4.1
+    -   @khanacademy/math-input@26.4.14
+    -   @khanacademy/perseus-linter@4.9.4
+    -   @khanacademy/perseus-score@8.6.1
+
 ## 30.2.1
 
 ### Patch Changes
