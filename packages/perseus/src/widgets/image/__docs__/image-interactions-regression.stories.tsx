@@ -139,20 +139,19 @@ export const ZoomClickedState: Story = {
 
 export const ZoomClickedWithGraphieImage: Story = {
     decorators: [imageRendererDecorator],
-    parameters: {
-        // Delay the screenshot to allow KaTeX math fonts to fully load before
-        // Chromatic captures the snapshot. Without this, `scrollHeight` of
-        // math label spans is measured against a fallback font, causing
-        // non-deterministic label positions (~2.5px shift in margin-top).
-        // Include the meta-level parameters (disableSnapshot, modes) here
-        // so they don't get overriden by defaults.
-        chromatic: {disableSnapshot: false, modes: themeModes, delay: 500},
-    },
     args: {
         backgroundImage: graphieImage,
         alt: "Graphie image",
     },
     play: async ({canvas, userEvent}) => {
+        // Wait for KaTeX math fonts to fully load before clicking zoom.
+        // The zoom modal creates a new Graphie instance whose labels are
+        // measured via scrollHeight inside the KaTeX onRender callback.
+        // If fonts aren't loaded at that moment, the fallback font metrics
+        // are used, causing non-deterministic ~2.5px shifts in margin-top.
+        // document.fonts.ready stays resolved once settled, so any
+        // subsequent scrollHeight call will use correct font metrics.
+        await document.fonts.ready;
         const zoomTrigger = canvas.getByRole("button", {
             name: "Make image bigger.",
         });
