@@ -453,6 +453,27 @@ abstract class Expr {
         // Note that the above is only true in vanilla JS Number-land,
         // which has no concept of complex numbers. The solution is simple:
         // Integrate a library for handling complex numbers.
+        const randomValueGenerators = [
+            // magnitude <= 1:
+            floatGenerator(0, 1),
+            floatGenerator(-1, 0),
+            // magnitude <= 10:
+            intGenerator(0, 10),
+            intGenerator(-10, 0),
+            floatGenerator(0, 10),
+            floatGenerator(-10, 0),
+            // magnitude <= 100:
+            intGenerator(0, 100),
+            intGenerator(-100, 0),
+            floatGenerator(0, 100),
+            floatGenerator(-100, 0),
+            // magnitude <= 1000:
+            intGenerator(0, 1000),
+            intGenerator(-1000, 0),
+            floatGenerator(0, 1000),
+            floatGenerator(-1000, 0),
+        ]
+
         const variableValueGenerators = [
             // Always check x = -1, x = 0, and x = 1.
             // Requested by content creators:
@@ -460,38 +481,10 @@ abstract class Expr {
             constantGenerator(-1),
             constantGenerator(0),
             constantGenerator(1),
-            // magnitude <= 1:
-            floatGenerator(0, 1),
-            floatGenerator(0, 1),
-            floatGenerator(-1, 0),
-            floatGenerator(-1, 0),
-            // magnitude <= 10:
-            intGenerator(0, 10),
-            intGenerator(0, 10),
-            intGenerator(-10, 0),
-            intGenerator(-10, 0),
-            floatGenerator(0, 10),
-            floatGenerator(0, 10),
-            floatGenerator(-10, 0),
-            floatGenerator(-10, 0),
-            // magnitude <= 100:
-            intGenerator(0, 100),
-            intGenerator(0, 100),
-            intGenerator(-100, 0),
-            intGenerator(-100, 0),
-            floatGenerator(0, 100),
-            floatGenerator(0, 100),
-            floatGenerator(-100, 0),
-            floatGenerator(-100, 0),
-            // magnitude <= 1000:
-            intGenerator(0, 1000),
-            intGenerator(0, 1000),
-            intGenerator(-1000, 0),
-            intGenerator(-1000, 0),
-            floatGenerator(0, 1000),
-            floatGenerator(0, 1000),
-            floatGenerator(-1000, 0),
-            floatGenerator(-1000, 0),
+            // Double up the random value generators so we check two int
+            // values and two float values in each order of magnitude.
+            ...randomValueGenerators,
+            ...randomValueGenerators,
         ];
 
         for (const generateValue of variableValueGenerators) {
