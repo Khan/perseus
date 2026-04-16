@@ -48,12 +48,8 @@ export class FreeResponse extends React.Component<Props> implements Widget {
         },
     };
 
-    announceCharacterCount = (messageRaw: string, isOverLimit: boolean) => {
+    announceCharacterCount = (message: string, isOverLimit: boolean) => {
         const level = isOverLimit ? "assertive" : "polite";
-        const message =
-            (isOverLimit ? "Error: " : "") +
-            messageRaw.replace("/", "out of") +
-            " used.";
         announceMessage({message, level, debounceThreshold: 750});
     };
 
