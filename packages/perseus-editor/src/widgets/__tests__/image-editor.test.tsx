@@ -8,7 +8,10 @@ import {act, render, screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
+import {
+    earthMoonImage,
+    frescoImage,
+} from "../../../../perseus/src/widgets/image/utils";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
@@ -222,6 +225,54 @@ describe("image editor", () => {
 
         // Assert
         expect(screen.getByText(nonKhanImageWarning)).toBeInTheDocument();
+    });
+
+    it("should render warning for large image", () => {
+        // Arrange, Act
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={{
+                    ...apiOptions,
+                    flags: getFeatureFlags({
+                        "image-widget-upgrade-scale": true,
+                    }),
+                }}
+                // frescoImage is very large (1698 x 955)
+                backgroundImage={frescoImage}
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByText(
+                "Large images may cause slow performance for learners. Please use a max size of 1024 x 1024.",
+            ),
+        ).toBeInTheDocument();
+    });
+
+    it("should note render warning for smaller image", () => {
+        // Arrange, Act
+        render(
+            <ImageEditorWithDependencies
+                apiOptions={{
+                    ...apiOptions,
+                    flags: getFeatureFlags({
+                        "image-widget-upgrade-scale": true,
+                    }),
+                }}
+                // earthMoonImage is small (400 x 225)
+                backgroundImage={earthMoonImage}
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.queryByText(
+                "Large images may cause slow performance for learners. Please use a max size of 1024 x 1024.",
+            ),
+        ).not.toBeInTheDocument();
     });
 
     it("should render preview image with alt text", () => {

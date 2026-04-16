@@ -116,7 +116,7 @@ export default function ImageScaleInput({
             {hasLargeDimensions && (
                 <Banner
                     kind="warning"
-                    text="Large images may cause slow performance for learners. Please use a max size of 1024x1024."
+                    text="Large images may cause slow performance for learners. Please use a max size of 1024 x 1024."
                 />
             )}
 
