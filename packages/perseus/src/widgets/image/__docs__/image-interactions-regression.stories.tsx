@@ -139,6 +139,15 @@ export const ZoomClickedState: Story = {
 
 export const ZoomClickedWithGraphieImage: Story = {
     decorators: [imageRendererDecorator],
+    parameters: {
+        // Delay the screenshot to allow KaTeX math fonts to fully load before
+        // Chromatic captures the snapshot. Without this, `scrollHeight` of
+        // math label spans is measured against a fallback font, causing
+        // non-deterministic label positions (~2.5px shift in margin-top).
+        // Include the meta-level parameters (disableSnapshot, modes) here
+        // so they don't get overriden by defaults.
+        chromatic: {disableSnapshot: false, modes: themeModes, delay: 500},
+    },
     args: {
         backgroundImage: graphieImage,
         alt: "Graphie image",
