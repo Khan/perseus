@@ -1,11 +1,11 @@
 import {renderHook, act, waitFor} from "@testing-library/react";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
-import {usePreviewClient} from "./use-preview-client";
+import {usePreviewPresenter} from "./use-preview-presenter";
 
 import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 
-describe("usePreviewClient", () => {
+describe("usePreviewPresenter", () => {
     let mockIframeElement: {
         dataset: {[key: string]: string | undefined};
     };
@@ -57,7 +57,7 @@ describe("usePreviewClient", () => {
 
     describe("initialization", () => {
         it("initializes with null data", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             expect(result.current.data).toBeNull();
             expect(result.current.id).toBe("test-iframe-id");
@@ -72,7 +72,7 @@ describe("usePreviewClient", () => {
                 lintGutter: "true",
             };
 
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             expect(result.current.id).toBe("custom-id");
             expect(result.current.isMobile).toBe(true);
@@ -80,7 +80,7 @@ describe("usePreviewClient", () => {
         });
 
         it("sends request-data message on mount", async () => {
-            renderHook(() => usePreviewClient());
+            renderHook(() => usePreviewPresenter());
 
             await waitFor(() => {
                 expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
@@ -101,24 +101,24 @@ describe("usePreviewClient", () => {
             });
 
             expect(() => {
-                renderHook(() => usePreviewClient());
-            }).toThrow("usePreviewClient must be used within an iframe");
+                renderHook(() => usePreviewPresenter());
+            }).toThrow("usePreviewPresenter must be used within an iframe");
         });
 
         it("throws error when missing iframe id", () => {
             mockIframeElement.dataset = {};
 
             expect(() => {
-                renderHook(() => usePreviewClient());
+                renderHook(() => usePreviewPresenter());
             }).toThrow(
-                "usePreviewClient could not identify its id from the hosting iframe",
+                "usePreviewPresenter could not identify its id from the hosting iframe",
             );
         });
 
         it("sets up message event listener", () => {
             const addEventListenerSpy = jest.spyOn(window, "addEventListener");
 
-            renderHook(() => usePreviewClient());
+            renderHook(() => usePreviewPresenter());
 
             expect(addEventListenerSpy).toHaveBeenCalledWith(
                 "message",
@@ -132,7 +132,7 @@ describe("usePreviewClient", () => {
                 "removeEventListener",
             );
 
-            const {unmount} = renderHook(() => usePreviewClient());
+            const {unmount} = renderHook(() => usePreviewPresenter());
 
             unmount();
 
@@ -154,7 +154,7 @@ describe("usePreviewClient", () => {
         });
 
         it("updates data when receiving content-data message", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             const questionContent: PreviewContent = {
                 type: "question",
@@ -195,7 +195,7 @@ describe("usePreviewClient", () => {
         });
 
         it("updates data for hint content", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             const hintContent: PreviewContent = {
                 type: "hint",
@@ -231,7 +231,7 @@ describe("usePreviewClient", () => {
         });
 
         it("updates data for article content", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             const articleContent: PreviewContent = {
                 type: "article",
@@ -268,7 +268,7 @@ describe("usePreviewClient", () => {
         });
 
         it("updates data for article-all content", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             const articleAllContent: PreviewContent = {
                 type: "article-all",
@@ -311,7 +311,7 @@ describe("usePreviewClient", () => {
         });
 
         it("ignores content-data with mismatched iframe ID", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             const message: ParentToIframeMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
@@ -337,7 +337,7 @@ describe("usePreviewClient", () => {
         });
 
         it("updates data multiple times", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             const content1: PreviewContent = {
                 type: "question",
@@ -404,7 +404,7 @@ describe("usePreviewClient", () => {
 
     describe("reportHeight", () => {
         it("sends height-update message", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             act(() => {
                 result.current.reportHeight(500);
@@ -422,7 +422,7 @@ describe("usePreviewClient", () => {
         });
 
         it("sends multiple height updates", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             act(() => {
                 result.current.reportHeight(300);
@@ -458,7 +458,7 @@ describe("usePreviewClient", () => {
                 value: null,
             });
 
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             // Clear previous calls
             jest.clearAllMocks();
@@ -471,7 +471,7 @@ describe("usePreviewClient", () => {
         });
 
         it("reportHeight function reference remains stable", () => {
-            const {result, rerender} = renderHook(() => usePreviewClient());
+            const {result, rerender} = renderHook(() => usePreviewPresenter());
 
             const firstReportHeight = result.current.reportHeight;
             rerender();
@@ -483,7 +483,7 @@ describe("usePreviewClient", () => {
 
     describe("reportLintWarnings", () => {
         it("sends lint-report message", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             const lintWarnings = [
                 {message: "Warning 1", line: 5},
@@ -506,7 +506,7 @@ describe("usePreviewClient", () => {
         });
 
         it("sends empty lint warnings array", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             act(() => {
                 result.current.reportLintWarnings([]);
@@ -529,7 +529,7 @@ describe("usePreviewClient", () => {
                 value: null,
             });
 
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             jest.clearAllMocks();
 
@@ -541,7 +541,7 @@ describe("usePreviewClient", () => {
         });
 
         it("reportLintWarnings function reference remains stable", () => {
-            const {result, rerender} = renderHook(() => usePreviewClient());
+            const {result, rerender} = renderHook(() => usePreviewPresenter());
 
             const firstReportLintWarnings = result.current.reportLintWarnings;
             rerender();
@@ -553,7 +553,7 @@ describe("usePreviewClient", () => {
 
     describe("message filtering", () => {
         it("ignores messages from different source window", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             const differentWindow = {} as Window;
 
@@ -581,7 +581,7 @@ describe("usePreviewClient", () => {
         });
 
         it("ignores messages without correct source identifier", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             act(() => {
                 window.dispatchEvent(
@@ -602,7 +602,7 @@ describe("usePreviewClient", () => {
         });
 
         it("ignores non-Perseus messages", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             act(() => {
                 window.dispatchEvent(
@@ -621,7 +621,7 @@ describe("usePreviewClient", () => {
         });
 
         it("ignores malformed messages", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             act(() => {
                 window.dispatchEvent(
@@ -655,7 +655,7 @@ describe("usePreviewClient", () => {
                 lintGutter: "false",
             };
 
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             expect(result.current.isMobile).toBe(isMobile);
         });
@@ -667,7 +667,7 @@ describe("usePreviewClient", () => {
                 lintGutter: "false",
             };
 
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             expect(result.current.isMobile).toBe(false);
         });
@@ -681,7 +681,7 @@ describe("usePreviewClient", () => {
                     lintGutter: lintGutter.toString(),
                 };
 
-                const {result} = renderHook(() => usePreviewClient());
+                const {result} = renderHook(() => usePreviewPresenter());
 
                 expect(result.current.hasLintGutter).toBe(lintGutter);
             },
@@ -694,7 +694,7 @@ describe("usePreviewClient", () => {
                 lintGutter: undefined,
             };
 
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             expect(result.current.id).toBe("required-id");
             expect(result.current.isMobile).toBe(false);
@@ -704,7 +704,7 @@ describe("usePreviewClient", () => {
 
     describe("complex scenarios", () => {
         it("handles full lifecycle: init -> request -> receive data -> report height", async () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             // 1. Hook should request data on init
             await waitFor(() => {
@@ -772,7 +772,7 @@ describe("usePreviewClient", () => {
         // iframe ID, we need to create a new iframe, unmount the old one, and
         // mount the new one.
         it("Does not update iframe ID if frameElement dataset changes", async () => {
-            const {result, rerender} = renderHook(() => usePreviewClient());
+            const {result, rerender} = renderHook(() => usePreviewPresenter());
 
             // Initial request sent
             await waitFor(() => {
@@ -792,7 +792,7 @@ describe("usePreviewClient", () => {
         });
 
         it("handles rapid content updates", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             const contents: PreviewContent[] = [
                 {
@@ -865,7 +865,7 @@ describe("usePreviewClient", () => {
         });
 
         it("handles concurrent height and lint reports", () => {
-            const {result} = renderHook(() => usePreviewClient());
+            const {result} = renderHook(() => usePreviewPresenter());
 
             jest.clearAllMocks();
 
