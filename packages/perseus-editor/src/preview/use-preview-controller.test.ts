@@ -2,7 +2,7 @@ import {Log} from "@khanacademy/perseus";
 import {renderHook, act, waitFor} from "@testing-library/react";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
-import {usePreviewHost} from "./use-preview-host";
+import {usePreviewController} from "./use-preview-controller";
 
 import type {
     IframeToParentMessage,
@@ -18,7 +18,7 @@ jest.mock("@khanacademy/perseus", () => ({
     },
 }));
 
-describe("usePreviewHost", () => {
+describe("usePreviewController", () => {
     let mockIframe: {contentWindow: Window | null; dataset: any};
     let mockContentWindow: Window;
     let iframeRef: React.RefObject<HTMLIFrameElement>;
@@ -41,7 +41,7 @@ describe("usePreviewHost", () => {
 
     describe("initialization", () => {
         it("initializes with null height", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             expect(result.current.height).toBeNull();
             expect(result.current.sendData).toBeInstanceOf(Function);
@@ -50,7 +50,7 @@ describe("usePreviewHost", () => {
         it("sets up message event listener", () => {
             const addEventListenerSpy = jest.spyOn(window, "addEventListener");
 
-            renderHook(() => usePreviewHost(iframeRef));
+            renderHook(() => usePreviewController(iframeRef));
 
             expect(addEventListenerSpy).toHaveBeenCalledWith(
                 "message",
@@ -64,7 +64,7 @@ describe("usePreviewHost", () => {
                 "removeEventListener",
             );
 
-            const {unmount} = renderHook(() => usePreviewHost(iframeRef));
+            const {unmount} = renderHook(() => usePreviewController(iframeRef));
 
             unmount();
 
@@ -104,7 +104,7 @@ describe("usePreviewHost", () => {
         });
 
         it("stores data as pending if iframe hasn't requested data yet", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
 
             act(() => {
@@ -116,7 +116,7 @@ describe("usePreviewHost", () => {
         });
 
         it("sends only latest data once iframe requests data", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData1 = createQuestionPreview();
             const previewData2 = createQuestionPreview("Question 2");
 
@@ -161,7 +161,7 @@ describe("usePreviewHost", () => {
         });
 
         it("sends data immediately if iframe has already requested data", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Simulate iframe requesting data
             const requestMessage: IframeToParentMessage = {
@@ -199,7 +199,7 @@ describe("usePreviewHost", () => {
         });
 
         it("sanitizes apiOptions before sending", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Simulate iframe requesting data
             act(() => {
@@ -233,7 +233,7 @@ describe("usePreviewHost", () => {
 
         it("does not send if iframe ref is null", () => {
             const nullRef = {current: null};
-            const {result} = renderHook(() => usePreviewHost(nullRef));
+            const {result} = renderHook(() => usePreviewController(nullRef));
 
             const previewData = createQuestionPreview();
             act(() => {
@@ -245,7 +245,7 @@ describe("usePreviewHost", () => {
 
         it("does not send if contentWindow is null", () => {
             mockIframe.contentWindow = null;
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             const previewData = createQuestionPreview();
             act(() => {
@@ -257,7 +257,7 @@ describe("usePreviewHost", () => {
 
         it("sendData function reference remains stable", () => {
             const {result, rerender} = renderHook(() =>
-                usePreviewHost(iframeRef),
+                usePreviewController(iframeRef),
             );
 
             const firstSendData = result.current.sendData;
@@ -270,7 +270,7 @@ describe("usePreviewHost", () => {
 
     describe("receiving request-data message", () => {
         it("responds to request-data with pending data", async () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
 
             // Send data first (will be pending)
@@ -310,7 +310,7 @@ describe("usePreviewHost", () => {
         });
 
         it("stores iframe ID from request-data message", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
                 window.dispatchEvent(
@@ -340,7 +340,7 @@ describe("usePreviewHost", () => {
         });
 
         it("clears pending data after sending", async () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
 
             // Send data (will be pending)
@@ -385,7 +385,7 @@ describe("usePreviewHost", () => {
         });
 
         it("ignores request-data with no pending data", () => {
-            renderHook(() => usePreviewHost(iframeRef));
+            renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
                 window.dispatchEvent(
@@ -406,7 +406,7 @@ describe("usePreviewHost", () => {
 
     describe("receiving height-update message", () => {
         it("updates height from height-update message", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             expect(result.current.height).toBeNull();
 
@@ -428,7 +428,7 @@ describe("usePreviewHost", () => {
         });
 
         it("updates height multiple times", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
                 window.dispatchEvent(
@@ -466,7 +466,7 @@ describe("usePreviewHost", () => {
 
     describe("receiving lint-report message", () => {
         it("logs lint report", () => {
-            renderHook(() => usePreviewHost(iframeRef));
+            renderHook(() => usePreviewController(iframeRef));
 
             const lintWarnings = [
                 {message: "Warning 1"},
@@ -495,7 +495,7 @@ describe("usePreviewHost", () => {
 
     describe("message filtering", () => {
         it("ignores messages from different source window", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             const differentWindow = {} as Window;
 
@@ -518,7 +518,7 @@ describe("usePreviewHost", () => {
         });
 
         it("ignores messages without correct source identifier", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
                 window.dispatchEvent(
@@ -539,7 +539,7 @@ describe("usePreviewHost", () => {
         });
 
         it("ignores non-Perseus messages", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
                 window.dispatchEvent(
@@ -559,7 +559,7 @@ describe("usePreviewHost", () => {
 
         it("ignores messages when iframe ref is null", () => {
             const nullRef = {current: null};
-            const {result} = renderHook(() => usePreviewHost(nullRef));
+            const {result} = renderHook(() => usePreviewController(nullRef));
 
             act(() => {
                 window.dispatchEvent(
@@ -582,7 +582,7 @@ describe("usePreviewHost", () => {
 
     describe("complex scenarios", () => {
         it("handles full lifecycle: request -> send -> height update", async () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // 1. Iframe requests data
             act(() => {
@@ -627,7 +627,7 @@ describe("usePreviewHost", () => {
         });
 
         it("handles multiple preview data updates", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Setup: iframe requests data
             act(() => {
@@ -679,7 +679,7 @@ describe("usePreviewHost", () => {
         });
 
         it("handles article-all with multiple sections", () => {
-            const {result} = renderHook(() => usePreviewHost(iframeRef));
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
                 window.dispatchEvent(

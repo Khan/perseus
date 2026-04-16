@@ -49,7 +49,7 @@ type UsePreviewClientResult = {
  * @example
  * ```tsx
  * function PreviewPage() {
- *   const { data, isMobile, reportHeight } = usePreviewClient();
+ *   const { data, isMobile, reportHeight } = usePreviewPresenter();
  *
  *   React.useEffect(() => {
  *     if (containerRef.current) {
@@ -62,7 +62,7 @@ type UsePreviewClientResult = {
  * }
  * ```
  */
-export function usePreviewClient(): UsePreviewClientResult {
+export function usePreviewPresenter(): UsePreviewClientResult {
     const [data, setData] = React.useState<PreviewContent | null>(null);
     const [iframeId, setIframeId] = React.useState<string | null>(null);
     const [isMobile, setIsMobile] = React.useState(false);
@@ -72,7 +72,7 @@ export function usePreviewClient(): UsePreviewClientResult {
     React.useEffect(() => {
         const iframe = window.frameElement as HTMLIFrameElement | null;
         if (iframe == null) {
-            throw new Error("usePreviewClient must be used within an iframe");
+            throw new Error("usePreviewPresenter must be used within an iframe");
         }
 
         // ID is used for debugging/logging, not message routing
@@ -82,7 +82,7 @@ export function usePreviewClient(): UsePreviewClientResult {
 
         if (id == null) {
             throw new Error(
-                "usePreviewClient could not identify its id from the hosting iframe",
+                "usePreviewPresenter could not identify its id from the hosting iframe",
             );
         }
 

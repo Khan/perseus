@@ -34,7 +34,7 @@ type UsePreviewHostResult = {
  * ```tsx
  * function Editor() {
  *   const iframeRef = React.useRef<HTMLIFrameElement>(null);
- *   const { sendData, height } = usePreviewHost(iframeRef);
+ *   const { sendData, height } = usePreviewController(iframeRef);
  *
  *   React.useEffect(() => {
  *     sendData({
@@ -47,7 +47,7 @@ type UsePreviewHostResult = {
  * }
  * ```
  */
-export function usePreviewHost(
+export function usePreviewController(
     iframeRef: React.RefObject<HTMLIFrameElement>,
 ): UsePreviewHostResult {
     const [height, setHeight] = React.useState<number | null>(null);

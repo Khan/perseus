@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Add usePreviewHost and usePreviewClient hooks for typed iframe preview communication
+Add usePreviewController and usePreviewPresenter hooks for typed iframe preview communication
