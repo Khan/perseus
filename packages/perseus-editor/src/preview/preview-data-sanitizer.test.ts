@@ -1,4 +1,5 @@
 import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
+import invariant from "tiny-invariant";
 
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
@@ -57,28 +58,22 @@ describe("sanitizePreviewData", () => {
 
             const result = sanitizePreviewData(previewContent);
 
-            expect(result.type).toBe("question");
-            if (result.type === "question") {
-                // Serializable options should remain
-                expect(result.data.apiOptions.readOnly).toBe(true);
-                expect(result.data.apiOptions.isMobile).toBe(false);
-                expect(result.data.apiOptions.customKeypad).toBe(true);
+            invariant(result.type === "question");
+            // Serializable options should remain
+            expect(result.data.apiOptions.readOnly).toBe(true);
+            expect(result.data.apiOptions.isMobile).toBe(false);
+            expect(result.data.apiOptions.customKeypad).toBe(true);
 
-                // Non-serializable functions should be removed
-                expect(result.data.apiOptions.onFocusChange).toBeUndefined();
-                expect(
-                    result.data.apiOptions.answerableCallback,
-                ).toBeUndefined();
-                expect(result.data.apiOptions.getAnotherHint).toBeUndefined();
-                expect(
-                    result.data.apiOptions.interactionCallback,
-                ).toBeUndefined();
-                expect(result.data.apiOptions.trackInteraction).toBeUndefined();
+            // Non-serializable functions should be removed
+            expect(result.data.apiOptions.onFocusChange).toBeUndefined();
+            expect(result.data.apiOptions.answerableCallback).toBeUndefined();
+            expect(result.data.apiOptions.getAnotherHint).toBeUndefined();
+            expect(result.data.apiOptions.interactionCallback).toBeUndefined();
+            expect(result.data.apiOptions.trackInteraction).toBeUndefined();
 
-                // Other properties should remain unchanged
-                expect(result.data.item).toBe(questionData.item);
-                expect(result.data.initialHintsVisible).toBe(0);
-            }
+            // Other properties should remain unchanged
+            expect(result.data.item).toBe(questionData.item);
+            expect(result.data.initialHintsVisible).toBe(0);
         });
 
         it("handles question data with null apiOptions", () => {
@@ -106,7 +101,7 @@ describe("sanitizePreviewData", () => {
 
             const result = sanitizePreviewData(previewContent);
 
-            expect(result.type).toBe("question");
+            invariant(result.type === "question");
             // Should return unchanged when apiOptions is null
             expect(result).toEqual(previewContent);
         });
@@ -168,19 +163,17 @@ describe("sanitizePreviewData", () => {
 
             const result = sanitizePreviewData(previewContent);
 
-            expect(result.type).toBe("hint");
-            if (result.type === "hint") {
-                // Serializable options should remain
-                expect(result.data.apiOptions.readOnly).toBe(true);
+            invariant(result.type === "hint");
+            // Serializable options should remain
+            expect(result.data.apiOptions.readOnly).toBe(true);
 
-                // Non-serializable functions should be removed
-                expect(result.data.apiOptions.onFocusChange).toBeUndefined();
-                expect(result.data.apiOptions.trackInteraction).toBeUndefined();
+            // Non-serializable functions should be removed
+            expect(result.data.apiOptions.onFocusChange).toBeUndefined();
+            expect(result.data.apiOptions.trackInteraction).toBeUndefined();
 
-                // Other properties should remain unchanged
-                expect(result.data.hint).toBe(hintData.hint);
-                expect(result.data.pos).toBe(0);
-            }
+            // Other properties should remain unchanged
+            expect(result.data.hint).toBe(hintData.hint);
+            expect(result.data.pos).toBe(0);
         });
 
         it("handles hint data with null apiOptions", () => {
@@ -227,19 +220,15 @@ describe("sanitizePreviewData", () => {
 
             const result = sanitizePreviewData(previewContent);
 
-            expect(result.type).toBe("article");
-            if (result.type === "article") {
-                // Serializable options should remain
-                expect(result.data.apiOptions.customKeypad).toBe(true);
+            invariant(result.type === "article");
+            // Serializable options should remain
+            expect(result.data.apiOptions.customKeypad).toBe(true);
 
-                // Non-serializable functions should be removed
-                expect(
-                    result.data.apiOptions.interactionCallback,
-                ).toBeUndefined();
+            // Non-serializable functions should be removed
+            expect(result.data.apiOptions.interactionCallback).toBeUndefined();
 
-                // Other properties should remain unchanged
-                expect(result.data.json).toBe(articleData.json);
-            }
+            // Other properties should remain unchanged
+            expect(result.data.json).toBe(articleData.json);
         });
 
         it("handles article data with null apiOptions", () => {
@@ -301,14 +290,12 @@ describe("sanitizePreviewData", () => {
 
             const result = sanitizePreviewData(previewContent);
 
-            expect(result.type).toBe("article-all");
-            if (result.type === "article-all") {
-                expect(result.data).toHaveLength(2);
-                expect(result.data[0].apiOptions.readOnly).toBe(true);
-                expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
-                expect(result.data[1].apiOptions.readOnly).toBe(false);
-                expect(result.data[1].apiOptions.onFocusChange).toBeUndefined();
-            }
+            invariant(result.type === "article-all");
+            expect(result.data).toHaveLength(2);
+            expect(result.data[0].apiOptions.readOnly).toBe(true);
+            expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
+            expect(result.data[1].apiOptions.readOnly).toBe(false);
+            expect(result.data[1].apiOptions.onFocusChange).toBeUndefined();
         });
 
         it("handles empty article-all array", () => {
@@ -319,10 +306,8 @@ describe("sanitizePreviewData", () => {
 
             const result = sanitizePreviewData(previewContent);
 
-            expect(result.type).toBe("article-all");
-            if (result.type === "article-all") {
-                expect(result.data).toHaveLength(0);
-            }
+            invariant(result.type === "article-all");
+            expect(result.data).toHaveLength(0);
         });
 
         it("does not mutate original article-all data", () => {
@@ -378,13 +363,11 @@ describe("sanitizePreviewData", () => {
 
             const result = sanitizePreviewData(previewContent);
 
-            expect(result.type).toBe("article-all");
-            if (result.type === "article-all") {
-                expect(result.data).toHaveLength(2);
-                expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
-                // Section with null apiOptions should be unchanged
-                expect(result.data[1].apiOptions).toBeNull();
-            }
+            invariant(result.type === "article-all");
+            expect(result.data).toHaveLength(2);
+            expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
+            // Section with null apiOptions should be unchanged
+            expect(result.data[1].apiOptions).toBeNull();
         });
     });
 
