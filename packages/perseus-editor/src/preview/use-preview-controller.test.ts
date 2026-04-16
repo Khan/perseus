@@ -4,11 +4,8 @@ import {renderHook, act, waitFor} from "@testing-library/react";
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
 import {usePreviewController} from "./use-preview-controller";
 
-import type {
-    IframeToParentMessage,
-    PreviewContent,
-    QuestionPreviewData,
-} from "./message-types";
+import type {IframeToParentMessage, PreviewContent} from "./message-types";
+import type {APIOptions} from "@khanacademy/perseus";
 import type * as React from "react";
 
 // Mock the Log module
@@ -76,33 +73,6 @@ describe("usePreviewController", () => {
     });
 
     describe("sendData", () => {
-        const createQuestionPreview = (content?: string): PreviewContent => ({
-            type: "question",
-            data: {
-                item: {
-                    question: {
-                        content: content ?? "What is 2+2?",
-                        widgets: {},
-                        images: {},
-                    },
-                    answerArea: {calculator: false} as any,
-                    hints: [],
-                },
-                apiOptions: {
-                    readOnly: true,
-                    onFocusChange: jest.fn(), // Should be sanitized
-                },
-                initialHintsVisible: 0,
-                device: {type: "phone"} as any,
-                linterContext: {
-                    contentType: "exercise",
-                    highlightLint: false,
-                    paths: [],
-                    stack: [],
-                },
-            } as QuestionPreviewData,
-        });
-
         it("stores data as pending if iframe hasn't requested data yet", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
@@ -118,7 +88,7 @@ describe("usePreviewController", () => {
         it("sends only latest data once iframe requests data", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData1 = createQuestionPreview();
-            const previewData2 = createQuestionPreview("Question 2");
+            const previewData2 = createQuestionPreview({content: "Question 2"});
 
             act(() => {
                 result.current.sendData(previewData1);
@@ -215,7 +185,9 @@ describe("usePreviewController", () => {
                 );
             });
 
-            const previewData = createQuestionPreview();
+            const previewData = createQuestionPreview({
+                apiOptions: {onFocusChange: jest.fn()},
+            });
             act(() => {
                 result.current.sendData(previewData);
             });
@@ -747,16 +719,26 @@ describe("usePreviewController", () => {
     });
 });
 
-function createQuestionPreview(): PreviewContent {
+function createQuestionPreview(overrides?: {
+    content?: string;
+    apiOptions?: Partial<APIOptions>;
+}): PreviewContent {
     return {
         type: "question",
         data: {
             item: {
-                question: {content: "What is 2+2?", widgets: {}, images: {}},
+                question: {
+                    content: overrides?.content ?? "What is 2+2?",
+                    widgets: {},
+                    images: {},
+                },
                 answerArea: {calculator: false} as any,
                 hints: [],
             },
-            apiOptions: {readOnly: true},
+            apiOptions: {
+                readOnly: true,
+                ...overrides?.apiOptions,
+            },
             initialHintsVisible: 0,
             device: {type: "phone"} as any,
             linterContext: {
@@ -765,6 +747,6 @@ function createQuestionPreview(): PreviewContent {
                 paths: [],
                 stack: [],
             },
-        } as QuestionPreviewData,
+        },
     };
 }
