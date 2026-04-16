@@ -144,18 +144,18 @@ export const ZoomClickedWithGraphieImage: Story = {
         alt: "Graphie image",
     },
     play: async ({canvas, userEvent}) => {
-        // Wait for KaTeX math fonts to fully load before clicking zoom.
-        // The zoom modal creates a new Graphie instance whose labels are
-        // measured via scrollHeight inside the KaTeX onRender callback.
-        // If fonts aren't loaded at that moment, the fallback font metrics
-        // are used, causing non-deterministic ~2.5px shifts in margin-top.
-        // document.fonts.ready stays resolved once settled, so any
-        // subsequent scrollHeight call will use correct font metrics.
-        await document.fonts.ready;
         const zoomTrigger = canvas.getByRole("button", {
             name: "Make image bigger.",
         });
         await userEvent.click(zoomTrigger);
+        // After clicking zoom, the modal's new Graphie instance calls
+        // setLabelMargins inside an async callback that awaits
+        // document.fonts.ready (see graphie.ts). We also await it here so
+        // that the play function does not return — and Chromatic does not
+        // take its screenshot — until that callback has completed.
+        // Promise continuation ordering guarantees the callback's
+        // document.fonts.ready continuation runs before this one.
+        await document.fonts.ready;
     },
 };
 

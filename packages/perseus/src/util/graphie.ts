@@ -1012,7 +1012,15 @@ export class Graphie {
             this.#labelElements.add(span);
 
             $span.processMath = function (math, force) {
-                processMath(span, math, force, function () {
+                processMath(span, math, force, async function () {
+                    // Wait for fonts to load before measuring the span's
+                    // dimensions. KaTeX web fonts are loaded lazily (on first
+                    // math render), so they may still be downloading when this
+                    // callback fires. Measuring scrollHeight before the fonts
+                    // settle produces incorrect label margins because the
+                    // browser falls back to a different font with different
+                    // metrics, causing non-deterministic ~2-3px label shifts.
+                    await document.fonts.ready;
                     const width = span.scrollWidth;
                     const height = span.scrollHeight;
                     setLabelMargins(span, [width, height]);
