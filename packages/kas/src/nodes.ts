@@ -663,9 +663,7 @@ abstract class Seq extends Expr {
             return term instanceof type.func;
         });
 
-        var flattened = others.concat(
-            (same as Seq[]).flatMap((s) => s.terms),
-        );
+        var flattened = others.concat((same as Seq[]).flatMap((s) => s.terms));
         return new type.func(flattened);
     }
 
