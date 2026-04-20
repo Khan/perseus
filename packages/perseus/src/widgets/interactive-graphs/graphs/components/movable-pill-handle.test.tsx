@@ -20,7 +20,9 @@ describe("MovablePillHandle", () => {
         );
 
         // Assert — 3 along major axis × 2 along minor axis = 6 dots
-        expect(screen.getAllByTestId("movable-pill-handle-dot")).toHaveLength(6);
+        expect(screen.getAllByTestId("movable-pill-handle-dot")).toHaveLength(
+            6,
+        );
     });
 
     it("does not render grip dots when inactive", () => {
@@ -32,7 +34,9 @@ describe("MovablePillHandle", () => {
         );
 
         // Assert
-        expect(screen.queryAllByTestId("movable-pill-handle-dot")).toHaveLength(0);
+        expect(screen.queryAllByTestId("movable-pill-handle-dot")).toHaveLength(
+            0,
+        );
     });
 
     it("renders focus ring when focused", () => {
