@@ -72,7 +72,9 @@ export function usePreviewPresenter(): UsePreviewClientResult {
     React.useEffect(() => {
         const iframe = window.frameElement as HTMLIFrameElement | null;
         if (iframe == null) {
-            throw new Error("usePreviewPresenter must be used within an iframe");
+            throw new Error(
+                "usePreviewPresenter must be used within an iframe",
+            );
         }
 
         // ID is used for debugging/logging, not message routing
