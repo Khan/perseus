@@ -436,7 +436,6 @@ abstract class Expr {
             return false;
         }
 
-
         // To compare expressions, we evaluate them for a set of randomly
         // chosen variable values. If the expressions evaluate the same for
         // all variable bindings, we consider them equal.
@@ -472,7 +471,7 @@ abstract class Expr {
             intGenerator(-1000, 0),
             floatGenerator(0, 1000),
             floatGenerator(-1000, 0),
-        ]
+        ];
 
         const variableValueGenerators = [
             // Always check x = -1, x = 0, and x = 1.
