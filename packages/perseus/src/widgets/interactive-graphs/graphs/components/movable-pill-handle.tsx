@@ -40,7 +40,7 @@ type Props = {
  * Shared pill-shaped drag handle used by vector and asymptote graph elements.
  * Renders a rounded-rectangle pill with a halo, ring, focus ring, and grip dots.
  */
-export function PillDragHandle(props: Props) {
+export function MovablePillHandle(props: Props) {
     const {center, active, focused, rotation = 0} = props;
     const [cx, cy] = center;
     const {interactiveColor} = useGraphConfig();
@@ -70,12 +70,12 @@ export function PillDragHandle(props: Props) {
             aria-hidden={true}
             style={{pointerEvents: "none"}}
             transform={`translate(${cx} ${cy}) rotate(${rotation})`}
-            data-testid="pill-drag-handle"
+            data-testid="movable-pill-handle"
         >
             {focused && (
                 <rect
-                    className="pill-drag-handle-focus-ring"
-                    data-testid="pill-drag-handle-focus-ring"
+                    className="movable-pill-handle-focus-ring"
+                    data-testid="movable-pill-handle-focus-ring"
                     x={-focusRingW / 2}
                     y={-focusRingH / 2}
                     width={focusRingW}
@@ -87,7 +87,7 @@ export function PillDragHandle(props: Props) {
             )}
             {/* Halo */}
             <rect
-                className="pill-drag-handle-halo"
+                className="movable-pill-handle-halo"
                 x={-haloW / 2}
                 y={-haloH / 2}
                 width={haloW}
@@ -98,7 +98,7 @@ export function PillDragHandle(props: Props) {
             />
             {/* Ring — white background */}
             <rect
-                className="pill-drag-handle-ring"
+                className="movable-pill-handle-ring"
                 x={-ringW / 2}
                 y={-ringH / 2}
                 width={ringW}
@@ -108,8 +108,8 @@ export function PillDragHandle(props: Props) {
             />
             {/* Center pill */}
             <rect
-                className="pill-drag-handle"
-                data-testid="pill-drag-handle-pill"
+                className="movable-pill-handle"
+                data-testid="movable-pill-handle-pill"
                 x={-pillW / 2}
                 y={-pillH / 2}
                 width={pillW}
@@ -123,8 +123,8 @@ export function PillDragHandle(props: Props) {
                 GRIP_DOT_MINOR_OFFSETS.map((dy) =>
                     GRIP_DOT_MAJOR_OFFSETS.map((dx) => (
                         <circle
-                            className="pill-drag-handle-dot"
-                            data-testid="pill-drag-handle-dot"
+                            className="movable-pill-handle-dot"
+                            data-testid="movable-pill-handle-dot"
                             key={`${dx},${dy}`}
                             cx={dx}
                             cy={dy}

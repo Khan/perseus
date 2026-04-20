@@ -2,7 +2,7 @@ import {render, screen} from "@testing-library/react";
 import {Mafs} from "mafs";
 import * as React from "react";
 
-import {PillDragHandle} from "./pill-drag-handle";
+import {MovablePillHandle} from "./movable-pill-handle";
 
 const defaultProps = {
     center: [100, 100] as [number, number],
@@ -10,42 +10,42 @@ const defaultProps = {
     focused: false,
 };
 
-describe("PillDragHandle", () => {
+describe("MovablePillHandle", () => {
     it("renders grip dots when active", () => {
         // Arrange, Act
         render(
             <Mafs width={200} height={200}>
-                <PillDragHandle {...defaultProps} active={true} />
+                <MovablePillHandle {...defaultProps} active={true} />
             </Mafs>,
         );
 
         // Assert — 3 along major axis × 2 along minor axis = 6 dots
-        expect(screen.getAllByTestId("pill-drag-handle-dot")).toHaveLength(6);
+        expect(screen.getAllByTestId("movable-pill-handle-dot")).toHaveLength(6);
     });
 
     it("does not render grip dots when inactive", () => {
         // Arrange, Act
         render(
             <Mafs width={200} height={200}>
-                <PillDragHandle {...defaultProps} active={false} />
+                <MovablePillHandle {...defaultProps} active={false} />
             </Mafs>,
         );
 
         // Assert
-        expect(screen.queryAllByTestId("pill-drag-handle-dot")).toHaveLength(0);
+        expect(screen.queryAllByTestId("movable-pill-handle-dot")).toHaveLength(0);
     });
 
     it("renders focus ring when focused", () => {
         // Arrange, Act
         render(
             <Mafs width={200} height={200}>
-                <PillDragHandle {...defaultProps} focused={true} />
+                <MovablePillHandle {...defaultProps} focused={true} />
             </Mafs>,
         );
 
         // Assert
         expect(
-            screen.getByTestId("pill-drag-handle-focus-ring"),
+            screen.getByTestId("movable-pill-handle-focus-ring"),
         ).toBeInTheDocument();
     });
 
@@ -53,13 +53,13 @@ describe("PillDragHandle", () => {
         // Arrange, Act
         render(
             <Mafs width={200} height={200}>
-                <PillDragHandle {...defaultProps} focused={false} />
+                <MovablePillHandle {...defaultProps} focused={false} />
             </Mafs>,
         );
 
         // Assert
         expect(
-            screen.queryByTestId("pill-drag-handle-focus-ring"),
+            screen.queryByTestId("movable-pill-handle-focus-ring"),
         ).not.toBeInTheDocument();
     });
 
@@ -67,12 +67,12 @@ describe("PillDragHandle", () => {
         // Arrange, Act
         render(
             <Mafs width={200} height={200}>
-                <PillDragHandle {...defaultProps} />
+                <MovablePillHandle {...defaultProps} />
             </Mafs>,
         );
 
         // Assert
-        const handle = screen.getByTestId("pill-drag-handle");
+        const handle = screen.getByTestId("movable-pill-handle");
         const transform = handle.getAttribute("transform") ?? "";
         expect(transform).toContain("rotate(0)");
     });
@@ -81,12 +81,12 @@ describe("PillDragHandle", () => {
         // Arrange, Act
         render(
             <Mafs width={200} height={200}>
-                <PillDragHandle {...defaultProps} rotation={45} />
+                <MovablePillHandle {...defaultProps} rotation={45} />
             </Mafs>,
         );
 
         // Assert
-        const handle = screen.getByTestId("pill-drag-handle");
+        const handle = screen.getByTestId("movable-pill-handle");
         const transform = handle.getAttribute("transform") ?? "";
         expect(transform).toContain("rotate(45)");
     });

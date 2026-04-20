@@ -10,7 +10,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {TARGET_SIZE} from "../utils";
 
 import Hairlines from "./components/hairlines";
-import {PillDragHandle} from "./components/pill-drag-handle";
+import {MovablePillHandle} from "./components/movable-pill-handle";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
 import {useControlArrowhead} from "./components/use-control-arrowhead";
@@ -203,7 +203,7 @@ const VectorBody = (props: VectorBodyProps) => {
             />
             {/* Drag handle pill — only visible on hover / focus / drag */}
             {active && (
-                <PillDragHandle
+                <MovablePillHandle
                     center={handlePx}
                     rotation={angleDeg}
                     active={active}

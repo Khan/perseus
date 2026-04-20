@@ -321,21 +321,21 @@
 }
 
 /* Shared pill-shaped drag handle (used by vector, exponential, logarithm) */
-.MafsView .pill-drag-handle-focus-ring {
+.MafsView .movable-pill-handle-focus-ring {
     fill: none;
     stroke-width: 2px;
 }
 
-.MafsView .pill-drag-handle-halo {
+.MafsView .movable-pill-handle-halo {
     opacity: 0.25;
     filter: drop-shadow(0 5px 5px #0008);
 }
 
-.MafsView .pill-drag-handle-ring {
+.MafsView .movable-pill-handle-ring {
     fill: var(--wb-semanticColor-core-border-knockout-default);
 }
 
-.MafsView .pill-drag-handle-dot {
+.MafsView .movable-pill-handle-dot {
     fill: var(--wb-semanticColor-core-border-knockout-default);
     r: var(--wb-sizing-size_010);
 }

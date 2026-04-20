@@ -4,7 +4,7 @@ import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
 import {useDraggable} from "../use-draggable";
 
-import {PillDragHandle} from "./pill-drag-handle";
+import {MovablePillHandle} from "./movable-pill-handle";
 import {SVGLine} from "./svg-line";
 
 import type {KeyboardMovementConstraint} from "../use-draggable";
@@ -114,7 +114,7 @@ export function MovableAsymptote(props: Props) {
                 above the dashed line but below the drag handle */}
             {children}
             {/* Drag handle at the midpoint */}
-            <PillDragHandle
+            <MovablePillHandle
                 center={mid}
                 rotation={orientation === "vertical" ? 90 : 0}
                 active={dragging || focused || hovered}

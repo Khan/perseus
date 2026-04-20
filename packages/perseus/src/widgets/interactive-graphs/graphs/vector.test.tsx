@@ -101,7 +101,7 @@ describe("Vector graph screen reader", () => {
         // Act — hover the vector body to make the pill visible
         const vectorBody = screen.getByTestId("movable-vector");
         await userEvent.hover(vectorBody);
-        const dragHandle = screen.getByTestId("pill-drag-handle");
+        const dragHandle = screen.getByTestId("movable-pill-handle");
 
         // Assert
         expect(dragHandle).toBeInTheDocument();
