@@ -489,6 +489,8 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
+            // FIXME: fix this test failure and all similar ones.
+            //  See commit c5dfbd457179948acd2f7955b0f69cdd3907667c for an example of how to do it.
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
                     "Ellipse with x radius 2 and y radius 3, centered at spoken $0$ comma spoken $0$, rotated by spoken $90$ degrees. Appearance solid gray border, with no fill.",
