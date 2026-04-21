@@ -72,6 +72,7 @@ const config: KnipConfig = {
     ignoreBinaries: [
         "utils/pre-publish-check-ci.ts",
         "utils/update-catalog-hashes-cli.ts",
+        "utils/changed-files.sh",
     ],
 };
 
