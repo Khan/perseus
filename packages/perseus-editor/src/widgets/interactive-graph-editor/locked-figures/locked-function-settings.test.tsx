@@ -885,6 +885,8 @@ describe("Locked Function Settings", () => {
             test("aria label auto-generates (multiple labels)", async () => {
                 // Arrange
                 // Set up a promise that will be resolved when onChangeProps is called.
+                // FIXME: change all tests that use promiseWithResolvers to use waitFor
+                // instead. See commit e56978c86f39a3b5b68a3ab843f184653ab833d9 for reference.
                 const onChangePropsCall = promiseWithResolvers()
                 render(
                     <LockedFunctionSettings
