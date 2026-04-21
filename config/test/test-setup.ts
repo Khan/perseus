@@ -53,13 +53,7 @@ beforeEach(() => {
 
 // Globally mock the MathJax Speech Rule Engine locale data for testing.
 global.SREfeature = {
-    async custom(locale) {
-        if (locale !== "en" && locale !== "base") {
-            throw new Error(
-                `SpeechRuleEngine test setup got unexpected locale '${locale}'. Only 'en' is supported in tests.`,
-            );
-        }
-
+    custom(locale): Promise<string> {
         return fs.readFile(
             path.join(import.meta.dirname, `mathjax-sre/${locale}.json`),
             "utf-8",
