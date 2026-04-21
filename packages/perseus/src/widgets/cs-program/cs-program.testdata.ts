@@ -16,7 +16,6 @@ export const question1: PerseusRenderer = {
                 ],
                 height: 540,
                 programID: "6293105639817216",
-                static: false,
                 showButtons: false,
                 showEditor: false,
             },

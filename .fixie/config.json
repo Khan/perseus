@@ -1,0 +1,5 @@
+{
+    "verify": "pnpm tesc && pnpm typecheck && pnpm linc",
+    "fix": "pnpm lint --fix && pnpm prettier . --write",
+    "todoPatterns": ["\\bTODO[(:]"]
+}
