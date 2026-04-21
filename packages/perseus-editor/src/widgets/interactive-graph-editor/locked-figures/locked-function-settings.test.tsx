@@ -6,10 +6,10 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedFunctionSettings from "./locked-function-settings";
-import {mockedJoinLabelsAsSpokenMathForTests} from "./util";
 
 import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
+import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
 
 const defaultProps = {
     ...getDefaultFigureForType("function"),
@@ -19,13 +19,6 @@ const defaultProps = {
 } as Props;
 
 const defaultLabel = getDefaultFigureForType("label");
-
-// Mock the async function generateSpokenMathDetails
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
-    joinLabelsAsSpokenMath: (input) =>
-        mockedJoinLabelsAsSpokenMathForTests(input),
-}));
 
 jest.mock("./locked-function-examples", () => ({
     __esModule: true,
@@ -857,12 +850,13 @@ describe("Locked Function Settings", () => {
 
             test("aria label auto-generates (one label)", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                // Set up a promise that will be resolved when onChangeProps is called.
+                const onChangePropsCall = promiseWithResolvers()
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
                         ariaLabel={undefined}
-                        onChangeProps={onChangeProps}
+                        onChangeProps={onChangePropsCall.resolve}
                         labels={[
                             {
                                 ...defaultLabel,
@@ -879,21 +873,24 @@ describe("Locked Function Settings", () => {
                 });
                 await userEvent.click(autoGenButton);
 
+                const onChangePropsArg = await onChangePropsCall.promise;
+
                 // Assert
-                expect(onChangeProps).toHaveBeenCalledWith({
+                expect(onChangePropsArg).toEqual({
                     ariaLabel:
-                        "Function spoken A with equation y=x^2. Appearance solid gray.",
+                        "Function A with equation y=x^2. Appearance solid gray.",
                 });
             });
 
             test("aria label auto-generates (multiple labels)", async () => {
                 // Arrange
-                const onChangeProps = jest.fn();
+                // Set up a promise that will be resolved when onChangeProps is called.
+                const onChangePropsCall = promiseWithResolvers()
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
                         ariaLabel={undefined}
-                        onChangeProps={onChangeProps}
+                        onChangeProps={onChangePropsCall.resolve}
                         labels={[
                             {
                                 ...defaultLabel,
@@ -914,10 +911,12 @@ describe("Locked Function Settings", () => {
                 });
                 await userEvent.click(autoGenButton);
 
+                const onChangePropsArg = await onChangePropsCall.promise;
+
                 // Assert
-                expect(onChangeProps).toHaveBeenCalledWith({
+                expect(onChangePropsArg).toEqual({
                     ariaLabel:
-                        "Function spoken A, spoken B with equation y=x^2. Appearance solid gray.",
+                        "Function A, B with equation y=x^2. Appearance solid gray.",
                 });
             });
         });

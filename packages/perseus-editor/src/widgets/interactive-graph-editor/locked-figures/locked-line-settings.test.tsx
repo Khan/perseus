@@ -5,10 +5,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedLineSettings from "./locked-line-settings";
-import {
-    mockedGenerateSpokenMathDetailsForTests,
-    mockedJoinLabelsAsSpokenMathForTests,
-} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -20,15 +16,6 @@ const defaultProps = {
 };
 
 const defaultLabel = getDefaultFigureForType("label");
-
-// Mock the async functions
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) =>
-        mockedGenerateSpokenMathDetailsForTests(input),
-    joinLabelsAsSpokenMath: (input) =>
-        mockedJoinLabelsAsSpokenMathForTests(input),
-}));
 
 describe("LockedLineSettings", () => {
     let userEvent: UserEvent;

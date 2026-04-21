@@ -5,10 +5,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedVectorSettings from "./locked-vector-settings";
-import {
-    mockedGenerateSpokenMathDetailsForTests,
-    mockedJoinLabelsAsSpokenMathForTests,
-} from "./util";
 
 import type {Props} from "./locked-vector-settings";
 import type {UserEvent} from "@testing-library/user-event";
@@ -21,15 +17,6 @@ const defaultProps = {
 } as Props;
 
 const defaultLabel = getDefaultFigureForType("label");
-
-// Mock the async functions
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) =>
-        mockedGenerateSpokenMathDetailsForTests(input),
-    joinLabelsAsSpokenMath: (input) =>
-        mockedJoinLabelsAsSpokenMathForTests(input),
-}));
 
 describe("Locked Vector Settings", () => {
     let userEvent: UserEvent;

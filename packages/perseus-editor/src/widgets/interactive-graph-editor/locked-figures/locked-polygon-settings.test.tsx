@@ -1,18 +1,15 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedPolygonSettings from "./locked-polygon-settings";
-import {
-    mockedGenerateSpokenMathDetailsForTests,
-    mockedJoinLabelsAsSpokenMathForTests,
-} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {LockedLabelType} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
 
 const defaultProps = {
     ...getDefaultFigureForType("polygon"),
@@ -22,15 +19,6 @@ const defaultProps = {
 };
 
 const defaultLabel = getDefaultFigureForType("label");
-
-// Mock the async functions
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) =>
-        mockedGenerateSpokenMathDetailsForTests(input),
-    joinLabelsAsSpokenMath: (input) =>
-        mockedJoinLabelsAsSpokenMathForTests(input),
-}));
 
 describe("LockedPolygonSettings", () => {
     let userEvent: UserEvent;
@@ -637,7 +625,8 @@ describe("LockedPolygonSettings", () => {
 
         test("aria label auto-generates (no labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            // Set up a promise that will be resolved when onChangeProps is called.
+            const onChangePropsCall = promiseWithResolvers()
 
             // Act
             render(
@@ -649,7 +638,7 @@ describe("LockedPolygonSettings", () => {
                         [1, 1],
                     ]}
                     ariaLabel={undefined}
-                    onChangeProps={onChangeProps}
+                    onChangeProps={onChangePropsCall.resolve}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -659,16 +648,19 @@ describe("LockedPolygonSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
+            const onChangePropsArg = await onChangePropsCall.promise;
+
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
+            expect(onChangePropsArg).toEqual({
                 ariaLabel:
-                    "Polygon with 3 sides, vertices at spoken $0$ comma spoken $0$, spoken $0$ comma spoken $1$, spoken $1$ comma spoken $1$. Appearance solid gray border, with no fill.",
+                    "Polygon with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
             });
         });
 
         test("aria label auto-generates (one label)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
+            // Set up a promise that will be resolved when onChangeProps is called.
+            const onChangePropsCall = promiseWithResolvers()
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -678,7 +670,7 @@ describe("LockedPolygonSettings", () => {
                         [1, 1],
                     ]}
                     ariaLabel={undefined}
-                    onChangeProps={onChangeProps}
+                    onChangeProps={onChangePropsCall.resolve}
                     labels={[
                         {
                             ...defaultLabel,
@@ -695,16 +687,20 @@ describe("LockedPolygonSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
+            const onChangePropsArgs = await onChangePropsCall.promise;
+
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
+            expect(onChangePropsArgs).toEqual({
                 ariaLabel:
-                    "Polygon spoken A with 3 sides, vertices at spoken $0$ comma spoken $0$, spoken $0$ comma spoken $1$, spoken $1$ comma spoken $1$. Appearance solid gray border, with no fill.",
+                    "Polygon A with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
             });
         });
 
         test("aria label auto-generates (multiple labels)", async () => {
             // Arrange
             const onChangeProps = jest.fn();
+            // Set up a promise that will be resolved when onChangeProps is called.
+            const onChangePropsCall = promiseWithResolvers()
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -714,7 +710,7 @@ describe("LockedPolygonSettings", () => {
                         [1, 1],
                     ]}
                     ariaLabel={undefined}
-                    onChangeProps={onChangeProps}
+                    onChangeProps={onChangePropsCall.resolve}
                     labels={[
                         {
                             ...defaultLabel,
@@ -735,10 +731,12 @@ describe("LockedPolygonSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
+            const onChangePropsArg = await onChangePropsCall.promise;
+
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
+            expect(onChangePropsArg).toEqual({
                 ariaLabel:
-                    "Polygon spoken A, spoken B with 3 sides, vertices at spoken $0$ comma spoken $0$, spoken $0$ comma spoken $1$, spoken $1$ comma spoken $1$. Appearance solid gray border, with no fill.",
+                    "Polygon A, B with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
             });
         });
     });
