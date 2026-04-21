@@ -128,6 +128,7 @@
         "clean": "./utils/clean.sh",
         "clean:docs": "git clean -fdx docs/ && git checkout HEAD -- docs/",
         "coverage": "./utils/test-with-coverage.sh",
+        "fixc": "pnpm -s run-on-changed-files pnpm eslint --fix --ext .js --ext .jsx --ext .ts --ext .tsx --quiet --",
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
         "linc": "pnpm -s run-on-changed-files pnpm eslint --ext .js --ext .jsx --ext .ts --ext .tsx --quiet --",
         "lint:timing": "cross-env TIMING=1 pnpm lint",
@@ -145,7 +146,7 @@
         "knip": "knip --config knip.config.ts",
         "extract-css": "node ./utils/extract-css.js",
         "sync-legacy-styles": "node ./utils/sync-legacy-styles.js",
-        "run-on-changed-files": "git diff -z --name-only --diff-filter=ACMRTUB \"${UPSTREAM:-\"@{u}\"}\" | xargs -0"
+        "run-on-changed-files": "utils/changed-files.sh | xargs -0"
     },
     "nyc": {
         "report-dir": "coverage/cypress/"

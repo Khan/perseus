@@ -18,3 +18,4 @@ cypress/
 **/*.jpg
 **/*.png
 **/*.svg
+**/*.sh
