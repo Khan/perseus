@@ -1,8 +1,9 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
+
 import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
 
 import LockedEllipseSettings from "./locked-ellipse-settings";
@@ -379,7 +380,7 @@ describe("LockedEllipseSettings", () => {
         test("aria label autogenerates saying circle when the radii are equal", async () => {
             // Arrange
             // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers()
+            const onChangePropsCall = promiseWithResolvers();
 
             // Act
             render(
@@ -397,7 +398,7 @@ describe("LockedEllipseSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
-            const onChangePropsArgs = await onChangePropsCall.promise
+            const onChangePropsArgs = await onChangePropsCall.promise;
 
             // Assert
             expect(onChangePropsArgs).toEqual({
@@ -409,7 +410,7 @@ describe("LockedEllipseSettings", () => {
         test("aria label auto-generates without rotation when ellipse is a circle", async () => {
             // Arrange
             // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers()
+            const onChangePropsCall = promiseWithResolvers();
 
             // Act
             render(
@@ -440,7 +441,7 @@ describe("LockedEllipseSettings", () => {
         test("aria label auto-generates saying ellipse when the radii are different", async () => {
             // Arrange
             // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers()
+            const onChangePropsCall = promiseWithResolvers();
 
             // Act
             render(
@@ -489,12 +490,12 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            // FIXME: fix this test failure and all similar ones.
-            //  See commit c5dfbd457179948acd2f7955b0f69cdd3907667c for an example of how to do it.
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at spoken $0$ comma spoken $0$, rotated by spoken $90$ degrees. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Ellipse with x radius 2 and y radius 3, centered at 0 comma 0, rotated by 90 degrees. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates with one label", async () => {
@@ -523,10 +524,12 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Circle spoken A with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Circle A with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates with multiple labels", async () => {
@@ -559,10 +562,12 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Circle spoken A, spoken B with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Circle A, B with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
     });
 });

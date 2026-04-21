@@ -1,6 +1,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -402,10 +402,11 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel:
-                "Point at spoken $0$ comma spoken $0$. Appearance solid gray.",
-        });
+        await waitFor(() =>
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "Point at 0 comma 0. Appearance solid gray.",
+            }),
+        );
     });
 
     test("aria label auto-generates (one label)", async () => {
@@ -433,13 +434,13 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
-        expect(onChangeProps).toHaveBeenCalled();
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel:
-                "Point spoken A at spoken $0$ comma spoken $0$. Appearance solid gray.",
-        });
+        await waitFor(() =>
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "Point A at 0 comma 0. Appearance solid gray.",
+            }),
+        );
     });
 
     test("aria label auto-generates (multiple labels)", async () => {
@@ -473,10 +474,11 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel:
-                "Point spoken A, spoken B at spoken $0$ comma spoken $0$. Appearance solid gray.",
-        });
+        await waitFor(() =>
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "Point A, B at 0 comma 0. Appearance solid gray.",
+            }),
+        );
     });
 
     test("aria label does not include fill when filled is false", async () => {
@@ -502,9 +504,11 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel:
-                "Point at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
-        });
+        await waitFor(() =>
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Point at 0 comma 0. Appearance solid gray border, with no fill.",
+            }),
+        );
     });
 });

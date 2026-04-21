@@ -1,6 +1,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -446,10 +446,12 @@ describe("Locked Vector Settings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Vector from spoken $0$ comma spoken $0$ to spoken $2$ comma spoken $2$. Appearance solid gray.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Vector from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                }),
+            );
         });
 
         test("aria label auto-generates (one label)", async () => {
@@ -477,10 +479,12 @@ describe("Locked Vector Settings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Vector spoken A from spoken $0$ comma spoken $0$ to spoken $2$ comma spoken $2$. Appearance solid gray.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Vector A from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                }),
+            );
         });
 
         test("aria label auto-generates (multiple labels)", async () => {
@@ -512,10 +516,12 @@ describe("Locked Vector Settings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Vector spoken A, spoken B from spoken $0$ comma spoken $0$ to spoken $2$ comma spoken $2$. Appearance solid gray.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Vector A, B from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                }),
+            );
         });
     });
 });

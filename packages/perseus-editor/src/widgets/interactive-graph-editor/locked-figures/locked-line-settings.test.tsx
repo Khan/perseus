@@ -1,6 +1,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -636,9 +636,11 @@ describe("LockedLineSettings", () => {
                 await userEvent.click(autoGenButton);
 
                 // Assert
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: `${label} ${connector1} point at spoken $0$ comma spoken $0$ ${connector2} point at spoken $2$ comma spoken $2$. Appearance solid gray.`,
-                });
+                await waitFor(() =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel: `${label} ${connector1} point at 0 comma 0 ${connector2} point at 2 comma 2. Appearance solid gray.`,
+                    }),
+                );
             },
         );
 
@@ -662,10 +664,12 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Line through point at spoken $0$ comma spoken $0$ and point at spoken $2$ comma spoken $2$. Appearance solid gray.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Line through point at 0 comma 0 and point at 2 comma 2. Appearance solid gray.",
+                }),
+            );
         });
 
         test("aria label auto-generates (one label)", async () => {
@@ -693,10 +697,12 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Line spoken A through point at spoken $0$ comma spoken $0$ and point at spoken $2$ comma spoken $2$. Appearance solid gray.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Line A through point at 0 comma 0 and point at 2 comma 2. Appearance solid gray.",
+                }),
+            );
         });
 
         test("aria label auto-generates (multiple labels)", async () => {
@@ -728,10 +734,12 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Line spoken A, spoken B through point at spoken $0$ comma spoken $0$ and point at spoken $2$ comma spoken $2$. Appearance solid gray.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Line A, B through point at 0 comma 0 and point at 2 comma 2. Appearance solid gray.",
+                }),
+            );
         });
 
         test("aria label auto-generates (one label, including points)", async () => {
@@ -769,10 +777,12 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Line spoken A through point spoken C at spoken $0$ comma spoken $0$ and point spoken D at spoken $2$ comma spoken $2$. Appearance solid gray.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Line A through point C at 0 comma 0 and point D at 2 comma 2. Appearance solid gray.",
+                }),
+            );
         });
 
         test("aria label auto-generates (multiple labels, including points)", async () => {
@@ -820,10 +830,12 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Line spoken A, spoken B through point spoken C, spoken C2 at spoken $0$ comma spoken $0$ and point spoken D, spoken D2 at spoken $2$ comma spoken $2$. Appearance solid gray.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Line A, B through point C, C2 at 0 comma 0 and point D, D2 at 2 comma 2. Appearance solid gray.",
+                }),
+            );
         });
     });
 });
