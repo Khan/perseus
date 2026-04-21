@@ -1,10 +1,8 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
 
 import LockedPolygonSettings from "./locked-polygon-settings";
 
@@ -626,10 +624,7 @@ describe("LockedPolygonSettings", () => {
 
         test("aria label auto-generates (no labels)", async () => {
             // Arrange
-            // Set up a promise that will be resolved when onChangeProps is called.
-            // FIXME: change all tests that use promiseWithResolvers to use waitFor
-            // instead. See commit e56978c86f39a3b5b68a3ab843f184653ab833d9 for reference.
-            const onChangePropsCall = promiseWithResolvers();
+            const onChangeProps = jest.fn();
 
             // Act
             render(
@@ -641,7 +636,7 @@ describe("LockedPolygonSettings", () => {
                         [1, 1],
                     ]}
                     ariaLabel={undefined}
-                    onChangeProps={onChangePropsCall.resolve}
+                    onChangeProps={onChangeProps}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -651,19 +646,18 @@ describe("LockedPolygonSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
-            const onChangePropsArg = await onChangePropsCall.promise;
-
             // Assert
-            expect(onChangePropsArg).toEqual({
-                ariaLabel:
-                    "Polygon with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Polygon with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates (one label)", async () => {
             // Arrange
-            // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers();
+            const onChangeProps = jest.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -673,7 +667,7 @@ describe("LockedPolygonSettings", () => {
                         [1, 1],
                     ]}
                     ariaLabel={undefined}
-                    onChangeProps={onChangePropsCall.resolve}
+                    onChangeProps={onChangeProps}
                     labels={[
                         {
                             ...defaultLabel,
@@ -690,19 +684,18 @@ describe("LockedPolygonSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
-            const onChangePropsArgs = await onChangePropsCall.promise;
-
             // Assert
-            expect(onChangePropsArgs).toEqual({
-                ariaLabel:
-                    "Polygon A with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Polygon A with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates (multiple labels)", async () => {
             // Arrange
-            // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers();
+            const onChangeProps = jest.fn();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -712,7 +705,7 @@ describe("LockedPolygonSettings", () => {
                         [1, 1],
                     ]}
                     ariaLabel={undefined}
-                    onChangeProps={onChangePropsCall.resolve}
+                    onChangeProps={onChangeProps}
                     labels={[
                         {
                             ...defaultLabel,
@@ -733,13 +726,13 @@ describe("LockedPolygonSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
-            const onChangePropsArg = await onChangePropsCall.promise;
-
             // Assert
-            expect(onChangePropsArg).toEqual({
-                ariaLabel:
-                    "Polygon A, B with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Polygon A, B with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
     });
 });

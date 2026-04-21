@@ -4,8 +4,6 @@ import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
-
 import LockedEllipseSettings from "./locked-ellipse-settings";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -379,10 +377,7 @@ describe("LockedEllipseSettings", () => {
 
         test("aria label autogenerates saying circle when the radii are equal", async () => {
             // Arrange
-            // Set up a promise that will be resolved when onChangeProps is called.
-            // FIXME: change all tests that use promiseWithResolvers to use waitFor
-            // instead. See commit e56978c86f39a3b5b68a3ab843f184653ab833d9 for reference.
-            const onChangePropsCall = promiseWithResolvers();
+            const onChangeProps = jest.fn();
 
             // Act
             render(
@@ -390,7 +385,7 @@ describe("LockedEllipseSettings", () => {
                     {...defaultProps}
                     radius={[2, 2]}
                     ariaLabel={undefined}
-                    onChangeProps={onChangePropsCall.resolve}
+                    onChangeProps={onChangeProps}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -400,19 +395,18 @@ describe("LockedEllipseSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
-            const onChangePropsArgs = await onChangePropsCall.promise;
-
             // Assert
-            expect(onChangePropsArgs).toEqual({
-                ariaLabel:
-                    "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates without rotation when ellipse is a circle", async () => {
             // Arrange
-            // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers();
+            const onChangeProps = jest.fn();
 
             // Act
             render(
@@ -420,7 +414,7 @@ describe("LockedEllipseSettings", () => {
                     {...defaultProps}
                     radius={[2, 2]}
                     ariaLabel={undefined}
-                    onChangeProps={onChangePropsCall.resolve}
+                    onChangeProps={onChangeProps}
                     angle={Math.PI}
                 />,
                 {wrapper: RenderStateRoot},
@@ -431,19 +425,18 @@ describe("LockedEllipseSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
-            const onChangePropsArg = await onChangePropsCall.promise;
-
             // Assert
-            expect(onChangePropsArg).toEqual({
-                ariaLabel:
-                    "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates saying ellipse when the radii are different", async () => {
             // Arrange
-            // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers();
+            const onChangeProps = jest.fn();
 
             // Act
             render(
@@ -451,7 +444,7 @@ describe("LockedEllipseSettings", () => {
                     {...defaultProps}
                     radius={[2, 3]}
                     ariaLabel={undefined}
-                    onChangeProps={onChangePropsCall.resolve}
+                    onChangeProps={onChangeProps}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -461,13 +454,13 @@ describe("LockedEllipseSettings", () => {
             });
             await userEvent.click(autoGenButton);
 
-            const onChangePropsArg = await onChangePropsCall.promise;
-
             // Assert
-            expect(onChangePropsArg).toEqual({
-                ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at 0 comma 0. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Ellipse with x radius 2 and y radius 3, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates with rotation when ellipse is rotated", async () => {
