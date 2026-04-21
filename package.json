@@ -129,11 +129,13 @@
         "clean:docs": "git clean -fdx docs/ && git checkout HEAD -- docs/",
         "coverage": "./utils/test-with-coverage.sh",
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
+        "linc": "pnpm -s run-on-changed-files pnpm eslint --ext .js --ext .jsx --ext .ts --ext .tsx --quiet --",
         "lint:timing": "cross-env TIMING=1 pnpm lint",
         "publish:ci": "utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && pnpm build && pnpm build:types && changeset publish",
         "update-catalog-hashes": "utils/update-catalog-hashes-cli.ts",
         "sloc": "sloc packages --exclude node_modules",
         "test": "jest",
+        "tesc": "pnpm -s run-on-changed-files pnpm jest --findRelatedTests --passWithNoTests --",
         "storybook": "storybook dev -p 6006",
         "start": "pnpm storybook",
         "cypress": "cypress open --component",
@@ -142,7 +144,8 @@
         "typecheck": "tsc",
         "knip": "knip --config knip.config.ts",
         "extract-css": "node ./utils/extract-css.js",
-        "sync-legacy-styles": "node ./utils/sync-legacy-styles.js"
+        "sync-legacy-styles": "node ./utils/sync-legacy-styles.js",
+        "run-on-changed-files": "git diff -z --name-only --diff-filter=ACMRTUB \"${UPSTREAM:-\"@{u}\"}\" | xargs -0"
     },
     "nyc": {
         "report-dir": "coverage/cypress/"
