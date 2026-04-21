@@ -5,11 +5,12 @@ import {render, screen, cleanup} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
+
 import LockedFunctionSettings from "./locked-function-settings";
 
 import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
-import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
 
 const defaultProps = {
     ...getDefaultFigureForType("function"),
@@ -851,7 +852,7 @@ describe("Locked Function Settings", () => {
             test("aria label auto-generates (one label)", async () => {
                 // Arrange
                 // Set up a promise that will be resolved when onChangeProps is called.
-                const onChangePropsCall = promiseWithResolvers()
+                const onChangePropsCall = promiseWithResolvers();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
@@ -887,7 +888,7 @@ describe("Locked Function Settings", () => {
                 // Set up a promise that will be resolved when onChangeProps is called.
                 // FIXME: change all tests that use promiseWithResolvers to use waitFor
                 // instead. See commit e56978c86f39a3b5b68a3ab843f184653ab833d9 for reference.
-                const onChangePropsCall = promiseWithResolvers()
+                const onChangePropsCall = promiseWithResolvers();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}

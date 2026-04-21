@@ -1,15 +1,16 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {act, render, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
+
+import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
 
 import LockedPolygonSettings from "./locked-polygon-settings";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {LockedLabelType} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
-import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
 
 const defaultProps = {
     ...getDefaultFigureForType("polygon"),
@@ -626,7 +627,7 @@ describe("LockedPolygonSettings", () => {
         test("aria label auto-generates (no labels)", async () => {
             // Arrange
             // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers()
+            const onChangePropsCall = promiseWithResolvers();
 
             // Act
             render(
@@ -660,7 +661,7 @@ describe("LockedPolygonSettings", () => {
         test("aria label auto-generates (one label)", async () => {
             // Arrange
             // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers()
+            const onChangePropsCall = promiseWithResolvers();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
@@ -698,9 +699,8 @@ describe("LockedPolygonSettings", () => {
 
         test("aria label auto-generates (multiple labels)", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
             // Set up a promise that will be resolved when onChangeProps is called.
-            const onChangePropsCall = promiseWithResolvers()
+            const onChangePropsCall = promiseWithResolvers();
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
