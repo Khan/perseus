@@ -1,6 +1,7 @@
 node_modules
 coverage
 coverage-ts
+docs
 storybook-static
 
 packages/**/build
