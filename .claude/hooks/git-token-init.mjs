@@ -92,6 +92,8 @@ for (const { label, getToken } of sources) {
 
     console.error(`Valid token from ${label} with scopes: ${scopes.join(", ")}`);
 
+    // CLAUDE_ENV_FILE is Claude Code-specific; Codex doesn't support this yet.
+    // Skip env persistence gracefully when not running under Claude Code.
     if (process.env.CLAUDE_ENV_FILE) {
         appendFileSync(process.env.CLAUDE_ENV_FILE, `export GH_TOKEN=${token}\n`);
         appendFileSync(process.env.CLAUDE_ENV_FILE, `export GITHUB_TOKEN=${token}\n`);

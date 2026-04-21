@@ -1,71 +1,28 @@
 {
     "$schema": "https://json.schemastore.org/claude-code-settings.json",
-    "permissions": {
-        "deny": [
-            "Edit(.claude/settings.json)",
-            "Write(.claude/settings.json)",
-            "Edit(.claude/hooks/**)",
-            "Write(.claude/hooks/**)",
-            "Edit(~/.claude/settings.json)",
-            "Write(~/.claude/settings.json)",
-            "Edit(~/.claude/hooks/**)",
-            "Write(~/.claude/hooks/**)",
-            "Read(**/id_rsa*)",
-            "Read(**/id_ed25519*)",
-            "Read(**/id_ecdsa*)",
-            "Read(**/id_dsa*)",
-            "Read(**/.ssh/id_*)",
-            "Read(**/.aws/credentials)",
-            "Read(**/.aws/config)",
-            "Read(**/.config)"
-        ],
-        "allow": [
-            "Edit(/tmp/**)",
-            "Write(/tmp/**)",
-            "Read(/tmp/**)",
-            "Edit(/private/tmp/**)",
-            "Write(/private/tmp/**)",
-            "Read(/private/tmp/**)",
-            "Read(~/.claude/session-env/**)",
-            "Edit(~/.claude/session-env/**)",
-            "Write(~/.claude/session-env/**)",
-            "Read(~/.claude/debug/**)",
-            "Write(~/.claude/debug/**)",
-            "Edit(~/.cache/gh/**)",
-            "Write(~/.cache/gh/**)",
-            "Read(~/.cache/gh/**)",
-            "Read(~/khan/devtools/khan-linter/**)",
-            "Edit(~/khan/devtools/khan-linter/**)",
-            "Read(~/.npm/**)",
-            "Edit(~/.npm/**)",
-            "Write(~/.npm/**)",
-            "Read(~/.local/share/mise)",
-            "Edit(~/.local/share/mise)",
-            "Write(~/.local/share/mise)",
-            "Read(~/.local/state/mise)",
-            "Edit(~/.local/state/mise)",
-            "Write(~/.local/state/mise)",
-            "Read(~/.cache/node/corepack)",
-            "Edit(~/.cache/node/corepack)",
-            "Write(~/.cache/node/corepack)",
-            "Read(~/Library/pnpm/**)",
-            "Edit(~/Library/pnpm/**)",
-            "Write(~/Library/pnpm/**)",
-            "Bash(pnpm cypress:clean)",
-            "Bash(pnpm cypress:secrets)",
-            "Bash(pnpm cypress)",
-            "Bash(pnpm cypress:dev)",
-            "Bash(pnpm cypress:dev-open)",
-            "Bash(pnpm cypress:open-kadev)",
-            "Bash(pnpm build)",
-            "Bash(pnpm build:types)",
-            "Bash(pnpm watch)"
-        ],
-        "ask": [
-            "mcp__*"
-        ]
-    },
     "sandbox": {
+        "filesystem": {
+            "allowWrite": [
+                ".",
+                "/tmp/claude",
+                "/private/tmp/claude",
+                "~/.claude/session-env",
+                "~/.claude/debug",
+                "~/.cache/gh",
+                "~/khan/devtools/khan-linter",
+                "~/.npm",
+                "~/.local/share/mise",
+                "~/.local/state/mise",
+                "~/.cache/node/corepack",
+                "~/Library/pnpm"
+            ],
+            "denyWrite": [
+                ".claude/settings.json",
+                ".claude/hooks",
+                "~/.claude/settings.json",
+                "~/.claude/hooks"
+            ]
+        },
         "enabled": true,
         "autoAllowBashIfSandboxed": true,
         "allowUnsandboxedCommands": false,
@@ -84,6 +41,7 @@
         },
         "enableWeakerNetworkIsolation": true,
         "excludedCommands": [
+            "pbcopy",
             "pnpm cypress:clean",
             "pnpm cypress:secrets",
             "pnpm cypress",
@@ -92,7 +50,11 @@
             "pnpm cypress:open-kadev",
             "pnpm build",
             "pnpm build:types",
-            "pnpm watch"
+            "pnpm watch",
+            "pnpm test",
+            "pnpm test *",
+            "pnpm jest",
+            "pnpm jest *"
         ]
     },
     "hooks": {
@@ -146,6 +108,27 @@
                     }
                 ]
             }
+        ]
+    },
+    "permissions": {
+        "ask": [
+            "mcp__*"
+        ],
+        "allow": [
+            "Bash(pbcopy)",
+            "Bash(pnpm cypress:clean)",
+            "Bash(pnpm cypress:secrets)",
+            "Bash(pnpm cypress)",
+            "Bash(pnpm cypress:dev)",
+            "Bash(pnpm cypress:dev-open)",
+            "Bash(pnpm cypress:open-kadev)",
+            "Bash(pnpm build)",
+            "Bash(pnpm build:types)",
+            "Bash(pnpm watch)",
+            "Bash(pnpm test)",
+            "Bash(pnpm test *)",
+            "Bash(pnpm jest)",
+            "Bash(pnpm jest *)"
         ]
     }
 }
