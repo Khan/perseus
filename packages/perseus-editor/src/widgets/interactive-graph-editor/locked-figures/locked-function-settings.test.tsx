@@ -1,11 +1,9 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
-import {render, screen, cleanup} from "@testing-library/react";
+import {render, screen, cleanup, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import {promiseWithResolvers} from "../../../util/promise-with-resolvers";
 
 import LockedFunctionSettings from "./locked-function-settings";
 
@@ -851,13 +849,12 @@ describe("Locked Function Settings", () => {
 
             test("aria label auto-generates (one label)", async () => {
                 // Arrange
-                // Set up a promise that will be resolved when onChangeProps is called.
-                const onChangePropsCall = promiseWithResolvers();
+                const onChangeProps = jest.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
                         ariaLabel={undefined}
-                        onChangeProps={onChangePropsCall.resolve}
+                        onChangeProps={onChangeProps}
                         labels={[
                             {
                                 ...defaultLabel,
@@ -874,26 +871,23 @@ describe("Locked Function Settings", () => {
                 });
                 await userEvent.click(autoGenButton);
 
-                const onChangePropsArg = await onChangePropsCall.promise;
-
                 // Assert
-                expect(onChangePropsArg).toEqual({
-                    ariaLabel:
-                        "Function A with equation y=x^2. Appearance solid gray.",
-                });
+                await waitFor(() =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Function A with equation y=x^2. Appearance solid gray.",
+                    }),
+                );
             });
 
             test("aria label auto-generates (multiple labels)", async () => {
                 // Arrange
-                // Set up a promise that will be resolved when onChangeProps is called.
-                // FIXME: change all tests that use promiseWithResolvers to use waitFor
-                // instead. See commit e56978c86f39a3b5b68a3ab843f184653ab833d9 for reference.
-                const onChangePropsCall = promiseWithResolvers();
+                const onChangeProps = jest.fn();
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
                         ariaLabel={undefined}
-                        onChangeProps={onChangePropsCall.resolve}
+                        onChangeProps={onChangeProps}
                         labels={[
                             {
                                 ...defaultLabel,
@@ -914,13 +908,13 @@ describe("Locked Function Settings", () => {
                 });
                 await userEvent.click(autoGenButton);
 
-                const onChangePropsArg = await onChangePropsCall.promise;
-
                 // Assert
-                expect(onChangePropsArg).toEqual({
-                    ariaLabel:
-                        "Function A, B with equation y=x^2. Appearance solid gray.",
-                });
+                await waitFor(() =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Function A, B with equation y=x^2. Appearance solid gray.",
+                    }),
+                );
             });
         });
     });
