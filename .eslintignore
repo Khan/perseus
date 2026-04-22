@@ -8,14 +8,22 @@ packages/**/build
 **/dist
 **/*.template
 **/package.json
-**/*.md
 vendor
 LICENSE
 **/__genfiles__
 cypress/
 
 **/*.json
+**/*.jsonl
 **/*.jpg
+**/*.md
+**/*.mdc
 **/*.png
-**/*.svg
 **/*.sh
+**/*.snap
+**/*.svg
+**/*.txt
+**/*.woff2
+**/*.xml
+**/*.yaml
+**/*.yml
