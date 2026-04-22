@@ -12,40 +12,6 @@ import * as Widgets from "./widgets/core-widget-registry";
 import type {PerseusItem, PerseusWidgetsMap} from "./data-schema";
 
 /**
- * Returns a list of widget types that cause a given Perseus item to require
- * the use of a screen or mouse.
- *
- * For now we'll just check the `accessible` field on each of the widgets
- * in the item data, but in the future we may specify accessibility on
- * each widget with higher granularity.
- *
- * @deprecated This function returns a list of widget _types_ that violate our
- * accessibility requirements which is not very accurate given that some
- * instances _could_ be accessible and some not based on their widget options.
- * In most cases, you should use {@link isItemAccessible} instead.
- */
-// FIXME: Inline this into isItemAccessible()
-export function violatingWidgets(itemData: PerseusItem): Array<string> {
-    const widgetTypes: Array<string> = [];
-
-    // TODO: add a real type for the `info` parameter, and update the type of
-    //  `traverse`'s widget callback function to match.
-    const checkAccessibility = (info: any) => {
-        if (info.type && !Widgets.isAccessible(info.type, info.options)) {
-            widgetTypes.push(info.type);
-        }
-    };
-
-    traverse(itemData.question, null, checkAccessibility);
-    for (const hint of itemData.hints) {
-        traverse(hint, null, checkAccessibility);
-    }
-
-    // Uniquify the list of widgets (by type)
-    return [...new Set(widgetTypes)];
-}
-
-/**
  * Returns true if the given Perseus item is accessible (i.e., does not contain
  * any widgets that violate our accessibility requirements).
  */
@@ -96,5 +62,18 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
             };
         }),
     };
-    return violatingWidgets(itemDataWithOnlyActiveWidgets).length === 0;
+    // Check if any active widgets violate accessibility requirements.
+    // TODO: add a real type for the `info` parameter, and update the type of
+    //  `traverse`'s widget callback function to match.
+    let hasInaccessibleWidget = false;
+    const checkAccessibility = (info: any) => {
+        if (info.type && !Widgets.isAccessible(info.type, info.options)) {
+            hasInaccessibleWidget = true;
+        }
+    };
+    traverse(itemDataWithOnlyActiveWidgets.question, null, checkAccessibility);
+    for (const hint of itemDataWithOnlyActiveWidgets.hints) {
+        traverse(hint, null, checkAccessibility);
+    }
+    return !hasInaccessibleWidget;
 }

@@ -312,8 +312,6 @@ export {isFeatureOn} from "./feature-flags";
 export {traverse} from "./traversal";
 export {isItemAccessible} from "./accessibility";
 /** @hidden */
-export {violatingWidgets} from "./accessibility";
-/** @hidden */
 export {
     isLabeledSVG,
     getRealImageUrl,
