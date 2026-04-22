@@ -6,11 +6,12 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
-import {X, Y, snap} from "../math";
+import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {bound} from "../utils";
+import {boundToEdge} from "../utils";
 
+import {GraphBoundsSvg} from "./components/graph-bounds-svg";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -167,14 +168,11 @@ export const getLogarithmKeyboardConstraint = (
         snapStep,
         pointIndex,
         (coord) => {
-            // The reducer clamps the destination via boundAndSnapToGrid
+            // The reducer clamps the destination via boundToEdgeAndSnapToGrid
             // before applying its own collision checks. We must predict
             // the clamped position to avoid accepting coords that the
             // reducer will silently reject.
-            const clamped = snap(
-                snapStep,
-                bound({snapStep, range, point: coord}),
-            );
+            const clamped = snap(snapStep, boundToEdge({range, point: coord}));
             const clampedX = clamped[X];
             const clampedY = clamped[Y];
 
@@ -250,19 +248,21 @@ function renderLogarithmCurve({
     const pointsRightOfAsymptote = coords[0][X] > asymptoteX;
 
     return (
-        <Plot.OfX
-            y={(x) => computeLogarithm(coeffs, x)}
-            color={interactiveColor}
-            svgPathProps={{
-                "aria-hidden": true,
-                style: {pointerEvents: "none"},
-            }}
-            domain={
-                pointsRightOfAsymptote
-                    ? [asymptoteX + domainOffset, xMax]
-                    : [xMin, asymptoteX - domainOffset]
-            }
-        />
+        <GraphBoundsSvg>
+            <Plot.OfX
+                y={(x) => computeLogarithm(coeffs, x)}
+                color={interactiveColor}
+                svgPathProps={{
+                    "aria-hidden": true,
+                    style: {pointerEvents: "none"},
+                }}
+                domain={
+                    pointsRightOfAsymptote
+                        ? [asymptoteX + domainOffset, xMax]
+                        : [xMin, asymptoteX - domainOffset]
+                }
+            />
+        </GraphBoundsSvg>
     );
 }
 

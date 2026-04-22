@@ -8,6 +8,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {GraphBoundsSvg} from "./components/graph-bounds-svg";
 import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -154,23 +155,25 @@ function MovableCircle(props: {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
         >
-            <ellipse
-                className="focus-ring"
-                cx={centerPx[X]}
-                cy={centerPx[Y]}
-                rx={radiiPx[X] + 3}
-                ry={radiiPx[Y] + 3}
-            />
-            <ellipse
-                id={id}
-                className="circle"
-                cx={centerPx[X]}
-                cy={centerPx[Y]}
-                rx={radiiPx[X]}
-                ry={radiiPx[Y]}
-                stroke={interactiveColor}
-                data-testid="movable-circle__circle"
-            />
+            <GraphBoundsSvg>
+                <ellipse
+                    className="focus-ring"
+                    cx={centerPx[X]}
+                    cy={centerPx[Y]}
+                    rx={radiiPx[X] + 3}
+                    ry={radiiPx[Y] + 3}
+                />
+                <ellipse
+                    id={id}
+                    className="circle"
+                    cx={centerPx[X]}
+                    cy={centerPx[Y]}
+                    rx={radiiPx[X]}
+                    ry={radiiPx[Y]}
+                    stroke={interactiveColor}
+                    data-testid="movable-circle__circle"
+                />
+            </GraphBoundsSvg>
             <DragHandle center={center} dragging={dragging} focused={focused} />
         </g>
     );
