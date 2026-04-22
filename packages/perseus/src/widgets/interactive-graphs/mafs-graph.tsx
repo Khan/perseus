@@ -400,25 +400,15 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 <svg
                                     {...nestedSVGAttributes}
                                     style={{
-                                        // We want to allow points to be directly
-                                        // on the edge of the graph, so we need to
-                                        // set overflow to visible. For other
-                                        // graphs, we want to hide the overflow
-                                        // so that the graph can't go way off
-                                        // the edge.
-                                        overflow:
-                                            type === "point" ||
-                                            type === "segment" ||
-                                            type === "polygon" ||
-                                            type === "sinusoid" ||
-                                            type === "quadratic" ||
-                                            type === "exponential" ||
-                                            type === "logarithm" ||
-                                            type === "tangent" ||
-                                            type === "circle" ||
-                                            type === "ray"
-                                                ? "visible"
-                                                : "hidden",
+                                        // Allow control points to render
+                                        // fully when placed on the graph
+                                        // edge. Graph components that
+                                        // render curves or other shapes
+                                        // which would sprawl past the
+                                        // bounds wrap them in
+                                        // <GraphBoundsSvg> to re-clip
+                                        // the curve layer only.
+                                        overflow: "visible",
                                     }}
                                 >
                                     {/* Protractor */}

@@ -9,6 +9,7 @@ import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {GraphBoundsSvg} from "./components/graph-bounds-svg";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -69,13 +70,15 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
 
     return (
         <g aria-label={srAbsoluteValueGraph} aria-describedby={descriptionId}>
-            <Plot.OfX
-                y={(x) => m * Math.abs(x - h) + v}
-                color={interactiveColor}
-                svgPathProps={{
-                    "aria-hidden": true,
-                }}
-            />
+            <GraphBoundsSvg>
+                <Plot.OfX
+                    y={(x) => m * Math.abs(x - h) + v}
+                    color={interactiveColor}
+                    svgPathProps={{
+                        "aria-hidden": true,
+                    }}
+                />
+            </GraphBoundsSvg>
             {coords.map((coord, i) => (
                 <MovablePoint
                     key={"point-" + i}
