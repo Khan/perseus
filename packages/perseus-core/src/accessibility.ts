@@ -52,8 +52,8 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
     // Traverse the item question Markdown to look for content that is
     // inaccessible.
     const ast = parse(itemData.question.content);
-    // TODO: use getWidgetIdsFromContent to get the set of widget IDs.
-    // TODO: use an array, not a set, for the widget IDs. Set is likely slower
+    // FIXME: use getWidgetIdsFromContent to get the set of widget IDs.
+    // FIXME: use an array, not a set, for the widget IDs. Set is likely slower
     //  in practice because there are not many widgets in each question.
     const widgetIdsInUse = new Set<string>();
     let hasInaccessibleImage = false;
@@ -94,7 +94,7 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
         // Markdown content, mirroring the orphan-widget filtering done above
         // for the question.
         hints: itemData.hints.map((hint) => {
-            // TODO: use getWidgetIdsFromContent to get the set of widget IDs.
+            // FIXME: use getWidgetIdsFromContent to get the set of widget IDs.
             const hintWidgetIdsInUse = new Set<string>();
             traverseContent(parse(hint.content), (node) => {
                 if (node.type === "widget") {
