@@ -855,6 +855,11 @@ function doMoveCenter(
                 const possibleNewX = radX - xJumpDist;
                 if (possibleNewX >= xMin && possibleNewX <= xMax) {
                     newRadiusPoint[X] = possibleNewX;
+                } else {
+                    // Circle is wider than the graph's half-span, so
+                    // neither side of the new center fits the radius
+                    // handle within range. Reject the move.
+                    return state;
                 }
             }
 
