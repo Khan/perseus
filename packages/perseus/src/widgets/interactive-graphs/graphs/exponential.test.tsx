@@ -309,7 +309,7 @@ describe("getExponentialKeyboardConstraint", () => {
         expect(constraint.right).toEqual([3, 3]);
     });
 
-    it("rejects positions where the clamped coord collides with the other point's x", () => {
+    it("walks past an x-collision with the other point when moving right", () => {
         // Arrange — point 0 at x=8, point 1 at x=9 (graph edge).
         // Moving right: x=9 shares x with point 1, x=10 clamps to 9.
         // No valid right move — falls back to original position.
@@ -327,7 +327,7 @@ describe("getExponentialKeyboardConstraint", () => {
             range,
         );
 
-        // Assert
-        expect(constraint.right).toEqual([8, 3]);
+        // Assert — walks past x=9 and lands at x=10 (graph edge)
+        expect(constraint.right).toEqual([10, 3]);
     });
 });

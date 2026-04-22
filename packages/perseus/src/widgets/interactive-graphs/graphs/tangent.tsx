@@ -8,7 +8,9 @@ import {
 import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
+import {boundToEdge} from "../utils";
 
+import {GraphBoundsSvg} from "./components/graph-bounds-svg";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -21,6 +23,7 @@ import type {
 } from "../types";
 import type {NamedTangentCoefficient} from "@khanacademy/kmath";
 import type {Coord} from "@khanacademy/perseus-core";
+import type {Interval} from "mafs";
 
 export function renderTangentGraph(
     state: TangentGraphState,
@@ -83,20 +86,22 @@ function TangentGraph(props: TangentGraphProps) {
             aria-label={srTangentGraph}
             aria-describedby={descriptionId}
         >
-            {segments.map(([segStart, segEnd], i) => (
-                <Plot.OfX
-                    key={`tangent-segment-${i}`}
-                    y={(x) => computeTangent(x, coeffRef.current)}
-                    domain={[segStart, segEnd]}
-                    color={interactiveColor}
-                    svgPathProps={{
-                        // Use aria-hidden to hide the line from screen readers
-                        // so it doesn't read as "image" with no context.
-                        // This is okay because the graph has its own aria-label.
-                        "aria-hidden": true,
-                    }}
-                />
-            ))}
+            <GraphBoundsSvg>
+                {segments.map(([segStart, segEnd], i) => (
+                    <Plot.OfX
+                        key={`tangent-segment-${i}`}
+                        y={(x) => computeTangent(x, coeffRef.current)}
+                        domain={[segStart, segEnd]}
+                        color={interactiveColor}
+                        svgPathProps={{
+                            // Use aria-hidden to hide the line from screen readers
+                            // so it doesn't read as "image" with no context.
+                            // This is okay because the graph has its own aria-label.
+                            "aria-hidden": true,
+                        }}
+                    />
+                ))}
+            </GraphBoundsSvg>
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={
@@ -111,6 +116,7 @@ function TangentGraph(props: TangentGraphProps) {
                         coords,
                         snapStep,
                         i,
+                        range,
                     )}
                     onMove={(destination) =>
                         dispatch(actions.tangent.movePoint(i, destination))
@@ -126,6 +132,7 @@ export const getTangentKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
     pointIndex: number,
+    range: [Interval, Interval],
 ): {
     up: vec.Vector2;
     down: vec.Vector2;
@@ -152,18 +159,29 @@ export const getTangentKeyboardConstraint = (
         return movedCoord;
     };
 
+    const cap = (point: vec.Vector2): vec.Vector2 =>
+        boundToEdge({range, point});
+
     return {
-        up: movePointWithConstraint((coord) =>
-            vec.add(coord, [0, snapStep[1]]),
+        up: cap(
+            movePointWithConstraint((coord) =>
+                vec.add(coord, [0, snapStep[1]]),
+            ),
         ),
-        down: movePointWithConstraint((coord) =>
-            vec.sub(coord, [0, snapStep[1]]),
+        down: cap(
+            movePointWithConstraint((coord) =>
+                vec.sub(coord, [0, snapStep[1]]),
+            ),
         ),
-        left: movePointWithConstraint((coord) =>
-            vec.sub(coord, [snapStep[0], 0]),
+        left: cap(
+            movePointWithConstraint((coord) =>
+                vec.sub(coord, [snapStep[0], 0]),
+            ),
         ),
-        right: movePointWithConstraint((coord) =>
-            vec.add(coord, [snapStep[0], 0]),
+        right: cap(
+            movePointWithConstraint((coord) =>
+                vec.add(coord, [snapStep[0], 0]),
+            ),
         ),
     };
 };
