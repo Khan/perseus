@@ -2047,9 +2047,6 @@ export type PerseusCSProgramWidgetOptions = {
     showButtons: boolean;
     /** The height of the widget */
     height: number;
-    // TODO(benchristel): static is not used. Delete it?
-    // Always false
-    static: boolean;
 };
 
 export type PerseusCSProgramSetting = {
