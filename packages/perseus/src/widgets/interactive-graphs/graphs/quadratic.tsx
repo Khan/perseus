@@ -4,7 +4,9 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
+import {boundToEdge} from "../utils";
 
+import {GraphBoundsSvg} from "./components/graph-bounds-svg";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -23,6 +25,7 @@ import type {
     InteractiveGraphElementSuite,
 } from "../types";
 import type {QuadraticCoefficient, QuadraticCoords} from "@khanacademy/kmath";
+import type {Interval} from "mafs";
 
 export function renderQuadraticGraph(
     state: QuadraticGraphState,
@@ -44,7 +47,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
     const {coords, snapStep} = graphState;
-    const {interactiveColor} = useGraphConfig();
+    const {interactiveColor, range} = useGraphConfig();
 
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
@@ -82,16 +85,18 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             aria-label={srQuadraticGraph}
             aria-describedby={`${quadraticDirectionId} ${quadraticVertexId} ${quadraticInterceptsId}`}
         >
-            <Plot.OfX
-                y={y}
-                color={interactiveColor}
-                svgPathProps={{
-                    // Use aria-hidden to hide the line from screen readers
-                    // so it doesn't read as "image" with no context.
-                    // This is okay because the graph has its own aria-label.
-                    "aria-hidden": true,
-                }}
-            />
+            <GraphBoundsSvg>
+                <Plot.OfX
+                    y={y}
+                    color={interactiveColor}
+                    svgPathProps={{
+                        // Use aria-hidden to hide the line from screen readers
+                        // so it doesn't read as "image" with no context.
+                        // This is okay because the graph has its own aria-label.
+                        "aria-hidden": true,
+                    }}
+                />
+            </GraphBoundsSvg>
             {coords.map((coord, i) => {
                 const srQuadraticPoint = getQuadraticPointString(
                     i + 1,
@@ -114,6 +119,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                             coords,
                             snapStep,
                             i,
+                            range,
                         )}
                         onMove={(destination) =>
                             dispatch(
@@ -262,6 +268,7 @@ export const getQuadraticKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
     pointMoved: number,
+    range: [Interval, Interval],
 ): {
     up: vec.Vector2;
     down: vec.Vector2;
@@ -304,15 +311,22 @@ export const getQuadraticKeyboardConstraint = (
         return moveFunc(movedCoord);
     };
 
+    const cap = (point: vec.Vector2): vec.Vector2 =>
+        boundToEdge({range, point});
+
     return {
-        up: vec.add(coordToBeMoved, [0, snapStep[1]]),
-        down: vec.sub(coordToBeMoved, [0, snapStep[1]]),
+        up: cap(vec.add(coordToBeMoved, [0, snapStep[1]])),
+        down: cap(vec.sub(coordToBeMoved, [0, snapStep[1]])),
         // For horizontal movement, we need to ensure that the points are not on the same vertical line.
-        left: movePointWithConstraint((coord) =>
-            vec.sub(coord, [snapStep[0], 0]),
+        left: cap(
+            movePointWithConstraint((coord) =>
+                vec.sub(coord, [snapStep[0], 0]),
+            ),
         ),
-        right: movePointWithConstraint((coord) =>
-            vec.add(coord, [snapStep[0], 0]),
+        right: cap(
+            movePointWithConstraint((coord) =>
+                vec.add(coord, [snapStep[0], 0]),
+            ),
         ),
     };
 };

@@ -14,7 +14,7 @@ import {
 } from "./quadratic";
 
 import type {QuadraticGraphState, InteractiveGraphState} from "../types";
-import type {vec} from "mafs";
+import type {Interval, vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseQuadraticState: InteractiveGraphState = {
@@ -327,6 +327,11 @@ describe("getQuadraticCoefficients", () => {
 });
 
 describe("getQuadraticKeyboardConstraint", () => {
+    const range: [Interval, Interval] = [
+        [-10, 10],
+        [-10, 10],
+    ];
+
     it("should snap to the snapStep and avoid putting points on a vertical line", () => {
         const coords: QuadraticGraphState["coords"] = [
             [0, 0],
@@ -336,7 +341,12 @@ describe("getQuadraticKeyboardConstraint", () => {
         const snapStep: vec.Vector2 = [1, 1];
 
         // We're moving the first point
-        const constraint = getQuadraticKeyboardConstraint(coords, snapStep, 0);
+        const constraint = getQuadraticKeyboardConstraint(
+            coords,
+            snapStep,
+            0,
+            range,
+        );
 
         expect(constraint).toEqual({
             up: [0, 1],
@@ -355,7 +365,12 @@ describe("getQuadraticKeyboardConstraint", () => {
         const snapStep: vec.Vector2 = [1, 1];
 
         // We're moving the first point
-        const constraint = getQuadraticKeyboardConstraint(coords, snapStep, 0);
+        const constraint = getQuadraticKeyboardConstraint(
+            coords,
+            snapStep,
+            0,
+            range,
+        );
 
         expect(constraint).toEqual({
             up: [0, 1],

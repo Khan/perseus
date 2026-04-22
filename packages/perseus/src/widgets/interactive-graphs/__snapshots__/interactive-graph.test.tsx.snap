@@ -1187,7 +1187,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
+                        style="overflow: visible;"
                         viewBox="-57.142857142857146 -342.85714285714283 400 400"
                         width="400"
                         x="-57.142857142857146"
@@ -1662,7 +1662,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
+                        style="overflow: visible;"
                         viewBox="-200 -200 400 400"
                         width="400"
                         x="-200"
@@ -2367,7 +2367,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
+                        style="overflow: visible;"
                         viewBox="-200 -266.66666666666663 400 400"
                         width="400"
                         x="-200"
@@ -2583,7 +2583,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
+                        style="overflow: visible;"
                         viewBox="-57.142857142857146 -342.85714285714283 400 400"
                         width="400"
                         x="-57.142857142857146"
@@ -3031,7 +3031,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
+                        style="overflow: visible;"
                         viewBox="-200 -200 400 400"
                         width="400"
                         x="-200"
@@ -3850,7 +3850,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
+                        style="overflow: visible;"
                         viewBox="-200 -266.66666666666663 400 400"
                         width="400"
                         x="-200"

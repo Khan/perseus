@@ -268,15 +268,14 @@ describe("movePointInFigure", () => {
     });
 
     it("rejects a sinusoid move when bounding clamps the point to the same x as the other point", () => {
-        // coords: point 0 at x=8, point 1 at x=9.
-        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
-        // snap 1 → effective max 9), which matches point 1's x.
-        // The same-x guard should reject this move entirely.
+        // coords: point 0 at x=8, point 1 at x=10 (at the edge).
+        // Moving point 0 to [15, 5] clamps to [10, 5] (range max 10),
+        // which matches point 1's x. The same-x guard rejects it.
         const state: InteractiveGraphState = {
             ...baseSinusoidGraphState,
             coords: [
                 [8, 1],
-                [9, 2],
+                [10, 2],
             ],
         };
 
@@ -289,7 +288,7 @@ describe("movePointInFigure", () => {
         expect(updated.hasBeenInteractedWith).toBe(false);
         expect(updated.coords).toEqual([
             [8, 1],
-            [9, 2],
+            [10, 2],
         ]);
     });
 
@@ -315,14 +314,13 @@ describe("movePointInFigure", () => {
     });
 
     it("rejects a tangent move when bounding clamps the point to the same x as the other point", () => {
-        // coords: point 0 at x=8, point 1 at x=9.
-        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
-        // snap 1 → effective max 9), which matches point 1's x.
-        // The same-x guard should reject this move entirely.
+        // coords: point 0 at x=8, point 1 at x=10 (at the edge).
+        // Moving point 0 to [15, 5] clamps to [10, 5] (range max 10),
+        // which matches point 1's x. The same-x guard rejects it.
         const state = generateTangentGraphState({
             coords: [
                 [8, 1],
-                [9, 2],
+                [10, 2],
             ],
         });
 
@@ -335,7 +333,7 @@ describe("movePointInFigure", () => {
         expect(updated.hasBeenInteractedWith).toBe(false);
         expect(updated.coords).toEqual([
             [8, 1],
-            [9, 2],
+            [10, 2],
         ]);
     });
 
@@ -384,7 +382,7 @@ describe("movePointInFigure", () => {
         expect(updated.coords[0][0]).toEqual([2, 6]);
     });
 
-    it("constrains points to be at least one snap step within the graph bounds", () => {
+    it("constrains points to the graph edge", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             snapStep: [0.5, 0.5],
@@ -406,7 +404,7 @@ describe("movePointInFigure", () => {
         );
 
         invariant(updated.type === "segment");
-        expect(updated.coords[0][0]).toEqual([4.5, 7.5]);
+        expect(updated.coords[0][0]).toEqual([5, 8]);
     });
 });
 
@@ -995,7 +993,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        expect((updated as CircleGraphState).center).toEqual([9, 9]);
+        expect((updated as CircleGraphState).center).toEqual([10, 10]);
     });
 
     it("updates the radius", () => {
@@ -2028,16 +2026,17 @@ describe("movePoint on a logarithm graph", () => {
     });
 
     it("rejects the move when bounding causes same-y collision", () => {
-        // Arrange — point 0 at (-4, -7), point 1 at (-5, 9); moving point 0
-        // far beyond the graph range so bounding clamps y to 9, same as point 1
+        // Arrange — point 0 at (-4, -7), point 1 at (-5, 10); moving point 0
+        // far beyond the graph range so bounding clamps y to 10, same as
+        // point 1's y under boundToEdge.
         const state = generateLogarithmGraphState({
             coords: [
                 [-4, -7],
-                [-5, 9],
+                [-5, 10],
             ],
         });
 
-        // Act — destination y=15 is clamped to 9 by bounding, colliding with point 1
+        // Act — destination y=15 is clamped to 10 by bounding, colliding with point 1
         const updated = interactiveGraphReducer(
             state,
             actions.logarithm.movePoint(0, [-4, 15]),

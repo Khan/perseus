@@ -12,8 +12,9 @@ import {
 import {X, Y, snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {bound} from "../utils";
+import {boundToEdge} from "../utils";
 
+import {GraphBoundsSvg} from "./components/graph-bounds-svg";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -136,19 +137,21 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                 orientation="vertical"
                 ariaLabel={srLogarithmAsymptote}
             >
-                <Plot.OfX
-                    y={(x) => computeLogarithm(coeffRef.current, x)}
-                    color={interactiveColor}
-                    svgPathProps={{
-                        "aria-hidden": true,
-                        style: {pointerEvents: "none"},
-                    }}
-                    domain={
-                        pointsRightOfAsymptote
-                            ? [asymptoteX + domainOffset, xMax]
-                            : [xMin, asymptoteX - domainOffset]
-                    }
-                />
+                <GraphBoundsSvg>
+                    <Plot.OfX
+                        y={(x) => computeLogarithm(coeffRef.current, x)}
+                        color={interactiveColor}
+                        svgPathProps={{
+                            "aria-hidden": true,
+                            style: {pointerEvents: "none"},
+                        }}
+                        domain={
+                            pointsRightOfAsymptote
+                                ? [asymptoteX + domainOffset, xMax]
+                                : [xMin, asymptoteX - domainOffset]
+                        }
+                    />
+                </GraphBoundsSvg>
             </MovableAsymptote>
             {coords.map((coord, i) => (
                 <MovablePoint
@@ -202,14 +205,11 @@ export const getLogarithmKeyboardConstraint = (
         snapStep,
         pointIndex,
         (coord) => {
-            // The reducer clamps the destination via boundAndSnapToGrid
+            // The reducer clamps the destination via boundToEdgeAndSnapToGrid
             // before applying its own collision checks. We must predict
             // the clamped position to avoid accepting coords that the
             // reducer will silently reject.
-            const clamped = snap(
-                snapStep,
-                bound({snapStep, range, point: coord}),
-            );
+            const clamped = snap(snapStep, boundToEdge({range, point: coord}));
             const clampedX = clamped[X];
             const clampedY = clamped[Y];
 
@@ -236,7 +236,7 @@ export const getLogarithmKeyboardConstraint = (
                 const reflectedX = 2 * asymptoteX - otherPoint[X];
                 const clampedReflectedX = snap(
                     snapStep,
-                    bound({snapStep, range, point: [reflectedX, 0]}),
+                    boundToEdge({range, point: [reflectedX, 0]}),
                 )[X];
                 if (
                     reflectedX === coord[X] ||

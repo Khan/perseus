@@ -9,6 +9,7 @@ import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {GraphBoundsSvg} from "./components/graph-bounds-svg";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -78,16 +79,18 @@ function SinusoidGraph(props: SinusoidGraphProps) {
             aria-label={srSinusoidGraph}
             aria-describedby={descriptionId}
         >
-            <Plot.OfX
-                y={(x) => computeSine(x, coeffRef.current)}
-                color={interactiveColor}
-                svgPathProps={{
-                    // Use aria-hidden to hide the line from screen readers
-                    // so it doesn't read as "image" with no context.
-                    // This is okay because the graph has its own aria-label.
-                    "aria-hidden": true,
-                }}
-            />
+            <GraphBoundsSvg>
+                <Plot.OfX
+                    y={(x) => computeSine(x, coeffRef.current)}
+                    color={interactiveColor}
+                    svgPathProps={{
+                        // Use aria-hidden to hide the line from screen readers
+                        // so it doesn't read as "image" with no context.
+                        // This is okay because the graph has its own aria-label.
+                        "aria-hidden": true,
+                    }}
+                />
+            </GraphBoundsSvg>
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={

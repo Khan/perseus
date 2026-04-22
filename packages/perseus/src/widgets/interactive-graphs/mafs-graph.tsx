@@ -407,7 +407,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         // so that the graph can't go way off
                                         // the edge.
                                         overflow:
-                                            type === "point"
+                                            type === "point" ||
+                                            type === "segment" ||
+                                            type === "polygon" ||
+                                            type === "sinusoid" ||
+                                            type === "quadratic" ||
+                                            type === "exponential" ||
+                                            type === "logarithm" ||
+                                            type === "tangent" ||
+                                            type === "circle" ||
+                                            type === "ray"
                                                 ? "visible"
                                                 : "hidden",
                                     }}
