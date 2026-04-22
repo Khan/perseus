@@ -1,14 +1,10 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedEllipseSettings from "./locked-ellipse-settings";
-import {
-    mockedGenerateSpokenMathDetailsForTests,
-    mockedJoinLabelsAsSpokenMathForTests,
-} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -20,15 +16,6 @@ const defaultProps = {
 };
 
 const defaultLabel = getDefaultFigureForType("label");
-
-// Mock the async functions
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) =>
-        mockedGenerateSpokenMathDetailsForTests(input),
-    joinLabelsAsSpokenMath: (input) =>
-        mockedJoinLabelsAsSpokenMathForTests(input),
-}));
 
 describe("LockedEllipseSettings", () => {
     let userEvent: UserEvent;
@@ -409,10 +396,12 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Circle with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates without rotation when ellipse is a circle", async () => {
@@ -437,10 +426,12 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Circle with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates saying ellipse when the radii are different", async () => {
@@ -464,10 +455,12 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Ellipse with x radius 2 and y radius 3, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates with rotation when ellipse is rotated", async () => {
@@ -492,10 +485,12 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at spoken $0$ comma spoken $0$, rotated by spoken $90$ degrees. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Ellipse with x radius 2 and y radius 3, centered at 0 comma 0, rotated by 90 degrees. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates with one label", async () => {
@@ -524,10 +519,12 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Circle spoken A with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Circle A with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
 
         test("aria label auto-generates with multiple labels", async () => {
@@ -560,10 +557,12 @@ describe("LockedEllipseSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Circle spoken A, spoken B with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(() =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Circle A, B with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            );
         });
     });
 });

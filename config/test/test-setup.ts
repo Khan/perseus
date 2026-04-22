@@ -2,6 +2,9 @@
  * This file is loaded after the jest test framework has be initialized
  * but before any tests have run.
  */
+import * as fs from "node:fs/promises";
+import path from "node:path";
+
 import MutationObserver from "@sheerun/mutationobserver-shim";
 // @ts-expect-error - TS2305 - Module '"aphrodite"' has no exported member 'StyleSheetTestUtils'.
 import {StyleSheetTestUtils} from "aphrodite";
@@ -47,3 +50,13 @@ beforeEach(() => {
     // See https://jestjs.io/docs/en/jest-object#mock-timers.
     jest.useFakeTimers();
 });
+
+// Globally mock the MathJax Speech Rule Engine locale data for testing.
+global.SREfeature = {
+    custom(locale): Promise<string> {
+        return fs.readFile(
+            path.join(import.meta.dirname, `mathjax-sre/${locale}.json`),
+            "utf-8",
+        );
+    },
+};
