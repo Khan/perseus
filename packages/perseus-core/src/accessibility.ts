@@ -6,6 +6,7 @@
 import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
 import {traverse} from "./traversal";
+import {getWidgetIdsFromContent} from "./utils/widget-id-utils";
 import * as Widgets from "./widgets/core-widget-registry";
 
 import type {PerseusItem, PerseusWidgetsMap} from "./data-schema";
@@ -52,23 +53,13 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
     // Traverse the item question Markdown to look for content that is
     // inaccessible.
     const ast = parse(itemData.question.content);
-    // FIXME: use getWidgetIdsFromContent to get the set of widget IDs.
-    // FIXME: use an array, not a set, for the widget IDs. Set is likely slower
-    //  in practice because there are not many widgets in each question.
-    const widgetIdsInUse = new Set<string>();
+    const widgetIdsInUse = getWidgetIdsFromContent(itemData.question.content);
     let hasInaccessibleImage = false;
 
     traverseContent(ast, (node) => {
         // Markdown images without alt text are inaccessible!
         if (node.type === "image" && (node.alt == null || node.alt === "")) {
             hasInaccessibleImage = true;
-            return;
-        }
-
-        // We collect widget IDs used in the Markdown content so we can exclude
-        // unused widgets when checking for violating widgets below.
-        if (node.type === "widget") {
-            widgetIdsInUse.add(node.id);
         }
     });
 
@@ -86,7 +77,7 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
             // can't map that the id matches the object in the entry).
             widgets: Object.fromEntries(
                 Object.entries(itemData.question.widgets).filter(([id]) =>
-                    widgetIdsInUse.has(id),
+                    widgetIdsInUse.includes(id),
                 ),
             ) as PerseusWidgetsMap,
         },
@@ -94,18 +85,12 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
         // Markdown content, mirroring the orphan-widget filtering done above
         // for the question.
         hints: itemData.hints.map((hint) => {
-            // FIXME: use getWidgetIdsFromContent to get the set of widget IDs.
-            const hintWidgetIdsInUse = new Set<string>();
-            traverseContent(parse(hint.content), (node) => {
-                if (node.type === "widget") {
-                    hintWidgetIdsInUse.add(node.id);
-                }
-            });
+            const hintWidgetIdsInUse = getWidgetIdsFromContent(hint.content);
             return {
                 ...hint,
                 widgets: Object.fromEntries(
                     Object.entries(hint.widgets).filter(([id]) =>
-                        hintWidgetIdsInUse.has(id),
+                        hintWidgetIdsInUse.includes(id),
                     ),
                 ) as PerseusWidgetsMap,
             };
