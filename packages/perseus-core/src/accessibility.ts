@@ -25,14 +25,20 @@ import type {PerseusItem, PerseusWidgetsMap} from "./data-schema";
  */
 // TODO: Inline this into isItemAccessible()
 export function violatingWidgets(itemData: PerseusItem): Array<string> {
-    // TODO(jordan): Hints as well
     const widgetTypes: Array<string> = [];
 
-    traverse(itemData.question, null, function (info) {
+    // TODO: add a real type for the `info` parameter, and update the type of
+    //  `traverse`'s widget callback function to match.
+    const checkAccessibility = (info: any) => {
         if (info.type && !Widgets.isAccessible(info.type, info.options)) {
             widgetTypes.push(info.type);
         }
-    });
+    };
+
+    traverse(itemData.question, null, checkAccessibility);
+    for (const hint of itemData.hints) {
+        traverse(hint, null, checkAccessibility);
+    }
 
     // Uniquify the list of widgets (by type)
     return [...new Set(widgetTypes)];
@@ -46,6 +52,9 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
     // Traverse the item question Markdown to look for content that is
     // inaccessible.
     const ast = parse(itemData.question.content);
+    // TODO: use getWidgetIdsFromContent to get the set of widget IDs.
+    // TODO: use an array, not a set, for the widget IDs. Set is likely slower
+    //  in practice because there are not many widgets in each question.
     const widgetIdsInUse = new Set<string>();
     let hasInaccessibleImage = false;
 
@@ -81,6 +90,26 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
                 ),
             ) as PerseusWidgetsMap,
         },
+        // Filter each hint's widgets to only those referenced in the hint's
+        // Markdown content, mirroring the orphan-widget filtering done above
+        // for the question.
+        hints: itemData.hints.map((hint) => {
+            // TODO: use getWidgetIdsFromContent to get the set of widget IDs.
+            const hintWidgetIdsInUse = new Set<string>();
+            traverseContent(parse(hint.content), (node) => {
+                if (node.type === "widget") {
+                    hintWidgetIdsInUse.add(node.id);
+                }
+            });
+            return {
+                ...hint,
+                widgets: Object.fromEntries(
+                    Object.entries(hint.widgets).filter(([id]) =>
+                        hintWidgetIdsInUse.has(id),
+                    ),
+                ) as PerseusWidgetsMap,
+            };
+        }),
     };
     return violatingWidgets(itemDataWithOnlyActiveWidgets).length === 0;
 }
