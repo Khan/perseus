@@ -298,10 +298,7 @@ function doMovePointInFigure(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: boundAndSnapToGrid(
-                            action.destination,
-                            state,
-                        ),
+                        newValue: boundAndSnapToGrid(action.destination, state),
                     }),
             });
 
