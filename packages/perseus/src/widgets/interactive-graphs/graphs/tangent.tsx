@@ -8,7 +8,6 @@ import {
 import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {boundToEdge} from "../utils";
 
 import {GraphBoundsSvg} from "./components/graph-bounds-svg";
 import {MovablePoint} from "./components/movable-point";
@@ -23,7 +22,6 @@ import type {
 } from "../types";
 import type {NamedTangentCoefficient} from "@khanacademy/kmath";
 import type {Coord} from "@khanacademy/perseus-core";
-import type {Interval} from "mafs";
 
 export function renderTangentGraph(
     state: TangentGraphState,
@@ -116,7 +114,6 @@ function TangentGraph(props: TangentGraphProps) {
                         coords,
                         snapStep,
                         i,
-                        range,
                     )}
                     onMove={(destination) =>
                         dispatch(actions.tangent.movePoint(i, destination))
@@ -132,7 +129,6 @@ export const getTangentKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
     pointIndex: number,
-    range: [Interval, Interval],
 ): {
     up: vec.Vector2;
     down: vec.Vector2;
@@ -159,29 +155,18 @@ export const getTangentKeyboardConstraint = (
         return movedCoord;
     };
 
-    const cap = (point: vec.Vector2): vec.Vector2 =>
-        boundToEdge({range, point});
-
     return {
-        up: cap(
-            movePointWithConstraint((coord) =>
-                vec.add(coord, [0, snapStep[1]]),
-            ),
+        up: movePointWithConstraint((coord) =>
+            vec.add(coord, [0, snapStep[1]]),
         ),
-        down: cap(
-            movePointWithConstraint((coord) =>
-                vec.sub(coord, [0, snapStep[1]]),
-            ),
+        down: movePointWithConstraint((coord) =>
+            vec.sub(coord, [0, snapStep[1]]),
         ),
-        left: cap(
-            movePointWithConstraint((coord) =>
-                vec.sub(coord, [snapStep[0], 0]),
-            ),
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
         ),
-        right: cap(
-            movePointWithConstraint((coord) =>
-                vec.add(coord, [snapStep[0], 0]),
-            ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
         ),
     };
 };

@@ -4,7 +4,6 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {boundToEdge} from "../utils";
 
 import {GraphBoundsSvg} from "./components/graph-bounds-svg";
 import {MovablePoint} from "./components/movable-point";
@@ -25,7 +24,6 @@ import type {
     InteractiveGraphElementSuite,
 } from "../types";
 import type {QuadraticCoefficient, QuadraticCoords} from "@khanacademy/kmath";
-import type {Interval} from "mafs";
 
 export function renderQuadraticGraph(
     state: QuadraticGraphState,
@@ -47,7 +45,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
     const {coords, snapStep} = graphState;
-    const {interactiveColor, range} = useGraphConfig();
+    const {interactiveColor} = useGraphConfig();
 
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
@@ -119,7 +117,6 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                             coords,
                             snapStep,
                             i,
-                            range,
                         )}
                         onMove={(destination) =>
                             dispatch(
@@ -268,7 +265,6 @@ export const getQuadraticKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     snapStep: vec.Vector2,
     pointMoved: number,
-    range: [Interval, Interval],
 ): {
     up: vec.Vector2;
     down: vec.Vector2;
@@ -311,22 +307,15 @@ export const getQuadraticKeyboardConstraint = (
         return moveFunc(movedCoord);
     };
 
-    const cap = (point: vec.Vector2): vec.Vector2 =>
-        boundToEdge({range, point});
-
     return {
-        up: cap(vec.add(coordToBeMoved, [0, snapStep[1]])),
-        down: cap(vec.sub(coordToBeMoved, [0, snapStep[1]])),
+        up: vec.add(coordToBeMoved, [0, snapStep[1]]),
+        down: vec.sub(coordToBeMoved, [0, snapStep[1]]),
         // For horizontal movement, we need to ensure that the points are not on the same vertical line.
-        left: cap(
-            movePointWithConstraint((coord) =>
-                vec.sub(coord, [snapStep[0], 0]),
-            ),
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
         ),
-        right: cap(
-            movePointWithConstraint((coord) =>
-                vec.add(coord, [snapStep[0], 0]),
-            ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
         ),
     };
 };

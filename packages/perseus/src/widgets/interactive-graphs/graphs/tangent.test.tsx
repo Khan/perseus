@@ -13,7 +13,7 @@ import {
 } from "./tangent";
 
 import type {InteractiveGraphState, TangentGraphState} from "../types";
-import type {Interval, vec} from "mafs";
+import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseTangentState: InteractiveGraphState = {
@@ -119,23 +119,13 @@ describe("TangentGraph", () => {
 });
 
 describe("getTangentKeyboardConstraint", () => {
-    const range: [Interval, Interval] = [
-        [-10, 10],
-        [-10, 10],
-    ];
-
     it("should snap to the grid and avoid putting points on a vertical line", () => {
         const coords: TangentGraphState["coords"] = [
             [0, 0],
             [1, 1],
         ];
         const snapStep: vec.Vector2 = [1, 1];
-        const constraint = getTangentKeyboardConstraint(
-            coords,
-            snapStep,
-            0,
-            range,
-        );
+        const constraint = getTangentKeyboardConstraint(coords, snapStep, 0);
 
         expect(constraint).toEqual({
             up: [0, 1],
