@@ -1,0 +1,5 @@
+{
+    "verify": "pnpm typecheck && pnpm tesc && pnpm linc",
+    "fix": "pnpm fixc",
+    "todoPatterns": ["\\bTODO[(:]"]
+}
