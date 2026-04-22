@@ -460,6 +460,20 @@ export const tangentQuestionWithDefaultCorrect: PerseusRenderer =
         correct: generateIGTangentGraph(),
     });
 
+export const absoluteValueQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Graph $f(x)=|x|$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
+        )
+        .withAbsoluteValue({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        })
+        .build();
+
+
 export const questionsAndAnswers: ReadonlyArray<
     [
         PerseusRenderer, // Correct answer

@@ -87,6 +87,20 @@ const baseCircleGraphState: InteractiveGraphState = {
     radiusPoint: [2, 0],
 };
 
+const baseRayGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "ray",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 0],
+        [5, 5],
+    ],
+};
+
 const baseSinusoidGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "sinusoid",
@@ -461,6 +475,65 @@ describe("movePointInFigure", () => {
 
         invariant(updated.type === "segment");
         expect(updated.coords[0][0]).toEqual([5, 8]);
+    });
+
+    it("allows the ray's tail (index 0) to land on the graph edge", () => {
+        // The tail has no arrow extension, so it uses boundToEdge.
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(0, [99, 99]),
+        );
+
+        invariant(updated.type === "ray");
+        expect(updated.coords[0]).toEqual([10, 10]);
+    });
+
+    it("insets the ray's terminal point (index 1) by one snap step", () => {
+        // The terminal point defines the arrow's direction; keeping it
+        // inset preserves room for the arrow to render past it.
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(1, [99, 99]),
+        );
+
+        invariant(updated.type === "ray");
+        expect(updated.coords[1]).toEqual([9, 9]);
+    });
+
+    it("keeps linear-system points inset by one snap step", () => {
+        // Linear-system lines have arrows on both ends, so both points
+        // stay on boundAndSnapToGrid (inset).
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear-system",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linearSystem.movePointInFigure(0, 0, [99, 99]),
+        );
+
+        invariant(updated.type === "linear-system");
+        expect(updated.coords[0][0]).toEqual([9, 9]);
     });
 });
 
@@ -1084,6 +1157,27 @@ describe("moveCenter", () => {
         expect(state).not.toBe(updated);
         // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).radiusPoint).toEqual([7, 0]);
+    });
+
+    it("rejects the move when the circle is wider than the graph's half-span", () => {
+        // Circle with radius 15 (wider than the graph's half-span of
+        // 10). Moving the center right: newRadiusPoint X would be 16
+        // (out on the right) and the flipped position would be -14
+        // (out on the left). Neither side fits, so the move is
+        // rejected.
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            center: [0, 0],
+            radiusPoint: [15, 0],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([1, 0]),
+        );
+
+        // Assert — move rejected; state returned unchanged
+        expect(updated).toBe(state);
     });
 
     it("throws for non-circle graphs", () => {
