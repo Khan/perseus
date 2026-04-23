@@ -146,7 +146,6 @@ export const AbsoluteValue: Story = {
     },
 };
 
-
 export const LockedPoints: Story = {
     args: {
         item: generateTestPerseusItem({
