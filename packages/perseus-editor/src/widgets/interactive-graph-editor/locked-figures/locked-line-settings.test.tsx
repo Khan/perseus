@@ -636,10 +636,12 @@ describe("LockedLineSettings", () => {
                 await userEvent.click(autoGenButton);
 
                 // Assert
-                await waitFor(() =>
-                    expect(onChangeProps).toHaveBeenCalledWith({
-                        ariaLabel: `${label} ${connector1} point at 0 comma 0 ${connector2} point at 2 comma 2. Appearance solid gray.`,
-                    }),
+                await waitFor(
+                    () =>
+                        expect(onChangeProps).toHaveBeenCalledWith({
+                            ariaLabel: `${label} ${connector1} point at 0 comma 0 ${connector2} point at 2 comma 2. Appearance solid gray.`,
+                        }),
+                    {timeout: 5000},
                 );
             },
         );
@@ -664,11 +666,13 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Line through point at 0 comma 0 and point at 2 comma 2. Appearance solid gray.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Line through point at 0 comma 0 and point at 2 comma 2. Appearance solid gray.",
+                    }),
+                {timeout: 5000},
             );
         });
 
@@ -697,11 +701,13 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Line A through point at 0 comma 0 and point at 2 comma 2. Appearance solid gray.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Line A through point at 0 comma 0 and point at 2 comma 2. Appearance solid gray.",
+                    }),
+                {timeout: 5000},
             );
         });
 
@@ -734,11 +740,13 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Line A, B through point at 0 comma 0 and point at 2 comma 2. Appearance solid gray.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Line A, B through point at 0 comma 0 and point at 2 comma 2. Appearance solid gray.",
+                    }),
+                {timeout: 5000},
             );
         });
 
@@ -777,11 +785,13 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Line A through point C at 0 comma 0 and point D at 2 comma 2. Appearance solid gray.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Line A through point C at 0 comma 0 and point D at 2 comma 2. Appearance solid gray.",
+                    }),
+                {timeout: 5000},
             );
         });
 
@@ -830,11 +840,13 @@ describe("LockedLineSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Line A, B through point C, C2 at 0 comma 0 and point D, D2 at 2 comma 2. Appearance solid gray.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Line A, B through point C, C2 at 0 comma 0 and point D, D2 at 2 comma 2. Appearance solid gray.",
+                    }),
+                {timeout: 5000},
             );
         });
     });

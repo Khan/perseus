@@ -402,10 +402,12 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        await waitFor(() =>
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Point at 0 comma 0. Appearance solid gray.",
-            }),
+        await waitFor(
+            () =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel: "Point at 0 comma 0. Appearance solid gray.",
+                }),
+            {timeout: 5000},
         );
     });
 
@@ -436,9 +438,6 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        // FIXME: search the codebase for tests like this one that use waitFor
-        //  to test math accessiblity, and update them to have a timeout of
-        //  5000ms.
         await waitFor(
             () =>
                 expect(onChangeProps).toHaveBeenCalledWith({
@@ -479,10 +478,13 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        await waitFor(() =>
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Point A, B at 0 comma 0. Appearance solid gray.",
-            }),
+        await waitFor(
+            () =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Point A, B at 0 comma 0. Appearance solid gray.",
+                }),
+            {timeout: 5000},
         );
     });
 
@@ -509,11 +511,13 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        await waitFor(() =>
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Point at 0 comma 0. Appearance solid gray border, with no fill.",
-            }),
+        await waitFor(
+            () =>
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Point at 0 comma 0. Appearance solid gray border, with no fill.",
+                }),
+            {timeout: 5000},
         );
     });
 });
