@@ -327,8 +327,9 @@ function doMovePointInFigure(
         }
         case "ray": {
             // The tail (index 0) may sit on the graph edge. The terminal
-            // point (index 1) stays one snap step inside so the arrow
-            // drawn past it remains visible.
+            // point (index 1) stays one snap step inside so its handle
+            // doesn't visually cover the arrow glyph, which always
+            // renders just inside the edge.
             const bounded =
                 action.pointIndex === 0
                     ? boundToEdgeAndSnapToGrid(action.destination, state)

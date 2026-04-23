@@ -422,7 +422,6 @@ describe("movePointInFigure", () => {
     });
 
     it("allows the ray's tail (index 0) to land on the graph edge", () => {
-        // The tail has no arrow extension, so it uses boundToEdge.
         const state: InteractiveGraphState = {...baseRayGraphState};
 
         const updated = interactiveGraphReducer(
@@ -435,8 +434,6 @@ describe("movePointInFigure", () => {
     });
 
     it("insets the ray's terminal point (index 1) by one snap step", () => {
-        // The terminal point defines the arrow's direction; keeping it
-        // inset preserves room for the arrow to render past it.
         const state: InteractiveGraphState = {...baseRayGraphState};
 
         const updated = interactiveGraphReducer(
