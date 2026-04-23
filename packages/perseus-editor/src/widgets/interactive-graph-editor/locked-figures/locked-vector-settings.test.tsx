@@ -448,11 +448,12 @@ describe("Locked Vector Settings", () => {
             // Assert
             // FIXME: update all the `waitFor` calls in tests for math accessibility
             //  to have a timeout of 5 seconds, like this one does.
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Vector from 0 comma 0 to 2 comma 2. Appearance solid gray.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Vector from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                    }),
                 {timeout: 5000},
             );
         });
