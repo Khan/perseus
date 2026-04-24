@@ -420,58 +420,55 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             }
                             onChange={this.props.onChange}
                         />
-                        {(this.props.graded ?? true) && (
-                            <>
-                                <InteractiveGraphCorrectAnswer
-                                    id={graphId}
-                                    equationString={equationString}
-                                >
-                                    {graph}
-                                </InteractiveGraphCorrectAnswer>
+                        <InteractiveGraphCorrectAnswer
+                            id={graphId}
+                            equationString={equationString}
+                        >
+                            {graph}
+                        </InteractiveGraphCorrectAnswer>
 
-                                {this.props.correct?.type === "angle" && (
-                                    <AngleAnswerOptions
-                                        correct={this.props.correct}
-                                        graph={this.props.graph}
-                                        onChange={this.props.onChange}
-                                    />
-                                )}
-                                {this.props.correct?.type === "point" && (
-                                    <GraphPointsCountSelector
-                                        correct={this.props.correct}
-                                        graph={this.props.graph}
-                                        onChange={this.props.onChange}
-                                    />
-                                )}
-                                {this.props.correct?.type === "polygon" && (
-                                    <PolygonAnswerOptions
-                                        correct={this.props.correct}
-                                        graph={this.props.graph}
-                                        onChange={this.props.onChange}
-                                    />
-                                )}
-                                {this.props.correct?.type === "segment" && (
-                                    <SegmentCountSelector
-                                        correct={this.props.correct}
-                                        graph={this.props.graph}
-                                        onChange={this.props.onChange}
-                                    />
-                                )}
-
-                                {this.props.graph?.type &&
-                                    shouldShowStartCoordsUI(
-                                        this.props.graph,
-                                        this.props.static,
-                                    ) && (
-                                        <StartCoordsSettings
-                                            {...this.props.graph}
-                                            range={this.props.range}
-                                            step={this.props.step}
-                                            onChange={this.changeStartCoords}
-                                        />
-                                    )}
-                            </>
+                        {this.props.correct?.type === "angle" && (
+                            <AngleAnswerOptions
+                                correct={this.props.correct}
+                                graph={this.props.graph}
+                                onChange={this.props.onChange}
+                            />
                         )}
+                        {this.props.correct?.type === "point" && (
+                            <GraphPointsCountSelector
+                                correct={this.props.correct}
+                                graph={this.props.graph}
+                                onChange={this.props.onChange}
+                            />
+                        )}
+                        {this.props.correct?.type === "polygon" && (
+                            <PolygonAnswerOptions
+                                correct={this.props.correct}
+                                graph={this.props.graph}
+                                onChange={this.props.onChange}
+                            />
+                        )}
+                        {this.props.correct?.type === "segment" && (
+                            <SegmentCountSelector
+                                correct={this.props.correct}
+                                graph={this.props.graph}
+                                onChange={this.props.onChange}
+                            />
+                        )}
+
+                        {this.props.graph?.type &&
+                            shouldShowStartCoordsUI(
+                                this.props.graph,
+                                this.props.static,
+                            ) && (
+                                <StartCoordsSettings
+                                    {...this.props.graph}
+                                    range={this.props.range}
+                                    step={this.props.step}
+                                    onChange={this.changeStartCoords}
+                                />
+                            )}
+
                         <InteractiveGraphSRTree
                             graphId={graphId}
                             correct={this.props.correct}
