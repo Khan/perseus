@@ -379,11 +379,16 @@ export type WidgetOptions<
      * Whether a widget is scored.
      * Default: true
      *
-     * When false, the widget acts as an unscored "sketchpad" that learners can
-     * use to work through a problem visually alongside other, scored parts of
-     * an exercise. The scoring pipeline already skips widgets with graded:false.
-     * Widgets that want to surface this state to learners (e.g. InteractiveGraph)
-     * should render a visible indicator inside the widget itself.
+     * The behavior depends on how the widget decides to implement it.
+     * For example, Interactive Graph will render an ungraded graph
+     * that is still interactive that learners can use to visualize
+     * math.
+     *
+     * Historical uses seem questionable (See LEMS-3958):
+     * - IFrame
+     * - Explanation
+     * - Image
+     * - Transformer (deprecated)
      */
     graded?: boolean;
     /**
