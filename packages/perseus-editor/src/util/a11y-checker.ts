@@ -151,7 +151,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
         ? axeCoreStorybookOptions
         : axeCoreEditorOptions;
     // eslint-disable-next-line no-console
-    console.log("Axe Core options: ", options);
+    // console.log("Axe Core options: ", options);
     const previewWindow = document.querySelector(
         previewIframeSelector,
     ) as HTMLIFrameElement | null;
@@ -163,7 +163,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
     axeCoreProper.run(options).then(
         (results) => {
             // eslint-disable-next-line no-console
-            console.log(`Accessibility Results: `, results);
+            console.debug(`Accessibility Results: `, results);
             const violations = mapResultsToIssues(
                 results.violations,
                 "Alert",
@@ -176,7 +176,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
             );
             const issues = violations.concat(incompletes);
             // eslint-disable-next-line no-console
-            console.log(`  Issues: `, issues);
+            console.debug(`  Issues: `, issues);
             if (
                 violations.length === 0 &&
                 incompletes.length === 0 &&
