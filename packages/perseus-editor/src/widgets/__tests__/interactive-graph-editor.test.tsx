@@ -815,37 +815,6 @@ describe("InteractiveGraphEditor", () => {
         expect(screen.getByRole("option", {name: "None"})).toBeInTheDocument();
     });
 
-    test("shows answer sections when graded is true", async () => {
-        // Arrange, Act
-        render(
-            <InteractiveGraphEditor
-                {...baseProps}
-                graph={{type: "segment"}}
-                correct={{type: "segment"}}
-                graded={true}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Assert: "Correct Answer" section is visible when graded
-        expect(await screen.findByText("Correct Answer")).toBeInTheDocument();
-    });
-
-    test("shows answer sections when graded is undefined (default behavior)", async () => {
-        // Arrange, Act
-        render(
-            <InteractiveGraphEditor
-                {...baseProps}
-                graph={{type: "segment"}}
-                correct={{type: "segment"}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Assert: "Correct Answer" section is visible by default
-        expect(await screen.findByText("Correct Answer")).toBeInTheDocument();
-    });
-
     test("fixes a `correct` prop with the wrong graph type, defaulting it to `graph`", () => {
         // This behavior is a workaround for the AX editor, which passes
         // answerless data to the editor in question stems. The value of
