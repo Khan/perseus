@@ -1901,8 +1901,10 @@ describe("movePoint on an exponential graph", () => {
         expect(updated.coords[0]).toEqual([0, 3]);
     });
 
-    it("rejects the move when the point would land on the asymptote", () => {
-        // Arrange — asymptote at y=1; trying to move point 0 to y=1
+    it("allows the point to land on the asymptote", () => {
+        // Arrange — asymptote at y=1; moving point 0 to y=1 used to be rejected
+        // but is now allowed. The curve disappears because no exponential fits
+        // a point on its own horizontal asymptote.
         const state = generateExponentialGraphState();
 
         // Act
@@ -1911,9 +1913,46 @@ describe("movePoint on an exponential graph", () => {
             actions.exponential.movePoint(0, [-1, 1]),
         );
 
+        // Assert
+        invariant(updated.type === "exponential");
+        expect(updated.coords[0]).toEqual([-1, 1]);
+    });
+
+    it("allows the point to cross the asymptote without reflecting the other point", () => {
+        // Arrange — asymptote at y=1, points at y=3 and y=6 (both above).
+        // Moving point 0 below the asymptote used to reflect point 1; it is
+        // now allowed and the curve disappears.
+        const state = generateExponentialGraphState();
+        const originalOtherPoint = state.coords[1];
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, -5]),
+        );
+
+        // Assert
+        invariant(updated.type === "exponential");
+        expect(updated.coords[0]).toEqual([-1, -5]);
+        expect(updated.coords[1]).toEqual(originalOtherPoint);
+    });
+
+    it("rejects the move when the point would overlap the asymptote drag handle", () => {
+        // Arrange — range is [-10,10] so midX=0; asymptote=1. The handle is
+        // at (0, 1). Moving point 0 onto that coord must be rejected so the
+        // user can always grab the handle.
+        const state = generateExponentialGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [0, 1]),
+        );
+
         // Assert — move was rejected
         invariant(updated.type === "exponential");
         expect(updated.coords[0]).toEqual([0, 3]);
+        expect(updated.hasBeenInteractedWith).toBe(false);
     });
 });
 
@@ -1933,8 +1972,10 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
         expect(updated.asymptote).toBe(-2);
     });
 
-    it("rejects the move when the asymptote would land between the curve points", () => {
-        // Arrange — curve points at y=3 and y=6; trying to move asymptote to y=4 (between them)
+    it("allows the asymptote to move between the curve points", () => {
+        // Arrange — curve points at y=3 and y=6. Moving the asymptote to y=4
+        // (between them) used to snap-through to y=2; it is now allowed and
+        // the curve disappears.
         const state = generateExponentialGraphState({
             coords: [
                 [0, 3],
@@ -1949,8 +1990,30 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
         );
         invariant(updated.type === "exponential");
 
-        // Assert — y=4 < midpoint(4.5), so snaps to bottomMost - stepY = 3 - 1 = 2
-        expect(updated.asymptote).toBe(2);
+        // Assert
+        expect(updated.asymptote).toBe(4);
+    });
+
+    it("rejects the move when the asymptote drag handle would overlap a point", () => {
+        // Arrange — range [-10,10] so midX=0. Point 0 sits at (0, 5), so
+        // moving the asymptote to y=5 would place its handle on the point.
+        const state = generateExponentialGraphState({
+            coords: [
+                [0, 5],
+                [2, 8],
+            ],
+            asymptote: 1,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([0, 5]),
+        );
+        invariant(updated.type === "exponential");
+
+        // Assert — move was rejected; asymptote stays at 1
+        expect(updated.asymptote).toBe(1);
     });
 
     it("ignores the x component and only moves the asymptote vertically", () => {
@@ -2027,8 +2090,10 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.hasBeenInteractedWith).toBe(false);
     });
 
-    it("rejects the move when point would land on the asymptote", () => {
-        // Arrange — asymptote at x=-6; trying to move point 0 to x=-6
+    it("allows the point to land on the asymptote", () => {
+        // Arrange — asymptote at x=-6; moving point 0 to x=-6 used to be
+        // rejected but is now allowed. The curve disappears because no
+        // logarithm fits a point on its own vertical asymptote.
         const state = generateLogarithmGraphState();
 
         // Act
@@ -2037,28 +2102,28 @@ describe("movePoint on a logarithm graph", () => {
             actions.logarithm.movePoint(0, [-6, -2]),
         );
 
-        // Assert — move was rejected
+        // Assert
         invariant(updated.type === "logarithm");
-        expect(updated.coords[0]).toEqual([-4, -3]);
-        expect(updated.hasBeenInteractedWith).toBe(false);
+        expect(updated.coords[0]).toEqual([-6, -2]);
     });
 
-    it("reflects the other point when a point crosses the asymptote", () => {
-        // Arrange — asymptote at x=-6, points at (-4, -3) and (-5, -7)
-        // Both points are to the right of the asymptote.
+    it("allows the point to cross the asymptote without reflecting the other point", () => {
+        // Arrange — asymptote at x=-6, points at (-4, -3) and (-5, -7),
+        // both to the right. Moving point 0 across the asymptote used to
+        // reflect point 1; it is now allowed and the curve disappears.
         const state = generateLogarithmGraphState();
+        const originalOtherPoint = state.coords[1];
 
-        // Act — move point 0 to x=-8 (left of asymptote at x=-6)
+        // Act
         const updated = interactiveGraphReducer(
             state,
             actions.logarithm.movePoint(0, [-8, -3]),
         );
 
-        // Assert — point 0 moved, point 1 reflected across asymptote:
-        // reflectedX = 2 * (-6) - (-5) = -12 + 5 = -7
+        // Assert
         invariant(updated.type === "logarithm");
         expect(updated.coords[0]).toEqual([-8, -3]);
-        expect(updated.coords[1]).toEqual([-7, -7]);
+        expect(updated.coords[1]).toEqual(originalOtherPoint);
     });
 
     it("allows a valid move", () => {
@@ -2076,47 +2141,20 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.coords[0]).toEqual([-3, -2]);
     });
 
-    it("rejects cross-asymptote move when reflection would cause same-x collision", () => {
-        // Arrange — asymptote=-6, coords=[(-4,-3), (-5,-7)], snapStep=[1,1]
-        // Moving point 0 to (-7,-3) crosses the asymptote.
-        // reflectedX = 2*(-6) - (-5) = -7, so both points would be at x=-7.
+    it("rejects the move when the point would overlap the asymptote drag handle", () => {
+        // Arrange — range is [-10,10] so midY=0; asymptote=-6. The handle
+        // is at (-6, 0). Moving point 0 onto that coord must be rejected.
         const state = generateLogarithmGraphState();
 
         // Act
         const updated = interactiveGraphReducer(
             state,
-            actions.logarithm.movePoint(0, [-7, -3]),
+            actions.logarithm.movePoint(0, [-6, 0]),
         );
 
-        // Assert — move was rejected; state is unchanged
+        // Assert — move was rejected
         invariant(updated.type === "logarithm");
         expect(updated.coords[0]).toEqual([-4, -3]);
-        expect(updated.coords[1]).toEqual([-5, -7]);
-        expect(updated.hasBeenInteractedWith).toBe(false);
-    });
-
-    it("rejects cross-asymptote move when reflected point snaps to the asymptote x-coordinate", () => {
-        // Arrange — asymptote=-6, non-grid-aligned point at x=-5.6.
-        // Moving point 0 to (-8,-3) crosses the asymptote.
-        // reflectedX = 2*(-6) - (-5.6) = -6.4, which snaps to -6
-        // (the asymptote). This must be rejected.
-        const state = generateLogarithmGraphState({
-            coords: [
-                [-4, -3],
-                [-5.6, -7],
-            ],
-        });
-
-        // Act
-        const updated = interactiveGraphReducer(
-            state,
-            actions.logarithm.movePoint(0, [-8, -3]),
-        );
-
-        // Assert — move was rejected; state is unchanged
-        invariant(updated.type === "logarithm");
-        expect(updated.coords[0]).toEqual([-4, -3]);
-        expect(updated.coords[1]).toEqual([-5.6, -7]);
         expect(updated.hasBeenInteractedWith).toBe(false);
     });
 });
@@ -2137,9 +2175,10 @@ describe("moveCenter on a logarithm graph (asymptote)", () => {
         expect(updated.asymptote).toBe(-8);
     });
 
-    it("snaps past the curve points when the asymptote is dragged between them", () => {
-        // Arrange — curve points at x=-4 and x=-5; trying to move asymptote
-        // between them. boundAndSnapToGrid snaps destination to x=-4.
+    it("allows the asymptote to move between the curve points", () => {
+        // Arrange — curve points at x=-4 and x=-5. Moving the asymptote
+        // between them used to snap-through to x=-3; it is now allowed
+        // and the curve disappears.
         const state = generateLogarithmGraphState({
             coords: [
                 [-4, -3],
@@ -2147,8 +2186,7 @@ describe("moveCenter on a logarithm graph (asymptote)", () => {
             ],
         });
 
-        // Act — destination snaps to x=-4, which is on a point. Since
-        // -4 >= midpoint(-4.5), snap-through pushes to rightMost + step = -3.
+        // Act — destination snaps to x=-4
         const updated = interactiveGraphReducer(
             state,
             actions.logarithm.moveCenter([-4.4, 0]),
@@ -2156,7 +2194,29 @@ describe("moveCenter on a logarithm graph (asymptote)", () => {
         invariant(updated.type === "logarithm");
 
         // Assert
-        expect(updated.asymptote).toBe(-3);
+        expect(updated.asymptote).toBe(-4);
+    });
+
+    it("rejects the move when the asymptote drag handle would overlap a point", () => {
+        // Arrange — range [-10,10] so midY=0. Point 0 sits at (3, 0), so
+        // moving the asymptote to x=3 would place its handle on the point.
+        const state = generateLogarithmGraphState({
+            coords: [
+                [3, 0],
+                [5, 2],
+            ],
+            asymptote: -6,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([3, 0]),
+        );
+        invariant(updated.type === "logarithm");
+
+        // Assert — move was rejected; asymptote stays at -6
+        expect(updated.asymptote).toBe(-6);
     });
 
     it("ignores the y component and only moves the asymptote horizontally", () => {
@@ -2172,31 +2232,5 @@ describe("moveCenter on a logarithm graph (asymptote)", () => {
 
         // Assert — asymptote moves to x=-8 regardless of the y passed
         expect(updated.asymptote).toBe(-8);
-    });
-
-    it("rejects the move when asymptote would still be between the two points after snap-through", () => {
-        // Arrange — points at x=8 and x=10. When the asymptote is dragged
-        // to x=9 (between them), midpoint=(8+10)/2=9. Since 9 >= 9,
-        // snap-through pushes to rightMost + step = 10 + 1 = 11. Clamping
-        // to inset bounds [-9, 9] gives 9. The stillAllRight/stillAllLeft
-        // check rejects because 8 < 9 < 10 — the asymptote would still
-        // be between the two points.
-        const state = generateLogarithmGraphState({
-            coords: [
-                [8, -3],
-                [10, -7],
-            ],
-            asymptote: 0,
-        });
-
-        // Act
-        const updated = interactiveGraphReducer(
-            state,
-            actions.logarithm.moveCenter([9, 0]),
-        );
-        invariant(updated.type === "logarithm");
-
-        // Assert — rejected; asymptote stays at 0
-        expect(updated.asymptote).toBe(0);
     });
 });
