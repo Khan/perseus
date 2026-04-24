@@ -151,7 +151,7 @@ const runAxeCore = (updateIssuesFn: (issues: Issue[]) => void): void => {
         ? axeCoreStorybookOptions
         : axeCoreEditorOptions;
     // eslint-disable-next-line no-console
-    // console.log("Axe Core options: ", options);
+    console.debug("Axe Core options: ", options);
     const previewWindow = document.querySelector(
         previewIframeSelector,
     ) as HTMLIFrameElement | null;

@@ -146,9 +146,7 @@ export type Props = {
     // set to those of the "correct" graph in the editor.
     static?: boolean;
     /**
-     * Whether this widget is graded. When false, the answer-configuration
-     * sections are hidden (but the stored answer data is preserved so toggling
-     * back on restores it).
+     * Whether this widget is graded.
      */
     graded?: boolean;
 };
