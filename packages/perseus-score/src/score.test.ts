@@ -1,6 +1,7 @@
 import {
     generateDropdownOptions,
     generateDropdownWidget,
+    type PerseusRenderer,
     type DropdownWidget,
     type PerseusWidgetsMap,
     type UserInputMap,
@@ -402,6 +403,66 @@ describe("scorePerseusItem", () => {
             },
             "en",
         );
+
+        expect(score).toHaveBeenAnsweredCorrectly({
+            shouldHavePoints: true,
+        });
+    });
+
+    it("doesn't ignore scoring when graded is true", () => {
+        const ungraded = generateBasicDropdown();
+        ungraded.graded = true;
+        const graded = generateBasicDropdown();
+        graded.graded = true;
+
+        const item: PerseusRenderer = {
+            content: "[[☃ dropdown 1]]\n[[☃ dropdown 2]]",
+            widgets: {
+                "dropdown 1": ungraded,
+                "dropdown 2": graded,
+            },
+            images: {},
+        };
+
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {
+                value: 1, // incorrect
+            },
+            "dropdown 2": {
+                value: 2, // correct
+            },
+        };
+
+        const score = scorePerseusItem(item, userInputMap, "en");
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("ignores scoring when graded is false", () => {
+        const ungraded = generateBasicDropdown();
+        ungraded.graded = false;
+        const graded = generateBasicDropdown();
+        graded.graded = true;
+
+        const item: PerseusRenderer = {
+            content: "[[☃ dropdown 1]]\n[[☃ dropdown 2]]",
+            widgets: {
+                "dropdown 1": ungraded,
+                "dropdown 2": graded,
+            },
+            images: {},
+        };
+
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {
+                value: 1, // incorrect
+            },
+            "dropdown 2": {
+                value: 2, // correct
+            },
+        };
+
+        const score = scorePerseusItem(item, userInputMap, "en");
 
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: true,
