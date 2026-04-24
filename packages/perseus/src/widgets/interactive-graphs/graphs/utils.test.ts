@@ -4,8 +4,10 @@ import {
     getIntersectionOfRayWithBox,
     getArrayWithoutDuplicates,
     getAngleFromPoints,
+    getAsymptoteHandleCoord,
     getSideLengthsFromPoints,
     calculateScaledRadius,
+    skipAsymptoteKeyboardOverPoint,
 } from "./utils";
 
 import type {Coord} from "@khanacademy/perseus-core";
@@ -381,4 +383,213 @@ describe("calculateScaledRadius", () => {
             expect(radius).toEqual(expected);
         },
     );
+});
+
+describe("getAsymptoteHandleCoord", () => {
+    const symmetricRange: [Interval, Interval] = [
+        [-10, 10],
+        [-10, 10],
+    ];
+
+    it("places a horizontal asymptote's handle at the x-range midpoint at the asymptote's y", () => {
+        // Arrange, Act
+        const result = getAsymptoteHandleCoord("horizontal", symmetricRange, 3);
+
+        // Assert — midX = 0, handle at (0, 3)
+        expect(result).toEqual([0, 3]);
+    });
+
+    it("places a vertical asymptote's handle at the asymptote's x at the y-range midpoint", () => {
+        // Arrange, Act
+        const result = getAsymptoteHandleCoord("vertical", symmetricRange, -4);
+
+        // Assert — midY = 0, handle at (-4, 0)
+        expect(result).toEqual([-4, 0]);
+    });
+
+    it("returns a non-integer midpoint for an asymmetric horizontal range", () => {
+        // Arrange — range [-5, 4] has midX = -0.5
+        const range: [Interval, Interval] = [
+            [-5, 4],
+            [-5, 5],
+        ];
+
+        // Act
+        const result = getAsymptoteHandleCoord("horizontal", range, 0);
+
+        // Assert
+        expect(result).toEqual([-0.5, 0]);
+    });
+
+    it("returns a non-integer midpoint for an asymmetric vertical range", () => {
+        // Arrange — range [-5, 4] has midY = -0.5
+        const range: [Interval, Interval] = [
+            [-5, 5],
+            [-5, 4],
+        ];
+
+        // Act
+        const result = getAsymptoteHandleCoord("vertical", range, 0);
+
+        // Assert
+        expect(result).toEqual([0, -0.5]);
+    });
+});
+
+describe("skipAsymptoteKeyboardOverPoint", () => {
+    const snapStep: vec.Vector2 = [1, 1];
+
+    it("passes a horizontal asymptote through unchanged when no point blocks the step", () => {
+        // Arrange — handle is at (midX=0, asymptote=0); proposed y=1 is
+        // not occupied by any point at x=0
+        const coords: ReadonlyArray<Coord> = [
+            [2, 5],
+            [-2, -5],
+        ];
+
+        // Act
+        const result = skipAsymptoteKeyboardOverPoint(
+            [0, 1],
+            0,
+            coords,
+            [0, 0],
+            snapStep,
+            "horizontal",
+        );
+
+        // Assert
+        expect(result).toEqual([0, 1]);
+    });
+
+    it("skips a horizontal asymptote past a blocking point in the direction of travel", () => {
+        // Arrange — handle at x=0 moving up; point at (0, 1) blocks y=1,
+        // so the asymptote should jump to y=2.
+        const coords: ReadonlyArray<Coord> = [
+            [0, 1],
+            [2, -3],
+        ];
+
+        // Act
+        const result = skipAsymptoteKeyboardOverPoint(
+            [0, 1],
+            0,
+            coords,
+            [0, 0],
+            snapStep,
+            "horizontal",
+        );
+
+        // Assert
+        expect(result).toEqual([0, 2]);
+    });
+
+    it("skips a horizontal asymptote past multiple consecutive blocking points", () => {
+        // Arrange — handle at x=0 moving up from y=0; points at (0,1) and
+        // (0,2) both block. Asymptote should jump to y=3.
+        const coords: ReadonlyArray<Coord> = [
+            [0, 1],
+            [0, 2],
+        ];
+
+        // Act
+        const result = skipAsymptoteKeyboardOverPoint(
+            [0, 1],
+            0,
+            coords,
+            [0, 0],
+            snapStep,
+            "horizontal",
+        );
+
+        // Assert
+        expect(result).toEqual([0, 3]);
+    });
+
+    it("skips a vertical asymptote past a blocking point in the direction of travel", () => {
+        // Arrange — handle at y=0 moving right; point at (1, 0) blocks x=1,
+        // so the asymptote should jump to x=2.
+        const coords: ReadonlyArray<Coord> = [
+            [1, 0],
+            [-3, 2],
+        ];
+
+        // Act
+        const result = skipAsymptoteKeyboardOverPoint(
+            [1, 0],
+            0,
+            coords,
+            [0, 0],
+            snapStep,
+            "vertical",
+        );
+
+        // Assert
+        expect(result).toEqual([2, 0]);
+    });
+
+    it("returns the proposed position when direction is zero", () => {
+        // Arrange — proposed equals current asymptote (no delta); nothing to skip
+        const coords: ReadonlyArray<Coord> = [
+            [0, 0],
+            [2, 3],
+        ];
+
+        // Act
+        const result = skipAsymptoteKeyboardOverPoint(
+            [0, 0],
+            0,
+            coords,
+            [0, 0],
+            snapStep,
+            "horizontal",
+        );
+
+        // Assert
+        expect(result).toEqual([0, 0]);
+    });
+
+    it("snaps a sub-grid proposed position to the nearest grid point", () => {
+        // Arrange — useDraggable's function-form constraint receives
+        // continuous (non-snap-aligned) test points and expects the
+        // returned point to be snap-aligned. A proposed y=0.2 must snap
+        // back to y=0 so useDraggable keeps iterating.
+        const coords: ReadonlyArray<Coord> = [
+            [2, 5],
+            [-2, -5],
+        ];
+
+        // Act
+        const result = skipAsymptoteKeyboardOverPoint(
+            [0, 0.2],
+            0,
+            coords,
+            [0, 0],
+            snapStep,
+            "horizontal",
+        );
+
+        // Assert
+        expect(result).toEqual([0, 0]);
+    });
+
+    it("advances the horizontal asymptote to the next grid point once the proposed position crosses the halfway mark", () => {
+        // Arrange — proposed y=0.6 snaps up to y=1, past the midpoint
+        const coords: ReadonlyArray<Coord> = [
+            [2, 5],
+            [-2, -5],
+        ];
+
+        // Act
+        const result = skipAsymptoteKeyboardOverPoint(
+            [0, 0.6],
+            0,
+            coords,
+            [0, 0],
+            snapStep,
+            "horizontal",
+        );
+
+        // Assert
+        expect(result).toEqual([0, 1]);
+    });
 });
