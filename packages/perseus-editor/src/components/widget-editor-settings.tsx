@@ -78,10 +78,12 @@ function WidgetEditorSettings(props: WidgetEditorSettingsProps) {
                     )}
                     {supportsGradedToggle && (
                         <LabeledSwitch
-                            label="Graded"
-                            checked={isGraded}
+                            label="Interactive but ungraded"
+                            checked={!isGraded}
                             disabled={isEditingDisabled}
-                            onChange={onGradedChange}
+                            onChange={(e) => {
+                                onGradedChange(!e);
+                            }}
                             style={{marginBlockEnd: sizing.size_060}}
                         />
                     )}
