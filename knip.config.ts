@@ -70,9 +70,10 @@ const config: KnipConfig = {
     ],
     // Scripts we use in `package.json`
     ignoreBinaries: [
+        "utils/changed-files.sh",
+        "utils/lint.sh",
         "utils/pre-publish-check-ci.ts",
         "utils/update-catalog-hashes-cli.ts",
-        "utils/changed-files.sh",
     ],
 };
 
