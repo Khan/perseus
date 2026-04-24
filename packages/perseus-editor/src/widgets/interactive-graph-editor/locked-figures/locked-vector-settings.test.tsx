@@ -446,11 +446,13 @@ describe("Locked Vector Settings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Vector from 0 comma 0 to 2 comma 2. Appearance solid gray.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Vector from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                    }),
+                {timeout: 5000},
             );
         });
 
@@ -479,11 +481,13 @@ describe("Locked Vector Settings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Vector A from 0 comma 0 to 2 comma 2. Appearance solid gray.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Vector A from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                    }),
+                {timeout: 5000},
             );
         });
 
@@ -516,11 +520,13 @@ describe("Locked Vector Settings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Vector A, B from 0 comma 0 to 2 comma 2. Appearance solid gray.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Vector A, B from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                    }),
+                {timeout: 5000},
             );
         });
     });

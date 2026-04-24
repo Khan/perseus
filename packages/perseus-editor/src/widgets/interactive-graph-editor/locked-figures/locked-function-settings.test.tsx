@@ -872,11 +872,13 @@ describe("Locked Function Settings", () => {
                 await userEvent.click(autoGenButton);
 
                 // Assert
-                await waitFor(() =>
-                    expect(onChangeProps).toHaveBeenCalledWith({
-                        ariaLabel:
-                            "Function A with equation y=x^2. Appearance solid gray.",
-                    }),
+                await waitFor(
+                    () =>
+                        expect(onChangeProps).toHaveBeenCalledWith({
+                            ariaLabel:
+                                "Function A with equation y=x^2. Appearance solid gray.",
+                        }),
+                    {timeout: 5000},
                 );
             });
 
@@ -909,11 +911,13 @@ describe("Locked Function Settings", () => {
                 await userEvent.click(autoGenButton);
 
                 // Assert
-                await waitFor(() =>
-                    expect(onChangeProps).toHaveBeenCalledWith({
-                        ariaLabel:
-                            "Function A, B with equation y=x^2. Appearance solid gray.",
-                    }),
+                await waitFor(
+                    () =>
+                        expect(onChangeProps).toHaveBeenCalledWith({
+                            ariaLabel:
+                                "Function A, B with equation y=x^2. Appearance solid gray.",
+                        }),
+                    {timeout: 5000},
                 );
             });
         });

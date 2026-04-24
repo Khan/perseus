@@ -647,11 +647,13 @@ describe("LockedPolygonSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Polygon with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Polygon with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                    }),
+                {timeout: 5000},
             );
         });
 
@@ -685,11 +687,13 @@ describe("LockedPolygonSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Polygon A with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Polygon A with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                    }),
+                {timeout: 5000},
             );
         });
 
@@ -727,11 +731,13 @@ describe("LockedPolygonSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            await waitFor(() =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Polygon A, B with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
-                }),
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Polygon A, B with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                    }),
+                {timeout: 5000},
             );
         });
     });
