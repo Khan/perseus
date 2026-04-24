@@ -484,11 +484,11 @@ class NumericInputEditor extends React.Component<Props, State> {
             <>
                 <div className="perseus-widget-row">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
-                    <label>Aria label</label>
+                    <label>Answer Field Aria label</label>
                     <InfoTip>
                         <p>
-                            Text to describe this input. This will be shown to
-                            users using screenreaders.
+                            Text to describe the Answer Field for screenreader
+                            users.
                         </p>
                     </InfoTip>
                 </div>
