@@ -19,7 +19,7 @@ fi
 # ensures that xargs won't misinterpret filenames with spaces as multiple
 # files.
 echo "$files" \
-    | grep -E "\.(js|jsx|cjs|mjs|ts|tsx|cts|mts)$" \
+    | grep -E "\.(js|jsx|cjs|mjs|ts|tsx|cts|mts)$" || true \
     | tr '\n' '\0' \
     | xargs -r -0 pnpm eslint $eslint_opts
 

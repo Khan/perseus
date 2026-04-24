@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # Prints a newline-separated list of files changed since the commit referred
@@ -12,4 +12,4 @@ if [ -z "${UPSTREAM}" ]; then
 fi
 
 git ls-files --others --exclude-standard
-git diff --name-only --diff-filter=ACMRTUB "${UPSTREAM:-@{u}}"
+git diff --name-only --diff-filter=ACMRTUB "${UPSTREAM:-"@{u}"}"
