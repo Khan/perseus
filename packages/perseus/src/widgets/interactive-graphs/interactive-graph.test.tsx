@@ -1945,8 +1945,8 @@ describe("ungraded interactive graph", () => {
         // Arrange, Act
         const question = interactiveGraphQuestionBuilder()
             .withSegments({numSegments: 1})
+            .withGradedMode(false)
             .build();
-        question.widgets["interactive-graph 1"].graded = false;
         renderQuestion(question, blankOptions);
 
         // Assert
