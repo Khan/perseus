@@ -38,12 +38,6 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = excludeDenylistKeys(props);
-    // `graded` and `static` are on the denylist (they're widget-level
-    // metadata, not widget options), so excludeDenylistKeys strips them.
-    // We need to preserve them so applyDefaultsToWidget doesn't reset
-    // them to their defaults.
-    filteredProps.graded = props.graded;
-    filteredProps.static = props.static;
     return applyDefaultsToWidget(filteredProps as PerseusWidget);
 };
 

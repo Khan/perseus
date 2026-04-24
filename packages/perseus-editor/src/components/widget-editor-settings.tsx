@@ -101,4 +101,3 @@ function WidgetEditorSettings(props: WidgetEditorSettingsProps) {
 }
 
 export default WidgetEditorSettings;
-export type {BestPractices};
