@@ -98,6 +98,9 @@ class WidgetEditor extends React.Component<
         const newWidgetInfo = {
             ...this.state.widgetInfo,
             static: value,
+            // if it's "interactive but ungraded" (ungraded)
+            // we don't also want it to be "non-interactive" (static)
+            graded: true,
         } satisfies PerseusWidget;
         this.props.onChange(newWidgetInfo);
     };
@@ -106,6 +109,9 @@ class WidgetEditor extends React.Component<
         const newWidgetInfo = {
             ...this.state.widgetInfo,
             graded: value,
+            // if it's "interactive but ungraded" (ungraded)
+            // we don't also want it to be "non-interactive" (static)
+            static: false,
         } satisfies PerseusWidget;
         this.props.onChange(newWidgetInfo);
     };
