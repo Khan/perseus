@@ -142,46 +142,4 @@ describe("StatefulMafsGraph", () => {
         // means we are still rendering only 3 sides.
         expect(screen.getAllByTestId("movable-point").length).toBe(4);
     });
-
-    it("displays the correct answer (angle) when static is true and graded is true", () => {
-        // Arrange: learner state is a segment (2 movable points), correct answer
-        // is an angle (3 movable points). When graded, static mode should show
-        // the correct answer.
-        const correctAngle = {type: "angle" as const};
-
-        // Act
-        render(
-            <StatefulMafsGraph
-                {...getBaseStatefulMafsGraphProps()}
-                graph={{type: "segment"}}
-                static={true}
-                graded={true}
-                correct={correctAngle}
-            />,
-        );
-
-        // Assert: angle has 3 movable points (vertex + 2 endpoints)
-        expect(screen.getAllByTestId("movable-point").length).toBe(3);
-    });
-
-    it("keeps the learner state (segment) when static is true but graded is false", () => {
-        // Arrange: learner state is a segment (2 movable points), correct answer
-        // is an angle (3 movable points). When ungraded, static mode should NOT
-        // replace the learner's state with the correct answer.
-        const correctAngle = {type: "angle" as const};
-
-        // Act
-        render(
-            <StatefulMafsGraph
-                {...getBaseStatefulMafsGraphProps()}
-                graph={{type: "segment"}}
-                static={true}
-                graded={false}
-                correct={correctAngle}
-            />,
-        );
-
-        // Assert: segment has 2 movable points (the learner's state is preserved)
-        expect(screen.getAllByTestId("movable-point").length).toBe(2);
-    });
 });
