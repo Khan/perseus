@@ -157,9 +157,7 @@ class WidgetEditor extends React.Component<
         }
 
         const supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
-        const supportsGradedToggle = Widgets.supportsGradedToggle(
-            widgetInfo.type,
-        );
+        const supportsGradedToggle = Widgets.supportsUngraded(widgetInfo.type);
 
         return (
             <div className="perseus-widget-editor">

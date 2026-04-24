@@ -948,5 +948,5 @@ export default {
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-    supportsGradedToggle: true,
+    supportsUngraded: true,
 } satisfies WidgetExports<typeof InteractiveGraph>;

@@ -490,7 +490,7 @@ export type WidgetExports<
     isLintable?: boolean;
     tracking?: Tracking;
     /** When true, the widget editor shows a "Graded" toggle. */
-    supportsGradedToggle?: boolean;
+    supportsUngraded?: boolean;
 
     getOneCorrectAnswerFromRubric?: (
         rubric: WidgetOptions,
