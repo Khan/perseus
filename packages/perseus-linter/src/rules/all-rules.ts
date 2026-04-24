@@ -31,6 +31,7 @@ import MathStartsWithSpace from "./math-starts-with-space";
 import MathTextEmpty from "./math-text-empty";
 import MathWithoutDollars from "./math-without-dollars";
 import NestedLists from "./nested-lists";
+import NumericInputMissingLabel from "./numeric-input-missing-label";
 import NumericInputWidgetError from "./numeric-input-widget-error";
 import PhetSimulationWidgetError from "./phet-simulation-widget-error";
 import PythonProgramWidgetError from "./python-program-widget-error";
@@ -79,6 +80,7 @@ export default [
     ExpressionWidgetError,
     FreeResponseWidgetError,
     MatcherWidgetError,
+    NumericInputMissingLabel,
     NumericInputWidgetError,
     PhetSimulationWidgetError,
     PythonProgramWidgetError,
