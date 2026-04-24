@@ -98,6 +98,7 @@ describe("Expression serialization", () => {
                 "expression 1": {
                     alignment: "default",
                     static: false,
+                    graded: true,
                     keypadConfiguration: {
                         keypadType: "EXPRESSION",
                         times: false,

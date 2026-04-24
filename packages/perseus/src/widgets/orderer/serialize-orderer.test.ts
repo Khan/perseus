@@ -93,6 +93,7 @@ describe("Orderer serialization", () => {
                 "orderer 1": {
                     alignment: "default",
                     static: false,
+                    graded: true,
                     // ???
                     otherOptions: [],
                     // The correct order

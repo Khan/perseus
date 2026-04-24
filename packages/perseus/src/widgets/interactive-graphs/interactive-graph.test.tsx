@@ -1952,7 +1952,7 @@ describe("ungraded interactive graph", () => {
         // Assert
         expect(
             screen.getByText(
-                "This graph is for your use only and will not be graded.",
+                "Use this graph to check your thinking, but it does not count as your answer.",
             ),
         ).toBeInTheDocument();
     });
@@ -1967,7 +1967,7 @@ describe("ungraded interactive graph", () => {
         // Assert
         expect(
             screen.queryByText(
-                "This graph is for your use only and will not be graded.",
+                "Use this graph to check your thinking, but it does not count as your answer.",
             ),
         ).not.toBeInTheDocument();
     });

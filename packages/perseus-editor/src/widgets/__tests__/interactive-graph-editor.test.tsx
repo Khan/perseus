@@ -815,26 +815,6 @@ describe("InteractiveGraphEditor", () => {
         expect(screen.getByRole("option", {name: "None"})).toBeInTheDocument();
     });
 
-    test("hides answer sections when graded is false", async () => {
-        // Arrange, Act
-        render(
-            <InteractiveGraphEditor
-                {...baseProps}
-                graph={{type: "segment"}}
-                correct={{type: "segment"}}
-                graded={false}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Assert: "Correct Answer" section is hidden when ungraded
-        await waitFor(() =>
-            expect(
-                screen.queryByText("Correct Answer"),
-            ).not.toBeInTheDocument(),
-        );
-    });
-
     test("shows answer sections when graded is true", async () => {
         // Arrange, Act
         render(
