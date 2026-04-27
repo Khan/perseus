@@ -300,6 +300,7 @@ export const shouldShowStartCoordsUI = (
         case "sinusoid":
         case "absolute-value":
         case "logarithm":
+        case "vector":
             return true;
         default:
             throw new UnreachableCaseError(graph);
