@@ -7,7 +7,7 @@ import {sanitizePreviewData} from "./preview-data-sanitizer";
 
 import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 
-type UsePreviewHostResult = {
+type UsePreviewControllerResult = {
     /**
      * Send preview content data to the iframe
      */
@@ -49,7 +49,7 @@ type UsePreviewHostResult = {
  */
 export function usePreviewController(
     iframeRef: React.RefObject<HTMLIFrameElement>,
-): UsePreviewHostResult {
+): UsePreviewControllerResult {
     const [height, setHeight] = React.useState<number | null>(null);
     const pendingDataRef = React.useRef<PreviewContent | null>(null);
     const iframeIdRef = React.useRef<string | null>(null);
