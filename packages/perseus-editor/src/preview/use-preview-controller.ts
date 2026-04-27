@@ -114,9 +114,7 @@ export function usePreviewController(
         return () => {
             window.removeEventListener("message", handleMessage);
         };
-        // iframeRef is intentionally excluded - it's a stable ref that shouldn't trigger re-runs
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [iframeRef]);
 
     // Memoized function to send data to iframe
     const sendData = React.useCallback(
@@ -146,9 +144,7 @@ export function usePreviewController(
 
             contentWindow.postMessage(message, "/");
         },
-        // iframeRef is intentionally excluded - it's a stable ref that shouldn't trigger re-runs
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [],
+        [iframeRef],
     );
 
     return {
