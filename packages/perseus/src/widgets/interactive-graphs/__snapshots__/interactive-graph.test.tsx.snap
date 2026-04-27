@@ -1020,17 +1020,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                       style="width: 400px; --mafs-view-transform: matrix(20, 0, 0, -20, 0, 0); --mafs-user-transform: translate(0, 0);"
                       viewBox="-200 -200 400 400"
                       width="400"
-                    >
-                      <svg
-                        height="400"
-                        preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
-                        viewBox="-200 -200 400 400"
-                        width="400"
-                        x="-200"
-                        y="-200"
-                      />
-                    </svg>
+                    />
                   </div>
                 </div>
               </div>
@@ -1184,302 +1174,292 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       viewBox="-57.1428571429 -342.8571428571 400 400"
                       width="400"
                     >
-                      <svg
-                        height="400"
-                        preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
-                        viewBox="-57.142857142857146 -342.85714285714283 400 400"
-                        width="400"
-                        x="-57.142857142857146"
-                        y="-342.85714285714283"
+                      <g
+                        aria-describedby=":r3:-points-num :r3:-points"
+                        aria-label="A polygon."
                       >
-                        <g
-                          aria-describedby=":r3:-points-num :r3:-points"
-                          aria-label="A polygon."
+                        <polygon
+                          aria-hidden="true"
+                          fill-opacity="0.15"
+                          points="3.5 2 2.5 4 1.5 2"
+                          stroke-linejoin="round"
+                          stroke-width="var(--movable-line-stroke-weight)"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                        />
+                        <text
+                          class="mafs-shadow"
+                          dominant-baseline="middle"
+                          filter="url(#background)"
+                          font-size="16"
+                          font-weight="bold"
+                          style="fill: var(--mafs-fg); vector-effect: non-scaling-stroke;"
+                          text-anchor="middle"
+                          x="171.42858"
+                          y="-171.42858"
                         >
-                          <polygon
-                            aria-hidden="true"
-                            fill-opacity="0.15"
-                            points="3.5 2 2.5 4 1.5 2"
-                            stroke-linejoin="round"
-                            stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
-                          />
-                          <text
-                            class="mafs-shadow"
-                            dominant-baseline="middle"
-                            filter="url(#background)"
-                            font-size="16"
-                            font-weight="bold"
-                            style="fill: var(--mafs-fg); vector-effect: non-scaling-stroke;"
-                            text-anchor="middle"
-                            x="171.42858"
-                            y="-171.42858"
-                          >
-                            ≈ 2.2
-                          </text>
-                          <text
-                            class="mafs-shadow"
-                            dominant-baseline="middle"
-                            filter="url(#background)"
-                            font-size="16"
-                            font-weight="bold"
-                            style="fill: var(--mafs-fg); vector-effect: non-scaling-stroke;"
-                            text-anchor="middle"
-                            x="114.28572"
-                            y="-171.42858"
-                          >
-                            ≈ 2.2
-                          </text>
-                          <text
-                            class="mafs-shadow"
-                            dominant-baseline="middle"
-                            filter="url(#background)"
-                            font-size="16"
-                            font-weight="bold"
-                            style="fill: var(--mafs-fg); vector-effect: non-scaling-stroke;"
-                            text-anchor="middle"
-                            x="142.85715"
-                            y="-114.28572"
-                          >
-                            2
-                          </text>
-                          <polygon
+                          ≈ 2.2
+                        </text>
+                        <text
+                          class="mafs-shadow"
+                          dominant-baseline="middle"
+                          filter="url(#background)"
+                          font-size="16"
+                          font-weight="bold"
+                          style="fill: var(--mafs-fg); vector-effect: non-scaling-stroke;"
+                          text-anchor="middle"
+                          x="114.28572"
+                          y="-171.42858"
+                        >
+                          ≈ 2.2
+                        </text>
+                        <text
+                          class="mafs-shadow"
+                          dominant-baseline="middle"
+                          filter="url(#background)"
+                          font-size="16"
+                          font-weight="bold"
+                          style="fill: var(--mafs-fg); vector-effect: non-scaling-stroke;"
+                          text-anchor="middle"
+                          x="142.85715"
+                          y="-114.28572"
+                        >
+                          2
+                        </text>
+                        <polygon
+                          aria-disabled="false"
+                          aria-label="A polygon with 3 points."
+                          aria-live="off"
+                          class="movable-polygon"
+                          fill-opacity="0.15"
+                          points="3.5 2 2.5 4 1.5 2"
+                          role="button"
+                          stroke-linejoin="round"
+                          stroke-width="44"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
+                          tabindex="0"
+                        />
+                        <g>
+                          <g
+                            aria-describedby=":r3:-angle-0 :r3:-point-0-side-1 :r3:-point-0-side-2"
                             aria-disabled="false"
-                            aria-label="A polygon with 3 points."
+                            aria-label="Point 1 at 3.5 comma 2."
                             aria-live="off"
-                            class="movable-polygon"
-                            fill-opacity="0.15"
-                            points="3.5 2 2.5 4 1.5 2"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
                             role="button"
-                            stroke-linejoin="round"
-                            stroke-width="44"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
                             tabindex="0"
                           />
-                          <g>
-                            <g
-                              aria-describedby=":r3:-angle-0 :r3:-point-0-side-1 :r3:-point-0-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 1 at 3.5 comma 2."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="200"
+                              cy="-114.28571428571429"
+                              r="24"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="200"
-                                cy="-114.28571428571429"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="200"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="200"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="200"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="200"
-                                cy="-114.28571428571429"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r3:-angle-0"
-                              >
-                                Angle approximately equal to 63.4 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r3:-point-0-side-1"
-                              >
-                                A line segment, length equal to 2 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r3:-point-0-side-2"
-                              >
-                                A line segment, length approximately equal to 2.2 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":r3:-angle-1 :r3:-point-1-side-1 :r3:-point-1-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 2 at 2.5 comma 4."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-halo"
+                              cx="200"
+                              cy="-114.28571428571429"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="142.85714285714286"
-                                cy="-228.57142857142858"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="142.85714285714286"
-                                cy="-228.57142857142858"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="142.85714285714286"
-                                cy="-228.57142857142858"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="142.85714285714286"
-                                cy="-228.57142857142858"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="142.85714285714286"
-                                cy="-228.57142857142858"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r3:-angle-1"
-                              >
-                                Angle approximately equal to 53.1 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r3:-point-1-side-1"
-                              >
-                                A line segment, length approximately equal to 2.2 units, connects to point 1.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r3:-point-1-side-2"
-                              >
-                                A line segment, length approximately equal to 2.2 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":r3:-angle-2 :r3:-point-2-side-1 :r3:-point-2-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 3 at 1.5 comma 2."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-ring"
+                              cx="200"
+                              cy="-114.28571428571429"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r3:-angle-2"
-                              >
-                                Angle approximately equal to 63.4 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r3:-point-2-side-1"
-                              >
-                                A line segment, length approximately equal to 2.2 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r3:-point-2-side-2"
-                              >
-                                A line segment, length equal to 2 units, connects to point 1.
-                              </span>
-                            </foreignobject>
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="200"
+                              cy="-114.28571428571429"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="200"
+                              cy="-114.28571428571429"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
                           </g>
                           <foreignobject>
                             <span
                               aria-hidden="true"
-                              id=":r3:-points-num"
+                              id=":r3:-angle-0"
                             >
-                              The polygon has 3 points.
+                              Angle approximately equal to 63.4 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-point-0-side-1"
+                            >
+                              A line segment, length equal to 2 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-point-0-side-2"
+                            >
+                              A line segment, length approximately equal to 2.2 units, connects to point 2.
                             </span>
                           </foreignobject>
                         </g>
-                      </svg>
+                        <g>
+                          <g
+                            aria-describedby=":r3:-angle-1 :r3:-point-1-side-1 :r3:-point-1-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 2 at 2.5 comma 4."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="142.85714285714286"
+                              cy="-228.57142857142858"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="142.85714285714286"
+                              cy="-228.57142857142858"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="142.85714285714286"
+                              cy="-228.57142857142858"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="142.85714285714286"
+                              cy="-228.57142857142858"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="142.85714285714286"
+                              cy="-228.57142857142858"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-angle-1"
+                            >
+                              Angle approximately equal to 53.1 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-point-1-side-1"
+                            >
+                              A line segment, length approximately equal to 2.2 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-point-1-side-2"
+                            >
+                              A line segment, length approximately equal to 2.2 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <g>
+                          <g
+                            aria-describedby=":r3:-angle-2 :r3:-point-2-side-1 :r3:-point-2-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 3 at 1.5 comma 2."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-angle-2"
+                            >
+                              Angle approximately equal to 63.4 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-point-2-side-1"
+                            >
+                              A line segment, length approximately equal to 2.2 units, connects to point 2.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-point-2-side-2"
+                            >
+                              A line segment, length equal to 2 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <foreignobject>
+                          <span
+                            aria-hidden="true"
+                            id=":r3:-points-num"
+                          >
+                            The polygon has 3 points.
+                          </span>
+                        </foreignobject>
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -1659,263 +1639,253 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       viewBox="-200 -200 400 400"
                       width="400"
                     >
-                      <svg
-                        height="400"
-                        preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
-                        viewBox="-200 -200 400 400"
-                        width="400"
-                        x="-200"
-                        y="-200"
+                      <g
+                        aria-describedby=":rd:-points-num :rd:-points"
+                        aria-label="A polygon."
                       >
-                        <g
-                          aria-describedby=":rd:-points-num :rd:-points"
-                          aria-label="A polygon."
-                        >
-                          <polygon
-                            aria-hidden="true"
-                            fill-opacity="0.15"
-                            points="3 -2 0 3 -3 -2"
-                            stroke-linejoin="round"
-                            stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
-                          />
-                          <polygon
+                        <polygon
+                          aria-hidden="true"
+                          fill-opacity="0.15"
+                          points="3 -2 0 3 -3 -2"
+                          stroke-linejoin="round"
+                          stroke-width="var(--movable-line-stroke-weight)"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                        />
+                        <polygon
+                          aria-disabled="false"
+                          aria-label="A polygon with 3 points."
+                          aria-live="off"
+                          class="movable-polygon"
+                          fill-opacity="0.15"
+                          points="3 -2 0 3 -3 -2"
+                          role="button"
+                          stroke-linejoin="round"
+                          stroke-width="44"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
+                          tabindex="0"
+                        />
+                        <g>
+                          <g
+                            aria-describedby=":rd:-angle-0 :rd:-point-0-side-1 :rd:-point-0-side-2"
                             aria-disabled="false"
-                            aria-label="A polygon with 3 points."
+                            aria-label="Point 1 at 3 comma -2."
                             aria-live="off"
-                            class="movable-polygon"
-                            fill-opacity="0.15"
-                            points="3 -2 0 3 -3 -2"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
                             role="button"
-                            stroke-linejoin="round"
-                            stroke-width="44"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
                             tabindex="0"
                           />
-                          <g>
-                            <g
-                              aria-describedby=":rd:-angle-0 :rd:-point-0-side-1 :rd:-point-0-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 1 at 3 comma -2."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="75"
+                              cy="50"
+                              r="24"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="75"
-                                cy="50"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="75"
-                                cy="50"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="75"
-                                cy="50"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="75"
-                                cy="50"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="75"
-                                cy="50"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rd:-angle-0"
-                              >
-                                Angle approximately equal to 59 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rd:-point-0-side-1"
-                              >
-                                A line segment, length equal to 6 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rd:-point-0-side-2"
-                              >
-                                A line segment, length approximately equal to 5.8 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":rd:-angle-1 :rd:-point-1-side-1 :rd:-point-1-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 2 at 0 comma 3."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-halo"
+                              cx="75"
+                              cy="50"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="0"
-                                cy="-75"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="0"
-                                cy="-75"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="0"
-                                cy="-75"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="0"
-                                cy="-75"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="0"
-                                cy="-75"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rd:-angle-1"
-                              >
-                                Angle approximately equal to 61.9 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rd:-point-1-side-1"
-                              >
-                                A line segment, length approximately equal to 5.8 units, connects to point 1.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rd:-point-1-side-2"
-                              >
-                                A line segment, length approximately equal to 5.8 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":rd:-angle-2 :rd:-point-2-side-1 :rd:-point-2-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 3 at -3 comma -2."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-ring"
+                              cx="75"
+                              cy="50"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="-75"
-                                cy="50"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="-75"
-                                cy="50"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="-75"
-                                cy="50"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="-75"
-                                cy="50"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="-75"
-                                cy="50"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rd:-angle-2"
-                              >
-                                Angle approximately equal to 59 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rd:-point-2-side-1"
-                              >
-                                A line segment, length approximately equal to 5.8 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rd:-point-2-side-2"
-                              >
-                                A line segment, length equal to 6 units, connects to point 1.
-                              </span>
-                            </foreignobject>
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="75"
+                              cy="50"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="75"
+                              cy="50"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
                           </g>
                           <foreignobject>
                             <span
                               aria-hidden="true"
-                              id=":rd:-points-num"
+                              id=":rd:-angle-0"
                             >
-                              The polygon has 3 points.
+                              Angle approximately equal to 59 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rd:-point-0-side-1"
+                            >
+                              A line segment, length equal to 6 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rd:-point-0-side-2"
+                            >
+                              A line segment, length approximately equal to 5.8 units, connects to point 2.
                             </span>
                           </foreignobject>
                         </g>
-                      </svg>
+                        <g>
+                          <g
+                            aria-describedby=":rd:-angle-1 :rd:-point-1-side-1 :rd:-point-1-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 2 at 0 comma 3."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="0"
+                              cy="-75"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="0"
+                              cy="-75"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="0"
+                              cy="-75"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="0"
+                              cy="-75"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="0"
+                              cy="-75"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rd:-angle-1"
+                            >
+                              Angle approximately equal to 61.9 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rd:-point-1-side-1"
+                            >
+                              A line segment, length approximately equal to 5.8 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rd:-point-1-side-2"
+                            >
+                              A line segment, length approximately equal to 5.8 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <g>
+                          <g
+                            aria-describedby=":rd:-angle-2 :rd:-point-2-side-1 :rd:-point-2-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 3 at -3 comma -2."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="-75"
+                              cy="50"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="-75"
+                              cy="50"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="-75"
+                              cy="50"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="-75"
+                              cy="50"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="-75"
+                              cy="50"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rd:-angle-2"
+                            >
+                              Angle approximately equal to 59 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rd:-point-2-side-1"
+                            >
+                              A line segment, length approximately equal to 5.8 units, connects to point 2.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rd:-point-2-side-2"
+                            >
+                              A line segment, length equal to 6 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <foreignobject>
+                          <span
+                            aria-hidden="true"
+                            id=":rd:-points-num"
+                          >
+                            The polygon has 3 points.
+                          </span>
+                        </foreignobject>
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -2111,23 +2081,13 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       viewBox="-200 -200 400 400"
                       width="400"
                     >
-                      <svg
+                      <rect
                         height="400"
-                        preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
-                        viewBox="-200 -200 400 400"
+                        style="fill: rgba(0,0,0,0); cursor: crosshair;"
                         width="400"
                         x="-200"
                         y="-200"
-                      >
-                        <rect
-                          height="400"
-                          style="fill: rgba(0,0,0,0); cursor: crosshair;"
-                          width="400"
-                          x="-200"
-                          y="-200"
-                        />
-                      </svg>
+                      />
                     </svg>
                   </div>
                 </div>
@@ -2364,37 +2324,27 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       viewBox="-200 -266.6666666667 400 400"
                       width="400"
                     >
-                      <svg
-                        height="400"
-                        preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
-                        viewBox="-200 -266.66666666666663 400 400"
-                        width="400"
-                        x="-200"
-                        y="-266.66666666666663"
+                      <g
+                        aria-describedby=":rs:-points-num :rs:-points"
+                        aria-label="An empty coordinate plane."
                       >
-                        <g
-                          aria-describedby=":rs:-points-num :rs:-points"
-                          aria-label="An empty coordinate plane."
-                        >
-                          <polyline
-                            aria-hidden="true"
-                            fill-opacity="0"
-                            points=""
-                            stroke-linejoin="round"
-                            stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
-                          />
-                          <rect
-                            aria-hidden="true"
-                            height="400"
-                            style="fill: rgba(0,0,0,0); cursor: crosshair;"
-                            width="400"
-                            x="-200"
-                            y="-266.6666666666667"
-                          />
-                        </g>
-                      </svg>
+                        <polyline
+                          aria-hidden="true"
+                          fill-opacity="0"
+                          points=""
+                          stroke-linejoin="round"
+                          stroke-width="var(--movable-line-stroke-weight)"
+                          style="fill: transparent; fill-opacity: 0; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                        />
+                        <rect
+                          aria-hidden="true"
+                          height="400"
+                          style="fill: rgba(0,0,0,0); cursor: crosshair;"
+                          width="400"
+                          x="-200"
+                          y="-266.6666666666667"
+                        />
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -2580,275 +2530,265 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       viewBox="-57.1428571429 -342.8571428571 400 400"
                       width="400"
                     >
-                      <svg
-                        height="400"
-                        preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
-                        viewBox="-57.142857142857146 -342.85714285714283 400 400"
-                        width="400"
-                        x="-57.142857142857146"
-                        y="-342.85714285714283"
+                      <g
+                        aria-describedby=":r5:-points-num :r5:-points"
+                        aria-label="A polygon."
                       >
+                        <polygon
+                          aria-hidden="true"
+                          fill-opacity="0.15"
+                          points="5.5 2 1.5 5 1.5 2"
+                          stroke-linejoin="round"
+                          stroke-width="var(--movable-line-stroke-weight)"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                        />
                         <g
-                          aria-describedby=":r5:-points-num :r5:-points"
-                          aria-label="A polygon."
+                          style="transform: var(--mafs-view-transform) var(--mafs-user-transform);"
                         >
-                          <polygon
+                          <path
                             aria-hidden="true"
-                            fill-opacity="0.15"
-                            points="5.5 2 1.5 5 1.5 2"
-                            stroke-linejoin="round"
-                            stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                            d="M 1.92 2 L 1.92 2.42 M 1.92 2.42 L 1.5 2.42"
+                            data-testid="angle-indicators__right-angle"
+                            fill="none"
+                            stroke-width="1"
+                            vector-effect="non-scaling-stroke"
                           />
+                        </g>
+                        <polygon
+                          aria-disabled="false"
+                          aria-label="A polygon with 3 points."
+                          aria-live="off"
+                          class="movable-polygon"
+                          fill-opacity="0.15"
+                          points="5.5 2 1.5 5 1.5 2"
+                          role="button"
+                          stroke-linejoin="round"
+                          stroke-width="44"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
+                          tabindex="0"
+                        />
+                        <g>
                           <g
-                            style="transform: var(--mafs-view-transform) var(--mafs-user-transform);"
-                          >
-                            <path
-                              aria-hidden="true"
-                              d="M 1.92 2 L 1.92 2.42 M 1.92 2.42 L 1.5 2.42"
-                              data-testid="angle-indicators__right-angle"
-                              fill="none"
-                              stroke-width="1"
-                              vector-effect="non-scaling-stroke"
-                            />
-                          </g>
-                          <polygon
+                            aria-describedby=":r5:-angle-0 :r5:-point-0-side-1 :r5:-point-0-side-2"
                             aria-disabled="false"
-                            aria-label="A polygon with 3 points."
+                            aria-label="Point 1 at 5.5 comma 2."
                             aria-live="off"
-                            class="movable-polygon"
-                            fill-opacity="0.15"
-                            points="5.5 2 1.5 5 1.5 2"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
                             role="button"
-                            stroke-linejoin="round"
-                            stroke-width="44"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
                             tabindex="0"
                           />
-                          <g>
-                            <g
-                              aria-describedby=":r5:-angle-0 :r5:-point-0-side-1 :r5:-point-0-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 1 at 5.5 comma 2."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="314.2857142857143"
+                              cy="-114.28571428571429"
+                              r="24"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="314.2857142857143"
-                                cy="-114.28571428571429"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="314.2857142857143"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="314.2857142857143"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="314.2857142857143"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="314.2857142857143"
-                                cy="-114.28571428571429"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r5:-angle-0"
-                              >
-                                Angle approximately equal to 36.9 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r5:-point-0-side-1"
-                              >
-                                A line segment, length equal to 4 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r5:-point-0-side-2"
-                              >
-                                A line segment, length equal to 5 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":r5:-angle-1 :r5:-point-1-side-1 :r5:-point-1-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 2 at 1.5 comma 5."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-halo"
+                              cx="314.2857142857143"
+                              cy="-114.28571428571429"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="85.71428571428572"
-                                cy="-285.7142857142857"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="85.71428571428572"
-                                cy="-285.7142857142857"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="85.71428571428572"
-                                cy="-285.7142857142857"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="85.71428571428572"
-                                cy="-285.7142857142857"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="85.71428571428572"
-                                cy="-285.7142857142857"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r5:-angle-1"
-                              >
-                                Angle approximately equal to 53.1 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r5:-point-1-side-1"
-                              >
-                                A line segment, length equal to 5 units, connects to point 1.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r5:-point-1-side-2"
-                              >
-                                A line segment, length equal to 3 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":r5:-angle-2 :r5:-point-2-side-1 :r5:-point-2-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 3 at 1.5 comma 2."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-ring"
+                              cx="314.2857142857143"
+                              cy="-114.28571428571429"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="85.71428571428572"
-                                cy="-114.28571428571429"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r5:-angle-2"
-                              >
-                                Angle equal to 90 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r5:-point-2-side-1"
-                              >
-                                A line segment, length equal to 3 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":r5:-point-2-side-2"
-                              >
-                                A line segment, length equal to 4 units, connects to point 1.
-                              </span>
-                            </foreignobject>
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="314.2857142857143"
+                              cy="-114.28571428571429"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="314.2857142857143"
+                              cy="-114.28571428571429"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
                           </g>
                           <foreignobject>
                             <span
                               aria-hidden="true"
-                              id=":r5:-points-num"
+                              id=":r5:-angle-0"
                             >
-                              The polygon has 3 points.
+                              Angle approximately equal to 36.9 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r5:-point-0-side-1"
+                            >
+                              A line segment, length equal to 4 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r5:-point-0-side-2"
+                            >
+                              A line segment, length equal to 5 units, connects to point 2.
                             </span>
                           </foreignobject>
                         </g>
-                      </svg>
+                        <g>
+                          <g
+                            aria-describedby=":r5:-angle-1 :r5:-point-1-side-1 :r5:-point-1-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 2 at 1.5 comma 5."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="85.71428571428572"
+                              cy="-285.7142857142857"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="85.71428571428572"
+                              cy="-285.7142857142857"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="85.71428571428572"
+                              cy="-285.7142857142857"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="85.71428571428572"
+                              cy="-285.7142857142857"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="85.71428571428572"
+                              cy="-285.7142857142857"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r5:-angle-1"
+                            >
+                              Angle approximately equal to 53.1 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r5:-point-1-side-1"
+                            >
+                              A line segment, length equal to 5 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r5:-point-1-side-2"
+                            >
+                              A line segment, length equal to 3 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <g>
+                          <g
+                            aria-describedby=":r5:-angle-2 :r5:-point-2-side-1 :r5:-point-2-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 3 at 1.5 comma 2."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="85.71428571428572"
+                              cy="-114.28571428571429"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r5:-angle-2"
+                            >
+                              Angle equal to 90 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r5:-point-2-side-1"
+                            >
+                              A line segment, length equal to 3 units, connects to point 2.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r5:-point-2-side-2"
+                            >
+                              A line segment, length equal to 4 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <foreignobject>
+                          <span
+                            aria-hidden="true"
+                            id=":r5:-points-num"
+                          >
+                            The polygon has 3 points.
+                          </span>
+                        </foreignobject>
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -3028,263 +2968,253 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       viewBox="-200 -200 400 400"
                       width="400"
                     >
-                      <svg
-                        height="400"
-                        preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
-                        viewBox="-200 -200 400 400"
-                        width="400"
-                        x="-200"
-                        y="-200"
+                      <g
+                        aria-describedby=":rf:-points-num :rf:-points"
+                        aria-label="A polygon."
                       >
-                        <g
-                          aria-describedby=":rf:-points-num :rf:-points"
-                          aria-label="A polygon."
-                        >
-                          <polygon
-                            aria-hidden="true"
-                            fill-opacity="0.15"
-                            points="-6 -7 1 -4 -3 -4"
-                            stroke-linejoin="round"
-                            stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
-                          />
-                          <polygon
+                        <polygon
+                          aria-hidden="true"
+                          fill-opacity="0.15"
+                          points="-6 -7 1 -4 -3 -4"
+                          stroke-linejoin="round"
+                          stroke-width="var(--movable-line-stroke-weight)"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                        />
+                        <polygon
+                          aria-disabled="false"
+                          aria-label="A polygon with 3 points."
+                          aria-live="off"
+                          class="movable-polygon"
+                          fill-opacity="0.15"
+                          points="-6 -7 1 -4 -3 -4"
+                          role="button"
+                          stroke-linejoin="round"
+                          stroke-width="44"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
+                          tabindex="0"
+                        />
+                        <g>
+                          <g
+                            aria-describedby=":rf:-angle-0 :rf:-point-0-side-1 :rf:-point-0-side-2"
                             aria-disabled="false"
-                            aria-label="A polygon with 3 points."
+                            aria-label="Point 1 at -6 comma -7."
                             aria-live="off"
-                            class="movable-polygon"
-                            fill-opacity="0.15"
-                            points="-6 -7 1 -4 -3 -4"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
                             role="button"
-                            stroke-linejoin="round"
-                            stroke-width="44"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
                             tabindex="0"
                           />
-                          <g>
-                            <g
-                              aria-describedby=":rf:-angle-0 :rf:-point-0-side-1 :rf:-point-0-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 1 at -6 comma -7."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="-150"
+                              cy="175"
+                              r="24"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="-150"
-                                cy="175"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="-150"
-                                cy="175"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="-150"
-                                cy="175"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="-150"
-                                cy="175"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="-150"
-                                cy="175"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rf:-angle-0"
-                              >
-                                Angle approximately equal to 21.8 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rf:-point-0-side-1"
-                              >
-                                A line segment, length approximately equal to 4.2 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rf:-point-0-side-2"
-                              >
-                                A line segment, length approximately equal to 7.6 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":rf:-angle-1 :rf:-point-1-side-1 :rf:-point-1-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 2 at 1 comma -4."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-halo"
+                              cx="-150"
+                              cy="175"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="25"
-                                cy="100"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="25"
-                                cy="100"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="25"
-                                cy="100"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="25"
-                                cy="100"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="25"
-                                cy="100"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rf:-angle-1"
-                              >
-                                Angle approximately equal to 23.2 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rf:-point-1-side-1"
-                              >
-                                A line segment, length approximately equal to 7.6 units, connects to point 1.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rf:-point-1-side-2"
-                              >
-                                A line segment, length equal to 4 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":rf:-angle-2 :rf:-point-2-side-1 :rf:-point-2-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 3 at -3 comma -4."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-ring"
+                              cx="-150"
+                              cy="175"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="-75"
-                                cy="100"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="-75"
-                                cy="100"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="-75"
-                                cy="100"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="-75"
-                                cy="100"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="-75"
-                                cy="100"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rf:-angle-2"
-                              >
-                                Angle equal to 135 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rf:-point-2-side-1"
-                              >
-                                A line segment, length equal to 4 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":rf:-point-2-side-2"
-                              >
-                                A line segment, length approximately equal to 4.2 units, connects to point 1.
-                              </span>
-                            </foreignobject>
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="-150"
+                              cy="175"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="-150"
+                              cy="175"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
                           </g>
                           <foreignobject>
                             <span
                               aria-hidden="true"
-                              id=":rf:-points-num"
+                              id=":rf:-angle-0"
                             >
-                              The polygon has 3 points.
+                              Angle approximately equal to 21.8 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rf:-point-0-side-1"
+                            >
+                              A line segment, length approximately equal to 4.2 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rf:-point-0-side-2"
+                            >
+                              A line segment, length approximately equal to 7.6 units, connects to point 2.
                             </span>
                           </foreignobject>
                         </g>
-                      </svg>
+                        <g>
+                          <g
+                            aria-describedby=":rf:-angle-1 :rf:-point-1-side-1 :rf:-point-1-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 2 at 1 comma -4."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="25"
+                              cy="100"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="25"
+                              cy="100"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="25"
+                              cy="100"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="25"
+                              cy="100"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="25"
+                              cy="100"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rf:-angle-1"
+                            >
+                              Angle approximately equal to 23.2 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rf:-point-1-side-1"
+                            >
+                              A line segment, length approximately equal to 7.6 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rf:-point-1-side-2"
+                            >
+                              A line segment, length equal to 4 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <g>
+                          <g
+                            aria-describedby=":rf:-angle-2 :rf:-point-2-side-1 :rf:-point-2-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 3 at -3 comma -4."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="-75"
+                              cy="100"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="-75"
+                              cy="100"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="-75"
+                              cy="100"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="-75"
+                              cy="100"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="-75"
+                              cy="100"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rf:-angle-2"
+                            >
+                              Angle equal to 135 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rf:-point-2-side-1"
+                            >
+                              A line segment, length equal to 4 units, connects to point 2.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rf:-point-2-side-2"
+                            >
+                              A line segment, length approximately equal to 4.2 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <foreignobject>
+                          <span
+                            aria-hidden="true"
+                            id=":rf:-points-num"
+                          >
+                            The polygon has 3 points.
+                          </span>
+                        </foreignobject>
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -3480,148 +3410,138 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       viewBox="-200 -200 400 400"
                       width="400"
                     >
-                      <svg
-                        height="400"
-                        preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
-                        viewBox="-200 -200 400 400"
-                        width="400"
-                        x="-200"
-                        y="-200"
+                      <g
+                        aria-disabled="false"
+                        aria-label="Point 1 at 0 comma 0."
+                        aria-live="polite"
+                        class="movable-point__focusable-handle"
+                        data-testid="movable-point__focusable-handle"
+                        role="button"
+                        tabindex="0"
+                      />
+                      <g
+                        aria-hidden="true"
+                        class="movable-point"
+                        data-testid="movable-point"
+                        style="--movable-point-color: var(--mafs-blue);"
                       >
-                        <g
-                          aria-disabled="false"
-                          aria-label="Point 1 at 0 comma 0."
-                          aria-live="polite"
-                          class="movable-point__focusable-handle"
-                          data-testid="movable-point__focusable-handle"
-                          role="button"
-                          tabindex="0"
+                        <circle
+                          class="movable-point-hitbox"
+                          cx="0"
+                          cy="0"
+                          r="24"
                         />
-                        <g
-                          aria-hidden="true"
-                          class="movable-point"
-                          data-testid="movable-point"
-                          style="--movable-point-color: var(--mafs-blue);"
-                        >
-                          <circle
-                            class="movable-point-hitbox"
-                            cx="0"
-                            cy="0"
-                            r="24"
-                          />
-                          <circle
-                            class="movable-point-halo"
-                            cx="0"
-                            cy="0"
-                          />
-                          <circle
-                            class="movable-point-ring"
-                            cx="0"
-                            cy="0"
-                          />
-                          <circle
-                            class="movable-point-focus-outline"
-                            cx="0"
-                            cy="0"
-                          />
-                          <circle
-                            class="movable-point-center"
-                            cx="0"
-                            cy="0"
-                            data-testid="movable-point__center"
-                            style="fill: var(--mafs-blue);"
-                          />
-                        </g>
-                        <g
-                          aria-disabled="false"
-                          aria-label="Point 2 at -2.5 comma 0."
-                          aria-live="polite"
-                          class="movable-point__focusable-handle"
-                          data-testid="movable-point__focusable-handle"
-                          role="button"
-                          tabindex="0"
+                        <circle
+                          class="movable-point-halo"
+                          cx="0"
+                          cy="0"
                         />
-                        <g
-                          aria-hidden="true"
-                          class="movable-point"
-                          data-testid="movable-point"
-                          style="--movable-point-color: var(--mafs-blue);"
-                        >
-                          <circle
-                            class="movable-point-hitbox"
-                            cx="-125"
-                            cy="0"
-                            r="24"
-                          />
-                          <circle
-                            class="movable-point-halo"
-                            cx="-125"
-                            cy="0"
-                          />
-                          <circle
-                            class="movable-point-ring"
-                            cx="-125"
-                            cy="0"
-                          />
-                          <circle
-                            class="movable-point-focus-outline"
-                            cx="-125"
-                            cy="0"
-                          />
-                          <circle
-                            class="movable-point-center"
-                            cx="-125"
-                            cy="0"
-                            data-testid="movable-point__center"
-                            style="fill: var(--mafs-blue);"
-                          />
-                        </g>
-                        <g
-                          aria-disabled="false"
-                          aria-label="Point 3 at -1 comma 0."
-                          aria-live="polite"
-                          class="movable-point__focusable-handle"
-                          data-testid="movable-point__focusable-handle"
-                          role="button"
-                          tabindex="0"
+                        <circle
+                          class="movable-point-ring"
+                          cx="0"
+                          cy="0"
                         />
-                        <g
-                          aria-hidden="true"
-                          class="movable-point"
-                          data-testid="movable-point"
-                          style="--movable-point-color: var(--mafs-blue);"
-                        >
-                          <circle
-                            class="movable-point-hitbox"
-                            cx="-50"
-                            cy="0"
-                            r="24"
-                          />
-                          <circle
-                            class="movable-point-halo"
-                            cx="-50"
-                            cy="0"
-                          />
-                          <circle
-                            class="movable-point-ring"
-                            cx="-50"
-                            cy="0"
-                          />
-                          <circle
-                            class="movable-point-focus-outline"
-                            cx="-50"
-                            cy="0"
-                          />
-                          <circle
-                            class="movable-point-center"
-                            cx="-50"
-                            cy="0"
-                            data-testid="movable-point__center"
-                            style="fill: var(--mafs-blue);"
-                          />
-                        </g>
-                      </svg>
+                        <circle
+                          class="movable-point-focus-outline"
+                          cx="0"
+                          cy="0"
+                        />
+                        <circle
+                          class="movable-point-center"
+                          cx="0"
+                          cy="0"
+                          data-testid="movable-point__center"
+                          style="fill: var(--mafs-blue);"
+                        />
+                      </g>
+                      <g
+                        aria-disabled="false"
+                        aria-label="Point 2 at -2.5 comma 0."
+                        aria-live="polite"
+                        class="movable-point__focusable-handle"
+                        data-testid="movable-point__focusable-handle"
+                        role="button"
+                        tabindex="0"
+                      />
+                      <g
+                        aria-hidden="true"
+                        class="movable-point"
+                        data-testid="movable-point"
+                        style="--movable-point-color: var(--mafs-blue);"
+                      >
+                        <circle
+                          class="movable-point-hitbox"
+                          cx="-125"
+                          cy="0"
+                          r="24"
+                        />
+                        <circle
+                          class="movable-point-halo"
+                          cx="-125"
+                          cy="0"
+                        />
+                        <circle
+                          class="movable-point-ring"
+                          cx="-125"
+                          cy="0"
+                        />
+                        <circle
+                          class="movable-point-focus-outline"
+                          cx="-125"
+                          cy="0"
+                        />
+                        <circle
+                          class="movable-point-center"
+                          cx="-125"
+                          cy="0"
+                          data-testid="movable-point__center"
+                          style="fill: var(--mafs-blue);"
+                        />
+                      </g>
+                      <g
+                        aria-disabled="false"
+                        aria-label="Point 3 at -1 comma 0."
+                        aria-live="polite"
+                        class="movable-point__focusable-handle"
+                        data-testid="movable-point__focusable-handle"
+                        role="button"
+                        tabindex="0"
+                      />
+                      <g
+                        aria-hidden="true"
+                        class="movable-point"
+                        data-testid="movable-point"
+                        style="--movable-point-color: var(--mafs-blue);"
+                      >
+                        <circle
+                          class="movable-point-hitbox"
+                          cx="-50"
+                          cy="0"
+                          r="24"
+                        />
+                        <circle
+                          class="movable-point-halo"
+                          cx="-50"
+                          cy="0"
+                        />
+                        <circle
+                          class="movable-point-ring"
+                          cx="-50"
+                          cy="0"
+                        />
+                        <circle
+                          class="movable-point-focus-outline"
+                          cx="-50"
+                          cy="0"
+                        />
+                        <circle
+                          class="movable-point-center"
+                          cx="-50"
+                          cy="0"
+                          data-testid="movable-point__center"
+                          style="fill: var(--mafs-blue);"
+                        />
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -3847,334 +3767,324 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       viewBox="-200 -266.6666666667 400 400"
                       width="400"
                     >
-                      <svg
-                        height="400"
-                        preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
-                        viewBox="-200 -266.66666666666663 400 400"
-                        width="400"
-                        x="-200"
-                        y="-266.66666666666663"
+                      <g
+                        aria-describedby=":ru:-points-num :ru:-points"
+                        aria-label="A polygon."
                       >
-                        <g
-                          aria-describedby=":ru:-points-num :ru:-points"
-                          aria-label="A polygon."
-                        >
-                          <polygon
-                            aria-hidden="true"
-                            fill-opacity="0.15"
-                            points="-5 0 4 15 4 0 1 3"
-                            stroke-linejoin="round"
-                            stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
-                          />
-                          <polygon
+                        <polygon
+                          aria-hidden="true"
+                          fill-opacity="0.15"
+                          points="-5 0 4 15 4 0 1 3"
+                          stroke-linejoin="round"
+                          stroke-width="var(--movable-line-stroke-weight)"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                        />
+                        <polygon
+                          aria-disabled="false"
+                          aria-label="A polygon with 4 points."
+                          aria-live="off"
+                          class="movable-polygon"
+                          fill-opacity="0.15"
+                          points="-5 0 4 15 4 0 1 3"
+                          role="button"
+                          stroke-linejoin="round"
+                          stroke-width="44"
+                          style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
+                          tabindex="0"
+                        />
+                        <g>
+                          <g
+                            aria-describedby=":ru:-angle-0 :ru:-point-0-side-1 :ru:-point-0-side-2"
                             aria-disabled="false"
-                            aria-label="A polygon with 4 points."
+                            aria-label="Point 1 at -5 comma 0."
                             aria-live="off"
-                            class="movable-polygon"
-                            fill-opacity="0.15"
-                            points="-5 0 4 15 4 0 1 3"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
                             role="button"
-                            stroke-linejoin="round"
-                            stroke-width="44"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: transparent; stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform); cursor: grab;"
                             tabindex="0"
                           />
-                          <g>
-                            <g
-                              aria-describedby=":ru:-angle-0 :ru:-point-0-side-1 :ru:-point-0-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 1 at -5 comma 0."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="-83.33333333333334"
+                              cy="0"
+                              r="24"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="-83.33333333333334"
-                                cy="0"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="-83.33333333333334"
-                                cy="0"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="-83.33333333333334"
-                                cy="0"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="-83.33333333333334"
-                                cy="0"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="-83.33333333333334"
-                                cy="0"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-angle-0"
-                              >
-                                Angle approximately equal to 32.5 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-point-0-side-1"
-                              >
-                                A line segment, length approximately equal to 6.7 units, connects to point 4.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-point-0-side-2"
-                              >
-                                A line segment, length approximately equal to 17.5 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":ru:-angle-1 :ru:-point-1-side-1 :ru:-point-1-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 2 at 4 comma 15."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-halo"
+                              cx="-83.33333333333334"
+                              cy="0"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="66.66666666666667"
-                                cy="-250.00000000000003"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="66.66666666666667"
-                                cy="-250.00000000000003"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="66.66666666666667"
-                                cy="-250.00000000000003"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="66.66666666666667"
-                                cy="-250.00000000000003"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="66.66666666666667"
-                                cy="-250.00000000000003"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-angle-1"
-                              >
-                                Angle approximately equal to 31 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-point-1-side-1"
-                              >
-                                A line segment, length approximately equal to 17.5 units, connects to point 1.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-point-1-side-2"
-                              >
-                                A line segment, length equal to 15 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":ru:-angle-2 :ru:-point-2-side-1 :ru:-point-2-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 3 at 4 comma 0."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-ring"
+                              cx="-83.33333333333334"
+                              cy="0"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="66.66666666666667"
-                                cy="0"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="66.66666666666667"
-                                cy="0"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="66.66666666666667"
-                                cy="0"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="66.66666666666667"
-                                cy="0"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="66.66666666666667"
-                                cy="0"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-angle-2"
-                              >
-                                Angle equal to 45 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-point-2-side-1"
-                              >
-                                A line segment, length equal to 15 units, connects to point 2.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-point-2-side-2"
-                              >
-                                A line segment, length approximately equal to 4.2 units, connects to point 4.
-                              </span>
-                            </foreignobject>
-                          </g>
-                          <g>
-                            <g
-                              aria-describedby=":ru:-angle-3 :ru:-point-3-side-1 :ru:-point-3-side-2"
-                              aria-disabled="false"
-                              aria-label="Point 4 at 1 comma 3."
-                              aria-live="off"
-                              class="movable-point__focusable-handle"
-                              data-testid="movable-point__focusable-handle"
-                              role="button"
-                              tabindex="0"
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="-83.33333333333334"
+                              cy="0"
                             />
-                            <g
-                              aria-hidden="true"
-                              class="movable-point"
-                              data-testid="movable-point"
-                              style="--movable-point-color: var(--mafs-blue);"
-                            >
-                              <circle
-                                class="movable-point-hitbox"
-                                cx="16.666666666666668"
-                                cy="-50"
-                                r="24"
-                              />
-                              <circle
-                                class="movable-point-halo"
-                                cx="16.666666666666668"
-                                cy="-50"
-                              />
-                              <circle
-                                class="movable-point-ring"
-                                cx="16.666666666666668"
-                                cy="-50"
-                              />
-                              <circle
-                                class="movable-point-focus-outline"
-                                cx="16.666666666666668"
-                                cy="-50"
-                              />
-                              <circle
-                                class="movable-point-center"
-                                cx="16.666666666666668"
-                                cy="-50"
-                                data-testid="movable-point__center"
-                                style="fill: var(--mafs-blue);"
-                              />
-                            </g>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-angle-3"
-                              >
-                                Angle approximately equal to 108.4 degrees.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-point-3-side-1"
-                              >
-                                A line segment, length approximately equal to 4.2 units, connects to point 3.
-                              </span>
-                            </foreignobject>
-                            <foreignobject>
-                              <span
-                                aria-hidden="true"
-                                id=":ru:-point-3-side-2"
-                              >
-                                A line segment, length approximately equal to 6.7 units, connects to point 1.
-                              </span>
-                            </foreignobject>
+                            <circle
+                              class="movable-point-center"
+                              cx="-83.33333333333334"
+                              cy="0"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
                           </g>
                           <foreignobject>
                             <span
                               aria-hidden="true"
-                              id=":ru:-points-num"
+                              id=":ru:-angle-0"
                             >
-                              The polygon has 4 points.
+                              Angle approximately equal to 32.5 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-point-0-side-1"
+                            >
+                              A line segment, length approximately equal to 6.7 units, connects to point 4.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-point-0-side-2"
+                            >
+                              A line segment, length approximately equal to 17.5 units, connects to point 2.
                             </span>
                           </foreignobject>
                         </g>
-                      </svg>
+                        <g>
+                          <g
+                            aria-describedby=":ru:-angle-1 :ru:-point-1-side-1 :ru:-point-1-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 2 at 4 comma 15."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="66.66666666666667"
+                              cy="-250.00000000000003"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="66.66666666666667"
+                              cy="-250.00000000000003"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="66.66666666666667"
+                              cy="-250.00000000000003"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="66.66666666666667"
+                              cy="-250.00000000000003"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="66.66666666666667"
+                              cy="-250.00000000000003"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-angle-1"
+                            >
+                              Angle approximately equal to 31 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-point-1-side-1"
+                            >
+                              A line segment, length approximately equal to 17.5 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-point-1-side-2"
+                            >
+                              A line segment, length equal to 15 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <g>
+                          <g
+                            aria-describedby=":ru:-angle-2 :ru:-point-2-side-1 :ru:-point-2-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 3 at 4 comma 0."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="66.66666666666667"
+                              cy="0"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="66.66666666666667"
+                              cy="0"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="66.66666666666667"
+                              cy="0"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="66.66666666666667"
+                              cy="0"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="66.66666666666667"
+                              cy="0"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-angle-2"
+                            >
+                              Angle equal to 45 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-point-2-side-1"
+                            >
+                              A line segment, length equal to 15 units, connects to point 2.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-point-2-side-2"
+                            >
+                              A line segment, length approximately equal to 4.2 units, connects to point 4.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <g>
+                          <g
+                            aria-describedby=":ru:-angle-3 :ru:-point-3-side-1 :ru:-point-3-side-2"
+                            aria-disabled="false"
+                            aria-label="Point 4 at 1 comma 3."
+                            aria-live="off"
+                            class="movable-point__focusable-handle"
+                            data-testid="movable-point__focusable-handle"
+                            role="button"
+                            tabindex="0"
+                          />
+                          <g
+                            aria-hidden="true"
+                            class="movable-point"
+                            data-testid="movable-point"
+                            style="--movable-point-color: var(--mafs-blue);"
+                          >
+                            <circle
+                              class="movable-point-hitbox"
+                              cx="16.666666666666668"
+                              cy="-50"
+                              r="24"
+                            />
+                            <circle
+                              class="movable-point-halo"
+                              cx="16.666666666666668"
+                              cy="-50"
+                            />
+                            <circle
+                              class="movable-point-ring"
+                              cx="16.666666666666668"
+                              cy="-50"
+                            />
+                            <circle
+                              class="movable-point-focus-outline"
+                              cx="16.666666666666668"
+                              cy="-50"
+                            />
+                            <circle
+                              class="movable-point-center"
+                              cx="16.666666666666668"
+                              cy="-50"
+                              data-testid="movable-point__center"
+                              style="fill: var(--mafs-blue);"
+                            />
+                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-angle-3"
+                            >
+                              Angle approximately equal to 108.4 degrees.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-point-3-side-1"
+                            >
+                              A line segment, length approximately equal to 4.2 units, connects to point 3.
+                            </span>
+                          </foreignobject>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":ru:-point-3-side-2"
+                            >
+                              A line segment, length approximately equal to 6.7 units, connects to point 1.
+                            </span>
+                          </foreignobject>
+                        </g>
+                        <foreignobject>
+                          <span
+                            aria-hidden="true"
+                            id=":ru:-points-num"
+                          >
+                            The polygon has 4 points.
+                          </span>
+                        </foreignobject>
+                      </g>
                     </svg>
                   </div>
                 </div>
