@@ -376,22 +376,13 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 width={width}
                                 height={height}
                             >
-                                {/* Protractor — clipped to the graph
-                                    bounds so the half-circle image
-                                    doesn't visibly extend past the
-                                    edge when the protractor is
-                                    dragged near it. */}
+                                {/* Protractor clipped to graph bounds */}
                                 {props.showProtractor && (
                                     <GraphBoundsSvg>
                                         <Protractor />
                                     </GraphBoundsSvg>
                                 )}
-                                {/* Interactive layer. Curve-bearing
-                                    graph types wrap their plotted
-                                    curves in <GraphBoundsSvg> so the
-                                    curves clip at the graph edge while
-                                    point handles remain unclipped and
-                                    can sit on the boundary. */}
+                                {/* Interactive layer.*/}
                                 {graph}
                             </Mafs>
                         </View>
