@@ -119,8 +119,10 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                     <MovableLine
                         key={i}
                         points={segment}
-                        onMoveLine={(delta: vec.Vector2) => {
-                            dispatch(actions.segment.moveLine(i, delta));
+                        onMoveLine={(newStart, newEnd) => {
+                            dispatch(
+                                actions.segment.moveLine(i, newStart, newEnd),
+                            );
                         }}
                         onMovePoint={(
                             endpointIndex: number,
