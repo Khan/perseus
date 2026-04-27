@@ -48,7 +48,7 @@ export const LongDescriptionClickedState: Story = {
     },
     play: async ({canvas, userEvent}) => {
         const imageTrigger = canvas.getByRole("button", {
-            name: "Explore image",
+            name: "Explore image and description",
         });
         await userEvent.click(imageTrigger);
     },
@@ -65,7 +65,7 @@ export const LongDescriptionClickedStateWithGraphieImage: Story = {
     },
     play: async ({canvas, userEvent}) => {
         const imageTrigger = canvas.getByRole("button", {
-            name: "Explore image",
+            name: "Explore image and description",
         });
         await userEvent.click(imageTrigger);
     },
@@ -83,7 +83,7 @@ export const LongDescriptionClickedStateWithNoSize: Story = {
     },
     play: async ({canvas, userEvent}) => {
         const imageTrigger = canvas.getByRole("button", {
-            name: "Explore image",
+            name: "Explore image and description",
         });
         await userEvent.click(imageTrigger);
     },
@@ -102,7 +102,7 @@ export const LongDescriptionClickedStateWithNoSizeLargeImage: Story = {
     },
     play: async ({canvas, userEvent}) => {
         const imageTrigger = canvas.getByRole("button", {
-            name: "Explore image",
+            name: "Explore image and description",
         });
         await userEvent.click(imageTrigger);
     },
@@ -117,7 +117,7 @@ export const LongDescriptionClickedStateWithNoSizeLargeSvgImage: Story = {
     },
     play: async ({canvas, userEvent}) => {
         const imageTrigger = canvas.getByRole("button", {
-            name: "Explore image",
+            name: "Explore image and description",
         });
         await userEvent.click(imageTrigger);
     },

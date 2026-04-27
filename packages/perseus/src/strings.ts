@@ -597,6 +597,7 @@ export type PerseusStrings = {
         point2Y: string;
     }) => string;
     imageExploreButton: string;
+    imageExploreButtonAriaLabel: string;
     imageAlternativeTitle: string;
     imageDescriptionLabel: string;
     imageZoomAriaLabel: string;
@@ -1320,6 +1321,7 @@ export const strings = {
             "Tangent graph with inflection point at %(point1X)s comma %(point1Y)s and control point at %(point2X)s comma %(point2Y)s.",
     },
     imageExploreButton: "Explore image",
+    imageExploreButtonAriaLabel: "Explore image and description",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
     imageZoomAriaLabel: "Make image bigger.",
@@ -1717,6 +1719,7 @@ export const mockStrings: PerseusStrings = {
     srTangentInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Tangent graph with inflection point at ${point1X} comma ${point1Y} and control point at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",
+    imageExploreButtonAriaLabel: "Explore image and description",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
     imageZoomAriaLabel: "Make image bigger.",
