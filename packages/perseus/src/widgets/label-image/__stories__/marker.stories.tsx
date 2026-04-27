@@ -2,8 +2,6 @@ import * as React from "react";
 
 import Marker from "../marker";
 
-import styles from "./marker.module.css";
-
 type StoryArgs = Record<any, any>;
 
 type Story = {
@@ -16,7 +14,7 @@ export default {
 } as Story;
 
 const Wrapper = (props) => (
-    <div className={styles.wrapper}>
+    <div style={{position: "relative", height: "32px", width: "32px"}}>
         <Marker {...props} />
     </div>
 );
