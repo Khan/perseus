@@ -89,7 +89,7 @@ describe("usePreviewPresenter", () => {
                         type: "request-data",
                         id: "test-iframe-id",
                     },
-                    "*",
+                    "/",
                 );
             });
         });
@@ -417,7 +417,7 @@ describe("usePreviewPresenter", () => {
                     id: "test-iframe-id",
                     height: 500,
                 },
-                "*",
+                "/",
             );
         });
 
@@ -501,7 +501,7 @@ describe("usePreviewPresenter", () => {
                     id: "test-iframe-id",
                     lintWarnings,
                 },
-                "*",
+                "/",
             );
         });
 
@@ -519,7 +519,7 @@ describe("usePreviewPresenter", () => {
                     id: "test-iframe-id",
                     lintWarnings: [],
                 },
-                "*",
+                "/",
             );
         });
 
@@ -712,7 +712,7 @@ describe("usePreviewPresenter", () => {
                     expect.objectContaining({
                         type: "request-data",
                     }),
-                    "*",
+                    "/",
                 );
             });
 
@@ -763,7 +763,7 @@ describe("usePreviewPresenter", () => {
                     type: "height-update",
                     height: 350,
                 }),
-                "*",
+                "/",
             );
         });
 

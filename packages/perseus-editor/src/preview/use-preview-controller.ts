@@ -89,7 +89,7 @@ export function usePreviewController(
                                 id: iframeIdRef.current,
                                 content: sanitizedData,
                             };
-                            contentWindow.postMessage(msg, "*");
+                            contentWindow.postMessage(msg, "/");
                         }
                         // Clear the pending data
                         pendingDataRef.current = null;
@@ -144,7 +144,7 @@ export function usePreviewController(
                 content: sanitizedData,
             };
 
-            contentWindow.postMessage(message, "*");
+            contentWindow.postMessage(message, "/");
         },
         // iframeRef is intentionally excluded - it's a stable ref that shouldn't trigger re-runs
         // eslint-disable-next-line react-hooks/exhaustive-deps

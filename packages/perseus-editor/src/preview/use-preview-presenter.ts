@@ -124,7 +124,7 @@ export function usePreviewPresenter(): UsePreviewClientResult {
                 type: "request-data",
                 id: iframeId,
             };
-            window.parent.postMessage(requestMessage, "*");
+            window.parent.postMessage(requestMessage, "/");
         }
 
         return () => {
@@ -145,7 +145,7 @@ export function usePreviewPresenter(): UsePreviewClientResult {
                 id: iframeId,
                 height,
             };
-            window.parent.postMessage(message, "*");
+            window.parent.postMessage(message, "/");
         },
         [iframeId],
     );
@@ -163,7 +163,7 @@ export function usePreviewPresenter(): UsePreviewClientResult {
                 id: iframeId,
                 lintWarnings,
             };
-            window.parent.postMessage(message, "*");
+            window.parent.postMessage(message, "/");
         },
         [iframeId],
     );

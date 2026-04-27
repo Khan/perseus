@@ -126,7 +126,7 @@ describe("usePreviewController", () => {
                         }),
                     }),
                 }),
-                "*",
+                "/",
             );
         });
 
@@ -164,7 +164,7 @@ describe("usePreviewController", () => {
                         type: "question",
                     }),
                 }),
-                "*",
+                "/",
             );
         });
 
@@ -277,7 +277,7 @@ describe("usePreviewController", () => {
                         type: "question",
                     }),
                 }),
-                "*",
+                "/",
             );
         });
 
@@ -307,7 +307,7 @@ describe("usePreviewController", () => {
                 expect.objectContaining({
                     id: "stored-iframe-id",
                 }),
-                "*",
+                "/",
             );
         });
 
