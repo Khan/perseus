@@ -77,8 +77,7 @@ export function usePreviewController(
 
                     // Send the pending message (if any)
                     if (pendingDataRef.current) {
-                        const iframe = iframeRef.current;
-                        const contentWindow = iframe?.contentWindow;
+                        const contentWindow = iframeRef.current?.contentWindow;
                         if (contentWindow && iframeIdRef.current) {
                             const sanitizedData = sanitizePreviewData(
                                 pendingDataRef.current,
