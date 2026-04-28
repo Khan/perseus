@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe, react/sort-comp */
+/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe, react/sort-comp, max-lines*/
 import {angles, coefficients, geometry} from "@khanacademy/kmath";
 import {
     approximateEqual,
