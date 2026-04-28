@@ -148,14 +148,6 @@ export const ZoomClickedWithGraphieImage: Story = {
             name: "Make image bigger.",
         });
         await userEvent.click(zoomTrigger);
-        // After clicking zoom, the modal's new Graphie instance calls
-        // setLabelMargins inside an async callback that awaits
-        // document.fonts.ready (see graphie.ts). We also await it here so
-        // that the play function does not return — and Chromatic does not
-        // take its screenshot — until that callback has completed.
-        // Promise continuation ordering guarantees the callback's
-        // document.fonts.ready continuation runs before this one.
-        await document.fonts.ready;
     },
 };
 
