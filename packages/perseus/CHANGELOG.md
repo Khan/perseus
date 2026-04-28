@@ -1,5 +1,44 @@
 # @khanacademy/perseus
 
+## 77.3.0
+
+### Minor Changes
+
+-   [#3441](https://github.com/Khan/perseus/pull/3441) [`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Vector graph and subcomponents.
+
+*   [#3433](https://github.com/Khan/perseus/pull/3433) [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of initial types and stubs for Vector graph
+
+-   [#3494](https://github.com/Khan/perseus/pull/3494) [`8fb79829d0`](https://github.com/Khan/perseus/commit/8fb79829d0a48c9840cb7baf4e7847bade3d158d) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: change asymptote line to dashed for both exponential and logarithm based on user feedback
+
+### Patch Changes
+
+-   [#3523](https://github.com/Khan/perseus/pull/3523) [`c89cdbe2aa`](https://github.com/Khan/perseus/commit/c89cdbe2aacadc20e4b5fb982ff42b113f1f08f4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure the default coords for Exponential and Logarithm are slightly further away from the asymptote.
+
+*   [#3508](https://github.com/Khan/perseus/pull/3508) [`16f7f77ba1`](https://github.com/Khan/perseus/commit/16f7f77ba151b660ccf9ea32a30d936323f408f5) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Give explore modal launcher a label saying it has description
+
+-   [#3496](https://github.com/Khan/perseus/pull/3496) [`4d923417cd`](https://github.com/Khan/perseus/commit/4d923417cdf60113e3dbd057361e3e9c8c1747a6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add fallback label to Numeric Inputs and a linter warning for missing labels in the editor.
+
+*   [#3511](https://github.com/Khan/perseus/pull/3511) [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused `static` field from PerseusCSProgramWidgetOptions. Callers should update test data that constructs `PerseusCSProgramWidgetOptions` to remove the static field.
+
+-   [#3504](https://github.com/Khan/perseus/pull/3504) [`b8178b52e7`](https://github.com/Khan/perseus/commit/b8178b52e7e9e237c12f58c48cbd1df32ce86bf9) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add aria-describedby to Explore Image modal
+
+*   [#3488](https://github.com/Khan/perseus/pull/3488) [`3abc5e8277`](https://github.com/Khan/perseus/commit/3abc5e827796c267065b606b6d219d6ca90b74ea) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Free Response] Add visual regression tests
+
+-   [#3493](https://github.com/Khan/perseus/pull/3493) [`11742c2cff`](https://github.com/Khan/perseus/commit/11742c2cff5ffd30ca4bb2676ddbe9fff6c9178e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementing bug fix for jumping MovableLines in the Correct Answer graph in the editor
+
+*   [#3483](https://github.com/Khan/perseus/pull/3483) [`7794943ec7`](https://github.com/Khan/perseus/commit/7794943ec7e4dc450ed57021d26f052a38d7c617) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync] Numeric Input - update visual regression tests
+
+-   [#3434](https://github.com/Khan/perseus/pull/3434) [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of state management logic for new Vector graph
+
+-   Updated dependencies [[`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae), [`4d923417cd`](https://github.com/Khan/perseus/commit/4d923417cdf60113e3dbd057361e3e9c8c1747a6), [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6), [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d), [`d3ef4dbcc2`](https://github.com/Khan/perseus/commit/d3ef4dbcc2a281c148170a2ab7ab53521e796ed6), [`a5b9105c28`](https://github.com/Khan/perseus/commit/a5b9105c288f29181b4ca82eb9f8495f757a9088), [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c)]:
+    -   @khanacademy/perseus-core@25.0.0
+    -   @khanacademy/perseus-linter@4.9.5
+    -   @khanacademy/perseus-score@8.7.0
+    -   @khanacademy/kas@2.2.2
+    -   @khanacademy/keypad-context@3.2.44
+    -   @khanacademy/kmath@2.4.2
+    -   @khanacademy/math-input@26.4.15
+
 ## 77.2.2
 
 ### Patch Changes
