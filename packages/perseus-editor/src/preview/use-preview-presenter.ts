@@ -11,11 +11,6 @@ import type {
 
 type UsePreviewPresenterResult = {
     /**
-     * The iframe's unique identifier (from data-id attribute). Use for
-     * debugging/logging, but not for message routing.
-     */
-    id: string | null;
-    /**
      * The preview content data received from the parent, or null if not yet loaded
      */
     data: PreviewContent | null;
@@ -64,34 +59,11 @@ type UsePreviewPresenterResult = {
  */
 export function usePreviewPresenter(): UsePreviewPresenterResult {
     const [data, setData] = React.useState<PreviewContent | null>(null);
-    const [iframeId, setIframeId] = React.useState<string | null>(null);
-    const [isMobile, setIsMobile] = React.useState(false);
-    const [hasLintGutter, setHasLintGutter] = React.useState(false);
 
-    // Read iframe configuration from dataset attributes
-    React.useEffect(() => {
-        const iframe = window.frameElement as HTMLIFrameElement | null;
-        if (iframe == null) {
-            throw new Error(
-                "usePreviewPresenter must be used within an iframe",
-            );
-        }
-
-        // ID is used for debugging/logging, not message routing
-        const id = iframe.dataset.id;
-        const mobile = iframe.dataset.mobile === "true";
-        const lintGutter = iframe.dataset.lintGutter === "true";
-
-        if (id == null) {
-            throw new Error(
-                "usePreviewPresenter could not identify its id from the hosting iframe",
-            );
-        }
-
-        setIframeId(id);
-        setIsMobile(mobile);
-        setHasLintGutter(lintGutter);
-    }, []);
+    const iframe = window.frameElement as HTMLIFrameElement | null;
+    if (iframe == null) {
+        throw new Error("usePreviewPresenter must be used within an iframe");
+    }
 
     // Listen for data from parent
     React.useEffect(() => {
@@ -109,8 +81,7 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
             }
 
             // Handle content data
-            // Note: ID check is for extra validation/debugging; actual routing is by event.source
-            if (message.type === "content-data" && message.id === iframeId) {
+            if (message.type === "content-data") {
                 setData(message.content);
             }
         };
@@ -118,43 +89,35 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
         window.addEventListener("message", handleMessage);
 
         // Request initial data if we have an ID
-        if (iframeId && window.parent != null) {
-            const requestMessage: IframeToParentMessage = {
-                source: PREVIEW_MESSAGE_SOURCE,
-                type: "request-data",
-                id: iframeId,
-            };
-            window.parent.postMessage(requestMessage, "/");
-        }
+        const requestMessage: IframeToParentMessage = {
+            source: PREVIEW_MESSAGE_SOURCE,
+            type: "request-data",
+        };
+        window.parent.postMessage(requestMessage, "/");
 
         return () => {
             window.removeEventListener("message", handleMessage);
         };
-    }, [iframeId]);
+    }, []);
 
     // Memoized callback to report height
-    const reportHeight = React.useCallback(
-        (height: number) => {
-            if (!iframeId || window.parent == null) {
-                return;
-            }
+    const reportHeight = React.useCallback((height: number) => {
+        if (window.parent == null) {
+            return;
+        }
 
-            const message: IframeToParentMessage = {
-                source: PREVIEW_MESSAGE_SOURCE,
-                type: "height-update",
-                id: iframeId,
-                height,
-            };
-            window.parent.postMessage(message, "/");
-        },
-        [iframeId],
-    );
+        const message: IframeToParentMessage = {
+            source: PREVIEW_MESSAGE_SOURCE,
+            type: "height-update",
+            height,
+        };
+        window.parent.postMessage(message, "/");
+    }, []);
 
     return {
         data,
-        isMobile,
-        hasLintGutter,
-        id: iframeId,
+        isMobile: iframe.dataset.mobile === "true",
+        hasLintGutter: iframe.dataset.lintGutter === "true",
         reportHeight,
     };
 }

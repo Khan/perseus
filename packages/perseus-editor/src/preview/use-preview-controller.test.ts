@@ -1,4 +1,3 @@
-import {Log} from "@khanacademy/perseus";
 import {renderHook, act, waitFor} from "@testing-library/react";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
@@ -102,7 +101,6 @@ describe("usePreviewController", () => {
             const requestMessage: IframeToParentMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "request-data",
-                id: "test-iframe",
             };
 
             act(() => {
@@ -137,7 +135,6 @@ describe("usePreviewController", () => {
             const requestMessage: IframeToParentMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "request-data",
-                id: "test-iframe",
             };
 
             act(() => {
@@ -159,7 +156,6 @@ describe("usePreviewController", () => {
                 expect.objectContaining({
                     source: PREVIEW_MESSAGE_SOURCE,
                     type: "content-data",
-                    id: "test-iframe",
                     content: expect.objectContaining({
                         type: "question",
                     }),
@@ -178,7 +174,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "request-data",
-                            id: "test-iframe",
                         },
                         source: mockContentWindow,
                     }),
@@ -257,7 +252,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "request-data",
-                            id: "test-iframe",
                         },
                         source: mockContentWindow,
                     }),
@@ -272,40 +266,9 @@ describe("usePreviewController", () => {
                 expect.objectContaining({
                     source: PREVIEW_MESSAGE_SOURCE,
                     type: "content-data",
-                    id: "test-iframe",
                     content: expect.objectContaining({
                         type: "question",
                     }),
-                }),
-                "/",
-            );
-        });
-
-        it("stores iframe ID from request-data message", () => {
-            const {result} = renderHook(() => usePreviewController(iframeRef));
-
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "request-data",
-                            id: "stored-iframe-id",
-                        },
-                        source: mockContentWindow,
-                    }),
-                );
-            });
-
-            // Subsequent sendData should use stored ID
-            const previewData = createQuestionPreview();
-            act(() => {
-                result.current.sendData(previewData);
-            });
-
-            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    id: "stored-iframe-id",
                 }),
                 "/",
             );
@@ -327,7 +290,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "request-data",
-                            id: "test-iframe",
                         },
                         source: mockContentWindow,
                     }),
@@ -345,7 +307,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "request-data",
-                            id: "test-iframe-2",
                         },
                         source: mockContentWindow,
                     }),
@@ -365,7 +326,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "request-data",
-                            id: "test-iframe",
                         },
                         source: mockContentWindow,
                     }),
@@ -388,7 +348,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "height-update",
-                            id: "test-iframe",
                             height: 500,
                         },
                         source: mockContentWindow,
@@ -408,7 +367,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "height-update",
-                            id: "test-iframe",
                             height: 300,
                         },
                         source: mockContentWindow,
@@ -424,7 +382,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "height-update",
-                            id: "test-iframe",
                             height: 600,
                         },
                         source: mockContentWindow,
@@ -448,7 +405,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "height-update",
-                            id: "test-iframe",
                             height: 999,
                         },
                         source: differentWindow,
@@ -469,7 +425,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: "wrong-source",
                             type: "height-update",
-                            id: "test-iframe",
                             height: 999,
                         },
                         source: mockContentWindow,
@@ -510,7 +465,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "height-update",
-                            id: "test-iframe",
                             height: 999,
                         },
                         source: mockContentWindow,
@@ -534,7 +488,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "request-data",
-                            id: "lifecycle-test",
                         },
                         source: mockContentWindow,
                     }),
@@ -558,7 +511,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "height-update",
-                            id: "lifecycle-test",
                             height: 450,
                         },
                         source: mockContentWindow,
@@ -579,7 +531,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "request-data",
-                            id: "multi-update",
                         },
                         source: mockContentWindow,
                     }),
@@ -630,7 +581,6 @@ describe("usePreviewController", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "request-data",
-                            id: "article-all-test",
                         },
                         source: mockContentWindow,
                     }),

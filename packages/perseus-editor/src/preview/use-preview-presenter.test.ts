@@ -22,7 +22,6 @@ describe("usePreviewPresenter", () => {
         // Mock iframe element with dataset
         mockIframeElement = {
             dataset: {
-                id: "test-iframe-id",
                 mobile: "false",
                 lintGutter: "false",
             },
@@ -60,21 +59,18 @@ describe("usePreviewPresenter", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
             expect(result.current.data).toBeNull();
-            expect(result.current.id).toBe("test-iframe-id");
             expect(result.current.isMobile).toBe(false);
             expect(result.current.hasLintGutter).toBe(false);
         });
 
         it("reads iframe configuration from dataset", () => {
             mockIframeElement.dataset = {
-                id: "custom-id",
                 mobile: "true",
                 lintGutter: "true",
             };
 
             const {result} = renderHook(() => usePreviewPresenter());
 
-            expect(result.current.id).toBe("custom-id");
             expect(result.current.isMobile).toBe(true);
             expect(result.current.hasLintGutter).toBe(true);
         });
@@ -87,7 +83,6 @@ describe("usePreviewPresenter", () => {
                     {
                         source: PREVIEW_MESSAGE_SOURCE,
                         type: "request-data",
-                        id: "test-iframe-id",
                     },
                     "/",
                 );
@@ -103,16 +98,6 @@ describe("usePreviewPresenter", () => {
             expect(() => {
                 renderHook(() => usePreviewPresenter());
             }).toThrow("usePreviewPresenter must be used within an iframe");
-        });
-
-        it("throws error when missing iframe id", () => {
-            mockIframeElement.dataset = {};
-
-            expect(() => {
-                renderHook(() => usePreviewPresenter());
-            }).toThrow(
-                "usePreviewPresenter could not identify its id from the hosting iframe",
-            );
         });
 
         it("sets up message event listener", () => {
@@ -149,7 +134,6 @@ describe("usePreviewPresenter", () => {
         ): ParentToIframeMessage => ({
             source: PREVIEW_MESSAGE_SOURCE,
             type: "content-data",
-            id: "test-iframe-id",
             content,
         });
 
@@ -310,13 +294,16 @@ describe("usePreviewPresenter", () => {
             expect(result.current.data).toEqual(articleAllContent);
         });
 
-        it("ignores content-data with mismatched iframe ID", () => {
+        it("ignores content-data from non-parent source", () => {
             const {result} = renderHook(() => usePreviewPresenter());
+
+            const mockOtherWindow = {
+                postMessage: jest.fn(),
+            } as unknown as Window;
 
             const message: ParentToIframeMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
-                id: "different-iframe-id",
                 content: {
                     type: "question",
                     data: {} as any,
@@ -327,7 +314,7 @@ describe("usePreviewPresenter", () => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
                         data: message,
-                        source: mockParentWindow,
+                        source: mockOtherWindow,
                     }),
                 );
             });
@@ -414,7 +401,7 @@ describe("usePreviewPresenter", () => {
                 {
                     source: PREVIEW_MESSAGE_SOURCE,
                     type: "height-update",
-                    id: "test-iframe-id",
+
                     height: 500,
                 },
                 "/",
@@ -441,33 +428,15 @@ describe("usePreviewPresenter", () => {
             expect(calls[1][0]).toEqual({
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "height-update",
-                id: "test-iframe-id",
+
                 height: 300,
             });
             expect(calls[2][0]).toEqual({
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "height-update",
-                id: "test-iframe-id",
+
                 height: 600,
             });
-        });
-
-        it("does not send if parent window is null", () => {
-            Object.defineProperty(window, "parent", {
-                configurable: true,
-                value: null,
-            });
-
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            // Clear previous calls
-            jest.clearAllMocks();
-
-            act(() => {
-                result.current.reportHeight(400);
-            });
-
-            expect(mockParentWindow.postMessage).not.toHaveBeenCalled();
         });
 
         it("reportHeight function reference remains stable", () => {
@@ -490,7 +459,7 @@ describe("usePreviewPresenter", () => {
             const message: ParentToIframeMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
-                id: "test-iframe-id",
+
                 content: {
                     type: "question",
                     data: {} as any,
@@ -519,7 +488,7 @@ describe("usePreviewPresenter", () => {
                         data: {
                             source: "wrong-source",
                             type: "content-data",
-                            id: "test-iframe-id",
+
                             content: {},
                         },
                         source: mockParentWindow,
@@ -626,7 +595,6 @@ describe("usePreviewPresenter", () => {
 
             const {result} = renderHook(() => usePreviewPresenter());
 
-            expect(result.current.id).toBe("required-id");
             expect(result.current.isMobile).toBe(false);
             expect(result.current.hasLintGutter).toBe(false);
         });
@@ -673,7 +641,7 @@ describe("usePreviewPresenter", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "content-data",
-                            id: "test-iframe-id",
+
                             content,
                         },
                         source: mockParentWindow,
@@ -695,30 +663,6 @@ describe("usePreviewPresenter", () => {
                 }),
                 "/",
             );
-        });
-
-        // This test documents that the preview system (and this hook) does not
-        // support iframe ID changes. If we want to re-initialize to a new
-        // iframe ID, we need to create a new iframe, unmount the old one, and
-        // mount the new one.
-        it("Does not update iframe ID if frameElement dataset changes", async () => {
-            const {result, rerender} = renderHook(() => usePreviewPresenter());
-
-            // Initial request sent
-            await waitFor(() => {
-                expect(mockParentWindow.postMessage).toHaveBeenCalledTimes(1);
-            });
-
-            // Change iframe ID
-            mockIframeElement.dataset.id = "new-iframe-id";
-
-            // This doesn't actually trigger a re-read in the hook because
-            // the dataset read happens once on mount. This test documents
-            // current behavior.
-            rerender();
-
-            // ID should remain the same (from first mount)
-            expect(result.current.id).toBe("test-iframe-id");
         });
 
         it("handles rapid content updates", () => {
@@ -781,7 +725,7 @@ describe("usePreviewPresenter", () => {
                             data: {
                                 source: PREVIEW_MESSAGE_SOURCE,
                                 type: "content-data",
-                                id: "test-iframe-id",
+
                                 content,
                             },
                             source: mockParentWindow,
