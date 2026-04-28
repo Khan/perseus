@@ -50,8 +50,8 @@ export function usePreviewController(
     iframeRef: React.RefObject<HTMLIFrameElement>,
 ): UsePreviewControllerResult {
     const [height, setHeight] = React.useState<number | null>(null);
+    const [isIframeReady, setIsIframeReady] = React.useState(false);
     const pendingDataRef = React.useRef<PreviewContent | null>(null);
-    const iframeIdRef = React.useRef<string | null>(null);
 
     // Listen for messages from iframe
     React.useEffect(() => {
@@ -71,13 +71,10 @@ export function usePreviewController(
             // Handle the message
             switch (message.type) {
                 case "request-data": {
-                    // Store the iframe ID (used for debugging/logging, not routing)
-                    iframeIdRef.current = String(message.id);
-
                     // Send the pending message (if any)
                     if (pendingDataRef.current) {
                         const contentWindow = iframeRef.current?.contentWindow;
-                        if (contentWindow && iframeIdRef.current) {
+                        if (contentWindow) {
                             const sanitizedData = sanitizePreviewData(
                                 pendingDataRef.current,
                             );
@@ -85,7 +82,6 @@ export function usePreviewController(
                             const msg: ParentToIframeMessage = {
                                 source: PREVIEW_MESSAGE_SOURCE,
                                 type: "content-data",
-                                id: iframeIdRef.current,
                                 content: sanitizedData,
                             };
                             contentWindow.postMessage(msg, "/");
@@ -93,6 +89,7 @@ export function usePreviewController(
                         // Clear the pending data
                         pendingDataRef.current = null;
                     }
+                    setIsIframeReady(true);
                     break;
                 }
 
@@ -119,7 +116,7 @@ export function usePreviewController(
             }
 
             // If iframe hasn't sent request-data yet, store the data
-            if (!iframeIdRef.current) {
+            if (!isIframeReady) {
                 pendingDataRef.current = data;
                 return;
             }
@@ -130,13 +127,12 @@ export function usePreviewController(
             const message: ParentToIframeMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
-                id: iframeIdRef.current,
                 content: sanitizedData,
             };
 
             contentWindow.postMessage(message, "/");
         },
-        [iframeRef],
+        [iframeRef, isIframeReady],
     );
 
     return {

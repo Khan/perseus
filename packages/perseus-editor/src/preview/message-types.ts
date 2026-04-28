@@ -24,17 +24,6 @@ interface PreviewMessageBase {
 }
 
 /**
- * Base type for messages with iframe ID
- *
- * Note: The ID is primarily used for debugging/logging purposes.
- * Message routing is handled by event.source filtering in the hooks,
- * not by comparing ID strings.
- */
-interface PreviewMessageWithId extends PreviewMessageBase {
-    id: string;
-}
-
-/**
  * Data for question preview (full item with question, answer area, and hints)
  */
 export type QuestionPreviewData = {
@@ -82,7 +71,7 @@ export type PreviewContent =
 /**
  * Message from parent sending content data to iframe
  */
-type PreviewDataMessage = PreviewMessageWithId & {
+type PreviewDataMessage = PreviewMessageBase & {
     type: "content-data";
     content: PreviewContent;
 };
@@ -97,14 +86,14 @@ export type ParentToIframeMessage = PreviewDataMessage;
 /**
  * Message from iframe requesting data from parent
  */
-type PreviewDataRequestMessage = PreviewMessageWithId & {
+type PreviewDataRequestMessage = PreviewMessageBase & {
     type: "request-data";
 };
 
 /**
  * Message from iframe reporting its content height
  */
-type PreviewHeightUpdateMessage = PreviewMessageWithId & {
+type PreviewHeightUpdateMessage = PreviewMessageBase & {
     type: "height-update";
     height: number;
 };
