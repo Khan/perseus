@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 30.4.1
+
+### Patch Changes
+
+-   [#3528](https://github.com/Khan/perseus/pull/3528) [`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating dependencies
+
+-   Updated dependencies [[`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f)]:
+    -   @khanacademy/math-input@26.4.16
+    -   @khanacademy/perseus@77.3.1
+
 ## 30.4.0
 
 ### Minor Changes

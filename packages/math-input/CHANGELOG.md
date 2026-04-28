@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 26.4.16
+
+### Patch Changes
+
+-   [#3528](https://github.com/Khan/perseus/pull/3528) [`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating dependencies
+
 ## 26.4.15
 
 ### Patch Changes
