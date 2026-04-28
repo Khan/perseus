@@ -1,3 +1,4 @@
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
@@ -80,9 +81,13 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
                 return;
             }
 
-            // Handle content data
-            if (message.type === "content-data") {
-                setData(message.content);
+            switch (message.type) {
+                case "content-data":
+                    setData(message.content);
+                    break;
+
+                default:
+                    throw new UnreachableCaseError(message.type);
             }
         };
 
