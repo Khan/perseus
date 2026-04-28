@@ -1,10 +1,11 @@
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
-import type {ParentToIframeMessage, PreviewContent} from "./message-types";
+import type {ParentToIframeMessage, PreviewContent} from "./message-typyu
 
 type UsePreviewControllerResult = {
     /**
@@ -96,6 +97,9 @@ export function usePreviewController(
                 case "height-update":
                     setHeight(message.height);
                     break;
+
+                default:
+                    throw new UnreachableCaseError(message);
             }
         };
 
