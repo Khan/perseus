@@ -22,6 +22,7 @@ import * as React from "react";
 
 import Heading from "../../../components/heading";
 
+import StartCoordsAbsoluteValue from "./start-coords-absolute-value";
 import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsExponential from "./start-coords-exponential";
@@ -56,7 +57,7 @@ const StartCoordsSettingsInner = (props: Props) => {
                 step,
             );
             return (
-                <StartCoordsPoint
+                <StartCoordsAbsoluteValue
                     startCoords={absoluteValueCoords}
                     onChange={onChange}
                 />
