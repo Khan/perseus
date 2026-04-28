@@ -1,8 +1,9 @@
 {
     "editor.renderWhitespace": "boundary",
     "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit"
+        "source.fixAll.eslint": "explicit"
     },
+    "editor.formatOnSave": false,
     "eslint.codeActionsOnSave.mode": "all",
     "files.trimTrailingWhitespace": true,
     "todo-tree.filtering.excludeGlobs": [
