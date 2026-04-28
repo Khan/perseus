@@ -10,7 +10,7 @@ const LabelImageWidget = getWidget("label-image")!;
 const meta: Meta<typeof LabelImageWidget> = {
     title: "Widgets/Label Image/Visual Regression Tests/Initial State",
     component: LabelImageWidget,
-    tags: ["!dev"],
+    tags: ["!autodocs"],
     parameters: {
         docs: {
             description: {
