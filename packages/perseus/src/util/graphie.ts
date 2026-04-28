@@ -1766,6 +1766,9 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         //     and the line-height was different when the height measurement was originally referenced.
         if (currentHeightMatchesProps && span.scrollHeight !== height) {
             height = span.scrollHeight;
+            // Keep the stored baseline in sync so that ResizeObserver
+            // recalculations use the corrected height, not the pre-correction one.
+            $span.data("originalLabelSize", [width, height]);
         }
 
         // The expected width of the graphie is found in the "max-width" property on ".svg-image" containers,
