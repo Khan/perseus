@@ -54,7 +54,11 @@ type UsePreviewPresenterResult = {
  *   }, [data, reportHeight]);
  *
  *   if (!data) return <div>Loading...</div>;
- *   return <PreviewRenderer data={data} isMobile={isMobile} />;
+ *   return <PreviewRenderer
+ *       ref={containerRef}
+ *       data={data}
+ *       isMobile={isMobile}
+ *   />;
  * }
  * ```
  */
