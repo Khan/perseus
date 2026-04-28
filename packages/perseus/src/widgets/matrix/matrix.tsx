@@ -1,6 +1,5 @@
 import {getMatrixSize} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -444,10 +443,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                             // the provided width.
                                             boxSizing: "border-box",
                                             backgroundColor: outside
-                                                ? semanticColor.core.background
-                                                      .neutral.subtle
-                                                : semanticColor.core.background
-                                                      .base.default,
+                                                ? "#f3f3f3"
+                                                : "#fff",
                                         } as const;
 
                                         MatrixInput = (
@@ -470,12 +467,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                                     display: "inline-block",
                                                     padding: 0,
                                                     backgroundColor: outside
-                                                        ? semanticColor.core
-                                                              .background
-                                                              .neutral.subtle
-                                                        : semanticColor.core
-                                                              .background.base
-                                                              .default,
+                                                        ? "#f3f3f3"
+                                                        : "#fff",
                                                 },
                                             }).input,
                                         } as const;
