@@ -25,7 +25,7 @@ jobs:
     changeset:
         name: Check for .changeset entries for all changed files
         if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -36,24 +36,30 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+
+            - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5
               name: Install pnpm
               with:
                   run_install: false
 
             - name: Force Node version
-              uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+              uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
               with:
                   node-version: ${{ matrix.node-version }}
                   # Note that we don't specify 'cache: pnpm' here because we
                   # don't install node_modules in this workflow/job!
 
             - name: Get changed files
-              uses: Khan/actions@1662367b281368328845c72f77028f71d768b588 # get-changed-files-v2
+              uses: Khan/actions@30cadf1146cce2e3cdd2510dc8378063e9b08b58 # get-changed-files-v3
               id: changed
 
             - name: Filter out files that don't need a changeset
-              uses: Khan/actions@70e6afa0077187462838d024a1773adf217fb2b8 # filter-files-v2
+              uses: Khan/actions@069171ef7dea82ab80a8e499c4217d9b812f6af4 # filter-files-v3
               id: match
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -62,18 +68,20 @@ jobs:
                   matchAllGlobs: true # Default is to match any of the globs, which ends up matching all files
                   conjunctive: true # Only match files that match all of the above
 
-            - uses: webfactory/ssh-agent@a6f90b1f127823b31d4d4a8d96047790581349bd # v0.9.1
+            - uses: webfactory/ssh-agent@e83874834305fe9a4a2997156cb26c5de65a8555 # v0.10.0
               with:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Verify changeset entries
-              uses: Khan/actions@2faf7c5ee0179da7639a01731d7b9997695bb723 # check-for-changeset-v1
+              uses: Khan/actions@4c5c5cbcfcdb1c059c9601b41bb686e75cc52544 # check-for-changeset-v2
               with:
-                  changed_files: ${{ steps.match.outputs.filtered }}
+                  exclude: .github/,.storybook/
+                  exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx, .mdx
+                  exclude_globs: "**/__tests__/*, **/__docs__/*"
 
     lint:
         name: Lint, Typecheck, Format, and Test
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -82,13 +90,19 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
             - name: Get All Changed Files
-              uses: Khan/actions@1662367b281368328845c72f77028f71d768b588 # get-changed-files-v2
+              uses: Khan/actions@30cadf1146cce2e3cdd2510dc8378063e9b08b58 # get-changed-files-v3
               id: changed
 
             - name: Check formatting
@@ -101,14 +115,14 @@ jobs:
 
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
-              uses: Khan/actions@70e6afa0077187462838d024a1773adf217fb2b8 # filter-files-v2
+              uses: Khan/actions@069171ef7dea82ab80a8e499c4217d9b812f6af4 # filter-files-v3
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   extensions: ".js,.jsx,.ts,.tsx"
                   files: "pnpm-lock.yaml,tsconfig-build.json,tsconfig-common.json,tsconfig.json,packages/tsconfig-shared.json"
 
             - id: eslint-reset
-              uses: Khan/actions@70e6afa0077187462838d024a1773adf217fb2b8 # filter-files-v2
+              uses: Khan/actions@069171ef7dea82ab80a8e499c4217d9b812f6af4 # filter-files-v3
               name: Files that would trigger a full eslint run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -116,7 +130,7 @@ jobs:
 
             # Linting / type checking
             - name: Eslint
-              uses: Khan/actions@faa1972efeb996a27a95ddbd4ce5b555c40cd2e3 # full-or-limited-v0
+              uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
               with:
                   full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
                   full: pnpm lint packages
@@ -126,6 +140,10 @@ jobs:
             - name: Typecheck
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
               run: pnpm typecheck
+
+            - name: Typetest
+              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+              run: pnpm tstyche
 
             - name: Build types
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
@@ -138,14 +156,14 @@ jobs:
 
             # Run tests for our target matrix
             - id: jest-reset
-              uses: Khan/actions@70e6afa0077187462838d024a1773adf217fb2b8 # filter-files-v2
+              uses: Khan/actions@069171ef7dea82ab80a8e499c4217d9b812f6af4 # filter-files-v3
               name: Files that would trigger a full jest run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: "jest.config.js,package.json,pnpm-lock.yaml,test.config.js,test.transform.js"
 
             - name: Jest
-              uses: Khan/actions@faa1972efeb996a27a95ddbd4ce5b555c40cd2e3 # full-or-limited-v0
+              uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
               with:
                   full-trigger: ${{ steps.jest-reset.outputs.filtered }}
                   full: pnpm jest
@@ -160,7 +178,7 @@ jobs:
 
     cypress:
         name: Cypress
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -168,6 +186,14 @@ jobs:
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+                  # ka-perseus-graphie.s3.amazonaws.com: some tests load images from here
+                  extra-domains: ka-perseus-graphie.s3.amazonaws.com
 
             # MUST be before we install node_modules as that depends on finding
             # Cypress binaries in this cache!
@@ -205,7 +231,7 @@ jobs:
 
     check_builds:
         name: Check builds for changes in size
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
@@ -213,6 +239,12 @@ jobs:
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -224,7 +256,7 @@ jobs:
             # in place for the next job; in other words, it leaves the repo on a
             # base branch.
             - name: Check Builds
-              uses: preactjs/compressed-size-action@8518045ed95e94e971b83333085e1cb99aa18aa8 # v2
+              uses: preactjs/compressed-size-action@66325aad6443cb7cf89c4bfcd414aea2367cda94 # v2
               with:
                   # We only care about the ES module size, really:
                   pattern: "**/dist/es/*.js"
@@ -234,21 +266,31 @@ jobs:
                   clean-script: "clean"
                   # Build production
                   build-script: "build:prodsizecheck"
-
             #
             # Do not place any steps after "Check Builds"
             #
 
     check_schema:
         name: Check for schema changes
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [24.x]
         steps:
+            - name: Install uuidgen
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install uuid-runtime
+
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -271,14 +313,25 @@ jobs:
 
     check_item_splitting:
         name: Check for item splitting changes
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [24.x]
         steps:
+            - name: Install uuidgen
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install uuid-runtime
+
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache

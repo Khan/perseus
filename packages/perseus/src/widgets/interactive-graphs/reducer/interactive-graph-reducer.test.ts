@@ -11,6 +11,8 @@ import type {
     InteractiveGraphState,
     PolygonGraphState,
     TangentGraphState,
+    LogarithmGraphState,
+    VectorGraphState,
 } from "../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 
@@ -409,7 +411,7 @@ describe("movePointInFigure", () => {
 });
 
 describe("moveSegment", () => {
-    it("moves an entire segment by the given delta vector", () => {
+    it("sets segment coords to the given positions", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             coords: [
@@ -422,7 +424,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [5, -3]),
+            actions.segment.moveLine(0, [6, -1]),
         );
 
         invariant(updated.type === "segment");
@@ -445,7 +447,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [0.5, 0.5]),
+            actions.segment.moveLine(0, [1.5, 2.5]),
         );
 
         invariant(updated.type === "segment");
@@ -455,7 +457,7 @@ describe("moveSegment", () => {
         ]);
     });
 
-    it("keeps the segment within the graph bounds", () => {
+    it("preserves the segment's shape when the translation would push a point past the graph bounds", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             coords: [
@@ -472,6 +474,8 @@ describe("moveSegment", () => {
         );
 
         invariant(updated.type === "segment");
+        // Both endpoints move by the same delta — the largest one that
+        // keeps the trailing endpoint ([3, 4]) inside the graph bounds.
         expect(updated.coords[0]).toEqual([
             [7, 7],
             [9, 9],
@@ -491,7 +495,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [1, 1]),
+            actions.segment.moveLine(0, [2, 3]),
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
@@ -1965,5 +1969,360 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
 
         // Assert — asymptote moves to y=-2 regardless of the x passed
         expect(updated.asymptote).toBe(-2);
+    });
+});
+
+function generateLogarithmGraphState(
+    overrides?: Partial<Omit<LogarithmGraphState, "type">>,
+): LogarithmGraphState {
+    return {
+        hasBeenInteractedWith: false,
+        type: "logarithm",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        snapStep: [1, 1],
+        coords: [
+            [-4, -3],
+            [-5, -7],
+        ],
+        asymptote: -6,
+        ...overrides,
+    };
+}
+
+function generateVectorGraphState(
+    overrides?: Partial<Omit<VectorGraphState, "type">>,
+): VectorGraphState {
+    return {
+        hasBeenInteractedWith: false,
+        type: "vector",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        snapStep: [1, 1],
+        coords: [
+            [0, 0],
+            [3, 4],
+        ],
+        ...overrides,
+    };
+}
+
+describe("movePoint on a logarithm graph", () => {
+    it("rejects the move when both points would share the same y-coordinate", () => {
+        // Arrange — point 0 at y=-3, point 1 at y=-7; trying to move point 0 to y=-7
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-4, -7]),
+        );
+
+        // Assert — move was rejected; point 0 stays at original position
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -3]);
+    });
+
+    it("rejects the move when bounding causes same-y collision", () => {
+        // Arrange — point 0 at (-4, -7), point 1 at (-5, 9); moving point 0
+        // far beyond the graph range so bounding clamps y to 9, same as point 1
+        const state = generateLogarithmGraphState({
+            coords: [
+                [-4, -7],
+                [-5, 9],
+            ],
+        });
+
+        // Act — destination y=15 is clamped to 9 by bounding, colliding with point 1
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-4, 15]),
+        );
+
+        // Assert — rejected; point 0 stays at original position
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -7]);
+        expect(updated.hasBeenInteractedWith).toBe(false);
+    });
+
+    it("rejects the move when point would land on the asymptote", () => {
+        // Arrange — asymptote at x=-6; trying to move point 0 to x=-6
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-6, -2]),
+        );
+
+        // Assert — move was rejected
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -3]);
+        expect(updated.hasBeenInteractedWith).toBe(false);
+    });
+
+    it("reflects the other point when a point crosses the asymptote", () => {
+        // Arrange — asymptote at x=-6, points at (-4, -3) and (-5, -7)
+        // Both points are to the right of the asymptote.
+        const state = generateLogarithmGraphState();
+
+        // Act — move point 0 to x=-8 (left of asymptote at x=-6)
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-8, -3]),
+        );
+
+        // Assert — point 0 moved, point 1 reflected across asymptote:
+        // reflectedX = 2 * (-6) - (-5) = -12 + 5 = -7
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-8, -3]);
+        expect(updated.coords[1]).toEqual([-7, -7]);
+    });
+
+    it("allows a valid move", () => {
+        // Arrange
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-3, -2]),
+        );
+
+        // Assert
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-3, -2]);
+    });
+
+    it("rejects cross-asymptote move when reflection would cause same-x collision", () => {
+        // Arrange — asymptote=-6, coords=[(-4,-3), (-5,-7)], snapStep=[1,1]
+        // Moving point 0 to (-7,-3) crosses the asymptote.
+        // reflectedX = 2*(-6) - (-5) = -7, so both points would be at x=-7.
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-7, -3]),
+        );
+
+        // Assert — move was rejected; state is unchanged
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -3]);
+        expect(updated.coords[1]).toEqual([-5, -7]);
+        expect(updated.hasBeenInteractedWith).toBe(false);
+    });
+
+    it("rejects cross-asymptote move when reflected point snaps to the asymptote x-coordinate", () => {
+        // Arrange — asymptote=-6, non-grid-aligned point at x=-5.6.
+        // Moving point 0 to (-8,-3) crosses the asymptote.
+        // reflectedX = 2*(-6) - (-5.6) = -6.4, which snaps to -6
+        // (the asymptote). This must be rejected.
+        const state = generateLogarithmGraphState({
+            coords: [
+                [-4, -3],
+                [-5.6, -7],
+            ],
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-8, -3]),
+        );
+
+        // Assert — move was rejected; state is unchanged
+        invariant(updated.type === "logarithm");
+        expect(updated.coords[0]).toEqual([-4, -3]);
+        expect(updated.coords[1]).toEqual([-5.6, -7]);
+        expect(updated.hasBeenInteractedWith).toBe(false);
+    });
+});
+
+describe("moveCenter on a logarithm graph (asymptote)", () => {
+    it("moves the asymptote to a new x-value", () => {
+        // Arrange
+        const state = generateLogarithmGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([-8, 99]),
+        );
+        invariant(updated.type === "logarithm");
+
+        // Assert — x=-8 is to the left of both curve points (x=-4 and x=-5), so it's valid
+        expect(updated.asymptote).toBe(-8);
+    });
+
+    it("snaps past the curve points when the asymptote is dragged between them", () => {
+        // Arrange — curve points at x=-4 and x=-5; trying to move asymptote
+        // between them. boundAndSnapToGrid snaps destination to x=-4.
+        const state = generateLogarithmGraphState({
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+        });
+
+        // Act — destination snaps to x=-4, which is on a point. Since
+        // -4 >= midpoint(-4.5), snap-through pushes to rightMost + step = -3.
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([-4.4, 0]),
+        );
+        invariant(updated.type === "logarithm");
+
+        // Assert
+        expect(updated.asymptote).toBe(-3);
+    });
+
+    it("ignores the y component and only moves the asymptote horizontally", () => {
+        // Arrange
+        const state = generateLogarithmGraphState();
+
+        // Act — pass an arbitrary y value; only x should matter
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([-8, 99]),
+        );
+        invariant(updated.type === "logarithm");
+
+        // Assert — asymptote moves to x=-8 regardless of the y passed
+        expect(updated.asymptote).toBe(-8);
+    });
+
+    it("rejects the move when asymptote would still be between the two points after snap-through", () => {
+        // Arrange — points at x=8 and x=10. When the asymptote is dragged
+        // to x=9 (between them), midpoint=(8+10)/2=9. Since 9 >= 9,
+        // snap-through pushes to rightMost + step = 10 + 1 = 11. Clamping
+        // to inset bounds [-9, 9] gives 9. The stillAllRight/stillAllLeft
+        // check rejects because 8 < 9 < 10 — the asymptote would still
+        // be between the two points.
+        const state = generateLogarithmGraphState({
+            coords: [
+                [8, -3],
+                [10, -7],
+            ],
+            asymptote: 0,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([9, 0]),
+        );
+        invariant(updated.type === "logarithm");
+
+        // Assert — rejected; asymptote stays at 0
+        expect(updated.asymptote).toBe(0);
+    });
+});
+
+describe("moveTip on a vector graph", () => {
+    it("moves the tip to the new coordinates", () => {
+        // Arrange
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([5, 6]),
+        );
+
+        // Assert
+        invariant(updated.type === "vector");
+        expect(updated.coords[1]).toEqual([5, 6]);
+        // Tail should remain unchanged
+        expect(updated.coords[0]).toEqual([0, 0]);
+    });
+
+    it("sets hasBeenInteractedWith after a move", () => {
+        // Arrange
+        const state = generateVectorGraphState({
+            hasBeenInteractedWith: false,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([5, 6]),
+        );
+
+        // Assert
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("rejects the move when tip would overlap with tail", () => {
+        // Arrange — tail at [0, 0]; trying to move tip to [0, 0]
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([0, 0]),
+        );
+
+        // Assert — move was rejected; tip stays at original position
+        invariant(updated.type === "vector");
+        expect(updated.coords[1]).toEqual([3, 4]);
+    });
+});
+
+describe("moveVector on a vector graph (body translation)", () => {
+    it("translates both tail and tip by the same delta", () => {
+        // Arrange — default tail [0,0], tip [3,4]; delta [2,1]
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([2, 1]),
+        );
+
+        // Assert
+        invariant(updated.type === "vector");
+        expect(updated.coords[0]).toEqual([2, 1]);
+        expect(updated.coords[1]).toEqual([5, 5]);
+    });
+
+    it("sets hasBeenInteractedWith after a body drag", () => {
+        // Arrange — default tail [0,0], tip [3,4]; delta [1,1]
+        const state = generateVectorGraphState({
+            hasBeenInteractedWith: false,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([1, 1]),
+        );
+
+        // Assert
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("preserves the vector's shape when the translation would push a point past the graph bounds", () => {
+        // Arrange — tail at [0,0], tip at [3,4], range [-10,10]
+        // Requested delta [8, 8] would push tip to [11, 12] (out of bounds);
+        // the largest valid delta keeping tip inside [-9, 9] is [6, 5].
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([8, 8]),
+        );
+
+        // Assert — both endpoints moved by the same clamped delta
+        invariant(updated.type === "vector");
+        expect(updated.coords).toEqual([
+            [6, 5],
+            [9, 9],
+        ]);
     });
 });

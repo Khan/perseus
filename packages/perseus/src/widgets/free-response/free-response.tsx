@@ -5,13 +5,14 @@
  * is "short answer" type questions.
  */
 
-import {Text, View} from "@khanacademy/wonder-blocks-core";
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {font, spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import warningCircleIcon from "@phosphor-icons/core/regular/warning-circle.svg";
-import {StyleSheet} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -47,6 +48,11 @@ export class FreeResponse extends React.Component<Props> implements Widget {
         },
     };
 
+    announceCharacterCount = (message: string, isOverLimit: boolean) => {
+        const level = isOverLimit ? "assertive" : "polite";
+        announceMessage({message, level, debounceThreshold: 750});
+    };
+
     characterCount = () => {
         return this.props.userInput.currentValue.replace(/\n/g, "").length;
     };
@@ -62,42 +68,18 @@ export class FreeResponse extends React.Component<Props> implements Widget {
         );
     }
 
-    renderCharacterCount(): React.ReactNode {
-        if (this.props.allowUnlimitedCharacters) {
-            return null;
+    render(): React.ReactNode {
+        const isOverLimit = this.isOverLimit();
+        const characterCountText = this.props.allowUnlimitedCharacters
+            ? undefined
+            : this.context.strings.characterCount({
+                  used: this.characterCount(),
+                  num: this.props.characterLimit,
+              });
+        if (characterCountText) {
+            this.announceCharacterCount(characterCountText, isOverLimit);
         }
 
-        const characterCountText = this.context.strings.characterCount({
-            used: this.characterCount(),
-            num: this.props.characterLimit,
-        });
-
-        return (
-            <View>
-                <Text
-                    role="status"
-                    style={[
-                        styles.characterCountText,
-                        this.isOverLimit()
-                            ? styles.overCharacterLimit
-                            : undefined,
-                    ]}
-                >
-                    {this.isOverLimit() && (
-                        <PhosphorIcon
-                            icon={warningCircleIcon}
-                            size="small"
-                            style={styles.warningCircleIcon}
-                        />
-                    )}
-
-                    {characterCountText}
-                </Text>
-            </View>
-        );
-    }
-
-    render(): React.ReactNode {
         return (
             <View style={styles.container} className={"free-response"}>
                 <LabeledField
@@ -111,15 +93,34 @@ export class FreeResponse extends React.Component<Props> implements Widget {
                     }
                     field={
                         <TextArea
-                            error={this.isOverLimit()}
+                            error={isOverLimit}
                             onChange={this._handleUserInput}
                             placeholder={this.props.placeholder}
                             style={styles.textarea}
                             value={this.props.userInput.currentValue}
                         />
                     }
+                    additionalHelperMessage={
+                        <p
+                            className={css(
+                                styles.characterCountText,
+                                isOverLimit
+                                    ? styles.overCharacterLimit
+                                    : undefined,
+                            )}
+                        >
+                            {isOverLimit && (
+                                <PhosphorIcon
+                                    aria-label="Error:"
+                                    icon={warningCircleIcon}
+                                    size="small"
+                                    style={styles.warningCircleIcon}
+                                />
+                            )}
+                            {characterCountText}
+                        </p>
+                    }
                 />
-                {this.renderCharacterCount()}
             </View>
         );
     }
@@ -150,7 +151,8 @@ const styles = StyleSheet.create({
     },
     characterCountText: {
         color: semanticColor.core.foreground.neutral.default,
-        fontSize: font.size.small,
+        fontSize: font.body.size.small,
+        margin: 0,
     },
     overCharacterLimit: {
         color: semanticColor.core.foreground.critical.default,

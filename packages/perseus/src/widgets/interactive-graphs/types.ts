@@ -42,7 +42,9 @@ export type InteractiveGraphState =
     | QuadraticGraphState
     | SinusoidGraphState
     | ExponentialGraphState
-    | TangentGraphState;
+    | TangentGraphState
+    | LogarithmGraphState
+    | VectorGraphState;
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
@@ -87,6 +89,11 @@ export interface PointGraphState extends InteractiveGraphStateCommon {
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
     type: "ray";
+    coords: PairOfPoints;
+}
+
+export interface VectorGraphState extends InteractiveGraphStateCommon {
+    type: "vector";
     coords: PairOfPoints;
 }
 
@@ -135,6 +142,13 @@ export interface AbsoluteValueGraphState extends InteractiveGraphStateCommon {
 export interface TangentGraphState extends InteractiveGraphStateCommon {
     type: "tangent";
     coords: [vec.Vector2, vec.Vector2];
+}
+
+export interface LogarithmGraphState extends InteractiveGraphStateCommon {
+    type: "logarithm";
+    coords: [vec.Vector2, vec.Vector2];
+    /** The x-value of the vertical asymptote (x = asymptote). */
+    asymptote: number;
 }
 
 export interface AngleGraphState extends InteractiveGraphStateCommon {

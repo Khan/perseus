@@ -1,5 +1,6 @@
 import {
     getExponentialCoefficients,
+    getLogarithmCoefficients,
     getTangentCoefficients,
 } from "./coefficients";
 
@@ -82,6 +83,94 @@ describe("getExponentialCoefficients", () => {
                 [
                     [0, 2],
                     [1, -1],
+                ],
+                0,
+            ),
+        ).toBeUndefined();
+    });
+});
+
+describe("getLogarithmCoefficients", () => {
+    it("returns correct coefficients for Grapher test data (y = 4·log₂(x+6) − 7)", () => {
+        // coords [-4, -3] and [-5, -7] with asymptote at x = -6
+        const result = getLogarithmCoefficients(
+            [
+                [-4, -3],
+                [-5, -7],
+            ],
+            -6,
+        );
+
+        // Verify the coefficients reproduce the correct y-values
+        expect(result).toBeDefined();
+        expect(result!.a * Math.log(result!.b * -4 + result!.c)).toBeCloseTo(
+            -3,
+            10,
+        );
+        expect(result!.a * Math.log(result!.b * -5 + result!.c)).toBeCloseTo(
+            -7,
+            10,
+        );
+    });
+
+    it("returns correct coefficients for the natural log (y = ln(x))", () => {
+        const result = getLogarithmCoefficients(
+            [
+                [1, 0],
+                [Math.E, 1],
+            ],
+            0,
+        );
+
+        expect(result?.a).toBeCloseTo(1, 10);
+        expect(result?.b).toBeCloseTo(1, 10);
+        expect(result?.c).toBeCloseTo(0, 10);
+    });
+
+    it("returns correct coefficients when points are left of the asymptote (y = ln(−x))", () => {
+        const result = getLogarithmCoefficients(
+            [
+                [-1, 0],
+                [-Math.E, 1],
+            ],
+            0,
+        );
+
+        expect(result?.a).toBeCloseTo(1, 10);
+        expect(result?.b).toBeCloseTo(-1, 10);
+        expect(result?.c).toBeCloseTo(0, 10);
+    });
+
+    it("returns undefined when both points share the same y-coordinate", () => {
+        expect(
+            getLogarithmCoefficients(
+                [
+                    [1, 3],
+                    [2, 3],
+                ],
+                0,
+            ),
+        ).toBeUndefined();
+    });
+
+    it("returns undefined when a point lies on the asymptote", () => {
+        expect(
+            getLogarithmCoefficients(
+                [
+                    [0, 1], // x === asymptote x
+                    [2, 3],
+                ],
+                0,
+            ),
+        ).toBeUndefined();
+    });
+
+    it("returns undefined when points are on opposite sides of the asymptote", () => {
+        expect(
+            getLogarithmCoefficients(
+                [
+                    [-1, 1],
+                    [1, 2],
                 ],
                 0,
             ),

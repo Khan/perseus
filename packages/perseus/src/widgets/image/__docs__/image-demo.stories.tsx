@@ -8,10 +8,8 @@ import * as React from "react";
 import {ApiOptions} from "../../../perseus-api";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {getWidget} from "../../../widgets";
-import {
-    ImageQuestionRenderer,
-    imageRendererDecorator,
-} from "../../__testutils__/image-renderer-decorator";
+import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
     mobileDecorator,
     articleDecorator,
@@ -34,6 +32,8 @@ import {
     scienceImageCaption,
     svgImage,
     extremelyLongDescription,
+    graphieImage2,
+    graphieImage2Alt,
 } from "../utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -273,7 +273,7 @@ export const ImageWithDifferentSizes: Story = {
         return (
             // Limit width so zoom becomes possible.
             <div style={{width: 600}}>
-                <ImageQuestionRenderer
+                <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content:
                             "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]",
@@ -335,7 +335,7 @@ export const ImageWithDifferentSizes: Story = {
 export const ImageWithScaledSizes: Story = {
     render: function Render() {
         return (
-            <ImageQuestionRenderer
+            <QuestionRendererForStories
                 apiOptions={{
                     ...ApiOptions.defaults,
                     flags: getFeatureFlags({
@@ -344,7 +344,7 @@ export const ImageWithScaledSizes: Story = {
                 }}
                 question={generateTestPerseusRenderer({
                     content:
-                        "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]",
+                        "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]\n\n[[☃ image 7]]\n\n[[☃ image 8]]\n\n[[☃ image 9]]",
                     widgets: {
                         "image 1": generateImageWidget({
                             options: generateImageOptions({
@@ -393,6 +393,29 @@ export const ImageWithScaledSizes: Story = {
                                 longDescription: "long description",
                             }),
                         }),
+                        "image 7": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: graphieImage2,
+                                alt: graphieImage2Alt,
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 8": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: graphieImage2,
+                                scale: 0.5,
+                                alt: graphieImage2Alt,
+                                longDescription: "long description",
+                            }),
+                        }),
+                        "image 9": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: graphieImage2,
+                                scale: 2,
+                                alt: graphieImage2Alt,
+                                longDescription: "long description",
+                            }),
+                        }),
                     },
                 })}
             />
@@ -408,7 +431,7 @@ export const ImagesWithMarkdownTable: Story = {
         return (
             // Limit width so zoom becomes possible.
             <div style={{width: 600}}>
-                <ImageQuestionRenderer
+                <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content:
                             "| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |",

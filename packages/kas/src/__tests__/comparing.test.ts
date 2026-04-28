@@ -136,7 +136,8 @@ describe("comparing", () => {
             expect(forms2[0]).toEqualExpr(form);
         });
 
-        expect("x").toEqualExpr("xy/y");
+        expect("x").toEqualExpr("x(y^2 + 1)/(y^2 + 1)");
+        expect("x").not.toEqualExpr("x(y^2 + 1)/(y^2 + 2)");
         expect("e^x").toEqualExpr("e^x");
         expect("e^x").not.toEqualExpr("e^x + 1");
 
@@ -268,8 +269,8 @@ describe("comparing", () => {
     test("simplify can't yet handle these", () => {
         expect("sin(x + 2pi)").toEqualExpr("sin(x)");
         expect("y = sin(x + 2pi)").toEqualExpr("y = sin(x)");
-        expect("sin^2(x)+cos^2(x)").toEqualExpr("x/x");
-        expect("y = sin^2(x)+cos^2(x)").toEqualExpr("y = x/x");
+        expect("sin^2(x)+cos^2(x)").toEqualExpr("1");
+        expect("y = sin^2(x)+cos^2(x)").toEqualExpr("y = 1");
     });
 
     test("partially evaluating functions", () => {

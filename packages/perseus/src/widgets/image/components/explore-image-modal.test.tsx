@@ -76,6 +76,16 @@ describe("ExploreImageModal", () => {
         );
 
         unmockImageLoading = mockImageLoading();
+
+        // GifImage (rendered via SvgImage when gif controls are active)
+        // calls fetch() to decode GIF frames. jsdom doesn't provide
+        // fetch, so we stub it here.
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+            }),
+        ) as jest.Mock;
     });
 
     afterEach(() => {
@@ -224,6 +234,38 @@ describe("ExploreImageModal", () => {
         expect(screen.getByText("widget long description")).toBeInTheDocument();
     });
 
+    it("sets the describedby to short and long description IDs if there is a caption", () => {
+        // Arrange, Act
+        renderModal({
+            ...defaultProps,
+            backgroundImage: earthMoonImage,
+            caption: "widget caption",
+        });
+
+        // Assert
+        const dialog = screen.getByRole("dialog");
+        // Regex for "uniqueId-caption uniqueId-long-desc"
+        expect(dialog.getAttribute("aria-describedby")).toMatch(
+            /^:r\w+:-caption :r\w+:-long-desc$/,
+        );
+    });
+
+    it("sets the describedby to long description ID if there is no caption", () => {
+        // Arrange, Act
+        renderModal({
+            ...defaultProps,
+            backgroundImage: earthMoonImage,
+            longDescription: "widget long description",
+        });
+
+        // Assert
+        const dialog = screen.getByRole("dialog");
+        const ariaDescribedBy = dialog.getAttribute("aria-describedby");
+        // Regex for "uniqueId-long-desc"
+        expect(ariaDescribedBy).toMatch(/^:r\w+:-long-desc$/);
+        expect(ariaDescribedBy).not.toMatch(/caption/);
+    });
+
     describe("gif controls", () => {
         it("should render gif controls if the image is a gif", () => {
             // Arrange, Act
@@ -264,16 +306,19 @@ describe("ExploreImageModal", () => {
             renderModal({
                 ...defaultProps,
                 backgroundImage: gifImage,
-                isGifPlaying: true,
                 apiOptions: apiOptionsWithGifControls,
             });
 
-            // Act
+            // Act — the modal starts paused, so click Play first
+            const playButton = screen.getByRole("button", {
+                name: "Play Animation",
+            });
+            await userEvent.click(playButton);
+
+            // Assert
             const pauseButton = screen.getByRole("button", {
                 name: "Pause Animation",
             });
-
-            // Assert
             expect(pauseButton).toBeVisible();
         });
 
@@ -297,44 +342,44 @@ describe("ExploreImageModal", () => {
 
         it("should toggle the gif playing state when the play button is clicked", async () => {
             // Arrange
-            const toggleGifPlaying = jest.fn();
             renderModal({
                 ...defaultProps,
                 backgroundImage: gifImage,
-                isGifPlaying: false,
-                setIsGifPlaying: toggleGifPlaying,
                 apiOptions: apiOptionsWithGifControls,
             });
 
-            // Act
+            // Act — modal starts paused, click Play
             const playButton = screen.getByRole("button", {
                 name: "Play Animation",
             });
             await userEvent.click(playButton);
 
-            // Assert
-            expect(toggleGifPlaying).toHaveBeenCalledWith(true);
+            // Assert — should now show the Pause button
+            expect(
+                screen.getByRole("button", {name: "Pause Animation"}),
+            ).toBeVisible();
         });
 
         it("should toggle the gif playing state when the pause button is clicked", async () => {
             // Arrange
-            const toggleGifPlaying = jest.fn();
             renderModal({
                 ...defaultProps,
                 backgroundImage: gifImage,
-                isGifPlaying: true,
-                setIsGifPlaying: toggleGifPlaying,
                 apiOptions: apiOptionsWithGifControls,
             });
 
-            // Act
-            const pauseButton = screen.getByRole("button", {
-                name: "Pause Animation",
-            });
-            await userEvent.click(pauseButton);
+            // Act — click Play then Pause
+            await userEvent.click(
+                screen.getByRole("button", {name: "Play Animation"}),
+            );
+            await userEvent.click(
+                screen.getByRole("button", {name: "Pause Animation"}),
+            );
 
-            // Assert
-            expect(toggleGifPlaying).toHaveBeenCalledWith(false);
+            // Assert — should now show the Play button again
+            expect(
+                screen.getByRole("button", {name: "Play Animation"}),
+            ).toBeVisible();
         });
     });
 

@@ -30,6 +30,7 @@ LICENSE
 pnpm-lock.yaml
 pnpm-workspace.yaml
 
+.claude/
 coverage/
 docs/
 dist/

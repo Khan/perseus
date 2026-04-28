@@ -1002,6 +1002,12 @@ export class Graphie {
 
             $span.setPosition(point);
 
+            // A band-aid for a race condition involving the
+            // setting and reading of the font size.
+            $span.css({
+                "font-size": this.currentStyle["font-size"],
+            });
+
             const span = $span[0];
             this.#labelElements.add(span);
 

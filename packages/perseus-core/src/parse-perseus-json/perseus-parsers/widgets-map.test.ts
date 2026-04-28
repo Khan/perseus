@@ -130,7 +130,6 @@ describe("parseWidgetsMap", () => {
                     showEditor: false,
                     showButtons: false,
                     height: 0,
-                    static: false,
                 },
             },
         };

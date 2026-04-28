@@ -1,17 +1,16 @@
-import {summon} from "../general-purpose-parsers/test-helpers";
+import {describe, it, expect} from "tstyche";
 
-import type {parseInteractionWidget} from "./interaction-widget";
+import {ctx} from "../general-purpose-parsers/test-helpers";
+
+import {parseInteractionWidget} from "./interaction-widget";
+
 import type {InteractionWidget} from "../../data-schema";
-import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
-import type {ParsedValue} from "../parser-types";
+import type {ParseResult} from "../parser-types";
 
-type Parsed = ParsedValue<typeof parseInteractionWidget>;
-
-summon<Parsed>() satisfies InteractionWidget;
-summon<InteractionWidget>() satisfies Parsed;
-
-// The `RecursiveRequired` test ensures that any new optional properties added
-// to the types in data-schema.ts are also added to the parser.
-summon<
-    RecursiveRequired<Parsed>
->() satisfies RecursiveRequired<InteractionWidget>;
+describe("the InteractionWidget parser", () => {
+    it("should return the widget type defined in data-schema.ts", () => {
+        expect(parseInteractionWidget({}, ctx())).type.toBe<
+            ParseResult<InteractionWidget>
+        >();
+    });
+});

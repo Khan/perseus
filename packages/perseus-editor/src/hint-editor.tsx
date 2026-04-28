@@ -215,14 +215,10 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     }
 
     updatePreview = () => {
-        const shouldBold =
-            this.props.isLast && !/\*\*/.test(this.props.hint.content);
-
         this.frame.current?.sendNewData({
             type: "hint",
             data: {
                 hint: this.props.hint,
-                bold: shouldBold,
                 pos: this.props.pos,
                 apiOptions: this.props.apiOptions,
                 linterContext: {

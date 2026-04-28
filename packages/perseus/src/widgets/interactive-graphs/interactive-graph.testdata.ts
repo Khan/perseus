@@ -200,6 +200,15 @@ export const rayQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const rayQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withRay().build();
 
+export const vectorQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
+    .withVector({
+        coords: [
+            [0, 0],
+            [3, 4],
+        ],
+    })
+    .build();
+
 export const segmentQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(
@@ -824,6 +833,23 @@ export const graphWithLabeledFunction: PerseusRenderer =
             labels: [{text: "F"}],
         })
         .build();
+
+export const logarithmQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Graph $f(x) = \\log(x + 6)$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
+        )
+        .withLogarithm({
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+            asymptote: -6,
+        })
+        .build();
+
+export const logarithmQuestionWithDefaultCorrect: PerseusRenderer =
+    interactiveGraphQuestionBuilder().withLogarithm().build();
 
 export const sinusoidWithPiTicks: PerseusRenderer =
     interactiveGraphQuestionBuilder()

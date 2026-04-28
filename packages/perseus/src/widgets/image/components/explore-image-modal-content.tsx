@@ -16,7 +16,12 @@ import type {CommonImageProps, ZoomProps, GifProps} from "./image-info-area";
 
 const MODAL_HEIGHT = 568;
 
-type Props = CommonImageProps & ZoomProps & GifProps;
+type Props = CommonImageProps &
+    ZoomProps &
+    GifProps & {
+        captionId: string;
+        longDescId: string;
+    };
 
 export default function ExploreImageModalContent({
     backgroundImage,
@@ -30,9 +35,10 @@ export default function ExploreImageModalContent({
     labels,
     range,
     zoomSize,
-    isGifPlaying,
-    setIsGifPlaying,
+    captionId,
+    longDescId,
 }: Props) {
+    const [isGifPlaying, setIsGifPlaying] = React.useState(false);
     const context = React.useContext(PerseusI18nContext);
 
     if (!backgroundImage.url) {
@@ -80,16 +86,18 @@ export default function ExploreImageModalContent({
         // If we know what the original image size is, use it to compute the
         // image size for the modal with the scale applied.
         if (backgroundImage.height && backgroundImage.width) {
-            // SvgImage will multiply the dimensions we pass by `scale`,
-            // so we work in unscaled space here. We cap the unscaled
-            // height at MODAL_HEIGHT / scale so the final displayed
-            // height (after SvgImage applies `scale`) won't exceed
-            // MODAL_HEIGHT, and we also cap at the image's natural
-            // height to avoid upscaling beyond the original.
-            height = Math.min(MODAL_HEIGHT / scale, backgroundImage.height);
-            // bgWidth / bgHeight = X / height
-            // => X = (bgWidth / bgHeight) * height
-            width = (backgroundImage.width / backgroundImage.height) * height;
+            // Pass in the original width and height into SVGImage so that
+            // it calculates graphie label sizes correctly.
+            width = backgroundImage.width;
+            height = backgroundImage.height;
+
+            // The part that we need to calculate is the scale that we want
+            // to pass into SVGImage alongside the original dimensions in order
+            // to get our image to the size it should be within the modal.
+            // We don't want the scale to cause the image to be larger
+            // than the modal height, so we cap it here.
+            const maxScale = MODAL_HEIGHT / backgroundImage.height;
+            scale = Math.min(scale, maxScale);
         }
     }
 
@@ -117,6 +125,16 @@ export default function ExploreImageModalContent({
                             constrainHeight={apiOptions.isMobile}
                             allowFullBleed={apiOptions.isMobile}
                             setAssetStatus={setAssetStatus}
+                            isGifPlaying={
+                                gifControlsFF && imageIsGif
+                                    ? isGifPlaying
+                                    : undefined
+                            }
+                            onGifLoop={
+                                gifControlsFF && imageIsGif
+                                    ? () => setIsGifPlaying(false)
+                                    : undefined
+                            }
                         />
                     )}
                 </AssetContext.Consumer>
@@ -135,7 +153,10 @@ export default function ExploreImageModalContent({
                 )}
 
                 {caption && (
-                    <div className={styles.modalCaptionContainer}>
+                    <div
+                        id={captionId}
+                        className={styles.modalCaptionContainer}
+                    >
                         {/* Use Renderer so that the caption can support markdown and TeX. */}
                         <Renderer
                             content={caption}
@@ -154,12 +175,14 @@ export default function ExploreImageModalContent({
                     {context.strings.imageDescriptionLabel}
                 </Heading>
                 {/* Use Renderer so that the description can support markdown and TeX. */}
-                <Renderer
-                    content={longDescription}
-                    apiOptions={apiOptions}
-                    linterContext={linterContext}
-                    strings={context.strings}
-                />
+                <div id={longDescId}>
+                    <Renderer
+                        content={longDescription}
+                        apiOptions={apiOptions}
+                        linterContext={linterContext}
+                        strings={context.strings}
+                    />
+                </div>
             </div>
         </div>
     );

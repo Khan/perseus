@@ -14,6 +14,7 @@ import type {
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
+    PerseusGraphTypeLogarithm,
     PerseusGraphTypeNone,
     PerseusGraphTypePoint,
     PerseusGraphTypePolygon,
@@ -22,6 +23,7 @@ import type {
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
     PerseusGraphTypeTangent,
+    PerseusGraphTypeVector,
     PerseusInteractiveGraphWidgetOptions,
 } from "../../data-schema";
 
@@ -82,6 +84,15 @@ export function generateIGLinearSystemGraph(
 ): PerseusGraphTypeLinearSystem {
     return {
         type: "linear-system",
+        ...options,
+    };
+}
+
+export function generateIGLogarithmGraph(
+    options?: Partial<Omit<PerseusGraphTypeLogarithm, "type">>,
+): PerseusGraphTypeLogarithm {
+    return {
+        type: "logarithm",
         ...options,
     };
 }
@@ -151,6 +162,15 @@ export function generateIGTangentGraph(
 ): PerseusGraphTypeTangent {
     return {
         type: "tangent",
+        ...options,
+    };
+}
+
+export function generateIGVectorGraph(
+    options?: Partial<Omit<PerseusGraphTypeVector, "type">>,
+): PerseusGraphTypeVector {
+    return {
+        type: "vector",
         ...options,
     };
 }

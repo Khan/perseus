@@ -1,5 +1,131 @@
 # @khanacademy/perseus
 
+## 77.3.1
+
+### Patch Changes
+
+-   [#3528](https://github.com/Khan/perseus/pull/3528) [`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating dependencies
+
+-   Updated dependencies [[`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f)]:
+    -   @khanacademy/math-input@26.4.16
+
+## 77.3.0
+
+### Minor Changes
+
+-   [#3441](https://github.com/Khan/perseus/pull/3441) [`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Vector graph and subcomponents.
+
+*   [#3433](https://github.com/Khan/perseus/pull/3433) [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of initial types and stubs for Vector graph
+
+-   [#3494](https://github.com/Khan/perseus/pull/3494) [`8fb79829d0`](https://github.com/Khan/perseus/commit/8fb79829d0a48c9840cb7baf4e7847bade3d158d) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: change asymptote line to dashed for both exponential and logarithm based on user feedback
+
+### Patch Changes
+
+-   [#3523](https://github.com/Khan/perseus/pull/3523) [`c89cdbe2aa`](https://github.com/Khan/perseus/commit/c89cdbe2aacadc20e4b5fb982ff42b113f1f08f4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure the default coords for Exponential and Logarithm are slightly further away from the asymptote.
+
+*   [#3508](https://github.com/Khan/perseus/pull/3508) [`16f7f77ba1`](https://github.com/Khan/perseus/commit/16f7f77ba151b660ccf9ea32a30d936323f408f5) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Give explore modal launcher a label saying it has description
+
+-   [#3496](https://github.com/Khan/perseus/pull/3496) [`4d923417cd`](https://github.com/Khan/perseus/commit/4d923417cdf60113e3dbd057361e3e9c8c1747a6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add fallback label to Numeric Inputs and a linter warning for missing labels in the editor.
+
+*   [#3511](https://github.com/Khan/perseus/pull/3511) [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused `static` field from PerseusCSProgramWidgetOptions. Callers should update test data that constructs `PerseusCSProgramWidgetOptions` to remove the static field.
+
+-   [#3504](https://github.com/Khan/perseus/pull/3504) [`b8178b52e7`](https://github.com/Khan/perseus/commit/b8178b52e7e9e237c12f58c48cbd1df32ce86bf9) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add aria-describedby to Explore Image modal
+
+*   [#3488](https://github.com/Khan/perseus/pull/3488) [`3abc5e8277`](https://github.com/Khan/perseus/commit/3abc5e827796c267065b606b6d219d6ca90b74ea) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Free Response] Add visual regression tests
+
+-   [#3493](https://github.com/Khan/perseus/pull/3493) [`11742c2cff`](https://github.com/Khan/perseus/commit/11742c2cff5ffd30ca4bb2676ddbe9fff6c9178e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementing bug fix for jumping MovableLines in the Correct Answer graph in the editor
+
+*   [#3483](https://github.com/Khan/perseus/pull/3483) [`7794943ec7`](https://github.com/Khan/perseus/commit/7794943ec7e4dc450ed57021d26f052a38d7c617) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync] Numeric Input - update visual regression tests
+
+-   [#3434](https://github.com/Khan/perseus/pull/3434) [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of state management logic for new Vector graph
+
+-   Updated dependencies [[`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae), [`4d923417cd`](https://github.com/Khan/perseus/commit/4d923417cdf60113e3dbd057361e3e9c8c1747a6), [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6), [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d), [`d3ef4dbcc2`](https://github.com/Khan/perseus/commit/d3ef4dbcc2a281c148170a2ab7ab53521e796ed6), [`a5b9105c28`](https://github.com/Khan/perseus/commit/a5b9105c288f29181b4ca82eb9f8495f757a9088), [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c)]:
+    -   @khanacademy/perseus-core@25.0.0
+    -   @khanacademy/perseus-linter@4.9.5
+    -   @khanacademy/perseus-score@8.7.0
+    -   @khanacademy/kas@2.2.2
+    -   @khanacademy/keypad-context@3.2.44
+    -   @khanacademy/kmath@2.4.2
+    -   @khanacademy/math-input@26.4.15
+
+## 77.2.2
+
+### Patch Changes
+
+-   [#3491](https://github.com/Khan/perseus/pull/3491) [`27e66ce3a6`](https://github.com/Khan/perseus/commit/27e66ce3a65d6fae158197bc028a76abf3219d18) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: Fix Asymptote Line Thickness on Keyboard Focus for exponential and logarithm
+
+*   [#3489](https://github.com/Khan/perseus/pull/3489) [`b8ed10349d`](https://github.com/Khan/perseus/commit/b8ed10349d02ff90a7c5b7a23e6442b0c820ae1c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: Fix Asymptote Drag Handle Blocked by Curve Line for Logarithm and Exponential
+
+*   Updated dependencies [[`2f2724d244`](https://github.com/Khan/perseus/commit/2f2724d244d3d066608523598602f74012f1a0ff)]:
+    -   @khanacademy/perseus-core@24.1.1
+    -   @khanacademy/keypad-context@3.2.43
+    -   @khanacademy/kmath@2.4.1
+    -   @khanacademy/math-input@26.4.14
+    -   @khanacademy/perseus-linter@4.9.4
+    -   @khanacademy/perseus-score@8.6.1
+
+## 77.2.1
+
+### Patch Changes
+
+-   [#3464](https://github.com/Khan/perseus/pull/3464) [`b03bd4b11b`](https://github.com/Khan/perseus/commit/b03bd4b11b58468be220ca0c4aafa09aa7a54677) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add FindWidgetsFunction type, improve typing in HintRenderer and Renderer, fix image widget ExternalProps type
+
+*   [#3462](https://github.com/Khan/perseus/pull/3462) [`2b02d27760`](https://github.com/Khan/perseus/commit/2b02d27760c0ae959100a80fae2a9c7dc009c858) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused exports from generated documentation
+
+-   [#3472](https://github.com/Khan/perseus/pull/3472) [`d467d38886`](https://github.com/Khan/perseus/commit/d467d38886cfc950827e02b9e81527988d50b3c0) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix label sizing for Graphies on mobile web behind feature flag
+
+*   [#3454](https://github.com/Khan/perseus/pull/3454) [`ef4cf73a8e`](https://github.com/Khan/perseus/commit/ef4cf73a8e513eec1dbf8feb3003b1b58bbe295a) Thanks [@benchristel](https://github.com/benchristel)! - Document the `*PromptJSON` types.
+
+-   [#3473](https://github.com/Khan/perseus/pull/3473) [`81dee14e58`](https://github.com/Khan/perseus/commit/81dee14e5827d6fbaa71fdafd7cc897973007e4b) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Image] Fixing double scroll bug in long description modals.
+
+*   [#3432](https://github.com/Khan/perseus/pull/3432) [`ec3f5eb80b`](https://github.com/Khan/perseus/commit/ec3f5eb80b3a91137cc317ee3f116b781e4d4f2b) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Image] New pause and play functionality for image gifs.
+
+-   [#3482](https://github.com/Khan/perseus/pull/3482) [`a33cba3baa`](https://github.com/Khan/perseus/commit/a33cba3baa8dee2c13188d1f40f74a0659d04b51) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Reverted Drag Handle Auto-Blur on Drag End for Logarithm and Exponential interactive graphs
+
+-   Updated dependencies [[`4827549d92`](https://github.com/Khan/perseus/commit/4827549d921c6c7d44931495758c3fe2edac7b65)]:
+    -   @khanacademy/perseus-linter@4.9.3
+
+## 77.2.0
+
+### Minor Changes
+
+-   [#3422](https://github.com/Khan/perseus/pull/3422) [`a4eaa5a1f8`](https://github.com/Khan/perseus/commit/a4eaa5a1f8a32ce74ce38ea443419b94d53a72b4) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm graph state management and reducer for supporting Logarithm graph in Interactive Graph
+
+*   [#3425](https://github.com/Khan/perseus/pull/3425) [`2c36b8a4c3`](https://github.com/Khan/perseus/commit/2c36b8a4c3a35b0edf432e9b69a7b73b04a75e52) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm graph option in the Interactive Graph Editor
+
+-   [#3423](https://github.com/Khan/perseus/pull/3423) [`3cc56f60dd`](https://github.com/Khan/perseus/commit/3cc56f60dd66fb00a961d0ec6661d4e11a1aed83) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Create the logarithm graph visual component, add Storybook coverage, SR strings, and equation string for supporting Logarithm graph in Interactive Graph
+
+*   [#3420](https://github.com/Khan/perseus/pull/3420) [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm type definitions, this is the initial implementation for supporting Logarithm graph in Interactive Graph widget.
+
+### Patch Changes
+
+-   [#3461](https://github.com/Khan/perseus/pull/3461) [`0481b4238d`](https://github.com/Khan/perseus/commit/0481b4238d74c76ea2e2182cde3d1146da9d7a38) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Update CSS modules to kabab case
+
+*   [#3455](https://github.com/Khan/perseus/pull/3455) [`0d6cf3c3ce`](https://github.com/Khan/perseus/commit/0d6cf3c3cef7cf160e0262d68cd9761e498189ed) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix messed up Graphie labels behind scale feature flag
+
+*   Updated dependencies [[`08b1218b62`](https://github.com/Khan/perseus/commit/08b1218b62287d25149f087ee53d02c092ba15a1), [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79), [`9099a40a4e`](https://github.com/Khan/perseus/commit/9099a40a4e101f6fe3fa51771409577bbe7161de)]:
+    -   @khanacademy/perseus-score@8.6.0
+    -   @khanacademy/perseus-core@24.1.0
+    -   @khanacademy/kmath@2.4.0
+    -   @khanacademy/keypad-context@3.2.42
+    -   @khanacademy/math-input@26.4.13
+    -   @khanacademy/perseus-linter@4.9.2
+
+## 77.1.0
+
+### Minor Changes
+
+-   [#3273](https://github.com/Khan/perseus/pull/3273) [`1f532f29c0`](https://github.com/Khan/perseus/commit/1f532f29c0a45f63e7badf3fe8da81b2855ab618) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Merge top-level widget files into one, and refactor to remove legacy code
+
+### Patch Changes
+
+-   [#3457](https://github.com/Khan/perseus/pull/3457) [`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   [#3417](https://github.com/Khan/perseus/pull/3417) [`732cfab8fc`](https://github.com/Khan/perseus/commit/732cfab8fce00908d5fde297b5b8e5d52c596af9) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB typography instances to use `Heading` and `BodyText`.
+
+*   Updated dependencies [[`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc)]:
+    -   @khanacademy/math-input@26.4.12
+
 ## 77.0.3
 
 ### Patch Changes

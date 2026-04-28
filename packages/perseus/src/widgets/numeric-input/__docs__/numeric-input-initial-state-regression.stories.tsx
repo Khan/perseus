@@ -1,91 +1,62 @@
-import {
-    generateNumericInputWidget,
-    generateNumericInputOptions,
-    generateTestPerseusItem,
-    generateTestPerseusRenderer,
-} from "@khanacademy/perseus-core";
-import * as React from "react";
+import {themeModes} from "../../../../../../.storybook/modes";
+import {getWidget} from "../../../widgets";
+import {numericInputRendererDecorator} from "../../__testutils__/numeric-input-renderer-decorator";
 
-import {ApiOptions} from "../../../perseus-api";
-import {ServerItemRenderer} from "../../../server-item-renderer";
-import {testDependenciesV2} from "../../../testing/test-dependencies";
+import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-import type {PerseusItem} from "@khanacademy/perseus-core";
-import type {StoryObj} from "@storybook/react-vite";
+const NumericInputWidget = getWidget("numeric-input")!;
 
-type Story = StoryObj<typeof NumericInputQuestionRenderer>;
-
-/**
- * This is a visual regression story for the numeric input widget.
- */
-
-export default {
+const meta: Meta<typeof NumericInputWidget> = {
     title: "Widgets/Numeric Input/Visual Regression Tests/Initial State",
-    component: NumericInputQuestionRenderer,
-    tags: ["!dev"],
+    component: NumericInputWidget,
+    tags: ["!autodocs"],
     parameters: {
         docs: {
             description: {
                 component:
-                    "Regression tests for the numeric input widget that do NOT need any interactions to test, which will be used with Chromatic. Stories are all displayed on one page.",
+                    "Regression tests for the Numeric Input widget that do NOT " +
+                    "need any interactions to test, which will be used with " +
+                    "Chromatic. Stories are all displayed on one page.",
             },
         },
-        chromatic: {disableSnapshot: false},
+        chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
+export default meta;
 
-export const SizeSmall: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content:
-                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
-                widgets: {
-                    "numeric-input 1": generateNumericInputWidget({
-                        options: generateNumericInputOptions({
-                            size: "small",
-                        }),
-                    }),
-                },
-            }),
-        }),
-    },
-};
+type Story = StoryObj<typeof NumericInputWidget>;
 
+// Verifies the default normal-size input (8rem width) with a pre-filled value
 export const SizeNormal: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content:
-                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
-                widgets: {
-                    "numeric-input 1": generateNumericInputWidget({
-                        options: generateNumericInputOptions({
-                            size: "normal",
-                        }),
-                    }),
-                },
-            }),
-        }),
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
     },
+    args: {
+        size: "normal",
+    } satisfies Partial<PerseusNumericInputWidgetOptions>,
 };
 
-function NumericInputQuestionRenderer(props: {
-    item: PerseusItem;
-    rtl?: boolean;
-}) {
-    const {item, rtl} = props;
-    const style = {margin: 20};
+// Verifies the small-size input (4rem width) variant with a pre-filled value
+export const SizeSmall: Story = {
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
+    args: {
+        size: "small",
+    } satisfies Partial<PerseusNumericInputWidgetOptions>,
+};
 
-    return (
-        <div dir={rtl ? "rtl" : "ltr"} style={style}>
-            <ServerItemRenderer
-                item={item}
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                }}
-                dependencies={testDependenciesV2}
-            />
-        </div>
-    );
-}
+// Verifies the right-aligned text input variant with a pre-filled value — the "5" should appear on the right
+export const RightAligned: Story = {
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
+    args: {
+        size: "normal",
+        rightAlign: true,
+    } satisfies Partial<PerseusNumericInputWidgetOptions>,
+};

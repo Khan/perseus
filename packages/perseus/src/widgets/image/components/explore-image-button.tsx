@@ -14,7 +14,14 @@ export default function ExploreImageButton({hasCaption, onClick}: Props) {
     const context = React.useContext(PerseusI18nContext);
     if (!hasCaption) {
         return (
-            <Button kind="secondary" startIcon={infoIconBold} onClick={onClick}>
+            <Button
+                // Aria-label informs screen reader users that the button
+                // provides access to the long description.
+                aria-label={context.strings.imageExploreButtonAriaLabel}
+                kind="secondary"
+                startIcon={infoIconBold}
+                onClick={onClick}
+            >
                 {context.strings.imageExploreButton}
             </Button>
         );
@@ -22,7 +29,7 @@ export default function ExploreImageButton({hasCaption, onClick}: Props) {
 
     return (
         <IconButton
-            aria-label={context.strings.imageExploreButton}
+            aria-label={context.strings.imageExploreButtonAriaLabel}
             icon={infoIconBold}
             kind="secondary"
             onClick={onClick}

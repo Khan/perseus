@@ -1109,7 +1109,9 @@ export type PerseusGraphType =
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid
     | PerseusGraphTypeExponential
-    | PerseusGraphTypeTangent;
+    | PerseusGraphTypeTangent
+    | PerseusGraphTypeLogarithm
+    | PerseusGraphTypeVector;
 
 export type PerseusGraphTypeAngle = {
     type: "angle";
@@ -1247,6 +1249,19 @@ export type PerseusGraphTypeExponential = {
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
 };
 
+export type PerseusGraphTypeLogarithm = {
+    type: "logarithm";
+    /** Two points along the logarithmic curve. */
+    coords?: Coord[] | null;
+    /**
+     * The x-value of the vertical asymptote (the line x = asymptote).
+     * The curve is defined on only one side of this line.
+     */
+    asymptote?: number | null;
+    /** The initial coordinates the graph renders with. */
+    startCoords?: {coords: [Coord, Coord]; asymptote: number};
+};
+
 export type PerseusGraphTypeAbsoluteValue = {
     type: "absolute-value";
     // Expects [vertex, secondPoint]
@@ -1261,6 +1276,18 @@ export type PerseusGraphTypeRay = {
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+};
+
+export type PerseusGraphTypeVector = {
+    type: "vector";
+    /** The tail and tip coordinates of the vector: [tail, tip] */
+    coords?: CollinearTuple | null;
+    /** The initial coordinates the graph renders with. */
+    startCoords?: CollinearTuple;
+    /** How to match the answer.
+     *  "exact" (default) — both tail and tip must match exactly.
+     *  "congruent" — same direction and magnitude, any position. */
+    match?: "exact" | "congruent";
 };
 
 type AbsoluteValueGraphCorrect = {
@@ -1332,9 +1359,24 @@ type TangentGraphCorrect = {
     coords: CollinearTuple;
 };
 
+type LogarithmGraphCorrect = {
+    type: "logarithm";
+    coords: CollinearTuple;
+    asymptote: number;
+};
+
 type RayGraphCorrect = {
     type: "ray";
     coords: CollinearTuple;
+};
+
+type VectorGraphCorrect = {
+    type: "vector";
+    coords: CollinearTuple;
+    /** How to match the answer.
+     *  "exact" (default) — both tail and tip must match exactly.
+     *  "congruent" — same direction and magnitude, any position. */
+    match?: "exact" | "congruent";
 };
 
 export type PerseusGraphCorrectType =
@@ -1351,7 +1393,9 @@ export type PerseusGraphCorrectType =
     | SegmentGraphCorrect
     | SinusoidGraphCorrect
     | ExponentialGraphCorrect
-    | TangentGraphCorrect;
+    | TangentGraphCorrect
+    | LogarithmGraphCorrect
+    | VectorGraphCorrect;
 
 /** Options for the label-image widget. Asks learners to label image parts. */
 export type PerseusLabelImageWidgetOptions = {
@@ -2026,9 +2070,6 @@ export type PerseusCSProgramWidgetOptions = {
     showButtons: boolean;
     /** The height of the widget */
     height: number;
-    // TODO(benchristel): static is not used. Delete it?
-    // Always false
-    static: boolean;
 };
 
 export type PerseusCSProgramSetting = {

@@ -17,8 +17,10 @@ import {
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
     exponentialQuestion,
+    logarithmQuestion,
     sinusoidQuestion,
     tangentQuestion,
+    vectorQuestion,
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
     segmentWithLockedPolygons,
@@ -99,6 +101,12 @@ export const Ray: Story = {
     },
 };
 
+export const Vector: Story = {
+    args: {
+        item: generateTestPerseusItem({question: vectorQuestion}),
+    },
+};
+
 export const Segment: Story = {
     args: {
         item: generateTestPerseusItem({question: segmentQuestion}),
@@ -114,6 +122,12 @@ export const Exponential: Story = {
 export const Sinusoid: Story = {
     args: {
         item: generateTestPerseusItem({question: sinusoidQuestion}),
+    },
+};
+
+export const Logarithm: Story = {
+    args: {
+        item: generateTestPerseusItem({question: logarithmQuestion}),
     },
 };
 
