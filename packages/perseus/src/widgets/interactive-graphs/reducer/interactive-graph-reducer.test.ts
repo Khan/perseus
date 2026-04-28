@@ -424,7 +424,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [6, -1], [8, 1]),
+            actions.segment.moveLine(0, [6, -1]),
         );
 
         invariant(updated.type === "segment");
@@ -447,7 +447,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [1.5, 2.5], [3.5, 4.5]),
+            actions.segment.moveLine(0, [1.5, 2.5]),
         );
 
         invariant(updated.type === "segment");
@@ -457,7 +457,7 @@ describe("moveSegment", () => {
         ]);
     });
 
-    it("clamps points to the graph bounds", () => {
+    it("preserves the segment's shape when the translation would push a point past the graph bounds", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             coords: [
@@ -470,13 +470,14 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [99, 99], [99, 99]),
+            actions.segment.moveLine(0, [99, 99]),
         );
 
         invariant(updated.type === "segment");
-        // Each point is clamped independently to the graph range
+        // Both endpoints move by the same delta — the largest one that
+        // keeps the trailing endpoint ([3, 4]) inside the graph bounds.
         expect(updated.coords[0]).toEqual([
-            [9, 9],
+            [7, 7],
             [9, 9],
         ]);
     });
@@ -494,7 +495,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [2, 3], [4, 5]),
+            actions.segment.moveLine(0, [2, 3]),
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
@@ -2280,7 +2281,7 @@ describe("moveVector on a vector graph (body translation)", () => {
         // Act
         const updated = interactiveGraphReducer(
             state,
-            actions.vector.moveVector([2, 1], [5, 5]),
+            actions.vector.moveVector([2, 1]),
         );
 
         // Assert
@@ -2298,34 +2299,30 @@ describe("moveVector on a vector graph (body translation)", () => {
         // Act
         const updated = interactiveGraphReducer(
             state,
-            actions.vector.moveVector([1, 1], [4, 5]),
+            actions.vector.moveVector([1, 1]),
         );
 
         // Assert
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
 
-    it("constrains the translation so neither point leaves the graph bounds", () => {
+    it("preserves the vector's shape when the translation would push a point past the graph bounds", () => {
         // Arrange — tail at [0,0], tip at [3,4], range [-10,10]
-        // Try to move by [8, 8] — tip would go to [11, 12] which is out of bounds
+        // Requested delta [8, 8] would push tip to [11, 12] (out of bounds);
+        // the largest valid delta keeping tip inside [-9, 9] is [6, 5].
         const state = generateVectorGraphState();
 
         // Act
         const updated = interactiveGraphReducer(
             state,
-            actions.vector.moveVector([8, 8], [11, 12]),
+            actions.vector.moveVector([8, 8]),
         );
 
-        // Assert — both points should be within bounds
+        // Assert — both endpoints moved by the same clamped delta
         invariant(updated.type === "vector");
-        const [tail, tip] = updated.coords;
-        expect(tail[0]).toBeGreaterThanOrEqual(-10);
-        expect(tail[0]).toBeLessThanOrEqual(10);
-        expect(tail[1]).toBeGreaterThanOrEqual(-10);
-        expect(tail[1]).toBeLessThanOrEqual(10);
-        expect(tip[0]).toBeGreaterThanOrEqual(-10);
-        expect(tip[0]).toBeLessThanOrEqual(10);
-        expect(tip[1]).toBeGreaterThanOrEqual(-10);
-        expect(tip[1]).toBeLessThanOrEqual(10);
+        expect(updated.coords).toEqual([
+            [6, 5],
+            [9, 9],
+        ]);
     });
 });

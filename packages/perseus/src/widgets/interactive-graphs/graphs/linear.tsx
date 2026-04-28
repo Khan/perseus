@@ -63,8 +63,8 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
                 ariaLabels={{grabHandleAriaLabel: srLinearGrabHandle}}
                 ariaDescribedBy={`${interceptDescriptionId} ${slopeDescriptionId}`}
                 points={line}
-                onMoveLine={(newStart, newEnd) => {
-                    dispatch(actions.linear.moveLine(newStart, newEnd));
+                onMoveLine={(newStart) => {
+                    dispatch(actions.linear.moveLine(newStart));
                 }}
                 extend={{
                     start: true,

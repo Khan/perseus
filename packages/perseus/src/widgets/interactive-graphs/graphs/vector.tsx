@@ -91,7 +91,9 @@ const VectorGraph = (props: Props) => {
                 tip={tip}
                 ariaLabel={srVectorGrabHandle}
                 ariaDescribedBy={pointsDescriptionId}
-                onMove={(delta) => dispatch(actions.vector.moveVector(delta))}
+                onMove={(newStart) =>
+                    dispatch(actions.vector.moveVector(newStart))
+                }
             />
 
             {/* Tip arrowhead — draggable, changes direction and magnitude */}
@@ -109,7 +111,7 @@ type VectorBodyProps = {
     tip: vec.Vector2;
     ariaLabel: string;
     ariaDescribedBy: string;
-    onMove: (delta: vec.Vector2) => unknown;
+    onMove: (newStart: vec.Vector2) => unknown;
 };
 
 // The vector body is the grab handle for translating the entire vector.
@@ -129,9 +131,7 @@ const VectorBody = (props: VectorBodyProps) => {
     const {dragging} = useDraggable({
         gestureTarget: bodyRef,
         point: tail,
-        onMove: (newPoint) => {
-            onMove(vec.sub(newPoint, tail));
-        },
+        onMove,
         onDragEnd: () => {
             // Blur the grab handle when a mouse drag ends to prevent
             // a lingering focus ring after the user releases.

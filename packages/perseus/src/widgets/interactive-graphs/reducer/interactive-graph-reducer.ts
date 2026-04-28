@@ -332,11 +332,7 @@ function doMoveLine(
     action: MoveLine,
 ): InteractiveGraphState {
     const {snapStep, range} = state;
-    const [newStart, newEnd] = action.newPoints;
-    const newLine: PairOfPoints = [
-        boundAndSnapToGrid(newStart, {snapStep, range}),
-        boundAndSnapToGrid(newEnd, {snapStep, range}),
-    ];
+    const {newStart} = action;
 
     switch (state.type) {
         case "segment":
@@ -344,10 +340,16 @@ function doMoveLine(
             if (action.itemIndex === undefined) {
                 throw new Error("Please provide index of line to move");
             }
+            const currentLine = state.coords[action.itemIndex];
+            const constrainedLine = constrainShapePreservingMove(
+                currentLine,
+                newStart,
+                {snapStep, range},
+            );
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.itemIndex,
-                newValue: newLine,
+                newValue: constrainedLine,
             });
 
             return {
@@ -360,11 +362,16 @@ function doMoveLine(
         case "linear":
         case "ray":
         case "vector": {
+            const constrainedLine = constrainShapePreservingMove(
+                state.coords,
+                newStart,
+                {snapStep, range},
+            );
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
-                coords: newLine,
+                coords: constrainedLine,
             };
         }
         default:
@@ -1050,6 +1057,21 @@ const getChange = (
     );
     const [dx, dy] = getDeltaVertex(maxMoves, minMoves, delta);
     return [dx, dy];
+};
+
+// Translates both endpoints by the largest delta that keeps them in bounds.
+const constrainShapePreservingMove = (
+    currentLine: PairOfPoints,
+    newStart: vec.Vector2,
+    constraintOpts: {snapStep: vec.Vector2; range: [Interval, Interval]},
+): PairOfPoints => {
+    const desiredDelta = vec.sub(newStart, currentLine[0]);
+    const change = getChange(currentLine, desiredDelta, constraintOpts);
+    const {snapStep} = constraintOpts;
+    return [
+        snap(snapStep, vec.add(currentLine[0], change)),
+        snap(snapStep, vec.add(currentLine[1], change)),
+    ];
 };
 
 interface ConstraintArgs {
