@@ -14,6 +14,7 @@ import {
     generateIGExponentialGraph,
     generateIGLogarithmGraph,
     generateIGTangentGraph,
+    generateIGVectorGraph,
     generateIGLockedPoint,
     generateIGLockedLine,
     generateIGLockedVector,
@@ -251,14 +252,16 @@ export const rayQuestionWithDefaultCorrect: PerseusRenderer =
         correct: generateIGRayGraph(),
     });
 
-export const vectorQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
-    .withVector({
-        coords: [
-            [0, 0],
-            [3, 4],
-        ],
-    })
-    .build();
+export const vectorQuestion: PerseusRenderer = generateInteractiveGraphQuestion(
+    {
+        correct: generateIGVectorGraph({
+            coords: [
+                [0, 0],
+                [3, 4],
+            ],
+        }),
+    },
+);
 
 export const segmentQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({

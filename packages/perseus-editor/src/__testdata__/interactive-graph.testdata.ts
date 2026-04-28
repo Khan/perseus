@@ -12,6 +12,7 @@ import {
     generateIGRayGraph,
     generateIGSegmentGraph,
     generateIGSinusoidGraph,
+    generateIGVectorGraph,
     generateIGLockedPoint,
     generateIGLockedLine,
     generateIGLockedVector,
@@ -211,7 +212,9 @@ export const exponentialMinimalQuestion: PerseusRenderer =
     });
 
 export const vectorMinimalQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder().withVector().build();
+    generateInteractiveGraphQuestion({
+        correct: generateIGVectorGraph(),
+    });
 
 export const segmentWithLockedFigures: PerseusRenderer =
     generateInteractiveGraphQuestion({
