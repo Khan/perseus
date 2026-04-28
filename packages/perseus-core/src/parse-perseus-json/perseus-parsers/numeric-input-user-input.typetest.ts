@@ -1,17 +1,16 @@
-import {summon} from "../general-purpose-parsers/test-helpers";
+import {describe, it, expect} from "tstyche";
 
-import type {parseNumericInputUserInput} from "./numeric-input-user-input";
+import {ctx} from "../general-purpose-parsers/test-helpers";
+
+import {parseNumericInputUserInput} from "./numeric-input-user-input";
+
 import type {PerseusNumericInputUserInput} from "../../validation.types";
-import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
-import type {ParsedValue} from "../parser-types";
+import type {ParseResult} from "../parser-types";
 
-type Parsed = ParsedValue<typeof parseNumericInputUserInput>;
-
-summon<Parsed>() satisfies PerseusNumericInputUserInput;
-summon<PerseusNumericInputUserInput>() satisfies Parsed;
-
-// The `RecursiveRequired` test ensures that any new optional properties added
-// to the types in data-schema.ts are also added to the parser.
-summon<
-    RecursiveRequired<Parsed>
->() satisfies RecursiveRequired<PerseusNumericInputUserInput>;
+describe("the NumericInputUserInput parser", () => {
+    it("should return the type defined in validation.types.ts", () => {
+        expect(parseNumericInputUserInput({}, ctx())).type.toBe<
+            ParseResult<PerseusNumericInputUserInput>
+        >();
+    });
+});

@@ -50,6 +50,7 @@ module.exports = {
     extends: [
         "@khanacademy",
         "@khanacademy/eslint-config/a11y",
+        "plugin:@khanacademy/wonder-blocks/strict", // config from @khanacademy/eslint-plugin-wonder-blocks
         "plugin:react/recommended",
         // This config includes rules from storybook to enforce story best
         // practices
@@ -125,6 +126,8 @@ module.exports = {
                 "*.cypress.ts",
                 "*.test.ts",
                 "*.test.tsx",
+                "*.typetest.ts",
+                "*.typetest.tsx",
                 "*.stories.ts",
                 "*.stories.tsx",
                 "**/__testutils__/**",
@@ -135,6 +138,17 @@ module.exports = {
                 "max-lines": "off",
                 "import/no-extraneous-dependencies": "off",
                 "import/no-relative-packages": "off",
+            },
+        },
+        {
+            // Storybook has an API for interaction tests that is similar
+            // to React Testing Library's `screen`, which causes the
+            // `testing-library/prefer-screen-queries` rule to trigger.
+            // Disabling this rule for stories files so that we can use
+            // `canvas.getBy...` without having to suppress this everywhere.
+            files: ["**/*.stories.@(js|jsx|ts|tsx)"],
+            rules: {
+                "testing-library/prefer-screen-queries": "off",
             },
         },
         {

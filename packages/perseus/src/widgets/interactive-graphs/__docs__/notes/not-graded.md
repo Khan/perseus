@@ -23,6 +23,8 @@ Putting `graded` on the per-widget options type would require every consumer to 
 3. **Learner indicator** — When `graded: false` is rendered for a learner, a visible label inside the IG widget makes it clear the widget won't be scored. This lives in the widget rather than `WidgetContainer` because many existing widgets (Explanation, Image, etc.) are already `graded: false` but should never show such a label.
 4. **Scoring is unaffected** — Already handled: `is-widget-scoreable.ts` returns `false` when `graded === false`.
 5. **Review mode is unaffected** — After a learner submits, a `graded: false` IG should stay in the learner's last state and never reveal the correct answer.
+6. **Start coordinates remain available when ungraded** — Start coordinates are not hidden when `graded` is off; content creators may still configure them if they choose to set an initial state for the sketchpad.
+7. **Locked figures remain available when ungraded** — Locked figures (lines, points, polygons, etc.) are not hidden when `graded` is off; content creators may still add them to provide visual context on the sketchpad.
 
 ---
 
@@ -121,7 +123,7 @@ Each change above needs coverage:
 - **`interactive-graph-editor.tsx`**: Test that answer sections are hidden when `graded={false}`.
 - **`interactive-graph.tsx`**: Test that the "not graded" message renders when `graded={false}` and not otherwise.
 - **`stateful-mafs-graph.tsx`**: Test that setting `static={true}` on a `graded={false}` graph does not display the correct answer.
-- **Storybook**: Add a story for the IG widget with `graded={false}` in both learner and review contexts.
+- **Storybook**: Add a story for the IG widget with `graded={false}` in both learner and review contexts. Also add a story under "Visual Regression Tests" to cover the ungraded state for visual regression testing.
 
 ---
 

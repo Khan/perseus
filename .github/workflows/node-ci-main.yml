@@ -25,7 +25,7 @@ concurrency:
 jobs:
     prime_cache_primary:
         name: Prime node_modules cache for primary configuration
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             # Use a matrix as it means we get the version info in the job name
             # which is very helpful.
@@ -35,9 +35,14 @@ jobs:
         steps:
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-
     # Add other jobs here that we want to run anytime a PR is landed

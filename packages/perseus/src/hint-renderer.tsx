@@ -10,17 +10,34 @@ import {baseUnitPx, hintBorderWidth, kaGreen, gray97} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
 import UserInputManager from "./user-input-manager";
 
-import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
+import type {
+    FindWidgetsFunction,
+    PerseusDependenciesV2,
+    SharedRendererProps,
+} from "./types";
 import type {Hint} from "@khanacademy/perseus-core";
 
 type Props = SharedRendererProps & {
     className?: string;
     hint: Hint;
+    /**
+     * Whether this is the last hint in the list.
+     */
     lastHint?: boolean;
+    /**
+     * Whether this is the last hint rendered. Compared to lastHint, this is
+     * used to tell the HintRenderer if this hint was most recently rendered.
+     */
     lastRendered?: boolean;
+    /**
+     * The position of this hint in the list (ie. Hint 4 of 6 - pos is 4).
+     */
     pos: number;
+    /**
+     * The total number of hints (used to render the `Hint x of y` display)
+     */
     totalHints?: number;
-    findExternalWidgets?: any;
+    findExternalWidgets?: FindWidgetsFunction;
     dependencies: PerseusDependenciesV2;
 };
 

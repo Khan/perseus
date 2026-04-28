@@ -5,71 +5,96 @@ import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import type React from "react";
 
+// TODO(LEMS-4033): use more self-explanatory types, e.g.
+//  `{x: number, y: number}`.
 type Coord = [x: number, y: number];
+// TODO(LEMS-4033): use more self-explanatory types, e.g.
+//  `{point1: {x, y}, point2: {x, y}}`.
 type CollinearTuple = readonly [Coord, Coord];
 
-type BaseGraphOptions = {
-    type: string;
-};
-
-type AngleGraphOptions = BaseGraphOptions & {
-    angleOffsetDegrees: number;
+type AngleGraphOptions = {
+    type: "angle";
+    // TODO(LEMS-4033): angleOffsetDegrees should never be undefined.
+    // Communicate the default value explicitly here.
+    angleOffsetDegrees: number | undefined;
     startCoords?: readonly [Coord, Coord, Coord];
 };
 
-type CircleGraphOptions = BaseGraphOptions & {
+type CircleGraphOptions = {
+    type: "circle";
     startParams: {
         center?: Coord;
         radius?: number;
     };
 };
 
-type LinearGraphOptions = BaseGraphOptions & {
+type LinearGraphOptions = {
+    type: "linear";
     startCoords?: CollinearTuple;
 };
 
-type LinearSystemGraphOptions = BaseGraphOptions & {
+type LinearSystemGraphOptions = {
+    type: "linear-system";
     startCoords?: readonly CollinearTuple[];
 };
 
-type PointGraphOptions = BaseGraphOptions & {
+type PointGraphOptions = {
+    type: "point";
     numPoints?: number | "unlimited";
     startCoords?: readonly Coord[];
 };
 
-type PolygonGraphOptions = BaseGraphOptions & {
+type PolygonGraphOptions = {
+    type: "polygon";
     match?: string;
     numSides?: number | "unlimited";
     startCoords?: readonly Coord[];
 };
 
-type QuadraticGraphOptions = BaseGraphOptions & {
+type QuadraticGraphOptions = {
+    type: "quadratic";
     startCoords?: readonly [Coord, Coord, Coord];
 };
 
-type RayGraphOptions = BaseGraphOptions & {
+type RayGraphOptions = {
+    type: "ray";
     startCoords?: CollinearTuple;
 };
 
-type SegmentGraphOptions = BaseGraphOptions & {
+type SegmentGraphOptions = {
+    type: "segment";
     numSegments?: number;
-    startCoords?: CollinearTuple;
+    startCoords?: CollinearTuple[];
 };
 
-type SinusoidGraphOptions = BaseGraphOptions & {
+type SinusoidGraphOptions = {
+    type: "sinusoid";
     startCoords?: readonly Coord[];
 };
 
-type AbsoluteValueGraphOptions = BaseGraphOptions & {
+type AbsoluteValueGraphOptions = {
+    type: "absolute-value";
     startCoords?: readonly [Coord, Coord];
 };
 
-type TangentGraphOptions = BaseGraphOptions & {
+type TangentGraphOptions = {
+    type: "tangent";
     startCoords?: readonly Coord[];
 };
 
-type ExponentialGraphOptions = BaseGraphOptions & {
+type ExponentialGraphOptions = {
+    type: "exponential";
     startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
+};
+
+type LogarithmGraphOptions = {
+    type: "logarithm";
+    startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
+};
+
+type VectorGraphOptions = {
+    type: "vector";
+    startCoords?: CollinearTuple;
 };
 
 type NoneGraphOptions = Record<string, never>;
@@ -88,7 +113,9 @@ type GraphOptions =
     | RayGraphOptions
     | SegmentGraphOptions
     | SinusoidGraphOptions
-    | TangentGraphOptions;
+    | TangentGraphOptions
+    | LogarithmGraphOptions
+    | VectorGraphOptions;
 
 type AngleUserInput = {
     coords?: readonly [Coord, Coord, Coord];
@@ -141,8 +168,21 @@ type ExponentialUserInput = {
     asymptote?: number | null;
 };
 
-type TangentUserInput = {
+type LogarithmUserInput = {
     coords?: readonly Coord[] | null;
+    asymptote?: number | null;
+};
+
+type TangentUserInput = {
+    // TODO(LEMS-4033): change to a more self-explanatory format. These points
+    //  are special (one is at the midline of the graph, the other determines
+    //  the period and vertical scaling) but I am not sure of their exact
+    //  mathematical significance.
+    coords?: readonly Coord[] | null;
+};
+
+type VectorUserInput = {
+    coords?: CollinearTuple | null;
 };
 
 type UserInput =
@@ -158,15 +198,41 @@ type UserInput =
     | RayUserInput
     | SegmentUserInput
     | SinusoidUserInput
-    | TangentUserInput;
+    | TangentUserInput
+    | LogarithmUserInput
+    | VectorUserInput;
 
+/**
+ * JSON describing an interactive graph widget. Intended for consumption by AI tools.
+ * An interactive graph plots equations and draws geometric figures on a
+ * Cartesian plane. The user can move and reshape these elements by dragging
+ * control points.
+ */
 export type InteractiveGraphPromptJSON = {
     type: "interactive-graph";
+
+    /**
+     * The configuration of the widget, set by the content creator.
+     */
     options: {
+        /**
+         * Configuration of the plotted equation or geometric figure.
+         */
         graph: GraphOptions;
+
+        /**
+         * The bounds of the graph. Format: `[[xMin, xMax], [yMin, yMax]]`
+         */
+        range: [x: [min: number, max: number], y: [min: number, max: number]];
+
+        /**
+         * Labels on the graph axes. Format: `[xLabel, yLabel]`.
+         */
+        labels: string[];
+
         backgroundImageUrl: string | null | undefined;
-        range: [min: number, max: number][];
-        labels: ReadonlyArray<string>;
+
+        // TODO(LEMS-4033): add locked figures to the prompt JSON
     };
     userInput: UserInput;
 };
@@ -268,6 +334,16 @@ const getGraphOptionsForProps = (
                 type: props.userInput.type,
                 startCoords: props.userInput.startCoords,
             };
+        case "logarithm":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
+        case "vector":
+            return {
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
+            };
         default:
             throw new UnreachableCaseError(type);
     }
@@ -333,6 +409,15 @@ const getUserInput = (userInput: PerseusGraphType): UserInput => {
             return {
                 coords: userInput.coords,
                 asymptote: userInput.asymptote,
+            };
+        case "logarithm":
+            return {
+                coords: userInput.coords,
+                asymptote: userInput.asymptote,
+            };
+        case "vector":
+            return {
+                coords: userInput.coords,
             };
         default:
             throw new UnreachableCaseError(type);

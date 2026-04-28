@@ -1,5 +1,109 @@
 # @khanacademy/perseus-editor
 
+## 30.4.1
+
+### Patch Changes
+
+-   [#3528](https://github.com/Khan/perseus/pull/3528) [`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating dependencies
+
+-   Updated dependencies [[`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f)]:
+    -   @khanacademy/math-input@26.4.16
+    -   @khanacademy/perseus@77.3.1
+
+## 30.4.0
+
+### Minor Changes
+
+-   [#3441](https://github.com/Khan/perseus/pull/3441) [`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Vector graph and subcomponents.
+
+*   [#3443](https://github.com/Khan/perseus/pull/3443) [`a3396604a7`](https://github.com/Khan/perseus/commit/a3396604a727b43eabcfb2771704d808b38c14c3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Vector Graph Editor
+
+-   [#3433](https://github.com/Khan/perseus/pull/3433) [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of initial types and stubs for Vector graph
+
+*   [#3492](https://github.com/Khan/perseus/pull/3492) [`883133a28f`](https://github.com/Khan/perseus/commit/883133a28fb278452693cac25a25440e3913137d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add preview data sanitizer to strip non-serializable values before postMessage
+
+### Patch Changes
+
+-   [#3522](https://github.com/Khan/perseus/pull/3522) [`19911cc966`](https://github.com/Khan/perseus/commit/19911cc96612ebbad5ba3d226ee04c9e6fc8036e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Label absolute-value graph start coordinates as "Vertex" and "Arm" in the editor instead of "Point 1" and "Point 2".
+
+*   [#3505](https://github.com/Khan/perseus/pull/3505) [`1ab914fc41`](https://github.com/Khan/perseus/commit/1ab914fc41c3d3f902df1969d2c441a9c11d3ba3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add warning for large images
+
+-   [#3530](https://github.com/Khan/perseus/pull/3530) [`b5e918e8b3`](https://github.com/Khan/perseus/commit/b5e918e8b3299d586cd706743d81addfc05cd4dc) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Update copy of recalculate button in editor
+
+*   [#3434](https://github.com/Khan/perseus/pull/3434) [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of state management logic for new Vector graph
+
+*   Updated dependencies [[`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae), [`c89cdbe2aa`](https://github.com/Khan/perseus/commit/c89cdbe2aacadc20e4b5fb982ff42b113f1f08f4), [`16f7f77ba1`](https://github.com/Khan/perseus/commit/16f7f77ba151b660ccf9ea32a30d936323f408f5), [`4d923417cd`](https://github.com/Khan/perseus/commit/4d923417cdf60113e3dbd057361e3e9c8c1747a6), [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6), [`b8178b52e7`](https://github.com/Khan/perseus/commit/b8178b52e7e9e237c12f58c48cbd1df32ce86bf9), [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d), [`d3ef4dbcc2`](https://github.com/Khan/perseus/commit/d3ef4dbcc2a281c148170a2ab7ab53521e796ed6), [`3abc5e8277`](https://github.com/Khan/perseus/commit/3abc5e827796c267065b606b6d219d6ca90b74ea), [`a5b9105c28`](https://github.com/Khan/perseus/commit/a5b9105c288f29181b4ca82eb9f8495f757a9088), [`11742c2cff`](https://github.com/Khan/perseus/commit/11742c2cff5ffd30ca4bb2676ddbe9fff6c9178e), [`7794943ec7`](https://github.com/Khan/perseus/commit/7794943ec7e4dc450ed57021d26f052a38d7c617), [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c), [`8fb79829d0`](https://github.com/Khan/perseus/commit/8fb79829d0a48c9840cb7baf4e7847bade3d158d)]:
+    -   @khanacademy/perseus@77.3.0
+    -   @khanacademy/perseus-core@25.0.0
+    -   @khanacademy/perseus-linter@4.9.5
+    -   @khanacademy/perseus-score@8.7.0
+    -   @khanacademy/kas@2.2.2
+    -   @khanacademy/keypad-context@3.2.44
+    -   @khanacademy/kmath@2.4.2
+    -   @khanacademy/math-input@26.4.15
+
+## 30.3.0
+
+### Minor Changes
+
+-   [#3474](https://github.com/Khan/perseus/pull/3474) [`b78e2ce5c3`](https://github.com/Khan/perseus/commit/b78e2ce5c3fa87de891e33717e0b4c01f39a91e4) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add typed preview message protocol with message types, validators, and tests
+
+### Patch Changes
+
+-   Updated dependencies [[`2f2724d244`](https://github.com/Khan/perseus/commit/2f2724d244d3d066608523598602f74012f1a0ff), [`27e66ce3a6`](https://github.com/Khan/perseus/commit/27e66ce3a65d6fae158197bc028a76abf3219d18), [`b8ed10349d`](https://github.com/Khan/perseus/commit/b8ed10349d02ff90a7c5b7a23e6442b0c820ae1c)]:
+    -   @khanacademy/perseus-core@24.1.1
+    -   @khanacademy/perseus@77.2.2
+    -   @khanacademy/keypad-context@3.2.43
+    -   @khanacademy/kmath@2.4.1
+    -   @khanacademy/math-input@26.4.14
+    -   @khanacademy/perseus-linter@4.9.4
+    -   @khanacademy/perseus-score@8.6.1
+
+## 30.2.1
+
+### Patch Changes
+
+-   [#3467](https://github.com/Khan/perseus/pull/3467) [`73de96cde3`](https://github.com/Khan/perseus/commit/73de96cde358e701f4ba4d5124e7a161f0632bcd) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused bold support from hint editor preview
+
+*   [#3475](https://github.com/Khan/perseus/pull/3475) [`4d1e0af9b5`](https://github.com/Khan/perseus/commit/4d1e0af9b550a0a0a2380f0ab199398a4b09d45c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Editor] Only show axe-core console logs when toggle button is "on"
+
+*   Updated dependencies [[`b03bd4b11b`](https://github.com/Khan/perseus/commit/b03bd4b11b58468be220ca0c4aafa09aa7a54677), [`2b02d27760`](https://github.com/Khan/perseus/commit/2b02d27760c0ae959100a80fae2a9c7dc009c858), [`d467d38886`](https://github.com/Khan/perseus/commit/d467d38886cfc950827e02b9e81527988d50b3c0), [`4827549d92`](https://github.com/Khan/perseus/commit/4827549d921c6c7d44931495758c3fe2edac7b65), [`ef4cf73a8e`](https://github.com/Khan/perseus/commit/ef4cf73a8e513eec1dbf8feb3003b1b58bbe295a), [`81dee14e58`](https://github.com/Khan/perseus/commit/81dee14e5827d6fbaa71fdafd7cc897973007e4b), [`ec3f5eb80b`](https://github.com/Khan/perseus/commit/ec3f5eb80b3a91137cc317ee3f116b781e4d4f2b), [`a33cba3baa`](https://github.com/Khan/perseus/commit/a33cba3baa8dee2c13188d1f40f74a0659d04b51)]:
+    -   @khanacademy/perseus@77.2.1
+    -   @khanacademy/perseus-linter@4.9.3
+
+## 30.2.0
+
+### Minor Changes
+
+-   [#3425](https://github.com/Khan/perseus/pull/3425) [`2c36b8a4c3`](https://github.com/Khan/perseus/commit/2c36b8a4c3a35b0edf432e9b69a7b73b04a75e52) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm graph option in the Interactive Graph Editor
+
+*   [#3420](https://github.com/Khan/perseus/pull/3420) [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm type definitions, this is the initial implementation for supporting Logarithm graph in Interactive Graph widget.
+
+### Patch Changes
+
+-   [#3461](https://github.com/Khan/perseus/pull/3461) [`0481b4238d`](https://github.com/Khan/perseus/commit/0481b4238d74c76ea2e2182cde3d1146da9d7a38) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Update CSS modules to kabab case
+
+-   Updated dependencies [[`a4eaa5a1f8`](https://github.com/Khan/perseus/commit/a4eaa5a1f8a32ce74ce38ea443419b94d53a72b4), [`2c36b8a4c3`](https://github.com/Khan/perseus/commit/2c36b8a4c3a35b0edf432e9b69a7b73b04a75e52), [`3cc56f60dd`](https://github.com/Khan/perseus/commit/3cc56f60dd66fb00a961d0ec6661d4e11a1aed83), [`08b1218b62`](https://github.com/Khan/perseus/commit/08b1218b62287d25149f087ee53d02c092ba15a1), [`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79), [`9099a40a4e`](https://github.com/Khan/perseus/commit/9099a40a4e101f6fe3fa51771409577bbe7161de), [`0481b4238d`](https://github.com/Khan/perseus/commit/0481b4238d74c76ea2e2182cde3d1146da9d7a38), [`0d6cf3c3ce`](https://github.com/Khan/perseus/commit/0d6cf3c3cef7cf160e0262d68cd9761e498189ed)]:
+    -   @khanacademy/perseus@77.2.0
+    -   @khanacademy/perseus-score@8.6.0
+    -   @khanacademy/perseus-core@24.1.0
+    -   @khanacademy/kmath@2.4.0
+    -   @khanacademy/keypad-context@3.2.42
+    -   @khanacademy/math-input@26.4.13
+    -   @khanacademy/perseus-linter@4.9.2
+
+## 30.1.1
+
+### Patch Changes
+
+-   [#3457](https://github.com/Khan/perseus/pull/3457) [`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+*   [#3448](https://github.com/Khan/perseus/pull/3448) [`0e30752302`](https://github.com/Khan/perseus/commit/0e307523021f458fa1f81ba3736a0354ef190fec) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding improved type safeguards to components folder in perseus-editor.
+
+*   Updated dependencies [[`9578d5a1ae`](https://github.com/Khan/perseus/commit/9578d5a1ae8c85a6c9ce82a5ed818f2e44c232fc), [`1f532f29c0`](https://github.com/Khan/perseus/commit/1f532f29c0a45f63e7badf3fe8da81b2855ab618), [`732cfab8fc`](https://github.com/Khan/perseus/commit/732cfab8fce00908d5fde297b5b8e5d52c596af9)]:
+    -   @khanacademy/math-input@26.4.12
+    -   @khanacademy/perseus@77.1.0
+
 ## 30.1.0
 
 ### Minor Changes

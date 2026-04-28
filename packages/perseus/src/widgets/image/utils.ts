@@ -50,8 +50,18 @@ export const graphieImage = {
     width: 420,
     height: 345,
 };
+
+export const graphieImage2 = {
+    url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/75e4658793aab7daaa1da709b90135ffd3c6ce0e",
+    width: 500,
+    height: 360,
+};
+
 export const graphieImageAlt =
     "An array of isosceles triangles. A triangle has height A. Two smaller triangle, one with height B and one with height C, have approximately the same combined height as A.";
+
+export const graphieImage2Alt =
+    "A picture graph shows the horizontal axis labeled Number of insects and the vertical axis labeled Types of insects. Each type of insect is listed along the vertical axis from bottom to top as follows: Beetle, Cricket, Ant, Mosquito, and Bee. The number of insects for each type of insect is represented by the number of pictures of ladybugs plotted on the graph. Beetle is represented by 5 pictures of ladybugs, Cricket is represented by 4 pictures of ladybugs, Ant is represented by 3 pictures of ladybugs, Mosquito is represented by 6 pictures of ladybugs, and Bee is represented by 3 pictures of ladybugs.";
 
 export const gifImage = {
     url: "https://cdn.kastatic.org/ka-content-images/79affe6b539eb0e163aa96b42160e53cad4b2097.gif",

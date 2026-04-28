@@ -773,7 +773,6 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
           ],
           "showButtons": false,
           "showEditor": false,
-          "static": false,
         },
         "type": "cs-program",
         "version": {
@@ -852,7 +851,6 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
           ],
           "showButtons": false,
           "showEditor": false,
-          "static": false,
         },
         "static": false,
         "type": "cs-program",
@@ -915,7 +913,6 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.ts returns 
           "settings": [],
           "showButtons": true,
           "showEditor": true,
-          "static": false,
         },
         "type": "cs-program",
       },
@@ -949,7 +946,6 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.ts returns 
           "settings": [],
           "showButtons": true,
           "showEditor": true,
-          "static": false,
         },
         "static": false,
         "type": "cs-program",
@@ -20239,6 +20235,14 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
 }
 `;
 
+exports[`parseAndMigratePerseusRenderer given basic-renderer.ts returns the same result as before 1`] = `
+{
+  "content": "Hello from a renderer fixture.",
+  "images": {},
+  "widgets": {},
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given the data from categorizer.ts returns the same result as before 1`] = `
 {
   "categorizer 1": {
@@ -20820,13 +20824,5 @@ exports[`parseAndMigrateUserInputMap given the data from table.ts returns the sa
       "d",
     ],
   ],
-}
-`;
-
-exports[`parseAndMigratePerseusRenderer given basic-renderer.ts returns the same result as before 1`] = `
-{
-  "content": "Hello from a renderer fixture.",
-  "images": {},
-  "widgets": {},
 }
 `;

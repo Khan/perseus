@@ -37,7 +37,6 @@ describe("CSProgram serialization", () => {
                     options: {
                         settings: [],
                         height: 410,
-                        static: false,
                         programID: "6293105639817216",
                         showButtons: false,
                         showEditor: false,

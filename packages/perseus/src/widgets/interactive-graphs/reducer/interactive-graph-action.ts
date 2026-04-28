@@ -37,7 +37,7 @@ export const actions = {
         moveRadiusPoint,
     },
     linear: {
-        moveLine: (delta: vec.Vector2) => moveLine(0, delta),
+        moveLine: (newStart: vec.Vector2) => moveLine(0, newStart),
         movePoint: (pointIndex, destination) =>
             movePointInFigure(0, pointIndex, destination),
     },
@@ -68,7 +68,7 @@ export const actions = {
         movePoint,
     },
     ray: {
-        moveRay: (delta: vec.Vector2) => moveLine(0, delta),
+        moveRay: (newStart: vec.Vector2) => moveLine(0, newStart),
         movePoint: (pointIndex, destination) =>
             movePointInFigure(0, pointIndex, destination),
     },
@@ -83,11 +83,19 @@ export const actions = {
         movePoint,
         moveCenter,
     },
+    logarithm: {
+        movePoint,
+        moveCenter,
+    },
     absoluteValue: {
         movePoint,
     },
     tangent: {
         movePoint,
+    },
+    vector: {
+        moveTip: (destination: vec.Vector2) => movePoint(1, destination),
+        moveVector: (newStart: vec.Vector2) => moveLine(0, newStart),
     },
 };
 
@@ -105,13 +113,13 @@ export const MOVE_LINE = "move-line";
 export interface MoveLine {
     type: typeof MOVE_LINE;
     itemIndex: number;
-    delta: vec.Vector2;
+    newStart: vec.Vector2;
 }
-function moveLine(itemIndex: number, delta: vec.Vector2): MoveLine {
+function moveLine(itemIndex: number, newStart: vec.Vector2): MoveLine {
     return {
         type: MOVE_LINE,
         itemIndex,
-        delta,
+        newStart,
     };
 }
 

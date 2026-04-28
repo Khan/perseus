@@ -110,6 +110,19 @@ export function mafsStateToInteractiveGraph(
                 ...originalGraph,
                 coords: state.coords,
             };
+        case "logarithm":
+            invariant(originalGraph.type === "logarithm");
+            return {
+                ...originalGraph,
+                coords: state.coords,
+                asymptote: state.asymptote,
+            };
+        case "vector":
+            invariant(originalGraph.type === "vector");
+            return {
+                ...originalGraph,
+                coords: state.coords,
+            };
         default:
             throw new UnreachableCaseError(state);
     }

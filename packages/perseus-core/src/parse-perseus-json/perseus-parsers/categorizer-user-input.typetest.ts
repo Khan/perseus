@@ -1,17 +1,16 @@
-import {summon} from "../general-purpose-parsers/test-helpers";
+import {describe, it, expect} from "tstyche";
 
-import type {parseCategorizerUserInput} from "./categorizer-user-input";
+import {ctx} from "../general-purpose-parsers/test-helpers";
+
+import {parseCategorizerUserInput} from "./categorizer-user-input";
+
 import type {PerseusCategorizerUserInput} from "../../validation.types";
-import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
-import type {ParsedValue} from "../parser-types";
+import type {ParseResult} from "../parser-types";
 
-type Parsed = ParsedValue<typeof parseCategorizerUserInput>;
-
-summon<Parsed>() satisfies PerseusCategorizerUserInput;
-summon<PerseusCategorizerUserInput>() satisfies Parsed;
-
-// The `RecursiveRequired` test ensures that any new optional properties added
-// to the types in data-schema.ts are also added to the parser.
-summon<
-    RecursiveRequired<Parsed>
->() satisfies RecursiveRequired<PerseusCategorizerUserInput>;
+describe("the CategorizerUserInput parser", () => {
+    it("should return the type defined in validation.types.ts", () => {
+        expect(parseCategorizerUserInput({}, ctx())).type.toBe<
+            ParseResult<PerseusCategorizerUserInput>
+        >();
+    });
+});

@@ -391,6 +391,30 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    srVectorGraph: string;
+    srVectorPoints: ({
+        tailX,
+        tailY,
+        tipX,
+        tipY,
+    }: {
+        tailX: string;
+        tailY: string;
+        tipX: string;
+        tipY: string;
+    }) => string;
+    srVectorTipPoint: ({x, y}: {x: string; y: string}) => string;
+    srVectorGrabHandle: ({
+        tailX,
+        tailY,
+        tipX,
+        tipY,
+    }: {
+        tailX: string;
+        tailY: string;
+        tipX: string;
+        tipY: string;
+    }) => string;
     srQuadraticGraph: string;
     srQuadraticFaceUp: string;
     srQuadraticFaceDown: string;
@@ -523,6 +547,36 @@ export type PerseusStrings = {
         asymptoteY: string;
     }) => string;
     srExponentialAsymptote: ({asymptoteY}: {asymptoteY: string}) => string;
+    srLogarithmGraph: string;
+    srLogarithmPoint1: ({x, y}: {x: string; y: string}) => string;
+    srLogarithmPoint2: ({x, y}: {x: string; y: string}) => string;
+    srLogarithmDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmAsymptote: ({asymptoteX}: {asymptoteX: string}) => string;
     srAbsoluteValueGraph: string;
     srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
     srAbsoluteValueSecondPoint: ({x, y}: {x: string; y: string}) => string;
@@ -568,6 +622,7 @@ export type PerseusStrings = {
         point2Y: string;
     }) => string;
     imageExploreButton: string;
+    imageExploreButtonAriaLabel: string;
     imageAlternativeTitle: string;
     imageDescriptionLabel: string;
     imageZoomAriaLabel: string;
@@ -1005,6 +1060,28 @@ export const strings = {
             "Aria label for the point that determines the direction of the Ray in the interactive graph widget. The ray passes through this point.",
         message: "Through point at %(x)s comma %(y)s.",
     },
+    srVectorGraph: {
+        context:
+            "Screen reader description for the container containing a Vector in the interactive graph widget.",
+        message: "A vector on a coordinate plane.",
+    },
+    srVectorPoints: {
+        context:
+            "Screen reader description for the tail and tip of a vector in the interactive graph widget.",
+        message:
+            "The tail is at %(tailX)s comma %(tailY)s and the tip is at %(tipX)s comma %(tipY)s.",
+    },
+    srVectorTipPoint: {
+        context:
+            "Aria label for the tip point of a Vector (the point with the arrowhead) in the interactive graph widget.",
+        message: "Tip point at %(x)s comma %(y)s.",
+    },
+    srVectorGrabHandle: {
+        context:
+            "Aria label for the interactive segment that allows the user to move the whole Vector in the interactive graph widget.",
+        message:
+            "Vector from %(tailX)s comma %(tailY)s to %(tipX)s comma %(tipY)s.",
+    },
     srQuadraticGraph: {
         context:
             "Aria label for the container containing a Quadratic function in the interactive graph widget.",
@@ -1205,6 +1282,39 @@ export const strings = {
         message:
             "Horizontal asymptote at y equals %(asymptoteY)s. Use up and down arrow keys to move.",
     },
+    srLogarithmGraph: {
+        context:
+            "Aria label for the container containing a Logarithm function in the interactive graph widget.",
+        message: "A logarithm function on a coordinate plane.",
+    },
+    srLogarithmPoint1: {
+        context:
+            "Aria label for the first Point on the Logarithm function in the interactive graph widget.",
+        message: "Point 1 at %(x)s comma %(y)s.",
+    },
+    srLogarithmPoint2: {
+        context:
+            "Aria label for the second Point on the Logarithm function in the interactive graph widget.",
+        message: "Point 2 at %(x)s comma %(y)s.",
+    },
+    srLogarithmDescription: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget.",
+        message:
+            "The graph shows a logarithm curve passing through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s with a vertical asymptote at x equals %(asymptoteX)s.",
+    },
+    srLogarithmInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Logarithm function in the interactive graph widget.",
+        message:
+            "Logarithm graph with point 1 at %(point1X)s comma %(point1Y)s, point 2 at %(point2X)s comma %(point2Y)s, and vertical asymptote at x equals %(asymptoteX)s.",
+    },
+    srLogarithmAsymptote: {
+        context:
+            "Aria label for the draggable vertical asymptote line in the Logarithm function in the interactive graph widget.",
+        message:
+            "Vertical asymptote at x equals %(asymptoteX)s. Use left and right arrow keys to move.",
+    },
     srAbsoluteValueGraph: {
         context:
             "Aria label for the container containing an Absolute Value function in the interactive graph widget.",
@@ -1260,6 +1370,7 @@ export const strings = {
             "Tangent graph with inflection point at %(point1X)s comma %(point1Y)s and control point at %(point2X)s comma %(point2Y)s.",
     },
     imageExploreButton: "Explore image",
+    imageExploreButtonAriaLabel: "Explore image and description",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
     imageZoomAriaLabel: "Make image bigger.",
@@ -1544,6 +1655,12 @@ export const mockStrings: PerseusStrings = {
         `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
     srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
     srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
+    srVectorGraph: "A vector on a coordinate plane.",
+    srVectorPoints: ({tailX, tailY, tipX, tipY}) =>
+        `The tail is at ${tailX} comma ${tailY} and the tip is at ${tipX} comma ${tipY}.`,
+    srVectorTipPoint: ({x, y}) => `Tip point at ${x} comma ${y}.`,
+    srVectorGrabHandle: ({tailX, tailY, tipX, tipY}) =>
+        `Vector from ${tailX} comma ${tailY} to ${tipX} comma ${tipY}.`,
     srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
     srQuadraticFaceUp: "The parabola opens upward.",
     srQuadraticFaceDown: "The parabola opens downward.",
@@ -1617,6 +1734,27 @@ export const mockStrings: PerseusStrings = {
         `Exponential graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and horizontal asymptote at y equals ${asymptoteY}.`,
     srExponentialAsymptote: ({asymptoteY}) =>
         `Horizontal asymptote at y equals ${asymptoteY}. Use up and down arrow keys to move.`,
+    srLogarithmGraph: "A logarithm function on a coordinate plane.",
+    srLogarithmPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
+    srLogarithmPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
+    srLogarithmDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `The graph shows a logarithm curve passing through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y} with a vertical asymptote at x equals ${asymptoteX}.`,
+    srLogarithmInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `Logarithm graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and vertical asymptote at x equals ${asymptoteX}.`,
+    srLogarithmAsymptote: ({asymptoteX}) =>
+        `Vertical asymptote at x equals ${asymptoteX}. Use left and right arrow keys to move.`,
     srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
     srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
     srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
@@ -1638,6 +1776,7 @@ export const mockStrings: PerseusStrings = {
     srTangentInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Tangent graph with inflection point at ${point1X} comma ${point1Y} and control point at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",
+    imageExploreButtonAriaLabel: "Explore image and description",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
     imageZoomAriaLabel: "Make image bigger.",

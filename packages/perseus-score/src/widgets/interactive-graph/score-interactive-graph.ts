@@ -31,6 +31,7 @@ const {
     getSinusoidCoefficients,
     getQuadraticCoefficients,
     getExponentialCoefficients,
+    getLogarithmCoefficients,
     getTangentCoefficients,
 } = coefficients;
 
@@ -167,6 +168,35 @@ function scoreInteractiveGraph(
                 userInput.asymptote,
             );
             const correctCoeffs = getExponentialCoefficients(
+                rubric.correct.coords,
+                rubric.correct.asymptote,
+            );
+            if (
+                guessCoeffs != null &&
+                correctCoeffs != null &&
+                approximateDeepEqual(
+                    [guessCoeffs.a, guessCoeffs.b, guessCoeffs.c],
+                    [correctCoeffs.a, correctCoeffs.b, correctCoeffs.c],
+                )
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
+            userInput.type === "logarithm" &&
+            rubric.correct.type === "logarithm" &&
+            userInput.coords != null &&
+            userInput.asymptote != null
+        ) {
+            const guessCoeffs = getLogarithmCoefficients(
+                userInput.coords,
+                userInput.asymptote,
+            );
+            const correctCoeffs = getLogarithmCoefficients(
                 rubric.correct.coords,
                 rubric.correct.asymptote,
             );
@@ -385,6 +415,43 @@ function scoreInteractiveGraph(
                     approximateDeepEqual(guess[1], correct[1]) &&
                     collinear(correct[1], correct[0], guess[0]) &&
                     collinear(correct[1], correct[2], guess[2]);
+            }
+
+            if (match) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
+        } else if (
+            userInput.type === "vector" &&
+            rubric.correct.type === "vector" &&
+            userInput.coords != null &&
+            rubric.correct.coords != null
+        ) {
+            const guess = userInput.coords;
+            const correct = rubric.correct.coords;
+
+            let match: boolean;
+            if (rubric.correct.match === "congruent") {
+                // Congruent: same direction and magnitude, any position.
+                // Compare the component form ⟨dx, dy⟩ of each vector.
+                const guessDelta: Coord = [
+                    guess[1][0] - guess[0][0],
+                    guess[1][1] - guess[0][1],
+                ];
+                const correctDelta: Coord = [
+                    correct[1][0] - correct[0][0],
+                    correct[1][1] - correct[0][1],
+                ];
+                match = approximateDeepEqual(guessDelta, correctDelta);
+            } else {
+                // Exact (default): both tail and tip must match exactly.
+                match =
+                    approximateDeepEqual(guess[0], correct[0]) &&
+                    approximateDeepEqual(guess[1], correct[1]);
             }
 
             if (match) {

@@ -77,7 +77,6 @@ export const OpenedDropdownInArticleWithParagraphs = (): React.ReactNode => {
     );
 };
 OpenedDropdownInArticleWithParagraphs.play = async ({canvas, userEvent}) => {
-    // eslint-disable-next-line testing-library/prefer-screen-queries
     const dropdown = canvas.getByRole("combobox");
     await userEvent.click(dropdown);
 };

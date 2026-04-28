@@ -1,5 +1,38 @@
 # @khanacademy/perseus-score
 
+## 8.7.0
+
+### Minor Changes
+
+-   [#3442](https://github.com/Khan/perseus/pull/3442) [`d3ef4dbcc2`](https://github.com/Khan/perseus/commit/d3ef4dbcc2a281c148170a2ab7ab53521e796ed6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Added ability to score Vector Interactive Graphs
+
+### Patch Changes
+
+-   Updated dependencies [[`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae), [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6), [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d), [`a5b9105c28`](https://github.com/Khan/perseus/commit/a5b9105c288f29181b4ca82eb9f8495f757a9088), [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c)]:
+    -   @khanacademy/perseus-core@25.0.0
+    -   @khanacademy/kas@2.2.2
+    -   @khanacademy/kmath@2.4.2
+
+## 8.6.1
+
+### Patch Changes
+
+-   Updated dependencies [[`2f2724d244`](https://github.com/Khan/perseus/commit/2f2724d244d3d066608523598602f74012f1a0ff)]:
+    -   @khanacademy/perseus-core@24.1.1
+    -   @khanacademy/kmath@2.4.1
+
+## 8.6.0
+
+### Minor Changes
+
+-   [#3424](https://github.com/Khan/perseus/pull/3424) [`08b1218b62`](https://github.com/Khan/perseus/commit/08b1218b62287d25149f087ee53d02c092ba15a1) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add logarithm graph scoring to support the Logarithm graph in Interactive Graph
+
+### Patch Changes
+
+-   Updated dependencies [[`a72f7db4a3`](https://github.com/Khan/perseus/commit/a72f7db4a3ea9eb7c5fa38f67a667a77514c2f79), [`9099a40a4e`](https://github.com/Khan/perseus/commit/9099a40a4e101f6fe3fa51771409577bbe7161de)]:
+    -   @khanacademy/perseus-core@24.1.0
+    -   @khanacademy/kmath@2.4.0
+
 ## 8.5.0
 
 ### Minor Changes

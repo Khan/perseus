@@ -273,6 +273,14 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withVector(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new VectorGraphConfig(options);
+        return this;
+    }
+
     withCircle(options?: {
         center?: Coord;
         radius?: number;
@@ -358,6 +366,16 @@ class InteractiveGraphQuestionBuilder {
         match?: "congruent";
     }): InteractiveGraphQuestionBuilder {
         this.interactiveFigureConfig = new AngleGraphConfig(options);
+        return this;
+    }
+
+    withLogarithm(options?: {
+        coords?: [Coord, Coord];
+        asymptote?: number;
+        startCoords?: [Coord, Coord];
+        startAsymptote?: number;
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new LogarithmGraphConfig(options);
         return this;
     }
 
@@ -741,6 +759,30 @@ class RayGraphConfig implements InteractiveFigureConfig {
     }
 }
 
+class VectorGraphConfig implements InteractiveFigureConfig {
+    private coords?: CollinearTuple;
+    private startCoords?: CollinearTuple;
+
+    constructor(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "vector",
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "vector", startCoords: this.startCoords};
+    }
+}
+
 class CircleGraphConfig implements InteractiveFigureConfig {
     private startCoords?: {
         center: Coord;
@@ -859,6 +901,46 @@ class ExponentialGraphConfig implements InteractiveFigureConfig {
     graph(): PerseusGraphType {
         return {
             type: "exponential",
+            startCoords:
+                this.startCoords != null
+                    ? {
+                          coords: this.startCoords,
+                          asymptote: this.startAsymptote ?? 0,
+                      }
+                    : undefined,
+        };
+    }
+}
+
+class LogarithmGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord];
+    private asymptote?: number;
+    private startCoords?: [Coord, Coord];
+    private startAsymptote?: number;
+
+    constructor(options?: {
+        coords?: [Coord, Coord];
+        asymptote?: number;
+        startCoords?: [Coord, Coord];
+        startAsymptote?: number;
+    }) {
+        this.coords = options?.coords;
+        this.asymptote = options?.asymptote;
+        this.startCoords = options?.startCoords;
+        this.startAsymptote = options?.startAsymptote;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "logarithm",
+            coords: this.coords,
+            asymptote: this.asymptote,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {
+            type: "logarithm",
             startCoords:
                 this.startCoords != null
                     ? {

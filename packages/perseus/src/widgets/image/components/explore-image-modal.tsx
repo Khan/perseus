@@ -14,6 +14,9 @@ type Props = CommonImageProps & ZoomProps & GifProps;
 
 export const ExploreImageModal = (props: Props) => {
     const context = React.useContext(PerseusI18nContext);
+    const uniqueId = React.useId();
+    const captionId = `${uniqueId}-caption`;
+    const longDescId = `${uniqueId}-long-desc`;
 
     const titleText = props.title || context.strings.imageAlternativeTitle;
     const title = (
@@ -39,7 +42,16 @@ export const ExploreImageModal = (props: Props) => {
         >
             <FlexibleDialog
                 title={title}
-                content={<ExploreImageModalContent {...props} />}
+                content={
+                    <ExploreImageModalContent
+                        {...props}
+                        captionId={captionId}
+                        longDescId={longDescId}
+                    />
+                }
+                aria-describedby={
+                    props.caption ? `${captionId} ${longDescId}` : longDescId
+                }
                 styles={{
                     root: wbStyles.root,
                 }}

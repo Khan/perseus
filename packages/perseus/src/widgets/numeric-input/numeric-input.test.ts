@@ -467,6 +467,54 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
         );
     });
+
+    it("renders default aria-label when labelText is not provided", () => {
+        // Arrange
+        const item: PerseusRenderer = {
+            content: "[[☃ numeric-input 1]] ",
+            images: {},
+            widgets: {
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
+                        answers: [generateNumericInputAnswer({value: 42})],
+                        labelText: "",
+                    }),
+                }),
+            },
+        };
+
+        // Act
+        renderQuestion(item);
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {hidden: true}),
+        ).toHaveAccessibleName("Your answer:");
+    });
+
+    it("renders content-provided aria-label when labelText is set", () => {
+        // Arrange
+        const item: PerseusRenderer = {
+            content: "[[☃ numeric-input 1]] ",
+            images: {},
+            widgets: {
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
+                        answers: [generateNumericInputAnswer({value: 42})],
+                        labelText: "What's the answer?",
+                    }),
+                }),
+            },
+        };
+
+        // Act
+        renderQuestion(item);
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {hidden: true}),
+        ).toHaveAccessibleName("What's the answer?");
+    });
 });
 
 describe("interactive: full vs answerless", () => {

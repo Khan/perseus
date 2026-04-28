@@ -54,6 +54,16 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         );
 
         unmockImageLoading = mockImageLoading();
+
+        // GifImage (rendered via SvgImage when gif controls are active)
+        // calls fetch() to decode GIF frames. jsdom doesn't provide
+        // fetch, so we stub it here.
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+            }),
+        ) as jest.Mock;
     });
 
     afterEach(() => {
@@ -261,7 +271,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         // Assert
-        const button = screen.getByRole("button", {name: "Explore image"});
+        const button = screen.getByRole("button", {
+            name: "Explore image and description",
+        });
         expect(button).toBeVisible();
         expect(button).toHaveTextContent("Explore image");
     });
@@ -288,9 +300,14 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         // Assert
-        const iconButton = screen.getByRole("button", {name: "Explore image"});
+        const iconButton = screen.getByRole("button", {
+            name: "Explore image and description",
+        });
         expect(iconButton).toBeVisible();
-        expect(iconButton).toHaveAttribute("aria-label", "Explore image");
+        expect(iconButton).toHaveAttribute(
+            "aria-label",
+            "Explore image and description",
+        );
         expect(iconButton).not.toHaveTextContent("Explore image");
     });
 
@@ -314,7 +331,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         //  Act
-        const button = screen.getByRole("button", {name: "Explore image"});
+        const button = screen.getByRole("button", {
+            name: "Explore image and description",
+        });
         await userEvent.click(button);
 
         // Assert
@@ -342,7 +361,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         //  Act
-        const button = screen.getByRole("button", {name: "Explore image"});
+        const button = screen.getByRole("button", {
+            name: "Explore image and description",
+        });
         await userEvent.click(button);
 
         // Assert
@@ -371,7 +392,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         //  Act
-        const button = screen.getByRole("button", {name: "Explore image"});
+        const button = screen.getByRole("button", {
+            name: "Explore image and description",
+        });
         await userEvent.click(button);
 
         // Assert
@@ -403,7 +426,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         //  Act
-        const button = screen.getByRole("button", {name: "Explore image"});
+        const button = screen.getByRole("button", {
+            name: "Explore image and description",
+        });
         await userEvent.click(button);
 
         // Assert
@@ -432,7 +457,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         //  Act - open the modal, check for zoom button
-        const button = screen.getByRole("button", {name: "Explore image"});
+        const button = screen.getByRole("button", {
+            name: "Explore image and description",
+        });
         await userEvent.click(button);
         const withinDialog = within(screen.getByRole("dialog"));
         const zoomButton = withinDialog.queryByRole("button", {
@@ -510,6 +537,29 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Assert
             const button = screen.queryByRole("button");
             expect(button).not.toBeInTheDocument();
+        });
+
+        it("does not render a zoom image button for gif images", () => {
+            // Arrange
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+
+            // Assert
+            const zoomButton = screen.queryByRole("button", {
+                name: "Zoom image.",
+            });
+            expect(zoomButton).not.toBeInTheDocument();
         });
 
         it("does not render a zoom image button for images without sizes", () => {
@@ -670,7 +720,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert
             expect(
-                screen.queryByRole("button", {name: "Explore image"}),
+                screen.queryByRole("button", {
+                    name: "Explore image and description",
+                }),
             ).not.toBeInTheDocument();
         });
 
@@ -734,7 +786,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 screen.queryByText("widget caption"),
             ).not.toBeInTheDocument();
             expect(
-                screen.queryByRole("button", {name: "Explore image"}),
+                screen.queryByRole("button", {
+                    name: "Explore image and description",
+                }),
             ).not.toBeInTheDocument();
 
             // Decorative images have role="presentation" due to empty alt text
@@ -773,7 +827,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(screen.getByText("widget title")).toBeVisible();
             expect(screen.getByText("widget caption")).toBeVisible();
             expect(
-                screen.getByRole("button", {name: "Explore image"}),
+                screen.getByRole("button", {
+                    name: "Explore image and description",
+                }),
             ).toBeVisible();
             expect(screen.getByAltText("widget alt text")).toBeVisible();
         });
@@ -1028,6 +1084,27 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 name: "Play Animation",
             });
             expect(playButtonAgain).toBeVisible();
+        });
+
+        it("does not render a canvas overlay when the feature flag is disabled", () => {
+            // Arrange, Act
+            const gifImageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: gifImage,
+                        }),
+                    }),
+                },
+            });
+            renderQuestion(gifImageQuestion, apiOptions);
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(screen.queryByTestId("gif-canvas")).not.toBeInTheDocument();
         });
     });
 

@@ -53,7 +53,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                 class="default_xu2jcg-o_O-inlineStyles_zdxht7"
               >
                 <textarea
-                  aria-describedby=""
+                  aria-describedby=":r2:-labeled-field-additional-helper-message"
                   aria-invalid="false"
                   aria-required="false"
                   class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_sdsn9f"
@@ -62,21 +62,21 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                 />
               </div>
               <div
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_1lvpu48-o_O-spacingAboveHelperText_gnlkey"
+                id=":r2:-labeled-field-additional-helper-message"
+              >
+                <p
+                  class="characterCountText_10dqadd"
+                >
+                  0 / 500 Characters
+                </p>
+              </div>
+              <div
                 aria-atomic="true"
                 aria-live="assertive"
                 class="default_xu2jcg-o_O-helperTextWithIcon_1hmzxfl"
                 id=":r2:-labeled-field-error"
               />
-            </div>
-            <div
-              class="default_xu2jcg"
-            >
-              <span
-                class="text_f1191h-o_O-characterCountText_1iy49wk"
-                role="status"
-              >
-                0 / 500 Characters
-              </span>
             </div>
           </div>
         </div>
@@ -139,7 +139,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
                 class="default_xu2jcg-o_O-inlineStyles_zdxht7"
               >
                 <textarea
-                  aria-describedby=""
+                  aria-describedby=":r0:-labeled-field-additional-helper-message"
                   aria-invalid="false"
                   aria-required="false"
                   class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_sdsn9f"
@@ -148,21 +148,21 @@ exports[`free-response widget should snapshot: first render 1`] = `
                 />
               </div>
               <div
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_1lvpu48-o_O-spacingAboveHelperText_gnlkey"
+                id=":r0:-labeled-field-additional-helper-message"
+              >
+                <p
+                  class="characterCountText_10dqadd"
+                >
+                  0 / 500 Characters
+                </p>
+              </div>
+              <div
                 aria-atomic="true"
                 aria-live="assertive"
                 class="default_xu2jcg-o_O-helperTextWithIcon_1hmzxfl"
                 id=":r0:-labeled-field-error"
               />
-            </div>
-            <div
-              class="default_xu2jcg"
-            >
-              <span
-                class="text_f1191h-o_O-characterCountText_1iy49wk"
-                role="status"
-              >
-                0 / 500 Characters
-              </span>
             </div>
           </div>
         </div>

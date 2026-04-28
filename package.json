@@ -6,7 +6,7 @@
     "license": "MIT",
     "private": true,
     "engines": {
-        "node": ">=20.20 <25"
+        "node": ">=24.13 <25"
     },
     "devDependencies": {
         "@babel/core": "^7.23.2",
@@ -18,6 +18,7 @@
         "@jest/globals": "^30.2.0",
         "@khanacademy/eslint-config": "^5.2.1",
         "@khanacademy/eslint-plugin": "^3.1.2",
+        "@khanacademy/eslint-plugin-wonder-blocks": "^0.2.0",
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-accordion": "catalog:devDeps",
         "@khanacademy/wonder-blocks-core": "catalog:devDeps",
@@ -104,6 +105,7 @@
         "storybook-multilevel-sort": "^2.1.0",
         "swc_mut_cjs_exports": "^8.0.1",
         "tiny-invariant": "catalog:devDeps",
+        "tstyche": "^7.0.0",
         "typedoc": "^0.28.17",
         "typedoc-plugin-missing-exports": "^4.1.2",
         "typescript": "5.9.3",
@@ -126,12 +128,15 @@
         "clean": "./utils/clean.sh",
         "clean:docs": "git clean -fdx docs/ && git checkout HEAD -- docs/",
         "coverage": "./utils/test-with-coverage.sh",
+        "fixc": "utils/changed-files.sh | utils/lint.sh --fix",
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
+        "linc": "utils/changed-files.sh | utils/lint.sh",
         "lint:timing": "cross-env TIMING=1 pnpm lint",
         "publish:ci": "utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && pnpm build && pnpm build:types && changeset publish",
         "update-catalog-hashes": "utils/update-catalog-hashes-cli.ts",
         "sloc": "sloc packages --exclude node_modules",
         "test": "jest",
+        "tesc": "utils/changed-files.sh | tr '\\n' '\\0' | xargs -r -0 pnpm jest --silent --findRelatedTests --passWithNoTests --",
         "storybook": "storybook dev -p 6006",
         "start": "pnpm storybook",
         "cypress": "cypress open --component",
