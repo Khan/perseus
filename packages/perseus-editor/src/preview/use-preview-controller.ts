@@ -112,8 +112,7 @@ export function usePreviewController(
     // Memoized function to send data to iframe
     const sendData = React.useCallback(
         (data: PreviewContent) => {
-            const iframe = iframeRef.current;
-            const contentWindow = iframe?.contentWindow;
+            const contentWindow = iframeRef.current?.contentWindow;
 
             if (!contentWindow) {
                 return;
