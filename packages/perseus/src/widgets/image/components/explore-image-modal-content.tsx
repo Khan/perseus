@@ -16,7 +16,12 @@ import type {CommonImageProps, ZoomProps, GifProps} from "./image-info-area";
 
 const MODAL_HEIGHT = 568;
 
-type Props = CommonImageProps & ZoomProps & GifProps;
+type Props = CommonImageProps &
+    ZoomProps &
+    GifProps & {
+        captionId: string;
+        longDescId: string;
+    };
 
 export default function ExploreImageModalContent({
     backgroundImage,
@@ -30,9 +35,10 @@ export default function ExploreImageModalContent({
     labels,
     range,
     zoomSize,
-    isGifPlaying,
-    setIsGifPlaying,
+    captionId,
+    longDescId,
 }: Props) {
+    const [isGifPlaying, setIsGifPlaying] = React.useState(false);
     const context = React.useContext(PerseusI18nContext);
 
     if (!backgroundImage.url) {
@@ -119,6 +125,16 @@ export default function ExploreImageModalContent({
                             constrainHeight={apiOptions.isMobile}
                             allowFullBleed={apiOptions.isMobile}
                             setAssetStatus={setAssetStatus}
+                            isGifPlaying={
+                                gifControlsFF && imageIsGif
+                                    ? isGifPlaying
+                                    : undefined
+                            }
+                            onGifLoop={
+                                gifControlsFF && imageIsGif
+                                    ? () => setIsGifPlaying(false)
+                                    : undefined
+                            }
                         />
                     )}
                 </AssetContext.Consumer>
@@ -137,7 +153,10 @@ export default function ExploreImageModalContent({
                 )}
 
                 {caption && (
-                    <div className={styles.modalCaptionContainer}>
+                    <div
+                        id={captionId}
+                        className={styles.modalCaptionContainer}
+                    >
                         {/* Use Renderer so that the caption can support markdown and TeX. */}
                         <Renderer
                             content={caption}
@@ -156,12 +175,14 @@ export default function ExploreImageModalContent({
                     {context.strings.imageDescriptionLabel}
                 </Heading>
                 {/* Use Renderer so that the description can support markdown and TeX. */}
-                <Renderer
-                    content={longDescription}
-                    apiOptions={apiOptions}
-                    linterContext={linterContext}
-                    strings={context.strings}
-                />
+                <div id={longDescId}>
+                    <Renderer
+                        content={longDescription}
+                        apiOptions={apiOptions}
+                        linterContext={linterContext}
+                        strings={context.strings}
+                    />
+                </div>
             </div>
         </div>
     );

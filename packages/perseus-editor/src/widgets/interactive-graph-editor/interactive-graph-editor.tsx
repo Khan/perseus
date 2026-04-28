@@ -32,6 +32,7 @@ import InteractiveGraphSettings from "./components/interactive-graph-settings";
 import InteractiveGraphSRTree from "./components/interactive-graph-sr-tree";
 import PolygonAnswerOptions from "./components/polygon-answer-options";
 import SegmentCountSelector from "./components/segment-count-selector";
+import VectorAnswerOptions from "./components/vector-answer-options";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
@@ -457,6 +458,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 onChange={this.props.onChange}
                             />
                         )}
+                        {this.props.correct?.type === "vector" && (
+                            <VectorAnswerOptions
+                                correct={this.props.correct}
+                                onChange={this.props.onChange}
+                            />
+                        )}
                         {this.props.correct?.type === "segment" && (
                             <SegmentCountSelector
                                 correct={this.props.correct}
@@ -572,6 +579,9 @@ function mergeGraphs(
             return {...a, ...b};
         case "logarithm":
             invariant(b.type === "logarithm");
+            return {...a, ...b};
+        case "vector":
+            invariant(b.type === "vector");
             return {...a, ...b};
         default:
             throw new UnreachableCaseError(a);

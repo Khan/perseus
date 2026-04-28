@@ -316,6 +316,7 @@ function doMovePointInFigure(
         case "tangent":
         case "exponential":
         case "logarithm":
+        case "vector":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -331,6 +332,8 @@ function doMoveLine(
     action: MoveLine,
 ): InteractiveGraphState {
     const {snapStep, range} = state;
+    const {newStart} = action;
+
     switch (state.type) {
         case "segment":
         case "linear-system": {
@@ -338,24 +341,15 @@ function doMoveLine(
                 throw new Error("Please provide index of line to move");
             }
             const currentLine = state.coords[action.itemIndex];
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (!currentLine) {
-                throw new Error("No line to move");
-            }
-            const change = getChange(currentLine, action.delta, {
-                snapStep,
-                range,
-            });
-
-            const newLine: PairOfPoints = [
-                snap(snapStep, vec.add(currentLine[0], change)),
-                snap(snapStep, vec.add(currentLine[1], change)),
-            ];
-
+            const constrainedLine = constrainShapePreservingMove(
+                currentLine,
+                newStart,
+                {snapStep, range},
+            );
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.itemIndex,
-                newValue: newLine,
+                newValue: constrainedLine,
             });
 
             return {
@@ -366,28 +360,21 @@ function doMoveLine(
             };
         }
         case "linear":
-        case "ray": {
-            const currentLine = state.coords;
-            const change = getChange(currentLine, action.delta, {
-                snapStep,
-                range,
-            });
-
-            const newLine: PairOfPoints = [
-                snap(snapStep, vec.add(currentLine[0], change)),
-                snap(snapStep, vec.add(currentLine[1], change)),
-            ];
-
+        case "ray":
+        case "vector": {
+            const constrainedLine = constrainShapePreservingMove(
+                state.coords,
+                newStart,
+                {snapStep, range},
+            );
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
-                coords: newLine,
+                coords: constrainedLine,
             };
         }
         default:
-            // The MoveLine action doesn't make sense for other graph types;
-            // ignore it if it somehow happens
             return state;
     }
 }
@@ -735,6 +722,27 @@ function doMovePoint(
                 }),
             };
         }
+        case "vector": {
+            const boundDestination = boundAndSnapToGrid(
+                action.destination,
+                state,
+            );
+
+            // Reject the move if the tip would overlap with the tail
+            if (vec.dist(boundDestination, state.coords[0]) === 0) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: boundDestination,
+                }),
+            };
+        }
         case "quadratic": {
             // Set up the new coords and check if the quadratic coefficients are valid
             const newCoords: QuadraticCoords = [...state.coords];
@@ -1049,6 +1057,21 @@ const getChange = (
     );
     const [dx, dy] = getDeltaVertex(maxMoves, minMoves, delta);
     return [dx, dy];
+};
+
+// Translates both endpoints by the largest delta that keeps them in bounds.
+const constrainShapePreservingMove = (
+    currentLine: PairOfPoints,
+    newStart: vec.Vector2,
+    constraintOpts: {snapStep: vec.Vector2; range: [Interval, Interval]},
+): PairOfPoints => {
+    const desiredDelta = vec.sub(newStart, currentLine[0]);
+    const change = getChange(currentLine, desiredDelta, constraintOpts);
+    const {snapStep} = constraintOpts;
+    return [
+        snap(snapStep, vec.add(currentLine[0], change)),
+        snap(snapStep, vec.add(currentLine[1], change)),
+    ];
 };
 
 interface ConstraintArgs {

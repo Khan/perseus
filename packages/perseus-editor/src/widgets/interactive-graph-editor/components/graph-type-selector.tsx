@@ -34,6 +34,11 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
         "interactive-graph-logarithm",
     );
 
+    const showVector = isFeatureOn(
+        {apiOptions: props.apiOptions},
+        "interactive-graph-vector",
+    );
+
     return (
         <SingleSelect
             selectedValue={props.graphType}
@@ -63,6 +68,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             <OptionItem value="polygon" label="Polygon" />
             <OptionItem value="segment" label="Line Segment(s)" />
             <OptionItem value="ray" label="Ray" />
+            {showVector && <OptionItem value="vector" label="Vector" />}
             <OptionItem value="angle" label="Angle" />
         </SingleSelect>
     );

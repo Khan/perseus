@@ -36,6 +36,13 @@
 
     --movable-line-stroke-weight: 2px;
     --movable-line-stroke-weight-active: 4px;
+
+    --movable-asymptote-stroke-weight: 2px;
+    --movable-asymptote-stroke-weight-active: 4px;
+    --movable-asymptote-dash-length: 6;
+    --movable-asymptote-dash-gap: 8;
+    --movable-asymptote-dash-length-active: 8;
+    --movable-asymptote-dash-gap-active: 12;
     overflow: visible !important;
 }
 
@@ -46,8 +53,16 @@
 }
 
 .MafsView .movable-line:hover,
+.MafsView .movable-line:focus-visible,
 .movable-dragging {
     --movable-line-stroke-weight: var(--movable-line-stroke-weight-active);
+    --movable-asymptote-stroke-weight: var(
+        --movable-asymptote-stroke-weight-active
+    );
+    --movable-asymptote-dash-length: var(
+        --movable-asymptote-dash-length-active
+    );
+    --movable-asymptote-dash-gap: var(--movable-asymptote-dash-gap-active);
 }
 
 .MafsView .movable-line:focus,
@@ -214,22 +229,113 @@
     r: 1.25px;
 }
 
-/* Styles for Asymptote component used in Exponential / Log Graphs */
-.MafsView .movable-asymptote-handle-focus-ring {
+/* Movable arrowhead — the vector tip control.
+   Centre and ring are the chevron path at increasing stroke widths.
+   Halo is a filled rounded-triangle shape.  The focus outline is the
+   same triangle shape but stroked and scales up on hover. */
+.MafsView .movable-arrowhead {
+    cursor: grab;
+    touch-action: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.MafsView .movable-arrowhead.movable-arrowhead--dragging {
+    cursor: grabbing;
+}
+
+.MafsView .movable-arrowhead-hitbox {
+    fill: transparent;
+}
+
+.MafsView
+    :is(
+        .movable-arrowhead-center,
+        .movable-arrowhead-ring,
+        .movable-arrowhead-halo
+    ) {
+    transition:
+        stroke-width 0.15s ease-out,
+        opacity 0.15s ease-out,
+        transform 0.15s ease-out;
+}
+
+.MafsView .movable-arrowhead-center {
+    stroke: var(--movable-arrowhead-color);
+    stroke-width: 2px;
+    vector-effect: non-scaling-stroke;
+    transform-box: fill-box;
+    transform-origin: 100% 50%; /* scale from the tip */
+}
+
+.MafsView .movable-arrowhead-ring {
+    stroke: #fff;
+    stroke-width: 5px;
+    vector-effect: non-scaling-stroke;
+    transform-box: fill-box;
+    transform-origin: 100% 50%;
+    filter: drop-shadow(0 1px 4px rgba(33, 36, 44, 0.16));
+}
+
+.MafsView .movable-arrowhead-halo {
+    fill: var(--movable-arrowhead-color);
+    fill-opacity: 0.2;
+    stroke: none;
+    transform-box: fill-box;
+    transform-origin: 100% 50%;
+}
+
+.MafsView
+    .movable-arrowhead.movable-arrowhead--dragging
+    .movable-arrowhead-halo {
+    fill-opacity: 0;
+    stroke: none;
+}
+
+/* Hover: arms grow longer (stroke stays 2px), ring/halo/focus expand */
+.MafsView .movable-arrowhead:hover .movable-arrowhead-center {
+    transform: scale(1.2);
+}
+
+.MafsView .movable-arrowhead:hover .movable-arrowhead-ring {
+    transform: scale(1.2);
+}
+
+.MafsView .movable-arrowhead:hover .movable-arrowhead-halo {
+    transform: scale(1.15);
+}
+
+/* Focus: add a 2px stroke ring to the halo */
+.MafsView
+    .movable-arrowhead:is(:focus, .movable-arrowhead--focus)
+    .movable-arrowhead-halo {
+    stroke: var(--mafs-blue);
+    stroke-width: 2px;
+}
+
+/* Vector graph line styling */
+.MafsView .movable-vector-line {
+    stroke: var(--mafs-blue);
+    stroke-width: var(--movable-line-stroke-weight);
+    stroke-linecap: round;
+}
+
+/* Shared pill-shaped drag handle (used by vector, exponential, logarithm) */
+.MafsView .movable-pill-handle-focus-ring {
     fill: none;
     stroke-width: 2px;
 }
 
-.MafsView .movable-asymptote-handle-halo {
+.MafsView .movable-pill-handle-halo {
     opacity: 0.25;
     filter: drop-shadow(0 5px 5px #0008);
 }
 
-.MafsView .movable-asymptote-handle-ring {
+.MafsView .movable-pill-handle-ring {
     fill: var(--wb-semanticColor-core-border-knockout-default);
 }
 
-.MafsView .movable-asymptote-handle-dot {
+.MafsView .movable-pill-handle-dot {
     fill: var(--wb-semanticColor-core-border-knockout-default);
     r: var(--wb-sizing-size_010);
 }

@@ -22,6 +22,7 @@ import type {
     PerseusGraphTypeExponential,
     PerseusGraphTypeTangent,
     PerseusGraphTypeLogarithm,
+    PerseusGraphTypeVector,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -152,6 +153,12 @@ export function initializeGraphState(
                 ...shared,
                 type: graph.type,
                 ...getLogarithmCoords(graph, range, step),
+            };
+        case "vector":
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getVectorCoords(graph, range, step),
             };
         default:
             throw new UnreachableCaseError(graph);
@@ -306,6 +313,27 @@ export function getLineCoords(
     }
 
     return normalizePoints(range, step, defaultLinearCoords[0]);
+}
+
+export function getVectorCoords(
+    graph: PerseusGraphTypeVector,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): PairOfPoints {
+    if (graph.coords) {
+        return graph.coords;
+    }
+
+    if (graph.startCoords) {
+        return graph.startCoords;
+    }
+
+    // Default: 45° diagonal vector in the upper-right area of the graph.
+    // Equal x/y offsets ensure a true 45° angle on a square grid.
+    return normalizePoints(range, step, [
+        [0.6, 0.6],
+        [0.85, 0.85],
+    ]);
 }
 
 export function getLinearSystemCoords(
@@ -499,10 +527,12 @@ export function getExponentialCoords(
         };
     }
 
-    // Default: two points above the x-axis, matching the Grapher widget defaults.
-    // [0.5, 0.55] normalizes to just above y=0 (≈1 step up in a [-10,10] range).
+    // Default: two points above the x-axis. The closest point sits a few
+    // steps above the asymptote so it doesn't visually overlap the
+    // asymptote drag handle. [0.5, 0.6] normalizes to (0, 2) in a [-10,10]
+    // range.
     let defaultCoords: [Coord, Coord] = [
-        [0.5, 0.55],
+        [0.5, 0.6],
         [0.75, 0.75],
     ];
     defaultCoords = normalizePoints(range, step, defaultCoords, true);
@@ -532,9 +562,12 @@ export function getLogarithmCoords(
 
     // Default coords as normalized fractions of the graph range. After
     // normalization with the default asymptote at x=0, both points will
-    // be to the right of the asymptote.
+    // be to the right of the asymptote. The closest point sits a few
+    // steps from the asymptote so it doesn't visually overlap the
+    // asymptote drag handle. [0.6, 0.55] normalizes to (2, 1) in a
+    // [-10,10] range.
     let defaultCoords: [Coord, Coord] = [
-        [0.55, 0.55],
+        [0.6, 0.55],
         [0.75, 0.75],
     ];
     defaultCoords = normalizePoints(range, step, defaultCoords, true);

@@ -4,7 +4,7 @@ import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
 import {useDraggable} from "../use-draggable";
 
-import {AsymptoteDragHandle} from "./asymptote-drag-handle";
+import {MovablePillHandle} from "./movable-pill-handle";
 import {SVGLine} from "./svg-line";
 
 import type {KeyboardMovementConstraint} from "../use-draggable";
@@ -30,6 +30,12 @@ type Props = {
     orientation: "horizontal" | "vertical";
     /** Accessible label for the asymptote drag target. */
     ariaLabel: string;
+    /**
+     * Content rendered between the asymptote lines and the drag handle.
+     * Use this to render the curve so it appears above the dashed line
+     * but below the drag handle in the SVG stacking order.
+     */
+    children?: React.ReactNode;
 };
 
 export function MovableAsymptote(props: Props) {
@@ -42,6 +48,7 @@ export function MovableAsymptote(props: Props) {
         constrainKeyboardMovement,
         orientation,
         ariaLabel,
+        children,
     } = props;
     const {interactiveColor, disableKeyboardInteraction} = useGraphConfig();
 
@@ -55,16 +62,6 @@ export function MovableAsymptote(props: Props) {
         onMove,
         constrainKeyboardMovement: constrainKeyboardMovement ?? ((p) => p),
     });
-
-    // When a mouse drag ends, blur the element so the focus ring doesn't
-    // persist after the user releases the mouse and moves away.
-    const wasDragging = React.useRef(false);
-    React.useEffect(() => {
-        if (wasDragging.current && !dragging) {
-            groupRef.current?.blur();
-        }
-        wasDragging.current = dragging;
-    }, [dragging]);
 
     return (
         <g
@@ -88,21 +85,38 @@ export function MovableAsymptote(props: Props) {
                 end={end}
                 style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
             />
-            {/* Visible solid line */}
+            {/* Solid white line underneath so dashes are visible on grid lines/axes */}
+            <SVGLine
+                start={start}
+                end={end}
+                style={{
+                    stroke: "white",
+                    strokeWidth: "var(--movable-asymptote-stroke-weight)",
+                    strokeLinecap: "round",
+                }}
+                className={dragging ? "movable-dragging" : ""}
+            />
+            {/* Dashed line */}
             <SVGLine
                 start={start}
                 end={end}
                 style={{
                     stroke: interactiveColor,
-                    strokeWidth: "var(--movable-line-stroke-weight)",
+                    strokeWidth: "var(--movable-asymptote-stroke-weight)",
+                    strokeDasharray:
+                        "var(--movable-asymptote-dash-length) var(--movable-asymptote-dash-gap)",
+                    strokeLinecap: "round",
                 }}
                 className={dragging ? "movable-dragging" : ""}
                 testId="movable-asymptote__line"
             />
+            {/* Content between lines and handle (e.g. curve) renders
+                above the dashed line but below the drag handle */}
+            {children}
             {/* Drag handle at the midpoint */}
-            <AsymptoteDragHandle
+            <MovablePillHandle
                 center={mid}
-                orientation={orientation}
+                rotation={orientation === "vertical" ? 90 : 0}
                 active={dragging || focused || hovered}
                 focused={focused}
             />

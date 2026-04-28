@@ -390,6 +390,30 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    srVectorGraph: string;
+    srVectorPoints: ({
+        tailX,
+        tailY,
+        tipX,
+        tipY,
+    }: {
+        tailX: string;
+        tailY: string;
+        tipX: string;
+        tipY: string;
+    }) => string;
+    srVectorTipPoint: ({x, y}: {x: string; y: string}) => string;
+    srVectorGrabHandle: ({
+        tailX,
+        tailY,
+        tipX,
+        tipY,
+    }: {
+        tailX: string;
+        tailY: string;
+        tipX: string;
+        tipY: string;
+    }) => string;
     srQuadraticGraph: string;
     srQuadraticFaceUp: string;
     srQuadraticFaceDown: string;
@@ -597,6 +621,7 @@ export type PerseusStrings = {
         point2Y: string;
     }) => string;
     imageExploreButton: string;
+    imageExploreButtonAriaLabel: string;
     imageAlternativeTitle: string;
     imageDescriptionLabel: string;
     imageZoomAriaLabel: string;
@@ -1032,6 +1057,28 @@ export const strings = {
             "Aria label for the point that determines the direction of the Ray in the interactive graph widget. The ray passes through this point.",
         message: "Through point at %(x)s comma %(y)s.",
     },
+    srVectorGraph: {
+        context:
+            "Screen reader description for the container containing a Vector in the interactive graph widget.",
+        message: "A vector on a coordinate plane.",
+    },
+    srVectorPoints: {
+        context:
+            "Screen reader description for the tail and tip of a vector in the interactive graph widget.",
+        message:
+            "The tail is at %(tailX)s comma %(tailY)s and the tip is at %(tipX)s comma %(tipY)s.",
+    },
+    srVectorTipPoint: {
+        context:
+            "Aria label for the tip point of a Vector (the point with the arrowhead) in the interactive graph widget.",
+        message: "Tip point at %(x)s comma %(y)s.",
+    },
+    srVectorGrabHandle: {
+        context:
+            "Aria label for the interactive segment that allows the user to move the whole Vector in the interactive graph widget.",
+        message:
+            "Vector from %(tailX)s comma %(tailY)s to %(tipX)s comma %(tipY)s.",
+    },
     srQuadraticGraph: {
         context:
             "Aria label for the container containing a Quadratic function in the interactive graph widget.",
@@ -1320,6 +1367,7 @@ export const strings = {
             "Tangent graph with inflection point at %(point1X)s comma %(point1Y)s and control point at %(point2X)s comma %(point2Y)s.",
     },
     imageExploreButton: "Explore image",
+    imageExploreButtonAriaLabel: "Explore image and description",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
     imageZoomAriaLabel: "Make image bigger.",
@@ -1602,6 +1650,12 @@ export const mockStrings: PerseusStrings = {
         `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
     srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
     srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
+    srVectorGraph: "A vector on a coordinate plane.",
+    srVectorPoints: ({tailX, tailY, tipX, tipY}) =>
+        `The tail is at ${tailX} comma ${tailY} and the tip is at ${tipX} comma ${tipY}.`,
+    srVectorTipPoint: ({x, y}) => `Tip point at ${x} comma ${y}.`,
+    srVectorGrabHandle: ({tailX, tailY, tipX, tipY}) =>
+        `Vector from ${tailX} comma ${tailY} to ${tipX} comma ${tipY}.`,
     srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
     srQuadraticFaceUp: "The parabola opens upward.",
     srQuadraticFaceDown: "The parabola opens downward.",
@@ -1717,6 +1771,7 @@ export const mockStrings: PerseusStrings = {
     srTangentInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Tangent graph with inflection point at ${point1X} comma ${point1Y} and control point at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",
+    imageExploreButtonAriaLabel: "Explore image and description",
     imageAlternativeTitle: "Explore image and description",
     imageDescriptionLabel: "Description",
     imageZoomAriaLabel: "Make image bigger.",

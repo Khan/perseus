@@ -12,6 +12,7 @@ import type {
     PolygonGraphState,
     TangentGraphState,
     LogarithmGraphState,
+    VectorGraphState,
 } from "../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 
@@ -410,7 +411,7 @@ describe("movePointInFigure", () => {
 });
 
 describe("moveSegment", () => {
-    it("moves an entire segment by the given delta vector", () => {
+    it("sets segment coords to the given positions", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             coords: [
@@ -423,7 +424,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [5, -3]),
+            actions.segment.moveLine(0, [6, -1]),
         );
 
         invariant(updated.type === "segment");
@@ -446,7 +447,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [0.5, 0.5]),
+            actions.segment.moveLine(0, [1.5, 2.5]),
         );
 
         invariant(updated.type === "segment");
@@ -456,7 +457,7 @@ describe("moveSegment", () => {
         ]);
     });
 
-    it("keeps the segment within the graph bounds", () => {
+    it("preserves the segment's shape when the translation would push a point past the graph bounds", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             coords: [
@@ -473,6 +474,8 @@ describe("moveSegment", () => {
         );
 
         invariant(updated.type === "segment");
+        // Both endpoints move by the same delta — the largest one that
+        // keeps the trailing endpoint ([3, 4]) inside the graph bounds.
         expect(updated.coords[0]).toEqual([
             [7, 7],
             [9, 9],
@@ -492,7 +495,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveLine(0, [1, 1]),
+            actions.segment.moveLine(0, [2, 3]),
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
@@ -1989,6 +1992,25 @@ function generateLogarithmGraphState(
     };
 }
 
+function generateVectorGraphState(
+    overrides?: Partial<Omit<VectorGraphState, "type">>,
+): VectorGraphState {
+    return {
+        hasBeenInteractedWith: false,
+        type: "vector",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        snapStep: [1, 1],
+        coords: [
+            [0, 0],
+            [3, 4],
+        ],
+        ...overrides,
+    };
+}
+
 describe("movePoint on a logarithm graph", () => {
     it("rejects the move when both points would share the same y-coordinate", () => {
         // Arrange — point 0 at y=-3, point 1 at y=-7; trying to move point 0 to y=-7
@@ -2198,5 +2220,109 @@ describe("moveCenter on a logarithm graph (asymptote)", () => {
 
         // Assert — rejected; asymptote stays at 0
         expect(updated.asymptote).toBe(0);
+    });
+});
+
+describe("moveTip on a vector graph", () => {
+    it("moves the tip to the new coordinates", () => {
+        // Arrange
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([5, 6]),
+        );
+
+        // Assert
+        invariant(updated.type === "vector");
+        expect(updated.coords[1]).toEqual([5, 6]);
+        // Tail should remain unchanged
+        expect(updated.coords[0]).toEqual([0, 0]);
+    });
+
+    it("sets hasBeenInteractedWith after a move", () => {
+        // Arrange
+        const state = generateVectorGraphState({
+            hasBeenInteractedWith: false,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([5, 6]),
+        );
+
+        // Assert
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("rejects the move when tip would overlap with tail", () => {
+        // Arrange — tail at [0, 0]; trying to move tip to [0, 0]
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([0, 0]),
+        );
+
+        // Assert — move was rejected; tip stays at original position
+        invariant(updated.type === "vector");
+        expect(updated.coords[1]).toEqual([3, 4]);
+    });
+});
+
+describe("moveVector on a vector graph (body translation)", () => {
+    it("translates both tail and tip by the same delta", () => {
+        // Arrange — default tail [0,0], tip [3,4]; delta [2,1]
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([2, 1]),
+        );
+
+        // Assert
+        invariant(updated.type === "vector");
+        expect(updated.coords[0]).toEqual([2, 1]);
+        expect(updated.coords[1]).toEqual([5, 5]);
+    });
+
+    it("sets hasBeenInteractedWith after a body drag", () => {
+        // Arrange — default tail [0,0], tip [3,4]; delta [1,1]
+        const state = generateVectorGraphState({
+            hasBeenInteractedWith: false,
+        });
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([1, 1]),
+        );
+
+        // Assert
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("preserves the vector's shape when the translation would push a point past the graph bounds", () => {
+        // Arrange — tail at [0,0], tip at [3,4], range [-10,10]
+        // Requested delta [8, 8] would push tip to [11, 12] (out of bounds);
+        // the largest valid delta keeping tip inside [-9, 9] is [6, 5].
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([8, 8]),
+        );
+
+        // Assert — both endpoints moved by the same clamped delta
+        invariant(updated.type === "vector");
+        expect(updated.coords).toEqual([
+            [6, 5],
+            [9, 9],
+        ]);
     });
 });

@@ -1,14 +1,10 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedPolygonSettings from "./locked-polygon-settings";
-import {
-    mockedGenerateSpokenMathDetailsForTests,
-    mockedJoinLabelsAsSpokenMathForTests,
-} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {LockedLabelType} from "@khanacademy/perseus-core";
@@ -22,15 +18,6 @@ const defaultProps = {
 };
 
 const defaultLabel = getDefaultFigureForType("label");
-
-// Mock the async functions
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) =>
-        mockedGenerateSpokenMathDetailsForTests(input),
-    joinLabelsAsSpokenMath: (input) =>
-        mockedJoinLabelsAsSpokenMathForTests(input),
-}));
 
 describe("LockedPolygonSettings", () => {
     let userEvent: UserEvent;
@@ -660,10 +647,14 @@ describe("LockedPolygonSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Polygon with 3 sides, vertices at spoken $0$ comma spoken $0$, spoken $0$ comma spoken $1$, spoken $1$ comma spoken $1$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Polygon with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                    }),
+                {timeout: 5000},
+            );
         });
 
         test("aria label auto-generates (one label)", async () => {
@@ -696,10 +687,14 @@ describe("LockedPolygonSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Polygon spoken A with 3 sides, vertices at spoken $0$ comma spoken $0$, spoken $0$ comma spoken $1$, spoken $1$ comma spoken $1$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Polygon A with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                    }),
+                {timeout: 5000},
+            );
         });
 
         test("aria label auto-generates (multiple labels)", async () => {
@@ -736,10 +731,14 @@ describe("LockedPolygonSettings", () => {
             await userEvent.click(autoGenButton);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Polygon spoken A, spoken B with 3 sides, vertices at spoken $0$ comma spoken $0$, spoken $0$ comma spoken $1$, spoken $1$ comma spoken $1$. Appearance solid gray border, with no fill.",
-            });
+            await waitFor(
+                () =>
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel:
+                            "Polygon A, B with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                    }),
+                {timeout: 5000},
+            );
         });
     });
 });
