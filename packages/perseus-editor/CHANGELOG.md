@@ -1,5 +1,37 @@
 # @khanacademy/perseus-editor
 
+## 30.4.0
+
+### Minor Changes
+
+-   [#3441](https://github.com/Khan/perseus/pull/3441) [`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Vector graph and subcomponents.
+
+*   [#3443](https://github.com/Khan/perseus/pull/3443) [`a3396604a7`](https://github.com/Khan/perseus/commit/a3396604a727b43eabcfb2771704d808b38c14c3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Vector Graph Editor
+
+-   [#3433](https://github.com/Khan/perseus/pull/3433) [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of initial types and stubs for Vector graph
+
+*   [#3492](https://github.com/Khan/perseus/pull/3492) [`883133a28f`](https://github.com/Khan/perseus/commit/883133a28fb278452693cac25a25440e3913137d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add preview data sanitizer to strip non-serializable values before postMessage
+
+### Patch Changes
+
+-   [#3522](https://github.com/Khan/perseus/pull/3522) [`19911cc966`](https://github.com/Khan/perseus/commit/19911cc96612ebbad5ba3d226ee04c9e6fc8036e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Label absolute-value graph start coordinates as "Vertex" and "Arm" in the editor instead of "Point 1" and "Point 2".
+
+*   [#3505](https://github.com/Khan/perseus/pull/3505) [`1ab914fc41`](https://github.com/Khan/perseus/commit/1ab914fc41c3d3f902df1969d2c441a9c11d3ba3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add warning for large images
+
+-   [#3530](https://github.com/Khan/perseus/pull/3530) [`b5e918e8b3`](https://github.com/Khan/perseus/commit/b5e918e8b3299d586cd706743d81addfc05cd4dc) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Update copy of recalculate button in editor
+
+*   [#3434](https://github.com/Khan/perseus/pull/3434) [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of state management logic for new Vector graph
+
+*   Updated dependencies [[`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae), [`c89cdbe2aa`](https://github.com/Khan/perseus/commit/c89cdbe2aacadc20e4b5fb982ff42b113f1f08f4), [`16f7f77ba1`](https://github.com/Khan/perseus/commit/16f7f77ba151b660ccf9ea32a30d936323f408f5), [`4d923417cd`](https://github.com/Khan/perseus/commit/4d923417cdf60113e3dbd057361e3e9c8c1747a6), [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6), [`b8178b52e7`](https://github.com/Khan/perseus/commit/b8178b52e7e9e237c12f58c48cbd1df32ce86bf9), [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d), [`d3ef4dbcc2`](https://github.com/Khan/perseus/commit/d3ef4dbcc2a281c148170a2ab7ab53521e796ed6), [`3abc5e8277`](https://github.com/Khan/perseus/commit/3abc5e827796c267065b606b6d219d6ca90b74ea), [`a5b9105c28`](https://github.com/Khan/perseus/commit/a5b9105c288f29181b4ca82eb9f8495f757a9088), [`11742c2cff`](https://github.com/Khan/perseus/commit/11742c2cff5ffd30ca4bb2676ddbe9fff6c9178e), [`7794943ec7`](https://github.com/Khan/perseus/commit/7794943ec7e4dc450ed57021d26f052a38d7c617), [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c), [`8fb79829d0`](https://github.com/Khan/perseus/commit/8fb79829d0a48c9840cb7baf4e7847bade3d158d)]:
+    -   @khanacademy/perseus@77.3.0
+    -   @khanacademy/perseus-core@25.0.0
+    -   @khanacademy/perseus-linter@4.9.5
+    -   @khanacademy/perseus-score@8.7.0
+    -   @khanacademy/kas@2.2.2
+    -   @khanacademy/keypad-context@3.2.44
+    -   @khanacademy/kmath@2.4.2
+    -   @khanacademy/math-input@26.4.15
+
 ## 30.3.0
 
 ### Minor Changes
