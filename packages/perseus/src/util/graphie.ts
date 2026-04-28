@@ -1708,12 +1708,6 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     const direction = $span.data("labelDirection");
     let [width, height] = size;
 
-    // Store the original (pre-scaling) label size on first call so that
-    // we can recalculate margins correctly when the container resizes.
-    if ($span.data("originalLabelSize") == null) {
-        $span.data("originalLabelSize", [width, height]);
-    }
-
     // This can happen when a span
     // is invisible but we still want to update the CSS. At worst, we will
     // be off by a few pixels instead of in a different position entirely.
@@ -1736,9 +1730,12 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             marginLeft: -width / 2 + x * scale,
             marginTop: -height / 2 - y * scale,
         });
+        // Store the original (pre-scaling) label size on first call so that
+        // we can recalculate margins correctly when the container resizes.
+        if ($span.data("originalLabelSize") == null) {
+            $span.data("originalLabelSize", [width, height]);
+        }
     } else {
-        const currentHeightMatchesProps = span.scrollHeight === height;
-
         // We are using jQuery to collect information and calculate a scale
         //     since we don't have a way to pass it to this function.
         // We need the width of the container in order to calculate the scale to apply to the label.
@@ -1760,14 +1757,15 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // Inherited line-height values can really mess up placement.
         $container.css("line-height", "normal");
 
-        // If the change in line-height affected the height of the element,
-        //     then the height used for calculations should be updated.
-        // This can happen when the first label in the container calls this method,
-        //     and the line-height was different when the height measurement was originally referenced.
-        if (currentHeightMatchesProps && span.scrollHeight !== height) {
+        // On the first call (processMath callback), always read scrollHeight after
+        // line-height normalization. This handles two cases:
+        //   a) line-height was just set: scrollHeight changed from what was measured at callback time.
+        //   b) line-height was already set by a sibling label: scrollHeight is corrected but the
+        //      size parameter still holds the pre-correction value measured earlier.
+        // On subsequent calls (ResizeObserver recalculations), originalLabelSize is already set,
+        // so we skip this and use the passed-in size to correctly scale to the new container size.
+        if ($span.data("originalLabelSize") == null) {
             height = span.scrollHeight;
-            // Keep the stored baseline in sync so that ResizeObserver
-            // recalculations use the corrected height, not the pre-correction one.
             $span.data("originalLabelSize", [width, height]);
         }
 
