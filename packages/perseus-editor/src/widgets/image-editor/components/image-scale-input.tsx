@@ -102,7 +102,7 @@ export default function ImageScaleInput({
     return (
         <div className={styles.dimensionsContainer}>
             <BodyMonospace>
-                Dimensions: {width} x {height}
+                Natural size: {width} x {height}
             </BodyMonospace>
             <Button
                 kind="tertiary"
@@ -110,7 +110,7 @@ export default function ImageScaleInput({
                 startIcon={arrowCounterClockwise}
                 onClick={handleResetToOriginalSize}
             >
-                Recalculate original size
+                Recalculate natural size
             </Button>
 
             {hasLargeDimensions && (
