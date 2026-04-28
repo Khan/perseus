@@ -1,12 +1,11 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
-import {render, screen, cleanup} from "@testing-library/react";
+import {render, screen, cleanup, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedFunctionSettings from "./locked-function-settings";
-import {mockedJoinLabelsAsSpokenMathForTests} from "./util";
 
 import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
@@ -19,13 +18,6 @@ const defaultProps = {
 } as Props;
 
 const defaultLabel = getDefaultFigureForType("label");
-
-// Mock the async function generateSpokenMathDetails
-jest.mock("./util", () => ({
-    ...jest.requireActual("./util"),
-    joinLabelsAsSpokenMath: (input) =>
-        mockedJoinLabelsAsSpokenMathForTests(input),
-}));
 
 jest.mock("./locked-function-examples", () => ({
     __esModule: true,
@@ -880,10 +872,14 @@ describe("Locked Function Settings", () => {
                 await userEvent.click(autoGenButton);
 
                 // Assert
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Function spoken A with equation y=x^2. Appearance solid gray.",
-                });
+                await waitFor(
+                    () =>
+                        expect(onChangeProps).toHaveBeenCalledWith({
+                            ariaLabel:
+                                "Function A with equation y=x^2. Appearance solid gray.",
+                        }),
+                    {timeout: 5000},
+                );
             });
 
             test("aria label auto-generates (multiple labels)", async () => {
@@ -915,10 +911,14 @@ describe("Locked Function Settings", () => {
                 await userEvent.click(autoGenButton);
 
                 // Assert
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Function spoken A, spoken B with equation y=x^2. Appearance solid gray.",
-                });
+                await waitFor(
+                    () =>
+                        expect(onChangeProps).toHaveBeenCalledWith({
+                            ariaLabel:
+                                "Function A, B with equation y=x^2. Appearance solid gray.",
+                        }),
+                    {timeout: 5000},
+                );
             });
         });
     });

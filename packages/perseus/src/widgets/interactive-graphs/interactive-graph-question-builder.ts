@@ -267,6 +267,14 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withVector(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new VectorGraphConfig(options);
+        return this;
+    }
+
     withCircle(options?: {
         center?: Coord;
         radius?: number;
@@ -742,6 +750,30 @@ class RayGraphConfig implements InteractiveFigureConfig {
 
     graph(): PerseusGraphType {
         return {type: "ray", startCoords: this.startCoords};
+    }
+}
+
+class VectorGraphConfig implements InteractiveFigureConfig {
+    private coords?: CollinearTuple;
+    private startCoords?: CollinearTuple;
+
+    constructor(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "vector",
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "vector", startCoords: this.startCoords};
     }
 }
 

@@ -13,6 +13,7 @@ import {
     getSegmentCoords,
     getSinusoidCoords,
     getTangentCoords,
+    getVectorCoords,
 } from "@khanacademy/perseus";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
@@ -43,6 +44,12 @@ export function getDefaultGraphStartCoords(
         case "linear":
         case "ray":
             return getLineCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+        case "vector":
+            return getVectorCoords(
                 {...graph, startCoords: undefined},
                 range,
                 step,
@@ -300,6 +307,7 @@ export const shouldShowStartCoordsUI = (
         case "sinusoid":
         case "absolute-value":
         case "logarithm":
+        case "vector":
             return true;
         default:
             throw new UnreachableCaseError(graph);

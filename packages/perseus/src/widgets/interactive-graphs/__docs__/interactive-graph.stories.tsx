@@ -20,6 +20,7 @@ import {
     logarithmQuestion,
     sinusoidQuestion,
     tangentQuestion,
+    vectorQuestion,
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
     segmentWithLockedPolygons,
@@ -97,6 +98,12 @@ export const UnlimitedPolygon: Story = {
 export const Ray: Story = {
     args: {
         item: generateTestPerseusItem({question: rayQuestion}),
+    },
+};
+
+export const Vector: Story = {
+    args: {
+        item: generateTestPerseusItem({question: vectorQuestion}),
     },
 };
 

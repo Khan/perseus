@@ -23,6 +23,7 @@ import type {
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
     PerseusGraphTypeTangent,
+    PerseusGraphTypeVector,
     PerseusInteractiveGraphWidgetOptions,
 } from "../../data-schema";
 
@@ -161,6 +162,15 @@ export function generateIGTangentGraph(
 ): PerseusGraphTypeTangent {
     return {
         type: "tangent",
+        ...options,
+    };
+}
+
+export function generateIGVectorGraph(
+    options?: Partial<Omit<PerseusGraphTypeVector, "type">>,
+): PerseusGraphTypeVector {
+    return {
+        type: "vector",
         ...options,
     };
 }

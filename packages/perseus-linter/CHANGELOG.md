@@ -1,5 +1,16 @@
 # @khanacademy/perseus-linter
 
+## 4.9.5
+
+### Patch Changes
+
+-   [#3496](https://github.com/Khan/perseus/pull/3496) [`4d923417cd`](https://github.com/Khan/perseus/commit/4d923417cdf60113e3dbd057361e3e9c8c1747a6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add fallback label to Numeric Inputs and a linter warning for missing labels in the editor.
+
+-   Updated dependencies [[`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae), [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6), [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d), [`a5b9105c28`](https://github.com/Khan/perseus/commit/a5b9105c288f29181b4ca82eb9f8495f757a9088), [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c)]:
+    -   @khanacademy/perseus-core@25.0.0
+    -   @khanacademy/kas@2.2.2
+    -   @khanacademy/kmath@2.4.2
+
 ## 4.9.4
 
 ### Patch Changes

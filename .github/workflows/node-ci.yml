@@ -95,8 +95,6 @@ jobs:
               timeout-minutes: 5
               with:
                   conf-files: .github/npm-extra-domains.conf
-                  # cdn.jsdelivr.net: speech-engine-rules files are hosted here
-                  extra-domains: cdn.jsdelivr.net
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache

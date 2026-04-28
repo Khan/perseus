@@ -149,6 +149,13 @@ const parsePerseusGraphTypeLogarithm = object({
     ),
 });
 
+const parsePerseusGraphTypeVector = object({
+    type: constant("vector"),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
+    startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
+    match: optional(enumeration("exact", "congruent")),
+});
+
 export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("absolute-value", parsePerseusGraphTypeAbsoluteValue)
     .withBranch("angle", parsePerseusGraphTypeAngle)
@@ -164,7 +171,8 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("segment", parsePerseusGraphTypeSegment)
     .withBranch("sinusoid", parsePerseusGraphTypeSinusoid)
     .withBranch("tangent", parsePerseusGraphTypeTangent)
-    .withBranch("logarithm", parsePerseusGraphTypeLogarithm).parser;
+    .withBranch("logarithm", parsePerseusGraphTypeLogarithm)
+    .withBranch("vector", parsePerseusGraphTypeVector).parser;
 
 const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
 

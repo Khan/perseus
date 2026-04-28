@@ -56,7 +56,6 @@ const randomFloat = function (min: number, max: number) {
 };
 
 /* constants */
-var ITERATIONS = 12;
 var TOLERANCE = 9; // decimal places
 
 // NOTE(kevinb): _.partition exists in a more recent version of underscore.
@@ -437,40 +436,61 @@ abstract class Expr {
             return false;
         }
 
-        // Compare at a set number (currently 12) of points to determine
-        // equality.
+        // To compare expressions, we evaluate them for a set of randomly
+        // chosen variable values. If the expressions evaluate the same for
+        // all variable bindings, we consider them equal.
         //
-        // `range` (and `vars`) is the only variable that varies through the
-        // iterations. For each of range = 10, 100, and 1000, each random
-        // variable is picked from (-range, range).
+        // We make sure to check integer variable values as well as floats.
+        // This is because expressions like (-2)^x are common but result
+        // in NaN when evaluated in JS with non-integer values of x.
+        // Without this, (-2)^x and (-2)^(x+1) both end up always being NaN
+        // and thus equivalent. With this, the most common failure case is
+        // avoided. However, less common cases such as (-2)^(x+0.1) and
+        // (-2)^(x+1.1) will still both evaluate to NaN and result in a
+        // false positive.
         //
-        // Note that because there are 12 iterations and three ranges, each
-        // range is checked four times.
-        for (var i = 0; i < ITERATIONS; i++) {
+        // Note that the above is only true in vanilla JS Number-land,
+        // which has no concept of complex numbers. The solution is simple:
+        // Integrate a library for handling complex numbers.
+        const randomValueGenerators = [
+            // magnitude <= 1:
+            floatGenerator(0, 1),
+            floatGenerator(-1, 0),
+            // magnitude <= 10:
+            intGenerator(0, 10),
+            intGenerator(-10, 0),
+            floatGenerator(0, 10),
+            floatGenerator(-10, 0),
+            // magnitude <= 100:
+            intGenerator(0, 100),
+            intGenerator(-100, 0),
+            floatGenerator(0, 100),
+            floatGenerator(-100, 0),
+            // magnitude <= 1000:
+            intGenerator(0, 1000),
+            intGenerator(-1000, 0),
+            floatGenerator(0, 1000),
+            floatGenerator(-1000, 0),
+        ];
+
+        const variableValueGenerators = [
+            // Always check x = -1, x = 0, and x = 1.
+            // Requested by content creators:
+            // https://khanacademy.slack.com/archives/CJDRXTGQ7/p1776180198083239?thread_ts=1776096483.309839&cid=CJDRXTGQ7
+            constantGenerator(-1),
+            constantGenerator(0),
+            constantGenerator(1),
+            // Double up the random value generators so we check two int
+            // values and two float values in each order of magnitude.
+            ...randomValueGenerators,
+            ...randomValueGenerators,
+        ];
+
+        for (const generateValue of variableValueGenerators) {
             var vars = {};
 
-            // One third total iterations each with range 10, 100, and 1000
-            var range = Math.pow(10, 1 + Math.floor((3 * i) / ITERATIONS));
-
-            // Half of the iterations should only use integer values.
-            // This is because expressions like (-2)^x are common but result
-            // in NaN when evaluated in JS with non-integer values of x.
-            // Without this, (-2)^x and (-2)^(x+1) both end up always being NaN
-            // and thus equivalent. With this, the most common failure case is
-            // avoided. However, less common cases such as (-2)^(x+0.1) and
-            // (-2)^(x+1.1) will still both evaluate to NaN and result in a
-            // false positive.
-            //
-            // Note that the above is only true in vanilla JS Number-land,
-            // which has no concept of complex numbers. The solution is simple:
-            // Integrate a library for handling complex numbers.
-            //
-            var useFloats = i % 2 === 0;
-
             _.each(varList, function (v) {
-                vars[v] = useFloats
-                    ? randomFloat(-range, range)
-                    : _.random(-range, range);
+                vars[v] = generateValue();
             });
 
             let equal;
@@ -3664,6 +3684,18 @@ export class Unit extends Sym {
             throw new Error("could not understand unit: " + this.symbol);
         }
     }
+}
+
+function constantGenerator(value: number): () => number {
+    return () => value;
+}
+
+function floatGenerator(min: number, max: number): () => number {
+    return () => randomFloat(min, max);
+}
+
+function intGenerator(min: number, max: number): () => number {
+    return () => _.random(min, max);
 }
 
 // If possible, replace unit prefixes with a multiplication.

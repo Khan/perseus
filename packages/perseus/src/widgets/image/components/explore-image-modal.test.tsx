@@ -234,6 +234,38 @@ describe("ExploreImageModal", () => {
         expect(screen.getByText("widget long description")).toBeInTheDocument();
     });
 
+    it("sets the describedby to short and long description IDs if there is a caption", () => {
+        // Arrange, Act
+        renderModal({
+            ...defaultProps,
+            backgroundImage: earthMoonImage,
+            caption: "widget caption",
+        });
+
+        // Assert
+        const dialog = screen.getByRole("dialog");
+        // Regex for "uniqueId-caption uniqueId-long-desc"
+        expect(dialog.getAttribute("aria-describedby")).toMatch(
+            /^:r\w+:-caption :r\w+:-long-desc$/,
+        );
+    });
+
+    it("sets the describedby to long description ID if there is no caption", () => {
+        // Arrange, Act
+        renderModal({
+            ...defaultProps,
+            backgroundImage: earthMoonImage,
+            longDescription: "widget long description",
+        });
+
+        // Assert
+        const dialog = screen.getByRole("dialog");
+        const ariaDescribedBy = dialog.getAttribute("aria-describedby");
+        // Regex for "uniqueId-long-desc"
+        expect(ariaDescribedBy).toMatch(/^:r\w+:-long-desc$/);
+        expect(ariaDescribedBy).not.toMatch(/caption/);
+    });
+
     describe("gif controls", () => {
         it("should render gif controls if the image is a gif", () => {
             // Arrange, Act
