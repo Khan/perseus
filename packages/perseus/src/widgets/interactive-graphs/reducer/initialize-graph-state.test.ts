@@ -641,3 +641,63 @@ describe("initializeGraphState for tangent graphs", () => {
         ]);
     });
 });
+
+describe("initializeGraphState for vector graphs", () => {
+    it("uses the given coords if present", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "vector",
+                coords: [
+                    [0, 0],
+                    [3, 4],
+                ],
+            },
+        });
+
+        // Assert
+        invariant(graph.type === "vector");
+        expect(graph.coords).toEqual([
+            [0, 0],
+            [3, 4],
+        ]);
+    });
+
+    it("uses startCoords if given and explicit coords are absent", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "vector",
+                startCoords: [
+                    [1, 2],
+                    [5, 6],
+                ],
+            },
+        });
+
+        // Assert
+        invariant(graph.type === "vector");
+        expect(graph.coords).toEqual([
+            [1, 2],
+            [5, 6],
+        ]);
+    });
+
+    it("uses default coords if neither coords nor startCoords are given", () => {
+        // Arrange, Act
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "vector"},
+        });
+
+        // Assert
+        invariant(graph.type === "vector");
+        // Default: 45° diagonal vector in the upper-right area of the graph
+        expect(graph.coords).toEqual([
+            [2, 2],
+            [7, 7],
+        ]);
+    });
+});

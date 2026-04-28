@@ -358,7 +358,8 @@ function doMoveLine(
             };
         }
         case "linear":
-        case "ray": {
+        case "ray":
+        case "vector": {
             return {
                 ...state,
                 type: state.type,
@@ -701,6 +702,27 @@ function doMovePoint(
             const newCoords: vec.Vector2[] = [...state.coords];
             newCoords[action.index] = boundDestination;
             if (newCoords[0][X] === newCoords[1][X]) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: boundDestination,
+                }),
+            };
+        }
+        case "vector": {
+            const boundDestination = boundAndSnapToGrid(
+                action.destination,
+                state,
+            );
+
+            // Reject the move if the tip would overlap with the tail
+            if (vec.dist(boundDestination, state.coords[0]) === 0) {
                 return state;
             }
 
