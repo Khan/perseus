@@ -392,6 +392,9 @@ export {
     generateIGLockedLabel,
     generateInteractiveGraphWidget,
 } from "./utils/generators/interactive-graph-widget-generator";
+export {generateMatrixWidget} from "./utils/generators/matrix-widget-generator";
+/** @hidden */
+export {generateMatrixOptions} from "./utils/generators/matrix-widget-generator";
 export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
 export {
