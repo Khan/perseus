@@ -65,6 +65,7 @@ type Props = DefaultProps & {
     imageUploader?: ImageUploader;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
+    /** @deprecated `issues` has no effect. */
     issues?: Issue[];
 } & Changeable.ChangeableProps;
 
@@ -94,11 +95,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     componentDidUpdate(prevProps: Props) {
-        // Only update issues if json or issues prop changed
-        if (
-            prevProps.json !== this.props.json ||
-            prevProps.issues !== this.props.issues
-        ) {
+        // Only update issues if json changed
+        if (prevProps.json !== this.props.json) {
             this._updateIssues();
         }
 
@@ -154,7 +152,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         });
 
         this.setState({
-            issues: [...(this.props.issues ?? []), ...allLinterIssues],
+            issues: allLinterIssues,
         });
     }
 
