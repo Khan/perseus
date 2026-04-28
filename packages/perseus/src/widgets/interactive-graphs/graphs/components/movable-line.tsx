@@ -31,7 +31,7 @@ type Props = {
         end: boolean;
     };
     onMovePoint?: (endpointIndex: number, destination: vec.Vector2) => unknown;
-    onMoveLine?: (newStart: vec.Vector2, newEnd: vec.Vector2) => unknown;
+    onMoveLine?: (newStart: vec.Vector2) => unknown;
 };
 
 export const MovableLine = (props: Props) => {
@@ -110,9 +110,9 @@ export const MovableLine = (props: Props) => {
             start={start}
             end={end}
             extend={extend}
-            onMove={(newStart, newEnd) => {
+            onMove={(newStart) => {
                 setAriaLives(["off", "off", "polite"]);
-                onMoveLine(newStart, newEnd);
+                onMoveLine(newStart);
             }}
         />
     );
@@ -141,7 +141,7 @@ type LineProps = {
               start: boolean;
               end: boolean;
           };
-    onMove: (newStart: vec.Vector2, newEnd: vec.Vector2) => unknown;
+    onMove: (newStart: vec.Vector2) => unknown;
 };
 
 const Line = (props: LineProps) => {
@@ -170,20 +170,11 @@ const Line = (props: LineProps) => {
             : undefined;
     }
 
-    // Capture the offset between start and end at drag begin so we
-    // can compute absolute positions for both points each frame.
-    const offsetRef = useRef(vec.sub(end, start));
     const line = useRef<SVGGElement>(null);
     const {dragging} = useDraggable({
         gestureTarget: line,
         point: start,
-        onMove: (newStart) => {
-            const newEnd = vec.add(newStart, offsetRef.current);
-            onMove(newStart, newEnd);
-        },
-        onDragStart: () => {
-            offsetRef.current = vec.sub(end, start);
-        },
+        onMove,
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 

@@ -617,7 +617,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             case "logarithm":
                 return InteractiveGraph.getLogarithmEquationString(props);
             case "vector":
-                return "";
+                return InteractiveGraph.getVectorEquationString(props);
             default:
                 throw new UnreachableCaseError(type);
         }
@@ -949,6 +949,20 @@ class InteractiveGraph extends React.Component<Props, State> {
             coords[1].join(", ") +
             ")"
         );
+    }
+
+    static getVectorEquationString(props: Props): string {
+        if (props.userInput.type !== "vector") {
+            throw makeInvalidTypeError("getVectorEquationString", "vector");
+        }
+        const coords = props.userInput.coords;
+        if (!coords) {
+            return "";
+        }
+        const [tail, tip] = coords;
+        const dx = tip[0] - tail[0];
+        const dy = tip[1] - tail[1];
+        return `\u27E8${dx.toFixed(3)}, ${dy.toFixed(3)}\u27E9`;
     }
 }
 

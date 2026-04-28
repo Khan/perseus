@@ -47,6 +47,7 @@ import {renderSegmentGraph} from "./graphs/segment";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
 import {renderTangentGraph} from "./graphs/tangent";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
+import {renderVectorGraph} from "./graphs/vector";
 import {X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
@@ -781,7 +782,7 @@ const renderGraphElements = (props: {
         case "logarithm":
             return renderLogarithmGraph(state, dispatch, i18n);
         case "vector":
-            throw new Error("Not implemented");
+            return renderVectorGraph(state, dispatch, i18n);
         default:
             throw new UnreachableCaseError(type);
     }

@@ -33,8 +33,8 @@ const RayGraph = (props: Props) => {
     const {dispatch} = props;
     const {coords: line} = props.graphState;
 
-    const handleMoveLine = (newStart: vec.Vector2, newEnd: vec.Vector2) =>
-        dispatch(actions.ray.moveRay(newStart, newEnd));
+    const handleMoveLine = (newStart: vec.Vector2) =>
+        dispatch(actions.ray.moveRay(newStart));
     const handleMovePoint = (pointIndex: number, newPoint: vec.Vector2) =>
         dispatch(actions.ray.movePoint(pointIndex, newPoint));
 
