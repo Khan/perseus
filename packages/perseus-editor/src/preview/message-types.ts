@@ -110,17 +110,8 @@ type PreviewHeightUpdateMessage = PreviewMessageWithId & {
 };
 
 /**
- * Message from iframe reporting lint warnings
- */
-type PreviewLintReportMessage = PreviewMessageWithId & {
-    type: "lint-report";
-    lintWarnings: ReadonlyArray<any>;
-};
-
-/**
  * Union of all messages sent from iframe to parent
  */
 export type IframeToParentMessage =
     | PreviewDataRequestMessage
-    | PreviewHeightUpdateMessage
-    | PreviewLintReportMessage;
+    | PreviewHeightUpdateMessage;

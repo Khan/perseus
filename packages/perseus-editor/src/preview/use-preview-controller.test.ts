@@ -436,35 +436,6 @@ describe("usePreviewController", () => {
         });
     });
 
-    describe("receiving lint-report message", () => {
-        it("logs lint report", () => {
-            renderHook(() => usePreviewController(iframeRef));
-
-            const lintWarnings = [
-                {message: "Warning 1"},
-                {message: "Warning 2"},
-            ];
-
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "lint-report",
-                            id: "test-iframe",
-                            lintWarnings,
-                        },
-                        source: mockContentWindow,
-                    }),
-                );
-            });
-
-            expect(Log.log).toHaveBeenCalledWith("LINTER REPORT", {
-                lintWarnings: JSON.stringify(lintWarnings),
-            });
-        });
-    });
-
     describe("message filtering", () => {
         it("ignores messages from different source window", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));

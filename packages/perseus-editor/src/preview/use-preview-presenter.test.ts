@@ -481,76 +481,6 @@ describe("usePreviewPresenter", () => {
         });
     });
 
-    describe("reportLintWarnings", () => {
-        it("sends lint-report message", () => {
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            const lintWarnings = [
-                {message: "Warning 1", line: 5},
-                {message: "Warning 2", line: 10},
-            ];
-
-            act(() => {
-                result.current.reportLintWarnings(lintWarnings);
-            });
-
-            expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
-                {
-                    source: PREVIEW_MESSAGE_SOURCE,
-                    type: "lint-report",
-                    id: "test-iframe-id",
-                    lintWarnings,
-                },
-                "/",
-            );
-        });
-
-        it("sends empty lint warnings array", () => {
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            act(() => {
-                result.current.reportLintWarnings([]);
-            });
-
-            expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
-                {
-                    source: PREVIEW_MESSAGE_SOURCE,
-                    type: "lint-report",
-                    id: "test-iframe-id",
-                    lintWarnings: [],
-                },
-                "/",
-            );
-        });
-
-        it("does not send if parent window is null", () => {
-            Object.defineProperty(window, "parent", {
-                configurable: true,
-                value: null,
-            });
-
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            jest.clearAllMocks();
-
-            act(() => {
-                result.current.reportLintWarnings([{message: "Warning"}]);
-            });
-
-            expect(mockParentWindow.postMessage).not.toHaveBeenCalled();
-        });
-
-        it("reportLintWarnings function reference remains stable", () => {
-            const {result, rerender} = renderHook(() => usePreviewPresenter());
-
-            const firstReportLintWarnings = result.current.reportLintWarnings;
-            rerender();
-            const secondReportLintWarnings = result.current.reportLintWarnings;
-
-            expect(firstReportLintWarnings).toBe(secondReportLintWarnings);
-        });
-    });
-
     describe("message filtering", () => {
         it("ignores messages from different source window", () => {
             const {result} = renderHook(() => usePreviewPresenter());
@@ -862,24 +792,6 @@ describe("usePreviewPresenter", () => {
 
             // Should have the last content
             expect(result.current.data).toEqual(contents[2]);
-        });
-
-        it("handles concurrent height and lint reports", () => {
-            const {result} = renderHook(() => usePreviewPresenter());
-
-            jest.clearAllMocks();
-
-            act(() => {
-                result.current.reportHeight(400);
-                result.current.reportLintWarnings([{message: "Warning"}]);
-            });
-
-            expect(mockParentWindow.postMessage).toHaveBeenCalledTimes(2);
-
-            const calls = (mockParentWindow.postMessage as jest.Mock).mock
-                .calls;
-            expect(calls[0][0].type).toBe("height-update");
-            expect(calls[1][0].type).toBe("lint-report");
         });
     });
 });

@@ -31,10 +31,6 @@ type UsePreviewClientResult = {
      * Function to report the current height of the iframe content to the parent
      */
     reportHeight: (height: number) => void;
-    /**
-     * Function to report lint warnings to the parent
-     */
-    reportLintWarnings: (lintWarnings: ReadonlyArray<any>) => void;
 };
 
 /**
@@ -150,30 +146,11 @@ export function usePreviewPresenter(): UsePreviewClientResult {
         [iframeId],
     );
 
-    // Memoized callback to report lint warnings
-    const reportLintWarnings = React.useCallback(
-        (lintWarnings: ReadonlyArray<any>) => {
-            if (!iframeId || window.parent == null) {
-                return;
-            }
-
-            const message: IframeToParentMessage = {
-                source: PREVIEW_MESSAGE_SOURCE,
-                type: "lint-report",
-                id: iframeId,
-                lintWarnings,
-            };
-            window.parent.postMessage(message, "/");
-        },
-        [iframeId],
-    );
-
     return {
         data,
         isMobile,
         hasLintGutter,
         id: iframeId,
         reportHeight,
-        reportLintWarnings,
     };
 }
