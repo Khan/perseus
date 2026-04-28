@@ -905,7 +905,7 @@ describe("image editor", () => {
                 name: "Scaled Height",
             });
             const resetToOriginalSizeButton = screen.getByRole("button", {
-                name: "Recalculate original size",
+                name: "Recalculate natural size",
             });
             expect(scaleField).toBeInTheDocument();
             expect(scaleField).toHaveValue(1);
@@ -1045,7 +1045,7 @@ describe("image editor", () => {
             },
         );
 
-        it("should call onChange with original image size when recalculate original size is clicked", async () => {
+        it("should call onChange with original image size when Recalculate natural size is clicked", async () => {
             // Arrange
             const onChangeMock = jest.fn();
             render(
@@ -1062,7 +1062,7 @@ describe("image editor", () => {
 
             // Act
             const resetToOriginalSizeButton = screen.getByRole("button", {
-                name: "Recalculate original size",
+                name: "Recalculate natural size",
             });
             await userEvent.click(resetToOriginalSizeButton);
 
@@ -1085,7 +1085,7 @@ describe("image editor", () => {
 
             // Act
             const resetToOriginalSizeButton = screen.getByRole("button", {
-                name: "Recalculate original size",
+                name: "Recalculate natural size",
             });
             await userEvent.click(resetToOriginalSizeButton);
 
@@ -1121,7 +1121,7 @@ describe("image editor", () => {
                 name: "Scaled Height",
             });
             const resetToOriginalSizeButton = screen.getByRole("button", {
-                name: "Recalculate original size",
+                name: "Recalculate natural size",
             });
             expect(scaleField).toBeInTheDocument();
             expect(scaledWidthField).toBeInTheDocument();
@@ -1174,7 +1174,7 @@ describe("image editor", () => {
                 name: "Scaled Height",
             });
             const resetToOriginalSizeButton = screen.queryByRole("button", {
-                name: "Recalculate original size",
+                name: "Recalculate natural size",
             });
             expect(scaleField).not.toBeInTheDocument();
             expect(scaledWidthField).not.toBeInTheDocument();
