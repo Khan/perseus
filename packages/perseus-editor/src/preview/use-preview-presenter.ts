@@ -9,7 +9,7 @@ import type {
     PreviewContent,
 } from "./message-types";
 
-type UsePreviewClientResult = {
+type UsePreviewPresenterResult = {
     /**
      * The iframe's unique identifier (from data-id attribute). Use for
      * debugging/logging, but not for message routing.
@@ -58,7 +58,7 @@ type UsePreviewClientResult = {
  * }
  * ```
  */
-export function usePreviewPresenter(): UsePreviewClientResult {
+export function usePreviewPresenter(): UsePreviewPresenterResult {
     const [data, setData] = React.useState<PreviewContent | null>(null);
     const [iframeId, setIframeId] = React.useState<string | null>(null);
     const [isMobile, setIsMobile] = React.useState(false);
