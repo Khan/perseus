@@ -1,4 +1,3 @@
-import {Log} from "@khanacademy/perseus";
 import * as React from "react";
 
 import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
@@ -99,12 +98,6 @@ export function usePreviewController(
 
                 case "height-update":
                     setHeight(message.height);
-                    break;
-
-                case "lint-report":
-                    Log.log("LINTER REPORT", {
-                        lintWarnings: JSON.stringify(message.lintWarnings),
-                    });
                     break;
             }
         };
