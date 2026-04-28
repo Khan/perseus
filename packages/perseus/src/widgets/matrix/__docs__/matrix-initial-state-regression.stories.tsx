@@ -87,6 +87,7 @@ export const WithPrefixAndSuffix: Story = {
     } satisfies Partial<MatrixPublicWidgetOptions>,
 };
 
+// Verifies that the RTL layout renders the matrix and its prefix/suffix
 // correctly when the page direction is right-to-left.
 export const WithPrefixAndSuffixRightToLeft: Story = {
     decorators: [matrixRendererDecorator, rtlDecorator],
