@@ -71,7 +71,8 @@ type Props = DefaultProps & {
 
 type State = {
     highlightLint: boolean;
-    issues: Issue[];
+    // An array of `Issue`s per section of the article.
+    issues: Issue[][];
 };
 
 export default class ArticleEditor extends React.Component<Props, State> {
@@ -114,9 +115,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 ? this.props.json
                 : [this.props.json];
 
-        // Run linter on all sections and collect issues
-        const allLinterIssues: Issue[] = [];
-        sections.forEach((section) => {
+        const issues = sections.map((section) => {
             const parsed = PerseusMarkdown.parse(section.content ?? "", {});
             const linterContext = {
                 content: section.content,
@@ -141,19 +140,16 @@ export default class ArticleEditor extends React.Component<Props, State> {
                     },
                 ) ?? [];
 
-            allLinterIssues.push(...sectionIssues);
-
             // Detect TeX errors in this section
             const texErrors = detectTexErrors(section.content ?? "");
             const texIssues = texErrors.map((error, index) =>
                 WARNINGS.texError(error.math, error.message, index),
             );
-            allLinterIssues.push(...texIssues);
+
+            return [...texIssues, ...sectionIssues];
         });
 
-        this.setState({
-            issues: allLinterIssues,
-        });
+        this.setState({issues});
     }
 
     _updatePreviewFrames() {
@@ -230,7 +226,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         <div className="perseus-editor-row" key={i}>
                             <fieldset disabled={editingDisabled}>
                                 <div className="perseus-editor-left-cell">
-                                    <IssuesPanel issues={this.state.issues} />
+                                    <IssuesPanel
+                                        issues={this.state.issues[i]}
+                                    />
                                     <div className="pod-title">
                                         Section {i + 1}
                                         <div
