@@ -527,10 +527,12 @@ export function getExponentialCoords(
         };
     }
 
-    // Default: two points above the x-axis, matching the Grapher widget defaults.
-    // [0.5, 0.55] normalizes to just above y=0 (≈1 step up in a [-10,10] range).
+    // Default: two points above the x-axis. The closest point sits a few
+    // steps above the asymptote so it doesn't visually overlap the
+    // asymptote drag handle. [0.5, 0.6] normalizes to (0, 2) in a [-10,10]
+    // range.
     let defaultCoords: [Coord, Coord] = [
-        [0.5, 0.55],
+        [0.5, 0.6],
         [0.75, 0.75],
     ];
     defaultCoords = normalizePoints(range, step, defaultCoords, true);
@@ -560,9 +562,12 @@ export function getLogarithmCoords(
 
     // Default coords as normalized fractions of the graph range. After
     // normalization with the default asymptote at x=0, both points will
-    // be to the right of the asymptote.
+    // be to the right of the asymptote. The closest point sits a few
+    // steps from the asymptote so it doesn't visually overlap the
+    // asymptote drag handle. [0.6, 0.55] normalizes to (2, 1) in a
+    // [-10,10] range.
     let defaultCoords: [Coord, Coord] = [
-        [0.55, 0.55],
+        [0.6, 0.55],
         [0.75, 0.75],
     ];
     defaultCoords = normalizePoints(range, step, defaultCoords, true);

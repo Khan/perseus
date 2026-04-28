@@ -516,7 +516,7 @@ describe("initializeGraphState for exponential graphs", () => {
         // Assert
         invariant(graph.type === "exponential");
         expect(graph.coords).toEqual([
-            [0, 1],
+            [0, 2],
             [5, 5],
         ]);
         expect(graph.asymptote).toBe(0);
@@ -582,7 +582,7 @@ describe("initializeGraphState for logarithm graphs", () => {
         // Assert
         invariant(graph.type === "logarithm");
         expect(graph.coords).toEqual([
-            [1, 1],
+            [2, 1],
             [5, 5],
         ]);
         expect(graph.asymptote).toBe(0);
