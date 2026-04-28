@@ -5,7 +5,7 @@ import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
-import type {ParentToIframeMessage, PreviewContent} from "./message-typyu
+import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 
 type UsePreviewControllerResult = {
     /**

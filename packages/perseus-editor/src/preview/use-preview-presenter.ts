@@ -93,7 +93,7 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
 
         window.addEventListener("message", handleMessage);
 
-        // Request initial data if we have an ID
+        // Tell parent we're ready for data.
         const requestMessage: IframeToParentMessage = {
             source: PREVIEW_MESSAGE_SOURCE,
             type: "request-data",
