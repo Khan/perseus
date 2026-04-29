@@ -369,6 +369,10 @@ export {
 } from "./utils/generators/image-widget-generator";
 /** @hidden */
 export {
+    generateLabelImageOptions,
+    generateLabelImageWidget,
+} from "./utils/generators/label-image-widget-generator";
+export {
     generateInteractiveGraphOptions,
     generateIGAngleGraph,
     generateIGCircleGraph,
