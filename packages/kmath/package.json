@@ -29,11 +29,7 @@
         "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
-        "jquery": "catalog:devDeps",
         "perseus-build-settings": "workspace:*"
-    },
-    "peerDependencies": {
-        "jquery": "catalog:peerDeps"
     },
     "keywords": [],
     "khan": {
