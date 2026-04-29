@@ -269,7 +269,6 @@ const styles = StyleSheet.create({
         inlineSize: 24,
         appearance: "none",
         WebkitAppearance: "none",
-        flexShrink: 0,
         borderRadius: "50%",
         boxShadow: `0 0 0 ${border.width.thin} ${semanticColor.core.border.neutral.default}`,
         cursor: "pointer",
@@ -277,7 +276,6 @@ const styles = StyleSheet.create({
         ":focus-visible": {
             outline: `${border.width.medium} solid ${semanticColor.focus.outer}`,
             outlineOffset: "4px",
-            borderRadius: "50%",
         },
     },
 
@@ -297,6 +295,7 @@ const styles = StyleSheet.create({
         blockSize: 1,
         overflow: "hidden",
         clip: "rect(0,0,0,0)",
+        clipPath: "inset(50%)",
         whiteSpace: "nowrap",
     },
 });

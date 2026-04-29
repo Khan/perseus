@@ -58,7 +58,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
               class="categorizer-table mobileTable_1ktoh91"
             >
               <caption
-                class="srOnly_9cqe56"
+                class="srOnly_b9drwz"
               >
                 Categorization — select one category for each item
               </caption>
@@ -181,13 +181,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_10_0-cat-0"
                       name="perseus_radio_10_0"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_10_0-cat-0"
                     >
                       Graph $1$ — No relationship
@@ -197,13 +197,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_10_0-cat-1"
                       name="perseus_radio_10_0"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_10_0-cat-1"
                     >
                       Graph $1$ — Positive linear relationship
@@ -213,13 +213,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_10_0-cat-2"
                       name="perseus_radio_10_0"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_10_0-cat-2"
                     >
                       Graph $1$ — Negative linear relationship
@@ -229,13 +229,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_10_0-cat-3"
                       name="perseus_radio_10_0"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_10_0-cat-3"
                     >
                       Graph $1$ — Nonlinear relationship
@@ -276,13 +276,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_10_1-cat-0"
                       name="perseus_radio_10_1"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_10_1-cat-0"
                     >
                       Graph $2$ — No relationship
@@ -292,13 +292,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_10_1-cat-1"
                       name="perseus_radio_10_1"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_10_1-cat-1"
                     >
                       Graph $2$ — Positive linear relationship
@@ -308,13 +308,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_10_1-cat-2"
                       name="perseus_radio_10_1"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_10_1-cat-2"
                     >
                       Graph $2$ — Negative linear relationship
@@ -324,13 +324,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_10_1-cat-3"
                       name="perseus_radio_10_1"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_10_1-cat-3"
                     >
                       Graph $2$ — Nonlinear relationship
@@ -505,7 +505,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
               class="categorizer-table mobileTable_1ktoh91"
             >
               <caption
-                class="srOnly_9cqe56"
+                class="srOnly_b9drwz"
               >
                 Categorization — select one category for each item
               </caption>
@@ -628,13 +628,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_9_0-cat-0"
                       name="perseus_radio_9_0"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_9_0-cat-0"
                     >
                       Graph $1$ — No relationship
@@ -644,13 +644,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_9_0-cat-1"
                       name="perseus_radio_9_0"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_9_0-cat-1"
                     >
                       Graph $1$ — Positive linear relationship
@@ -660,13 +660,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_9_0-cat-2"
                       name="perseus_radio_9_0"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_9_0-cat-2"
                     >
                       Graph $1$ — Negative linear relationship
@@ -676,13 +676,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_9_0-cat-3"
                       name="perseus_radio_9_0"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_9_0-cat-3"
                     >
                       Graph $1$ — Nonlinear relationship
@@ -723,13 +723,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_9_1-cat-0"
                       name="perseus_radio_9_1"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_9_1-cat-0"
                     >
                       Graph $2$ — No relationship
@@ -739,13 +739,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_9_1-cat-1"
                       name="perseus_radio_9_1"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_9_1-cat-1"
                     >
                       Graph $2$ — Positive linear relationship
@@ -755,13 +755,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_9_1-cat-2"
                       name="perseus_radio_9_1"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_9_1-cat-2"
                     >
                       Graph $2$ — Negative linear relationship
@@ -771,13 +771,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     class="category cell_1w7cte9"
                   >
                     <input
-                      class="radioInput_c16qmv"
+                      class="radioInput_i52fet"
                       id="perseus_radio_9_1-cat-3"
                       name="perseus_radio_9_1"
                       type="radio"
                     />
                     <label
-                      class="srOnly_9cqe56"
+                      class="srOnly_b9drwz"
                       for="perseus_radio_9_1-cat-3"
                     >
                       Graph $2$ — Nonlinear relationship
