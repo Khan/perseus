@@ -152,7 +152,11 @@ const createConfig = (
             }),
             postcss({
                 extract: "index.css",
-                minimize: true,
+                // We don't minify CSS here. Consumers typically minify when
+                // they bundle, so doing it here is redundant. Skipping it also
+                // removes our transitive dependency on cssnano → caniuse-lite,
+                // which periodically requires refreshing the browserslist DB.
+                minimize: false,
                 sourceMap: true,
                 plugins: [
                     postcssImport(),

@@ -110,7 +110,6 @@
         "typedoc-plugin-missing-exports": "^4.1.2",
         "typescript": "5.9.3",
         "typescript-plugin-css-modules": "^5.1.0",
-        "update-browserslist-db": "^1.2.3",
         "vite": "catalog:devDeps",
         "vite-plugin-istanbul": "^5.0.0",
         "yaml": "^2.7.0"
