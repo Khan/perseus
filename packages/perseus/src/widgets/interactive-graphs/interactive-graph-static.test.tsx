@@ -1,26 +1,80 @@
+import {
+    generateInteractiveGraphQuestion,
+    generateIGAngleGraph,
+    generateIGCircleGraph,
+    generateIGLinearGraph,
+    generateIGLinearSystemGraph,
+    generateIGPointGraph,
+    generateIGPolygonGraph,
+    generateIGQuadraticGraph,
+    generateIGRayGraph,
+    generateIGSegmentGraph,
+    generateIGSinusoidGraph,
+} from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 
 import {ApiOptions} from "../../perseus-api";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
-import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
 import type {APIOptions} from "../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
-const unbuiltQuestions = {
-    point: interactiveGraphQuestionBuilder().withPoints(1),
-    segment: interactiveGraphQuestionBuilder().withSegments({numSegments: 1}),
-    linear: interactiveGraphQuestionBuilder().withLinear(),
-    linearSystem: interactiveGraphQuestionBuilder().withLinearSystem(),
-    ray: interactiveGraphQuestionBuilder().withRay(),
-    circle: interactiveGraphQuestionBuilder().withCircle(),
-    quadratic: interactiveGraphQuestionBuilder().withQuadratic(),
-    sinusoid: interactiveGraphQuestionBuilder().withSinusoid(),
-    polygon: interactiveGraphQuestionBuilder().withPolygon(),
-    angle: interactiveGraphQuestionBuilder().withAngle(),
+const questionGenerators: Record<
+    string,
+    (isStatic: boolean) => PerseusRenderer
+> = {
+    point: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGPointGraph({numPoints: 1}),
+        }),
+    segment: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGSegmentGraph({numSegments: 1}),
+        }),
+    linear: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGLinearGraph(),
+        }),
+    linearSystem: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGLinearSystemGraph(),
+        }),
+    ray: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGRayGraph(),
+        }),
+    circle: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGCircleGraph(),
+        }),
+    quadratic: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGQuadraticGraph(),
+        }),
+    sinusoid: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGSinusoidGraph(),
+        }),
+    polygon: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGPolygonGraph(),
+        }),
+    angle: (isStatic) =>
+        generateInteractiveGraphQuestion({
+            isStatic,
+            correct: generateIGAngleGraph(),
+        }),
 };
 
 describe.each`
@@ -31,10 +85,10 @@ describe.each`
     test("Segment graph", () => {
         // Arrange
         const segmentQuestion: PerseusRenderer =
-            interactiveGraphQuestionBuilder()
-                .withStaticMode(staticMode)
-                .withSegments({numSegments: 1})
-                .build();
+            generateInteractiveGraphQuestion({
+                isStatic: staticMode,
+                correct: generateIGSegmentGraph({numSegments: 1}),
+            });
         renderQuestion(segmentQuestion, blankOptions);
 
         // Act
@@ -53,10 +107,10 @@ describe.each`
     test("Linear graph", () => {
         // Arrange
         const linearQuestion: PerseusRenderer =
-            interactiveGraphQuestionBuilder()
-                .withStaticMode(staticMode)
-                .withLinear()
-                .build();
+            generateInteractiveGraphQuestion({
+                isStatic: staticMode,
+                correct: generateIGLinearGraph(),
+            });
         renderQuestion(linearQuestion, blankOptions);
 
         // Act
@@ -81,10 +135,10 @@ describe.each`
     test("Linear System graph", () => {
         // Arrange
         const linearSystemQuestion: PerseusRenderer =
-            interactiveGraphQuestionBuilder()
-                .withStaticMode(staticMode)
-                .withLinearSystem()
-                .build();
+            generateInteractiveGraphQuestion({
+                isStatic: staticMode,
+                correct: generateIGLinearSystemGraph(),
+            });
         renderQuestion(linearSystemQuestion, blankOptions);
 
         // Act
@@ -112,10 +166,10 @@ describe.each`
 
     test("Ray graph", () => {
         // Arrange
-        const rayQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withStaticMode(staticMode)
-            .withRay()
-            .build();
+        const rayQuestion: PerseusRenderer = generateInteractiveGraphQuestion({
+            isStatic: staticMode,
+            correct: generateIGRayGraph(),
+        });
         renderQuestion(rayQuestion, blankOptions);
 
         // Act
@@ -137,10 +191,10 @@ describe.each`
     test("Circle graph", () => {
         // Arrange
         const circleQuestion: PerseusRenderer =
-            interactiveGraphQuestionBuilder()
-                .withStaticMode(staticMode)
-                .withCircle()
-                .build();
+            generateInteractiveGraphQuestion({
+                isStatic: staticMode,
+                correct: generateIGCircleGraph(),
+            });
         renderQuestion(circleQuestion, blankOptions);
 
         // Act
@@ -159,10 +213,10 @@ describe.each`
     test("Quadratic", () => {
         // Arrange
         const quadraticQuestion: PerseusRenderer =
-            interactiveGraphQuestionBuilder()
-                .withStaticMode(staticMode)
-                .withQuadratic()
-                .build();
+            generateInteractiveGraphQuestion({
+                isStatic: staticMode,
+                correct: generateIGQuadraticGraph(),
+            });
         renderQuestion(quadraticQuestion);
 
         // Act
@@ -184,10 +238,10 @@ describe.each`
     test("Sinusoid", () => {
         // Arrange
         const sinusoidQuestion: PerseusRenderer =
-            interactiveGraphQuestionBuilder()
-                .withStaticMode(staticMode)
-                .withSinusoid()
-                .build();
+            generateInteractiveGraphQuestion({
+                isStatic: staticMode,
+                correct: generateIGSinusoidGraph(),
+            });
         renderQuestion(sinusoidQuestion, blankOptions);
 
         // Act
@@ -208,10 +262,12 @@ describe.each`
 
     test("Point", () => {
         // Arrange
-        const pointQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withStaticMode(staticMode)
-            .withPoints(1)
-            .build();
+        const pointQuestion: PerseusRenderer = generateInteractiveGraphQuestion(
+            {
+                isStatic: staticMode,
+                correct: generateIGPointGraph({numPoints: 1}),
+            },
+        );
         renderQuestion(pointQuestion, blankOptions);
 
         // Act
@@ -225,11 +281,11 @@ describe.each`
     test("Polygon", () => {
         // Arrange
         const polygonQuestion: PerseusRenderer =
-            interactiveGraphQuestionBuilder()
-                .withStaticMode(staticMode)
+            generateInteractiveGraphQuestion({
+                isStatic: staticMode,
                 // Defaults to 3 sides
-                .withPolygon()
-                .build();
+                correct: generateIGPolygonGraph(),
+            });
         renderQuestion(polygonQuestion, blankOptions);
 
         // Act
@@ -250,11 +306,13 @@ describe.each`
 
     test("Angle (angle arc)", () => {
         // Arrange
-        const angleQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withStaticMode(staticMode)
-            // Defaults to 53 degree angle
-            .withAngle()
-            .build();
+        const angleQuestion: PerseusRenderer = generateInteractiveGraphQuestion(
+            {
+                isStatic: staticMode,
+                // Defaults to 53 degree angle
+                correct: generateIGAngleGraph(),
+            },
+        );
         renderQuestion(angleQuestion, blankOptions);
 
         // Act
@@ -283,23 +341,26 @@ describe.each`
 
     test("Angle (right angle)", () => {
         // Arrange
-        const angleQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withStaticMode(staticMode)
-            // Defaults to 53 degree angle
-            .withAngle({
+        const angleQuestion: PerseusRenderer = generateInteractiveGraphQuestion(
+            {
+                isStatic: staticMode,
                 // Right angle
-                startCoords: [
-                    [0, 5],
-                    [0, 0], // vertex
-                    [5, 0],
-                ],
-                coords: [
-                    [0, 5],
-                    [0, 0], // vertex
-                    [5, 0],
-                ],
-            })
-            .build();
+                graph: generateIGAngleGraph({
+                    startCoords: [
+                        [0, 5],
+                        [0, 0], // vertex
+                        [5, 0],
+                    ],
+                }),
+                correct: generateIGAngleGraph({
+                    coords: [
+                        [0, 5],
+                        [0, 0], // vertex
+                        [5, 0],
+                    ],
+                }),
+            },
+        );
         renderQuestion(angleQuestion, blankOptions);
 
         // Act
@@ -352,9 +413,7 @@ describe.each`
         "$graphType graph's interactive elements have expected aria-disabled",
         ({graphType, expectedNumOfElements}) => {
             // Arrange
-            const question = unbuiltQuestions[graphType]
-                .withStaticMode(staticMode)
-                .build();
+            const question = questionGenerators[graphType](staticMode);
 
             // Act
             renderQuestion(question, blankOptions);

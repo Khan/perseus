@@ -395,7 +395,10 @@ export {
     generateIGLockedPolygon,
     generateIGLockedFunction,
     generateIGLockedLabel,
+    generateIGExponentialGraph,
+    generateIGAbsoluteValueGraph,
     generateInteractiveGraphWidget,
+    generateInteractiveGraphQuestion,
 } from "./utils/generators/interactive-graph-widget-generator";
 export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
