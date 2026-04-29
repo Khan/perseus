@@ -1,5 +1,4 @@
 import $ from "jquery";
-import _ from "underscore";
 
 import * as knumber from "./number";
 
@@ -256,7 +255,10 @@ const KhanMath = {
             }
         }
 
-        if (_(["proper", "improper", "mixed", "fraction"]).contains(format)) {
+        if (
+            format != null &&
+            ["proper", "improper", "mixed", "fraction"].includes(format)
+        ) {
             const fraction = knumber.toFraction(number);
             const numerator = Math.abs(fraction[0]);
             const denominator = fraction[1];

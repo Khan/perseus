@@ -30,12 +30,10 @@
     },
     "devDependencies": {
         "jquery": "catalog:devDeps",
-        "perseus-build-settings": "workspace:*",
-        "underscore": "catalog:devDeps"
+        "perseus-build-settings": "workspace:*"
     },
     "peerDependencies": {
-        "jquery": "catalog:peerDeps",
-        "underscore": "catalog:peerDeps"
+        "jquery": "catalog:peerDeps"
     },
     "keywords": [],
     "khan": {

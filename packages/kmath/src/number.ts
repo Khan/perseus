@@ -3,17 +3,15 @@
  * A number is a js-number, e.g. 5.12
  */
 
-import _ from "underscore";
-
 export const DEFAULT_TOLERANCE = 1e-9;
 
 export function is(x: any): boolean {
-    return _.isNumber(x) && !_.isNaN(x);
+    return typeof x === "number" && !Number.isNaN(x);
 }
 
 export function equal(x: number, y: number, tolerance?: number): boolean {
     // Checking for undefined makes this function behave nicely
-    // with vectors of different lengths that are _.zip'd together
+    // when called with vectors of different lengths
     if (x == null || y == null) {
         return x === y;
     }
