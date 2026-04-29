@@ -77,8 +77,6 @@ type ArrayNodeOutput<Result> = (
 
 type ReactOutput = Output<ReactElements>;
 type ReactNodeOutput = NodeOutput<ReactElements>;
-type HtmlOutput = Output<string>;
-type HtmlNodeOutput = NodeOutput<string>;
 
 type ParserRule = {
     readonly order: number;
@@ -110,15 +108,9 @@ type ReactOutputRule = {
     readonly react: ReactNodeOutput | null;
 };
 
-type HtmlOutputRule = {
-    readonly html: HtmlNodeOutput | null;
-};
-
 type ArrayRule = {
     // @ts-expect-error - TS2411 - Property 'react' of type 'ArrayNodeOutput<ReactNode> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
     readonly react?: ArrayNodeOutput<ReactElements>;
-    // @ts-expect-error - TS2411 - Property 'html' of type 'ArrayNodeOutput<string> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
-    readonly html?: ArrayNodeOutput<string>;
     readonly [key: string]: ArrayNodeOutput<any>;
 };
 
@@ -145,13 +137,6 @@ type ReactRules = {
     };
     readonly [type: string]: ParserRule & ReactOutputRule;
 };
-type HtmlRules = {
-    // @ts-expect-error - TS2411 - Property 'Array' of type '{ readonly html: ArrayNodeOutput<string>; } | undefined' is not assignable to 'string' index type 'ParserRule & HtmlOutputRule'.
-    readonly Array?: {
-        readonly html: ArrayNodeOutput<string>;
-    };
-    readonly [type: string]: ParserRule & HtmlOutputRule;
-};
 
 // We want to clarify our defaultRules types a little bit more so clients can
 // reuse defaultRules built-ins. So we make some stronger guarantess when
@@ -165,25 +150,14 @@ type ElementReactOutputRule = {
 type TextReactOutputRule = {
     readonly react: NodeOutput<string>;
 };
-type NonNullHtmlOutputRule = {
-    readonly html: HtmlNodeOutput;
-};
-
-type DefaultInRule = SingleNodeParserRule & ReactOutputRule & HtmlOutputRule;
-type TextInOutRule = SingleNodeParserRule &
-    TextReactOutputRule &
-    NonNullHtmlOutputRule;
-type LenientInOutRule = SingleNodeParserRule &
-    NonNullReactOutputRule &
-    NonNullHtmlOutputRule;
-type DefaultInOutRule = SingleNodeParserRule &
-    ElementReactOutputRule &
-    NonNullHtmlOutputRule;
+type DefaultInRule = SingleNodeParserRule & ReactOutputRule;
+type TextInOutRule = SingleNodeParserRule & TextReactOutputRule;
+type LenientInOutRule = SingleNodeParserRule & NonNullReactOutputRule;
+type DefaultInOutRule = SingleNodeParserRule & ElementReactOutputRule;
 
 type DefaultRules = {
     readonly Array: {
         readonly react: ArrayNodeOutput<ReactElements>;
-        readonly html: ArrayNodeOutput<string>;
     };
     readonly heading: DefaultInOutRule;
     readonly nptable: DefaultInRule;
@@ -531,46 +505,6 @@ var reactElement = function (
         _owner: null,
     } as any;
     return element;
-};
-
-/** Returns a closed HTML tag.
- * @param {string} tagName - Name of HTML tag (eg. "em" or "a")
- * @param {string} content - Inner content of tag
- * @param {{ [attr: string]: SimpleMarkdown.Attr }} [attributes] - Optional extra attributes of tag as an object of key-value pairs
- *   eg. { "href": "http://google.com" }. Falsey attributes are filtered out.
- * @param {boolean} [isClosed] - boolean that controls whether tag is closed or not (eg. img tags).
- *   defaults to true
- */
-var htmlTag = function (
-    tagName: string,
-    content: string,
-    attributes?: Partial<Record<any, Attr | null | undefined>> | null,
-    isClosed?: boolean | null,
-) {
-    attributes = attributes || {};
-    isClosed = typeof isClosed !== "undefined" ? isClosed : true;
-
-    var attributeString = "";
-    for (var attr in attributes) {
-        var attribute = attributes[attr];
-        // Removes falsey attributes
-        if (
-            Object.prototype.hasOwnProperty.call(attributes, attr) &&
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            attribute
-        ) {
-            attributeString +=
-                " " + sanitizeText(attr) + '="' + sanitizeText(attribute) + '"';
-        }
-    }
-
-    var unclosedTag = "<" + tagName + attributeString + ">";
-
-    if (isClosed) {
-        return unclosedTag + content + "</" + tagName + ">";
-    } else {
-        return unclosedTag;
-    }
 };
 
 var EMPTY_PROPS: Record<string, any> = {};
@@ -927,28 +861,6 @@ var defaultRules: DefaultRules = {
             state.key = oldKey;
             return result;
         },
-        html: function (arr, output, state) {
-            var result = "";
-
-            // map output over the ast, except group any text
-            // nodes together into a single string output.
-            for (var i = 0; i < arr.length; i++) {
-                var node = arr[i];
-                if (node.type === "text") {
-                    node = {type: "text", content: node.content};
-                    for (
-                        ;
-                        i + 1 < arr.length && arr[i + 1].type === "text";
-                        i++
-                    ) {
-                        node.content += arr[i + 1].content;
-                    }
-                }
-
-                result += output(node, state);
-            }
-            return result;
-        },
     },
     heading: {
         order: currOrder++,
@@ -964,16 +876,12 @@ var defaultRules: DefaultRules = {
                 children: output(node.content, state),
             });
         },
-        html: function (node, output, state) {
-            return htmlTag("h" + node.level, output(node.content, state));
-        },
     },
     nptable: {
         order: currOrder++,
         match: blockRegex(TABLES.NPTABLE_REGEX),
         parse: TABLES.parseNpTable,
         react: null,
-        html: null,
     },
     lheading: {
         order: currOrder++,
@@ -986,7 +894,6 @@ var defaultRules: DefaultRules = {
             };
         },
         react: null,
-        html: null,
     },
     hr: {
         order: currOrder++,
@@ -994,9 +901,6 @@ var defaultRules: DefaultRules = {
         parse: ignoreCapture,
         react: function (node, output, state) {
             return reactElement("hr", state.key, {"aria-hidden": true});
-        },
-        html: function (node, output, state) {
-            return '<hr aria-hidden="true">';
         },
     },
     codeBlock: {
@@ -1021,16 +925,6 @@ var defaultRules: DefaultRules = {
                 }),
             });
         },
-        html: function (node, output, state) {
-            var className = node.lang
-                ? "markdown-code-" + node.lang
-                : undefined;
-
-            var codeBlock = htmlTag("code", sanitizeText(node.content), {
-                class: className,
-            });
-            return htmlTag("pre", codeBlock);
-        },
     },
     fence: {
         order: currOrder++,
@@ -1045,7 +939,6 @@ var defaultRules: DefaultRules = {
             };
         },
         react: null,
-        html: null,
     },
     blockQuote: {
         order: currOrder++,
@@ -1060,9 +953,6 @@ var defaultRules: DefaultRules = {
             return reactElement("blockquote", state.key, {
                 children: output(node.content, state),
             });
-        },
-        html: function (node, output, state) {
-            return htmlTag("blockquote", output(node.content, state));
         },
     },
     list: {
@@ -1182,19 +1072,6 @@ var defaultRules: DefaultRules = {
                 }),
             });
         },
-        html: function (node, output, state) {
-            var listItems = node.items
-                .map(function (item: ASTNode) {
-                    return htmlTag("li", output(item, state));
-                })
-                .join("");
-
-            var listTag = node.ordered ? "ol" : "ul";
-            var attributes = {
-                start: node.start,
-            };
-            return htmlTag(listTag, listItems, attributes);
-        },
     },
     def: {
         order: currOrder++,
@@ -1245,9 +1122,6 @@ var defaultRules: DefaultRules = {
         },
         react: function () {
             return null;
-        },
-        html: function () {
-            return "";
         },
     },
     table: {
@@ -1303,50 +1177,12 @@ var defaultRules: DefaultRules = {
                 ],
             });
         },
-        html: function (node, output, state) {
-            var getStyle = function (colIndex: number): string {
-                return node.align[colIndex] == null
-                    ? ""
-                    : "text-align:" + node.align[colIndex] + ";";
-            };
-
-            var headers = node.header
-                .map(function (content: ASTNode, i: number) {
-                    return htmlTag("th", output(content, state), {
-                        style: getStyle(i),
-                        scope: "col",
-                    });
-                })
-                .join("");
-
-            var rows = node.cells
-                .map(function (row: Array<ASTNode>) {
-                    var cols = row
-                        .map(function (content: ASTNode, c: number) {
-                            return htmlTag("td", output(content, state), {
-                                style: getStyle(c),
-                            });
-                        })
-                        .join("");
-
-                    return htmlTag("tr", cols);
-                })
-                .join("");
-
-            var thead = htmlTag("thead", htmlTag("tr", headers));
-            var tbody = htmlTag("tbody", rows);
-
-            return htmlTag("table", thead + tbody);
-        },
     },
     newline: {
         order: currOrder++,
         match: blockRegex(/^(?:\n *)*\n/),
         parse: ignoreCapture,
         react: function (node, output, state) {
-            return "\n";
-        },
-        html: function (node, output, state) {
             return "\n";
         },
     },
@@ -1359,12 +1195,6 @@ var defaultRules: DefaultRules = {
                 className: "paragraph",
                 children: output(node.content, state),
             });
-        },
-        html: function (node, output, state) {
-            var attributes = {
-                class: "paragraph",
-            };
-            return htmlTag("div", output(node.content, state), attributes);
         },
     },
     escape: {
@@ -1381,7 +1211,6 @@ var defaultRules: DefaultRules = {
             };
         },
         react: null,
-        html: null,
     },
     tableSeparator: {
         order: currOrder++,
@@ -1397,9 +1226,6 @@ var defaultRules: DefaultRules = {
         // These shouldn't be reached, but in case they are, be reasonable:
         react: function () {
             return " | ";
-        },
-        html: function () {
-            return " &vert; ";
         },
     },
     autolink: {
@@ -1418,7 +1244,6 @@ var defaultRules: DefaultRules = {
             };
         },
         react: null,
-        html: null,
     },
     mailto: {
         order: currOrder++,
@@ -1444,7 +1269,6 @@ var defaultRules: DefaultRules = {
             };
         },
         react: null,
-        html: null,
     },
     url: {
         order: currOrder++,
@@ -1463,7 +1287,6 @@ var defaultRules: DefaultRules = {
             };
         },
         react: null,
-        html: null,
     },
     link: {
         order: currOrder++,
@@ -1486,14 +1309,6 @@ var defaultRules: DefaultRules = {
                 title: node.title,
                 children: output(node.content, state),
             });
-        },
-        html: function (node, output, state) {
-            var attributes = {
-                href: sanitizeUrl(node.target),
-                title: node.title,
-            };
-
-            return htmlTag("a", output(node.content, state), attributes);
         },
     },
     image: {
@@ -1522,15 +1337,6 @@ var defaultRules: DefaultRules = {
                 title: node.title,
             });
         },
-        html: function (node, output, state) {
-            var attributes = {
-                src: sanitizeUrl(node.target),
-                alt: node.alt,
-                title: node.title,
-            };
-
-            return htmlTag("img", "", attributes, false);
-        },
     },
     reflink: {
         order: currOrder++,
@@ -1551,7 +1357,6 @@ var defaultRules: DefaultRules = {
             });
         },
         react: null,
-        html: null,
     },
     refimage: {
         order: currOrder++,
@@ -1572,7 +1377,6 @@ var defaultRules: DefaultRules = {
             });
         },
         react: null,
-        html: null,
     },
     em: {
         order: currOrder /* same as strong/u */,
@@ -1618,9 +1422,6 @@ var defaultRules: DefaultRules = {
                 children: output(node.content, state),
             });
         },
-        html: function (node, output, state) {
-            return htmlTag("em", output(node.content, state));
-        },
     },
     strong: {
         order: currOrder /* same as em */,
@@ -1634,9 +1435,6 @@ var defaultRules: DefaultRules = {
             return reactElement("strong", state.key, {
                 children: output(node.content, state),
             });
-        },
-        html: function (node, output, state) {
-            return htmlTag("strong", output(node.content, state));
         },
     },
     u: {
@@ -1652,9 +1450,6 @@ var defaultRules: DefaultRules = {
                 children: output(node.content, state),
             });
         },
-        html: function (node, output, state) {
-            return htmlTag("u", output(node.content, state));
-        },
     },
     del: {
         order: currOrder++,
@@ -1666,9 +1461,6 @@ var defaultRules: DefaultRules = {
             return reactElement("del", state.key, {
                 children: output(node.content, state),
             });
-        },
-        html: function (node, output, state) {
-            return htmlTag("del", output(node.content, state));
         },
     },
     inlineCode: {
@@ -1687,9 +1479,6 @@ var defaultRules: DefaultRules = {
                 children: node.content,
             });
         },
-        html: function (node, output, state) {
-            return htmlTag("code", sanitizeText(node.content));
-        },
     },
     br: {
         order: currOrder++,
@@ -1697,9 +1486,6 @@ var defaultRules: DefaultRules = {
         parse: ignoreCapture,
         react: function (node, output, state) {
             return reactElement("br", state.key, EMPTY_PROPS);
-        },
-        html: function (node, output, state) {
-            return "<br>";
         },
     },
     text: {
@@ -1719,9 +1505,6 @@ var defaultRules: DefaultRules = {
         react: function (node, output, state) {
             return node.content;
         },
-        html: function (node, output, state) {
-            return sanitizeText(node.content);
-        },
     },
 };
 
@@ -1733,8 +1516,8 @@ var ruleOutput = function <Rule>(
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!property && typeof console !== "undefined") {
         console.warn(
-            "simple-markdown ruleOutput should take 'react' or " +
-                "'html' as the second argument.",
+            "simple-markdown ruleOutput should take 'react' as the " +
+                "second argument.",
         );
     }
 
@@ -1781,24 +1564,6 @@ var reactFor = function (outputFunc: ReactNodeOutput): ReactOutput {
 
             state.key = oldKey;
             return result;
-        } else {
-            return outputFunc(ast, nestedOutput, state);
-        }
-    };
-    return nestedOutput;
-};
-
-/** (deprecated)
- */
-var htmlFor = function (outputFunc: HtmlNodeOutput): HtmlOutput {
-    var nestedOutput: HtmlOutput = function (ast, state) {
-        state = state || {};
-        if (Array.isArray(ast)) {
-            return ast
-                .map(function (node) {
-                    return nestedOutput(node, state);
-                })
-                .join("");
         } else {
             return outputFunc(ast, nestedOutput, state);
         }
@@ -1889,17 +1654,12 @@ var defaultImplicitParse = function (
 };
 
 var defaultReactOutput: ReactOutput = outputFor(defaultRules, "react");
-var defaultHtmlOutput: HtmlOutput = outputFor(defaultRules, "html");
 
 var markdownToReact = function (
     source: string,
     state?: State | null,
 ): ReactElements {
     return defaultReactOutput(defaultBlockParse(source, state), state);
-};
-
-var markdownToHtml = function (source: string, state?: State | null): string {
-    return defaultHtmlOutput(defaultBlockParse(source, state), state);
 };
 
 type Props = any;
@@ -1935,7 +1695,6 @@ type Exports = {
         param: keyof Rule,
     ) => NodeOutput<any>;
     readonly reactFor: (arg1: ReactNodeOutput) => ReactOutput;
-    readonly htmlFor: (arg1: HtmlNodeOutput) => HtmlOutput;
     readonly inlineRegex: (regex: RegExp) => MatchFunction;
     readonly blockRegex: (regex: RegExp) => MatchFunction;
     readonly anyScopeRegex: (regex: RegExp) => MatchFunction;
@@ -1953,10 +1712,6 @@ type Exports = {
         source: string,
         state?: State | null | undefined,
     ) => ReactElements;
-    readonly markdownToHtml: (
-        source: string,
-        state?: State | null | undefined,
-    ) => string;
     readonly ReactMarkdown: (props: {
         source: string;
         [key: string]: any;
@@ -1978,22 +1733,12 @@ type Exports = {
         state?: State | null | undefined,
     ) => Array<SingleASTNode>;
     readonly defaultReactOutput: ReactOutput;
-    readonly defaultHtmlOutput: HtmlOutput;
     readonly preprocess: (source: string) => string;
     readonly sanitizeText: (text: Attr) => string;
     readonly sanitizeUrl: (
         url?: string | null | undefined,
     ) => string | null | undefined;
     readonly unescapeUrl: (url: string) => string;
-    readonly htmlTag: (
-        tagName: string,
-        content: string,
-        attributes?:
-            | Partial<Record<any, Attr | null | undefined>>
-            | null
-            | undefined,
-        isClosed?: boolean | null | undefined,
-    ) => string;
     readonly reactElement: (
         type: string,
         key: string | null,
@@ -2020,7 +1765,6 @@ export type {
     Parser,
     Output,
     ReactOutput,
-    HtmlOutput,
     // Most of the following types should be considered experimental and
     // subject to change or change names. Again, they shouldn't be necessary,
     // but if they are I'd love to hear how so I can better support them!
@@ -2035,13 +1779,11 @@ export type {
     // Single rules:
     ParserRule,
     ReactOutputRule,
-    HtmlOutputRule,
     // Sets of rules:
     ParserRules,
     OutputRules,
     Rules,
     ReactRules,
-    HtmlRules,
     SingleASTNode,
 };
 
@@ -2058,7 +1800,6 @@ var SimpleMarkdown: Exports = {
 
     // default wrappers:
     markdownToReact: markdownToReact,
-    markdownToHtml: markdownToHtml,
     ReactMarkdown: ReactMarkdown,
 
     defaultBlockParse: defaultBlockParse,
@@ -2066,20 +1807,17 @@ var SimpleMarkdown: Exports = {
     defaultImplicitParse: defaultImplicitParse,
 
     defaultReactOutput: defaultReactOutput,
-    defaultHtmlOutput: defaultHtmlOutput,
 
     preprocess: preprocess,
     sanitizeText: sanitizeText,
     sanitizeUrl: sanitizeUrl,
     unescapeUrl: unescapeUrl,
-    htmlTag: htmlTag,
     reactElement: reactElement,
 
     // deprecated:
     defaultRawParse: defaultRawParse,
     ruleOutput: ruleOutput,
     reactFor: reactFor,
-    htmlFor: htmlFor,
 
     defaultParse: function (...args) {
         if (typeof console !== "undefined") {
