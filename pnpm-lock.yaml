@@ -500,9 +500,6 @@ importers:
         specifier: workspace:*
         version: link:../perseus-utils
     devDependencies:
-      jquery:
-        specifier: catalog:devDeps
-        version: 2.1.1
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
