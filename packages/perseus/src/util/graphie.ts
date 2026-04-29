@@ -1757,13 +1757,14 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // Inherited line-height values can really mess up placement.
         $container.css("line-height", "normal");
 
-        // On the first call (processMath callback), always read scrollHeight after
-        // line-height normalization. This handles two cases:
-        //   a) line-height was just set: scrollHeight changed from what was measured at callback time.
-        //   b) line-height was already set by a sibling label: scrollHeight is corrected but the
-        //      size parameter still holds the pre-correction value measured earlier.
-        // On subsequent calls (ResizeObserver recalculations), originalLabelSize is already set,
-        // so we skip this and use the passed-in size to correctly scale to the new container size.
+        // The first time this runs for a label, we re-measure the label's height from
+        // the DOM instead of trusting the `height` value passed into this function.
+        // We do this because setting line-height above can shift the element's height,
+        // and the passed in `height` may have been captured before that shift happened
+        // (either because we just caused it, or because a sibling label caused it earlier).
+        // We store the corrected height so that on later calls (triggered by ResizeObserver
+        // when the container resizes), we can skip re-measuring and just scale from the
+        // original stored size.
         if ($span.data("originalLabelSize") == null) {
             height = span.scrollHeight;
             $span.data("originalLabelSize", [width, height]);
