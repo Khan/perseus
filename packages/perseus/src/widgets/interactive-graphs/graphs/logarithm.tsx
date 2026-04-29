@@ -11,7 +11,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {boundToEdge} from "../utils";
 
-import {GraphBoundsSvg} from "./components/graph-bounds-svg";
+import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -248,7 +248,7 @@ function renderLogarithmCurve({
     const pointsRightOfAsymptote = coords[0][X] > asymptoteX;
 
     return (
-        <GraphBoundsSvg>
+        <ClipToGraphBounds>
             <Plot.OfX
                 y={(x) => computeLogarithm(coeffs, x)}
                 color={interactiveColor}
@@ -262,7 +262,7 @@ function renderLogarithmCurve({
                         : [xMin, asymptoteX - domainOffset]
                 }
             />
-        </GraphBoundsSvg>
+        </ClipToGraphBounds>
     );
 }
 
