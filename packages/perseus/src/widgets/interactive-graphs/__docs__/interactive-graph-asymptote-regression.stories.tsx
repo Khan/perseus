@@ -1,3 +1,8 @@
+import {
+    generateInteractiveGraphQuestion,
+    generateIGExponentialGraph,
+    generateIGLogarithmGraph,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
@@ -5,7 +10,6 @@ import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
-import {interactiveGraphQuestionBuilder} from "../interactive-graph-question-builder";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -36,29 +40,32 @@ export default meta;
 // through the center of the graph where the horizontal drag handle sits.
 // This makes the layering between the curve and drag handle visible.
 //
-// Note: startCoords/startAsymptote must be set alongside coords/asymptote
-// because coords sets the correct answer, while startCoords controls
-// the initial rendered position of the graph.
+// Note: `correct` sets the answer; `graph.startCoords` controls the
+// initial rendered position of the graph.
 // ──────────────────────────────────────────────
 
 // Default inactive state: the drag handle pill (small, no grip dots)
 // is visible above the curve line where they overlap.
 export const ExponentialDragHandleDefault: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withExponential({
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGExponentialGraph({
                 coords: [
                     [3, 1],
                     [5, 5],
                 ],
                 asymptote: 0,
-                startCoords: [
-                    [3, 1],
-                    [5, 5],
-                ],
-                startAsymptote: 0,
-            })
-            .build(),
+            }),
+            graph: generateIGExponentialGraph({
+                startCoords: {
+                    coords: [
+                        [3, 1],
+                        [5, 5],
+                    ],
+                    asymptote: 0,
+                },
+            }),
+        }),
     },
 };
 
@@ -68,20 +75,24 @@ export const ExponentialDragHandleDefault: Story = {
 // focus, matching the hover/drag behavior.
 export const ExponentialDragHandleFocused: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withExponential({
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGExponentialGraph({
                 coords: [
                     [3, 1],
                     [5, 5],
                 ],
                 asymptote: 0,
-                startCoords: [
-                    [3, 1],
-                    [5, 5],
-                ],
-                startAsymptote: 0,
-            })
-            .build(),
+            }),
+            graph: generateIGExponentialGraph({
+                startCoords: {
+                    coords: [
+                        [3, 1],
+                        [5, 5],
+                    ],
+                    asymptote: 0,
+                },
+            }),
+        }),
     },
     play: async ({canvas}) => {
         const asymptote = canvas.getByRole("button", {
@@ -95,20 +106,24 @@ export const ExponentialDragHandleFocused: Story = {
 // drag handle remains in the inactive state (small pill, no dots).
 export const ExponentialPointFocusedHandleInactive: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withExponential({
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGExponentialGraph({
                 coords: [
                     [3, 1],
                     [5, 5],
                 ],
                 asymptote: 0,
-                startCoords: [
-                    [3, 1],
-                    [5, 5],
-                ],
-                startAsymptote: 0,
-            })
-            .build(),
+            }),
+            graph: generateIGExponentialGraph({
+                startCoords: {
+                    coords: [
+                        [3, 1],
+                        [5, 5],
+                    ],
+                    asymptote: 0,
+                },
+            }),
+        }),
     },
     play: async ({canvas}) => {
         const point = canvas.getByRole("button", {
@@ -123,20 +138,24 @@ export const ExponentialPointFocusedHandleInactive: Story = {
 // clearly not touching or covering the handle area.
 export const ExponentialDragHandleNoOverlap: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withExponential({
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGExponentialGraph({
                 coords: [
                     [3, 1],
                     [5, 2],
                 ],
                 asymptote: 0,
-                startCoords: [
-                    [3, 1],
-                    [5, 2],
-                ],
-                startAsymptote: 0,
-            })
-            .build(),
+            }),
+            graph: generateIGExponentialGraph({
+                startCoords: {
+                    coords: [
+                        [3, 1],
+                        [5, 2],
+                    ],
+                    asymptote: 0,
+                },
+            }),
+        }),
     },
     play: async ({canvas}) => {
         const asymptote = canvas.getByRole("button", {
@@ -157,20 +176,24 @@ export const ExponentialDragHandleNoOverlap: Story = {
 // is visible above the curve line where they overlap.
 export const LogarithmDragHandleDefault: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withLogarithm({
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGLogarithmGraph({
                 coords: [
                     [1, 3],
                     [5, 5],
                 ],
                 asymptote: 0,
-                startCoords: [
-                    [1, 3],
-                    [5, 5],
-                ],
-                startAsymptote: 0,
-            })
-            .build(),
+            }),
+            graph: generateIGLogarithmGraph({
+                startCoords: {
+                    coords: [
+                        [1, 3],
+                        [5, 5],
+                    ],
+                    asymptote: 0,
+                },
+            }),
+        }),
     },
 };
 
@@ -180,20 +203,24 @@ export const LogarithmDragHandleDefault: Story = {
 // focus, matching the hover/drag behavior.
 export const LogarithmDragHandleFocused: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withLogarithm({
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGLogarithmGraph({
                 coords: [
                     [1, 3],
                     [5, 5],
                 ],
                 asymptote: 0,
-                startCoords: [
-                    [1, 3],
-                    [5, 5],
-                ],
-                startAsymptote: 0,
-            })
-            .build(),
+            }),
+            graph: generateIGLogarithmGraph({
+                startCoords: {
+                    coords: [
+                        [1, 3],
+                        [5, 5],
+                    ],
+                    asymptote: 0,
+                },
+            }),
+        }),
     },
     play: async ({canvas}) => {
         const asymptote = canvas.getByRole("button", {
@@ -207,20 +234,24 @@ export const LogarithmDragHandleFocused: Story = {
 // drag handle remains in the inactive state (small pill, no dots).
 export const LogarithmPointFocusedHandleInactive: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withLogarithm({
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGLogarithmGraph({
                 coords: [
                     [1, 3],
                     [5, 5],
                 ],
                 asymptote: 0,
-                startCoords: [
-                    [1, 3],
-                    [5, 5],
-                ],
-                startAsymptote: 0,
-            })
-            .build(),
+            }),
+            graph: generateIGLogarithmGraph({
+                startCoords: {
+                    coords: [
+                        [1, 3],
+                        [5, 5],
+                    ],
+                    asymptote: 0,
+                },
+            }),
+        }),
     },
     play: async ({canvas}) => {
         const point = canvas.getByRole("button", {
@@ -235,20 +266,24 @@ export const LogarithmPointFocusedHandleInactive: Story = {
 // clearly not touching or covering the handle area.
 export const LogarithmDragHandleNoOverlap: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .withLogarithm({
+        question: generateInteractiveGraphQuestion({
+            correct: generateIGLogarithmGraph({
                 coords: [
                     [1, 3],
                     [2, 5],
                 ],
                 asymptote: 0,
-                startCoords: [
-                    [1, 3],
-                    [2, 5],
-                ],
-                startAsymptote: 0,
-            })
-            .build(),
+            }),
+            graph: generateIGLogarithmGraph({
+                startCoords: {
+                    coords: [
+                        [1, 3],
+                        [2, 5],
+                    ],
+                    asymptote: 0,
+                },
+            }),
+        }),
     },
     play: async ({canvas}) => {
         const asymptote = canvas.getByRole("button", {

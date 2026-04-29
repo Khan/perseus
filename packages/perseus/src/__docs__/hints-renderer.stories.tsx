@@ -1,10 +1,22 @@
+import {
+    generateInteractiveGraphQuestion,
+    generateIGAngleGraph,
+    generateIGCircleGraph,
+    generateIGLinearGraph,
+    generateIGLinearSystemGraph,
+    generateIGPointGraph,
+    generateIGPolygonGraph,
+    generateIGQuadraticGraph,
+    generateIGRayGraph,
+    generateIGSegmentGraph,
+    generateIGSinusoidGraph,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
 import HintsRenderer from "../hints-renderer";
 import {ApiOptions} from "../perseus-api";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
-import {interactiveGraphQuestionBuilder} from "../widgets/interactive-graphs/interactive-graph-question-builder";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -66,43 +78,63 @@ export const WithAllInteractiveGraphs: Story = {
         dependencies: storybookDependenciesV2,
         hints: [
             {
-                ...interactiveGraphQuestionBuilder().withAngle().build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGAngleGraph(),
+                }),
                 replace: false,
             },
             {
-                ...interactiveGraphQuestionBuilder().withCircle().build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGCircleGraph(),
+                }),
                 replace: false,
             },
             {
-                ...interactiveGraphQuestionBuilder().withLinear().build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGLinearGraph(),
+                }),
                 replace: false,
             },
             {
-                ...interactiveGraphQuestionBuilder().withLinearSystem().build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGLinearSystemGraph(),
+                }),
                 replace: false,
             },
             {
-                ...interactiveGraphQuestionBuilder().withPoints(3).build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGPointGraph({numPoints: 3}),
+                }),
                 replace: false,
             },
             {
-                ...interactiveGraphQuestionBuilder().withPolygon().build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGPolygonGraph(),
+                }),
                 replace: false,
             },
             {
-                ...interactiveGraphQuestionBuilder().withRay().build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGRayGraph(),
+                }),
                 replace: false,
             },
             {
-                ...interactiveGraphQuestionBuilder().withSegments().build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGSegmentGraph(),
+                }),
                 replace: false,
             },
             {
-                ...interactiveGraphQuestionBuilder().withQuadratic().build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGQuadraticGraph(),
+                }),
                 replace: false,
             },
             {
-                ...interactiveGraphQuestionBuilder().withSinusoid().build(),
+                ...generateInteractiveGraphQuestion({
+                    correct: generateIGSinusoidGraph(),
+                }),
                 replace: false,
             },
         ],

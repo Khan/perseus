@@ -1,6 +1,8 @@
 import {
+    generateIGAbsoluteValueGraph,
     generateIGAngleGraph,
     generateIGCircleGraph,
+    generateIGExponentialGraph,
     generateIGLinearGraph,
     generateIGLinearSystemGraph,
     generateIGLogarithmGraph,
@@ -20,6 +22,7 @@ import {
     generateIGSinusoidGraph,
     generateIGTangentGraph,
     generateInteractiveGraphOptions,
+    generateInteractiveGraphQuestion,
     generateInteractiveGraphWidget,
 } from "./interactive-graph-widget-generator";
 
@@ -1330,5 +1333,151 @@ describe("generateIGLockedLabel", () => {
             color: "blue",
             size: "medium",
         });
+    });
+});
+
+describe("generateIGExponentialGraph", () => {
+    it("builds a default exponential graph", () => {
+        // Arrange, Act
+        const exponentialGraph = generateIGExponentialGraph();
+
+        // Assert
+        expect(exponentialGraph).toEqual({
+            type: "exponential",
+        });
+    });
+
+    it("builds an exponential graph with all props", () => {
+        // Arrange, Act
+        const exponentialGraph = generateIGExponentialGraph({
+            coords: [
+                [0, 1],
+                [1, 3],
+            ],
+            asymptote: 0,
+            startCoords: {
+                coords: [
+                    [0, 1],
+                    [1, 3],
+                ],
+                asymptote: 0,
+            },
+        });
+
+        // Assert
+        expect(exponentialGraph).toEqual({
+            type: "exponential",
+            coords: [
+                [0, 1],
+                [1, 3],
+            ],
+            asymptote: 0,
+            startCoords: {
+                coords: [
+                    [0, 1],
+                    [1, 3],
+                ],
+                asymptote: 0,
+            },
+        });
+    });
+});
+
+describe("generateIGAbsoluteValueGraph", () => {
+    it("builds a default absolute-value graph", () => {
+        // Arrange, Act
+        const absoluteValueGraph = generateIGAbsoluteValueGraph();
+
+        // Assert
+        expect(absoluteValueGraph).toEqual({
+            type: "absolute-value",
+        });
+    });
+
+    it("builds an absolute-value graph with all props", () => {
+        // Arrange, Act
+        const absoluteValueGraph = generateIGAbsoluteValueGraph({
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            startCoords: [
+                [0, 0],
+                [1, 1],
+            ],
+        });
+
+        // Assert
+        expect(absoluteValueGraph).toEqual({
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            startCoords: [
+                [0, 0],
+                [1, 1],
+            ],
+        });
+    });
+});
+
+describe("generateInteractiveGraphQuestion", () => {
+    it("builds a default interactive graph question", () => {
+        // Arrange, Act
+        const question = generateInteractiveGraphQuestion();
+
+        // Assert
+        expect(question.content).toBe("[[☃ interactive-graph 1]]");
+        expect(question.widgets["interactive-graph 1"]).toBeDefined();
+        expect(question.widgets["interactive-graph 1"].type).toBe(
+            "interactive-graph",
+        );
+    });
+
+    it("infers graph type from correct answer type", () => {
+        // Arrange, Act
+        const question = generateInteractiveGraphQuestion({
+            correct: generateIGPointGraph({numPoints: 3}),
+        });
+
+        // Assert
+        const options = question.widgets["interactive-graph 1"].options;
+        expect(options.correct.type).toBe("point");
+        expect(options.graph.type).toBe("point");
+    });
+
+    it("does not override graph when explicitly provided", () => {
+        // Arrange, Act
+        const question = generateInteractiveGraphQuestion({
+            correct: generateIGPointGraph({numPoints: 3}),
+            graph: generateIGPointGraph({numPoints: 5}),
+        });
+
+        // Assert
+        const options = question.widgets["interactive-graph 1"].options;
+        expect(options.graph).toEqual({type: "point", numPoints: 5});
+    });
+
+    it("sets static mode when isStatic is true", () => {
+        // Arrange, Act
+        const question = generateInteractiveGraphQuestion({
+            isStatic: true,
+        });
+
+        // Assert
+        expect(question.widgets["interactive-graph 1"].static).toBe(true);
+    });
+
+    it("uses custom content when provided", () => {
+        // Arrange, Act
+        const question = generateInteractiveGraphQuestion({
+            content: "Custom content [[☃ interactive-graph 1]]",
+        });
+
+        // Assert
+        expect(question.content).toBe(
+            "Custom content [[☃ interactive-graph 1]]",
+        );
     });
 });
