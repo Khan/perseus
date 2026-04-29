@@ -1,18 +1,21 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {shuffle} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+// We render a single Wonder Blocks radio per cell. WB doesn't expose
+// `Radio` as a standalone component — the public surface is `Choice`
+// (with `variant="radio"`) plus `RadioGroup`. `RadioGroup` forces a
+// vertical Choice list and would break the matrix layout, so we use
+// `Choice` directly with an empty label; ChoiceInternal renders no label
+// element when `label` is falsy, leaving just the radio + an 8px Strut.
+import {Choice} from "@khanacademy/wonder-blocks-form";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import InlineIcon from "../../components/inline-icon";
 import {withDependencies} from "../../components/with-dependencies";
-import {iconCircle, iconCircleThin} from "../../icon-paths";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
-import sharedStyles from "../../styles/shared";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
 import type {
@@ -98,9 +101,6 @@ class Categorizer extends React.Component<Props, State> implements Widget {
     render(): React.ReactNode {
         const self = this;
 
-        // In this context, isMobile is used to differentiate mobile from
-        // desktop.
-        const isMobile = this.props.apiOptions.isMobile;
         let indexedItems: ReadonlyArray<Readonly<[string, number]>> =
             this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
@@ -116,13 +116,19 @@ class Categorizer extends React.Component<Props, State> implements Widget {
                     <tr>
                         <td className={css(styles.emptyHeaderCell)} />
                         {this.props.categories.map((category, i) => {
+                            const catId = `${self.state.uniqueId}-cat-${i}`;
                             // Array index is the correct key here, as that's
                             // how category grading actually works -- no way
                             // to add or remove categories or items in the
                             // middle. (If we later add that, this should be
                             // fixed.)
                             return (
-                                <th className={css(styles.header)} key={i}>
+                                <th
+                                    scope="col"
+                                    id={catId}
+                                    className={css(styles.header)}
+                                    key={i}
+                                >
                                     <Renderer
                                         content={category}
                                         linterContext={this.props.linterContext}
@@ -137,18 +143,24 @@ class Categorizer extends React.Component<Props, State> implements Widget {
                     {indexedItems.map((indexedItem) => {
                         const item = indexedItem[0];
                         const itemNum = indexedItem[1];
-                        const uniqueId = self.state.uniqueId + "_" + itemNum;
+                        const itemId = `${self.state.uniqueId}-item-${itemNum}`;
+                        const groupName = `${self.state.uniqueId}-row-${itemNum}`;
                         return (
                             <tr key={itemNum}>
-                                <td>
+                                <th
+                                    scope="row"
+                                    id={itemId}
+                                    className={css(styles.itemHeader)}
+                                >
                                     <Renderer
                                         content={item}
                                         linterContext={this.props.linterContext}
                                         strings={this.context.strings}
                                     />
-                                </td>
+                                </th>
                                 {self.props.categories.map(
                                     (catName, catNum) => {
+                                        const catId = `${self.state.uniqueId}-cat-${catNum}`;
                                         const selected =
                                             self.props.userInput.values[
                                                 itemNum
@@ -161,68 +173,27 @@ class Categorizer extends React.Component<Props, State> implements Widget {
                                                 }
                                                 key={catNum}
                                             >
-                                                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus -- TODO(LEMS-2871): Address a11y error */}
-                                                <div
-                                                    role="button"
-                                                    aria-label={catName}
-                                                    onClick={() =>
+                                                <Choice
+                                                    variant="radio"
+                                                    groupName={groupName}
+                                                    value={String(catNum)}
+                                                    label=""
+                                                    aria-labelledby={`${itemId} ${catId}`}
+                                                    checked={selected}
+                                                    disabled={this.props.static}
+                                                    onChange={() =>
                                                         this._handleUserInput(
                                                             itemNum,
                                                             catNum,
                                                         )
                                                     }
-                                                >
-                                                    {isMobile && (
-                                                        <input
-                                                            type="radio"
-                                                            name={uniqueId}
-                                                            className={css(
-                                                                sharedStyles.responsiveInput,
-                                                                sharedStyles.responsiveRadioInput,
-                                                            )}
-                                                            checked={selected}
-                                                            onChange={() =>
-                                                                this._handleUserInput(
-                                                                    itemNum,
-                                                                    catNum,
-                                                                )
-                                                            }
-                                                            onClick={(e) =>
-                                                                e.stopPropagation()
-                                                            }
-                                                        />
-                                                    )}
-                                                    {!isMobile && (
-                                                        <span
-                                                            className={css(
-                                                                styles.radioSpan,
-                                                                selected &&
-                                                                    styles.checkedRadioSpan,
-                                                                this.props
-                                                                    .static &&
-                                                                    selected &&
-                                                                    styles.staticCheckedRadioSpan,
-                                                            )}
-                                                        >
-                                                            {selected ? (
-                                                                <InlineIcon
-                                                                    {...iconCircle}
-                                                                />
-                                                            ) : (
-                                                                <InlineIcon
-                                                                    {...iconCircleThin}
-                                                                />
-                                                            )}
-                                                        </span>
-                                                    )}
-                                                </div>
+                                                />
                                             </td>
                                         );
                                     },
                                 )}
                             </tr>
                         );
-                        /* eslint-enable max-len */
                     })}
                 </tbody>
             </table>
@@ -268,6 +239,11 @@ const styles = StyleSheet.create({
         verticalAlign: "bottom",
     },
 
+    itemHeader: {
+        textAlign: "left",
+        fontWeight: "normal",
+    },
+
     cell: {
         textAlign: "center",
         padding: 0,
@@ -278,26 +254,6 @@ const styles = StyleSheet.create({
     emptyHeaderCell: {
         backgroundColor: "inherit",
         borderBottom: "2px solid #ccc",
-    },
-
-    radioSpan: {
-        fontSize: 30,
-        paddingRight: 3,
-
-        ":hover": {
-            color: "#999",
-        },
-    },
-
-    checkedRadioSpan: {
-        color: "#333",
-    },
-
-    // .static-mode is applied by the Categorizer when the rendered
-    // widget is static; in this case we gray out the choices to show
-    // the user that the widget can't be interacted with.
-    staticCheckedRadioSpan: {
-        color: "#888",
     },
 });
 

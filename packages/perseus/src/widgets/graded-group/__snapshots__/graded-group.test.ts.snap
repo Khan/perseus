@@ -76,6 +76,8 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                 />
                                 <th
                                   class="header_whrfk4"
+                                  id="perseus_radio_10-cat-0"
+                                  scope="col"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
@@ -94,6 +96,8 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                 </th>
                                 <th
                                   class="header_whrfk4"
+                                  id="perseus_radio_10-cat-1"
+                                  scope="col"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
@@ -114,7 +118,11 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                             </thead>
                             <tbody>
                               <tr>
-                                <td>
+                                <th
+                                  class="itemHeader_1spxt1g"
+                                  id="perseus_radio_10-item-0"
+                                  scope="row"
+                                >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -129,62 +137,72 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </td>
+                                </th>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="True"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <span
-                                      class="radioSpan_1mq3xs9"
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_10-item-0 perseus_radio_10-cat-0"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":ri:"
+                                            name="perseus_radio_10-row-0"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="False"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <span
-                                      class="radioSpan_1mq3xs9"
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_10-item-0 perseus_radio_10-cat-1"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rj:"
+                                            name="perseus_radio_10-row-0"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
                               <tr>
-                                <td>
+                                <th
+                                  class="itemHeader_1spxt1g"
+                                  id="perseus_radio_10-item-1"
+                                  scope="row"
+                                >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -199,62 +217,72 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </td>
+                                </th>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="True"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <span
-                                      class="radioSpan_1mq3xs9"
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_10-item-1 perseus_radio_10-cat-0"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rk:"
+                                            name="perseus_radio_10-row-1"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="False"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <span
-                                      class="radioSpan_1mq3xs9"
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_10-item-1 perseus_radio_10-cat-1"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rl:"
+                                            name="perseus_radio_10-row-1"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
                               <tr>
-                                <td>
+                                <th
+                                  class="itemHeader_1spxt1g"
+                                  id="perseus_radio_10-item-2"
+                                  scope="row"
+                                >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -269,62 +297,72 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </td>
+                                </th>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="True"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <span
-                                      class="radioSpan_1mq3xs9"
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_10-item-2 perseus_radio_10-cat-0"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rm:"
+                                            name="perseus_radio_10-row-2"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="False"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <span
-                                      class="radioSpan_1mq3xs9"
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_10-item-2 perseus_radio_10-cat-1"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rn:"
+                                            name="perseus_radio_10-row-2"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
                               <tr>
-                                <td>
+                                <th
+                                  class="itemHeader_1spxt1g"
+                                  id="perseus_radio_10-item-3"
+                                  scope="row"
+                                >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -339,57 +377,63 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </td>
+                                </th>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="True"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <span
-                                      class="radioSpan_1mq3xs9"
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_10-item-3 perseus_radio_10-cat-0"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":ro:"
+                                            name="perseus_radio_10-row-3"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="False"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <span
-                                      class="radioSpan_1mq3xs9"
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_10-item-3 perseus_radio_10-cat-1"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rp:"
+                                            name="perseus_radio_10-row-3"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
@@ -520,6 +564,8 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                 />
                                 <th
                                   class="header_whrfk4"
+                                  id="perseus_radio_9-cat-0"
+                                  scope="col"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
@@ -538,6 +584,8 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                 </th>
                                 <th
                                   class="header_whrfk4"
+                                  id="perseus_radio_9-cat-1"
+                                  scope="col"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
@@ -558,7 +606,11 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                             </thead>
                             <tbody>
                               <tr>
-                                <td>
+                                <th
+                                  class="itemHeader_1spxt1g"
+                                  id="perseus_radio_9-item-0"
+                                  scope="row"
+                                >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -573,38 +625,72 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </td>
+                                </th>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="True"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
-                                      name="perseus_radio_9_0"
-                                      type="radio"
-                                    />
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
+                                    >
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
+                                      >
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_9-item-0 perseus_radio_9-cat-0"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":ra:"
+                                            name="perseus_radio_9-row-0"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="False"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
-                                      name="perseus_radio_9_0"
-                                      type="radio"
-                                    />
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
+                                    >
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
+                                      >
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_9-item-0 perseus_radio_9-cat-1"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rb:"
+                                            name="perseus_radio_9-row-0"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
                               <tr>
-                                <td>
+                                <th
+                                  class="itemHeader_1spxt1g"
+                                  id="perseus_radio_9-item-1"
+                                  scope="row"
+                                >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -619,38 +705,72 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </td>
+                                </th>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="True"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
-                                      name="perseus_radio_9_1"
-                                      type="radio"
-                                    />
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
+                                    >
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
+                                      >
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_9-item-1 perseus_radio_9-cat-0"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rc:"
+                                            name="perseus_radio_9-row-1"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="False"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
-                                      name="perseus_radio_9_1"
-                                      type="radio"
-                                    />
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
+                                    >
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
+                                      >
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_9-item-1 perseus_radio_9-cat-1"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rd:"
+                                            name="perseus_radio_9-row-1"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
                               <tr>
-                                <td>
+                                <th
+                                  class="itemHeader_1spxt1g"
+                                  id="perseus_radio_9-item-2"
+                                  scope="row"
+                                >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -665,38 +785,72 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </td>
+                                </th>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="True"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
-                                      name="perseus_radio_9_2"
-                                      type="radio"
-                                    />
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
+                                    >
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
+                                      >
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_9-item-2 perseus_radio_9-cat-0"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":re:"
+                                            name="perseus_radio_9-row-2"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="False"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
-                                      name="perseus_radio_9_2"
-                                      type="radio"
-                                    />
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
+                                    >
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
+                                      >
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_9-item-2 perseus_radio_9-cat-1"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rf:"
+                                            name="perseus_radio_9-row-2"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
                               <tr>
-                                <td>
+                                <th
+                                  class="itemHeader_1spxt1g"
+                                  id="perseus_radio_9-item-3"
+                                  scope="row"
+                                >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -711,33 +865,63 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </td>
+                                </th>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="True"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
-                                      name="perseus_radio_9_3"
-                                      type="radio"
-                                    />
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
+                                    >
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
+                                      >
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_9-item-3 perseus_radio_9-cat-0"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rg:"
+                                            name="perseus_radio_9-row-3"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                                 <td
                                   class="category cell_13aakpm"
                                 >
                                   <div
-                                    aria-label="False"
-                                    role="button"
+                                    class="default_xu2jcg"
                                   >
-                                    <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
-                                      name="perseus_radio_9_3"
-                                      type="radio"
-                                    />
+                                    <div
+                                      class="default_xu2jcg-o_O-wrapper_h2k1uh"
+                                      tabindex="-1"
+                                    >
+                                      <div
+                                        class="default_xu2jcg-o_O-choiceWrapper_s2wtqp"
+                                      >
+                                        <div
+                                          class="default_xu2jcg-o_O-inputWrapper_1ojwnsk-o_O-inputWrapper_9dv44h"
+                                        >
+                                          <input
+                                            aria-invalid="false"
+                                            aria-labelledby="perseus_radio_9-item-3 perseus_radio_9-cat-1"
+                                            class="inputReset_1wxa7bn-o_O-default_1osfxgj-o_O-default_1o5mow5"
+                                            id=":rh:"
+                                            name="perseus_radio_9-row-3"
+                                            type="radio"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>

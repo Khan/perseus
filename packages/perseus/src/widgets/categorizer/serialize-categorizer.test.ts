@@ -80,7 +80,7 @@ describe("Categorizer serialization", () => {
         // Arrange
         const {renderer} = renderQuestion(generateBasicCategorizer());
 
-        await userEvent.click(screen.getAllByRole("button", {name: "one"})[0]);
+        await userEvent.click(screen.getAllByRole("radio", {name: /one/})[0]);
 
         // Act
         const state = renderer.getSerializedState();
