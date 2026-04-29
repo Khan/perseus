@@ -5,7 +5,7 @@ import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {GraphBoundsSvg} from "./components/graph-bounds-svg";
+import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -83,7 +83,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             aria-label={srQuadraticGraph}
             aria-describedby={`${quadraticDirectionId} ${quadraticVertexId} ${quadraticInterceptsId}`}
         >
-            <GraphBoundsSvg>
+            <ClipToGraphBounds>
                 <Plot.OfX
                     y={y}
                     color={interactiveColor}
@@ -94,7 +94,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                         "aria-hidden": true,
                     }}
                 />
-            </GraphBoundsSvg>
+            </ClipToGraphBounds>
             {coords.map((coord, i) => {
                 const srQuadraticPoint = getQuadraticPointString(
                     i + 1,

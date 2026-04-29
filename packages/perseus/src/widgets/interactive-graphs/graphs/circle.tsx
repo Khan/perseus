@@ -8,7 +8,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {GraphBoundsSvg} from "./components/graph-bounds-svg";
+import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -155,7 +155,7 @@ function MovableCircle(props: {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
         >
-            <GraphBoundsSvg>
+            <ClipToGraphBounds>
                 <ellipse
                     className="focus-ring"
                     cx={centerPx[X]}
@@ -173,7 +173,7 @@ function MovableCircle(props: {
                     stroke={interactiveColor}
                     data-testid="movable-circle__circle"
                 />
-            </GraphBoundsSvg>
+            </ClipToGraphBounds>
             <DragHandle center={center} dragging={dragging} focused={focused} />
         </g>
     );

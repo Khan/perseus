@@ -9,7 +9,7 @@ import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {GraphBoundsSvg} from "./components/graph-bounds-svg";
+import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -84,7 +84,7 @@ function TangentGraph(props: TangentGraphProps) {
             aria-label={srTangentGraph}
             aria-describedby={descriptionId}
         >
-            <GraphBoundsSvg>
+            <ClipToGraphBounds>
                 {segments.map(([segStart, segEnd], i) => (
                     <Plot.OfX
                         key={`tangent-segment-${i}`}
@@ -99,7 +99,7 @@ function TangentGraph(props: TangentGraphProps) {
                         }}
                     />
                 ))}
-            </GraphBoundsSvg>
+            </ClipToGraphBounds>
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={

@@ -14,7 +14,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {boundToEdge} from "../utils";
 
-import {GraphBoundsSvg} from "./components/graph-bounds-svg";
+import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -112,7 +112,7 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                 orientation="horizontal"
                 ariaLabel={srExponentialAsymptote}
             >
-                <GraphBoundsSvg>
+                <ClipToGraphBounds>
                     <Plot.OfX
                         y={(x) => {
                             const y = computeExponential(x, coeffRef.current);
@@ -127,7 +127,7 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                             style: {pointerEvents: "none"},
                         }}
                     />
-                </GraphBoundsSvg>
+                </ClipToGraphBounds>
             </MovableAsymptote>
             {coords.map((coord, i) => (
                 <MovablePoint
