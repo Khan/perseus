@@ -110,23 +110,23 @@ describe("categorizer widget", () => {
         // arrange
         const {renderer} = renderQuestion(question1);
 
-        // act
+        // act - radio accessible names are "${item} — ${catName}"
         await userEvent.click(
-            screen.getAllByRole("button", {name: "No relationship"})[0],
+            screen.getAllByRole("radio", {name: /No relationship/})[0],
         );
         await userEvent.click(
-            screen.getAllByRole("button", {
-                name: "Positive linear relationship",
+            screen.getAllByRole("radio", {
+                name: /Positive linear relationship/,
             })[0],
         );
         await userEvent.click(
-            screen.getAllByRole("button", {
-                name: "Negative linear relationship",
+            screen.getAllByRole("radio", {
+                name: /Negative linear relationship/,
             })[1],
         );
         await userEvent.click(
-            screen.getAllByRole("button", {
-                name: "Nonlinear relationship",
+            screen.getAllByRole("radio", {
+                name: /Nonlinear relationship/,
             })[1],
         );
 
@@ -218,15 +218,13 @@ describe("categorizer widget", () => {
             const {renderer} = renderQuestion(item.question);
 
             await userEvent.click(
-                screen.getAllByRole("button", {name: "Shape"})[0],
+                screen.getAllByRole("radio", {name: /Shape/})[0],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "Shape"})[2],
+                screen.getAllByRole("radio", {name: /Shape/})[2],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {
-                    name: "Color",
-                })[1],
+                screen.getAllByRole("radio", {name: /Color/})[1],
             );
 
             const userInput = renderer.getUserInputMap();
