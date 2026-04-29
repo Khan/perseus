@@ -7,13 +7,6 @@ import type {IframeToParentMessage, PreviewContent} from "./message-types";
 import type {APIOptions} from "@khanacademy/perseus";
 import type * as React from "react";
 
-// Mock the Log module
-jest.mock("@khanacademy/perseus", () => ({
-    Log: {
-        log: jest.fn(),
-    },
-}));
-
 describe("usePreviewController", () => {
     let mockIframe: {contentWindow: Window | null; dataset: any};
     let mockContentWindow: Window;
