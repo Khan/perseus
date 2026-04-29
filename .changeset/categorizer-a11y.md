@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Categorizer: replace `role="button"` shim and SVG fake-radios with native `<input type="radio">`. Item and category headers now use `<th scope="row">` and `<th scope="col">` with stable IDs, and each radio takes its accessible name from the visible row + column headers via `aria-labelledby`. Visual style of the radio control changes (now a single native radio in both desktop and mobile); no widget API change.
+Categorizer accessibility: replace the `role="button"` + SVG-circle radio shim with a Wonder Blocks `Choice variant="radio"` per cell, and turn the layout into proper table semantics. Item labels are now `<th scope="row">` and category headers `<th scope="col">` with stable IDs; each radio's accessible name is built from the row + column headers via `aria-labelledby`. One radio group per row gives native arrow-key navigation within a row and Tab between rows. Static (read-only) mode uses Wonder Blocks' `disabled` state. Visual style of the radio control changes (now Wonder Blocks blue in both desktop and mobile); no widget API change.
