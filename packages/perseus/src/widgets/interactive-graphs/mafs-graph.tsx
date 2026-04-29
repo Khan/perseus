@@ -36,7 +36,7 @@ import GraphLockedLayer from "./graph-locked-layer";
 import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
-import {GraphBoundsSvg} from "./graphs/components/graph-bounds-svg";
+import {ClipToGraphBounds} from "./graphs/components/clip-to-graph-bounds";
 import {SvgDefs} from "./graphs/components/text-label";
 import {renderExponentialGraph} from "./graphs/exponential";
 import {renderLinearGraph} from "./graphs/linear";
@@ -344,7 +344,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 {/* Svg definitions to render only once */}
                                 <SvgDefs />
                                 {/* Cartesian grid clipped to graph bounds */}
-                                <GraphBoundsSvg>
+                                <ClipToGraphBounds>
                                     <Grid
                                         gridStep={props.gridStep}
                                         range={state.range}
@@ -355,7 +355,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         width={width}
                                         height={height}
                                     />
-                                </GraphBoundsSvg>
+                                </ClipToGraphBounds>
                                 {/* Axis Ticks, Labels, and Arrows */}
                                 {
                                     // Only render the axis ticks and arrows if the markings are set to a full "graph"
@@ -369,12 +369,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 }
                                 {/* Locked figures clipped to graph bounds */}
                                 {props.lockedFigures.length > 0 && (
-                                    <GraphBoundsSvg>
+                                    <ClipToGraphBounds>
                                         <GraphLockedLayer
                                             lockedFigures={props.lockedFigures}
                                             range={state.range}
                                         />
-                                    </GraphBoundsSvg>
+                                    </ClipToGraphBounds>
                                 )}
                             </Mafs>
                         </View>
@@ -396,9 +396,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             >
                                 {/* Protractor clipped to graph bounds */}
                                 {props.showProtractor && (
-                                    <GraphBoundsSvg>
+                                    <ClipToGraphBounds>
                                         <Protractor />
-                                    </GraphBoundsSvg>
+                                    </ClipToGraphBounds>
                                 )}
                                 {/* Interactive layer.*/}
                                 {graph}
