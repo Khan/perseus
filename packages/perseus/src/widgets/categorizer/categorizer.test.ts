@@ -87,10 +87,17 @@ describe("categorizer widget", () => {
         // arrange
         const {renderer} = renderQuestion(question1);
 
-        const firstItem = screen.getAllByRole("row")[0];
-        await userEvent.click(firstItem);
-
         // act
+        // Correct answer is values: [1, 3]. Pick category 0 ("No
+        // relationship") for both items so we have a complete-but-wrong
+        // answer rather than an invalid (incomplete) one.
+        await userEvent.click(
+            screen.getAllByRole("radio", {name: /No relationship/})[0],
+        );
+        await userEvent.click(
+            screen.getAllByRole("radio", {name: /No relationship/})[1],
+        );
+
         const score = scorePerseusItem(
             question1,
             renderer.getUserInputMap(),
@@ -98,12 +105,7 @@ describe("categorizer widget", () => {
         );
 
         // assert
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "message": "INVALID_SELECTION_ERROR",
-              "type": "invalid",
-            }
-        `);
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("can be answered correctly", async () => {
@@ -112,21 +114,13 @@ describe("categorizer widget", () => {
 
         // act
         await userEvent.click(
-            screen.getAllByRole("button", {name: "No relationship"})[0],
-        );
-        await userEvent.click(
-            screen.getAllByRole("button", {
-                name: "Positive linear relationship",
+            screen.getAllByRole("radio", {
+                name: /Positive linear relationship/,
             })[0],
         );
         await userEvent.click(
-            screen.getAllByRole("button", {
-                name: "Negative linear relationship",
-            })[1],
-        );
-        await userEvent.click(
-            screen.getAllByRole("button", {
-                name: "Nonlinear relationship",
+            screen.getAllByRole("radio", {
+                name: /Nonlinear relationship/,
             })[1],
         );
 
@@ -218,14 +212,14 @@ describe("categorizer widget", () => {
             const {renderer} = renderQuestion(item.question);
 
             await userEvent.click(
-                screen.getAllByRole("button", {name: "Shape"})[0],
+                screen.getAllByRole("radio", {name: /Shape/})[0],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "Shape"})[2],
+                screen.getAllByRole("radio", {name: /Shape/})[2],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {
-                    name: "Color",
+                screen.getAllByRole("radio", {
+                    name: /Color/,
                 })[1],
             );
 
