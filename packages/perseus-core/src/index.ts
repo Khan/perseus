@@ -70,7 +70,7 @@ export {
     parseLockedLineKind,
 } from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
 /** @hidden */
-export {interactiveGraphTypeParser} from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
+export {parseInteractiveGraphType} from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
 /** @hidden */
 export {parse} from "./parse-perseus-json/parse";
 

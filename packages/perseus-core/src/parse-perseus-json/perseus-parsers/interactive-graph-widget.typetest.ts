@@ -4,11 +4,11 @@ import {ctx} from "../general-purpose-parsers/test-helpers";
 import {assertSuccess} from "../result";
 
 import {
-    interactiveGraphTypeParser,
+    parseInteractiveGraphType,
     parseInteractiveGraphWidget,
 } from "./interactive-graph-widget";
 
-import type {InteractiveGraphWidget} from "../../data-schema";
+import type {InteractiveGraphWidget, PerseusGraphType} from "../../data-schema";
 import type {ParseResult} from "../parser-types";
 
 describe("the InteractiveGraphWidget parser", () => {
@@ -19,12 +19,10 @@ describe("the InteractiveGraphWidget parser", () => {
     });
 });
 
-describe("interactiveGraphTypeParser", () => {
+describe("parseInteractiveGraphType", () => {
     it("should return the same type as the type field of an interactive graph", () => {
-        const result = interactiveGraphTypeParser("", ctx());
+        const result = parseInteractiveGraphType("", ctx());
         assertSuccess(result);
-        expect(result.value).type.toBe<
-            InteractiveGraphWidget["options"]["graph"]["type"]
-        >();
+        expect(result.value).type.toBe<PerseusGraphType["type"]>();
     });
 });
