@@ -1,4 +1,5 @@
 import {
+    boundToEdgeAndSnapToGrid,
     normalizePoints,
     normalizeCoords,
     replaceOutsideTeX,
@@ -7,6 +8,7 @@ import {
 
 import type {Coord} from "../../interactive2/types";
 import type {GraphRange} from "@khanacademy/perseus-core";
+import type {Interval} from "mafs";
 
 describe("normalizePoints", () => {
     test("should normalize coordinates with snapping", () => {
@@ -479,6 +481,119 @@ describe("mathOnlyParser", () => {
             {content: "\\\\", type: "specialCharacter"},
             {content: " world ", type: "text"},
             {content: "\\frac{1}{2}", type: "math"},
+        ]);
+    });
+});
+
+describe("boundToEdgeAndSnapToGrid", () => {
+    const standardRange: [Interval, Interval] = [
+        [-10, 10],
+        [-10, 10],
+    ];
+    const standardSnap: [number, number] = [1, 1];
+
+    it("returns the snapped point unchanged when it sits inside the range and on the grid", () => {
+        const result = boundToEdgeAndSnapToGrid([3, 4], {
+            snapStep: standardSnap,
+            range: standardRange,
+        });
+
+        expect(result).toEqual([3, 4]);
+    });
+
+    it("snaps an off-grid point to the nearest grid multiple", () => {
+        const result = boundToEdgeAndSnapToGrid([3.4, 4.6], {
+            snapStep: standardSnap,
+            range: standardRange,
+        });
+
+        expect(result).toEqual([3, 5]);
+    });
+
+    it("allows a point to land exactly on the graph edge in the standard config", () => {
+        const result = boundToEdgeAndSnapToGrid([10, -10], {
+            snapStep: standardSnap,
+            range: standardRange,
+        });
+
+        expect(result).toEqual([10, -10]);
+    });
+
+    it("clamps a destination past the right edge to the edge", () => {
+        const result = boundToEdgeAndSnapToGrid([15, 0], {
+            snapStep: standardSnap,
+            range: standardRange,
+        });
+
+        expect(result).toEqual([10, 0]);
+    });
+
+    it("clamps to the largest in-range grid multiple when snap step does not divide xMax", () => {
+        // Range is [0, 7], snap step is 2. Multiples of 2 in [0, 7] are
+        // {0, 2, 4, 6}. A destination at the right edge would naively
+        // snap up to 8, which is outside the range.
+        const range: [Interval, Interval] = [
+            [0, 7],
+            [0, 7],
+        ];
+        const snapStep: [number, number] = [2, 2];
+
+        expect(boundToEdgeAndSnapToGrid([7, 7], {snapStep, range})).toEqual([
+            6, 6,
+        ]);
+        expect(boundToEdgeAndSnapToGrid([8, 8], {snapStep, range})).toEqual([
+            6, 6,
+        ]);
+    });
+
+    it("clamps to the smallest in-range grid multiple when snap step does not divide xMin", () => {
+        // Range is [-7, 7], snap step is 2. Multiples of 2 in the range
+        // are {-6, -4, -2, 0, 2, 4, 6}. A destination at the left edge
+        // would naively snap to -8, which is outside the range.
+        const range: [Interval, Interval] = [
+            [-7, 7],
+            [-7, 7],
+        ];
+        const snapStep: [number, number] = [2, 2];
+
+        expect(boundToEdgeAndSnapToGrid([-7, -7], {snapStep, range})).toEqual([
+            -6, -6,
+        ]);
+        expect(boundToEdgeAndSnapToGrid([-8, -8], {snapStep, range})).toEqual([
+            -6, -6,
+        ]);
+    });
+
+    it("supports asymmetric ranges and asymmetric snap steps", () => {
+        // X axis: range [-3, 5], snap 2 → in-range grid bounds [-2, 4].
+        // Y axis: range [0, 9], snap 3 → in-range grid bounds [0, 9].
+        const range: [Interval, Interval] = [
+            [-3, 5],
+            [0, 9],
+        ];
+        const snapStep: [number, number] = [2, 3];
+
+        expect(boundToEdgeAndSnapToGrid([100, 100], {snapStep, range})).toEqual(
+            [4, 9],
+        );
+        expect(
+            boundToEdgeAndSnapToGrid([-100, -100], {snapStep, range}),
+        ).toEqual([-2, 0]);
+    });
+
+    it("supports fractional snap steps", () => {
+        const range: [Interval, Interval] = [
+            [-1, 1],
+            [-1, 1],
+        ];
+        const snapStep: [number, number] = [0.4, 0.4];
+        // Multiples of 0.4 in [-1, 1] are {-0.8, -0.4, 0, 0.4, 0.8}.
+
+        expect(boundToEdgeAndSnapToGrid([1, 1], {snapStep, range})).toEqual([
+            0.8, 0.8,
+        ]);
+        expect(boundToEdgeAndSnapToGrid([-1, -1], {snapStep, range})).toEqual([
+            -0.8, -0.8,
         ]);
     });
 });
