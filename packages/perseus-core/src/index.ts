@@ -63,7 +63,10 @@ export {
     type ParseFailureDetail,
 } from "./parse-perseus-json";
 /** @hidden */
-export {parseLockedFigureColor} from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
+export {
+    parseLockedFigureColor,
+    parseLockedFigureFillType,
+} from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
 /** @hidden */
 export {interactiveGraphTypeParser} from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
 /** @hidden */

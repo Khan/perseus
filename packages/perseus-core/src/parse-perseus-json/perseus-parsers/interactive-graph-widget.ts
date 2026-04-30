@@ -176,7 +176,7 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
 
 export const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
 
-const parseLockedFigureFillType = enumeration(
+export const parseLockedFigureFillType = enumeration(
     "none",
     "white",
     "translucent",
