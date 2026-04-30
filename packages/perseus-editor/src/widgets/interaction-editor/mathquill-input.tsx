@@ -31,8 +31,6 @@ export default function MathquillInput(props: Props) {
                 mathFieldWrapperRef.current,
                 locale,
                 strings,
-                // TODO(LEMS-2656): remove TS suppression
-                // @ts-expect-error: Types of parameters 'mathField' and 'mq' are incompatible. Type 'EditableMathQuill | BaseMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
@@ -51,12 +49,15 @@ export default function MathquillInput(props: Props) {
                                 props.onChange(value);
                             }
                         },
-                        upOutOf: (mathField: MathFieldInterface) => {
+                        upOutOf: (mathField) => {
                             // This handler is called when the user presses the up
                             // arrow key, but there is nowhere in the expression to go
                             // up to (no numerator or exponent). For ease of use,
                             // interpret this as an attempt to create an exponent.
-                            mathField.typedText("^");
+
+                            // This cast is needed because `BaseMathQuill`
+                            // doesn't have the typedText method.
+                            (mathField as MathFieldInterface).typedText("^");
                         },
                     },
                 }),
