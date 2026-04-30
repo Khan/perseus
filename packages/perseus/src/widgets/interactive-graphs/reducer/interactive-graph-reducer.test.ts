@@ -245,6 +245,62 @@ describe("movePointInFigure", () => {
         ]);
     });
 
+    it("does not allow moving the endpoints of a linear graph to the same location", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [1, 1],
+                [2, 2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.movePoint(0, [2, 2]),
+        );
+
+        invariant(updated.type === "linear");
+        expect(updated.hasBeenInteractedWith).toBe(false);
+        expect(updated.coords).toEqual([
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
+    it("does not allow moving the endpoints of a ray to the same location", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "ray",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [1, 1],
+                [2, 2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(0, [2, 2]),
+        );
+
+        invariant(updated.type === "ray");
+        expect(updated.hasBeenInteractedWith).toBe(false);
+        expect(updated.coords).toEqual([
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
     it("does not allow moving the endpoints of a sinusoid to the same x location", () => {
         const state: InteractiveGraphState = {
             ...baseSinusoidGraphState,
