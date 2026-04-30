@@ -356,7 +356,7 @@ export const parseInteractiveGraphWidget = parseWidget(
 /**
  * A parser that accepts the type field of an interactive graph.
  */
-export const interactiveGraphTypeParser = enumeration(
+export const parseInteractiveGraphType = enumeration(
     "angle",
     "circle",
     "linear",

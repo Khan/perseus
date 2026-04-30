@@ -1,5 +1,5 @@
 import {
-    interactiveGraphTypeParser,
+    parseInteractiveGraphType,
     isFailure,
     isFeatureOn,
     parse,
@@ -49,7 +49,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
         <SingleSelect
             selectedValue={props.graphType}
             onChange={(value) => {
-                const parsedType = parse(value, interactiveGraphTypeParser);
+                const parsedType = parse(value, parseInteractiveGraphType);
                 if (isFailure(parsedType)) {
                     throw new Error(parsedType.detail);
                 }
