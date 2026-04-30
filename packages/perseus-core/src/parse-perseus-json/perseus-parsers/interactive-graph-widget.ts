@@ -370,5 +370,4 @@ export const interactiveGraphTypeParser = union(constant("angle"))
     .or(constant("absolute-value"))
     .or(constant("tangent"))
     .or(constant("logarithm"))
-    .or(constant("vector"))
-    .parser;
+    .or(constant("vector")).parser;
