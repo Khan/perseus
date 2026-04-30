@@ -6,10 +6,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {
-    constrainAsymptoteKeyboard,
-    getExponentialKeyboardConstraint,
-} from "./exponential";
+import {getExponentialKeyboardConstraint} from "./exponential";
 
 import type {InteractiveGraphState} from "../types";
 import type {vec} from "mafs";
@@ -154,6 +151,35 @@ describe("Exponential graph screen reader", () => {
         );
     });
 
+    it("renders without crashing when the asymptote sits between the curve points", () => {
+        // Arrange, Act — asymptote y=4 sits between points at y=3 and y=6.
+        // There is no exponential curve that fits, so the Plot.OfX is skipped.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseExponentialState,
+                    coords: [
+                        [0, 3],
+                        [1, 6],
+                    ],
+                    asymptote: 4,
+                }}
+            />,
+        );
+
+        // Assert — asymptote + both points still rendered
+        expect(
+            screen.getByRole("button", {name: /Horizontal asymptote/}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: /Point 1/}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: /Point 2/}),
+        ).toBeInTheDocument();
+    });
+
     it("describes the interactive elements for the graph", () => {
         // Arrange, Act
         render(
@@ -219,10 +245,12 @@ describe("getExponentialKeyboardConstraint", () => {
         expect(constraint.up).toEqual([0, 4]);
     });
 
-    it("skips positions on the asymptote when moving down", () => {
-        // Arrange — point at y=2, asymptote at y=1: moving down would hit y=1 then y=0
+    it("allows moving down onto the asymptote line", () => {
+        // Arrange — point 0 at (-1, 2), asymptote at y=1. Moving down used
+        // to skip past y=1; asymptote crossings are now allowed so the
+        // point lands on the asymptote line (off the drag handle's x).
         const nearAsymptoteCoords: [vec.Vector2, vec.Vector2] = [
-            [0, 2],
+            [-1, 2],
             [2, 6],
         ];
 
@@ -235,8 +263,30 @@ describe("getExponentialKeyboardConstraint", () => {
             range,
         );
 
-        // Assert — skips y=1 (asymptote) and lands on y=0
-        expect(constraint.down).toEqual([0, 0]);
+        // Assert
+        expect(constraint.down).toEqual([-1, 1]);
+    });
+
+    it("skips the position that would land on the asymptote drag handle", () => {
+        // Arrange — handle coord is (midX=0, asymptote=2). Point 0 at (0, 3)
+        // moving down to (0, 2) would land on the handle and is skipped;
+        // the next step (0, 1) is valid.
+        const onHandleCoords: [vec.Vector2, vec.Vector2] = [
+            [0, 3],
+            [2, 6],
+        ];
+
+        // Act
+        const constraint = getExponentialKeyboardConstraint(
+            onHandleCoords,
+            2,
+            snapStep,
+            0,
+            range,
+        );
+
+        // Assert
+        expect(constraint.down).toEqual([0, 1]);
     });
 
     it("skips positions that share x-coordinate with the other point when moving right", () => {
@@ -260,12 +310,9 @@ describe("getExponentialKeyboardConstraint", () => {
     });
 
     it("rejects positions where the clamped coord collides with the other point's x", () => {
-        // Arrange — points at [9,3] and [8,6], asymptote at 1.
-        // Moving point 0 right: x=10 clamps to 9 (inset max),
-        // which equals otherPoint[X]=... wait, otherPoint is point 1.
-        // Actually let's use: point 0 at [8,3], point 1 at [9,6].
-        // Moving right: x=9 shares x with point 1 (skip).
-        // x=10 clamps to 9 (same as point 1). All further clamp to 9.
+        // Arrange — point 0 at x=8, point 1 at x=9 (graph edge).
+        // Moving right: x=9 shares x with point 1, x=10 clamps to 9.
+        // No valid right move — falls back to original position.
         const edgeCoords: [vec.Vector2, vec.Vector2] = [
             [8, 3],
             [9, 6],
@@ -280,100 +327,7 @@ describe("getExponentialKeyboardConstraint", () => {
             range,
         );
 
-        // Assert — no valid right move, falls back to original position
+        // Assert
         expect(constraint.right).toEqual([8, 3]);
-    });
-
-    it("stays put when all upward positions would cause a clamped reflection collision", () => {
-        // Arrange — asymptote at y=8, points at [3,7] and [1,4].
-        // Moving point 0 up: y=8 is the asymptote (skip), y=9 crosses
-        // the asymptote so reflectedY = 2*8-4 = 12, which clamps to 9
-        // (yMax - snapStep). clampedReflectedY(9) === clampedY(9). Skip.
-        // y=10 clamps to 9 too. No valid upward position.
-        const edgeCoords: [vec.Vector2, vec.Vector2] = [
-            [3, 7],
-            [1, 4],
-        ];
-
-        // Act
-        const constraint = getExponentialKeyboardConstraint(
-            edgeCoords,
-            8,
-            snapStep,
-            0,
-            range,
-        );
-
-        // Assert — no valid up move, falls back to original position
-        expect(constraint.up).toEqual([3, 7]);
-    });
-
-    it("skips positions where the clamped asymptote check catches out-of-bounds coord", () => {
-        // Arrange — asymptote at y=9 (one step from edge).
-        // Point 0 at [3,8], moving up: y=9 is asymptote (skip).
-        // y=10 clamps to 9 which also equals asymptote. Skip.
-        // No valid upward position.
-        const edgeCoords: [vec.Vector2, vec.Vector2] = [
-            [3, 8],
-            [1, 6],
-        ];
-
-        // Act
-        const constraint = getExponentialKeyboardConstraint(
-            edgeCoords,
-            9,
-            snapStep,
-            0,
-            range,
-        );
-
-        // Assert — no valid up move
-        expect(constraint.up).toEqual([3, 8]);
-    });
-});
-
-describe("constrainAsymptoteKeyboard", () => {
-    const snapStep: vec.Vector2 = [1, 1];
-
-    it("allows the asymptote to move freely when not between or on the curve points", () => {
-        // Arrange — points at y=3 and y=6, asymptote moving to y=1 (below both)
-        const coords: [vec.Vector2, vec.Vector2] = [
-            [0, 3],
-            [2, 6],
-        ];
-
-        // Act
-        const result = constrainAsymptoteKeyboard([0, 1], coords, snapStep);
-
-        // Assert — y=1 is valid (below both points)
-        expect(result).toEqual([0, 1]);
-    });
-
-    it("snaps the asymptote below both points when it would land between them", () => {
-        // Arrange — points at y=2 and y=6, asymptote trying to land at y=4 (between)
-        const coords: [vec.Vector2, vec.Vector2] = [
-            [0, 2],
-            [2, 6],
-        ];
-
-        // Act
-        const result = constrainAsymptoteKeyboard([0, 4], coords, snapStep);
-
-        // Assert — snapped to one step below the lower point (y=2-1=1) or above upper (y=6+1=7)
-        expect(result[1] < 2 || result[1] > 6).toBe(true);
-    });
-
-    it("skips a y-value exactly equal to a curve point", () => {
-        // Arrange — points at y=2 and y=6, asymptote trying to land exactly at y=2
-        const coords: [vec.Vector2, vec.Vector2] = [
-            [0, 2],
-            [2, 6],
-        ];
-
-        // Act
-        const result = constrainAsymptoteKeyboard([0, 2], coords, snapStep);
-
-        // Assert — must not land exactly on y=2
-        expect(result[1]).not.toBe(2);
     });
 });
