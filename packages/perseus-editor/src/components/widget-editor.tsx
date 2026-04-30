@@ -5,16 +5,12 @@ import {
     applyDefaultsToWidget,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
-import {useId} from "react";
 
-import {AlignmentSelect} from "./alignment-select";
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
+import WidgetEditorSettings from "./widget-editor-settings";
 
 import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
@@ -102,6 +98,22 @@ class WidgetEditor extends React.Component<
         const newWidgetInfo = {
             ...this.state.widgetInfo,
             static: value,
+            // if it's "interactive but ungraded" (ungraded)
+            // we don't also want it to be "non-interactive" (static)
+            // because "interactive" and "non-interactive" are mutually exclusive concepts
+            graded: true,
+        } satisfies PerseusWidget;
+        this.props.onChange(newWidgetInfo);
+    };
+
+    _setGraded = (value: boolean) => {
+        const newWidgetInfo = {
+            ...this.state.widgetInfo,
+            graded: value,
+            // if it's "interactive but ungraded" (ungraded)
+            // we don't also want it to be "non-interactive" (static)
+            // because "interactive" and "non-interactive" are mutually exclusive concepts
+            static: false,
         } satisfies PerseusWidget;
         this.props.onChange(newWidgetInfo);
     };
@@ -153,6 +165,7 @@ class WidgetEditor extends React.Component<
         }
 
         const supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
+        const supportsGradedToggle = Widgets.supportsUngraded(widgetInfo.type);
 
         return (
             <div className="perseus-widget-editor">
@@ -179,22 +192,6 @@ class WidgetEditor extends React.Component<
                         </View>
                     </div>
 
-                    {supportsStaticMode && (
-                        <LabeledSwitch
-                            label="Static"
-                            checked={!!widgetInfo.static}
-                            disabled={isEditingDisabled}
-                            onChange={this._setStatic}
-                        />
-                    )}
-                    {supportedAlignments.length > 1 && (
-                        <AlignmentSelect
-                            supportedAlignments={supportedAlignments}
-                            widgetInfo={widgetInfo}
-                            isEditingDisabled={isEditingDisabled}
-                            onChange={this._handleAlignmentChange}
-                        />
-                    )}
                     <SectionControlButton
                         icon={trashIcon}
                         disabled={isEditingDisabled}
@@ -204,6 +201,21 @@ class WidgetEditor extends React.Component<
                         title="Remove image widget"
                     />
                 </div>
+                {this.state.showWidget && (
+                    <WidgetEditorSettings
+                        bestPractices={Ed?.bestPractices}
+                        supportsStaticMode={!!supportsStaticMode}
+                        isStatic={!!widgetInfo.static}
+                        onStaticChange={this._setStatic}
+                        supportsGradedToggle={supportsGradedToggle}
+                        isGraded={widgetInfo.graded !== false}
+                        onGradedChange={this._setGraded}
+                        supportedAlignments={supportedAlignments}
+                        widgetInfo={widgetInfo}
+                        onAlignmentChange={this._handleAlignmentChange}
+                        isEditingDisabled={isEditingDisabled}
+                    />
+                )}
                 <div
                     className={
                         "perseus-widget-editor-content " +
@@ -215,6 +227,7 @@ class WidgetEditor extends React.Component<
                             ref={this.widget}
                             onChange={this._handleWidgetChange}
                             static={widgetInfo.static}
+                            graded={widgetInfo.graded}
                             apiOptions={this.props.apiOptions}
                             {...widgetInfo.options}
                         />
@@ -223,23 +236,6 @@ class WidgetEditor extends React.Component<
             </div>
         );
     }
-}
-
-function LabeledSwitch(props: {
-    label: string;
-    checked: boolean;
-    onChange: (value: boolean) => unknown;
-    disabled: boolean;
-}) {
-    const {label, disabled, ...switchProps} = props;
-    const id = useId();
-    return (
-        <>
-            <label htmlFor={id}>{label}</label>
-            <Strut size={spacing.xxSmall_6} />
-            <Switch id={id} {...switchProps} disabled={disabled} />
-        </>
-    );
 }
 
 export default WidgetEditor;

@@ -29,6 +29,7 @@ import {
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
     floatingPointIssueQuestion,
+    ungradedQuestion,
 } from "../interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -325,6 +326,14 @@ export const AnswerlessSinusoid: Story = {
     args: {
         item: generateTestPerseusItem({
             question: sinusoidQuestion,
+        }),
+    },
+};
+
+export const Ungraded: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: ungradedQuestion,
         }),
     },
 };

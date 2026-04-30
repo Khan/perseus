@@ -860,3 +860,6 @@ export const sinusoidWithPiTicks: PerseusRenderer =
         .withSnapStep(Math.PI / 2, Math.PI)
         .withSinusoid()
         .build();
+
+export const ungradedQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder().withGradedMode(false).build();

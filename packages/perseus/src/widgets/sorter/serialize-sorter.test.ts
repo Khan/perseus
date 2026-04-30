@@ -91,6 +91,7 @@ describe("Sorter serialization", () => {
                 "sorter 1": {
                     alignment: "default",
                     static: false,
+                    graded: true,
                     correct: ["First", "Second", "Third"],
                     options: ["First", "Second", "Third"],
                     changed: true,

@@ -81,6 +81,7 @@ class InteractiveGraphQuestionBuilder {
     private lockedFigures: LockedFigure[] = [];
     private snapTo: SnapTo = "grid";
     private staticMode: boolean = false;
+    private gradedMode: boolean = true;
 
     build(): PerseusRenderer {
         return {
@@ -88,7 +89,7 @@ class InteractiveGraphQuestionBuilder {
             images: {},
             widgets: {
                 "interactive-graph 1": {
-                    graded: true,
+                    graded: this.gradedMode,
                     static: this.staticMode,
                     options: {
                         correct: this.interactiveFigureConfig.correct(),
@@ -138,6 +139,11 @@ class InteractiveGraphQuestionBuilder {
 
     withStaticMode(staticMode: boolean): InteractiveGraphQuestionBuilder {
         this.staticMode = staticMode;
+        return this;
+    }
+
+    withGradedMode(gradedMode: boolean): InteractiveGraphQuestionBuilder {
+        this.gradedMode = gradedMode;
         return this;
     }
 

@@ -15,6 +15,26 @@ import {sinusoidWithPiTicks} from "../interactive-graph.testdata";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
+    const {question} = props;
+    return (
+        <UserInputManager widgets={question.widgets} problemNum={0}>
+            {({userInput, handleUserInput, initializeUserInput}) => (
+                <Renderer
+                    userInput={userInput}
+                    handleUserInput={handleUserInput}
+                    initializeUserInput={initializeUserInput}
+                    strings={mockStrings}
+                    content={question.content}
+                    widgets={question.widgets}
+                    images={question.images}
+                    apiOptions={ApiOptions.defaults}
+                />
+            )}
+        </UserInputManager>
+    );
+}
+
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 
 const meta: Meta<typeof MafsQuestionRenderer> = {
@@ -530,22 +550,10 @@ export const ShowNoArrows: Story = {
     },
 };
 
-function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
-    const {question} = props;
-    return (
-        <UserInputManager widgets={question.widgets} problemNum={0}>
-            {({userInput, handleUserInput, initializeUserInput}) => (
-                <Renderer
-                    userInput={userInput}
-                    handleUserInput={handleUserInput}
-                    initializeUserInput={initializeUserInput}
-                    strings={mockStrings}
-                    content={question.content}
-                    widgets={question.widgets}
-                    images={question.images}
-                    apiOptions={ApiOptions.defaults}
-                />
-            )}
-        </UserInputManager>
-    );
-}
+export const Ungraded: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withGradedMode(false)
+            .build(),
+    },
+};
