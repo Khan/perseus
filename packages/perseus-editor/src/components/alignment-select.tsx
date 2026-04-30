@@ -1,8 +1,7 @@
 import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -37,6 +36,7 @@ export function AlignmentSelect({
                 {
                     flexDirection: "row",
                     alignItems: "center",
+                    gap: sizing.size_080,
                 },
                 style,
             ]}
@@ -44,7 +44,6 @@ export function AlignmentSelect({
             <BodyText id={labelId} tag="span">
                 Alignment
             </BodyText>
-            <Strut size={spacing.xSmall_8} />
             <SingleSelect
                 aria-labelledby={labelId}
                 selectedValue={widgetInfo.alignment ?? "default"}
@@ -68,7 +67,6 @@ export function AlignmentSelect({
                     />
                 ))}
             </SingleSelect>
-            <Strut size={spacing.xxSmall_6} />
             <InfoTip>
                 <ul>
                     {supportedAlignments.map((alignment, index) => (
