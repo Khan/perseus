@@ -2,10 +2,12 @@ import {
     getDefaultFigureForType,
     lockedFigureFillStyles,
     type Coord,
-    type LockedFigureFillType,
     type LockedPolygonType,
     type LockedFigureColor,
     type LockedLabelType,
+    parseLockedFigureFillStyle,
+    parse,
+    isFailure,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -209,11 +211,16 @@ const LockedPolygonSettings = (props: Props) => {
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
-                        // TODO(LEMS-2656): remove TS suppression
-                        onChange={
-                            ((value: LockedFigureFillType) =>
-                                onChangeProps({fillStyle: value})) as any
-                        }
+                        onChange={(value) => {
+                            const parsedFillStyle = parse(
+                                value,
+                                parseLockedFigureFillStyle,
+                            );
+                            if (isFailure(parsedFillStyle)) {
+                                throw new Error(parsedFillStyle.detail);
+                            }
+                            onChangeProps({fillStyle: parsedFillStyle.value});
+                        }}
                         // Placeholder is required, but never gets used.
                         placeholder=""
                     >
